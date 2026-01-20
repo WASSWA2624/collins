@@ -21,17 +21,19 @@ Implement the HMS core modules aligned with `hms-backend/write-up.md` and `hms-b
 
 ## Feature Development Contract (applies to every step)
 For each module step, implement the full feature template:
+- `src/features/index.js` (root barrel exporting all feature modules)
 - `src/features/<feature>/<feature>.rules.js`
 - `src/features/<feature>/<feature>.model.js`
 - `src/features/<feature>/<feature>.api.js`
 - `src/features/<feature>/<feature>.usecase.js`
+- `src/features/<feature>/<feature>.events.js` (optional)
 - `src/features/<feature>/index.js`
 - `src/store/slices/<feature>.slice.js` (if global state is needed)
 - `src/hooks/use<Feature>.js`
 
 ## Testing Requirements (applies to every step)
 - Rules/models: 100% coverage (all branches)
-- API/usecase/slice/hook: high coverage, include error paths
+- API/usecase/slice/hook: 100% coverage (all branches and error paths)
 - All tests must mock services, storage, and time
 
 ## Definition of Done (per module)

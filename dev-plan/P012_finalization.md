@@ -21,17 +21,19 @@ Finalize the HMS application after core and advanced features are complete. Each
 ## Steps (Fully Atomic)
 
 ### Onboarding
-- Step 12.1.1: Create onboarding feature skeleton (rules/model/api/usecase/index)
+- Step 12.1.1: Create onboarding feature skeleton (rules/model/api/usecase/events/index)
 - Step 12.1.2: Implement onboarding rules and validation
 - Step 12.1.3: Implement onboarding use cases
-- Step 12.1.4: Build onboarding screens (role-aware flows)
-- Step 12.1.5: Add onboarding tests (feature + screens + a11y)
+- Step 12.1.4: Create `useOnboarding` hook (UI gateway)
+- Step 12.1.5: Build onboarding screens (role-aware flows)
+- Step 12.1.6: Add onboarding tests (feature + hook + screens + a11y)
 
 ### Help System
-- Step 12.2.1: Create help feature skeleton (rules/model/api/usecase/index)
+- Step 12.2.1: Create help feature skeleton (rules/model/api/usecase/events/index)
 - Step 12.2.2: Implement help content models and rules
-- Step 12.2.3: Build contextual help screens and search
-- Step 12.2.4: Add help tests (feature + screens + a11y)
+- Step 12.2.3: Create `useHelp` hook (UI gateway)
+- Step 12.2.4: Build contextual help screens and search
+- Step 12.2.5: Add help tests (feature + hook + screens + a11y)
 
 ### Localization
 - Step 12.3.1: Generate non-`en` locale files from finalized keys
