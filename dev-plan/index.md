@@ -23,10 +23,11 @@ The plan follows the **layered architecture** and **initialization order**, but 
 6. **Reusable Platform UI Foundation** → Primitives, patterns, layouts (no domain coupling) (generic)
 7. **App Shell (App Router + Guards)** → Providers, route groups, navigation shell, error routes (generic)
 8. **Minimal Runnable App** → Landing page, home screen, error routes (verify app runs before features) (generic)
-9. **Core Features** → Implement HMS core modules (auth, tenancy, RBAC, patient registry, scheduling, clinical, diagnostics, pharmacy, inventory, emergency, billing, HR, reporting, notifications, subscriptions, compliance, integrations) (**app-specific starts here**)
-10. **Screens & Routes** → Implement screens, routes, and UI wiring for all core modules (**app-specific**)
-11. **Advanced Features** → Optional modules and advanced capabilities (telemedicine, patient engagement, AI insights, research, PACS/IoT integrations) (**app-specific**)
-12. **Finalization** → Onboarding/help + comprehensive testing/polish (**app-specific**)
+9. **Base Layouts & Global UI** → Layouts, headers, footers, navigation, theme/language controls, shared UI shell (**app-specific starts here**)
+10. **Core Features** → Implement HMS core modules (auth, tenancy, RBAC, patient registry, scheduling, clinical, diagnostics, pharmacy, inventory, emergency, billing, HR, reporting, notifications, subscriptions, compliance, integrations) (**app-specific**)
+11. **Screens & Routes** → Implement screens, routes, and UI wiring for all core modules (**app-specific**)
+12. **Advanced Features** → Optional modules and advanced capabilities (telemedicine, patient engagement, AI insights, research, PACS/IoT integrations) (**app-specific**)
+13. **Finalization** → Onboarding/help + comprehensive testing/polish (**app-specific**)
 
 ## File Structure
 - `P000_setup.md` - Project initialization
@@ -38,10 +39,11 @@ The plan follows the **layered architecture** and **initialization order**, but 
 - `P006_platform-ui-foundation.md` - Reusable Platform UI Foundation (primitives, patterns, layouts)
 - `P007_app-shell.md` - App Shell (App Router + guards + navigation skeleton)
 - `P008_minimal-app.md` - Minimal Runnable App (landing page, home screen, error routes)
-- `P009_core-features.md` - Core Features (implement HMS modules aligned to backend)
-- `P010_screens-routes.md` - Screens & Routes (implement screens, routes, and UI wiring)
-- `P011_advanced-features.md` - Advanced Features (optional modules + advanced capabilities)
-- `P012_finalization.md` - Finalization (onboarding/help + testing/polish)
+- `P009_app-layouts.md` - Base Layouts & Global UI (headers, footers, navigation, theme/i18n controls, etc)
+- `P010_core-features.md` - Core Features (implement HMS modules aligned to backend)
+- `P011_screens-routes.md` - Screens & Routes (implement screens, routes, and UI wiring)
+- `P012_advanced-features.md` - Advanced Features (optional modules + advanced capabilities)
+- `P013_finalization.md` - Finalization (onboarding/help + testing/polish)
 
 ## Development Flow
 
@@ -64,13 +66,15 @@ Phase 7: App Shell (App Router + Guards + Navigation Skeleton) (Generic)
     ↓
 Phase 8: Minimal Runnable App (Landing page, home screen, error routes) (Generic)
     ↓
-Phase 9: Core Features (App-specific starts here - Implement HMS core modules)
+Phase 9: Base Layouts & Global UI (App-specific - Layouts, navigation, global controls)
     ↓
-Phase 10: Screens & Routes (App-specific - Implement screens, routes, and UI wiring)
+Phase 10: Core Features (App-specific starts here - Implement HMS core modules)
     ↓
-Phase 11: Advanced Features (App-specific - Telemedicine, patient engagement, AI insights, advanced integrations)
+Phase 11: Screens & Routes (App-specific - Implement screens, routes, and UI wiring)
     ↓
-Phase 12: Finalization (App-specific - Onboarding/Help + Testing/Polish)
+Phase 12: Advanced Features (App-specific - Telemedicine, patient engagement, AI insights, advanced integrations)
+    ↓
+Phase 13: Finalization (App-specific - Onboarding/Help + Testing/Polish)
 ```
 
 ## How to Use This Plan
@@ -107,7 +111,7 @@ All implementation steps follow rules defined in `.cursor/rules/`:
 
 This development plan covers all features specified in the write-up (`@write-up/`) and aligns with all backend modules (`@backend/src/modules/`):
 
-### HMS Core Modules (Phase 9)
+### HMS Core Modules (Phase 10)
 - ✅ Authentication & Sessions
 - ✅ Tenancy, Facilities, Branches, Departments, Units, Wards, Rooms, Beds
 - ✅ User Management & RBAC (roles, permissions, user-role)
@@ -130,7 +134,7 @@ This development plan covers all features specified in the write-up (`@write-up/
 - ✅ Compliance, Audit & Security
 - ✅ Integrations & Webhooks
 
-### Advanced/Optional Modules (Phase 11)
+### Advanced/Optional Modules (Phase 12)
 - ✅ Telemedicine & Remote Patient Management
 - ✅ Patient Experience & Engagement (portal, feedback, education)
 - ✅ AI-Assisted Diagnostics & Predictive Analytics
@@ -141,7 +145,7 @@ This development plan covers all features specified in the write-up (`@write-up/
 
 ### Platform Features
 - ✅ Offline-tolerant architecture for critical workflows
-- ✅ Multi-Language Support (i18n) - locale expansion in Phase 12
+- ✅ Multi-Language Support (i18n) - locale expansion in Phase 13
 - ✅ Accessibility (WCAG AA/AAA with high-contrast mode)
 - ✅ Security & Compliance (MFA, OAuth/SSO, encryption, audit trails)
 - ✅ Performance optimization and responsiveness across devices

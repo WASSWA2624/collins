@@ -485,7 +485,7 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 **Route Grouping (MANDATORY)**:
 - **All related routes MUST be grouped** using parentheses `(group-name)` per `.cursor/rules/app-router.mdc`
 - Common generic groups: `(auth)`, `(main)`, `(public)`
-- **Note**: App-specific route groups (e.g., `(clinical)`, `(admin)`, `(patient)`) should be created in Phase 9+ when implementing HMS features
+- **Note**: App-specific route groups (e.g., `(clinical)`, `(admin)`, `(patient)`) should be created in Phase 10+ when implementing HMS features
 - Only root routes (`index.jsx`) and error handlers (`+not-found.jsx`, `_error.jsx`) are allowed outside groups
 - Each route group MUST have its own `_layout.jsx` for group-specific logic (guards, navigation, etc.)
 - See `.cursor/rules/app-router.mdc` for complete requirements

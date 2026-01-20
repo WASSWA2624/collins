@@ -96,7 +96,7 @@ Build the foundation layer: configuration, utilities, logging, and error handlin
    
    export const endpoints = {
      // Endpoint groups will be added when implementing app-specific features
-     // Example structure (to be implemented in Phase 9+):
+    // Example structure (to be implemented in Phase 10+):
      // AUTH: {
      //   LOGIN: `${baseUrl}/auth/login`,
      //   REGISTER: `${baseUrl}/auth/register`,
@@ -716,7 +716,7 @@ Build the foundation layer: configuration, utilities, logging, and error handlin
    
    // NOTE: During development, only 'en' locale is created.
    // All other locales (zh, hi, es, fr, ar, bn, pt, ru, ur, id, de, ja, pcm, mr, te, tr, ta, yue, vi, sw, lg)
-   // will be created in Phase 12 (Finalization) after the English locale is complete.
+  // will be created in Phase 13 (Finalization) after the English locale is complete.
    // This ensures 'en' is the first and complete locale that all other locales build upon.
    
    const LOCALE_KEY = 'user_locale';
@@ -810,9 +810,9 @@ Build the foundation layer: configuration, utilities, logging, and error handlin
    **CRITICAL**: During development, **only the English (`en.json`) locale file is created**. This ensures that:
    - The English locale is the first and complete locale
    - All translation keys are established in English first
-   - All other locales will be created in Phase 12 (Finalization) and will build upon the complete English locale
+  - All other locales will be created in Phase 13 (Finalization) and will build upon the complete English locale
    
-   **Note**: The app will eventually support 22 languages per `.cursor/rules/i18n.mdc`, but during development phases (1-11), only `en.json` is maintained. All other locale files will be created in Phase 12.
+  **Note**: The app will eventually support 22 languages per `.cursor/rules/i18n.mdc`, but during development phases (1-12), only `en.json` is maintained. All other locale files will be created in Phase 13.
 
 **Tests**: Create `src/__tests__/i18n/index.test.js`
 
@@ -825,7 +825,7 @@ Build the foundation layer: configuration, utilities, logging, and error handlin
 - NO hardcoded strings are allowed in UI code
 - All new features must include translations in the `en.json` locale file
 - Code reviews must verify i18n compliance (all strings use i18n, no hardcoded text)
-- **During development (Phases 1-11)**: Only `en.json` is maintained. All other locales will be created in Phase 12.
+- **During development (Phases 1-12)**: Only `en.json` is maintained. All other locales will be created in Phase 13.
 - See `.cursor/rules/i18n.mdc` for complete requirements
 
 ---

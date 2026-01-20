@@ -162,7 +162,7 @@ Create a **minimal runnable application** with a landing page and home screen to
      - Use theme tokens (no hardcoded colors/sizes)
      - Include accessibility labels and roles
      - Handle loading and error states (minimal, using platform UI components)
-     - **Note**: This is a generic landing page. App-specific content and navigation will be added in Phase 9+ when implementing app-specific features.
+    - **Note**: This is a generic landing page. App-specific content and navigation will be added in Phase 10+ when implementing app-specific features.
 
 3. Create platform-specific style files (per `component-structure.mdc` Rule #3 - **MANDATORY**):
    - Create `src/platform/screens/common/LandingScreen/LandingScreen.android.styles.jsx`
@@ -689,7 +689,7 @@ Create a **minimal runnable application** with a landing page and home screen to
    - Add translations for home screen (welcome message, dashboard labels)
    - Add translations for not found screen (404 message, navigation button)
    - Add translations for error screen (error message, retry button, navigation button)
-   - **CRITICAL**: During development, only `en.json` is updated. All other locale files will be created in Phase 12 (Finalization).
+  - **CRITICAL**: During development, only `en.json` is updated. All other locale files will be created in Phase 13 (Finalization).
 
 2. Verify translation keys are used in all screen components (all platform files):
    - LandingScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
@@ -702,7 +702,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 - All screen text is internationalized
 - `en.json` locale file has complete translations for all new screens
 - No hardcoded strings in any screen component
-- All other locale files will be created in Phase 12 (Finalization)
+- All other locale files will be created in Phase 13 (Finalization)
 
 **Tests (mandatory - per `testing.mdc`)**:
 - Create `src/__tests__/i18n/minimal-app-translations.test.js`
@@ -846,5 +846,5 @@ Create a **minimal runnable application** with a landing page and home screen to
 - ✅ Verify responsive design works
 - ✅ Verify accessibility works (basic checks)
 
-**Next Phase**: `P009_core-features.md` (Implement HMS core modules)
+**Next Phase**: `P010_core-features.md` (Implement HMS core modules)
 

@@ -1,85 +1,50 @@
-﻿# Phase 10: HMS Screens, Routes, and UI Wiring (Atomic)
+# Phase 10: Core HMS Features
 
 ## Purpose
-Implement screens, routes, and UI wiring for all HMS modules built in Phase 9. Each step is **atomic** and covers **one module's screens/routes**.
+Implement the HMS core modules aligned with `hms-backend/write-up.md` and `hms-backend/dev-plan/P011_modules.mdc`. Each step is **atomic** and covers **one backend module** using the standard feature template.
 
 ## Rule References
-- `.cursor/rules/app-router.mdc` (Route structure - MANDATORY)
-- `.cursor/rules/platform-ui.mdc` (Screen structure - MANDATORY)
-- `.cursor/rules/component-structure.mdc` (Component structure - MANDATORY)
-- `.cursor/rules/features-domain.mdc` (Feature hooks usage)
-- `.cursor/rules/security.mdc` (Route guards)
-- `.cursor/rules/accessibility.mdc` (A11y requirements)
-- `.cursor/rules/testing.mdc` (Testing requirements)
-- `.cursor/rules/theme-design.mdc` (Theming)
+- `.cursor/rules/features-domain.mdc` (Feature Template Structure - MANDATORY)
+- `.cursor/rules/state-management.mdc`
+- `.cursor/rules/services-integration.mdc`
+- `.cursor/rules/errors-logging.mdc`
+- `.cursor/rules/i18n.mdc`
+- `.cursor/rules/testing.mdc`
+- `.cursor/rules/security.mdc`
+- `.cursor/rules/offline-sync.mdc`
 
 ## Prerequisites
-- Phase 9 completed (core modules implemented with hooks)
-- Phase 7 completed (app shell with providers and layouts)
-- Reusable UI components exist (Phase 6)
+- Phase 7 completed (app shell exists)
+- `@services/api` client exists (Phase 2)
+- Errors layer exists (Phase 1)
+- Shared utilities exist (URL helpers, pagination, error normalization)
 
-## Implementation Guidelines
-- All screens must wire to feature hooks; never import features directly.
-- All UI text must use i18n; no hardcoded strings.
-- Route group names are omitted when linking/navigating (Expo Router group behavior).
-- Route guards must be applied via group layouts and role-aware navigation.
+## Feature Development Contract (applies to every step)
+For each module step, implement the full feature template:
+- `src/features/index.js` (root barrel exporting all feature modules)
+- `src/features/<feature>/<feature>.rules.js`
+- `src/features/<feature>/<feature>.model.js`
+- `src/features/<feature>/<feature>.api.js`
+- `src/features/<feature>/<feature>.usecase.js`
+- `src/features/<feature>/<feature>.events.js` (optional)
+- `src/features/<feature>/index.js`
+- `src/store/slices/<feature>.slice.js` (if global state is needed)
+- `src/hooks/use<Feature>.js`
 
-## Route Structure Overview
+## Testing Requirements (applies to every step)
+- Rules/models: 100% coverage (all branches)
+- API/usecase/slice/hook: 100% coverage (all branches and error paths)
+- All tests must mock services, storage, and time
 
-```text
-src/app/
-├── _layout.jsx
-├── index.jsx
-├── _error.jsx
-├── +not-found.jsx
-│
-├── (auth)/
-│   ├── _layout.jsx
-│   ├── login.jsx
-│   ├── register.jsx
-│   ├── forgot-password.jsx
-│   ├── reset-password.jsx
-│   ├── verify-email.jsx
-│   └── verify-phone.jsx
-│
-├── (main)/
-│   ├── _layout.jsx
-│   ├── home.jsx
-│   ├── patients/
-│   ├── scheduling/
-│   ├── clinical/
-│   ├── ipd/
-│   ├── icu/
-│   ├── theatre/
-│   ├── diagnostics/
-│   │   ├── lab/
-│   │   └── radiology/
-│   ├── pharmacy/
-│   ├── inventory/
-│   ├── emergency/
-│   ├── billing/
-│   ├── hr/
-│   ├── housekeeping/
-│   ├── reports/
-│   ├── communications/
-│   ├── subscriptions/
-│   ├── integrations/
-│   ├── compliance/
-│   └── settings/
-│
-└── (patient)/
-    ├── _layout.jsx
-    ├── portal/
-    ├── appointments/
-    ├── results/
-    ├── prescriptions/
-    └── billing/
-```
-# End of Selection
-```
+## Definition of Done (per module)
+- Feature files exist and follow structure
+- Unit tests pass with required coverage
+- No UI imports in features/store/services
+- Errors are normalized and domain-specific
+- Public APIs exported via `index.js`
 
-## Steps (Fully Atomic)
-Each step implements screens/routes for exactly **one** module from Phase 9, wiring to the module hook.
+## Steps
+Each step implements exactly **one** backend module from `hms-backend/dev-plan/P011_modules.mdc`.
 
 ### Module Group 1: Auth, Sessions, Tenancy & Core Access
 - Step 10.1.1: `auth`
@@ -261,4 +226,4 @@ Each step implements screens/routes for exactly **one** module from Phase 9, wir
 - Step 10.20.2: `integration-log`
 - Step 10.20.3: `webhook-subscription`
 
-**Testing**: For each step, add UI tests (render, loading, error, empty, permissions) per `.cursor/rules/testing.mdc`, and accessibility checks per `.cursor/rules/accessibility.mdc`.
+**Note**: Telemedicine and patient engagement flows reuse core modules and are implemented in Phase 12 as optional/advanced features.
