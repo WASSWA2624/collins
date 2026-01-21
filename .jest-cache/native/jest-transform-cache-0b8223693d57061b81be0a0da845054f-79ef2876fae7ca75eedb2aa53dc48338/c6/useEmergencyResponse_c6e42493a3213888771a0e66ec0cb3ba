@@ -1,0 +1,102 @@
+db2681608e2cb08779b83c209ba62fd5
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _useCrud = _interopRequireDefault(require("./useCrud"));
+var _emergencyResponse = require("../features/emergency-response");
+function cov_m2nde65kc() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useEmergencyResponse.js";
+  var hash = "8e13c2d79333de4f56e157490fa68a6d43537dd5";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useEmergencyResponse.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 29
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 29
+          },
+          end: {
+            line: 14,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "8e13c2d79333de4f56e157490fa68a6d43537dd5"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_m2nde65kc = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_m2nde65kc();
+cov_m2nde65kc().s[0]++;
+var useEmergencyResponse = function useEmergencyResponse() {
+  cov_m2nde65kc().f[0]++;
+  cov_m2nde65kc().s[1]++;
+  return (0, _useCrud.default)({
+    list: _emergencyResponse.listEmergencyResponses,
+    get: _emergencyResponse.getEmergencyResponse,
+    create: _emergencyResponse.createEmergencyResponse,
+    update: _emergencyResponse.updateEmergencyResponse,
+    remove: _emergencyResponse.deleteEmergencyResponse
+  });
+};
+var _default = exports.default = useEmergencyResponse;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfdXNlQ3J1ZCIsIl9pbnRlcm9wUmVxdWlyZURlZmF1bHQiLCJyZXF1aXJlIiwiX2VtZXJnZW5jeVJlc3BvbnNlIiwiY292X20ybmRlNjVrYyIsInBhdGgiLCJoYXNoIiwiZ2xvYmFsIiwiRnVuY3Rpb24iLCJnY3YiLCJjb3ZlcmFnZURhdGEiLCJzdGF0ZW1lbnRNYXAiLCJzdGFydCIsImxpbmUiLCJjb2x1bW4iLCJlbmQiLCJmbk1hcCIsIm5hbWUiLCJkZWNsIiwibG9jIiwiYnJhbmNoTWFwIiwicyIsImYiLCJiIiwiX2NvdmVyYWdlU2NoZW1hIiwiY292ZXJhZ2UiLCJhY3R1YWxDb3ZlcmFnZSIsInVzZUVtZXJnZW5jeVJlc3BvbnNlIiwidXNlQ3J1ZCIsImxpc3QiLCJsaXN0RW1lcmdlbmN5UmVzcG9uc2VzIiwiZ2V0IiwiZ2V0RW1lcmdlbmN5UmVzcG9uc2UiLCJjcmVhdGUiLCJjcmVhdGVFbWVyZ2VuY3lSZXNwb25zZSIsInVwZGF0ZSIsInVwZGF0ZUVtZXJnZW5jeVJlc3BvbnNlIiwicmVtb3ZlIiwiZGVsZXRlRW1lcmdlbmN5UmVzcG9uc2UiLCJfZGVmYXVsdCIsImV4cG9ydHMiLCJkZWZhdWx0Il0sInNvdXJjZXMiOlsidXNlRW1lcmdlbmN5UmVzcG9uc2UuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIHVzZUVtZXJnZW5jeVJlc3BvbnNlIEhvb2tcclxuICogRmlsZTogdXNlRW1lcmdlbmN5UmVzcG9uc2UuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVFbWVyZ2VuY3lSZXNwb25zZSxcclxuICBkZWxldGVFbWVyZ2VuY3lSZXNwb25zZSxcclxuICBnZXRFbWVyZ2VuY3lSZXNwb25zZSxcclxuICBsaXN0RW1lcmdlbmN5UmVzcG9uc2VzLFxyXG4gIHVwZGF0ZUVtZXJnZW5jeVJlc3BvbnNlLFxyXG59IGZyb20gJ0BmZWF0dXJlcy9lbWVyZ2VuY3ktcmVzcG9uc2UnO1xyXG5cclxuY29uc3QgdXNlRW1lcmdlbmN5UmVzcG9uc2UgPSAoKSA9PlxyXG4gIHVzZUNydWQoe1xyXG4gICAgbGlzdDogbGlzdEVtZXJnZW5jeVJlc3BvbnNlcyxcclxuICAgIGdldDogZ2V0RW1lcmdlbmN5UmVzcG9uc2UsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUVtZXJnZW5jeVJlc3BvbnNlLFxyXG4gICAgdXBkYXRlOiB1cGRhdGVFbWVyZ2VuY3lSZXNwb25zZSxcclxuICAgIHJlbW92ZTogZGVsZXRlRW1lcmdlbmN5UmVzcG9uc2UsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VFbWVyZ2VuY3lSZXNwb25zZTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7OztBQUlBLElBQUFBLFFBQUEsR0FBQUMsc0JBQUEsQ0FBQUMsT0FBQTtBQUNBLElBQUFDLGtCQUFBLEdBQUFELE9BQUE7QUFNc0MsU0FBQUUsY0FBQTtFQUFBLElBQUFDLElBQUE7RUFBQSxJQUFBQyxJQUFBO0VBQUEsSUFBQUMsTUFBQSxPQUFBQyxRQUFBO0VBQUEsSUFBQUMsR0FBQTtFQUFBLElBQUFDLFlBQUE7SUFBQUwsSUFBQTtJQUFBTSxZQUFBO01BQUE7UUFBQUMsS0FBQTtVQUFBQyxJQUFBO1VBQUFDLE1BQUE7UUFBQTtRQUFBQyxHQUFBO1VBQUFGLElBQUE7VUFBQUMsTUFBQTtRQUFBO01BQUE7TUFBQTtRQUFBRixLQUFBO1VBQUFDLElBQUE7VUFBQUMsTUFBQTtRQUFBO1FBQUFDLEdBQUE7VUFBQUYsSUFBQTtVQUFBQyxNQUFBO1FBQUE7TUFBQTtJQUFBO0lBQUFFLEtBQUE7TUFBQTtRQUFBQyxJQUFBO1FBQUFDLElBQUE7VUFBQU4sS0FBQTtZQUFBQyxJQUFBO1lBQUFDLE1BQUE7VUFBQTtVQUFBQyxHQUFBO1lBQUFGLElBQUE7WUFBQUMsTUFBQTtVQUFBO1FBQUE7UUFBQUssR0FBQTtVQUFBUCxLQUFBO1lBQUFDLElBQUE7WUFBQUMsTUFBQTtVQUFBO1VBQUFDLEdBQUE7WUFBQUYsSUFBQTtZQUFBQyxNQUFBO1VBQUE7UUFBQTtRQUFBRCxJQUFBO01BQUE7SUFBQTtJQUFBTyxTQUFBO0lBQUFDLENBQUE7TUFBQTtNQUFBO0lBQUE7SUFBQUMsQ0FBQTtNQUFBO0lBQUE7SUFBQUMsQ0FBQTtJQUFBQyxlQUFBO0lBQUFsQixJQUFBO0VBQUE7RUFBQSxJQUFBbUIsUUFBQSxHQUFBbEIsTUFBQSxDQUFBRSxHQUFBLE1BQUFGLE1BQUEsQ0FBQUUsR0FBQTtFQUFBLEtBQUFnQixRQUFBLENBQUFwQixJQUFBLEtBQUFvQixRQUFBLENBQUFwQixJQUFBLEVBQUFDLElBQUEsS0FBQUEsSUFBQTtJQUFBbUIsUUFBQSxDQUFBcEIsSUFBQSxJQUFBSyxZQUFBO0VBQUE7RUFBQSxJQUFBZ0IsY0FBQSxHQUFBRCxRQUFBLENBQUFwQixJQUFBO0VBQUE7SUFBQUQsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQXNCLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUF0QixhQUFBO0FBQUFBLGFBQUEsR0FBQWlCLENBQUE7QUFFdEMsSUFBTU0sb0JBQW9CLEdBQUcsU0FBdkJBLG9CQUFvQkEsQ0FBQSxFQUN4QjtFQUFBdkIsYUFBQSxHQUFBa0IsQ0FBQTtFQUFBbEIsYUFBQSxHQUFBaUIsQ0FBQTtFQUFBLFdBQUFPLGdCQUFPLEVBQUM7SUFDTkMsSUFBSSxFQUFFQyx5Q0FBc0I7SUFDNUJDLEdBQUcsRUFBRUMsdUNBQW9CO0lBQ3pCQyxNQUFNLEVBQUVDLDBDQUF1QjtJQUMvQkMsTUFBTSxFQUFFQywwQ0FBdUI7SUFDL0JDLE1BQU0sRUFBRUM7RUFDVixDQUFDLENBQUM7QUFBRCxDQUFDO0FBQUMsSUFBQUMsUUFBQSxHQUFBQyxPQUFBLENBQUFDLE9BQUEsR0FFVWQsb0JBQW9CIiwiaWdub3JlTGlzdCI6W119

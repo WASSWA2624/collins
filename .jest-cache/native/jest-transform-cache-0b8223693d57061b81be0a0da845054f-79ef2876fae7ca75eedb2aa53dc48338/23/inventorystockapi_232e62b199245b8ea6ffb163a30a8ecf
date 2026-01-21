@@ -1,0 +1,48 @@
+676a52559b70b55d7d4c4325bda70455
+function cov_vj7uisyjm() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\inventory-stock\\inventory-stock.api.js";
+  var hash = "a1f4ee6e746bcd5d79561d5fc8b981b01256ac5d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\inventory-stock\\inventory-stock.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 26
+        },
+        end: {
+          line: 8,
+          column: 67
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a1f4ee6e746bcd5d79561d5fc8b981b01256ac5d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_vj7uisyjm = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_vj7uisyjm();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var inventoryStockApi = (cov_vj7uisyjm().s[0]++, createCrudApi(endpoints.INVENTORY_STOCKS));
+export { inventoryStockApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiaW52ZW50b3J5U3RvY2tBcGkiLCJjb3Zfdmo3dWlzeWptIiwicyIsIklOVkVOVE9SWV9TVE9DS1MiXSwic291cmNlcyI6WyJpbnZlbnRvcnktc3RvY2suYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBJbnZlbnRvcnkgU3RvY2sgQVBJXHJcbiAqIEZpbGU6IGludmVudG9yeS1zdG9jay5hcGkuanNcclxuICovXHJcbmltcG9ydCB7IGVuZHBvaW50cyB9IGZyb20gJ0Bjb25maWcvZW5kcG9pbnRzJztcclxuaW1wb3J0IHsgY3JlYXRlQ3J1ZEFwaSB9IGZyb20gJ0BzZXJ2aWNlcy9hcGknO1xyXG5cclxuY29uc3QgaW52ZW50b3J5U3RvY2tBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5JTlZFTlRPUllfU1RPQ0tTKTtcclxuXHJcbmV4cG9ydCB7IGludmVudG9yeVN0b2NrQXBpIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsU0FBUztBQUNsQixTQUFTQyxhQUFhO0FBRXRCLElBQU1DLGlCQUFpQixJQUFBQyxhQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLGdCQUFnQixDQUFDO0FBRW5FLFNBQVNILGlCQUFpQiIsImlnbm9yZUxpc3QiOltdfQ==

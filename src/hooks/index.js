@@ -63,4 +63,10 @@ export { default as usePurchaseRequest } from './usePurchaseRequest';
 export { default as usePurchaseOrder } from './usePurchaseOrder';
 export { default as useGoodsReceipt } from './useGoodsReceipt';
 export { default as useStockAdjustment } from './useStockAdjustment';
+export { default as useEmergencyCase } from './useEmergencyCase';
+export { default as useTriageAssessment } from './useTriageAssessment';
+export { default as useEmergencyResponse } from './useEmergencyResponse';
+export { default as useAmbulance } from './useAmbulance';
+export { default as useAmbulanceDispatch } from './useAmbulanceDispatch';
+export { default as useAmbulanceTrip } from './useAmbulanceTrip';
 

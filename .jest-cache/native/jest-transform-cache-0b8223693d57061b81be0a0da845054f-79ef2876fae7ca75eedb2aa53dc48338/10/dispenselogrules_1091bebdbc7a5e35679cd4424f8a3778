@@ -1,0 +1,211 @@
+4040892ef6055859d79d5f1ac3b72368
+function cov_1dms12ecrt() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\dispense-log\\dispense-log.rules.js";
+  var hash = "28b8241b1747a3eff64e618ba861f0c1adc208de";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\dispense-log\\dispense-log.rules.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 51
+        },
+        end: {
+          line: 7,
+          column: 68
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 27
+        },
+        end: {
+          line: 9,
+          column: 52
+        }
+      },
+      "2": {
+        start: {
+          line: 9,
+          column: 38
+        },
+        end: {
+          line: 9,
+          column: 52
+        }
+      },
+      "3": {
+        start: {
+          line: 10,
+          column: 32
+        },
+        end: {
+          line: 10,
+          column: 62
+        }
+      },
+      "4": {
+        start: {
+          line: 10,
+          column: 43
+        },
+        end: {
+          line: 10,
+          column: 62
+        }
+      },
+      "5": {
+        start: {
+          line: 11,
+          column: 35
+        },
+        end: {
+          line: 11,
+          column: 68
+        }
+      },
+      "6": {
+        start: {
+          line: 11,
+          column: 46
+        },
+        end: {
+          line: 11,
+          column: 68
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 9,
+            column: 27
+          },
+          end: {
+            line: 9,
+            column: 28
+          }
+        },
+        loc: {
+          start: {
+            line: 9,
+            column: 38
+          },
+          end: {
+            line: 9,
+            column: 52
+          }
+        },
+        line: 9
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 10,
+            column: 32
+          },
+          end: {
+            line: 10,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 43
+          },
+          end: {
+            line: 10,
+            column: 62
+          }
+        },
+        line: 10
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 11,
+            column: 35
+          },
+          end: {
+            line: 11,
+            column: 36
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 46
+          },
+          end: {
+            line: 11,
+            column: 68
+          }
+        },
+        line: 11
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "28b8241b1747a3eff64e618ba861f0c1adc208de"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_1dms12ecrt = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1dms12ecrt();
+import { createCrudRules } from "../../utils/crudRules";
+var _ref = (cov_1dms12ecrt().s[0]++, createCrudRules()),
+  parseId = _ref.parseId,
+  parsePayload = _ref.parsePayload,
+  parseListParams = _ref.parseListParams;
+cov_1dms12ecrt().s[1]++;
+var parseDispenseLogId = function parseDispenseLogId(value) {
+  cov_1dms12ecrt().f[0]++;
+  cov_1dms12ecrt().s[2]++;
+  return parseId(value);
+};
+cov_1dms12ecrt().s[3]++;
+var parseDispenseLogPayload = function parseDispenseLogPayload(value) {
+  cov_1dms12ecrt().f[1]++;
+  cov_1dms12ecrt().s[4]++;
+  return parsePayload(value);
+};
+cov_1dms12ecrt().s[5]++;
+var parseDispenseLogListParams = function parseDispenseLogListParams(value) {
+  cov_1dms12ecrt().f[2]++;
+  cov_1dms12ecrt().s[6]++;
+  return parseListParams(value);
+};
+export { parseDispenseLogId, parseDispenseLogPayload, parseDispenseLogListParams };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVDcnVkUnVsZXMiLCJfcmVmIiwiY292XzFkbXMxMmVjcnQiLCJzIiwicGFyc2VJZCIsInBhcnNlUGF5bG9hZCIsInBhcnNlTGlzdFBhcmFtcyIsInBhcnNlRGlzcGVuc2VMb2dJZCIsInZhbHVlIiwiZiIsInBhcnNlRGlzcGVuc2VMb2dQYXlsb2FkIiwicGFyc2VEaXNwZW5zZUxvZ0xpc3RQYXJhbXMiXSwic291cmNlcyI6WyJkaXNwZW5zZS1sb2cucnVsZXMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIERpc3BlbnNlIExvZyBSdWxlc1xyXG4gKiBGaWxlOiBkaXNwZW5zZS1sb2cucnVsZXMuanNcclxuICovXHJcbmltcG9ydCB7IGNyZWF0ZUNydWRSdWxlcyB9IGZyb20gJ0B1dGlscy9jcnVkUnVsZXMnO1xyXG5cclxuY29uc3QgeyBwYXJzZUlkLCBwYXJzZVBheWxvYWQsIHBhcnNlTGlzdFBhcmFtcyB9ID0gY3JlYXRlQ3J1ZFJ1bGVzKCk7XHJcblxyXG5jb25zdCBwYXJzZURpc3BlbnNlTG9nSWQgPSAodmFsdWUpID0+IHBhcnNlSWQodmFsdWUpO1xyXG5jb25zdCBwYXJzZURpc3BlbnNlTG9nUGF5bG9hZCA9ICh2YWx1ZSkgPT4gcGFyc2VQYXlsb2FkKHZhbHVlKTtcclxuY29uc3QgcGFyc2VEaXNwZW5zZUxvZ0xpc3RQYXJhbXMgPSAodmFsdWUpID0+IHBhcnNlTGlzdFBhcmFtcyh2YWx1ZSk7XHJcblxyXG5leHBvcnQgeyBwYXJzZURpc3BlbnNlTG9nSWQsIHBhcnNlRGlzcGVuc2VMb2dQYXlsb2FkLCBwYXJzZURpc3BlbnNlTG9nTGlzdFBhcmFtcyB9O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsZUFBZTtBQUV4QixJQUFBQyxJQUFBLElBQUFDLGNBQUEsR0FBQUMsQ0FBQSxPQUFtREgsZUFBZSxDQUFDLENBQUM7RUFBNURJLE9BQU8sR0FBQUgsSUFBQSxDQUFQRyxPQUFPO0VBQUVDLFlBQVksR0FBQUosSUFBQSxDQUFaSSxZQUFZO0VBQUVDLGVBQWUsR0FBQUwsSUFBQSxDQUFmSyxlQUFlO0FBQXVCSixjQUFBLEdBQUFDLENBQUE7QUFFckUsSUFBTUksa0JBQWtCLEdBQUcsU0FBckJBLGtCQUFrQkEsQ0FBSUMsS0FBSyxFQUFLO0VBQUFOLGNBQUEsR0FBQU8sQ0FBQTtFQUFBUCxjQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBQyxPQUFPLENBQUNJLEtBQUssQ0FBQztBQUFELENBQUM7QUFBQ04sY0FBQSxHQUFBQyxDQUFBO0FBQ3JELElBQU1PLHVCQUF1QixHQUFHLFNBQTFCQSx1QkFBdUJBLENBQUlGLEtBQUssRUFBSztFQUFBTixjQUFBLEdBQUFPLENBQUE7RUFBQVAsY0FBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQUUsWUFBWSxDQUFDRyxLQUFLLENBQUM7QUFBRCxDQUFDO0FBQUNOLGNBQUEsR0FBQUMsQ0FBQTtBQUMvRCxJQUFNUSwwQkFBMEIsR0FBRyxTQUE3QkEsMEJBQTBCQSxDQUFJSCxLQUFLLEVBQUs7RUFBQU4sY0FBQSxHQUFBTyxDQUFBO0VBQUFQLGNBQUEsR0FBQUMsQ0FBQTtFQUFBLE9BQUFHLGVBQWUsQ0FBQ0UsS0FBSyxDQUFDO0FBQUQsQ0FBQztBQUVwRSxTQUFTRCxrQkFBa0IsRUFBRUcsdUJBQXVCLEVBQUVDLDBCQUEwQiIsImlnbm9yZUxpc3QiOltdfQ==

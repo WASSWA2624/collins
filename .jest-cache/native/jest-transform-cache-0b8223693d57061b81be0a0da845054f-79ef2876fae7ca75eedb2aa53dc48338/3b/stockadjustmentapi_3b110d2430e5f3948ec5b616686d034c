@@ -1,0 +1,48 @@
+2dc2d676aa01203769a9abe2eecb376a
+function cov_1tfu772kyy() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\stock-adjustment\\stock-adjustment.api.js";
+  var hash = "77819edac920315997fa012cb0bf56c582b5c96f";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\stock-adjustment\\stock-adjustment.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 27
+        },
+        end: {
+          line: 8,
+          column: 69
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "77819edac920315997fa012cb0bf56c582b5c96f"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_1tfu772kyy = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1tfu772kyy();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var stockAdjustmentApi = (cov_1tfu772kyy().s[0]++, createCrudApi(endpoints.STOCK_ADJUSTMENTS));
+export { stockAdjustmentApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwic3RvY2tBZGp1c3RtZW50QXBpIiwiY292XzF0ZnU3NzJreXkiLCJzIiwiU1RPQ0tfQURKVVNUTUVOVFMiXSwic291cmNlcyI6WyJzdG9jay1hZGp1c3RtZW50LmFwaS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogU3RvY2sgQWRqdXN0bWVudCBBUElcclxuICogRmlsZTogc3RvY2stYWRqdXN0bWVudC5hcGkuanNcclxuICovXHJcbmltcG9ydCB7IGVuZHBvaW50cyB9IGZyb20gJ0Bjb25maWcvZW5kcG9pbnRzJztcclxuaW1wb3J0IHsgY3JlYXRlQ3J1ZEFwaSB9IGZyb20gJ0BzZXJ2aWNlcy9hcGknO1xyXG5cclxuY29uc3Qgc3RvY2tBZGp1c3RtZW50QXBpID0gY3JlYXRlQ3J1ZEFwaShlbmRwb2ludHMuU1RPQ0tfQURKVVNUTUVOVFMpO1xyXG5cclxuZXhwb3J0IHsgc3RvY2tBZGp1c3RtZW50QXBpIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsU0FBUztBQUNsQixTQUFTQyxhQUFhO0FBRXRCLElBQU1DLGtCQUFrQixJQUFBQyxjQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLGlCQUFpQixDQUFDO0FBRXJFLFNBQVNILGtCQUFrQiIsImlnbm9yZUxpc3QiOltdfQ==

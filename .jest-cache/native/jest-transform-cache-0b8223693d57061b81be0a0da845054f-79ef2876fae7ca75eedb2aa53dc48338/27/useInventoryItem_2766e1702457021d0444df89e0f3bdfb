@@ -1,0 +1,97 @@
+f76a02c5ce0377f24cfc508aa7b848f8
+function cov_2akc4m8gkr() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useInventoryItem.js";
+  var hash = "14fa99653c7b054cc62c4047378d3b07619ce1c6";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useInventoryItem.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 25
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 25
+          },
+          end: {
+            line: 14,
+            column: 26
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "14fa99653c7b054cc62c4047378d3b07619ce1c6"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2akc4m8gkr = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2akc4m8gkr();
+import useCrud from "./useCrud";
+import { createInventoryItem, deleteInventoryItem, getInventoryItem, listInventoryItems, updateInventoryItem } from "../features/inventory-item";
+cov_2akc4m8gkr().s[0]++;
+var useInventoryItem = function useInventoryItem() {
+  cov_2akc4m8gkr().f[0]++;
+  cov_2akc4m8gkr().s[1]++;
+  return useCrud({
+    list: listInventoryItems,
+    get: getInventoryItem,
+    create: createInventoryItem,
+    update: updateInventoryItem,
+    remove: deleteInventoryItem
+  });
+};
+export default useInventoryItem;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlSW52ZW50b3J5SXRlbSIsImRlbGV0ZUludmVudG9yeUl0ZW0iLCJnZXRJbnZlbnRvcnlJdGVtIiwibGlzdEludmVudG9yeUl0ZW1zIiwidXBkYXRlSW52ZW50b3J5SXRlbSIsImNvdl8yYWtjNG04Z2tyIiwicyIsInVzZUludmVudG9yeUl0ZW0iLCJmIiwibGlzdCIsImdldCIsImNyZWF0ZSIsInVwZGF0ZSIsInJlbW92ZSJdLCJzb3VyY2VzIjpbInVzZUludmVudG9yeUl0ZW0uanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIHVzZUludmVudG9yeUl0ZW0gSG9va1xyXG4gKiBGaWxlOiB1c2VJbnZlbnRvcnlJdGVtLmpzXHJcbiAqL1xyXG5pbXBvcnQgdXNlQ3J1ZCBmcm9tICdAaG9va3MvdXNlQ3J1ZCc7XHJcbmltcG9ydCB7XHJcbiAgY3JlYXRlSW52ZW50b3J5SXRlbSxcclxuICBkZWxldGVJbnZlbnRvcnlJdGVtLFxyXG4gIGdldEludmVudG9yeUl0ZW0sXHJcbiAgbGlzdEludmVudG9yeUl0ZW1zLFxyXG4gIHVwZGF0ZUludmVudG9yeUl0ZW0sXHJcbn0gZnJvbSAnQGZlYXR1cmVzL2ludmVudG9yeS1pdGVtJztcclxuXHJcbmNvbnN0IHVzZUludmVudG9yeUl0ZW0gPSAoKSA9PlxyXG4gIHVzZUNydWQoe1xyXG4gICAgbGlzdDogbGlzdEludmVudG9yeUl0ZW1zLFxyXG4gICAgZ2V0OiBnZXRJbnZlbnRvcnlJdGVtLFxyXG4gICAgY3JlYXRlOiBjcmVhdGVJbnZlbnRvcnlJdGVtLFxyXG4gICAgdXBkYXRlOiB1cGRhdGVJbnZlbnRvcnlJdGVtLFxyXG4gICAgcmVtb3ZlOiBkZWxldGVJbnZlbnRvcnlJdGVtLFxyXG4gIH0pO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgdXNlSW52ZW50b3J5SXRlbTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLE9BQU9BLE9BQU87QUFDZCxTQUNFQyxtQkFBbUIsRUFDbkJDLG1CQUFtQixFQUNuQkMsZ0JBQWdCLEVBQ2hCQyxrQkFBa0IsRUFDbEJDLG1CQUFtQjtBQUNhQyxjQUFBLEdBQUFDLENBQUE7QUFFbEMsSUFBTUMsZ0JBQWdCLEdBQUcsU0FBbkJBLGdCQUFnQkEsQ0FBQSxFQUNwQjtFQUFBRixjQUFBLEdBQUFHLENBQUE7RUFBQUgsY0FBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQVAsT0FBTyxDQUFDO0lBQ05VLElBQUksRUFBRU4sa0JBQWtCO0lBQ3hCTyxHQUFHLEVBQUVSLGdCQUFnQjtJQUNyQlMsTUFBTSxFQUFFWCxtQkFBbUI7SUFDM0JZLE1BQU0sRUFBRVIsbUJBQW1CO0lBQzNCUyxNQUFNLEVBQUVaO0VBQ1YsQ0FBQyxDQUFDO0FBQUQsQ0FBQztBQUVKLGVBQWVNLGdCQUFnQiIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,48 @@
+bbb21e883e3e2f5f2826add1a5f505d4
+function cov_2k2wkjtjyb() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\drug-batch\\drug-batch.api.js";
+  var hash = "b7a858104b4c722b8003fd829ae5e3f7e3127c5f";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\drug-batch\\drug-batch.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 21
+        },
+        end: {
+          line: 8,
+          column: 58
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "b7a858104b4c722b8003fd829ae5e3f7e3127c5f"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2k2wkjtjyb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2k2wkjtjyb();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var drugBatchApi = (cov_2k2wkjtjyb().s[0]++, createCrudApi(endpoints.DRUG_BATCHES));
+export { drugBatchApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiZHJ1Z0JhdGNoQXBpIiwiY292XzJrMndranRqeWIiLCJzIiwiRFJVR19CQVRDSEVTIl0sInNvdXJjZXMiOlsiZHJ1Zy1iYXRjaC5hcGkuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIERydWcgQmF0Y2ggQVBJXHJcbiAqIEZpbGU6IGRydWctYmF0Y2guYXBpLmpzXHJcbiAqL1xyXG5pbXBvcnQgeyBlbmRwb2ludHMgfSBmcm9tICdAY29uZmlnL2VuZHBvaW50cyc7XHJcbmltcG9ydCB7IGNyZWF0ZUNydWRBcGkgfSBmcm9tICdAc2VydmljZXMvYXBpJztcclxuXHJcbmNvbnN0IGRydWdCYXRjaEFwaSA9IGNyZWF0ZUNydWRBcGkoZW5kcG9pbnRzLkRSVUdfQkFUQ0hFUyk7XHJcblxyXG5leHBvcnQgeyBkcnVnQmF0Y2hBcGkgfTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxTQUFTQSxTQUFTO0FBQ2xCLFNBQVNDLGFBQWE7QUFFdEIsSUFBTUMsWUFBWSxJQUFBQyxjQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLFlBQVksQ0FBQztBQUUxRCxTQUFTSCxZQUFZIiwiaWdub3JlTGlzdCI6W119
