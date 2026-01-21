@@ -24,6 +24,15 @@ Implement screens, routes, and UI wiring for all HMS modules built in Phase 10. 
 - All UI text must use i18n; no hardcoded strings.
 - Route group names are omitted when linking/navigating (Expo Router group behavior).
 - Route guards must be applied via group layouts and role-aware navigation.
+- Every module route must be reachable from the existing navigation bar (Phase 9). Update the existing nav config/layouts; do not introduce a new navigation system.
+
+## Wiring & Functionality Checklist (Per Module)
+- Routes: create route files/folders per `app-router.mdc`, in the correct group layout.
+- Screens: implement per `platform-ui.mdc` and `component-structure.mdc`, wired to module hooks.
+- Navigation: add/confirm nav entry, label, and icon in existing Phase 9 navigation; ensure deep links point to the route group path.
+- Functionality: list, detail, create/edit flows backed by hooks; support pagination/filters where the hook exposes them.
+- States: loading, error, empty, and permission/guarded states handled in UI.
+- Consistency: keep naming, route paths, and UI sections aligned with Phase 10 module names.
 
 ## Route Structure Overview
 
@@ -262,4 +271,4 @@ Each step implements screens/routes for exactly **one** module from Phase 10, wi
 - Step 11.20.2: `integration-log`
 - Step 11.20.3: `webhook-subscription`
 
-**Testing**: For each step, add UI tests (render, loading, error, empty, permissions) per `.cursor/rules/testing.mdc`, and accessibility checks per `.cursor/rules/accessibility.mdc`.
+**Testing**: For each step, add UI tests (render, loading, error, empty, permissions, and navigation entry visibility/route access) per `.cursor/rules/testing.mdc`, and accessibility checks per `.cursor/rules/accessibility.mdc`.
