@@ -33,6 +33,7 @@ jest.mock(
 // Setup global test environment
 global.__DEV__ = true;
 
+
 // Mock styled-components to handle both web and native
 const createStyledMock = () => {
   // #region agent log
@@ -45,12 +46,25 @@ const createStyledMock = () => {
   // Import SafeAreaView from react-native-safe-area-context to avoid deprecation warning
   const SafeAreaView = require('react-native-safe-area-context').SafeAreaView || View;
   
+  const omitTransientProps = (props) => {
+    if (!props) return props;
+    return Object.keys(props).reduce((acc, key) => {
+      if (!key.startsWith('$')) {
+        acc[key] = props[key];
+      }
+      return acc;
+    }, {});
+  };
+
   const createStyledComponent = (component, displayName) => {
+    const resolvedComponent = component || View;
     const styledFn = (strings, ...interpolations) => {
       const StyledComponent = React.forwardRef((props, ref) => {
-        return React.createElement(component, { ref, ...props });
+        const filteredProps = omitTransientProps(props);
+        return React.createElement(resolvedComponent, { ref, ...filteredProps });
       });
-      StyledComponent.displayName = displayName || `Styled${component.displayName || component.name || 'Component'}`;
+      StyledComponent.displayName =
+        displayName || `Styled${resolvedComponent.displayName || resolvedComponent.name || 'Component'}`;
       return StyledComponent;
     };
     
@@ -59,9 +73,12 @@ const createStyledMock = () => {
       return (strings, ...interpolations) => {
         const StyledComponent = React.forwardRef((props, ref) => {
           const attrs = typeof attrsFn === 'function' ? attrsFn(props) : attrsFn;
-          return React.createElement(component, { ref, ...attrs, ...props });
+          const mergedProps = { ...attrs, ...props };
+          const filteredProps = omitTransientProps(mergedProps);
+          return React.createElement(resolvedComponent, { ref, ...filteredProps });
         });
-        StyledComponent.displayName = displayName || `Styled${component.displayName || component.name || 'Component'}`;
+        StyledComponent.displayName =
+          displayName || `Styled${resolvedComponent.displayName || resolvedComponent.name || 'Component'}`;
         return StyledComponent;
       };
     };
@@ -69,10 +86,12 @@ const createStyledMock = () => {
     // Add .withConfig() method support
     styledFn.withConfig = (config) => {
       const { displayName: configDisplayName, componentId } = config || {};
-      const finalDisplayName = configDisplayName || displayName || `Styled${component.displayName || component.name || 'Component'}`;
+      const finalDisplayName =
+        configDisplayName || displayName || `Styled${resolvedComponent.displayName || resolvedComponent.name || 'Component'}`;
       const styledWithConfig = (strings, ...interpolations) => {
         const StyledComponent = React.forwardRef((props, ref) => {
-          return React.createElement(component, { ref, ...props });
+          const filteredProps = omitTransientProps(props);
+          return React.createElement(resolvedComponent, { ref, ...filteredProps });
         });
         StyledComponent.displayName = finalDisplayName;
         if (componentId) {
@@ -86,7 +105,9 @@ const createStyledMock = () => {
         return (strings, ...interpolations) => {
           const StyledComponent = React.forwardRef((props, ref) => {
             const attrs = typeof attrsFn === 'function' ? attrsFn(props) : attrsFn;
-            return React.createElement(component, { ref, ...attrs, ...props });
+            const mergedProps = { ...attrs, ...props };
+            const filteredProps = omitTransientProps(mergedProps);
+            return React.createElement(resolvedComponent, { ref, ...filteredProps });
           });
           StyledComponent.displayName = finalDisplayName;
           if (componentId) {
@@ -140,7 +161,9 @@ const createStyledMock = () => {
       return createStyledComponent(Component, `styled.${component}`);
     }
     // If component is a React component, wrap it
-    return createStyledComponent(component, `Styled${component.displayName || component.name || 'Component'}`);
+    const resolvedName =
+      component && (component.displayName || component.name) ? (component.displayName || component.name) : 'Component';
+    return createStyledComponent(component, `Styled${resolvedName}`);
   };
 
   // Add properties for styled.form, styled.div, etc.

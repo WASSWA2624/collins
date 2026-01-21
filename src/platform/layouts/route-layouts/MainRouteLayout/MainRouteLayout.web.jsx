@@ -128,6 +128,7 @@ const MainRouteLayoutWeb = () => {
     [storedSidebarWidth]
   );
   const isSidebarCollapsed = isMobile ? true : storedSidebarCollapsed;
+  const hasDocument = typeof document !== 'undefined';
 
   useEffect(() => {
     if (isMobile) {
@@ -148,25 +149,25 @@ const MainRouteLayoutWeb = () => {
   }, [isMobile, isHeaderCustomizationOpen]);
 
   useEffect(() => {
-    if (!isMobile) return undefined;
+    if (!hasDocument || !isMobile) return undefined;
     document.body.style.overflow = isMobileSidebarOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isMobile, isMobileSidebarOpen]);
+  }, [hasDocument, isMobile, isMobileSidebarOpen]);
 
   useEffect(() => {
-    if (!isResizing) return;
+    if (!hasDocument || !isResizing) return;
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
     return () => {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
-  }, [isResizing]);
+  }, [hasDocument, isResizing]);
 
   useEffect(() => {
-    if (!isNotificationsOpen) return;
+    if (!hasDocument || !isNotificationsOpen) return;
 
     const handleClickOutside = (event) => {
       if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
@@ -178,10 +179,10 @@ const MainRouteLayoutWeb = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isNotificationsOpen]);
+  }, [hasDocument, isNotificationsOpen]);
 
   useEffect(() => {
-    if (!isOverflowOpen) return;
+    if (!hasDocument || !isOverflowOpen) return;
     const handleClickOutside = (event) => {
       if (overflowWrapperRef.current && !overflowWrapperRef.current.contains(event.target)) {
         setIsOverflowOpen(false);
@@ -191,10 +192,10 @@ const MainRouteLayoutWeb = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOverflowOpen]);
+  }, [hasDocument, isOverflowOpen]);
 
   useEffect(() => {
-    if (!isHeaderCustomizationOpen) return;
+    if (!hasDocument || !isHeaderCustomizationOpen) return;
     const handleClickOutside = (event) => {
       if (customizationWrapperRef.current && !customizationWrapperRef.current.contains(event.target)) {
         setIsHeaderCustomizationOpen(false);
@@ -204,7 +205,7 @@ const MainRouteLayoutWeb = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isHeaderCustomizationOpen]);
+  }, [hasDocument, isHeaderCustomizationOpen]);
 
   const handleToggleSidebar = useCallback(() => {
     if (isMobile) {

@@ -79,8 +79,9 @@ describe('useThemeControls', () => {
     });
 
     expect(result.current.theme).toBe(THEME_MODES.DARK);
-    expect(result.current.options).toHaveLength(3);
-    expect(result.current.options[0].value).toBe(THEME_MODES.LIGHT);
+    expect(result.current.options).toHaveLength(4);
+    expect(result.current.options[0].value).toBe(THEME_MODES.SYSTEM);
+    expect(result.current.options[3].value).toBe(THEME_MODES.HIGH_CONTRAST);
   });
 
   it('falls back to light theme when state is invalid', () => {
