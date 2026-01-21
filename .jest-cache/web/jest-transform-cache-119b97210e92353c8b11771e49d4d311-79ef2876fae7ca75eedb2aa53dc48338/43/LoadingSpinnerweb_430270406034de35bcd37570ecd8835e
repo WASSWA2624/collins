@@ -1,0 +1,205 @@
+f6c3b9bda801fac6086a295d1ff83d1b
+import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
+var _excluded = ["size", "color", "accessibilityLabel", "accessibilityHint", "testID", "className", "style"];
+function cov_2x9c7yrcy() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\feedback\\LoadingSpinner\\LoadingSpinner.web.jsx";
+  var hash = "122833db578bfbe0a076f7ed2c62a60aca41e376";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\feedback\\LoadingSpinner\\LoadingSpinner.web.jsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 23,
+          column: 26
+        },
+        end: {
+          line: 51,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 33,
+          column: 16
+        },
+        end: {
+          line: 33,
+          column: 25
+        }
+      },
+      "2": {
+        start: {
+          line: 34,
+          column: 36
+        },
+        end: {
+          line: 34,
+          column: 77
+        }
+      },
+      "3": {
+        start: {
+          line: 36,
+          column: 2
+        },
+        end: {
+          line: 50,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 23,
+            column: 26
+          },
+          end: {
+            line: 23,
+            column: 27
+          }
+        },
+        loc: {
+          start: {
+            line: 32,
+            column: 6
+          },
+          end: {
+            line: 51,
+            column: 1
+          }
+        },
+        line: 32
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 24,
+            column: 2
+          },
+          end: {
+            line: 24,
+            column: 21
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 24,
+            column: 9
+          },
+          end: {
+            line: 24,
+            column: 21
+          }
+        }],
+        line: 24
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 34,
+            column: 36
+          },
+          end: {
+            line: 34,
+            column: 77
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 34,
+            column: 36
+          },
+          end: {
+            line: 34,
+            column: 54
+          }
+        }, {
+          start: {
+            line: 34,
+            column: 58
+          },
+          end: {
+            line: 34,
+            column: 77
+          }
+        }],
+        line: 34
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "122833db578bfbe0a076f7ed2c62a60aca41e376"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2x9c7yrcy = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2x9c7yrcy();
+import React from 'react';
+import { StyledContainer, StyledSpinner } from "./LoadingSpinner.web.styles";
+import { useI18n } from "../../../../hooks";
+import { SIZES } from "./types";
+import { jsx as _jsx } from "react/jsx-runtime";
+cov_2x9c7yrcy().s[0]++;
+var LoadingSpinnerWeb = function LoadingSpinnerWeb(_ref) {
+  var _ref$size = _ref.size,
+    size = _ref$size === void 0 ? (cov_2x9c7yrcy().b[0][0]++, SIZES.MEDIUM) : _ref$size,
+    color = _ref.color,
+    accessibilityLabel = _ref.accessibilityLabel,
+    accessibilityHint = _ref.accessibilityHint,
+    testID = _ref.testID,
+    className = _ref.className,
+    style = _ref.style,
+    rest = _objectWithoutProperties(_ref, _excluded);
+  cov_2x9c7yrcy().f[0]++;
+  var _ref2 = (cov_2x9c7yrcy().s[1]++, useI18n()),
+    t = _ref2.t;
+  var defaultAccessibilityLabel = (cov_2x9c7yrcy().s[2]++, (cov_2x9c7yrcy().b[1][0]++, accessibilityLabel) || (cov_2x9c7yrcy().b[1][1]++, t('common.loading')));
+  cov_2x9c7yrcy().s[3]++;
+  return _jsx(StyledContainer, Object.assign({
+    style: style,
+    className: className,
+    testID: testID,
+    role: "status",
+    "aria-label": defaultAccessibilityLabel,
+    "aria-live": "polite",
+    "aria-description": accessibilityHint,
+    "data-testid": testID
+  }, rest, {
+    children: _jsx(StyledSpinner, {
+      size: size,
+      color: color
+    })
+  }));
+};
+export default LoadingSpinnerWeb;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJSZWFjdCIsIlN0eWxlZENvbnRhaW5lciIsIlN0eWxlZFNwaW5uZXIiLCJ1c2VJMThuIiwiU0laRVMiLCJqc3giLCJfanN4IiwiY292XzJ4OWM3eXJjeSIsInMiLCJMb2FkaW5nU3Bpbm5lcldlYiIsIl9yZWYiLCJfcmVmJHNpemUiLCJzaXplIiwiYiIsIk1FRElVTSIsImNvbG9yIiwiYWNjZXNzaWJpbGl0eUxhYmVsIiwiYWNjZXNzaWJpbGl0eUhpbnQiLCJ0ZXN0SUQiLCJjbGFzc05hbWUiLCJzdHlsZSIsInJlc3QiLCJfb2JqZWN0V2l0aG91dFByb3BlcnRpZXMiLCJfZXhjbHVkZWQiLCJmIiwiX3JlZjIiLCJ0IiwiZGVmYXVsdEFjY2Vzc2liaWxpdHlMYWJlbCIsIk9iamVjdCIsImFzc2lnbiIsInJvbGUiLCJjaGlsZHJlbiJdLCJzb3VyY2VzIjpbIkxvYWRpbmdTcGlubmVyLndlYi5qc3giXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIExvYWRpbmdTcGlubmVyIENvbXBvbmVudCAtIFdlYlxyXG4gKiBMb2FkaW5nIGluZGljYXRvciBjb21wb25lbnQgZm9yIFdlYiBwbGF0Zm9ybVxyXG4gKiBGaWxlOiBMb2FkaW5nU3Bpbm5lci53ZWIuanN4XHJcbiAqL1xyXG5cclxuaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcclxuaW1wb3J0IHsgU3R5bGVkQ29udGFpbmVyLCBTdHlsZWRTcGlubmVyIH0gZnJvbSAnLi9Mb2FkaW5nU3Bpbm5lci53ZWIuc3R5bGVzJztcclxuaW1wb3J0IHsgdXNlSTE4biB9IGZyb20gJ0Bob29rcyc7XHJcbmltcG9ydCB7IFNJWkVTIH0gZnJvbSAnLi90eXBlcyc7XHJcblxyXG4vKipcclxuICogTG9hZGluZ1NwaW5uZXIgY29tcG9uZW50IGZvciBXZWJcclxuICogQHBhcmFtIHtPYmplY3R9IHByb3BzIC0gTG9hZGluZ1NwaW5uZXIgcHJvcHNcclxuICogQHBhcmFtIHtzdHJpbmd9IHByb3BzLnNpemUgLSBTcGlubmVyIHNpemUgKHNtYWxsLCBtZWRpdW0sIGxhcmdlKVxyXG4gKiBAcGFyYW0ge3N0cmluZ30gcHJvcHMuY29sb3IgLSBTcGlubmVyIGNvbG9yIChvdmVycmlkZXMgdGhlbWUgZGVmYXVsdClcclxuICogQHBhcmFtIHtzdHJpbmd9IHByb3BzLmFjY2Vzc2liaWxpdHlMYWJlbCAtIEFjY2Vzc2liaWxpdHkgbGFiZWxcclxuICogQHBhcmFtIHtzdHJpbmd9IHByb3BzLmFjY2Vzc2liaWxpdHlIaW50IC0gQWNjZXNzaWJpbGl0eSBoaW50XHJcbiAqIEBwYXJhbSB7c3RyaW5nfSBwcm9wcy50ZXN0SUQgLSBUZXN0IGlkZW50aWZpZXJcclxuICogQHBhcmFtIHtzdHJpbmd9IHByb3BzLmNsYXNzTmFtZSAtIEFkZGl0aW9uYWwgQ1NTIGNsYXNzXHJcbiAqIEBwYXJhbSB7T2JqZWN0fSBwcm9wcy5zdHlsZSAtIEFkZGl0aW9uYWwgc3R5bGVzXHJcbiAqL1xyXG5jb25zdCBMb2FkaW5nU3Bpbm5lcldlYiA9ICh7XHJcbiAgc2l6ZSA9IFNJWkVTLk1FRElVTSxcclxuICBjb2xvcixcclxuICBhY2Nlc3NpYmlsaXR5TGFiZWwsXHJcbiAgYWNjZXNzaWJpbGl0eUhpbnQsXHJcbiAgdGVzdElELFxyXG4gIGNsYXNzTmFtZSxcclxuICBzdHlsZSxcclxuICAuLi5yZXN0XHJcbn0pID0+IHtcclxuICBjb25zdCB7IHQgfSA9IHVzZUkxOG4oKTtcclxuICBjb25zdCBkZWZhdWx0QWNjZXNzaWJpbGl0eUxhYmVsID0gYWNjZXNzaWJpbGl0eUxhYmVsIHx8IHQoJ2NvbW1vbi5sb2FkaW5nJyk7XHJcbiAgXHJcbiAgcmV0dXJuIChcclxuICAgIDxTdHlsZWRDb250YWluZXJcclxuICAgICAgc3R5bGU9e3N0eWxlfVxyXG4gICAgICBjbGFzc05hbWU9e2NsYXNzTmFtZX1cclxuICAgICAgdGVzdElEPXt0ZXN0SUR9XHJcbiAgICAgIHJvbGU9XCJzdGF0dXNcIlxyXG4gICAgICBhcmlhLWxhYmVsPXtkZWZhdWx0QWNjZXNzaWJpbGl0eUxhYmVsfVxyXG4gICAgICBhcmlhLWxpdmU9XCJwb2xpdGVcIlxyXG4gICAgICBhcmlhLWRlc2NyaXB0aW9uPXthY2Nlc3NpYmlsaXR5SGludH1cclxuICAgICAgZGF0YS10ZXN0aWQ9e3Rlc3RJRH1cclxuICAgICAgey4uLnJlc3R9XHJcbiAgICA+XHJcbiAgICAgIDxTdHlsZWRTcGlubmVyIHNpemU9e3NpemV9IGNvbG9yPXtjb2xvcn0gLz5cclxuICAgIDwvU3R5bGVkQ29udGFpbmVyPlxyXG4gICk7XHJcbn07XHJcblxyXG5leHBvcnQgZGVmYXVsdCBMb2FkaW5nU3Bpbm5lcldlYjtcclxuXHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBTUEsT0FBT0EsS0FBSyxNQUFNLE9BQU87QUFDekIsU0FBU0MsZUFBZSxFQUFFQyxhQUFhO0FBQ3ZDLFNBQVNDLE9BQU87QUFDaEIsU0FBU0MsS0FBSztBQUFrQixTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFBQUMsYUFBQSxHQUFBQyxDQUFBO0FBYWhDLElBQU1DLGlCQUFpQixHQUFHLFNBQXBCQSxpQkFBaUJBLENBQUFDLElBQUEsRUFTakI7RUFBQSxJQUFBQyxTQUFBLEdBQUFELElBQUEsQ0FSSkUsSUFBSTtJQUFKQSxJQUFJLEdBQUFELFNBQUEsZUFBQUosYUFBQSxHQUFBTSxDQUFBLFVBQUdULEtBQUssQ0FBQ1UsTUFBTSxJQUFBSCxTQUFBO0lBQ25CSSxLQUFLLEdBQUFMLElBQUEsQ0FBTEssS0FBSztJQUNMQyxrQkFBa0IsR0FBQU4sSUFBQSxDQUFsQk0sa0JBQWtCO0lBQ2xCQyxpQkFBaUIsR0FBQVAsSUFBQSxDQUFqQk8saUJBQWlCO0lBQ2pCQyxNQUFNLEdBQUFSLElBQUEsQ0FBTlEsTUFBTTtJQUNOQyxTQUFTLEdBQUFULElBQUEsQ0FBVFMsU0FBUztJQUNUQyxLQUFLLEdBQUFWLElBQUEsQ0FBTFUsS0FBSztJQUNGQyxJQUFJLEdBQUFDLHdCQUFBLENBQUFaLElBQUEsRUFBQWEsU0FBQTtFQUFBaEIsYUFBQSxHQUFBaUIsQ0FBQTtFQUVQLElBQUFDLEtBQUEsSUFBQWxCLGFBQUEsR0FBQUMsQ0FBQSxPQUFjTCxPQUFPLENBQUMsQ0FBQztJQUFmdUIsQ0FBQyxHQUFBRCxLQUFBLENBQURDLENBQUM7RUFDVCxJQUFNQyx5QkFBeUIsSUFBQXBCLGFBQUEsR0FBQUMsQ0FBQSxPQUFHLENBQUFELGFBQUEsR0FBQU0sQ0FBQSxVQUFBRyxrQkFBa0IsTUFBQVQsYUFBQSxHQUFBTSxDQUFBLFVBQUlhLENBQUMsQ0FBQyxnQkFBZ0IsQ0FBQztFQUFDbkIsYUFBQSxHQUFBQyxDQUFBO0VBRTVFLE9BQ0VGLElBQUEsQ0FBQ0wsZUFBZSxFQUFBMkIsTUFBQSxDQUFBQyxNQUFBO0lBQ2RULEtBQUssRUFBRUEsS0FBTTtJQUNiRCxTQUFTLEVBQUVBLFNBQVU7SUFDckJELE1BQU0sRUFBRUEsTUFBTztJQUNmWSxJQUFJLEVBQUMsUUFBUTtJQUNiLGNBQVlILHlCQUEwQjtJQUN0QyxhQUFVLFFBQVE7SUFDbEIsb0JBQWtCVixpQkFBa0I7SUFDcEMsZUFBYUM7RUFBTyxHQUNoQkcsSUFBSTtJQUFBVSxRQUFBLEVBRVJ6QixJQUFBLENBQUNKLGFBQWE7TUFBQ1UsSUFBSSxFQUFFQSxJQUFLO01BQUNHLEtBQUssRUFBRUE7SUFBTSxDQUFFO0VBQUMsRUFDNUIsQ0FBQztBQUV0QixDQUFDO0FBRUQsZUFBZU4saUJBQWlCIiwiaWdub3JlTGlzdCI6W119

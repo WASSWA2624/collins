@@ -1,0 +1,48 @@
+fb8a4e588938ef0a69af367f47539316
+function cov_f42nhpz4e() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\forms\\Radio\\types.js";
+  var hash = "a194f7bf6863c927217ed95741270a131e944afa";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\forms\\Radio\\types.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 6,
+          column: 30
+        },
+        end: {
+          line: 9,
+          column: 2
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a194f7bf6863c927217ed95741270a131e944afa"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_f42nhpz4e = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_f42nhpz4e();
+export var RADIO_DEFAULTS = (cov_f42nhpz4e().s[0]++, Object.freeze({
+  selected: false,
+  disabled: false
+}));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJSQURJT19ERUZBVUxUUyIsImNvdl9mNDJuaHB6NGUiLCJzIiwiT2JqZWN0IiwiZnJlZXplIiwic2VsZWN0ZWQiLCJkaXNhYmxlZCJdLCJzb3VyY2VzIjpbInR5cGVzLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBSYWRpbyBDb21wb25lbnQgVHlwZXNcclxuICogRmlsZTogdHlwZXMuanNcclxuICovXHJcblxyXG5leHBvcnQgY29uc3QgUkFESU9fREVGQVVMVFMgPSBPYmplY3QuZnJlZXplKHtcclxuICBzZWxlY3RlZDogZmFsc2UsXHJcbiAgZGlzYWJsZWQ6IGZhbHNlLFxyXG59KTtcclxuXHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBS0EsT0FBTyxJQUFNQSxjQUFjLElBQUFDLGFBQUEsR0FBQUMsQ0FBQSxPQUFHQyxNQUFNLENBQUNDLE1BQU0sQ0FBQztFQUMxQ0MsUUFBUSxFQUFFLEtBQUs7RUFDZkMsUUFBUSxFQUFFO0FBQ1osQ0FBQyxDQUFDIiwiaWdub3JlTGlzdCI6W119

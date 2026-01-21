@@ -1,0 +1,97 @@
+71c91194edee76a8c4eac12620e695bd
+function cov_c8g5st663() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useStockMovement.js";
+  var hash = "079dd89e7e7fc80a903c3ba1051faedbb6d4b201";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useStockMovement.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 25
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 25
+          },
+          end: {
+            line: 14,
+            column: 26
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "079dd89e7e7fc80a903c3ba1051faedbb6d4b201"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_c8g5st663 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_c8g5st663();
+import useCrud from "./useCrud";
+import { createStockMovement, deleteStockMovement, getStockMovement, listStockMovements, updateStockMovement } from "../features/stock-movement";
+cov_c8g5st663().s[0]++;
+var useStockMovement = function useStockMovement() {
+  cov_c8g5st663().f[0]++;
+  cov_c8g5st663().s[1]++;
+  return useCrud({
+    list: listStockMovements,
+    get: getStockMovement,
+    create: createStockMovement,
+    update: updateStockMovement,
+    remove: deleteStockMovement
+  });
+};
+export default useStockMovement;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlU3RvY2tNb3ZlbWVudCIsImRlbGV0ZVN0b2NrTW92ZW1lbnQiLCJnZXRTdG9ja01vdmVtZW50IiwibGlzdFN0b2NrTW92ZW1lbnRzIiwidXBkYXRlU3RvY2tNb3ZlbWVudCIsImNvdl9jOGc1c3Q2NjMiLCJzIiwidXNlU3RvY2tNb3ZlbWVudCIsImYiLCJsaXN0IiwiZ2V0IiwiY3JlYXRlIiwidXBkYXRlIiwicmVtb3ZlIl0sInNvdXJjZXMiOlsidXNlU3RvY2tNb3ZlbWVudC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlU3RvY2tNb3ZlbWVudCBIb29rXHJcbiAqIEZpbGU6IHVzZVN0b2NrTW92ZW1lbnQuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVTdG9ja01vdmVtZW50LFxyXG4gIGRlbGV0ZVN0b2NrTW92ZW1lbnQsXHJcbiAgZ2V0U3RvY2tNb3ZlbWVudCxcclxuICBsaXN0U3RvY2tNb3ZlbWVudHMsXHJcbiAgdXBkYXRlU3RvY2tNb3ZlbWVudCxcclxufSBmcm9tICdAZmVhdHVyZXMvc3RvY2stbW92ZW1lbnQnO1xyXG5cclxuY29uc3QgdXNlU3RvY2tNb3ZlbWVudCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0U3RvY2tNb3ZlbWVudHMsXHJcbiAgICBnZXQ6IGdldFN0b2NrTW92ZW1lbnQsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZVN0b2NrTW92ZW1lbnQsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZVN0b2NrTW92ZW1lbnQsXHJcbiAgICByZW1vdmU6IGRlbGV0ZVN0b2NrTW92ZW1lbnQsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VTdG9ja01vdmVtZW50O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsT0FBT0EsT0FBTztBQUNkLFNBQ0VDLG1CQUFtQixFQUNuQkMsbUJBQW1CLEVBQ25CQyxnQkFBZ0IsRUFDaEJDLGtCQUFrQixFQUNsQkMsbUJBQW1CO0FBQ2FDLGFBQUEsR0FBQUMsQ0FBQTtBQUVsQyxJQUFNQyxnQkFBZ0IsR0FBRyxTQUFuQkEsZ0JBQWdCQSxDQUFBLEVBQ3BCO0VBQUFGLGFBQUEsR0FBQUcsQ0FBQTtFQUFBSCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBUCxPQUFPLENBQUM7SUFDTlUsSUFBSSxFQUFFTixrQkFBa0I7SUFDeEJPLEdBQUcsRUFBRVIsZ0JBQWdCO0lBQ3JCUyxNQUFNLEVBQUVYLG1CQUFtQjtJQUMzQlksTUFBTSxFQUFFUixtQkFBbUI7SUFDM0JTLE1BQU0sRUFBRVo7RUFDVixDQUFDLENBQUM7QUFBRCxDQUFDO0FBRUosZUFBZU0sZ0JBQWdCIiwiaWdub3JlTGlzdCI6W119

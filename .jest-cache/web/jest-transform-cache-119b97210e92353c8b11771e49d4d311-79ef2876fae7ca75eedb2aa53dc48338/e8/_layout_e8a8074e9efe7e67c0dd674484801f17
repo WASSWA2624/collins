@@ -1,0 +1,33 @@
+f7e51c7383d9ed83f133873151896a55
+function cov_239natgiu9() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(patient)\\_layout.jsx";
+  var hash = "d8aa1950e238e7e5f63023022efc304ed367e29d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(patient)\\_layout.jsx",
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "d8aa1950e238e7e5f63023022efc304ed367e29d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_239natgiu9 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_239natgiu9();
+import { PatientRouteLayout } from "../../platform/layouts";
+export default PatientRouteLayout;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJQYXRpZW50Um91dGVMYXlvdXQiXSwic291cmNlcyI6WyJfbGF5b3V0LmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogUGF0aWVudCBHcm91cCBSb3V0ZSBMYXlvdXRcclxuICpcclxuICogUm91dGUgbGF5b3V0IGZvciBwYXRpZW50LWZhY2luZyByb3V0ZXMuXHJcbiAqIFBlciBhcHAtcm91dGVyLm1kYzogbGF5b3V0cyB1c2UgYF9sYXlvdXQuanN4YCBhbmQgZGVmYXVsdCBleHBvcnRzLlxyXG4gKiBQZXIgY29tcG9uZW50LXN0cnVjdHVyZS5tZGM6IGxheW91dCBsb2dpYyBiZWxvbmdzIGluIHBsYXRmb3JtL2xheW91dHMvLlxyXG4gKi9cclxuaW1wb3J0IHsgUGF0aWVudFJvdXRlTGF5b3V0IH0gZnJvbSAnQHBsYXRmb3JtL2xheW91dHMnO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgUGF0aWVudFJvdXRlTGF5b3V0O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBT0EsU0FBU0Esa0JBQWtCO0FBRTNCLGVBQWVBLGtCQUFrQiIsImlnbm9yZUxpc3QiOltdfQ==

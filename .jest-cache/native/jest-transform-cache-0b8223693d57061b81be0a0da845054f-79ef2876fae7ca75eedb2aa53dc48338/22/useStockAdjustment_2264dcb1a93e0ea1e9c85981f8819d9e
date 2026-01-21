@@ -1,0 +1,102 @@
+955ac029375efd924713e3b876e560d7
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _useCrud = _interopRequireDefault(require("./useCrud"));
+var _stockAdjustment = require("../features/stock-adjustment");
+function cov_d93y3e8n2() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useStockAdjustment.js";
+  var hash = "d97ad61f8d20435a59e05e01890cc936062a80ac";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useStockAdjustment.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 27
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 27
+          },
+          end: {
+            line: 14,
+            column: 28
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "d97ad61f8d20435a59e05e01890cc936062a80ac"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_d93y3e8n2 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_d93y3e8n2();
+cov_d93y3e8n2().s[0]++;
+var useStockAdjustment = function useStockAdjustment() {
+  cov_d93y3e8n2().f[0]++;
+  cov_d93y3e8n2().s[1]++;
+  return (0, _useCrud.default)({
+    list: _stockAdjustment.listStockAdjustments,
+    get: _stockAdjustment.getStockAdjustment,
+    create: _stockAdjustment.createStockAdjustment,
+    update: _stockAdjustment.updateStockAdjustment,
+    remove: _stockAdjustment.deleteStockAdjustment
+  });
+};
+var _default = exports.default = useStockAdjustment;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfdXNlQ3J1ZCIsIl9pbnRlcm9wUmVxdWlyZURlZmF1bHQiLCJyZXF1aXJlIiwiX3N0b2NrQWRqdXN0bWVudCIsImNvdl9kOTN5M2U4bjIiLCJwYXRoIiwiaGFzaCIsImdsb2JhbCIsIkZ1bmN0aW9uIiwiZ2N2IiwiY292ZXJhZ2VEYXRhIiwic3RhdGVtZW50TWFwIiwic3RhcnQiLCJsaW5lIiwiY29sdW1uIiwiZW5kIiwiZm5NYXAiLCJuYW1lIiwiZGVjbCIsImxvYyIsImJyYW5jaE1hcCIsInMiLCJmIiwiYiIsIl9jb3ZlcmFnZVNjaGVtYSIsImNvdmVyYWdlIiwiYWN0dWFsQ292ZXJhZ2UiLCJ1c2VTdG9ja0FkanVzdG1lbnQiLCJ1c2VDcnVkIiwibGlzdCIsImxpc3RTdG9ja0FkanVzdG1lbnRzIiwiZ2V0IiwiZ2V0U3RvY2tBZGp1c3RtZW50IiwiY3JlYXRlIiwiY3JlYXRlU3RvY2tBZGp1c3RtZW50IiwidXBkYXRlIiwidXBkYXRlU3RvY2tBZGp1c3RtZW50IiwicmVtb3ZlIiwiZGVsZXRlU3RvY2tBZGp1c3RtZW50IiwiX2RlZmF1bHQiLCJleHBvcnRzIiwiZGVmYXVsdCJdLCJzb3VyY2VzIjpbInVzZVN0b2NrQWRqdXN0bWVudC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlU3RvY2tBZGp1c3RtZW50IEhvb2tcclxuICogRmlsZTogdXNlU3RvY2tBZGp1c3RtZW50LmpzXHJcbiAqL1xyXG5pbXBvcnQgdXNlQ3J1ZCBmcm9tICdAaG9va3MvdXNlQ3J1ZCc7XHJcbmltcG9ydCB7XHJcbiAgY3JlYXRlU3RvY2tBZGp1c3RtZW50LFxyXG4gIGRlbGV0ZVN0b2NrQWRqdXN0bWVudCxcclxuICBnZXRTdG9ja0FkanVzdG1lbnQsXHJcbiAgbGlzdFN0b2NrQWRqdXN0bWVudHMsXHJcbiAgdXBkYXRlU3RvY2tBZGp1c3RtZW50LFxyXG59IGZyb20gJ0BmZWF0dXJlcy9zdG9jay1hZGp1c3RtZW50JztcclxuXHJcbmNvbnN0IHVzZVN0b2NrQWRqdXN0bWVudCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0U3RvY2tBZGp1c3RtZW50cyxcclxuICAgIGdldDogZ2V0U3RvY2tBZGp1c3RtZW50LFxyXG4gICAgY3JlYXRlOiBjcmVhdGVTdG9ja0FkanVzdG1lbnQsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZVN0b2NrQWRqdXN0bWVudCxcclxuICAgIHJlbW92ZTogZGVsZXRlU3RvY2tBZGp1c3RtZW50LFxyXG4gIH0pO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgdXNlU3RvY2tBZGp1c3RtZW50O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7O0FBSUEsSUFBQUEsUUFBQSxHQUFBQyxzQkFBQSxDQUFBQyxPQUFBO0FBQ0EsSUFBQUMsZ0JBQUEsR0FBQUQsT0FBQTtBQU1vQyxTQUFBRSxjQUFBO0VBQUEsSUFBQUMsSUFBQTtFQUFBLElBQUFDLElBQUE7RUFBQSxJQUFBQyxNQUFBLE9BQUFDLFFBQUE7RUFBQSxJQUFBQyxHQUFBO0VBQUEsSUFBQUMsWUFBQTtJQUFBTCxJQUFBO0lBQUFNLFlBQUE7TUFBQTtRQUFBQyxLQUFBO1VBQUFDLElBQUE7VUFBQUMsTUFBQTtRQUFBO1FBQUFDLEdBQUE7VUFBQUYsSUFBQTtVQUFBQyxNQUFBO1FBQUE7TUFBQTtNQUFBO1FBQUFGLEtBQUE7VUFBQUMsSUFBQTtVQUFBQyxNQUFBO1FBQUE7UUFBQUMsR0FBQTtVQUFBRixJQUFBO1VBQUFDLE1BQUE7UUFBQTtNQUFBO0lBQUE7SUFBQUUsS0FBQTtNQUFBO1FBQUFDLElBQUE7UUFBQUMsSUFBQTtVQUFBTixLQUFBO1lBQUFDLElBQUE7WUFBQUMsTUFBQTtVQUFBO1VBQUFDLEdBQUE7WUFBQUYsSUFBQTtZQUFBQyxNQUFBO1VBQUE7UUFBQTtRQUFBSyxHQUFBO1VBQUFQLEtBQUE7WUFBQUMsSUFBQTtZQUFBQyxNQUFBO1VBQUE7VUFBQUMsR0FBQTtZQUFBRixJQUFBO1lBQUFDLE1BQUE7VUFBQTtRQUFBO1FBQUFELElBQUE7TUFBQTtJQUFBO0lBQUFPLFNBQUE7SUFBQUMsQ0FBQTtNQUFBO01BQUE7SUFBQTtJQUFBQyxDQUFBO01BQUE7SUFBQTtJQUFBQyxDQUFBO0lBQUFDLGVBQUE7SUFBQWxCLElBQUE7RUFBQTtFQUFBLElBQUFtQixRQUFBLEdBQUFsQixNQUFBLENBQUFFLEdBQUEsTUFBQUYsTUFBQSxDQUFBRSxHQUFBO0VBQUEsS0FBQWdCLFFBQUEsQ0FBQXBCLElBQUEsS0FBQW9CLFFBQUEsQ0FBQXBCLElBQUEsRUFBQUMsSUFBQSxLQUFBQSxJQUFBO0lBQUFtQixRQUFBLENBQUFwQixJQUFBLElBQUFLLFlBQUE7RUFBQTtFQUFBLElBQUFnQixjQUFBLEdBQUFELFFBQUEsQ0FBQXBCLElBQUE7RUFBQTtJQUFBRCxhQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBc0IsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQXRCLGFBQUE7QUFBQUEsYUFBQSxHQUFBaUIsQ0FBQTtBQUVwQyxJQUFNTSxrQkFBa0IsR0FBRyxTQUFyQkEsa0JBQWtCQSxDQUFBLEVBQ3RCO0VBQUF2QixhQUFBLEdBQUFrQixDQUFBO0VBQUFsQixhQUFBLEdBQUFpQixDQUFBO0VBQUEsV0FBQU8sZ0JBQU8sRUFBQztJQUNOQyxJQUFJLEVBQUVDLHFDQUFvQjtJQUMxQkMsR0FBRyxFQUFFQyxtQ0FBa0I7SUFDdkJDLE1BQU0sRUFBRUMsc0NBQXFCO0lBQzdCQyxNQUFNLEVBQUVDLHNDQUFxQjtJQUM3QkMsTUFBTSxFQUFFQztFQUNWLENBQUMsQ0FBQztBQUFELENBQUM7QUFBQyxJQUFBQyxRQUFBLEdBQUFDLE9BQUEsQ0FBQUMsT0FBQSxHQUVVZCxrQkFBa0IiLCJpZ25vcmVMaXN0IjpbXX0=

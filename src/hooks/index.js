@@ -55,4 +55,12 @@ export { default as useCarePlan } from './useCarePlan';
 export { default as useClinicalAlert } from './useClinicalAlert';
 export { default as useReferral } from './useReferral';
 export { default as useFollowUp } from './useFollowUp';
+export { default as useInventoryItem } from './useInventoryItem';
+export { default as useInventoryStock } from './useInventoryStock';
+export { default as useStockMovement } from './useStockMovement';
+export { default as useSupplier } from './useSupplier';
+export { default as usePurchaseRequest } from './usePurchaseRequest';
+export { default as usePurchaseOrder } from './usePurchaseOrder';
+export { default as useGoodsReceipt } from './useGoodsReceipt';
+export { default as useStockAdjustment } from './useStockAdjustment';
 
