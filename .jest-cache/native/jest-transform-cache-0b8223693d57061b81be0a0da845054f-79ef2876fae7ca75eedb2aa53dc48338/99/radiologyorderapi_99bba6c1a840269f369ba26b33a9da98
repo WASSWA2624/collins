@@ -1,0 +1,48 @@
+4d01a9b3f557decdba7ceb579938a462
+function cov_m6yj5q3kp() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-order\\radiology-order.api.js";
+  var hash = "5184f6c1e9801d4a9184aca48e4d3aaf3b3e406f";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-order\\radiology-order.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 26
+        },
+        end: {
+          line: 8,
+          column: 67
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "5184f6c1e9801d4a9184aca48e4d3aaf3b3e406f"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_m6yj5q3kp = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_m6yj5q3kp();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var radiologyOrderApi = (cov_m6yj5q3kp().s[0]++, createCrudApi(endpoints.RADIOLOGY_ORDERS));
+export { radiologyOrderApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwicmFkaW9sb2d5T3JkZXJBcGkiLCJjb3ZfbTZ5ajVxM2twIiwicyIsIlJBRElPTE9HWV9PUkRFUlMiXSwic291cmNlcyI6WyJyYWRpb2xvZ3ktb3JkZXIuYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBSYWRpb2xvZ3kgT3JkZXIgQVBJXHJcbiAqIEZpbGU6IHJhZGlvbG9neS1vcmRlci5hcGkuanNcclxuICovXHJcbmltcG9ydCB7IGVuZHBvaW50cyB9IGZyb20gJ0Bjb25maWcvZW5kcG9pbnRzJztcclxuaW1wb3J0IHsgY3JlYXRlQ3J1ZEFwaSB9IGZyb20gJ0BzZXJ2aWNlcy9hcGknO1xyXG5cclxuY29uc3QgcmFkaW9sb2d5T3JkZXJBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5SQURJT0xPR1lfT1JERVJTKTtcclxuXHJcbmV4cG9ydCB7IHJhZGlvbG9neU9yZGVyQXBpIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsU0FBUztBQUNsQixTQUFTQyxhQUFhO0FBRXRCLElBQU1DLGlCQUFpQixJQUFBQyxhQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLGdCQUFnQixDQUFDO0FBRW5FLFNBQVNILGlCQUFpQiIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,65 @@
+62c2a5fc5e2de7afe60bd75178f896c5
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  tokenManager: true,
+  getAccessToken: true,
+  getRefreshToken: true,
+  setTokens: true,
+  clearTokens: true,
+  isTokenExpired: true
+};
+Object.defineProperty(exports, "clearTokens", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.clearTokens;
+  }
+});
+Object.defineProperty(exports, "getAccessToken", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.getAccessToken;
+  }
+});
+Object.defineProperty(exports, "getRefreshToken", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.getRefreshToken;
+  }
+});
+Object.defineProperty(exports, "isTokenExpired", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.isTokenExpired;
+  }
+});
+Object.defineProperty(exports, "setTokens", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.setTokens;
+  }
+});
+exports.tokenManager = void 0;
+var tokenManagerModule = _interopRequireWildcard(require("./token.manager"));
+var _encryption = require("./encryption");
+Object.keys(_encryption).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _encryption[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _encryption[key];
+    }
+  });
+});
+var tokenManager = exports.tokenManager = {
+  getAccessToken: tokenManagerModule.getAccessToken,
+  getRefreshToken: tokenManagerModule.getRefreshToken,
+  setTokens: tokenManagerModule.setTokens,
+  clearTokens: tokenManagerModule.clearTokens,
+  isTokenExpired: tokenManagerModule.isTokenExpired
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ0b2tlbk1hbmFnZXJNb2R1bGUiLCJfaW50ZXJvcFJlcXVpcmVXaWxkY2FyZCIsInJlcXVpcmUiLCJfZW5jcnlwdGlvbiIsIk9iamVjdCIsImtleXMiLCJmb3JFYWNoIiwia2V5IiwicHJvdG90eXBlIiwiaGFzT3duUHJvcGVydHkiLCJjYWxsIiwiX2V4cG9ydE5hbWVzIiwiZXhwb3J0cyIsImRlZmluZVByb3BlcnR5IiwiZW51bWVyYWJsZSIsImdldCIsInRva2VuTWFuYWdlciIsImdldEFjY2Vzc1Rva2VuIiwiZ2V0UmVmcmVzaFRva2VuIiwic2V0VG9rZW5zIiwiY2xlYXJUb2tlbnMiLCJpc1Rva2VuRXhwaXJlZCJdLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBTZWN1cml0eSBCYXJyZWwgRXhwb3J0XHJcbiAqIEZpbGU6IGluZGV4LmpzXHJcbiAqL1xyXG5pbXBvcnQgKiBhcyB0b2tlbk1hbmFnZXJNb2R1bGUgZnJvbSAnLi90b2tlbi5tYW5hZ2VyJztcclxuXHJcbmV4cG9ydCBjb25zdCB0b2tlbk1hbmFnZXIgPSB7XHJcbiAgZ2V0QWNjZXNzVG9rZW46IHRva2VuTWFuYWdlck1vZHVsZS5nZXRBY2Nlc3NUb2tlbixcclxuICBnZXRSZWZyZXNoVG9rZW46IHRva2VuTWFuYWdlck1vZHVsZS5nZXRSZWZyZXNoVG9rZW4sXHJcbiAgc2V0VG9rZW5zOiB0b2tlbk1hbmFnZXJNb2R1bGUuc2V0VG9rZW5zLFxyXG4gIGNsZWFyVG9rZW5zOiB0b2tlbk1hbmFnZXJNb2R1bGUuY2xlYXJUb2tlbnMsXHJcbiAgaXNUb2tlbkV4cGlyZWQ6IHRva2VuTWFuYWdlck1vZHVsZS5pc1Rva2VuRXhwaXJlZCxcclxufTtcclxuXHJcbmV4cG9ydCB7XHJcbiAgZ2V0QWNjZXNzVG9rZW4sXHJcbiAgZ2V0UmVmcmVzaFRva2VuLFxyXG4gIHNldFRva2VucyxcclxuICBjbGVhclRva2VucyxcclxuICBpc1Rva2VuRXhwaXJlZCxcclxufSBmcm9tICcuL3Rva2VuLm1hbmFnZXInO1xyXG5cclxuZXhwb3J0ICogZnJvbSAnLi9lbmNyeXB0aW9uJztcclxuXHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLElBQUFBLGtCQUFBLEdBQUFDLHVCQUFBLENBQUFDLE9BQUE7QUFrQkEsSUFBQUMsV0FBQSxHQUFBRCxPQUFBO0FBQUFFLE1BQUEsQ0FBQUMsSUFBQSxDQUFBRixXQUFBLEVBQUFHLE9BQUEsV0FBQUMsR0FBQTtFQUFBLElBQUFBLEdBQUEsa0JBQUFBLEdBQUE7RUFBQSxJQUFBSCxNQUFBLENBQUFJLFNBQUEsQ0FBQUMsY0FBQSxDQUFBQyxJQUFBLENBQUFDLFlBQUEsRUFBQUosR0FBQTtFQUFBLElBQUFBLEdBQUEsSUFBQUssT0FBQSxJQUFBQSxPQUFBLENBQUFMLEdBQUEsTUFBQUosV0FBQSxDQUFBSSxHQUFBO0VBQUFILE1BQUEsQ0FBQVMsY0FBQSxDQUFBRCxPQUFBLEVBQUFMLEdBQUE7SUFBQU8sVUFBQTtJQUFBQyxHQUFBLFdBQUFBLElBQUE7TUFBQSxPQUFBWixXQUFBLENBQUFJLEdBQUE7SUFBQTtFQUFBO0FBQUE7QUFoQk8sSUFBTVMsWUFBWSxHQUFBSixPQUFBLENBQUFJLFlBQUEsR0FBRztFQUMxQkMsY0FBYyxFQUFFakIsa0JBQWtCLENBQUNpQixjQUFjO0VBQ2pEQyxlQUFlLEVBQUVsQixrQkFBa0IsQ0FBQ2tCLGVBQWU7RUFDbkRDLFNBQVMsRUFBRW5CLGtCQUFrQixDQUFDbUIsU0FBUztFQUN2Q0MsV0FBVyxFQUFFcEIsa0JBQWtCLENBQUNvQixXQUFXO0VBQzNDQyxjQUFjLEVBQUVyQixrQkFBa0IsQ0FBQ3FCO0FBQ3JDLENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

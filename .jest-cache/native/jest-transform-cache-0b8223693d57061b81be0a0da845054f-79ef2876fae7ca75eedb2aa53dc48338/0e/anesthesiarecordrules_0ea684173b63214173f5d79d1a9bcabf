@@ -1,0 +1,211 @@
+bcc85e6b40812f3b9718c3954b7b6c8d
+function cov_koljl3zaf() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\anesthesia-record\\anesthesia-record.rules.js";
+  var hash = "611780e686803fe43c318ec3f426511a2ff73ef6";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\anesthesia-record\\anesthesia-record.rules.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 51
+        },
+        end: {
+          line: 7,
+          column: 68
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 32
+        },
+        end: {
+          line: 9,
+          column: 57
+        }
+      },
+      "2": {
+        start: {
+          line: 9,
+          column: 43
+        },
+        end: {
+          line: 9,
+          column: 57
+        }
+      },
+      "3": {
+        start: {
+          line: 10,
+          column: 37
+        },
+        end: {
+          line: 10,
+          column: 67
+        }
+      },
+      "4": {
+        start: {
+          line: 10,
+          column: 48
+        },
+        end: {
+          line: 10,
+          column: 67
+        }
+      },
+      "5": {
+        start: {
+          line: 11,
+          column: 40
+        },
+        end: {
+          line: 11,
+          column: 73
+        }
+      },
+      "6": {
+        start: {
+          line: 11,
+          column: 51
+        },
+        end: {
+          line: 11,
+          column: 73
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 9,
+            column: 32
+          },
+          end: {
+            line: 9,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 9,
+            column: 43
+          },
+          end: {
+            line: 9,
+            column: 57
+          }
+        },
+        line: 9
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 10,
+            column: 37
+          },
+          end: {
+            line: 10,
+            column: 38
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 48
+          },
+          end: {
+            line: 10,
+            column: 67
+          }
+        },
+        line: 10
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 11,
+            column: 40
+          },
+          end: {
+            line: 11,
+            column: 41
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 51
+          },
+          end: {
+            line: 11,
+            column: 73
+          }
+        },
+        line: 11
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "611780e686803fe43c318ec3f426511a2ff73ef6"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_koljl3zaf = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_koljl3zaf();
+import { createCrudRules } from "../../utils/crudRules";
+var _ref = (cov_koljl3zaf().s[0]++, createCrudRules()),
+  parseId = _ref.parseId,
+  parsePayload = _ref.parsePayload,
+  parseListParams = _ref.parseListParams;
+cov_koljl3zaf().s[1]++;
+var parseAnesthesiaRecordId = function parseAnesthesiaRecordId(value) {
+  cov_koljl3zaf().f[0]++;
+  cov_koljl3zaf().s[2]++;
+  return parseId(value);
+};
+cov_koljl3zaf().s[3]++;
+var parseAnesthesiaRecordPayload = function parseAnesthesiaRecordPayload(value) {
+  cov_koljl3zaf().f[1]++;
+  cov_koljl3zaf().s[4]++;
+  return parsePayload(value);
+};
+cov_koljl3zaf().s[5]++;
+var parseAnesthesiaRecordListParams = function parseAnesthesiaRecordListParams(value) {
+  cov_koljl3zaf().f[2]++;
+  cov_koljl3zaf().s[6]++;
+  return parseListParams(value);
+};
+export { parseAnesthesiaRecordId, parseAnesthesiaRecordPayload, parseAnesthesiaRecordListParams };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVDcnVkUnVsZXMiLCJfcmVmIiwiY292X2tvbGpsM3phZiIsInMiLCJwYXJzZUlkIiwicGFyc2VQYXlsb2FkIiwicGFyc2VMaXN0UGFyYW1zIiwicGFyc2VBbmVzdGhlc2lhUmVjb3JkSWQiLCJ2YWx1ZSIsImYiLCJwYXJzZUFuZXN0aGVzaWFSZWNvcmRQYXlsb2FkIiwicGFyc2VBbmVzdGhlc2lhUmVjb3JkTGlzdFBhcmFtcyJdLCJzb3VyY2VzIjpbImFuZXN0aGVzaWEtcmVjb3JkLnJ1bGVzLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBBbmVzdGhlc2lhIFJlY29yZCBSdWxlc1xyXG4gKiBGaWxlOiBhbmVzdGhlc2lhLXJlY29yZC5ydWxlcy5qc1xyXG4gKi9cclxuaW1wb3J0IHsgY3JlYXRlQ3J1ZFJ1bGVzIH0gZnJvbSAnQHV0aWxzL2NydWRSdWxlcyc7XHJcblxyXG5jb25zdCB7IHBhcnNlSWQsIHBhcnNlUGF5bG9hZCwgcGFyc2VMaXN0UGFyYW1zIH0gPSBjcmVhdGVDcnVkUnVsZXMoKTtcclxuXHJcbmNvbnN0IHBhcnNlQW5lc3RoZXNpYVJlY29yZElkID0gKHZhbHVlKSA9PiBwYXJzZUlkKHZhbHVlKTtcclxuY29uc3QgcGFyc2VBbmVzdGhlc2lhUmVjb3JkUGF5bG9hZCA9ICh2YWx1ZSkgPT4gcGFyc2VQYXlsb2FkKHZhbHVlKTtcclxuY29uc3QgcGFyc2VBbmVzdGhlc2lhUmVjb3JkTGlzdFBhcmFtcyA9ICh2YWx1ZSkgPT4gcGFyc2VMaXN0UGFyYW1zKHZhbHVlKTtcclxuXHJcbmV4cG9ydCB7IHBhcnNlQW5lc3RoZXNpYVJlY29yZElkLCBwYXJzZUFuZXN0aGVzaWFSZWNvcmRQYXlsb2FkLCBwYXJzZUFuZXN0aGVzaWFSZWNvcmRMaXN0UGFyYW1zIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxTQUFTQSxlQUFlO0FBRXhCLElBQUFDLElBQUEsSUFBQUMsYUFBQSxHQUFBQyxDQUFBLE9BQW1ESCxlQUFlLENBQUMsQ0FBQztFQUE1REksT0FBTyxHQUFBSCxJQUFBLENBQVBHLE9BQU87RUFBRUMsWUFBWSxHQUFBSixJQUFBLENBQVpJLFlBQVk7RUFBRUMsZUFBZSxHQUFBTCxJQUFBLENBQWZLLGVBQWU7QUFBdUJKLGFBQUEsR0FBQUMsQ0FBQTtBQUVyRSxJQUFNSSx1QkFBdUIsR0FBRyxTQUExQkEsdUJBQXVCQSxDQUFJQyxLQUFLLEVBQUs7RUFBQU4sYUFBQSxHQUFBTyxDQUFBO0VBQUFQLGFBQUEsR0FBQUMsQ0FBQTtFQUFBLE9BQUFDLE9BQU8sQ0FBQ0ksS0FBSyxDQUFDO0FBQUQsQ0FBQztBQUFDTixhQUFBLEdBQUFDLENBQUE7QUFDMUQsSUFBTU8sNEJBQTRCLEdBQUcsU0FBL0JBLDRCQUE0QkEsQ0FBSUYsS0FBSyxFQUFLO0VBQUFOLGFBQUEsR0FBQU8sQ0FBQTtFQUFBUCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBRSxZQUFZLENBQUNHLEtBQUssQ0FBQztBQUFELENBQUM7QUFBQ04sYUFBQSxHQUFBQyxDQUFBO0FBQ3BFLElBQU1RLCtCQUErQixHQUFHLFNBQWxDQSwrQkFBK0JBLENBQUlILEtBQUssRUFBSztFQUFBTixhQUFBLEdBQUFPLENBQUE7RUFBQVAsYUFBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQUcsZUFBZSxDQUFDRSxLQUFLLENBQUM7QUFBRCxDQUFDO0FBRXpFLFNBQVNELHVCQUF1QixFQUFFRyw0QkFBNEIsRUFBRUMsK0JBQStCIiwiaWdub3JlTGlzdCI6W119

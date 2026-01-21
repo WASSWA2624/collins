@@ -1,0 +1,48 @@
+15408133b4eeeba1dcf5b0f1f2de7941
+function cov_4ln2mws9t() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-result\\radiology-result.api.js";
+  var hash = "c62dc70b6e4fe7942772a42538ec0bf57ad9cda2";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-result\\radiology-result.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 27
+        },
+        end: {
+          line: 8,
+          column: 69
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "c62dc70b6e4fe7942772a42538ec0bf57ad9cda2"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_4ln2mws9t = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_4ln2mws9t();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var radiologyResultApi = (cov_4ln2mws9t().s[0]++, createCrudApi(endpoints.RADIOLOGY_RESULTS));
+export { radiologyResultApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwicmFkaW9sb2d5UmVzdWx0QXBpIiwiY292XzRsbjJtd3M5dCIsInMiLCJSQURJT0xPR1lfUkVTVUxUUyJdLCJzb3VyY2VzIjpbInJhZGlvbG9neS1yZXN1bHQuYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBSYWRpb2xvZ3kgUmVzdWx0IEFQSVxyXG4gKiBGaWxlOiByYWRpb2xvZ3ktcmVzdWx0LmFwaS5qc1xyXG4gKi9cclxuaW1wb3J0IHsgZW5kcG9pbnRzIH0gZnJvbSAnQGNvbmZpZy9lbmRwb2ludHMnO1xyXG5pbXBvcnQgeyBjcmVhdGVDcnVkQXBpIH0gZnJvbSAnQHNlcnZpY2VzL2FwaSc7XHJcblxyXG5jb25zdCByYWRpb2xvZ3lSZXN1bHRBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5SQURJT0xPR1lfUkVTVUxUUyk7XHJcblxyXG5leHBvcnQgeyByYWRpb2xvZ3lSZXN1bHRBcGkgfTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxTQUFTQSxTQUFTO0FBQ2xCLFNBQVNDLGFBQWE7QUFFdEIsSUFBTUMsa0JBQWtCLElBQUFDLGFBQUEsR0FBQUMsQ0FBQSxPQUFHSCxhQUFhLENBQUNELFNBQVMsQ0FBQ0ssaUJBQWlCLENBQUM7QUFFckUsU0FBU0gsa0JBQWtCIiwiaWdub3JlTGlzdCI6W119

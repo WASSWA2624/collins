@@ -1,0 +1,157 @@
+742008636dc095191126d9d8664dc49b
+function cov_2r6kr5ex4w() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-result\\radiology-result.model.js";
+  var hash = "f796b933ce02c41a87418d194070ce68ea3dd66d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\radiology-result\\radiology-result.model.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 37
+        },
+        end: {
+          line: 7,
+          column: 54
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 33
+        },
+        end: {
+          line: 9,
+          column: 60
+        }
+      },
+      "2": {
+        start: {
+          line: 9,
+          column: 44
+        },
+        end: {
+          line: 9,
+          column: 60
+        }
+      },
+      "3": {
+        start: {
+          line: 10,
+          column: 37
+        },
+        end: {
+          line: 10,
+          column: 68
+        }
+      },
+      "4": {
+        start: {
+          line: 10,
+          column: 48
+        },
+        end: {
+          line: 10,
+          column: 68
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 9,
+            column: 33
+          },
+          end: {
+            line: 9,
+            column: 34
+          }
+        },
+        loc: {
+          start: {
+            line: 9,
+            column: 44
+          },
+          end: {
+            line: 9,
+            column: 60
+          }
+        },
+        line: 9
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 10,
+            column: 37
+          },
+          end: {
+            line: 10,
+            column: 38
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 48
+          },
+          end: {
+            line: 10,
+            column: 68
+          }
+        },
+        line: 10
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f796b933ce02c41a87418d194070ce68ea3dd66d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2r6kr5ex4w = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2r6kr5ex4w();
+import { createCrudModel } from "../../utils/crudModel";
+var _ref = (cov_2r6kr5ex4w().s[0]++, createCrudModel()),
+  normalize = _ref.normalize,
+  normalizeList = _ref.normalizeList;
+cov_2r6kr5ex4w().s[1]++;
+var normalizeRadiologyResult = function normalizeRadiologyResult(value) {
+  cov_2r6kr5ex4w().f[0]++;
+  cov_2r6kr5ex4w().s[2]++;
+  return normalize(value);
+};
+cov_2r6kr5ex4w().s[3]++;
+var normalizeRadiologyResultList = function normalizeRadiologyResultList(value) {
+  cov_2r6kr5ex4w().f[1]++;
+  cov_2r6kr5ex4w().s[4]++;
+  return normalizeList(value);
+};
+export { normalizeRadiologyResult, normalizeRadiologyResultList };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjcmVhdGVDcnVkTW9kZWwiLCJfcmVmIiwiY292XzJyNmtyNWV4NHciLCJzIiwibm9ybWFsaXplIiwibm9ybWFsaXplTGlzdCIsIm5vcm1hbGl6ZVJhZGlvbG9neVJlc3VsdCIsInZhbHVlIiwiZiIsIm5vcm1hbGl6ZVJhZGlvbG9neVJlc3VsdExpc3QiXSwic291cmNlcyI6WyJyYWRpb2xvZ3ktcmVzdWx0Lm1vZGVsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBSYWRpb2xvZ3kgUmVzdWx0IE1vZGVsXHJcbiAqIEZpbGU6IHJhZGlvbG9neS1yZXN1bHQubW9kZWwuanNcclxuICovXHJcbmltcG9ydCB7IGNyZWF0ZUNydWRNb2RlbCB9IGZyb20gJ0B1dGlscy9jcnVkTW9kZWwnO1xyXG5cclxuY29uc3QgeyBub3JtYWxpemUsIG5vcm1hbGl6ZUxpc3QgfSA9IGNyZWF0ZUNydWRNb2RlbCgpO1xyXG5cclxuY29uc3Qgbm9ybWFsaXplUmFkaW9sb2d5UmVzdWx0ID0gKHZhbHVlKSA9PiBub3JtYWxpemUodmFsdWUpO1xyXG5jb25zdCBub3JtYWxpemVSYWRpb2xvZ3lSZXN1bHRMaXN0ID0gKHZhbHVlKSA9PiBub3JtYWxpemVMaXN0KHZhbHVlKTtcclxuXHJcbmV4cG9ydCB7IG5vcm1hbGl6ZVJhZGlvbG9neVJlc3VsdCwgbm9ybWFsaXplUmFkaW9sb2d5UmVzdWx0TGlzdCB9O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLFNBQVNBLGVBQWU7QUFFeEIsSUFBQUMsSUFBQSxJQUFBQyxjQUFBLEdBQUFDLENBQUEsT0FBcUNILGVBQWUsQ0FBQyxDQUFDO0VBQTlDSSxTQUFTLEdBQUFILElBQUEsQ0FBVEcsU0FBUztFQUFFQyxhQUFhLEdBQUFKLElBQUEsQ0FBYkksYUFBYTtBQUF1QkgsY0FBQSxHQUFBQyxDQUFBO0FBRXZELElBQU1HLHdCQUF3QixHQUFHLFNBQTNCQSx3QkFBd0JBLENBQUlDLEtBQUssRUFBSztFQUFBTCxjQUFBLEdBQUFNLENBQUE7RUFBQU4sY0FBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQUMsU0FBUyxDQUFDRyxLQUFLLENBQUM7QUFBRCxDQUFDO0FBQUNMLGNBQUEsR0FBQUMsQ0FBQTtBQUM3RCxJQUFNTSw0QkFBNEIsR0FBRyxTQUEvQkEsNEJBQTRCQSxDQUFJRixLQUFLLEVBQUs7RUFBQUwsY0FBQSxHQUFBTSxDQUFBO0VBQUFOLGNBQUEsR0FBQUMsQ0FBQTtFQUFBLE9BQUFFLGFBQWEsQ0FBQ0UsS0FBSyxDQUFDO0FBQUQsQ0FBQztBQUVwRSxTQUFTRCx3QkFBd0IsRUFBRUcsNEJBQTRCIiwiaWdub3JlTGlzdCI6W119
