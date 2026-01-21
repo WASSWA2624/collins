@@ -1,0 +1,97 @@
+3ad1aee0c4aed54e8726ebbe4bdab6da
+function cov_ydhiez6an() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAvailabilitySlot.js";
+  var hash = "bf3a88002032ed8ee490763352307a6505d2aea9";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAvailabilitySlot.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 28
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 28
+          },
+          end: {
+            line: 14,
+            column: 29
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "bf3a88002032ed8ee490763352307a6505d2aea9"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_ydhiez6an = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_ydhiez6an();
+import useCrud from "./useCrud";
+import { createAvailabilitySlot, deleteAvailabilitySlot, getAvailabilitySlot, listAvailabilitySlots, updateAvailabilitySlot } from "../features/availability-slot";
+cov_ydhiez6an().s[0]++;
+var useAvailabilitySlot = function useAvailabilitySlot() {
+  cov_ydhiez6an().f[0]++;
+  cov_ydhiez6an().s[1]++;
+  return useCrud({
+    list: listAvailabilitySlots,
+    get: getAvailabilitySlot,
+    create: createAvailabilitySlot,
+    update: updateAvailabilitySlot,
+    remove: deleteAvailabilitySlot
+  });
+};
+export default useAvailabilitySlot;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlQXZhaWxhYmlsaXR5U2xvdCIsImRlbGV0ZUF2YWlsYWJpbGl0eVNsb3QiLCJnZXRBdmFpbGFiaWxpdHlTbG90IiwibGlzdEF2YWlsYWJpbGl0eVNsb3RzIiwidXBkYXRlQXZhaWxhYmlsaXR5U2xvdCIsImNvdl95ZGhpZXo2YW4iLCJzIiwidXNlQXZhaWxhYmlsaXR5U2xvdCIsImYiLCJsaXN0IiwiZ2V0IiwiY3JlYXRlIiwidXBkYXRlIiwicmVtb3ZlIl0sInNvdXJjZXMiOlsidXNlQXZhaWxhYmlsaXR5U2xvdC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlQXZhaWxhYmlsaXR5U2xvdCBIb29rXHJcbiAqIEZpbGU6IHVzZUF2YWlsYWJpbGl0eVNsb3QuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVBdmFpbGFiaWxpdHlTbG90LFxyXG4gIGRlbGV0ZUF2YWlsYWJpbGl0eVNsb3QsXHJcbiAgZ2V0QXZhaWxhYmlsaXR5U2xvdCxcclxuICBsaXN0QXZhaWxhYmlsaXR5U2xvdHMsXHJcbiAgdXBkYXRlQXZhaWxhYmlsaXR5U2xvdCxcclxufSBmcm9tICdAZmVhdHVyZXMvYXZhaWxhYmlsaXR5LXNsb3QnO1xyXG5cclxuY29uc3QgdXNlQXZhaWxhYmlsaXR5U2xvdCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0QXZhaWxhYmlsaXR5U2xvdHMsXHJcbiAgICBnZXQ6IGdldEF2YWlsYWJpbGl0eVNsb3QsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUF2YWlsYWJpbGl0eVNsb3QsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZUF2YWlsYWJpbGl0eVNsb3QsXHJcbiAgICByZW1vdmU6IGRlbGV0ZUF2YWlsYWJpbGl0eVNsb3QsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VBdmFpbGFiaWxpdHlTbG90O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsT0FBT0EsT0FBTztBQUNkLFNBQ0VDLHNCQUFzQixFQUN0QkMsc0JBQXNCLEVBQ3RCQyxtQkFBbUIsRUFDbkJDLHFCQUFxQixFQUNyQkMsc0JBQXNCO0FBQ2FDLGFBQUEsR0FBQUMsQ0FBQTtBQUVyQyxJQUFNQyxtQkFBbUIsR0FBRyxTQUF0QkEsbUJBQW1CQSxDQUFBLEVBQ3ZCO0VBQUFGLGFBQUEsR0FBQUcsQ0FBQTtFQUFBSCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBUCxPQUFPLENBQUM7SUFDTlUsSUFBSSxFQUFFTixxQkFBcUI7SUFDM0JPLEdBQUcsRUFBRVIsbUJBQW1CO0lBQ3hCUyxNQUFNLEVBQUVYLHNCQUFzQjtJQUM5QlksTUFBTSxFQUFFUixzQkFBc0I7SUFDOUJTLE1BQU0sRUFBRVo7RUFDVixDQUFDLENBQUM7QUFBRCxDQUFDO0FBRUosZUFBZU0sbUJBQW1CIiwiaWdub3JlTGlzdCI6W119

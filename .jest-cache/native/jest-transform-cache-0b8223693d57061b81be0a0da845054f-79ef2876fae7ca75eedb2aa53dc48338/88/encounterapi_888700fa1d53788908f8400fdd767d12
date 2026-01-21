@@ -1,0 +1,48 @@
+06ec04437cb535ef733e88eae532f34e
+function cov_kw8efpcut() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\encounter\\encounter.api.js";
+  var hash = "ed4af72382ccb0b02bc099606a03744ba9cdaa0f";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\encounter\\encounter.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 21
+        },
+        end: {
+          line: 8,
+          column: 56
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "ed4af72382ccb0b02bc099606a03744ba9cdaa0f"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_kw8efpcut = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_kw8efpcut();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var encounterApi = (cov_kw8efpcut().s[0]++, createCrudApi(endpoints.ENCOUNTERS));
+export { encounterApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiZW5jb3VudGVyQXBpIiwiY292X2t3OGVmcGN1dCIsInMiLCJFTkNPVU5URVJTIl0sInNvdXJjZXMiOlsiZW5jb3VudGVyLmFwaS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogRW5jb3VudGVyIEFQSVxyXG4gKiBGaWxlOiBlbmNvdW50ZXIuYXBpLmpzXHJcbiAqL1xyXG5pbXBvcnQgeyBlbmRwb2ludHMgfSBmcm9tICdAY29uZmlnL2VuZHBvaW50cyc7XHJcbmltcG9ydCB7IGNyZWF0ZUNydWRBcGkgfSBmcm9tICdAc2VydmljZXMvYXBpJztcclxuXHJcbmNvbnN0IGVuY291bnRlckFwaSA9IGNyZWF0ZUNydWRBcGkoZW5kcG9pbnRzLkVOQ09VTlRFUlMpO1xyXG5cclxuZXhwb3J0IHsgZW5jb3VudGVyQXBpIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsU0FBUztBQUNsQixTQUFTQyxhQUFhO0FBRXRCLElBQU1DLFlBQVksSUFBQUMsYUFBQSxHQUFBQyxDQUFBLE9BQUdILGFBQWEsQ0FBQ0QsU0FBUyxDQUFDSyxVQUFVLENBQUM7QUFFeEQsU0FBU0gsWUFBWSIsImlnbm9yZUxpc3QiOltdfQ==

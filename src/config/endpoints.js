@@ -378,6 +378,27 @@ export const endpoints = {
     UPDATE: (id) => `${baseUrl}/transfer-requests/${id}`,
     DELETE: (id) => `${baseUrl}/transfer-requests/${id}`,
   },
+  ICU_STAYS: {
+    LIST: `${baseUrl}/icu-stays`,
+    CREATE: `${baseUrl}/icu-stays`,
+    GET: (id) => `${baseUrl}/icu-stays/${id}`,
+    UPDATE: (id) => `${baseUrl}/icu-stays/${id}`,
+    DELETE: (id) => `${baseUrl}/icu-stays/${id}`,
+  },
+  ICU_OBSERVATIONS: {
+    LIST: `${baseUrl}/icu-observations`,
+    CREATE: `${baseUrl}/icu-observations`,
+    GET: (id) => `${baseUrl}/icu-observations/${id}`,
+    UPDATE: (id) => `${baseUrl}/icu-observations/${id}`,
+    DELETE: (id) => `${baseUrl}/icu-observations/${id}`,
+  },
+  CRITICAL_ALERTS: {
+    LIST: `${baseUrl}/critical-alerts`,
+    CREATE: `${baseUrl}/critical-alerts`,
+    GET: (id) => `${baseUrl}/critical-alerts/${id}`,
+    UPDATE: (id) => `${baseUrl}/critical-alerts/${id}`,
+    DELETE: (id) => `${baseUrl}/critical-alerts/${id}`,
+  },
   USERS: {
     GET: (id) => `${baseUrl}/users/${id}`,
     LIST: `${baseUrl}/users`,

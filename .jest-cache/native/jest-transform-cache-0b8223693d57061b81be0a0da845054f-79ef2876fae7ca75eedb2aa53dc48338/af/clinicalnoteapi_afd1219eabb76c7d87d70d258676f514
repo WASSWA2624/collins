@@ -1,0 +1,48 @@
+41ebec8181f733a30781a33e80bc57da
+function cov_c7d5rgvps() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\clinical-note\\clinical-note.api.js";
+  var hash = "8d4b5779858977913504620b27bbdc3e31adfabd";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\clinical-note\\clinical-note.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 24
+        },
+        end: {
+          line: 8,
+          column: 63
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "8d4b5779858977913504620b27bbdc3e31adfabd"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_c7d5rgvps = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_c7d5rgvps();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var clinicalNoteApi = (cov_c7d5rgvps().s[0]++, createCrudApi(endpoints.CLINICAL_NOTES));
+export { clinicalNoteApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiY2xpbmljYWxOb3RlQXBpIiwiY292X2M3ZDVyZ3ZwcyIsInMiLCJDTElOSUNBTF9OT1RFUyJdLCJzb3VyY2VzIjpbImNsaW5pY2FsLW5vdGUuYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBDbGluaWNhbCBOb3RlIEFQSVxyXG4gKiBGaWxlOiBjbGluaWNhbC1ub3RlLmFwaS5qc1xyXG4gKi9cclxuaW1wb3J0IHsgZW5kcG9pbnRzIH0gZnJvbSAnQGNvbmZpZy9lbmRwb2ludHMnO1xyXG5pbXBvcnQgeyBjcmVhdGVDcnVkQXBpIH0gZnJvbSAnQHNlcnZpY2VzL2FwaSc7XHJcblxyXG5jb25zdCBjbGluaWNhbE5vdGVBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5DTElOSUNBTF9OT1RFUyk7XHJcblxyXG5leHBvcnQgeyBjbGluaWNhbE5vdGVBcGkgfTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxTQUFTQSxTQUFTO0FBQ2xCLFNBQVNDLGFBQWE7QUFFdEIsSUFBTUMsZUFBZSxJQUFBQyxhQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLGNBQWMsQ0FBQztBQUUvRCxTQUFTSCxlQUFlIiwiaWdub3JlTGlzdCI6W119

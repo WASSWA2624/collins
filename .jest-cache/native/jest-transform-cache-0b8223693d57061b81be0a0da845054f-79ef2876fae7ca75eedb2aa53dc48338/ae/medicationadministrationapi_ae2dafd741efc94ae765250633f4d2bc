@@ -1,0 +1,48 @@
+c0c593fab5a0ffa1cfafa8710670536c
+function cov_25xos34xic() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\medication-administration\\medication-administration.api.js";
+  var hash = "b885e139ceb596ce0571518fbba5907274f009e2";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\medication-administration\\medication-administration.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 36
+        },
+        end: {
+          line: 8,
+          column: 87
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "b885e139ceb596ce0571518fbba5907274f009e2"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_25xos34xic = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_25xos34xic();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var medicationAdministrationApi = (cov_25xos34xic().s[0]++, createCrudApi(endpoints.MEDICATION_ADMINISTRATIONS));
+export { medicationAdministrationApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwibWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uQXBpIiwiY292XzI1eG9zMzR4aWMiLCJzIiwiTUVESUNBVElPTl9BRE1JTklTVFJBVElPTlMiXSwic291cmNlcyI6WyJtZWRpY2F0aW9uLWFkbWluaXN0cmF0aW9uLmFwaS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogTWVkaWNhdGlvbiBBZG1pbmlzdHJhdGlvbiBBUElcclxuICogRmlsZTogbWVkaWNhdGlvbi1hZG1pbmlzdHJhdGlvbi5hcGkuanNcclxuICovXHJcbmltcG9ydCB7IGVuZHBvaW50cyB9IGZyb20gJ0Bjb25maWcvZW5kcG9pbnRzJztcclxuaW1wb3J0IHsgY3JlYXRlQ3J1ZEFwaSB9IGZyb20gJ0BzZXJ2aWNlcy9hcGknO1xyXG5cclxuY29uc3QgbWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uQXBpID0gY3JlYXRlQ3J1ZEFwaShlbmRwb2ludHMuTUVESUNBVElPTl9BRE1JTklTVFJBVElPTlMpO1xyXG5cclxuZXhwb3J0IHsgbWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uQXBpIH07XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsU0FBU0EsU0FBUztBQUNsQixTQUFTQyxhQUFhO0FBRXRCLElBQU1DLDJCQUEyQixJQUFBQyxjQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLDBCQUEwQixDQUFDO0FBRXZGLFNBQVNILDJCQUEyQiIsImlnbm9yZUxpc3QiOltdfQ==

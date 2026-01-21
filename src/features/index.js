@@ -60,3 +60,6 @@ export * from './nursing-note';
 export * from './medication-administration';
 export * from './discharge-summary';
 export * from './transfer-request';
+export * from './icu-stay';
+export * from './icu-observation';
+export * from './critical-alert';

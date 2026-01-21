@@ -1,0 +1,48 @@
+f02789dd54fdbf82935d85889cdcfee0
+function cov_1wx7kas7vz() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\care-plan\\care-plan.api.js";
+  var hash = "a4783d519e2f2185200090fcd6d8c2ab03bd0354";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\care-plan\\care-plan.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 20
+        },
+        end: {
+          line: 8,
+          column: 55
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a4783d519e2f2185200090fcd6d8c2ab03bd0354"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_1wx7kas7vz = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1wx7kas7vz();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var carePlanApi = (cov_1wx7kas7vz().s[0]++, createCrudApi(endpoints.CARE_PLANS));
+export { carePlanApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiY2FyZVBsYW5BcGkiLCJjb3ZfMXd4N2thczd2eiIsInMiLCJDQVJFX1BMQU5TIl0sInNvdXJjZXMiOlsiY2FyZS1wbGFuLmFwaS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogQ2FyZSBQbGFuIEFQSVxyXG4gKiBGaWxlOiBjYXJlLXBsYW4uYXBpLmpzXHJcbiAqL1xyXG5pbXBvcnQgeyBlbmRwb2ludHMgfSBmcm9tICdAY29uZmlnL2VuZHBvaW50cyc7XHJcbmltcG9ydCB7IGNyZWF0ZUNydWRBcGkgfSBmcm9tICdAc2VydmljZXMvYXBpJztcclxuXHJcbmNvbnN0IGNhcmVQbGFuQXBpID0gY3JlYXRlQ3J1ZEFwaShlbmRwb2ludHMuQ0FSRV9QTEFOUyk7XHJcblxyXG5leHBvcnQgeyBjYXJlUGxhbkFwaSB9O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLFNBQVNBLFNBQVM7QUFDbEIsU0FBU0MsYUFBYTtBQUV0QixJQUFNQyxXQUFXLElBQUFDLGNBQUEsR0FBQUMsQ0FBQSxPQUFHSCxhQUFhLENBQUNELFNBQVMsQ0FBQ0ssVUFBVSxDQUFDO0FBRXZELFNBQVNILFdBQVciLCJpZ25vcmVMaXN0IjpbXX0=

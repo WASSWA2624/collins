@@ -1,0 +1,48 @@
+39e06b3f77cd58eb95ec03da5474dee5
+function cov_ma34nwbes() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\ward-round\\ward-round.api.js";
+  var hash = "dd6c03e77e98a102dbd51decd3b39ad3390a5cf2";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\ward-round\\ward-round.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 21
+        },
+        end: {
+          line: 8,
+          column: 57
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "dd6c03e77e98a102dbd51decd3b39ad3390a5cf2"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_ma34nwbes = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_ma34nwbes();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var wardRoundApi = (cov_ma34nwbes().s[0]++, createCrudApi(endpoints.WARD_ROUNDS));
+export { wardRoundApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwid2FyZFJvdW5kQXBpIiwiY292X21hMzRud2JlcyIsInMiLCJXQVJEX1JPVU5EUyJdLCJzb3VyY2VzIjpbIndhcmQtcm91bmQuYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBXYXJkIFJvdW5kIEFQSVxyXG4gKiBGaWxlOiB3YXJkLXJvdW5kLmFwaS5qc1xyXG4gKi9cclxuaW1wb3J0IHsgZW5kcG9pbnRzIH0gZnJvbSAnQGNvbmZpZy9lbmRwb2ludHMnO1xyXG5pbXBvcnQgeyBjcmVhdGVDcnVkQXBpIH0gZnJvbSAnQHNlcnZpY2VzL2FwaSc7XHJcblxyXG5jb25zdCB3YXJkUm91bmRBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5XQVJEX1JPVU5EUyk7XHJcblxyXG5leHBvcnQgeyB3YXJkUm91bmRBcGkgfTtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxTQUFTQSxTQUFTO0FBQ2xCLFNBQVNDLGFBQWE7QUFFdEIsSUFBTUMsWUFBWSxJQUFBQyxhQUFBLEdBQUFDLENBQUEsT0FBR0gsYUFBYSxDQUFDRCxTQUFTLENBQUNLLFdBQVcsQ0FBQztBQUV6RCxTQUFTSCxZQUFZIiwiaWdub3JlTGlzdCI6W119

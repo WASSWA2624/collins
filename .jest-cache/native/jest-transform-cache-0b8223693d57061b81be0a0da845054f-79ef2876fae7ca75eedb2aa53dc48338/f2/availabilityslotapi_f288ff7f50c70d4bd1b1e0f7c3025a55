@@ -1,0 +1,48 @@
+0349fd91ff672f16cc191c406c93a828
+function cov_e60u4lerv() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\availability-slot\\availability-slot.api.js";
+  var hash = "9544dd1aaa497e1ff4844629ea35342ea9a21498";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\features\\availability-slot\\availability-slot.api.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 28
+        },
+        end: {
+          line: 8,
+          column: 71
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "9544dd1aaa497e1ff4844629ea35342ea9a21498"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_e60u4lerv = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_e60u4lerv();
+import { endpoints } from "../../config/endpoints";
+import { createCrudApi } from "../../services/api";
+var availabilitySlotApi = (cov_e60u4lerv().s[0]++, createCrudApi(endpoints.AVAILABILITY_SLOTS));
+export { availabilitySlotApi };
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJlbmRwb2ludHMiLCJjcmVhdGVDcnVkQXBpIiwiYXZhaWxhYmlsaXR5U2xvdEFwaSIsImNvdl9lNjB1NGxlcnYiLCJzIiwiQVZBSUxBQklMSVRZX1NMT1RTIl0sInNvdXJjZXMiOlsiYXZhaWxhYmlsaXR5LXNsb3QuYXBpLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBBdmFpbGFiaWxpdHkgU2xvdCBBUElcclxuICogRmlsZTogYXZhaWxhYmlsaXR5LXNsb3QuYXBpLmpzXHJcbiAqL1xyXG5pbXBvcnQgeyBlbmRwb2ludHMgfSBmcm9tICdAY29uZmlnL2VuZHBvaW50cyc7XHJcbmltcG9ydCB7IGNyZWF0ZUNydWRBcGkgfSBmcm9tICdAc2VydmljZXMvYXBpJztcclxuXHJcbmNvbnN0IGF2YWlsYWJpbGl0eVNsb3RBcGkgPSBjcmVhdGVDcnVkQXBpKGVuZHBvaW50cy5BVkFJTEFCSUxJVFlfU0xPVFMpO1xyXG5cclxuZXhwb3J0IHsgYXZhaWxhYmlsaXR5U2xvdEFwaSB9O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLFNBQVNBLFNBQVM7QUFDbEIsU0FBU0MsYUFBYTtBQUV0QixJQUFNQyxtQkFBbUIsSUFBQUMsYUFBQSxHQUFBQyxDQUFBLE9BQUdILGFBQWEsQ0FBQ0QsU0FBUyxDQUFDSyxrQkFBa0IsQ0FBQztBQUV2RSxTQUFTSCxtQkFBbUIiLCJpZ25vcmVMaXN0IjpbXX0=
