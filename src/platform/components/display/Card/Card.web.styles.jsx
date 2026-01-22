@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Card Web Styles
  * Styled-components for Web platform
  * File: Card.web.styles.jsx
@@ -28,30 +28,32 @@ const StyledCard = styled.article.withConfig({
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 `;
 
-const StyledCardHeader = styled.header.withConfig({
+const StyledCardHeader = styled.div.withConfig({
   displayName: 'StyledCardHeader',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
-  border-bottom: ${({ hasBody, hasFooter, theme }) => (hasBody || hasFooter ? `1px solid ${theme.colors.background.tertiary}` : 'none')};
+  border-bottom: ${({ $hasBody, $hasFooter, theme }) => ($hasBody || $hasFooter ? `1px solid ${theme.colors.background.tertiary}` : 'none')};
 `;
 
 const StyledCardBody = styled.div.withConfig({
   displayName: 'StyledCardBody',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
-  ${({ hasHeader, hasFooter }) => {
+  ${({ $hasHeader, $hasFooter }) => {
     let styles = '';
-    if (hasHeader) {
+    if ($hasHeader) {
       styles += 'padding-top: 0;';
     }
-    if (hasFooter) {
+    if ($hasFooter) {
       styles += 'padding-bottom: 0;';
     }
     return styles;
   }}
 `;
 
-const StyledCardFooter = styled.footer.withConfig({
+const StyledCardFooter = styled.div.withConfig({
   displayName: 'StyledCardFooter',
 })`
   padding: ${({ theme }) => theme.spacing.md}px;

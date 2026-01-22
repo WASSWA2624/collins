@@ -4,7 +4,7 @@
  * File: usePasswordField.js
  */
 import { useMemo } from 'react';
-import { useTheme } from 'styled-components/native';
+import { useTheme } from '@hooks';
 import { PASSWORD_STRENGTH } from './types';
 
 /**

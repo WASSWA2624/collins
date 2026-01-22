@@ -53,7 +53,11 @@ describe('auth.usecase', () => {
   });
 
   it('logs in and stores tokens', async () => {
-    const user = await loginUseCase({ email: 'user', password: 'pass' });
+    const user = await loginUseCase({
+      email: 'user@example.com',
+      password: 'pass',
+      tenant_id: '550e8400-e29b-41d4-a716-446655440000'
+    });
     expect(user).toEqual({ id: '1' });
     expect(tokenManager.setTokens).toHaveBeenCalledWith('a', 'b');
   });
@@ -74,7 +78,11 @@ describe('auth.usecase', () => {
 
   it('throws normalized errors', async () => {
     loginApi.mockRejectedValueOnce({ code: 'UNAUTHORIZED' });
-    await expect(loginUseCase({ email: 'user', password: 'pass' })).rejects.toMatchObject({
+    await expect(loginUseCase({
+      email: 'user@example.com',
+      password: 'pass',
+      tenant_id: '550e8400-e29b-41d4-a716-446655440000'
+    })).rejects.toMatchObject({
       code: 'UNAUTHORIZED',
     });
   });

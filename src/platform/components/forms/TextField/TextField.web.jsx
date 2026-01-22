@@ -128,7 +128,7 @@ const TextFieldWeb = ({
           {required && <StyledRequiredIndicator aria-hidden="true"> *</StyledRequiredIndicator>}
         </StyledLabel>
       )}
-      <StyledInputContainer validationState={finalValidationState} isFocused={isFocused}>
+      <StyledInputContainer $validationState={finalValidationState} $isFocused={isFocused}>
         {prefix && <StyledPrefix>{prefix}</StyledPrefix>}
         <StyledInput
           id={inputId}
@@ -153,7 +153,7 @@ const TextFieldWeb = ({
       </StyledInputContainer>
       {displayHelperText && (
         <StyledHelperText
-          validationState={finalValidationState}
+          $validationState={finalValidationState}
           id={helperId}
         >
           {displayHelperText}

@@ -11,12 +11,14 @@ import { render } from '@testing-library/react-native';
 import PatientRouteLayoutWeb from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.web';
 import PatientRouteLayoutAndroid from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.android';
 import PatientRouteLayoutIOS from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.ios';
+import { useAuth } from '@hooks';
 import { useAuthGuard } from '@navigation/guards';
 import { GlobalHeader, TabBar, Sidebar } from '@platform/components';
 
 const mockEnTranslations = require('@i18n/locales/en.json');
 
 jest.mock('@hooks', () => ({
+  useAuth: jest.fn(),
   useI18n: () => ({
     t: (key) => {
       const keys = key.split('.');
@@ -104,6 +106,10 @@ jest.mock('@platform/layouts', () => {
 });
 
 jest.mock('expo-router', () => ({
+  useRouter: jest.fn(() => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+  })),
   Slot: ({ children, testID }) => (
     <div data-testid={testID || 'slot'} testID={testID || 'slot'}>
       {children || 'Mock Slot'}
@@ -114,6 +120,7 @@ jest.mock('expo-router', () => ({
 describe('PatientLayout with Navigation', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn() });
     useAuthGuard.mockReturnValue({
       authenticated: true,
       user: { id: 'patient-1', role: 'patient' },
@@ -127,6 +134,15 @@ describe('PatientLayout with Navigation', () => {
     expect(getByTestId('slot')).toBeDefined();
   });
 
+  it('passes logout action when authenticated on web', () => {
+    render(<PatientRouteLayoutWeb />);
+    const headerCall = GlobalHeader.mock.calls[0];
+    const actionIds = headerCall[0].actions.map((action) => action.id);
+    expect(actionIds).toContain('logout');
+    expect(actionIds).not.toContain('login');
+    expect(actionIds).not.toContain('register');
+  });
+
   it('renders TabBar and GlobalHeader on Android', () => {
     const { getByTestId } = render(<PatientRouteLayoutAndroid />);
     expect(TabBar).toHaveBeenCalled();
@@ -134,11 +150,29 @@ describe('PatientLayout with Navigation', () => {
     expect(getByTestId('slot')).toBeDefined();
   });
 
+  it('passes logout action when authenticated on Android', () => {
+    render(<PatientRouteLayoutAndroid />);
+    const headerCall = GlobalHeader.mock.calls[0];
+    const actionIds = headerCall[0].actions.map((action) => action.id);
+    expect(actionIds).toContain('logout');
+    expect(actionIds).not.toContain('login');
+    expect(actionIds).not.toContain('register');
+  });
+
   it('renders TabBar and GlobalHeader on iOS', () => {
     const { getByTestId } = render(<PatientRouteLayoutIOS />);
     expect(TabBar).toHaveBeenCalled();
     expect(GlobalHeader).toHaveBeenCalled();
     expect(getByTestId('slot')).toBeDefined();
+  });
+
+  it('passes logout action when authenticated on iOS', () => {
+    render(<PatientRouteLayoutIOS />);
+    const headerCall = GlobalHeader.mock.calls[0];
+    const actionIds = headerCall[0].actions.map((action) => action.id);
+    expect(actionIds).toContain('logout');
+    expect(actionIds).not.toContain('login');
+    expect(actionIds).not.toContain('register');
   });
 
   it('passes accessibility labels to header and sidebar', () => {

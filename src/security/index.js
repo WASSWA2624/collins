@@ -21,4 +21,5 @@ export {
 } from './token.manager';
 
 export * from './encryption';
+export * from './biometric';
 

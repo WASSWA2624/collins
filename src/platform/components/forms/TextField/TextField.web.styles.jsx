@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TextField Web Styles
  * Styled-components for Web platform
  * File: TextField.web.styles.jsx
@@ -37,6 +37,7 @@ const StyledRequiredIndicator = styled.span.withConfig({
 const StyledInputContainer = styled.div.withConfig({
   displayName: 'StyledInputContainer',
   componentId: 'StyledInputContainer',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   position: relative;
   display: flex;
@@ -46,19 +47,19 @@ const StyledInputContainer = styled.div.withConfig({
   border-style: solid;
   border-radius: ${({ theme }) => theme.radius.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-color: ${({ validationState, isFocused, theme }) => {
-    if (validationState === 'error') return theme.colors.error;
-    if (validationState === 'success') return theme.colors.success;
-    if (isFocused) return theme.colors.primary;
+  border-color: ${({ $validationState, $isFocused, theme }) => {
+    if ($validationState === 'error') return theme.colors.error;
+    if ($validationState === 'success') return theme.colors.success;
+    if ($isFocused) return theme.colors.primary;
     return theme.colors.background.tertiary;
   }};
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   min-height: 48px;
 
   &:focus-within {
-    border-color: ${({ validationState, theme }) => {
-      if (validationState === 'error') return theme.colors.error;
-      if (validationState === 'success') return theme.colors.success;
+    border-color: ${({ $validationState, theme }) => {
+      if ($validationState === 'error') return theme.colors.error;
+      if ($validationState === 'success') return theme.colors.success;
       return theme.colors.primary;
     }};
     outline: none;
@@ -110,12 +111,13 @@ const StyledSuffix = styled.span.withConfig({
 const StyledHelperText = styled.div.withConfig({
   displayName: 'StyledHelperText',
   componentId: 'StyledHelperText',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
-  color: ${({ validationState, theme }) => {
-    if (validationState === 'error') return theme.colors.error;
-    if (validationState === 'success') return theme.colors.success;
+  color: ${({ $validationState, theme }) => {
+    if ($validationState === 'error') return theme.colors.error;
+    if ($validationState === 'success') return theme.colors.success;
     return theme.colors.text.secondary;
   }};
   margin-top: ${({ theme }) => theme.spacing.xs}px;

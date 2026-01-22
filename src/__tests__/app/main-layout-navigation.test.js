@@ -16,6 +16,7 @@ import { renderWithProviders } from '../helpers/test-utils';
 import MainRouteLayoutWeb from '@platform/layouts/route-layouts/MainRouteLayout/MainRouteLayout.web';
 import MainRouteLayoutAndroid from '@platform/layouts/route-layouts/MainRouteLayout/MainRouteLayout.android';
 import MainRouteLayoutIOS from '@platform/layouts/route-layouts/MainRouteLayout/MainRouteLayout.ios';
+import { useAuth } from '@hooks';
 import { useAuthGuard } from '@navigation/guards';
 import { GlobalHeader, TabBar, Sidebar } from '@platform/components';
 import { Slot } from 'expo-router';
@@ -23,6 +24,7 @@ import { Slot } from 'expo-router';
 // Mock dependencies
 const mockEnTranslations = require('@i18n/locales/en.json');
 jest.mock('@hooks', () => ({
+  useAuth: jest.fn(),
   useI18n: () => ({
     t: (key) => {
       const keys = key.split('.');
@@ -133,6 +135,7 @@ describe('MainLayout with Navigation Skeleton', () => {
     jest.clearAllMocks();
 
     // Default: authenticated
+    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: [] });
     useAuthGuard.mockReturnValue({
       authenticated: true,
       user: { id: '1', email: 'test@example.com' },
@@ -176,6 +179,15 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).not.toHaveBeenCalled();
     });
 
+    it('should pass logout action when authenticated on iOS', () => {
+      renderWithProviders(<MainRouteLayoutIOS />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = headerCall[0].actions.map((action) => action.id);
+      expect(actionIds).toContain('logout');
+      expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('register');
+    });
+
     it('should render correct layout structure on Android', () => {
       const { getByTestId } = renderWithProviders(<MainRouteLayoutAndroid />);
 
@@ -183,6 +195,15 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(TabBar).toHaveBeenCalled();
       expect(Sidebar).not.toHaveBeenCalled();
       expect(getByTestId('slot')).toBeDefined();
+    });
+
+    it('should pass logout action when authenticated on Android', () => {
+      renderWithProviders(<MainRouteLayoutAndroid />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = headerCall[0].actions.map((action) => action.id);
+      expect(actionIds).toContain('logout');
+      expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('register');
     });
 
     it('should render GlobalHeader with correct accessibility props on Android', () => {
@@ -239,6 +260,15 @@ describe('MainLayout with Navigation Skeleton', () => {
       });
     });
 
+    it('should pass logout action when authenticated on web', () => {
+      renderWithProviders(<MainRouteLayoutWeb />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = headerCall[0].actions.map((action) => action.id);
+      expect(actionIds).toContain('logout');
+      expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('register');
+    });
+
     it('should not render TabBar on web platform', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
 
@@ -252,6 +282,25 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       expect(TabBar).not.toHaveBeenCalled();
       expect(getByTestId('slot')).toBeDefined();
+    });
+
+    it('should pass login action when unauthenticated on web', () => {
+      useAuth.mockReturnValue({ isAuthenticated: false, logout: jest.fn(), roles: [] });
+      useAuthGuard.mockReturnValue({ authenticated: false, user: null });
+      renderWithProviders(<MainRouteLayoutWeb />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = headerCall[0].actions.map((action) => action.id);
+      expect(actionIds).toContain('login');
+      expect(actionIds).not.toContain('logout');
+    });
+
+    it('should include register action for allowed roles on web', () => {
+      useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: ['admin'] });
+      renderWithProviders(<MainRouteLayoutWeb />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = headerCall[0].actions.map((action) => action.id);
+      expect(actionIds).toContain('register');
+      expect(actionIds).toContain('logout');
     });
   });
 

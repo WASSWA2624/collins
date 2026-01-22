@@ -14,8 +14,9 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { act } from 'react-test-renderer';
 import AuthLayout from '@app/(auth)/_layout';
+import { useAuth } from '@hooks';
 import { useAuthGuard } from '@navigation/guards';
-import { useRouter } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
 
 // Mock dependencies
 jest.mock('@navigation/guards', () => ({
@@ -24,16 +25,33 @@ jest.mock('@navigation/guards', () => ({
 
 jest.mock('expo-router', () => ({
   useRouter: jest.fn(),
+  usePathname: jest.fn(() => '/login'),
   Slot: ({ children }) => children || null,
 }));
 
 jest.mock('@hooks', () => ({
+  useAuth: jest.fn(),
   useI18n: () => ({
     t: (key) => key,
     locale: 'en',
   }),
   useUiState: () => ({ isLoading: false }),
   useShellBanners: () => [],
+}));
+
+jest.mock('@platform/components', () => ({
+  GlobalHeader: jest.fn(({ children, ...props }) => (
+    <div {...props}>{children || 'GlobalHeader'}</div>
+  )),
+  LoadingOverlay: jest.fn(({ children, ...props }) => (
+    <div {...props}>{children || 'LoadingOverlay'}</div>
+  )),
+  NoticeSurface: jest.fn(({ children, ...props }) => (
+    <div {...props}>{children || 'NoticeSurface'}</div>
+  )),
+  ShellBanners: jest.fn(({ children, ...props }) => (
+    <div {...props}>{children || 'ShellBanners'}</div>
+  )),
 }));
 
 describe('AuthLayout with Auth Guard', () => {
@@ -49,8 +67,10 @@ describe('AuthLayout with Auth Guard', () => {
       push: jest.fn(),
     };
     useRouter.mockReturnValue(mockRouter);
+    usePathname.mockReturnValue('/login');
 
     // Default: unauthenticated
+    useAuth.mockReturnValue({ isAuthenticated: false, logout: jest.fn(), roles: [] });
     useAuthGuard.mockReturnValue({
       authenticated: false,
       user: null,
@@ -72,6 +92,36 @@ describe('AuthLayout with Auth Guard', () => {
   });
 
   it('should redirect authenticated users to home route', async () => {
+    useAuthGuard.mockReturnValue({
+      authenticated: true,
+      user: { id: '1', email: 'test@example.com' },
+    });
+
+    render(<AuthLayout />);
+
+    await waitFor(() => {
+      expect(mockRouter.replace).toHaveBeenCalledWith('/home');
+    });
+  });
+
+  it('should allow register route for authorized roles', async () => {
+    usePathname.mockReturnValue('/register');
+    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: ['admin'] });
+    useAuthGuard.mockReturnValue({
+      authenticated: true,
+      user: { id: '1', email: 'test@example.com' },
+    });
+
+    render(<AuthLayout />);
+
+    await waitFor(() => {
+      expect(mockRouter.replace).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should redirect from register route without access', async () => {
+    usePathname.mockReturnValue('/register');
+    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: [] });
     useAuthGuard.mockReturnValue({
       authenticated: true,
       user: { id: '1', email: 'test@example.com' },
@@ -194,6 +244,30 @@ describe('AuthLayout with Auth Guard', () => {
     render(<AuthLayout />);
 
     expect(useAuthGuard).toHaveBeenCalled();
+  });
+
+  it('should pass login action when unauthenticated', () => {
+    render(<AuthLayout />);
+    const GlobalHeader = require('@platform/components').GlobalHeader;
+    const headerCall = GlobalHeader.mock.calls[0];
+    const actionIds = headerCall[0].actions.map((action) => action.id);
+    expect(actionIds).toContain('login');
+    expect(actionIds).not.toContain('logout');
+  });
+
+  it('should pass logout action when authenticated', () => {
+    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: ['admin'] });
+    useAuthGuard.mockReturnValue({
+      authenticated: true,
+      user: { id: '1', email: 'test@example.com' },
+    });
+    render(<AuthLayout />);
+    const GlobalHeader = require('@platform/components').GlobalHeader;
+    const headerCall = GlobalHeader.mock.calls[0];
+    const actionIds = headerCall[0].actions.map((action) => action.id);
+    expect(actionIds).toContain('logout');
+    expect(actionIds).not.toContain('login');
+    expect(actionIds).not.toContain('register');
   });
 
   it('should call useRouter hook', () => {

@@ -17,8 +17,9 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Slot, useRouter } from 'expo-router';
 import { useWindowDimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useFocusTrap, useI18n, usePrimaryNavigation, useShellBanners, useUiState } from '@hooks';
+import { useAuth, useFocusTrap, useI18n, usePrimaryNavigation, useShellBanners, useUiState } from '@hooks';
 import { useAuthGuard } from '@navigation/guards';
+import { AUTH } from '@config';
 import breakpoints from '@theme/breakpoints';
 import { AppFrame } from '@platform/layouts';
 import {
@@ -103,6 +104,12 @@ const MainRouteLayoutWeb = () => {
     isHeaderHidden,
     headerActionVisibility,
   } = useUiState();
+  const { isAuthenticated, logout, roles } = useAuth();
+  const canAccessRegister = useMemo(() => {
+    if (!isAuthenticated) return false;
+    if (!AUTH.REGISTER_ROLES?.length) return false;
+    return AUTH.REGISTER_ROLES.some((role) => roles.includes(role));
+  }, [isAuthenticated, roles]);
   const { mainItems, isItemVisible } = usePrimaryNavigation();
   const banners = useShellBanners();
   const { width } = useWindowDimensions();
@@ -214,6 +221,14 @@ const MainRouteLayoutWeb = () => {
       dispatch(uiActions.setSidebarCollapsed(!storedSidebarCollapsed));
     }
   }, [dispatch, isMobile, storedSidebarCollapsed]);
+
+  const handleGoToLogin = useCallback(() => {
+    router.push('/login');
+  }, [router]);
+
+  const handleGoToRegister = useCallback(() => {
+    router.push('/register');
+  }, [router]);
 
   const handleCloseMobileSidebar = useCallback(() => {
     setIsMobileSidebarOpen(false);
@@ -409,6 +424,38 @@ const MainRouteLayoutWeb = () => {
     [t]
   );
 
+  const authHeaderActions = useMemo(() => {
+    if (!isAuthenticated) {
+      return [
+        {
+          id: 'login',
+          label: t('auth.login.button'),
+          accessibilityLabel: t('auth.login.button'),
+          onPress: handleGoToLogin,
+          variant: ACTION_VARIANTS.PRIMARY,
+        },
+      ];
+    }
+    const actions = [];
+    if (canAccessRegister) {
+      actions.push({
+        id: 'register',
+        label: t('auth.register.button'),
+        accessibilityLabel: t('auth.register.button'),
+        onPress: handleGoToRegister,
+        variant: ACTION_VARIANTS.GHOST,
+      });
+    }
+    actions.push({
+      id: 'logout',
+      label: t('navigation.header.logout'),
+      accessibilityLabel: t('navigation.header.logout'),
+      onPress: logout,
+      variant: ACTION_VARIANTS.GHOST,
+    });
+    return actions;
+  }, [canAccessRegister, handleGoToLogin, handleGoToRegister, isAuthenticated, logout, t]);
+
   const headerActions = useMemo(
     () => [
       {
@@ -421,8 +468,9 @@ const MainRouteLayoutWeb = () => {
         accessibilityLabel: t('common.toggleMenu'),
         isCircular: false,
       },
+      ...authHeaderActions,
     ],
-    [HamburgerIcon, handleToggleSidebar, t]
+    [HamburgerIcon, authHeaderActions, handleToggleSidebar, t]
   );
 
   const brandTitle = useMemo(

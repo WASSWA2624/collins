@@ -4,7 +4,7 @@
  * File: Screen.web.jsx
  */
 
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { StyledContent, StyledRoot, StyledScroll } from './Screen.web.styles';
 import useScreen from './useScreen';
 import { BACKGROUNDS, PADDING } from './types';
@@ -30,6 +30,8 @@ const ScreenWeb = ({
   background = BACKGROUNDS.DEFAULT,
   accessibilityLabel,
   accessibilityHint,
+  refreshing = false,
+  onRefresh,
   testID,
   className,
   ...rest
@@ -43,6 +45,48 @@ const ScreenWeb = ({
     testID,
   });
 
+  const pullStateRef = useRef({
+    startY: 0,
+    isPulling: false,
+    shouldTrigger: false,
+  });
+  const canRefresh = typeof onRefresh === 'function';
+  const refreshThreshold = 80;
+
+  const handleTouchStart = useCallback(
+    (event) => {
+      if (!canRefresh || refreshing) return;
+      const target = event.currentTarget;
+      if (target && target.scrollTop > 0) return;
+      const touch = event.touches?.[0];
+      if (!touch) return;
+      pullStateRef.current = {
+        startY: touch.clientY,
+        isPulling: true,
+        shouldTrigger: false,
+      };
+    },
+    [canRefresh, refreshing]
+  );
+
+  const handleTouchMove = useCallback((event) => {
+    if (!pullStateRef.current.isPulling) return;
+    const touch = event.touches?.[0];
+    if (!touch) return;
+    const distance = touch.clientY - pullStateRef.current.startY;
+    if (distance > refreshThreshold) {
+      pullStateRef.current.shouldTrigger = true;
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const { isPulling, shouldTrigger } = pullStateRef.current;
+    pullStateRef.current = { startY: 0, isPulling: false, shouldTrigger: false };
+    if (canRefresh && !refreshing && isPulling && shouldTrigger) {
+      onRefresh();
+    }
+  }, [canRefresh, onRefresh, refreshing]);
+
   const content = (
     <StyledRoot
       safeArea={resolved.safeArea}
@@ -55,7 +99,14 @@ const ScreenWeb = ({
       {...rest}
     >
       {resolved.scroll ? (
-        <StyledScroll data-testid={testID ? `${testID}-scroll` : undefined}>
+        <StyledScroll
+          data-testid={testID ? `${testID}-scroll` : undefined}
+          aria-busy={refreshing || undefined}
+          onTouchStart={canRefresh ? handleTouchStart : undefined}
+          onTouchMove={canRefresh ? handleTouchMove : undefined}
+          onTouchEnd={canRefresh ? handleTouchEnd : undefined}
+          onTouchCancel={canRefresh ? handleTouchEnd : undefined}
+        >
           <StyledContent data-testid={testID ? `${testID}-content` : undefined}>
             {children}
           </StyledContent>

@@ -53,12 +53,12 @@ const CardWeb = ({
       {...rest}
     >
       {header && (
-        <StyledCardHeader hasBody={hasBody} hasFooter={hasFooter}>
+        <StyledCardHeader $hasBody={hasBody} $hasFooter={hasFooter}>
           {header}
         </StyledCardHeader>
       )}
       {children && (
-        <StyledCardBody hasHeader={hasHeader} hasFooter={hasFooter}>
+        <StyledCardBody $hasHeader={hasHeader} $hasFooter={hasFooter}>
           {children}
         </StyledCardBody>
       )}

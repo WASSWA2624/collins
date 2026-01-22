@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { Text } from 'react-native';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { ThemeProvider } from 'styled-components/native';
 import Screen, { BACKGROUNDS, PADDING } from '@platform/components/layout/Screen';
 // Import platform-specific versions for explicit testing
@@ -84,6 +84,25 @@ describe('Screen Component', () => {
         // Fallback: verify scroll container exists by checking children structure
         expect(screen.children.length).toBeGreaterThan(0);
       }
+    });
+
+    it('wires refresh control for native platforms when provided', () => {
+      const onRefresh = jest.fn();
+      const container = renderWithTheme(
+        <ScreenAndroid testID="screen" scroll onRefresh={onRefresh} refreshing />
+      );
+      const scroll = getScrollElement(container, 'screen');
+      expect(scroll.props.refreshControl).toBeTruthy();
+    });
+
+    it('adds pull-to-refresh handlers on web when provided', () => {
+      const onRefresh = jest.fn();
+      const container = renderWithTheme(
+        <ScreenWeb testID="screen" scroll onRefresh={onRefresh} />
+      );
+      const scroll = getScrollElement(container, 'screen');
+      expect(typeof scroll.props.onTouchStart).toBe('function');
+      expect(typeof scroll.props.onTouchEnd).toBe('function');
     });
 
     it('does not render scroll container when scroll is false', () => {

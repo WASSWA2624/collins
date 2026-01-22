@@ -66,6 +66,7 @@
       "required": "This field is required",
       "invalidEmail": "Invalid email format",
       "invalidUrl": "Invalid URL format",
+      "invalidUuid": "Invalid ID format",
       "maxLength": "Maximum length is {{max}} characters",
       "invalidValue": "Invalid value"
     }
@@ -261,7 +262,214 @@
       "title": "Login",
       "description": "Click the button below to sign in and view the main application layouts",
       "button": "Sign In",
-      "buttonHint": "Sign in to access the application"
+      "buttonHint": "Sign in to access the application",
+      "biometric": {
+        "button": "Use biometrics",
+        "buttonHint": "Sign in with biometric authentication",
+        "prompt": "Authenticate to sign in",
+        "cancel": "Cancel",
+        "fallback": "Use passcode",
+        "error": "Biometric authentication failed"
+      },
+      "error": {
+        "title": "Unable to sign in"
+      },
+      "fields": {
+        "email": {
+          "label": "Email or phone number",
+          "placeholder": "you@example.com or 256701234567",
+          "hint": "Enter your email or phone number with country code (no +)"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "hint": "Enter your account password"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        },
+        "facility": {
+          "label": "Facility ID (optional)",
+          "placeholder": "Enter facility ID",
+          "hint": "Enter the facility ID if available"
+        }
+      },
+      "actions": {
+        "forgotPassword": "Forgot password?",
+        "forgotPasswordHint": "Recover your account password",
+        "register": "Create an account",
+        "registerHint": "Register a new account"
+      }
+    },
+    "register": {
+      "title": "Create account",
+      "description": "Register a new account to access HMS",
+      "steps": {
+        "organization": {
+          "title": "Organization setup",
+          "description": "Enter the tenant and facility information to continue"
+        },
+        "details": {
+          "title": "Create account",
+          "description": "Provide the new user's details to complete registration"
+        }
+      },
+      "button": "Create account",
+      "buttonHint": "Submit your registration details",
+      "error": {
+        "title": "Unable to create account"
+      },
+      "fields": {
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com",
+          "hint": "Enter the email you want to use"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Create a strong password",
+          "hint": "Use at least 8 characters with mixed case and symbols"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        },
+        "facility": {
+          "label": "Facility ID (optional)",
+          "placeholder": "Enter facility ID",
+          "hint": "Provide a facility ID if available"
+        },
+        "phone": {
+          "label": "Phone number (optional)",
+          "placeholder": "Country code and number (no +)",
+          "hint": "Provide a phone number with country code (no +)"
+        }
+      },
+      "actions": {
+        "login": "Already have an account? Sign in",
+        "loginHint": "Return to the login screen"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "description": "Request a password reset link for your account",
+      "button": "Send reset link",
+      "buttonHint": "Send a password reset link to your email",
+      "error": {
+        "title": "Unable to send reset link"
+      },
+      "success": {
+        "message": "If your account exists, a reset link has been sent."
+      },
+      "fields": {
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com",
+          "hint": "Enter the email for your account"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "description": "Create a new password using your reset token",
+      "button": "Reset password",
+      "buttonHint": "Confirm and reset your password",
+      "error": {
+        "title": "Unable to reset password"
+      },
+      "success": {
+        "message": "Your password has been reset. You can sign in now."
+      },
+      "fields": {
+        "token": {
+          "label": "Reset token",
+          "placeholder": "Enter reset token",
+          "hint": "Enter the token from your reset email"
+        },
+        "password": {
+          "label": "New password",
+          "placeholder": "Enter a new password",
+          "hint": "Use at least 8 characters with mixed case and symbols"
+        },
+        "confirm": {
+          "label": "Confirm password",
+          "placeholder": "Re-enter your new password",
+          "hint": "Confirm the new password",
+          "errorMismatch": "Passwords do not match"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "verifyEmail": {
+      "title": "Verify email",
+      "description": "Confirm your email address with the verification token",
+      "button": "Verify email",
+      "buttonHint": "Submit your email verification token",
+      "error": {
+        "title": "Unable to verify email"
+      },
+      "success": {
+        "message": "Your email has been verified successfully."
+      },
+      "fields": {
+        "token": {
+          "label": "Verification token",
+          "placeholder": "Enter verification token",
+          "hint": "Enter the token sent to your email"
+        },
+        "email": {
+          "label": "Email address (optional)",
+          "placeholder": "you@example.com",
+          "hint": "Provide your email address if requested"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "verifyPhone": {
+      "title": "Verify phone",
+      "description": "Confirm your phone number with the verification token",
+      "button": "Verify phone",
+      "buttonHint": "Submit your phone verification token",
+      "error": {
+        "title": "Unable to verify phone"
+      },
+      "success": {
+        "message": "Your phone number has been verified successfully."
+      },
+      "fields": {
+        "token": {
+          "label": "Verification token",
+          "placeholder": "Enter verification token",
+          "hint": "Enter the token sent to your phone"
+        },
+        "phone": {
+          "label": "Phone number",
+          "placeholder": "Country code and number (no +)",
+          "hint": "Provide the phone number with country code (no +)"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
     }
   },
   "notFound": {

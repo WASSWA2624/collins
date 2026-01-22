@@ -68,6 +68,7 @@ export { default as Stack } from './layout/Stack';
 export { default as Spacer } from './layout/Spacer';
 export { default as Divider, ORIENTATIONS } from './layout/Divider';
 export { default as Screen } from './layout/Screen';
+export { default as AuthFormLayout, SIZES as AuthFormLayoutSizes } from './layout/AuthFormLayout';
 
 // State Components  
 export { default as EmptyState } from './states/EmptyState';

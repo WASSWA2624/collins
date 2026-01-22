@@ -10,4 +10,5 @@ export * from './shellBanners';
 export * from './networkQuality';
 export * from './crudRules';
 export * from './crudModel';
+export * from './phone';
 

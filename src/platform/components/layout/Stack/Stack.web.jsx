@@ -40,11 +40,11 @@ const StackWeb = ({
       data-testid={testID}
       aria-label={accessibilityLabel}
       className={className}
-      direction={stack.direction}
-      spacing={stack.spacing}
-      align={stack.align}
-      justify={stack.justify}
-      wrap={stack.wrap}
+      $direction={stack.direction}
+      $spacing={stack.spacing}
+      $align={stack.align}
+      $justify={stack.justify}
+      $wrap={stack.wrap}
     >
       {children}
     </StyledStack>

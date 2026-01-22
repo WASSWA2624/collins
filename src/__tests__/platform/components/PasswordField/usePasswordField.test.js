@@ -4,18 +4,29 @@
  */
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { ThemeProvider } from 'styled-components/native';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import usePasswordField from '@platform/components/forms/PasswordField/usePasswordField';
 import { PASSWORD_STRENGTH } from '@platform/components/forms/PasswordField/types';
+import rootReducer from '@store/rootReducer';
 import lightTheme from '@theme/light.theme';
 
 const act = TestRenderer.act;
 
+const createMockStore = (preloadedState = {}) =>
+  configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+
 // Custom renderHook implementation to avoid @testing-library/react-hooks dependency
-// Based on useImage.test.js pattern, adapted for ThemeProvider
+// Based on useImage.test.js pattern, adapted for Redux Provider
 const renderHook = (hook, { initialProps } = {}) => {
   const result = {}; // Object that will be mutated
   let renderer;
+  const store = createMockStore({
+    ui: { theme: 'light', locale: 'en', isLoading: false },
+  });
   
   const HookHarness = ({ hookProps }) => {
     const hookResult = hook(hookProps);
@@ -27,8 +38,8 @@ const renderHook = (hook, { initialProps } = {}) => {
   act(() => {
     renderer = TestRenderer.create(
       React.createElement(
-        ThemeProvider,
-        { theme: lightTheme },
+        Provider,
+        { store },
         React.createElement(HookHarness, { hookProps: initialProps })
       )
     );
@@ -40,8 +51,8 @@ const renderHook = (hook, { initialProps } = {}) => {
       act(() => {
         renderer.update(
           React.createElement(
-            ThemeProvider,
-            { theme: lightTheme },
+            Provider,
+            { store },
             React.createElement(HookHarness, { hookProps: newProps })
           )
         );

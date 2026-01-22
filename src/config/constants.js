@@ -14,3 +14,7 @@ export const TIMEOUTS = {
   NETWORK_CHECK: 5000,
 };
 
+export const AUTH = {
+  REGISTER_ROLES: ['admin'],
+};
+

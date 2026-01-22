@@ -5,11 +5,17 @@
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+  changePasswordUseCase,
+  forgotPasswordUseCase,
   loadCurrentUserUseCase,
   loginUseCase,
   logoutUseCase,
   refreshSessionUseCase,
   registerUseCase,
+  resendVerificationUseCase,
+  resetPasswordUseCase,
+  verifyEmailUseCase,
+  verifyPhoneUseCase,
 } from '@features/auth';
 
 const initialState = {
@@ -60,6 +66,60 @@ const loadCurrentUser = createAsyncThunk('auth/loadCurrentUser', async (_, { rej
   try {
     const user = await loadCurrentUserUseCase();
     return user || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const verifyEmail = createAsyncThunk('auth/verifyEmail', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await verifyEmailUseCase(payload);
+    return result || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const verifyPhone = createAsyncThunk('auth/verifyPhone', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await verifyPhoneUseCase(payload);
+    return result || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const resendVerification = createAsyncThunk('auth/resendVerification', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await resendVerificationUseCase(payload);
+    return result || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const forgotPassword = createAsyncThunk('auth/forgotPassword', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await forgotPasswordUseCase(payload);
+    return result || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await resetPasswordUseCase(payload);
+    return result || null;
+  } catch (error) {
+    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+  }
+});
+
+const changePassword = createAsyncThunk('auth/changePassword', async (payload, { rejectWithValue }) => {
+  try {
+    const result = await changePasswordUseCase(payload);
+    return result || null;
   } catch (error) {
     return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
   }
@@ -148,6 +208,78 @@ const authSlice = createSlice({
       .addCase(loadCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(verifyEmail.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(verifyEmail.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(verifyEmail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(verifyPhone.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(verifyPhone.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(verifyPhone.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(resendVerification.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(resendVerification.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(resendVerification.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
+      })
+      .addCase(changePassword.pending, (state) => {
+        state.isLoading = true;
+        state.errorCode = null;
+      })
+      .addCase(changePassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorCode = action.payload || 'UNKNOWN_ERROR';
       });
   },
 });
@@ -159,6 +291,12 @@ const actions = {
   logout,
   refreshSession,
   loadCurrentUser,
+  verifyEmail,
+  verifyPhone,
+  resendVerification,
+  forgotPassword,
+  resetPassword,
+  changePassword,
 };
 const reducer = authSlice.reducer;
 

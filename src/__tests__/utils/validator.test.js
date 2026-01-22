@@ -3,7 +3,7 @@
  * File: validator.test.js
  */
 
-import { isValidEmail, isValidUrl } from '@utils';
+import { isValidEmail, isValidUrl, isValidUuid } from '@utils';
 
 describe('Validator Utilities', () => {
   describe('isValidEmail', () => {
@@ -77,6 +77,25 @@ describe('Validator Utilities', () => {
 
     test('should return false for empty string', () => {
       expect(isValidUrl('')).toBe(false);
+    });
+  });
+
+  describe('isValidUuid', () => {
+    test('should return true for valid UUIDs', () => {
+      expect(isValidUuid('550e8400-e29b-41d4-a716-446655440000')).toBe(true);
+      expect(isValidUuid('550E8400-E29B-41D4-A716-446655440000')).toBe(true);
+    });
+
+    test('should return false for invalid UUIDs', () => {
+      expect(isValidUuid('not-a-uuid')).toBe(false);
+      expect(isValidUuid('550e8400-e29b-41d4-a716-44665544000')).toBe(false);
+      expect(isValidUuid('')).toBe(false);
+    });
+
+    test('should return false for null or non-string', () => {
+      expect(isValidUuid(null)).toBe(false);
+      expect(isValidUuid(undefined)).toBe(false);
+      expect(isValidUuid(123)).toBe(false);
     });
   });
 });

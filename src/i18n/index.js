@@ -13,6 +13,7 @@ import en from './locales/en.json';
 // This ensures 'en' is the first and complete locale that all other locales build upon.
 
 const LOCALE_KEY = 'user_locale';
+const LOCALE_STORAGE_KEY = LOCALE_KEY;
 const DEFAULT_LOCALE = 'en';
 
 const translations = { en };
@@ -104,7 +105,7 @@ const createI18n = ({ storage = null, initialLocale = null } = {}) => {
 };
 
 // Default exports use a lazily loaded storage adapter in the real implementation.
-export { createI18n, getDeviceLocale };
+export { createI18n, getDeviceLocale, LOCALE_STORAGE_KEY };
 
 // Standalone tSync function for use in non-React contexts (e.g., utility hooks)
 // Uses device locale by default (no storage dependency)

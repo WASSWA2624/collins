@@ -53,6 +53,8 @@ describe('useAuth', () => {
     expect(result.user).toBeNull();
     expect(result.roles).toEqual([]);
     expect(result.role).toBeNull();
+    expect(result.isLoading).toBe(false);
+    expect(result.errorCode).toBeNull();
   });
 
   it('returns normalized roles when authenticated', () => {
@@ -79,5 +81,27 @@ describe('useAuth', () => {
     expect(result.user).toMatchObject({ id: '1' });
     expect(result.roles).toEqual(['patient', 'admin']);
     expect(result.role).toBe('patient');
+    expect(result.isLoading).toBe(false);
+    expect(result.errorCode).toBeNull();
+  });
+
+  it('returns loading and error state', () => {
+    const store = createStore({
+      auth: {
+        user: null,
+        isAuthenticated: false,
+        isLoading: true,
+        errorCode: 'UNAUTHORIZED',
+        lastUpdated: null,
+      },
+    });
+    let result;
+    render(
+      <Provider store={store}>
+        <TestComponent onResult={(value) => (result = value)} />
+      </Provider>
+    );
+    expect(result.isLoading).toBe(true);
+    expect(result.errorCode).toBe('UNAUTHORIZED');
   });
 });

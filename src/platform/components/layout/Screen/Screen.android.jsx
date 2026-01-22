@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { RefreshControl } from 'react-native';
 import { StyledContent, StyledRoot, StyledSafeArea, StyledScroll } from './Screen.android.styles';
 import useScreen from './useScreen';
 import { BACKGROUNDS, PADDING } from './types';
@@ -29,6 +30,8 @@ const ScreenAndroid = ({
   background = BACKGROUNDS.DEFAULT,
   accessibilityLabel,
   accessibilityHint,
+  refreshing = false,
+  onRefresh,
   testID,
   ...rest
 }) => {
@@ -52,6 +55,14 @@ const ScreenAndroid = ({
       testID={testID ? `${testID}-scroll` : undefined}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
+      refreshControl={
+        onRefresh ? (
+          <RefreshControl
+            refreshing={Boolean(refreshing)}
+            onRefresh={onRefresh}
+          />
+        ) : undefined
+      }
     >
       {content}
     </StyledScroll>

@@ -5,7 +5,22 @@
  */
 import { TIMEOUTS } from '@config';
 import { handleError } from '@errors';
+import { getDeviceLocale, LOCALE_STORAGE_KEY } from '@i18n';
+import { async as asyncStorage } from '@services/storage';
 import { attachAuthHeader, handleAuthError } from './interceptors';
+
+const resolveRequestLocale = async () => {
+  try {
+    const storedLocale = await asyncStorage.getItem(LOCALE_STORAGE_KEY);
+    if (typeof storedLocale === 'string') {
+      const value = storedLocale.trim();
+      if (value) return value;
+    }
+    return getDeviceLocale();
+  } catch {
+    return getDeviceLocale();
+  }
+};
 
 const apiClient = async (config) => {
   const {
@@ -24,10 +39,12 @@ const apiClient = async (config) => {
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
+    const locale = await resolveRequestLocale();
     const response = await fetch(authConfig.url, {
       method: authConfig.method,
       headers: {
         'Content-Type': 'application/json',
+        ...(locale ? { 'Accept-Language': locale } : {}),
         ...authConfig.headers,
       },
       body: authConfig.body ? JSON.stringify(authConfig.body) : undefined,

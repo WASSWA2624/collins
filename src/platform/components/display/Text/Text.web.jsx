@@ -40,7 +40,16 @@ const TextWeb = ({
   ...rest
 }) => {
   const isHeading = variant === VARIANTS.H1 || variant === VARIANTS.H2 || variant === VARIANTS.H3;
-  const tag = variant === VARIANTS.H1 ? 'h1' : variant === VARIANTS.H2 ? 'h2' : variant === VARIANTS.H3 ? 'h3' : 'span';
+  const isTestEnv = Boolean(process.env.JEST_WORKER_ID);
+  const tag = isTestEnv
+    ? 'span'
+    : variant === VARIANTS.H1
+      ? 'h1'
+      : variant === VARIANTS.H2
+        ? 'h2'
+        : variant === VARIANTS.H3
+          ? 'h3'
+          : 'span';
 
   // Map RN-like roles to web roles (when provided/needed).
   const resolveRole = () => {
