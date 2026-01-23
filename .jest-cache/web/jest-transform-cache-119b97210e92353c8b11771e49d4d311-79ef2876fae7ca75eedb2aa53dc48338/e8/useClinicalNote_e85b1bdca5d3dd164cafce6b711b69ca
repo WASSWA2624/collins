@@ -1,0 +1,97 @@
+56a2f064030a9624941191f1467985ce
+function cov_n3ryx8pzc() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useClinicalNote.js";
+  var hash = "826a291f861237b0ccfa75f7fa560cabad5e0b5d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useClinicalNote.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 24
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 24
+          },
+          end: {
+            line: 14,
+            column: 25
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "826a291f861237b0ccfa75f7fa560cabad5e0b5d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_n3ryx8pzc = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_n3ryx8pzc();
+import useCrud from "./useCrud";
+import { createClinicalNote, deleteClinicalNote, getClinicalNote, listClinicalNotes, updateClinicalNote } from "../features/clinical-note";
+cov_n3ryx8pzc().s[0]++;
+var useClinicalNote = function useClinicalNote() {
+  cov_n3ryx8pzc().f[0]++;
+  cov_n3ryx8pzc().s[1]++;
+  return useCrud({
+    list: listClinicalNotes,
+    get: getClinicalNote,
+    create: createClinicalNote,
+    update: updateClinicalNote,
+    remove: deleteClinicalNote
+  });
+};
+export default useClinicalNote;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlQ2xpbmljYWxOb3RlIiwiZGVsZXRlQ2xpbmljYWxOb3RlIiwiZ2V0Q2xpbmljYWxOb3RlIiwibGlzdENsaW5pY2FsTm90ZXMiLCJ1cGRhdGVDbGluaWNhbE5vdGUiLCJjb3ZfbjNyeXg4cHpjIiwicyIsInVzZUNsaW5pY2FsTm90ZSIsImYiLCJsaXN0IiwiZ2V0IiwiY3JlYXRlIiwidXBkYXRlIiwicmVtb3ZlIl0sInNvdXJjZXMiOlsidXNlQ2xpbmljYWxOb3RlLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiB1c2VDbGluaWNhbE5vdGUgSG9va1xyXG4gKiBGaWxlOiB1c2VDbGluaWNhbE5vdGUuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVDbGluaWNhbE5vdGUsXHJcbiAgZGVsZXRlQ2xpbmljYWxOb3RlLFxyXG4gIGdldENsaW5pY2FsTm90ZSxcclxuICBsaXN0Q2xpbmljYWxOb3RlcyxcclxuICB1cGRhdGVDbGluaWNhbE5vdGUsXHJcbn0gZnJvbSAnQGZlYXR1cmVzL2NsaW5pY2FsLW5vdGUnO1xyXG5cclxuY29uc3QgdXNlQ2xpbmljYWxOb3RlID0gKCkgPT5cclxuICB1c2VDcnVkKHtcclxuICAgIGxpc3Q6IGxpc3RDbGluaWNhbE5vdGVzLFxyXG4gICAgZ2V0OiBnZXRDbGluaWNhbE5vdGUsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUNsaW5pY2FsTm90ZSxcclxuICAgIHVwZGF0ZTogdXBkYXRlQ2xpbmljYWxOb3RlLFxyXG4gICAgcmVtb3ZlOiBkZWxldGVDbGluaWNhbE5vdGUsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VDbGluaWNhbE5vdGU7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxPQUFPQSxPQUFPO0FBQ2QsU0FDRUMsa0JBQWtCLEVBQ2xCQyxrQkFBa0IsRUFDbEJDLGVBQWUsRUFDZkMsaUJBQWlCLEVBQ2pCQyxrQkFBa0I7QUFDYUMsYUFBQSxHQUFBQyxDQUFBO0FBRWpDLElBQU1DLGVBQWUsR0FBRyxTQUFsQkEsZUFBZUEsQ0FBQSxFQUNuQjtFQUFBRixhQUFBLEdBQUFHLENBQUE7RUFBQUgsYUFBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQVAsT0FBTyxDQUFDO0lBQ05VLElBQUksRUFBRU4saUJBQWlCO0lBQ3ZCTyxHQUFHLEVBQUVSLGVBQWU7SUFDcEJTLE1BQU0sRUFBRVgsa0JBQWtCO0lBQzFCWSxNQUFNLEVBQUVSLGtCQUFrQjtJQUMxQlMsTUFBTSxFQUFFWjtFQUNWLENBQUMsQ0FBQztBQUFELENBQUM7QUFFSixlQUFlTSxlQUFlIiwiaWdub3JlTGlzdCI6W119

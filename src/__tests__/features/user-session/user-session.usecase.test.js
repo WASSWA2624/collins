@@ -21,11 +21,22 @@ jest.mock('@offline/request', () => ({
   queueRequestIfOffline: jest.fn(),
 }));
 
+const pagination = {
+  page: 1,
+  limit: 20,
+  total: 1,
+  totalPages: 1,
+  hasNextPage: false,
+  hasPreviousPage: false,
+};
+
 describe('user-session.usecase', () => {
   beforeEach(() => {
-    listUserSessionsApi.mockResolvedValue({ data: [{ id: '1' }] });
-    getUserSessionApi.mockResolvedValue({ data: { id: '1' } });
-    deleteUserSessionApi.mockResolvedValue({ data: { id: '1' } });
+    listUserSessionsApi.mockResolvedValue({
+      data: { data: [{ id: '1' }], pagination },
+    });
+    getUserSessionApi.mockResolvedValue({ data: { data: { id: '1' } } });
+    deleteUserSessionApi.mockResolvedValue({ data: null, status: 204 });
   });
 
   runCrudUsecaseTests(

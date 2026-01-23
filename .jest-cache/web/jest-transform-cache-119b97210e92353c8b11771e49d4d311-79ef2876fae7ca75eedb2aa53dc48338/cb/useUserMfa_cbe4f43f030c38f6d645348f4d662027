@@ -1,0 +1,100 @@
+8cd698bb0a58bea3db7efa0f08c3cb29
+function cov_5qsxc9rgf() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useUserMfa.js";
+  var hash = "f63e4a756682e393fc190d006a19aa8e854999fa";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useUserMfa.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 17,
+          column: 19
+        },
+        end: {
+          line: 27,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 18,
+          column: 2
+        },
+        end: {
+          line: 27,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 17,
+            column: 19
+          },
+          end: {
+            line: 17,
+            column: 20
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 2
+          },
+          end: {
+            line: 27,
+            column: 4
+          }
+        },
+        line: 18
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f63e4a756682e393fc190d006a19aa8e854999fa"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_5qsxc9rgf = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_5qsxc9rgf();
+import useCrud from "./useCrud";
+import { createUserMfa, deleteUserMfa, disableUserMfa, enableUserMfa, getUserMfa, listUserMfas, updateUserMfa, verifyUserMfa } from "../features/user-mfa";
+cov_5qsxc9rgf().s[0]++;
+var useUserMfa = function useUserMfa() {
+  cov_5qsxc9rgf().f[0]++;
+  cov_5qsxc9rgf().s[1]++;
+  return useCrud({
+    list: listUserMfas,
+    get: getUserMfa,
+    create: createUserMfa,
+    update: updateUserMfa,
+    remove: deleteUserMfa,
+    verify: verifyUserMfa,
+    enable: enableUserMfa,
+    disable: disableUserMfa
+  });
+};
+export default useUserMfa;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlVXNlck1mYSIsImRlbGV0ZVVzZXJNZmEiLCJkaXNhYmxlVXNlck1mYSIsImVuYWJsZVVzZXJNZmEiLCJnZXRVc2VyTWZhIiwibGlzdFVzZXJNZmFzIiwidXBkYXRlVXNlck1mYSIsInZlcmlmeVVzZXJNZmEiLCJjb3ZfNXFzeGM5cmdmIiwicyIsInVzZVVzZXJNZmEiLCJmIiwibGlzdCIsImdldCIsImNyZWF0ZSIsInVwZGF0ZSIsInJlbW92ZSIsInZlcmlmeSIsImVuYWJsZSIsImRpc2FibGUiXSwic291cmNlcyI6WyJ1c2VVc2VyTWZhLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiB1c2VVc2VyTWZhIEhvb2tcclxuICogRmlsZTogdXNlVXNlck1mYS5qc1xyXG4gKi9cclxuaW1wb3J0IHVzZUNydWQgZnJvbSAnQGhvb2tzL3VzZUNydWQnO1xyXG5pbXBvcnQge1xyXG4gIGNyZWF0ZVVzZXJNZmEsXHJcbiAgZGVsZXRlVXNlck1mYSxcclxuICBkaXNhYmxlVXNlck1mYSxcclxuICBlbmFibGVVc2VyTWZhLFxyXG4gIGdldFVzZXJNZmEsXHJcbiAgbGlzdFVzZXJNZmFzLFxyXG4gIHVwZGF0ZVVzZXJNZmEsXHJcbiAgdmVyaWZ5VXNlck1mYSxcclxufSBmcm9tICdAZmVhdHVyZXMvdXNlci1tZmEnO1xyXG5cclxuY29uc3QgdXNlVXNlck1mYSA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0VXNlck1mYXMsXHJcbiAgICBnZXQ6IGdldFVzZXJNZmEsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZVVzZXJNZmEsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZVVzZXJNZmEsXHJcbiAgICByZW1vdmU6IGRlbGV0ZVVzZXJNZmEsXHJcbiAgICB2ZXJpZnk6IHZlcmlmeVVzZXJNZmEsXHJcbiAgICBlbmFibGU6IGVuYWJsZVVzZXJNZmEsXHJcbiAgICBkaXNhYmxlOiBkaXNhYmxlVXNlck1mYSxcclxuICB9KTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IHVzZVVzZXJNZmE7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxPQUFPQSxPQUFPO0FBQ2QsU0FDRUMsYUFBYSxFQUNiQyxhQUFhLEVBQ2JDLGNBQWMsRUFDZEMsYUFBYSxFQUNiQyxVQUFVLEVBQ1ZDLFlBQVksRUFDWkMsYUFBYSxFQUNiQyxhQUFhO0FBQ2FDLGFBQUEsR0FBQUMsQ0FBQTtBQUU1QixJQUFNQyxVQUFVLEdBQUcsU0FBYkEsVUFBVUEsQ0FBQSxFQUNkO0VBQUFGLGFBQUEsR0FBQUcsQ0FBQTtFQUFBSCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBVixPQUFPLENBQUM7SUFDTmEsSUFBSSxFQUFFUCxZQUFZO0lBQ2xCUSxHQUFHLEVBQUVULFVBQVU7SUFDZlUsTUFBTSxFQUFFZCxhQUFhO0lBQ3JCZSxNQUFNLEVBQUVULGFBQWE7SUFDckJVLE1BQU0sRUFBRWYsYUFBYTtJQUNyQmdCLE1BQU0sRUFBRVYsYUFBYTtJQUNyQlcsTUFBTSxFQUFFZixhQUFhO0lBQ3JCZ0IsT0FBTyxFQUFFakI7RUFDWCxDQUFDLENBQUM7QUFBRCxDQUFDO0FBRUosZUFBZVEsVUFBVSIsImlnbm9yZUxpc3QiOltdfQ==

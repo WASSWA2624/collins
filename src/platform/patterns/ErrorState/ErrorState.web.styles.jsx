@@ -1,12 +1,11 @@
-﻿/**
+/**
  * ErrorState Web Styles
  * Styled-components for Web platform
  * File: ErrorState.web.styles.jsx
  */
 import styled from 'styled-components';
 import { View } from 'react-native';
-import Text from '@platform/components/display/Text';
-import Button from '@platform/components/Button';
+import { Button, Text } from '@platform/components';
 
 const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',

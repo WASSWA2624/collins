@@ -8,8 +8,7 @@
 import React from 'react';
 
 // 2. Platform components (from barrel file)
-import Button from '@platform/components/Button';
-import TextField from '@platform/components/forms/TextField';
+import { Button, TextField } from '@platform/components';
 
 // 3. Hooks and utilities (absolute imports via aliases)
 import { useI18n } from '@hooks';

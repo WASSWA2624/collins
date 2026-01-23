@@ -1,0 +1,77 @@
+fca9f66faa8da3ba201c4fc1c19cd572
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  tokenManager: true,
+  getAccessToken: true,
+  getRefreshToken: true,
+  setTokens: true,
+  clearTokens: true,
+  isTokenExpired: true
+};
+Object.defineProperty(exports, "clearTokens", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.clearTokens;
+  }
+});
+Object.defineProperty(exports, "getAccessToken", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.getAccessToken;
+  }
+});
+Object.defineProperty(exports, "getRefreshToken", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.getRefreshToken;
+  }
+});
+Object.defineProperty(exports, "isTokenExpired", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.isTokenExpired;
+  }
+});
+Object.defineProperty(exports, "setTokens", {
+  enumerable: true,
+  get: function get() {
+    return tokenManagerModule.setTokens;
+  }
+});
+exports.tokenManager = void 0;
+var tokenManagerModule = _interopRequireWildcard(require("./token.manager"));
+var _encryption = require("./encryption");
+Object.keys(_encryption).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _encryption[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _encryption[key];
+    }
+  });
+});
+var _biometric = require("./biometric");
+Object.keys(_biometric).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _biometric[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _biometric[key];
+    }
+  });
+});
+var tokenManager = exports.tokenManager = {
+  getAccessToken: tokenManagerModule.getAccessToken,
+  getRefreshToken: tokenManagerModule.getRefreshToken,
+  setTokens: tokenManagerModule.setTokens,
+  clearTokens: tokenManagerModule.clearTokens,
+  isTokenExpired: tokenManagerModule.isTokenExpired
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ0b2tlbk1hbmFnZXJNb2R1bGUiLCJfaW50ZXJvcFJlcXVpcmVXaWxkY2FyZCIsInJlcXVpcmUiLCJfZW5jcnlwdGlvbiIsIk9iamVjdCIsImtleXMiLCJmb3JFYWNoIiwia2V5IiwicHJvdG90eXBlIiwiaGFzT3duUHJvcGVydHkiLCJjYWxsIiwiX2V4cG9ydE5hbWVzIiwiZXhwb3J0cyIsImRlZmluZVByb3BlcnR5IiwiZW51bWVyYWJsZSIsImdldCIsIl9iaW9tZXRyaWMiLCJ0b2tlbk1hbmFnZXIiLCJnZXRBY2Nlc3NUb2tlbiIsImdldFJlZnJlc2hUb2tlbiIsInNldFRva2VucyIsImNsZWFyVG9rZW5zIiwiaXNUb2tlbkV4cGlyZWQiXSwic291cmNlcyI6WyJpbmRleC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogU2VjdXJpdHkgQmFycmVsIEV4cG9ydFxyXG4gKiBGaWxlOiBpbmRleC5qc1xyXG4gKi9cclxuaW1wb3J0ICogYXMgdG9rZW5NYW5hZ2VyTW9kdWxlIGZyb20gJy4vdG9rZW4ubWFuYWdlcic7XHJcblxyXG5leHBvcnQgY29uc3QgdG9rZW5NYW5hZ2VyID0ge1xyXG4gIGdldEFjY2Vzc1Rva2VuOiB0b2tlbk1hbmFnZXJNb2R1bGUuZ2V0QWNjZXNzVG9rZW4sXHJcbiAgZ2V0UmVmcmVzaFRva2VuOiB0b2tlbk1hbmFnZXJNb2R1bGUuZ2V0UmVmcmVzaFRva2VuLFxyXG4gIHNldFRva2VuczogdG9rZW5NYW5hZ2VyTW9kdWxlLnNldFRva2VucyxcclxuICBjbGVhclRva2VuczogdG9rZW5NYW5hZ2VyTW9kdWxlLmNsZWFyVG9rZW5zLFxyXG4gIGlzVG9rZW5FeHBpcmVkOiB0b2tlbk1hbmFnZXJNb2R1bGUuaXNUb2tlbkV4cGlyZWQsXHJcbn07XHJcblxyXG5leHBvcnQge1xyXG4gIGdldEFjY2Vzc1Rva2VuLFxyXG4gIGdldFJlZnJlc2hUb2tlbixcclxuICBzZXRUb2tlbnMsXHJcbiAgY2xlYXJUb2tlbnMsXHJcbiAgaXNUb2tlbkV4cGlyZWQsXHJcbn0gZnJvbSAnLi90b2tlbi5tYW5hZ2VyJztcclxuXHJcbmV4cG9ydCAqIGZyb20gJy4vZW5jcnlwdGlvbic7XHJcbmV4cG9ydCAqIGZyb20gJy4vYmlvbWV0cmljJztcclxuXHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLElBQUFBLGtCQUFBLEdBQUFDLHVCQUFBLENBQUFDLE9BQUE7QUFrQkEsSUFBQUMsV0FBQSxHQUFBRCxPQUFBO0FBQUFFLE1BQUEsQ0FBQUMsSUFBQSxDQUFBRixXQUFBLEVBQUFHLE9BQUEsV0FBQUMsR0FBQTtFQUFBLElBQUFBLEdBQUEsa0JBQUFBLEdBQUE7RUFBQSxJQUFBSCxNQUFBLENBQUFJLFNBQUEsQ0FBQUMsY0FBQSxDQUFBQyxJQUFBLENBQUFDLFlBQUEsRUFBQUosR0FBQTtFQUFBLElBQUFBLEdBQUEsSUFBQUssT0FBQSxJQUFBQSxPQUFBLENBQUFMLEdBQUEsTUFBQUosV0FBQSxDQUFBSSxHQUFBO0VBQUFILE1BQUEsQ0FBQVMsY0FBQSxDQUFBRCxPQUFBLEVBQUFMLEdBQUE7SUFBQU8sVUFBQTtJQUFBQyxHQUFBLFdBQUFBLElBQUE7TUFBQSxPQUFBWixXQUFBLENBQUFJLEdBQUE7SUFBQTtFQUFBO0FBQUE7QUFDQSxJQUFBUyxVQUFBLEdBQUFkLE9BQUE7QUFBQUUsTUFBQSxDQUFBQyxJQUFBLENBQUFXLFVBQUEsRUFBQVYsT0FBQSxXQUFBQyxHQUFBO0VBQUEsSUFBQUEsR0FBQSxrQkFBQUEsR0FBQTtFQUFBLElBQUFILE1BQUEsQ0FBQUksU0FBQSxDQUFBQyxjQUFBLENBQUFDLElBQUEsQ0FBQUMsWUFBQSxFQUFBSixHQUFBO0VBQUEsSUFBQUEsR0FBQSxJQUFBSyxPQUFBLElBQUFBLE9BQUEsQ0FBQUwsR0FBQSxNQUFBUyxVQUFBLENBQUFULEdBQUE7RUFBQUgsTUFBQSxDQUFBUyxjQUFBLENBQUFELE9BQUEsRUFBQUwsR0FBQTtJQUFBTyxVQUFBO0lBQUFDLEdBQUEsV0FBQUEsSUFBQTtNQUFBLE9BQUFDLFVBQUEsQ0FBQVQsR0FBQTtJQUFBO0VBQUE7QUFBQTtBQWpCTyxJQUFNVSxZQUFZLEdBQUFMLE9BQUEsQ0FBQUssWUFBQSxHQUFHO0VBQzFCQyxjQUFjLEVBQUVsQixrQkFBa0IsQ0FBQ2tCLGNBQWM7RUFDakRDLGVBQWUsRUFBRW5CLGtCQUFrQixDQUFDbUIsZUFBZTtFQUNuREMsU0FBUyxFQUFFcEIsa0JBQWtCLENBQUNvQixTQUFTO0VBQ3ZDQyxXQUFXLEVBQUVyQixrQkFBa0IsQ0FBQ3FCLFdBQVc7RUFDM0NDLGNBQWMsRUFBRXRCLGtCQUFrQixDQUFDc0I7QUFDckMsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

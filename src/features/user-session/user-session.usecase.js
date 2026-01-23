@@ -21,14 +21,18 @@ const listUserSessions = async (params = {}) =>
   execute(async () => {
     const parsed = parseUserSessionListParams(params);
     const response = await listUserSessionsApi(parsed);
-    return normalizeUserSessionList(response.data);
+    const raw = response?.data ?? {};
+    const items = normalizeUserSessionList(Array.isArray(raw.data) ? raw.data : []);
+    const pagination = raw.pagination ?? {};
+    return { items, pagination };
   });
 
 const getUserSession = async (id) =>
   execute(async () => {
     const parsedId = parseUserSessionId(id);
     const response = await getUserSessionApi(parsedId);
-    return normalizeUserSession(response.data);
+    const raw = response?.data ?? {};
+    return normalizeUserSession(raw.data ?? raw);
   });
 
 const revokeUserSession = async (id) =>
@@ -39,10 +43,10 @@ const revokeUserSession = async (id) =>
       method: 'DELETE',
     });
     if (queued) {
-      return normalizeUserSession({ id: parsedId });
+      return { id: parsedId };
     }
-    const response = await deleteUserSessionApi(parsedId);
-    return normalizeUserSession(response.data);
+    await deleteUserSessionApi(parsedId);
+    return { id: parsedId };
   });
 
 export { listUserSessions, getUserSession, revokeUserSession };

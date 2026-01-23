@@ -170,7 +170,19 @@
     "items": {
       "main": {
         "home": "Home",
-        "overview": "Overview"
+        "overview": "Overview",
+        "userSessions": "User Sessions",
+        "tenants": "Tenants",
+        "facilities": "Facilities",
+        "branches": "Branches",
+        "departments": "Departments",
+        "units": "Units",
+        "rooms": "Rooms",
+        "wards": "Wards",
+        "beds": "Beds",
+        "addresses": "Addresses",
+        "contacts": "Contacts",
+        "beds": "Beds"
       },
       "patient": {
         "home": "Home"
@@ -498,5 +510,266 @@
     "retryHint": "Try the action again",
     "goHome": "Go to Home",
     "goHomeHint": "Navigate back to the home page"
+  },
+  "userSession": {
+    "list": {
+      "title": "User Sessions",
+      "accessibilityLabel": "User sessions list",
+      "emptyTitle": "No sessions",
+      "emptyMessage": "You have no active sessions.",
+      "revoke": "Revoke session",
+      "revokeHint": "Revoke this session and log it out",
+      "itemLabel": "Session for {{email}}"
+    },
+    "detail": {
+      "title": "Session Details",
+      "idLabel": "Session ID",
+      "emailLabel": "User",
+      "createdLabel": "Created",
+      "expiresLabel": "Expires",
+      "revokedLabel": "Revoked",
+      "errorTitle": "Failed to load session",
+      "notFoundTitle": "Session not found",
+      "notFoundMessage": "This session may have been revoked or expired.",
+      "backHint": "Return to sessions list",
+      "revoke": "Revoke session",
+      "revokeHint": "Revoke this session"
+    }
+  },
+  "branch": {
+    "list": {
+      "title": "Branches",
+      "accessibilityLabel": "Branches list",
+      "emptyTitle": "No branches",
+      "emptyMessage": "You have no branches.",
+      "delete": "Delete branch",
+      "deleteHint": "Delete this branch",
+      "itemLabel": "Branch {{name}}"
+    },
+    "detail": {
+      "title": "Branch Details",
+      "idLabel": "Branch ID",
+      "nameLabel": "Name",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load branch",
+      "notFoundTitle": "Branch not found",
+      "notFoundMessage": "This branch may have been deleted.",
+      "backHint": "Return to branches list",
+      "delete": "Delete branch",
+      "deleteHint": "Delete this branch"
+    }
+  },
+  "department": {
+    "list": {
+      "title": "Departments",
+      "accessibilityLabel": "Departments list",
+      "emptyTitle": "No departments",
+      "emptyMessage": "You have no departments.",
+      "typeLabel": "Type",
+      "delete": "Delete department",
+      "deleteHint": "Delete this department",
+      "itemLabel": "Department {{name}}"
+    },
+    "detail": {
+      "title": "Department Details",
+      "idLabel": "Department ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load department",
+      "notFoundTitle": "Department not found",
+      "notFoundMessage": "This department may have been deleted.",
+      "backHint": "Return to departments list",
+      "delete": "Delete department",
+      "deleteHint": "Delete this department"
+    }
+  },
+  "unit": {
+    "list": {
+      "title": "Units",
+      "accessibilityLabel": "Units list",
+      "emptyTitle": "No units",
+      "emptyMessage": "You have no units.",
+      "delete": "Delete unit",
+      "deleteHint": "Delete this unit",
+      "itemLabel": "Unit {{name}}"
+    },
+    "detail": {
+      "title": "Unit Details",
+      "idLabel": "Unit ID",
+      "nameLabel": "Name",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load unit",
+      "notFoundTitle": "Unit not found",
+      "notFoundMessage": "This unit may have been deleted.",
+      "backHint": "Return to units list",
+      "delete": "Delete unit",
+      "deleteHint": "Delete this unit"
+    }
+  },
+  "room": {
+    "list": {
+      "title": "Rooms",
+      "accessibilityLabel": "Rooms list",
+      "emptyTitle": "No rooms",
+      "emptyMessage": "You have no rooms.",
+      "floorLabel": "Floor",
+      "delete": "Delete room",
+      "deleteHint": "Delete this room",
+      "itemLabel": "Room {{name}}"
+    },
+    "detail": {
+      "title": "Room Details",
+      "idLabel": "Room ID",
+      "nameLabel": "Name",
+      "floorLabel": "Floor",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load room",
+      "notFoundTitle": "Room not found",
+      "notFoundMessage": "This room may have been deleted.",
+      "backHint": "Return to rooms list",
+      "delete": "Delete room",
+      "deleteHint": "Delete this room"
+    }
+  },
+  "ward": {
+    "list": {
+      "title": "Wards",
+      "accessibilityLabel": "Wards list",
+      "emptyTitle": "No wards",
+      "emptyMessage": "You have no wards.",
+      "typeLabel": "Type",
+      "delete": "Delete ward",
+      "deleteHint": "Delete this ward",
+      "itemLabel": "Ward {{name}}"
+    },
+    "detail": {
+      "title": "Ward Details",
+      "idLabel": "Ward ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load ward",
+      "notFoundTitle": "Ward not found",
+      "notFoundMessage": "This ward may have been deleted.",
+      "backHint": "Return to wards list",
+      "delete": "Delete ward",
+      "deleteHint": "Delete this ward"
+    }
+  },
+  "bed": {
+    "list": {
+      "title": "Beds",
+      "accessibilityLabel": "Beds list",
+      "emptyTitle": "No beds",
+      "emptyMessage": "You have no beds.",
+      "statusLabel": "Status",
+      "delete": "Delete bed",
+      "deleteHint": "Delete this bed",
+      "itemLabel": "Bed {{name}}"
+    },
+    "detail": {
+      "title": "Bed Details",
+      "idLabel": "Bed ID",
+      "labelLabel": "Label",
+      "statusLabel": "Status",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load bed",
+      "notFoundTitle": "Bed not found",
+      "notFoundMessage": "This bed may have been deleted.",
+      "backHint": "Return to beds list",
+      "delete": "Delete bed",
+      "deleteHint": "Delete this bed"
+    }
+  },
+  "contact": {
+    "list": {
+      "title": "Contacts",
+      "accessibilityLabel": "Contacts list",
+      "emptyTitle": "No contacts",
+      "emptyMessage": "You have no contacts.",
+      "typeLabel": "Type",
+      "delete": "Delete contact",
+      "deleteHint": "Delete this contact",
+      "itemLabel": "Contact {{name}}"
+    },
+    "detail": {
+      "title": "Contact Details",
+      "idLabel": "Contact ID",
+      "valueLabel": "Value",
+      "typeLabel": "Type",
+      "primaryLabel": "Primary",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load contact",
+      "notFoundTitle": "Contact not found",
+      "notFoundMessage": "This contact may have been deleted.",
+      "backHint": "Return to contacts list",
+      "delete": "Delete contact",
+      "deleteHint": "Delete this contact"
+    }
+  },
+  "facility": {
+    "list": {
+      "title": "Facilities",
+      "accessibilityLabel": "Facilities list",
+      "emptyTitle": "No facilities",
+      "emptyMessage": "You have no facilities.",
+      "typeLabel": "Type",
+      "delete": "Delete facility",
+      "deleteHint": "Delete this facility",
+      "itemLabel": "Facility {{name}}"
+    },
+    "detail": {
+      "title": "Facility Details",
+      "idLabel": "Facility ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load facility",
+      "notFoundTitle": "Facility not found",
+      "notFoundMessage": "This facility may have been deleted.",
+      "backHint": "Return to facilities list",
+      "delete": "Delete facility",
+      "deleteHint": "Delete this facility"
+    }
+  },
+  "tenant": {
+    "list": {
+      "title": "Tenants",
+      "accessibilityLabel": "Tenants list",
+      "emptyTitle": "No tenants",
+      "emptyMessage": "You have no tenants.",
+      "delete": "Delete tenant",
+      "deleteHint": "Delete this tenant",
+      "itemLabel": "Tenant {{name}}"
+    },
+    "detail": {
+      "title": "Tenant Details",
+      "idLabel": "Tenant ID",
+      "nameLabel": "Name",
+      "slugLabel": "Slug",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load tenant",
+      "notFoundTitle": "Tenant not found",
+      "notFoundMessage": "This tenant may have been deleted.",
+      "backHint": "Return to tenants list",
+      "delete": "Delete tenant",
+      "deleteHint": "Delete this tenant"
+    }
   }
 }

@@ -116,7 +116,7 @@ const ListScaffoldWeb = ({
         {errorComponent || (
           <ErrorState
             title={t('listScaffold.errorState.title')}
-            message={errorMessage}
+            description={errorMessage}
             action={
               onRetry ? (
                 <button onClick={onRetry} aria-label={t('common.retry')}>
@@ -146,7 +146,7 @@ const ListScaffoldWeb = ({
         {emptyComponent || (
           <EmptyState
             title={t('listScaffold.emptyState.title')}
-            message={t('listScaffold.emptyState.message')}
+            description={t('listScaffold.emptyState.message')}
             testID={testID ? `${testID}-empty-state` : undefined}
           />
         )}

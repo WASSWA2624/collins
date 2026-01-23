@@ -1,11 +1,10 @@
-﻿/**
+/**
  * EmptyState iOS Styles
  * Styled-components for iOS platform
  * File: EmptyState.ios.styles.jsx
  */
 import styled from 'styled-components/native';
-import Text from '@platform/components/display/Text';
-import Button from '@platform/components/Button';
+import { Button, Text } from '@platform/components';
 
 const StyledContainer = styled.View.withConfig({
   displayName: 'StyledContainer',

@@ -1,0 +1,97 @@
+92fb9e80f15fd019e3707ad59ac13726
+function cov_3y0wx49ud() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAppointmentReminder.js";
+  var hash = "f6c6856d24a017d8dcc4ceb04792a3d52cef8a46";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAppointmentReminder.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 31
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 31
+          },
+          end: {
+            line: 14,
+            column: 32
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f6c6856d24a017d8dcc4ceb04792a3d52cef8a46"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_3y0wx49ud = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_3y0wx49ud();
+import useCrud from "./useCrud";
+import { createAppointmentReminder, deleteAppointmentReminder, getAppointmentReminder, listAppointmentReminders, updateAppointmentReminder } from "../features/appointment-reminder";
+cov_3y0wx49ud().s[0]++;
+var useAppointmentReminder = function useAppointmentReminder() {
+  cov_3y0wx49ud().f[0]++;
+  cov_3y0wx49ud().s[1]++;
+  return useCrud({
+    list: listAppointmentReminders,
+    get: getAppointmentReminder,
+    create: createAppointmentReminder,
+    update: updateAppointmentReminder,
+    remove: deleteAppointmentReminder
+  });
+};
+export default useAppointmentReminder;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlQXBwb2ludG1lbnRSZW1pbmRlciIsImRlbGV0ZUFwcG9pbnRtZW50UmVtaW5kZXIiLCJnZXRBcHBvaW50bWVudFJlbWluZGVyIiwibGlzdEFwcG9pbnRtZW50UmVtaW5kZXJzIiwidXBkYXRlQXBwb2ludG1lbnRSZW1pbmRlciIsImNvdl8zeTB3eDQ5dWQiLCJzIiwidXNlQXBwb2ludG1lbnRSZW1pbmRlciIsImYiLCJsaXN0IiwiZ2V0IiwiY3JlYXRlIiwidXBkYXRlIiwicmVtb3ZlIl0sInNvdXJjZXMiOlsidXNlQXBwb2ludG1lbnRSZW1pbmRlci5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlQXBwb2ludG1lbnRSZW1pbmRlciBIb29rXHJcbiAqIEZpbGU6IHVzZUFwcG9pbnRtZW50UmVtaW5kZXIuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVBcHBvaW50bWVudFJlbWluZGVyLFxyXG4gIGRlbGV0ZUFwcG9pbnRtZW50UmVtaW5kZXIsXHJcbiAgZ2V0QXBwb2ludG1lbnRSZW1pbmRlcixcclxuICBsaXN0QXBwb2ludG1lbnRSZW1pbmRlcnMsXHJcbiAgdXBkYXRlQXBwb2ludG1lbnRSZW1pbmRlcixcclxufSBmcm9tICdAZmVhdHVyZXMvYXBwb2ludG1lbnQtcmVtaW5kZXInO1xyXG5cclxuY29uc3QgdXNlQXBwb2ludG1lbnRSZW1pbmRlciA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0QXBwb2ludG1lbnRSZW1pbmRlcnMsXHJcbiAgICBnZXQ6IGdldEFwcG9pbnRtZW50UmVtaW5kZXIsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUFwcG9pbnRtZW50UmVtaW5kZXIsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZUFwcG9pbnRtZW50UmVtaW5kZXIsXHJcbiAgICByZW1vdmU6IGRlbGV0ZUFwcG9pbnRtZW50UmVtaW5kZXIsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VBcHBvaW50bWVudFJlbWluZGVyO1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsT0FBT0EsT0FBTztBQUNkLFNBQ0VDLHlCQUF5QixFQUN6QkMseUJBQXlCLEVBQ3pCQyxzQkFBc0IsRUFDdEJDLHdCQUF3QixFQUN4QkMseUJBQXlCO0FBQ2FDLGFBQUEsR0FBQUMsQ0FBQTtBQUV4QyxJQUFNQyxzQkFBc0IsR0FBRyxTQUF6QkEsc0JBQXNCQSxDQUFBLEVBQzFCO0VBQUFGLGFBQUEsR0FBQUcsQ0FBQTtFQUFBSCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBUCxPQUFPLENBQUM7SUFDTlUsSUFBSSxFQUFFTix3QkFBd0I7SUFDOUJPLEdBQUcsRUFBRVIsc0JBQXNCO0lBQzNCUyxNQUFNLEVBQUVYLHlCQUF5QjtJQUNqQ1ksTUFBTSxFQUFFUix5QkFBeUI7SUFDakNTLE1BQU0sRUFBRVo7RUFDVixDQUFDLENBQUM7QUFBRCxDQUFDO0FBRUosZUFBZU0sc0JBQXNCIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,98 @@
+15602c92218c3339e71b71ad782104f0
+function cov_1zew8cjfsi() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useDepartment.js";
+  var hash = "dc44a131025a79aa2b24ff2c5ba6d1b39803b51c";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useDepartment.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 15,
+          column: 22
+        },
+        end: {
+          line: 23,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 16,
+          column: 2
+        },
+        end: {
+          line: 23,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 15,
+            column: 22
+          },
+          end: {
+            line: 15,
+            column: 23
+          }
+        },
+        loc: {
+          start: {
+            line: 16,
+            column: 2
+          },
+          end: {
+            line: 23,
+            column: 4
+          }
+        },
+        line: 16
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "dc44a131025a79aa2b24ff2c5ba6d1b39803b51c"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_1zew8cjfsi = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1zew8cjfsi();
+import useCrud from "./useCrud";
+import { createDepartment, deleteDepartment, getDepartment, listDepartmentUnits, listDepartments, updateDepartment } from "../features/department";
+cov_1zew8cjfsi().s[0]++;
+var useDepartment = function useDepartment() {
+  cov_1zew8cjfsi().f[0]++;
+  cov_1zew8cjfsi().s[1]++;
+  return useCrud({
+    list: listDepartments,
+    get: getDepartment,
+    create: createDepartment,
+    update: updateDepartment,
+    remove: deleteDepartment,
+    listUnits: listDepartmentUnits
+  });
+};
+export default useDepartment;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlRGVwYXJ0bWVudCIsImRlbGV0ZURlcGFydG1lbnQiLCJnZXREZXBhcnRtZW50IiwibGlzdERlcGFydG1lbnRVbml0cyIsImxpc3REZXBhcnRtZW50cyIsInVwZGF0ZURlcGFydG1lbnQiLCJjb3ZfMXpldzhjamZzaSIsInMiLCJ1c2VEZXBhcnRtZW50IiwiZiIsImxpc3QiLCJnZXQiLCJjcmVhdGUiLCJ1cGRhdGUiLCJyZW1vdmUiLCJsaXN0VW5pdHMiXSwic291cmNlcyI6WyJ1c2VEZXBhcnRtZW50LmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiB1c2VEZXBhcnRtZW50IEhvb2tcclxuICogRmlsZTogdXNlRGVwYXJ0bWVudC5qc1xyXG4gKi9cclxuaW1wb3J0IHVzZUNydWQgZnJvbSAnQGhvb2tzL3VzZUNydWQnO1xyXG5pbXBvcnQge1xyXG4gIGNyZWF0ZURlcGFydG1lbnQsXHJcbiAgZGVsZXRlRGVwYXJ0bWVudCxcclxuICBnZXREZXBhcnRtZW50LFxyXG4gIGxpc3REZXBhcnRtZW50VW5pdHMsXHJcbiAgbGlzdERlcGFydG1lbnRzLFxyXG4gIHVwZGF0ZURlcGFydG1lbnQsXHJcbn0gZnJvbSAnQGZlYXR1cmVzL2RlcGFydG1lbnQnO1xyXG5cclxuY29uc3QgdXNlRGVwYXJ0bWVudCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0RGVwYXJ0bWVudHMsXHJcbiAgICBnZXQ6IGdldERlcGFydG1lbnQsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZURlcGFydG1lbnQsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZURlcGFydG1lbnQsXHJcbiAgICByZW1vdmU6IGRlbGV0ZURlcGFydG1lbnQsXHJcbiAgICBsaXN0VW5pdHM6IGxpc3REZXBhcnRtZW50VW5pdHMsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VEZXBhcnRtZW50O1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsT0FBT0EsT0FBTztBQUNkLFNBQ0VDLGdCQUFnQixFQUNoQkMsZ0JBQWdCLEVBQ2hCQyxhQUFhLEVBQ2JDLG1CQUFtQixFQUNuQkMsZUFBZSxFQUNmQyxnQkFBZ0I7QUFDWUMsY0FBQSxHQUFBQyxDQUFBO0FBRTlCLElBQU1DLGFBQWEsR0FBRyxTQUFoQkEsYUFBYUEsQ0FBQSxFQUNqQjtFQUFBRixjQUFBLEdBQUFHLENBQUE7RUFBQUgsY0FBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQVIsT0FBTyxDQUFDO0lBQ05XLElBQUksRUFBRU4sZUFBZTtJQUNyQk8sR0FBRyxFQUFFVCxhQUFhO0lBQ2xCVSxNQUFNLEVBQUVaLGdCQUFnQjtJQUN4QmEsTUFBTSxFQUFFUixnQkFBZ0I7SUFDeEJTLE1BQU0sRUFBRWIsZ0JBQWdCO0lBQ3hCYyxTQUFTLEVBQUVaO0VBQ2IsQ0FBQyxDQUFDO0FBQUQsQ0FBQztBQUVKLGVBQWVLLGFBQWEiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -1,0 +1,97 @@
+f0a4d220dbba6db2c358d9862e1bb37e
+function cov_2lv5gh4fju() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useProcedure.js";
+  var hash = "2a8c462f79ea92513d4e4684e8bea43297290433";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useProcedure.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 21
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 21
+          },
+          end: {
+            line: 14,
+            column: 22
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2a8c462f79ea92513d4e4684e8bea43297290433"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2lv5gh4fju = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2lv5gh4fju();
+import useCrud from "./useCrud";
+import { createProcedure, deleteProcedure, getProcedure, listProcedures, updateProcedure } from "../features/procedure";
+cov_2lv5gh4fju().s[0]++;
+var useProcedure = function useProcedure() {
+  cov_2lv5gh4fju().f[0]++;
+  cov_2lv5gh4fju().s[1]++;
+  return useCrud({
+    list: listProcedures,
+    get: getProcedure,
+    create: createProcedure,
+    update: updateProcedure,
+    remove: deleteProcedure
+  });
+};
+export default useProcedure;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlUHJvY2VkdXJlIiwiZGVsZXRlUHJvY2VkdXJlIiwiZ2V0UHJvY2VkdXJlIiwibGlzdFByb2NlZHVyZXMiLCJ1cGRhdGVQcm9jZWR1cmUiLCJjb3ZfMmx2NWdoNGZqdSIsInMiLCJ1c2VQcm9jZWR1cmUiLCJmIiwibGlzdCIsImdldCIsImNyZWF0ZSIsInVwZGF0ZSIsInJlbW92ZSJdLCJzb3VyY2VzIjpbInVzZVByb2NlZHVyZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlUHJvY2VkdXJlIEhvb2tcclxuICogRmlsZTogdXNlUHJvY2VkdXJlLmpzXHJcbiAqL1xyXG5pbXBvcnQgdXNlQ3J1ZCBmcm9tICdAaG9va3MvdXNlQ3J1ZCc7XHJcbmltcG9ydCB7XHJcbiAgY3JlYXRlUHJvY2VkdXJlLFxyXG4gIGRlbGV0ZVByb2NlZHVyZSxcclxuICBnZXRQcm9jZWR1cmUsXHJcbiAgbGlzdFByb2NlZHVyZXMsXHJcbiAgdXBkYXRlUHJvY2VkdXJlLFxyXG59IGZyb20gJ0BmZWF0dXJlcy9wcm9jZWR1cmUnO1xyXG5cclxuY29uc3QgdXNlUHJvY2VkdXJlID0gKCkgPT5cclxuICB1c2VDcnVkKHtcclxuICAgIGxpc3Q6IGxpc3RQcm9jZWR1cmVzLFxyXG4gICAgZ2V0OiBnZXRQcm9jZWR1cmUsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZVByb2NlZHVyZSxcclxuICAgIHVwZGF0ZTogdXBkYXRlUHJvY2VkdXJlLFxyXG4gICAgcmVtb3ZlOiBkZWxldGVQcm9jZWR1cmUsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VQcm9jZWR1cmU7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxPQUFPQSxPQUFPO0FBQ2QsU0FDRUMsZUFBZSxFQUNmQyxlQUFlLEVBQ2ZDLFlBQVksRUFDWkMsY0FBYyxFQUNkQyxlQUFlO0FBQ1lDLGNBQUEsR0FBQUMsQ0FBQTtBQUU3QixJQUFNQyxZQUFZLEdBQUcsU0FBZkEsWUFBWUEsQ0FBQSxFQUNoQjtFQUFBRixjQUFBLEdBQUFHLENBQUE7RUFBQUgsY0FBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQVAsT0FBTyxDQUFDO0lBQ05VLElBQUksRUFBRU4sY0FBYztJQUNwQk8sR0FBRyxFQUFFUixZQUFZO0lBQ2pCUyxNQUFNLEVBQUVYLGVBQWU7SUFDdkJZLE1BQU0sRUFBRVIsZUFBZTtJQUN2QlMsTUFBTSxFQUFFWjtFQUNWLENBQUMsQ0FBQztBQUFELENBQUM7QUFFSixlQUFlTSxZQUFZIiwiaWdub3JlTGlzdCI6W119

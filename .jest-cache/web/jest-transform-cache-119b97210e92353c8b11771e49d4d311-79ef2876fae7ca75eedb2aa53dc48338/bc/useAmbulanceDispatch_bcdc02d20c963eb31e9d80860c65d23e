@@ -1,0 +1,97 @@
+bb35ac7a029e0f13966264896bae8636
+function cov_jnw2tpyvk() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAmbulanceDispatch.js";
+  var hash = "a4b8e893c17f01afb64b5666b4e798896850180b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAmbulanceDispatch.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 29
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 29
+          },
+          end: {
+            line: 14,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a4b8e893c17f01afb64b5666b4e798896850180b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_jnw2tpyvk = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_jnw2tpyvk();
+import useCrud from "./useCrud";
+import { createAmbulanceDispatch, deleteAmbulanceDispatch, getAmbulanceDispatch, listAmbulanceDispatches, updateAmbulanceDispatch } from "../features/ambulance-dispatch";
+cov_jnw2tpyvk().s[0]++;
+var useAmbulanceDispatch = function useAmbulanceDispatch() {
+  cov_jnw2tpyvk().f[0]++;
+  cov_jnw2tpyvk().s[1]++;
+  return useCrud({
+    list: listAmbulanceDispatches,
+    get: getAmbulanceDispatch,
+    create: createAmbulanceDispatch,
+    update: updateAmbulanceDispatch,
+    remove: deleteAmbulanceDispatch
+  });
+};
+export default useAmbulanceDispatch;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlQW1idWxhbmNlRGlzcGF0Y2giLCJkZWxldGVBbWJ1bGFuY2VEaXNwYXRjaCIsImdldEFtYnVsYW5jZURpc3BhdGNoIiwibGlzdEFtYnVsYW5jZURpc3BhdGNoZXMiLCJ1cGRhdGVBbWJ1bGFuY2VEaXNwYXRjaCIsImNvdl9qbncydHB5dmsiLCJzIiwidXNlQW1idWxhbmNlRGlzcGF0Y2giLCJmIiwibGlzdCIsImdldCIsImNyZWF0ZSIsInVwZGF0ZSIsInJlbW92ZSJdLCJzb3VyY2VzIjpbInVzZUFtYnVsYW5jZURpc3BhdGNoLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiB1c2VBbWJ1bGFuY2VEaXNwYXRjaCBIb29rXHJcbiAqIEZpbGU6IHVzZUFtYnVsYW5jZURpc3BhdGNoLmpzXHJcbiAqL1xyXG5pbXBvcnQgdXNlQ3J1ZCBmcm9tICdAaG9va3MvdXNlQ3J1ZCc7XHJcbmltcG9ydCB7XHJcbiAgY3JlYXRlQW1idWxhbmNlRGlzcGF0Y2gsXHJcbiAgZGVsZXRlQW1idWxhbmNlRGlzcGF0Y2gsXHJcbiAgZ2V0QW1idWxhbmNlRGlzcGF0Y2gsXHJcbiAgbGlzdEFtYnVsYW5jZURpc3BhdGNoZXMsXHJcbiAgdXBkYXRlQW1idWxhbmNlRGlzcGF0Y2gsXHJcbn0gZnJvbSAnQGZlYXR1cmVzL2FtYnVsYW5jZS1kaXNwYXRjaCc7XHJcblxyXG5jb25zdCB1c2VBbWJ1bGFuY2VEaXNwYXRjaCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0QW1idWxhbmNlRGlzcGF0Y2hlcyxcclxuICAgIGdldDogZ2V0QW1idWxhbmNlRGlzcGF0Y2gsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUFtYnVsYW5jZURpc3BhdGNoLFxyXG4gICAgdXBkYXRlOiB1cGRhdGVBbWJ1bGFuY2VEaXNwYXRjaCxcclxuICAgIHJlbW92ZTogZGVsZXRlQW1idWxhbmNlRGlzcGF0Y2gsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VBbWJ1bGFuY2VEaXNwYXRjaDtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLE9BQU9BLE9BQU87QUFDZCxTQUNFQyx1QkFBdUIsRUFDdkJDLHVCQUF1QixFQUN2QkMsb0JBQW9CLEVBQ3BCQyx1QkFBdUIsRUFDdkJDLHVCQUF1QjtBQUNhQyxhQUFBLEdBQUFDLENBQUE7QUFFdEMsSUFBTUMsb0JBQW9CLEdBQUcsU0FBdkJBLG9CQUFvQkEsQ0FBQSxFQUN4QjtFQUFBRixhQUFBLEdBQUFHLENBQUE7RUFBQUgsYUFBQSxHQUFBQyxDQUFBO0VBQUEsT0FBQVAsT0FBTyxDQUFDO0lBQ05VLElBQUksRUFBRU4sdUJBQXVCO0lBQzdCTyxHQUFHLEVBQUVSLG9CQUFvQjtJQUN6QlMsTUFBTSxFQUFFWCx1QkFBdUI7SUFDL0JZLE1BQU0sRUFBRVIsdUJBQXVCO0lBQy9CUyxNQUFNLEVBQUVaO0VBQ1YsQ0FBQyxDQUFDO0FBQUQsQ0FBQztBQUVKLGVBQWVNLG9CQUFvQiIsImlnbm9yZUxpc3QiOltdfQ==

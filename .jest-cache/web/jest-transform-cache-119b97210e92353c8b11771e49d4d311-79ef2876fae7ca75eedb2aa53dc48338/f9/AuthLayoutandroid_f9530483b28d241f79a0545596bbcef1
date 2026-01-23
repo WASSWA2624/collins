@@ -1,0 +1,187 @@
+c2f40631aad949281c5e9e4049ada4f7
+function cov_19ob6jv5jm() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\layouts\\AuthLayout\\AuthLayout.android.jsx";
+  var hash = "b432f552cc4c8824497d96e0663993faffbf4399";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\layouts\\AuthLayout\\AuthLayout.android.jsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 27,
+          column: 26
+        },
+        end: {
+          line: 64,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 34,
+          column: 2
+        },
+        end: {
+          line: 63,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 27,
+            column: 26
+          },
+          end: {
+            line: 27,
+            column: 27
+          }
+        },
+        loc: {
+          start: {
+            line: 33,
+            column: 6
+          },
+          end: {
+            line: 64,
+            column: 1
+          }
+        },
+        line: 33
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 46,
+            column: 13
+          },
+          end: {
+            line: 50,
+            column: 13
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 46,
+            column: 13
+          },
+          end: {
+            line: 46,
+            column: 21
+          }
+        }, {
+          start: {
+            line: 47,
+            column: 14
+          },
+          end: {
+            line: 49,
+            column: 31
+          }
+        }],
+        line: 46
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 54,
+            column: 13
+          },
+          end: {
+            line: 58,
+            column: 13
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 54,
+            column: 13
+          },
+          end: {
+            line: 54,
+            column: 22
+          }
+        }, {
+          start: {
+            line: 55,
+            column: 14
+          },
+          end: {
+            line: 57,
+            column: 32
+          }
+        }],
+        line: 54
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "b432f552cc4c8824497d96e0663993faffbf4399"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_19ob6jv5jm = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_19ob6jv5jm();
+import React from 'react';
+import { StyledContainer, StyledKeyboardAvoidingView, StyledScrollView, StyledCard, StyledBranding, StyledContent, StyledHelpLinks } from "./AuthLayout.android.styles";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+cov_19ob6jv5jm().s[0]++;
+var AuthLayoutAndroid = function AuthLayoutAndroid(_ref) {
+  var children = _ref.children,
+    branding = _ref.branding,
+    helpLinks = _ref.helpLinks,
+    accessibilityLabel = _ref.accessibilityLabel,
+    testID = _ref.testID;
+  cov_19ob6jv5jm().f[0]++;
+  cov_19ob6jv5jm().s[1]++;
+  return _jsx(StyledContainer, {
+    accessibilityLabel: accessibilityLabel,
+    testID: testID,
+    accessibilityRole: "main",
+    children: _jsx(StyledKeyboardAvoidingView, {
+      behavior: "height",
+      children: _jsx(StyledScrollView, {
+        keyboardShouldPersistTaps: "handled",
+        showsVerticalScrollIndicator: false,
+        children: _jsxs(StyledCard, {
+          children: [(cov_19ob6jv5jm().b[0][0]++, branding) && (cov_19ob6jv5jm().b[0][1]++, _jsx(StyledBranding, {
+            children: branding
+          })), _jsx(StyledContent, {
+            children: children
+          }), (cov_19ob6jv5jm().b[1][0]++, helpLinks) && (cov_19ob6jv5jm().b[1][1]++, _jsx(StyledHelpLinks, {
+            children: helpLinks
+          }))]
+        })
+      })
+    })
+  });
+};
+export default AuthLayoutAndroid;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJSZWFjdCIsIlN0eWxlZENvbnRhaW5lciIsIlN0eWxlZEtleWJvYXJkQXZvaWRpbmdWaWV3IiwiU3R5bGVkU2Nyb2xsVmlldyIsIlN0eWxlZENhcmQiLCJTdHlsZWRCcmFuZGluZyIsIlN0eWxlZENvbnRlbnQiLCJTdHlsZWRIZWxwTGlua3MiLCJqc3giLCJfanN4IiwianN4cyIsIl9qc3hzIiwiY292XzE5b2I2anY1am0iLCJzIiwiQXV0aExheW91dEFuZHJvaWQiLCJfcmVmIiwiY2hpbGRyZW4iLCJicmFuZGluZyIsImhlbHBMaW5rcyIsImFjY2Vzc2liaWxpdHlMYWJlbCIsInRlc3RJRCIsImYiLCJhY2Nlc3NpYmlsaXR5Um9sZSIsImJlaGF2aW9yIiwia2V5Ym9hcmRTaG91bGRQZXJzaXN0VGFwcyIsInNob3dzVmVydGljYWxTY3JvbGxJbmRpY2F0b3IiLCJiIl0sInNvdXJjZXMiOlsiQXV0aExheW91dC5hbmRyb2lkLmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogQXV0aExheW91dCBDb21wb25lbnQgLSBBbmRyb2lkXHJcbiAqIEF1dGhlbnRpY2F0aW9uIGxheW91dCBmb3IgQW5kcm9pZCBwbGF0Zm9ybVxyXG4gKiBGaWxlOiBBdXRoTGF5b3V0LmFuZHJvaWQuanN4XHJcbiAqL1xyXG5cclxuaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcclxuaW1wb3J0IHtcclxuICBTdHlsZWRDb250YWluZXIsXHJcbiAgU3R5bGVkS2V5Ym9hcmRBdm9pZGluZ1ZpZXcsXHJcbiAgU3R5bGVkU2Nyb2xsVmlldyxcclxuICBTdHlsZWRDYXJkLFxyXG4gIFN0eWxlZEJyYW5kaW5nLFxyXG4gIFN0eWxlZENvbnRlbnQsXHJcbiAgU3R5bGVkSGVscExpbmtzLFxyXG59IGZyb20gJy4vQXV0aExheW91dC5hbmRyb2lkLnN0eWxlcyc7XHJcblxyXG4vKipcclxuICogQXV0aExheW91dCBjb21wb25lbnQgZm9yIEFuZHJvaWRcclxuICogQHBhcmFtIHtPYmplY3R9IHByb3BzIC0gQXV0aExheW91dCBwcm9wc1xyXG4gKiBAcGFyYW0ge1JlYWN0LlJlYWN0Tm9kZX0gcHJvcHMuY2hpbGRyZW4gLSBBdXRoIGZvcm0gY29udGVudFxyXG4gKiBAcGFyYW0ge1JlYWN0LlJlYWN0Tm9kZX0gcHJvcHMuYnJhbmRpbmcgLSBCcmFuZGluZy9sb2dvIGFyZWFcclxuICogQHBhcmFtIHtSZWFjdC5SZWFjdE5vZGV9IHByb3BzLmhlbHBMaW5rcyAtIEhlbHAvZm9yZ290IHBhc3N3b3JkIGxpbmtzXHJcbiAqIEBwYXJhbSB7c3RyaW5nfSBwcm9wcy5hY2Nlc3NpYmlsaXR5TGFiZWwgLSBBY2Nlc3NpYmlsaXR5IGxhYmVsXHJcbiAqIEBwYXJhbSB7c3RyaW5nfSBwcm9wcy50ZXN0SUQgLSBUZXN0IGlkZW50aWZpZXJcclxuICovXHJcbmNvbnN0IEF1dGhMYXlvdXRBbmRyb2lkID0gKHtcclxuICBjaGlsZHJlbixcclxuICBicmFuZGluZyxcclxuICBoZWxwTGlua3MsXHJcbiAgYWNjZXNzaWJpbGl0eUxhYmVsLFxyXG4gIHRlc3RJRCxcclxufSkgPT4ge1xyXG4gIHJldHVybiAoXHJcbiAgICA8U3R5bGVkQ29udGFpbmVyXHJcbiAgICAgIGFjY2Vzc2liaWxpdHlMYWJlbD17YWNjZXNzaWJpbGl0eUxhYmVsfVxyXG4gICAgICB0ZXN0SUQ9e3Rlc3RJRH1cclxuICAgICAgYWNjZXNzaWJpbGl0eVJvbGU9XCJtYWluXCJcclxuICAgID5cclxuICAgICAgPFN0eWxlZEtleWJvYXJkQXZvaWRpbmdWaWV3IGJlaGF2aW9yPVwiaGVpZ2h0XCI+XHJcbiAgICAgICAgPFN0eWxlZFNjcm9sbFZpZXdcclxuICAgICAgICAgIGtleWJvYXJkU2hvdWxkUGVyc2lzdFRhcHM9XCJoYW5kbGVkXCJcclxuICAgICAgICAgIHNob3dzVmVydGljYWxTY3JvbGxJbmRpY2F0b3I9e2ZhbHNlfVxyXG4gICAgICAgID5cclxuICAgICAgICAgIDxTdHlsZWRDYXJkPlxyXG4gICAgICAgICAgICB7YnJhbmRpbmcgJiYgKFxyXG4gICAgICAgICAgICAgIDxTdHlsZWRCcmFuZGluZz5cclxuICAgICAgICAgICAgICAgIHticmFuZGluZ31cclxuICAgICAgICAgICAgICA8L1N0eWxlZEJyYW5kaW5nPlxyXG4gICAgICAgICAgICApfVxyXG4gICAgICAgICAgICA8U3R5bGVkQ29udGVudD5cclxuICAgICAgICAgICAgICB7Y2hpbGRyZW59XHJcbiAgICAgICAgICAgIDwvU3R5bGVkQ29udGVudD5cclxuICAgICAgICAgICAge2hlbHBMaW5rcyAmJiAoXHJcbiAgICAgICAgICAgICAgPFN0eWxlZEhlbHBMaW5rcz5cclxuICAgICAgICAgICAgICAgIHtoZWxwTGlua3N9XHJcbiAgICAgICAgICAgICAgPC9TdHlsZWRIZWxwTGlua3M+XHJcbiAgICAgICAgICAgICl9XHJcbiAgICAgICAgICA8L1N0eWxlZENhcmQ+XHJcbiAgICAgICAgPC9TdHlsZWRTY3JvbGxWaWV3PlxyXG4gICAgICA8L1N0eWxlZEtleWJvYXJkQXZvaWRpbmdWaWV3PlxyXG4gICAgPC9TdHlsZWRDb250YWluZXI+XHJcbiAgKTtcclxufTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IEF1dGhMYXlvdXRBbmRyb2lkO1xyXG5cclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxPQUFPQSxLQUFLLE1BQU0sT0FBTztBQUN6QixTQUNFQyxlQUFlLEVBQ2ZDLDBCQUEwQixFQUMxQkMsZ0JBQWdCLEVBQ2hCQyxVQUFVLEVBQ1ZDLGNBQWMsRUFDZEMsYUFBYSxFQUNiQyxlQUFlO0FBQ29CLFNBQUFDLEdBQUEsSUFBQUMsSUFBQSxFQUFBQyxJQUFBLElBQUFDLEtBQUE7QUFBQUMsY0FBQSxHQUFBQyxDQUFBO0FBV3JDLElBQU1DLGlCQUFpQixHQUFHLFNBQXBCQSxpQkFBaUJBLENBQUFDLElBQUEsRUFNakI7RUFBQSxJQUxKQyxRQUFRLEdBQUFELElBQUEsQ0FBUkMsUUFBUTtJQUNSQyxRQUFRLEdBQUFGLElBQUEsQ0FBUkUsUUFBUTtJQUNSQyxTQUFTLEdBQUFILElBQUEsQ0FBVEcsU0FBUztJQUNUQyxrQkFBa0IsR0FBQUosSUFBQSxDQUFsQkksa0JBQWtCO0lBQ2xCQyxNQUFNLEdBQUFMLElBQUEsQ0FBTkssTUFBTTtFQUFBUixjQUFBLEdBQUFTLENBQUE7RUFBQVQsY0FBQSxHQUFBQyxDQUFBO0VBRU4sT0FDRUosSUFBQSxDQUFDUixlQUFlO0lBQ2RrQixrQkFBa0IsRUFBRUEsa0JBQW1CO0lBQ3ZDQyxNQUFNLEVBQUVBLE1BQU87SUFDZkUsaUJBQWlCLEVBQUMsTUFBTTtJQUFBTixRQUFBLEVBRXhCUCxJQUFBLENBQUNQLDBCQUEwQjtNQUFDcUIsUUFBUSxFQUFDLFFBQVE7TUFBQVAsUUFBQSxFQUMzQ1AsSUFBQSxDQUFDTixnQkFBZ0I7UUFDZnFCLHlCQUF5QixFQUFDLFNBQVM7UUFDbkNDLDRCQUE0QixFQUFFLEtBQU07UUFBQVQsUUFBQSxFQUVwQ0wsS0FBQSxDQUFDUCxVQUFVO1VBQUFZLFFBQUEsR0FDUixDQUFBSixjQUFBLEdBQUFjLENBQUEsVUFBQVQsUUFBUSxNQUFBTCxjQUFBLEdBQUFjLENBQUEsVUFDUGpCLElBQUEsQ0FBQ0osY0FBYztZQUFBVyxRQUFBLEVBQ1pDO1VBQVEsQ0FDSyxDQUFDLENBQ2xCLEVBQ0RSLElBQUEsQ0FBQ0gsYUFBYTtZQUFBVSxRQUFBLEVBQ1hBO1VBQVEsQ0FDSSxDQUFDLEVBQ2YsQ0FBQUosY0FBQSxHQUFBYyxDQUFBLFVBQUFSLFNBQVMsTUFBQU4sY0FBQSxHQUFBYyxDQUFBLFVBQ1JqQixJQUFBLENBQUNGLGVBQWU7WUFBQVMsUUFBQSxFQUNiRTtVQUFTLENBQ0ssQ0FBQyxDQUNuQjtRQUFBLENBQ1M7TUFBQyxDQUNHO0lBQUMsQ0FDTztFQUFDLENBQ2QsQ0FBQztBQUV0QixDQUFDO0FBRUQsZUFBZUosaUJBQWlCIiwiaWdub3JlTGlzdCI6W119

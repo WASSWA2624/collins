@@ -1,11 +1,10 @@
-﻿/**
+/**
  * EmptyState Web Styles
  * Styled-components for Web platform
  * File: EmptyState.web.styles.jsx
  */
 import styled from 'styled-components';
-import Text from '@platform/components/display/Text';
-import Button from '@platform/components/Button';
+import { Button, Text } from '@platform/components';
 
 const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',

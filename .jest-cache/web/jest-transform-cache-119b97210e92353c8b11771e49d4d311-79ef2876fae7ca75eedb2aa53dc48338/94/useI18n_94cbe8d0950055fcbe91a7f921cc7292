@@ -1,0 +1,214 @@
+24eea08e26a8986e0b7c940e2ebddee4
+function cov_9426reosh() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useI18n.js";
+  var hash = "542a39d31c3229fd5d407cd5a1a0648ce93df777";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useI18n.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 11,
+          column: 16
+        },
+        end: {
+          line: 25,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 17
+        },
+        end: {
+          line: 12,
+          column: 42
+        }
+      },
+      "2": {
+        start: {
+          line: 14,
+          column: 15
+        },
+        end: {
+          line: 17,
+          column: 3
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 10
+        },
+        end: {
+          line: 15,
+          column: 47
+        }
+      },
+      "4": {
+        start: {
+          line: 19,
+          column: 12
+        },
+        end: {
+          line: 22,
+          column: 3
+        }
+      },
+      "5": {
+        start: {
+          line: 20,
+          column: 21
+        },
+        end: {
+          line: 20,
+          column: 52
+        }
+      },
+      "6": {
+        start: {
+          line: 24,
+          column: 2
+        },
+        end: {
+          line: 24,
+          column: 23
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 11,
+            column: 16
+          },
+          end: {
+            line: 11,
+            column: 17
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 22
+          },
+          end: {
+            line: 25,
+            column: 1
+          }
+        },
+        line: 11
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 15,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 10
+          },
+          end: {
+            line: 15,
+            column: 47
+          }
+        },
+        line: 15
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 20,
+            column: 4
+          },
+          end: {
+            line: 20,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 20,
+            column: 21
+          },
+          end: {
+            line: 20,
+            column: 52
+          }
+        },
+        line: 20
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "542a39d31c3229fd5d407cd5a1a0648ce93df777"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_9426reosh = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_9426reosh();
+import { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { createI18n } from "../i18n";
+import { selectLocale } from "../store/selectors";
+cov_9426reosh().s[0]++;
+var useI18n = function useI18n() {
+  cov_9426reosh().f[0]++;
+  var locale = (cov_9426reosh().s[1]++, useSelector(selectLocale));
+  var i18n = (cov_9426reosh().s[2]++, useMemo(function () {
+    cov_9426reosh().f[1]++;
+    cov_9426reosh().s[3]++;
+    return createI18n({
+      initialLocale: locale
+    });
+  }, [locale]));
+  var t = (cov_9426reosh().s[4]++, useCallback(function (key, params) {
+    cov_9426reosh().f[2]++;
+    cov_9426reosh().s[5]++;
+    return i18n.tSync(key, params, locale);
+  }, [i18n, locale]));
+  cov_9426reosh().s[6]++;
+  return {
+    t: t,
+    locale: locale
+  };
+};
+export default useI18n;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDYWxsYmFjayIsInVzZU1lbW8iLCJ1c2VTZWxlY3RvciIsImNyZWF0ZUkxOG4iLCJzZWxlY3RMb2NhbGUiLCJjb3ZfOTQyNnJlb3NoIiwicyIsInVzZUkxOG4iLCJmIiwibG9jYWxlIiwiaTE4biIsImluaXRpYWxMb2NhbGUiLCJ0Iiwia2V5IiwicGFyYW1zIiwidFN5bmMiXSwic291cmNlcyI6WyJ1c2VJMThuLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiB1c2VJMThuIEhvb2tcclxuICogUHJvdmlkZXMgdHJhbnNsYXRpb24gaGVscGVyIGZvciBVSSAobm8gaGFyZGNvZGVkIFVJIHN0cmluZ3MpLlxyXG4gKiBGaWxlOiB1c2VJMThuLmpzXHJcbiAqL1xyXG5pbXBvcnQgeyB1c2VDYWxsYmFjaywgdXNlTWVtbyB9IGZyb20gJ3JlYWN0JztcclxuaW1wb3J0IHsgdXNlU2VsZWN0b3IgfSBmcm9tICdyZWFjdC1yZWR1eCc7XHJcbmltcG9ydCB7IGNyZWF0ZUkxOG4gfSBmcm9tICdAaTE4bic7XHJcbmltcG9ydCB7IHNlbGVjdExvY2FsZSB9IGZyb20gJ0BzdG9yZS9zZWxlY3RvcnMnO1xyXG5cclxuY29uc3QgdXNlSTE4biA9ICgpID0+IHtcclxuICBjb25zdCBsb2NhbGUgPSB1c2VTZWxlY3RvcihzZWxlY3RMb2NhbGUpO1xyXG5cclxuICBjb25zdCBpMThuID0gdXNlTWVtbyhcclxuICAgICgpID0+IGNyZWF0ZUkxOG4oeyBpbml0aWFsTG9jYWxlOiBsb2NhbGUgfSksXHJcbiAgICBbbG9jYWxlXVxyXG4gICk7XHJcblxyXG4gIGNvbnN0IHQgPSB1c2VDYWxsYmFjayhcclxuICAgIChrZXksIHBhcmFtcykgPT4gaTE4bi50U3luYyhrZXksIHBhcmFtcywgbG9jYWxlKSxcclxuICAgIFtpMThuLCBsb2NhbGVdXHJcbiAgKTtcclxuXHJcbiAgcmV0dXJuIHsgdCwgbG9jYWxlIH07XHJcbn07XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VJMThuO1xyXG5cclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUtBLFNBQVNBLFdBQVcsRUFBRUMsT0FBTyxRQUFRLE9BQU87QUFDNUMsU0FBU0MsV0FBVyxRQUFRLGFBQWE7QUFDekMsU0FBU0MsVUFBVTtBQUNuQixTQUFTQyxZQUFZO0FBQTJCQyxhQUFBLEdBQUFDLENBQUE7QUFFaEQsSUFBTUMsT0FBTyxHQUFHLFNBQVZBLE9BQU9BLENBQUEsRUFBUztFQUFBRixhQUFBLEdBQUFHLENBQUE7RUFDcEIsSUFBTUMsTUFBTSxJQUFBSixhQUFBLEdBQUFDLENBQUEsT0FBR0osV0FBVyxDQUFDRSxZQUFZLENBQUM7RUFFeEMsSUFBTU0sSUFBSSxJQUFBTCxhQUFBLEdBQUFDLENBQUEsT0FBR0wsT0FBTyxDQUNsQixZQUFNO0lBQUFJLGFBQUEsR0FBQUcsQ0FBQTtJQUFBSCxhQUFBLEdBQUFDLENBQUE7SUFBQSxPQUFBSCxVQUFVLENBQUM7TUFBRVEsYUFBYSxFQUFFRjtJQUFPLENBQUMsQ0FBQztFQUFELENBQUMsRUFDM0MsQ0FBQ0EsTUFBTSxDQUNULENBQUM7RUFFRCxJQUFNRyxDQUFDLElBQUFQLGFBQUEsR0FBQUMsQ0FBQSxPQUFHTixXQUFXLENBQ25CLFVBQUNhLEdBQUcsRUFBRUMsTUFBTSxFQUFLO0lBQUFULGFBQUEsR0FBQUcsQ0FBQTtJQUFBSCxhQUFBLEdBQUFDLENBQUE7SUFBQSxPQUFBSSxJQUFJLENBQUNLLEtBQUssQ0FBQ0YsR0FBRyxFQUFFQyxNQUFNLEVBQUVMLE1BQU0sQ0FBQztFQUFELENBQUMsRUFDaEQsQ0FBQ0MsSUFBSSxFQUFFRCxNQUFNLENBQ2YsQ0FBQztFQUFDSixhQUFBLEdBQUFDLENBQUE7RUFFRixPQUFPO0lBQUVNLENBQUMsRUFBREEsQ0FBQztJQUFFSCxNQUFNLEVBQU5BO0VBQU8sQ0FBQztBQUN0QixDQUFDO0FBRUQsZUFBZUYsT0FBTyIsImlnbm9yZUxpc3QiOltdfQ==

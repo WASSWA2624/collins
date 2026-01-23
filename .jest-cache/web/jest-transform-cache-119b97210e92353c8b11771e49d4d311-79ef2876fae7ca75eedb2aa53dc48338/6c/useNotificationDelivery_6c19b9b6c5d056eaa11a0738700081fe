@@ -1,0 +1,97 @@
+67e8877513e5337b9c32b47c036973c6
+function cov_1j4ebolmtt() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useNotificationDelivery.js";
+  var hash = "027896d04398a7713c58f5e002e5f70a7061883b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useNotificationDelivery.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 32
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 32
+          },
+          end: {
+            line: 14,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "027896d04398a7713c58f5e002e5f70a7061883b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_1j4ebolmtt = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1j4ebolmtt();
+import useCrud from "./useCrud";
+import { createNotificationDelivery, deleteNotificationDelivery, getNotificationDelivery, listNotificationDeliveries, updateNotificationDelivery } from "../features/notification-delivery";
+cov_1j4ebolmtt().s[0]++;
+var useNotificationDelivery = function useNotificationDelivery() {
+  cov_1j4ebolmtt().f[0]++;
+  cov_1j4ebolmtt().s[1]++;
+  return useCrud({
+    list: listNotificationDeliveries,
+    get: getNotificationDelivery,
+    create: createNotificationDelivery,
+    update: updateNotificationDelivery,
+    remove: deleteNotificationDelivery
+  });
+};
+export default useNotificationDelivery;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlTm90aWZpY2F0aW9uRGVsaXZlcnkiLCJkZWxldGVOb3RpZmljYXRpb25EZWxpdmVyeSIsImdldE5vdGlmaWNhdGlvbkRlbGl2ZXJ5IiwibGlzdE5vdGlmaWNhdGlvbkRlbGl2ZXJpZXMiLCJ1cGRhdGVOb3RpZmljYXRpb25EZWxpdmVyeSIsImNvdl8xajRlYm9sbXR0IiwicyIsInVzZU5vdGlmaWNhdGlvbkRlbGl2ZXJ5IiwiZiIsImxpc3QiLCJnZXQiLCJjcmVhdGUiLCJ1cGRhdGUiLCJyZW1vdmUiXSwic291cmNlcyI6WyJ1c2VOb3RpZmljYXRpb25EZWxpdmVyeS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlTm90aWZpY2F0aW9uRGVsaXZlcnkgSG9va1xyXG4gKiBGaWxlOiB1c2VOb3RpZmljYXRpb25EZWxpdmVyeS5qc1xyXG4gKi9cclxuaW1wb3J0IHVzZUNydWQgZnJvbSAnQGhvb2tzL3VzZUNydWQnO1xyXG5pbXBvcnQge1xyXG4gIGNyZWF0ZU5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG4gIGRlbGV0ZU5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG4gIGdldE5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG4gIGxpc3ROb3RpZmljYXRpb25EZWxpdmVyaWVzLFxyXG4gIHVwZGF0ZU5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG59IGZyb20gJ0BmZWF0dXJlcy9ub3RpZmljYXRpb24tZGVsaXZlcnknO1xyXG5cclxuY29uc3QgdXNlTm90aWZpY2F0aW9uRGVsaXZlcnkgPSAoKSA9PlxyXG4gIHVzZUNydWQoe1xyXG4gICAgbGlzdDogbGlzdE5vdGlmaWNhdGlvbkRlbGl2ZXJpZXMsXHJcbiAgICBnZXQ6IGdldE5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG4gICAgY3JlYXRlOiBjcmVhdGVOb3RpZmljYXRpb25EZWxpdmVyeSxcclxuICAgIHVwZGF0ZTogdXBkYXRlTm90aWZpY2F0aW9uRGVsaXZlcnksXHJcbiAgICByZW1vdmU6IGRlbGV0ZU5vdGlmaWNhdGlvbkRlbGl2ZXJ5LFxyXG4gIH0pO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgdXNlTm90aWZpY2F0aW9uRGVsaXZlcnk7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFJQSxPQUFPQSxPQUFPO0FBQ2QsU0FDRUMsMEJBQTBCLEVBQzFCQywwQkFBMEIsRUFDMUJDLHVCQUF1QixFQUN2QkMsMEJBQTBCLEVBQzFCQywwQkFBMEI7QUFDYUMsY0FBQSxHQUFBQyxDQUFBO0FBRXpDLElBQU1DLHVCQUF1QixHQUFHLFNBQTFCQSx1QkFBdUJBLENBQUEsRUFDM0I7RUFBQUYsY0FBQSxHQUFBRyxDQUFBO0VBQUFILGNBQUEsR0FBQUMsQ0FBQTtFQUFBLE9BQUFQLE9BQU8sQ0FBQztJQUNOVSxJQUFJLEVBQUVOLDBCQUEwQjtJQUNoQ08sR0FBRyxFQUFFUix1QkFBdUI7SUFDNUJTLE1BQU0sRUFBRVgsMEJBQTBCO0lBQ2xDWSxNQUFNLEVBQUVSLDBCQUEwQjtJQUNsQ1MsTUFBTSxFQUFFWjtFQUNWLENBQUMsQ0FBQztBQUFELENBQUM7QUFFSixlQUFlTSx1QkFBdUIiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -1,0 +1,65 @@
+c646dcbbe436ebc604831b336cf72798
+function cov_metiwjhcl() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\display\\Chip\\types.js";
+  var hash = "2201b0ab325fcc322b0ff2c4c9ecd003e2566a9d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\components\\display\\Chip\\types.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 11,
+          column: 24
+        },
+        end: {
+          line: 15,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 21,
+          column: 21
+        },
+        end: {
+          line: 25,
+          column: 1
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2201b0ab325fcc322b0ff2c4c9ecd003e2566a9d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_metiwjhcl = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_metiwjhcl();
+export var VARIANTS = (cov_metiwjhcl().s[0]++, {
+  DEFAULT: 'default',
+  PRIMARY: 'primary',
+  OUTLINE: 'outline'
+});
+export var SIZES = (cov_metiwjhcl().s[1]++, {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large'
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJWQVJJQU5UUyIsImNvdl9tZXRpd2poY2wiLCJzIiwiREVGQVVMVCIsIlBSSU1BUlkiLCJPVVRMSU5FIiwiU0laRVMiLCJTTUFMTCIsIk1FRElVTSIsIkxBUkdFIl0sInNvdXJjZXMiOlsidHlwZXMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIENoaXAgQ29tcG9uZW50IFR5cGVzXHJcbiAqIERlZmluZXMgdmFyaWFudHMgYW5kIHNpemVzXHJcbiAqIEZpbGU6IHR5cGVzLmpzXHJcbiAqL1xyXG5cclxuLyoqXHJcbiAqIENoaXAgdmFyaWFudHNcclxuICogQHR5cGUge09iamVjdH1cclxuICovXHJcbmV4cG9ydCBjb25zdCBWQVJJQU5UUyA9IHtcclxuICBERUZBVUxUOiAnZGVmYXVsdCcsXHJcbiAgUFJJTUFSWTogJ3ByaW1hcnknLFxyXG4gIE9VVExJTkU6ICdvdXRsaW5lJyxcclxufTtcclxuXHJcbi8qKlxyXG4gKiBDaGlwIHNpemVzXHJcbiAqIEB0eXBlIHtPYmplY3R9XHJcbiAqL1xyXG5leHBvcnQgY29uc3QgU0laRVMgPSB7XHJcbiAgU01BTEw6ICdzbWFsbCcsXHJcbiAgTUVESVVNOiAnbWVkaXVtJyxcclxuICBMQVJHRTogJ2xhcmdlJyxcclxufTtcclxuXHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFVQSxPQUFPLElBQU1BLFFBQVEsSUFBQUMsYUFBQSxHQUFBQyxDQUFBLE9BQUc7RUFDdEJDLE9BQU8sRUFBRSxTQUFTO0VBQ2xCQyxPQUFPLEVBQUUsU0FBUztFQUNsQkMsT0FBTyxFQUFFO0FBQ1gsQ0FBQztBQU1ELE9BQU8sSUFBTUMsS0FBSyxJQUFBTCxhQUFBLEdBQUFDLENBQUEsT0FBRztFQUNuQkssS0FBSyxFQUFFLE9BQU87RUFDZEMsTUFBTSxFQUFFLFFBQVE7RUFDaEJDLEtBQUssRUFBRTtBQUNULENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

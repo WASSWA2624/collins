@@ -1,0 +1,97 @@
+3e48a0dd2d1754223c08be20124860c7
+function cov_u2t9hgh75() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAmbulanceTrip.js";
+  var hash = "036802012d001fabccc3f4f5225ef7114bf4eddf";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\hooks\\useAmbulanceTrip.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 25
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 14,
+            column: 25
+          },
+          end: {
+            line: 14,
+            column: 26
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 4
+          }
+        },
+        line: 15
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "036802012d001fabccc3f4f5225ef7114bf4eddf"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_u2t9hgh75 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_u2t9hgh75();
+import useCrud from "./useCrud";
+import { createAmbulanceTrip, deleteAmbulanceTrip, getAmbulanceTrip, listAmbulanceTrips, updateAmbulanceTrip } from "../features/ambulance-trip";
+cov_u2t9hgh75().s[0]++;
+var useAmbulanceTrip = function useAmbulanceTrip() {
+  cov_u2t9hgh75().f[0]++;
+  cov_u2t9hgh75().s[1]++;
+  return useCrud({
+    list: listAmbulanceTrips,
+    get: getAmbulanceTrip,
+    create: createAmbulanceTrip,
+    update: updateAmbulanceTrip,
+    remove: deleteAmbulanceTrip
+  });
+};
+export default useAmbulanceTrip;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1c2VDcnVkIiwiY3JlYXRlQW1idWxhbmNlVHJpcCIsImRlbGV0ZUFtYnVsYW5jZVRyaXAiLCJnZXRBbWJ1bGFuY2VUcmlwIiwibGlzdEFtYnVsYW5jZVRyaXBzIiwidXBkYXRlQW1idWxhbmNlVHJpcCIsImNvdl91MnQ5aGdoNzUiLCJzIiwidXNlQW1idWxhbmNlVHJpcCIsImYiLCJsaXN0IiwiZ2V0IiwiY3JlYXRlIiwidXBkYXRlIiwicmVtb3ZlIl0sInNvdXJjZXMiOlsidXNlQW1idWxhbmNlVHJpcC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogdXNlQW1idWxhbmNlVHJpcCBIb29rXHJcbiAqIEZpbGU6IHVzZUFtYnVsYW5jZVRyaXAuanNcclxuICovXHJcbmltcG9ydCB1c2VDcnVkIGZyb20gJ0Bob29rcy91c2VDcnVkJztcclxuaW1wb3J0IHtcclxuICBjcmVhdGVBbWJ1bGFuY2VUcmlwLFxyXG4gIGRlbGV0ZUFtYnVsYW5jZVRyaXAsXHJcbiAgZ2V0QW1idWxhbmNlVHJpcCxcclxuICBsaXN0QW1idWxhbmNlVHJpcHMsXHJcbiAgdXBkYXRlQW1idWxhbmNlVHJpcCxcclxufSBmcm9tICdAZmVhdHVyZXMvYW1idWxhbmNlLXRyaXAnO1xyXG5cclxuY29uc3QgdXNlQW1idWxhbmNlVHJpcCA9ICgpID0+XHJcbiAgdXNlQ3J1ZCh7XHJcbiAgICBsaXN0OiBsaXN0QW1idWxhbmNlVHJpcHMsXHJcbiAgICBnZXQ6IGdldEFtYnVsYW5jZVRyaXAsXHJcbiAgICBjcmVhdGU6IGNyZWF0ZUFtYnVsYW5jZVRyaXAsXHJcbiAgICB1cGRhdGU6IHVwZGF0ZUFtYnVsYW5jZVRyaXAsXHJcbiAgICByZW1vdmU6IGRlbGV0ZUFtYnVsYW5jZVRyaXAsXHJcbiAgfSk7XHJcblxyXG5leHBvcnQgZGVmYXVsdCB1c2VBbWJ1bGFuY2VUcmlwO1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsT0FBT0EsT0FBTztBQUNkLFNBQ0VDLG1CQUFtQixFQUNuQkMsbUJBQW1CLEVBQ25CQyxnQkFBZ0IsRUFDaEJDLGtCQUFrQixFQUNsQkMsbUJBQW1CO0FBQ2FDLGFBQUEsR0FBQUMsQ0FBQTtBQUVsQyxJQUFNQyxnQkFBZ0IsR0FBRyxTQUFuQkEsZ0JBQWdCQSxDQUFBLEVBQ3BCO0VBQUFGLGFBQUEsR0FBQUcsQ0FBQTtFQUFBSCxhQUFBLEdBQUFDLENBQUE7RUFBQSxPQUFBUCxPQUFPLENBQUM7SUFDTlUsSUFBSSxFQUFFTixrQkFBa0I7SUFDeEJPLEdBQUcsRUFBRVIsZ0JBQWdCO0lBQ3JCUyxNQUFNLEVBQUVYLG1CQUFtQjtJQUMzQlksTUFBTSxFQUFFUixtQkFBbUI7SUFDM0JTLE1BQU0sRUFBRVo7RUFDVixDQUFDLENBQUM7QUFBRCxDQUFDO0FBRUosZUFBZU0sZ0JBQWdCIiwiaWdub3JlTGlzdCI6W119

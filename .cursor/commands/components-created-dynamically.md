@@ -1,3 +1,1 @@
-# components-created-dynamically
-
-How can we refactor the implementation of components and component structure to ensure thatt no component is created dynamically? Review the current implementaion and find out where the implementation causes components to be created dynamically. Also check the component creation rules for any possible culprits.
+Let us review the implementations of step 11.1.2 (- Step 11.1.2: `user-session`) of @hms-frontend/dev-plan/P011_screens-routes.md  to ensure that every thing is fully implemented and is 100% compliant to the frontend rules . If not implement and ensure 100% compliant to the rules, and fully aligns with the @hms-backend. Everything should be 100% teasted with 100% coverage. All tests must pass. Skip if already implemented and compliant. Update the navigation menu whenever applicable

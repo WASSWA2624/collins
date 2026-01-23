@@ -87,7 +87,7 @@ const ListScaffoldAndroid = ({
         {errorComponent || (
           <ErrorState
             title={t('listScaffold.errorState.title')}
-            message={errorMessage}
+            description={errorMessage}
             action={
               onRetry ? (
                 <Button onPress={onRetry} accessibilityLabel={t('common.retry')} testID={testID ? `${testID}-retry` : undefined}>
@@ -115,7 +115,7 @@ const ListScaffoldAndroid = ({
         {emptyComponent || (
           <EmptyState
             title={t('listScaffold.emptyState.title')}
-            message={t('listScaffold.emptyState.message')}
+            description={t('listScaffold.emptyState.message')}
             testID={testID ? `${testID}-empty-state` : undefined}
           />
         )}
