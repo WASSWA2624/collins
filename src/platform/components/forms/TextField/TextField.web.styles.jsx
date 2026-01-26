@@ -43,6 +43,7 @@ const StyledInputContainer = styled.div.withConfig({
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   border-width: 1px;
   border-style: solid;
   border-radius: ${({ theme }) => theme.radius.md}px;
@@ -55,12 +56,19 @@ const StyledInputContainer = styled.div.withConfig({
   }};
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   min-height: 48px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus-within {
     border-color: ${({ $validationState, theme }) => {
       if ($validationState === 'error') return theme.colors.error;
       if ($validationState === 'success') return theme.colors.success;
       return theme.colors.primary;
+    }};
+    box-shadow: 0 0 0 3px ${({ $validationState, theme }) => {
+      if ($validationState === 'error') return `${theme.colors.error}15`;
+      if ($validationState === 'success') return `${theme.colors.success}15`;
+      return `${theme.colors.primary}15`;
     }};
     outline: none;
   }
@@ -70,9 +78,11 @@ const StyledPrefix = styled.span.withConfig({
   displayName: 'StyledPrefix',
   componentId: 'StyledPrefix',
 })`
-  margin-right: ${({ theme }) => theme.spacing.xs}px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
 const StyledInput = styled.input.withConfig({
@@ -88,6 +98,7 @@ const StyledInput = styled.input.withConfig({
   outline: 0;
   background: transparent;
   width: 100%;
+  min-width: 0;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.text.tertiary};
@@ -103,9 +114,11 @@ const StyledSuffix = styled.span.withConfig({
   displayName: 'StyledSuffix',
   componentId: 'StyledSuffix',
 })`
-  margin-left: ${({ theme }) => theme.spacing.xs}px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
 const StyledHelperText = styled.div.withConfig({

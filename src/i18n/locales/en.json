@@ -171,9 +171,9 @@
       "main": {
         "home": "Home",
         "overview": "Overview",
-        "userSessions": "User Sessions",
-        "tenants": "Tenants",
+        "settings": "Settings",
         "facilities": "Facilities",
+        "tenants": "Tenants",
         "branches": "Branches",
         "departments": "Departments",
         "units": "Units",
@@ -182,7 +182,17 @@
         "beds": "Beds",
         "addresses": "Addresses",
         "contacts": "Contacts",
-        "beds": "Beds"
+        "users": "Users",
+        "userProfiles": "User Profiles",
+        "roles": "Roles",
+        "permissions": "Permissions",
+        "rolePermissions": "Role Permissions",
+        "userRoles": "User Roles",
+        "userSessions": "User Sessions",
+        "apiKeys": "API Keys",
+        "apiKeyPermissions": "API Key Permissions",
+        "userMfas": "User MFAs",
+        "oauthAccounts": "OAuth Accounts"
       },
       "patient": {
         "home": "Home"
@@ -227,6 +237,34 @@
     }
   },
   "settings": {
+    "title": "Settings",
+    "screen": {
+      "label": "Settings screen"
+    },
+    "tabs": {
+      "accessibilityLabel": "Settings tabs navigation",
+      "facility": "Facilities",
+      "tenant": "Tenants",
+      "branch": "Branches",
+      "department": "Departments",
+      "unit": "Units",
+      "room": "Rooms",
+      "ward": "Wards",
+      "bed": "Beds",
+      "address": "Addresses",
+      "contact": "Contacts",
+      "user": "Users",
+      "user-profile": "User Profiles",
+      "role": "Roles",
+      "permission": "Permissions",
+      "role-permission": "Role Permissions",
+      "user-role": "User Roles",
+      "user-session": "User Sessions",
+      "api-key": "API Keys",
+      "api-key-permission": "API Key Permissions",
+      "user-mfa": "MFA Settings",
+      "oauth-account": "OAuth Accounts"
+    },
     "theme": {
       "label": "Theme",
       "accessibilityLabel": "Theme selector",

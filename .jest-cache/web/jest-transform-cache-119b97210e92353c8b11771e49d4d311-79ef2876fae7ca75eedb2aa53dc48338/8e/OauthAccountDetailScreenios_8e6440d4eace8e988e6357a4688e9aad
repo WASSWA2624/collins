@@ -1,0 +1,124 @@
+daf8bb3430cb93eebbdef532c3c10df0
+function cov_2qcggfj3w4() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\screens\\settings\\OauthAccountDetailScreen\\OauthAccountDetailScreen.ios.jsx";
+  var hash = "e64aa2f010862b7de8f82ea57e9d109eead6b3f2";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\platform\\screens\\settings\\OauthAccountDetailScreen\\OauthAccountDetailScreen.ios.jsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 11,
+          column: 36
+        },
+        end: {
+          line: 16,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 16
+        },
+        end: {
+          line: 12,
+          column: 25
+        }
+      },
+      "2": {
+        start: {
+          line: 13,
+          column: 2
+        },
+        end: {
+          line: 13,
+          column: 32
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 15,
+          column: 84
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 11,
+            column: 36
+          },
+          end: {
+            line: 11,
+            column: 37
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 42
+          },
+          end: {
+            line: 16,
+            column: 1
+          }
+        },
+        line: 11
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e64aa2f010862b7de8f82ea57e9d109eead6b3f2"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2qcggfj3w4 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2qcggfj3w4();
+import React from 'react';
+import { View } from 'react-native';
+import { Text } from "../../../components";
+import { useI18n } from "../../../../hooks";
+import useOauthAccountDetailScreen from "./useOauthAccountDetailScreen";
+import { jsx as _jsx } from "react/jsx-runtime";
+cov_2qcggfj3w4().s[0]++;
+var OauthAccountDetailScreenIos = function OauthAccountDetailScreenIos() {
+  cov_2qcggfj3w4().f[0]++;
+  var _ref = (cov_2qcggfj3w4().s[1]++, useI18n()),
+    t = _ref.t;
+  cov_2qcggfj3w4().s[2]++;
+  useOauthAccountDetailScreen();
+  cov_2qcggfj3w4().s[3]++;
+  return _jsx(Text, {
+    testID: "oauthAccount-detail",
+    children: t('oauthAccount.detail.title')
+  });
+};
+export default OauthAccountDetailScreenIos;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJSZWFjdCIsIlZpZXciLCJUZXh0IiwidXNlSTE4biIsInVzZU9hdXRoQWNjb3VudERldGFpbFNjcmVlbiIsImpzeCIsIl9qc3giLCJjb3ZfMnFjZ2dmajN3NCIsInMiLCJPYXV0aEFjY291bnREZXRhaWxTY3JlZW5Jb3MiLCJmIiwiX3JlZiIsInQiLCJ0ZXN0SUQiLCJjaGlsZHJlbiJdLCJzb3VyY2VzIjpbIk9hdXRoQWNjb3VudERldGFpbFNjcmVlbi5pb3MuanN4Il0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogT2F1dGhBY2NvdW50RGV0YWlsU2NyZWVuIC0gaU9TXG4gKiBGaWxlOiBPYXV0aEFjY291bnREZXRhaWxTY3JlZW4uaW9zLmpzeFxuICovXG5pbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgVmlldyB9IGZyb20gJ3JlYWN0LW5hdGl2ZSc7XG5pbXBvcnQgeyBUZXh0IH0gZnJvbSAnQHBsYXRmb3JtL2NvbXBvbmVudHMnO1xuaW1wb3J0IHsgdXNlSTE4biB9IGZyb20gJ0Bob29rcyc7XG5pbXBvcnQgdXNlT2F1dGhBY2NvdW50RGV0YWlsU2NyZWVuIGZyb20gJy4vdXNlT2F1dGhBY2NvdW50RGV0YWlsU2NyZWVuJztcblxuY29uc3QgT2F1dGhBY2NvdW50RGV0YWlsU2NyZWVuSW9zID0gKCkgPT4ge1xuICBjb25zdCB7IHQgfSA9IHVzZUkxOG4oKTtcbiAgdXNlT2F1dGhBY2NvdW50RGV0YWlsU2NyZWVuKCk7XG5cbiAgcmV0dXJuIDxUZXh0IHRlc3RJRD1cIm9hdXRoQWNjb3VudC1kZXRhaWxcIj57dCgnb2F1dGhBY2NvdW50LmRldGFpbC50aXRsZScpfTwvVGV4dD47XG59O1xuXG5leHBvcnQgZGVmYXVsdCBPYXV0aEFjY291bnREZXRhaWxTY3JlZW5Jb3M7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBLE9BQU9BLEtBQUssTUFBTSxPQUFPO0FBQ3pCLFNBQVNDLElBQUksUUFBUSxjQUFjO0FBQ25DLFNBQVNDLElBQUk7QUFDYixTQUFTQyxPQUFPO0FBQ2hCLE9BQU9DLDJCQUEyQjtBQUFzQyxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFBQUMsY0FBQSxHQUFBQyxDQUFBO0FBRXhFLElBQU1DLDJCQUEyQixHQUFHLFNBQTlCQSwyQkFBMkJBLENBQUEsRUFBUztFQUFBRixjQUFBLEdBQUFHLENBQUE7RUFDeEMsSUFBQUMsSUFBQSxJQUFBSixjQUFBLEdBQUFDLENBQUEsT0FBY0wsT0FBTyxDQUFDLENBQUM7SUFBZlMsQ0FBQyxHQUFBRCxJQUFBLENBQURDLENBQUM7RUFBZUwsY0FBQSxHQUFBQyxDQUFBO0VBQ3hCSiwyQkFBMkIsQ0FBQyxDQUFDO0VBQUNHLGNBQUEsR0FBQUMsQ0FBQTtFQUU5QixPQUFPRixJQUFBLENBQUNKLElBQUk7SUFBQ1csTUFBTSxFQUFDLHFCQUFxQjtJQUFBQyxRQUFBLEVBQUVGLENBQUMsQ0FBQywyQkFBMkI7RUFBQyxDQUFPLENBQUM7QUFDbkYsQ0FBQztBQUVELGVBQWVILDJCQUEyQiIsImlnbm9yZUxpc3QiOltdfQ==

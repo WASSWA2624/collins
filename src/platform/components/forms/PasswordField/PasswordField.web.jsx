@@ -115,12 +115,18 @@ const PasswordFieldWeb = ({
             accessibilityLabel={toggleButtonLabel}
             testID={testID ? `${testID}-toggle` : undefined}
             style={{ 
-              minWidth: 'auto', 
-              width: 'auto',
-              padding: '4px 8px',
+              minWidth: '40px',
+              width: '40px',
+              height: '40px',
+              padding: '8px',
               margin: 0,
               border: 'none',
-              background: 'transparent'
+              background: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              flexShrink: 0,
             }}
           >
             {toggleIcon}

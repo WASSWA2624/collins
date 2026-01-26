@@ -4,11 +4,13 @@
  * File: Sidebar.ios.jsx
  */
 import React, { useMemo } from 'react';
+import { View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Text from '@platform/components/display/Text';
 import Badge from '@platform/components/display/Badge';
 import { Divider } from '@platform/components';
 import { useI18n } from '@hooks';
+import NavItemIcon from '@platform/components/navigation/NavItemIcon';
 import useSidebar from './useSidebar';
 import {
   StyledSidebar,
@@ -95,7 +97,11 @@ const SidebarIOS = ({
           testID={testID ? `${testID}-item-${item.id}` : undefined}
         >
           <StyledNavItemContent>
-            {item.icon && <StyledNavItemIcon>{item.icon}</StyledNavItemIcon>}
+          {item.icon && (
+            <StyledNavItemIcon>
+              <NavItemIcon name={item.icon} size={24} />
+            </StyledNavItemIcon>
+          )}
             <StyledNavItemLabel active={isActive}>{item.label}</StyledNavItemLabel>
             {item.badge && (
               <StyledNavItemBadge>
@@ -136,19 +142,25 @@ const SidebarIOS = ({
       style={style}
       {...rest}
     >
-      <StyledSidebarContent>
-        {Object.entries(groupedItems).map(([groupName, groupItems]) => (
-          <StyledNavSection key={groupName}>
-            {groupName !== 'main' && (
-              <StyledNavSectionHeader>
-                <StyledNavSectionTitle>{groupName}</StyledNavSectionTitle>
-              </StyledNavSectionHeader>
-            )}
-            {groupItems.map((item) => renderNavItem(item))}
-            {groupName !== 'main' && <Divider />}
-          </StyledNavSection>
-        ))}
-      </StyledSidebarContent>
+      <ScrollView
+        scrollEnabled={true}
+        showsVerticalScrollIndicator={true}
+        contentContainerStyle={{ paddingBottom: 16 }}
+      >
+        <StyledSidebarContent>
+          {Object.entries(groupedItems).map(([groupName, groupItems]) => (
+            <StyledNavSection key={groupName}>
+              {groupName !== 'main' && (
+                <StyledNavSectionHeader>
+                  <StyledNavSectionTitle>{groupName}</StyledNavSectionTitle>
+                </StyledNavSectionHeader>
+              )}
+              {groupItems.map((item) => renderNavItem(item))}
+              {groupName !== 'main' && <Divider />}
+            </StyledNavSection>
+          ))}
+        </StyledSidebarContent>
+      </ScrollView>
     </StyledSidebar>
   );
 };

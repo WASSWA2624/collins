@@ -22,6 +22,7 @@ const StyledSidebarContent = styled(View).withConfig({
   displayName: 'StyledSidebarContent',
   componentId: 'StyledSidebarContent',
 })`
+  flex: 1;
   padding: ${({ theme }) => theme.spacing.md}px;
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;

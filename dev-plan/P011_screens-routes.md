@@ -25,6 +25,7 @@ Implement screens, routes, and UI wiring for all HMS modules built in Phase 10. 
 - Route group names are omitted when linking/navigating (Expo Router group behavior).
 - Route guards must be applied via group layouts and role-aware navigation.
 - Every module route must be reachable from the existing navigation bar (Phase 9). Update the existing nav config/layouts; do not introduce a new navigation system.
+- **Screen Architecture Pattern**: Main screens (e.g., `settings`, `billing`, `hr`) are added to the sidebar navigation. Sub-screens (e.g., `beds`, `users`, `drugs`) are rendered as tabs within their parent main screen.
 
 ## Wiring & Functionality Checklist (Per Module)
 - Routes: create route files/folders per `app-router.mdc`, in the correct group layout.
@@ -33,6 +34,57 @@ Implement screens, routes, and UI wiring for all HMS modules built in Phase 10. 
 - Functionality: list, detail, create/edit flows backed by hooks; support pagination/filters where the hook exposes them.
 - States: loading, error, empty, and permission/guarded states handled in UI.
 - Consistency: keep naming, route paths, and UI sections aligned with Phase 10 module names.
+
+## Screen & Tab Architecture Pattern
+
+### Main Screens (Sidebar Navigation)
+Main screens are top-level entries in the sidebar navigation. Examples:
+- `patients`
+- `scheduling`
+- `clinical`
+- `billing`
+- `hr`
+- `settings`
+- `reports`
+
+Each main screen displays a tab bar containing its sub-screens.
+
+### Sub-Screens (Rendered as Tabs)
+Sub-screens are logically related entities rendered as tabs within their parent main screen. They do NOT appear in the sidebar. Examples:
+
+**Settings (Main Screen)**
+- Tabs: `facility`, `department`, `unit`, `room`, `ward`, `bed`, `branch`, `user`, `role`, `permission`, `address`, `contact`
+
+**Billing (Main Screen)**
+- Tabs: `invoice`, `payment`, `refund`, `pricing-rule`, `coverage-plan`, `insurance-claim`, `pre-authorization`, `billing-adjustment`
+
+**HR (Main Screen)**
+- Tabs: `staff-profile`, `staff-assignment`, `staff-leave`, `shift`, `shift-assignment`, `payroll-run`, `payroll-item`
+
+**Patients (Main Screen)**
+- Tabs: `patient`, `patient-identifier`, `patient-contact`, `patient-guardian`, `patient-allergy`, `patient-medical-history`, `patient-document`
+
+**Inventory (Main Screen)**
+- Tabs: `inventory-item`, `inventory-stock`, `stock-movement`, `supplier`, `purchase-request`, `purchase-order`, `goods-receipt`, `stock-adjustment`
+
+**Pharmacy (Main Screen)**
+- Tabs: `drug`, `drug-batch`, `formulary-item`, `pharmacy-order`, `pharmacy-order-item`, `dispense-log`, `adverse-event`
+
+**Diagnostics → Lab (Main Screen)**
+- Tabs: `lab-test`, `lab-panel`, `lab-order`, `lab-order-item`, `lab-sample`, `lab-result`, `lab-qc-log`
+
+**Diagnostics → Radiology (Main Screen)**
+- Tabs: `radiology-test`, `radiology-order`, `radiology-result`, `imaging-study`, `imaging-asset`, `pacs-link`
+
+### Implementation Approach
+1. Each main screen has a parent route file that:
+   - Displays a horizontal tab bar (or segmented control) listing all sub-screen tabs
+   - Renders a dynamic content area based on the selected tab
+   - Manages tab state (selected tab index or name)
+
+2. Sub-screen routes are nested under their parent and define their content components
+3. Tab switching uses navigation to the sub-screen route or local state management, depending on UX preference
+4. Deep links work naturally: `/settings/users`, `/billing/invoice`, etc.
 
 ## Route Structure Overview
 

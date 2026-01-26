@@ -1,0 +1,78 @@
+066b57fdde209037f8812fb2e5bfb1d3
+function cov_2cg1h6wmq() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(main)\\settings\\branches\\[id].jsx";
+  var hash = "39224e774d8164bd641974e2e345f2c562252d96";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(main)\\settings\\branches\\[id].jsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 2
+        },
+        end: {
+          line: 9,
+          column: 32
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "BranchDetailRoute",
+        decl: {
+          start: {
+            line: 8,
+            column: 24
+          },
+          end: {
+            line: 8,
+            column: 41
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 44
+          },
+          end: {
+            line: 10,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "39224e774d8164bd641974e2e345f2c562252d96"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_2cg1h6wmq = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2cg1h6wmq();
+import { BranchDetailScreen } from "../../../../platform/screens";
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function BranchDetailRoute() {
+  cov_2cg1h6wmq().f[0]++;
+  cov_2cg1h6wmq().s[0]++;
+  return _jsx(BranchDetailScreen, {});
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJCcmFuY2hEZXRhaWxTY3JlZW4iLCJqc3giLCJfanN4IiwiQnJhbmNoRGV0YWlsUm91dGUiLCJjb3ZfMmNnMWg2d21xIiwiZiIsInMiXSwic291cmNlcyI6WyJbaWRdLmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogQnJhbmNoIERldGFpbCBSb3V0ZVxyXG4gKiAobWFpbikvc2V0dGluZ3MvYnJhbmNoZXMvW2lkXVxyXG4gKiBQZXIgYXBwLXJvdXRlci5tZGM6IGxpZ2h0d2VpZ2h0IHBhZ2UsIGRlbGVnYXRlIHRvIHBsYXRmb3JtIHNjcmVlblxyXG4gKi9cclxuaW1wb3J0IHsgQnJhbmNoRGV0YWlsU2NyZWVuIH0gZnJvbSAnQHBsYXRmb3JtL3NjcmVlbnMnO1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gQnJhbmNoRGV0YWlsUm91dGUoKSB7XHJcbiAgcmV0dXJuIDxCcmFuY2hEZXRhaWxTY3JlZW4gLz47XHJcbn1cclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFLQSxTQUFTQSxrQkFBa0I7QUFBNEIsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBRXZELGVBQWUsU0FBU0MsaUJBQWlCQSxDQUFBLEVBQUc7RUFBQUMsYUFBQSxHQUFBQyxDQUFBO0VBQUFELGFBQUEsR0FBQUUsQ0FBQTtFQUMxQyxPQUFPSixJQUFBLENBQUNGLGtCQUFrQixJQUFFLENBQUM7QUFDL0IiLCJpZ25vcmVMaXN0IjpbXX0=

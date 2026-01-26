@@ -26,6 +26,7 @@ export { default as FacilitySelectionScreen } from './auth/FacilitySelectionScre
 export { default as HomeScreen } from './main/HomeScreen';
 
 // Settings screens
+export { default as SettingsScreen } from './settings/SettingsScreen';
 export { default as UserSessionListScreen } from './settings/UserSessionListScreen';
 export { default as UserSessionDetailScreen } from './settings/UserSessionDetailScreen';
 export { default as TenantListScreen } from './settings/TenantListScreen';

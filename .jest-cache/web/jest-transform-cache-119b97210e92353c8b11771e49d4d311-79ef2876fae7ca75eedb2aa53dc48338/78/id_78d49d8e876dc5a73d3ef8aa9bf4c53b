@@ -1,0 +1,78 @@
+9fd9013115b18422ed42f4d676f1c17c
+function cov_iicsemvq0() {
+  var path = "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(main)\\settings\\tenants\\[id].jsx";
+  var hash = "8222f0871638af5051d04bfe8a9cc02d888e9528";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "D:\\coding\\apps\\hms\\hms-frontend\\src\\app\\(main)\\settings\\tenants\\[id].jsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 2
+        },
+        end: {
+          line: 9,
+          column: 32
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "TenantDetailRoute",
+        decl: {
+          start: {
+            line: 8,
+            column: 24
+          },
+          end: {
+            line: 8,
+            column: 41
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 44
+          },
+          end: {
+            line: 10,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "8222f0871638af5051d04bfe8a9cc02d888e9528"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    cov_iicsemvq0 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_iicsemvq0();
+import { TenantDetailScreen } from "../../../../platform/screens";
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function TenantDetailRoute() {
+  cov_iicsemvq0().f[0]++;
+  cov_iicsemvq0().s[0]++;
+  return _jsx(TenantDetailScreen, {});
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJUZW5hbnREZXRhaWxTY3JlZW4iLCJqc3giLCJfanN4IiwiVGVuYW50RGV0YWlsUm91dGUiLCJjb3ZfaWljc2VtdnEwIiwiZiIsInMiXSwic291cmNlcyI6WyJbaWRdLmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogVGVuYW50IERldGFpbCBSb3V0ZVxyXG4gKiAobWFpbikvc2V0dGluZ3MvdGVuYW50cy9baWRdXHJcbiAqIFBlciBhcHAtcm91dGVyLm1kYzogbGlnaHR3ZWlnaHQgcGFnZSwgZGVsZWdhdGUgdG8gcGxhdGZvcm0gc2NyZWVuXHJcbiAqL1xyXG5pbXBvcnQgeyBUZW5hbnREZXRhaWxTY3JlZW4gfSBmcm9tICdAcGxhdGZvcm0vc2NyZWVucyc7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBUZW5hbnREZXRhaWxSb3V0ZSgpIHtcclxuICByZXR1cm4gPFRlbmFudERldGFpbFNjcmVlbiAvPjtcclxufVxyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUtBLFNBQVNBLGtCQUFrQjtBQUE0QixTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFFdkQsZUFBZSxTQUFTQyxpQkFBaUJBLENBQUEsRUFBRztFQUFBQyxhQUFBLEdBQUFDLENBQUE7RUFBQUQsYUFBQSxHQUFBRSxDQUFBO0VBQzFDLE9BQU9KLElBQUEsQ0FBQ0Ysa0JBQWtCLElBQUUsQ0FBQztBQUMvQiIsImlnbm9yZUxpc3QiOltdfQ==

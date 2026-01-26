@@ -41,7 +41,7 @@ const useAuth = () => {
   }, [user]);
 
   return {
-    isAuthenticated: Boolean(isAuthenticated),
+    isAuthenticated,
     user: user || null,
     roles,
     role: roles[0] || null,

@@ -9,6 +9,7 @@ import Text from '@platform/components/display/Text';
 import Badge from '@platform/components/display/Badge';
 import { Divider } from '@platform/components';
 import { useI18n } from '@hooks';
+import NavItemIcon from '@platform/components/navigation/NavItemIcon';
 import useSidebar from './useSidebar';
 import {
   StyledSidebar,
@@ -116,7 +117,11 @@ const SidebarWeb = ({
           testID={testID ? `${testID}-item-${item.id}` : undefined}
         >
           <StyledNavItemContent>
-            {item.icon && <StyledNavItemIcon>{item.icon}</StyledNavItemIcon>}
+            {item.icon && (
+              <StyledNavItemIcon>
+                <NavItemIcon name={item.icon} size={24} />
+              </StyledNavItemIcon>
+            )}
             {!collapsed && (
               <>
                 <StyledNavItemLabel active={isActive}>{item.label}</StyledNavItemLabel>

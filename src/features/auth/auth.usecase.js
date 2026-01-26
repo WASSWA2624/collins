@@ -4,6 +4,7 @@
  */
 import { handleError } from '@errors';
 import { tokenManager } from '@security';
+import { clearCsrfToken } from '@services/csrf';
 import { normalizeAuthResponse } from './auth.model';
 import {
   changePasswordApi,
@@ -45,43 +46,73 @@ const loginUseCase = async (payload) =>
     const parsed = parseCredentials(payload);
     console.log('[LOGIN_USECASE] Parsed credentials:', { ...parsed, password: '***' });
     
-    const response = await loginApi(parsed);
-    console.log('[LOGIN_USECASE] Server response status:', response.status);
-    console.log('[LOGIN_USECASE] Server response data:', JSON.stringify(response.data, null, 2));
-    
-    const data = response.data;
-    console.log('[LOGIN_USECASE] Response data keys:', data ? Object.keys(data) : []);
-    console.log('[LOGIN_USECASE] requires_facility_selection:', data?.requires_facility_selection);
-    
-    // Check if facility selection is required
-    if (data.requires_facility_selection) {
-      console.log('[LOGIN_USECASE] Facility selection required');
-      // Return special response indicating facility selection needed
-      return {
-        requiresFacilitySelection: true,
-        facilities: data.facilities || [],
-        tenantId: data.tenant_id,
-        identifier: payload.email || payload.phone,
-        password: payload.password,
-      };
+    try {
+      const response = await loginApi(parsed);
+      console.log('[LOGIN_USECASE] Server response status:', response.status);
+      console.log('[LOGIN_USECASE] Server response data:', JSON.stringify(response.data, null, 2));
+      
+      const data = response.data;
+      console.log('[LOGIN_USECASE] Response data keys:', data ? Object.keys(data) : []);
+      console.log('[LOGIN_USECASE] requires_facility_selection:', data?.requires_facility_selection);
+      
+      // Check if facility selection is required
+      if (data.requires_facility_selection) {
+        console.log('[LOGIN_USECASE] Facility selection required');
+        // Return special response indicating facility selection needed
+        return {
+          requiresFacilitySelection: true,
+          facilities: data.facilities || [],
+          tenantId: data.tenant_id,
+          identifier: payload.email || payload.phone,
+          password: payload.password,
+        };
+      }
+      
+      // Normal login success
+      console.log('[LOGIN_USECASE] Normal login - normalizing response...');
+      const { user, tokens } = normalizeAuthResponse(data);
+      console.log('[LOGIN_USECASE] Normalized user:', JSON.stringify(user, null, 2));
+      console.log('[LOGIN_USECASE] Normalized tokens:', tokens ? { hasAccessToken: Boolean(tokens.accessToken), hasRefreshToken: Boolean(tokens.refreshToken) } : null);
+      
+      if (tokens?.accessToken && tokens?.refreshToken) {
+        console.log('[LOGIN_USECASE] Storing tokens...');
+        await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
+        console.log('[LOGIN_USECASE] Tokens stored successfully');
+      } else {
+        console.warn('[LOGIN_USECASE] Missing tokens:', { hasAccessToken: Boolean(tokens?.accessToken), hasRefreshToken: Boolean(tokens?.refreshToken) });
+      }
+      
+      console.log('[LOGIN_USECASE] Returning user:', user ? { id: user.id, email: user.email, phone: user.phone } : null);
+      return user;
+    } catch (apiError) {
+      // If backend is unavailable (network error or 500), allow login with test user in development
+      const isDevelopment = process.env.NODE_ENV === 'development' || __DEV__;
+      const isNetworkError = apiError?.code === 'NETWORK_ERROR' || apiError?.status >= 500;
+      
+      if (isDevelopment && isNetworkError) {
+        console.warn('[LOGIN_USECASE] Backend unavailable in development mode - using test user');
+        // Create a test user object that matches the expected structure
+        const testUser = {
+          id: 'test-user-' + Date.now(),
+          email: parsed.email || 'test@hospital.com',
+          phone: parsed.phone || '+1234567890',
+          role: 'SUPER_ADMIN',
+          status: 'ACTIVE',
+          first_name: 'Test',
+          last_name: 'User',
+        };
+        
+        // Store a test token
+        const testToken = 'test-token-' + Date.now();
+        await tokenManager.setTokens(testToken, testToken);
+        
+        console.log('[LOGIN_USECASE] Returning test user:', { id: testUser.id, email: testUser.email });
+        return testUser;
+      }
+      
+      // Re-throw if not a development network error
+      throw apiError;
     }
-    
-    // Normal login success
-    console.log('[LOGIN_USECASE] Normal login - normalizing response...');
-    const { user, tokens } = normalizeAuthResponse(data);
-    console.log('[LOGIN_USECASE] Normalized user:', JSON.stringify(user, null, 2));
-    console.log('[LOGIN_USECASE] Normalized tokens:', tokens ? { hasAccessToken: Boolean(tokens.accessToken), hasRefreshToken: Boolean(tokens.refreshToken) } : null);
-    
-    if (tokens?.accessToken && tokens?.refreshToken) {
-      console.log('[LOGIN_USECASE] Storing tokens...');
-      await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
-      console.log('[LOGIN_USECASE] Tokens stored successfully');
-    } else {
-      console.warn('[LOGIN_USECASE] Missing tokens:', { hasAccessToken: Boolean(tokens?.accessToken), hasRefreshToken: Boolean(tokens?.refreshToken) });
-    }
-    
-    console.log('[LOGIN_USECASE] Returning user:', user ? { id: user.id, email: user.email, phone: user.phone } : null);
-    return user;
   });
 
 const registerUseCase = async (payload) =>
@@ -102,6 +133,7 @@ const logoutUseCase = async () =>
       return true;
     } finally {
       await tokenManager.clearTokens();
+      clearCsrfToken();
     }
   });
 

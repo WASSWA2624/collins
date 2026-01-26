@@ -31,7 +31,12 @@ const login = createAsyncThunk('auth/login', async (payload, { rejectWithValue }
     const user = await loginUseCase(payload);
     return user || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_LOGIN_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Login failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -40,7 +45,12 @@ const register = createAsyncThunk('auth/register', async (payload, { rejectWithV
     const user = await registerUseCase(payload);
     return user || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_REGISTER_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Registration failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -49,7 +59,12 @@ const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) =>
     await logoutUseCase();
     return true;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_LOGOUT_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Logout failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -58,7 +73,12 @@ const refreshSession = createAsyncThunk('auth/refresh', async (_, { rejectWithVa
     const tokens = await refreshSessionUseCase();
     return tokens || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_REFRESH_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Session refresh failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -67,7 +87,12 @@ const loadCurrentUser = createAsyncThunk('auth/loadCurrentUser', async (_, { rej
     const user = await loadCurrentUserUseCase();
     return user || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_LOADCURRENTUSER_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Failed to load user',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -76,7 +101,12 @@ const verifyEmail = createAsyncThunk('auth/verifyEmail', async (payload, { rejec
     const result = await verifyEmailUseCase(payload);
     return result || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_VERIFYEMAIL_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Email verification failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -85,7 +115,12 @@ const verifyPhone = createAsyncThunk('auth/verifyPhone', async (payload, { rejec
     const result = await verifyPhoneUseCase(payload);
     return result || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_VERIFYPHONE_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Phone verification failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -94,7 +129,12 @@ const resendVerification = createAsyncThunk('auth/resendVerification', async (pa
     const result = await resendVerificationUseCase(payload);
     return result || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_RESENDVERIFICATION_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Resend verification failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -103,7 +143,12 @@ const forgotPassword = createAsyncThunk('auth/forgotPassword', async (payload, {
     const result = await forgotPasswordUseCase(payload);
     return result || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_FORGOTPASSWORD_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Password reset request failed',
+      status: error?.status || 500
+    });
   }
 });
 
@@ -112,7 +157,12 @@ const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, { r
     const result = await resetPasswordUseCase(payload);
     return result || null;
   } catch (error) {
-    return rejectWithValue(error?.code || 'UNKNOWN_ERROR');
+    console.error('[AUTH_THUNK_RESETPASSWORD_ERROR]', error);
+    return rejectWithValue({
+      code: error?.code || 'UNKNOWN_ERROR',
+      message: error?.message || 'Password reset failed',
+      status: error?.status || 500
+    });
   }
 });
 

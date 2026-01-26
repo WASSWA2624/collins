@@ -1,0 +1,776 @@
+7b59b4bdd5b93c0b5d5e37ec4bf4b0dc
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "close": "Close",
+    "select": "Select",
+    "selectPlaceholder": "Select…",
+    "closeSelect": "Close select",
+    "remove": "Remove",
+    "goToHome": "Go to home",
+    "viewNotifications": "View notifications",
+    "userMenu": "User menu",
+    "toggleMenu": "Toggle menu",
+    "searchPlaceholder": "Search...",
+    "searchIcon": "Search icon",
+    "clearSearch": "Clear search",
+    "on": "On",
+    "off": "Off",
+    "switch": "Switch",
+    "imageLoadError": "Failed to load image",
+    "imageDefaultAlt": "Image",
+    "progress": "Progress: {{value}}%",
+    "requiredLabel": "required",
+    "clearAll": "Clear All",
+    "filters": "Filters",
+    "clearAllFilters": "Clear all filters",
+    "loadingPlaceholder": "Loading placeholder",
+    "radio": "Radio",
+    "emptyState": "Empty state",
+    "message": "Message"
+  },
+  "greeting": {
+    "hello": "Hello, {{name}}"
+  },
+  "app": {
+    "name": "HMS Portal",
+    "shortName": "HMS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Something went wrong",
+      "message": "An unexpected error occurred",
+      "retry": "Retry",
+      "retryHint": "Try again"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "An unknown error occurred",
+      "NETWORK_ERROR": "Network connection failed",
+      "UNAUTHORIZED": "Authentication required",
+      "FORBIDDEN": "Access denied",
+      "SERVER_ERROR": "Server error occurred",
+      "ROUTE_ERROR": "An error occurred while loading this page",
+      "INVALID_CREDENTIALS": "Invalid credentials",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
+      "ACCOUNT_INACTIVE": "Account is not active",
+      "ACCOUNT_SUSPENDED": "Account has been suspended",
+      "ACCOUNT_PENDING": "Account is pending verification",
+      "PASSWORD_INCORRECT": "Current password is incorrect",
+      "TOKEN_INVALID": "Invalid or expired token",
+      "TOKEN_EXPIRED": "Token has expired",
+      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
+      "USER_NOT_FOUND": "User not found",
+      "USER_EXISTS": "User with this email already exists",
+      "SESSION_NOT_FOUND": "Session not found",
+      "ALREADY_VERIFIED": "Account is already verified"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Invalid email format",
+      "invalidUrl": "Invalid URL format",
+      "invalidUuid": "Invalid ID format",
+      "maxLength": "Maximum length is {{max}} characters",
+      "invalidValue": "Invalid value"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Main navigation header",
+      "searchHint": "Type to search",
+      "cartWithItems": "Cart with {{count}} items",
+      "cartWithItems_zero": "Cart",
+      "signIn": "Sign In",
+      "profile": "Profile",
+      "orders": "Orders",
+      "settings": "Settings",
+      "logout": "Logout",
+      "hideHeader": "Hide header",
+      "showHeader": "Show header",
+      "showMore": "Show more",
+      "customize": "Customize",
+      "overflowMenuLabel": "More header actions",
+      "customizationMenuLabel": "Header customization",
+      "actions": {
+        "notifications": "Notifications",
+        "network": "Network status",
+        "fullscreen": "Full screen toggle"
+      }
+    },
+    "sidebar": {
+      "title": "Main navigation",
+      "label": "Navigation",
+      "resize": "Resize navigation"
+    },
+    "fullscreen": {
+      "enter": "Full screen",
+      "exit": "Exit full screen"
+    },
+    "tabBar": {
+      "title": "Bottom navigation"
+    },
+    "footer": {
+      "title": "Global footer",
+      "status": {
+        "title": "Application status",
+        "auth": "Secure sign-in enabled",
+        "main": "All systems operational",
+        "patient": "Patient services ready"
+      },
+      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "legal": {
+        "title": "Legal and support",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "support": "Support"
+      }
+    },
+    "network": {
+      "label": "Network status",
+      "status": {
+        "online": "Online",
+        "offline": "Offline",
+        "unstable": "Unstable",
+        "syncing": "Syncing"
+      }
+    },
+    "notifications": {
+      "label": "Notifications",
+      "menuLabel": "Notifications menu",
+      "empty": "No new notifications",
+      "viewAll": "View all notifications",
+      "items": {
+        "appointments": {
+          "title": "Upcoming appointment",
+          "meta": "Today at 3:00 PM"
+        },
+        "labResults": {
+          "title": "Lab results ready",
+          "meta": "New results available"
+        },
+        "messages": {
+          "title": "New message",
+          "meta": "You have unread messages"
+        }
+      }
+    },
+    "bottomNavigation": "Bottom navigation",
+    "mainNavigation": "Main navigation",
+    "patientNavigation": "Patient navigation",
+    "items": {
+      "main": {
+        "home": "Home",
+        "overview": "Overview",
+        "userSessions": "User Sessions",
+        "tenants": "Tenants",
+        "facilities": "Facilities",
+        "branches": "Branches",
+        "departments": "Departments",
+        "units": "Units",
+        "rooms": "Rooms",
+        "wards": "Wards",
+        "beds": "Beds",
+        "addresses": "Addresses",
+        "contacts": "Contacts",
+        "beds": "Beds"
+      },
+      "patient": {
+        "home": "Home"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Breadcrumb navigation",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "Skip to main content"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "System status updates",
+      "offline": {
+        "title": "You are offline",
+        "message": "Some features may be unavailable until connectivity is restored.",
+        "accessibilityLabel": "Offline status notification"
+      },
+      "lowQuality": {
+        "title": "Network is unstable",
+        "message": "You may experience delays or limited functionality.",
+        "accessibilityLabel": "Low network quality notification"
+      },
+      "online": {
+        "title": "Back online",
+        "message": "Connection restored.",
+        "accessibilityLabel": "Online status notification"
+      },
+      "maintenance": {
+        "title": "Scheduled maintenance",
+        "message": "Some services may be temporarily unavailable.",
+        "accessibilityLabel": "Maintenance notification"
+      }
+    },
+    "loadingOverlay": {
+      "title": "Working...",
+      "message": "Please wait while we finish the request."
+    },
+    "notices": {
+      "surfaceLabel": "Global notifications"
+    }
+  },
+  "settings": {
+    "theme": {
+      "label": "Theme",
+      "accessibilityLabel": "Theme selector",
+      "hint": "Change the application theme",
+      "options": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark",
+        "highContrast": "High contrast"
+      }
+    },
+    "language": {
+      "label": "Language",
+      "accessibilityLabel": "Language selector",
+      "hint": "Change the application language",
+      "options": {
+        "en": "English"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "Loading",
+    "offline": "Offline",
+    "error": "Error",
+    "empty": "Empty",
+    "list": "List",
+    "emptyState": {
+      "title": "No items",
+      "message": "There are no items to display"
+    },
+    "errorState": {
+      "title": "Error",
+      "message": "An error occurred"
+    }
+  },
+  "landing": {
+    "title": "Welcome",
+    "hero": {
+      "title": "Landing page",
+      "description": "This is a basic templete for the landing page. Customize it to suite your desired needs."
+    },
+    "cta": {
+      "getStarted": "Get Started",
+      "getStartedHint": "Navigate to the home page to get started",
+      "learnMore": "Learn More",
+      "learnMoreHint": "Learn more about our features"
+    }
+  },
+  "home": {
+    "title": "Home",
+    "welcome": {
+      "title": "Welcome Home",
+      "message": "You're successfully logged in. This is your home dashboard."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Click the button below to sign in and view the main application layouts",
+      "button": "Sign In",
+      "buttonHint": "Sign in to access the application",
+      "biometric": {
+        "button": "Use biometrics",
+        "buttonHint": "Sign in with biometric authentication",
+        "prompt": "Authenticate to sign in",
+        "cancel": "Cancel",
+        "fallback": "Use passcode",
+        "error": "Biometric authentication failed"
+      },
+      "error": {
+        "title": "Unable to sign in"
+      },
+      "fields": {
+        "email": {
+          "label": "Email or phone number",
+          "placeholder": "you@example.com or 256701234567",
+          "hint": "Enter your email or phone number with country code (no +)"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter your password",
+          "hint": "Enter your account password"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        },
+        "facility": {
+          "label": "Facility ID (optional)",
+          "placeholder": "Enter facility ID",
+          "hint": "Enter the facility ID if available"
+        }
+      },
+      "actions": {
+        "forgotPassword": "Forgot password?",
+        "forgotPasswordHint": "Recover your account password",
+        "register": "Create an account",
+        "registerHint": "Register a new account"
+      }
+    },
+    "register": {
+      "title": "Create account",
+      "description": "Register a new account to access HMS",
+      "steps": {
+        "organization": {
+          "title": "Organization setup",
+          "description": "Enter the tenant and facility information to continue"
+        },
+        "details": {
+          "title": "Create account",
+          "description": "Provide the new user's details to complete registration"
+        }
+      },
+      "button": "Create account",
+      "buttonHint": "Submit your registration details",
+      "error": {
+        "title": "Unable to create account"
+      },
+      "fields": {
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com",
+          "hint": "Enter the email you want to use"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Create a strong password",
+          "hint": "Use at least 8 characters with mixed case and symbols"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        },
+        "facility": {
+          "label": "Facility ID (optional)",
+          "placeholder": "Enter facility ID",
+          "hint": "Provide a facility ID if available"
+        },
+        "phone": {
+          "label": "Phone number (optional)",
+          "placeholder": "Country code and number (no +)",
+          "hint": "Provide a phone number with country code (no +)"
+        }
+      },
+      "actions": {
+        "login": "Already have an account? Sign in",
+        "loginHint": "Return to the login screen"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "description": "Request a password reset link for your account",
+      "button": "Send reset link",
+      "buttonHint": "Send a password reset link to your email",
+      "error": {
+        "title": "Unable to send reset link"
+      },
+      "success": {
+        "message": "If your account exists, a reset link has been sent."
+      },
+      "fields": {
+        "email": {
+          "label": "Email address",
+          "placeholder": "you@example.com",
+          "hint": "Enter the email for your account"
+        },
+        "tenant": {
+          "label": "Tenant ID",
+          "placeholder": "Enter tenant ID",
+          "hint": "Enter the tenant ID provided by your organization"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "description": "Create a new password using your reset token",
+      "button": "Reset password",
+      "buttonHint": "Confirm and reset your password",
+      "error": {
+        "title": "Unable to reset password"
+      },
+      "success": {
+        "message": "Your password has been reset. You can sign in now."
+      },
+      "fields": {
+        "token": {
+          "label": "Reset token",
+          "placeholder": "Enter reset token",
+          "hint": "Enter the token from your reset email"
+        },
+        "password": {
+          "label": "New password",
+          "placeholder": "Enter a new password",
+          "hint": "Use at least 8 characters with mixed case and symbols"
+        },
+        "confirm": {
+          "label": "Confirm password",
+          "placeholder": "Re-enter your new password",
+          "hint": "Confirm the new password",
+          "errorMismatch": "Passwords do not match"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "verifyEmail": {
+      "title": "Verify email",
+      "description": "Confirm your email address with the verification token",
+      "button": "Verify email",
+      "buttonHint": "Submit your email verification token",
+      "error": {
+        "title": "Unable to verify email"
+      },
+      "success": {
+        "message": "Your email has been verified successfully."
+      },
+      "fields": {
+        "token": {
+          "label": "Verification token",
+          "placeholder": "Enter verification token",
+          "hint": "Enter the token sent to your email"
+        },
+        "email": {
+          "label": "Email address (optional)",
+          "placeholder": "you@example.com",
+          "hint": "Provide your email address if requested"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    },
+    "verifyPhone": {
+      "title": "Verify phone",
+      "description": "Confirm your phone number with the verification token",
+      "button": "Verify phone",
+      "buttonHint": "Submit your phone verification token",
+      "error": {
+        "title": "Unable to verify phone"
+      },
+      "success": {
+        "message": "Your phone number has been verified successfully."
+      },
+      "fields": {
+        "token": {
+          "label": "Verification token",
+          "placeholder": "Enter verification token",
+          "hint": "Enter the token sent to your phone"
+        },
+        "phone": {
+          "label": "Phone number",
+          "placeholder": "Country code and number (no +)",
+          "hint": "Provide the phone number with country code (no +)"
+        }
+      },
+      "actions": {
+        "login": "Return to sign in",
+        "loginHint": "Go back to the login screen"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go to Home",
+    "goHomeHint": "Navigate back to the home page"
+  },
+  "error": {
+    "title": "Something Went Wrong",
+    "message": "An unexpected error occurred. Please try again or return to the home page.",
+    "retry": "Retry",
+    "retryHint": "Try the action again",
+    "goHome": "Go to Home",
+    "goHomeHint": "Navigate back to the home page"
+  },
+  "userSession": {
+    "list": {
+      "title": "User Sessions",
+      "accessibilityLabel": "User sessions list",
+      "emptyTitle": "No sessions",
+      "emptyMessage": "You have no active sessions.",
+      "revoke": "Revoke session",
+      "revokeHint": "Revoke this session and log it out",
+      "itemLabel": "Session for {{email}}"
+    },
+    "detail": {
+      "title": "Session Details",
+      "idLabel": "Session ID",
+      "emailLabel": "User",
+      "createdLabel": "Created",
+      "expiresLabel": "Expires",
+      "revokedLabel": "Revoked",
+      "errorTitle": "Failed to load session",
+      "notFoundTitle": "Session not found",
+      "notFoundMessage": "This session may have been revoked or expired.",
+      "backHint": "Return to sessions list",
+      "revoke": "Revoke session",
+      "revokeHint": "Revoke this session"
+    }
+  },
+  "branch": {
+    "list": {
+      "title": "Branches",
+      "accessibilityLabel": "Branches list",
+      "emptyTitle": "No branches",
+      "emptyMessage": "You have no branches.",
+      "delete": "Delete branch",
+      "deleteHint": "Delete this branch",
+      "itemLabel": "Branch {{name}}"
+    },
+    "detail": {
+      "title": "Branch Details",
+      "idLabel": "Branch ID",
+      "nameLabel": "Name",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load branch",
+      "notFoundTitle": "Branch not found",
+      "notFoundMessage": "This branch may have been deleted.",
+      "backHint": "Return to branches list",
+      "delete": "Delete branch",
+      "deleteHint": "Delete this branch"
+    }
+  },
+  "department": {
+    "list": {
+      "title": "Departments",
+      "accessibilityLabel": "Departments list",
+      "emptyTitle": "No departments",
+      "emptyMessage": "You have no departments.",
+      "typeLabel": "Type",
+      "delete": "Delete department",
+      "deleteHint": "Delete this department",
+      "itemLabel": "Department {{name}}"
+    },
+    "detail": {
+      "title": "Department Details",
+      "idLabel": "Department ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load department",
+      "notFoundTitle": "Department not found",
+      "notFoundMessage": "This department may have been deleted.",
+      "backHint": "Return to departments list",
+      "delete": "Delete department",
+      "deleteHint": "Delete this department"
+    }
+  },
+  "unit": {
+    "list": {
+      "title": "Units",
+      "accessibilityLabel": "Units list",
+      "emptyTitle": "No units",
+      "emptyMessage": "You have no units.",
+      "delete": "Delete unit",
+      "deleteHint": "Delete this unit",
+      "itemLabel": "Unit {{name}}"
+    },
+    "detail": {
+      "title": "Unit Details",
+      "idLabel": "Unit ID",
+      "nameLabel": "Name",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load unit",
+      "notFoundTitle": "Unit not found",
+      "notFoundMessage": "This unit may have been deleted.",
+      "backHint": "Return to units list",
+      "delete": "Delete unit",
+      "deleteHint": "Delete this unit"
+    }
+  },
+  "room": {
+    "list": {
+      "title": "Rooms",
+      "accessibilityLabel": "Rooms list",
+      "emptyTitle": "No rooms",
+      "emptyMessage": "You have no rooms.",
+      "floorLabel": "Floor",
+      "delete": "Delete room",
+      "deleteHint": "Delete this room",
+      "itemLabel": "Room {{name}}"
+    },
+    "detail": {
+      "title": "Room Details",
+      "idLabel": "Room ID",
+      "nameLabel": "Name",
+      "floorLabel": "Floor",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load room",
+      "notFoundTitle": "Room not found",
+      "notFoundMessage": "This room may have been deleted.",
+      "backHint": "Return to rooms list",
+      "delete": "Delete room",
+      "deleteHint": "Delete this room"
+    }
+  },
+  "ward": {
+    "list": {
+      "title": "Wards",
+      "accessibilityLabel": "Wards list",
+      "emptyTitle": "No wards",
+      "emptyMessage": "You have no wards.",
+      "typeLabel": "Type",
+      "delete": "Delete ward",
+      "deleteHint": "Delete this ward",
+      "itemLabel": "Ward {{name}}"
+    },
+    "detail": {
+      "title": "Ward Details",
+      "idLabel": "Ward ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load ward",
+      "notFoundTitle": "Ward not found",
+      "notFoundMessage": "This ward may have been deleted.",
+      "backHint": "Return to wards list",
+      "delete": "Delete ward",
+      "deleteHint": "Delete this ward"
+    }
+  },
+  "bed": {
+    "list": {
+      "title": "Beds",
+      "accessibilityLabel": "Beds list",
+      "emptyTitle": "No beds",
+      "emptyMessage": "You have no beds.",
+      "statusLabel": "Status",
+      "delete": "Delete bed",
+      "deleteHint": "Delete this bed",
+      "itemLabel": "Bed {{name}}"
+    },
+    "detail": {
+      "title": "Bed Details",
+      "idLabel": "Bed ID",
+      "labelLabel": "Label",
+      "statusLabel": "Status",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load bed",
+      "notFoundTitle": "Bed not found",
+      "notFoundMessage": "This bed may have been deleted.",
+      "backHint": "Return to beds list",
+      "delete": "Delete bed",
+      "deleteHint": "Delete this bed"
+    }
+  },
+  "contact": {
+    "list": {
+      "title": "Contacts",
+      "accessibilityLabel": "Contacts list",
+      "emptyTitle": "No contacts",
+      "emptyMessage": "You have no contacts.",
+      "typeLabel": "Type",
+      "delete": "Delete contact",
+      "deleteHint": "Delete this contact",
+      "itemLabel": "Contact {{name}}"
+    },
+    "detail": {
+      "title": "Contact Details",
+      "idLabel": "Contact ID",
+      "valueLabel": "Value",
+      "typeLabel": "Type",
+      "primaryLabel": "Primary",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load contact",
+      "notFoundTitle": "Contact not found",
+      "notFoundMessage": "This contact may have been deleted.",
+      "backHint": "Return to contacts list",
+      "delete": "Delete contact",
+      "deleteHint": "Delete this contact"
+    }
+  },
+  "facility": {
+    "list": {
+      "title": "Facilities",
+      "accessibilityLabel": "Facilities list",
+      "emptyTitle": "No facilities",
+      "emptyMessage": "You have no facilities.",
+      "typeLabel": "Type",
+      "delete": "Delete facility",
+      "deleteHint": "Delete this facility",
+      "itemLabel": "Facility {{name}}"
+    },
+    "detail": {
+      "title": "Facility Details",
+      "idLabel": "Facility ID",
+      "nameLabel": "Name",
+      "typeLabel": "Type",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load facility",
+      "notFoundTitle": "Facility not found",
+      "notFoundMessage": "This facility may have been deleted.",
+      "backHint": "Return to facilities list",
+      "delete": "Delete facility",
+      "deleteHint": "Delete this facility"
+    }
+  },
+  "tenant": {
+    "list": {
+      "title": "Tenants",
+      "accessibilityLabel": "Tenants list",
+      "emptyTitle": "No tenants",
+      "emptyMessage": "You have no tenants.",
+      "delete": "Delete tenant",
+      "deleteHint": "Delete this tenant",
+      "itemLabel": "Tenant {{name}}"
+    },
+    "detail": {
+      "title": "Tenant Details",
+      "idLabel": "Tenant ID",
+      "nameLabel": "Name",
+      "slugLabel": "Slug",
+      "activeLabel": "Active",
+      "createdLabel": "Created",
+      "updatedLabel": "Updated",
+      "errorTitle": "Failed to load tenant",
+      "notFoundTitle": "Tenant not found",
+      "notFoundMessage": "This tenant may have been deleted.",
+      "backHint": "Return to tenants list",
+      "delete": "Delete tenant",
+      "deleteHint": "Delete this tenant"
+    }
+  }
+}

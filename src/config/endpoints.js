@@ -10,6 +10,7 @@ const baseUrl = `${normalizeBaseUrl(API_BASE_URL)}/api/${API_VERSION}`;
 
 export const endpoints = {
   AUTH: {
+    CSRF_TOKEN: `${baseUrl}/auth/csrf-token`,
     IDENTIFY: `${baseUrl}/auth/identify`,
     LOGIN: `${baseUrl}/auth/login`,
     REGISTER: `${baseUrl}/auth/register`,
