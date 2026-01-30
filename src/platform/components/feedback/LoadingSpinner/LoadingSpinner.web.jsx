@@ -1,6 +1,6 @@
 /**
  * LoadingSpinner Component - Web
- * Loading indicator component for Web platform
+ * Indefinite horizontal thin loading spinner (progress-bar style).
  * File: LoadingSpinner.web.jsx
  */
 
@@ -10,9 +10,9 @@ import { useI18n } from '@hooks';
 import { SIZES } from './types';
 
 /**
- * LoadingSpinner component for Web
+ * Indefinite horizontal thin loading spinner for Web.
  * @param {Object} props - LoadingSpinner props
- * @param {string} props.size - Spinner size (small, medium, large)
+ * @param {string} props.size - Bar length (small, medium, large); height stays thin
  * @param {string} props.color - Spinner color (overrides theme default)
  * @param {string} props.accessibilityLabel - Accessibility label
  * @param {string} props.accessibilityHint - Accessibility hint

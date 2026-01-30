@@ -1,6 +1,6 @@
 /**
  * LoadingSpinner Component
- * Platform selector export (platform file resolution)
+ * Indefinite horizontal thin loading spinner (platform file resolution).
  * File: index.js
  */
 

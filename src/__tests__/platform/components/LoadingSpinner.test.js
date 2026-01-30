@@ -479,59 +479,59 @@ describe('LoadingSpinner Component', () => {
   describe('Web Styles Helpers', () => {
     describe('getBorderWidth', () => {
       it('should return correct width for small size', () => {
-        expect(getBorderWidth('small')).toBe('2px');
+        expect(getBorderWidth('small', lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
 
       it('should return correct width for medium size', () => {
-        expect(getBorderWidth('medium')).toBe('3px');
+        expect(getBorderWidth('medium', lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
 
       it('should return correct width for large size', () => {
-        expect(getBorderWidth('large')).toBe('4px');
+        expect(getBorderWidth('large', lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
 
       it('should return medium width for invalid size', () => {
-        expect(getBorderWidth('invalid')).toBe('3px');
+        expect(getBorderWidth('invalid', lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
 
       it('should return medium width for undefined size', () => {
-        expect(getBorderWidth(undefined)).toBe('3px');
+        expect(getBorderWidth(undefined, lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
 
       it('should return medium width for null size', () => {
-        expect(getBorderWidth(null)).toBe('3px');
+        expect(getBorderWidth(null, lightTheme)).toBe(`${lightTheme.spacing.xs}px`);
       });
     });
 
     describe('getSpinnerDimension', () => {
       it('should return correct dimension for small size', () => {
         const dimension = getSpinnerDimension('small', lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.md}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xl}px`);
       });
 
       it('should return correct dimension for medium size', () => {
         const dimension = getSpinnerDimension('medium', lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.lg}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xxl}px`);
       });
 
       it('should return correct dimension for large size', () => {
         const dimension = getSpinnerDimension('large', lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.xl}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xxl + lightTheme.spacing.md}px`);
       });
 
       it('should return medium dimension for invalid size', () => {
         const dimension = getSpinnerDimension('invalid', lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.lg}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xxl}px`);
       });
 
       it('should return medium dimension for undefined size', () => {
         const dimension = getSpinnerDimension(undefined, lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.lg}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xxl}px`);
       });
 
       it('should return medium dimension for null size', () => {
         const dimension = getSpinnerDimension(null, lightTheme);
-        expect(dimension).toBe(`${lightTheme.spacing.lg}px`);
+        expect(dimension).toBe(`${lightTheme.spacing.xxl}px`);
       });
     });
 

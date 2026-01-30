@@ -1,55 +1,57 @@
-﻿/**
+/**
  * LoadingSpinner Web Styles
- * Styled-components for Web platform
+ * Indefinite horizontal thin bar: width by size, height theme.spacing.xs.
  * File: LoadingSpinner.web.styles.jsx
  */
 
 import styled from 'styled-components';
 
 /**
- * Get border width based on size
+ * Get track height based on size
  * @param {string} size - Spinner size
- * @returns {string} Border width
+ * @param {Object} theme - Theme object
+ * @returns {string} Track height (px)
  */
-const getBorderWidth = (size) => {
-  const widths = {
-    small: '2px',
-    medium: '3px',
-    large: '4px',
+const getBorderWidth = (size, theme) => {
+  // Keep the spinner thin and theme-driven
+  const heights = {
+    small: theme.spacing.xs,
+    medium: theme.spacing.xs,
+    large: theme.spacing.xs,
   };
-  return widths[size] || widths.medium;
+  return `${(heights[size] || heights.medium)}px`;
 };
 
 /**
- * Get spinner dimensions based on size
+ * Get spinner width based on size (horizontal bar)
  * @param {string} size - Spinner size
  * @param {Object} theme - Theme object
- * @returns {string} Spinner dimension in pixels
+ * @returns {string} Spinner width (px)
  */
 const getSpinnerDimension = (size, theme) => {
   const sizes = {
-    small: theme.spacing.md,
-    medium: theme.spacing.lg,
-    large: theme.spacing.xl,
+    small: theme.spacing.xl,
+    medium: theme.spacing.xxl,
+    large: theme.spacing.xxl + theme.spacing.md,
   };
   return `${sizes[size] || sizes.medium}px`;
 };
 
 /**
- * Get border color (fallback to theme)
+ * Get track color (fallback to theme)
  * @param {string} color - Custom color
  * @param {Object} theme - Theme object
- * @returns {string} Border color
+ * @returns {string} Track color
  */
 const getBorderColor = (color, theme) => {
   return color || theme.colors.background.tertiary;
 };
 
 /**
- * Get border top color (fallback to theme primary)
+ * Get indicator color (fallback to theme primary)
  * @param {string} color - Custom color
  * @param {Object} theme - Theme object
- * @returns {string} Border top color
+ * @returns {string} Indicator color
  */
 const getBorderTopColor = (color, theme) => {
   return color || theme.colors.primary;
@@ -68,16 +70,39 @@ const StyledSpinner = styled.div.withConfig({
   displayName: 'StyledSpinner',
   componentId: 'StyledSpinner',
 })`
-  border: ${({ size, theme }) => getBorderWidth(size)} solid ${({ color, theme }) => getBorderColor(color, theme)};
-  border-top-color: ${({ color, theme }) => getBorderTopColor(color, theme)};
-  border-radius: 50%;
+  position: relative;
   width: ${({ size, theme }) => getSpinnerDimension(size, theme)};
-  height: ${({ size, theme }) => getSpinnerDimension(size, theme)};
-  animation: spin 0.8s linear infinite;
+  height: ${({ size, theme }) => getBorderWidth(size, theme)};
+  border-radius: ${({ theme }) => theme.radius.full}px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  overflow: hidden;
 
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40%;
+    height: 100%;
+    width: 40%;
+    border-radius: ${({ theme }) => theme.radius.full}px;
+    background-color: ${({ color, theme }) => getBorderTopColor(color, theme)};
+    animation: indeterminate 1.2s ease-in-out infinite;
+  }
+
+  @keyframes indeterminate {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(350%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      animation: none;
+      left: 0;
+      width: 100%;
     }
   }
 `;
