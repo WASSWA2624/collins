@@ -26,6 +26,7 @@ const FacilityListScreenIOS = () => {
     onRetry,
     onFacilityPress,
     onDelete,
+    onAdd,
   } = useFacilityListScreen();
 
   const emptyComponent = (
@@ -68,13 +69,26 @@ const FacilityListScreenIOS = () => {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <StyledContainer>
         <StyledContent>
-          <Text
-            variant="h1"
-            accessibilityRole="header"
-            testID="facility-list-title"
-          >
-            {t('facility.list.title')}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <Text
+              variant="h1"
+              accessibilityRole="header"
+              testID="facility-list-title"
+            >
+              {t('facility.list.title')}
+            </Text>
+            {onAdd && (
+              <Button
+                variant="primary"
+                onPress={onAdd}
+                accessibilityLabel={t('facility.list.addLabel')}
+                accessibilityHint={t('facility.list.addHint')}
+                testID="facility-list-add"
+              >
+                {t('facility.list.addLabel')}
+              </Button>
+            )}
+          </View>
           <ListScaffold
             isLoading={isLoading}
             isEmpty={!isLoading && !hasError && !isOffline && items.length === 0}

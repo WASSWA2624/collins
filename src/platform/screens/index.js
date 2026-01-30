@@ -31,8 +31,10 @@ export { default as UserSessionListScreen } from './settings/UserSessionListScre
 export { default as UserSessionDetailScreen } from './settings/UserSessionDetailScreen';
 export { default as TenantListScreen } from './settings/TenantListScreen';
 export { default as TenantDetailScreen } from './settings/TenantDetailScreen';
+export { default as TenantFormScreen } from './settings/TenantFormScreen';
 export { default as FacilityListScreen } from './settings/FacilityListScreen';
 export { default as FacilityDetailScreen } from './settings/FacilityDetailScreen';
+export { default as FacilityFormScreen } from './settings/FacilityFormScreen';
 export { default as BranchListScreen } from './settings/BranchListScreen';
 export { default as BranchDetailScreen } from './settings/BranchDetailScreen';
 export { default as DepartmentListScreen } from './settings/DepartmentListScreen';

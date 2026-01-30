@@ -21,16 +21,12 @@ const useSettingsScreen = () => {
   const pathname = usePathname();
   
   // Extract current tab from pathname
-  // E.g., /settings/users -> 'user'
+  // E.g., /settings/users -> USER; /settings/tenants/create -> TENANT; /settings/facilities/[id]/edit -> FACILITY
   const getCurrentTab = useCallback(() => {
-    const parts = pathname.split('/');
+    const parts = pathname.split('/').filter(Boolean);
     const lastPart = parts[parts.length - 1];
-    
-    // Map route names to tab names (index /settings or general → General)
-    const tabMap = {
-      '': SETTINGS_TABS.GENERAL,
-      'general': SETTINGS_TABS.GENERAL,
-      'settings': SETTINGS_TABS.GENERAL,
+
+    const segmentToTab = {
       'users': SETTINGS_TABS.USER,
       'user-profiles': SETTINGS_TABS.USER_PROFILE,
       'roles': SETTINGS_TABS.ROLE,
@@ -53,7 +49,22 @@ const useSettingsScreen = () => {
       'user-mfas': SETTINGS_TABS.USER_MFA,
       'oauth-accounts': SETTINGS_TABS.OAUTH_ACCOUNT,
     };
-    
+
+    if (lastPart === 'create' && parts.length >= 2) {
+      const segment = parts[parts.length - 2];
+      return segmentToTab[segment] ?? SETTINGS_TABS.GENERAL;
+    }
+    if (lastPart === 'edit' && parts.length >= 3) {
+      const segment = parts[parts.length - 3];
+      return segmentToTab[segment] ?? SETTINGS_TABS.GENERAL;
+    }
+
+    const tabMap = {
+      '': SETTINGS_TABS.GENERAL,
+      'general': SETTINGS_TABS.GENERAL,
+      'settings': SETTINGS_TABS.GENERAL,
+      ...segmentToTab,
+    };
     return tabMap[lastPart] ?? SETTINGS_TABS.GENERAL;
   }, [pathname]);
 

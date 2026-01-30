@@ -61,6 +61,10 @@ const useFacilityListScreen = () => {
     [router]
   );
 
+  const handleAdd = useCallback(() => {
+    router.push('/settings/facilities/create');
+  }, [router]);
+
   const handleDelete = useCallback(
     async (id, e) => {
       if (e?.stopPropagation) e.stopPropagation();
@@ -83,6 +87,7 @@ const useFacilityListScreen = () => {
     onRetry: handleRetry,
     onFacilityPress: handleFacilityPress,
     onDelete: handleDelete,
+    onAdd: handleAdd,
   };
 };
 

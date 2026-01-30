@@ -27,6 +27,7 @@ const FacilityListScreenWeb = () => {
     onRetry,
     onFacilityPress,
     onDelete,
+    onAdd,
   } = useFacilityListScreen();
 
   const emptyComponent = (
@@ -40,13 +41,26 @@ const FacilityListScreenWeb = () => {
   return (
     <StyledContainer>
       <StyledContent>
-        <Text
-          variant="h1"
-          accessibilityRole="header"
-          testID="facility-list-title"
-        >
-          {t('facility.list.title')}
-        </Text>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+          <Text
+            variant="h1"
+            accessibilityRole="header"
+            testID="facility-list-title"
+          >
+            {t('facility.list.title')}
+          </Text>
+          {onAdd && (
+            <Button
+              variant="primary"
+              onPress={onAdd}
+              accessibilityLabel={t('facility.list.addLabel')}
+              accessibilityHint={t('facility.list.addHint')}
+              testID="facility-list-add"
+            >
+              {t('facility.list.addLabel')}
+            </Button>
+          )}
+        </div>
         <StyledListBody role="region" aria-label={t('facility.list.accessibilityLabel')} data-testid="facility-list">
           {isLoading && (
             <LoadingSpinner testID="facility-list-spinner" />

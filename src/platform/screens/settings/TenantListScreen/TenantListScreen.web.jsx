@@ -27,6 +27,7 @@ const TenantListScreenWeb = () => {
     onRetry,
     onTenantPress,
     onDelete,
+    onAdd,
   } = useTenantListScreen();
 
   const emptyComponent = (
@@ -40,9 +41,22 @@ const TenantListScreenWeb = () => {
   return (
     <StyledContainer>
       <StyledContent>
-        <Text variant="h1" accessibilityRole="header" testID="tenant-list-title">
-          {t('tenant.list.title')}
-        </Text>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+          <Text variant="h1" accessibilityRole="header" testID="tenant-list-title">
+            {t('tenant.list.title')}
+          </Text>
+          {onAdd && (
+            <Button
+              variant="primary"
+              onPress={onAdd}
+              accessibilityLabel={t('tenant.list.addLabel')}
+              accessibilityHint={t('tenant.list.addHint')}
+              testID="tenant-list-add"
+            >
+              {t('tenant.list.addLabel')}
+            </Button>
+          )}
+        </div>
         <StyledListBody role="region" aria-label={t('tenant.list.accessibilityLabel')} data-testid="tenant-list">
           {isLoading && <LoadingSpinner testID="tenant-list-spinner" />}
           {!isLoading && hasError && (

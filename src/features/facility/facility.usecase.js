@@ -17,18 +17,22 @@ const execute = async (work) => {
   }
 };
 
+/** Backend sends { status, message, data, meta }; apiClient returns { data: body }. Unwrap payload. */
+const getPayload = (response) =>
+  (response?.data?.data !== undefined ? response.data.data : response?.data);
+
 const listFacilities = async (params = {}) =>
   execute(async () => {
     const parsed = parseFacilityListParams(params);
     const response = await facilityApi.list(parsed);
-    return normalizeFacilityList(response.data);
+    return normalizeFacilityList(getPayload(response) ?? []);
   });
 
 const getFacility = async (id) =>
   execute(async () => {
     const parsedId = parseFacilityId(id);
     const response = await facilityApi.get(parsedId);
-    return normalizeFacility(response.data);
+    return normalizeFacility(getPayload(response));
   });
 
 const createFacility = async (payload) =>
@@ -43,7 +47,7 @@ const createFacility = async (payload) =>
       return normalizeFacility(parsed);
     }
     const response = await facilityApi.create(parsed);
-    return normalizeFacility(response.data);
+    return normalizeFacility(getPayload(response));
   });
 
 const updateFacility = async (id, payload) =>
@@ -59,7 +63,7 @@ const updateFacility = async (id, payload) =>
       return normalizeFacility({ id: parsedId, ...parsed });
     }
     const response = await facilityApi.update(parsedId, parsed);
-    return normalizeFacility(response.data);
+    return normalizeFacility(getPayload(response));
   });
 
 const deleteFacility = async (id) =>
@@ -72,15 +76,15 @@ const deleteFacility = async (id) =>
     if (queued) {
       return normalizeFacility({ id: parsedId });
     }
-    const response = await facilityApi.remove(parsedId);
-    return normalizeFacility(response.data);
+    await facilityApi.remove(parsedId);
+    return normalizeFacility({ id: parsedId });
   });
 
 const listFacilityBranches = async (id) =>
   execute(async () => {
     const parsedId = parseFacilityId(id);
     const response = await getFacilityBranchesApi(parsedId);
-    return normalizeFacilityList(response.data);
+    return normalizeFacilityList(getPayload(response) ?? []);
   });
 
 export {

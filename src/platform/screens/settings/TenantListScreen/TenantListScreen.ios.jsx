@@ -26,6 +26,7 @@ const TenantListScreenIOS = () => {
     onRetry,
     onTenantPress,
     onDelete,
+    onAdd,
   } = useTenantListScreen();
 
   const emptyComponent = (
@@ -68,13 +69,26 @@ const TenantListScreenIOS = () => {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <StyledContainer>
         <StyledContent>
-          <Text
-            variant="h1"
-            accessibilityRole="header"
-            testID="tenant-list-title"
-          >
-            {t('tenant.list.title')}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <Text
+              variant="h1"
+              accessibilityRole="header"
+              testID="tenant-list-title"
+            >
+              {t('tenant.list.title')}
+            </Text>
+            {onAdd && (
+              <Button
+                variant="primary"
+                onPress={onAdd}
+                accessibilityLabel={t('tenant.list.addLabel')}
+                accessibilityHint={t('tenant.list.addHint')}
+                testID="tenant-list-add"
+              >
+                {t('tenant.list.addLabel')}
+              </Button>
+            )}
+          </View>
           <ListScaffold
             isLoading={isLoading}
             isEmpty={!isLoading && !hasError && !isOffline && items.length === 0}

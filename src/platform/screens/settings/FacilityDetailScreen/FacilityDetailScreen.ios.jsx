@@ -31,6 +31,7 @@ const FacilityDetailScreenIOS = () => {
     isOffline,
     onRetry,
     onBack,
+    onEdit,
     onDelete,
   } = useFacilityDetailScreen();
 
@@ -184,6 +185,17 @@ const FacilityDetailScreenIOS = () => {
             >
               {t('common.back')}
             </Button>
+            {onEdit && (
+              <Button
+                variant="secondary"
+                onPress={onEdit}
+                accessibilityLabel={t('facility.detail.edit')}
+                accessibilityHint={t('facility.detail.editHint')}
+                testID="facility-detail-edit"
+              >
+                {t('facility.detail.edit')}
+              </Button>
+            )}
             <Button
               variant="primary"
               onPress={onDelete}

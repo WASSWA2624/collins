@@ -59,6 +59,10 @@ const useTenantListScreen = () => {
     [router]
   );
 
+  const handleAdd = useCallback(() => {
+    router.push('/settings/tenants/create');
+  }, [router]);
+
   const handleDelete = useCallback(
     async (id, e) => {
       if (e?.stopPropagation) e.stopPropagation();
@@ -80,6 +84,7 @@ const useTenantListScreen = () => {
     isOffline,
     onRetry: handleRetry,
     onTenantPress: handleTenantPress,
+    onAdd: handleAdd,
     onDelete: handleDelete,
   };
 };

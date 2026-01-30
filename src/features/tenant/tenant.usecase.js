@@ -17,18 +17,22 @@ const execute = async (work) => {
   }
 };
 
+/** Backend sends { status, message, data }; apiClient returns { data: body }. Unwrap payload. */
+const getPayload = (response) =>
+  (response?.data?.data !== undefined ? response.data.data : response?.data);
+
 const listTenants = async (params = {}) =>
   execute(async () => {
     const parsed = parseTenantListParams(params);
     const response = await tenantApi.list(parsed);
-    return normalizeTenantList(response.data);
+    return normalizeTenantList(getPayload(response) ?? []);
   });
 
 const getTenant = async (id) =>
   execute(async () => {
     const parsedId = parseTenantId(id);
     const response = await tenantApi.get(parsedId);
-    return normalizeTenant(response.data);
+    return normalizeTenant(getPayload(response));
   });
 
 const createTenant = async (payload) =>
@@ -43,7 +47,7 @@ const createTenant = async (payload) =>
       return normalizeTenant(parsed);
     }
     const response = await tenantApi.create(parsed);
-    return normalizeTenant(response.data);
+    return normalizeTenant(getPayload(response));
   });
 
 const updateTenant = async (id, payload) =>
@@ -59,7 +63,7 @@ const updateTenant = async (id, payload) =>
       return normalizeTenant({ id: parsedId, ...parsed });
     }
     const response = await tenantApi.update(parsedId, parsed);
-    return normalizeTenant(response.data);
+    return normalizeTenant(getPayload(response));
   });
 
 const deleteTenant = async (id) =>
@@ -72,8 +76,8 @@ const deleteTenant = async (id) =>
     if (queued) {
       return normalizeTenant({ id: parsedId });
     }
-    const response = await tenantApi.remove(parsedId);
-    return normalizeTenant(response.data);
+    await tenantApi.remove(parsedId);
+    return normalizeTenant({ id: parsedId });
   });
 
 export { listTenants, getTenant, createTenant, updateTenant, deleteTenant };

@@ -1,92 +1,22 @@
 # Phase 11: HMS Screens, Routes, and UI Wiring
 
 ## Purpose
-Implement screens, routes, and UI wiring for all HMS modules built in Phase 10. Each step is **atomic** and covers **one module's screens/routes**.
+Implementation guide: one step = one screen, in chronological order below. Wire screens to Phase 10 hooks; routes per `app-router.mdc`, UI per `platform-ui.mdc`.
 
-## Rule References
-- `.cursor/rules/app-router.mdc` (Route structure - MANDATORY)
-- `.cursor/rules/platform-ui.mdc` (Screen structure - MANDATORY)
-- `.cursor/rules/component-structure.mdc` (Component structure - MANDATORY)
-- `.cursor/rules/features-domain.mdc` (Feature hooks usage)
-- `.cursor/rules/security.mdc` (Route guards)
-- `.cursor/rules/accessibility.mdc` (A11y requirements)
-- `.cursor/rules/testing.mdc` (Testing requirements)
-- `.cursor/rules/theme-design.mdc` (Theming)
+## Rules
+- `.cursor/rules/index.mdc` · `app-router.mdc` · `platform-ui.mdc` · `component-structure.mdc` · `features-domain.mdc` · `security.mdc` · `accessibility.mdc` · `testing.mdc` · `theme-design.mdc`
 
 ## Prerequisites
-- Phase 10 completed (core modules implemented with hooks)
-- Phase 9 completed (base layouts, navigation, global controls)
-- Phase 7 completed (app shell with providers and layouts)
-- Reusable UI components exist (Phase 6)
+Phase 10 (hooks), Phase 9 (layouts/nav), Phase 7 (app shell), Phase 6 (components).
 
-## Implementation Guidelines
-- All screens must wire to feature hooks; never import features directly.
-- All UI text must use i18n; no hardcoded strings.
-- Route group names are omitted when linking/navigating (Expo Router group behavior).
-- Route guards must be applied via group layouts and role-aware navigation.
-- Every module route must be reachable from the existing navigation bar (Phase 9). Update the existing nav config/layouts; do not introduce a new navigation system.
-- **Screen Architecture Pattern**: Main screens (e.g., `settings`, `billing`, `hr`) are added to the sidebar navigation. Sub-screens (e.g., `beds`, `users`, `drugs`) are rendered as tabs within their parent main screen.
+## Guidelines
+- **Order**: Follow **Sequential Build Order** below; one screen per step.
+- Screens → feature hooks only; i18n for all text; no hardcoded strings.
+- Routes: per `app-router.mdc`; omit group in links; guards in group layouts.
+- Nav: every route reachable from Phase 9 nav; add entry/icon/label per main screen.
+- **Pattern**: Main screens in sidebar; sub-screens as tabs (list/detail/create-edit per tab). Deep links: e.g. `/settings/users`, `/billing/invoice`.
 
-## Wiring & Functionality Checklist (Per Module)
-- Routes: create route files/folders per `app-router.mdc`, in the correct group layout.
-- Screens: implement per `platform-ui.mdc` and `component-structure.mdc`, wired to module hooks.
-- Navigation: add/confirm nav entry, label, and icon in existing Phase 9 navigation; ensure deep links point to the route group path.
-- Functionality: list, detail, create/edit flows backed by hooks; support pagination/filters where the hook exposes them.
-- States: loading, error, empty, and permission/guarded states handled in UI.
-- Consistency: keep naming, route paths, and UI sections aligned with Phase 10 module names.
-
-## Screen & Tab Architecture Pattern
-
-### Main Screens (Sidebar Navigation)
-Main screens are top-level entries in the sidebar navigation. Examples:
-- `patients`
-- `scheduling`
-- `clinical`
-- `billing`
-- `hr`
-- `settings`
-- `reports`
-
-Each main screen displays a tab bar containing its sub-screens.
-
-### Sub-Screens (Rendered as Tabs)
-Sub-screens are logically related entities rendered as tabs within their parent main screen. They do NOT appear in the sidebar. Examples:
-
-**Settings (Main Screen)**
-- Tabs: `facility`, `department`, `unit`, `room`, `ward`, `bed`, `branch`, `user`, `role`, `permission`, `address`, `contact`
-
-**Billing (Main Screen)**
-- Tabs: `invoice`, `payment`, `refund`, `pricing-rule`, `coverage-plan`, `insurance-claim`, `pre-authorization`, `billing-adjustment`
-
-**HR (Main Screen)**
-- Tabs: `staff-profile`, `staff-assignment`, `staff-leave`, `shift`, `shift-assignment`, `payroll-run`, `payroll-item`
-
-**Patients (Main Screen)**
-- Tabs: `patient`, `patient-identifier`, `patient-contact`, `patient-guardian`, `patient-allergy`, `patient-medical-history`, `patient-document`
-
-**Inventory (Main Screen)**
-- Tabs: `inventory-item`, `inventory-stock`, `stock-movement`, `supplier`, `purchase-request`, `purchase-order`, `goods-receipt`, `stock-adjustment`
-
-**Pharmacy (Main Screen)**
-- Tabs: `drug`, `drug-batch`, `formulary-item`, `pharmacy-order`, `pharmacy-order-item`, `dispense-log`, `adverse-event`
-
-**Diagnostics → Lab (Main Screen)**
-- Tabs: `lab-test`, `lab-panel`, `lab-order`, `lab-order-item`, `lab-sample`, `lab-result`, `lab-qc-log`
-
-**Diagnostics → Radiology (Main Screen)**
-- Tabs: `radiology-test`, `radiology-order`, `radiology-result`, `imaging-study`, `imaging-asset`, `pacs-link`
-
-### Implementation Approach
-1. Each main screen has a parent route file that:
-   - Displays a horizontal tab bar (or segmented control) listing all sub-screen tabs
-   - Renders a dynamic content area based on the selected tab
-   - Manages tab state (selected tab index or name)
-
-2. Sub-screen routes are nested under their parent and define their content components
-3. Tab switching uses navigation to the sub-screen route or local state management, depending on UX preference
-4. Deep links work naturally: `/settings/users`, `/billing/invoice`, etc.
-
-## Route Structure Overview
+## Route Structure
 
 ```text
 src/app/
@@ -102,7 +32,9 @@ src/app/
 │   ├── forgot-password.jsx
 │   ├── reset-password.jsx
 │   ├── verify-email.jsx
-│   └── verify-phone.jsx
+│   ├── verify-phone.jsx
+│   ├── tenant-selection.jsx
+│   └── facility-selection.jsx
 │
 ├── (main)/
 │   ├── _layout.jsx
@@ -137,190 +69,133 @@ src/app/
     ├── prescriptions/
     └── billing/
 ```
-# End of Selection
-```
 
-## Steps (Fully Atomic)
-Each step implements screens/routes for exactly **one** module from Phase 10, wiring to the module hook.
+## Sequential Build Order
 
-### Module Group 1: Auth, Sessions, Tenancy & Core Access
-- Step 11.1.1: `auth`
-- Step 11.1.2: `user-session`
-- Step 11.1.3: `tenant`
-- Step 11.1.4: `facility`
-- Step 11.1.5: `branch`
-- Step 11.1.6: `department`
-- Step 11.1.7: `unit`
-- Step 11.1.8: `room`
-- Step 11.1.9: `ward`
-- Step 11.1.10: `bed`
-- Step 11.1.11: `address`
-- Step 11.1.12: `contact`
-- Step 11.1.13: `user`
-- Step 11.1.14: `user-profile`
-- Step 11.1.15: `role`
-- Step 11.1.16: `permission`
-- Step 11.1.17: `role-permission`
-- Step 11.1.18: `user-role`
-- Step 11.1.19: `api-key`
-- Step 11.1.20: `api-key-permission`
-- Step 11.1.21: `user-mfa`
-- Step 11.1.22: `oauth-account`
+**One step = one screen.** Complete each step before the next. Where multiple tabs are listed, implement one screen per tab in that order.
 
-### Module Group 2: Patient Registry & Consent
-- Step 11.2.1: `patient`
-- Step 11.2.2: `patient-identifier`
-- Step 11.2.3: `patient-contact`
-- Step 11.2.4: `patient-guardian`
-- Step 11.2.5: `patient-allergy`
-- Step 11.2.6: `patient-medical-history`
-- Step 11.2.7: `patient-document`
-- Step 11.2.8: `consent`
-- Step 11.2.9: `terms-acceptance`
+### Tier 1: Auth & Shell
+- **11.S.1** Login — `(auth)/login`
+- **11.S.2** Register — `(auth)/register`
+- **11.S.3** Forgot password — `(auth)/forgot-password`
+- **11.S.4** Reset password — `(auth)/reset-password`
+- **11.S.5** Verify email — `(auth)/verify-email`
+- **11.S.6** Verify phone — `(auth)/verify-phone`
+- **11.S.7** Tenant selection — `(auth)/tenant-selection`
+- **11.S.8** Facility selection — `(auth)/facility-selection`
+- **11.S.9** Home — `(main)/home`
 
-### Module Group 3: Scheduling, Availability & Queues
-- Step 11.3.1: `appointment`
-- Step 11.3.2: `appointment-participant`
-- Step 11.3.3: `appointment-reminder`
-- Step 11.3.4: `provider-schedule`
-- Step 11.3.5: `availability-slot`
-- Step 11.3.6: `visit-queue`
+### Tier 2: Settings (main + tabs)
+- **11.S.10** Settings (main) — `(main)/settings`
+- **11.S.11** Tenant — `(main)/settings/tenants`
+- **11.S.12** Facility — `(main)/settings/facilities`
+- **11.S.13** Branch — `(main)/settings/branches`
+- **11.S.14** Department — `(main)/settings/departments`
+- **11.S.15** Unit — `(main)/settings/units`
+- **11.S.16** Room — `(main)/settings/rooms`
+- **11.S.17** Ward — `(main)/settings/wards`
+- **11.S.18** Bed — `(main)/settings/beds`
+- **11.S.19** Address — `(main)/settings/addresses`
+- **11.S.20** Contact — `(main)/settings/contacts`
+- **11.S.21** User — `(main)/settings/users`
+- **11.S.22** User profile — `(main)/settings/user-profiles`
+- **11.S.23** Role — `(main)/settings/roles`
+- **11.S.24** Permission — `(main)/settings/permissions`
+- **11.S.25** Role–permission — `(main)/settings/role-permissions`
+- **11.S.26** User–role — `(main)/settings/user-roles`
+- **11.S.27** API key — `(main)/settings/api-keys`
+- **11.S.28** API key permission — `(main)/settings/api-key-permissions`
+- **11.S.29** User MFA — `(main)/settings/user-mfas`
+- **11.S.30** User session — `(main)/settings/user-sessions`
+- **11.S.31** OAuth account — `(main)/settings/oauth-accounts`
 
-### Module Group 4: Encounters & Clinical Documentation
-- Step 11.4.1: `encounter`
-- Step 11.4.2: `clinical-note`
-- Step 11.4.3: `diagnosis`
-- Step 11.4.4: `procedure`
-- Step 11.4.5: `vital-sign`
-- Step 11.4.6: `care-plan`
-- Step 11.4.7: `clinical-alert`
-- Step 11.4.8: `referral`
-- Step 11.4.9: `follow-up`
+### Tier 3: Patients (main + tabs)
+- **11.S.32** Patients (main) — `(main)/patients`
+- **11.S.33** Patient — `(main)/patients/patients`
+- **11.S.34** Patient identifier — `(main)/patients/patient-identifiers`
+- **11.S.35** Patient contact — `(main)/patients/patient-contacts`
+- **11.S.36** Patient guardian — `(main)/patients/patient-guardians`
+- **11.S.37** Patient allergy — `(main)/patients/patient-allergies`
+- **11.S.38** Patient medical history — `(main)/patients/patient-medical-histories`
+- **11.S.39** Patient document — `(main)/patients/patient-documents`
 
-### Module Group 5: Inpatient (IPD) & Bed Management
-- Step 11.5.1: `admission`
-- Step 11.5.2: `bed-assignment`
-- Step 11.5.3: `ward-round`
-- Step 11.5.4: `nursing-note`
-- Step 11.5.5: `medication-administration`
-- Step 11.5.6: `discharge-summary`
-- Step 11.5.7: `transfer-request`
+### Tier 4: Scheduling (main + tabs)
+- **11.S.40** Scheduling (main) — `(main)/scheduling`
+- **11.S.41** Appointment — `(main)/scheduling/appointments`
+- **11.S.42** Provider schedule — `(main)/scheduling/provider-schedules`
+- **11.S.43** Availability slot — `(main)/scheduling/availability-slots`
+- **11.S.44** Visit queue — `(main)/scheduling/visit-queues`
 
-### Module Group 6: ICU & Critical Care
-- Step 11.6.1: `icu-stay`
-- Step 11.6.2: `icu-observation`
-- Step 11.6.3: `critical-alert`
+### Tier 5: Clinical (main + tabs)
+- **11.S.45** Clinical (main) — `(main)/clinical`
+- **11.S.46** Encounter — `(main)/clinical/encounters`
+- **11.S.47** Clinical note — `(main)/clinical/clinical-notes`
+- **11.S.48** Diagnosis — `(main)/clinical/diagnoses`
+- **11.S.49** Procedure — `(main)/clinical/procedures`
+- **11.S.50** Vital sign — `(main)/clinical/vital-signs`
+- **11.S.51** Care plan — `(main)/clinical/care-plans`
+- **11.S.52** Referral — `(main)/clinical/referrals`
+- **11.S.53** Follow-up — `(main)/clinical/follow-ups`
 
-### Module Group 7: Theatre & Anesthesia
-- Step 11.7.1: `theatre-case`
-- Step 11.7.2: `anesthesia-record`
-- Step 11.7.3: `post-op-note`
+### Tier 6: IPD, ICU, Theatre, Emergency
+- **11.S.54** IPD (main) — `(main)/ipd`
+- **11.S.55** IPD tabs: admission, bed-assignment, ward-round, nursing-note, medication-admin, discharge, transfer — `(main)/ipd/*` (one step per tab)
+- **11.S.56** ICU (main) — `(main)/icu`
+- **11.S.57** ICU tabs: stay, observation, critical-alert — `(main)/icu/*` (one step per tab)
+- **11.S.58** Theatre (main) — `(main)/theatre`
+- **11.S.59** Theatre tabs: case, anesthesia-record, post-op-note — `(main)/theatre/*` (one step per tab)
+- **11.S.60** Emergency (main) — `(main)/emergency`
+- **11.S.61** Emergency tabs: case, triage, response, ambulance, dispatch, trip — `(main)/emergency/*` (one step per tab)
 
-### Module Group 8: Laboratory (LIS)
-- Step 11.8.1: `lab-test`
-- Step 11.8.2: `lab-panel`
-- Step 11.8.3: `lab-order`
-- Step 11.8.4: `lab-order-item`
-- Step 11.8.5: `lab-sample`
-- Step 11.8.6: `lab-result`
-- Step 11.8.7: `lab-qc-log`
+### Tier 7: Diagnostics (Lab + Radiology)
+- **11.S.62** Lab (main) — `(main)/diagnostics/lab`
+- **11.S.63** Lab tabs: test, panel, order, sample, result, QC — `(main)/diagnostics/lab/*` (one step per tab)
+- **11.S.64** Radiology (main) — `(main)/diagnostics/radiology`
+- **11.S.65** Radiology tabs: test, order, result, imaging, PACS — `(main)/diagnostics/radiology/*` (one step per tab)
 
-### Module Group 9: Radiology (RIS/PACS)
-- Step 11.9.1: `radiology-test`
-- Step 11.9.2: `radiology-order`
-- Step 11.9.3: `radiology-result`
-- Step 11.9.4: `imaging-study`
-- Step 11.9.5: `imaging-asset`
-- Step 11.9.6: `pacs-link`
+### Tier 8: Pharmacy, Inventory
+- **11.S.66** Pharmacy (main) — `(main)/pharmacy`
+- **11.S.67** Pharmacy tabs: drug, batch, formulary, order, dispense, adverse-event — `(main)/pharmacy/*` (one step per tab)
+- **11.S.68** Inventory (main) — `(main)/inventory`
+- **11.S.69** Inventory tabs: item, stock, movement, supplier, purchase, receipt, adjustment — `(main)/inventory/*` (one step per tab)
 
-### Module Group 10: Pharmacy
-- Step 11.10.1: `drug`
-- Step 11.10.2: `drug-batch`
-- Step 11.10.3: `formulary-item`
-- Step 11.10.4: `pharmacy-order`
-- Step 11.10.5: `pharmacy-order-item`
-- Step 11.10.6: `dispense-log`
-- Step 11.10.7: `adverse-event`
+### Tier 9: Billing, HR, Housekeeping, Reports, Comms, Subscriptions, Integrations, Compliance
+- **11.S.70** Billing (main) — `(main)/billing`
+- **11.S.71** Billing tabs: invoice, payment, refund, pricing, coverage, claim, pre-auth, adjustment — `(main)/billing/*` (one step per tab)
+- **11.S.72** HR (main) — `(main)/hr`
+- **11.S.73** HR tabs: staff, assignment, leave, shift, payroll — `(main)/hr/*` (one step per tab)
+- **11.S.74** Housekeeping (main) — `(main)/housekeeping`
+- **11.S.75** Housekeeping tabs: task, schedule, maintenance, asset, service-log — `(main)/housekeeping/*` (one step per tab)
+- **11.S.76** Reports (main) — `(main)/reports`
+- **11.S.77** Communications (main) — `(main)/communications`
+- **11.S.78** Subscriptions (main) — `(main)/subscriptions`
+- **11.S.79** Integrations (main) — `(main)/integrations`
+- **11.S.80** Compliance (main) — `(main)/compliance`
 
-### Module Group 11: Inventory & Procurement
-- Step 11.11.1: `inventory-item`
-- Step 11.11.2: `inventory-stock`
-- Step 11.11.3: `stock-movement`
-- Step 11.11.4: `supplier`
-- Step 11.11.5: `purchase-request`
-- Step 11.11.6: `purchase-order`
-- Step 11.11.7: `goods-receipt`
-- Step 11.11.8: `stock-adjustment`
+### Tier 10: Patient portal
+- **11.S.81** Patient portal (main) — `(patient)/portal`
+- **11.S.82** Patient appointments — `(patient)/appointments`
+- **11.S.83** Patient results — `(patient)/results`
+- **11.S.84** Patient prescriptions — `(patient)/prescriptions`
+- **11.S.85** Patient billing — `(patient)/billing`
 
-### Module Group 12: Emergency & Ambulance
-- Step 11.12.1: `emergency-case`
-- Step 11.12.2: `triage-assessment`
-- Step 11.12.3: `emergency-response`
-- Step 11.12.4: `ambulance`
-- Step 11.12.5: `ambulance-dispatch`
-- Step 11.12.6: `ambulance-trip`
+---
 
-### Module Group 13: Billing, Payments & Insurance
-- Step 11.13.1: `invoice`
-- Step 11.13.2: `invoice-item`
-- Step 11.13.3: `payment`
-- Step 11.13.4: `refund`
-- Step 11.13.5: `pricing-rule`
-- Step 11.13.6: `coverage-plan`
-- Step 11.13.7: `insurance-claim`
-- Step 11.13.8: `pre-authorization`
-- Step 11.13.9: `billing-adjustment`
+## Per-step checklist
+Per screen: routes per `app-router.mdc`; screen per `platform-ui.mdc` + `component-structure.mdc`; wire to hooks; i18n; loading/error/empty/guarded states; nav entry for main screens. Tests per `testing.mdc`; a11y per `accessibility.mdc`.
 
-### Module Group 14: HR, Payroll & Staffing
-- Step 11.14.1: `staff-profile`
-- Step 11.14.2: `staff-assignment`
-- Step 11.14.3: `staff-leave`
-- Step 11.14.4: `shift`
-- Step 11.14.5: `shift-assignment`
-- Step 11.14.6: `shift-swap-request`
-- Step 11.14.7: `payroll-run`
-- Step 11.14.8: `payroll-item`
+## Completeness
+- [ ] 11.S.1–9 (auth, home)
+- [ ] 11.S.10–31 (Settings main + tabs)
+- [ ] 11.S.32–53 (Patients, Scheduling, Clinical)
+- [ ] 11.S.54–69 (IPD, ICU, Theatre, Emergency, Lab, Radiology, Pharmacy, Inventory)
+- [ ] 11.S.70–85 (Billing, HR, Housekeeping, Reports, Comms, Subscriptions, Integrations, Compliance, Patient portal)
+- [ ] Nav + deep links for all main screens
 
-### Module Group 15: Housekeeping & Facilities
-- Step 11.15.1: `housekeeping-task`
-- Step 11.15.2: `housekeeping-schedule`
-- Step 11.15.3: `maintenance-request`
-- Step 11.15.4: `asset`
-- Step 11.15.5: `asset-service-log`
+## Settings status (11.S.10–31)
+- **11–12** tenant, facility — List ✓, Detail ✓, Create/Edit ✓
+- **13–18** branch, department, unit, room, ward, bed — List ✓, Detail ✓, Create/Edit ✓
+- **19–20** address, contact — List ✓, Detail ✓, Create/Edit ✓
+- **21–31** user … oauth-account — List ✓, Detail ✓, Create/Edit TBD
 
-### Module Group 16: Notifications & Communications
-- Step 11.16.1: `notification`
-- Step 11.16.2: `notification-delivery`
-- Step 11.16.3: `conversation`
-- Step 11.16.4: `message`
-- Step 11.16.5: `template`
-- Step 11.16.6: `template-variable`
-
-### Module Group 17: Reporting & Analytics
-- Step 11.17.1: `report-definition`
-- Step 11.17.2: `report-run`
-- Step 11.17.3: `dashboard-widget`
-- Step 11.17.4: `kpi-snapshot`
-- Step 11.17.5: `analytics-event`
-
-### Module Group 18: Subscriptions, Licensing & Modules
-- Step 11.18.1: `subscription-plan`
-- Step 11.18.2: `subscription`
-- Step 11.18.3: `subscription-invoice`
-- Step 11.18.4: `module`
-- Step 11.18.5: `module-subscription`
-- Step 11.18.6: `license`
-
-### Module Group 19: Compliance, Audit & Security
-- Step 11.19.1: `audit-log`
-- Step 11.19.2: `phi-access-log`
-- Step 11.19.3: `data-processing-log`
-- Step 11.19.4: `breach-notification`
-- Step 11.19.5: `system-change-log`
-
-### Module Group 20: Integrations & Webhooks
-- Step 11.20.1: `integration`
-- Step 11.20.2: `integration-log`
-- Step 11.20.3: `webhook-subscription`
-
-**Testing**: For each step, add UI tests (render, loading, error, empty, permissions, and navigation entry visibility/route access) per `.cursor/rules/testing.mdc`, and accessibility checks per `.cursor/rules/accessibility.mdc`.
+Backend: facility/tenant usecases unwrap `response.data.data`; other CRUD same pattern when backend returns `{ data }`.

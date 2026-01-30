@@ -11,6 +11,7 @@ const StyledContainer = styled.div.withConfig({
   componentId: 'StyledContainer',
   shouldForwardProp: (prop) => prop !== '$compact',
 })`
+  position: relative;
   width: ${({ $compact }) => ($compact ? 'auto' : '100%')};
   margin-bottom: ${({ $compact, theme }) => ($compact ? 0 : theme.spacing.md)}px;
 `;

@@ -31,6 +31,7 @@ const TenantDetailScreenWeb = () => {
     isOffline,
     onRetry,
     onBack,
+    onEdit,
     onDelete,
   } = useTenantDetailScreen();
 
@@ -184,6 +185,17 @@ const TenantDetailScreenWeb = () => {
             >
               {t('common.back')}
             </Button>
+            {onEdit && (
+              <Button
+                variant="secondary"
+                onPress={onEdit}
+                accessibilityLabel={t('tenant.detail.edit')}
+                accessibilityHint={t('tenant.detail.editHint')}
+                testID="tenant-detail-edit"
+              >
+                {t('tenant.detail.edit')}
+              </Button>
+            )}
             <Button
               variant="primary"
               onPress={onDelete}

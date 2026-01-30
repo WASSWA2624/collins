@@ -881,7 +881,9 @@
       "typeLabel": "Type",
       "delete": "Delete facility",
       "deleteHint": "Delete this facility",
-      "itemLabel": "Facility {{name}}"
+      "itemLabel": "Facility {{name}}",
+      "addLabel": "Add facility",
+      "addHint": "Create a new facility"
     },
     "detail": {
       "title": "Facility Details",
@@ -896,7 +898,41 @@
       "notFoundMessage": "This facility may have been deleted.",
       "backHint": "Return to facilities list",
       "delete": "Delete facility",
-      "deleteHint": "Delete this facility"
+      "deleteHint": "Delete this facility",
+      "edit": "Edit facility",
+      "editHint": "Edit this facility"
+    },
+    "form": {
+      "createTitle": "Add Facility",
+      "editTitle": "Edit Facility",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter facility name",
+      "nameHint": "Display name for the facility",
+      "typeLabel": "Type",
+      "typePlaceholder": "Select type",
+      "typeHint": "Facility type",
+      "typeHOSPITAL": "Hospital",
+      "typeCLINIC": "Clinic",
+      "typeLAB": "Lab",
+      "typePHARMACY": "Pharmacy",
+      "typeOTHER": "Other",
+      "activeLabel": "Active",
+      "activeHint": "Whether the facility is active",
+      "tenantIdLabel": "Tenant ID",
+      "tenantIdPlaceholder": "Enter tenant UUID",
+      "tenantIdHint": "Required for new facilities",
+      "tenantLabel": "Tenant",
+      "tenantPlaceholder": "Select tenant",
+      "tenantHint": "Tenant that owns this facility",
+      "noTenantsMessage": "There are no tenants.",
+      "createTenantFirst": "Create a tenant first to add a facility.",
+      "goToTenants": "Go to Tenants",
+      "goToTenantsHint": "Open tenants list to create a tenant",
+      "submitCreate": "Create Facility",
+      "submitEdit": "Save Changes",
+      "cancel": "Cancel",
+      "cancelHint": "Return without saving",
+      "loadError": "Failed to load facility for editing"
     }
   },
   "tenant": {
@@ -908,7 +944,9 @@
       "loadError": "Unable to load tenants. Check your connection and try again.",
       "delete": "Delete tenant",
       "deleteHint": "Delete this tenant",
-      "itemLabel": "Tenant {{name}}"
+      "itemLabel": "Tenant {{name}}",
+      "addLabel": "Add tenant",
+      "addHint": "Create a new tenant"
     },
     "detail": {
       "title": "Tenant Details",
@@ -923,7 +961,26 @@
       "notFoundMessage": "This tenant may have been deleted.",
       "backHint": "Return to tenants list",
       "delete": "Delete tenant",
-      "deleteHint": "Delete this tenant"
+      "deleteHint": "Delete this tenant",
+      "edit": "Edit tenant",
+      "editHint": "Edit this tenant"
+    },
+    "form": {
+      "createTitle": "Add Tenant",
+      "editTitle": "Edit Tenant",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter tenant name",
+      "nameHint": "Display name for the tenant",
+      "slugLabel": "Slug",
+      "slugPlaceholder": "Enter slug (optional)",
+      "slugHint": "URL-friendly identifier",
+      "activeLabel": "Active",
+      "activeHint": "Whether the tenant is active",
+      "submitCreate": "Create Tenant",
+      "submitEdit": "Save Changes",
+      "cancel": "Cancel",
+      "cancelHint": "Return without saving",
+      "loadError": "Failed to load tenant for editing"
     }
   }
 }
