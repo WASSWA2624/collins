@@ -1,7 +1,8 @@
 /**
  * useApiKeyPermission Hook
- * File: useApiKeyPermission.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createApiKeyPermission,
@@ -11,13 +12,18 @@ import {
   updateApiKeyPermission,
 } from '@features/api-key-permission';
 
-const useApiKeyPermission = () =>
-  useCrud({
-    list: listApiKeyPermissions,
-    get: getApiKeyPermission,
-    create: createApiKeyPermission,
-    update: updateApiKeyPermission,
-    remove: deleteApiKeyPermission,
-  });
+const useApiKeyPermission = () => {
+  const actions = useMemo(
+    () => ({
+      list: listApiKeyPermissions,
+      get: getApiKeyPermission,
+      create: createApiKeyPermission,
+      update: updateApiKeyPermission,
+      remove: deleteApiKeyPermission,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useApiKeyPermission;

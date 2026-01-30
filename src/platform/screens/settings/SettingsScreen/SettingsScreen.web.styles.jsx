@@ -117,6 +117,7 @@ export const StyledSidebarWrapper = styled.div.withConfig({
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  min-height: 0;
   height: 100%;
 
   @media (max-width: ${({ theme }) => tablet(theme) - 1}px) {
@@ -146,7 +147,8 @@ export const StyledSidebar = styled.nav.withConfig({
 })`
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
   width: ${({ $width }) => $width ?? 220}px;
   min-width: ${({ $minWidth }) => $minWidth ?? 160}px;
   border-right: 1px solid ${({ theme }) => cl(theme, 'border.light')};
@@ -154,6 +156,7 @@ export const StyledSidebar = styled.nav.withConfig({
   padding: ${({ theme }) => sp(theme, 'sm')}px 0 ${({ theme }) => sp(theme, 'md')}px;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export const StyledSidebarTitle = styled.h1.withConfig({

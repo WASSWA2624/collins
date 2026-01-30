@@ -1,7 +1,8 @@
 /**
  * useUserProfile Hook
- * File: useUserProfile.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createUserProfile,
@@ -11,13 +12,18 @@ import {
   updateUserProfile,
 } from '@features/user-profile';
 
-const useUserProfile = () =>
-  useCrud({
-    list: listUserProfiles,
-    get: getUserProfile,
-    create: createUserProfile,
-    update: updateUserProfile,
-    remove: deleteUserProfile,
-  });
+const useUserProfile = () => {
+  const actions = useMemo(
+    () => ({
+      list: listUserProfiles,
+      get: getUserProfile,
+      create: createUserProfile,
+      update: updateUserProfile,
+      remove: deleteUserProfile,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useUserProfile;

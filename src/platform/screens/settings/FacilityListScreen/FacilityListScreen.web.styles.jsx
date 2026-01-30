@@ -1,23 +1,22 @@
 /**
  * FacilityListScreen Web Styles
- * File: FacilityListScreen.web.styles.jsx
+ * Align with GeneralSettingsPanel: flex: 1, min-width: 0; parent StyledContent handles scroll.
  */
 import styled from 'styled-components';
 
 const StyledContainer = styled.main.withConfig({
   displayName: 'StyledContainer',
-  componentId: 'StyledContainer',
+  componentId: 'FacilityListScreen_StyledContainer',
 })`
   flex: 1;
-  width: 100%;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding: ${({ theme }) => theme.spacing.xl}px;
+  min-width: 0;
+  padding: ${({ theme }) => theme?.spacing?.xl ?? 24}px;
+  background-color: ${({ theme }) => theme?.colors?.background?.primary ?? theme?.colors?.background ?? '#ffffff'};
 `;
 
 const StyledContent = styled.div.withConfig({
   displayName: 'StyledContent',
-  componentId: 'StyledContent',
+  componentId: 'FacilityListScreen_StyledContent',
 })`
   width: 100%;
   max-width: 800px;
@@ -25,16 +24,23 @@ const StyledContent = styled.div.withConfig({
   margin-right: auto;
 `;
 
+const StyledListBody = styled.div.withConfig({
+  displayName: 'StyledListBody',
+  componentId: 'FacilityListScreen_StyledListBody',
+})`
+  margin-top: ${({ theme }) => theme?.spacing?.md ?? 16}px;
+`;
+
 const StyledList = styled.ul.withConfig({
   displayName: 'StyledList',
-  componentId: 'StyledList',
+  componentId: 'FacilityListScreen_StyledList',
 })`
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme?.spacing?.sm ?? 8}px;
 `;
 
-export { StyledContainer, StyledContent, StyledList };
+export { StyledContainer, StyledContent, StyledListBody, StyledList };

@@ -114,6 +114,8 @@ const StyledContentBody = styled.div.withConfig({
   displayName: 'StyledContentBody',
   componentId: 'StyledContentBody',
 })`
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-height: 0;
 `;

@@ -1,23 +1,21 @@
 /**
- * PermissionListScreen Web Styles
- * File: PermissionListScreen.web.styles.jsx
+ * UserListScreen Web Styles
  */
 import styled from 'styled-components';
 
 const StyledContainer = styled.main.withConfig({
   displayName: 'StyledContainer',
-  componentId: 'StyledContainer',
+  componentId: 'UserListScreen_StyledContainer',
 })`
   flex: 1;
-  width: 100%;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding: ${({ theme }) => theme.spacing.xl}px;
+  min-width: 0;
+  padding: ${({ theme }) => theme?.spacing?.xl ?? 24}px;
+  background-color: ${({ theme }) => theme?.colors?.background?.primary ?? theme?.colors?.background ?? '#ffffff'};
 `;
 
 const StyledContent = styled.div.withConfig({
   displayName: 'StyledContent',
-  componentId: 'StyledContent',
+  componentId: 'UserListScreen_StyledContent',
 })`
   width: 100%;
   max-width: 800px;
@@ -27,18 +25,18 @@ const StyledContent = styled.div.withConfig({
 
 const StyledListBody = styled.div.withConfig({
   displayName: 'StyledListBody',
-  componentId: 'PermissionListScreen_StyledListBody',
+  componentId: 'UserListScreen_StyledListBody',
 })`
   margin-top: ${({ theme }) => theme?.spacing?.md ?? 16}px;
 `;
 
 const StyledList = styled.ul.withConfig({
   displayName: 'StyledList',
-  componentId: 'StyledList',
+  componentId: 'UserListScreen_StyledList',
 })`
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme?.spacing?.sm ?? 8}px;

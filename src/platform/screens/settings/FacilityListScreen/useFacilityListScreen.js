@@ -9,9 +9,13 @@ import { useI18n, useNetwork, useFacility } from '@hooks';
 
 const resolveErrorMessage = (t, errorCode) => {
   if (!errorCode) return null;
+  // Use facility-specific message for connection/generic errors so the UI is clearer
+  if (errorCode === 'UNKNOWN_ERROR' || errorCode === 'NETWORK_ERROR') {
+    return t('facility.list.loadError');
+  }
   const key = `errors.codes.${errorCode}`;
   const resolved = t(key);
-  return resolved === key ? t('errors.codes.UNKNOWN_ERROR') : resolved;
+  return resolved === key ? t('facility.list.loadError') : resolved;
 };
 
 const useFacilityListScreen = () => {
@@ -27,7 +31,11 @@ const useFacilityListScreen = () => {
     reset,
   } = useFacility();
 
-  const items = useMemo(() => data?.items ?? [], [data?.items]);
+  // listFacilities returns normalized array; API may return { items: [] }. Support both.
+  const items = useMemo(
+    () => (Array.isArray(data) ? data : (data?.items ?? [])),
+    [data]
+  );
   const errorMessage = useMemo(
     () => resolveErrorMessage(t, errorCode),
     [t, errorCode]

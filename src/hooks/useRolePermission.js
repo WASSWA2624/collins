@@ -1,7 +1,8 @@
 /**
  * useRolePermission Hook
- * File: useRolePermission.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createRolePermission,
@@ -11,13 +12,18 @@ import {
   updateRolePermission,
 } from '@features/role-permission';
 
-const useRolePermission = () =>
-  useCrud({
-    list: listRolePermissions,
-    get: getRolePermission,
-    create: createRolePermission,
-    update: updateRolePermission,
-    remove: deleteRolePermission,
-  });
+const useRolePermission = () => {
+  const actions = useMemo(
+    () => ({
+      list: listRolePermissions,
+      get: getRolePermission,
+      create: createRolePermission,
+      update: updateRolePermission,
+      remove: deleteRolePermission,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useRolePermission;

@@ -75,8 +75,12 @@ const normalizeError = (error) => {
     return error;
   }
 
-  // Network errors
-  if (error.name === 'NetworkError' || error.message?.includes('network')) {
+  // Network errors (browser often throws TypeError with "Failed to fetch")
+  if (
+    error.name === 'NetworkError' ||
+    error.message?.includes('network') ||
+    (typeof error.message === 'string' && error.message.toLowerCase().includes('failed to fetch'))
+  ) {
     const safeMessage = getSafeMessageForCode('NETWORK_ERROR');
     return {
       code: 'NETWORK_ERROR',

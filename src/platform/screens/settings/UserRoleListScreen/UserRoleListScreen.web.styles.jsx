@@ -25,6 +25,13 @@ const StyledContent = styled.div.withConfig({
   margin-right: auto;
 `;
 
+const StyledListBody = styled.div.withConfig({
+  displayName: 'StyledListBody',
+  componentId: 'UserRoleListScreen_StyledListBody',
+})`
+  margin-top: ${({ theme }) => theme?.spacing?.md ?? 16}px;
+`;
+
 const StyledList = styled.ul.withConfig({
   displayName: 'StyledList',
   componentId: 'StyledList',
@@ -32,11 +39,9 @@ const StyledList = styled.ul.withConfig({
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
-
-  & > li {
-    margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme?.spacing?.sm ?? 8}px;
 `;
 
-export { StyledContainer, StyledContent, StyledList };
+export { StyledContainer, StyledContent, StyledListBody, StyledList };

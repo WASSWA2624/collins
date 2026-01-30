@@ -7,11 +7,14 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'expo-router';
 import { useI18n, useNetwork, useAddress } from '@hooks';
 
-const resolveErrorMessage = (t, errorCode) => {
+const resolveErrorMessage = (t, errorCode, loadErrorKey) => {
   if (!errorCode) return null;
+  if (errorCode === 'UNKNOWN_ERROR' || errorCode === 'NETWORK_ERROR') {
+    return t(loadErrorKey);
+  }
   const key = `errors.codes.${errorCode}`;
   const resolved = t(key);
-  return resolved === key ? t('errors.codes.UNKNOWN_ERROR') : resolved;
+  return resolved === key ? t(loadErrorKey) : resolved;
 };
 
 const useAddressListScreen = () => {
@@ -27,9 +30,12 @@ const useAddressListScreen = () => {
     reset,
   } = useAddress();
 
-  const items = useMemo(() => data?.items ?? [], [data?.items]);
+  const items = useMemo(
+    () => (Array.isArray(data) ? data : (data?.items ?? [])),
+    [data]
+  );
   const errorMessage = useMemo(
-    () => resolveErrorMessage(t, errorCode),
+    () => resolveErrorMessage(t, errorCode, 'address.list.loadError'),
     [t, errorCode]
   );
 

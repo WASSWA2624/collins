@@ -1,7 +1,8 @@
 /**
  * useUserMfa Hook
- * File: useUserMfa.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createUserMfa,
@@ -14,16 +15,21 @@ import {
   verifyUserMfa,
 } from '@features/user-mfa';
 
-const useUserMfa = () =>
-  useCrud({
-    list: listUserMfas,
-    get: getUserMfa,
-    create: createUserMfa,
-    update: updateUserMfa,
-    remove: deleteUserMfa,
-    verify: verifyUserMfa,
-    enable: enableUserMfa,
-    disable: disableUserMfa,
-  });
+const useUserMfa = () => {
+  const actions = useMemo(
+    () => ({
+      list: listUserMfas,
+      get: getUserMfa,
+      create: createUserMfa,
+      update: updateUserMfa,
+      remove: deleteUserMfa,
+      verify: verifyUserMfa,
+      enable: enableUserMfa,
+      disable: disableUserMfa,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useUserMfa;

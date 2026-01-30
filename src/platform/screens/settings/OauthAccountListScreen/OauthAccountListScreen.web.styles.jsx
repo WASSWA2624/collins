@@ -25,6 +25,13 @@ const StyledContent = styled.div.withConfig({
   margin-right: auto;
 `;
 
+const StyledListBody = styled.div.withConfig({
+  displayName: 'StyledListBody',
+  componentId: 'OauthAccountListScreen_StyledListBody',
+})`
+  margin-top: ${({ theme }) => theme?.spacing?.md ?? 16}px;
+`;
+
 const StyledList = styled.ul.withConfig({
   displayName: 'StyledList',
   componentId: 'StyledList',
@@ -39,4 +46,4 @@ const StyledList = styled.ul.withConfig({
   }
 `;
 
-export { StyledContainer, StyledContent, StyledList };
+export { StyledContainer, StyledContent, StyledListBody, StyledList };

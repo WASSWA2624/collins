@@ -325,6 +325,7 @@
       "accessibilityLabel": "OAuth accounts list",
       "emptyTitle": "No OAuth accounts",
       "emptyMessage": "No OAuth accounts have been linked yet.",
+      "loadError": "Unable to load OAuth accounts. Check your connection and try again.",
       "delete": "Remove",
       "deleteHint": "Remove this OAuth account",
       "itemLabel": "OAuth account {{name}}"
@@ -610,6 +611,7 @@
       "accessibilityLabel": "User sessions list",
       "emptyTitle": "No sessions",
       "emptyMessage": "You have no active sessions.",
+      "loadError": "Unable to load sessions. Check your connection and try again.",
       "revoke": "Revoke session",
       "revokeHint": "Revoke this session and log it out",
       "itemLabel": "Session for {{email}}"
@@ -629,12 +631,63 @@
       "revokeHint": "Revoke this session"
     }
   },
+  "address": {
+    "list": {
+      "loadError": "Unable to load addresses. Check your connection and try again."
+    }
+  },
+  "user": {
+    "list": {
+      "loadError": "Unable to load users. Check your connection and try again."
+    }
+  },
+  "role": {
+    "list": {
+      "loadError": "Unable to load roles. Check your connection and try again."
+    }
+  },
+  "permission": {
+    "list": {
+      "loadError": "Unable to load permissions. Check your connection and try again."
+    }
+  },
+  "apiKey": {
+    "list": {
+      "loadError": "Unable to load API keys. Check your connection and try again."
+    }
+  },
+  "userProfile": {
+    "list": {
+      "loadError": "Unable to load user profiles. Check your connection and try again."
+    }
+  },
+  "userMfa": {
+    "list": {
+      "loadError": "Unable to load MFA settings. Check your connection and try again."
+    }
+  },
+  "userRole": {
+    "list": {
+      "loadError": "Unable to load user roles. Check your connection and try again."
+    }
+  },
+  "apiKeyPermission": {
+    "list": {
+      "loadError": "Unable to load API key permissions. Check your connection and try again."
+    }
+  },
+  "rolePermission": {
+    "list": {
+      "loadError": "Unable to load role permissions. Check your connection and try again."
+    }
+  },
   "branch": {
     "list": {
       "title": "Branches",
       "accessibilityLabel": "Branches list",
       "emptyTitle": "No branches",
       "emptyMessage": "You have no branches.",
+      "loadError": "Unable to load branches. Check your connection and try again.",
       "delete": "Delete branch",
       "deleteHint": "Delete this branch",
       "itemLabel": "Branch {{name}}"
@@ -660,6 +713,7 @@
       "accessibilityLabel": "Departments list",
       "emptyTitle": "No departments",
       "emptyMessage": "You have no departments.",
+      "loadError": "Unable to load departments. Check your connection and try again.",
       "typeLabel": "Type",
       "delete": "Delete department",
       "deleteHint": "Delete this department",
@@ -687,6 +741,7 @@
       "accessibilityLabel": "Units list",
       "emptyTitle": "No units",
       "emptyMessage": "You have no units.",
+      "loadError": "Unable to load units. Check your connection and try again.",
       "delete": "Delete unit",
       "deleteHint": "Delete this unit",
       "itemLabel": "Unit {{name}}"
@@ -712,6 +767,7 @@
       "accessibilityLabel": "Rooms list",
       "emptyTitle": "No rooms",
       "emptyMessage": "You have no rooms.",
+      "loadError": "Unable to load rooms. Check your connection and try again.",
       "floorLabel": "Floor",
       "delete": "Delete room",
       "deleteHint": "Delete this room",
@@ -738,6 +794,7 @@
       "accessibilityLabel": "Wards list",
       "emptyTitle": "No wards",
       "emptyMessage": "You have no wards.",
+      "loadError": "Unable to load wards. Check your connection and try again.",
       "typeLabel": "Type",
       "delete": "Delete ward",
       "deleteHint": "Delete this ward",
@@ -765,6 +822,7 @@
       "accessibilityLabel": "Beds list",
       "emptyTitle": "No beds",
       "emptyMessage": "You have no beds.",
+      "loadError": "Unable to load beds. Check your connection and try again.",
       "statusLabel": "Status",
       "delete": "Delete bed",
       "deleteHint": "Delete this bed",
@@ -791,6 +849,7 @@
       "accessibilityLabel": "Contacts list",
       "emptyTitle": "No contacts",
       "emptyMessage": "You have no contacts.",
+      "loadError": "Unable to load contacts. Check your connection and try again.",
       "typeLabel": "Type",
       "delete": "Delete contact",
       "deleteHint": "Delete this contact",
@@ -818,6 +877,7 @@
       "accessibilityLabel": "Facilities list",
       "emptyTitle": "No facilities",
       "emptyMessage": "You have no facilities.",
+      "loadError": "Unable to load facilities. Check your connection and try again.",
       "typeLabel": "Type",
       "delete": "Delete facility",
       "deleteHint": "Delete this facility",
@@ -845,6 +905,7 @@
       "accessibilityLabel": "Tenants list",
       "emptyTitle": "No tenants",
       "emptyMessage": "You have no tenants.",
+      "loadError": "Unable to load tenants. Check your connection and try again.",
       "delete": "Delete tenant",
       "deleteHint": "Delete this tenant",
       "itemLabel": "Tenant {{name}}"

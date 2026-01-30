@@ -1,7 +1,8 @@
 /**
  * useOauthAccount Hook
- * File: useOauthAccount.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createOauthAccount,
@@ -11,13 +12,18 @@ import {
   updateOauthAccount,
 } from '@features/oauth-account';
 
-const useOauthAccount = () =>
-  useCrud({
-    list: listOauthAccounts,
-    get: getOauthAccount,
-    create: createOauthAccount,
-    update: updateOauthAccount,
-    remove: deleteOauthAccount,
-  });
+const useOauthAccount = () => {
+  const actions = useMemo(
+    () => ({
+      list: listOauthAccounts,
+      get: getOauthAccount,
+      create: createOauthAccount,
+      update: updateOauthAccount,
+      remove: deleteOauthAccount,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useOauthAccount;

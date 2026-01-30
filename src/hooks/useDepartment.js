@@ -1,7 +1,8 @@
 /**
  * useDepartment Hook
- * File: useDepartment.js
+ * Actions memoized so list fetches once on mount/retry (no refetch every render).
  */
+import { useMemo } from 'react';
 import useCrud from '@hooks/useCrud';
 import {
   createDepartment,
@@ -12,14 +13,19 @@ import {
   updateDepartment,
 } from '@features/department';
 
-const useDepartment = () =>
-  useCrud({
-    list: listDepartments,
-    get: getDepartment,
-    create: createDepartment,
-    update: updateDepartment,
-    remove: deleteDepartment,
-    listUnits: listDepartmentUnits,
-  });
+const useDepartment = () => {
+  const actions = useMemo(
+    () => ({
+      list: listDepartments,
+      get: getDepartment,
+      create: createDepartment,
+      update: updateDepartment,
+      remove: deleteDepartment,
+      listUnits: listDepartmentUnits,
+    }),
+    []
+  );
+  return useCrud(actions);
+};
 
 export default useDepartment;

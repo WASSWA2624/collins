@@ -1,18 +1,19 @@
 /**
  * TenantListScreen - Web
- * File: TenantListScreen.web.jsx
+ * Full UI always renders: title + list area. On error/offline shows inline message + empty list.
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import {
   Button,
   EmptyState,
+  ErrorState,
   ListItem,
+  LoadingSpinner,
+  OfflineState,
   Text,
 } from '@platform/components';
-import { ListScaffold } from '@platform/patterns';
 import { useI18n } from '@hooks';
-import { StyledContainer, StyledContent, StyledList } from './TenantListScreen.web.styles';
+import { StyledContainer, StyledContent, StyledList, StyledListBody } from './TenantListScreen.web.styles';
 import useTenantListScreen from './useTenantListScreen';
 
 const TenantListScreenWeb = () => {
@@ -37,64 +38,68 @@ const TenantListScreenWeb = () => {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <StyledContainer>
-        <StyledContent>
-          <Text
-            variant="h1"
-            accessibilityRole="header"
-            testID="tenant-list-title"
-          >
-            {t('tenant.list.title')}
-          </Text>
-          <ListScaffold
-            isLoading={isLoading}
-            isEmpty={!isLoading && !hasError && !isOffline && items.length === 0}
-            hasError={hasError}
-            error={errorMessage}
-            isOffline={isOffline}
-            onRetry={onRetry}
-            accessibilityLabel={t('tenant.list.accessibilityLabel')}
-            testID="tenant-list"
-            emptyComponent={emptyComponent}
-          >
-            {items.length > 0 ? (
-              <StyledList role="list">
-                {items.map((tenant) => {
-                  const title = tenant?.name ?? tenant?.slug ?? tenant?.id ?? '';
-                  const subtitle = tenant?.slug ? `Slug: ${tenant.slug}` : '';
-                  return (
-                    <li key={tenant.id} role="listitem">
-                      <ListItem
-                        title={title}
-                        subtitle={subtitle}
-                        onPress={() => onTenantPress(tenant.id)}
-                        actions={
-                          <Button
-                            variant="ghost"
-                            size="small"
-                            onPress={(e) => onDelete(tenant.id, e)}
-                            accessibilityLabel={t('tenant.list.delete')}
-                            accessibilityHint={t('tenant.list.deleteHint')}
-                            testID={`tenant-delete-${tenant.id}`}
-                          >
-                            {t('common.remove')}
-                          </Button>
-                        }
-                        accessibilityLabel={t('tenant.list.itemLabel', {
-                          name: title,
-                        })}
-                        testID={`tenant-item-${tenant.id}`}
-                      />
-                    </li>
-                  );
-                })}
-              </StyledList>
-            ) : null}
-          </ListScaffold>
-        </StyledContent>
-      </StyledContainer>
-    </ScrollView>
+    <StyledContainer>
+      <StyledContent>
+        <Text variant="h1" accessibilityRole="header" testID="tenant-list-title">
+          {t('tenant.list.title')}
+        </Text>
+        <StyledListBody role="region" aria-label={t('tenant.list.accessibilityLabel')} data-testid="tenant-list">
+          {isLoading && <LoadingSpinner testID="tenant-list-spinner" />}
+          {!isLoading && hasError && (
+            <>
+              <ErrorState
+                title={t('listScaffold.errorState.title')}
+                description={errorMessage}
+                action={onRetry ? <button type="button" onClick={onRetry} aria-label={t('common.retry')}>{t('common.retry')}</button> : undefined}
+                testID="tenant-list-error-state"
+              />
+              {emptyComponent}
+            </>
+          )}
+          {!isLoading && isOffline && (
+            <>
+              <OfflineState
+                action={onRetry ? <button type="button" onClick={onRetry} aria-label={t('common.retry')}>{t('common.retry')}</button> : undefined}
+                testID="tenant-list-offline-state"
+              />
+              {emptyComponent}
+            </>
+          )}
+          {!isLoading && !hasError && !isOffline && items.length === 0 && emptyComponent}
+          {!isLoading && !hasError && !isOffline && items.length > 0 && (
+            <StyledList role="list">
+              {items.map((tenant) => {
+                const title = tenant?.name ?? tenant?.slug ?? tenant?.id ?? '';
+                const subtitle = tenant?.slug ? `Slug: ${tenant.slug}` : '';
+                return (
+                  <li key={tenant.id} role="listitem">
+                    <ListItem
+                      title={title}
+                      subtitle={subtitle}
+                      onPress={() => onTenantPress(tenant.id)}
+                      actions={
+                        <Button
+                          variant="ghost"
+                          size="small"
+                          onPress={(e) => onDelete(tenant.id, e)}
+                          accessibilityLabel={t('tenant.list.delete')}
+                          accessibilityHint={t('tenant.list.deleteHint')}
+                          testID={`tenant-delete-${tenant.id}`}
+                        >
+                          {t('common.remove')}
+                        </Button>
+                      }
+                      accessibilityLabel={t('tenant.list.itemLabel', { name: title })}
+                      testID={`tenant-item-${tenant.id}`}
+                    />
+                  </li>
+                );
+              })}
+            </StyledList>
+          )}
+        </StyledListBody>
+      </StyledContent>
+    </StyledContainer>
   );
 };
 
