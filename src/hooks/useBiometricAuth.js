@@ -4,7 +4,7 @@
  * File: useBiometricAuth.js
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useI18n } from '@hooks';
+import useI18n from './useI18n';
 import { authenticateBiometric, isBiometricEnrolled, isBiometricSupported } from '@security';
 
 const useBiometricAuth = () => {

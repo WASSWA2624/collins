@@ -8,9 +8,9 @@
  */
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import PatientRouteLayoutWeb from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.web';
-import PatientRouteLayoutAndroid from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.android';
-import PatientRouteLayoutIOS from '@platform/layouts/route-layouts/PatientRouteLayout/PatientRouteLayout.ios';
+import PatientRouteLayoutWeb from '@platform/layouts/RouteLayouts/PatientRouteLayout/PatientRouteLayout.web';
+import PatientRouteLayoutAndroid from '@platform/layouts/RouteLayouts/PatientRouteLayout/PatientRouteLayout.android';
+import PatientRouteLayoutIOS from '@platform/layouts/RouteLayouts/PatientRouteLayout/PatientRouteLayout.ios';
 import { useAuth } from '@hooks';
 import { useAuthGuard } from '@navigation/guards';
 import { GlobalHeader, TabBar, Sidebar } from '@platform/components';

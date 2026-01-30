@@ -4,8 +4,11 @@
  * File: AuthFormLayout.web.jsx
  */
 import React from 'react';
-import { Card, Screen, Stack, Text } from '@platform/components';
-import { VARIANTS as CardVariants } from '@platform/components/display/Card/types';
+import Card from '../../display/Card';
+import Screen from '../../layout/Screen';
+import Stack from '../../layout/Stack';
+import Text from '../../display/Text';
+import { VARIANTS as CardVariants } from '../../display/Card/types';
 import {
   StyledAuthFormActions,
   StyledAuthFormCardWrapper,

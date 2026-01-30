@@ -44,6 +44,7 @@ const buildActionItems = ({ actions, testID }) => {
         isDisabled={isDisabled}
         isCircular={isCircular}
         aria-label={action.accessibilityLabel || label}
+        title={action.accessibilityLabel || label}
         data-testid={actionTestID}
         testID={actionTestID}
       >

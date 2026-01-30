@@ -32,7 +32,6 @@ export { default as TabBar } from './navigation/TabBar';
 export { default as Tabs } from './navigation/Tabs';
 export { default as Tab } from './navigation/Tab';
 export { default as Breadcrumbs } from './navigation/Breadcrumbs';
-export { default as Navigation } from './navigation/Navigation';
 export { default as ThemeControls } from './navigation/ThemeControls';
 export { default as LanguageControls } from './navigation/LanguageControls';
 
@@ -48,7 +47,9 @@ export { default as SystemBanner } from './feedback/SystemBanner';
 export { default as ShellBanners } from './feedback/ShellBanners';
 export { default as LoadingOverlay } from './feedback/LoadingOverlay';
 export { default as NoticeSurface } from './feedback/NoticeSurface';
-export { default as NetworkIndicator } from './feedback/NetworkIndicator';
+export { default as NetworkConnectivityIcon } from './feedback/NetworkConnectivityIcon';
+export { default as DatabaseConnectivityIcon } from './feedback/DatabaseConnectivityIcon';
+export { default as DatabaseIndicator } from './feedback/DatabaseIndicator';
 
 // Display Components
 export { default as Text } from './display/Text';

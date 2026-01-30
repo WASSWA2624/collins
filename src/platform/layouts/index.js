@@ -13,8 +13,8 @@ export { default as AuthFrame } from './AuthFrame';
 export { default as PatientFrame } from './PatientFrame';
 
 // Route layouts (reusable route layout components)
-export { default as MainRouteLayout } from './route-layouts/MainRouteLayout';
-export { default as PatientRouteLayout } from './route-layouts/PatientRouteLayout';
+export { default as MainRouteLayout } from './RouteLayouts/MainRouteLayout';
+export { default as PatientRouteLayout } from './RouteLayouts/PatientRouteLayout';
 
 // Common layout components
 export { default as ThemeProviderWrapper } from './common/ThemeProviderWrapper';

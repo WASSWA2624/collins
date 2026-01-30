@@ -14,7 +14,7 @@ describe('Step 8.0: App Folder Organization', () => {
   const appPath = path.join(srcPath, 'app');
   const platformLayoutsPath = path.join(srcPath, 'platform', 'layouts');
   const platformCommonPath = path.join(platformLayoutsPath, 'common');
-  const platformRouteLayoutsPath = path.join(platformLayoutsPath, 'route-layouts');
+  const platformRouteLayoutsPath = path.join(platformLayoutsPath, 'RouteLayouts');
 
   describe('Layout Helpers Organization', () => {
     it('should have ThemeProviderWrapper in platform/layouts/common/', () => {
@@ -189,7 +189,7 @@ describe('Step 8.0: App Folder Organization', () => {
       expect(mainLayoutContent).not.toMatch(/useState/);
     });
 
-    it('should have layout logic in platform/layouts/route-layouts/', () => {
+    it('should have layout logic in platform/layouts/RouteLayouts/', () => {
       const mainRouteLayoutPath = path.join(platformRouteLayoutsPath, 'MainRouteLayout');
       expect(fs.existsSync(mainRouteLayoutPath)).toBe(true);
       

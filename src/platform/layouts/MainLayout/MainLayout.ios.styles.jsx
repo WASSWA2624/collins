@@ -22,12 +22,10 @@ const StyledHeader = styled.View.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
-  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
   min-height: ${({ theme }) => theme.spacing.sm * 7}px;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  align-items: stretch;
+  justify-content: stretch;
 `;
 
 const StyledScrollView = styled(ScrollView).withConfig({

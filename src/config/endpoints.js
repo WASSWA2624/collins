@@ -9,6 +9,7 @@ const normalizeBaseUrl = (value) => String(value || '').replace(/\/+$/, '');
 const baseUrl = `${normalizeBaseUrl(API_BASE_URL)}/api/${API_VERSION}`;
 
 export const endpoints = {
+  HEALTH: `${baseUrl}/health`,
   AUTH: {
     CSRF_TOKEN: `${baseUrl}/auth/csrf-token`,
     IDENTIFY: `${baseUrl}/auth/identify`,

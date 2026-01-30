@@ -8,6 +8,7 @@
  */
 export { default as useTheme } from './useTheme';
 export { default as useNetwork } from './useNetwork';
+export { default as useDatabaseHealth } from './useDatabaseHealth';
 export { default as useI18n } from './useI18n';
 export { default as useDebounce } from './useDebounce';
 export { default as usePagination } from './usePagination';

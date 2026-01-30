@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { useI18n } from '@hooks';
-import { LoadingSpinner } from '@platform/components';
+import LoadingSpinner from '../LoadingSpinner';
 import { StyledCard, StyledContainer, StyledMessage, StyledTitle } from './LoadingOverlay.web.styles';
 
 /**
