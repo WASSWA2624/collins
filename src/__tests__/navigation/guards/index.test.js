@@ -14,9 +14,8 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  useAuthGuard,
-  useRoleGuard,
-  ROLE_GUARD_ERRORS,
+  useAcknowledgementGuard,
+  useSessionGuard,
 } from '@navigation/guards';
 
 describe('Step 7.11: Guard Infrastructure', () => {
@@ -36,29 +35,20 @@ describe('Step 7.11: Guard Infrastructure', () => {
   });
 
   describe('Barrel Export', () => {
-    it('should export useAuthGuard hook', () => {
-      expect(typeof useAuthGuard).toBe('function');
+    it('should export useAcknowledgementGuard hook', () => {
+      expect(typeof useAcknowledgementGuard).toBe('function');
     });
 
-    it('should export useRoleGuard hook', () => {
-      expect(typeof useRoleGuard).toBe('function');
-    });
-
-    it('should export ROLE_GUARD_ERRORS constants', () => {
-      expect(ROLE_GUARD_ERRORS).toBeDefined();
-      expect(typeof ROLE_GUARD_ERRORS).toBe('object');
-      expect(ROLE_GUARD_ERRORS.NO_USER).toBe('NO_USER');
-      expect(ROLE_GUARD_ERRORS.NO_ROLE).toBe('NO_ROLE');
-      expect(ROLE_GUARD_ERRORS.INSUFFICIENT_ROLE).toBe('INSUFFICIENT_ROLE');
+    it('should export useSessionGuard hook', () => {
+      expect(typeof useSessionGuard).toBe('function');
     });
 
     it('should allow importing from @navigation/guards alias', () => {
       // Verify that the alias resolves correctly
       // This test verifies the imports at the top of the file work correctly
       // The imports are already tested above, this confirms alias resolution
-      expect(useAuthGuard).toBeDefined();
-      expect(useRoleGuard).toBeDefined();
-      expect(ROLE_GUARD_ERRORS).toBeDefined();
+      expect(useAcknowledgementGuard).toBeDefined();
+      expect(useSessionGuard).toBeDefined();
     });
   });
 });

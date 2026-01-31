@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { Slot } from 'expo-router';
 import { ErrorBoundary } from '@errors';
 import { I18nProvider } from '@i18n';
 import { bootstrapApp } from '@bootstrap';
 import { logger } from '@logging';
 import store from '@store';
-import { StyledLoadingContainer, StyledActivityIndicator } from '@platform/layouts/common/RootLayoutStyles';
+import {
+  StyledRootContainer,
+  StyledLoadingContainer,
+  StyledActivityIndicator,
+} from '@platform/layouts/common/RootLayoutStyles';
 import ThemeProviderWrapper from '@platform/layouts/common/ThemeProviderWrapper';
-import { View } from 'react-native';
 
 /**
  * Root Layout Component
@@ -102,22 +104,13 @@ const RootLayout = () => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <PersistGate
-          loading={
-            <StyledLoadingContainer>
-              <StyledActivityIndicator size="large" />
-            </StyledLoadingContainer>
-          }
-          persistor={store.persistor}
-        >
-          <ThemeProviderWrapper>
-            <I18nProvider>
-              <View style={{ flex: 1, height: '100%' }}>
-                <Slot />
-              </View>
-            </I18nProvider>
-          </ThemeProviderWrapper>
-        </PersistGate>
+        <ThemeProviderWrapper>
+          <I18nProvider>
+            <StyledRootContainer>
+              <Slot />
+            </StyledRootContainer>
+          </I18nProvider>
+        </ThemeProviderWrapper>
       </Provider>
     </ErrorBoundary>
   );

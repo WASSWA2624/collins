@@ -8,6 +8,7 @@ import { View } from 'react-native';
 
 const StyledNotFoundContainer = styled(View).withConfig({
   displayName: 'StyledNotFoundContainer',
+  componentId: 'StyledNotFoundContainer',
 })`
   flex: 1;
   width: 100%;
@@ -21,6 +22,7 @@ const StyledNotFoundContainer = styled(View).withConfig({
 
 const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
+  componentId: 'StyledContent',
 })`
   flex: 1;
   width: 100%;
@@ -30,6 +32,7 @@ const StyledContent = styled(View).withConfig({
 
 const StyledMessageSection = styled(View).withConfig({
   displayName: 'StyledMessageSection',
+  componentId: 'StyledMessageSection',
 })`
   width: 100%;
   align-items: center;
@@ -38,6 +41,7 @@ const StyledMessageSection = styled(View).withConfig({
 
 const StyledMessageWrapper = styled(View).withConfig({
   displayName: 'StyledMessageWrapper',
+  componentId: 'StyledMessageWrapper',
 })`
   margin-top: ${({ theme }) => theme.spacing.md}px;
 `;

@@ -17,10 +17,15 @@
  * when importing from the platform/layouts folder.
  */
 
+import React from 'react';
 import { MainRouteLayout } from '@platform/layouts';
+import { useAcknowledgementGuard } from '@navigation/guards';
 
-// Re-export platform route layout component
-// Metro bundler will automatically resolve to the correct platform file
-// Expo Router requires this file to exist in app/(main)/ for routing
-export default MainRouteLayout;
+const MainLayout = () => {
+  // Phase 7: Enforce prototype disclaimer acknowledgement before entering workflow.
+  useAcknowledgementGuard();
+  return <MainRouteLayout />;
+};
+
+export default MainLayout;
 

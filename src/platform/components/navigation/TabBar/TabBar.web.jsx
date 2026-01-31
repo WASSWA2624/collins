@@ -39,10 +39,6 @@ const TabBarWeb = ({
   style,
   ...rest
 }) => {
-  // #region agent log
-  globalThis.__tabBarWebRenderCount = (globalThis.__tabBarWebRenderCount || 0) + 1;
-  fetch('http://127.0.0.1:7249/ingest/0ca3e34c-db2d-4973-878f-b50eb78eba91',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A',location:'TabBar.web.jsx:42',message:'TabBar web render',data:{renderCount:globalThis.__tabBarWebRenderCount,styleInitCount:globalThis.__tabBarWebStylesInitCount || 0,itemCount:items.length},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   const { t } = useI18n();
   const router = useRouter();
   const {

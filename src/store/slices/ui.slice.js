@@ -19,6 +19,10 @@ const initialState = {
     fullscreen: true,
   },
   footerVisible: true,
+  // Phase 7: Prototype disclaimer acknowledgement (persisted via redux-persist ui whitelist)
+  disclaimerAcknowledged: false,
+  // Phase 7: Workflow/session (placeholder for session-required route gating)
+  currentSessionId: null,
   // Minimal auth state for Phase 0-7 (guards need this)
   // Full auth feature will be implemented in Phase 9
   isAuthenticated: false,
@@ -71,6 +75,16 @@ const uiSlice = createSlice({
     },
     toggleFooterVisible: (state) => {
       state.footerVisible = !state.footerVisible;
+    },
+    setDisclaimerAcknowledged: (state, action) => {
+      state.disclaimerAcknowledged = Boolean(action.payload);
+    },
+    setCurrentSessionId: (state, action) => {
+      const value = action.payload;
+      state.currentSessionId = value ? String(value) : null;
+    },
+    clearCurrentSession: (state) => {
+      state.currentSessionId = null;
     },
     // Minimal auth reducers for Phase 0-7 (guards need this)
     setAuthenticated: (state, action) => {

@@ -16,15 +16,12 @@ import { renderWithProviders } from '../helpers/test-utils';
 import MainRouteLayoutWeb from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.web';
 import MainRouteLayoutAndroid from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.android';
 import MainRouteLayoutIOS from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.ios';
-import { useAuth } from '@hooks';
-import { useAuthGuard } from '@navigation/guards';
 import { GlobalHeader, TabBar, Sidebar } from '@platform/components';
 import { Slot } from 'expo-router';
 
 // Mock dependencies
 const mockEnTranslations = require('@i18n/locales/en.json');
 jest.mock('@hooks', () => ({
-  useAuth: jest.fn(),
   useI18n: () => ({
     t: (key) => {
       const keys = key.split('.');
@@ -43,10 +40,6 @@ jest.mock('@hooks', () => ({
   useFocusTrap: jest.fn(),
   useShellBanners: () => [],
   useUiState: () => ({ isLoading: false }),
-}));
-
-jest.mock('@navigation/guards', () => ({
-  useAuthGuard: jest.fn(),
 }));
 
 jest.mock('@platform/components', () => ({
@@ -127,13 +120,6 @@ describe('MainLayout with Navigation Skeleton', () => {
   beforeEach(() => {
     // Reset mocks
     jest.clearAllMocks();
-
-    // Default: authenticated
-    useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: [] });
-    useAuthGuard.mockReturnValue({
-      authenticated: true,
-      user: { id: '1', email: 'test@example.com' },
-    });
   });
 
   describe('Mobile Platform (Android/iOS)', () => {
@@ -173,12 +159,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).not.toHaveBeenCalled();
     });
 
-    it('should pass logout action when authenticated on iOS', () => {
+    it('should not include auth-specific actions on iOS', () => {
       renderWithProviders(<MainRouteLayoutIOS />);
       const headerCall = GlobalHeader.mock.calls[0];
       const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).toContain('logout');
       expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('logout');
       expect(actionIds).not.toContain('register');
     });
 
@@ -191,12 +177,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(getByTestId('slot')).toBeDefined();
     });
 
-    it('should pass logout action when authenticated on Android', () => {
+    it('should not include auth-specific actions on Android', () => {
       renderWithProviders(<MainRouteLayoutAndroid />);
       const headerCall = GlobalHeader.mock.calls[0];
       const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).toContain('logout');
       expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('logout');
       expect(actionIds).not.toContain('register');
     });
 
@@ -254,12 +240,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       });
     });
 
-    it('should pass logout action when authenticated on web', () => {
+    it('should not include auth-specific actions on web', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).toContain('logout');
+      const actionIds = (headerCall?.[0]?.actions ?? []).map((action) => action.id);
       expect(actionIds).not.toContain('login');
+      expect(actionIds).not.toContain('logout');
       expect(actionIds).not.toContain('register');
     });
 
@@ -278,45 +264,10 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(getByTestId('slot')).toBeDefined();
     });
 
-    it('should pass login action when unauthenticated on web', () => {
-      useAuth.mockReturnValue({ isAuthenticated: false, logout: jest.fn(), roles: [] });
-      useAuthGuard.mockReturnValue({ authenticated: false, user: null });
-      renderWithProviders(<MainRouteLayoutWeb />);
-      const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).toContain('login');
-      expect(actionIds).not.toContain('logout');
-    });
-
-    it('should include register action for allowed roles on web', () => {
-      useAuth.mockReturnValue({ isAuthenticated: true, logout: jest.fn(), roles: ['admin'] });
-      renderWithProviders(<MainRouteLayoutWeb />);
-      const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).toContain('register');
-      expect(actionIds).toContain('logout');
-    });
+    // Auth flow is introduced in a future phase; this test suite intentionally avoids auth expectations.
   });
 
   describe('Navigation Component Integration', () => {
-    it('should call useAuthGuard before rendering navigation on iOS', () => {
-      renderWithProviders(<MainRouteLayoutIOS />);
-
-      expect(useAuthGuard).toHaveBeenCalled();
-    });
-
-    it('should call useAuthGuard before rendering navigation on Android', () => {
-      renderWithProviders(<MainRouteLayoutAndroid />);
-
-      expect(useAuthGuard).toHaveBeenCalled();
-    });
-
-    it('should call useAuthGuard before rendering navigation on Web', () => {
-      renderWithProviders(<MainRouteLayoutWeb />);
-
-      expect(useAuthGuard).toHaveBeenCalled();
-    });
-
     it('should render Slot component for child routes on iOS', () => {
       const { getByTestId } = renderWithProviders(<MainRouteLayoutIOS />);
 

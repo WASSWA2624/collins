@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { ThemeProvider as WebThemeProvider } from 'styled-components';
 import { configureStore } from '@reduxjs/toolkit';
+import { Platform } from 'react-native';
 import Skeleton, { VARIANTS } from '@platform/components/feedback/Skeleton';
 import SkeletonAndroid from '@platform/components/feedback/Skeleton/Skeleton.android';
 import SkeletonIOS from '@platform/components/feedback/Skeleton/Skeleton.ios';
@@ -49,9 +50,12 @@ const renderWithWebTheme = (component) => {
 
 describe('Skeleton Component', () => {
   describe('Platform-agnostic tests (via index)', () => {
+    const PlatformComponent =
+      Platform.OS === 'android' ? SkeletonAndroid : Platform.OS === 'web' ? SkeletonWeb : SkeletonIOS;
+
     it('should render default (text) variant', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(<Skeleton testID="skeleton-default" />);
-      const component = UNSAFE_getByType(SkeletonWeb);
+      const { UNSAFE_getByType } = renderWithTheme(<Skeleton testID="skeleton-default" />);
+      const component = UNSAFE_getByType(PlatformComponent);
       expect(component).toBeTruthy();
       // Default variant is TEXT (undefined defaults to TEXT)
       expect(component.props.variant || VARIANTS.TEXT).toBe(VARIANTS.TEXT);
@@ -59,38 +63,38 @@ describe('Skeleton Component', () => {
     });
 
     it('should render text variant with multiple lines and testIDs', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { UNSAFE_getByType } = renderWithTheme(
         <Skeleton variant={VARIANTS.TEXT} lines={3} testID="skeleton" />
       );
-      const component = UNSAFE_getByType(SkeletonWeb);
+      const component = UNSAFE_getByType(PlatformComponent);
       expect(component).toBeTruthy();
       expect(component.props.variant).toBe(VARIANTS.TEXT);
       expect(component.props.lines).toBe(3);
     });
 
     it('should render circular variant', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { UNSAFE_getByType } = renderWithTheme(
         <Skeleton variant={VARIANTS.CIRCULAR} testID="skeleton" />
       );
-      const component = UNSAFE_getByType(SkeletonWeb);
+      const component = UNSAFE_getByType(PlatformComponent);
       expect(component).toBeTruthy();
       expect(component.props.variant).toBe(VARIANTS.CIRCULAR);
     });
 
     it('should render rectangular variant', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { UNSAFE_getByType } = renderWithTheme(
         <Skeleton variant={VARIANTS.RECTANGULAR} testID="skeleton" />
       );
-      const component = UNSAFE_getByType(SkeletonWeb);
+      const component = UNSAFE_getByType(PlatformComponent);
       expect(component).toBeTruthy();
       expect(component.props.variant).toBe(VARIANTS.RECTANGULAR);
     });
 
     it('should accept custom accessibility label', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { UNSAFE_getByType } = renderWithTheme(
         <Skeleton accessibilityLabel="Loading content" />
       );
-      const component = UNSAFE_getByType(SkeletonWeb);
+      const component = UNSAFE_getByType(PlatformComponent);
       expect(component).toBeTruthy();
       // Component accepts accessibilityLabel prop (even though aria-hidden hides it from screen readers)
       expect(component.props.accessibilityLabel).toBe('Loading content');

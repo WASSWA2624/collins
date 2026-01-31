@@ -43,6 +43,14 @@ describe('Chip Component', () => {
   const mockOnPress = jest.fn();
   const mockOnRemove = jest.fn();
 
+  const safeFindByProps = (root, props) => {
+    try {
+      return root.findByProps(props);
+    } catch (_) {
+      return null;
+    }
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -155,9 +163,10 @@ describe('Chip Component', () => {
         <Chip removable onRemove={mockOnRemove} testID="chip">Chip</Chip>
       );
       // Find the remove button by aria-label or data-testid
-      const removeButton = UNSAFE_root.findByProps({ 'aria-label': 'Remove' }) || 
-                          UNSAFE_root.findByProps({ accessibilityLabel: 'Remove' }) ||
-                          UNSAFE_root.findByProps({ 'data-testid': 'chip-remove' });
+      const removeButton =
+        safeFindByProps(UNSAFE_root, { 'aria-label': 'Remove' }) ||
+        safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Remove' }) ||
+        safeFindByProps(UNSAFE_root, { 'data-testid': 'chip-remove' });
       expect(removeButton).toBeTruthy();
       // Trigger the onClick/onPress handler
       if (removeButton.props?.onClick) {
@@ -173,9 +182,10 @@ describe('Chip Component', () => {
         <Chip removable onRemove={mockOnRemove} onPress={mockOnPress} testID="chip">Chip</Chip>
       );
       // Find the remove button by aria-label or data-testid
-      const removeButton = UNSAFE_root.findByProps({ 'aria-label': 'Remove' }) || 
-                          UNSAFE_root.findByProps({ accessibilityLabel: 'Remove' }) ||
-                          UNSAFE_root.findByProps({ 'data-testid': 'chip-remove' });
+      const removeButton =
+        safeFindByProps(UNSAFE_root, { 'aria-label': 'Remove' }) ||
+        safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Remove' }) ||
+        safeFindByProps(UNSAFE_root, { 'data-testid': 'chip-remove' });
       expect(removeButton).toBeTruthy();
       // Trigger the onClick/onPress handler with a mock event
       const mockEvent = { stopPropagation: jest.fn() };
@@ -218,8 +228,9 @@ describe('Chip Component', () => {
         <Chip onPress={mockOnPress}>Chip</Chip>
       );
       // Find the chip container element
-      const chipContainer = UNSAFE_root.findByProps({ 'aria-label': 'Chip' }) || 
-                           UNSAFE_root.findByProps({ accessibilityLabel: 'Chip' });
+      const chipContainer =
+        safeFindByProps(UNSAFE_root, { 'aria-label': 'Chip' }) ||
+        safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Chip' });
       expect(chipContainer).toBeTruthy();
       // Check role/accessibilityRole prop
       const role = chipContainer.props?.role || chipContainer.props?.accessibilityRole;
@@ -231,8 +242,9 @@ describe('Chip Component', () => {
         <Chip>Chip</Chip>
       );
       // Find the chip container element
-      const chipContainer = UNSAFE_root.findByProps({ 'aria-label': 'Chip' }) || 
-                           UNSAFE_root.findByProps({ accessibilityLabel: 'Chip' });
+      const chipContainer =
+        safeFindByProps(UNSAFE_root, { 'aria-label': 'Chip' }) ||
+        safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Chip' });
       expect(chipContainer).toBeTruthy();
       // Check role/accessibilityRole prop
       const role = chipContainer.props?.role || chipContainer.props?.accessibilityRole;
@@ -492,8 +504,9 @@ describe('Chip Component', () => {
         <Chip onPress={mockOnPress} testID="interactive-chip">Interactive</Chip>
       );
       // Find the chip container element
-      const chipContainer = UNSAFE_root.findByProps({ 'aria-label': 'Interactive' }) || 
-                           UNSAFE_root.findByProps({ accessibilityLabel: 'Interactive' });
+      const chipContainer =
+        safeFindByProps(UNSAFE_root, { 'aria-label': 'Interactive' }) ||
+        safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Interactive' });
       expect(chipContainer).toBeTruthy();
       // Check role/accessibilityRole prop
       const role = chipContainer.props?.role || chipContainer.props?.accessibilityRole;
@@ -636,8 +649,9 @@ describe('Chip Component', () => {
           <ChipIOS removable onRemove={mockOnRemove} testID="ios-chip-remove-stop">iOS Chip</ChipIOS>
         );
         // Find remove button and trigger handler directly with event that has stopPropagation
-        const removeButton = UNSAFE_root.findByProps({ accessibilityLabel: 'Remove' }) ||
-                            UNSAFE_root.findByProps({ 'aria-label': 'Remove' });
+        const removeButton =
+          safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Remove' }) ||
+          safeFindByProps(UNSAFE_root, { 'aria-label': 'Remove' });
         expect(removeButton).toBeTruthy();
         const mockEvent = {
           stopPropagation: mockStopPropagation,
@@ -656,8 +670,9 @@ describe('Chip Component', () => {
         const { UNSAFE_root } = renderWithProviders(
           <ChipIOS removable onRemove={mockOnRemove} testID="ios-chip-remove-no-stop">iOS Chip</ChipIOS>
         );
-        const removeButton = UNSAFE_root.findByProps({ accessibilityLabel: 'Remove' }) ||
-                            UNSAFE_root.findByProps({ 'aria-label': 'Remove' });
+        const removeButton =
+          safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Remove' }) ||
+          safeFindByProps(UNSAFE_root, { 'aria-label': 'Remove' });
         expect(removeButton).toBeTruthy();
         // Event without stopPropagation
         const mockEvent = { type: 'press' };
@@ -674,8 +689,9 @@ describe('Chip Component', () => {
         const { UNSAFE_root } = renderWithProviders(
           <ChipIOS removable onRemove={mockOnRemove} testID="ios-chip-remove-no-event">iOS Chip</ChipIOS>
         );
-        const removeButton = UNSAFE_root.findByProps({ accessibilityLabel: 'Remove' }) ||
-                            UNSAFE_root.findByProps({ 'aria-label': 'Remove' });
+        const removeButton =
+          safeFindByProps(UNSAFE_root, { accessibilityLabel: 'Remove' }) ||
+          safeFindByProps(UNSAFE_root, { 'aria-label': 'Remove' });
         expect(removeButton).toBeTruthy();
         // Call without event
         if (removeButton.props?.onPress) {

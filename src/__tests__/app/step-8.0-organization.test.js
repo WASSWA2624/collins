@@ -21,11 +21,15 @@ describe('Step 8.0: App Folder Organization', () => {
       const themeProviderPath = path.join(platformCommonPath, 'ThemeProviderWrapper');
       expect(fs.existsSync(themeProviderPath)).toBe(true);
       
-      const componentFile = path.join(themeProviderPath, 'ThemeProviderWrapper.jsx');
       const indexFile = path.join(themeProviderPath, 'index.js');
+      const androidFile = path.join(themeProviderPath, 'ThemeProviderWrapper.android.jsx');
+      const iosFile = path.join(themeProviderPath, 'ThemeProviderWrapper.ios.jsx');
+      const webFile = path.join(themeProviderPath, 'ThemeProviderWrapper.web.jsx');
       
-      expect(fs.existsSync(componentFile)).toBe(true);
       expect(fs.existsSync(indexFile)).toBe(true);
+      expect(fs.existsSync(androidFile)).toBe(true);
+      expect(fs.existsSync(iosFile)).toBe(true);
+      expect(fs.existsSync(webFile)).toBe(true);
     });
 
     it('should NOT have ThemeProviderWrapper in app/', () => {
@@ -153,18 +157,22 @@ describe('Step 8.0: App Folder Organization', () => {
   describe('Route Group Layouts Organization', () => {
     it('should have route groups with parentheses', () => {
       const mainGroupPath = path.join(appPath, '(main)');
-      const authGroupPath = path.join(appPath, '(auth)');
+      const trainingGroupPath = path.join(appPath, '(training)');
+      const settingsGroupPath = path.join(appPath, '(settings)');
       
       expect(fs.existsSync(mainGroupPath)).toBe(true);
-      expect(fs.existsSync(authGroupPath)).toBe(true);
+      expect(fs.existsSync(trainingGroupPath)).toBe(true);
+      expect(fs.existsSync(settingsGroupPath)).toBe(true);
     });
 
     it('should have single _layout.jsx file per route group', () => {
       const mainLayoutPath = path.join(appPath, '(main)', '_layout.jsx');
-      const authLayoutPath = path.join(appPath, '(auth)', '_layout.jsx');
+      const trainingLayoutPath = path.join(appPath, '(training)', '_layout.jsx');
+      const settingsLayoutPath = path.join(appPath, '(settings)', '_layout.jsx');
       
       expect(fs.existsSync(mainLayoutPath)).toBe(true);
-      expect(fs.existsSync(authLayoutPath)).toBe(true);
+      expect(fs.existsSync(trainingLayoutPath)).toBe(true);
+      expect(fs.existsSync(settingsLayoutPath)).toBe(true);
       
       // Should NOT have platform-specific layout files in app/
       const mainLayoutAndroid = path.join(appPath, '(main)', '_layout.android.jsx');

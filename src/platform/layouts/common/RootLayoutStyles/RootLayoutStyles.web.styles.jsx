@@ -8,23 +8,35 @@
  */
 
 import styled from 'styled-components';
-import { View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
-const StyledLoadingContainer = styled(View).withConfig({
-  displayName: 'StyledLoadingContainer',
+const StyledRootContainer = styled.div.withConfig({
+  displayName: 'StyledRootContainer',
+  componentId: 'StyledRootContainer',
 })`
   flex: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+const StyledLoadingContainer = styled.div.withConfig({
+  displayName: 'StyledLoadingContainer',
+  componentId: 'StyledLoadingContainer',
+})`
+  flex: 1;
+  display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
-const StyledActivityIndicator = styled(ActivityIndicator).withConfig({
-  displayName: 'StyledActivityIndicator',
-})`
-  /* ActivityIndicator styling if needed */
-`;
+// Kept as the React Native primitive for compatibility with existing usage.
+const StyledActivityIndicator = ActivityIndicator;
 
 export {
+  StyledRootContainer,
   StyledLoadingContainer,
   StyledActivityIndicator,
 };

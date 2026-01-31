@@ -9,34 +9,6 @@ import { initTheme } from './init.theme';
 import { initOffline } from './init.offline';
 import { logger } from '@logging';
 
-// Suppress styled-components false positive warnings in development
-// These warnings occur because styled-components v6 with React Native
-// incorrectly detects styled components as "dynamically created" when
-// they are actually defined at the top level of style files.
-// This runs early in the bootstrap process to suppress warnings before components render.
-if (typeof __DEV__ !== 'undefined' && __DEV__ && typeof console !== 'undefined') {
-  // #region agent log
-  fetch('http://127.0.0.1:7249/ingest/0ca3e34c-db2d-4973-878f-b50eb78eba91',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C',location:'bootstrap/index.js:17',message:'console.warn override installed',data:{dev:__DEV__,hasConsole:typeof console !== 'undefined'},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
-  const originalWarn = console.warn;
-  console.warn = (...args) => {
-    const message = args[0];
-    // Suppress styled-components dynamic component warnings (false positives)
-    if (
-      typeof message === 'string' &&
-      (message.includes('has been created dynamically') ||
-        message.includes('You may see this warning because you\'ve called styled inside another component'))
-    ) {
-      // #region agent log
-      const warnStack = new Error().stack;
-      fetch('http://127.0.0.1:7249/ingest/0ca3e34c-db2d-4973-878f-b50eb78eba91',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C',location:'bootstrap/index.js:30',message:'styled-components warning intercepted',data:{message,stack:warnStack ? warnStack.split('\n').slice(0,6).join('\n') : null},timestamp:Date.now()})}).catch(()=>{});
-      // #endregion
-      return; // Suppress this warning
-    }
-    originalWarn.apply(console, args);
-  };
-}
-
 /**
  * Bootstrap the application
  * Initializes all global systems in the correct order:

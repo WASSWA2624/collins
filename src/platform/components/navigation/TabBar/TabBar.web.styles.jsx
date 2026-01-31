@@ -6,11 +6,6 @@
 import styled from 'styled-components';
 import { View, Pressable, Text } from 'react-native';
 
-// #region agent log
-globalThis.__tabBarWebStylesInitCount = (globalThis.__tabBarWebStylesInitCount || 0) + 1;
-fetch('http://127.0.0.1:7249/ingest/0ca3e34c-db2d-4973-878f-b50eb78eba91',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A',location:'TabBar.web.styles.jsx:9',message:'TabBar web styles module init',data:{count:globalThis.__tabBarWebStylesInitCount},timestamp:Date.now()})}).catch(()=>{});
-// #endregion
-
 const StyledTabBar = styled(View).withConfig({
   displayName: 'StyledTabBar',
   componentId: 'StyledTabBar',

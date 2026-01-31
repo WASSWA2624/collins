@@ -99,6 +99,8 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
   const React = require('react');
   const { View, ActivityIndicator } = require('react-native');
   return {
+    StyledRootContainer: ({ children, testID }) =>
+      React.createElement(View, { testID }, children),
     StyledLoadingContainer: ({ children, testID }) =>
       React.createElement(View, { testID }, children),
     StyledActivityIndicator: (props) => React.createElement(ActivityIndicator, props),

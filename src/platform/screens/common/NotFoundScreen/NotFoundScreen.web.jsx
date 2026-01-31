@@ -5,7 +5,6 @@
  */
 // 1. External dependencies
 import React from 'react';
-import { ScrollView } from 'react-native';
 
 // 2. Platform components (from barrel file)
 import { Button, Text } from '@platform/components';
@@ -19,6 +18,7 @@ import {
   StyledContent,
   StyledMessageSection,
   StyledMessageWrapper,
+  StyledButtonRow,
 } from './NotFoundScreen.web.styles';
 
 // 5. Component-specific hook (relative import)
@@ -36,34 +36,28 @@ const NotFoundScreenWeb = (props) => {
   const { handleBack, handleGoHome } = useNotFoundScreen();
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      accessibilityLabel={t('notFound.title')}
+    <StyledNotFoundContainer
+      aria-label={t('notFound.title')}
       testID="not-found-screen"
     >
-      <StyledNotFoundContainer>
-        <StyledContent>
-          <StyledMessageSection>
-            <Text
-              variant="h1"
-              align="center"
-              accessibilityRole="header"
-              testID="not-found-title"
-            >
-              {t('notFound.title')}
+      <StyledContent>
+        <StyledMessageSection>
+          <Text
+            variant="h1"
+            align="center"
+            accessibilityRole="header"
+            testID="not-found-title"
+          >
+            {t('notFound.title')}
+          </Text>
+          <StyledMessageWrapper>
+            <Text variant="body" align="center" testID="not-found-message">
+              {t('notFound.message')}
             </Text>
-            <StyledMessageWrapper>
-              <Text
-                variant="body"
-                align="center"
-                testID="not-found-message"
-              >
-                {t('notFound.message')}
-              </Text>
-            </StyledMessageWrapper>
-          </StyledMessageSection>
+          </StyledMessageWrapper>
+        </StyledMessageSection>
 
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <StyledButtonRow>
           <Button
             variant="primary"
             size="large"
@@ -84,10 +78,9 @@ const NotFoundScreenWeb = (props) => {
           >
             {t('notFound.goHome')}
           </Button>
-        </div>
-        </StyledContent>
-      </StyledNotFoundContainer>
-    </ScrollView>
+        </StyledButtonRow>
+      </StyledContent>
+    </StyledNotFoundContainer>
   );
 };
 

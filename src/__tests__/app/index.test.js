@@ -1,22 +1,19 @@
 /**
  * Root Index Route Tests
- * Tests redirect: authenticated -> /home, unauthenticated -> /login
+ * Tests Landing screen route rendering
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 
-const mockReplace = jest.fn();
-jest.mock('expo-router', () => ({
-  useRouter: () => ({ replace: mockReplace, push: jest.fn(), back: jest.fn() }),
-}));
-
-jest.mock('@navigation/guards', () => ({
-  useAuthGuard: jest.fn(() => ({ authenticated: false })),
-}));
-
-const { useAuthGuard } = require('@navigation/guards');
+jest.mock('@platform/screens', () => {
+  const React = require('react');
+  return {
+    LandingScreen: () =>
+      React.createElement('div', { testID: 'landing-screen' }, 'Mock LandingScreen'),
+  };
+});
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 const createMockStore = () => ({
   getState: () => ({}),
@@ -34,18 +31,10 @@ const renderWithTheme = (component, store = createMockStore()) =>
 describe('Index Route (index.jsx)', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('should redirect to /login when unauthenticated', () => {
-    useAuthGuard.mockReturnValue({ authenticated: false });
+  it('should render LandingScreen', () => {
     const IndexRoute = require('../../app/index').default;
-    renderWithTheme(<IndexRoute />);
-    expect(mockReplace).toHaveBeenCalledWith('/login');
-  });
-
-  it('should redirect to /home when authenticated', () => {
-    useAuthGuard.mockReturnValue({ authenticated: true });
-    const IndexRoute = require('../../app/index').default;
-    renderWithTheme(<IndexRoute />);
-    expect(mockReplace).toHaveBeenCalledWith('/home');
+    const { getByTestId } = renderWithTheme(<IndexRoute />);
+    expect(getByTestId('landing-screen')).toBeDefined();
   });
 
   it('should use default export', () => {

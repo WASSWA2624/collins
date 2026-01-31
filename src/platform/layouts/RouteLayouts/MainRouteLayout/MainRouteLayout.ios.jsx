@@ -1,29 +1,36 @@
 /**
  * MainRouteLayout Component - iOS
- * Reusable route layout for authenticated/main app routes on iOS
+ * Minimal navigation skeleton for main workflow routes.
  * File: MainRouteLayout.ios.jsx
  */
-
-import React from 'react';
+// 1. External dependencies
+import React, { useMemo } from 'react';
 import { Slot } from 'expo-router';
-import { useI18n } from '@hooks';
-import AppFrame from '../../AppFrame';
+
+// 2. Platform components
 import {
   GlobalHeader,
-  LanguageControls,
+  LoadingOverlay,
   NoticeSurface,
   TabBar,
-  ThemeControls,
 } from '@platform/components';
-import GlobalFooter, { FOOTER_VARIANTS } from '@platform/components/navigation/GlobalFooter';
-import useMainRouteLayoutNative from './useMainRouteLayoutNative';
 
-/**
- * MainRouteLayout component for iOS
- */
+// 3. Hooks & utilities
+import useMainRouteLayout from './useMainRouteLayout';
+
+// 4. Styles
+import { StyledContent } from './MainRouteLayout.ios.styles';
+
+// 5. Local platform layouts
+import AppFrame from '../../AppFrame';
+
 const MainRouteLayoutIOS = () => {
-  const { t } = useI18n();
-  const { headerActions, overlaySlot, mainItems, isItemVisible } = useMainRouteLayoutNative();
+  const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
+
+  const overlaySlot = useMemo(
+    () => (isLoading ? <LoadingOverlay visible testID="main-loading-overlay" /> : null),
+    [isLoading]
+  );
 
   return (
     <AppFrame
@@ -32,28 +39,15 @@ const MainRouteLayoutIOS = () => {
           title={t('navigation.mainNavigation')}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={headerActions}
-          utilitySlot={(
-            <>
-              <LanguageControls testID="main-language-controls" />
-              <ThemeControls testID="main-theme-controls" />
-            </>
-          )}
+          actions={[]}
         />
       }
       footer={
-        <GlobalFooter
-          variant={FOOTER_VARIANTS.MAIN}
-          accessibilityLabel={t('navigation.footer.title')}
-          testID="main-footer"
-          quickActionsSlot={(
-            <TabBar
-              accessibilityLabel={t('navigation.tabBar.title')}
-              items={mainItems}
-              isTabVisible={isItemVisible}
-              testID="main-tabbar"
-            />
-          )}
+        <TabBar
+          accessibilityLabel={t('navigation.tabBar.title')}
+          items={items}
+          isTabVisible={isItemVisible}
+          testID="main-tabbar"
         />
       }
       overlay={overlaySlot}
@@ -61,7 +55,9 @@ const MainRouteLayoutIOS = () => {
       accessibilityLabel={t('navigation.mainNavigation')}
       testID="main-route-layout"
     >
-      <Slot />
+      <StyledContent>
+        <Slot />
+      </StyledContent>
     </AppFrame>
   );
 };

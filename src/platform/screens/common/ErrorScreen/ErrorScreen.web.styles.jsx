@@ -4,12 +4,11 @@
  * File: ErrorScreen.web.styles.jsx
  */
 import styled from 'styled-components';
-import { View, ScrollView } from 'react-native';
 
-const StyledErrorContainer = styled(View).withConfig({
+const StyledErrorContainer = styled.main.withConfig({
   displayName: 'StyledErrorContainer',
+  componentId: 'StyledErrorContainer',
 })`
-  flex: 1;
   width: 100%;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
@@ -17,30 +16,38 @@ const StyledErrorContainer = styled(View).withConfig({
   padding-bottom: ${({ theme }) => theme.spacing.xl * 2}px;
   padding-left: ${({ theme }) => theme.spacing.lg}px;
   padding-right: ${({ theme }) => theme.spacing.lg}px;
-`;
-
-const StyledContent = styled(View).withConfig({
-  displayName: 'StyledContent',
-})`
-  flex: 1;
-  width: 100%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const StyledMessageSection = styled(View).withConfig({
-  displayName: 'StyledMessageSection',
+const StyledContent = styled.div.withConfig({
+  displayName: 'StyledContent',
+  componentId: 'StyledContent',
 })`
   width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledMessageSection = styled.div.withConfig({
+  displayName: 'StyledMessageSection',
+  componentId: 'StyledMessageSection',
+})`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing.xl}px;
 `;
 
-const StyledButtonGroup = styled(View).withConfig({
+const StyledButtonGroup = styled.div.withConfig({
   displayName: 'StyledButtonGroup',
+  componentId: 'StyledButtonGroup',
 })`
   flex-direction: row;
   gap: ${({ theme }) => theme.spacing.md}px;
@@ -50,20 +57,23 @@ const StyledButtonGroup = styled(View).withConfig({
   max-width: 400px;
 `;
 
-const StyledScrollView = styled(ScrollView).withConfig({
+const StyledScrollView = styled.div.withConfig({
   displayName: 'StyledScrollView',
+  componentId: 'StyledScrollView',
 })`
   flex: 1;
 `;
 
-const StyledScrollViewContent = styled(View).withConfig({
+const StyledScrollViewContent = styled.div.withConfig({
   displayName: 'StyledScrollViewContent',
+  componentId: 'StyledScrollViewContent',
 })`
   flex-grow: 1;
 `;
 
-const StyledMessageWrapper = styled(View).withConfig({
+const StyledMessageWrapper = styled.div.withConfig({
   displayName: 'StyledMessageWrapper',
+  componentId: 'StyledMessageWrapper',
 })`
   margin-top: ${({ theme }) => theme.spacing.md}px;
 `;

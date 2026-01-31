@@ -118,6 +118,8 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
   const React = require('react');
   const { View, ActivityIndicator } = require('react-native');
   return {
+    StyledRootContainer: ({ children, testID }) =>
+      React.createElement(View, { testID }, children),
     StyledLoadingContainer: ({ children, testID }) =>
       React.createElement(View, { testID }, children),
     StyledActivityIndicator: (props) => React.createElement(ActivityIndicator, props),
@@ -171,16 +173,14 @@ describe('app/_layout.jsx', () => {
   test('should render Slot component for child routes', async () => {
     // Per Step 7.1: Test that component renders children (via <Slot />)
     // Per app-router.mdc: Layouts use <Slot /> to render child routes
-    const { UNSAFE_getByType } = render(<RootLayout />);
+    const { getByText } = render(<RootLayout />);
     
+    // Verify that Slot is rendered (allows child routes to be displayed).
+    // Our Slot mock renders a fallback text when no child routes are provided.
     await waitFor(() => {
       expect(mockBootstrapApp).toHaveBeenCalled();
+      expect(getByText('Mock Slot - No Child Routes')).toBeTruthy();
     }, { timeout: 3000 });
-    
-    // Verify that Slot is rendered (allows child routes to be displayed)
-    // In Expo Router, Slot automatically receives matched child routes from the router
-    // We verify Slot is used by checking the component renders successfully
-    expect(mockSlotChildren).toHaveBeenCalled();
   });
 
   test('should handle empty state without error', async () => {

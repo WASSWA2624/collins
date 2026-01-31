@@ -36,9 +36,6 @@ global.__DEV__ = true;
 
 // Mock styled-components to handle both web and native
 const createStyledMock = () => {
-  // #region agent log
-  fetch('http://127.0.0.1:7246/ingest/bb16142f-c7be-43d5-a449-1fe6d8839ed7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'jest.setup.js:createStyledMock',message:'entry',data:{timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion agent log
   const startTime = Date.now();
   const React = require('react');
   const RN = require('react-native');
@@ -218,9 +215,6 @@ const createStyledMock = () => {
   });
 
   const duration = Date.now() - startTime;
-  // #region agent log
-  fetch('http://127.0.0.1:7246/ingest/bb16142f-c7be-43d5-a449-1fe6d8839ed7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'jest.setup.js:createStyledMock',message:'exit',data:{duration},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion agent log
 
   return styled;
 };
@@ -240,9 +234,6 @@ jest.mock('styled-components', () => {
 });
 
 jest.mock('styled-components/native', () => {
-  // #region agent log
-  fetch('http://127.0.0.1:7246/ingest/bb16142f-c7be-43d5-a449-1fe6d8839ed7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'jest.setup.js:styled-components/native-mock',message:'entry',data:{timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-  // #endregion agent log
   const mockStartTime = Date.now();
   const React = require('react');
   const RN = require('react-native');
@@ -283,9 +274,6 @@ jest.mock('styled-components/native', () => {
   };
   
   const mockDuration = Date.now() - mockStartTime;
-  // #region agent log
-  fetch('http://127.0.0.1:7246/ingest/bb16142f-c7be-43d5-a449-1fe6d8839ed7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'jest.setup.js:styled-components/native-mock',message:'exit',data:{mockDuration},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-  // #endregion agent log
   
   return {
     __esModule: true,
@@ -297,6 +285,15 @@ jest.mock('styled-components/native', () => {
     keyframes: () => ({}),
   };
 });
+
+// expo-local-authentication (required: deterministic mock for tests)
+jest.mock('expo-local-authentication', () => ({
+  hasHardwareAsync: jest.fn(async () => false),
+  isEnrolledAsync: jest.fn(async () => false),
+  authenticateAsync: jest.fn(async () => ({ success: false })),
+  supportedAuthenticationTypesAsync: jest.fn(async () => []),
+  AuthenticationType: {},
+}));
 
 // AsyncStorage (required: prevent "NativeModule: AsyncStorage is null" during Jest)
 jest.mock(

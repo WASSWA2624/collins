@@ -18,8 +18,6 @@ import {
   StyledContent,
   StyledMessageSection,
   StyledButtonGroup,
-  StyledScrollView,
-  StyledScrollViewContent,
   StyledMessageWrapper,
 } from './ErrorScreen.web.styles';
 
@@ -39,61 +37,54 @@ const ErrorScreenWeb = ({ onRetry, ...rest }) => {
   const { handleGoHome, handleRetry, hasRetry } = useErrorScreen({ onRetry });
 
   return (
-    <StyledScrollView
+    <StyledErrorContainer
+      aria-label={t('error.title')}
       accessibilityLabel={t('error.title')}
       testID="error-screen"
     >
-      <StyledScrollViewContent>
-        <StyledErrorContainer>
-        <StyledContent>
-          <StyledMessageSection>
-            <Text
-              variant="h1"
-              align="center"
-              accessibilityRole="header"
-              testID="error-title"
-            >
-              {t('error.title')}
+      <StyledContent>
+        <StyledMessageSection>
+          <Text
+            variant="h1"
+            align="center"
+            accessibilityRole="header"
+            testID="error-title"
+          >
+            {t('error.title')}
+          </Text>
+          <StyledMessageWrapper>
+            <Text variant="body" align="center" testID="error-message">
+              {t('error.message')}
             </Text>
-            <StyledMessageWrapper>
-              <Text
-                variant="body"
-                align="center"
-                testID="error-message"
-              >
-                {t('error.message')}
-              </Text>
-            </StyledMessageWrapper>
-          </StyledMessageSection>
+          </StyledMessageWrapper>
+        </StyledMessageSection>
 
-          <StyledButtonGroup>
-            {hasRetry && (
-              <Button
-                variant="primary"
-                size="large"
-                onPress={handleRetry}
-                accessibilityLabel={t('error.retry')}
-                accessibilityHint={t('error.retryHint')}
-                testID="error-retry-button"
-              >
-                {t('error.retry')}
-              </Button>
-            )}
+        <StyledButtonGroup>
+          {hasRetry && (
             <Button
-              variant={hasRetry ? 'secondary' : 'primary'}
+              variant="primary"
               size="large"
-              onPress={handleGoHome}
-              accessibilityLabel={t('error.goHome')}
-              accessibilityHint={t('error.goHomeHint')}
-              testID="error-go-home-button"
+              onPress={handleRetry}
+              accessibilityLabel={t('error.retry')}
+              accessibilityHint={t('error.retryHint')}
+              testID="error-retry-button"
             >
-              {t('error.goHome')}
+              {t('error.retry')}
             </Button>
-          </StyledButtonGroup>
-        </StyledContent>
-      </StyledErrorContainer>
-      </StyledScrollViewContent>
-    </StyledScrollView>
+          )}
+          <Button
+            variant={hasRetry ? 'secondary' : 'primary'}
+            size="large"
+            onPress={handleGoHome}
+            accessibilityLabel={t('error.goHome')}
+            accessibilityHint={t('error.goHomeHint')}
+            testID="error-go-home-button"
+          >
+            {t('error.goHome')}
+          </Button>
+        </StyledButtonGroup>
+      </StyledContent>
+    </StyledErrorContainer>
   );
 };
 

@@ -666,7 +666,9 @@ describe('FormField Pattern', () => {
     it('should have same component from index.js and direct import', () => {
       // Ensure index.js exports the same component as direct import
       // This ensures index.js is executed and covered
-      const DirectImport = require('@platform/patterns/FormField/FormField.web').default;
+      const { Platform } = require('react-native');
+      const platformSuffix = Platform?.OS === 'android' ? 'android' : Platform?.OS === 'web' ? 'web' : 'ios';
+      const DirectImport = require(`@platform/patterns/FormField/FormField.${platformSuffix}`).default;
       expect(FormField).toBe(DirectImport);
       expect(FormFieldFromIndex).toBe(DirectImport);
     });

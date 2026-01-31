@@ -8,6 +8,7 @@ import { View, ScrollView } from 'react-native';
 
 const StyledErrorContainer = styled(View).withConfig({
   displayName: 'StyledErrorContainer',
+  componentId: 'StyledErrorContainer',
 })`
   flex: 1;
   width: 100%;
@@ -21,6 +22,7 @@ const StyledErrorContainer = styled(View).withConfig({
 
 const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
+  componentId: 'StyledContent',
 })`
   flex: 1;
   width: 100%;
@@ -30,6 +32,7 @@ const StyledContent = styled(View).withConfig({
 
 const StyledMessageSection = styled(View).withConfig({
   displayName: 'StyledMessageSection',
+  componentId: 'StyledMessageSection',
 })`
   width: 100%;
   align-items: center;
@@ -38,6 +41,7 @@ const StyledMessageSection = styled(View).withConfig({
 
 const StyledButtonGroup = styled(View).withConfig({
   displayName: 'StyledButtonGroup',
+  componentId: 'StyledButtonGroup',
 })`
   flex-direction: row;
   gap: ${({ theme }) => theme.spacing.md}px;
@@ -49,18 +53,21 @@ const StyledButtonGroup = styled(View).withConfig({
 
 const StyledScrollView = styled(ScrollView).withConfig({
   displayName: 'StyledScrollView',
+  componentId: 'StyledScrollView',
 })`
   flex: 1;
 `;
 
 const StyledScrollViewContent = styled(View).withConfig({
   displayName: 'StyledScrollViewContent',
+  componentId: 'StyledScrollViewContent',
 })`
   flex-grow: 1;
 `;
 
 const StyledMessageWrapper = styled(View).withConfig({
   displayName: 'StyledMessageWrapper',
+  componentId: 'StyledMessageWrapper',
 })`
   margin-top: ${({ theme }) => theme.spacing.md}px;
 `;

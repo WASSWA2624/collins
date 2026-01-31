@@ -36,14 +36,6 @@ jest.mock('expo-router', () => ({
   })),
 }));
 
-// Mock navigation guards
-jest.mock('@navigation/guards', () => ({
-  useAuthGuard: jest.fn(() => ({
-    authenticated: true,
-    user: { id: '1', email: 'test@example.com' },
-  })),
-}));
-
 // Mock platform components
 jest.mock('@platform/components', () => {
   const React = require('react');
