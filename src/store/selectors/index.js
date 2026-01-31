@@ -18,7 +18,8 @@ const selectIsSidebarCollapsed = createSelector([selectUI], (ui) => ui?.isSideba
 const selectIsHeaderHidden = createSelector([selectUI], (ui) => ui?.isHeaderHidden ?? false);
 const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.headerActionVisibility ?? {});
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
-const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
+// Defensive: treat only strict `true` as acknowledged (handles corrupted persisted values)
+const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged === true);
 const selectCurrentSessionId = createSelector([selectUI], (ui) => ui?.currentSessionId ?? null);
 const selectHasCurrentSession = createSelector([selectCurrentSessionId], (id) => Boolean(id));
 

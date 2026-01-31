@@ -115,9 +115,25 @@ jest.mock('@store/selectors', () => ({
 // Mock i18n
 jest.mock('@i18n', () => {
   const React = require('react');
+  const en = require('@i18n/locales/en.json');
+
+  const getNestedValue = (obj, path) => {
+    if (!obj || typeof obj !== 'object') return undefined;
+    if (!path || typeof path !== 'string') return undefined;
+    return path
+      .split('.')
+      .reduce(
+        (current, key) => (current && current[key] !== undefined ? current[key] : undefined),
+        obj
+      );
+  };
+
+  const tSync = (key) => getNestedValue(en, key) || key;
+
   return {
     I18nProvider: ({ children }) => React.createElement(React.Fragment, null, children),
     getDeviceLocale: jest.fn(() => 'en'),
+    tSync,
   };
 }, { virtual: true });
 
@@ -148,6 +164,8 @@ jest.mock('@errors', () => {
   const React = require('react');
   const { logger } = require('@logging');
   const { handleError } = require('@errors/error.handler');
+  const { ThemeProvider } = require('styled-components/native');
+  const lightTheme = require('@theme/light.theme').default;
   
   // Import real FallbackUI for realistic testing
   const FallbackUI = require('@errors/fallback.ui').default;
@@ -173,10 +191,14 @@ jest.mock('@errors', () => {
 
     render() {
       if (this.state.hasError) {
-        return React.createElement(FallbackUI, {
-          error: this.state.error,
-          onRetry: () => this.setState({ hasError: false, error: null }),
-        });
+        return React.createElement(
+          ThemeProvider,
+          { theme: lightTheme },
+          React.createElement(FallbackUI, {
+            error: this.state.error,
+            onRetry: () => this.setState({ hasError: false, error: null }),
+          })
+        );
       }
 
       return this.props.children;

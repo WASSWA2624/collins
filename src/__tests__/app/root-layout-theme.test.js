@@ -17,8 +17,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { render, waitFor } from '@testing-library/react-native';
+import { act, render, waitFor } from '@testing-library/react-native';
 import styled from 'styled-components/native';
+import { useTheme } from 'styled-components/native';
 
 // Mock expo-router Slot component
 // Per app-router.mdc: Layouts use <Slot /> to render child routes
@@ -83,36 +84,6 @@ jest.mock('redux-persist/integration/react', () => {
   };
 });
 
-// Mock ThemeProviderWrapper (used in root layout)
-jest.mock('@platform/layouts/common/ThemeProviderWrapper', () => {
-  const React = require('react');
-  const { useSelector } = require('react-redux');
-  const { ThemeProvider } = require('styled-components/native');
-  const lightTheme = require('@theme/light.theme').default;
-  const darkTheme = require('@theme/dark.theme').default;
-  
-  const getTheme = (mode = 'light') => {
-    switch (mode) {
-      case 'dark':
-        return darkTheme;
-      default:
-        return lightTheme;
-    }
-  };
-  
-  const ThemeProviderWrapper = ({ children }) => {
-    // Mock useSelector to return theme from store
-    const themeMode = useSelector((state) => state.ui?.theme || 'light');
-    
-    return React.createElement(ThemeProvider, { theme: getTheme(themeMode) }, children);
-  };
-  
-  return {
-    __esModule: true,
-    default: ThemeProviderWrapper,
-  };
-}, { virtual: true });
-
 // Mock RootLayoutStyles
 jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
   const React = require('react');
@@ -125,11 +96,6 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
     StyledActivityIndicator: (props) => React.createElement(ActivityIndicator, props),
   };
 }, { virtual: true });
-
-// Mock store selectors
-jest.mock('@store/selectors', () => ({
-  selectTheme: jest.fn((state) => state.ui?.theme || 'light'),
-}), { virtual: true });
 
 // Mock logger
 jest.mock('@logging', () => ({
@@ -173,9 +139,10 @@ const ThemedText = styled.Text`
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
-const ThemedTextForStoreTest = styled.Text`
-  color: ${({ theme }) => theme.colors?.text?.primary || '#000000'};
-`;
+const ThemeModeText = () => {
+  const theme = useTheme();
+  return React.createElement(Text, { testID: 'theme-mode' }, theme?.mode);
+};
 
 describe('app/_layout.jsx - ThemeProvider Integration', () => {
   beforeEach(() => {
@@ -183,6 +150,10 @@ describe('app/_layout.jsx - ThemeProvider Integration', () => {
     mockBootstrapApp.mockResolvedValue(undefined);
     // Default Slot renderer
     mockSlotRenderer = () => React.createElement(Text, null, 'Test Content');
+
+    // Reset mocked store state between tests (mocked module is a singleton)
+    const store = require('@store');
+    store.dispatch({ type: 'ui/setTheme', payload: 'light' });
   });
 
   test('should render ThemeProvider without errors', async () => {
@@ -199,7 +170,12 @@ describe('app/_layout.jsx - ThemeProvider Integration', () => {
   test('should make theme accessible in styled-components', async () => {
     // Per Step 7.4: Test that theme is accessible in styled-components (mock styled component for verification)
     const TestChild = () => {
-      return React.createElement(ThemedText, { testID: 'themed-text' }, 'Themed Content');
+      return React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(ThemedText, { testID: 'themed-text' }, 'Themed Content'),
+        React.createElement(ThemeModeText)
+      );
     };
     
     // Mock Slot to render TestChild
@@ -217,6 +193,11 @@ describe('app/_layout.jsx - ThemeProvider Integration', () => {
       const themedElement = getByTestId('themed-text');
       expect(themedElement).toBeTruthy();
       expect(themedElement.props.children).toBe('Themed Content');
+    }, { timeout: 3000 });
+
+    await waitFor(() => {
+      // Theme context provided via styled-components ThemeProvider
+      expect(getByTestId('theme-mode').props.children).toBe('light');
     }, { timeout: 3000 });
   });
 
@@ -272,29 +253,36 @@ describe('app/_layout.jsx - ThemeProvider Integration', () => {
     }, { timeout: 3000 });
   });
 
-  test('should pass theme mode to ThemeProvider from store', async () => {
-    // Per Step 7.4: Test that theme is accessible in styled-components
-    // Create a component that verifies theme is provided via ThemeProvider
+  test('should support theme switching when store theme changes', async () => {
+    // Per Step 7.4: Test theme switching if applicable (theme stored in Redux)
     const TestChild = () => {
-      // Access theme via styled-components
-      return React.createElement(ThemedTextForStoreTest, { testID: 'themed-text' }, 'Themed Content');
+      return React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(ThemedText, { testID: 'themed-text' }, 'Themed Content'),
+        React.createElement(ThemeModeText)
+      );
     };
-    
-    // Mock Slot to render TestChild
+
     mockSlotRenderer = () => React.createElement(TestChild);
-    
+
     const { getByTestId } = render(<RootLayout />);
 
-    // Wait for bootstrap to complete
     await waitFor(() => {
       expect(mockBootstrapApp).toHaveBeenCalled();
     }, { timeout: 3000 });
 
-    // Wait for styled component to render with theme from ThemeProvider
     await waitFor(() => {
-      const themedElement = getByTestId('themed-text');
-      expect(themedElement).toBeTruthy();
-      expect(themedElement.props.children).toBe('Themed Content');
+      expect(getByTestId('theme-mode').props.children).toBe('light');
+    }, { timeout: 3000 });
+
+    const store = require('@store');
+    act(() => {
+      store.dispatch({ type: 'ui/setTheme', payload: 'dark' });
+    });
+
+    await waitFor(() => {
+      expect(getByTestId('theme-mode').props.children).toBe('dark');
     }, { timeout: 3000 });
   });
 

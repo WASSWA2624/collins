@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from '@platform/components/display/Icon';
 import { getMenuIconGlyph } from '@config/sideMenu';
-import { Row, Icon: IconBox, Label } from './SidebarItem.android.styles.jsx';
+import { Row, Icon as IconBox, Label } from './SidebarItem.android.styles.jsx';
 
 const normalize = (props) => {
   if (props.item) {

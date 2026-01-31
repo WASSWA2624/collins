@@ -21,8 +21,8 @@ import useMainRouteLayout from './useMainRouteLayout';
 // 4. Styles
 import { StyledContent } from './MainRouteLayout.android.styles';
 
-// 5. Local platform layouts
-import AppFrame from '../../AppFrame';
+// 5. Platform layouts
+import AppFrame from '@platform/layouts/AppFrame';
 
 const MainRouteLayoutAndroid = () => {
   const { t, isLoading, items, isItemVisible } = useMainRouteLayout();

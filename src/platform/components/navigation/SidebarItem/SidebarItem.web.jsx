@@ -41,7 +41,7 @@ const SidebarItemWeb = (props) => {
       <IconWrapper aria-hidden>
         <Icon glyph={glyph} size="sm" decorative />
       </IconWrapper>
-      <Label collapsed={collapsed} $active={active}>
+      <Label $collapsed={collapsed} $active={active}>
         {label}
       </Label>
     </Row>

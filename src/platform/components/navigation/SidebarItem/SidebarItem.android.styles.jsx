@@ -7,22 +7,22 @@ export const Row = styled(TouchableOpacity).withConfig({
 })`
   flex-direction: row;
   align-items: center;
-  padding: 12px 14px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const Icon = styled(View).withConfig({
   displayName: 'Icon',
   componentId: 'Icon',
 })`
-  width: 20px;
-  height: 20px;
+  width: ${({ theme }) => theme.spacing.md}px;
+  height: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const Label = styled(Text).withConfig({
   displayName: 'Label',
   componentId: 'Label',
 })`
-  margin-left: 12px;
-  font-size: 14px;
+  margin-left: ${({ theme }) => theme.spacing.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
 `;
 

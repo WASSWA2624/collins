@@ -115,5 +115,19 @@ describe('useAcknowledgementGuard', () => {
       expect(mockRouter.replace).toHaveBeenCalledWith('/disclaimer');
     });
   });
+
+  test('should handle corrupted persisted flag safely (treat non-boolean true as unacknowledged)', async () => {
+    useSelector.mockImplementation((selector) =>
+      selector({ ui: { disclaimerAcknowledged: 'yes' } })
+    );
+
+    let api;
+    render(<TestComponent onResult={(v) => (api = v)} />);
+
+    await waitFor(() => {
+      expect(api.acknowledged).toBe(false);
+      expect(mockRouter.replace).toHaveBeenCalledWith('/disclaimer');
+    });
+  });
 });
 

@@ -71,17 +71,24 @@ jest.mock('@store', () => {
   return store;
 }, { virtual: true });
 
-// Mock PersistGate to render children immediately (simulating post-rehydration)
+// Mock PersistGate with controllable loading behavior
 jest.mock('redux-persist/integration/react', () => {
   const React = require('react');
-  const { Text } = require('react-native');
-  
+  let shouldShowLoading = false;
+
+  const PersistGate = jest.fn(({ children, loading }) => {
+    if (shouldShowLoading) {
+      return React.createElement(React.Fragment, null, loading);
+    }
+    return React.createElement(React.Fragment, null, children);
+  });
+
+  PersistGate.__setShouldShowLoading = (value) => {
+    shouldShowLoading = value;
+  };
+
   return {
-    PersistGate: ({ children, loading }) => {
-      // PersistGate renders children after rehydration
-      // For testing, we'll render children immediately
-      return React.createElement(React.Fragment, null, children);
-    },
+    PersistGate,
   };
 });
 
@@ -157,6 +164,10 @@ describe('app/_layout.jsx - Redux Provider Integration', () => {
     mockBootstrapApp.mockResolvedValue(undefined);
     // Default Slot renderer
     mockSlotRenderer = () => React.createElement(Text, null, 'Test Content');
+
+    // Default PersistGate behavior: show children
+    const { PersistGate } = require('redux-persist/integration/react');
+    PersistGate.__setShouldShowLoading(false);
   });
 
   test('should render Provider without errors', async () => {
@@ -218,13 +229,42 @@ describe('app/_layout.jsx - Redux Provider Integration', () => {
     await waitFor(() => {
       expect(getByText('Test Content')).toBeTruthy();
     }, { timeout: 3000 });
+
+    // Verify PersistGate is used when persistor exists
+    const { PersistGate } = require('redux-persist/integration/react');
+    await waitFor(() => {
+      expect(PersistGate).toHaveBeenCalled();
+    }, { timeout: 3000 });
   });
 
   test('should handle PersistGate with loading fallback', async () => {
     // Per Step 7.3: Test all branches (with/without PersistGate)
     // Test that PersistGate loading fallback works
     mockSlotRenderer = () => React.createElement(Text, null, 'Test Content');
+
+    const { PersistGate } = require('redux-persist/integration/react');
+    PersistGate.__setShouldShowLoading(true);
     
+    const { queryByText } = render(<RootLayout />);
+
+    // Wait for bootstrap to complete
+    await waitFor(() => {
+      expect(mockBootstrapApp).toHaveBeenCalled();
+    }, { timeout: 3000 });
+
+    // With PersistGate stuck in "loading", children should NOT render
+    await act(async () => {});
+    expect(queryByText('Test Content')).toBeNull();
+  });
+
+  test('should render without PersistGate when persistor is missing', async () => {
+    // Per Step 7.3: Test all branches (with/without PersistGate)
+    // Remove persistor to simulate a non-persisted store configuration
+    const store = require('@store');
+    store.persistor = undefined;
+
+    mockSlotRenderer = () => React.createElement(Text, null, 'Test Content');
+
     const { getByText } = render(<RootLayout />);
 
     // Wait for bootstrap to complete
@@ -232,10 +272,12 @@ describe('app/_layout.jsx - Redux Provider Integration', () => {
       expect(mockBootstrapApp).toHaveBeenCalled();
     }, { timeout: 3000 });
 
-    // With PersistGate, children should render after rehydration
     await waitFor(() => {
       expect(getByText('Test Content')).toBeTruthy();
     }, { timeout: 3000 });
+
+    const { PersistGate } = require('redux-persist/integration/react');
+    expect(PersistGate).not.toHaveBeenCalled();
   });
 
   test('should handle multiple children with Redux Provider', async () => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Slot } from 'expo-router';
 import { ErrorBoundary } from '@errors';
 import { I18nProvider } from '@i18n';
@@ -43,6 +44,9 @@ const RootLayout = () => {
   const [isBootstrapReady, setIsBootstrapReady] = useState(false);
   const [bootstrapError, setBootstrapError] = useState(null);
 
+  const isNonFatalBootstrapError = (error) =>
+    Boolean(error?.nonFatal) || error?.name === 'NonFatalBootstrapError';
+
   useEffect(() => {
     /**
      * Initialize app systems in correct order per bootstrap-config.mdc:
@@ -63,12 +67,15 @@ const RootLayout = () => {
           error: error.message,
           stack: error.stack,
         });
-        
+
+        // Per bootstrap-config.mdc: non-fatal errors are logged but should not block rendering.
+        if (isNonFatalBootstrapError(error)) {
+          setIsBootstrapReady(true);
+          return;
+        }
+
         // Store error to block rendering (fatal error)
         setBootstrapError(error);
-        
-        // Note: ErrorBoundary will catch if this causes a render error
-        // For now, we'll log and set error state to prevent rendering
       }
     };
 
@@ -101,16 +108,34 @@ const RootLayout = () => {
   }
 
   // Bootstrap completed successfully, render providers
+  const persistor = store?.persistor;
+  const appContent = (
+    <ThemeProviderWrapper>
+      <I18nProvider>
+        <StyledRootContainer>
+          <Slot />
+        </StyledRootContainer>
+      </I18nProvider>
+    </ThemeProviderWrapper>
+  );
+
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <ThemeProviderWrapper>
-          <I18nProvider>
-            <StyledRootContainer>
-              <Slot />
-            </StyledRootContainer>
-          </I18nProvider>
-        </ThemeProviderWrapper>
+        {persistor ? (
+          <PersistGate
+            loading={
+              <StyledLoadingContainer>
+                <StyledActivityIndicator size="large" />
+              </StyledLoadingContainer>
+            }
+            persistor={persistor}
+          >
+            {appContent}
+          </PersistGate>
+        ) : (
+          appContent
+        )}
       </Provider>
     </ErrorBoundary>
   );

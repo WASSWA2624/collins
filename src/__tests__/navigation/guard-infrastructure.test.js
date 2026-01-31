@@ -9,6 +9,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import * as guards from '@navigation/guards';
 
 describe('Step 7.11: Guard Infrastructure Folder Structure', () => {
   const navigationDir = path.join(__dirname, '../../navigation');
@@ -64,13 +65,9 @@ describe('Step 7.11: Guard Infrastructure Folder Structure', () => {
 
   test('should export guards from barrel export file', () => {
     // Per coding-conventions.mdc: Barrel exports via index.js
-    // Verify that the index.js file exists and can be imported
-    const indexModule = require(indexFile);
-    
-    // The barrel export should export guard hooks (may be undefined if guards not yet implemented)
-    // But the file should be importable
-    expect(indexModule).toBeDefined();
-    expect(typeof indexModule).toBe('object');
+    // Verify that the barrel can be imported via the alias (ESM-only; no CommonJS require)
+    expect(guards).toBeDefined();
+    expect(typeof guards).toBe('object');
   });
 });
 

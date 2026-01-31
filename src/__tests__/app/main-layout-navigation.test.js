@@ -20,18 +20,10 @@ import { GlobalHeader, TabBar, Sidebar } from '@platform/components';
 import { Slot } from 'expo-router';
 
 // Mock dependencies
-const mockEnTranslations = require('@i18n/locales/en.json');
 jest.mock('@hooks', () => ({
   useI18n: () => ({
-    t: (key) => {
-      const keys = key.split('.');
-      let value = mockEnTranslations;
-      for (const k of keys) {
-        value = value?.[k];
-        if (value === undefined) return key;
-      }
-      return value || key;
-    },
+    // Identity translation for deterministic tests (assert key usage, not locale text).
+    t: (key) => key,
     locale: 'en',
   }),
   useNavigationVisibility: () => ({
@@ -43,76 +35,20 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@platform/components', () => ({
-  GlobalHeader: jest.fn(({ accessibilityLabel, testID, ...props }) => (
-    <div data-testid={testID} aria-label={accessibilityLabel} {...props}>
-      Mock GlobalHeader
-    </div>
-  )),
-  LanguageControls: jest.fn(({ testID, ...props }) => (
-    <div data-testid={testID} {...props}>
-      Mock LanguageControls
-    </div>
-  )),
-  ThemeControls: jest.fn(({ testID, ...props }) => (
-    <div data-testid={testID} {...props}>
-      Mock ThemeControls
-    </div>
-  )),
-  TabBar: jest.fn(({ accessibilityLabel, testID, ...props }) => (
-    <div data-testid={testID} aria-label={accessibilityLabel} {...props}>
-      Mock TabBar
-    </div>
-  )),
-  Sidebar: jest.fn(({ accessibilityLabel, testID, ...props }) => (
-    <div data-testid={testID} aria-label={accessibilityLabel} {...props}>
-      Mock Sidebar
-    </div>
-  )),
-  ShellBanners: jest.fn(({ testID, ...props }) => (
-    <div data-testid={testID} {...props}>
-      Mock ShellBanners
-    </div>
-  )),
-  LoadingOverlay: jest.fn(({ testID, ...props }) => (
-    <div data-testid={testID} {...props}>
-      Mock LoadingOverlay
-    </div>
-  )),
-  NoticeSurface: jest.fn(({ testID, ...props }) => (
-    <div data-testid={testID} {...props}>
-      Mock NoticeSurface
-    </div>
-  )),
+  GlobalHeader: jest.fn(() => null),
+  LanguageControls: jest.fn(() => null),
+  ThemeControls: jest.fn(() => null),
+  TabBar: jest.fn(() => null),
+  Sidebar: jest.fn(() => null),
+  ShellBanners: jest.fn(() => null),
+  LoadingOverlay: jest.fn(() => null),
+  NoticeSurface: jest.fn(() => null),
 }));
-
-jest.mock('@platform/layouts', () => {
-  const React = require('react');
-  return {
-    MainLayout: jest.fn(({ children, header, footer, sidebar, ...props }) => (
-      <div data-testid="main-layout" {...props}>
-        {header}
-        {sidebar}
-        {children}
-        {footer}
-      </div>
-    )),
-    AppFrame: jest.fn(({ children, header, footer, sidebar, ...props }) => (
-      <div data-testid="app-frame" {...props}>
-        {header}
-        {sidebar}
-        {children}
-        {footer}
-      </div>
-    )),
-  };
-});
 
 jest.mock('expo-router', () => ({
   useRouter: jest.fn(),
   Slot: ({ children, testID }) => (
-    <div data-testid={testID || 'slot'} testID={testID || 'slot'}>
-      {children || 'Mock Slot'}
-    </div>
+    <div testID={testID || 'slot'}>{children}</div>
   ),
 }));
 
@@ -137,7 +73,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       const headerCall = GlobalHeader.mock.calls[0];
       expect(headerCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.header.title,
+        accessibilityLabel: 'navigation.header.title',
         testID: 'main-header',
       });
     });
@@ -148,7 +84,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(TabBar).toHaveBeenCalled();
       const tabBarCall = TabBar.mock.calls[0];
       expect(tabBarCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.tabBar.title,
+        accessibilityLabel: 'navigation.tabBar.title',
         testID: 'main-tabbar',
       });
     });
@@ -192,7 +128,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       const headerCall = GlobalHeader.mock.calls[0];
       expect(headerCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.header.title,
+        accessibilityLabel: 'navigation.header.title',
         testID: 'main-header',
       });
     });
@@ -203,7 +139,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(TabBar).toHaveBeenCalled();
       const tabBarCall = TabBar.mock.calls[0];
       expect(tabBarCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.tabBar.title,
+        accessibilityLabel: 'navigation.tabBar.title',
         testID: 'main-tabbar',
       });
     });
@@ -224,7 +160,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).toHaveBeenCalled();
       const sidebarCall = Sidebar.mock.calls[0];
       expect(sidebarCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.sidebar.title,
+        accessibilityLabel: 'navigation.sidebar.title',
         testID: 'main-sidebar',
       });
     });
@@ -235,7 +171,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       const headerCall = GlobalHeader.mock.calls[0];
       expect(headerCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.header.title,
+        accessibilityLabel: 'navigation.header.title',
         testID: 'main-header',
       });
     });
@@ -289,7 +225,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       const headerCall = GlobalHeader.mock.calls[0];
       expect(headerCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.header.title,
+        accessibilityLabel: 'navigation.header.title',
       });
     });
 
@@ -299,7 +235,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(TabBar).toHaveBeenCalled();
       const tabBarCall = TabBar.mock.calls[0];
       expect(tabBarCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.tabBar.title,
+        accessibilityLabel: 'navigation.tabBar.title',
       });
     });
 
@@ -309,7 +245,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).toHaveBeenCalled();
       const sidebarCall = Sidebar.mock.calls[0];
       expect(sidebarCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.sidebar.title,
+        accessibilityLabel: 'navigation.sidebar.title',
       });
     });
 
@@ -319,7 +255,7 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(GlobalHeader).toHaveBeenCalled();
       const headerCall = GlobalHeader.mock.calls[0];
       expect(headerCall[0]).toMatchObject({
-        accessibilityLabel: mockEnTranslations.navigation.header.title,
+        accessibilityLabel: 'navigation.header.title',
       });
     });
 
