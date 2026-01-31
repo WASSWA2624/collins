@@ -7,7 +7,7 @@ alwaysApply: true
 This document defines **mandatory security rules** for protecting:
 - User data
 - Authentication credentials
-- Protected features (e.g., premium, paid, admin-only)
+- Protected features (e.g., role/permission-gated)
 - Offline-persisted information
 - Network communication
 Security is treated as a **cross-cutting concern** and applies to **every layer** of the application.
@@ -127,7 +127,7 @@ API client rules:
 ### Protected Feature Access Rules
 * Feature availability determined by:
   * User permissions/roles
-  * Subscription/payment state (if applicable)
+  * Entitlements (if applicable; project-specific and documented in `dev-plan/`)
   * Feature flags
 * UI must not enforce access alone
 Rules:

@@ -100,7 +100,7 @@ Structure enables:
     ├── app/                 # Expo App Router routes & layouts
     │   ├── _layout.jsx                                  # Root layout (providers, guards, theme, store)
     │   ├── index.jsx                                    # Landing / splash route ("/") - only root route allowed outside groups
-    │   ├── (route-group)/                               # MANDATORY: All related routes must be in groups (e.g: (main), (auth), (vendor), (admin))
+    │   ├── (route-group)/                               # MANDATORY: All related routes must be in groups (e.g: (main), (auth), (settings)) — actual groups are project-specific (see dev-plan)
     │   │   ├── _layout.jsx                              # layout for this route group (required for guards/navigation)
     │   │   └── route-name.jsx                           # e.g: login.jsx, dashboard.jsx, etc.
     │   ├── _error.jsx                                   # Error handler (allowed outside groups)
@@ -122,10 +122,10 @@ Structure enables:
     │
     │   **UI structure rules:** See `component-structure.mdc` (single source of truth)
     │
-    ├── theme/                          # Styled-components theming
+    ├── theme/                          # Theming (see `theme-design.mdc`)
     │   ├── index.js
-    │   ├── types.js
     │   ├── breakpoints.js
+    │   ├── animations.js
     │   ├── tokens/
     │   │   ├── colors.js
     │   │   ├── spacing.js
@@ -133,7 +133,8 @@ Structure enables:
     │   │   ├── radius.js
     │   │   └── shadows.js
     │   ├── light.theme.js
-    │   └── dark.theme.js
+    │   ├── dark.theme.js
+    │   └── high-contrast.theme.js
     │
     ├── store/                          # Redux Toolkit state management
     │   ├── index.js
@@ -146,9 +147,9 @@ Structure enables:
     │   │   └── index.js
     │   └── types.js
     │
-    ├── features/                       # Business/domain logic
+    ├── features/                       # Business/domain logic (project-specific; see dev-plan)
     │   ├── index.js
-    │   └── feature-name/                   # e.g: auth, user, payment, order, etc.
+    │   └── feature-name/                   # e.g: auth, user, feature-x, etc.
     │       ├── feature-name.rules.js       # Business rules & validation
     │       ├── feature-name.model.js       # Domain models
     │       ├── feature-name.api.js         # Feature-level API orchestration
@@ -217,10 +218,11 @@ Structure enables:
     │   ├── endpoints.js
     │   └── constants.js
     │
-    ├── i18n/                           # Localization
+    ├── i18n/                           # Localization (single source of truth: `i18n.mdc`)
     │   ├── index.js
-    │   ├── en.json
-    │   └── fr.json
+    │   └── locales/
+    │       ├── en.json
+    │       └── <other-locale>.json
     │
     ├── accessibility/                  # Accessibility helpers
     │   ├── index.js

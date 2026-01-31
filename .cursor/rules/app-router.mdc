@@ -18,7 +18,7 @@ Establish clear, consistent, and maintainable conventions for routing and naviga
    - All feature-related routes **must** be inside a route group folder: `(group-name)` in `src/app/`.
    - Only the root route (`index.jsx`) or error handlers (`+not-found.jsx`, `_error.jsx`) may exist directly in `src/app/`.
    - Each route group **must** have its own `_layout.jsx` for group-specific logic (guards, navigation, etc).
-   - Route groups organize UIs by feature, access level, or user role (e.g., `(auth)`, `(main)`, `(vendor)`, `(admin)`, `(public)`, etc).
+   - Route groups organize UIs by feature or access level (e.g., `(auth)`, `(main)`, `(settings)`) — actual groups are project-specific and documented in `dev-plan/`.
    - Parentheses for groups are **never** used outside `src/app/` (`src/platform/` uses plain folders; see `component-structure.mdc`).
 
 2. **Layouts**

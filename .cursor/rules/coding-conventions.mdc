@@ -34,6 +34,7 @@ Centralize **global coding conventions** and **governance** that apply across al
 - Use `import` and `export` statements exclusively
 - **CommonJS (`require`, `module.exports`) is forbidden** in source code (`src/**`)
 - **Configuration files at project root** (e.g., `babel.config.js`, `metro.config.js`, `jest.config.js`) may use **CommonJS** when required by tooling; prefer ES modules only when the toolchain supports it reliably
+- **Expo entrypoint exception**: the repository root `index.js` may use `require('expo-router/entry')` (tooling requirement). Do not use CommonJS elsewhere.
 
 ### Imports
 - Use **absolute imports** via aliases
@@ -84,14 +85,7 @@ UI must not perform side effects directly (see `platform-ui.mdc`).
 - Testing standards are defined in `testing.mdc`
 
 ## Internationalization (i18n) Enforcement
-- **100% internationalization is mandatory** - See `i18n.mdc` (single source of truth) for complete requirements
-- All user-facing text MUST use `t()` or `tSync()` from `useI18n()` hook
-- NO hardcoded strings are allowed in UI components
-- All translation keys must exist in ALL locale files
-- Code reviews must verify i18n compliance
-- Violations of i18n rules are considered **architectural defects**
-
-**Note**: See `i18n.mdc` for complete i18n rules
+- **100% internationalization is mandatory** — see `i18n.mdc` (single source of truth). Do not restate i18n rules here.
 
 ## Change policy
 - Architectural changes require updating the relevant `.mdc`

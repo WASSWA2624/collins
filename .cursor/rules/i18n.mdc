@@ -34,35 +34,18 @@ Ensure every user-facing string is translatable for a consistent, accessible exp
 
 All translations must live exclusively in `src/i18n/locales/`. This folder is the single source of user-facing strings.
 
-### Folder Structure & Supported Languages
+### Folder Structure
 
 ```txt
 src/i18n/
   ├── index.js              # i18n bootstrap
   └── locales/
-      ├── en.json    # English [en] (default)
-      ├── zh.json    # Mandarin Chinese [zh]
-      ├── hi.json    # Hindi [hi]
-      ├── es.json    # Spanish [es]
-      ├── fr.json    # French [fr]
-      ├── ar.json    # Arabic [ar]
-      ├── bn.json    # Bengali [bn]
-      ├── pt.json    # Portuguese [pt]
-      ├── ru.json    # Russian [ru]
-      ├── ur.json    # Urdu [ur]
-      ├── id.json    # Indonesian [id]
-      ├── de.json    # German [de]
-      ├── ja.json    # Japanese [ja]
-      ├── pcm.json   # Nigerian Pidgin [pcm]
-      ├── mr.json    # Marathi [mr]
-      ├── te.json    # Telugu [te]
-      ├── tr.json    # Turkish [tr]
-      ├── ta.json    # Tamil [ta]
-      ├── yue.json   # Cantonese [yue]
-      ├── vi.json    # Vietnamese [vi]
-      ├── sw.json    # Swahili [sw]
-      └── lg.json    # Luganda [lg]
+      ├── en.json    # English (default)
+      └── <locale>.json
 ```
+
+### Supported Languages
+Supported locales are **project-specific** and must be documented in `dev-plan/`. In code and tests, the effective set of supported locales is defined by the JSON files present in `src/i18n/locales/`.
 
 ## Usage
 
@@ -87,7 +70,7 @@ const { t } = useI18n();
 
 ## Process for Adding New Translations
 
-1. Add new translation keys to **all 22 locale files** before usage in code.
+1. Add new translation keys to **all locale files in `src/i18n/locales/`** before usage in code.
 2. Reference only via `t()` or `tSync()`, never with string literals.
 3. Validate appearance in all supported languages.
 4. Update this standard if organizational structure changes.

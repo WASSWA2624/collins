@@ -23,7 +23,7 @@ Examples:
 
 ## Coverage (MANDATORY)
 - **100%** coverage overall (statements, branches, functions, lines)
-- **100%** coverage for critical paths: auth, payments, data validation, access control
+- **100%** coverage for critical paths: defined per project in `dev-plan/` (at minimum: authentication, authorization/access control, and data validation)
 - Branch coverage is mandatory (if/else/switch/ternary) - all code paths must be tested
 - Use coverage tools (Jest `--coverage`) to verify before committing
 
@@ -51,7 +51,7 @@ Examples:
 
 ### Platform Screens (`src/platform/screens/**`)
 - **Rendering**: Initial render, re-renders, conditional rendering
-- **User flows**: Complete user journeys from entry to completion (login, registration, checkout, etc.)
+- **User flows**: Complete user journeys from entry to completion (project-specific; documented in `dev-plan/`)
 - **Loading states**: Initial load, data fetching, async operations, skeleton screens
 - **Error states**: Network errors, validation errors, server errors, error recovery flows
 - **Empty states**: No data, no results, empty lists, helpful empty state messages
@@ -100,7 +100,7 @@ Examples:
 - **All services**: Behavior via mocks; never hit real network/storage in unit tests
 
 ### Navigation & Routing (`src/navigation/**`, `src/app/**`)
-- **Guards**: Authentication guards, role guards, subscription guards, redirect logic
+- **Guards**: Authentication guards, role/permission guards, entitlement guards (if any), redirect logic
 - **Route groups**: Group-level layouts, group-specific guards, route organization
 - **Layouts**: Root layout, group layouts, nested layouts, provider integration
 - **Deep linking**: URL parsing, route matching, parameter extraction, query handling

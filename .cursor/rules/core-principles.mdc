@@ -69,14 +69,15 @@ Fundamental principles guiding all development decisions. These take precedence 
 **Forbidden**: ❌ `.ts`/`.tsx` files ❌ TypeScript syntax ❌ TypeScript config files
 
 ### 6. Styled-Components Only
-**Rule**: Styled-components is the only styling solution.
+**Rule**: Styled-components is the primary styling solution.
 
 **Requirements**:
 - All styles via styled-components
 - Theme-driven; consume theme tokens (see `theme-design.mdc`)
 - Platform-specific styles in separate `.styles.jsx` files
+- **Limited exception (native only)**: `StyleSheet` may be used only inside `*.android.styles.jsx` / `*.ios.styles.jsx` for static, performance-critical styles, and must still be theme/token-driven (see `theme-design.mdc`).
 
-**Forbidden**: ❌ Inline styles ❌ StyleSheet API ❌ Other CSS-in-JS libraries ❌ Hardcoded colors/spacing/typography ❌ Platform checks inside styles
+**Forbidden**: ❌ Inline styles ❌ Other CSS-in-JS libraries ❌ Hardcoded colors/spacing/typography ❌ Platform checks inside styles ❌ `StyleSheet` outside native `*.android.styles.jsx` / `*.ios.styles.jsx`
 
 ### 7. Fully Responsive Design
 **Rule**: Application must work seamlessly across all device sizes.
