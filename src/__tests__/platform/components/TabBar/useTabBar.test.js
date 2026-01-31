@@ -6,7 +6,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import useTabBar from '@platform/components/navigation/TabBar/useTabBar';
 
-const mockPathname = '/home';
+const mockPathname = '/';
 
 jest.mock('expo-router', () => ({
   usePathname: () => mockPathname,
@@ -29,7 +29,7 @@ describe('useTabBar Hook', () => {
     {
       id: 'home',
       label: 'Home',
-      href: '/home',
+      href: '/',
       icon: '🏠',
     },
     {
@@ -71,7 +71,7 @@ describe('useTabBar Hook', () => {
   });
 
   it('should identify active tab for nested paths', () => {
-    jest.spyOn(require('expo-router'), 'usePathname').mockReturnValue('/home/settings');
+    jest.spyOn(require('expo-router'), 'usePathname').mockReturnValue('/settings');
     let result;
     render(<TestComponent items={mockItems} onResult={(value) => (result = value)} />);
     expect(result.isTabActive(mockItems[0])).toBe(true); // home is active for nested path

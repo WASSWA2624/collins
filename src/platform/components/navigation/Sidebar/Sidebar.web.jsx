@@ -35,7 +35,7 @@ const SidebarWeb = ({
 
   return (
     <StyledSidebar
-      collapsed={collapsed}
+      $collapsed={collapsed}
       accessibilityRole="navigation"
       accessibilityLabel={accessibilityLabel || t('navigation.sidebar.title')}
       testID={testID}
@@ -47,8 +47,8 @@ const SidebarWeb = ({
         {topLevel.map((item) => {
           const href = item.href ?? item.path;
           const i18nKey = item.id ? `${itemsI18nPrefix}.${item.id}` : '';
-const translated = i18nKey ? t(i18nKey) : '';
-const label = (translated && translated !== i18nKey) ? translated : (item.label ?? '');
+          const translated = i18nKey ? t(i18nKey) : '';
+          const label = translated && translated !== i18nKey ? translated : item.label ?? '';
           const active = isItemActive(pathname, href);
           return (
             <SidebarItem

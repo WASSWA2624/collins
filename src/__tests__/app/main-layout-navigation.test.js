@@ -16,7 +16,7 @@ import { renderWithProviders } from '../helpers/test-utils';
 import MainRouteLayoutWeb from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.web';
 import MainRouteLayoutAndroid from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.android';
 import MainRouteLayoutIOS from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.ios';
-import { GlobalHeader, TabBar, Sidebar } from '@platform/components';
+import { GlobalFooter, GlobalHeader, TabBar, Sidebar } from '@platform/components';
 import { Slot } from 'expo-router';
 
 // Mock dependencies
@@ -35,6 +35,7 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@platform/components', () => ({
+  GlobalFooter: jest.fn(() => null),
   GlobalHeader: jest.fn(() => null),
   LanguageControls: jest.fn(() => null),
   ThemeControls: jest.fn(() => null),
@@ -185,6 +186,13 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(actionIds).not.toContain('register');
     });
 
+    it('should include menu toggle action on web', () => {
+      renderWithProviders(<MainRouteLayoutWeb />);
+      const headerCall = GlobalHeader.mock.calls[0];
+      const actionIds = (headerCall?.[0]?.actions ?? []).map((action) => action.id);
+      expect(actionIds).toContain('toggle-menu');
+    });
+
     it('should not render TabBar on web platform', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
 
@@ -196,8 +204,16 @@ describe('MainLayout with Navigation Skeleton', () => {
 
       expect(Sidebar).toHaveBeenCalled();
       expect(GlobalHeader).toHaveBeenCalled();
+      expect(GlobalFooter).toHaveBeenCalled();
       expect(TabBar).not.toHaveBeenCalled();
       expect(getByTestId('slot')).toBeDefined();
+    });
+
+    it('should render GlobalFooter with correct testID on web', () => {
+      renderWithProviders(<MainRouteLayoutWeb />);
+      expect(GlobalFooter).toHaveBeenCalled();
+      const footerCall = GlobalFooter.mock.calls[0];
+      expect(footerCall[0]).toMatchObject({ testID: 'main-footer' });
     });
 
     // Auth flow is introduced in a future phase; this test suite intentionally avoids auth expectations.

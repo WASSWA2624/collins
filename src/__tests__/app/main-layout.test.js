@@ -43,6 +43,9 @@ jest.mock('@platform/components', () => {
     GlobalHeader: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children || 'GlobalHeader')
     ),
+    GlobalFooter: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement('div', { ...props, ref }, children || 'GlobalFooter')
+    ),
     TabBar: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children || 'TabBar')
     ),

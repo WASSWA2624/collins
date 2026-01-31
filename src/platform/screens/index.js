@@ -8,10 +8,6 @@
  */
 
 // Common screens (public/common screens)
+export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';
-export { default as DisclaimerScreen } from './common/DisclaimerScreen';
-export { default as LandingScreen } from './common/LandingScreen';
-
-// Ventilation workflow (Phase 8+)
-export { default as AssessmentEntryScreen } from './ventilation/AssessmentEntryScreen';

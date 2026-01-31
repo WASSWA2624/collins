@@ -3,7 +3,6 @@
 ## Purpose
 This development plan provides a **complete, step-by-step, chronological guide** for building the React Native (Expo + App Router) ventilation decision-support application described in:
 - `write-up.md`
-- `src/features/ventilation/data/ventilation_dataset.json`
 
 The resulting app must be:
 - **Offline-first** (local dataset is primary)
@@ -26,7 +25,7 @@ The resulting app must be:
 - **Optional online augmentation (advanced)**: online AI “second opinion” when connectivity exists (never required for core flow).
 
 ## Dataset contract (must be supported)
-Primary dataset file:
+Primary dataset file (introduced in Phase 10):
 - `src/features/ventilation/data/ventilation_dataset.json`
 
 Minimum supported dataset root fields:
@@ -45,18 +44,19 @@ Minimum supported case fields (from `cases[]`):
 - `recommendations` (initialSettings/monitoringPoints/riskFactors)
 - Optional extensibility: `observations[]`, `timeSeries[]`
 
-## App Router route groups (documented here; required by `app-router.mdc`)
-All non-root pages live inside groups:
-- `(main)`: core clinical workflow (assessment → recommendation → monitoring)
-- `(training)`: training/education content
-- `(settings)`: preferences + app info + disclaimers
+## App Router routes & groups (required by `app-router.mdc`)
+### Base route
+- `src/app/index.jsx` redirects to `/(main)` so **Home** is served by the main layout at `/`.
 
-Root-only pages allowed outside groups:
-- `src/app/index.jsx` (landing)
+### Route groups
+All non-root pages live inside groups. Up to Phase 9, groups/layouts are implemented **as generic infrastructure**; app-specific screens start in Phase 10.
+
+### Root-only files allowed outside groups
+- `src/app/index.jsx` (redirect to `/(main)`)
 - `src/app/_layout.jsx`, `src/app/_error.jsx`, `src/app/+not-found.jsx`
 
 ## Development Order
-Phases 0–8 are generic building blocks. Ventilation-specific work begins in Phase 9.
+Phases **0–9** are generic building blocks (non app-specific). Ventilation-specific work begins in **Phase 10** (after the current layout is implemented).
 
 1. **Foundation** → config, utils, logging, errors, i18n (generic)
 2. **Infrastructure** → services, security primitives (generic)
@@ -65,10 +65,10 @@ Phases 0–8 are generic building blocks. Ventilation-specific work begins in Ph
 5. **Reusable Hooks** → cross-cutting hooks (generic)
 6. **Reusable Platform UI Foundation** → primitives/patterns/layout helpers (generic)
 7. **App Shell (App Router + Guards)** → route groups, providers, error routes (generic)
-8. **Minimal Runnable App** → verifies app boots (generic)
-9. **Ventilation App Shell UX** → navigation + dense responsive layouts for clinician workflow (**app-specific**)
+8. **Minimal Runnable App** → verifies app boots (generic; Home at `/`)
+9. **App Layouts (Current Layout)** → reusable layouts + navigation shell (generic)
 10. **Ventilation Core Feature** → local dataset access + matching + recommendation generation (**app-specific**)
-11. **Screens & Routes** → assessment wizard, recommendation view, monitoring, training, settings (**app-specific**)
+11. **Screens & Routes** → workflow screens + training + settings (**app-specific**)
 12. **Advanced Features** → optional online AI augmentation, exports, dataset updates (**app-specific**)
 13. **Finalization** → onboarding/help, audits, performance, localization completion (**app-specific**)
 
@@ -82,7 +82,7 @@ Phases 0–8 are generic building blocks. Ventilation-specific work begins in Ph
 - `P006_platform-ui-foundation.md` - Platform UI foundation
 - `P007_app-shell.md` - App shell (route groups/providers)
 - `P008_minimal-app.md` - Minimal runnable app
-- `P009_app-layouts.md` - Ventilation app shell UX (navigation + responsive density)
+- `P009_app-layouts.md` - App layouts (current layout) + navigation shell (generic)
 - `P010_core-features.md` - Ventilation core feature (dataset + matching + recommendations)
 - `P011_screens-routes.md` - Screens/routes wiring (core workflow + training + settings)
 - `P012_advanced-features.md` - Advanced/optional features

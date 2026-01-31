@@ -14,10 +14,6 @@ import { render } from '@testing-library/react-native';
 
 import TrainingLayout from '@app/(training)/_layout';
 
-jest.mock('@navigation/guards', () => ({
-  useAcknowledgementGuard: jest.fn(),
-}));
-
 jest.mock('expo-router', () => {
   const React = require('react');
   const { Text } = require('react-native');

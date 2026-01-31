@@ -2,7 +2,7 @@ import React from 'react';
 import { Slot } from 'expo-router';
 
 const SettingsLayout = () => {
-  // Intentionally unguarded: users must always be able to reach disclaimer/settings.
+  // Intentionally unguarded: settings routes should remain accessible.
   return <Slot />;
 };
 

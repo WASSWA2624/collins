@@ -1,3 +1,3 @@
 // Navigation guards barrel export
-export { useAcknowledgementGuard } from './acknowledgement.guard';
-export { useSessionGuard } from './session.guard';
+// (No app-specific guards are wired before Phase 10.)
+export {};

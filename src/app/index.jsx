@@ -1,12 +1,12 @@
 /**
  * Root Index Route
- * Public landing page route.
+ * Root index route.
  *
- * Per dev-plan (Phase 8): this route renders the minimal Landing screen.
+ * Per dev-plan (Phase 8/9): home is routed through the main layout.
  */
 import React from 'react';
-import { LandingScreen } from '@platform/screens';
+import { Redirect } from 'expo-router';
 
 export default function IndexRoute() {
-  return <LandingScreen />;
+  return <Redirect href="/(main)" />;
 }

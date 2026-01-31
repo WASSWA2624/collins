@@ -8,6 +8,7 @@
 /** Icon key → glyph (single source of truth for menu icons; UI uses getMenuIconGlyph). */
 export const MENU_ICON_GLYPHS = {
   /* outline keys (sideMenu items) */
+  'menu-outline': '☰',
   'home-outline': '🏠',
   'settings-outline': '⚙',
   'map-outline': '📍',
@@ -42,7 +43,7 @@ export function getMenuIconGlyph(iconKey) {
 
 /** Main app sidebar: home + settings */
 const MAIN_NAV_ITEMS = [
-  { id: 'home', icon: 'home-outline', path: '/home' },
+  { id: 'home', icon: 'home-outline', path: '/' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 

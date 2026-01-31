@@ -1,17 +1,16 @@
 /**
  * Root Index Route Tests
- * Tests Landing screen route rendering
+ * Tests root index redirect behavior
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 
-jest.mock('@platform/screens', () => {
+jest.mock('expo-router', () => {
   const React = require('react');
   return {
-    LandingScreen: () =>
-      React.createElement('div', { testID: 'landing-screen' }, 'Mock LandingScreen'),
+    Redirect: ({ href }) => React.createElement('div', { testID: 'redirect', 'data-href': href }),
   };
 });
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
@@ -31,10 +30,12 @@ const renderWithTheme = (component, store = createMockStore()) =>
 describe('Index Route (index.jsx)', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('should render LandingScreen', () => {
+  it('should redirect to /(main)', () => {
     const IndexRoute = require('../../app/index').default;
     const { getByTestId } = renderWithTheme(<IndexRoute />);
-    expect(getByTestId('landing-screen')).toBeDefined();
+    const redirect = getByTestId('redirect');
+    expect(redirect).toBeDefined();
+    expect(redirect.props['data-href']).toBe('/(main)');
   });
 
   it('should use default export', () => {

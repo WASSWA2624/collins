@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    background-color: ${({ theme }) => theme.colors.background.primary};
   }
 
   #root, [data-reactroot] {
@@ -19,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     max-width: 100%;
+    background-color: ${({ theme }) => theme.colors.background.primary};
   }
 `;
 

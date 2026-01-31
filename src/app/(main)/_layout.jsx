@@ -19,11 +19,8 @@
 
 import React from 'react';
 import { MainRouteLayout } from '@platform/layouts';
-import { useAcknowledgementGuard } from '@navigation/guards';
 
 const MainLayout = () => {
-  // Phase 7: Enforce prototype disclaimer acknowledgement before entering workflow.
-  useAcknowledgementGuard();
   return <MainRouteLayout />;
 };
 

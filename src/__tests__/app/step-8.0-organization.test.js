@@ -144,12 +144,14 @@ describe('Step 8.0: App Folder Organization', () => {
       });
     });
 
-    it('should have route files that only import platform UI components', () => {
+    it('should have route files that are lightweight and delegate', () => {
       const indexPath = path.join(appPath, 'index.jsx');
       if (fs.existsSync(indexPath)) {
         const content = fs.readFileSync(indexPath, 'utf8');
-        // Should import from @platform, not implement logic directly
-        expect(content).toMatch(/@platform/);
+        // Root index should either render a platform screen or redirect into a route group.
+        const usesPlatform = /@platform\//.test(content);
+        const usesRedirect = /Redirect/.test(content);
+        expect(usesPlatform || usesRedirect).toBe(true);
       }
     });
   });
