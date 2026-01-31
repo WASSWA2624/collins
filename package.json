@@ -19,7 +19,7 @@
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/netinfo": "11.4.1",
     "@reduxjs/toolkit": "^2.11.2",
-    "@remix-run/router": "^1.23.0",
+    "@remix-run/router": "^1.23.2",
     "expo": "~54.0.32",
     "expo-constants": "~18.0.13",
     "expo-linking": "~8.0.11",
@@ -41,7 +41,8 @@
   },
   "private": true,
   "overrides": {
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "lodash": "4.17.23"
   },
   "devDependencies": {
     "@testing-library/jest-native": "^5.4.3",
