@@ -11,51 +11,37 @@ const StyledBrand = styled.div.withConfig({
 })`
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   min-width: 0;
-
-  /* Tablet */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    gap: ${({ theme }) => theme.spacing.xs}px;
+  max-width: 100%;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+    gap: ${({ theme }) => theme.spacing.sm}px;
   }
-
-  /* Mobile */
-  @media (max-width: 767px) {
-    gap: 6px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.large}px) {
+    gap: ${({ theme }) => theme.spacing.md}px;
   }
 `;
 
-const StyledBrandLogo = styled.div.withConfig({
+const StyledBrandLogo = styled.span.withConfig({
   displayName: 'StyledBrandLogo',
   componentId: 'StyledBrandLogo',
 })`
-  /* Desktop: 32px */
-  width: 32px;
-  height: 32px;
-  border-radius: ${({ theme }) => theme.radius.full}px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.text.inverse};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  font-size: 12px;
+  display: inline-block;
   flex-shrink: 0;
-  letter-spacing: -0.5px;
+  font-family: ${({ theme }) => theme.typography.fontFamily.bold};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+  color: ${({ theme }) => theme.colors.primary};
   text-transform: uppercase;
-
-  /* Tablet: 28px */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    width: 28px;
-    height: 28px;
-    font-size: 11px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   }
-
-  /* Mobile: 24px */
-  @media (max-width: 767px) {
-    width: 24px;
-    height: 24px;
-    font-size: 10px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.large}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
   }
 `;
 
@@ -63,39 +49,25 @@ const StyledBrandName = styled.span.withConfig({
   displayName: 'StyledBrandName',
   componentId: 'StyledBrandName',
 })`
-  /* Desktop: Full name visible */
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text.primary};
-  white-space: nowrap;
-
-  /* Tablet: slightly smaller */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
-  }
-
-  /* Mobile: Hide full name */
-  @media (max-width: 767px) {
-    display: none;
-  }
-`;
-
-const StyledBrandShortName = styled.span.withConfig({
-  displayName: 'StyledBrandShortName',
-  componentId: 'StyledBrandShortName',
-})`
-  /* Desktop/Tablet: Hidden */
-  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text.primary};
   display: none;
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
 
-  /* Mobile: Show short name */
-  @media (max-width: 767px) {
-    display: inline;
-    font-size: 13px;
+  /* Mobile-first: show full name from tablet+ */
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+    display: inline-block;
+    font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.large}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
   }
 `;
 
-export { StyledBrand, StyledBrandLogo, StyledBrandName, StyledBrandShortName };
+export { StyledBrand, StyledBrandLogo, StyledBrandName };

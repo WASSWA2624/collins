@@ -9,7 +9,6 @@ import {
   StyledBrand,
   StyledBrandLogo,
   StyledBrandName,
-  StyledBrandShortName,
 } from './Brand.web.styles';
 
 export default function Brand({ appName, appShortName }) {
@@ -17,7 +16,6 @@ export default function Brand({ appName, appShortName }) {
     <StyledBrand>
       <StyledBrandLogo aria-hidden="true">{appShortName}</StyledBrandLogo>
       <StyledBrandName>{appName}</StyledBrandName>
-      <StyledBrandShortName>{appShortName}</StyledBrandShortName>
     </StyledBrand>
   );
 }
