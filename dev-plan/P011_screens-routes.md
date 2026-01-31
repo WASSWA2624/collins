@@ -1,22 +1,32 @@
-# Phase 11: HMS Screens, Routes, and UI Wiring
+# Phase 11: Screens, Routes, and UI Wiring (Ventilation App)
 
 ## Purpose
-Implementation guide: one step = one screen, in chronological order below. Wire screens to Phase 10 hooks; routes per `app-router.mdc`, UI per `platform-ui.mdc`.
+Implementation guide: **one step = one screen**. Screens are wired to Phase 10 hooks and must implement a complete clinician workflow with responsive, space-efficient UI.
 
-## Rules
-- `.cursor/rules/index.mdc` · `app-router.mdc` · `platform-ui.mdc` · `component-structure.mdc` · `features-domain.mdc` · `security.mdc` · `accessibility.mdc` · `testing.mdc` · `theme-design.mdc`
+## Rule references
+- `.cursor/rules/index.mdc`
+- `.cursor/rules/app-router.mdc`
+- `.cursor/rules/platform-ui.mdc`
+- `.cursor/rules/component-structure.mdc`
+- `.cursor/rules/theme-design.mdc`
+- `.cursor/rules/accessibility.mdc`
+- `.cursor/rules/i18n.mdc`
+- `.cursor/rules/testing.mdc`
+- `.cursor/rules/performance.mdc`
 
 ## Prerequisites
-Phase 10 (hooks), Phase 9 (layouts/nav), Phase 7 (app shell), Phase 6 (components).
+- Phase 10 complete (ventilation + training features and hooks)
+- Phase 9 complete (app-specific shell UX wired)
+- Phase 6 complete (UI primitives/patterns exist)
 
-## Guidelines
-- **Order**: Follow **Sequential Build Order** below; one screen per step.
-- Screens → feature hooks only; i18n for all text; no hardcoded strings.
-- Routes: per `app-router.mdc`; omit group in links; guards in group layouts.
-- Nav: every route reachable from Phase 9 nav; add entry/icon/label per main screen.
-- **Pattern**: Main screens in sidebar; sub-screens as tabs (list/detail/create-edit per tab). Deep links: e.g. `/settings/users`, `/billing/invoice`.
+## Global screen guidelines (mandatory)
+- Screens render only; domain logic lives in features and is accessed via hooks.
+- All user-facing text (including accessibility text) must use i18n.
+- Every screen supports: **loading**, **empty**, **error**, **offline** states.
+- UI must economize space via progressive disclosure and compact summaries (see Phase 9 contract).
+- Use list virtualization for any potentially long list.
 
-## Route Structure
+## Route structure (required by `app-router.mdc`)
 
 ```text
 src/app/
@@ -25,177 +35,266 @@ src/app/
 ├── _error.jsx
 ├── +not-found.jsx
 │
-├── (auth)/
-│   ├── _layout.jsx
-│   ├── login.jsx
-│   ├── register.jsx
-│   ├── forgot-password.jsx
-│   ├── reset-password.jsx
-│   ├── verify-email.jsx
-│   ├── verify-phone.jsx
-│   ├── tenant-selection.jsx
-│   └── facility-selection.jsx
-│
 ├── (main)/
 │   ├── _layout.jsx
-│   ├── home.jsx
-│   ├── patients/
-│   ├── scheduling/
-│   ├── clinical/
-│   ├── ipd/
-│   ├── icu/
-│   ├── theatre/
-│   ├── diagnostics/
-│   │   ├── lab/
-│   │   └── radiology/
-│   ├── pharmacy/
-│   ├── inventory/
-│   ├── emergency/
-│   ├── billing/
-│   ├── hr/
-│   ├── housekeeping/
-│   ├── reports/
-│   ├── communications/
-│   ├── subscriptions/
-│   ├── integrations/
-│   ├── compliance/
-│   └── settings/
+│   ├── assessment.jsx
+│   ├── history.jsx
+│   └── session/
+│       ├── _layout.jsx
+│       ├── recommendation.jsx
+│       ├── monitoring.jsx
+│       └── case/
+│           └── [case-id].jsx
 │
-└── (patient)/
+├── (training)/
+│   ├── _layout.jsx
+│   ├── index.jsx
+│   ├── topics.jsx
+│   └── topic/
+│       └── [topic-id].jsx
+│
+└── (settings)/
     ├── _layout.jsx
-    ├── portal/
-    ├── appointments/
-    ├── results/
-    ├── prescriptions/
-    └── billing/
+    ├── index.jsx
+    ├── about.jsx
+    ├── disclaimer.jsx
+    ├── data-sources.jsx
+    └── privacy.jsx
 ```
 
-## Sequential Build Order
+## Sequential build order (one step = one screen)
 
-**One step = one screen.** Complete each step before the next. Where multiple tabs are listed, implement one screen per tab in that order.
+### Tier 1: Core workflow (main)
+- **11.S.1** Assessment (wizard) — `(main)/assessment`
+- **11.S.2** Session guard layout (route layout) — `(main)/session/_layout`
+- **11.S.3** Recommendation — `(main)/session/recommendation`
+- **11.S.4** Monitoring — `(main)/session/monitoring`
+- **11.S.5** History (saved sessions) — `(main)/history`
+- **11.S.6** Case detail — `(main)/session/case/[case-id]`
 
-### Tier 1: Auth & Shell
-- **11.S.1** Login — `(auth)/login`
-- **11.S.2** Register — `(auth)/register`
-- **11.S.3** Forgot password — `(auth)/forgot-password`
-- **11.S.4** Reset password — `(auth)/reset-password`
-- **11.S.5** Verify email — `(auth)/verify-email`
-- **11.S.6** Verify phone — `(auth)/verify-phone`
-- **11.S.7** Tenant selection — `(auth)/tenant-selection`
-- **11.S.8** Facility selection — `(auth)/facility-selection`
-- **11.S.9** Home — `(main)/home`
+### Tier 2: Training
+- **11.S.7** Training home — `(training)/index`
+- **11.S.8** Topic list — `(training)/topics`
+- **11.S.9** Topic detail — `(training)/topic/[topic-id]`
 
-### Tier 2: Settings (main + tabs)
-- **11.S.10** Settings (main) — `(main)/settings`
-- **11.S.11** Tenant — `(main)/settings/tenants`
-- **11.S.12** Facility — `(main)/settings/facilities`
-- **11.S.13** Branch — `(main)/settings/branches`
-- **11.S.14** Department — `(main)/settings/departments`
-- **11.S.15** Unit — `(main)/settings/units`
-- **11.S.16** Room — `(main)/settings/rooms`
-- **11.S.17** Ward — `(main)/settings/wards`
-- **11.S.18** Bed — `(main)/settings/beds`
-- **11.S.19** Address — `(main)/settings/addresses`
-- **11.S.20** Contact — `(main)/settings/contacts`
-- **11.S.21** User — `(main)/settings/users`
-- **11.S.22** User profile — `(main)/settings/user-profiles`
-- **11.S.23** Role — `(main)/settings/roles`
-- **11.S.24** Permission — `(main)/settings/permissions`
-- **11.S.25** Role–permission — `(main)/settings/role-permissions`
-- **11.S.26** User–role — `(main)/settings/user-roles`
-- **11.S.27** API key — `(main)/settings/api-keys`
-- **11.S.28** API key permission — `(main)/settings/api-key-permissions`
-- **11.S.29** User MFA — `(main)/settings/user-mfas`
-- **11.S.30** User session — `(main)/settings/user-sessions`
-- **11.S.31** OAuth account — `(main)/settings/oauth-accounts`
+### Tier 3: Settings and safety/legal
+- **11.S.10** Settings — `(settings)/index`
+- **11.S.11** Disclaimer — `(settings)/disclaimer`
+- **11.S.12** Data sources — `(settings)/data-sources`
+- **11.S.13** Privacy — `(settings)/privacy`
+- **11.S.14** About — `(settings)/about`
 
-### Tier 3: Patients (main + tabs)
-- **11.S.32** Patients (main) — `(main)/patients`
-- **11.S.33** Patient — `(main)/patients/patients`
-- **11.S.34** Patient identifier — `(main)/patients/patient-identifiers`
-- **11.S.35** Patient contact — `(main)/patients/patient-contacts`
-- **11.S.36** Patient guardian — `(main)/patients/patient-guardians`
-- **11.S.37** Patient allergy — `(main)/patients/patient-allergies`
-- **11.S.38** Patient medical history — `(main)/patients/patient-medical-histories`
-- **11.S.39** Patient document — `(main)/patients/patient-documents`
+## Screen UX requirements (per major screen)
 
-### Tier 4: Scheduling (main + tabs)
-- **11.S.40** Scheduling (main) — `(main)/scheduling`
-- **11.S.41** Appointment — `(main)/scheduling/appointments`
-- **11.S.42** Provider schedule — `(main)/scheduling/provider-schedules`
-- **11.S.43** Availability slot — `(main)/scheduling/availability-slots`
-- **11.S.44** Visit queue — `(main)/scheduling/visit-queues`
+### Assessment screen (11.S.1)
+- Must be a guided, step-by-step flow (progress indicator).
+- Must support partial entry and “missing tests” prompts (from Phase 10 logic).
+- Must provide compact summary at all times (sticky on larger screens).
 
-### Tier 5: Clinical (main + tabs)
-- **11.S.45** Clinical (main) — `(main)/clinical`
-- **11.S.46** Encounter — `(main)/clinical/encounters`
-- **11.S.47** Clinical note — `(main)/clinical/clinical-notes`
-- **11.S.48** Diagnosis — `(main)/clinical/diagnoses`
-- **11.S.49** Procedure — `(main)/clinical/procedures`
-- **11.S.50** Vital sign — `(main)/clinical/vital-signs`
-- **11.S.51** Care plan — `(main)/clinical/care-plans`
-- **11.S.52** Referral — `(main)/clinical/referrals`
-- **11.S.53** Follow-up — `(main)/clinical/follow-ups`
+### Recommendation screen (11.S.3)
+- Must show:
+  - recommended initial settings (clearly labeled)
+  - confidence tier + matched case references (case IDs)
+  - monitoring points + risk factors
+  - prominent dataset warning (“not clinically validated”)
+- Must be readable in compact mode and two-pane mode.
 
-### Tier 6: IPD, ICU, Theatre, Emergency
-- **11.S.54** IPD (main) — `(main)/ipd`
-- **11.S.55** IPD tabs: admission, bed-assignment, ward-round, nursing-note, medication-admin, discharge, transfer — `(main)/ipd/*` (one step per tab)
-- **11.S.56** ICU (main) — `(main)/icu`
-- **11.S.57** ICU tabs: stay, observation, critical-alert — `(main)/icu/*` (one step per tab)
-- **11.S.58** Theatre (main) — `(main)/theatre`
-- **11.S.59** Theatre tabs: case, anesthesia-record, post-op-note — `(main)/theatre/*` (one step per tab)
-- **11.S.60** Emergency (main) — `(main)/emergency`
-- **11.S.61** Emergency tabs: case, triage, response, ambulance, dispatch, trip — `(main)/emergency/*` (one step per tab)
+### Monitoring screen (11.S.4)
+- Must support manual time-series entry and show trend/alert states.
+- Alerts must be explainable and actionable (prototype-grade).
 
-### Tier 7: Diagnostics (Lab + Radiology)
-- **11.S.62** Lab (main) — `(main)/diagnostics/lab`
-- **11.S.63** Lab tabs: test, panel, order, sample, result, QC — `(main)/diagnostics/lab/*` (one step per tab)
-- **11.S.64** Radiology (main) — `(main)/diagnostics/radiology`
-- **11.S.65** Radiology tabs: test, order, result, imaging, PACS — `(main)/diagnostics/radiology/*` (one step per tab)
-
-### Tier 8: Pharmacy, Inventory
-- **11.S.66** Pharmacy (main) — `(main)/pharmacy`
-- **11.S.67** Pharmacy tabs: drug, batch, formulary, order, dispense, adverse-event — `(main)/pharmacy/*` (one step per tab)
-- **11.S.68** Inventory (main) — `(main)/inventory`
-- **11.S.69** Inventory tabs: item, stock, movement, supplier, purchase, receipt, adjustment — `(main)/inventory/*` (one step per tab)
-
-### Tier 9: Billing, HR, Housekeeping, Reports, Comms, Subscriptions, Integrations, Compliance
-- **11.S.70** Billing (main) — `(main)/billing`
-- **11.S.71** Billing tabs: invoice, payment, refund, pricing, coverage, claim, pre-auth, adjustment — `(main)/billing/*` (one step per tab)
-- **11.S.72** HR (main) — `(main)/hr`
-- **11.S.73** HR tabs: staff, assignment, leave, shift, payroll — `(main)/hr/*` (one step per tab)
-- **11.S.74** Housekeeping (main) — `(main)/housekeeping`
-- **11.S.75** Housekeeping tabs: task, schedule, maintenance, asset, service-log — `(main)/housekeeping/*` (one step per tab)
-- **11.S.76** Reports (main) — `(main)/reports`
-- **11.S.77** Communications (main) — `(main)/communications`
-- **11.S.78** Subscriptions (main) — `(main)/subscriptions`
-- **11.S.79** Integrations (main) — `(main)/integrations`
-- **11.S.80** Compliance (main) — `(main)/compliance`
-
-### Tier 10: Patient portal
-- **11.S.81** Patient portal (main) — `(patient)/portal`
-- **11.S.82** Patient appointments — `(patient)/appointments`
-- **11.S.83** Patient results — `(patient)/results`
-- **11.S.84** Patient prescriptions — `(patient)/prescriptions`
-- **11.S.85** Patient billing — `(patient)/billing`
+## Per-step checklist
+Per screen:
+- Route per `app-router.mdc`
+- Screen folder/file structure per `component-structure.mdc`
+- Style files per platform and theme tokens only
+- Uses only hooks for state/data
+- i18n for all strings + a11y labels/hints
+- Loading/error/empty/offline states
+- Tests per `testing.mdc` (100% coverage, including branches and states)
 
 ---
 
-## Per-step checklist
-Per screen: routes per `app-router.mdc`; screen per `platform-ui.mdc` + `component-structure.mdc`; wire to hooks; i18n; loading/error/empty/guarded states; nav entry for main screens. Tests per `testing.mdc`; a11y per `accessibility.mdc`.
+## Shared clinician UX patterns (mandatory for all Phase 11 screens)
+- **Dense but readable**: prioritize 1–2 primary actions; use compact rows, section headers, and collapsible details.
+- **Units everywhere**: all numeric labels/validation messages must display units sourced from the dataset `schema.units` (via Phase 10 model/hook).
+- **Fast entry**:
+  - numeric fields support “quick keypad” patterns on mobile
+  - sane defaults (explicitly labeled as defaults)
+  - inline validation (no surprise full-screen errors)
+- **Progressive disclosure**:
+  - “Summary” (always visible) vs “Details” (expand)
+  - on tablet/web, use the Phase 9 split-pane with a sticky summary panel.
+- **Explainability**: where a recommendation/alert appears, show a compact “Why” row (confidence tier + key contributors + missing inputs).
+- **A11y** (see `accessibility.mdc`): every interactive element has label + hint; web supports full keyboard navigation.
 
-## Completeness
-- [ ] 11.S.1–9 (auth, home)
-- [ ] 11.S.10–31 (Settings main + tabs)
-- [ ] 11.S.32–53 (Patients, Scheduling, Clinical)
-- [ ] 11.S.54–69 (IPD, ICU, Theatre, Emergency, Lab, Radiology, Pharmacy, Inventory)
-- [ ] 11.S.70–85 (Billing, HR, Housekeeping, Reports, Comms, Subscriptions, Integrations, Compliance, Patient portal)
-- [ ] Nav + deep links for all main screens
+---
 
-## Settings status (11.S.10–31)
-- **11–12** tenant, facility — List ✓, Detail ✓, Create/Edit ✓
-- **13–18** branch, department, unit, room, ward, bed — List ✓, Detail ✓, Create/Edit ✓
-- **19–20** address, contact — List ✓, Detail ✓, Create/Edit ✓
-- **21–31** user … oauth-account — List ✓, Detail ✓, Create/Edit TBD
+## Step specs (one step = one screen/route surface)
+Each step below must include:
+- a route file in `src/app/**` (default export; minimal route wrapper per `app-router.mdc`)
+- a platform screen in `src/platform/screens/**` (android/ios/web + platform styles + hook + types + barrel per `component-structure.mdc`)
+- complete states + tests per `testing.mdc` (including platform-specific tests)
 
-Backend: facility/tenant usecases unwrap `response.data.data`; other CRUD same pattern when backend returns `{ data }`.
+### 11.S.1 Assessment wizard — route `(main)/assessment`
+**Goal**: capture clinician inputs quickly and safely; create/replace the current session; trigger matching/recommendation generation via hooks.
+
+- **Route file**: `src/app/(main)/assessment.jsx`
+  - Must remain a thin wrapper that renders the platform screen.
+- **Platform screen** (upgrade the Phase 8 placeholder or replace it, but keep the route path stable):
+  - `src/platform/screens/ventilation/AssessmentEntryScreen/*` (extend into wizard) **or**
+  - `src/platform/screens/ventilation/AssessmentScreen/*` (new screen, update route wrapper accordingly).
+- **UI structure**:
+  - **Mobile**: single-column wizard with a compact step header + “Summary” accordion.
+  - **Tablet/Web**: split-pane; left pane wizard steps, right pane sticky session summary.
+- **Minimum steps** (wizard):
+  - Patient profile (condition, age, weight, height, gender, comorbidities)
+  - Clinical parameters (SpO₂, optional ABG values, vitals)
+  - Optional observations (freeform structured entries)
+  - Review + “Generate recommendation”
+- **Validation**:
+  - required minimum inputs enforced by Phase 10 rules; UI shows which missing values unlock better confidence.
+  - numeric constraints/units shown using dataset `schema.units` (do not hardcode).
+- **Offline behavior**:
+  - fully usable offline (dataset matching is offline)
+  - online “second opinion” is not shown here (Phase 12).
+- **Tests**:
+  - `src/__tests__/app/(main)/assessment.test.js` (route wrapper)
+  - `src/__tests__/platform/screens/ventilation/<AssessmentScreenName>.test.js` (android/ios/web coverage, wizard navigation, validation, states)
+
+### 11.S.2 Session guard layout — route layout `(main)/session/_layout`
+**Goal**: ensure Recommendation/Monitoring/Case detail are unreachable without a current session.
+
+- **Route file**: `src/app/(main)/session/_layout.jsx`
+- **Behavior**:
+  - calls `useSessionGuard` (Phase 7) and redirects to `/assessment` when missing session
+  - renders `<Slot />` when session exists
+- **Tests**:
+  - `src/__tests__/app/main-session-layout-guard.test.js` (already required by Phase 7; update if route structure changed)
+
+### 11.S.3 Recommendation — route `(main)/session/recommendation`
+**Goal**: present recommended initial settings with clear labeling, confidence, and safety framing.
+
+- **Route file**: `src/app/(main)/session/recommendation.jsx`
+- **Platform screen**: `src/platform/screens/ventilation/RecommendationScreen/*`
+- **UI sections (dense)**:
+  - “Recommended settings” (mode, TV, RR, FiO₂, PEEP, I:E) with units and safe presentation
+  - “Confidence & why” (tier + missing inputs + top contributing factors)
+  - “Monitoring points” (next checks, when to reassess)
+  - “Risks/complications” (prototype-grade flags; actionable guidance)
+  - “Matched cases” (top-N list with `caseId` links)
+  - “Intended use warning” (content sourced from dataset `intendedUse.warning`, but rendered via i18n key + interpolation; always visible)
+- **Responsive**:
+  - mobile: collapsible sections; primary action = “Start monitoring”
+  - tablet/web: split-pane with sticky session summary
+- **Tests**:
+  - route wrapper test
+  - screen tests for rendering all sections, states, link navigation, and a11y labeling
+
+### 11.S.4 Monitoring — route `(main)/session/monitoring`
+**Goal**: allow manual time-series entry and show trend/alert states that are explainable.
+
+- **Route file**: `src/app/(main)/session/monitoring.jsx`
+- **Platform screen**: `src/platform/screens/ventilation/MonitoringScreen/*`
+- **UI sections**:
+  - “Quick entry” row (add vitals/labs point)
+  - trend view (compact sparkline-like or list-based summary; platform-appropriate)
+  - alerts list with severity + “why” explanation + suggested next action
+- **Performance**: list virtualization for history of points and alerts (per `platform-ui.mdc` + `performance.mdc`)
+- **Tests**:
+  - include sparse/out-of-order points, alert severity branches, offline banner presence, keyboard navigation (web)
+
+### 11.S.5 History (saved sessions) — route `(main)/history`
+**Goal**: list saved sessions; allow resume, delete, and view summary quickly.
+
+- **Route file**: `src/app/(main)/history.jsx`
+- **Platform screen**: `src/platform/screens/ventilation/HistoryScreen/*`
+- **UI**:
+  - virtualized list of sessions (date/time, condition, key summary, last recommendation tier)
+  - actions: resume (primary), delete (destructive confirm), view details
+- **Tests**:
+  - empty state (no history), corrupted persistence recovery messaging, delete confirmation path
+
+### 11.S.6 Case detail — route `(main)/session/case/[case-id]`
+**Goal**: explain “matched cases” in a clinician-friendly way without leaking raw/unvalidated data.
+
+- **Route file**: `src/app/(main)/session/case/[case-id].jsx`
+- **Platform screen**: `src/platform/screens/ventilation/CaseDetailScreen/*`
+- **UI**:
+  - compact case summary (patientProfile + key clinicalParameters)
+  - ventilatorSettings used
+  - outcomes (with clear “dataset case” framing)
+  - always show intended-use warning
+- **Tests**:
+  - param parsing, missing caseId path, not-found-in-dataset path
+
+### 11.S.7 Training home — route `(training)/index`
+**Goal**: clinician-focused entry to offline training/quick reference.
+
+- **Route file**: `src/app/(training)/index.jsx`
+- **Platform screen**: `src/platform/screens/training/TrainingHomeScreen/*`
+- **UI**: search box + “popular topics” + quick checklists
+
+### 11.S.8 Topic list — route `(training)/topics`
+**Goal**: browse all topics with filters.
+
+- **Route file**: `src/app/(training)/topics.jsx`
+- **Platform screen**: `src/platform/screens/training/TopicListScreen/*`
+- **UI**: virtualized list + search/filter; keyboard accessible on web
+
+### 11.S.9 Topic detail — route `(training)/topic/[topic-id]`
+**Goal**: show structured training content, readable on small screens.
+
+- **Route file**: `src/app/(training)/topic/[topic-id].jsx`
+- **Platform screen**: `src/platform/screens/training/TopicDetailScreen/*`
+- **UI**: sectioned content + collapsible sub-sections; optional “pin to summary” patterns
+
+### 11.S.10 Settings — route `(settings)/index`
+**Goal**: preferences and app controls.
+
+- **Route file**: `src/app/(settings)/index.jsx`
+- **Platform screen**: `src/platform/screens/settings/SettingsScreen/*`
+- **Must include**:
+  - density mode toggle (Phase 9)
+  - theme selection (if supported)
+  - language selection (supported locales only; see `i18n.mdc`)
+
+### 11.S.11 Disclaimer — route `(settings)/disclaimer`
+**Goal**: show the dataset/app disclaimer and allow acknowledgement (guarded entry for workflow).
+
+- **Route file**: `src/app/(settings)/disclaimer.jsx`
+- **Platform screen**: `src/platform/screens/settings/DisclaimerScreen/*`
+- **Data**:
+  - disclaimer content sourced from dataset `intendedUse` + plan-provided prototype framing (no “clinical use” claims); render user-facing text via i18n keys with interpolation where dataset text is shown
+  - acknowledgement persists via store/service boundary (Phase 7 guard)
+
+### 11.S.12 Data sources — route `(settings)/data-sources`
+**Goal**: transparency: dataset version + citations.
+
+- **Route file**: `src/app/(settings)/data-sources.jsx`
+- **Platform screen**: `src/platform/screens/settings/DataSourcesScreen/*`
+- **Data**:
+  - show `datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`
+  - list `sources[]` citations (with DOI text where present)
+
+### 11.S.13 Privacy — route `(settings)/privacy`
+**Goal**: explain what is stored locally and what is never sent.
+
+- **Route file**: `src/app/(settings)/privacy.jsx`
+- **Platform screen**: `src/platform/screens/settings/PrivacyScreen/*`
+- **Content**:
+  - local-only session storage description (non-sensitive)
+  - optional online AI behavior (only if Phase 12 implemented)
+
+### 11.S.14 About — route `(settings)/about`
+**Goal**: app identity + version + prototype scope.
+
+- **Route file**: `src/app/(settings)/about.jsx`
+- **Platform screen**: `src/platform/screens/settings/AboutScreen/*`
+
+## Testing baseline for Phase 11 completion
+- Every screen above must have:
+  - route wrapper test (when applicable)
+  - platform screen test covering android/ios/web separately
+  - explicit tests for loading/empty/error/offline
+  - explicit web keyboard navigation + focus order assertions for primary interactions

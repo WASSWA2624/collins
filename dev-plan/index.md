@@ -1,157 +1,126 @@
-# HMS Frontend Development Plan
+## Ventilation Decision Support App Development Plan
 
 ## Purpose
-This development plan provides a **complete, step-by-step, chronological guide** for building the React Native (Expo + App Router) HMS application. Each step is **modular**, creates the **smallest unit** of functionality, and ensures **100% compliance** with project rules defined in `.cursor/rules/` and alignment with `hms-backend/write-up.md` plus `hms-backend/dev-plan/`.
+This development plan provides a **complete, step-by-step, chronological guide** for building the React Native (Expo + App Router) ventilation decision-support application described in:
+- `write-up.md`
+- `src/features/ventilation/data/ventilation_dataset.json`
 
-## Principles
-- **Modularity**: Each step is independent and testable
-- **Reproducibility**: Any developer following this plan will produce the same application
-- **Rule Compliance**: Every step strictly follows `.cursor/rules/` standards (rules are not redefined here)
-- **Incremental**: Each step builds on previous steps
-- **Testable**: Every step includes testing requirements
+The resulting app must be:
+- **Offline-first** (local dataset is primary)
+- **Easy to use for non-specialist clinicians**
+- **Responsive across Android, iOS, and Web**
+- **Space-efficient** (dense but readable UI, progressive disclosure, minimal clutter)
+- **Safe-by-design for a prototype** (clear disclaimers, no unsafe “clinical use” framing, no secrets)
+
+## Principles (Plan-specific)
+- **Modularity**: Each step is atomic, independent, and testable.
+- **Reproducibility**: A developer following this plan produces the same app.
+- **Rule compliance**: This plan references `.cursor/rules/` as the source of truth; it does not redefine rules.
+- **UX + A11y are requirements**: every screen includes loading/empty/error/offline states and accessibility metadata.
+
+## Scope (What we are building)
+- **Assessment workflow**: clinician inputs condition + clinical parameters + optional observations.
+- **Local decision support**: match inputs to similar dataset cases; generate recommended initial ventilator settings and monitoring points.
+- **Monitoring**: track key parameters over time and surface risk/complication warnings (prototype-grade).
+- **Training**: quick-reference and guided learning for non-specialists.
+- **Optional online augmentation (advanced)**: online AI “second opinion” when connectivity exists (never required for core flow).
+
+## Dataset contract (must be supported)
+Primary dataset file:
+- `src/features/ventilation/data/ventilation_dataset.json`
+
+Minimum supported dataset root fields:
+- `datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`
+- `schema.units` (for UI unit labels and validation messaging)
+- `intendedUse` (must be surfaced in UI; includes a warning string)
+- `sources[]` (must be surfaced in UI as citations)
+- `cases[]` (the clinical cases array)
+
+Minimum supported case fields (from `cases[]`):
+- `caseId`
+- `patientProfile` (age/weight/height/gender/condition/comorbidities)
+- `clinicalParameters` (SpO₂/PaO₂/PaCO₂/pH/RR/HR/BP)
+- `ventilatorSettings` (mode/TV/RR/FiO₂/PEEP/I:E)
+- `outcomes` (complications/weaningSuccess/lengthOfVentilation/mortality)
+- `recommendations` (initialSettings/monitoringPoints/riskFactors)
+- Optional extensibility: `observations[]`, `timeSeries[]`
+
+## App Router route groups (documented here; required by `app-router.mdc`)
+All non-root pages live inside groups:
+- `(main)`: core clinical workflow (assessment → recommendation → monitoring)
+- `(training)`: training/education content
+- `(settings)`: preferences + app info + disclaimers
+
+Root-only pages allowed outside groups:
+- `src/app/index.jsx` (landing)
+- `src/app/_layout.jsx`, `src/app/_error.jsx`, `src/app/+not-found.jsx`
 
 ## Development Order
-The plan follows the **layered architecture** and **initialization order**, but intentionally implements **reusable app building blocks first** and **app-specific features last**.
+Phases 0–8 are generic building blocks. Ventilation-specific work begins in Phase 9.
 
-**IMPORTANT**: Phases 0-8 are **generic React Native app building blocks** that apply to any React Native application without requiring modifications. HMS-specific implementations start in Phase 9.
-
-1. **Foundation** → Config, Utils, Logging, Errors (generic)
-2. **Infrastructure** → Services, Security (generic)
-3. **State & Theme** → Store, Theme System (generic)
-4. **Offline** → Offline-first architecture + Bootstrap layer (wires security, store, theme, offline) (generic)
-5. **Reusable Hooks** → Cross-cutting hooks used by any app (used by UI patterns) (generic)
-6. **Reusable Platform UI Foundation** → Primitives, patterns, layouts (no domain coupling) (generic)
-7. **App Shell (App Router + Guards)** → Providers, route groups, navigation shell, error routes (generic)
-8. **Minimal Runnable App** → Landing page, home screen, error routes (verify app runs before features) (generic)
-9. **Base Layouts & Global UI** → Layouts, headers, footers, navigation, theme/language controls, shared UI shell (**app-specific starts here**)
-10. **Core Features** → Implement HMS core modules (auth, tenancy, RBAC, patient registry, scheduling, clinical, diagnostics, pharmacy, inventory, emergency, billing, HR, reporting, notifications, subscriptions, compliance, integrations) (**app-specific**)
-11. **Screens & Routes** → Implement screens, routes, and UI wiring for all core modules (**app-specific**)
-12. **Advanced Features** → Optional modules and advanced capabilities (telemedicine, patient engagement, AI insights, research, PACS/IoT integrations) (**app-specific**)
-13. **Finalization** → Onboarding/help + comprehensive testing/polish (**app-specific**)
+1. **Foundation** → config, utils, logging, errors, i18n (generic)
+2. **Infrastructure** → services, security primitives (generic)
+3. **State & Theme** → Redux + theme system (generic)
+4. **Offline** → offline layer + bootstrap wiring (generic)
+5. **Reusable Hooks** → cross-cutting hooks (generic)
+6. **Reusable Platform UI Foundation** → primitives/patterns/layout helpers (generic)
+7. **App Shell (App Router + Guards)** → route groups, providers, error routes (generic)
+8. **Minimal Runnable App** → verifies app boots (generic)
+9. **Ventilation App Shell UX** → navigation + dense responsive layouts for clinician workflow (**app-specific**)
+10. **Ventilation Core Feature** → local dataset access + matching + recommendation generation (**app-specific**)
+11. **Screens & Routes** → assessment wizard, recommendation view, monitoring, training, settings (**app-specific**)
+12. **Advanced Features** → optional online AI augmentation, exports, dataset updates (**app-specific**)
+13. **Finalization** → onboarding/help, audits, performance, localization completion (**app-specific**)
 
 ## File Structure
 - `P000_setup.md` - Project initialization
-- `P001_foundation.md` - Foundation layer (config, utils, logging, errors, i18n)
-- `P002_infrastructure.md` - Infrastructure layer (services, security)
-- `P003_state-theme.md` - State management & theming (light, dark, high-contrast)
-- `P004_offline.md` - Offline-first architecture + Bootstrap layer
-- `P005_reusable-hooks.md` - Reusable Hooks (cross-cutting hooks; no feature hooks)
-- `P006_platform-ui-foundation.md` - Reusable Platform UI Foundation (primitives, patterns, layouts)
-- `P007_app-shell.md` - App Shell (App Router + guards + navigation skeleton)
-- `P008_minimal-app.md` - Minimal Runnable App (landing page, home screen, error routes)
-- `P009_app-layouts.md` - Base Layouts & Global UI (headers, footers, navigation, theme/i18n controls, etc)
-- `P010_core-features.md` - Core Features (implement HMS modules aligned to backend)
-- `P011_screens-routes.md` - Screens & Routes (implement screens, routes, and UI wiring)
-- `P012_advanced-features.md` - Advanced Features (optional modules + advanced capabilities)
-- `P013_finalization.md` - Finalization (onboarding/help + testing/polish)
+- `P001_foundation.md` - Foundation layer
+- `P002_infrastructure.md` - Infrastructure layer
+- `P003_state-theme.md` - State management & theming
+- `P004_offline.md` - Offline-first architecture + bootstrap
+- `P005_reusable-hooks.md` - Reusable hooks
+- `P006_platform-ui-foundation.md` - Platform UI foundation
+- `P007_app-shell.md` - App shell (route groups/providers)
+- `P008_minimal-app.md` - Minimal runnable app
+- `P009_app-layouts.md` - Ventilation app shell UX (navigation + responsive density)
+- `P010_core-features.md` - Ventilation core feature (dataset + matching + recommendations)
+- `P011_screens-routes.md` - Screens/routes wiring (core workflow + training + settings)
+- `P012_advanced-features.md` - Advanced/optional features
+- `P013_finalization.md` - Finalization
 
-## Development Flow
+## How to use this plan
+- Follow phases sequentially; complete all steps before moving on.
+- After every implementation step: add tests immediately (100% coverage per `testing.mdc`).
+- Use correct extensions: `.jsx` only for files that render JSX; everything else `.js`.
+- All UI strings must be i18n’d (see `i18n.mdc`).
+- All routes must be inside route groups (see `app-router.mdc`).
+- All platform UI must follow file-level platform separation (see `component-structure.mdc` + `platform-ui.mdc`).
 
-```
-Phase 0: Setup (Generic)
-    ↓
-Phase 1: Foundation (Config, Utils, Logging, Errors) (Generic)
-    ↓
-Phase 2: Infrastructure (Services, Security) (Generic)
-    ↓
-Phase 3: State & Theme (Redux, Theme System) (Generic)
-    ↓
-Phase 4: Offline (Queue, Sync, Network) + Bootstrap (wires all systems) (Generic)
-    ↓
-Phase 5: Reusable Hooks (Cross-cutting hooks) (Generic)
-    ↓
-Phase 6: Reusable Platform UI Foundation (Primitives, Patterns, Layouts) (Generic)
-    ↓
-Phase 7: App Shell (App Router + Guards + Navigation Skeleton) (Generic)
-    ↓
-Phase 8: Minimal Runnable App (Landing page, home screen, error routes) (Generic)
-    ↓
-Phase 9: Base Layouts & Global UI (App-specific - Layouts, navigation, global controls)
-    ↓
-Phase 10: Core Features (App-specific starts here - Implement HMS core modules)
-    ↓
-Phase 11: Screens & Routes (App-specific - Implement screens, routes, and UI wiring)
-    ↓
-Phase 12: Advanced Features (App-specific - Telemedicine, patient engagement, AI insights, advanced integrations)
-    ↓
-Phase 13: Finalization (App-specific - Onboarding/Help + Testing/Polish)
-```
+## Supported locales (required by `i18n.mdc`)
+- **Currently supported (effective)**: `en` (because `src/i18n/locales/en.json` is the only locale file present).
+- **Future targets (optional; add only when locale files exist)**: `sw` (Swahili), `lg` (Luganda).
 
-## How to Use This Plan
-1. Follow steps **sequentially** within each phase
-2. Complete **all steps** in a phase before moving to the next
-3. Write **tests immediately** after each implementation step
-4. Verify **rule compliance** by referencing `.cursor/rules/` files
-5. **Do not skip** steps or merge them
-6. **Use correct file extensions** (`.jsx` for JSX, `.js` for everything else)
-7. **Enforce 100% internationalization** - All UI text must use i18n (see `.cursor/rules/i18n.mdc`)
-8. **Enforce mandatory grouping** - All related routes MUST be grouped using parentheses `(group-name)` in `src/app/` (see `.cursor/rules/app-router.mdc`). All related components and screens MUST be grouped using regular folder names (NO parentheses) in `src/platform/` (see `.cursor/rules/component-structure.mdc`)
-
-## Quick Start
-
-1. **Read** `index.md` (this file)
-2. **Review** relevant rules in `.cursor/rules/` before starting each phase
-3. **Start** with `P000_setup.md`
-4. **Follow** each phase sequentially
-5. **Complete** all steps in a phase before moving to next
-6. **Test** after each implementation
-7. **Verify** rule compliance at each step
-
-## Rule References
-All implementation steps follow rules defined in `.cursor/rules/`:
-- `core-principles.mdc` - Fundamental principles
-- `project-structure.mdc` - Folder structure
-- `tech-stack.mdc` - Technology stack
-- `bootstrap-config.mdc` - Initialization order
-- And all other rule files as needed
-
-**Note**: This dev-plan contains **implementation steps only**. Rules are defined in `.cursor/rules/` and should be referenced, not redefined here.
-
-## Feature Coverage
-
-This development plan covers all features specified in the write-up (`@write-up/`) and aligns with all backend modules (`@backend/src/modules/`):
-
-### HMS Core Modules (Phase 10)
-- ✅ Authentication & Sessions
-- ✅ Tenancy, Facilities, Branches, Departments, Units, Wards, Rooms, Beds
-- ✅ User Management & RBAC (roles, permissions, user-role)
-- ✅ Patient Registry & Consent
-- ✅ Scheduling, Availability, and Queues
-- ✅ Encounters & Clinical Documentation
-- ✅ Inpatient (IPD) & Bed Management
-- ✅ ICU & Critical Care
-- ✅ Theatre & Anesthesia
-- ✅ Diagnostics (Laboratory & Radiology)
-- ✅ Pharmacy
-- ✅ Inventory & Procurement
-- ✅ Emergency & Ambulance
-- ✅ Billing, Payments & Insurance
-- ✅ HR, Payroll & Staffing
-- ✅ Housekeeping & Facilities
-- ✅ Notifications & Communications
-- ✅ Reporting & Analytics
-- ✅ Subscriptions, Licensing & Modules
-- ✅ Compliance, Audit & Security
-- ✅ Integrations & Webhooks
-
-### Advanced/Optional Modules (Phase 12)
-- ✅ Telemedicine & Remote Patient Management
-- ✅ Patient Experience & Engagement (portal, feedback, education)
-- ✅ AI-Assisted Diagnostics & Predictive Analytics
-- ✅ Clinical Research & Trials Support
-- ✅ PACS/Imaging integrations and IoT device integrations
-- ✅ Advanced reporting templates and executive dashboards
-- ✅ Multi-hospital enterprise management enhancements
-
-### Platform Features
-- ✅ Offline-tolerant architecture for critical workflows
-- ✅ Multi-Language Support (i18n) - locale expansion in Phase 13
-- ✅ Accessibility (WCAG AA/AAA with high-contrast mode)
-- ✅ Security & Compliance (MFA, OAuth/SSO, encryption, audit trails)
-- ✅ Performance optimization and responsiveness across devices
-- ✅ Onboarding & Help System - role-aware onboarding and contextual help
-
-All features follow the backend API structure and implement the complete functionality described in `hms-backend/write-up.md` and `hms-backend/dev-plan/`.
+## Rule references (single sources of truth)
+This plan must be executed in compliance with `.cursor/rules/` including (non-exhaustive):
+- `core-principles.mdc`
+- `project-structure.mdc`
+- `coding-conventions.mdc`
+- `tech-stack.mdc`
+- `bootstrap-config.mdc`
+- `app-router.mdc`
+- `component-structure.mdc`
+- `platform-ui.mdc`
+- `theme-design.mdc`
+- `features-domain.mdc`
+- `services-integration.mdc`
+- `state-management.mdc`
+- `offline-sync.mdc`
+- `security.mdc`
+- `errors-logging.mdc`
+- `accessibility.mdc`
+- `performance.mdc`
+- `testing.mdc`
+- `i18n.mdc`
 
 ---
 

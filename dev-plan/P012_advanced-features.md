@@ -1,61 +1,57 @@
-# Phase 12: Advanced Features
+# Phase 12: Advanced Features (Optional Enhancements)
 
 ## Purpose
-Implement optional HMS capabilities described in `hms-backend/write-up.md`. Each step is **atomic** and covers one advanced capability slice.
+Implement optional enhancements for the ventilation decision-support app after the core workflow is complete. Each step is **atomic** and must not break offline-first usability.
 
-## Rule References
-- `.cursor/rules/features-domain.mdc` (Feature Template Structure - MANDATORY)
-- `.cursor/rules/state-management.mdc`
+## Rule references
+- `.cursor/rules/features-domain.mdc`
 - `.cursor/rules/services-integration.mdc`
-- `.cursor/rules/errors-logging.mdc`
 - `.cursor/rules/security.mdc`
 - `.cursor/rules/offline-sync.mdc`
+- `.cursor/rules/errors-logging.mdc`
 - `.cursor/rules/testing.mdc`
+- `.cursor/rules/performance.mdc`
+- `.cursor/rules/accessibility.mdc`
 
 ## Prerequisites
-- Phase 11 completed (core screens and routes)
-- Phase 10 completed (core modules implemented)
+- Phase 11 completed (core screens/routes working end-to-end)
+- Phase 10 completed (core domain logic stable)
 
-## Feature Development Contract
-Every advanced feature must follow the feature template structure defined in `.cursor/rules/features-domain.mdc` and reuse core module hooks where applicable.
+## Steps (fully atomic)
 
-## Steps (Fully Atomic)
+### Optional online AI augmentation (second opinion)
+- **12.1.1** Create `services/ai/` wrapper (stateless client) for online AI calls (no direct SDK calls outside wrapper).
+- **12.1.2** Add `ventilation.api.js` integration for online augmentation (feature decides when to call; UI only triggers via hook).
+- **12.1.3** Add UI surface on Recommendation screen:
+  - “Request second opinion” action
+  - clear connectivity requirement messaging
+  - clear labeling that output is supplemental and not clinically validated
+- **12.1.4** Add error handling + retry logic; never block core flow when online AI fails.
 
-### Telemedicine & Remote Patient Management (Chapter 17)
-- Step 12.1.1: Teleconsultation scheduling UI
-- Step 12.1.2: Teleconsultation session management UI
-- Step 12.1.3: Secure messaging and notification flows for telemedicine
-- Step 12.1.4: Remote patient monitoring UI (if backend supports)
+### Exports and sharing (safe prototype workflow)
+- **12.2.1** Export a session summary to a shareable text/PDF-like payload (platform-appropriate), with disclaimers embedded.
+- **12.2.2** Add anonymization option (remove identifiers) before export.
 
-### Patient Experience & Engagement (Chapter 18)
-- Step 12.2.1: Patient portal dashboard (appointments/results/prescriptions/billing)
-- Step 12.2.2: Patient feedback and complaints flows
-- Step 12.2.3: Patient education content surfaces
-- Step 12.2.4: Patient notification preferences and reminders
+### Dataset management (versioning + updates)
+- **12.3.1** (Skip if already done in Phase 11) Dataset metadata is surfaced in `(settings)/data-sources` (version, lastUpdated, sources citations).
+- **12.3.2** Add an optional dataset update UI/flow (if updates are supported).
+- **12.3.3** Add safe dataset update mechanism (if used):
+  - downloaded dataset must be validated against schema
+  - failure must keep last known-good dataset
+  - no secrets in config
 
-### AI-Assisted Diagnostics & Predictive Analytics (Chapter 19)
-- Step 12.3.1: AI insights surfaces for diagnostics
-- Step 12.3.2: Predictive dashboards (bed occupancy, staffing, readmission)
-- Step 12.3.3: Explainability panels and audit visibility for AI outputs
+### Voice/rapid input (if justified and supported)
+- **12.4.1** Add optional “rapid entry” UI pattern for mobile (chips + numeric keypad + defaults).
+- **12.4.2** Add voice input only if it can be implemented with approved platform capabilities and without adding heavy dependencies.
 
-### Clinical Decision Support Enhancements (Chapter 19)
-- Step 12.4.1: Medication interaction alert surfaces
-- Step 12.4.2: Protocol reminders and guideline support UI
-- Step 12.4.3: Escalation workflows for critical values
+### Quality and observability (non-sensitive)
+- **12.5.1** Add non-sensitive analytics/events (optional) via `services/analytics`:
+  - usage metrics (screen views, action counts)
+  - performance metrics
+  - strictly no PII, no clinical identifiers, no raw patient data
 
-### Clinical Research & Trials Support (Chapter 19)
-- Step 12.5.1: Research cohorts and eligibility filtering UI
-- Step 12.5.2: Research consent tracking UI
-- Step 12.5.3: Trial documentation dashboards
-
-### PACS, Imaging, and IoT Integrations (Chapters 7 and 19)
-- Step 12.6.1: PACS viewer integration surface
-- Step 12.6.2: Imaging asset access and sharing UI
-- Step 12.6.3: Device and wearable integrations UI (if enabled)
-
-### Advanced Executive Dashboards (Chapters 11 and 20)
-- Step 12.7.1: Multi-branch KPI dashboards
-- Step 12.7.2: Predictive and trend analytics views
-- Step 12.7.3: Custom report templates for leadership
-
-**Testing**: Maintain the same test rigor as Phase 10. Focus on error paths, permissions, and feature gating (modules/subscriptions).
+## Testing
+Maintain Phase 10 rigor:
+- 100% coverage including online failure paths
+- explicit offline tests (core flow must remain usable)
+- performance tests for dataset parsing/matching boundaries

@@ -3,7 +3,7 @@
 ## Purpose
 Wire the **app shell** infrastructure: providers, app bootstrap, routing groups, guards, and navigation skeleton. This phase establishes the foundational infrastructure that will support app-specific routes and screens created in Phase 8.
 
-**Note**: This phase does **not** create app-specific routes or screens (e.g., login, home). Those will be implemented in Phase 8 (Minimal Runnable App) and Phase 10 (Screens & Routes). This phase focuses solely on reusable infrastructure.
+**Note**: This phase does **not** create app-specific routes or screens (e.g., assessment, training, settings). Those are implemented in Phase 8 (Minimal Runnable App) and Phase 11 (Screens & Routes). This phase focuses solely on reusable infrastructure.
 
 ## Rule References
 - `.cursor/rules/app-router.mdc`
@@ -176,18 +176,18 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 
 ---
 
-### Step 7.7: Create auth route group folder
-**Goal**: Establish folder structure for authentication-related routes.
+### Step 7.7: Create main route group folder
+**Goal**: Establish folder structure for the core clinician workflow routes.
 
 **Rule References**:
 - Route groups: `app-router.mdc` (route groups use `(group-name)` syntax)
 
 **Actions**:
-- Create `src/app/(auth)/` directory per `app-router.mdc`
-- This folder will contain routes that require unauthenticated users
+- Create `src/app/(main)/` directory per `app-router.mdc`
+- This folder contains the core workflow routes (assessment, recommendation, monitoring)
 
 **Expected Outcome**:
-- Auth route group folder exists
+- Main route group folder exists
 
 **Tests (mandatory - per `testing.mdc`)**:
 - Verify folder structure exists
@@ -195,18 +195,18 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 
 ---
 
-### Step 7.8: Create main route group folder
-**Goal**: Establish folder structure for authenticated/main app routes.
+### Step 7.8: Create training route group folder
+**Goal**: Establish folder structure for training/education routes.
 
 **Rule References**:
 - Route groups: `app-router.mdc` (route groups use `(group-name)` syntax)
 
 **Actions**:
-- Create `src/app/(main)/` directory per `app-router.mdc`
-- This folder will contain routes that require authenticated users
+- Create `src/app/(training)/` directory per `app-router.mdc`
+- This folder contains training and quick-reference content routes
 
 **Expected Outcome**:
-- Main route group folder exists
+- Training route group folder exists
 
 **Tests (mandatory - per `testing.mdc`)**:
 - Verify folder structure exists
@@ -214,52 +214,53 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 
 ---
 
-### Step 7.9: Create auth group layout
-**Goal**: Define layout wrapper for authentication routes.
+### Step 7.9: Create settings route group folder
+**Goal**: Establish folder structure for settings/about/disclaimer routes.
 
 **Rule References**:
-- Layout structure: `app-router.mdc` (layouts use `_layout.jsx`, default exports, `<Slot />` for child routes)
-- Guard placement: `app-router.mdc` (guards in layouts, not screens)
+- Route groups: `app-router.mdc` (route groups use `(group-name)` syntax)
 
 **Actions**:
-- Create `src/app/(auth)/_layout.jsx` per `app-router.mdc`
-- Export default component that renders `<Slot />` (from `expo-router`)
-- This layout will later contain auth guard logic per `app-router.mdc`
+- Create `src/app/(settings)/` directory per `app-router.mdc`
 
 **Expected Outcome**:
-- Auth group layout exists and renders routes
+- Settings route group folder exists
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/app/auth-layout.test.js`
-- Test that layout renders without errors
-- Test that child routes are rendered via `<Slot />` (mock child routes)
-- Mock `expo-router` exports as needed
-- Test all branches
-- **Verification**: Tests pass and coverage meets `testing.mdc` requirements before proceeding to Step 7.10
+- Verify folder structure exists
+- **Verification**: Folder structure verified before proceeding to Step 7.10
 
 ---
 
-### Step 7.10: Create main group layout
-**Goal**: Define layout wrapper for main/authenticated routes.
+### Step 7.10: Create group layouts (main/training/settings)
+**Goal**: Define layout wrappers for each route group.
 
 **Rule References**:
 - Layout structure: `app-router.mdc` (layouts use `_layout.jsx`, default exports, `<Slot />` for child routes)
 - Guard placement: `app-router.mdc` (guards in layouts, not screens)
 
 **Actions**:
-- Create `src/app/(main)/_layout.jsx` per `app-router.mdc`
-- Export default component that renders `<Slot />` (from `expo-router`)
-- This layout will later contain auth guard and navigation skeleton per `app-router.mdc`
+- Create:
+  - `src/app/(main)/_layout.jsx`
+  - `src/app/(training)/_layout.jsx`
+  - `src/app/(settings)/_layout.jsx`
+- Each layout:
+  - default exports a component
+  - renders `<Slot />` from `expo-router`
+  - stays minimal and delegates UI shell to platform layouts (per Phase 8 guidance)
 
 **Expected Outcome**:
-- Main group layout exists and renders routes
+- Each group layout exists and renders child routes
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/app/main-layout.test.js`
-- Test that layout renders without errors
-- Test that child routes are rendered via `<Slot />` (mock child routes)
-- Mock `expo-router` exports as needed
-- Test all branches
+- Create:
+  - `src/__tests__/app/main-layout.test.js`
+  - `src/__tests__/app/training-layout.test.js`
+  - `src/__tests__/app/settings-layout.test.js`
+- For each:
+  - renders without errors
+  - renders child routes via `<Slot />` (mock child routes)
+  - mocks `expo-router` as needed
 - **Verification**: Tests pass and coverage meets `testing.mdc` requirements before proceeding to Step 7.11
 
 ---
@@ -285,8 +286,8 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 
 ---
 
-### Step 7.12: Implement auth guard hook
-**Goal**: Create reusable hook that checks authentication state and redirects if needed.
+### Step 7.12: Implement acknowledgement guard hook
+**Goal**: Create a reusable guard that enforces first-run acknowledgement of the prototype disclaimer.
 
 **Rule References**:
 - Hooks: `hooks-utils.mdc` (hooks layer responsibilities, hook design rules)
@@ -294,155 +295,124 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 - Import aliases: `coding-conventions.mdc` (use `@navigation` alias)
 
 **Actions**:
-- Create `src/navigation/guards/auth.guard.js`
-- Export `useAuthGuard` hook per `hooks-utils.mdc`:
-  - Checks if user is authenticated (via Redux selector or hook per `hooks-utils.mdc`)
-  - Redirects to login route if unauthenticated (using `router.replace()` from `expo-router`)
-  - Accepts optional redirect path parameter (defaults to `/login` as placeholder; actual route path will be determined in Phase 8)
-  - Returns auth state (authenticated boolean, user data if available)
-- Hook should be idempotent and safe to call multiple times
-- **Note**: Redirect paths should match the actual routes created in Phase 8 (Minimal Runnable App)
+- Create `src/navigation/guards/acknowledgement.guard.js`
+- Export `useAcknowledgementGuard` hook per `hooks-utils.mdc`:
+  - Checks acknowledgement state from Redux (or persisted preference via hook)
+  - Redirects to a dedicated disclaimer route if not acknowledged (e.g., `/disclaimer` under `(settings)`)
+  - Is idempotent and safe across re-renders
 
 **Expected Outcome**:
-- Auth guard hook exists and can redirect unauthenticated users
+- Acknowledgement guard exists and can redirect before unsafe/unguarded workflow usage
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/navigation/guards/auth.guard.test.js` per `testing.mdc` (mirror source structure)
-- Test hook returned API (authenticated state, user data)
-- Test state transitions (authenticated → unauthenticated, unauthenticated → authenticated)
-- Test side effects (redirect behavior) - mock `expo-router` router
-- Test error handling (network errors, selector errors)
-- Test all branches (authenticated vs unauthenticated, with/without redirect path parameter)
-- Mock Redux selectors/hooks; never use real store
-- Mock `expo-router`; never perform real navigation
-- **Coverage**: 100% coverage required (critical path: auth/access control per `testing.mdc`)
-- **Verification**: Tests pass, 100% coverage achieved, all branches tested before proceeding to Step 7.13
+- Create `src/__tests__/navigation/guards/acknowledgement.guard.test.js`
+- Test:
+  - acknowledged vs unacknowledged branches
+  - redirect behavior (mock `expo-router`)
+  - error branches (missing state, corrupted persisted flag)
+- **Coverage**: 100% coverage required for this critical guard path
 
 ---
 
-### Step 7.13: Implement role guard hook
-**Goal**: Create reusable hook that checks user roles and redirects if access denied.
+### Step 7.13: Implement workflow/session guard hook
+**Goal**: Create a reusable guard that prevents navigation to screens that require an active assessment/session.
 
 **Rule References**:
 - Hooks: `hooks-utils.mdc` (hooks layer responsibilities, hook design rules)
 - Navigation guards: `app-router.mdc` (guards in layouts)
 - Import aliases: `coding-conventions.mdc` (use `@navigation` alias)
-- Security: `security.mdc` (feature gating, access control)
+- State: `state-management.mdc` (state access patterns; store error codes only)
 
 **Actions**:
-- Create `src/navigation/guards/role.guard.js`
-- Export `useRoleGuard` hook per `hooks-utils.mdc`:
-  - Accepts required role(s) as parameter
-  - Checks if user has required role (via Redux selector or hook per `hooks-utils.mdc`)
-  - Accepts optional redirect path parameter for access denied (defaults to `/home` as placeholder; actual route path will be determined in Phase 8)
-  - Redirects to safe route if access denied per `security.mdc`
-  - Exposes error code via state/return value
-  - Returns access state (hasAccess boolean, error code if denied)
-- **Note**: Redirect paths should match the actual routes created in Phase 8 (Minimal Runnable App)
+- Create `src/navigation/guards/session.guard.js`
+- Export `useSessionGuard` hook per `hooks-utils.mdc`:
+  - Determines whether a “current assessment session” exists (from Redux via selector access through hooks)
+  - Redirects to `/assessment` when a session is missing
+  - Is idempotent and safe across re-renders
+  - Returns a minimal API (e.g., `{ hasSession }`)
+- **Note**: Session-required routes should live under a guarded sub-layout (see Step 7.14).
 
 **Expected Outcome**:
-- Role guard hook exists and can restrict access based on user roles
+- Session guard hook exists and can block session-required routes
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/navigation/guards/role.guard.test.js` per `testing.mdc` (mirror source structure)
-- Test hook returned API (hasAccess, error code)
-- Test state transitions (hasAccess true → false, false → true)
-- Test side effects (redirect behavior) - mock `expo-router` router
-- Test error handling (network errors, selector errors)
-- Test all branches (has required role vs lacks role, single role vs multiple roles, with/without redirect path)
-- Test edge cases (empty roles array, invalid roles, null user)
-- Mock Redux selectors/hooks; never use real store
-- Mock `expo-router`; never perform real navigation
-- **Coverage**: 100% coverage required (critical path: auth/access control per `testing.mdc`)
-- **Verification**: Tests pass, 100% coverage achieved, all branches tested before proceeding to Step 7.14
+- Create `src/__tests__/navigation/guards/session.guard.test.js` per `testing.mdc`
+- Test:
+  - has session → no redirect
+  - missing session → redirect to `/assessment`
+  - edge cases (null/undefined state)
+- Mock Redux selectors/hooks and `expo-router` router; never perform real navigation/store access
+- **Coverage**: 100% coverage required
+- **Verification**: Tests pass and coverage meets `testing.mdc` requirements before proceeding to Step 7.14
 
 ---
 
-### Step 7.14: Wire auth guard in auth layout
-**Goal**: Redirect authenticated users away from auth routes (e.g., login when already logged in).
+### Step 7.14: Create guarded session sub-layout under main
+**Goal**: Apply `useSessionGuard` only to routes that require a current assessment session.
+
+**Rule References**:
+- Guard placement: `app-router.mdc` (guards in layouts, not screens)
+
+**Actions**:
+- Create `src/app/(main)/session/_layout.jsx`
+- In `src/app/(main)/session/_layout.jsx`:
+  - Import `useSessionGuard` from `@navigation/guards`
+  - Call the guard and redirect to `/assessment` when session is missing
+  - Render `<Slot />` for child routes
+
+**Expected Outcome**:
+- Session-required routes cannot be accessed without an active session (redirected to `/assessment`)
+
+**Tests (mandatory - per `testing.mdc`)**:
+- Create `src/__tests__/app/main-session-layout-guard.test.js` per `testing.mdc`
+- Mock `useSessionGuard` and `expo-router` router
+- Test has-session vs missing-session branches
+- **Coverage**: 100% coverage required
+
+---
+
+### Step 7.15: Wire acknowledgement guard in main + training layouts
+**Goal**: Enforce first-run acknowledgement of the prototype disclaimer before entering the workflow.
 
 **Rule References**:
 - Guard placement: `app-router.mdc` (guards in layouts, not screens)
 - Import aliases: `coding-conventions.mdc` (use `@navigation` alias)
 
 **Actions**:
-- In `src/app/(auth)/_layout.jsx`:
-  - Import `useAuthGuard` from `@navigation/guards` per `coding-conventions.mdc`
-  - Call the hook per `app-router.mdc`
-  - If authenticated, redirect to home route (redirect path should match the actual home route created in Phase 8)
+- In `src/app/(main)/_layout.jsx` and `src/app/(training)/_layout.jsx`:
+  - Import `useAcknowledgementGuard` from `@navigation/guards`
+  - Call the guard at the top of the layout component
+  - Redirect to `/disclaimer` when not acknowledged
+- Do not apply this guard inside `(settings)` so users can always reach the disclaimer.
 
 **Expected Outcome**:
-- Authenticated users cannot access login/register routes (redirected to home)
+- Unacknowledged users are redirected to `/disclaimer` before using core routes
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/app/auth-layout-guard.test.js` per `testing.mdc` (mirror source structure)
-- Mock `useAuthGuard` hook
-- Test that unauthenticated users can access auth routes (no redirect)
-- Test that authenticated users are redirected to home route when accessing auth routes
-- Test all branches (authenticated vs unauthenticated states)
-- Mock `expo-router` router; never perform real navigation
-- Test integration between layout and guard hook
-- **Coverage**: 100% coverage required (critical path: auth/access control per `testing.mdc`)
-- **Verification**: Tests pass, 100% coverage achieved, all branches tested before proceeding to Step 7.15
+- Create:
+  - `src/__tests__/app/main-layout-acknowledgement-guard.test.js`
+  - `src/__tests__/app/training-layout-acknowledgement-guard.test.js`
+- Mock `useAcknowledgementGuard` and `expo-router` router
+- Test acknowledged vs unacknowledged branches
+- **Coverage**: 100% coverage required
 
 ---
 
-### Step 7.15: Wire auth guard in main layout
-**Goal**: Protect main routes, requiring authentication.
+### Step 7.16: Optional future access control (only if introduced later)
+**Goal**: If authentication/roles are introduced later, add guards in layouts and document new route groups in `dev-plan/`.
 
 **Rule References**:
 - Guard placement: `app-router.mdc` (guards in layouts, not screens)
 - Import aliases: `coding-conventions.mdc` (use `@navigation` alias)
 
 **Actions**:
-- In `src/app/(main)/_layout.jsx`:
-  - Import `useAuthGuard` from `@navigation/guards` per `coding-conventions.mdc`
-  - Call the hook at the top of the component per `app-router.mdc`
-  - If unauthenticated, user will be redirected to login route (redirect path should match the actual login route created in Phase 8 or Phase 10)
+- Do not implement auth/role guards unless the product requirements explicitly add authentication and role-based access.
 
 **Expected Outcome**:
-- Unauthenticated users cannot access main routes (redirected to login)
+- No accidental auth complexity is introduced into the ventilation prototype.
 
-**Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/app/main-layout-guard.test.js` per `testing.mdc` (mirror source structure)
-- Mock `useAuthGuard` hook
-- Test that authenticated users can access main routes (no redirect)
-- Test that unauthenticated users are redirected to login route when accessing main routes
-- Test all branches (authenticated vs unauthenticated states)
-- Mock `expo-router` router; never perform real navigation
-- Test integration between layout and guard hook
-- **Coverage**: 100% coverage required (critical path: auth/access control per `testing.mdc`)
-- **Verification**: Tests pass, 100% coverage achieved, all branches tested before proceeding to Step 7.16
-
----
-
-### Step 7.16: Wire role guards where needed (optional)
-**Goal**: Apply role guards to specific routes that require role-based protection. This is optional and routes can be protected later when needed.
-
-**Rule References**:
-- Guard placement: `app-router.mdc` (guards in layouts, not screens)
-- Import aliases: `coding-conventions.mdc` (use `@navigation` alias)
-
-**Actions**:
-- Identify routes that need role protection (can be minimal for now; actual routes created in Phase 8 and Phase 10)
-- In route group layouts per `app-router.mdc`:
-  - Import `useRoleGuard` from `@navigation/guards` per `coding-conventions.mdc`
-  - Call guard with required role parameters
-  - Guard will handle redirects automatically
-
-**Expected Outcome**:
-- Routes with role requirements are protected (when routes exist in Phase 8 and Phase 10)
-
-**Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/navigation/guards/integration.test.js` per `testing.mdc` (mirror source structure)
-- Mock `useRoleGuard` hook
-- Mock route layouts/components
-- Test that role guards work correctly in route contexts (integration test)
-- Test that multiple guards can be combined without conflicts (composition test)
-- Test all branches (different role combinations, with/without redirect path)
-- Mock `expo-router` router; never perform real navigation
-- **Coverage**: 100% coverage required (critical path: auth/access control per `testing.mdc`)
-- **Verification**: Tests pass, 100% coverage achieved, all branches tested before proceeding to Step 7.17
+**Tests**:
+- N/A unless auth/roles are added later.
 
 ---
 
@@ -484,24 +454,23 @@ Wire the **app shell** infrastructure: providers, app bootstrap, routing groups,
 
 **Route Grouping (MANDATORY)**:
 - **All related routes MUST be grouped** using parentheses `(group-name)` per `.cursor/rules/app-router.mdc`
-- Common generic groups: `(auth)`, `(main)`, `(public)`
-- **Note**: App-specific route groups (e.g., `(clinical)`, `(admin)`, `(patient)`) should be created in Phase 10+ when implementing HMS features
+- Groups used by this app (documented in `dev-plan/index.md`): `(main)`, `(training)`, `(settings)`
 - Only root routes (`index.jsx`) and error handlers (`+not-found.jsx`, `_error.jsx`) are allowed outside groups
 - Each route group MUST have its own `_layout.jsx` for group-specific logic (guards, navigation, etc.)
 - See `.cursor/rules/app-router.mdc` for complete requirements
 
 **Navigation Paths**:
-When navigating/linking (after routes are created in Phase 8 and Phase 10), **omit group segments** per `app-router.mdc` (do not include `/(auth)` or `/(main)` in user-facing paths):
-- ✅ Correct: `router.push('/login')` or `<Link href="/home" />`
-- ❌ Incorrect: `router.push('/(auth)/login')` or `<Link href="/(main)/home" />`
+When navigating/linking (after routes are created), **omit group segments** per `app-router.mdc` (do not include `/(main)` / `/(training)` / `/(settings)` in user-facing paths):
+- ✅ Correct: `router.push('/assessment')` or `<Link href="/disclaimer" />`
+- ❌ Incorrect: `router.push('/(main)/assessment')` or `<Link href="/(settings)/disclaimer" />`
 
-**Note**: Actual routes (login, home, index, not-found, etc.) will be created in Phase 8 (Minimal Runnable App) and Phase 10 (Screens & Routes). This phase only establishes the infrastructure (route groups, layouts, guards) that will support those routes.
+**Note**: Actual routes (index, assessment, disclaimer, not-found, etc.) are created in Phase 8 (Minimal Runnable App) and Phase 11 (Screens & Routes). This phase only establishes the infrastructure (route groups, layouts, guards) that will support those routes.
 
 ---
 
 ## Completion Criteria
 
-**Rule References**: All completion criteria must comply with referenced rules above (`bootstrap-config.mdc`, `app-router.mdc`, `testing.mdc`, `errors-logging.mdc`, `hooks-utils.mdc`, `security.mdc`, `coding-conventions.mdc`, `i18n.mdc`).
+**Rule References**: All completion criteria must comply with referenced rules above (`bootstrap-config.mdc`, `app-router.mdc`, `testing.mdc`, `errors-logging.mdc`, `hooks-utils.mdc`, `coding-conventions.mdc`, `i18n.mdc`).
 
 - ✅ Root layout file exists with proper structure (per `app-router.mdc`, `bootstrap-config.mdc`)
 - ✅ ErrorBoundary catches and handles errors safely (per `errors-logging.mdc`, `bootstrap-config.mdc`)
@@ -509,9 +478,9 @@ When navigating/linking (after routes are created in Phase 8 and Phase 10), **om
 - ✅ ThemeProvider wraps app (per `bootstrap-config.mdc`, `theme-design.mdc`)
 - ✅ Localization Provider wraps app (per `bootstrap-config.mdc`, `i18n.mdc`)
 - ✅ Bootstrap runs in correct order and failures are handled safely (per `bootstrap-config.mdc`: security → store → theme → offline)
-- ✅ Auth and main route groups exist with layouts (per `app-router.mdc`)
-- ✅ Guards implemented (auth, role) with configurable redirect paths (per `hooks-utils.mdc`, `security.mdc`)
-- ✅ Guards wired in route layouts (redirect paths are placeholders until routes exist in Phase 8) (per `app-router.mdc`)
+- ✅ Route groups exist with layouts: `(main)`, `(training)`, `(settings)` (per `app-router.mdc`)
+- ✅ Guards implemented: acknowledgement guard + session guard (per `hooks-utils.mdc`)
+- ✅ Guards wired in appropriate layouts (per `app-router.mdc`)
 - ✅ Navigation skeleton renders in main layout (per `platform-ui.mdc`, `accessibility.mdc`)
 - ✅ **All steps have passing tests with required coverage** (per `testing.mdc`: 100% coverage mandatory overall, all branches tested)
 - ✅ **All tests verify behavior, not implementation details** (per `testing.mdc`)

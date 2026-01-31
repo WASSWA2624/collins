@@ -5,7 +5,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 
 **Goal**: After this phase, the app should be **fully runnable** with:
 - A public landing page (index route)
-- A minimal authenticated home screen
+- A minimal core workflow entry screen (assessment entry)
 - Error handling routes (404, error)
 - Full internationalization (i18n)
 - Full test coverage
@@ -57,14 +57,14 @@ Create a **minimal runnable application** with a landing page and home screen to
   - Style files should only export styled components, not default exports
 
 ### Route Files Organization
-- **Route files** (`index.jsx`, `home.jsx`, `+not-found.jsx`, `_error.jsx`):
+- **Route files** (`index.jsx`, `assessment.jsx`, `+not-found.jsx`, `_error.jsx`):
   - Must be lightweight and delegate logic to hooks or features (per `app-router.mdc`)
   - Can import platform UI components only (per `app-router.mdc`)
   - Must use default exports (per `app-router.mdc`)
   - Should not contain business logic or complex UI
 
 ### Route Group Layouts
-- **Group layouts** (`(main)/_layout.jsx`, `(auth)/_layout.jsx`):
+- **Group layouts** (`(main)/_layout.jsx`, `(training)/_layout.jsx`, `(settings)/_layout.jsx`):
   - **MUST stay in `app/`** (required by Expo App Router routing system)
   - **Should be minimal wrappers** that import and re-export platform layout components
   - **All layout logic belongs in `platform/layouts/route-layouts/`**
@@ -98,12 +98,12 @@ Create a **minimal runnable application** with a landing page and home screen to
    - **Forbidden**: Default exports in style files to prevent Expo Router route conflicts
 
 3. **Verify route file organization**:
-   - All route files (`index.jsx`, `home.jsx`, `+not-found.jsx`, `_error.jsx`) are lightweight
+   - All route files (`index.jsx`, `assessment.jsx`, `+not-found.jsx`, `_error.jsx`) are lightweight
    - Route files delegate logic to hooks or features (per `app-router.mdc`)
    - Route files only import platform UI components (per `app-router.mdc`)
 
 4. **Verify route group layouts are minimal wrappers**:
-   - Route groups use parentheses: `(main)`, `(auth)` (per `app-router.mdc`)
+   - Route groups use parentheses: `(main)`, `(training)`, `(settings)` (per `app-router.mdc`)
    - Each route group has a single `_layout.jsx` file (no platform-specific variants in `app/`)
    - Route layouts are minimal wrappers that import from `@platform/layouts/route-layouts/`
    - All layout logic is in `platform/layouts/route-layouts/MainRouteLayout/`
@@ -193,7 +193,7 @@ Create a **minimal runnable application** with a landing page and home screen to
       */
      
      // 1. Default export (component) - REQUIRED
-     export { default } from './LandingScreen.web';
+     export { default } from './LandingScreen';
      
      // 2. Hook exports (if applicable) - OPTIONAL
      export { default as useLandingScreen } from './useLandingScreen';
@@ -264,8 +264,8 @@ Create a **minimal runnable application** with a landing page and home screen to
 
 ---
 
-### Step 8.3: Create Home Screen Component
-**Goal**: Implement a minimal authenticated home screen component.
+### Step 8.3: Create Assessment Entry Screen Component
+**Goal**: Implement a minimal assessment entry screen component (placeholder for the full assessment wizard in Phase 11).
 
 **Rule References**:
 - Screen structure: `platform-ui.mdc` (screen file structure, platform separation)
@@ -276,12 +276,12 @@ Create a **minimal runnable application** with a landing page and home screen to
 
 **Actions**:
 1. Create screen category folder structure (per `component-structure.mdc` - **MANDATORY grouping**):
-   - Create `src/platform/screens/main/` category folder (grouping authenticated/main screens)
+   - Create `src/platform/screens/ventilation/` category folder (grouping ventilation workflow screens)
 
 2. Create platform-specific screen files (per `component-structure.mdc` Rule #2 - **MANDATORY platform separation**):
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.android.jsx`
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.ios.jsx`
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.web.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.android.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.ios.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.web.jsx`
    - Each file must:
      - Import styles from matching platform style file (per `platform-ui.mdc` - **MANDATORY**)
      - Follow mandatory import order (per `component-structure.mdc`):
@@ -291,58 +291,57 @@ Create a **minimal runnable application** with a landing page and home screen to
        4. Styles (relative import - platform-specific)
        5. Component-specific hook (relative import)
        6. Types and constants (relative import)
-     - Minimal home screen with welcome message
-     - Simple dashboard layout (placeholder content)
+    - Minimal assessment entry UI (start new assessment, resume last session if present)
      - Use i18n for ALL text (no hardcoded strings)
      - Use theme tokens (no hardcoded colors/sizes)
      - Responsive design (mobile-first)
      - Accessibility labels and roles
      - Loading and error states (minimal, using platform UI components)
-     - **Note**: This is a minimal version. Full home screen with features will be implemented in Phase 10 (Screens & Routes).
+    - **Note**: This is a minimal version. The full assessment wizard is implemented in Phase 11.
 
 3. Create platform-specific style files (per `component-structure.mdc` Rule #3 - **MANDATORY**):
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.android.styles.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.android.styles.jsx`
      - Must use `styled-components/native` entrypoint (per `theme-design.mdc` - **MANDATORY**)
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.ios.styles.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.ios.styles.jsx`
      - Must use `styled-components/native` entrypoint (per `theme-design.mdc` - **MANDATORY**)
-   - Create `src/platform/screens/main/HomeScreen/HomeScreen.web.styles.jsx`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/AssessmentEntryScreen.web.styles.jsx`
      - Must use `styled-components` entrypoint (per `theme-design.mdc` - **MANDATORY**)
    - All styles must use theme tokens (no hardcoded values)
 
 4. Create hook file (per `component-structure.mdc` Rule #4 - **MANDATORY**):
-   - Create `src/platform/screens/main/HomeScreen/useHomeScreen.js`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/useAssessmentEntryScreen.js`
    - Contains shared behavior/logic for all platforms
    - Component files delegate logic to this hook
 
 5. Create types file (per `component-structure.mdc` Rule #4 - **MANDATORY**):
-   - Create `src/platform/screens/main/HomeScreen/types.js`
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/types.js`
    - Contains shared constants, types, and variants
 
 6. Create barrel export file (per `component-structure.mdc` Rule #5 - **MANDATORY**):
-   - Create `src/platform/screens/main/HomeScreen/index.js` (must be `.js`, not `.jsx`)
+   - Create `src/platform/screens/ventilation/AssessmentEntryScreen/index.js` (must be `.js`, not `.jsx`)
    - Export structure (per `component-structure.mdc` - **MANDATORY order**):
      ```javascript
      /**
-      * HomeScreen Component
+      * AssessmentEntryScreen Component
       * Platform selector export (platform file resolution)
       * File: index.js
       */
      
      // 1. Default export (component) - REQUIRED
-     export { default } from './HomeScreen.web';
+     export { default } from './AssessmentEntryScreen';
      
      // 2. Hook exports (if applicable) - OPTIONAL
-     export { default as useHomeScreen } from './useHomeScreen';
+     export { default as useAssessmentEntryScreen } from './useAssessmentEntryScreen';
      
      // 3. Type/constant exports (if applicable) - OPTIONAL
      export { VARIANTS, SIZES, STATES } from './types';
      ```
 
 **Expected Outcome**:
-- Home screen component exists in `main/` category folder (grouped per `component-structure.mdc`)
+- Assessment entry screen component exists in `ventilation/` category folder (grouped per `component-structure.mdc`)
 - All three platform files exist (`.android.jsx`, `.ios.jsx`, `.web.jsx`)
 - All three platform style files exist with correct styled-components entrypoints
-- Hook file exists (`useHomeScreen.js`)
+- Hook file exists (`useAssessmentEntryScreen.js`)
 - Types file exists (`types.js`)
 - Barrel export follows mandatory structure
 - All text uses i18n
@@ -350,7 +349,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 - Component uses theme tokens
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/platform/screens/main/HomeScreen.test.js`
+- Create `src/__tests__/platform/screens/ventilation/AssessmentEntryScreen.test.js`
 - **Platform-specific testing (MANDATORY per `testing.mdc`)**:
   - Test `.android.jsx` implementation separately (Android-specific behavior, styling, interactions)
   - Test `.ios.jsx` implementation separately (iOS-specific behavior, styling, interactions)
@@ -364,40 +363,35 @@ Create a **minimal runnable application** with a landing page and home screen to
 - Test responsive behavior (mock different screen sizes)
 - Test loading/error/empty/offline states (per `platform-ui.mdc` - **MANDATORY**)
 - Test all user interactions (touch, keyboard, gestures)
-- Test hook (`useHomeScreen`) separately
+- Test hook (`useAssessmentEntryScreen`) separately
 - Mock all dependencies (i18n, theme, navigation)
 - **Coverage**: 100% coverage required per `testing.mdc` (all branches, all platforms)
 - **Verification**: Tests pass and coverage meets requirements before proceeding to Step 8.4
 
 ---
 
-### Step 8.4: Create Home Route
-**Goal**: Create the authenticated home route in the main route group.
+### Step 8.4: Create Assessment Route
+**Goal**: Create the minimal assessment entry route in the main route group.
 
 **Rule References**:
 - Route structure: `app-router.mdc` (route files, default exports, route groups)
-- Route placement: `app-router.mdc` (home route in `(main)` group)
-- Guards: `app-router.mdc` (auth guard already wired in main layout from Phase 7)
+- Route placement: `app-router.mdc` (assessment route in `(main)` group)
 
 **Actions**:
-1. Create `src/app/(main)/home.jsx`:
-   - Import `HomeScreen` from `@platform/screens` (barrel export - screen is in `main/HomeScreen` category folder per `component-structure.mdc`)
-   - Export default component that renders `HomeScreen`
+1. Create `src/app/(main)/assessment.jsx`:
+   - Import `AssessmentEntryScreen` from `@platform/screens` (barrel export - screen is in `ventilation/AssessmentEntryScreen` category folder per `component-structure.mdc`)
+   - Export default component that renders `AssessmentEntryScreen`
    - File must use default export (per `app-router.mdc`)
-   - Auth guard is already handled by `(main)/_layout.jsx` from Phase 7
 
 **Expected Outcome**:
-- Home route exists in main route group
-- Route is protected by auth guard (from Phase 7)
-- Route is accessible at `/home` path (group segment omitted per `app-router.mdc`)
+- Assessment route exists in main route group
+- Route is accessible at `/assessment` path (group segment omitted per `app-router.mdc`)
 
 **Tests (mandatory - per `testing.mdc`)**:
-- Create `src/__tests__/app/(main)/home.test.js`
+- Create `src/__tests__/app/(main)/assessment.test.js`
 - Test route renders without errors
-- Test `HomeScreen` is rendered
-- Test auth guard protection (mock guard behavior)
-- Mock `expo-router` and `HomeScreen` component
-- Test route is accessible when authenticated (mock navigation)
+- Test `AssessmentEntryScreen` is rendered
+- Mock `expo-router` and `AssessmentEntryScreen` component
 - **Coverage**: 100% coverage required per `testing.mdc`
 - **Verification**: Tests pass and coverage meets requirements before proceeding to Step 8.5
 
@@ -468,7 +462,7 @@ Create a **minimal runnable application** with a landing page and home screen to
       */
      
      // 1. Default export (component) - REQUIRED
-     export { default } from './NotFoundScreen.web';
+     export { default } from './NotFoundScreen';
      
      // 2. Hook exports (if applicable) - OPTIONAL
      export { default as useNotFoundScreen } from './useNotFoundScreen';
@@ -604,7 +598,7 @@ Create a **minimal runnable application** with a landing page and home screen to
       */
      
      // 1. Default export (component) - REQUIRED
-     export { default } from './ErrorScreen.web';
+     export { default } from './ErrorScreen';
      
      // 2. Hook exports (if applicable) - OPTIONAL
      export { default as useErrorScreen } from './useErrorScreen';
@@ -681,19 +675,19 @@ Create a **minimal runnable application** with a landing page and home screen to
 **Goal**: Ensure 100% internationalization coverage for all new screens.
 
 **Rule References**:
-- i18n: `i18n.mdc` (100% internationalization requirement, all 22 languages)
+- i18n: `i18n.mdc` (100% internationalization requirement)
 
 **Actions**:
 1. Update `src/i18n/locales/en.json`:
    - Add translations for landing screen (hero, CTA buttons, features)
-   - Add translations for home screen (welcome message, dashboard labels)
+   - Add translations for assessment entry screen (start/resume actions)
    - Add translations for not found screen (404 message, navigation button)
    - Add translations for error screen (error message, retry button, navigation button)
   - **CRITICAL**: During development, only `en.json` is updated. All other locale files will be created in Phase 13 (Finalization).
 
 2. Verify translation keys are used in all screen components (all platform files):
    - LandingScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
-   - HomeScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
+   - AssessmentEntryScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
    - NotFoundScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
    - ErrorScreen (`.android.jsx`, `.ios.jsx`, `.web.jsx`) uses i18n for all text
    - **Note**: All three platform files for each screen must use i18n (per `component-structure.mdc` - platform separation)
@@ -724,14 +718,14 @@ Create a **minimal runnable application** with a landing page and home screen to
 **Actions**:
 1. Update `src/platform/screens/index.js`:
    - Export `LandingScreen` from `common/LandingScreen` (per `component-structure.mdc` - screens grouped in category folders)
-   - Export `HomeScreen` from `main/HomeScreen` (per `component-structure.mdc` - screens grouped in category folders)
+   - Export `AssessmentEntryScreen` from `ventilation/AssessmentEntryScreen` (per `component-structure.mdc` - screens grouped in category folders)
    - Export `NotFoundScreen` from `common/NotFoundScreen` (per `component-structure.mdc` - screens grouped in category folders)
    - Export `ErrorScreen` from `common/ErrorScreen` (per `component-structure.mdc` - screens grouped in category folders)
    - **Note**: Import paths must reflect category folder structure (e.g., `export { default as LandingScreen } from './common/LandingScreen'`)
 
 **Expected Outcome**:
 - All new screens are exported from barrel
-- Screens can be imported via `@platform/screens` (e.g., `import { LandingScreen, HomeScreen } from '@platform/screens'`)
+- Screens can be imported via `@platform/screens` (e.g., `import { LandingScreen, AssessmentEntryScreen } from '@platform/screens'`)
 - Export paths reflect category folder structure
 
 **Tests (mandatory - per `testing.mdc`)**:
@@ -753,7 +747,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 1. Run `npx expo start` and verify:
    - App starts without errors
    - Landing page displays at `/` route
-   - Home page displays at `/home` route (when authenticated)
+   - Assessment page displays at `/assessment` route
    - 404 page displays for unmatched routes
    - Error page displays for errors
    - All providers are working (Redux, Theme, i18n)
@@ -776,7 +770,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 - Manual verification checklist:
   - ✅ App starts without errors
   - ✅ Landing page accessible
-  - ✅ Home page accessible (when authenticated)
+  - ✅ Assessment page accessible
   - ✅ 404 page works
   - ✅ Error page works
   - ✅ Theme system works
@@ -801,7 +795,7 @@ Create a **minimal runnable application** with a landing page and home screen to
   - No default exports in style files (to prevent Expo Router route conflicts)
   - Route files are lightweight and delegate logic to hooks/features (per `app-router.mdc`)
   - Route groups follow proper structure with parentheses (per `app-router.mdc`)
-- ✅ **Screen grouping (MANDATORY per `component-structure.mdc`)**: All screens grouped in category folders (`common/` for LandingScreen, NotFoundScreen, ErrorScreen; `main/` for HomeScreen)
+- ✅ **Screen grouping (MANDATORY per `component-structure.mdc`)**: All screens grouped in category folders (`common/` for LandingScreen, NotFoundScreen, ErrorScreen; `ventilation/` for AssessmentEntryScreen)
 - ✅ **Platform separation (MANDATORY per `component-structure.mdc`)**: All screens have `.android.jsx`, `.ios.jsx`, `.web.jsx` files
 - ✅ **Style files (MANDATORY per `component-structure.mdc`)**: All screens have `.android.styles.jsx`, `.ios.styles.jsx`, `.web.styles.jsx` files with correct styled-components entrypoints (per `theme-design.mdc`)
 - ✅ **Hook files (MANDATORY per `component-structure.mdc`)**: All screens have `useScreenName.js` hook files
@@ -809,8 +803,8 @@ Create a **minimal runnable application** with a landing page and home screen to
 - ✅ **Barrel exports (MANDATORY per `component-structure.mdc`)**: All screens have `index.js` barrel files with correct export structure (Component → Hooks → Types)
 - ✅ Landing screen component exists in `common/` category folder and follows platform UI structure
 - ✅ Landing route (`index.jsx`) exists and renders landing screen
-- ✅ Home screen component exists in `main/` category folder and follows platform UI structure
-- ✅ Home route (`(main)/home.jsx`) exists and renders home screen
+- ✅ Assessment entry screen component exists in `ventilation/` category folder and follows platform UI structure
+- ✅ Assessment route (`(main)/assessment.jsx`) exists and renders assessment entry screen
 - ✅ NotFound screen component exists in `common/` category folder and follows platform UI structure
 - ✅ NotFound route (`+not-found.jsx`) exists and renders not found screen
 - ✅ Error screen component exists in `common/` category folder and follows platform UI structure
@@ -837,7 +831,7 @@ Create a **minimal runnable application** with a landing page and home screen to
 - ✅ Run `npm run test:coverage` - coverage meets requirements
 - ✅ Run `npx expo start` - app runs without errors
 - ✅ Verify landing page displays
-- ✅ Verify home page displays (when authenticated)
+- ✅ Verify assessment page displays
 - ✅ Verify 404 page works
 - ✅ Verify error page works
 - ✅ Verify i18n works (switch languages)
@@ -846,5 +840,5 @@ Create a **minimal runnable application** with a landing page and home screen to
 - ✅ Verify responsive design works
 - ✅ Verify accessibility works (basic checks)
 
-**Next Phase**: `P010_core-features.md` (Implement HMS core modules)
+**Next Phase**: `P010_core-features.md` (Implement ventilation core feature)
 

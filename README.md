@@ -10,7 +10,7 @@ The underlying design framework is documented in `write-up.md`.
 - **Optional online AI enhancement**: when connectivity is available, complex/edge cases can be augmented by online AI analysis (design goal).
 
 ## Dataset
-This repo includes `ventilation_dataset.json`, intended as the **primary offline knowledge base** for dataset-based pattern matching / similarity scoring and guidance extraction.
+This repo includes `src/features/ventilation/data/ventilation_dataset.json`, intended as the **primary offline knowledge base** for dataset-based pattern matching / similarity scoring and guidance extraction.
 
 **Expected dataset content (high level):**
 - Patient profile + clinical parameters (e.g., SpO₂, PaO₂/PaCO₂, pH, vitals)

@@ -1,79 +1,155 @@
-# Phase 9: Base Layouts & Global UI (App Shell Expansion)
+# Phase 9: Ventilation App Shell UX (Dense, Responsive, Safe-by-Design)
 
 ## Purpose
-Create the shared UI shell used by all HMS screens: layouts, headers, footers, primary navigation, theme controls, language selection, and other global UI controls. These components must be fully wired into the relevant layouts so that the application runs end-to-end without errors. All global UI elements should be seamlessly integrated within their respective route group layouts, functioning correctly and without introducing any runtime failures.
+Create the shared UI shell for the ventilation decision-support workflow with a strong emphasis on:
+- **Intuitive navigation** for non-specialist clinicians
+- **Space economy** (dense information display without clutter)
+- **Fully responsive layouts** (phone ↔ tablet ↔ desktop web)
+- **Fail-safe UX** (clear states, no crashes, predictable recovery)
 
-## Rule References
-- `.cursor/rules/app-router.mdc` (Route groups and layout placement)
-- `.cursor/rules/platform-ui.mdc` (Screen/layout structure)
-- `.cursor/rules/component-structure.mdc` (Component organization)
-- `.cursor/rules/theme-design.mdc` (Theme tokens and switching)
-- `.cursor/rules/i18n.mdc` (Language selection and translations)
-- `.cursor/rules/accessibility.mdc` (A11y requirements)
-- `.cursor/rules/testing.mdc` (UI testing requirements)
+This phase wires the app-specific shell into the route-group layouts so the app is end-to-end navigable before feature-heavy screens are built.
+
+## Rule references
+- `.cursor/rules/app-router.mdc`
+- `.cursor/rules/platform-ui.mdc`
+- `.cursor/rules/component-structure.mdc`
+- `.cursor/rules/theme-design.mdc`
+- `.cursor/rules/i18n.mdc`
+- `.cursor/rules/accessibility.mdc`
+- `.cursor/rules/performance.mdc`
+- `.cursor/rules/testing.mdc`
 
 ## Prerequisites
-- Phase 7 completed (app shell + route groups)
-- Phase 8 completed (minimal runnable app)
+- Phase 7 completed (route groups + providers wired)
+- Phase 8 completed (minimal runnable app boots)
 
 ## Scope
-- App-level layouts for `(auth)`, `(main)`, `(patient)` groups, with all UI shell components actually imported and rendered in the corresponding `_layout.jsx` files in a functional, non-broken form
-- Global header, footer, and navigation structures must be present and rendered by the layouts
-- Theme mode controls (light/dark/high-contrast) must be implemented, connected to app state, and functional in real usage
-- Language selection controls must be present, hooked to i18n, and switch languages without errors
-- All shared UI shell behaviors (navigation state, titles, breadcrumbs, banners) should update/rerender safely with no runtime problems
+Route groups (as documented in `dev-plan/index.md`):
+- `(main)`: assessment → recommendation → monitoring
+- `(training)`: education/quick reference
+- `(settings)`: preferences + about/disclaimer
+
+Shell concerns implemented here:
+- Global navigation pattern (adaptive by breakpoint)
+- Shared header + persistent context (case/session state)
+- Global banners: offline, “prototype / not clinical use”, errors
+- Theme and language controls (if not already surfaced)
+- Layout primitives enabling dense screens (split-pane on larger screens)
 
 ## Definition of Done
-- All layout components are created and actually used in the route group `_layout.jsx` files; navigation, header, footer, etc. must be rendered in the live app
-- Header/footer/navigation components are reusable, theme-aware, and error-free as part of app skeleton
-- Theme and language controls work, update UI on interaction, and persist preferences with no crashes or bugs
-- All UI text renders via i18n, with no untranslated or hardcoded values, and language changes are reflected live
-- The UI is accessible (per rules) and all integrated layouts pass basic and navigation interaction tests with no errors on render
+- Route-group layouts render their shell UI (no placeholder shells left unwired).
+- Navigation is usable on mobile and web, with a consistent information architecture.
+- The app surfaces the dataset “not clinically validated” disclaimer in a way that is visible and non-dismissable without acknowledgement (prototype safety requirement).
+- All shell UI is theme-driven, responsive, and accessible.
 
-## Steps (Atomic, with Wiring and Error-Free Guarantee)
+## UX contract (must be enforced by screens in Phase 11)
+- **Progressive disclosure**: show a compact summary first; expand for details.
+- **Sticky summary**: keep “current case summary + key recommended settings” visible on tablet/desktop.
+- **No wasted space**: use compact spacing scale and collapsible sections; avoid full-screen modals on web unless necessary.
+- **Primary action clarity**: one primary action per screen, visually consistent.
+- **Resilience states**: every surface supports loading/empty/error/offline.
 
-### Step 9.1.1: Define and wire base layout primitives
-- Create layout primitives (`AppFrame`, `AuthFrame`, `PatientFrame`)
-- Expose clear slot conventions for header, footer, content, overlays
-- Import these primitives into the appropriate `_layout.jsx` files and verify they compose correctly without runtime errors
+## Steps (atomic)
 
-### Step 9.1.2: Integrate global header(s)
-- Implement header component(s) with title, context actions, and (optionally) breadcrumbs
-- Slot header(s) into all relevant layouts and ensure error-free integration
-- Provide role-aware action injection via props or context (no ad-hoc or feature-dependent imports)
-- Implement safe-area, focus management, and a11y roles/labels as needed
+## Required shell component inventory (must exist by end of Phase 9)
+Create these as reusable platform UI (per `platform-ui.mdc` + `component-structure.mdc`). Screens in Phase 11 must only compose them.
 
-### Step 9.1.3: Integrate global footer(s)
-- Build footer component(s) for status, legal, and quick actions
-- Integrate and render footers in all route-group layouts (auth/main/patient), ensuring no mounting errors or typos
+- **Layout primitives**:
+  - `AppFrame`: safe-area + keyboard avoidance + responsive container.
+  - `SplitPaneFrame`: responsive 1-pane (mobile) / 2-pane (tablet+) layout with optional sticky right pane.
+  - `ScreenHeader`: title + optional breadcrumb + right-side actions.
 
-### Step 9.1.4: Add primary navigation shell and ensure live wiring
-- Create platform-appropriate navigation (drawer/tab/rail, etc.) for main/patient
-- Integrate navigation components into the layouts, pass guards/roles from real app state
-- All navigation must be live (routes reachable, overlays working, errors handled)
+- **Navigation**:
+  - `BottomTabs` (mobile): primary navigation (Assessment / Recommendation / Monitoring / Training / Settings).
+  - `NavigationRail` (tablet/web): icon + label nav with clear “current route” indicator.
 
-### Step 9.1.5: Theme controls integration
-- Render UI controls for theme (light/dark/high-contrast) in the UI shell
-- Wire controls to theme state and persist preference
-- Changing theme updates UI with no rendering or hydration errors
+- **Global banners (stackable, space-efficient)**:
+  - `OfflineBanner`: connectivity state and what still works offline.
+  - `PrototypeDisclaimerBanner`: dataset intended-use warning (must be sourced from dataset model/hook, not hardcoded).
+  - `GlobalErrorBanner`: user-friendly, retryable error surface (no technical details).
 
-### Step 9.1.6: Language selection controls integration
-- Render language selector UI clearly accessible (header/settings)
-- Wire to i18n context and persist selection
-- Language switching updates all UI and does not cause runtime errors
+- **Session context**:
+  - `SessionChip`: compact “current session” summary (condition + key severity signal).
+  - `SessionSummaryPanel`: compact/sticky summary for tablet/web (inputs summary + last recommendation summary).
 
-### Step 9.1.7: Integrate global banners and shell utilities
-- Implement offline/online banner, maintenance banner, and loading overlay
-- Add toast/notice surface for global messages
-- All banners/utilities are mounted and unmounted safely across all layout variants
+### Step 9.1.1: Define and wire app shell layout primitives
+- Create layout primitives used across groups (e.g., `AppFrame`, `MainFrame`, `SplitPaneFrame`).
+- Ensure they support:
+  - single-column (mobile)
+  - two-pane (tablet/desktop) with a sticky summary column
+  - safe-area + keyboard avoidance
+- Wire these primitives into each route group’s `_layout.jsx` (no runtime errors).
 
-### Step 9.1.8: Online/offline and network quality alerts
-- Add hook/util to detect online/offline, debounce events to avoid unwanted re-renders
-- Render live banner in shell if offline/low quality (never expose sensitive info)
-- Use available Network Info APIs as a best effort; always ensure fallback to the safest method
-- Write integration tests that verify detection, alert UI, and error-free switching
+Implementation requirements:
+- **Route layouts stay minimal** in `src/app/**/_layout.jsx` and must import platform layouts from `src/platform/layouts/route-layouts/**` (as established in Phase 8).
+- **No hardcoded breakpoints**: consume breakpoint helpers from the theme layer (`theme-design.mdc`).
+- **No styled-components in render**: all styling in `.styles.jsx` files (`component-structure.mdc`).
 
-## Testing Requirements
-- All layout and shell components: render, compose, and pass accessibility checks without throwing errors
-- Header/footer/navigation tested for loading, empty state, and role changes (no unhandled branches)
-- Theme and language toggles: tested for correct persistence and dynamic UI updates, with zero runtime warnings or crashes
+### Step 9.1.2: Implement adaptive primary navigation
+- Define IA entries:
+  - Assessment
+  - Recommendation (when a case exists)
+  - Monitoring (when a case exists)
+  - Training
+  - Settings/About
+- Implement navigation that adapts by breakpoint:
+  - mobile: bottom tabs (or compact drawer if already standardized)
+  - tablet/web: rail/drawer with icons + labels
+- Ensure navigation labels and a11y strings are i18n’d.
+
+Navigation rules (plan-specific; must still comply with `app-router.mdc`):
+- **Route gating**:
+  - Recommendation/Monitoring entries are disabled (with accessible hint) when there is no active session.
+  - Training/Settings always reachable.
+- **Path rules**: links must omit group segments (per `app-router.mdc`).
+- **Web keyboard UX**: tab order is predictable; arrow keys optionally move within nav; focus ring visible (theme-defined).
+
+### Step 9.1.3: Implement global header and “current session” context surface
+- Header must support:
+  - screen title
+  - compact “current session” chip (condition + severity summary)
+  - quick actions (new assessment, resume session)
+- No business logic in header; it consumes hook-provided state only.
+
+Space economy requirements:
+- Header never grows beyond one row on mobile: overflow actions go into a compact menu.
+- On tablet/web, header may show a small breadcrumb for deep routes (case detail, topic detail).
+
+### Step 9.1.4: Global banners (offline + prototype disclaimer + errors)
+- Implement:
+  - offline banner (state from offline/network slice via hooks)
+  - prototype disclaimer banner referencing dataset intended-use warning
+  - global error surface (non-technical user messaging; retry path)
+- Ensure banners are space-efficient (stack on mobile; inline on larger screens).
+
+Prototype disclaimer requirements:
+- The banner content must be sourced from the dataset (`intendedUse.warning`) via Phase 10 model/hook.
+- The banner must be:
+  - accessible (screen reader readable)
+  - i18n’d (use an i18n key with interpolation, e.g., `t('ventilation.disclaimer.datasetWarning', { warning })`; do not hardcode display strings in UI)
+  - non-dismissable until acknowledgement (Phase 7 guard controls access; banner still remains visible in core workflow after acknowledgement).
+
+### Step 9.1.5: Theme + language controls (shell integration)
+- Provide minimal controls accessible from header or settings entry.
+- Ensure persistence is handled via store/hooks as per rules.
+
+### Step 9.1.6: Add “density mode” preference (compact/comfortable)
+- Add a user preference that affects spacing/typography scale via theme tokens or theme variant selection (no inline styling).
+- Must not break touch targets minimum sizes on mobile.
+
+Recommended approach:
+- Implement as a **theme variant** switch (e.g., compact spacing scale) controlled via Redux and consumed by the ThemeProvider (see `theme-design.mdc` + `state-management.mdc`).
+- Density must affect:
+  - spacing scale
+  - default list row height (without breaking 44x44 touch targets)
+  - typography size/line-height (while respecting font scaling per `accessibility.mdc`)
+
+## Testing requirements
+- Layout primitives: render tests for each breakpoint variant.
+- Navigation: route reachability + keyboard navigation on web.
+- Banners: offline toggle + error state toggles; ensure no crashes.
+- Accessibility: labels/hints on all interactive elements used in shell.
+
+Performance checks (mandatory per `performance.mdc`):
+- Ensure shell components do not cause re-render storms (memoize nav model + use memoized selectors).
+- Verify split-pane layout does not render hidden panes on mobile (progressive enhancement).
