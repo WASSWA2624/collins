@@ -76,15 +76,22 @@ const StyledContent = styled.View.withConfig({
   padding: ${({ theme }) => theme.spacing.md}px;
 `;
 
+const FOOTER_HEIGHT = 48;
+
 const StyledFooter = styled.View.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
 })`
+  height: ${FOOTER_HEIGHT}px;
+  min-height: ${FOOTER_HEIGHT}px;
+  max-height: ${FOOTER_HEIGHT}px;
+  flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
   padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-vertical: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+  justify-content: center;
 `;
 
 const StyledOverlay = styled.View.withConfig({

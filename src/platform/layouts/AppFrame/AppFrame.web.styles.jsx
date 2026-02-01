@@ -15,12 +15,12 @@ const StyledContainer = styled.div.withConfig({
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100vh;
   width: 100%;
   max-width: 100vw;
   position: relative;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   box-sizing: border-box;
 `;
 
@@ -116,19 +116,25 @@ const StyledContent = styled.main.withConfig({
   shouldForwardProp: (prop) => !['hasSidebar', 'hasFooter'].includes(prop),
 })`
   flex: 1;
-  padding: 0;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   margin: 0;
   min-width: 0;
-  overflow-y: auto;
+  /* Keep scrollbar stable to prevent layout shifts on minor reflows (e.g. toggles). */
+  overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
   gap: 0;
   max-width: 100%;
   width: 100%;
-  padding-bottom: ${({ theme }) => theme.spacing.lg}px;
   box-sizing: border-box;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    padding-left: ${({ theme }) => theme.spacing.xl}px;
+    padding-right: ${({ theme }) => theme.spacing.xl}px;
+  }
 `;
 
 const StyledContentBody = styled.div.withConfig({
@@ -144,11 +150,18 @@ const StyledContentBody = styled.div.withConfig({
   overflow-y: visible;
 `;
 
+const FOOTER_HEIGHT_PX = 48;
+
 const StyledFooter = styled.footer.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
 })`
   flex-shrink: 0;
+  flex-grow: 0;
+  height: ${FOOTER_HEIGHT_PX}px;
+  min-height: ${FOOTER_HEIGHT_PX}px;
+  max-height: ${FOOTER_HEIGHT_PX}px;
+  overflow: hidden;
   /* Footer surface is owned by the footer component (e.g. GlobalFooter). */
   background-color: transparent;
   border-top: none;

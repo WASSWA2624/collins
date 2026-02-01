@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    /* Prevent nested document scrolling; AppFrame owns vertical scroll. */
+    height: 100%;
+    overflow-y: hidden;
     background-color: ${({ theme }) => theme.colors.background.primary};
   }
 
@@ -20,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     max-width: 100%;
+    height: 100%;
+    overflow: hidden;
     background-color: ${({ theme }) => theme.colors.background.primary};
   }
 `;

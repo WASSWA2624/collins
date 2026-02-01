@@ -5,10 +5,17 @@
  */
 import styled from 'styled-components/native';
 
+const FOOTER_HEIGHT = 48;
+
 const StyledFooter = styled.View.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
 })`
+  height: ${FOOTER_HEIGHT}px;
+  min-height: ${FOOTER_HEIGHT}px;
+  max-height: ${FOOTER_HEIGHT}px;
+  flex-shrink: 0;
+  justify-content: center;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
@@ -18,9 +25,13 @@ const StyledFooterContent = styled.View.withConfig({
   displayName: 'StyledFooterContent',
   componentId: 'StyledFooterContent',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  padding-bottom: ${({ theme, bottomInset }) => theme.spacing.md + bottomInset}px;
-  row-gap: ${({ theme }) => theme.spacing.sm}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.xs}px;
+  padding-bottom: ${({ theme, bottomInset }) => theme.spacing.xs + bottomInset}px;
+  row-gap: ${({ theme }) => theme.spacing.xs}px;
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
 `;
 
 const StyledFooterRow = styled.View.withConfig({

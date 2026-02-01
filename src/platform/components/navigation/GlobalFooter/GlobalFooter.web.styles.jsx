@@ -5,14 +5,23 @@
  */
 import styled from 'styled-components';
 
+const FOOTER_HEIGHT_PX = 48;
+
 const StyledFooter = styled.footer.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
 })`
+  flex-shrink: 0;
+  height: ${FOOTER_HEIGHT_PX}px;
+  min-height: ${FOOTER_HEIGHT_PX}px;
+  max-height: ${FOOTER_HEIGHT_PX}px;
+  display: flex;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
-  min-height: 0;
+  padding: 0 ${({ theme }) => theme.spacing.sm}px;
+  box-sizing: border-box;
+  overflow: hidden;
 `;
 
 const StyledFooterRow = styled.div.withConfig({
@@ -22,13 +31,20 @@ const StyledFooterRow = styled.div.withConfig({
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  /* Fixed-height footer: keep single line, no wrapping. */
+  flex-wrap: nowrap;
   gap: ${({ theme }) => theme.spacing.xs}px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  height: 100%;
+  min-height: 0;
   font-size: ${({ theme }) => theme.typography?.fontSize?.xs ?? 12}px;
   color: ${({ theme }) => theme.colors.text.secondary};
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const StyledFooterBrand = styled.span.withConfig({
@@ -38,6 +54,9 @@ const StyledFooterBrand = styled.span.withConfig({
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs}px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledFooterLogo = styled.span.withConfig({
@@ -64,6 +83,9 @@ const StyledFooterCopyright = styled.span.withConfig({
   componentId: 'StyledFooterCopyright',
 })`
   color: ${({ theme }) => theme.colors.text.secondary};
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledFooterSeparator = styled.span.withConfig({

@@ -19,16 +19,11 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
-  min-height: 100vh;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  min-height: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    padding: ${({ theme }) => theme.spacing.xl}px;
-  }
 `;
 
 const StyledContent = styled.div.withConfig({
