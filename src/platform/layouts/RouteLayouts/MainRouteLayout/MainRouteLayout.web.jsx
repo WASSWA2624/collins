@@ -98,7 +98,6 @@ const MainRouteLayoutWeb = () => {
             items={items}
             isItemVisible={isItemVisible}
             collapsed={sidebarCollapsed}
-            onClose={toggleSidebar}
             footerSlot={null}
             testID="main-sidebar"
           />
