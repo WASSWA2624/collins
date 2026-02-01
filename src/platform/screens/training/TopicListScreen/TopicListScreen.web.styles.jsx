@@ -1,0 +1,89 @@
+/**
+ * TopicListScreen Web Styles
+ * File: TopicListScreen.web.styles.jsx
+ */
+import styled from 'styled-components';
+
+const StyledContainer = styled.main.withConfig({
+  displayName: 'StyledContainer',
+  componentId: 'StyledContainer',
+})`
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledSearchWrap = styled.div.withConfig({
+  displayName: 'StyledSearchWrap',
+  componentId: 'StyledSearchWrap',
+})`
+  max-width: 400px;
+`;
+
+const StyledList = styled.ul.withConfig({
+  displayName: 'StyledList',
+  componentId: 'StyledList',
+})`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledItem = styled.li.withConfig({
+  displayName: 'StyledItem',
+  componentId: 'StyledItem',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledItemLink = styled.a.withConfig({
+  displayName: 'StyledItemLink',
+  componentId: 'StyledItemLink',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+`;
+
+const StyledEmpty = styled.div.withConfig({
+  displayName: 'StyledEmpty',
+  componentId: 'StyledEmpty',
+})`
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  text-align: center;
+`;
+
+const StyledErrorBanner = styled.div.withConfig({
+  displayName: 'StyledErrorBanner',
+  componentId: 'StyledErrorBanner',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px;
+  background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#FFEBEE'};
+  color: ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
+  border-radius: ${({ theme }) => theme.radius.sm}px;
+`;
+
+export {
+  StyledContainer,
+  StyledEmpty,
+  StyledErrorBanner,
+  StyledItem,
+  StyledItemLink,
+  StyledList,
+  StyledSearchWrap,
+};

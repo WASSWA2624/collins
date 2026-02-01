@@ -185,6 +185,8 @@
       "main": {
         "home": "Home",
         "assessment": "Assessment",
+        "history": "History",
+        "training": "Training",
         "settings": "Settings",
         "settings-addresses": "Addresses",
         "settings-api-keys": "API Keys",
@@ -613,6 +615,58 @@
       "review": {
         "unvalidated": "Unvalidated (prototype)",
         "validated": "Validated"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Training",
+      "accessibilityLabel": "Training home screen",
+      "searchPlaceholder": "Search topics…",
+      "searchHint": "Search training content",
+      "popularTopics": "Popular topics",
+      "quickChecklists": "Quick checklists",
+      "browseAll": "Browse all topics",
+      "browseAllHint": "View all training topics",
+      "viewTopic": "View",
+      "states": {
+        "loading": "Loading training…",
+        "error": "Unable to load training content",
+        "offline": "Content is available offline",
+        "empty": "No training content available"
+      }
+    },
+    "topics": {
+      "title": "Topics",
+      "accessibilityLabel": "Topic list screen",
+      "searchPlaceholder": "Search or filter…",
+      "searchHint": "Search topics",
+      "empty": "No topics found.",
+      "filterByType": "Filter by type",
+      "typeProtocol": "Protocol",
+      "typeChecklist": "Checklist",
+      "typeGlossary": "Glossary",
+      "typeFaq": "FAQ",
+      "openTopicHint": "Open topic",
+      "states": {
+        "loading": "Loading topics…",
+        "error": "Unable to load topics",
+        "offline": "Content is available offline"
+      }
+    },
+    "topicDetail": {
+      "title": "Topic",
+      "accessibilityLabel": "Topic detail screen",
+      "section": "Section",
+      "expand": "Expand section",
+      "collapse": "Collapse section",
+      "checklistItem": "Item",
+      "notFound": "Topic not found.",
+      "backToTopics": "Back to topics",
+      "backToTopicsHint": "Return to topic list",
+      "states": {
+        "loading": "Loading topic…",
+        "error": "Unable to load topic"
       }
     }
   },

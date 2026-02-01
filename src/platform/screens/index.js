@@ -18,3 +18,8 @@ export { default as RecommendationScreen } from './ventilation/RecommendationScr
 export { default as MonitoringScreen } from './ventilation/MonitoringScreen';
 export { default as HistoryScreen } from './ventilation/HistoryScreen';
 export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
+
+// Training screens
+export { default as TrainingHomeScreen } from './training/TrainingHomeScreen';
+export { default as TopicListScreen } from './training/TopicListScreen';
+export { default as TopicDetailScreen } from './training/TopicDetailScreen';

@@ -23,4 +23,5 @@ export { default as useShellBanners } from './useShellBanners';
 export { default as useFocusTrap } from './useFocusTrap';
 export { default as useVentilationSession } from './useVentilationSession';
 export { default as useSessionGuard } from './useSessionGuard';
+export { default as useTrainingContent } from './useTrainingContent';
 
