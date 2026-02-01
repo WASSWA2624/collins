@@ -77,6 +77,7 @@ const defaultSessionMock = {
   setInputs: jest.fn(),
   startSession: jest.fn(),
   setRecommendationSummary: jest.fn(),
+  appendToHistory: jest.fn(),
   isHydrating: false,
   errorCode: null,
   hydrate: jest.fn(),

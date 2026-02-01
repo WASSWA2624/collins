@@ -28,6 +28,9 @@ import {
 } from './AssessmentScreen.ios.styles';
 import { CONDITION_OPTIONS, GENDER_OPTIONS, STEPS } from './types';
 
+const conditionOptions = (t) => CONDITION_OPTIONS.map((o) => ({ value: o.value, label: t(`ventilation.assessment.conditions.${o.labelKey}`) }));
+const genderOptions = (t) => GENDER_OPTIONS.map((o) => ({ value: o.value, label: t(`ventilation.assessment.patientProfile.${o.labelKey}`) }));
+
 const parseNum = (v) => {
   const n = parseFloat(v);
   return Number.isFinite(n) ? n : null;
@@ -119,7 +122,7 @@ const AssessmentScreenIOS = () => {
             <Select
               label={t('ventilation.assessment.patientProfile.condition')}
               placeholder={t('ventilation.assessment.patientProfile.conditionPlaceholder')}
-              options={CONDITION_OPTIONS}
+              options={conditionOptions(t)}
               value={mergedInputs.condition}
               onValueChange={(v) => updateInput({ condition: v })}
               accessibilityHint={t('ventilation.assessment.patientProfile.conditionHint')}
@@ -155,7 +158,7 @@ const AssessmentScreenIOS = () => {
             <Select
               label={t('ventilation.assessment.patientProfile.gender')}
               placeholder={t('ventilation.assessment.patientProfile.genderPlaceholder')}
-              options={GENDER_OPTIONS}
+              options={genderOptions(t)}
               value={mergedInputs.gender}
               onValueChange={(v) => updateInput({ gender: v })}
               accessibilityHint={t('ventilation.assessment.patientProfile.genderHint')}
@@ -185,7 +188,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-spo2"
             />
             <TextField
-              label={t('ventilation.assessment.clinicalParams.respiratoryRate')}
+              label={`${t('ventilation.assessment.clinicalParams.respiratoryRate')} (${units?.respiratoryRate ?? 'breaths/min'})`}
               placeholder={t('ventilation.assessment.clinicalParams.respiratoryRatePlaceholder')}
               type="number"
               value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
@@ -195,7 +198,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-rr"
             />
             <TextField
-              label={t('ventilation.assessment.clinicalParams.heartRate')}
+              label={`${t('ventilation.assessment.clinicalParams.heartRate')} (${units?.heartRate ?? 'bpm'})`}
               placeholder={t('ventilation.assessment.clinicalParams.heartRatePlaceholder')}
               type="number"
               value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
@@ -205,7 +208,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-hr"
             />
             <TextField
-              label={t('ventilation.assessment.clinicalParams.pao2')}
+              label={`${t('ventilation.assessment.clinicalParams.pao2')} (${units?.pao2 ?? 'mmHg'})`}
               placeholder={t('ventilation.assessment.clinicalParams.pao2Placeholder')}
               type="number"
               value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
@@ -214,7 +217,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-pao2"
             />
             <TextField
-              label={t('ventilation.assessment.clinicalParams.paco2')}
+              label={`${t('ventilation.assessment.clinicalParams.paco2')} (${units?.paco2 ?? 'mmHg'})`}
               placeholder={t('ventilation.assessment.clinicalParams.paco2Placeholder')}
               type="number"
               value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
@@ -223,7 +226,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-paco2"
             />
             <TextField
-              label={t('ventilation.assessment.clinicalParams.ph')}
+              label={`${t('ventilation.assessment.clinicalParams.ph')} (${units?.ph ?? 'unitless'})`}
               placeholder={t('ventilation.assessment.clinicalParams.phPlaceholder')}
               type="number"
               value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}

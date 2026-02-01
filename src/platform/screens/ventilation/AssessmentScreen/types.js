@@ -19,21 +19,22 @@ const STEP_KEYS = Object.freeze([
   'review',
 ]);
 
+/** Option value + i18n label key (resolve with t('ventilation.assessment.conditions.' + labelKey) or patientProfile.' + labelKey) */
 const CONDITION_OPTIONS = Object.freeze([
-  { value: 'ARDS', label: 'ARDS' },
-  { value: 'asthma', label: 'Asthma' },
-  { value: 'COPD', label: 'COPD' },
-  { value: 'heart failure', label: 'Heart failure' },
-  { value: 'pneumonia', label: 'Pneumonia' },
-  { value: 'sepsis', label: 'Sepsis' },
-  { value: 'trauma', label: 'Trauma' },
-  { value: 'other', label: 'Other' },
+  { value: 'ARDS', labelKey: 'ARDS' },
+  { value: 'asthma', labelKey: 'asthma' },
+  { value: 'COPD', labelKey: 'COPD' },
+  { value: 'heart failure', labelKey: 'heartFailure' },
+  { value: 'pneumonia', labelKey: 'pneumonia' },
+  { value: 'sepsis', labelKey: 'sepsis' },
+  { value: 'trauma', labelKey: 'trauma' },
+  { value: 'other', labelKey: 'other' },
 ]);
 
 const GENDER_OPTIONS = Object.freeze([
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
+  { value: 'male', labelKey: 'genderMale' },
+  { value: 'female', labelKey: 'genderFemale' },
+  { value: 'other', labelKey: 'genderOther' },
 ]);
 
 const ASSESSMENT_TEST_IDS = Object.freeze({
