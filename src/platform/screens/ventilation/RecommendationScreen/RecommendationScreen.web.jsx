@@ -2,13 +2,15 @@
  * RecommendationScreen Component - Web
  * File: RecommendationScreen.web.jsx
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import {
   Button,
   Text,
+  Checkbox,
+  Stack,
 } from '@platform/components';
-import { useI18n } from '@hooks';
+import { useI18n, useExportSession } from '@hooks';
 import useRecommendationScreen from './useRecommendationScreen';
 import {
   StyledActionsRow,
@@ -52,7 +54,17 @@ const RecommendationScreenWeb = () => {
     isEmpty,
     isHydrating,
     errorCode,
+    showRequestAi,
+    isOnline,
+    isRequestingAi,
+    requestAiRecommendation,
   } = useRecommendationScreen();
+  const { exportSummary } = useExportSession({
+    recommendationSummary,
+    inputs,
+    sessionId,
+  });
+  const [anonymizeExport, setAnonymizeExport] = useState(false);
 
   const handleStartMonitoring = () => {
     router.push('/session/monitoring');
@@ -235,6 +247,39 @@ const RecommendationScreenWeb = () => {
           </StyledSection>
         )}
 
+        <StyledSection data-testid="recommendation-export-section">
+          <Stack spacing="xs">
+            <Checkbox
+              label={t('ventilation.recommendation.actions.anonymizeBeforeExport')}
+              checked={anonymizeExport}
+              onChange={(checked) => setAnonymizeExport(!!checked)}
+              accessibilityLabel={t('ventilation.recommendation.actions.anonymizeBeforeExport')}
+            />
+            <Button
+              variant="outline"
+              onPress={() => exportSummary(anonymizeExport)}
+              testID="recommendation-export-summary"
+              accessibilityLabel={t('ventilation.recommendation.actions.exportSummaryHint')}
+            >
+              {t('ventilation.recommendation.actions.exportSummary')}
+            </Button>
+          </Stack>
+        </StyledSection>
+        {showRequestAi && (
+          <StyledSection data-testid="recommendation-ai-section">
+            <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.actions.connectivityRequired')}</Text>
+            <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.actions.supplementalDisclaimer')}</Text>
+            <Button
+              variant="outline"
+              onPress={requestAiRecommendation}
+              disabled={!isOnline || isRequestingAi}
+              testID="recommendation-request-ai"
+              accessibilityLabel={t('ventilation.recommendation.actions.requestAiHint')}
+            >
+              {isRequestingAi ? t('common.loading') : t('ventilation.recommendation.actions.requestAiRecommendation')}
+            </Button>
+          </StyledSection>
+        )}
         <StyledActionsRow>
           <Button
             variant="primary"

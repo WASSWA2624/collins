@@ -19,7 +19,17 @@ jest.mock('@hooks', () => ({
 jest.mock('@services/storage', () => ({
   async: {
     setItem: jest.fn(),
+    getItem: jest.fn().mockResolvedValue(null),
   },
+  secure: {
+    setItem: jest.fn().mockResolvedValue(true),
+    removeItem: jest.fn().mockResolvedValue(true),
+  },
+}));
+
+jest.mock('@config/constants', () => ({
+  AI_API_KEY_CONFIGURED_ASYNC_KEY: 'ai_api_key_configured',
+  VENTILATION_AI_API_KEY_STORAGE_KEY: 'VENTILATION_AI_API_KEY',
 }));
 
 const useSettingsScreen = require('@platform/screens/settings/SettingsScreen/useSettingsScreen').default;
@@ -54,7 +64,14 @@ describe('useSettingsScreen', () => {
     jest.clearAllMocks();
     useI18n.mockReturnValue({ t: mockT });
     useDispatch.mockReturnValue(mockDispatch);
-    useSelector.mockImplementation(() => 'comfortable');
+    const state = {
+      ui: {
+        density: 'comfortable',
+        aiDecisionSupportEnabled: false,
+        aiModelId: 'gpt-4o-mini',
+      },
+    };
+    useSelector.mockImplementation((selector) => selector(state));
   });
 
   it('returns testIds', () => {
@@ -78,5 +95,15 @@ describe('useSettingsScreen', () => {
   it('returns setDensity function', () => {
     const { result } = renderHook(() => useSettingsScreen());
     expect(typeof result.current.setDensity).toBe('function');
+  });
+
+  it('returns AI settings (aiEnabled, aiModelId, aiKeyConfigured, saveAiApiKey, clearAiApiKey)', () => {
+    const { result } = renderHook(() => useSettingsScreen());
+    expect(typeof result.current.aiEnabled).toBe('boolean');
+    expect(typeof result.current.aiModelId).toBe('string');
+    expect(typeof result.current.aiKeyConfigured).toBe('boolean');
+    expect(typeof result.current.saveAiApiKey).toBe('function');
+    expect(typeof result.current.clearAiApiKey).toBe('function');
+    expect(Array.isArray(result.current.aiModelOptions)).toBe(true);
   });
 });

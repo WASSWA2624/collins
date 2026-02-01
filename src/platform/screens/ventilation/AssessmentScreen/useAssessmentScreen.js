@@ -13,6 +13,8 @@ import {
   VENTILATION_SIMILARITY_OPTIONAL_ABG_FIELDS,
 } from '@features/ventilation';
 import useVentilationSession from '@hooks/useVentilationSession';
+import { useSelector } from 'react-redux';
+import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiModelId } from '@store/selectors';
 import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
 
 const TOTAL_STEPS = 5;
@@ -41,6 +43,9 @@ export default function useAssessmentScreen() {
     hydrate,
     clearError,
   } = useVentilationSession();
+  const isOnline = useSelector(selectIsOnline);
+  const aiDecisionSupportEnabled = useSelector(selectAiDecisionSupportEnabled);
+  const aiModelId = useSelector(selectAiModelId);
 
   const [currentStep, setCurrentStep] = useState(STEPS.PATIENT_PROFILE);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
@@ -160,6 +165,13 @@ export default function useAssessmentScreen() {
     try {
       const rec = await getVentilationRecommendationUseCase({
         input: similarityInput,
+        ai: {
+          isOnline,
+          flags: {
+            AI_AUGMENTATION_ENABLED: aiDecisionSupportEnabled,
+            model: aiModelId,
+          },
+        },
       });
       setRecommendationSummary(rec ?? null);
       appendToHistory();
@@ -169,7 +181,7 @@ export default function useAssessmentScreen() {
     } finally {
       setIsGenerating(false);
     }
-  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, router]);
+  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, router, isOnline, aiDecisionSupportEnabled, aiModelId]);
 
   const addObservation = useCallback(() => {
     const obs = {

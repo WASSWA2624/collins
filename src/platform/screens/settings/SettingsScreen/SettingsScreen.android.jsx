@@ -3,12 +3,11 @@
  * File: SettingsScreen.android.jsx
  */
 // 1. External dependencies
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View } from 'react-native';
 
 // 2. Platform components
-import { Text, Select, ThemeControls, LanguageControls } from '@platform/components';
-import { ThemeControls, LanguageControls } from '@platform/components';
+import { Text, Select, Switch, TextField, Button, ThemeControls, LanguageControls } from '@platform/components';
 
 // 3. Hooks
 import { useI18n } from '@hooks';
@@ -76,6 +75,47 @@ const SettingsScreenAndroid = () => {
                 </Text>
               </StyledSectionTitle>
               <LanguageControls testID={testIds.languageSelector} />
+            </StyledSection>
+
+            {/* AI decision support */}
+            <StyledSection testID={testIds.aiSection}>
+              <StyledSectionTitle>
+                <Text variant="h3">{t('settings.ai.sectionLabel')}</Text>
+              </StyledSectionTitle>
+              <Switch
+                value={aiEnabled}
+                onValueChange={setAiEnabled}
+                label={t('settings.ai.enableLabel')}
+                accessibilityLabel={t('settings.ai.enableLabel')}
+                accessibilityHint={t('settings.ai.enableHint')}
+                testID={testIds.aiEnableToggle}
+              />
+              <TextField
+                label={t('settings.ai.apiKeyLabel')}
+                placeholder={t('settings.ai.apiKeyPlaceholder')}
+                value={apiKeyDraft}
+                onChangeText={setApiKeyDraft}
+                secureTextEntry
+                testID={testIds.aiApiKeyInput}
+              />
+              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                <Button variant="primary" onPress={handleSaveKey} testID={testIds.aiApiKeySave}>
+                  {t('settings.ai.apiKeySave')}
+                </Button>
+                <Button variant="outline" onPress={clearAiApiKey} testID={testIds.aiApiKeyClear}>
+                  {t('settings.ai.apiKeyClear')}
+                </Button>
+                {aiKeyConfigured && <Text variant="caption">{t('settings.ai.keyConfigured')}</Text>}
+              </View>
+              <Select
+                label={t('settings.ai.modelLabel')}
+                accessibilityLabel={t('settings.ai.modelLabel')}
+                accessibilityHint={t('settings.ai.modelHint')}
+                options={aiModelOptions}
+                value={aiModelId}
+                onValueChange={setAiModelId}
+                testID={testIds.aiModelSelector}
+              />
             </StyledSection>
           </>
         </StyledContent>

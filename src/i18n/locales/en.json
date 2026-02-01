@@ -76,7 +76,14 @@
       "USER_NOT_FOUND": "User not found",
       "USER_EXISTS": "User with this email already exists",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified"
+      "ALREADY_VERIFIED": "Account is already verified",
+      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
+      "AI_TIMEOUT": "AI request timed out",
+      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_FORBIDDEN": "AI access denied",
+      "AI_RATE_LIMIT": "AI rate limit reached",
+      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
+      "AI_MALFORMED_RESPONSE": "AI response invalid"
     }
   },
   "forms": {
@@ -368,6 +375,23 @@
       "appName": "Ventilation decision support",
       "version": "Version",
       "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+    },
+    "ai": {
+      "label": "AI decision support",
+      "sectionLabel": "Optional AI recommendation (online)",
+      "enableLabel": "Enable AI recommendations",
+      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "apiKeyLabel": "API key",
+      "apiKeyPlaceholder": "Enter key (stored securely)",
+      "apiKeySave": "Save key",
+      "apiKeyClear": "Clear key",
+      "keyConfigured": "Key saved",
+      "modelLabel": "Model",
+      "modelHint": "Model used for AI suggestions",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o"
+      }
     }
   },
   "listScaffold": {
@@ -542,7 +566,15 @@
       "actions": {
         "startMonitoring": "Start monitoring",
         "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to assessment"
+        "backToAssessment": "Back to assessment",
+        "requestAiRecommendation": "Request AI recommendation",
+        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "connectivityRequired": "Requires internet connection",
+        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "aiUnavailableFallback": "AI unavailable — using local recommendations",
+        "exportSummary": "Export summary",
+        "exportSummaryHint": "Download session summary as text",
+        "anonymizeBeforeExport": "Remove identifiers before export"
       },
       "states": {
         "loading": "Loading recommendation…",

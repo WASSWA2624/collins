@@ -23,9 +23,11 @@ const initialState = {
   // Disclaimer acknowledgement (Phase 7 guard / 11.S.11)
   disclaimerAcknowledged: false,
   // Minimal auth state for Phase 0-7 (guards need this)
-  // Full auth feature will be implemented in Phase 9
   isAuthenticated: false,
   user: null,
+  // AI decision support (P012): enabled + model only; API key never in Redux
+  aiDecisionSupportEnabled: false,
+  aiModelId: 'gpt-4o-mini',
 };
 
 const uiSlice = createSlice({
@@ -91,6 +93,14 @@ const uiSlice = createSlice({
     clearAuth: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+    },
+    setAiDecisionSupportEnabled: (state, action) => {
+      state.aiDecisionSupportEnabled = Boolean(action.payload);
+    },
+    setAiModelId: (state, action) => {
+      if (typeof action.payload === 'string' && action.payload.trim()) {
+        state.aiModelId = action.payload.trim();
+      }
     },
   },
 });

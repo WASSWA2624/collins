@@ -3,7 +3,7 @@
  * File: ui.slice.test.js
  */
 const { actions, reducer } = require('@store/slices/ui.slice');
-const { selectTheme, selectLocale, selectIsLoading } = require('@store/selectors');
+const { selectTheme, selectLocale, selectIsLoading, selectAiDecisionSupportEnabled, selectAiModelId } = require('@store/selectors');
 
 // Mock i18n
 jest.mock('@i18n', () => ({
@@ -14,6 +14,7 @@ describe('UI Slice', () => {
   const initialState = {
     theme: 'light',
     locale: 'en',
+    density: 'comfortable',
     isLoading: false,
     sidebarWidth: 260,
     isSidebarCollapsed: false,
@@ -24,8 +25,11 @@ describe('UI Slice', () => {
       fullscreen: true,
     },
     footerVisible: true,
+    disclaimerAcknowledged: false,
     isAuthenticated: false,
     user: null,
+    aiDecisionSupportEnabled: false,
+    aiModelId: 'gpt-4o-mini',
   };
 
   beforeEach(() => {
@@ -142,6 +146,30 @@ describe('UI Slice', () => {
     });
   });
 
+  describe('setAiDecisionSupportEnabled', () => {
+    it('should set aiDecisionSupportEnabled to true', () => {
+      const state = reducer(initialState, actions.setAiDecisionSupportEnabled(true));
+      expect(state.aiDecisionSupportEnabled).toBe(true);
+    });
+
+    it('should set aiDecisionSupportEnabled to false', () => {
+      const state = reducer(initialState, actions.setAiDecisionSupportEnabled(false));
+      expect(state.aiDecisionSupportEnabled).toBe(false);
+    });
+  });
+
+  describe('setAiModelId', () => {
+    it('should set aiModelId', () => {
+      const state = reducer(initialState, actions.setAiModelId('gpt-4o'));
+      expect(state.aiModelId).toBe('gpt-4o');
+    });
+
+    it('should ignore empty string', () => {
+      const state = reducer(initialState, actions.setAiModelId('  '));
+      expect(state.aiModelId).toBe('gpt-4o-mini');
+    });
+  });
+
   describe('selectors', () => {
     it('should select theme, locale, and loading from root state', () => {
       const rootState = { ui: initialState };
@@ -149,6 +177,8 @@ describe('UI Slice', () => {
       expect(selectTheme(rootState)).toBe('light');
       expect(selectLocale(rootState)).toBe('en');
       expect(selectIsLoading(rootState)).toBe(false);
+      expect(selectAiDecisionSupportEnabled(rootState)).toBe(false);
+      expect(selectAiModelId(rootState)).toBe('gpt-4o-mini');
     });
   });
 });
