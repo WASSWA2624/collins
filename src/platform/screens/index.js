@@ -23,3 +23,10 @@ export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
 export { default as TrainingHomeScreen } from './training/TrainingHomeScreen';
 export { default as TopicListScreen } from './training/TopicListScreen';
 export { default as TopicDetailScreen } from './training/TopicDetailScreen';
+
+// Settings screens
+export { default as SettingsScreen } from './settings/SettingsScreen';
+export { default as DisclaimerScreen } from './settings/DisclaimerScreen';
+export { default as DataSourcesScreen } from './settings/DataSourcesScreen';
+export { default as PrivacyScreen } from './settings/PrivacyScreen';
+export { default as AboutScreen } from './settings/AboutScreen';

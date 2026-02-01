@@ -9,6 +9,7 @@ import { getDeviceLocale } from '@i18n';
 const initialState = {
   theme: 'light', // 'light', 'dark', 'high-contrast'
   locale: getDeviceLocale(),
+  density: 'comfortable', // 'compact', 'comfortable'
   isLoading: false,
   sidebarWidth: 260,
   isSidebarCollapsed: false,
@@ -19,6 +20,8 @@ const initialState = {
     fullscreen: true,
   },
   footerVisible: true,
+  // Disclaimer acknowledgement (Phase 7 guard / 11.S.11)
+  disclaimerAcknowledged: false,
   // Minimal auth state for Phase 0-7 (guards need this)
   // Full auth feature will be implemented in Phase 9
   isAuthenticated: false,
@@ -34,6 +37,9 @@ const uiSlice = createSlice({
     },
     setLocale: (state, action) => {
       state.locale = action.payload;
+    },
+    setDensity: (state, action) => {
+      state.density = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -71,6 +77,9 @@ const uiSlice = createSlice({
     },
     toggleFooterVisible: (state) => {
       state.footerVisible = !state.footerVisible;
+    },
+    setDisclaimerAcknowledged: (state, action) => {
+      state.disclaimerAcknowledged = Boolean(action.payload);
     },
     // Minimal auth reducers for Phase 0-7 (guards need this)
     setAuthenticated: (state, action) => {

@@ -309,6 +309,15 @@
         "en": "English"
       }
     },
+    "density": {
+      "label": "Density",
+      "accessibilityLabel": "Density mode selector",
+      "hint": "Change the spacing and layout density",
+      "options": {
+        "compact": "Compact",
+        "comfortable": "Comfortable"
+      }
+    },
     "footerVisible": {
       "label": "Show footer",
       "accessibilityLabel": "Toggle footer visibility",
@@ -325,6 +334,40 @@
         "usersAndAccess": "Users & access",
         "security": "Security"
       }
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "screen": { "label": "Disclaimer screen" },
+      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "datasetNotice": "Dataset notice",
+      "acknowledge": "I acknowledge",
+      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "states": { "loading": "Loading…", "error": "Unable to load disclaimer" }
+    },
+    "dataSources": {
+      "title": "Data sources",
+      "screen": { "label": "Data sources screen" },
+      "datasetVersion": "Dataset version",
+      "schemaVersion": "Schema version",
+      "lastUpdated": "Last updated",
+      "totalCases": "Total cases",
+      "citations": "Citations",
+      "doi": "DOI",
+      "states": { "loading": "Loading…", "error": "Unable to load data sources", "empty": "No sources available" }
+    },
+    "privacy": {
+      "title": "Privacy",
+      "screen": { "label": "Privacy screen" },
+      "localStorage": "Data stored locally",
+      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
+      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+    },
+    "about": {
+      "title": "About",
+      "screen": { "label": "About screen" },
+      "appName": "Ventilation decision support",
+      "version": "Version",
+      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
     }
   },
   "listScaffold": {

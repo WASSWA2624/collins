@@ -14,11 +14,14 @@ const StyledContainer = styled.div.withConfig({
 }))`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
   position: relative;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
 `;
 
 const StyledHeader = styled.header.withConfig({
@@ -55,7 +58,8 @@ const StyledBody = styled.div.withConfig({
   flex: 1;
   flex-direction: row;
   min-height: 0;
-  overflow: hidden;
+  min-width: 0;
+  overflow: visible;
 `;
 
 const StyledSidebar = styled.aside.withConfig({
@@ -123,7 +127,7 @@ const StyledContent = styled.main.withConfig({
   gap: 0;
   max-width: 100%;
   width: 100%;
-  padding-bottom: 0;
+  padding-bottom: ${({ theme }) => theme.spacing.lg}px;
   box-sizing: border-box;
 `;
 
@@ -137,6 +141,7 @@ const StyledContentBody = styled.div.withConfig({
   min-height: 0;
   min-width: 0;
   overflow-x: hidden;
+  overflow-y: visible;
 `;
 
 const StyledFooter = styled.footer.withConfig({

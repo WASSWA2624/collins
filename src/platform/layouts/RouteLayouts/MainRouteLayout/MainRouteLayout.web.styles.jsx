@@ -16,7 +16,9 @@ const StyledMain = styled.main.withConfig({
   max-width: 100%;
   box-sizing: border-box;
   padding: ${({ theme }) => theme.spacing.lg}px;
+  padding-bottom: ${({ theme }) => theme.spacing.xl}px;
   overflow-x: hidden;
+  overflow-y: visible;
 `;
 
 const StyledHeaderLeading = styled.div.withConfig({

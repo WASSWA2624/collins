@@ -12,12 +12,14 @@ import { NETWORK_QUALITY } from '@utils/networkQuality';
 const selectUI = (state) => state?.ui ?? null;
 const selectTheme = createSelector([selectUI], (ui) => ui?.theme ?? 'light');
 const selectLocale = createSelector([selectUI], (ui) => ui?.locale ?? 'en');
+const selectDensity = createSelector([selectUI], (ui) => ui?.density ?? 'comfortable');
 const selectIsLoading = createSelector([selectUI], (ui) => ui?.isLoading ?? false);
 const selectSidebarWidth = createSelector([selectUI], (ui) => ui?.sidebarWidth ?? 260);
 const selectIsSidebarCollapsed = createSelector([selectUI], (ui) => ui?.isSidebarCollapsed ?? false);
 const selectIsHeaderHidden = createSelector([selectUI], (ui) => ui?.isHeaderHidden ?? false);
 const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.headerActionVisibility ?? {});
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
+const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
 
 // Auth Selectors (defensive for undefined state before rehydration / SSR)
 const selectAuth = (state) => state?.auth ?? null;
@@ -65,12 +67,14 @@ export {
   // UI
   selectTheme,
   selectLocale,
+  selectDensity,
   selectIsLoading,
   selectSidebarWidth,
   selectIsSidebarCollapsed,
   selectIsHeaderHidden,
   selectHeaderActionVisibility,
   selectFooterVisible,
+  selectDisclaimerAcknowledged,
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,
   selectUser,
@@ -98,12 +102,14 @@ export default {
   // UI
   selectTheme,
   selectLocale,
+  selectDensity,
   selectIsLoading,
   selectSidebarWidth,
   selectIsSidebarCollapsed,
   selectIsHeaderHidden,
   selectHeaderActionVisibility,
   selectFooterVisible,
+  selectDisclaimerAcknowledged,
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,
   selectUser,

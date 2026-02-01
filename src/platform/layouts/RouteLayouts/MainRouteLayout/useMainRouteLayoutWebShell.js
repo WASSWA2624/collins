@@ -1,9 +1,16 @@
 /**
  * useMainRouteLayoutWebShell
  * Web-only shell state for the main route layout (sidebar collapse + resize).
+ * Sidebar size and collapsed state are persisted via Redux (ui slice) and storage across sessions.
  * File: useMainRouteLayoutWebShell.js
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsSidebarCollapsed, selectSidebarWidth } from '@store/selectors';
+import { actions } from '@store/slices/ui.slice';
+import { async as asyncStorage } from '@services/storage';
+
+const SIDEBAR_COLLAPSED_STORAGE_KEY = 'sidebar_collapsed';
 
 const DEFAULT_SIDEBAR_WIDTH = 260;
 const COLLAPSED_WIDTH = 64;
@@ -14,8 +21,13 @@ const KEYBOARD_STEP = 16;
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
 export default function useMainRouteLayoutWebShell() {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH);
+  const dispatch = useDispatch();
+  const rawWidth = useSelector(selectSidebarWidth);
+  const sidebarCollapsed = useSelector(selectIsSidebarCollapsed);
+  const sidebarWidth = useMemo(
+    () => clamp(rawWidth ?? DEFAULT_SIDEBAR_WIDTH, MIN_SIDEBAR_WIDTH, MAX_SIDEBAR_WIDTH),
+    [rawWidth]
+  );
 
   const dragStateRef = useRef({
     dragging: false,
@@ -34,13 +46,20 @@ export default function useMainRouteLayoutWebShell() {
     }
   }, []);
 
-  const onPointerMove = useCallback((e) => {
-    const state = dragStateRef.current;
-    if (!state.dragging) return;
-    const clientX = e?.clientX ?? 0;
-    const next = clamp(state.startWidth + (clientX - state.startClientX), MIN_SIDEBAR_WIDTH, MAX_SIDEBAR_WIDTH);
-    setSidebarWidth(next);
-  }, []);
+  const onPointerMove = useCallback(
+    (e) => {
+      const state = dragStateRef.current;
+      if (!state.dragging) return;
+      const clientX = e?.clientX ?? 0;
+      const next = clamp(
+        state.startWidth + (clientX - state.startClientX),
+        MIN_SIDEBAR_WIDTH,
+        MAX_SIDEBAR_WIDTH
+      );
+      dispatch(actions.setSidebarWidth(next));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -88,15 +107,17 @@ export default function useMainRouteLayoutWebShell() {
 
       e?.preventDefault?.();
       const delta = key === 'ArrowLeft' ? -KEYBOARD_STEP : KEYBOARD_STEP;
-      setSidebarWidth((prev) => clamp(prev + delta, MIN_SIDEBAR_WIDTH, MAX_SIDEBAR_WIDTH));
+      dispatch(actions.setSidebarWidth(clamp(sidebarWidth + delta, MIN_SIDEBAR_WIDTH, MAX_SIDEBAR_WIDTH)));
     },
-    [sidebarCollapsed]
+    [dispatch, sidebarCollapsed, sidebarWidth]
   );
 
   const toggleSidebar = useCallback(() => {
-    setSidebarCollapsed((prev) => !prev);
+    const nextCollapsed = !sidebarCollapsed;
+    dispatch(actions.setSidebarCollapsed(nextCollapsed));
+    void asyncStorage.setItem(SIDEBAR_COLLAPSED_STORAGE_KEY, String(nextCollapsed));
     endDrag();
-  }, [endDrag]);
+  }, [dispatch, endDrag, sidebarCollapsed]);
 
   const resizerProps = useMemo(
     () => ({

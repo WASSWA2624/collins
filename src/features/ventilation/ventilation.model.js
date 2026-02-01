@@ -238,6 +238,7 @@ const getDefaultVentilationCaseIndex = () => {
 const getVentilationDatasetMeta = (dataset = getDefaultVentilationDataset()) => {
   return {
     version: dataset.datasetVersion,
+    schemaVersion: dataset.datasetSchemaVersion,
     lastUpdated: dataset.lastUpdated,
     totalCases: dataset.totalCases,
   };
