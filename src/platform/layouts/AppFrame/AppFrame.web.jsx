@@ -42,6 +42,7 @@ const AppFrameWeb = ({
   header,
   footer,
   sidebar,
+  sidebarBackdrop,
   breadcrumbs,
   overlay,
   banner,
@@ -62,6 +63,7 @@ const AppFrameWeb = ({
     overlay,
     banner,
   });
+  const hasSidebarBackdrop = Boolean(sidebarBackdrop);
 
   return (
     <StyledContainer
@@ -89,6 +91,7 @@ const AppFrameWeb = ({
         </StyledBreadcrumbs>
       )}
       <StyledBody>
+        {hasSidebar && hasSidebarBackdrop && sidebarBackdrop}
         {hasSidebar && (
           <StyledSidebar
             role="complementary"

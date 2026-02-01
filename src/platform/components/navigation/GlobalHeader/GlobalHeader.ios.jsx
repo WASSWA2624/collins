@@ -13,6 +13,7 @@ import { ACTION_VARIANTS } from './types';
 import {
   StyledHeader,
   StyledHeaderRow,
+  StyledLeadingSlot,
   StyledTitleGroup,
   StyledTitleBlock,
   StyledActionsGroup,
@@ -67,6 +68,7 @@ const buildActionItems = ({ actions, testID }) => {
  * @param {Array} props.actions - Action definitions
  * @param {string} props.currentRole - Current user role
  * @param {React.ReactNode} props.utilitySlot - Optional utility controls
+ * @param {React.ReactNode} props.leadingSlot - Optional leading controls (e.g. logo)
  * @param {string} props.accessibilityLabel - Accessibility label
  * @param {string} props.testID - Test identifier
  */
@@ -78,6 +80,7 @@ const GlobalHeaderIOS = ({
   actions = [],
   currentRole,
   utilitySlot,
+  leadingSlot,
   accessibilityLabel,
   testID,
   ...rest
@@ -110,6 +113,7 @@ const GlobalHeaderIOS = ({
       {...rest}
     >
       <StyledHeaderRow>
+        {leadingSlot ? <StyledLeadingSlot>{leadingSlot}</StyledLeadingSlot> : null}
         <StyledTitleGroup>
           {secondaryActionItems.length > 0 ? (
             <StyledActionsGroup>{secondaryActionItems}</StyledActionsGroup>

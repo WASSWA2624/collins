@@ -31,6 +31,14 @@ const StyledHeaderRow = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledLeadingSlot = styled(View).withConfig({
+  displayName: 'StyledLeadingSlot',
+  componentId: 'StyledLeadingSlot',
+})`
+  flex-direction: row;
+  align-items: center;
+`;
+
 const StyledTitleGroup = styled(View).withConfig({
   displayName: 'StyledTitleGroup',
   componentId: 'StyledTitleGroup',
@@ -107,6 +115,7 @@ const StyledBreadcrumbsRow = styled(View).withConfig({
 export {
   StyledHeader,
   StyledHeaderRow,
+  StyledLeadingSlot,
   StyledTitleGroup,
   StyledTitleBlock,
   StyledActionsGroup,

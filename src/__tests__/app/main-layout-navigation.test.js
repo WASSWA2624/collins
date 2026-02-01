@@ -186,11 +186,10 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(actionIds).not.toContain('register');
     });
 
-    it('should include menu toggle action on web', () => {
+    it('should include menu toggle in leading slot on web', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = (headerCall?.[0]?.actions ?? []).map((action) => action.id);
-      expect(actionIds).toContain('toggle-menu');
+      expect(headerCall?.[0]?.leadingSlot).toBeDefined();
     });
 
     it('should not render TabBar on web platform', () => {

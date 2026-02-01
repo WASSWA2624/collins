@@ -5,7 +5,7 @@
  */
 import { useMemo } from 'react';
 import { useI18n, useNavigationVisibility, useUiState } from '@hooks';
-import { MAIN_NAV_ITEMS, getMenuIconGlyph } from '@config/sideMenu';
+import { MAIN_NAV_ITEMS } from '@config/sideMenu';
 
 export default function useMainRouteLayout() {
   const { t } = useI18n();
@@ -18,7 +18,7 @@ export default function useMainRouteLayout() {
         ...it,
         href: it.path,
         label: t(`navigation.items.main.${it.id}`),
-        icon: getMenuIconGlyph(it.icon),
+        icon: it.icon,
       })),
     [t]
   );

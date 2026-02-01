@@ -183,6 +183,7 @@
     "items": {
       "main": {
         "home": "Home",
+        "assessment": "Assessment",
         "settings": "Settings",
         "settings-addresses": "Addresses",
         "settings-api-keys": "API Keys",
@@ -343,6 +344,162 @@
     "welcome": {
       "title": "Welcome Home",
       "message": "You're successfully logged in. This is your home dashboard."
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Patient Assessment",
+      "accessibilityLabel": "Assessment wizard screen",
+      "summary": {
+        "title": "Session summary",
+        "accessibilityLabel": "Compact assessment summary",
+        "condition": "Condition",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Respiratory rate",
+        "heartRate": "Heart rate",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Age",
+        "weight": "Weight",
+        "height": "Height",
+        "gender": "Gender",
+        "comorbidities": "Comorbidities",
+        "bloodPressure": "Blood pressure",
+        "empty": "No data yet",
+        "expand": "Expand summary",
+        "collapse": "Collapse summary"
+      },
+      "steps": {
+        "patientProfile": "Patient profile",
+        "clinicalParams": "Clinical parameters",
+        "observations": "Optional observations",
+        "timeSeries": "Optional time series",
+        "review": "Review"
+      },
+      "patientProfile": {
+        "condition": "Condition",
+        "conditionPlaceholder": "Select condition",
+        "conditionHint": "Primary respiratory condition",
+        "age": "Age (years)",
+        "agePlaceholder": "Enter age",
+        "ageHint": "Patient age in years",
+        "weight": "Weight (kg)",
+        "weightPlaceholder": "Enter weight",
+        "weightHint": "Patient weight in kg",
+        "height": "Height (cm)",
+        "heightPlaceholder": "Enter height",
+        "heightHint": "Patient height in cm",
+        "gender": "Gender",
+        "genderPlaceholder": "Select gender",
+        "genderHint": "Patient gender",
+        "genderMale": "Male",
+        "genderFemale": "Female",
+        "genderOther": "Other",
+        "comorbidities": "Comorbidities",
+        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
+        "comorbiditiesHint": "Comma-separated list"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "Enter SpO₂",
+        "spo2Hint": "Oxygen saturation (%)",
+        "pao2": "PaO₂ (optional)",
+        "pao2Placeholder": "Enter PaO₂",
+        "pao2Hint": "Arterial oxygen (mmHg)",
+        "paco2": "PaCO₂ (optional)",
+        "paco2Placeholder": "Enter PaCO₂",
+        "paco2Hint": "Arterial CO₂ (mmHg)",
+        "ph": "pH (optional)",
+        "phPlaceholder": "Enter pH",
+        "phHint": "Arterial pH",
+        "respiratoryRate": "Respiratory rate",
+        "respiratoryRatePlaceholder": "Enter RR",
+        "respiratoryRateHint": "Breaths per minute",
+        "heartRate": "Heart rate",
+        "heartRatePlaceholder": "Enter HR",
+        "heartRateHint": "Beats per minute",
+        "bloodPressure": "Blood pressure (optional)",
+        "bloodPressurePlaceholder": "e.g. 120/80",
+        "bloodPressureHint": "Systolic/diastolic mmHg"
+      },
+      "observations": {
+        "title": "Additional observations",
+        "add": "Add observation",
+        "name": "Name",
+        "value": "Value",
+        "unit": "Unit",
+        "optional": "Optional"
+      },
+      "timeSeries": {
+        "title": "Time series (start monitoring)",
+        "add": "Add time series point",
+        "name": "Name",
+        "value": "Value",
+        "optional": "Optional"
+      },
+      "missingTests": {
+        "title": "Additional tests suggested",
+        "abgPanel": "ABG panel would improve confidence",
+        "abgHint": "Consider ordering arterial blood gas if available"
+      },
+      "actions": {
+        "back": "Back",
+        "next": "Next",
+        "generate": "Generate recommendation",
+        "generateHint": "Create recommendation from current inputs"
+      },
+      "states": {
+        "loading": "Loading assessment…",
+        "error": "Unable to load assessment",
+        "offline": "Assessment works offline",
+        "empty": "Enter patient data to begin"
+      }
+    },
+    "recommendation": {
+      "title": "Recommended Settings",
+      "accessibilityLabel": "Recommendation screen",
+      "sections": {
+        "settings": "Recommended settings",
+        "confidence": "Confidence & why",
+        "monitoring": "Monitoring points",
+        "risks": "Risks and complications",
+        "matchedCases": "Matched cases",
+        "evidence": "Evidence & review",
+        "warning": "Dataset notice"
+      },
+      "settings": {
+        "mode": "Mode",
+        "tidalVolume": "Tidal volume",
+        "respiratoryRate": "Respiratory rate",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "I:E ratio"
+      },
+      "confidence": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "missingInputs": "Missing inputs that could improve confidence"
+      },
+      "actions": {
+        "startMonitoring": "Start monitoring",
+        "startMonitoringHint": "Begin tracking vital signs and time series",
+        "backToAssessment": "Back to assessment"
+      },
+      "states": {
+        "loading": "Loading recommendation…",
+        "error": "Unable to load recommendation",
+        "empty": "No recommendation available. Complete an assessment first."
+      },
+      "intendedUse": {
+        "warningLabel": "Not clinically validated",
+        "validationLabel": "Validation requirement"
+      },
+      "reviewStatus": {
+        "unvalidated": "Unvalidated (prototype)",
+        "validated": "Validated"
+      }
     }
   },
   "auth": {

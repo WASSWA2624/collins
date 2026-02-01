@@ -1,7 +1,13 @@
 # Phase 11: Screens, Routes, and UI Wiring (Ventilation App)
 
 ## Purpose
-Implementation guide: **one step = one screen**. Screens are wired to Phase 10 hooks and must implement a complete clinician workflow with responsive, space-efficient UI.
+Implementation guide: **one step = one screen** (or layout). Screens are wired to Phase 10 hooks and must implement a complete clinician workflow with responsive, space-efficient UI.
+
+**How to use this plan**
+1. Follow the **Sequential build order** (11.S.1 → 11.S.14).
+2. For each step, check the **Quick reference** for route and deliverable.
+3. Apply the **Per-step checklist** to every screen.
+4. Read the **Step spec** for detailed requirements (goal, UI, tests).
 
 ## Rule references
 - `.cursor/rules/index.mdc`
@@ -65,27 +71,43 @@ src/app/
 Notes:
 - Phase 13 may introduce additional route groups (e.g., `(onboarding)/`, `(help)/`). Keep Phase 11 focused on the core clinician workflow + training + settings.
 
-## Sequential build order (one step = one screen)
+## Sequential build order (one step = one deliverable)
+
+**Quick reference**
+- **11.S.1** `(main)/assessment` → Assessment wizard screen
+- **11.S.2** `(main)/session/_layout` → Session guard layout (layout only)
+- **11.S.3** `(main)/session/recommendation` → Recommendation screen
+- **11.S.4** `(main)/session/monitoring` → Monitoring screen
+- **11.S.5** `(main)/history` → History screen
+- **11.S.6** `(main)/session/case/[case-id]` → Case detail screen
+- **11.S.7** `(training)/index` → Training home screen
+- **11.S.8** `(training)/topics` → Topic list screen
+- **11.S.9** `(training)/topic/[topic-id]` → Topic detail screen
+- **11.S.10** `(settings)/index` → Settings screen
+- **11.S.11** `(settings)/disclaimer` → Disclaimer screen
+- **11.S.12** `(settings)/data-sources` → Data sources screen
+- **11.S.13** `(settings)/privacy` → Privacy screen
+- **11.S.14** `(settings)/about` → About screen
 
 ### Tier 1: Core workflow (main)
-- **11.S.1** Assessment (wizard) — `(main)/assessment`
-- **11.S.2** Session guard layout (route layout) — `(main)/session/_layout`
-- **11.S.3** Recommendation — `(main)/session/recommendation`
-- **11.S.4** Monitoring — `(main)/session/monitoring`
-- **11.S.5** History (saved sessions) — `(main)/history`
-- **11.S.6** Case detail — `(main)/session/case/[case-id]`
+1. **11.S.1** Assessment wizard — route + `AssessmentScreen`
+2. **11.S.2** Session guard — `session/_layout` (uses `useSessionGuard`, renders `<Slot />`)
+3. **11.S.3** Recommendation — route + `RecommendationScreen`
+4. **11.S.4** Monitoring — route + `MonitoringScreen`
+5. **11.S.5** History — route + `HistoryScreen`
+6. **11.S.6** Case detail — route + `CaseDetailScreen`
 
 ### Tier 2: Training
-- **11.S.7** Training home — `(training)/index`
-- **11.S.8** Topic list — `(training)/topics`
-- **11.S.9** Topic detail — `(training)/topic/[topic-id]`
+7. **11.S.7** Training home — route + `TrainingHomeScreen`
+8. **11.S.8** Topic list — route + `TopicListScreen`
+9. **11.S.9** Topic detail — route + `TopicDetailScreen`
 
-### Tier 3: Settings and safety/legal
-- **11.S.10** Settings — `(settings)/index`
-- **11.S.11** Disclaimer — `(settings)/disclaimer`
-- **11.S.12** Data sources — `(settings)/data-sources`
-- **11.S.13** Privacy — `(settings)/privacy`
-- **11.S.14** About — `(settings)/about`
+### Tier 3: Settings
+10. **11.S.10** Settings — route + `SettingsScreen`
+11. **11.S.11** Disclaimer — route + `DisclaimerScreen`
+12. **11.S.12** Data sources — route + `DataSourcesScreen`
+13. **11.S.13** Privacy — route + `PrivacyScreen`
+14. **11.S.14** About — route + `AboutScreen`
 
 ## Screen UX requirements (per major screen)
 
@@ -109,15 +131,15 @@ Notes:
 - Must support manual time-series entry and show trend/alert states.
 - Alerts must be explainable and actionable (prototype-grade).
 
-## Per-step checklist
-Per screen:
-- Route per `app-router.mdc`
-- Screen folder/file structure per `component-structure.mdc`
-- Style files per platform and theme tokens only
-- Uses only hooks for state/data
-- i18n for all strings + a11y labels/hints
-- Loading/error/empty/offline states
-- Tests per `testing.mdc` (100% coverage, including branches and states)
+## Per-step checklist (apply to every screen)
+
+- **Route** — Per `app-router.mdc`; default export; thin wrapper
+- **Platform screen** — Per `component-structure.mdc`; `.android/.ios/.web.jsx` + platform `.styles.jsx`
+- **Logic** — Use hooks only; no domain logic in UI
+- **Styling** — Theme tokens only; no hardcoded colors/spacing
+- **i18n** — All strings + a11y labels/hints
+- **States** — Loading, empty, error, offline
+- **Tests** — Per `testing.mdc`; route wrapper + platform screen; 100% coverage
 
 ---
 
@@ -136,13 +158,19 @@ Per screen:
 
 ---
 
-## Step specs (one step = one screen/route surface)
-Each step below must include:
-- a route file in `src/app/**` (default export; minimal route wrapper per `app-router.mdc`)
-- a platform screen in `src/platform/screens/**` (android/ios/web + platform styles + hook + types + barrel per `component-structure.mdc`)
-- complete states + tests per `testing.mdc` (including platform-specific tests)
+## Step specs (one step = one screen or layout)
 
-### 11.S.1 Assessment wizard — route `(main)/assessment`
+**Every step must produce:**
+1. Route file in `src/app/**` (default export; thin wrapper)
+2. Platform screen in `src/platform/screens/**` (or layout logic for 11.S.2)
+3. Tests per `testing.mdc`
+
+---
+
+### 11.S.1 Assessment wizard
+
+- **Route** `(main)/assessment` · **Deliverables** `assessment.jsx` + `AssessmentScreen` (ventilation)
+
 **Goal**: capture clinician inputs quickly and safely; create/replace the current session; trigger matching/recommendation generation via hooks.
 
 - **Route file**: `src/app/(main)/assessment.jsx`
@@ -169,7 +197,10 @@ Each step below must include:
   - `src/__tests__/app/(main)/assessment.test.js` (route wrapper)
   - `src/__tests__/platform/screens/ventilation/<AssessmentScreenName>.test.js` (android/ios/web coverage, wizard navigation, validation, states)
 
-### 11.S.2 Session guard layout — route layout `(main)/session/_layout`
+### 11.S.2 Session guard layout
+
+- **Route** `(main)/session/_layout` · **Deliverables** `session/_layout.jsx` (no platform screen; layout + guard only)
+
 **Goal**: ensure Recommendation/Monitoring/Case detail are unreachable without a current session.
 
 - **Route file**: `src/app/(main)/session/_layout.jsx`
@@ -179,7 +210,10 @@ Each step below must include:
 - **Tests**:
   - `src/__tests__/app/main-session-layout-guard.test.js` (already required by Phase 7; update if route structure changed)
 
-### 11.S.3 Recommendation — route `(main)/session/recommendation`
+### 11.S.3 Recommendation
+
+- **Route** `(main)/session/recommendation` · **Deliverables** `recommendation.jsx` + `RecommendationScreen` (ventilation)
+
 **Goal**: present recommended initial settings with clear labeling, confidence, and safety framing.
 
 - **Route file**: `src/app/(main)/session/recommendation.jsx`
@@ -199,7 +233,10 @@ Each step below must include:
   - route wrapper test
   - screen tests for rendering all sections, states, link navigation, and a11y labeling
 
-### 11.S.4 Monitoring — route `(main)/session/monitoring`
+### 11.S.4 Monitoring
+
+- **Route** `(main)/session/monitoring` · **Deliverables** `monitoring.jsx` + `MonitoringScreen` (ventilation)
+
 **Goal**: allow manual time-series entry and show trend/alert states that are explainable.
 
 - **Route file**: `src/app/(main)/session/monitoring.jsx`
@@ -212,7 +249,10 @@ Each step below must include:
 - **Tests**:
   - include sparse/out-of-order points, alert severity branches, offline banner presence, keyboard navigation (web)
 
-### 11.S.5 History (saved sessions) — route `(main)/history`
+### 11.S.5 History
+
+- **Route** `(main)/history` · **Deliverables** `history.jsx` + `HistoryScreen` (ventilation)
+
 **Goal**: list saved sessions; allow resume, delete, and view summary quickly.
 
 - **Route file**: `src/app/(main)/history.jsx`
@@ -223,7 +263,10 @@ Each step below must include:
 - **Tests**:
   - empty state (no history), corrupted persistence recovery messaging, delete confirmation path
 
-### 11.S.6 Case detail — route `(main)/session/case/[case-id]`
+### 11.S.6 Case detail
+
+- **Route** `(main)/session/case/[case-id]` · **Deliverables** `case/[case-id].jsx` + `CaseDetailScreen` (ventilation)
+
 **Goal**: explain “matched cases” in a clinician-friendly way without leaking raw/unvalidated data.
 
 - **Route file**: `src/app/(main)/session/case/[case-id].jsx`
@@ -238,28 +281,40 @@ Each step below must include:
 - **Tests**:
   - param parsing, missing caseId path, not-found-in-dataset path
 
-### 11.S.7 Training home — route `(training)/index`
+### 11.S.7 Training home
+
+- **Route** `(training)/index` · **Deliverables** `index.jsx` + `TrainingHomeScreen` (training)
+
 **Goal**: clinician-focused entry to offline training/quick reference.
 
 - **Route file**: `src/app/(training)/index.jsx`
 - **Platform screen**: `src/platform/screens/training/TrainingHomeScreen/*`
 - **UI**: search box + “popular topics” + quick checklists
 
-### 11.S.8 Topic list — route `(training)/topics`
+### 11.S.8 Topic list
+
+- **Route** `(training)/topics` · **Deliverables** `topics.jsx` + `TopicListScreen` (training)
+
 **Goal**: browse all topics with filters.
 
 - **Route file**: `src/app/(training)/topics.jsx`
 - **Platform screen**: `src/platform/screens/training/TopicListScreen/*`
 - **UI**: virtualized list + search/filter; keyboard accessible on web
 
-### 11.S.9 Topic detail — route `(training)/topic/[topic-id]`
+### 11.S.9 Topic detail
+
+- **Route** `(training)/topic/[topic-id]` · **Deliverables** `topic/[topic-id].jsx` + `TopicDetailScreen` (training)
+
 **Goal**: show structured training content, readable on small screens.
 
 - **Route file**: `src/app/(training)/topic/[topic-id].jsx`
 - **Platform screen**: `src/platform/screens/training/TopicDetailScreen/*`
 - **UI**: sectioned content + collapsible sub-sections; optional “pin to summary” patterns
 
-### 11.S.10 Settings — route `(settings)/index`
+### 11.S.10 Settings
+
+- **Route** `(settings)/index` · **Deliverables** `index.jsx` + `SettingsScreen` (settings)
+
 **Goal**: preferences and app controls.
 
 - **Route file**: `src/app/(settings)/index.jsx`
@@ -269,7 +324,10 @@ Each step below must include:
   - theme selection (if supported)
   - language selection (supported locales only; see `i18n.mdc`)
 
-### 11.S.11 Disclaimer — route `(settings)/disclaimer`
+### 11.S.11 Disclaimer
+
+- **Route** `(settings)/disclaimer` · **Deliverables** `disclaimer.jsx` + `DisclaimerScreen` (settings)
+
 **Goal**: show the dataset/app disclaimer and allow acknowledgement (guarded entry for workflow).
 
 - **Route file**: `src/app/(settings)/disclaimer.jsx`
@@ -278,7 +336,10 @@ Each step below must include:
   - disclaimer content sourced from dataset `intendedUse` + plan-provided prototype framing (no “clinical use” claims); render user-facing text via i18n keys with interpolation where dataset text is shown
   - acknowledgement persists via store/service boundary (Phase 7 guard)
 
-### 11.S.12 Data sources — route `(settings)/data-sources`
+### 11.S.12 Data sources
+
+- **Route** `(settings)/data-sources` · **Deliverables** `data-sources.jsx` + `DataSourcesScreen` (settings)
+
 **Goal**: transparency: dataset version + citations.
 
 - **Route file**: `src/app/(settings)/data-sources.jsx`
@@ -287,7 +348,10 @@ Each step below must include:
   - show `datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`
   - list `sources[]` citations (with DOI text where present)
 
-### 11.S.13 Privacy — route `(settings)/privacy`
+### 11.S.13 Privacy
+
+- **Route** `(settings)/privacy` · **Deliverables** `privacy.jsx` + `PrivacyScreen` (settings)
+
 **Goal**: explain what is stored locally and what is never sent.
 
 - **Route file**: `src/app/(settings)/privacy.jsx`
@@ -296,15 +360,19 @@ Each step below must include:
   - local-only session storage description (non-sensitive)
   - optional online AI behavior (only if Phase 12 implemented)
 
-### 11.S.14 About — route `(settings)/about`
+### 11.S.14 About
+
+- **Route** `(settings)/about` · **Deliverables** `about.jsx` + `AboutScreen` (settings)
+
 **Goal**: app identity + version + prototype scope.
 
 - **Route file**: `src/app/(settings)/about.jsx`
 - **Platform screen**: `src/platform/screens/settings/AboutScreen/*`
 
 ## Testing baseline for Phase 11 completion
-- Every screen above must have:
-  - route wrapper test (when applicable)
-  - platform screen test covering android/ios/web separately
-  - explicit tests for loading/empty/error/offline
-  - explicit web keyboard navigation + focus order assertions for primary interactions
+
+For every screen (except 11.S.2 layout):
+- Route wrapper test
+- Platform screen test (android/ios/web separately)
+- Explicit tests for loading, empty, error, offline
+- Web: keyboard navigation + focus order for primary interactions

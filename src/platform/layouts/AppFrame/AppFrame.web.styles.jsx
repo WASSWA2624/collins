@@ -63,7 +63,7 @@ const StyledSidebar = styled.aside.withConfig({
   componentId: 'StyledSidebar',
   shouldForwardProp: (prop) => !['sidebarWidth', 'sidebarCollapsed', 'collapsedWidth'].includes(prop),
 })`
-  display: none;
+  display: ${({ sidebarCollapsed }) => (sidebarCollapsed ? 'none' : 'block')};
   width: ${({ sidebarWidth, sidebarCollapsed, collapsedWidth }) =>
     sidebarCollapsed ? `${collapsedWidth}px` : `${sidebarWidth}px`};
   min-width: ${({ sidebarWidth, sidebarCollapsed, collapsedWidth }) =>
@@ -82,8 +82,23 @@ const StyledSidebar = styled.aside.withConfig({
     return `${shadow.shadowOffset?.width || 0}px ${shadow.shadowOffset?.height || 1}px ${shadow.shadowRadius || 2}px rgba(0, 0, 0, ${shadow.shadowOpacity || 0.1})`;
   }};
 
+  /* Mobile: overlay when open */
+  @media (max-width: 767px) {
+    display: ${({ sidebarCollapsed }) => (sidebarCollapsed ? 'none' : 'block')};
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1001;
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+  }
+
+  /* Tablet+: inline sidebar */
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     display: block;
+    position: relative;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -101,7 +116,7 @@ const StyledContent = styled.main.withConfig({
   margin: 0;
   min-width: 0;
   overflow-y: auto;
-  scrollbar-gutter: stable;
+  overflow-x: hidden;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
@@ -109,6 +124,7 @@ const StyledContent = styled.main.withConfig({
   max-width: 100%;
   width: 100%;
   padding-bottom: 0;
+  box-sizing: border-box;
 `;
 
 const StyledContentBody = styled.div.withConfig({
@@ -119,6 +135,8 @@ const StyledContentBody = styled.div.withConfig({
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
 `;
 
 const StyledFooter = styled.footer.withConfig({

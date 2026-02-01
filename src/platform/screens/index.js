@@ -11,3 +11,7 @@
 export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';
+
+// Ventilation screens
+export { default as AssessmentScreen } from './ventilation/AssessmentScreen';
+export { default as RecommendationScreen } from './ventilation/RecommendationScreen';

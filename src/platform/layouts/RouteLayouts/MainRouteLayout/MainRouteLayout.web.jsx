@@ -16,7 +16,6 @@ import {
   NoticeSurface,
   Sidebar,
 } from '@platform/components';
-import { ACTION_PLACEMENTS, ACTION_VARIANTS } from '@platform/components/navigation/GlobalHeader';
 
 // 3. Hooks & utilities
 import useMainRouteLayout from './useMainRouteLayout';
@@ -24,7 +23,16 @@ import useMainRouteLayoutWebShell from './useMainRouteLayoutWebShell';
 import { getMenuIconGlyph } from '@config/sideMenu';
 
 // 4. Styles
-import { StyledMain, StyledSidebarResizeHandle } from './MainRouteLayout.web.styles';
+import {
+  StyledHeaderAppName,
+  StyledHeaderBrand,
+  StyledHeaderLeading,
+  StyledHeaderLogo,
+  StyledMain,
+  StyledMenuToggleButton,
+  StyledSidebarBackdrop,
+  StyledSidebarResizeHandle,
+} from './MainRouteLayout.web.styles';
 
 // 5. Platform layouts
 import AppFrame from '@platform/layouts/AppFrame';
@@ -39,30 +47,49 @@ const MainRouteLayoutWeb = () => {
     [isLoading]
   );
 
-  const headerActions = useMemo(() => {
-    return [
-      {
-        id: 'toggle-menu',
-        placement: ACTION_PLACEMENTS.SECONDARY,
-        variant: ACTION_VARIANTS.GHOST,
-        icon: <Icon glyph={getMenuIconGlyph('menu-outline')} size="md" decorative />,
-        accessibilityLabel: t('common.toggleMenu'),
-        onPress: toggleSidebar,
-        testID: 'main-header-toggle-menu',
-        isCircular: true,
-      },
-    ];
-  }, [t, toggleSidebar]);
+  const headerLeadingSlot = useMemo(
+    () => (
+      <StyledHeaderLeading>
+        <StyledMenuToggleButton
+          type="button"
+          onClick={toggleSidebar}
+          aria-label={t('common.toggleMenu')}
+          data-testid="main-header-toggle-menu"
+        >
+          <Icon glyph={getMenuIconGlyph('menu-outline')} size="md" decorative />
+        </StyledMenuToggleButton>
+        <StyledHeaderBrand href="/" onClick={(e) => e.preventDefault()}>
+          <StyledHeaderLogo aria-hidden="true">
+            <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+          </StyledHeaderLogo>
+          <StyledHeaderAppName>{t('app.name')}</StyledHeaderAppName>
+        </StyledHeaderBrand>
+      </StyledHeaderLeading>
+    ),
+    [t, toggleSidebar]
+  );
 
   return (
     <AppFrame
       header={
         <GlobalHeader
           title={t('navigation.mainNavigation')}
+          leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={headerActions}
+          actions={[]}
         />
+      }
+      sidebarBackdrop={
+        !sidebarCollapsed ? (
+          <StyledSidebarBackdrop
+            onClick={toggleSidebar}
+            onKeyDown={(e) => e.key === 'Escape' && toggleSidebar()}
+            role="button"
+            tabIndex={0}
+            aria-label={t('common.toggleMenu')}
+          />
+        ) : null
       }
       sidebar={
         <>

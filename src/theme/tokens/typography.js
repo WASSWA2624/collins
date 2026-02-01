@@ -5,8 +5,8 @@
 
 export default {
   fontFamily: {
-    regular: 'System',
-    bold: 'System',
+    regular: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    bold: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   fontSize: {
     xs: 12,

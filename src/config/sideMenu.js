@@ -41,9 +41,10 @@ export function getMenuIconGlyph(iconKey) {
   return MENU_ICON_GLYPHS[iconKey] ?? DEFAULT_ICON_GLYPH;
 }
 
-/** Main app sidebar: home + settings */
+/** Main app sidebar: home + assessment + settings */
 const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
+  { id: 'assessment', icon: 'medkit-outline', path: '/assessment' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 

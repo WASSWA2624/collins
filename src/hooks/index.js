@@ -22,4 +22,5 @@ export { default as useNetworkBanner } from './useNetworkBanner';
 export { default as useShellBanners } from './useShellBanners';
 export { default as useFocusTrap } from './useFocusTrap';
 export { default as useVentilationSession } from './useVentilationSession';
+export { default as useSessionGuard } from './useSessionGuard';
 
