@@ -1,13 +1,37 @@
 # Phase 10: Ventilation Core Features (Offline Dataset → Matching → Guidance)
 
-## Purpose
+## Purpose (must match dataset + write-up)
 Implement the ventilation decision-support domain in a way that:
-- Uses the **local embedded dataset** as the primary knowledge base
-- Provides a deterministic, testable **matching + recommendation** engine
-- Supports optional extensible inputs (`observations`, `timeSeries`)
-- Stores only safe, minimal state in Redux and persists non-sensitive data appropriately
+- Uses the **embedded offline ventilation dataset** as the primary knowledge base (no network required)
+- Simulates “specialist oversight” for **non-specialist clinicians** via step-by-step guidance
+- Produces deterministic, testable **matching + recommendations** and **monitoring/alerts**
+- Supports partial input entry (ABG is often unavailable; must still work using SpO₂ + vitals)
+- Treats online AI as **optional enhancement** (future phase / feature-flagged)
 
-## Rule references
+## Dataset contract (single source for Phase 10)
+Dataset location:
+- `src/config/data/ventilation_dataset.json`
+
+High-level structure (as implemented in the JSON):
+- **Root metadata**: `datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`
+- **Schema**:
+  - `schema.notes`
+  - `schema.units` (labels for vitals/labs + ventilator settings)
+  - `schema.observationModel` (extensible `observationShape` + `timeSeriesShape`)
+- **Safety framing**: `intendedUse` with `clinicalUse:false`, `warning`, `validationRequirement`
+- **Citations**: `sources[]` (with `id`, `type`, `citation`, optional `doi`)
+- **Cases**: `cases[]` where each case contains:
+  - `caseId`
+  - `patientProfile` (`age`, `weight`, `height`, `gender`, `condition`, `comorbidities[]`)
+  - `clinicalParameters` (`spo2`, `pao2`, `paco2`, `ph`, `respiratoryRate`, `heartRate`, `bloodPressure`)
+  - `ventilatorSettings` (`mode`, `tidalVolume`, `respiratoryRate`, `fio2`, `peep`, `ieRatio`)
+  - `outcomes` (`complications[]`, `weaningSuccess`, `lengthOfVentilation`, `mortality`)
+  - `recommendations` (`initialSettings`, `monitoringPoints[]`, `riskFactors[]`)
+  - `evidence` (`sourceIds[]`, `notes`)
+  - `review` (`status`, `reviewedByRole`, `reviewedAt`)
+
+## Rule references (implementation must comply)
+- `.cursor/rules/index.mdc` (precedence)
 - `.cursor/rules/features-domain.mdc` (feature structure)
 - `.cursor/rules/state-management.mdc`
 - `.cursor/rules/services-integration.mdc`
@@ -18,9 +42,9 @@ Implement the ventilation decision-support domain in a way that:
 - `.cursor/rules/performance.mdc`
 
 ## Prerequisites
-- Phase 2 services + Phase 4 offline layer exist (storage + network status + queue)
-- Foundation error normalization exists
-- App shell exists (phases 7–9) so screens can consume hooks later
+- Storage + offline foundations exist (AsyncStorage, network state, queue)
+- Error normalization exists (error codes only; no raw errors to UI)
+- App shell exists so screens can consume hooks later
 
 ## Feature development contract (applies to every step)
 For each feature created/expanded, follow the standard structure:
@@ -39,88 +63,100 @@ For each feature created/expanded, follow the standard structure:
 - Tests must mock services/storage/time; never depend on real network or real device storage.
 - Matching logic must be tested for determinism and ranking stability.
 
+## Core user flows (from the write-up)
+- **Assessment**: clinician enters condition + available parameters (SpO₂-first; ABG optional)
+- **Decision support (offline-first)**: match against dataset `cases[]` and rank best matches
+- **Instruction output**: return mode + initial settings + monitoring points + risk factors (with “why”)
+- **Request missing tests**: prompt for additional tests (e.g., ABG) when confidence is low
+- **Monitoring**: track time-series entries and trigger explainable alerts (warning/critical)
+- **Training**: offline training content for non-specialists (protocols + checklists + glossary)
+- **Optional online AI**: only for complex/low-confidence cases when connectivity exists (future)
+
 ## Steps (atomic)
 
-### Step 10.1: `ventilation` feature skeleton + dataset contract
-Goal: establish the domain boundary and validate the dataset shape.
+### Step 10.1: `ventilation` feature skeleton + dataset model contract
+Goal: establish the domain boundary and validate the dataset shape used by the app.
 - Add/verify:
   - `src/features/ventilation/index.js`
   - `src/features/ventilation/ventilation.rules.js`
   - `src/features/ventilation/ventilation.model.js`
   - `src/features/ventilation/ventilation.usecase.js`
   - `src/features/ventilation/ventilation.api.js` (stub; online augmentation later)
-  - `src/features/ventilation/data/ventilation_dataset.json` (already present)
-- In `ventilation.model.js`:
-  - Define Zod schemas for:
-    - dataset root metadata (`datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`)
-    - dataset `intendedUse` block (must include `warning` and `clinicalUse:false`)
-    - dataset `sources[]` citations (for UI data-sources screen)
-    - dataset `schema.units` map (for UI unit labels + validation messaging)
-    - case shape
-    - extensible observation/timeSeries shapes
-  - Provide model functions that normalize raw case(s) into safe domain shapes.
-  - Provide model selectors/helpers for UI (read-only):
-    - `getVentilationDatasetMeta()` (version, lastUpdated, totalCases)
-    - `getVentilationDatasetIntendedUse()` (warning + validation requirement)
-    - `getVentilationDatasetSources()` (citations)
-    - `getVentilationUnits()` (units map for clinical parameters + ventilator settings)
+- In `ventilation.model.js` define Zod schemas for:
+  - root metadata (`datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`)
+  - `schema.units` (must include: `spo2`, `pao2`, `paco2`, `ph`, `respiratoryRate`, `heartRate`, `bloodPressure`, `fio2`, `peep`, `tidalVolume`, `ieRatio`)
+  - `schema.observationModel` shapes (even if `cases[]` currently do not embed observations/timeSeries)
+  - `intendedUse` (must include `clinicalUse:false`, `warning`, `validationRequirement`)
+  - `sources[]` citations
+  - `cases[]` including per-case `evidence` and `review` blocks
+- Provide model helpers for UI/hook consumption (read-only):
+  - `getVentilationDatasetMeta()` (version, lastUpdated, totalCases)
+  - `getVentilationDatasetIntendedUse()` (warning + validation requirement)
+  - `getVentilationDatasetSources()` (citations)
+  - `getVentilationUnits()` (units map)
+  - `getVentilationCaseCitations(case)` (map `case.evidence.sourceIds[]` → `sources[]`)
+  - `getVentilationCaseReviewStatus(case)` (surface `review.status`)
 - Tests:
-  - Validate dataset parsing and schema failures (including corrupted/partial data).
-  - Ensure “intended use” warning is accessible via a model function for UI.
-  - Validate `schema.units` presence and required unit keys (UI relies on this for consistent labels).
+  - dataset parsing and schema failures (including corrupted/partial data)
+  - required unit keys exist (UI relies on this for consistent labels)
+  - `intendedUse` is always available and is never suppressed
 
-### Step 10.2: Case indexing + retrieval (performance baseline)
-Goal: enable fast offline matching without re-parsing large structures repeatedly.
+### Step 10.2: Case indexing + retrieval (offline performance baseline)
+Goal: enable fast offline matching without re-parsing or scanning the entire dataset repeatedly.
 - Add domain functions to:
-  - build a lightweight index (e.g., by condition + basic ranges)
-  - retrieve candidate cases deterministically
+  - build a lightweight index primarily by `patientProfile.condition`
+  - retrieve candidate cases deterministically (stable ordering)
 - Constraints:
-  - avoid large in-memory Redux state; store IDs and minimal metadata only
-  - keep heavy dataset parsing out of render paths (hooks must memoize / compute once)
+  - avoid large in-memory Redux state; store only session IDs + minimal inputs/outputs
+  - keep heavy dataset parsing out of render paths (load once; memoize; reuse index)
 - Tests:
-  - indexing determinism
-  - candidate retrieval correctness by condition and severity buckets
+  - indexing determinism across runs
+  - candidate retrieval correctness by `condition` (and graceful fallback when condition missing)
 
-### Step 10.3: Similarity scoring + top-N matching
-Goal: deterministic similarity scoring for the core clinician input set.
+### Step 10.3: Similarity scoring + top-N matching (SpO₂-first, ABG-optional)
+Goal: deterministic similarity scoring for the write-up’s minimum viable clinician inputs.
 - Implement rules for:
-  - required input validation (minimum fields)
-  - missing-value handling (partial inputs must still work)
+  - required input validation (minimum safe set, e.g., `condition` + `spo2` + `respiratoryRate` + `heartRate`)
+  - missing-value handling (ABG fields `pao2/paco2/ph` may be omitted)
   - normalized distance functions per numeric field
-  - weighted scoring (documented in code via constants, not hardcoded in UI)
+  - weighted scoring (constants live in domain; UI never hardcodes weights)
   - tie-breaking to keep ranking stable
 - Output:
-  - top N matched cases with scores + explanation-friendly highlights
-- Define (in rules/constants) a **confidence tier** derived from score and input completeness:
-  - e.g., `high` / `medium` / `low` with deterministic thresholds (exact thresholds are constants; UI never hardcodes them)
-  - include a “why” payload suitable for UI explanation (missing fields, dominant contributors, ties)
+  - top N matched cases with scores + explanation payload (“why this match”)
+- Define a deterministic **confidence tier** derived from score + completeness:
+  - `high` / `medium` / `low` with thresholds as constants
+  - include a “missing data” list to drive “request additional tests”
 - Tests:
-  - all branches including missing field combinations
+  - all branches including missing ABG combinations
   - stable ranking given equal scores
 
-### Step 10.4: Recommendation generation + safety framing
-Goal: produce output suitable for UI display and safe clinician interpretation.
-- Use matched cases to generate:
-  - recommended initial settings (mode/TV/RR/FiO₂/PEEP/I:E)
-  - monitoring points (what to watch next)
-  - risk/complication flags (prototype-grade)
-  - “request additional tests” prompts when key data missing (e.g., ABG values)
+### Step 10.4: Recommendation assembly + safety framing (dataset-first)
+Goal: produce output suitable for UI display, aligned to what the dataset already contains.
+- Use matched cases to assemble:
+  - recommended initial ventilator settings (from `case.recommendations.initialSettings` and/or `case.ventilatorSettings`)
+  - monitoring points (from `case.recommendations.monitoringPoints`)
+  - risk factors (from `case.recommendations.riskFactors`) and complication history (from `case.outcomes.complications`)
+  - “request additional tests” prompts when confidence is low or key fields are missing (ABG prompts are primary)
+  - a step-by-step “next actions” checklist (prototype-grade) keyed by `condition` + confidence tier (supports write-up’s specialist-simulation workflow)
 - Requirements:
-  - recommendation objects include “source” metadata (case IDs + confidence tier)
-  - include the dataset’s “not clinically validated” warning as part of output
+  - include “source” metadata (case IDs + confidence tier)
+  - always surface dataset safety framing:
+    - global `intendedUse.warning`
+    - per-case `review.status` and `evidence.notes`
   - include units metadata (from `schema.units`) so UI never guesses units
+  - include citations (map `evidence.sourceIds[]` to `sources[]`) for transparency
 - Tests:
-  - generation logic for different conditions
-  - missing input → additional tests prompts
-  - ensure no raw dataset leaks unvalidated to UI
+  - assembly logic for each supported condition bucket
+  - missing input → additional test prompts
+  - ensure no raw dataset objects leak to UI without normalization (codes only in store)
 
 ### Step 10.5: Session persistence (local-only)
-Goal: save and resume assessments safely on-device.
+Goal: save and resume assessments safely on-device for clinical workflow continuity.
 - Add slice/hook only if needed:
   - `src/store/slices/ventilation.slice.js` to track:
     - current session ID
     - current inputs (minimal)
-    - last computed recommendation summary
+    - last computed recommendation summary (minimal)
     - error codes only (no raw errors)
 - Persist non-sensitive session history to AsyncStorage via a service boundary.
 - Tests:
@@ -129,18 +165,31 @@ Goal: save and resume assessments safely on-device.
 ### Step 10.6: Monitoring model (time series + thresholds)
 Goal: represent monitoring inputs and compute alert states deterministically.
 - Support:
-  - manual entry of repeated vitals/labs (time series)
+  - manual entry of repeated vitals/labs (time series compatible with `schema.observationModel.timeSeriesShape`)
   - trend detection (simple, explainable rules)
   - alert severity classification (warning vs critical)
 - Tests:
   - trend edge cases (sparse points, out-of-order timestamps)
   - alert classification branches
 
-### Step 10.7: Training content domain (offline)
+### Step 10.7: Training content domain (offline, non-specialist oriented)
 Goal: provide structured training content without external dependencies.
 - Add a `training` feature with:
-  - content models (sections, checklists, glossary)
+  - content models (protocol sections, checklists, glossary, FAQs)
   - search/filter rules (pure)
   - local content source (JSON/MD under `src/features/training/data/`)
 - Tests:
   - content model normalization + search behavior
+
+### Step 10.8: Optional online AI augmentation (future phase hook point)
+Goal: support the write-up’s “online AI for complex cases” without compromising offline-first behavior.
+- Define a “complex case” detector based on:
+  - low confidence tier
+  - missing key inputs that materially change recommendations
+  - out-of-distribution inputs (outside dataset ranges)
+- Add API stub boundaries (feature-flagged) for:
+  - requesting extra analysis when online
+  - merging online output with dataset output deterministically (dataset remains primary)
+- Tests:
+  - detector determinism (same inputs → same decision)
+  - offline behavior remains fully functional when online augmentation unavailable

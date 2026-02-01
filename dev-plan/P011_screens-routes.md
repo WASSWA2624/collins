@@ -62,6 +62,9 @@ src/app/
     └── privacy.jsx
 ```
 
+Notes:
+- Phase 13 may introduce additional route groups (e.g., `(onboarding)/`, `(help)/`). Keep Phase 11 focused on the core clinician workflow + training + settings.
+
 ## Sequential build order (one step = one screen)
 
 ### Tier 1: Core workflow (main)
@@ -90,13 +93,16 @@ src/app/
 - Must be a guided, step-by-step flow (progress indicator).
 - Must support partial entry and “missing tests” prompts (from Phase 10 logic).
 - Must provide compact summary at all times (sticky on larger screens).
+- Must collect optional structured `observations` and `timeSeries` entries in a shape compatible with dataset `schema.observationModel` (even if core matching does not yet use them).
 
 ### Recommendation screen (11.S.3)
 - Must show:
   - recommended initial settings (clearly labeled)
   - confidence tier + matched case references (case IDs)
   - monitoring points + risk factors
-  - prominent dataset warning (“not clinically validated”)
+  - prominent dataset warning (“not clinically validated”) sourced from dataset `intendedUse`
+  - per-match safety metadata (case `review.status`, and `evidence.notes` when present)
+  - citations for the recommendation (map `case.evidence.sourceIds[]` → dataset `sources[]`)
 - Must be readable in compact mode and two-pane mode.
 
 ### Monitoring screen (11.S.4)
@@ -150,7 +156,8 @@ Each step below must include:
 - **Minimum steps** (wizard):
   - Patient profile (condition, age, weight, height, gender, comorbidities)
   - Clinical parameters (SpO₂, optional ABG values, vitals)
-  - Optional observations (freeform structured entries)
+  - Optional observations (structured entries compatible with dataset `schema.observationModel.observationShape`)
+  - Optional time-series starter points (compatible with dataset `schema.observationModel.timeSeriesShape`) for “start monitoring now”
   - Review + “Generate recommendation”
 - **Validation**:
   - required minimum inputs enforced by Phase 10 rules; UI shows which missing values unlock better confidence.
@@ -183,7 +190,8 @@ Each step below must include:
   - “Monitoring points” (next checks, when to reassess)
   - “Risks/complications” (prototype-grade flags; actionable guidance)
   - “Matched cases” (top-N list with `caseId` links)
-  - “Intended use warning” (content sourced from dataset `intendedUse.warning`, but rendered via i18n key + interpolation; always visible)
+  - “Evidence & review” (from matched case: `review.status`, `evidence.notes`, and mapped citations)
+  - “Intended use warning” (content sourced from dataset `intendedUse.warning` and `intendedUse.validationRequirement`; render user-facing text via i18n keys with interpolation; always visible)
 - **Responsive**:
   - mobile: collapsible sections; primary action = “Start monitoring”
   - tablet/web: split-pane with sticky session summary
@@ -224,6 +232,8 @@ Each step below must include:
   - compact case summary (patientProfile + key clinicalParameters)
   - ventilatorSettings used
   - outcomes (with clear “dataset case” framing)
+  - evidence: mapped citations (`evidence.sourceIds[]` → `sources[]`)
+  - review status (`review.status`) with clear prototype framing
   - always show intended-use warning
 - **Tests**:
   - param parsing, missing caseId path, not-found-in-dataset path
