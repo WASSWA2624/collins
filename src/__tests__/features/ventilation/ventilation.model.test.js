@@ -10,6 +10,7 @@ import {
   getDefaultVentilationCaseIndex,
   getVentilationCandidateCases,
   getVentilationCandidateCaseIndexes,
+  getVentilationCaseById,
   getVentilationCaseCitations,
   getVentilationCaseReviewStatus,
   getVentilationDatasetIntendedUse,
@@ -234,5 +235,28 @@ describe('ventilation.model', () => {
     const a = getDefaultVentilationCaseIndex();
     const b = getDefaultVentilationCaseIndex();
     expect(a).toBe(b);
+  });
+
+  it('getVentilationCaseById returns case when found, null when missing or empty caseId', () => {
+    const dataset = parseVentilationDataset(
+      makeValidMinimalDataset({
+        totalCases: 2,
+        cases: [
+          { caseId: 'CASE_001', patientProfile: { condition: 'ARDS' } },
+          { caseId: 'CASE_002', patientProfile: { condition: 'COPD' } },
+        ],
+      })
+    );
+    expect(getVentilationCaseById('CASE_001', dataset)).toEqual(
+      expect.objectContaining({ caseId: 'CASE_001' })
+    );
+    expect(getVentilationCaseById('CASE_002', dataset)).toEqual(
+      expect.objectContaining({ caseId: 'CASE_002' })
+    );
+    expect(getVentilationCaseById('NON_EXISTENT', dataset)).toBeNull();
+    expect(getVentilationCaseById(null, dataset)).toBeNull();
+    expect(getVentilationCaseById('', dataset)).toBeNull();
+    expect(getVentilationCaseById('   ', dataset)).toBeNull();
+    expect(getVentilationCaseById(undefined, dataset)).toBeNull();
   });
 });

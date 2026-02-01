@@ -251,8 +251,14 @@ const getVentilationDatasetIntendedUse = (dataset = getDefaultVentilationDataset
 };
  
 const getVentilationDatasetSources = (dataset = getDefaultVentilationDataset()) => dataset.sources;
- 
+
 const getVentilationUnits = (dataset = getDefaultVentilationDataset()) => dataset.schema.units;
+
+const getVentilationCaseById = (caseId, dataset = getDefaultVentilationDataset()) => {
+  if (caseId == null || String(caseId).trim() === '') return null;
+  const cases = Array.isArray(dataset?.cases) ? dataset.cases : [];
+  return cases.find((c) => String(c?.caseId) === String(caseId)) ?? null;
+};
  
 const getVentilationCaseCitations = (caseItem, dataset = getDefaultVentilationDataset()) => {
   const sourceIds = caseItem?.evidence?.sourceIds;
@@ -281,6 +287,7 @@ export {
   getVentilationDatasetIntendedUse,
   getVentilationDatasetSources,
   getVentilationUnits,
+  getVentilationCaseById,
   getVentilationCaseCitations,
   getVentilationCaseReviewStatus,
 };
