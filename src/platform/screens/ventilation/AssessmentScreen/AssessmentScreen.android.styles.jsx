@@ -90,6 +90,8 @@ const StyledMissingTests = styled(View).withConfig({
   padding: ${({ theme }) => theme.spacing.sm}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
   border-radius: ${({ theme }) => theme.radius?.sm ?? 4}px;
+  border-left-width: 4px;
+  border-left-color: ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
 `;
 
 const StyledFieldGroup = styled(View).withConfig({

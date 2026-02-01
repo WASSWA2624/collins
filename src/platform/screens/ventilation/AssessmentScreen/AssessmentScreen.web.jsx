@@ -335,8 +335,8 @@ const AssessmentScreenWeb = () => {
           </StyledStepContent>
           {hasMissingTests && currentStep === STEPS.REVIEW && (
             <StyledMissingTests data-testid={testIds.missingTests}>
-              <Text variant="label">{t('ventilation.assessment.missingTests.title')}</Text>
-              <Text variant="body">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
+              <Text variant="label" color="status.warning.text">{t('ventilation.assessment.missingTests.title')}</Text>
+              <Text variant="body" color="status.warning.text">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
             </StyledMissingTests>
           )}
         </StyledWizardCard>

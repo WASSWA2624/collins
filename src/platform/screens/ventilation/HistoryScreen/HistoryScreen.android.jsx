@@ -107,12 +107,12 @@ const HistoryScreenAndroid = () => {
     >
       {isCorrupt && (
         <StyledBanner testID={HISTORY_TEST_IDS.corruptBanner}>
-          <Text variant="body">{t('ventilation.history.corruptRecovery')}</Text>
+          <Text variant="body" color="status.warning.text">{t('ventilation.history.corruptRecovery')}</Text>
         </StyledBanner>
       )}
       {historyErrorCode && !isCorrupt && (
         <StyledErrorBanner testID={HISTORY_TEST_IDS.errorBanner}>
-          <Text variant="body">{t('ventilation.history.states.error')}</Text>
+          <Text variant="body" color="status.error.text">{t('ventilation.history.states.error')}</Text>
         </StyledErrorBanner>
       )}
       {isEmpty && !isHistoryLoading ? (

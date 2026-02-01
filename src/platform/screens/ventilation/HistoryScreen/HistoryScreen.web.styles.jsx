@@ -24,7 +24,9 @@ const StyledBanner = styled.div.withConfig({
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left: 4px solid ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
 `;
 
 const StyledErrorBanner = styled.div.withConfig({
@@ -34,7 +36,9 @@ const StyledErrorBanner = styled.div.withConfig({
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#FFEBEE'};
+  color: ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left: 4px solid ${({ theme }) => theme.colors.status?.error?.text ?? theme.colors?.error ?? '#C62828'};
 `;
 
 const StyledEmpty = styled.div.withConfig({

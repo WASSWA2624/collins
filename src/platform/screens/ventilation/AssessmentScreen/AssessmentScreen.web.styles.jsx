@@ -233,7 +233,9 @@ const StyledMissingTests = styled.div.withConfig({
   margin-top: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.sm}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
   border-radius: ${({ theme }) => theme.radius?.sm ?? 4}px;
+  border-left: 4px solid ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
   font-size: ${({ theme }) => theme.typography?.body?.fontSize ?? 14}px;
 `;
 

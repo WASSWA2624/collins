@@ -86,12 +86,12 @@ const RecommendationScreenAndroid = () => {
     <ScrollView style={{ flex: 1 }} accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
         <StyledWarningBox testID={RECOMMENDATION_TEST_IDS.warning}>
-          <Text variant="label">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
-          <Text variant="body">{safety.intendedUseWarning}</Text>
+          <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
+          <Text variant="body" color="status.warning.text">{safety.intendedUseWarning}</Text>
           {safety.validationRequirement ? (
             <>
-              <Text variant="label">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
-              <Text variant="body">{safety.validationRequirement}</Text>
+              <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
+              <Text variant="body" color="status.warning.text">{safety.validationRequirement}</Text>
             </>
           ) : null}
         </StyledWarningBox>

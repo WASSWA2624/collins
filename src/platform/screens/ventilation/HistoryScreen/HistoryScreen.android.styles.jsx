@@ -22,6 +22,8 @@ const StyledBanner = styled(View).withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left-width: 4px;
+  border-left-color: ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
 `;
 
 const StyledErrorBanner = styled(View).withConfig({
@@ -30,8 +32,10 @@ const StyledErrorBanner = styled(View).withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#F8D7DA'};
+  background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#FFEBEE'};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left-width: 4px;
+  border-left-color: ${({ theme }) => theme.colors.status?.error?.text ?? theme.colors?.error ?? '#C62828'};
 `;
 
 const StyledEmpty = styled(View).withConfig({

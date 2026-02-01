@@ -178,9 +178,12 @@ const StyledWarningBox = styled.div.withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left: 4px solid ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  line-height: 1.5;
 `;
 
 const StyledActionsRow = styled.div.withConfig({

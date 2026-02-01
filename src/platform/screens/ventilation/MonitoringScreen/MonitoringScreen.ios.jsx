@@ -80,7 +80,7 @@ const MonitoringScreenIos = () => {
       <StyledContainer testID={MONITORING_TEST_IDS.screen}>
         {isOffline && (
           <StyledOfflineBanner testID={MONITORING_TEST_IDS.offlineBanner}>
-            <Text variant="caption">{t('ventilation.monitoring.states.offline')}</Text>
+            <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.states.offline')}</Text>
           </StyledOfflineBanner>
         )}
 

@@ -10,7 +10,7 @@ import shadows from './tokens/shadows';
 import breakpoints from './breakpoints';
 import animations from './animations';
 
-// Override colors for dark mode
+// Override colors for dark mode (WCAG AA contrast for callouts)
 const darkColors = {
   ...colors,
   background: {
@@ -27,6 +27,17 @@ const darkColors = {
   textPrimary: '#FFFFFF',
   textSecondary: '#EBEBF5',
   onPrimary: '#FFFFFF',
+  status: {
+    ...colors.status,
+    warning: {
+      background: '#5C4A00',
+      text: '#FFF8E1',
+    },
+    error: {
+      background: '#4A1515',
+      text: '#FFEBEE',
+    },
+  },
 };
 
 export default {

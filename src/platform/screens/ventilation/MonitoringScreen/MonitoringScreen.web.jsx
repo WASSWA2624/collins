@@ -86,7 +86,7 @@ const MonitoringScreenWeb = () => {
     <StyledContainer aria-label={t('ventilation.monitoring.accessibilityLabel')} data-testid={MONITORING_TEST_IDS.screen}>
       {isOffline && (
         <StyledOfflineBanner data-testid={MONITORING_TEST_IDS.offlineBanner} role="status">
-          <Text variant="caption">{t('ventilation.monitoring.states.offline')}</Text>
+          <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.states.offline')}</Text>
         </StyledOfflineBanner>
       )}
 

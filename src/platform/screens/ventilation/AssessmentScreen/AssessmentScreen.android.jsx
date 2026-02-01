@@ -311,8 +311,8 @@ const AssessmentScreenAndroid = () => {
           </StyledStepContent>
           {hasMissingTests && currentStep === STEPS.REVIEW && (
             <StyledMissingTests testID={testIds.missingTests}>
-              <Text variant="label">{t('ventilation.assessment.missingTests.title')}</Text>
-              <Text variant="body">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
+              <Text variant="label" color="status.warning.text">{t('ventilation.assessment.missingTests.title')}</Text>
+              <Text variant="body" color="status.warning.text">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
             </StyledMissingTests>
           )}
           <StyledActionsRow>
