@@ -72,7 +72,22 @@ const normalizeError = (error) => {
 
   // If error is already normalized (has code property), return as-is
   if (error.code && typeof error.code === 'string' && error.code !== 'UNKNOWN_ERROR') {
-    return error;
+    const safeMessage =
+      typeof error.safeMessage === 'string' && error.safeMessage.trim()
+        ? error.safeMessage.trim()
+        : getSafeMessageForCode(error.code);
+
+    const message =
+      typeof error.message === 'string' && error.message.trim()
+        ? error.message.trim()
+        : safeMessage;
+
+    return {
+      ...error,
+      message,
+      safeMessage,
+      severity: error.severity || 'error',
+    };
   }
 
   // Network errors (browser often throws TypeError with "Failed to fetch")
@@ -95,16 +110,16 @@ const normalizeError = (error) => {
     const status = error.status || error.statusCode;
     
     // Extract error code from backend message if available
-    const extractedCode = error.message ? extractErrorCode(error.message) : null;
+    const extractedRaw = error.message ? extractErrorCode(error.message) : null;
+    const extractedCode = extractedRaw && extractedRaw !== 'UNKNOWN_ERROR' ? extractedRaw : null;
     
     if (status === 401) {
       // Prefer INVALID_CREDENTIALS for login errors, UNAUTHORIZED for general auth errors
       const code = extractedCode || 'UNAUTHORIZED';
       const safeMessage = getSafeMessageForCode(code);
-      const rawMessage = error.message || safeMessage;
       return {
         code,
-        message: rawMessage,
+        message: safeMessage,
         safeMessage,
         severity: 'error',
       };
@@ -112,10 +127,9 @@ const normalizeError = (error) => {
     if (status === 403) {
       const code = extractedCode || 'FORBIDDEN';
       const safeMessage = getSafeMessageForCode(code);
-      const rawMessage = error.message || safeMessage;
       return {
         code,
-        message: rawMessage,
+        message: safeMessage,
         safeMessage,
         severity: 'error',
       };
@@ -123,10 +137,9 @@ const normalizeError = (error) => {
     if (status >= 500) {
       const code = extractedCode || 'SERVER_ERROR';
       const safeMessage = getSafeMessageForCode(code);
-      const rawMessage = error.message || safeMessage;
       return {
         code,
-        message: rawMessage,
+        message: safeMessage,
         safeMessage,
         severity: 'error',
       };
@@ -135,10 +148,9 @@ const normalizeError = (error) => {
     // For other status codes, use extracted code or default
     if (extractedCode && extractedCode !== 'UNKNOWN_ERROR') {
       const safeMessage = getSafeMessageForCode(extractedCode);
-      const rawMessage = error.message || safeMessage;
       return {
         code: extractedCode,
-        message: rawMessage,
+        message: safeMessage,
         safeMessage,
         severity: 'error',
       };

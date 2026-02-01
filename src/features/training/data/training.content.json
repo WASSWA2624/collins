@@ -1,0 +1,44 @@
+{
+  "contentVersion": "1.0",
+  "contentSchemaVersion": "1.0",
+  "lastUpdated": "2026-02-01",
+  "protocolSections": [
+    {
+      "id": "protocol.intro",
+      "title": "Introduction",
+      "body": "This training content is for offline learning. It does not replace clinical judgment.",
+      "tags": ["offline", "safety"],
+      "order": 1
+    },
+    {
+      "id": "protocol.assessment",
+      "title": "Initial assessment",
+      "body": "Assess oxygenation, ventilation, and hemodynamics. Confirm airway patency and device positioning.",
+      "tags": ["assessment", "basics"],
+      "order": 2
+    }
+  ],
+  "checklists": [
+    {
+      "id": "checklist.basics",
+      "title": "Ventilation basics checklist",
+      "tags": ["basics"],
+      "items": [
+        { "id": "cb.1", "text": "Confirm SpO2 and respiratory rate.", "tags": ["assessment"] },
+        { "id": "cb.2", "text": "Review FiO2 and PEEP settings.", "tags": ["settings"] }
+      ]
+    }
+  ],
+  "glossary": [
+    { "term": "PEEP", "definition": "Positive end-expiratory pressure.", "tags": ["settings"] },
+    { "term": "FiO2", "definition": "Fraction of inspired oxygen.", "tags": ["settings"] }
+  ],
+  "faqs": [
+    {
+      "id": "faq.offline",
+      "question": "Is this usable offline?",
+      "answer": "Yes. The content is bundled locally and can be searched without network access.",
+      "tags": ["offline"]
+    }
+  ]
+}

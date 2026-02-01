@@ -61,13 +61,13 @@ describe('Card Component', () => {
     });
 
     it('should have article accessibility role', () => {
-      const { getByLabelText } = renderWithWebTheme(
+      const { getByLabelText } = renderWithTheme(
         <Card testID="card" accessibilityLabel="Card">
           <Text>Content</Text>
         </Card>
       );
       const card = getByLabelText('Card');
-      expect(card.props.role).toBe('article');
+      expect(card.props.accessibilityRole).toBe('article');
     });
 
     it('should have custom accessibility label', () => {
@@ -556,12 +556,12 @@ describe('Card Component', () => {
 
   describe('Test ID', () => {
     it('should accept testID prop', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { getByTestId } = renderWithTheme(
         <Card testID="test-card" accessibilityLabel="Test Card">
           <Text>Content</Text>
         </Card>
       );
-      const card = UNSAFE_getByType(CardWeb);
+      const card = getByTestId('test-card');
       expect(card.props.testID).toBe('test-card');
     });
   });
@@ -586,11 +586,10 @@ describe('Card Component', () => {
     });
 
     it('should handle null children', () => {
-      const { UNSAFE_getByType } = renderWithWebTheme(
+      const { getByTestId } = renderWithTheme(
         <Card testID="card" accessibilityLabel="Card">{null}</Card>
       );
-      const card = UNSAFE_getByType(CardWeb);
-      expect(card).toBeTruthy();
+      expect(getByTestId('card')).toBeTruthy();
     });
 
     it('should handle undefined header', () => {
@@ -624,7 +623,7 @@ describe('Card Component', () => {
     it('should export default component from index', () => {
       const DefaultCard = require('@platform/components/display/Card').default;
       expect(DefaultCard).toBeDefined();
-      const { getByText } = renderWithWebTheme(
+      const { getByText } = renderWithTheme(
         <DefaultCard testID="index-card" accessibilityLabel="Index Card">
           <Text>Index Content</Text>
         </DefaultCard>

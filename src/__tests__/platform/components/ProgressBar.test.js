@@ -44,21 +44,21 @@ describe('ProgressBar Component', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 0%');
       expect(progressBar).toBeTruthy();
-      expect(progressBar.props['aria-valuenow']).toBe(0);
+      expect(progressBar.props.accessibilityValue).toEqual({ min: 0, max: 100, now: 0 });
     });
 
     it('should render with specified value', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value={50} testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 50%');
-      expect(progressBar.props['aria-valuenow']).toBe(50);
+      expect(progressBar.props.accessibilityValue).toEqual({ min: 0, max: 100, now: 50 });
     });
 
     it('should clamp value to 0-100 range', () => {
       const { getByLabelText: getByLabelTextNegative } = renderWithTheme(<ProgressBar value={-10} testID="progressbar" />);
-      expect(getByLabelTextNegative('Progress: 0%').props['aria-valuenow']).toBe(0);
+      expect(getByLabelTextNegative('Progress: 0%').props.accessibilityValue).toEqual({ min: 0, max: 100, now: 0 });
 
       const { getByLabelText: getByLabelTextOver } = renderWithTheme(<ProgressBar value={150} testID="progressbar" />);
-      expect(getByLabelTextOver('Progress: 100%').props['aria-valuenow']).toBe(100);
+      expect(getByLabelTextOver('Progress: 100%').props.accessibilityValue).toEqual({ min: 0, max: 100, now: 100 });
     });
   });
 
@@ -94,15 +94,13 @@ describe('ProgressBar Component', () => {
     it('should have progressbar role', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value={50} testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 50%');
-      expect(progressBar.props.role).toBe('progressbar');
+      expect(progressBar.props.accessibilityRole).toBe('progressbar');
     });
 
     it('should have correct accessibility value range', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value={75} testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 75%');
-      expect(progressBar.props['aria-valuemin']).toBe(0);
-      expect(progressBar.props['aria-valuemax']).toBe(100);
-      expect(progressBar.props['aria-valuenow']).toBe(75);
+      expect(progressBar.props.accessibilityValue).toEqual({ min: 0, max: 100, now: 75 });
     });
 
     it('should use custom accessibility label', () => {
@@ -130,8 +128,7 @@ describe('ProgressBar Component', () => {
       );
       const progressBar = getByLabelText('Progress: 50%');
       expect(progressBar).toBeTruthy();
-      // On web, testID becomes data-testid
-      expect(progressBar.props['data-testid']).toBe('test-progressbar');
+      expect(progressBar.props.testID).toBe('test-progressbar');
     });
   });
 
@@ -271,26 +268,26 @@ describe('ProgressBar Component', () => {
     it('should handle non-numeric value', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value="invalid" testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 0%');
-      expect(progressBar.props['aria-valuenow']).toBe(0);
+      expect(progressBar.props.accessibilityValue.now).toBe(0);
     });
 
     it('should handle null value', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value={null} testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 0%');
-      expect(progressBar.props['aria-valuenow']).toBe(0);
+      expect(progressBar.props.accessibilityValue.now).toBe(0);
     });
 
     it('should handle undefined value', () => {
       const { getByLabelText } = renderWithTheme(<ProgressBar value={undefined} testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 0%');
-      expect(progressBar.props['aria-valuenow']).toBe(0);
+      expect(progressBar.props.accessibilityValue.now).toBe(0);
     });
 
     it('should handle missing value prop (defaults to 0)', () => {
       // Test default parameter branch - when value prop is completely omitted
       const { getByLabelText } = renderWithTheme(<ProgressBar testID="progressbar" />);
       const progressBar = getByLabelText('Progress: 0%');
-      expect(progressBar.props['aria-valuenow']).toBe(0);
+      expect(progressBar.props.accessibilityValue.now).toBe(0);
     });
 
     it('should handle useProgressBar hook with completely omitted value parameter', () => {

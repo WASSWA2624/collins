@@ -548,11 +548,10 @@ describe('FilterBar Pattern', () => {
       expect(typeof FilterBarIndex).toBe('function');
       // Verify it's the same as the default export
       expect(FilterBarIndex).toBe(FilterBar);
-      // Verify it exports FilterBar.web component
+      // Verify the index default matches platform resolution via './FilterBar'
       // eslint-disable-next-line import/no-unresolved
-      const FilterBarWeb = require('@platform/patterns/FilterBar/FilterBar.web').default;
-      // The index exports FilterBar.web, so they should be the same
-      expect(FilterBarIndex).toBe(FilterBarWeb);
+      const FilterBarPlatform = require('@platform/patterns/FilterBar/FilterBar').default;
+      expect(FilterBarIndex).toBe(FilterBarPlatform);
       // Render the component from index to ensure it's executed
       const filters = [{ id: '1', label: 'Filter 1', active: false }];
       const { getByTestId: getByTestIdIndex } = renderWithTheme(

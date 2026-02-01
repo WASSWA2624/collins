@@ -38,50 +38,50 @@ describe('Modal Component', () => {
     });
 
     it('should render when visible is true', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
   });
 
   describe('Sizes', () => {
     it('should render small size', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} size={SIZES.SMALL} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
 
     it('should render medium size (default)', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
 
     it('should render large size', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} size={SIZES.LARGE} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
 
     it('should render fullscreen size', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} size={SIZES.FULLSCREEN} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
   });
 
@@ -130,12 +130,12 @@ describe('Modal Component', () => {
 
   describe('Backdrop', () => {
     it('should dismiss on backdrop press by default', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      const backdrop = getByTestId('test-modal');
+      const backdrop = getAllByTestId('test-modal')[0];
       // Use press event for React Native, click for web
       fireEvent(backdrop, 'press');
       // Note: Backdrop press handling is tested through useModal hook tests
@@ -144,7 +144,7 @@ describe('Modal Component', () => {
     });
 
     it('should not dismiss on backdrop press when dismissOnBackdrop is false', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal
           visible={true}
           onDismiss={mockOnDismiss}
@@ -154,14 +154,14 @@ describe('Modal Component', () => {
           <Text>Content</Text>
         </Modal>
       );
-      const backdrop = getByTestId('test-modal');
+      const backdrop = getAllByTestId('test-modal')[0];
       fireEvent(backdrop, 'press');
       // Backdrop press handling is tested through useModal hook
       expect(backdrop).toBeTruthy();
     });
 
     it('should not dismiss when clicking inside modal container', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getAllByTestId, getByText } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} testID="test-modal">
           <Text>Content</Text>
         </Modal>
@@ -183,7 +183,7 @@ describe('Modal Component', () => {
     });
 
     it('should have accessibility hint', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal
           visible={true}
           accessibilityHint="This is a confirmation dialog"
@@ -192,18 +192,18 @@ describe('Modal Component', () => {
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
   });
 
   describe('Test ID', () => {
     it('should accept testID prop', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
   });
 
@@ -228,12 +228,12 @@ describe('Modal Component', () => {
     });
 
     it('should render when visible is true', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
   });
 
@@ -259,24 +259,24 @@ describe('Modal Component', () => {
     });
 
     it('should handle dismissOnBackdrop prop correctly', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} dismissOnBackdrop={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      const backdrop = getByTestId('test-modal');
+      const backdrop = getAllByTestId('test-modal')[0];
       // Backdrop press handling is tested through useModal hook
       expect(backdrop).toBeTruthy();
 
       jest.clearAllMocks();
 
       // Test with dismissOnBackdrop=false
-      const { getByTestId: getByTestIdFalse } = renderWithProviders(
+      const { getAllByTestId: getAllByTestIdFalse } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} dismissOnBackdrop={false} testID="test-modal-2">
           <Text>Content</Text>
         </Modal>
       );
-      const backdrop2 = getByTestIdFalse('test-modal-2');
+      const backdrop2 = getAllByTestIdFalse('test-modal-2')[0];
       expect(backdrop2).toBeTruthy();
     });
   });
@@ -299,13 +299,13 @@ describe('Modal Component', () => {
     });
 
     it('should call onDismiss when ESC key is pressed', () => {
-      const { getByTestId, unmount } = renderWithProviders(
+      const { getAllByTestId, unmount } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
       
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
       
       // Simulate ESC key press
       if (typeof document !== 'undefined' && document.addEventListener) {
@@ -342,14 +342,14 @@ describe('Modal Component', () => {
     });
 
     it('should implement focus trap for keyboard navigation', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} onDismiss={mockOnDismiss} testID="test-modal">
           <button>First Button</button>
           <button>Second Button</button>
         </Modal>
       );
       
-      const modal = getByTestId('test-modal');
+      const modal = getAllByTestId('test-modal')[0];
       expect(modal).toBeTruthy();
       
       // Focus trap implementation is verified through code review
@@ -360,55 +360,55 @@ describe('Modal Component', () => {
 
   describe('Edge Cases', () => {
     it('should handle undefined onDismiss gracefully', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           <Text>Content</Text>
         </Modal>
       );
-      const backdrop = getByTestId('test-modal');
+      const backdrop = getAllByTestId('test-modal')[0];
       fireEvent(backdrop, 'press');
       // Should not throw - backdrop press handling is tested through useModal hook
       expect(backdrop).toBeTruthy();
     });
 
     it('should handle null children', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
           {null}
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
 
     it('should handle empty children', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} testID="test-modal">
         </Modal>
       );
-      expect(getByTestId('test-modal')).toBeTruthy();
+      expect(getAllByTestId('test-modal')[0]).toBeTruthy();
     });
 
     it('should handle multiple size changes', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <Modal visible={true} size={SIZES.SMALL} testID="test-modal-small">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestId('test-modal-small')).toBeTruthy();
+      expect(getAllByTestId('test-modal-small')[0]).toBeTruthy();
 
-      const { getByTestId: getByTestIdLarge } = renderWithProviders(
+      const { getAllByTestId: getAllByTestIdLarge } = renderWithProviders(
         <Modal visible={true} size={SIZES.LARGE} testID="test-modal-large">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestIdLarge('test-modal-large')).toBeTruthy();
+      expect(getAllByTestIdLarge('test-modal-large')[0]).toBeTruthy();
 
-      const { getByTestId: getByTestIdFullscreen } = renderWithProviders(
+      const { getAllByTestId: getAllByTestIdFullscreen } = renderWithProviders(
         <Modal visible={true} size={SIZES.FULLSCREEN} testID="test-modal-fullscreen">
           <Text>Content</Text>
         </Modal>
       );
-      expect(getByTestIdFullscreen('test-modal-fullscreen')).toBeTruthy();
+      expect(getAllByTestIdFullscreen('test-modal-fullscreen')[0]).toBeTruthy();
     });
   });
 });

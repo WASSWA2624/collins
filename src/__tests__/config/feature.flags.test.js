@@ -19,9 +19,15 @@ describe('feature.flags.js', () => {
     expect(typeof featureFlags.ANALYTICS_ENABLED).toBe('boolean');
   });
 
+  test('should export AI_AUGMENTATION_ENABLED', () => {
+    expect(featureFlags.AI_AUGMENTATION_ENABLED).toBeDefined();
+    expect(typeof featureFlags.AI_AUGMENTATION_ENABLED).toBe('boolean');
+  });
+
   test('should have correct feature flag values', () => {
     expect(featureFlags.OFFLINE_MODE).toBe(true);
     expect(featureFlags.ANALYTICS_ENABLED).toBe(false);
+    expect(featureFlags.AI_AUGMENTATION_ENABLED).toBe(false);
   });
 });
 

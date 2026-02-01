@@ -23,6 +23,7 @@ describe('UI Slice', () => {
       network: true,
       fullscreen: true,
     },
+    footerVisible: true,
     isAuthenticated: false,
     user: null,
   };

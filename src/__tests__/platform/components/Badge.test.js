@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Platform } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from 'styled-components/native';
 import Badge, { SIZES, VARIANTS, SIZE_KEYS, VARIANT_KEYS } from '@platform/components/display/Badge';
@@ -244,7 +245,8 @@ describe('Badge Component', () => {
       });
     });
 
-    describe('Web variant', () => {
+    const describeWeb = Platform.OS === 'web' ? describe : describe.skip;
+    describeWeb('Web variant', () => {
       it('should render web badge with role', () => {
         const { getByRole } = renderWithTheme(
           <Badge variant={VARIANTS.WARNING} testID="web-badge">!</Badge>

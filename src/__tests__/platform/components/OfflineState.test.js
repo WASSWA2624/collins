@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Platform } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from 'styled-components/native';
 import OfflineState, { SIZES } from '@platform/components/states/OfflineState';
@@ -436,7 +437,8 @@ describe('OfflineState Component', () => {
     });
   });
 
-  describe('Web Platform specific', () => {
+  const describeWeb = Platform.OS === 'web' ? describe : describe.skip;
+  describeWeb('Web Platform specific', () => {
     it('should have role="status" on web', () => {
       const { getByTestId } = renderWithTheme(
         <OfflineState title="Web Offline State" testID="offline-state-web" />

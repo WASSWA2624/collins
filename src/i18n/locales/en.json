@@ -6,7 +6,7 @@
     "edit": "Edit",
     "search": "Search",
     "submit": "Submit",
-    "loading": "Loading...",
+    "loading": "Loading…",
     "retry": "Retry",
     "back": "Back",
     "next": "Next",
@@ -20,7 +20,7 @@
     "viewNotifications": "View notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search...",
+    "searchPlaceholder": "Search…",
     "searchIcon": "Search icon",
     "clearSearch": "Clear search",
     "on": "On",
@@ -30,13 +30,17 @@
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
     "requiredLabel": "required",
-    "clearAll": "Clear All",
+    "clearAll": "Clear all",
     "filters": "Filters",
     "clearAllFilters": "Clear all filters",
     "loadingPlaceholder": "Loading placeholder",
     "radio": "Radio",
     "emptyState": "Empty state",
-    "message": "Message"
+    "message": "Message",
+    "sliderValue": "Slider: {{value}}",
+    "dropdownMenu": "Dropdown menu",
+    "tooltip": "Tooltip",
+    "action": "Action"
   },
   "greeting": {
     "hello": "Hello, {{name}}"
@@ -245,7 +249,7 @@
       }
     },
     "loadingOverlay": {
-      "title": "Working...",
+      "title": "Working…",
       "message": "Please wait while we finish the request."
     },
     "notices": {
@@ -317,26 +321,6 @@
         "usersAndAccess": "Users & access",
         "security": "Security"
       }
-    }
-  },
-  "auth-account": {
-    "list": {
-      "title": "OAuth Accounts",
-      "accessibilityLabel": "OAuth accounts list",
-      "emptyTitle": "No OAuth accounts",
-      "emptyMessage": "No OAuth accounts have been linked yet.",
-      "loadError": "Unable to load OAuth accounts. Check your connection and try again.",
-      "delete": "Remove",
-      "deleteHint": "Remove this OAuth account",
-      "itemLabel": "OAuth account {{name}}"
-    },
-    "detail": {
-      "title": "OAuth Account"
-    }
-  },
-  "oauthAccount": {
-    "detail": {
-      "title": "OAuth Account"
     }
   },
   "listScaffold": {
@@ -592,37 +576,12 @@
     "goHome": "Go to Home",
     "goHomeHint": "Navigate back to the home page"
   },
-  "userSession": {
-    "list": {
-      "title": "User Sessions",
-      "accessibilityLabel": "User sessions list",
-      "emptyTitle": "No sessions",
-      "emptyMessage": "You have no active sessions.",
-      "loadError": "Unable to load sessions. Check your connection and try again.",
-      "revoke": "Revoke session",
-      "revokeHint": "Revoke this session and log it out",
-      "itemLabel": "Session for {{email}}"
-    },
-    "detail": {
-      "title": "Session Details",
-      "idLabel": "Session ID",
-      "emailLabel": "User",
-      "createdLabel": "Created",
-      "expiresLabel": "Expires",
-      "revokedLabel": "Revoked",
-      "errorTitle": "Failed to load session",
-      "notFoundTitle": "Session not found",
-      "notFoundMessage": "This session may have been revoked or expired.",
-      "backHint": "Return to sessions list",
-      "revoke": "Revoke session",
-      "revokeHint": "Revoke this session"
-    }
+  "errorState": {
+    "defaultTitle": "Something went wrong"
   },
-  "address": {
     "list": {
       "loadError": "Unable to load addresses. Check your connection and try again."
-    }
-  },
+    },
   "user": {
     "list": {
       "loadError": "Unable to load users. Check your connection and try again."

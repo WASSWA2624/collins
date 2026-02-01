@@ -1,3 +1,3 @@
-export { default } from './Sidebar.web.jsx';
+export { default } from './Sidebar';
 export { default as useSidebar } from './useSidebar';
 

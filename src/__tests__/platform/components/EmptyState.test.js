@@ -460,7 +460,7 @@ describe('EmptyState Component', () => {
         <EmptyState title="Web Empty State" testID="empty-state-web" />
       );
       const emptyState = getByTestId('empty-state-web');
-      expect(emptyState.props.role).toBe('status');
+      expect(emptyState.props.accessibilityRole).toBe('status');
     });
 
     it('should use aria-label on web', () => {

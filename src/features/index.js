@@ -3,8 +3,9 @@
  * Central export for all feature modules
  * File: index.js
  * 
- * Phase 6: No features should be exported yet.
- * Features will be added in Phase 9.
+ * Features are introduced progressively via dev-plan phases.
  */
 
 export * from './auth';
+export * from './ventilation';
+export * from './training';

@@ -104,6 +104,11 @@ const TextFieldAndroid = ({
   const finalValidationState = validationState || (disabled ? VALIDATION_STATES.DISABLED : internalValidationState);
   const finalErrorMessage = errorMessage || internalErrorMessage;
   const displayHelperText = finalErrorMessage || helperText;
+  const computedA11yLabel =
+    accessibilityLabel ||
+    label ||
+    (typeof placeholder === 'string' && placeholder.length > 0 ? placeholder : undefined) ||
+    (typeof testID === 'string' ? testID : undefined);
 
   return (
     <StyledContainer style={style}>
@@ -134,9 +139,9 @@ const TextFieldAndroid = ({
           autoCapitalize={type === INPUT_TYPES.EMAIL ? 'none' : 'sentences'}
           autoCorrect={type === INPUT_TYPES.EMAIL || type === INPUT_TYPES.PASSWORD ? false : true}
           maxLength={maxLength}
-          accessibilityLabel={accessibilityLabel || label}
+          accessibilityLabel={computedA11yLabel}
           accessibilityHint={accessibilityHint || displayHelperText}
-          accessibilityState={{ disabled }}
+          accessibilityState={{ disabled, invalid: finalValidationState === VALIDATION_STATES.ERROR }}
           testID={testID}
           {...rest}
         />

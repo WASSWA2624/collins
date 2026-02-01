@@ -6,14 +6,16 @@ import { Row, Icon as IconBox, Label } from './SidebarItem.ios.styles.jsx';
 
 const normalize = (props) => {
   if (props.item) {
-    const { path, href, label, icon } = props.item;
+    const { path, href, label, icon, id, testID } = props.item;
     return {
+      id,
       path: path || href,
       label,
       icon,
       collapsed: props.collapsed,
       active: props.active,
-      onPress: props.onPress,
+      testID: props.testID || testID,
+      onPress: props.onPress || props.onClick,
     };
   }
   return {
@@ -22,12 +24,13 @@ const normalize = (props) => {
     icon: props.icon,
     collapsed: props.collapsed,
     active: props.active,
-    onPress: props.onPress,
+    testID: props.testID,
+    onPress: props.onPress || props.onClick,
   };
 };
 
 const SidebarItemIOS = (props) => {
-  const { path, label, icon, collapsed, active, onPress } = normalize(props);
+  const { label, icon, collapsed, active, onPress, testID } = normalize(props);
 
   const handlePress = () => {
     if (onPress) onPress();
@@ -35,7 +38,12 @@ const SidebarItemIOS = (props) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} accessibilityLabel={label} accessibilityState={{ selected: !!active }}>
+    <TouchableOpacity
+      onPress={handlePress}
+      testID={testID}
+      accessibilityLabel={label}
+      accessibilityState={{ selected: !!active }}
+    >
       <Row active={active}>
         <IconBox>
           <Icon glyph={getMenuIconGlyph(icon)} size="sm" decorative />

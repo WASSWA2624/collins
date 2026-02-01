@@ -10,11 +10,13 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { reducer as uiReducer } from './slices/ui.slice';
 import { reducer as networkReducer } from './slices/network.slice';
 import { reducer as authReducer } from './slices/auth.slice';
+import { reducer as ventilationReducer } from './slices/ventilation.slice';
 
 const rootReducer = combineReducers({
   ui: uiReducer,
   network: networkReducer,
   auth: authReducer,
+  ventilation: ventilationReducer,
 });
 
 export default rootReducer;

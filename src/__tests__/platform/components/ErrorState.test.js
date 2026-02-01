@@ -444,7 +444,7 @@ describe('ErrorState Component', () => {
         <ErrorState title="Web Error State" testID="error-state-web" />
       );
       const errorState = getByTestId('error-state-web');
-      expect(errorState.props.role).toBe('alert');
+      expect(errorState.props.accessibilityRole).toBe('alert');
     });
 
     it('should use aria-label on web', () => {

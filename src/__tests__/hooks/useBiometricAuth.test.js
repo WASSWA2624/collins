@@ -4,17 +4,10 @@
  */
 const React = require('react');
 const TestRenderer = require('react-test-renderer');
-const { useI18n } = require('@hooks');
-const {
-  authenticateBiometric,
-  isBiometricEnrolled,
-  isBiometricSupported,
-} = require('@security');
 
-const useBiometricAuth = require('@hooks/useBiometricAuth').default;
-
-jest.mock('@hooks', () => ({
-  useI18n: jest.fn(),
+jest.mock('@hooks/useI18n', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }));
 
 jest.mock('@security', () => ({
@@ -22,6 +15,15 @@ jest.mock('@security', () => ({
   isBiometricEnrolled: jest.fn(),
   isBiometricSupported: jest.fn(),
 }));
+
+const useI18n = require('@hooks/useI18n').default;
+const {
+  authenticateBiometric,
+  isBiometricEnrolled,
+  isBiometricSupported,
+} = require('@security');
+
+const useBiometricAuth = require('@hooks/useBiometricAuth').default;
 
 const act = TestRenderer.act;
 const renderHook = (hook) => {

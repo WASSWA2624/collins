@@ -19,19 +19,24 @@ const selectIsHeaderHidden = createSelector([selectUI], (ui) => ui?.isHeaderHidd
 const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.headerActionVisibility ?? {});
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
 
-// Auth Selectors
-const selectAuth = (state) => {
-  const auth = state.auth || {};
-  const ui = state.ui || {};
-  if (auth.isAuthenticated || auth.user || auth.isLoading || auth.errorCode) {
-    return auth;
-  }
-  return ui;
-};
-const selectIsAuthenticated = createSelector([selectAuth], (auth) => auth.isAuthenticated);
-const selectUser = createSelector([selectAuth], (auth) => auth.user);
-const selectAuthErrorCode = createSelector([selectAuth], (auth) => auth.errorCode);
-const selectAuthLoading = createSelector([selectAuth], (auth) => auth.isLoading);
+// Auth Selectors (defensive for undefined state before rehydration / SSR)
+const selectAuth = (state) => state?.auth ?? null;
+const selectIsAuthenticated = createSelector([selectAuth], (auth) => auth?.isAuthenticated ?? false);
+const selectUser = createSelector([selectAuth], (auth) => auth?.user ?? null);
+const selectAuthErrorCode = createSelector([selectAuth], (auth) => auth?.errorCode ?? null);
+const selectAuthLoading = createSelector([selectAuth], (auth) => auth?.isLoading ?? false);
+
+// Ventilation (Session persistence)
+const selectVentilation = (state) => state?.ventilation ?? null;
+const selectVentilationSessionId = createSelector([selectVentilation], (ventilation) => ventilation?.currentSessionId ?? null);
+const selectVentilationInputs = createSelector([selectVentilation], (ventilation) => ventilation?.currentInputs ?? null);
+const selectVentilationRecommendationSummary = createSelector(
+  [selectVentilation],
+  (ventilation) => ventilation?.lastRecommendationSummary ?? null
+);
+const selectVentilationHydrating = createSelector([selectVentilation], (ventilation) => ventilation?.isHydrating ?? false);
+const selectVentilationHydratedAt = createSelector([selectVentilation], (ventilation) => ventilation?.hydratedAt ?? null);
+const selectVentilationErrorCode = createSelector([selectVentilation], (ventilation) => ventilation?.errorCode ?? null);
 
 // Network Selectors (defensive for undefined state)
 const selectNetwork = (state) => state?.network ?? null;
@@ -59,6 +64,13 @@ export {
   selectUser,
   selectAuthErrorCode,
   selectAuthLoading,
+  // Ventilation
+  selectVentilationSessionId,
+  selectVentilationInputs,
+  selectVentilationRecommendationSummary,
+  selectVentilationHydrating,
+  selectVentilationHydratedAt,
+  selectVentilationErrorCode,
   // Network
   selectIsOnline,
   selectIsOffline,
@@ -82,6 +94,13 @@ export default {
   selectUser,
   selectAuthErrorCode,
   selectAuthLoading,
+  // Ventilation
+  selectVentilationSessionId,
+  selectVentilationInputs,
+  selectVentilationRecommendationSummary,
+  selectVentilationHydrating,
+  selectVentilationHydratedAt,
+  selectVentilationErrorCode,
   // Network
   selectIsOnline,
   selectIsOffline,

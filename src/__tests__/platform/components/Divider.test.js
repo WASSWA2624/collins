@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Platform } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { ThemeProvider } from 'styled-components/native';
 import Divider, { ORIENTATIONS } from '@platform/components/layout/Divider';
@@ -18,10 +19,12 @@ const renderWithTheme = (component) => {
 
 describe('Divider Component', () => {
   describe('Platform-agnostic tests (via index)', () => {
+    const PlatformComponent =
+      Platform.OS === 'android' ? DividerAndroid : Platform.OS === 'web' ? DividerWeb : DividerIOS;
+
     it('should render default export from index', () => {
-      // Test that index.js exports the web component as default
       const { UNSAFE_getByType } = renderWithTheme(<Divider accessibilityLabel="Divider" />);
-      const divider = UNSAFE_getByType(DividerWeb);
+      const divider = UNSAFE_getByType(PlatformComponent);
       expect(divider).toBeTruthy();
     });
 
@@ -41,7 +44,7 @@ describe('Divider Component', () => {
 
     it('should default to horizontal orientation', () => {
       const { UNSAFE_getByType } = renderWithTheme(<Divider accessibilityLabel="Divider" />);
-      const divider = UNSAFE_getByType(DividerWeb);
+      const divider = UNSAFE_getByType(PlatformComponent);
       // Component uses default horizontal orientation
       expect(divider).toBeTruthy();
     });
@@ -50,7 +53,7 @@ describe('Divider Component', () => {
       const { UNSAFE_getByType } = renderWithTheme(
         <Divider accessibilityLabel="Divider" orientation={ORIENTATIONS.VERTICAL} />
       );
-      const divider = UNSAFE_getByType(DividerWeb);
+      const divider = UNSAFE_getByType(PlatformComponent);
       // Component accepts vertical orientation prop
       expect(divider).toBeTruthy();
     });
@@ -248,14 +251,18 @@ describe('Divider Component', () => {
       const { UNSAFE_getByType } = renderWithTheme(
         <Divider accessibilityLabel="Divider" orientation={undefined} />
       );
-      const divider = UNSAFE_getByType(DividerWeb);
+      const PlatformComponent =
+        Platform.OS === 'android' ? DividerAndroid : Platform.OS === 'web' ? DividerWeb : DividerIOS;
+      const divider = UNSAFE_getByType(PlatformComponent);
       // Component should render even with undefined orientation (defaults to horizontal)
       expect(divider).toBeTruthy();
     });
 
     it('should handle missing accessibility label', () => {
       const { UNSAFE_getByType } = renderWithTheme(<Divider />);
-      const divider = UNSAFE_getByType(DividerWeb);
+      const PlatformComponent =
+        Platform.OS === 'android' ? DividerAndroid : Platform.OS === 'web' ? DividerWeb : DividerIOS;
+      const divider = UNSAFE_getByType(PlatformComponent);
       expect(divider).toBeTruthy();
       // Component should still render without accessibility label
     });
@@ -264,7 +271,9 @@ describe('Divider Component', () => {
       const { UNSAFE_getByType } = renderWithTheme(
         <Divider accessibilityLabel="Divider" orientation="" />
       );
-      const divider = UNSAFE_getByType(DividerWeb);
+      const PlatformComponent =
+        Platform.OS === 'android' ? DividerAndroid : Platform.OS === 'web' ? DividerWeb : DividerIOS;
+      const divider = UNSAFE_getByType(PlatformComponent);
       expect(divider).toBeTruthy();
       // Component should handle empty string
     });
@@ -276,7 +285,9 @@ describe('Divider Component', () => {
       const DefaultDivider = require('@platform/components/layout/Divider').default;
       expect(DefaultDivider).toBeDefined();
       const { UNSAFE_getByType } = renderWithTheme(<DefaultDivider accessibilityLabel="Index divider" />);
-      const divider = UNSAFE_getByType(DividerWeb);
+      const PlatformComponent =
+        Platform.OS === 'android' ? DividerAndroid : Platform.OS === 'web' ? DividerWeb : DividerIOS;
+      const divider = UNSAFE_getByType(PlatformComponent);
       expect(divider).toBeTruthy();
     });
 

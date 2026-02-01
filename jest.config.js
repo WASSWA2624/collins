@@ -17,6 +17,18 @@ module.exports = {
       preset: 'jest-expo',
       cacheDirectory: '<rootDir>/.jest-cache/native',
       setupFiles: ['<rootDir>/jest.setup.js'],
+      moduleFileExtensions: [
+        'android.js',
+        'android.jsx',
+        'ios.js',
+        'ios.jsx',
+        'native.js',
+        'native.jsx',
+        'js',
+        'jsx',
+        'json',
+        'node',
+      ],
       transformIgnorePatterns: [
         'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
       ],
@@ -56,6 +68,7 @@ module.exports = {
       testEnvironment: 'jsdom',
       cacheDirectory: '<rootDir>/.jest-cache/web',
       setupFiles: ['<rootDir>/jest.setup.web.js'],
+      moduleFileExtensions: ['web.js', 'web.jsx', 'js', 'jsx', 'json', 'node'],
       transformIgnorePatterns: [
         'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
       ],

@@ -181,15 +181,20 @@ Goal: provide structured training content without external dependencies.
 - Tests:
   - content model normalization + search behavior
 
-### Step 10.8: Optional online AI augmentation (future phase hook point)
-Goal: support the write-up’s “online AI for complex cases” without compromising offline-first behavior.
-- Define a “complex case” detector based on:
-  - low confidence tier
-  - missing key inputs that materially change recommendations
-  - out-of-distribution inputs (outside dataset ranges)
-- Add API stub boundaries (feature-flagged) for:
-  - requesting extra analysis when online
-  - merging online output with dataset output deterministically (dataset remains primary)
+### Step 10.8: Optional online AI augmentation via AI SDK (future phase hook point)
+Goal: enable the write-up’s “online AI for complex cases” while preserving offline-first reliability.
+
+- Implement a “complex case” detector (pure function), using:
+  - confidence tier assessment logic
+  - presence/absence of key inputs affecting recommendations
+  - detection of out-of-distribution inputs (compared to dataset/value ranges)
+- Integrate AI SDK with feature-flag boundaries:
+  - When online and feature-flag enabled, use AI SDK endpoint to request extra analysis for detected complex cases
+  - Merge AI SDK output with core dataset output deterministically—always prefer dataset output as primary source
+- Provide API/subscription stub interfaces (using AI SDK client):
+  - `aiSdk.requestCaseAnalysis(caseInput)` (returns AI enhancement or null)
+  - Deterministic merge function: `(datasetOutput, aiOutput) => mergedOutput`
 - Tests:
-  - detector determinism (same inputs → same decision)
-  - offline behavior remains fully functional when online augmentation unavailable
+  - Complex case detector returns same result for identical inputs (pure, deterministic)
+  - Full offline functionality coverage—ensure no dependency on AI SDK for core path
+  - Merge logic maintains dataset as primary and prevents leakage of raw AI output

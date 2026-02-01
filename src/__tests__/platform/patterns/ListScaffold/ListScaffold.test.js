@@ -821,11 +821,10 @@ describe('ListScaffold Pattern', () => {
       expect(ListScaffoldIndex).toBe(ListScaffoldIndexDefault);
       // Verify it's the same as the default export from module
       expect(ListScaffoldIndex).toBe(ListScaffold);
-      // Verify it exports ListScaffold.web component
+      // Verify it exports the native default (iOS in this test environment)
       // eslint-disable-next-line import/no-unresolved
-      const ListScaffoldWeb = require('@platform/patterns/ListScaffold/ListScaffold.web').default;
-      // The index exports ListScaffold.web, so they should be the same
-      expect(ListScaffoldIndex).toBe(ListScaffoldWeb);
+      const ListScaffoldIOS = require('@platform/patterns/ListScaffold/ListScaffold.ios').default;
+      expect(ListScaffoldIndex).toBe(ListScaffoldIOS);
       // Actually use the export to ensure index.js is fully executed
       const { render } = require('@testing-library/react-native');
       const { ThemeProvider } = require('styled-components/native');

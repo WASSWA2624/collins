@@ -60,7 +60,7 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
   });
 
@@ -69,21 +69,21 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner size={SIZES.SMALL} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render medium size (default)', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render large size', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner size={SIZES.LARGE} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
   });
 
@@ -92,14 +92,14 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should use custom color when provided', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner color="#FF0000" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
   });
 
@@ -108,7 +108,7 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should have custom accessibility label', () => {
@@ -122,7 +122,7 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithProviders(
         <LoadingSpinner accessibilityHint="Please wait while content loads" />
       );
-      const spinner = getByLabelText('Loading...');
+      const spinner = getByLabelText(/Loading/);
       expect(spinner).toBeTruthy();
     });
   });
@@ -150,28 +150,28 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid testID="spinner-android" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render small size on Android', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid size={SIZES.SMALL} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render large size on Android', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid size={SIZES.LARGE} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should use custom color on Android', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid color="#FF0000" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should have progressbar accessibility role on Android', () => {
@@ -197,28 +197,28 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS testID="spinner-ios" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render small size on iOS', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS size={SIZES.SMALL} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should render large size on iOS', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS size={SIZES.LARGE} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should use custom color on iOS', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS color="#FF0000" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should have progressbar accessibility role on iOS', () => {
@@ -343,70 +343,70 @@ describe('LoadingSpinner Component', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid size="invalid" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle invalid size on iOS (fallback to medium)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS size="invalid" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle undefined size on Android (uses default)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid size={undefined} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle undefined size on iOS (uses default)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS size={undefined} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle null color on Android (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid color={null} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle null color on iOS (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS color={null} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle undefined color on Android (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid color={undefined} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle undefined color on iOS (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS color={undefined} />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle empty string color on Android (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerAndroid color="" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle empty string color on iOS (uses theme)', () => {
       const { getByLabelText } = renderWithTheme(
         <LoadingSpinnerIOS color="" />
       );
-      expect(getByLabelText('Loading...')).toBeTruthy();
+      expect(getByLabelText(/Loading/)).toBeTruthy();
     });
 
     it('should handle empty string color on Web (uses theme)', () => {

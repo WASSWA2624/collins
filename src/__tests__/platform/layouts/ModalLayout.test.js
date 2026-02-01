@@ -148,7 +148,7 @@ describe('ModalLayout Component', () => {
 
   describe('Test ID', () => {
     it('should accept testID prop', () => {
-      const { getByTestId } = renderWithProviders(
+      const { getAllByTestId } = renderWithProviders(
         <ModalLayout
           visible={true}
           onDismiss={mockOnDismiss}
@@ -157,7 +157,7 @@ describe('ModalLayout Component', () => {
           <Text>Content</Text>
         </ModalLayout>
       );
-      expect(getByTestId('test-modal-layout')).toBeTruthy();
+      expect(getAllByTestId('test-modal-layout')[0]).toBeTruthy();
     });
   });
 

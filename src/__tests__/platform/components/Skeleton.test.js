@@ -331,7 +331,7 @@ describe('Skeleton Component', () => {
   describe('Edge cases', () => {
     it('should handle single line text variant', () => {
       const { UNSAFE_getByType } = renderWithWebTheme(
-        <Skeleton variant={VARIANTS.TEXT} lines={1} testID="skeleton" />
+        <SkeletonWeb variant={VARIANTS.TEXT} lines={1} testID="skeleton-web" />
       );
       const component = UNSAFE_getByType(SkeletonWeb);
       expect(component).toBeTruthy();
@@ -340,7 +340,7 @@ describe('Skeleton Component', () => {
 
     it('should handle zero lines (should default to 1)', () => {
       const { UNSAFE_getByType } = renderWithWebTheme(
-        <Skeleton variant={VARIANTS.TEXT} lines={0} testID="skeleton" />
+        <SkeletonWeb variant={VARIANTS.TEXT} lines={0} testID="skeleton-web" />
       );
       const component = UNSAFE_getByType(SkeletonWeb);
       expect(component).toBeTruthy();
@@ -350,7 +350,7 @@ describe('Skeleton Component', () => {
 
     it('should handle negative lines (should default to 1)', () => {
       const { UNSAFE_getByType } = renderWithWebTheme(
-        <Skeleton variant={VARIANTS.TEXT} lines={-1} testID="skeleton" />
+        <SkeletonWeb variant={VARIANTS.TEXT} lines={-1} testID="skeleton-web" />
       );
       const component = UNSAFE_getByType(SkeletonWeb);
       expect(component).toBeTruthy();
@@ -360,7 +360,7 @@ describe('Skeleton Component', () => {
 
     it('should handle null lines (should default to 1)', () => {
       const { UNSAFE_getByType } = renderWithWebTheme(
-        <Skeleton variant={VARIANTS.TEXT} lines={null} testID="skeleton" />
+        <SkeletonWeb variant={VARIANTS.TEXT} lines={null} testID="skeleton-web" />
       );
       const component = UNSAFE_getByType(SkeletonWeb);
       expect(component).toBeTruthy();
@@ -370,7 +370,7 @@ describe('Skeleton Component', () => {
 
     it('should handle undefined lines (should default to 1)', () => {
       const { UNSAFE_getByType } = renderWithWebTheme(
-        <Skeleton variant={VARIANTS.TEXT} lines={undefined} testID="skeleton" />
+        <SkeletonWeb variant={VARIANTS.TEXT} lines={undefined} testID="skeleton-web" />
       );
       const component = UNSAFE_getByType(SkeletonWeb);
       expect(component).toBeTruthy();

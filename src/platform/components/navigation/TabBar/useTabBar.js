@@ -26,6 +26,8 @@ const useTabBar = ({
 
   const isTabActive = (item) => {
     if (!item.href) return false;
+    // Root tab should remain active for nested paths (e.g. "/" active for "/settings")
+    if (item.href === '/') return String(activePathname || '').startsWith('/');
     return activePathname === item.href || activePathname.startsWith(item.href + '/');
   };
 
