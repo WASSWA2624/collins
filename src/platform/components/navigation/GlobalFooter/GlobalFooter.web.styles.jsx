@@ -5,8 +5,6 @@
  */
 import styled from 'styled-components';
 
-const FOOTER_HEIGHT_PX = 48;
-
 const StyledFooter = styled.footer.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
