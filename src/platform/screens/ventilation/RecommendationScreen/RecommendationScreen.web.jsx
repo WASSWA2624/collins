@@ -46,6 +46,8 @@ const RecommendationScreenWeb = () => {
     matched,
     caseEvidence,
     safety,
+    missingInputs,
+    contributingFactors,
     inputs,
     isEmpty,
     isHydrating,
@@ -106,6 +108,12 @@ const RecommendationScreenWeb = () => {
         <StyledWarningBox data-testid={RECOMMENDATION_TEST_IDS.warning}>
           <Text variant="label">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
           <Text variant="body">{safety.intendedUseWarning}</Text>
+          {safety.validationRequirement ? (
+            <>
+              <Text variant="label">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
+              <Text variant="body">{safety.validationRequirement}</Text>
+            </>
+          ) : null}
         </StyledWarningBox>
 
         <StyledSection data-testid={RECOMMENDATION_TEST_IDS.settings}>
@@ -137,6 +145,20 @@ const RecommendationScreenWeb = () => {
           </StyledSectionHeader>
           <StyledSectionBody>
             <Text variant="body">{t('ventilation.recommendation.confidence.missingInputs')}</Text>
+            {missingInputs?.length > 0 && (
+              <StyledList>
+                {missingInputs.map((m, i) => (
+                  <StyledListItem key={i}>{m}</StyledListItem>
+                ))}
+              </StyledList>
+            )}
+            {contributingFactors?.length > 0 && (
+              <StyledList>
+                {contributingFactors.map((c, i) => (
+                  <StyledListItem key={i}>{c}</StyledListItem>
+                ))}
+              </StyledList>
+            )}
           </StyledSectionBody>
         </StyledSection>
 
@@ -233,7 +255,7 @@ const RecommendationScreenWeb = () => {
         <StyledSectionBody>
           <Text variant="body">{inputs?.condition ?? '—'}</Text>
           <Text variant="caption" color="text.tertiary">
-            SpO₂: {inputs?.spo2 ?? '—'} | RR: {inputs?.respiratoryRate ?? '—'} | HR: {inputs?.heartRate ?? '—'}
+            {t('ventilation.assessment.summary.vitalsFormat', { spo2: inputs?.spo2 ?? '—', rr: inputs?.respiratoryRate ?? '—', hr: inputs?.heartRate ?? '—' })}
           </Text>
         </StyledSectionBody>
       </StyledSummaryPane>

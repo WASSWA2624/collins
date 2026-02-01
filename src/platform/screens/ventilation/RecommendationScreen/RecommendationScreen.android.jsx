@@ -6,6 +6,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import {
+  Accordion,
   Button,
   Text,
 } from '@platform/components';
@@ -37,6 +38,8 @@ const RecommendationScreenAndroid = () => {
     matched,
     caseEvidence,
     safety,
+    missingInputs,
+    contributingFactors,
     inputs,
     isEmpty,
     isHydrating,
@@ -80,14 +83,21 @@ const RecommendationScreenAndroid = () => {
   const risksAndComplications = [...(riskFactors || []), ...(complicationHistory || [])].filter(Boolean);
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }} accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
         <StyledWarningBox testID={RECOMMENDATION_TEST_IDS.warning}>
           <Text variant="label">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
           <Text variant="body">{safety.intendedUseWarning}</Text>
+          {safety.validationRequirement ? (
+            <>
+              <Text variant="label">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
+              <Text variant="body">{safety.validationRequirement}</Text>
+            </>
+          ) : null}
         </StyledWarningBox>
 
-        <StyledSection testID={RECOMMENDATION_TEST_IDS.settings}>
+        <Accordion title={t('ventilation.recommendation.sections.settings')} defaultExpanded testID={RECOMMENDATION_TEST_IDS.settings}>
+        <StyledSection>
           <StyledSectionHeader>
             <Text variant="label">{t('ventilation.recommendation.sections.settings')}</Text>
             <Text variant="caption">{t(`ventilation.recommendation.confidence.${confidenceTier}`)}</Text>
@@ -106,35 +116,49 @@ const RecommendationScreenAndroid = () => {
             })}
           </StyledSectionBody>
         </StyledSection>
+        </Accordion>
+
+        <Accordion title={t('ventilation.recommendation.sections.confidence')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.confidence}>
+        <StyledSection>
+          <StyledSectionBody>
+            <Text variant="body">{t('ventilation.recommendation.confidence.missingInputs')}</Text>
+            {missingInputs?.length > 0 && missingInputs.map((m, i) => (
+              <Text key={i} variant="caption">• {m}</Text>
+            ))}
+            {contributingFactors?.length > 0 && contributingFactors.map((c, i) => (
+              <Text key={i} variant="caption">• {c}</Text>
+            ))}
+          </StyledSectionBody>
+        </StyledSection>
+        </Accordion>
 
         {monitoringPoints?.length > 0 && (
-          <StyledSection testID={RECOMMENDATION_TEST_IDS.monitoring}>
-            <StyledSectionHeader>
-              <Text variant="label">{t('ventilation.recommendation.sections.monitoring')}</Text>
-            </StyledSectionHeader>
+          <Accordion title={t('ventilation.recommendation.sections.monitoring')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.monitoring}>
+          <StyledSection>
             <StyledSectionBody>
               {monitoringPoints.map((point, i) => (
                 <Text key={i} variant="body">• {point}</Text>
               ))}
             </StyledSectionBody>
           </StyledSection>
+          </Accordion>
         )}
 
         {risksAndComplications.length > 0 && (
-          <StyledSection testID={RECOMMENDATION_TEST_IDS.risks}>
-            <StyledSectionHeader>
-              <Text variant="label">{t('ventilation.recommendation.sections.risks')}</Text>
-            </StyledSectionHeader>
+          <Accordion title={t('ventilation.recommendation.sections.risks')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.risks}>
+          <StyledSection>
             <StyledSectionBody>
               {risksAndComplications.map((item, i) => (
                 <Text key={i} variant="body">• {item}</Text>
               ))}
             </StyledSectionBody>
           </StyledSection>
+          </Accordion>
         )}
 
         {matched?.length > 0 && (
-          <StyledSection testID={RECOMMENDATION_TEST_IDS.matchedCases}>
+          <Accordion title={t('ventilation.recommendation.sections.matchedCases')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.matchedCases}>
+          <StyledSection>
             <StyledSectionHeader>
               <Text variant="label">{t('ventilation.recommendation.sections.matchedCases')}</Text>
             </StyledSectionHeader>
@@ -151,6 +175,23 @@ const RecommendationScreenAndroid = () => {
               ))}
             </StyledSectionBody>
           </StyledSection>
+          </Accordion>
+        )}
+
+        {caseEvidence?.length > 0 && (
+          <Accordion title={t('ventilation.recommendation.sections.evidence')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.evidence}>
+          <StyledSection>
+            <StyledSectionBody>
+              {caseEvidence.map((ev, i) => (
+                <React.Fragment key={ev?.caseId ?? i}>
+                  <Text variant="label">{ev?.caseId}</Text>
+                  <Text variant="caption">{t(`ventilation.recommendation.reviewStatus.${ev?.reviewStatus === 'validated' ? 'validated' : 'unvalidated'}`)}</Text>
+                  {ev?.evidenceNotes ? <Text variant="body">{ev.evidenceNotes}</Text> : null}
+                </React.Fragment>
+              ))}
+            </StyledSectionBody>
+          </StyledSection>
+          </Accordion>
         )}
 
         <StyledActionsRow>
@@ -165,7 +206,7 @@ const RecommendationScreenAndroid = () => {
         <StyledSummaryPane>
           <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
           <Text variant="body">{inputs?.condition ?? '—'}</Text>
-          <Text variant="caption">SpO₂: {inputs?.spo2 ?? '—'} | RR: {inputs?.respiratoryRate ?? '—'}</Text>
+          <Text variant="caption">{t('ventilation.assessment.summary.vitalsFormat', { spo2: inputs?.spo2 ?? '—', rr: inputs?.respiratoryRate ?? '—', hr: inputs?.heartRate ?? '—' })}</Text>
         </StyledSummaryPane>
       </StyledContainer>
     </ScrollView>

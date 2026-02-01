@@ -118,6 +118,7 @@ const MainRouteLayoutIOS = () => {
               items={items}
               isItemVisible={isItemVisible}
               onItemPress={handleItemPress}
+              onClose={closeSidebar}
               collapsed={false}
               testID="main-sidebar"
             />

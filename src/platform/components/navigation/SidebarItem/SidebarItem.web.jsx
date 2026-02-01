@@ -7,7 +7,15 @@ import { Row, IconWrapper, Label } from './SidebarItem.web.styles.jsx';
 const normalize = (props) => {
   if (props.item) {
     const { path, href, label, icon } = props.item;
-    return { path: path || href, label, icon, collapsed: props.collapsed, active: props.active, onClick: props.onClick };
+    return {
+      path: path || href,
+      label,
+      icon,
+      collapsed: props.collapsed,
+      active: props.active,
+      onClick: props.onClick,
+      onClose: props.onClose,
+    };
   }
   return {
     path: props.path || props.href,
@@ -16,17 +24,19 @@ const normalize = (props) => {
     collapsed: props.collapsed,
     active: props.active,
     onClick: props.onClick,
+    onClose: props.onClose,
   };
 };
 
 const SidebarItemWeb = (props) => {
   const router = useRouter();
-  const { path, label, icon, collapsed, active, onClick } = normalize(props);
+  const { path, label, icon, collapsed, active, onClick, onClose } = normalize(props);
   const glyph = getMenuIconGlyph(icon);
   const handleClick = (e) => {
     e?.preventDefault?.();
     if (onClick) onClick();
     else if (path) router.push(path);
+    onClose?.();
   };
   return (
     <Row

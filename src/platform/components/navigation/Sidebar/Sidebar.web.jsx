@@ -3,10 +3,13 @@ import { usePathname } from 'expo-router';
 import { useI18n } from '@hooks';
 import {
   StyledSidebar,
+  StyledSidebarHeader,
+  StyledCloseButton,
   StyledSidebarContent,
 } from './Sidebar.web.styles';
+import Icon from '@platform/components/display/Icon';
 import SidebarItem from '@platform/components/navigation/SidebarItem';
-import { SIDE_MENU_ITEMS } from '@config/sideMenu';
+import { getMenuIconGlyph, SIDE_MENU_ITEMS } from '@config/sideMenu';
 
 const isItemActive = (pathname, href) => {
   if (!href) return false;
@@ -23,6 +26,7 @@ const SidebarWeb = ({
   items = SIDE_MENU_ITEMS,
   itemsI18nPrefix = 'navigation.items.main',
   collapsed = false,
+  onClose,
   accessibilityLabel,
   testID,
   className,
@@ -43,6 +47,20 @@ const SidebarWeb = ({
       style={style}
       {...rest}
     >
+      {onClose ? (
+        <StyledSidebarHeader>
+          <StyledCloseButton
+            type="button"
+            onClick={onClose}
+            aria-label={t('common.close')}
+            aria-description={t('common.closeSidebarHint')}
+            title={t('common.close')}
+            data-testid="sidebar-close"
+          >
+            <Icon glyph={getMenuIconGlyph('close-outline')} size="sm" decorative />
+          </StyledCloseButton>
+        </StyledSidebarHeader>
+      ) : null}
       <StyledSidebarContent $collapsed={collapsed}>
         {topLevel.map((item) => {
           const href = item.href ?? item.path;
@@ -56,6 +74,7 @@ const SidebarWeb = ({
               item={{ ...item, href, label, path: href }}
               collapsed={collapsed}
               active={active}
+              onClose={onClose}
             />
           );
         })}

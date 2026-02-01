@@ -9,7 +9,9 @@ import { useRouter } from 'expo-router';
 import { useI18n } from '@hooks';
 import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar/useSidebar';
 import SidebarItem from '@platform/components/navigation/SidebarItem';
-import { StyledSidebar, StyledSidebarContent } from './Sidebar.ios.styles';
+import Icon from '@platform/components/display/Icon';
+import { getMenuIconGlyph } from '@config/sideMenu';
+import { StyledSidebar, StyledSidebarHeader, StyledCloseButton, StyledSidebarContent } from './Sidebar.ios.styles';
 
 /**
  * Sidebar component for iOS
@@ -26,6 +28,7 @@ const SidebarIOS = ({
   collapsed = false,
   pathname,
   onItemPress,
+  onClose,
   isItemVisible,
   accessibilityLabel,
   testID,
@@ -97,6 +100,19 @@ const SidebarIOS = ({
       style={style}
       {...rest}
     >
+      {onClose ? (
+        <StyledSidebarHeader>
+          <StyledCloseButton
+            onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.close')}
+            accessibilityHint={t('common.closeSidebarHint')}
+            testID="sidebar-close"
+          >
+            <Icon glyph={getMenuIconGlyph('close-outline')} size="sm" decorative />
+          </StyledCloseButton>
+        </StyledSidebarHeader>
+      ) : null}
       <ScrollView scrollEnabled showsVerticalScrollIndicator contentContainerStyle={{ paddingBottom: 16 }}>
         <StyledSidebarContent>
           {filteredItems.map((item) => (

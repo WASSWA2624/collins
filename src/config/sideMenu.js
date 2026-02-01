@@ -31,6 +31,7 @@ export const MENU_ICON_GLYPHS = {
   'person-add-outline': '👤',
   'mail-outline': '✉',
   'call-outline': '📞',
+  'close-outline': '×',
 };
 
 const DEFAULT_ICON_GLYPH = '•';

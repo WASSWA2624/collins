@@ -19,6 +19,49 @@ const StyledSidebar = styled.nav.withConfig({
   box-sizing: border-box;
 `;
 
+const StyledSidebarHeader = styled.div.withConfig({
+  displayName: 'StyledSidebarHeader',
+  componentId: 'StyledSidebarHeader',
+})`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  min-height: 44px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledCloseButton = styled.button.withConfig({
+  displayName: 'StyledCloseButton',
+  componentId: 'StyledCloseButton',
+})`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: ${({ theme }) => theme.spacing.xs}px;
+  border: none;
+  border-radius: ${({ theme }) => theme.radius.md}px;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.background.tertiary};
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
+  }
+`;
+
 const StyledSidebarContent = styled.div.withConfig({
   displayName: 'StyledSidebarContent',
   componentId: 'StyledSidebarContent',
@@ -36,6 +79,8 @@ const StyledSidebarContent = styled.div.withConfig({
 
 export {
   StyledSidebar,
+  StyledSidebarHeader,
+  StyledCloseButton,
   StyledSidebarContent,
 };
 

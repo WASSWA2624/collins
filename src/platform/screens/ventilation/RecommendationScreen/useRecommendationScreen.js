@@ -59,6 +59,16 @@ export default function useRecommendationScreen() {
     [recommendationSummary]
   );
 
+  const missingInputs = useMemo(
+    () => recommendationSummary?.source?.missingInputs ?? [],
+    [recommendationSummary]
+  );
+
+  const contributingFactors = useMemo(
+    () => recommendationSummary?.source?.contributingFactors ?? [],
+    [recommendationSummary]
+  );
+
   const additionalTestPrompts = useMemo(
     () => recommendationSummary?.additionalTestPrompts ?? [],
     [recommendationSummary]
@@ -82,6 +92,8 @@ export default function useRecommendationScreen() {
     matched,
     caseEvidence,
     safety,
+    missingInputs,
+    contributingFactors,
     additionalTestPrompts,
     nextActions,
     inputs,

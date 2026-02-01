@@ -9,8 +9,9 @@ const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
 
+const mockPush = jest.fn();
 jest.mock('expo-router', () => ({
-  useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
+  useRouter: () => ({ push: mockPush, replace: jest.fn() }),
   useLocalSearchParams: () => ({}),
 }));
 
@@ -130,6 +131,43 @@ describe('RecommendationScreen', () => {
     it('should show Start monitoring button', () => {
       const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
       expect(getByTestId('recommendation-start-monitoring')).toBeTruthy();
+    });
+
+    it('should show confidence section', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-confidence')).toBeTruthy();
+    });
+
+    it('should show monitoring section when data present', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-monitoring')).toBeTruthy();
+    });
+
+    it('should show risks section when data present', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-risks')).toBeTruthy();
+    });
+
+    it('should show matched cases section when data present', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-matched-cases')).toBeTruthy();
+    });
+
+    it('should show evidence section when data present', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-evidence')).toBeTruthy();
+    });
+
+    it('should have accessible screen label', () => {
+      const { getByLabelText } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByLabelText('Recommendation screen')).toBeTruthy();
+    });
+
+    it('should navigate to case detail when case link clicked (web)', () => {
+      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      const caseLink = getByTestId('recommendation-case-CASE_001');
+      caseLink.click?.();
+      expect(mockPush).toHaveBeenCalledWith('/session/case/CASE_001');
     });
   });
 

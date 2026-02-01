@@ -1,6 +1,6 @@
 /**
  * Recommendation Route Tests
- * File: recommendation.test.js
+ * File: recommendation.test.js - tests src/app/(main)/session/recommendation.jsx (P011 11.S.3)
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -45,7 +45,7 @@ describe('app/(main)/session/recommendation.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should render RecommendationScreen', () => {
-    const RecommendationRoute = require('../../../app/(main)/session/recommendation').default;
+    const RecommendationRoute = require('../../../../app/(main)/session/recommendation').default;
     const { getByTestId } = renderWithProviders(<RecommendationRoute />);
     expect(getByTestId('recommendation-screen')).toBeDefined();
   });
