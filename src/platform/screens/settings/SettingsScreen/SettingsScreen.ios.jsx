@@ -7,7 +7,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 
 // 2. Platform components
-import { Text, Select, Stack } from '@platform/components';
+import { Text, Select, ThemeControls, LanguageControls } from '@platform/components';
 import { ThemeControls, LanguageControls } from '@platform/components';
 
 // 3. Hooks
@@ -17,6 +17,7 @@ import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledContent,
+  StyledHeader,
   StyledSection,
   StyledSectionTitle,
 } from './SettingsScreen.ios.styles';
@@ -30,13 +31,15 @@ const SettingsScreenIOS = () => {
 
   return (
     <StyledContainer accessibilityLabel={t('settings.screen.label')} testID={testIds.screen}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <StyledContent>
-          <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
-            {t('settings.title')}
-          </Text>
+          <StyledHeader>
+            <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
+              {t('settings.title')}
+            </Text>
+          </StyledHeader>
 
-          <Stack spacing="lg">
+          <>
             {/* Theme Selection */}
             <StyledSection testID={testIds.themeSection}>
               <StyledSectionTitle>
@@ -74,7 +77,7 @@ const SettingsScreenIOS = () => {
               </StyledSectionTitle>
               <LanguageControls testID={testIds.languageSelector} />
             </StyledSection>
-          </Stack>
+          </>
         </StyledContent>
       </ScrollView>
     </StyledContainer>

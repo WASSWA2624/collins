@@ -6,8 +6,7 @@
 import React from 'react';
 
 // 2. Platform components
-import { Text, Select, Stack } from '@platform/components';
-import { ThemeControls, LanguageControls } from '@platform/components';
+import { Text, Select, ThemeControls, LanguageControls } from '@platform/components';
 
 // 3. Hooks
 import { useI18n } from '@hooks';
@@ -16,6 +15,7 @@ import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledContent,
+  StyledHeader,
   StyledSection,
   StyledSectionTitle,
 } from './SettingsScreen.web.styles';
@@ -28,15 +28,17 @@ const SettingsScreenWeb = () => {
   const { testIds, density, densityOptions, setDensity } = useSettingsScreen();
 
   return (
-    <StyledContainer aria-label={t('settings.screen.label')} testID={testIds.screen}>
+    <StyledContainer aria-label={t('settings.screen.label')} data-testid={testIds.screen}>
       <StyledContent>
-        <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
-          {t('settings.title')}
-        </Text>
+        <StyledHeader>
+          <Text accessibilityRole="header" variant="h1" data-testid={testIds.title}>
+            {t('settings.title')}
+          </Text>
+        </StyledHeader>
 
-        <Stack spacing="lg">
+        <>
           {/* Theme Selection */}
-          <StyledSection testID={testIds.themeSection}>
+          <StyledSection data-testid={testIds.themeSection}>
             <StyledSectionTitle>
               <Text variant="h3" testID={testIds.themeLabel}>
                 {t('settings.theme.label')}
@@ -46,7 +48,7 @@ const SettingsScreenWeb = () => {
           </StyledSection>
 
           {/* Density Mode Selection */}
-          <StyledSection testID={testIds.densitySection}>
+          <StyledSection data-testid={testIds.densitySection}>
             <StyledSectionTitle>
               <Text variant="h3" testID={testIds.densityLabel}>
                 {t('settings.density.label')}
@@ -64,7 +66,7 @@ const SettingsScreenWeb = () => {
           </StyledSection>
 
           {/* Language Selection */}
-          <StyledSection testID={testIds.languageSection}>
+          <StyledSection data-testid={testIds.languageSection}>
             <StyledSectionTitle>
               <Text variant="h3" testID={testIds.languageLabel}>
                 {t('settings.language.label')}
@@ -72,7 +74,7 @@ const SettingsScreenWeb = () => {
             </StyledSectionTitle>
             <LanguageControls testID={testIds.languageSelector} />
           </StyledSection>
-        </Stack>
+        </>
       </StyledContent>
     </StyledContainer>
   );
