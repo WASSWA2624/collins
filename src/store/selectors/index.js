@@ -37,6 +37,18 @@ const selectVentilationRecommendationSummary = createSelector(
 const selectVentilationHydrating = createSelector([selectVentilation], (ventilation) => ventilation?.isHydrating ?? false);
 const selectVentilationHydratedAt = createSelector([selectVentilation], (ventilation) => ventilation?.hydratedAt ?? null);
 const selectVentilationErrorCode = createSelector([selectVentilation], (ventilation) => ventilation?.errorCode ?? null);
+const selectVentilationSessionHistory = createSelector(
+  [selectVentilation],
+  (ventilation) => ventilation?.sessionHistory ?? null
+);
+const selectVentilationHistoryErrorCode = createSelector(
+  [selectVentilation],
+  (ventilation) => ventilation?.historyErrorCode ?? null
+);
+const selectVentilationHistoryLoading = createSelector(
+  [selectVentilation],
+  (ventilation) => ventilation?.isHistoryLoading ?? false
+);
 
 // Network Selectors (defensive for undefined state)
 const selectNetwork = (state) => state?.network ?? null;
@@ -71,6 +83,9 @@ export {
   selectVentilationHydrating,
   selectVentilationHydratedAt,
   selectVentilationErrorCode,
+  selectVentilationSessionHistory,
+  selectVentilationHistoryErrorCode,
+  selectVentilationHistoryLoading,
   // Network
   selectIsOnline,
   selectIsOffline,
@@ -101,6 +116,9 @@ export default {
   selectVentilationHydrating,
   selectVentilationHydratedAt,
   selectVentilationErrorCode,
+  selectVentilationSessionHistory,
+  selectVentilationHistoryErrorCode,
+  selectVentilationHistoryLoading,
   // Network
   selectIsOnline,
   selectIsOffline,

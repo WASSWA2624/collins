@@ -16,3 +16,4 @@ export { default as ErrorScreen } from './common/ErrorScreen';
 export { default as AssessmentScreen } from './ventilation/AssessmentScreen';
 export { default as RecommendationScreen } from './ventilation/RecommendationScreen';
 export { default as MonitoringScreen } from './ventilation/MonitoringScreen';
+export { default as HistoryScreen } from './ventilation/HistoryScreen';

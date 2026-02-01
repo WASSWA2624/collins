@@ -7,10 +7,13 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectVentilationErrorCode,
+  selectVentilationHistoryErrorCode,
+  selectVentilationHistoryLoading,
   selectVentilationHydratedAt,
   selectVentilationHydrating,
   selectVentilationInputs,
   selectVentilationRecommendationSummary,
+  selectVentilationSessionHistory,
   selectVentilationSessionId,
 } from '@store/selectors';
 import { actions as ventilationActions } from '@store/slices/ventilation.slice';
@@ -24,6 +27,9 @@ const useVentilationSession = () => {
   const isHydrating = useSelector(selectVentilationHydrating);
   const hydratedAt = useSelector(selectVentilationHydratedAt);
   const errorCode = useSelector(selectVentilationErrorCode);
+  const sessionHistory = useSelector(selectVentilationSessionHistory);
+  const historyErrorCode = useSelector(selectVentilationHistoryErrorCode);
+  const isHistoryLoading = useSelector(selectVentilationHistoryLoading);
 
   return {
     sessionId,
@@ -32,6 +38,9 @@ const useVentilationSession = () => {
     isHydrating,
     hydratedAt,
     errorCode,
+    sessionHistory,
+    historyErrorCode,
+    isHistoryLoading,
     startSession: useCallback((id) => dispatch(ventilationActions.startSession(id)), [dispatch]),
     setInputs: useCallback((nextInputs) => dispatch(ventilationActions.setInputs(nextInputs)), [dispatch]),
     setRecommendationSummary: useCallback(
@@ -42,6 +51,21 @@ const useVentilationSession = () => {
     persistDraft: useCallback(() => dispatch(ventilationActions.persistVentilationSessionDraft()), [dispatch]),
     clearDraft: useCallback(() => dispatch(ventilationActions.clearVentilationSessionDraft()), [dispatch]),
     appendToHistory: useCallback(() => dispatch(ventilationActions.appendVentilationSessionToHistory()), [dispatch]),
+    loadHistory: useCallback(() => dispatch(ventilationActions.loadVentilationHistory()), [dispatch]),
+    deleteFromHistory: useCallback(
+      (id) => dispatch(ventilationActions.removeVentilationSessionFromHistory(id)),
+      [dispatch]
+    ),
+    loadHistoryEntryIntoSession: useCallback(
+      (entry) => {
+        if (entry?.sessionId) {
+          dispatch(ventilationActions.startSession(entry.sessionId));
+          dispatch(ventilationActions.setInputs(entry.inputs ?? null));
+          dispatch(ventilationActions.setRecommendationSummary(entry.recommendationSummary ?? null));
+        }
+      },
+      [dispatch]
+    ),
     clearError: useCallback(() => dispatch(ventilationActions.clearVentilationError()), [dispatch]),
     resetSession: useCallback(() => dispatch(ventilationActions.resetSession()), [dispatch]),
   };

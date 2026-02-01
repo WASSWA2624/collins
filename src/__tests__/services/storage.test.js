@@ -338,6 +338,39 @@ describe('Storage Services', () => {
         expect(saved[0].sessionId).toBe('c');
       });
     });
+
+    describe('removeHistoryEntry', () => {
+      it('returns ok when sessionId is empty', async () => {
+        const result = await ventilationSession.removeHistoryEntry('');
+        expect(result.ok).toBe(true);
+        expect(result.errorCode).toBeNull();
+      });
+
+      it('removes entry and persists filtered list', async () => {
+        const existing = [
+          { sessionId: 's1', inputs: {}, recommendationSummary: {}, updatedAt: 1 },
+          { sessionId: 's2', inputs: {}, recommendationSummary: {}, updatedAt: 2 },
+        ];
+        mockAsyncStorage.getItem.mockResolvedValue(JSON.stringify(existing));
+
+        const result = await ventilationSession.removeHistoryEntry('s1');
+        expect(result.ok).toBe(true);
+        expect(result.errorCode).toBeNull();
+
+        const saved = JSON.parse(mockAsyncStorage.setItem.mock.calls.find((c) => c[0] === 'ventilation.session.history.v1')[1]);
+        expect(saved).toHaveLength(1);
+        expect(saved[0].sessionId).toBe('s2');
+      });
+
+      it('returns ok when sessionId not found (no change)', async () => {
+        const existing = [{ sessionId: 's1', inputs: {}, recommendationSummary: {}, updatedAt: 1 }];
+        mockAsyncStorage.getItem.mockResolvedValue(JSON.stringify(existing));
+
+        const result = await ventilationSession.removeHistoryEntry('s99');
+        expect(result.ok).toBe(true);
+        expect(mockAsyncStorage.setItem).not.toHaveBeenCalled();
+      });
+    });
   });
 });
 

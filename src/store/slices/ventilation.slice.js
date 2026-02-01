@@ -14,6 +14,9 @@ const initialState = {
   isHydrating: false,
   hydratedAt: null,
   errorCode: null,
+  sessionHistory: null,
+  historyErrorCode: null,
+  isHistoryLoading: false,
 };
 
 const normalizeErrorCode = (errorOrPayload, fallback = 'UNKNOWN_ERROR') => {
@@ -108,6 +111,35 @@ const appendVentilationSessionToHistory = createAsyncThunk(
   }
 );
 
+const loadVentilationHistory = createAsyncThunk(
+  'ventilation/loadHistory',
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await ventilationSessionStorage.loadHistory();
+      return { history: result.history ?? [], errorCode: result.errorCode ?? null };
+    } catch (error) {
+      const normalized = handleError(error, { scope: 'store.slices.ventilation.loadHistory' });
+      return rejectWithValue({ errorCode: normalized.code || 'VENTILATION_SESSION_HISTORY_LOAD_FAILED' });
+    }
+  }
+);
+
+const removeVentilationSessionFromHistory = createAsyncThunk(
+  'ventilation/removeFromHistory',
+  async (sessionId, { rejectWithValue }) => {
+    try {
+      const result = await ventilationSessionStorage.removeHistoryEntry(sessionId);
+      if (!result.ok) {
+        return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_HISTORY_DELETE_FAILED' });
+      }
+      return sessionId;
+    } catch (error) {
+      const normalized = handleError(error, { scope: 'store.slices.ventilation.removeFromHistory' });
+      return rejectWithValue({ errorCode: normalized.code || 'VENTILATION_SESSION_HISTORY_DELETE_FAILED' });
+    }
+  }
+);
+
 const ventilationSlice = createSlice({
   name: 'ventilation',
   initialState,
@@ -171,6 +203,29 @@ const ventilationSlice = createSlice({
       })
       .addCase(appendVentilationSessionToHistory.rejected, (state, action) => {
         state.errorCode = normalizeErrorCode(action.payload, 'VENTILATION_SESSION_HISTORY_SAVE_FAILED');
+      })
+      .addCase(loadVentilationHistory.pending, (state) => {
+        state.isHistoryLoading = true;
+        state.historyErrorCode = null;
+      })
+      .addCase(loadVentilationHistory.fulfilled, (state, action) => {
+        state.isHistoryLoading = false;
+        state.sessionHistory = action.payload?.history ?? [];
+        state.historyErrorCode = action.payload?.errorCode ?? null;
+      })
+      .addCase(loadVentilationHistory.rejected, (state, action) => {
+        state.isHistoryLoading = false;
+        state.sessionHistory = [];
+        state.historyErrorCode = normalizeErrorCode(action.payload, 'VENTILATION_SESSION_HISTORY_LOAD_FAILED');
+      })
+      .addCase(removeVentilationSessionFromHistory.fulfilled, (state, action) => {
+        const id = action.payload;
+        if (Array.isArray(state.sessionHistory)) {
+          state.sessionHistory = state.sessionHistory.filter((item) => item.sessionId !== id);
+        }
+      })
+      .addCase(removeVentilationSessionFromHistory.rejected, (state, action) => {
+        state.historyErrorCode = normalizeErrorCode(action.payload, 'VENTILATION_SESSION_HISTORY_DELETE_FAILED');
       });
   },
 });
@@ -181,6 +236,8 @@ const actions = {
   persistVentilationSessionDraft,
   clearVentilationSessionDraft,
   appendVentilationSessionToHistory,
+  loadVentilationHistory,
+  removeVentilationSessionFromHistory,
 };
 
 const reducer = ventilationSlice.reducer;

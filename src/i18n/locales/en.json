@@ -561,6 +561,36 @@
         "empty": "Add vitals or labs points to see trends and alerts.",
         "offline": "You are offline. Data is saved locally."
       }
+    },
+    "history": {
+      "title": "Session history",
+      "accessibilityLabel": "Session history screen",
+      "empty": "No saved sessions yet.",
+      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "actions": {
+        "resume": "Resume",
+        "resumeHint": "Continue this session",
+        "viewDetails": "View details",
+        "viewDetailsHint": "View session summary",
+        "delete": "Delete",
+        "deleteHint": "Remove from history"
+      },
+      "deleteConfirm": {
+        "title": "Delete session?",
+        "message": "This session will be removed from history. This cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Condition: {{condition}}",
+        "tier": "Tier: {{tier}}",
+        "summary": "Summary"
+      },
+      "states": {
+        "loading": "Loading history…",
+        "error": "Unable to load session history"
+      }
     }
   },
   "auth": {

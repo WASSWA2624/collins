@@ -137,5 +137,28 @@ const appendHistory = async (entry, { maxEntries = 25 } = {}) => {
   }
 };
 
-export { STORAGE_KEYS, loadDraft, saveDraft, clearDraft, loadHistory, appendHistory };
+const removeHistoryEntry = async (sessionId) => {
+  try {
+    const current = await loadHistory();
+    const list = Array.isArray(current.history) ? current.history : [];
+    const id = typeof sessionId === 'string' ? sessionId.trim() : '';
+    if (!id) return Object.freeze({ ok: true, errorCode: null });
+
+    const filtered = list.filter((item) => item.sessionId !== id);
+    if (filtered.length === list.length) return Object.freeze({ ok: true, errorCode: null });
+
+    const ok = await setItem(STORAGE_KEYS.history, filtered);
+    return Object.freeze({
+      ok: Boolean(ok),
+      errorCode: ok ? null : 'VENTILATION_SESSION_HISTORY_DELETE_FAILED',
+    });
+  } catch (error) {
+    return Object.freeze({
+      ok: false,
+      errorCode: normalizeStorageFailure(error, 'VENTILATION_SESSION_HISTORY_DELETE_FAILED'),
+    });
+  }
+};
+
+export { STORAGE_KEYS, loadDraft, saveDraft, clearDraft, loadHistory, appendHistory, removeHistoryEntry };
 
