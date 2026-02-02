@@ -68,9 +68,6 @@ jest.mock('@platform/components', () => {
 jest.mock('@platform/layouts', () => {
   const React = require('react');
   return {
-    MainLayout: React.forwardRef(({ children, ...props }, ref) =>
-      React.createElement('div', { ...props, ref }, children)
-    ),
     AppFrame: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children)
     ),
