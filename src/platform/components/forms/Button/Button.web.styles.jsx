@@ -14,6 +14,7 @@ const StyledButton = styled.button.withConfig({
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  min-width: 44px;
   min-height: ${({ $size, theme }) => {
     const heights = {
       small: 44,

@@ -18,6 +18,7 @@ import {
   StyledCaseLink,
   StyledContainer,
   StyledContentPane,
+  StyledEditStepRow,
   StyledEvidenceItem,
   StyledList,
   StyledListItem,
@@ -326,7 +327,7 @@ const RecommendationScreenWeb = () => {
             <StyledSectionTitle>{t('ventilation.recommendation.actions.editAssessmentTitle')}</StyledSectionTitle>
           </StyledSectionHeader>
           <StyledSectionBody>
-            <Stack direction="row" gap="sm" wrap>
+            <StyledEditStepRow>
               {STEP_KEYS.map((stepKey, index) => (
                 <Button
                   key={stepKey}
@@ -338,7 +339,7 @@ const RecommendationScreenWeb = () => {
                   {t('ventilation.assessment.steps.' + stepKey)}
                 </Button>
               ))}
-            </Stack>
+            </StyledEditStepRow>
           </StyledSectionBody>
         </StyledSection>
         <StyledActionsRow>
@@ -347,10 +348,11 @@ const RecommendationScreenWeb = () => {
             onPress={handleStartMonitoring}
             testID={RECOMMENDATION_TEST_IDS.startMonitoring}
             accessibilityLabel={t('ventilation.recommendation.actions.startMonitoringHint')}
+            size="large"
           >
             {t('ventilation.recommendation.actions.startMonitoring')}
           </Button>
-          <Button variant="outline" onPress={handleStartNewAssessment}>
+          <Button variant="outline" onPress={handleStartNewAssessment} size="large">
             {t('ventilation.recommendation.actions.startNewAssessment')}
           </Button>
         </StyledActionsRow>

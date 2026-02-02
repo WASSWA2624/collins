@@ -179,14 +179,31 @@ const StyledWarningBox = styled.div.withConfig({
   line-height: 1.5;
 `;
 
+const StyledEditStepRow = styled.div.withConfig({
+  displayName: 'StyledEditStepRow',
+  componentId: 'StyledEditStepRow',
+})`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
 const StyledActionsRow = styled.div.withConfig({
   displayName: 'StyledActionsRow',
   componentId: 'StyledActionsRow',
 })`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
   flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-top: ${({ theme }) => theme.spacing.xl}px;
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
+  border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+
+  @media (max-width: ${({ theme }) => (theme.breakpoints?.tablet ?? 768) - 1}px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 const StyledBadge = styled.span.withConfig({
@@ -216,6 +233,7 @@ export {
   StyledCaseLink,
   StyledContainer,
   StyledContentPane,
+  StyledEditStepRow,
   StyledEvidenceItem,
   StyledList,
   StyledListItem,

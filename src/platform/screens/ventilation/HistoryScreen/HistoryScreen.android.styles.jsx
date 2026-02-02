@@ -50,10 +50,13 @@ const StyledItem = styled(View).withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  elevation: 2;
 `;
 
 const StyledItemRow = styled(View).withConfig({
@@ -64,7 +67,7 @@ const StyledItemRow = styled(View).withConfig({
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledItemMeta = styled(View).withConfig({
@@ -84,8 +87,9 @@ const StyledItemActions = styled(View).withConfig({
   componentId: 'StyledItemActions',
 })`
   flex-direction: row;
+  flex-wrap: wrap;
   flex-shrink: 0;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledModalOverlay = styled(View).withConfig({

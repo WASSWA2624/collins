@@ -2,19 +2,22 @@
  * RecommendationScreen Component - Android
  * File: RecommendationScreen.android.jsx
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import {
   Accordion,
   Button,
+  Checkbox,
   Text,
 } from '@platform/components';
-import { useI18n } from '@hooks';
+import { useI18n, useExportSession } from '@hooks';
 import useRecommendationScreen from './useRecommendationScreen';
 import {
   StyledActionsRow,
   StyledContainer,
   StyledContentWrap,
+  StyledEditStepRow,
+  StyledExportRow,
   StyledSection,
   StyledSectionBody,
   StyledSectionHeader,
@@ -44,6 +47,8 @@ const RecommendationScreenAndroid = () => {
     aiReasons,
     aiHints,
     inputs,
+    recommendationSummary,
+    sessionId,
     isEmpty,
     isHydrating,
     errorCode,
@@ -51,6 +56,12 @@ const RecommendationScreenAndroid = () => {
     goToAssessmentStep,
     startNewAssessment,
   } = useRecommendationScreen();
+  const { exportSummary } = useExportSession({
+    recommendationSummary,
+    inputs,
+    sessionId,
+  });
+  const [anonymizeExport, setAnonymizeExport] = useState(false);
 
   const handleStartMonitoring = () => router.push('/session/monitoring');
   const handleStartNewAssessment = () => startNewAssessment();
@@ -226,29 +237,51 @@ const RecommendationScreenAndroid = () => {
           </Accordion>
         )}
 
+        <StyledSection testID="recommendation-export-section">
+          <StyledSectionBody>
+            <StyledExportRow>
+              <Checkbox
+                label={t('ventilation.recommendation.actions.anonymizeBeforeExport')}
+                checked={anonymizeExport}
+                onChange={(checked) => setAnonymizeExport(!!checked)}
+                accessibilityLabel={t('ventilation.recommendation.actions.anonymizeBeforeExport')}
+              />
+              <Button
+                variant="outline"
+                onPress={() => exportSummary(anonymizeExport)}
+                testID="recommendation-export-summary"
+                accessibilityLabel={t('ventilation.recommendation.actions.exportSummaryHint')}
+              >
+                {t('ventilation.recommendation.actions.exportSummary')}
+              </Button>
+            </StyledExportRow>
+          </StyledSectionBody>
+        </StyledSection>
         <StyledSection testID="recommendation-edit-assessment">
           <StyledSectionHeader>
             <Text variant="label">{t('ventilation.recommendation.actions.editAssessmentTitle')}</Text>
           </StyledSectionHeader>
           <StyledSectionBody>
-            {STEP_KEYS.map((stepKey, index) => (
-              <Button
-                key={stepKey}
-                variant="outline"
-                onPress={() => goToAssessmentStep(index)}
-                testID={`recommendation-edit-step-${index}`}
-                accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}
-              >
-                {t('ventilation.assessment.steps.' + stepKey)}
-              </Button>
-            ))}
+            <StyledEditStepRow>
+              {STEP_KEYS.map((stepKey, index) => (
+                <Button
+                  key={stepKey}
+                  variant="outline"
+                  onPress={() => goToAssessmentStep(index)}
+                  testID={`recommendation-edit-step-${index}`}
+                  accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}
+                >
+                  {t('ventilation.assessment.steps.' + stepKey)}
+                </Button>
+              ))}
+            </StyledEditStepRow>
           </StyledSectionBody>
         </StyledSection>
         <StyledActionsRow>
-          <Button variant="primary" onPress={handleStartMonitoring} testID={RECOMMENDATION_TEST_IDS.startMonitoring}>
+          <Button variant="primary" onPress={handleStartMonitoring} testID={RECOMMENDATION_TEST_IDS.startMonitoring} size="large">
             {t('ventilation.recommendation.actions.startMonitoring')}
           </Button>
-          <Button variant="outline" onPress={handleStartNewAssessment}>
+          <Button variant="outline" onPress={handleStartNewAssessment} size="large">
             {t('ventilation.recommendation.actions.startNewAssessment')}
           </Button>
         </StyledActionsRow>

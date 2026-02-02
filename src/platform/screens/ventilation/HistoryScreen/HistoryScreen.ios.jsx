@@ -6,7 +6,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, Text } from '@platform/components';
-import { useI18n } from '@hooks';
+import { useI18n, useTheme } from '@hooks';
 import useHistoryScreen from './useHistoryScreen';
 import {
   StyledBanner,
@@ -25,6 +25,7 @@ import { HISTORY_TEST_IDS } from './types';
 
 const HistoryScreenIos = () => {
   const { t } = useI18n();
+  const theme = useTheme();
   const router = useRouter();
   const {
     rows,
@@ -126,6 +127,7 @@ const HistoryScreenIos = () => {
           renderItem={renderItem}
           testID={HISTORY_TEST_IDS.list}
           listKey="history-list"
+          contentContainerStyle={{ paddingBottom: theme?.spacing?.xl ?? 24 }}
         />
       )}
       {sessionIdToDelete ? (

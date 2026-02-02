@@ -60,21 +60,27 @@ const StyledList = styled.ul.withConfig({
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  transition: border-color 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.text.tertiary};
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: ${({ theme }) => (theme.breakpoints?.tablet ?? 768) - 1}px) {
+    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   }
 `;
 
@@ -86,7 +92,7 @@ const StyledItemRow = styled.div.withConfig({
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledItemMeta = styled.div.withConfig({
@@ -116,8 +122,14 @@ const StyledItemActions = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   flex-shrink: 0;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+
+  @media (max-width: ${({ theme }) => (theme.breakpoints?.tablet ?? 768) - 1}px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
 `;
 
 const StyledModalOverlay = styled.div.withConfig({

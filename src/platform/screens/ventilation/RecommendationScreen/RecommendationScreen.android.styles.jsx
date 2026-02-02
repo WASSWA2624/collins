@@ -62,9 +62,29 @@ const StyledActionsRow = styled(View).withConfig({
   componentId: 'StyledActionsRow',
 })`
   flex-direction: row;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
   flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-top: ${({ theme }) => theme.spacing.xl}px;
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledEditStepRow = styled(View).withConfig({
+  displayName: 'StyledEditStepRow',
+  componentId: 'StyledEditStepRow',
+})`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledExportRow = styled(View).withConfig({
+  displayName: 'StyledExportRow',
+  componentId: 'StyledExportRow',
+})`
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledSummaryPane = styled(View).withConfig({
@@ -72,15 +92,19 @@ const StyledSummaryPane = styled(View).withConfig({
   componentId: 'StyledSummaryPane',
 })`
   margin-top: ${({ theme }) => theme.spacing.lg}px;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.radius.md}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 export {
   StyledActionsRow,
   StyledContainer,
   StyledContentWrap,
+  StyledEditStepRow,
+  StyledExportRow,
   StyledSection,
   StyledSectionBody,
   StyledSectionHeader,
