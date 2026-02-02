@@ -1,10 +1,7 @@
 /**
  * Settings Route
- * Route: (settings)/settings → /settings
- * File: settings.jsx
- *
- * Per app-router.mdc: route groups omit name from URL.
- * (settings)/settings.jsx yields path /settings for sidebar/navigation links.
+ * Single route for settings: (settings)/index → /settings → SettingsScreen.
+ * Per app-router.mdc: one route, one screen; no duplicate route for same screen.
  */
 import React from 'react';
 import { SettingsScreen } from '@platform/screens';

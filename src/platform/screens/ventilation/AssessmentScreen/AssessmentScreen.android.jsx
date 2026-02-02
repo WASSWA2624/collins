@@ -121,7 +121,7 @@ const AssessmentScreenAndroid = () => {
         return (
           <StyledFieldGroup>
             <Select
-              label={t('ventilation.assessment.patientProfile.condition')}
+              label={`${t('ventilation.assessment.patientProfile.condition')} (${t('common.requiredLabel')})`}
               placeholder={t('ventilation.assessment.patientProfile.conditionPlaceholder')}
               options={conditionOptions(t)}
               value={mergedInputs.condition}
@@ -179,33 +179,33 @@ const AssessmentScreenAndroid = () => {
         return (
           <StyledFieldGroup>
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.spo2')} (${units?.spo2 ?? '%'})`}
+              label={`${t('ventilation.assessment.clinicalParams.spo2')} (${units?.spo2 ?? '%'}) (${t('common.requiredLabel')})`}
               placeholder={t('ventilation.assessment.clinicalParams.spo2Placeholder')}
               type="number"
               value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
               onChangeText={(v) => updateInput({ spo2: parseNum(v) })}
               required
-              accessibilityHint={t('ventilation.assessment.clinicalParams.spo2Hint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.spo2Hint')}. ${t('ventilation.assessment.clinicalParams.spo2NormalRange')}`}
               testID="assessment-spo2"
             />
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.respiratoryRate')} (${units?.respiratoryRate ?? 'breaths/min'})`}
+              label={`${t('ventilation.assessment.clinicalParams.respiratoryRate')} (${units?.respiratoryRate ?? 'breaths/min'}) (${t('common.requiredLabel')})`}
               placeholder={t('ventilation.assessment.clinicalParams.respiratoryRatePlaceholder')}
               type="number"
               value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
               onChangeText={(v) => updateInput({ respiratoryRate: parseNum(v) })}
               required
-              accessibilityHint={t('ventilation.assessment.clinicalParams.respiratoryRateHint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.respiratoryRateHint')}. ${t('ventilation.assessment.clinicalParams.respiratoryRateNormalRange')}`}
               testID="assessment-rr"
             />
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.heartRate')} (${units?.heartRate ?? 'bpm'})`}
+              label={`${t('ventilation.assessment.clinicalParams.heartRate')} (${units?.heartRate ?? 'bpm'}) (${t('common.requiredLabel')})`}
               placeholder={t('ventilation.assessment.clinicalParams.heartRatePlaceholder')}
               type="number"
               value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
               onChangeText={(v) => updateInput({ heartRate: parseNum(v) })}
               required
-              accessibilityHint={t('ventilation.assessment.clinicalParams.heartRateHint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.heartRateHint')}. ${t('ventilation.assessment.clinicalParams.heartRateNormalRange')}`}
               testID="assessment-hr"
             />
             <TextField
@@ -214,7 +214,7 @@ const AssessmentScreenAndroid = () => {
               type="number"
               value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
               onChangeText={(v) => updateInput({ pao2: parseNum(v) })}
-              accessibilityHint={t('ventilation.assessment.clinicalParams.pao2Hint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.pao2Hint')}. ${t('ventilation.assessment.clinicalParams.pao2NormalRange')}`}
               testID="assessment-pao2"
             />
             <TextField
@@ -223,7 +223,7 @@ const AssessmentScreenAndroid = () => {
               type="number"
               value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
               onChangeText={(v) => updateInput({ paco2: parseNum(v) })}
-              accessibilityHint={t('ventilation.assessment.clinicalParams.paco2Hint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.paco2Hint')}. ${t('ventilation.assessment.clinicalParams.paco2NormalRange')}`}
               testID="assessment-paco2"
             />
             <TextField
@@ -232,7 +232,7 @@ const AssessmentScreenAndroid = () => {
               type="number"
               value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}
               onChangeText={(v) => updateInput({ ph: parseNum(v) })}
-              accessibilityHint={t('ventilation.assessment.clinicalParams.phHint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.phHint')}. ${t('ventilation.assessment.clinicalParams.phNormalRange')}`}
               testID="assessment-ph"
             />
             <TextField
@@ -240,7 +240,7 @@ const AssessmentScreenAndroid = () => {
               placeholder={t('ventilation.assessment.clinicalParams.bloodPressurePlaceholder')}
               value={mergedInputs.bloodPressure}
               onChangeText={(v) => updateInput({ bloodPressure: v })}
-              accessibilityHint={t('ventilation.assessment.clinicalParams.bloodPressureHint')}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.bloodPressureHint')}. ${t('ventilation.assessment.clinicalParams.bloodPressureNormalRange')}`}
               testID="assessment-bp"
             />
           </StyledFieldGroup>
@@ -311,9 +311,10 @@ const AssessmentScreenAndroid = () => {
             {renderStepContent()}
           </StyledStepContent>
           {hasMissingTests && currentStep === STEPS.REVIEW && (
-            <StyledMissingTests testID={testIds.missingTests}>
+            <StyledMissingTests testID={testIds.missingTests} accessibilityRole="alert" accessibilityLabel={t('ventilation.assessment.missingTests.title')}>
               <Text variant="label" color="status.warning.text">{t('ventilation.assessment.missingTests.title')}</Text>
               <Text variant="body" color="status.warning.text">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
+              <Text variant="caption" color="status.warning.text">{t('ventilation.assessment.missingTests.abgHint')}</Text>
             </StyledMissingTests>
           )}
           <StyledActionsRow>

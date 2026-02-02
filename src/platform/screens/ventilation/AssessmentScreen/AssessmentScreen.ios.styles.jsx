@@ -93,12 +93,14 @@ const StyledMissingTests = styled(View).withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
 })`
-  margin-top: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.sm}px;
-  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
-  border-radius: ${({ theme }) => theme.radius?.sm ?? 4}px;
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
+  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.warning ?? 'rgba(255, 149, 0, 0.35)'};
   border-left-width: 4px;
-  border-left-color: ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
+  border-left-color: ${({ theme }) => theme.colors.warning ?? '#FF9500'};
 `;
 
 const StyledFieldGroup = styled(View).withConfig({

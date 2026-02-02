@@ -145,6 +145,15 @@ const StyledFieldGridFull = styled.div.withConfig({
   grid-column: 1 / -1;
 `;
 
+const StyledFieldWithHint = styled.div.withConfig({
+  displayName: 'StyledFieldWithHint',
+  componentId: 'StyledFieldWithHint',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
 const StyledObservationRow = styled.div.withConfig({
   displayName: 'StyledObservationRow',
   componentId: 'StyledObservationRow',
@@ -231,13 +240,44 @@ const StyledMissingTests = styled.div.withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
 })`
-  margin-top: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.sm}px;
-  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
+  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
   color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
-  border-radius: ${({ theme }) => theme.radius?.sm ?? 4}px;
-  border-left: 4px solid ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
-  font-size: ${({ theme }) => theme.typography?.body?.fontSize ?? 14}px;
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border: 1px solid ${({ theme }) => theme.colors.warning ?? 'rgba(255, 149, 0, 0.35)'};
+  border-left: 4px solid ${({ theme }) => theme.colors.warning ?? '#FF9500'};
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+`;
+
+const StyledMissingTestsTitle = styled.div.withConfig({
+  displayName: 'StyledMissingTestsTitle',
+  componentId: 'StyledMissingTestsTitle',
+})`
+  font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
+  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+`;
+
+const StyledMissingTestsList = styled.ul.withConfig({
+  displayName: 'StyledMissingTestsList',
+  componentId: 'StyledMissingTestsList',
+})`
+  margin: 0;
+  padding-left: ${({ theme }) => theme.spacing.lg}px;
+  list-style: disc;
+`;
+
+const StyledMissingTestsHint = styled.p.withConfig({
+  displayName: 'StyledMissingTestsHint',
+  componentId: 'StyledMissingTestsHint',
+})`
+  margin: 0;
+  opacity: 0.95;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
 `;
 
 const StyledFieldGroup = styled.div.withConfig({
@@ -256,8 +296,12 @@ export {
   StyledFieldGroup,
   StyledFieldGrid,
   StyledFieldGridFull,
+  StyledFieldWithHint,
   StyledObservationRow,
   StyledMissingTests,
+  StyledMissingTestsHint,
+  StyledMissingTestsList,
+  StyledMissingTestsTitle,
   StyledProgressSection,
   StyledStepContent,
   StyledStepHeader,

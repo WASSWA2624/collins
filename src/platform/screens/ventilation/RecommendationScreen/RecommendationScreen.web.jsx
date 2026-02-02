@@ -39,6 +39,7 @@ const RecommendationScreenWeb = () => {
   const { t } = useI18n();
   const router = useRouter();
   const {
+    recommendationSummary,
     settings,
     units,
     confidenceTier,
@@ -54,6 +55,7 @@ const RecommendationScreenWeb = () => {
     isEmpty,
     isHydrating,
     errorCode,
+    sessionId,
     showRequestAi,
     isOnline,
     isRequestingAi,
