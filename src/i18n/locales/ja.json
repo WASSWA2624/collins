@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "search": "検索",
+    "submit": "送信",
+    "loading": "読み込み中…",
+    "retry": "再試行",
+    "back": "戻る",
+    "next": "次へ",
+    "continue": "続ける",
+    "close": "閉じる",
+    "closeSidebarHint": "サイドバーメニューを閉じる",
+    "select": "選択",
+    "selectPlaceholder": "選択…",
+    "closeSelect": "選択を閉じる",
+    "remove": "削除",
+    "goToHome": "ホームへ",
+    "viewNotifications": "通知を表示",
+    "userMenu": "ユーザーメニュー",
+    "toggleMenu": "メニューを切り替え",
+    "searchPlaceholder": "検索…",
+    "searchIcon": "検索アイコン",
+    "clearSearch": "検索をクリア",
+    "on": "オン",
+    "off": "オフ",
+    "switch": "スイッチ",
+    "imageLoadError": "画像の読み込みに失敗しました",
+    "imageDefaultAlt": "画像",
+    "progress": "進捗: {{value}}%",
+    "requiredLabel": "必須",
+    "clearAll": "すべてクリア",
+    "filters": "フィルター",
+    "clearAllFilters": "フィルターをすべてクリア",
+    "loadingPlaceholder": "読み込み中",
+    "radio": "ラジオ",
+    "emptyState": "空の状態",
+    "message": "メッセージ",
+    "sliderValue": "スライダー: {{value}}",
+    "dropdownMenu": "ドロップダウンメニュー",
+    "tooltip": "ツールチップ",
+    "action": "操作"
+  },
+  "greeting": {
+    "hello": "こんにちは、{{name}}さん"
+  },
+  "app": {
+    "name": "AI人工呼吸器意思決定支援",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "問題が発生しました",
+      "message": "予期しないエラーが発生しました",
+      "retry": "再試行",
+      "retryHint": "もう一度お試しください"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "不明なエラーが発生しました",
+      "NETWORK_ERROR": "ネットワーク接続に失敗しました",
+      "UNAUTHORIZED": "認証が必要です",
+      "FORBIDDEN": "アクセスが拒否されました",
+      "SERVER_ERROR": "サーバーエラーが発生しました",
+      "ROUTE_ERROR": "このページの読み込み中にエラーが発生しました",
+      "INVALID_CREDENTIALS": "認証情報が無効です",
+      "MULTIPLE_TENANTS": "複数のテナントが見つかりました。テナントを選択してください。",
+      "ACCOUNT_INACTIVE": "アカウントは有効ではありません",
+      "ACCOUNT_SUSPENDED": "アカウントは停止されています",
+      "ACCOUNT_PENDING": "アカウントは確認待ちです",
+      "PASSWORD_INCORRECT": "現在のパスワードが正しくありません",
+      "TOKEN_INVALID": "トークンが無効または期限切れです",
+      "TOKEN_EXPIRED": "トークンの有効期限が切れました",
+      "REFRESH_TOKEN_INVALID": "リフレッシュトークンが無効または期限切れです",
+      "USER_NOT_FOUND": "ユーザーが見つかりません",
+      "USER_EXISTS": "このメールアドレスのユーザーは既に存在します",
+      "SESSION_NOT_FOUND": "セッションが見つかりません",
+      "ALREADY_VERIFIED": "アカウントは既に確認済みです",
+      "AI_UNAVAILABLE": "AIは利用できません — ローカル推奨を使用します",
+      "AI_TIMEOUT": "AIリクエストがタイムアウトしました",
+      "AI_UNAUTHORIZED": "AI APIキーが無効または期限切れです",
+      "AI_FORBIDDEN": "AIへのアクセスが拒否されました",
+      "AI_RATE_LIMIT": "AIのレート制限に達しました",
+      "AI_MODEL_UNAVAILABLE": "AIモデルは利用できません",
+      "AI_MALFORMED_RESPONSE": "AIレスポンスが無効です"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "この項目は必須です",
+      "invalidEmail": "メール形式が無効です",
+      "invalidUrl": "URL形式が無効です",
+      "invalidUuid": "ID形式が無効です",
+      "maxLength": "最大{{max}}文字まで",
+      "invalidValue": "無効な値です"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "メインナビゲーションヘッダー",
+      "searchHint": "検索して入力",
+      "cartWithItems": "カート（{{count}}件）",
+      "cartWithItems_zero": "カート",
+      "signIn": "サインイン",
+      "profile": "プロフィール",
+      "orders": "注文",
+      "settings": "設定",
+      "logout": "ログアウト",
+      "hideHeader": "ヘッダーを非表示",
+      "showHeader": "ヘッダーを表示",
+      "showMore": "もっと見る",
+      "customize": "カスタマイズ",
+      "overflowMenuLabel": "その他のヘッダー操作",
+      "customizationMenuLabel": "ヘッダーのカスタマイズ",
+      "actions": {
+        "notifications": "通知",
+        "network": "ネットワーク状態",
+        "database": "データベース状態",
+        "fullscreen": "全画面切り替え"
+      }
+    },
+    "sidebar": {
+      "title": "メインナビゲーション",
+      "label": "ナビゲーション",
+      "resize": "ナビゲーションのサイズを変更"
+    },
+    "fullscreen": {
+      "enter": "全画面",
+      "exit": "全画面を終了"
+    },
+    "tabBar": {
+      "title": "下部ナビゲーション"
+    },
+    "footer": {
+      "title": "グローバルフッター",
+      "copyright": "© {{year}} {{appName}}. All rights reserved.",
+      "supportEmail": "サポート（メール）",
+      "supportPhone": "サポート（電話）",
+      "status": {
+        "title": "アプリケーション状態",
+        "auth": "セキュアサインイン有効",
+        "main": "全システム稼働中",
+        "patient": "患者サービス準備完了"
+      },
+      "environment": "{{env}} · v{{version}} (ビルド: {{build}})",
+      "legal": {
+        "title": "法的情報とサポート",
+        "terms": "利用規約",
+        "privacy": "プライバシー",
+        "support": "サポート"
+      }
+    },
+    "network": {
+      "label": "ネットワーク状態",
+      "status": {
+        "online": "オンライン",
+        "offline": "オフライン",
+        "unstable": "不安定",
+        "syncing": "同期中"
+      },
+      "database": {
+        "label": "データベース",
+        "connected": "データベース接続済み",
+        "disconnected": "データベース未接続"
+      }
+    },
+    "notifications": {
+      "label": "通知",
+      "menuLabel": "通知メニュー",
+      "empty": "新しい通知はありません",
+      "viewAll": "すべての通知を表示",
+      "items": {
+        "appointments": {
+          "title": "今後の予約",
+          "meta": "本日 15:00"
+        },
+        "labResults": {
+          "title": "検査結果の準備完了",
+          "meta": "新しい結果が利用可能"
+        },
+        "messages": {
+          "title": "新しいメッセージ",
+          "meta": "未読メッセージがあります"
+        }
+      }
+    },
+    "bottomNavigation": "下部ナビゲーション",
+    "mainNavigation": "メインナビゲーション",
+    "patientNavigation": "患者ナビゲーション",
+    "items": {
+      "main": {
+        "home": "ホーム",
+        "assessment": "評価",
+        "history": "履歴",
+        "training": "トレーニング",
+        "onboarding": "はじめに",
+        "settings": "設定",
+        "settings-about": "このアプリについて",
+        "settings-data-sources": "データソース",
+        "settings-disclaimer": "免責事項",
+        "settings-help": "ヘルプ",
+        "settings-privacy": "プライバシー"
+      }
+    },
+    "breadcrumbs": {
+      "title": "パンくずリスト",
+      "label": "パンくず"
+    },
+    "skipToMainContent": "メインコンテンツへスキップ"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "システム状態の更新",
+      "offline": {
+        "title": "オフラインです",
+        "message": "接続が復旧するまで一部の機能は利用できません。",
+        "accessibilityLabel": "オフライン状態の通知"
+      },
+      "lowQuality": {
+        "title": "ネットワークが不安定です",
+        "message": "遅延や機能制限が発生する場合があります。",
+        "accessibilityLabel": "ネットワーク品質低下の通知"
+      },
+      "online": {
+        "title": "オンラインに戻りました",
+        "message": "接続が復旧しました。",
+        "accessibilityLabel": "オンライン状態の通知"
+      },
+      "maintenance": {
+        "title": "定期メンテナンス",
+        "message": "一部のサービスが一時的に利用できません。",
+        "accessibilityLabel": "メンテナンスの通知"
+      }
+    },
+    "loadingOverlay": {
+      "title": "処理中…",
+      "message": "リクエストの完了までお待ちください。"
+    },
+    "notices": {
+      "surfaceLabel": "グローバル通知"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "screen": {
+      "label": "設定画面"
+    },
+    "theme": {
+      "label": "テーマ",
+      "accessibilityLabel": "テーマ選択",
+      "hint": "アプリケーションのテーマを変更",
+      "options": {
+        "system": "システム",
+        "light": "ライト",
+        "dark": "ダーク",
+        "highContrast": "ハイコントラスト"
+      }
+    },
+    "language": {
+      "label": "言語",
+      "accessibilityLabel": "言語選択",
+      "hint": "アプリケーションの言語を変更",
+      "options": {
+        "en": "英語",
+        "ar": "アラビア語",
+        "de": "ドイツ語",
+        "es": "スペイン語",
+        "fa": "ペルシア語",
+        "fr": "フランス語",
+        "hi": "ヒンディー語",
+        "id": "インドネシア語",
+        "it": "イタリア語",
+        "ja": "日本語",
+        "ko": "韓国語",
+        "ms": "マレー語",
+        "nl": "オランダ語",
+        "pl": "ポーランド語",
+        "pt": "ポルトガル語",
+        "ru": "ロシア語",
+        "sw": "スワヒリ語",
+        "ta": "タミル語",
+        "th": "タイ語",
+        "tr": "トルコ語",
+        "uk": "ウクライナ語",
+        "vi": "ベトナム語",
+        "zh": "中国語"
+      }
+    },
+    "density": {
+      "label": "密度",
+      "accessibilityLabel": "密度モード選択",
+      "hint": "余白とレイアウト密度を変更",
+      "options": {
+        "compact": "コンパクト",
+        "comfortable": "ゆったり"
+      }
+    },
+    "footerVisible": {
+      "label": "フッターを表示",
+      "accessibilityLabel": "フッターの表示を切り替え",
+      "hint": "レイアウト下部のフッターの表示/非表示（デスクトップのみ）"
+    },
+    "sidebar": {
+      "resize": "設定サイドバーのサイズを変更",
+      "menu": "設定メニュー",
+      "menuOpen": "設定メニューを開く",
+      "menuClose": "設定メニューを閉じる",
+      "groups": {
+        "general": "一般",
+        "organization": "組織",
+        "usersAndAccess": "ユーザーとアクセス",
+        "security": "セキュリティ"
+      }
+    },
+    "disclaimer": {
+      "title": "免責事項",
+      "screen": {
+        "label": "免責事項画面"
+      },
+      "prototypeFraming": "本アプリは参照・トレーニング用のプロトタイプです。臨床での直接使用を目的としていません。",
+      "datasetNotice": "データセットの注意事項",
+      "acknowledge": "確認しました",
+      "acknowledgeHint": "免責事項を読み理解したことを確認する",
+      "states": {
+        "loading": "読み込み中…",
+        "error": "免責事項を読み込めません"
+      }
+    },
+    "dataSources": {
+      "title": "データソース",
+      "screen": {
+        "label": "データソース画面"
+      },
+      "datasetVersion": "データセットバージョン",
+      "schemaVersion": "スキーマバージョン",
+      "lastUpdated": "最終更新",
+      "totalCases": "総症例数",
+      "citations": "引用",
+      "doi": "DOI",
+      "states": {
+        "loading": "読み込み中…",
+        "error": "データソースを読み込めません",
+        "empty": "利用可能なソースがありません"
+      }
+    },
+    "privacy": {
+      "title": "プライバシー",
+      "screen": {
+        "label": "プライバシー画面"
+      },
+      "localStorage": "ローカルに保存されるデータ",
+      "localStorageDescription": "設定とセッションデータはこのデバイスにのみ保存され、外部サーバーには送信されません。",
+      "optionalAI": "オンラインAI機能が有効な場合、設定済みのサービスにリクエストが送信される場合があります。"
+    },
+    "about": {
+      "title": "このアプリについて",
+      "screen": {
+        "label": "このアプリについて画面"
+      },
+      "appName": "人工呼吸器意思決定支援",
+      "version": "バージョン",
+      "prototypeScope": "これは参照・トレーニング用のプロトタイプです。臨床での使用は想定していません。"
+    },
+    "onboarding": {
+      "title": "はじめに",
+      "accessibilityLabel": "オンボーディング画面",
+      "steps": {
+        "inputs": {
+          "title": "入力の入力",
+          "body": "評価画面で臨床パラメータ（SpO₂、PaO₂、PaCO₂、pH、呼吸数など）を入力してください。入力が完全であるほど、推奨の一致度が向上します。ABG値があると精度が向上します。"
+        },
+        "recommendations": {
+          "title": "推奨の解釈",
+          "body": "推奨では、信頼度レベル（高・中・低）付きの人工呼吸器設定案が表示されます。一致品質はデータセット症例が入力とどれだけ一致するかを示します。一致症例は参照のみに使用し、常に臨床的判断を適用してください。"
+        },
+        "monitoring": {
+          "title": "モニタリングとアラート",
+          "body": "推奨を取得した後、モニタリング画面で経時的にバイタルや検査結果を記録します。アラートは設定閾値外の値を強調表示します。意思決定支援用のみであり、プロトコルに従って確認・対応してください。"
+        },
+        "offline": {
+          "title": "オフライン時の動作",
+          "body": "コアワークフロー（評価、推奨、モニタリング）はオフラインで動作します。データはローカルに保存されます。オプションのAI機能には接続が必要です。オンラインに戻ったら通常通り続行してください。"
+        }
+      },
+      "actions": {
+        "done": "完了",
+        "next": "次へ",
+        "back": "戻る"
+      },
+      "states": {
+        "loading": "読み込み中…"
+      }
+    },
+    "help": {
+      "title": "ヘルプと参照",
+      "accessibilityLabel": "ヘルプ画面",
+      "searchPlaceholder": "用語集またはガイドを検索…",
+      "sections": {
+        "glossary": "用語集",
+        "troubleshooting": "トラブルシューティング",
+        "guides": "次のステップ"
+      },
+      "glossary": {
+        "PEEP": "呼気終末陽圧（cmH₂O）。肺容量と酸素化を維持します。",
+        "FiO2": "吸入酸素濃度（0〜1）。吸入ガス中の酸素割合。",
+        "IERatio": "I:E比。吸気から呼気への時間比（例：1:2）。",
+        "tidalVolume": "一回換気量（mL）。1回の呼吸で送達される容量。",
+        "respiratoryRate": "呼吸数（回/分）。",
+        "SpO2": "パルスオキシメトリによる酸素飽和度（%）。",
+        "PaO2": "動脈血酸素分圧（mmHg）。",
+        "PaCO2": "動脈血二酸化炭素分圧（mmHg）。",
+        "pH": "動脈血pH（無次元）。"
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "ABG値がない場合",
+          "body": "ABGがなくても推奨は機能します。利用可能な場合はSpO₂やその他のバイタルを入力してください。より良い一致のため、PaO₂、PaCO₂、pHがある場合は追加してください。"
+        },
+        "offline": {
+          "title": "アプリをオフラインで使用する",
+          "body": "評価、推奨、モニタリングはオフラインで動作します。データはローカルに保存されます。オプションのAI提案にはインターネットが必要です。コアワークフローには同期は不要です。"
+        }
+      },
+      "guides": {
+        "hypoxemia": "FiO₂とPEEPを確認。リクルートメントを検討。シャントやV/Qミスマッチをチェック。",
+        "hypercapnia": "分時換気量（呼吸数×一回換気量）を確認。プロトコルに従い許容的高CO₂血症を検討。",
+        "acidosis": "換気と灌流を確認。プロトコルに従い根本原因を補正。",
+        "general": "推奨は意思決定支援としてのみ使用してください。現地のプロトコルと臨床的判断で検証してください。"
+      },
+      "states": {
+        "loading": "読み込み中…",
+        "empty": "結果がありません",
+        "error": "ヘルプを読み込めません"
+      }
+    },
+    "ai": {
+      "label": "AI意思決定支援",
+      "sectionLabel": "オプションAI推奨（オンライン）",
+      "enableLabel": "AI推奨を有効にする",
+      "enableHint": "複雑な症例のみオンラインAIを使用。ローカル推奨は常に利用可能",
+      "providerLabel": "プロバイダー",
+      "providerHint": "AIプロバイダー（例：OpenAI）；APIキーはプロバイダーごと",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google（Gemini）",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI（Grok）"
+      },
+      "apiKeyLabel": "APIキー",
+      "apiKeyPlaceholder": "キーを入力（安全に保存）",
+      "apiKeySave": "キーを保存",
+      "apiKeyClear": "キーをクリア",
+      "keyConfigured": "キーを保存しました",
+      "modelLabel": "モデル",
+      "modelHint": "AI提案に使用するモデル",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "読み込み中",
+    "offline": "オフライン",
+    "error": "エラー",
+    "empty": "空",
+    "list": "リスト",
+    "emptyState": {
+      "title": "項目がありません",
+      "message": "表示する項目がありません"
+    },
+    "errorState": {
+      "title": "エラー",
+      "message": "エラーが発生しました"
+    }
+  },
+  "home": {
+    "title": "ホーム",
+    "welcome": {
+      "title": "ようこそ",
+      "message": "AI人工呼吸器意思決定支援は、患者の評価、人工呼吸セッションの実行、推奨の確認をお手伝いします。"
+    },
+    "overview": {
+      "title": "クイックアクセス",
+      "assessment": {
+        "title": "評価",
+        "description": "患者評価と人工呼吸セッションを開始。",
+        "hint": "評価へ"
+      },
+      "history": {
+        "title": "履歴",
+        "description": "過去のセッションを表示・再開。",
+        "hint": "履歴へ"
+      },
+      "training": {
+        "title": "トレーニング",
+        "description": "トレーニングトピックとチェックリストを閲覧。",
+        "hint": "トレーニングへ"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "患者評価",
+      "accessibilityLabel": "評価ウィザード画面",
+      "summary": {
+        "title": "セッション概要",
+        "accessibilityLabel": "評価概要（コンパクト）",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "病態",
+        "spo2": "SpO₂",
+        "respiratoryRate": "呼吸数",
+        "heartRate": "心拍数",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "年齢",
+        "weight": "体重",
+        "height": "身長",
+        "gender": "性別",
+        "comorbidities": "併存疾患",
+        "bloodPressure": "血圧",
+        "empty": "データなし",
+        "expand": "概要を展開",
+        "collapse": "概要を折りたたむ"
+      },
+      "steps": {
+        "patientProfile": "患者プロフィール",
+        "clinicalParams": "臨床パラメータ",
+        "observations": "任意の観察",
+        "timeSeries": "任意の時系列",
+        "review": "確認"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "喘息",
+        "COPD": "COPD",
+        "heartFailure": "心不全",
+        "pneumonia": "肺炎",
+        "sepsis": "敗血症",
+        "trauma": "外傷",
+        "other": "その他"
+      },
+      "patientProfile": {
+        "condition": "病態",
+        "conditionPlaceholder": "選択",
+        "conditionHint": "主な呼吸器病態（必須）",
+        "age": "年齢（歳）",
+        "agePlaceholder": "年齢を入力",
+        "ageHint": "患者の年齢（歳）",
+        "weight": "体重（kg）",
+        "weightPlaceholder": "体重を入力",
+        "weightHint": "患者の体重（kg）",
+        "height": "身長（cm）",
+        "heightPlaceholder": "身長を入力",
+        "heightHint": "患者の身長（cm）",
+        "gender": "性別",
+        "genderPlaceholder": "選択",
+        "genderHint": "患者の性別",
+        "genderMale": "男性",
+        "genderFemale": "女性",
+        "genderOther": "その他",
+        "comorbidities": "併存疾患",
+        "comorbiditiesPlaceholder": "例：高血圧、糖尿病",
+        "comorbiditiesHint": "カンマ区切り"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "SpO₂を入力",
+        "spo2Hint": "酸素飽和度（%）",
+        "spo2NormalRange": "基準範囲：95〜100%",
+        "pao2": "PaO₂（任意）",
+        "pao2Placeholder": "PaO₂を入力",
+        "pao2Hint": "動脈血酸素（mmHg）",
+        "pao2NormalRange": "基準範囲：80〜100 mmHg",
+        "paco2": "PaCO₂（任意）",
+        "paco2Placeholder": "PaCO₂を入力",
+        "paco2Hint": "動脈血CO₂（mmHg）",
+        "paco2NormalRange": "基準範囲：35〜45 mmHg",
+        "ph": "pH（任意）",
+        "phPlaceholder": "pHを入力",
+        "phHint": "動脈血pH",
+        "phNormalRange": "基準範囲：7.35〜7.45",
+        "respiratoryRate": "呼吸数",
+        "respiratoryRatePlaceholder": "RRを入力",
+        "respiratoryRateHint": "回/分",
+        "respiratoryRateNormalRange": "基準範囲：12〜20回/分",
+        "heartRate": "心拍数",
+        "heartRatePlaceholder": "HRを入力",
+        "heartRateHint": "拍/分",
+        "heartRateNormalRange": "基準範囲：60〜100拍/分",
+        "bloodPressure": "血圧（任意）",
+        "bloodPressurePlaceholder": "例：120/80",
+        "bloodPressureHint": "収縮期/拡張期 mmHg",
+        "bloodPressureNormalRange": "基準範囲：90〜120 / 60〜80 mmHg"
+      },
+      "observations": {
+        "title": "追加の観察",
+        "description": "上記に含まれない臨床データ（検査、画像、薬剤、併存疾患スコアなど）を記録してください。各観察は名前と値のペアです。任意で、このステップはスキップできます。",
+        "add": "観察を追加",
+        "name": "名前",
+        "value": "値",
+        "unit": "単位",
+        "optional": "任意"
+      },
+      "timeSeries": {
+        "title": "時系列（経時的なバイタルサイン）",
+        "description": "複数の時点（例：0時間、1時間、2時間のSpO₂、RR、HR）でバイタルサインやその他の指標を追跡します。セッション開始後の傾向分析とモニタリングに使用します。任意で、モニタリング画面で後からポイントを追加できます。",
+        "add": "時系列ポイントを追加",
+        "name": "名前",
+        "value": "値",
+        "optional": "任意"
+      },
+      "recommendationSource": {
+        "label": "推奨ソース",
+        "local": "ローカルデータセット",
+        "localDescription": "組み込みデータセットのみ使用。オフラインで動作。APIキー不要。",
+        "onlineAi": "オンラインAI",
+        "onlineAiDescription": "APIキーでAI強化推奨と理由を取得。接続が必要。AI失敗時はローカルにフォールバック。",
+        "modelLabel": "モデル",
+        "modelHint": "AIモデルを選択（未設定時はデフォルト）",
+        "providerLabel": "プロバイダー",
+        "gpt4oMini": "GPT-4o mini（デフォルト）",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "AI推奨理由",
+        "hints": "AIヒント"
+      },
+      "missingTests": {
+        "title": "追加検査の提案",
+        "abgPanel": "ABGパネルで信頼度が向上します",
+        "abgHint": "利用可能な場合は動脈血ガス検査のオーダーを検討してください"
+      },
+      "actions": {
+        "back": "戻る",
+        "next": "次へ",
+        "generate": "推奨を生成",
+        "generateHint": "現在の入力から推奨を作成"
+      },
+      "states": {
+        "loading": "評価を読み込み中…",
+        "error": "評価を読み込めません",
+        "offline": "評価はオフラインで動作します",
+        "empty": "患者データを入力して開始"
+      }
+    },
+    "recommendation": {
+      "title": "推奨設定",
+      "accessibilityLabel": "推奨画面",
+      "sections": {
+        "settings": "推奨設定",
+        "confidence": "信頼度と理由",
+        "monitoring": "モニタリングポイント",
+        "risks": "リスクと合併症",
+        "matchedCases": "一致症例",
+        "evidence": "エビデンスとレビュー",
+        "warning": "データセットの注意事項"
+      },
+      "settings": {
+        "mode": "モード",
+        "tidalVolume": "一回換気量",
+        "respiratoryRate": "呼吸数",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "I:E比"
+      },
+      "confidence": {
+        "high": "高",
+        "medium": "中",
+        "low": "低",
+        "missingInputs": "信頼度を向上させられる不足入力"
+      },
+      "aiReasons": {
+        "title": "AI推奨理由",
+        "hints": "AIヒントコード"
+      },
+      "actions": {
+        "startMonitoring": "モニタリング開始",
+        "startMonitoringHint": "バイタルサインと時系列の記録を開始",
+        "backToAssessment": "評価に戻る",
+        "requestAiRecommendation": "AI推奨をリクエスト",
+        "requestAiHint": "この症例のオプションAIヒントを取得（接続が必要）",
+        "connectivityRequired": "インターネット接続が必要です",
+        "supplementalDisclaimer": "AI出力は補足であり、臨床検証されていません",
+        "aiUnavailableFallback": "AIは利用できません — ローカル推奨を使用",
+        "exportSummary": "概要をエクスポート",
+        "exportSummaryHint": "セッション概要をテキストでダウンロード",
+        "anonymizeBeforeExport": "エクスポート前に識別子を削除"
+      },
+      "states": {
+        "loading": "推奨を読み込み中…",
+        "error": "推奨を読み込めません",
+        "empty": "推奨がありません。まず評価を完了してください。"
+      },
+      "intendedUse": {
+        "warningLabel": "臨床検証されていません",
+        "validationLabel": "検証要件"
+      },
+      "reviewStatus": {
+        "unvalidated": "未検証（プロトタイプ）",
+        "validated": "検証済み"
+      }
+    },
+    "monitoring": {
+      "title": "モニタリング",
+      "accessibilityLabel": "モニタリング画面",
+      "decisionSupportOnly": "意思決定支援のみ。臨床的判断の代替にはなりません。",
+      "sections": {
+        "quickEntry": "クイック入力",
+        "trend": "傾向",
+        "alerts": "アラート"
+      },
+      "quickEntry": {
+        "addPoint": "ポイントを追加",
+        "addPointHint": "バイタルまたは検査データポイントを追加",
+        "namePlaceholder": "名前（例：SpO₂、RR）",
+        "valuePlaceholder": "値",
+        "unitPlaceholder": "単位"
+      },
+      "trend": {
+        "insufficientData": "データ不足",
+        "directionUp": "上昇傾向",
+        "directionDown": "下降傾向",
+        "directionFlat": "安定",
+        "directionUnknown": "不明"
+      },
+      "alerts": {
+        "severityNormal": "正常",
+        "severityWarning": "警告",
+        "severityCritical": "クリティカル",
+        "severityUnknown": "不明",
+        "why": "理由",
+        "whyCriticalLow": "クリティカル低閾値を下回っています",
+        "whyWarningLow": "警告低閾値を下回っています",
+        "whyCriticalHigh": "クリティカル高閾値を上回っています",
+        "whyWarningHigh": "警告高閾値を上回っています",
+        "suggestedAction": "推奨アクション",
+        "suggestedActionNormal": "モニタリングを継続",
+        "suggestedActionWarning": "確認し介入を検討",
+        "suggestedActionCritical": "直ちに対応",
+        "suggestedActionUnknown": "値を確認し必要に応じて再入力",
+        "empty": "アラートなし"
+      },
+      "actions": {
+        "backToRecommendation": "推奨に戻る"
+      },
+      "states": {
+        "loading": "読み込み中…",
+        "error": "モニタリングを読み込めません",
+        "empty": "傾向とアラートを表示するにはバイタルまたは検査ポイントを追加してください。",
+        "offline": "オフラインです。データはローカルに保存されます。"
+      }
+    },
+    "history": {
+      "title": "セッション履歴",
+      "accessibilityLabel": "セッション履歴画面",
+      "empty": "保存されたセッションはまだありません。",
+      "corruptRecovery": "ストレージの問題によりセッション履歴がリセットされました。新しいセッションを開始できます。",
+      "actions": {
+        "resume": "再開",
+        "resumeHint": "このセッションを続ける",
+        "viewDetails": "詳細を表示",
+        "viewDetailsHint": "セッション概要を表示",
+        "delete": "削除",
+        "deleteHint": "履歴から削除"
+      },
+      "deleteConfirm": {
+        "title": "セッションを削除しますか？",
+        "message": "このセッションは履歴から削除されます。元に戻せません。",
+        "confirm": "削除",
+        "cancel": "キャンセル"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "病態: {{condition}}",
+        "tier": "ティア: {{tier}}",
+        "summary": "概要"
+      },
+      "states": {
+        "loading": "履歴を読み込み中…",
+        "error": "セッション履歴を読み込めません"
+      }
+    },
+    "caseDetail": {
+      "title": "症例詳細",
+      "accessibilityLabel": "症例詳細画面",
+      "summary": "症例概要",
+      "patientProfile": "患者プロフィール",
+      "clinicalParameters": "臨床パラメータ",
+      "ventilatorSettings": "人工呼吸器設定",
+      "outcomes": "転帰",
+      "evidence": "エビデンス",
+      "reviewStatus": "レビュー状況",
+      "intendedUseWarning": "これは参照用のデータセット症例です。臨床での直接使用には使用しないでください。",
+      "datasetCaseFraming": "データセット症例（参照のみ）",
+      "prototypeFraming": "プロトタイプ — 臨床検証されていません",
+      "notFound": "データセットに症例が見つかりません。",
+      "missingCaseId": "症例が選択されていません。",
+      "states": {
+        "loading": "症例を読み込み中…"
+      },
+      "review": {
+        "unvalidated": "未検証（プロトタイプ）",
+        "validated": "検証済み"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "トレーニング",
+      "subtitle": "プロトコル、チェックリスト、参照。",
+      "accessibilityLabel": "トレーニングホーム画面",
+      "searchPlaceholder": "トピックを検索…",
+      "searchHint": "トレーニングコンテンツを検索",
+      "topicsSection": "トピック",
+      "searchResults": "検索結果",
+      "popularTopics": "人気トピック",
+      "quickChecklists": "クイックチェックリスト",
+      "browseAll": "すべてのトピックを表示",
+      "browseAllHint": "すべてのトレーニングトピックを表示",
+      "viewTopic": "表示",
+      "states": {
+        "loading": "トレーニングを読み込み中…",
+        "error": "トレーニングコンテンツを読み込めません",
+        "offline": "コンテンツはオフラインで利用可能です",
+        "empty": "トレーニングコンテンツがありません"
+      }
+    },
+    "topics": {
+      "title": "トピック",
+      "accessibilityLabel": "トピック一覧画面",
+      "searchPlaceholder": "検索またはフィルター…",
+      "searchHint": "トピックを検索",
+      "empty": "トピックが見つかりません。",
+      "filterByType": "タイプでフィルター",
+      "typeProtocol": "プロトコル",
+      "typeChecklist": "チェックリスト",
+      "typeGlossary": "用語集",
+      "typeFaq": "FAQ",
+      "openTopicHint": "トピックを開く",
+      "states": {
+        "loading": "トピックを読み込み中…",
+        "error": "トピックを読み込めません",
+        "offline": "コンテンツはオフラインで利用可能です"
+      }
+    },
+    "topicDetail": {
+      "title": "トピック",
+      "accessibilityLabel": "トピック詳細画面",
+      "section": "セクション",
+      "expand": "セクションを展開",
+      "collapse": "セクションを折りたたむ",
+      "checklistItem": "項目",
+      "notFound": "トピックが見つかりません。",
+      "backToTopics": "トピックに戻る",
+      "backToTopicsHint": "トピック一覧に戻る",
+      "states": {
+        "loading": "トピックを読み込み中…",
+        "error": "トピックを読み込めません"
+      }
+    }
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "message": "お探しのページは存在しないか、移動した可能性があります。",
+    "back": "戻る",
+    "backHint": "前のページに戻る",
+    "goHome": "ホームへ",
+    "goHomeHint": "ホームページに戻る"
+  },
+  "error": {
+    "title": "問題が発生しました",
+    "message": "予期しないエラーが発生しました。もう一度お試しいただくか、ホームページにお戻りください。",
+    "retry": "再試行",
+    "retryHint": "もう一度お試しください",
+    "goHome": "ホームへ",
+    "goHomeHint": "ホームページに戻る"
+  },
+  "errorState": {
+    "defaultTitle": "問題が発生しました"
+  }
+}

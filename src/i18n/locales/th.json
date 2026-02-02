@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "search": "ค้นหา",
+    "submit": "ส่ง",
+    "loading": "กำลังโหลด…",
+    "retry": "ลองอีกครั้ง",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "continue": "ดำเนินการต่อ",
+    "close": "ปิด",
+    "closeSidebarHint": "ปิดเมนูแถบด้านข้าง",
+    "select": "เลือก",
+    "selectPlaceholder": "เลือก…",
+    "closeSelect": "ปิดการเลือก",
+    "remove": "ลบออก",
+    "goToHome": "ไปหน้าแรก",
+    "viewNotifications": "ดูการแจ้งเตือน",
+    "userMenu": "เมนูผู้ใช้",
+    "toggleMenu": "สลับเมนู",
+    "searchPlaceholder": "ค้นหา…",
+    "searchIcon": "ไอคอนค้นหา",
+    "clearSearch": "ล้างการค้นหา",
+    "on": "เปิด",
+    "off": "ปิด",
+    "switch": "สลับ",
+    "imageLoadError": "โหลดรูปภาพไม่สำเร็จ",
+    "imageDefaultAlt": "รูปภาพ",
+    "progress": "ความคืบหน้า: {{value}}%",
+    "requiredLabel": "จำเป็น",
+    "clearAll": "ล้างทั้งหมด",
+    "filters": "ตัวกรอง",
+    "clearAllFilters": "ล้างตัวกรองทั้งหมด",
+    "loadingPlaceholder": "กำลังโหลด",
+    "radio": "วิทยุ",
+    "emptyState": "ไม่มีข้อมูล",
+    "message": "ข้อความ",
+    "sliderValue": "สไลด์: {{value}}",
+    "dropdownMenu": "เมนูดรอปดาวน์",
+    "tooltip": "คำแนะนำ",
+    "action": "การดำเนินการ"
+  },
+  "greeting": {
+    "hello": "สวัสดี {{name}}"
+  },
+  "app": {
+    "name": "ระบบสนับสนุนการตัดสินใจเครื่องช่วยหายใจด้วย AI",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "เกิดข้อผิดพลาด",
+      "message": "เกิดข้อผิดพลาดที่ไม่คาดคิด",
+      "retry": "ลองอีกครั้ง",
+      "retryHint": "ลองอีกครั้ง"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
+      "NETWORK_ERROR": "การเชื่อมต่อเครือข่ายล้มเหลว",
+      "UNAUTHORIZED": "ต้องยืนยันตัวตน",
+      "FORBIDDEN": "ไม่มีสิทธิ์เข้าถึง",
+      "SERVER_ERROR": "เกิดข้อผิดพลาดที่เซิร์ฟเวอร์",
+      "ROUTE_ERROR": "เกิดข้อผิดพลาดขณะโหลดหน้านี้",
+      "INVALID_CREDENTIALS": "ข้อมูลเข้าสู่ระบบไม่ถูกต้อง",
+      "MULTIPLE_TENANTS": "พบหลายผู้เช่า กรุณาเลือกผู้เช่า",
+      "ACCOUNT_INACTIVE": "บัญชีไม่เปิดใช้งาน",
+      "ACCOUNT_SUSPENDED": "บัญชีถูกระงับ",
+      "ACCOUNT_PENDING": "บัญชีรอการยืนยัน",
+      "PASSWORD_INCORRECT": "รหัสผ่านปัจจุบันไม่ถูกต้อง",
+      "TOKEN_INVALID": "โทเค็นไม่ถูกต้องหรือหมดอายุ",
+      "TOKEN_EXPIRED": "โทเค็นหมดอายุ",
+      "REFRESH_TOKEN_INVALID": "โทเค็นรีเฟรชไม่ถูกต้องหรือหมดอายุ",
+      "USER_NOT_FOUND": "ไม่พบผู้ใช้",
+      "USER_EXISTS": "มีผู้ใช้ด้วยอีเมลนี้แล้ว",
+      "SESSION_NOT_FOUND": "ไม่พบเซสชัน",
+      "ALREADY_VERIFIED": "บัญชียืนยันแล้ว",
+      "AI_UNAVAILABLE": "AI ไม่พร้อมใช้งาน — ใช้คำแนะนำจากชุดข้อมูลท้องถิ่น",
+      "AI_TIMEOUT": "คำขอ AI หมดเวลา",
+      "AI_UNAUTHORIZED": "คีย์ API ของ AI ไม่ถูกต้องหรือหมดอายุ",
+      "AI_FORBIDDEN": "ไม่มีสิทธิ์เข้าถึง AI",
+      "AI_RATE_LIMIT": "ถึงขีดจำกัดการเรียกใช้ AI",
+      "AI_MODEL_UNAVAILABLE": "โมเดล AI ไม่พร้อมใช้งาน",
+      "AI_MALFORMED_RESPONSE": "คำตอบจาก AI ไม่ถูกต้อง"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "ช่องนี้จำเป็น",
+      "invalidEmail": "รูปแบบอีเมลไม่ถูกต้อง",
+      "invalidUrl": "รูปแบบ URL ไม่ถูกต้อง",
+      "invalidUuid": "รูปแบบ ID ไม่ถูกต้อง",
+      "maxLength": "ความยาวสูงสุด {{max}} ตัวอักษร",
+      "invalidValue": "ค่าไม่ถูกต้อง"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "ส่วนหัวการนำทางหลัก",
+      "searchHint": "พิมพ์เพื่อค้นหา",
+      "cartWithItems": "ตะกร้า {{count}} รายการ",
+      "cartWithItems_zero": "ตะกร้า",
+      "signIn": "เข้าสู่ระบบ",
+      "profile": "โปรไฟล์",
+      "orders": "คำสั่งซื้อ",
+      "settings": "การตั้งค่า",
+      "logout": "ออกจากระบบ",
+      "hideHeader": "ซ่อนส่วนหัว",
+      "showHeader": "แสดงส่วนหัว",
+      "showMore": "แสดงเพิ่มเติม",
+      "customize": "ปรับแต่ง",
+      "overflowMenuLabel": "การดำเนินการส่วนหัวเพิ่มเติม",
+      "customizationMenuLabel": "การปรับแต่งส่วนหัว",
+      "actions": {
+        "notifications": "การแจ้งเตือน",
+        "network": "สถานะเครือข่าย",
+        "database": "สถานะฐานข้อมูล",
+        "fullscreen": "สลับเต็มจอ"
+      }
+    },
+    "sidebar": {
+      "title": "การนำทางหลัก",
+      "label": "การนำทาง",
+      "resize": "ปรับขนาดการนำทาง"
+    },
+    "fullscreen": {
+      "enter": "เต็มจอ",
+      "exit": "ออกจากเต็มจอ"
+    },
+    "tabBar": {
+      "title": "การนำทางด้านล่าง"
+    },
+    "footer": {
+      "title": "ส่วนท้ายทั่วไป",
+      "copyright": "© {{year}} {{appName}} สงวนลิขสิทธิ์",
+      "supportEmail": "สนับสนุน (อีเมล)",
+      "supportPhone": "สนับสนุน (โทรศัพท์)",
+      "status": {
+        "title": "สถานะแอป",
+        "auth": "เข้าสู่ระบบอย่างปลอดภัยเปิดใช้งาน",
+        "main": "ระบบทำงานปกติ",
+        "patient": "บริการผู้ป่วยพร้อม"
+      },
+      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "legal": {
+        "title": "กฎหมายและสนับสนุน",
+        "terms": "ข้อกำหนด",
+        "privacy": "ความเป็นส่วนตัว",
+        "support": "สนับสนุน"
+      }
+    },
+    "network": {
+      "label": "สถานะเครือข่าย",
+      "status": {
+        "online": "ออนไลน์",
+        "offline": "ออฟไลน์",
+        "unstable": "ไม่เสถียร",
+        "syncing": "กำลังซิงค์"
+      },
+      "database": {
+        "label": "ฐานข้อมูล",
+        "connected": "เชื่อมต่อฐานข้อมูลแล้ว",
+        "disconnected": "ตัดการเชื่อมต่อฐานข้อมูล"
+      }
+    },
+    "notifications": {
+      "label": "การแจ้งเตือน",
+      "menuLabel": "เมนูการแจ้งเตือน",
+      "empty": "ไม่มีการแจ้งเตือนใหม่",
+      "viewAll": "ดูการแจ้งเตือนทั้งหมด",
+      "items": {
+        "appointments": {
+          "title": "นัดหมายที่กำลังจะถึง",
+          "meta": "วันนี้ 15:00"
+        },
+        "labResults": {
+          "title": "ผลแล็บพร้อม",
+          "meta": "มีผลใหม่"
+        },
+        "messages": {
+          "title": "ข้อความใหม่",
+          "meta": "คุณมีข้อความที่ยังไม่ได้อ่าน"
+        }
+      }
+    },
+    "bottomNavigation": "การนำทางด้านล่าง",
+    "mainNavigation": "การนำทางหลัก",
+    "patientNavigation": "การนำทางผู้ป่วย",
+    "items": {
+      "main": {
+        "home": "หน้าแรก",
+        "assessment": "การประเมิน",
+        "history": "ประวัติ",
+        "training": "การฝึกอบรม",
+        "onboarding": "เริ่มต้น",
+        "settings": "การตั้งค่า",
+        "settings-about": "เกี่ยวกับ",
+        "settings-data-sources": "แหล่งข้อมูล",
+        "settings-disclaimer": "ข้อจำกัดความรับผิด",
+        "settings-help": "ความช่วยเหลือ",
+        "settings-privacy": "ความเป็นส่วนตัว"
+      }
+    },
+    "breadcrumbs": {
+      "title": "การนำทาง breadcrumb",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "ข้ามไปเนื้อหาหลัก"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "อัปเดตสถานะระบบ",
+      "offline": {
+        "title": "คุณออฟไลน์",
+        "message": "ฟีเจอร์บางอย่างอาจใช้ไม่ได้จนกว่าจะเชื่อมต่อได้",
+        "accessibilityLabel": "การแจ้งสถานะออฟไลน์"
+      },
+      "lowQuality": {
+        "title": "เครือข่ายไม่เสถียร",
+        "message": "อาจมีดีเลย์หรือฟังก์ชันจำกัด",
+        "accessibilityLabel": "การแจ้งคุณภาพเครือข่ายต่ำ"
+      },
+      "online": {
+        "title": "กลับออนไลน์",
+        "message": "เชื่อมต่อแล้ว",
+        "accessibilityLabel": "การแจ้งสถานะออนไลน์"
+      },
+      "maintenance": {
+        "title": "บำรุงรักษาตามกำหนด",
+        "message": "บริการบางอย่างอาจหยุดชั่วคราว",
+        "accessibilityLabel": "การแจ้งบำรุงรักษา"
+      }
+    },
+    "loadingOverlay": {
+      "title": "กำลังดำเนินการ…",
+      "message": "กรุณารอให้เราทำงานให้เสร็จ"
+    },
+    "notices": {
+      "surfaceLabel": "การแจ้งเตือนทั่วไป"
+    }
+  },
+  "settings": {
+    "title": "การตั้งค่า",
+    "screen": {
+      "label": "หน้าจอการตั้งค่า"
+    },
+    "theme": {
+      "label": "ธีม",
+      "accessibilityLabel": "ตัวเลือกธีม",
+      "hint": "เปลี่ยนธีมแอป",
+      "options": {
+        "system": "ระบบ",
+        "light": "สว่าง",
+        "dark": "มืด",
+        "highContrast": "คอนทราสต์สูง"
+      }
+    },
+    "language": {
+      "label": "ภาษา",
+      "accessibilityLabel": "ตัวเลือกภาษา",
+      "hint": "เปลี่ยนภาษาของแอป",
+      "options": {
+        "en": "อังกฤษ",
+        "ar": "อาหรับ",
+        "de": "เยอรมัน",
+        "es": "สเปน",
+        "fa": "เปอร์เซีย",
+        "fr": "ฝรั่งเศส",
+        "hi": "ฮินดี",
+        "id": "อินโดนีเซีย",
+        "it": "อิตาลี",
+        "ja": "ญี่ปุ่น",
+        "ko": "เกาหลี",
+        "ms": "มลายู",
+        "nl": "ดัตช์",
+        "pl": "โปแลนด์",
+        "pt": "โปรตุเกส",
+        "ru": "รัสเซีย",
+        "sw": "สวาฮิลี",
+        "ta": "ทมิฬ",
+        "th": "ไทย",
+        "tr": "ตุรกี",
+        "uk": "ยูเครน",
+        "vi": "เวียดนาม",
+        "zh": "จีน"
+      }
+    },
+    "density": {
+      "label": "ความหนาแน่น",
+      "accessibilityLabel": "ตัวเลือกโหมดความหนาแน่น",
+      "hint": "เปลี่ยนระยะห่างและความหนาแน่นของเลย์เอาต์",
+      "options": {
+        "compact": "กระชับ",
+        "comfortable": "สบาย"
+      }
+    },
+    "footerVisible": {
+      "label": "แสดงส่วนท้าย",
+      "accessibilityLabel": "สลับการแสดงส่วนท้าย",
+      "hint": "แสดงหรือซ่อนส่วนท้ายด้านล่าง (เดสก์ท็อปเท่านั้น)"
+    },
+    "sidebar": {
+      "resize": "ปรับขนาดแถบด้านข้างการตั้งค่า",
+      "menu": "เมนูการตั้งค่า",
+      "menuOpen": "เปิดเมนูการตั้งค่า",
+      "menuClose": "ปิดเมนูการตั้งค่า",
+      "groups": {
+        "general": "ทั่วไป",
+        "organization": "องค์กร",
+        "usersAndAccess": "ผู้ใช้และสิทธิ์",
+        "security": "ความปลอดภัย"
+      }
+    },
+    "disclaimer": {
+      "title": "ข้อจำกัดความรับผิด",
+      "screen": {
+        "label": "หน้าข้อจำกัดความรับผิด"
+      },
+      "prototypeFraming": "แอปนี้เป็นต้นแบบสำหรับอ้างอิงและการฝึกอบรม ไม่ใช้สำหรับการรักษาผู้ป่วยโดยตรง",
+      "datasetNotice": "ประกาศชุดข้อมูล",
+      "acknowledge": "ข้าพเจ้ายืนยัน",
+      "acknowledgeHint": "ยืนยันว่าคุณได้อ่านและเข้าใจข้อจำกัดความรับผิด",
+      "states": {
+        "loading": "กำลังโหลด…",
+        "error": "โหลดข้อจำกัดความรับผิดไม่ได้"
+      }
+    },
+    "dataSources": {
+      "title": "แหล่งข้อมูล",
+      "screen": {
+        "label": "หน้าแหล่งข้อมูล"
+      },
+      "datasetVersion": "เวอร์ชันชุดข้อมูล",
+      "schemaVersion": "เวอร์ชันสคีมา",
+      "lastUpdated": "อัปเดตล่าสุด",
+      "totalCases": "จำนวนเคสทั้งหมด",
+      "citations": "การอ้างอิง",
+      "doi": "DOI",
+      "states": {
+        "loading": "กำลังโหลด…",
+        "error": "โหลดแหล่งข้อมูลไม่ได้",
+        "empty": "ไม่มีแหล่งข้อมูล"
+      }
+    },
+    "privacy": {
+      "title": "ความเป็นส่วนตัว",
+      "screen": {
+        "label": "หน้าความเป็นส่วนตัว"
+      },
+      "localStorage": "ข้อมูลเก็บในอุปกรณ์",
+      "localStorageDescription": "การตั้งค่าและข้อมูลเซสชันเก็บเฉพาะบนอุปกรณ์นี้ ไม่ส่งไปเซิร์ฟเวอร์ภายนอก",
+      "optionalAI": "หากเปิดใช้ฟีเจอร์ AI ออนไลน์ คำขอเหล่านั้นอาจส่งไปยังบริการที่กำหนด"
+    },
+    "about": {
+      "title": "เกี่ยวกับ",
+      "screen": {
+        "label": "หน้าเกี่ยวกับ"
+      },
+      "appName": "ระบบสนับสนุนการตัดสินใจการช่วยหายใจ",
+      "version": "เวอร์ชัน",
+      "prototypeScope": "นี่เป็นต้นแบบสำหรับอ้างอิงและการฝึกอบรม ไม่ใช้สำหรับการรักษาผู้ป่วย"
+    },
+    "onboarding": {
+      "title": "เริ่มต้น",
+      "accessibilityLabel": "หน้าต้อนรับ",
+      "steps": {
+        "inputs": {
+          "title": "การป้อนข้อมูล",
+          "body": "ใช้การประเมินเพื่อป้อนพารามิเตอร์ทางคลินิก (SpO₂, PaO₂, PaCO₂, pH, อัตราการหายใจ ฯลฯ) ยิ่งข้อมูลครบ คำแนะนำยิ่งตรง ABG ช่วยความแม่นยำเมื่อมี"
+        },
+        "recommendations": {
+          "title": "การตีความคำแนะนำ",
+          "body": "คำแนะนำแสดงการตั้งค่าเครื่องช่วยหายใจที่เสนอ พร้อมระดับความมั่นใจ (สูง กลาง ต่ำ) คุณภาพการจับคู่สะท้อนความตรงของเคสกับข้อมูลที่ป้อน ใช้เคสที่จับคู่เป็นเพียงอ้างอิง — ปรับใช้ตามวิจารณญาณทางคลินิก"
+        },
+        "monitoring": {
+          "title": "การติดตามและแจ้งเตือน",
+          "body": "หลังได้คำแนะนำ ใช้การติดตามเพื่อบันทึกสัญญาณชีพและแล็บตามเวลา การแจ้งเตือนเน้นค่าที่เกินเกณฑ์ นี่เป็นเพียงการสนับสนุนการตัดสินใจ — ตรวจสอบและดำเนินการตามโปรโตคอล"
+        },
+        "offline": {
+          "title": "การทำงานออฟไลน์",
+          "body": "เวิร์กโฟลว์หลัก (การประเมิน คำแนะนำ การติดตาม) ทำงานออฟไลน์ได้ ข้อมูลเก็บในอุปกรณ์ ฟีเจอร์ AI (ถ้ามี) ต้องเชื่อมต่อ เมื่อกลับออนไลน์ ดำเนินการต่อได้ตามปกติ"
+        }
+      },
+      "actions": {
+        "done": "เสร็จ",
+        "next": "ถัดไป",
+        "back": "กลับ"
+      },
+      "states": {
+        "loading": "กำลังโหลด…"
+      }
+    },
+    "help": {
+      "title": "ความช่วยเหลือและอ้างอิง",
+      "accessibilityLabel": "หน้าความช่วยเหลือ",
+      "searchPlaceholder": "ค้นหาคำศัพท์หรือคู่มือ…",
+      "sections": {
+        "glossary": "คำศัพท์",
+        "troubleshooting": "แก้ปัญหา",
+        "guides": "ขั้นตอนถัดไป"
+      },
+      "glossary": {
+        "PEEP": "ความดันบวกตอนหายใจออก (cmH₂O) รักษาปริมาตรปอดและออกซิเจน",
+        "FiO2": "สัดส่วนออกซิเจนในอากาศหายใจ (0–1)",
+        "IERatio": "อัตราส่วน I:E เวลาหายใจเข้า:หายใจออก (เช่น 1:2)",
+        "tidalVolume": "ปริมาตรหายใจ (mL) ต่อหนึ่งครั้งหายใจ",
+        "respiratoryRate": "อัตราการหายใจ (ครั้ง/นาที)",
+        "SpO2": "ความอิ่มตัวออกซิเจนจาก pulse oximetry (%)",
+        "PaO2": "ความดันย่อยออกซิเจนในเลือดแดง (mmHg)",
+        "PaCO2": "ความดันย่อย CO₂ ในเลือดแดง (mmHg)",
+        "pH": "pH เลือดแดง (ไม่มีหน่วย)"
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "ไม่มีค่า ABG",
+          "body": "คำแนะนำใช้ได้โดยไม่มี ABG ให้ป้อน SpO₂ และสัญญาณชีพอื่นเมื่อมี เพื่อการจับคู่ที่ดีขึ้น ให้เพิ่ม PaO₂, PaCO₂ และ pH เมื่อมี"
+        },
+        "offline": {
+          "title": "ใช้แอปออฟไลน์",
+          "body": "การประเมิน คำแนะนำ และการติดตาม ทำงานออฟไลน์ได้ ข้อมูลเก็บในอุปกรณ์ คำแนะนำ AI (ถ้ามี) ต้องใช้อินเทอร์เน็ต ไม่ต้องซิงค์สำหรับเวิร์กโฟลว์หลัก"
+        }
+      },
+      "guides": {
+        "hypoxemia": "ตรวจ FiO₂ และ PEEP พิจารณาการเปิดปอด ตรวจ shunt หรือ V/Q mismatch",
+        "hypercapnia": "ตรวจ minute ventilation (อัตรา × tidal volume) พิจารณา permissive hypercapnia ตามโปรโตคอล",
+        "acidosis": "จัดการการหายใจและ perfusion แก้สาเหตุตามโปรโตคอล",
+        "general": "ใช้คำแนะนำเป็นเพียงการสนับสนุนการตัดสินใจ ตรวจกับโปรโตคอลท้องถิ่นและวิจารณญาณทางคลินิก"
+      },
+      "states": {
+        "loading": "กำลังโหลด…",
+        "empty": "ไม่มีผลลัพธ์",
+        "error": "โหลดความช่วยเหลือไม่ได้"
+      }
+    },
+    "ai": {
+      "label": "การสนับสนุนการตัดสินใจด้วย AI",
+      "sectionLabel": "คำแนะนำ AI (ออนไลน์) เลือกได้",
+      "enableLabel": "เปิดใช้คำแนะนำ AI",
+      "enableHint": "ใช้ AI ออนไลน์เฉพาะเคสซับซ้อน คำแนะนำท้องถิ่นมีเสมอ",
+      "providerLabel": "ผู้ให้บริการ",
+      "providerHint": "ผู้ให้บริการ AI (เช่น OpenAI) คีย์ API ต่อผู้ให้บริการ",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "API key",
+      "apiKeyPlaceholder": "ใส่คีย์ (เก็บอย่างปลอดภัย)",
+      "apiKeySave": "บันทึกคีย์",
+      "apiKeyClear": "ล้างคีย์",
+      "keyConfigured": "บันทึกคีย์แล้ว",
+      "modelLabel": "โมเดล",
+      "modelHint": "โมเดลที่ใช้สำหรับคำแนะนำ AI",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "กำลังโหลด",
+    "offline": "ออฟไลน์",
+    "error": "ข้อผิดพลาด",
+    "empty": "ว่าง",
+    "list": "รายการ",
+    "emptyState": {
+      "title": "ไม่มีรายการ",
+      "message": "ไม่มีรายการที่แสดง"
+    },
+    "errorState": {
+      "title": "ข้อผิดพลาด",
+      "message": "เกิดข้อผิดพลาด"
+    }
+  },
+  "home": {
+    "title": "หน้าแรก",
+    "welcome": {
+      "title": "ยินดีต้อนรับ",
+      "message": "ระบบสนับสนุนการตัดสินใจเครื่องช่วยหายใจด้วย AI ช่วยคุณประเมินผู้ป่วย รันเซสชันการช่วยหายใจ และดูคำแนะนำ"
+    },
+    "overview": {
+      "title": "ทางลัด",
+      "assessment": {
+        "title": "การประเมิน",
+        "description": "เริ่มการประเมินผู้ป่วยและเซสชันการช่วยหายใจ",
+        "hint": "ไปการประเมิน"
+      },
+      "history": {
+        "title": "ประวัติ",
+        "description": "ดูและดำเนินการต่อเซสชันที่ผ่านมา",
+        "hint": "ไปประวัติ"
+      },
+      "training": {
+        "title": "การฝึกอบรม",
+        "description": "เรียกดูหัวข้อและเช็กลิสต์การฝึกอบรม",
+        "hint": "ไปการฝึกอบรม"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "การประเมินผู้ป่วย",
+      "accessibilityLabel": "หน้าวิซาร์ดการประเมิน",
+      "summary": {
+        "title": "สรุปเซสชัน",
+        "accessibilityLabel": "สรุปการประเมินแบบย่อ",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "ภาวะ",
+        "spo2": "SpO₂",
+        "respiratoryRate": "อัตราการหายใจ",
+        "heartRate": "อัตราการเต้นหัวใจ",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "อายุ",
+        "weight": "น้ำหนัก",
+        "height": "ส่วนสูง",
+        "gender": "เพศ",
+        "comorbidities": "โรคประจำตัว",
+        "bloodPressure": "ความดันเลือด",
+        "empty": "ยังไม่มีข้อมูล",
+        "expand": "ขยายสรุป",
+        "collapse": "ย่อสรุป"
+      },
+      "steps": {
+        "patientProfile": "โปรไฟล์ผู้ป่วย",
+        "clinicalParams": "พารามิเตอร์ทางคลินิก",
+        "observations": "การสังเกต (ถ้ามี)",
+        "timeSeries": "อนุกรมเวลา (ถ้ามี)",
+        "review": "ตรวจสอบ"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "หอบหืด",
+        "COPD": "COPD",
+        "heartFailure": "หัวใจล้มเหลว",
+        "pneumonia": "ปอดบวม",
+        "sepsis": "ภาวะติดเชื้อในกระแสเลือด",
+        "trauma": "บาดเจ็บ",
+        "other": "อื่นๆ"
+      },
+      "patientProfile": {
+        "condition": "ภาวะ",
+        "conditionPlaceholder": "เลือกภาวะ",
+        "conditionHint": "ภาวะทางเดินหายใจหลัก (จำเป็น)",
+        "age": "อายุ (ปี)",
+        "agePlaceholder": "ใส่อายุ",
+        "ageHint": "อายผู้ป่วยเป็นปี",
+        "weight": "น้ำหนัก (กก.)",
+        "weightPlaceholder": "ใส่น้ำหนัก",
+        "weightHint": "น้ำหนักผู้ป่วย (กก.)",
+        "height": "ส่วนสูง (ซม.)",
+        "heightPlaceholder": "ใส่ส่วนสูง",
+        "heightHint": "ส่วนสูงผู้ป่วย (ซม.)",
+        "gender": "เพศ",
+        "genderPlaceholder": "เลือกเพศ",
+        "genderHint": "เพศผู้ป่วย",
+        "genderMale": "ชาย",
+        "genderFemale": "หญิง",
+        "genderOther": "อื่นๆ",
+        "comorbidities": "โรคประจำตัว",
+        "comorbiditiesPlaceholder": "เช่น ความดัน เบาหวาน",
+        "comorbiditiesHint": "รายการคั่นด้วยจุลภาค"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "ใส่ SpO₂",
+        "spo2Hint": "ความอิ่มตัวออกซิเจน (%)",
+        "spo2NormalRange": "ช่วงปกติ: 95–100%",
+        "pao2": "PaO₂ (ถ้ามี)",
+        "pao2Placeholder": "ใส่ PaO₂",
+        "pao2Hint": "ออกซิเจนในเลือดแดง (mmHg)",
+        "pao2NormalRange": "ช่วงปกติ: 80–100 mmHg",
+        "paco2": "PaCO₂ (ถ้ามี)",
+        "paco2Placeholder": "ใส่ PaCO₂",
+        "paco2Hint": "CO₂ ในเลือดแดง (mmHg)",
+        "paco2NormalRange": "ช่วงปกติ: 35–45 mmHg",
+        "ph": "pH (ถ้ามี)",
+        "phPlaceholder": "ใส่ pH",
+        "phHint": "pH เลือดแดง",
+        "phNormalRange": "ช่วงปกติ: 7.35–7.45",
+        "respiratoryRate": "อัตราการหายใจ",
+        "respiratoryRatePlaceholder": "ใส่ RR",
+        "respiratoryRateHint": "ครั้งต่อนาที",
+        "respiratoryRateNormalRange": "ช่วงปกติ: 12–20 ครั้ง/นาที",
+        "heartRate": "อัตราการเต้นหัวใจ",
+        "heartRatePlaceholder": "ใส่ HR",
+        "heartRateHint": "ครั้งต่อนาที",
+        "heartRateNormalRange": "ช่วงปกติ: 60–100 ครั้ง/นาที",
+        "bloodPressure": "ความดันเลือด (ถ้ามี)",
+        "bloodPressurePlaceholder": "เช่น 120/80",
+        "bloodPressureHint": "ซิสโตลิก/ไดแอสโตลิก mmHg",
+        "bloodPressureNormalRange": "ช่วงปกติ: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "การสังเกตเพิ่มเติม",
+        "description": "บันทึกข้อมูลทางคลินิกอื่นที่ไม่ได้ระบุด้านบน (เช่น แล็บ รังสี ยา คะแนนโรคประจำตัว) แต่ละรายการเป็นคู่ชื่อ–ค่า ไม่บังคับ ข้ามขั้นนี้ได้",
+        "add": "เพิ่มการสังเกต",
+        "name": "ชื่อ",
+        "value": "ค่า",
+        "unit": "หน่วย",
+        "optional": "ไม่บังคับ"
+      },
+      "timeSeries": {
+        "title": "อนุกรมเวลา (สัญญาณชีพตามเวลา)",
+        "description": "ติดตามสัญญาณชีพหรือเมตริกอื่นที่หลายจุดเวลา (เช่น SpO₂, RR, HR ที่ 0h, 1h, 2h) ใช้วิเคราะห์แนวโน้มและติดตามหลังเริ่มเซสชัน ไม่บังคับ เพิ่มจุดในหน้าติดตามภายหลังได้",
+        "add": "เพิ่มจุดอนุกรมเวลา",
+        "name": "ชื่อ",
+        "value": "ค่า",
+        "optional": "ไม่บังคับ"
+      },
+      "recommendationSource": {
+        "label": "แหล่งคำแนะนำ",
+        "local": "ชุดข้อมูลท้องถิ่น",
+        "localDescription": "ใช้เฉพาะชุดข้อมูลในตัว ทำงานออฟไลน์ ไม่ต้องใช้ API key",
+        "onlineAi": "AI ออนไลน์",
+        "onlineAiDescription": "ใช้ API key ของคุณเพื่อคำแนะนำจาก AI และเหตุผล ต้องเชื่อมต่อ ถ้า AI ล้มเหลวจะใช้ท้องถิ่น",
+        "modelLabel": "โมเดล",
+        "modelHint": "เลือกโมเดล AI (ใช้ค่าเริ่มต้นถ้าไม่ตั้ง)",
+        "providerLabel": "ผู้ให้บริการ",
+        "gpt4oMini": "GPT-4o mini (ค่าเริ่มต้น)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "เหตุผลจาก AI สำหรับคำแนะนำ",
+        "hints": "คำใบ้จาก AI"
+      },
+      "missingTests": {
+        "title": "การตรวจเพิ่มที่แนะนำ",
+        "abgPanel": "ค่า ABG จะช่วยความมั่นใจ",
+        "abgHint": "พิจารณาสั่ง arterial blood gas ถ้ามี"
+      },
+      "actions": {
+        "back": "กลับ",
+        "next": "ถัดไป",
+        "generate": "สร้างคำแนะนำ",
+        "generateHint": "สร้างคำแนะนำจากข้อมูลปัจจุบัน"
+      },
+      "states": {
+        "loading": "กำลังโหลดการประเมิน…",
+        "error": "โหลดการประเมินไม่ได้",
+        "offline": "การประเมินทำงานออฟไลน์ได้",
+        "empty": "ป้อนข้อมูลผู้ป่วยเพื่อเริ่ม"
+      }
+    },
+    "recommendation": {
+      "title": "การตั้งค่าที่แนะนำ",
+      "accessibilityLabel": "หน้าคำแนะนำ",
+      "sections": {
+        "settings": "การตั้งค่าที่แนะนำ",
+        "confidence": "ความมั่นใจและเหตุผล",
+        "monitoring": "จุดติดตาม",
+        "risks": "ความเสี่ยงและภาวะแทรกซ้อน",
+        "matchedCases": "เคสที่จับคู่",
+        "evidence": "หลักฐานและการทบทวน",
+        "warning": "ประกาศชุดข้อมูล"
+      },
+      "settings": {
+        "mode": "โหมด",
+        "tidalVolume": "ปริมาตรหายใจ",
+        "respiratoryRate": "อัตราการหายใจ",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "อัตราส่วน I:E"
+      },
+      "confidence": {
+        "high": "สูง",
+        "medium": "กลาง",
+        "low": "ต่ำ",
+        "missingInputs": "ข้อมูลที่ขาดซึ่งจะช่วยความมั่นใจ"
+      },
+      "aiReasons": {
+        "title": "เหตุผลจาก AI สำหรับคำแนะนำ",
+        "hints": "รหัสคำใบ้ AI"
+      },
+      "actions": {
+        "startMonitoring": "เริ่มติดตาม",
+        "startMonitoringHint": "เริ่มบันทึกสัญญาณชีพและอนุกรมเวลา",
+        "backToAssessment": "กลับการประเมิน",
+        "requestAiRecommendation": "ขอคำแนะนำ AI",
+        "requestAiHint": "ขอคำใบ้ AI สำหรับเคสนี้ (ต้องเชื่อมต่อ)",
+        "connectivityRequired": "ต้องใช้อินเทอร์เน็ต",
+        "supplementalDisclaimer": "ผลจาก AI เป็นเพียงส่วนเสริม ไม่ผ่านการตรวจทางคลินิก",
+        "aiUnavailableFallback": "AI ไม่พร้อม — ใช้คำแนะนำท้องถิ่น",
+        "exportSummary": "ส่งออกสรุป",
+        "exportSummaryHint": "ดาวน์โหลดสรุปเซสชันเป็นข้อความ",
+        "anonymizeBeforeExport": "ลบตัวระบุก่อนส่งออก"
+      },
+      "states": {
+        "loading": "กำลังโหลดคำแนะนำ…",
+        "error": "โหลดคำแนะนำไม่ได้",
+        "empty": "ไม่มีคำแนะนำ ทำการประเมินก่อน"
+      },
+      "intendedUse": {
+        "warningLabel": "ไม่ได้ตรวจทางคลินิก",
+        "validationLabel": "ข้อกำหนดการตรวจ"
+      },
+      "reviewStatus": {
+        "unvalidated": "ยังไม่ตรวจ (ต้นแบบ)",
+        "validated": "ตรวจแล้ว"
+      }
+    },
+    "monitoring": {
+      "title": "การติดตาม",
+      "accessibilityLabel": "หน้าติดตาม",
+      "decisionSupportOnly": "เพื่อการสนับสนุนการตัดสินใจเท่านั้น ไม่แทนที่วิจารณญาณทางคลินิก",
+      "sections": {
+        "quickEntry": "ป้อนด่วน",
+        "trend": "แนวโน้ม",
+        "alerts": "การแจ้งเตือน"
+      },
+      "quickEntry": {
+        "addPoint": "เพิ่มจุด",
+        "addPointHint": "เพิ่มจุดข้อมูลสัญญาณชีพหรือแล็บ",
+        "namePlaceholder": "ชื่อ (เช่น SpO₂, RR)",
+        "valuePlaceholder": "ค่า",
+        "unitPlaceholder": "หน่วย"
+      },
+      "trend": {
+        "insufficientData": "ข้อมูลไม่เพียงพอ",
+        "directionUp": "แนวโน้มขึ้น",
+        "directionDown": "แนวโน้มลง",
+        "directionFlat": "คงที่",
+        "directionUnknown": "ไม่ทราบ"
+      },
+      "alerts": {
+        "severityNormal": "ปกติ",
+        "severityWarning": "เตือน",
+        "severityCritical": "วิกฤต",
+        "severityUnknown": "ไม่ทราบ",
+        "why": "เหตุผล",
+        "whyCriticalLow": "ค่าต่ำกว่าเกณฑ์วิกฤต (ต่ำ)",
+        "whyWarningLow": "ค่าต่ำกว่าเกณฑ์เตือน (ต่ำ)",
+        "whyCriticalHigh": "ค่าสูงกว่าเกณฑ์วิกฤต (สูง)",
+        "whyWarningHigh": "ค่าสูงกว่าเกณฑ์เตือน (สูง)",
+        "suggestedAction": "การดำเนินการที่แนะนำ",
+        "suggestedActionNormal": "ติดตามต่อ",
+        "suggestedActionWarning": "ทบทวนและพิจารณาแทรกแซง",
+        "suggestedActionCritical": "จัดการทันที",
+        "suggestedActionUnknown": "ตรวจค่าอีกครั้งและป้อนใหม่ถ้าจำเป็น",
+        "empty": "ไม่มีการแจ้งเตือน"
+      },
+      "actions": {
+        "backToRecommendation": "กลับคำแนะนำ"
+      },
+      "states": {
+        "loading": "กำลังโหลด…",
+        "error": "โหลดการติดตามไม่ได้",
+        "empty": "เพิ่มจุดสัญญาณชีพหรือแล็บเพื่อดูแนวโน้มและการแจ้งเตือน",
+        "offline": "คุณออฟไลน์ ข้อมูลเก็บในอุปกรณ์"
+      }
+    },
+    "history": {
+      "title": "ประวัติเซสชัน",
+      "accessibilityLabel": "หน้าประวัติเซสชัน",
+      "empty": "ยังไม่มีเซสชันที่บันทึก",
+      "corruptRecovery": "ประวัติเซสชันถูกรีเซ็ตเนื่องจากปัญหา storage คุณสามารถเริ่มเซสชันใหม่ได้",
+      "actions": {
+        "resume": "ดำเนินการต่อ",
+        "resumeHint": "ดำเนินการต่อเซสชันนี้",
+        "viewDetails": "ดูรายละเอียด",
+        "viewDetailsHint": "ดูสรุปเซสชัน",
+        "delete": "ลบ",
+        "deleteHint": "ลบออกจากประวัติ"
+      },
+      "deleteConfirm": {
+        "title": "ลบเซสชัน?",
+        "message": "เซสชันนี้จะถูกลบออกจากประวัติ ไม่สามารถยกเลิกได้",
+        "confirm": "ลบ",
+        "cancel": "ยกเลิก"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "ภาวะ: {{condition}}",
+        "tier": "ระดับ: {{tier}}",
+        "summary": "สรุป"
+      },
+      "states": {
+        "loading": "กำลังโหลดประวัติ…",
+        "error": "โหลดประวัติเซสชันไม่ได้"
+      }
+    },
+    "caseDetail": {
+      "title": "รายละเอียดเคส",
+      "accessibilityLabel": "หน้ารายละเอียดเคส",
+      "summary": "สรุปเคส",
+      "patientProfile": "โปรไฟล์ผู้ป่วย",
+      "clinicalParameters": "พารามิเตอร์ทางคลินิก",
+      "ventilatorSettings": "การตั้งค่าเครื่องช่วยหายใจ",
+      "outcomes": "ผลลัพธ์",
+      "evidence": "หลักฐาน",
+      "reviewStatus": "สถานะการทบทวน",
+      "intendedUseWarning": "นี่เป็นเคสจากชุดข้อมูลสำหรับอ้างอิงเท่านั้น ไม่ใช้สำหรับการรักษาผู้ป่วยโดยตรง",
+      "datasetCaseFraming": "เคสชุดข้อมูล (อ้างอิงเท่านั้น)",
+      "prototypeFraming": "ต้นแบบ — ไม่ได้ตรวจทางคลินิก",
+      "notFound": "ไม่พบเคสในชุดข้อมูล",
+      "missingCaseId": "ไม่ได้เลือกเคส",
+      "states": {
+        "loading": "กำลังโหลดเคส…"
+      },
+      "review": {
+        "unvalidated": "ยังไม่ตรวจ (ต้นแบบ)",
+        "validated": "ตรวจแล้ว"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "การฝึกอบรม",
+      "subtitle": "โปรโตคอล เช็กลิสต์ และอ้างอิง",
+      "accessibilityLabel": "หน้าหลักการฝึกอบรม",
+      "searchPlaceholder": "ค้นหาหัวข้อ…",
+      "searchHint": "ค้นหาเนื้อหาการฝึกอบรม",
+      "topicsSection": "หัวข้อ",
+      "searchResults": "ผลการค้นหา",
+      "popularTopics": "หัวข้อยอดนิยม",
+      "quickChecklists": "เช็กลิสต์ด่วน",
+      "browseAll": "ดูหัวข้อทั้งหมด",
+      "browseAllHint": "ดูหัวข้อการฝึกอบรมทั้งหมด",
+      "viewTopic": "ดู",
+      "states": {
+        "loading": "กำลังโหลดการฝึกอบรม…",
+        "error": "โหลดเนื้อหาการฝึกอบรมไม่ได้",
+        "offline": "เนื้อหาอ่านออฟไลน์ได้",
+        "empty": "ไม่มีเนื้อหาการฝึกอบรม"
+      }
+    },
+    "topics": {
+      "title": "หัวข้อ",
+      "accessibilityLabel": "หน้ารายการหัวข้อ",
+      "searchPlaceholder": "ค้นหาหรือกรอง…",
+      "searchHint": "ค้นหาหัวข้อ",
+      "empty": "ไม่พบหัวข้อ",
+      "filterByType": "กรองตามประเภท",
+      "typeProtocol": "โปรโตคอล",
+      "typeChecklist": "เช็กลิสต์",
+      "typeGlossary": "คำศัพท์",
+      "typeFaq": "FAQ",
+      "openTopicHint": "เปิดหัวข้อ",
+      "states": {
+        "loading": "กำลังโหลดหัวข้อ…",
+        "error": "โหลดหัวข้อไม่ได้",
+        "offline": "เนื้อหาอ่านออฟไลน์ได้"
+      }
+    },
+    "topicDetail": {
+      "title": "หัวข้อ",
+      "accessibilityLabel": "หน้ารายละเอียดหัวข้อ",
+      "section": "ส่วน",
+      "expand": "ขยายส่วน",
+      "collapse": "ย่อส่วน",
+      "checklistItem": "รายการ",
+      "notFound": "ไม่พบหัวข้อ",
+      "backToTopics": "กลับหัวข้อ",
+      "backToTopicsHint": "กลับรายการหัวข้อ",
+      "states": {
+        "loading": "กำลังโหลดหัวข้อ…",
+        "error": "โหลดหัวข้อไม่ได้"
+      }
+    }
+  },
+  "notFound": {
+    "title": "ไม่พบหน้า",
+    "message": "หน้าที่คุณค้นหาไม่มีอยู่หรือถูกย้ายแล้ว",
+    "back": "กลับ",
+    "backHint": "กลับหน้าก่อนหน้า",
+    "goHome": "ไปหน้าแรก",
+    "goHomeHint": "ไปหน้าแรก"
+  },
+  "error": {
+    "title": "เกิดข้อผิดพลาด",
+    "message": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองอีกครั้งหรือกลับหน้าแรก",
+    "retry": "ลองอีกครั้ง",
+    "retryHint": "ลองดำเนินการอีกครั้ง",
+    "goHome": "ไปหน้าแรก",
+    "goHomeHint": "ไปหน้าแรก"
+  },
+  "errorState": {
+    "defaultTitle": "เกิดข้อผิดพลาด"
+  }
+}

@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "search": "Tafuta",
+    "submit": "Wasilisha",
+    "loading": "Inapakia…",
+    "retry": "Jaribu tena",
+    "back": "Rudi",
+    "next": "Ifuatayo",
+    "continue": "Endelea",
+    "close": "Funga",
+    "closeSidebarHint": "Funga menyu ya upau",
+    "select": "Chagua",
+    "selectPlaceholder": "Chagua…",
+    "closeSelect": "Funga uchaguzi",
+    "remove": "Ondoa",
+    "goToHome": "Nenda nyumbani",
+    "viewNotifications": "Angalia arifa",
+    "userMenu": "Menyu ya mtumiaji",
+    "toggleMenu": "Badilisha menyu",
+    "searchPlaceholder": "Tafuta…",
+    "searchIcon": "Aikoni ya utafutaji",
+    "clearSearch": "Futa utafutaji",
+    "on": "Washa",
+    "off": "Zima",
+    "switch": "Kibadilishaji",
+    "imageLoadError": "Imeshindwa kupakia picha",
+    "imageDefaultAlt": "Picha",
+    "progress": "Maendeleo: {{value}}%",
+    "requiredLabel": "lazima",
+    "clearAll": "Futa vyote",
+    "filters": "Vichujio",
+    "clearAllFilters": "Futa vichujio vyote",
+    "loadingPlaceholder": "Mahali pa kupakia",
+    "radio": "Redio",
+    "emptyState": "Hakuna maudhui",
+    "message": "Ujumbe",
+    "sliderValue": "Slider: {{value}}",
+    "dropdownMenu": "Menyu ya kushuka",
+    "tooltip": "Kidokezo",
+    "action": "Kitendo"
+  },
+  "greeting": {
+    "hello": "Habari, {{name}}"
+  },
+  "app": {
+    "name": "Msaada wa Uamuzi wa Kifaa cha Kupumua cha AI",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Kitu kilienda vibaya",
+      "message": "Hitilafu isiyotarajiwa imetokea",
+      "retry": "Jaribu tena",
+      "retryHint": "Jaribu tena"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "Hitilafu isiyojulikana imetokea",
+      "NETWORK_ERROR": "Muunganisho wa mtandao umeshindwa",
+      "UNAUTHORIZED": "Uthibitishaji unahitajika",
+      "FORBIDDEN": "Ufikiaji umekataliwa",
+      "SERVER_ERROR": "Hitilafu ya seva imetokea",
+      "ROUTE_ERROR": "Hitilafu imetokea wakati wa kupakia ukurasa huu",
+      "INVALID_CREDENTIALS": "Siri si sahihi",
+      "MULTIPLE_TENANTS": "Wenye kodi wengi wamepatikana. Tafadhali chagua mwenye kodi.",
+      "ACCOUNT_INACTIVE": "Akaunti haijalindwa",
+      "ACCOUNT_SUSPENDED": "Akaunti imesimamishwa",
+      "ACCOUNT_PENDING": "Akaunti inasubiri uthibitishaji",
+      "PASSWORD_INCORRECT": "Nenosiri la sasa si sahihi",
+      "TOKEN_INVALID": "Tokeni si sahihi au imekwisha",
+      "TOKEN_EXPIRED": "Tokeni imekwisha",
+      "REFRESH_TOKEN_INVALID": "Tokeni ya kuhuisha si sahihi au imekwisha",
+      "USER_NOT_FOUND": "Mtumiaji hajapatikana",
+      "USER_EXISTS": "Mtumiaji na barua pepe hii tayari yupo",
+      "SESSION_NOT_FOUND": "Kipindi hajapatikana",
+      "ALREADY_VERIFIED": "Akaunti tayari imethibitishwa",
+      "AI_UNAVAILABLE": "AI haipatikani — tunatumia mapendekezo ya ndani",
+      "AI_TIMEOUT": "Ombi la AI limesubiri muda mrefu",
+      "AI_UNAUTHORIZED": "Ufunguo wa API ya AI si sahihi au umekwisha",
+      "AI_FORBIDDEN": "Ufikiaji wa AI umekataliwa",
+      "AI_RATE_LIMIT": "Kikomo cha AI kimefikia",
+      "AI_MODEL_UNAVAILABLE": "Mfano wa AI haupatikani",
+      "AI_MALFORMED_RESPONSE": "Jibu la AI si sahihi"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "Sehemu hii inahitajika",
+      "invalidEmail": "Muundo wa barua pepe si sahihi",
+      "invalidUrl": "Muundo wa URL si sahihi",
+      "invalidUuid": "Muundo wa kitambulisho si sahihi",
+      "maxLength": "Urefu upeo ni herufi {{max}}",
+      "invalidValue": "Thamani si sahihi"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Kichwa cha urambazaji kuu",
+      "searchHint": "Andika kutafuta",
+      "cartWithItems": "Rukwama yenye vitu {{count}}",
+      "cartWithItems_zero": "Rukwama",
+      "signIn": "Ingia",
+      "profile": "Wasifu",
+      "orders": "Maagizo",
+      "settings": "Mipangilio",
+      "logout": "Toka",
+      "hideHeader": "Ficha kichwa",
+      "showHeader": "Onyesha kichwa",
+      "showMore": "Onyesha zaidi",
+      "customize": "Badilisha",
+      "overflowMenuLabel": "Vitendo zaidi vya kichwa",
+      "customizationMenuLabel": "Ubinafsishaji wa kichwa",
+      "actions": {
+        "notifications": "Arifa",
+        "network": "Hali ya mtandao",
+        "database": "Hali ya hifadhi data",
+        "fullscreen": "Badilisha skrini kamili"
+      }
+    },
+    "sidebar": {
+      "title": "Urambazaji kuu",
+      "label": "Urambazaji",
+      "resize": "Badilisha ukubwa wa urambazaji"
+    },
+    "fullscreen": {
+      "enter": "Skrini kamili",
+      "exit": "Toka skrini kamili"
+    },
+    "tabBar": {
+      "title": "Urambazaji wa chini"
+    },
+    "footer": {
+      "title": "Footer ya ulimwengu",
+      "copyright": "© {{year}} {{appName}}. Haki zote zimehifadhiwa.",
+      "supportEmail": "Msaada (barua pepe)",
+      "supportPhone": "Msaada (simu)",
+      "status": {
+        "title": "Hali ya programu",
+        "auth": "Kuingia kwa usalama kimewashwa",
+        "main": "Mifumo yote inafanya kazi",
+        "patient": "Huduma za wagonjwa ziko tayari"
+      },
+      "environment": "{{env}} · v{{version}} (jengo: {{build}})",
+      "legal": {
+        "title": "Kisheria na msaada",
+        "terms": "Masharti",
+        "privacy": "Faragha",
+        "support": "Msaada"
+      }
+    },
+    "network": {
+      "label": "Hali ya mtandao",
+      "status": {
+        "online": "Mtandaoni",
+        "offline": "Nje ya mtandao",
+        "unstable": "Haijulikani",
+        "syncing": "Inalinganisha"
+      },
+      "database": {
+        "label": "Hifadhi data",
+        "connected": "Hifadhi data imeunganishwa",
+        "disconnected": "Hifadhi data haijaunganishwa"
+      }
+    },
+    "notifications": {
+      "label": "Arifa",
+      "menuLabel": "Menyu ya arifa",
+      "empty": "Hakuna arifa mpya",
+      "viewAll": "Angalia arifa zote",
+      "items": {
+        "appointments": {
+          "title": "Mkutano ujao",
+          "meta": "Leo saa 3:00 asubuhi"
+        },
+        "labResults": {
+          "title": "Matokeo ya maabara yako tayari",
+          "meta": "Matokeo mapya yanapatikana"
+        },
+        "messages": {
+          "title": "Ujumbe mpya",
+          "meta": "Una ujumbe usiosomwa"
+        }
+      }
+    },
+    "bottomNavigation": "Urambazaji wa chini",
+    "mainNavigation": "Urambazaji kuu",
+    "patientNavigation": "Urambazaji wa mgonjwa",
+    "items": {
+      "main": {
+        "home": "Nyumbani",
+        "assessment": "Tathmini",
+        "history": "Historia",
+        "training": "Mafunzo",
+        "onboarding": "Kuanza",
+        "settings": "Mipangilio",
+        "settings-about": "Kuhusu",
+        "settings-data-sources": "Vyanzo vya data",
+        "settings-disclaimer": "Onyo",
+        "settings-help": "Msaada",
+        "settings-privacy": "Faragha"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Urambazaji wa breadcrumb",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "Ruka kwa maudhui kuu"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "Sasisho za hali ya mfumo",
+      "offline": {
+        "title": "Uko nje ya mtandao",
+        "message": "Baadhi ya vipengele vinaweza kutokupatikana hadi muunganisho urejeshwe.",
+        "accessibilityLabel": "Arifa ya hali ya nje ya mtandao"
+      },
+      "lowQuality": {
+        "title": "Mtandao hauna utulivu",
+        "message": "Unaweza kupata ucheleweshaji au utumiaji mdogo.",
+        "accessibilityLabel": "Arifa ya ubora wa chini wa mtandao"
+      },
+      "online": {
+        "title": "Tena mtandaoni",
+        "message": "Muunganisho umerudishwa.",
+        "accessibilityLabel": "Arifa ya hali ya mtandaoni"
+      },
+      "maintenance": {
+        "title": "Matengenezo yaliyopangwa",
+        "message": "Baadhi ya huduma zinaweza kutokupatikana kwa muda.",
+        "accessibilityLabel": "Arifa ya matengenezo"
+      }
+    },
+    "loadingOverlay": {
+      "title": "Inafanya kazi…",
+      "message": "Tafadhali subiri tunakamilisha ombi."
+    },
+    "notices": {
+      "surfaceLabel": "Arifa za ulimwengu"
+    }
+  },
+  "settings": {
+    "title": "Mipangilio",
+    "screen": {
+      "label": "Skrini ya mipangilio"
+    },
+    "theme": {
+      "label": "Mandhari",
+      "accessibilityLabel": "Kichaguzi cha mandhari",
+      "hint": "Badilisha mandhari ya programu",
+      "options": {
+        "system": "Mfumo",
+        "light": "Nuru",
+        "dark": "Giza",
+        "highContrast": "Tofauti kubwa"
+      }
+    },
+    "language": {
+      "label": "Lugha",
+      "accessibilityLabel": "Kichaguzi cha lugha",
+      "hint": "Badilisha lugha ya programu",
+      "options": {
+        "en": "Kiingereza",
+        "ar": "Kiarabu",
+        "de": "Kijerumani",
+        "es": "Kihispania",
+        "fa": "Kiajemi",
+        "fr": "Kifaransa",
+        "hi": "Kihindi",
+        "id": "Kiindonesia",
+        "it": "Kiitaliano",
+        "ja": "Kijapani",
+        "ko": "Kikorea",
+        "ms": "Kimalaysia",
+        "nl": "Kiholanzi",
+        "pl": "Kipolandi",
+        "pt": "Kireno",
+        "ru": "Kirusi",
+        "sw": "Kiswahili",
+        "ta": "Kitamil",
+        "th": "Kithai",
+        "tr": "Kituruki",
+        "uk": "Kiukraini",
+        "vi": "Kivietinamu",
+        "zh": "Kichina"
+      }
+    },
+    "density": {
+      "label": "Msongamano",
+      "accessibilityLabel": "Kichaguzi cha hali ya msongamano",
+      "hint": "Badilisha nafasi na msongamano wa mpangilio",
+      "options": {
+        "compact": "Fupi",
+        "comfortable": "Vizuri"
+      }
+    },
+    "footerVisible": {
+      "label": "Onyesha footer",
+      "accessibilityLabel": "Badilisha kuonekana kwa footer",
+      "hint": "Onyesha au ficha footer chini ya mpangilio (kompyuta tu)"
+    },
+    "sidebar": {
+      "resize": "Badilisha ukubwa wa upau wa mipangilio",
+      "menu": "Menyu ya mipangilio",
+      "menuOpen": "Fungua menyu ya mipangilio",
+      "menuClose": "Funga menyu ya mipangilio",
+      "groups": {
+        "general": "Jumla",
+        "organization": "Shirika",
+        "usersAndAccess": "Watumiaji na ufikiaji",
+        "security": "Usalama"
+      }
+    },
+    "disclaimer": {
+      "title": "Onyo",
+      "screen": {
+        "label": "Skrini ya onyo"
+      },
+      "prototypeFraming": "Programu hii ni mfano wa kumbukumbu na mafunzo. Haikusudiwi kutumika moja kwa moja kwa matibabu.",
+      "datasetNotice": "Onyo la seti ya data",
+      "acknowledge": "Ninakubali",
+      "acknowledgeHint": "Thibitisha kuwa umesoma na kuelewa onyo",
+      "states": {
+        "loading": "Inapakia…",
+        "error": "Imeshindwa kupakia onyo"
+      }
+    },
+    "dataSources": {
+      "title": "Vyanzo vya data",
+      "screen": {
+        "label": "Skrini ya vyanzo vya data"
+      },
+      "datasetVersion": "Toleo la seti ya data",
+      "schemaVersion": "Toleo la schema",
+      "lastUpdated": "Ilisasishwa mwisho",
+      "totalCases": "Jumla ya kesi",
+      "citations": "V marejeo",
+      "doi": "DOI",
+      "states": {
+        "loading": "Inapakia…",
+        "error": "Imeshindwa kupakia vyanzo vya data",
+        "empty": "Hakuna vyanzo vinavyopatikana"
+      }
+    },
+    "privacy": {
+      "title": "Faragha",
+      "screen": {
+        "label": "Skrini ya faragha"
+      },
+      "localStorage": "Data inahifadhiwa ndani ya kifaa",
+      "localStorageDescription": "Mapendeleo na data ya kipindi vinahifadhiwa kwenye kifaa hiki tu. Hakuna kinachotumwa kwa seva za nje.",
+      "optionalAI": "Ikiwa vipengele vya AI vya mtandaoni vimewashwa, maombi hayo yanaweza kutumwa kwa huduma zilizosanidiwa."
+    },
+    "about": {
+      "title": "Kuhusu",
+      "screen": {
+        "label": "Skrini ya kuhusu"
+      },
+      "appName": "Msaada wa uamuzi wa uingizaji hewa",
+      "version": "Toleo",
+      "prototypeScope": "Hii ni mfano wa kumbukumbu na mafunzo. Si kwa matumizi ya matibabu."
+    },
+    "onboarding": {
+      "title": "Kuanza",
+      "accessibilityLabel": "Skrini ya kuanza",
+      "steps": {
+        "inputs": {
+          "title": "Kuingiza maingizo",
+          "body": "Tumia Tathmini kuingiza vigezo vya kliniki (SpO₂, PaO₂, PaCO₂, pH, kiwango cha kupumua, n.k.). Maingizo yaliyo kamili zaidi, mapendekezo yanafanana vizuri zaidi. Thamani za ABG zinaboresha usahihi zinapopatikana."
+        },
+        "recommendations": {
+          "title": "Kutafsiri mapendekezo",
+          "body": "Mapendekezo yanaonyesha mipangilio inayopendekeza ya kifaa cha kupumua na kiwango cha ujasiri (juu, wastani, chini). Ubora wa mechi unaonyesha jinsi kesi za seti ya data zinavyolingana na maingizo yako. Tumia kesi zilizofanana kama kumbukumbu tu—daima tumia uamuzi wa kliniki."
+        },
+        "monitoring": {
+          "title": "Ufuatiliaji na tahadhari",
+          "body": "Baada ya kupata pendekezo, tumia Ufuatiliaji kurekodi ishara za maisha na maabara kwa muda. Tahadhari zinaangazia thamani nje ya viwango vilivyowekwa. Hii ni msaada wa uamuzi tu—kagua na tenda kulingana na itifaki yako."
+        },
+        "offline": {
+          "title": "Tabia nje ya mtandao",
+          "body": "Mzunguko mkuu (tathmini, mapendekezo, ufuatiliaji) unafanya kazi nje ya mtandao. Data inahifadhiwa ndani ya kifaa. Vipengele vya AI vya hiari vinahitaji muunganisho. Unaporudi mtandaoni, endelea kama kawaida."
+        }
+      },
+      "actions": {
+        "done": "Imekamilika",
+        "next": "Ifuatayo",
+        "back": "Rudi"
+      },
+      "states": {
+        "loading": "Inapakia…"
+      }
+    },
+    "help": {
+      "title": "Msaada na kumbukumbu",
+      "accessibilityLabel": "Skrini ya msaada",
+      "searchPlaceholder": "Tafuta kamusi au mwongozo…",
+      "sections": {
+        "glossary": "Kamusi",
+        "troubleshooting": "Kutatua matatizo",
+        "guides": "Jambo linalofuata"
+      },
+      "glossary": {
+        "PEEP": "Shinikizo la mwisho la kutolea hewa (cmH₂O). Inadumisha kiasi cha mapafu na oksijeni.",
+        "FiO2": "Sehemu ya oksijeni iliyovutwa (0–1). Asilimia ya oksijeni kwenye hewa iliyovutwa.",
+        "IERatio": "Uwiano wa I:E. Uwiano wa muda wa kuvuta na kutolea hewa (mf. 1:2).",
+        "tidalVolume": "Kiasi cha hewa kwa pumzi (mL). Kiasi kinachotolewa kwa pumzi.",
+        "respiratoryRate": "Kiwango cha kupumua (pumzi/dakika).",
+        "SpO2": "Ujazo wa oksijeni kwa pulse oximetry (%).",
+        "PaO2": "Shinikizo la sehemu ya oksijeni ya arteriali (mmHg).",
+        "PaCO2": "Shinikizo la sehemu ya kaboni dioksidi ya arteriali (mmHg).",
+        "pH": "pH ya arteriali (bila kitengo)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "Thamani za ABG hazipo",
+          "body": "Mapendekezo yanafanya kazi bila ABG; ingiza SpO₂ na ishara zingine zinazopatikana. Kwa mechi bora, ongeza PaO₂, PaCO₂ na pH unapokuwa nazo."
+        },
+        "offline": {
+          "title": "Kutumia programu nje ya mtandao",
+          "body": "Tathmini, mapendekezo na ufuatiliaji vinafanya kazi nje ya mtandao. Data inahifadhiwa ndani ya kifaa. Mapendekezo ya AI ya hiari yanahitaji mtandao. Kuunganisha hakuhitajiki kwa mzunguko mkuu."
+        }
+      },
+      "guides": {
+        "hypoxemia": "Kagua FiO₂ na PEEP; fikiria ukusanyaji; angalia shunt au kutofanana kwa V/Q.",
+        "hypercapnia": "Kagua uingizaji hewa wa dakika (kiwango × kiasi cha hewa); fikiria hypercapnia ya ruhusa kulingana na itifaki.",
+        "acidosis": "Shughulikia uingizaji hewa na mtiririko wa damu; sahihisha sababu ya msingi kulingana na itifaki.",
+        "general": "Tumia mapendekezo kama msaada wa uamuzi tu. Thibitisha dhidi ya itifaki za ndani na uamuzi wa kliniki."
+      },
+      "states": {
+        "loading": "Inapakia…",
+        "empty": "Hakuna matokeo",
+        "error": "Imeshindwa kupakia msaada"
+      }
+    },
+    "ai": {
+      "label": "Msaada wa uamuzi wa AI",
+      "sectionLabel": "Pendekezo la AI la hiari (mtandaoni)",
+      "enableLabel": "Washa mapendekezo ya AI",
+      "enableHint": "Tumia AI ya mtandaoni kwa kesi ngumu tu; mapendekezo ya ndani yanapatikana daima",
+      "providerLabel": "Mtoaji",
+      "providerHint": "Mtoaji wa AI (mf. OpenAI); ufunguo wa API ni kwa mtoaji",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "Ufunguo wa API",
+      "apiKeyPlaceholder": "Ingiza ufunguo (unahifadhiwa kwa usalama)",
+      "apiKeySave": "Hifadhi ufunguo",
+      "apiKeyClear": "Futa ufunguo",
+      "keyConfigured": "Ufunguo umehifadhiwa",
+      "modelLabel": "Mfano",
+      "modelHint": "Mfano unaotumika kwa mapendekezo ya AI",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "Inapakia",
+    "offline": "Nje ya mtandao",
+    "error": "Hitilafu",
+    "empty": "Tupu",
+    "list": "Orodha",
+    "emptyState": {
+      "title": "Hakuna vitu",
+      "message": "Hakuna vitu vya kuonyesha"
+    },
+    "errorState": {
+      "title": "Hitilafu",
+      "message": "Hitilafu imetokea"
+    }
+  },
+  "home": {
+    "title": "Nyumbani",
+    "welcome": {
+      "title": "Karibu",
+      "message": "Msaada wa Uamuzi wa Kifaa cha Kupumua cha AI unakusaidia kutathmini wagonjwa, kukimbia vipindi vya uingizaji hewa na kukagua mapendekezo."
+    },
+    "overview": {
+      "title": "Ufikiaji wa haraka",
+      "assessment": {
+        "title": "Tathmini",
+        "description": "Anza tathmini ya mgonjwa na kipindi cha uingizaji hewa.",
+        "hint": "Nenda kwa Tathmini"
+      },
+      "history": {
+        "title": "Historia",
+        "description": "Angalia na uendelee vipindi vilivyopita.",
+        "hint": "Nenda kwa Historia"
+      },
+      "training": {
+        "title": "Mafunzo",
+        "description": "Vinjari mada za mafunzo na orodha za ukaguzi.",
+        "hint": "Nenda kwa Mafunzo"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Tathmini ya Mgonjwa",
+      "accessibilityLabel": "Skrini ya wizard ya tathmini",
+      "summary": {
+        "title": "Muhtasari wa kipindi",
+        "accessibilityLabel": "Muhtasari mfupi wa tathmini",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "Hali",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Kiwango cha kupumua",
+        "heartRate": "Kiwango cha mapigo",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Umri",
+        "weight": "Uzani",
+        "height": "Urefu",
+        "gender": "Jinsia",
+        "comorbidities": "Magonjwa ya pamoja",
+        "bloodPressure": "Shinikizo la damu",
+        "empty": "Bado hakuna data",
+        "expand": "Panua muhtasari",
+        "collapse": "Funga muhtasari"
+      },
+      "steps": {
+        "patientProfile": "Wasifu wa mgonjwa",
+        "clinicalParams": "Vigezo vya kliniki",
+        "observations": "Uchunguzi wa hiari",
+        "timeSeries": "Mfululizo wa muda wa hiari",
+        "review": "Kagua"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "Pumu",
+        "COPD": "COPD",
+        "heartFailure": "Ushindwa wa moyo",
+        "pneumonia": "Ugonjwa wa mapafu",
+        "sepsis": "Sepsis",
+        "trauma": "Jeraha",
+        "other": "Nyingine"
+      },
+      "patientProfile": {
+        "condition": "Hali",
+        "conditionPlaceholder": "Chagua hali",
+        "conditionHint": "Hali kuu ya kupumua (lazima)",
+        "age": "Umri (miaka)",
+        "agePlaceholder": "Ingiza umri",
+        "ageHint": "Umri wa mgonjwa kwa miaka",
+        "weight": "Uzani (kg)",
+        "weightPlaceholder": "Ingiza uzani",
+        "weightHint": "Uzani wa mgonjwa kwa kg",
+        "height": "Urefu (cm)",
+        "heightPlaceholder": "Ingiza urefu",
+        "heightHint": "Urefu wa mgonjwa kwa cm",
+        "gender": "Jinsia",
+        "genderPlaceholder": "Chagua jinsia",
+        "genderHint": "Jinsia ya mgonjwa",
+        "genderMale": "Mwanaume",
+        "genderFemale": "Mwanamke",
+        "genderOther": "Nyingine",
+        "comorbidities": "Magonjwa ya pamoja",
+        "comorbiditiesPlaceholder": "mf. shinikizo la damu, kisukari",
+        "comorbiditiesHint": "Orodha iliyotenganishwa na koma"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "Ingiza SpO₂",
+        "spo2Hint": "Ujazo wa oksijeni (%)",
+        "spo2NormalRange": "Kiwango cha kawaida: 95–100%",
+        "pao2": "PaO₂ (hiari)",
+        "pao2Placeholder": "Ingiza PaO₂",
+        "pao2Hint": "Oksijeni ya arteriali (mmHg)",
+        "pao2NormalRange": "Kiwango cha kawaida: 80–100 mmHg",
+        "paco2": "PaCO₂ (hiari)",
+        "paco2Placeholder": "Ingiza PaCO₂",
+        "paco2Hint": "CO₂ ya arteriali (mmHg)",
+        "paco2NormalRange": "Kiwango cha kawaida: 35–45 mmHg",
+        "ph": "pH (hiari)",
+        "phPlaceholder": "Ingiza pH",
+        "phHint": "pH ya arteriali",
+        "phNormalRange": "Kiwango cha kawaida: 7.35–7.45",
+        "respiratoryRate": "Kiwango cha kupumua",
+        "respiratoryRatePlaceholder": "Ingiza RR",
+        "respiratoryRateHint": "Pumzi kwa dakika",
+        "respiratoryRateNormalRange": "Kiwango cha kawaida: 12–20 pumzi/dakika",
+        "heartRate": "Kiwango cha mapigo",
+        "heartRatePlaceholder": "Ingiza HR",
+        "heartRateHint": "Mapigo kwa dakika",
+        "heartRateNormalRange": "Kiwango cha kawaida: 60–100 bpm",
+        "bloodPressure": "Shinikizo la damu (hiari)",
+        "bloodPressurePlaceholder": "mf. 120/80",
+        "bloodPressureHint": "Systolic/diastolic mmHg",
+        "bloodPressureNormalRange": "Kiwango cha kawaida: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "Uchunguzi wa ziada",
+        "description": "Rekodi data yoyote ya kliniki ya ziada isiyofunikwa hapa juu (mf. maabara, picha, dawa, alama za magonjwa ya pamoja). Kila uchunguzi ni jozi moja ya jina–thamani. Hiari; unaweza ruka hatua hii.",
+        "add": "Ongeza uchunguzi",
+        "name": "Jina",
+        "value": "Thamani",
+        "unit": "Kitengo",
+        "optional": "Hiari"
+      },
+      "timeSeries": {
+        "title": "Mfululizo wa muda (ishara za maisha kwa muda)",
+        "description": "Fuatilia ishara za maisha au metriki zingine kwa pointi nyingi za muda (mf. SpO₂, RR, HR saa 0h, 1h, 2h). Inatumika kwa uchambuzi wa mwelekeo na ufuatiliaji baada ya kuanza kipindi. Hiari; unaweza ongeza pointi baadaye kwenye skrini ya ufuatiliaji.",
+        "add": "Ongeza pointi ya mfululizo wa muda",
+        "name": "Jina",
+        "value": "Thamani",
+        "optional": "Hiari"
+      },
+      "recommendationSource": {
+        "label": "Chanzo cha pendekezo",
+        "local": "Seti ya data ya ndani",
+        "localDescription": "Tumia seti ya data iliyojengwa tu. Inafanya kazi nje ya mtandao; ufunguo wa API hauhitajiki.",
+        "onlineAi": "AI ya mtandaoni",
+        "onlineAiDescription": "Tumia ufunguo wako wa API kupata mapendekezo na sababu yaliyoongezwa na AI. Inahitaji muunganisho; inarudi ndani ikiwa AI inashindwa.",
+        "modelLabel": "Mfano",
+        "modelHint": "Chagua mfano wa AI (default inatumika ikiwa haijawekwa)",
+        "providerLabel": "Mtoaji",
+        "gpt4oMini": "GPT-4o mini (default)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "Sababu za AI za pendekezo",
+        "hints": "Vidokezo vya AI"
+      },
+      "missingTests": {
+        "title": "Majaribio ya ziada yanayopendekeza",
+        "abgPanel": "Paneli ya ABG ingeboresha ujasiri",
+        "abgHint": "Fikiria kuagiza gesi ya damu ya arteriali ikiwa inapatikana"
+      },
+      "actions": {
+        "back": "Rudi",
+        "next": "Ifuatayo",
+        "generate": "Tengeneza pendekezo",
+        "generateHint": "Unda pendekezo kutoka maingizo ya sasa"
+      },
+      "states": {
+        "loading": "Inapakia tathmini…",
+        "error": "Imeshindwa kupakia tathmini",
+        "offline": "Tathmini inafanya kazi nje ya mtandao",
+        "empty": "Ingiza data ya mgonjwa kuanza"
+      }
+    },
+    "recommendation": {
+      "title": "Mipangilio Inayopendekeza",
+      "accessibilityLabel": "Skrini ya pendekezo",
+      "sections": {
+        "settings": "Mipangilio inayopendekeza",
+        "confidence": "Ujasiri na kwa nini",
+        "monitoring": "Pointi za ufuatiliaji",
+        "risks": "Hatari na matatizo",
+        "matchedCases": "Kesi zilizofanana",
+        "evidence": "Uthibitisho na ukaguzi",
+        "warning": "Onyo la seti ya data"
+      },
+      "settings": {
+        "mode": "Hali",
+        "tidalVolume": "Kiasi cha hewa kwa pumzi",
+        "respiratoryRate": "Kiwango cha kupumua",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "Uwiano wa I:E"
+      },
+      "confidence": {
+        "high": "Juu",
+        "medium": "Wastani",
+        "low": "Chini",
+        "missingInputs": "Maingizo yasiyopo yanayoweza kuboresha ujasiri"
+      },
+      "aiReasons": {
+        "title": "Sababu za AI za pendekezo",
+        "hints": "Msimbo wa vidokezo vya AI"
+      },
+      "actions": {
+        "startMonitoring": "Anza ufuatiliaji",
+        "startMonitoringHint": "Anza kufuatilia ishara za maisha na mfululizo wa muda",
+        "backToAssessment": "Rudi kwa tathmini",
+        "requestAiRecommendation": "Omba pendekezo la AI",
+        "requestAiHint": "Pata vidokezo vya AI vya hiari kwa kesi hii (inahitaji muunganisho)",
+        "connectivityRequired": "Inahitaji muunganisho wa mtandao",
+        "supplementalDisclaimer": "Matokeo ya AI ni ya nyongeza na hayajathibitishwa kwa kliniki",
+        "aiUnavailableFallback": "AI haipatikani — tunatumia mapendekezo ya ndani",
+        "exportSummary": "Hamisha muhtasari",
+        "exportSummaryHint": "Pakua muhtasari wa kipindi kama maandishi",
+        "anonymizeBeforeExport": "Ondoa vitambulisho kabla ya kuhamisha"
+      },
+      "states": {
+        "loading": "Inapakia pendekezo…",
+        "error": "Imeshindwa kupakia pendekezo",
+        "empty": "Hakuna pendekezo linalopatikana. Kamilisha tathmini kwanza."
+      },
+      "intendedUse": {
+        "warningLabel": "Haijathibitishwa kwa kliniki",
+        "validationLabel": "Mahitaji ya uthibitishaji"
+      },
+      "reviewStatus": {
+        "unvalidated": "Haijathibitishwa (mfano)",
+        "validated": "Imethibitishwa"
+      }
+    },
+    "monitoring": {
+      "title": "Ufuatiliaji",
+      "accessibilityLabel": "Skrini ya ufuatiliaji",
+      "decisionSupportOnly": "Kwa msaada wa uamuzi tu. Si mbadala wa uamuzi wa kliniki.",
+      "sections": {
+        "quickEntry": "Ingizo la haraka",
+        "trend": "Mwelekeo",
+        "alerts": "Tahadhari"
+      },
+      "quickEntry": {
+        "addPoint": "Ongeza pointi",
+        "addPointHint": "Ongeza pointi ya data ya ishara za maisha au maabara",
+        "namePlaceholder": "Jina (mf. SpO₂, RR)",
+        "valuePlaceholder": "Thamani",
+        "unitPlaceholder": "Kitengo"
+      },
+      "trend": {
+        "insufficientData": "Data haitoshi",
+        "directionUp": "Inapanda",
+        "directionDown": "Inashuka",
+        "directionFlat": "Imara",
+        "directionUnknown": "Haijulikani"
+      },
+      "alerts": {
+        "severityNormal": "Kawaida",
+        "severityWarning": "Onyo",
+        "severityCritical": "Muhimu",
+        "severityUnknown": "Haijulikani",
+        "why": "Kwa nini",
+        "whyCriticalLow": "Thamani chini ya kiwango cha chini muhimu",
+        "whyWarningLow": "Thamani chini ya kiwango cha chini cha onyo",
+        "whyCriticalHigh": "Thamani juu ya kiwango cha juu muhimu",
+        "whyWarningHigh": "Thamani juu ya kiwango cha juu cha onyo",
+        "suggestedAction": "Kitendo kinachopendekeza",
+        "suggestedActionNormal": "Endelea ufuatiliaji",
+        "suggestedActionWarning": "Kagua na fikiria kuingilia",
+        "suggestedActionCritical": "Shughulikia mara moja",
+        "suggestedActionUnknown": "Thibitisha thamani na ingiza tena ikiwa inahitajika",
+        "empty": "Hakuna tahadhari"
+      },
+      "actions": {
+        "backToRecommendation": "Rudi kwa pendekezo"
+      },
+      "states": {
+        "loading": "Inapakia…",
+        "error": "Imeshindwa kupakia ufuatiliaji",
+        "empty": "Ongeza pointi za ishara za maisha au maabara kuona mwelekeo na tahadhari.",
+        "offline": "Uko nje ya mtandao. Data inahifadhiwa ndani ya kifaa."
+      }
+    },
+    "history": {
+      "title": "Historia ya vipindi",
+      "accessibilityLabel": "Skrini ya historia ya vipindi",
+      "empty": "Bado hakuna vipindi vilivyohifadhiwa.",
+      "corruptRecovery": "Historia ya vipindi ilirejeshwa kwa sababu ya tatizo la uhifadhi. Unaweza kuanza vipindi vipya.",
+      "actions": {
+        "resume": "Endelea",
+        "resumeHint": "Endelea kipindi hiki",
+        "viewDetails": "Angalia maelezo",
+        "viewDetailsHint": "Angalia muhtasari wa kipindi",
+        "delete": "Futa",
+        "deleteHint": "Ondoa kutoka historia"
+      },
+      "deleteConfirm": {
+        "title": "Futa kipindi?",
+        "message": "Kipindi hiki kitatolewa kutoka historia. Hii haiwezi kutenduliwa.",
+        "confirm": "Futa",
+        "cancel": "Ghairi"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Hali: {{condition}}",
+        "tier": "Kiwango: {{tier}}",
+        "summary": "Muhtasari"
+      },
+      "states": {
+        "loading": "Inapakia historia…",
+        "error": "Imeshindwa kupakia historia ya vipindi"
+      }
+    },
+    "caseDetail": {
+      "title": "Maelezo ya kesi",
+      "accessibilityLabel": "Skrini ya maelezo ya kesi",
+      "summary": "Muhtasari wa kesi",
+      "patientProfile": "Wasifu wa mgonjwa",
+      "clinicalParameters": "Vigezo vya kliniki",
+      "ventilatorSettings": "Mipangilio ya kifaa cha kupumua",
+      "outcomes": "Matokeo",
+      "evidence": "Uthibitisho",
+      "reviewStatus": "Hali ya ukaguzi",
+      "intendedUseWarning": "Hii ni kesi ya seti ya data kwa kumbukumbu tu. Si kwa matumizi ya moja kwa moja ya kliniki.",
+      "datasetCaseFraming": "Kesi ya seti ya data (kumbukumbu tu)",
+      "prototypeFraming": "Mfano — haijathibitishwa kwa kliniki",
+      "notFound": "Kesi haijapatikana kwenye seti ya data.",
+      "missingCaseId": "Hakuna kesi iliyochaguliwa.",
+      "states": {
+        "loading": "Inapakia kesi…"
+      },
+      "review": {
+        "unvalidated": "Haijathibitishwa (mfano)",
+        "validated": "Imethibitishwa"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Mafunzo",
+      "subtitle": "Itifaki, orodha za ukaguzi na kumbukumbu.",
+      "accessibilityLabel": "Skrini ya nyumbani ya mafunzo",
+      "searchPlaceholder": "Tafuta mada…",
+      "searchHint": "Tafuta maudhui ya mafunzo",
+      "topicsSection": "Mada",
+      "searchResults": "Matokeo ya utafutaji",
+      "popularTopics": "Mada maarufu",
+      "quickChecklists": "Orodha za ukaguzi za haraka",
+      "browseAll": "Angalia mada zote",
+      "browseAllHint": "Angalia mada zote za mafunzo",
+      "viewTopic": "Angalia",
+      "states": {
+        "loading": "Inapakia mafunzo…",
+        "error": "Imeshindwa kupakia maudhui ya mafunzo",
+        "offline": "Maudhui yanapatikana nje ya mtandao",
+        "empty": "Hakuna maudhui ya mafunzo yanayopatikana"
+      }
+    },
+    "topics": {
+      "title": "Mada",
+      "accessibilityLabel": "Skrini ya orodha ya mada",
+      "searchPlaceholder": "Tafuta au chuja…",
+      "searchHint": "Tafuta mada",
+      "empty": "Hakuna mada zilizopatikana.",
+      "filterByType": "Chuja kwa aina",
+      "typeProtocol": "Itifaki",
+      "typeChecklist": "Orodha ya ukaguzi",
+      "typeGlossary": "Kamusi",
+      "typeFaq": "Maswali Yanayoulizwa Mara kwa Mara",
+      "openTopicHint": "Fungua mada",
+      "states": {
+        "loading": "Inapakia mada…",
+        "error": "Imeshindwa kupakia mada",
+        "offline": "Maudhui yanapatikana nje ya mtandao"
+      }
+    },
+    "topicDetail": {
+      "title": "Mada",
+      "accessibilityLabel": "Skrini ya maelezo ya mada",
+      "section": "Kifungu",
+      "expand": "Panua kifungu",
+      "collapse": "Funga kifungu",
+      "checklistItem": "Kipengele",
+      "notFound": "Mada haijapatikana.",
+      "backToTopics": "Rudi kwa mada",
+      "backToTopicsHint": "Rudi kwa orodha ya mada",
+      "states": {
+        "loading": "Inapakia mada…",
+        "error": "Imeshindwa kupakia mada"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Ukurasa Haupatikani",
+    "message": "Ukurasa unaoutafuta haupo au umesogeza.",
+    "back": "Rudi",
+    "backHint": "Rudi kwa ukurasa uliopita",
+    "goHome": "Nenda Nyumbani",
+    "goHomeHint": "Nenda kwa ukurasa wa nyumbani"
+  },
+  "error": {
+    "title": "Kitu Kilienda Vibaya",
+    "message": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena au rudi kwa ukurasa wa nyumbani.",
+    "retry": "Jaribu tena",
+    "retryHint": "Jaribu kitendo tena",
+    "goHome": "Nenda Nyumbani",
+    "goHomeHint": "Nenda kwa ukurasa wa nyumbani"
+  },
+  "errorState": {
+    "defaultTitle": "Kitu kilienda vibaya"
+  }
+}

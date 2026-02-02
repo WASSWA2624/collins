@@ -58,6 +58,7 @@ All locales other than `en` are **defined and implemented in this phase only**. 
 - **13.4.2** **Define and implement** the full supported-locale set, covering the 22 most widely-used global locales. For each, place a full locale file in `src/i18n/locales/` (examples: `zh.json`, `es.json`, `fr.json`, `ar.json`, `ru.json`, `pt.json`, `de.json`, `ja.json`, `hi.json`, `it.json`, `ko.json`, `tr.json`, `vi.json`, `pl.json`, `fa.json`, `th.json`, `nl.json`, `id.json`, `ms.json`, `uk.json`, `sw.json`, `ta.json`). **Each file must contain all keys present in `en.json`.** 
 - **13.4.3** Validate that there are no missing keys across all 22 locale files.
 - **13.4.4** Verify RTL (right-to-left) support for languages such as Arabic and Farsi, as well as font scaling and reduced motion support on representative screens.
+  - **Implemented:** RTL: `src/utils/rtl.js` (isRTL, applyDocumentDirection); `RTLDirectionSync` in root layout sets `document.documentElement.dir` and `lang` when locale is `ar` or `fa`. Font scaling: React Native `Text` respects system font size by default. Reduced motion: `prefers-reduced-motion: reduce` used in ProgressBar, Modal, Toast, Snackbar, Skeleton, Breadcrumbs, AppFrame (see theme-design.mdc, accessibility.mdc).
 
 ### Security + privacy + offline audits (prototype-appropriate)
 - **13.5.1** Verify no secrets shipped in config/env; verify logs contain no sensitive data.

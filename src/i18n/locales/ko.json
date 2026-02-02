@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "search": "검색",
+    "submit": "제출",
+    "loading": "로딩 중…",
+    "retry": "다시 시도",
+    "back": "뒤로",
+    "next": "다음",
+    "continue": "계속",
+    "close": "닫기",
+    "closeSidebarHint": "사이드바 메뉴 닫기",
+    "select": "선택",
+    "selectPlaceholder": "선택…",
+    "closeSelect": "선택 닫기",
+    "remove": "제거",
+    "goToHome": "홈으로",
+    "viewNotifications": "알림 보기",
+    "userMenu": "사용자 메뉴",
+    "toggleMenu": "메뉴 토글",
+    "searchPlaceholder": "검색…",
+    "searchIcon": "검색 아이콘",
+    "clearSearch": "검색 지우기",
+    "on": "켜짐",
+    "off": "꺼짐",
+    "switch": "전환",
+    "imageLoadError": "이미지를 불러올 수 없습니다",
+    "imageDefaultAlt": "이미지",
+    "progress": "진행: {{value}}%",
+    "requiredLabel": "필수",
+    "clearAll": "모두 지우기",
+    "filters": "필터",
+    "clearAllFilters": "모든 필터 지우기",
+    "loadingPlaceholder": "로딩 자리 표시자",
+    "radio": "라디오",
+    "emptyState": "빈 상태",
+    "message": "메시지",
+    "sliderValue": "슬라이더: {{value}}",
+    "dropdownMenu": "드롭다운 메뉴",
+    "tooltip": "도구 설명",
+    "action": "작업"
+  },
+  "greeting": {
+    "hello": "안녕하세요, {{name}}"
+  },
+  "app": {
+    "name": "AI 인공호흡기 의사결정 지원",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "문제가 발생했습니다",
+      "message": "예기치 않은 오류가 발생했습니다",
+      "retry": "다시 시도",
+      "retryHint": "다시 시도해 주세요"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "알 수 없는 오류가 발생했습니다",
+      "NETWORK_ERROR": "네트워크 연결에 실패했습니다",
+      "UNAUTHORIZED": "인증이 필요합니다",
+      "FORBIDDEN": "접근이 거부되었습니다",
+      "SERVER_ERROR": "서버 오류가 발생했습니다",
+      "ROUTE_ERROR": "이 페이지를 불러오는 중 오류가 발생했습니다",
+      "INVALID_CREDENTIALS": "잘못된 인증 정보",
+      "MULTIPLE_TENANTS": "여러 테넌트가 있습니다. 테넌트를 선택해 주세요.",
+      "ACCOUNT_INACTIVE": "계정이 비활성화되어 있습니다",
+      "ACCOUNT_SUSPENDED": "계정이 정지되었습니다",
+      "ACCOUNT_PENDING": "계정 인증 대기 중입니다",
+      "PASSWORD_INCORRECT": "현재 비밀번호가 올바르지 않습니다",
+      "TOKEN_INVALID": "유효하지 않거나 만료된 토큰",
+      "TOKEN_EXPIRED": "토큰이 만료되었습니다",
+      "REFRESH_TOKEN_INVALID": "유효하지 않거나 만료된 새로고침 토큰",
+      "USER_NOT_FOUND": "사용자를 찾을 수 없습니다",
+      "USER_EXISTS": "이 이메일로 가입된 사용자가 이미 있습니다",
+      "SESSION_NOT_FOUND": "세션을 찾을 수 없습니다",
+      "ALREADY_VERIFIED": "계정이 이미 인증되었습니다",
+      "AI_UNAVAILABLE": "AI를 사용할 수 없음 — 로컬 권장 설정 사용",
+      "AI_TIMEOUT": "AI 요청 시간 초과",
+      "AI_UNAUTHORIZED": "AI API 키가 잘못되었거나 만료됨",
+      "AI_FORBIDDEN": "AI 접근 거부됨",
+      "AI_RATE_LIMIT": "AI 요청 한도에 도달함",
+      "AI_MODEL_UNAVAILABLE": "AI 모델을 사용할 수 없음",
+      "AI_MALFORMED_RESPONSE": "AI 응답이 유효하지 않음"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "이 항목은 필수입니다",
+      "invalidEmail": "올바른 이메일 형식이 아닙니다",
+      "invalidUrl": "올바른 URL 형식이 아닙니다",
+      "invalidUuid": "올바른 ID 형식이 아닙니다",
+      "maxLength": "최대 {{max}}자까지 입력 가능합니다",
+      "invalidValue": "유효하지 않은 값"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "메인 탐색 헤더",
+      "searchHint": "검색어 입력",
+      "cartWithItems": "장바구니 ({{count}}개)",
+      "cartWithItems_zero": "장바구니",
+      "signIn": "로그인",
+      "profile": "프로필",
+      "orders": "주문",
+      "settings": "설정",
+      "logout": "로그아웃",
+      "hideHeader": "헤더 숨기기",
+      "showHeader": "헤더 표시",
+      "showMore": "더 보기",
+      "customize": "맞춤 설정",
+      "overflowMenuLabel": "헤더 추가 작업",
+      "customizationMenuLabel": "헤더 맞춤 설정",
+      "actions": {
+        "notifications": "알림",
+        "network": "네트워크 상태",
+        "database": "데이터베이스 상태",
+        "fullscreen": "전체 화면 전환"
+      }
+    },
+    "sidebar": {
+      "title": "메인 탐색",
+      "label": "탐색",
+      "resize": "탐색 크기 조절"
+    },
+    "fullscreen": {
+      "enter": "전체 화면",
+      "exit": "전체 화면 종료"
+    },
+    "tabBar": {
+      "title": "하단 탐색"
+    },
+    "footer": {
+      "title": "전역 푸터",
+      "copyright": "© {{year}} {{appName}}. All rights reserved.",
+      "supportEmail": "지원 (이메일)",
+      "supportPhone": "지원 (전화)",
+      "status": {
+        "title": "애플리케이션 상태",
+        "auth": "보안 로그인 사용 중",
+        "main": "모든 시스템 정상 작동",
+        "patient": "환자 서비스 준비됨"
+      },
+      "environment": "{{env}} · v{{version}} (빌드: {{build}})",
+      "legal": {
+        "title": "법적 고지 및 지원",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침",
+        "support": "지원"
+      }
+    },
+    "network": {
+      "label": "네트워크 상태",
+      "status": {
+        "online": "온라인",
+        "offline": "오프라인",
+        "unstable": "불안정",
+        "syncing": "동기화 중"
+      },
+      "database": {
+        "label": "데이터베이스",
+        "connected": "데이터베이스 연결됨",
+        "disconnected": "데이터베이스 연결 끊김"
+      }
+    },
+    "notifications": {
+      "label": "알림",
+      "menuLabel": "알림 메뉴",
+      "empty": "새 알림 없음",
+      "viewAll": "모든 알림 보기",
+      "items": {
+        "appointments": {
+          "title": "예정된 예약",
+          "meta": "오늘 오후 3시"
+        },
+        "labResults": {
+          "title": "검사 결과 준비됨",
+          "meta": "새 결과 있음"
+        },
+        "messages": {
+          "title": "새 메시지",
+          "meta": "읽지 않은 메시지가 있습니다"
+        }
+      }
+    },
+    "bottomNavigation": "하단 탐색",
+    "mainNavigation": "메인 탐색",
+    "patientNavigation": "환자 탐색",
+    "items": {
+      "main": {
+        "home": "홈",
+        "assessment": "평가",
+        "history": "기록",
+        "training": "교육",
+        "onboarding": "시작하기",
+        "settings": "설정",
+        "settings-about": "정보",
+        "settings-data-sources": "데이터 소스",
+        "settings-disclaimer": "면책 조항",
+        "settings-help": "도움말",
+        "settings-privacy": "개인정보"
+      }
+    },
+    "breadcrumbs": {
+      "title": "탐색 경로",
+      "label": "탐색 경로"
+    },
+    "skipToMainContent": "본문으로 건너뛰기"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "시스템 상태 업데이트",
+      "offline": {
+        "title": "오프라인입니다",
+        "message": "연결이 복구될 때까지 일부 기능을 사용할 수 없을 수 있습니다.",
+        "accessibilityLabel": "오프라인 상태 알림"
+      },
+      "lowQuality": {
+        "title": "네트워크가 불안정합니다",
+        "message": "지연되거나 기능이 제한될 수 있습니다.",
+        "accessibilityLabel": "네트워크 품질 저하 알림"
+      },
+      "online": {
+        "title": "다시 온라인입니다",
+        "message": "연결이 복구되었습니다.",
+        "accessibilityLabel": "온라인 상태 알림"
+      },
+      "maintenance": {
+        "title": "예정된 점검",
+        "message": "일부 서비스가 일시적으로 이용 불가할 수 있습니다.",
+        "accessibilityLabel": "점검 알림"
+      }
+    },
+    "loadingOverlay": {
+      "title": "처리 중…",
+      "message": "요청을 처리하는 동안 잠시 기다려 주세요."
+    },
+    "notices": {
+      "surfaceLabel": "전역 알림"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "screen": {
+      "label": "설정 화면"
+    },
+    "theme": {
+      "label": "테마",
+      "accessibilityLabel": "테마 선택",
+      "hint": "앱 테마 변경",
+      "options": {
+        "system": "시스템",
+        "light": "라이트",
+        "dark": "다크",
+        "highContrast": "고대비"
+      }
+    },
+    "language": {
+      "label": "언어",
+      "accessibilityLabel": "언어 선택",
+      "hint": "앱 언어 변경",
+      "options": {
+        "en": "영어",
+        "ar": "아랍어",
+        "de": "독일어",
+        "es": "스페인어",
+        "fa": "페르시아어",
+        "fr": "프랑스어",
+        "hi": "힌디어",
+        "id": "인도네시아어",
+        "it": "이탈리아어",
+        "ja": "일본어",
+        "ko": "한국어",
+        "ms": "말레이어",
+        "nl": "네덜란드어",
+        "pl": "폴란드어",
+        "pt": "포르투갈어",
+        "ru": "러시아어",
+        "sw": "스와힐리어",
+        "ta": "타밀어",
+        "th": "태국어",
+        "tr": "터키어",
+        "uk": "우크라이나어",
+        "vi": "베트남어",
+        "zh": "중국어"
+      }
+    },
+    "density": {
+      "label": "밀도",
+      "accessibilityLabel": "밀도 모드 선택",
+      "hint": "간격 및 레이아웃 밀도 변경",
+      "options": {
+        "compact": "좁게",
+        "comfortable": "넓게"
+      }
+    },
+    "footerVisible": {
+      "label": "푸터 표시",
+      "accessibilityLabel": "푸터 표시 전환",
+      "hint": "레이아웃 하단 푸터 표시/숨기기 (데스크톱 전용)"
+    },
+    "sidebar": {
+      "resize": "설정 사이드바 크기 조절",
+      "menu": "설정 메뉴",
+      "menuOpen": "설정 메뉴 열기",
+      "menuClose": "설정 메뉴 닫기",
+      "groups": {
+        "general": "일반",
+        "organization": "조직",
+        "usersAndAccess": "사용자 및 접근",
+        "security": "보안"
+      }
+    },
+    "disclaimer": {
+      "title": "면책 조항",
+      "screen": {
+        "label": "면책 조항 화면"
+      },
+      "prototypeFraming": "이 앱은 참고 및 교육용 프로토타입입니다. 직접적인 임상 사용을 위한 것이 아닙니다.",
+      "datasetNotice": "데이터셋 안내",
+      "acknowledge": "확인했습니다",
+      "acknowledgeHint": "면책 조항을 읽고 이해했음을 확인합니다",
+      "states": {
+        "loading": "로딩 중…",
+        "error": "면책 조항을 불러올 수 없습니다"
+      }
+    },
+    "dataSources": {
+      "title": "데이터 소스",
+      "screen": {
+        "label": "데이터 소스 화면"
+      },
+      "datasetVersion": "데이터셋 버전",
+      "schemaVersion": "스키마 버전",
+      "lastUpdated": "마지막 업데이트",
+      "totalCases": "총 사례 수",
+      "citations": "인용",
+      "doi": "DOI",
+      "states": {
+        "loading": "로딩 중…",
+        "error": "데이터 소스를 불러올 수 없습니다",
+        "empty": "사용 가능한 소스 없음"
+      }
+    },
+    "privacy": {
+      "title": "개인정보",
+      "screen": {
+        "label": "개인정보 화면"
+      },
+      "localStorage": "로컬에 저장된 데이터",
+      "localStorageDescription": "선호 설정 및 세션 데이터는 이 기기에만 저장됩니다. 외부 서버로 전송되지 않습니다.",
+      "optionalAI": "온라인 AI 기능을 사용하는 경우 해당 요청이 설정된 서비스로 전송될 수 있습니다."
+    },
+    "about": {
+      "title": "정보",
+      "screen": {
+        "label": "정보 화면"
+      },
+      "appName": "인공호흡 의사결정 지원",
+      "version": "버전",
+      "prototypeScope": "참고 및 교육용 프로토타입입니다. 임상 사용을 위한 것이 아닙니다."
+    },
+    "onboarding": {
+      "title": "시작하기",
+      "accessibilityLabel": "시작하기 화면",
+      "steps": {
+        "inputs": {
+          "title": "입력값 입력",
+          "body": "평가에서 임상 파라미터(SpO₂, PaO₂, PaCO₂, pH, 호흡수 등)를 입력하세요. 입력이 완전할수록 권장 설정과의 일치도가 높아집니다. ABG 값이 있으면 정확도가 향상됩니다."
+        },
+        "recommendations": {
+          "title": "권장 설정 해석",
+          "body": "권장 설정은 신뢰도(높음, 중간, 낮음)와 함께 제안된 인공호흡 설정을 보여줍니다. 일치 품질은 데이터셋 사례가 입력과 얼마나 잘 맞는지 나타냅니다. 일치 사례는 참고용으로만 사용하고, 항상 임상 판단을 적용하세요."
+        },
+        "monitoring": {
+          "title": "모니터링 및 알림",
+          "body": "권장 설정을 받은 후 모니터링에서 시간에 따른 활력징후와 검사 결과를 기록하세요. 알림은 설정된 임계값을 벗어난 값을 강조합니다. 의사결정 지원용이며, 프로토콜에 따라 검토하고 조치하세요."
+        },
+        "offline": {
+          "title": "오프라인 동작",
+          "body": "핵심 워크플로(평가, 권장 설정, 모니터링)는 오프라인에서 작동합니다. 데이터는 로컬에 저장됩니다. 선택적 AI 기능은 연결이 필요합니다. 온라인으로 돌아오면 그대로 계속 사용할 수 있습니다."
+        }
+      },
+      "actions": {
+        "done": "완료",
+        "next": "다음",
+        "back": "뒤로"
+      },
+      "states": {
+        "loading": "로딩 중…"
+      }
+    },
+    "help": {
+      "title": "도움말 및 참고",
+      "accessibilityLabel": "도움말 화면",
+      "searchPlaceholder": "용어 또는 가이드 검색…",
+      "sections": {
+        "glossary": "용어집",
+        "troubleshooting": "문제 해결",
+        "guides": "다음 단계"
+      },
+      "glossary": {
+        "PEEP": "양말단 호기압(cmH₂O). 폐 용적과 산소화 유지.",
+        "FiO2": "흡입 산소 분율(0–1). 흡입 가스 내 산소 비율.",
+        "IERatio": "I:E 비. 흡기 대 호기 시간 비(예: 1:2).",
+        "tidalVolume": "호기량(mL). 호흡당 투여 용적.",
+        "respiratoryRate": "호흡수(회/분).",
+        "SpO2": "맥박 산소포화도(%).",
+        "PaO2": "동맥 산소 분압(mmHg).",
+        "PaCO2": "동맥 이산화탄소 분압(mmHg).",
+        "pH": "동맥 pH(무차원)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "ABG 값 없음",
+          "body": "ABG 없이도 권장 설정이 가능합니다. 가능하면 SpO₂ 등 활력징후를 입력하세요. 더 나은 일치를 위해 PaO₂, PaCO₂, pH를 추가하세요."
+        },
+        "offline": {
+          "title": "오프라인에서 앱 사용",
+          "body": "평가, 권장 설정, 모니터링은 오프라인에서 작동합니다. 데이터는 로컬에 저장됩니다. 선택적 AI 제안은 인터넷이 필요합니다. 핵심 워크플로에는 동기화가 필요하지 않습니다."
+        }
+      },
+      "guides": {
+        "hypoxemia": "FiO₂와 PEEP 검토; 재개압 고려; 단락 또는 V/Q 불일치 확인.",
+        "hypercapnia": "분당 환기량(호흡수 × 호기량) 검토; 프로토콜에 따른 허용성 고탄산혈증 고려.",
+        "acidosis": "환기 및 관류 조정; 프로토콜에 따라 근본 원인 교정.",
+        "general": "권장 설정은 의사결정 지원용으로만 사용하세요. 현지 프로토콜 및 임상 판단으로 검증하세요."
+      },
+      "states": {
+        "loading": "로딩 중…",
+        "empty": "결과 없음",
+        "error": "도움말을 불러올 수 없습니다"
+      }
+    },
+    "ai": {
+      "label": "AI 의사결정 지원",
+      "sectionLabel": "선택적 AI 권장 (온라인)",
+      "enableLabel": "AI 권장 사용",
+      "enableHint": "복잡한 경우에만 온라인 AI 사용; 로컬 권장 설정은 항상 사용 가능",
+      "providerLabel": "제공자",
+      "providerHint": "AI 제공자(예: OpenAI); API 키는 제공자별",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "API 키",
+      "apiKeyPlaceholder": "키 입력 (안전하게 저장됨)",
+      "apiKeySave": "키 저장",
+      "apiKeyClear": "키 지우기",
+      "keyConfigured": "키 저장됨",
+      "modelLabel": "모델",
+      "modelHint": "AI 제안에 사용되는 모델",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "로딩",
+    "offline": "오프라인",
+    "error": "오류",
+    "empty": "비어 있음",
+    "list": "목록",
+    "emptyState": {
+      "title": "항목 없음",
+      "message": "표시할 항목이 없습니다"
+    },
+    "errorState": {
+      "title": "오류",
+      "message": "오류가 발생했습니다"
+    }
+  },
+  "home": {
+    "title": "홈",
+    "welcome": {
+      "title": "환영합니다",
+      "message": "AI 인공호흡기 의사결정 지원으로 환자 평가, 인공호흡 세션 실행, 권장 설정 검토를 할 수 있습니다."
+    },
+    "overview": {
+      "title": "빠른 접근",
+      "assessment": {
+        "title": "평가",
+        "description": "환자 평가 및 인공호흡 세션을 시작하세요.",
+        "hint": "평가로 이동"
+      },
+      "history": {
+        "title": "기록",
+        "description": "과거 세션을 보고 이어서 진행하세요.",
+        "hint": "기록으로 이동"
+      },
+      "training": {
+        "title": "교육",
+        "description": "교육 주제와 체크리스트를 둘러보세요.",
+        "hint": "교육으로 이동"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "환자 평가",
+      "accessibilityLabel": "평가 마법사 화면",
+      "summary": {
+        "title": "세션 요약",
+        "accessibilityLabel": "간단한 평가 요약",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "상태",
+        "spo2": "SpO₂",
+        "respiratoryRate": "호흡수",
+        "heartRate": "심박수",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "나이",
+        "weight": "체중",
+        "height": "신장",
+        "gender": "성별",
+        "comorbidities": "동반 질환",
+        "bloodPressure": "혈압",
+        "empty": "아직 데이터 없음",
+        "expand": "요약 펼치기",
+        "collapse": "요약 접기"
+      },
+      "steps": {
+        "patientProfile": "환자 프로필",
+        "clinicalParams": "임상 파라미터",
+        "observations": "선택적 관찰",
+        "timeSeries": "선택적 시계열",
+        "review": "검토"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "천식",
+        "COPD": "COPD",
+        "heartFailure": "심부전",
+        "pneumonia": "폐렴",
+        "sepsis": "패혈증",
+        "trauma": "외상",
+        "other": "기타"
+      },
+      "patientProfile": {
+        "condition": "상태",
+        "conditionPlaceholder": "상태 선택",
+        "conditionHint": "주 호흡기 상태 (필수)",
+        "age": "나이 (세)",
+        "agePlaceholder": "나이 입력",
+        "ageHint": "환자 나이(세)",
+        "weight": "체중 (kg)",
+        "weightPlaceholder": "체중 입력",
+        "weightHint": "환자 체중(kg)",
+        "height": "신장 (cm)",
+        "heightPlaceholder": "신장 입력",
+        "heightHint": "환자 신장(cm)",
+        "gender": "성별",
+        "genderPlaceholder": "성별 선택",
+        "genderHint": "환자 성별",
+        "genderMale": "남성",
+        "genderFemale": "여성",
+        "genderOther": "기타",
+        "comorbidities": "동반 질환",
+        "comorbiditiesPlaceholder": "예: 고혈압, 당뇨",
+        "comorbiditiesHint": "쉼표로 구분"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "SpO₂ 입력",
+        "spo2Hint": "산소 포화도(%)",
+        "spo2NormalRange": "정상 범위: 95–100%",
+        "pao2": "PaO₂ (선택)",
+        "pao2Placeholder": "PaO₂ 입력",
+        "pao2Hint": "동맥 산소(mmHg)",
+        "pao2NormalRange": "정상 범위: 80–100 mmHg",
+        "paco2": "PaCO₂ (선택)",
+        "paco2Placeholder": "PaCO₂ 입력",
+        "paco2Hint": "동맥 CO₂(mmHg)",
+        "paco2NormalRange": "정상 범위: 35–45 mmHg",
+        "ph": "pH (선택)",
+        "phPlaceholder": "pH 입력",
+        "phHint": "동맥 pH",
+        "phNormalRange": "정상 범위: 7.35–7.45",
+        "respiratoryRate": "호흡수",
+        "respiratoryRatePlaceholder": "RR 입력",
+        "respiratoryRateHint": "분당 호흡 수",
+        "respiratoryRateNormalRange": "정상 범위: 12–20회/분",
+        "heartRate": "심박수",
+        "heartRatePlaceholder": "HR 입력",
+        "heartRateHint": "분당 박동 수",
+        "heartRateNormalRange": "정상 범위: 60–100 bpm",
+        "bloodPressure": "혈압 (선택)",
+        "bloodPressurePlaceholder": "예: 120/80",
+        "bloodPressureHint": "수축기/이완기 mmHg",
+        "bloodPressureNormalRange": "정상 범위: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "추가 관찰",
+        "description": "위에 포함되지 않은 추가 임상 데이터(검사, 영상, 약물, 동반 질환 점수 등)를 기록하세요. 각 관찰은 이름–값 쌍 하나입니다. 선택 사항이며 이 단계를 건너뛸 수 있습니다.",
+        "add": "관찰 추가",
+        "name": "이름",
+        "value": "값",
+        "unit": "단위",
+        "optional": "선택"
+      },
+      "timeSeries": {
+        "title": "시계열 (시간에 따른 활력징후)",
+        "description": "여러 시점(예: 0시간, 1시간, 2시간의 SpO₂, RR, HR)에서 활력징후나 기타 지표를 추적하세요. 세션 시작 후 추세 분석 및 모니터링에 사용됩니다. 선택 사항이며 모니터링 화면에서 나중에 추가할 수 있습니다.",
+        "add": "시계열 포인트 추가",
+        "name": "이름",
+        "value": "값",
+        "optional": "선택"
+      },
+      "recommendationSource": {
+        "label": "권장 설정 소스",
+        "local": "로컬 데이터셋",
+        "localDescription": "내장 데이터셋만 사용. 오프라인 작동; API 키 불필요.",
+        "onlineAi": "온라인 AI",
+        "onlineAiDescription": "API 키로 AI 보강 권장 설정과 이유를 받습니다. 연결 필요; AI 실패 시 로컬로 대체.",
+        "modelLabel": "모델",
+        "modelHint": "AI 모델 선택 (미설정 시 기본값 사용)",
+        "providerLabel": "제공자",
+        "gpt4oMini": "GPT-4o mini (기본)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "AI 권장 이유",
+        "hints": "AI 힌트"
+      },
+      "missingTests": {
+        "title": "권장 추가 검사",
+        "abgPanel": "ABG 패널이 있으면 신뢰도 향상",
+        "abgHint": "가능하면 동맥혈 가스 검사 요청 고려"
+      },
+      "actions": {
+        "back": "뒤로",
+        "next": "다음",
+        "generate": "권장 설정 생성",
+        "generateHint": "현재 입력으로 권장 설정 생성"
+      },
+      "states": {
+        "loading": "평가 로딩 중…",
+        "error": "평가를 불러올 수 없습니다",
+        "offline": "평가는 오프라인에서 작동합니다",
+        "empty": "시작하려면 환자 데이터를 입력하세요"
+      }
+    },
+    "recommendation": {
+      "title": "권장 설정",
+      "accessibilityLabel": "권장 설정 화면",
+      "sections": {
+        "settings": "권장 설정",
+        "confidence": "신뢰도 및 이유",
+        "monitoring": "모니터링 포인트",
+        "risks": "위험 및 합병증",
+        "matchedCases": "일치 사례",
+        "evidence": "근거 및 검토",
+        "warning": "데이터셋 안내"
+      },
+      "settings": {
+        "mode": "모드",
+        "tidalVolume": "호기량",
+        "respiratoryRate": "호흡수",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "I:E 비"
+      },
+      "confidence": {
+        "high": "높음",
+        "medium": "중간",
+        "low": "낮음",
+        "missingInputs": "신뢰도를 높일 수 있는 누락 입력"
+      },
+      "aiReasons": {
+        "title": "AI 권장 이유",
+        "hints": "AI 힌트 코드"
+      },
+      "actions": {
+        "startMonitoring": "모니터링 시작",
+        "startMonitoringHint": "활력징후 및 시계열 추적 시작",
+        "backToAssessment": "평가로 돌아가기",
+        "requestAiRecommendation": "AI 권장 요청",
+        "requestAiHint": "이 사례에 대한 선택적 AI 힌트 받기 (연결 필요)",
+        "connectivityRequired": "인터넷 연결 필요",
+        "supplementalDisclaimer": "AI 출력은 보조용이며 임상적으로 검증되지 않았습니다",
+        "aiUnavailableFallback": "AI 사용 불가 — 로컬 권장 설정 사용",
+        "exportSummary": "요약 내보내기",
+        "exportSummaryHint": "세션 요약을 텍스트로 다운로드",
+        "anonymizeBeforeExport": "내보내기 전 식별자 제거"
+      },
+      "states": {
+        "loading": "권장 설정 로딩 중…",
+        "error": "권장 설정을 불러올 수 없습니다",
+        "empty": "권장 설정이 없습니다. 먼저 평가를 완료하세요."
+      },
+      "intendedUse": {
+        "warningLabel": "임상적으로 검증되지 않음",
+        "validationLabel": "검증 요건"
+      },
+      "reviewStatus": {
+        "unvalidated": "미검증(프로토타입)",
+        "validated": "검증됨"
+      }
+    },
+    "monitoring": {
+      "title": "모니터링",
+      "accessibilityLabel": "모니터링 화면",
+      "decisionSupportOnly": "의사결정 지원 전용입니다. 임상 판단을 대체하지 않습니다.",
+      "sections": {
+        "quickEntry": "빠른 입력",
+        "trend": "추세",
+        "alerts": "알림"
+      },
+      "quickEntry": {
+        "addPoint": "포인트 추가",
+        "addPointHint": "활력징후 또는 검사 데이터 포인트 추가",
+        "namePlaceholder": "이름 (예: SpO₂, RR)",
+        "valuePlaceholder": "값",
+        "unitPlaceholder": "단위"
+      },
+      "trend": {
+        "insufficientData": "데이터 부족",
+        "directionUp": "상승 추세",
+        "directionDown": "하락 추세",
+        "directionFlat": "안정",
+        "directionUnknown": "알 수 없음"
+      },
+      "alerts": {
+        "severityNormal": "정상",
+        "severityWarning": "경고",
+        "severityCritical": "위험",
+        "severityUnknown": "알 수 없음",
+        "why": "이유",
+        "whyCriticalLow": "위험 하한 임계값 미만",
+        "whyWarningLow": "경고 하한 임계값 미만",
+        "whyCriticalHigh": "위험 상한 임계값 초과",
+        "whyWarningHigh": "경고 상한 임계값 초과",
+        "suggestedAction": "권장 조치",
+        "suggestedActionNormal": "모니터링 계속",
+        "suggestedActionWarning": "검토 후 개입 고려",
+        "suggestedActionCritical": "즉시 대응",
+        "suggestedActionUnknown": "값 확인 후 필요 시 재입력",
+        "empty": "알림 없음"
+      },
+      "actions": {
+        "backToRecommendation": "권장 설정으로 돌아가기"
+      },
+      "states": {
+        "loading": "로딩 중…",
+        "error": "모니터링을 불러올 수 없습니다",
+        "empty": "추세와 알림을 보려면 활력징후 또는 검사 포인트를 추가하세요.",
+        "offline": "오프라인입니다. 데이터는 로컬에 저장됩니다."
+      }
+    },
+    "history": {
+      "title": "세션 기록",
+      "accessibilityLabel": "세션 기록 화면",
+      "empty": "저장된 세션이 아직 없습니다.",
+      "corruptRecovery": "저장소 문제로 세션 기록이 초기화되었습니다. 새 세션을 시작할 수 있습니다.",
+      "actions": {
+        "resume": "이어하기",
+        "resumeHint": "이 세션 계속하기",
+        "viewDetails": "상세 보기",
+        "viewDetailsHint": "세션 요약 보기",
+        "delete": "삭제",
+        "deleteHint": "기록에서 제거"
+      },
+      "deleteConfirm": {
+        "title": "세션을 삭제할까요?",
+        "message": "이 세션이 기록에서 제거됩니다. 되돌릴 수 없습니다.",
+        "confirm": "삭제",
+        "cancel": "취소"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "상태: {{condition}}",
+        "tier": "등급: {{tier}}",
+        "summary": "요약"
+      },
+      "states": {
+        "loading": "기록 로딩 중…",
+        "error": "세션 기록을 불러올 수 없습니다"
+      }
+    },
+    "caseDetail": {
+      "title": "사례 상세",
+      "accessibilityLabel": "사례 상세 화면",
+      "summary": "사례 요약",
+      "patientProfile": "환자 프로필",
+      "clinicalParameters": "임상 파라미터",
+      "ventilatorSettings": "인공호흡기 설정",
+      "outcomes": "결과",
+      "evidence": "근거",
+      "reviewStatus": "검토 상태",
+      "intendedUseWarning": "이 데이터셋 사례는 참고용입니다. 직접적인 임상 사용을 위한 것이 아닙니다.",
+      "datasetCaseFraming": "데이터셋 사례 (참고 전용)",
+      "prototypeFraming": "프로토타입 — 임상적으로 검증되지 않음",
+      "notFound": "데이터셋에서 사례를 찾을 수 없습니다.",
+      "missingCaseId": "선택된 사례가 없습니다.",
+      "states": {
+        "loading": "사례 로딩 중…"
+      },
+      "review": {
+        "unvalidated": "미검증(프로토타입)",
+        "validated": "검증됨"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "교육",
+      "subtitle": "프로토콜, 체크리스트 및 참고 자료.",
+      "accessibilityLabel": "교육 홈 화면",
+      "searchPlaceholder": "주제 검색…",
+      "searchHint": "교육 내용 검색",
+      "topicsSection": "주제",
+      "searchResults": "검색 결과",
+      "popularTopics": "인기 주제",
+      "quickChecklists": "빠른 체크리스트",
+      "browseAll": "모든 주제 보기",
+      "browseAllHint": "모든 교육 주제 보기",
+      "viewTopic": "보기",
+      "states": {
+        "loading": "교육 로딩 중…",
+        "error": "교육 내용을 불러올 수 없습니다",
+        "offline": "오프라인에서 이용 가능",
+        "empty": "교육 내용 없음"
+      }
+    },
+    "topics": {
+      "title": "주제",
+      "accessibilityLabel": "주제 목록 화면",
+      "searchPlaceholder": "검색 또는 필터…",
+      "searchHint": "주제 검색",
+      "empty": "주제를 찾을 수 없습니다.",
+      "filterByType": "유형별 필터",
+      "typeProtocol": "프로토콜",
+      "typeChecklist": "체크리스트",
+      "typeGlossary": "용어집",
+      "typeFaq": "FAQ",
+      "openTopicHint": "주제 열기",
+      "states": {
+        "loading": "주제 로딩 중…",
+        "error": "주제를 불러올 수 없습니다",
+        "offline": "오프라인에서 이용 가능"
+      }
+    },
+    "topicDetail": {
+      "title": "주제",
+      "accessibilityLabel": "주제 상세 화면",
+      "section": "섹션",
+      "expand": "섹션 펼치기",
+      "collapse": "섹션 접기",
+      "checklistItem": "항목",
+      "notFound": "주제를 찾을 수 없습니다.",
+      "backToTopics": "주제로 돌아가기",
+      "backToTopicsHint": "주제 목록으로 돌아가기",
+      "states": {
+        "loading": "주제 로딩 중…",
+        "error": "주제를 불러올 수 없습니다"
+      }
+    }
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없음",
+    "message": "찾으시는 페이지가 없거나 이동되었습니다.",
+    "back": "뒤로 가기",
+    "backHint": "이전 페이지로 돌아가기",
+    "goHome": "홈으로",
+    "goHomeHint": "홈 페이지로 이동"
+  },
+  "error": {
+    "title": "문제가 발생했습니다",
+    "message": "예기치 않은 오류가 발생했습니다. 다시 시도하거나 홈으로 돌아가 주세요.",
+    "retry": "다시 시도",
+    "retryHint": "다시 시도",
+    "goHome": "홈으로",
+    "goHomeHint": "홈 페이지로 이동"
+  },
+  "errorState": {
+    "defaultTitle": "문제가 발생했습니다"
+  }
+}

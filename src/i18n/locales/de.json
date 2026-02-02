@@ -1,0 +1,882 @@
+{
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "search": "Suchen",
+    "submit": "Absenden",
+    "loading": "Wird geladen…",
+    "retry": "Erneut versuchen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "continue": "Fortsetzen",
+    "close": "Schließen",
+    "closeSidebarHint": "Seitenmenü schließen",
+    "select": "Auswählen",
+    "selectPlaceholder": "Auswählen…",
+    "closeSelect": "Auswahl schließen",
+    "remove": "Entfernen",
+    "goToHome": "Zur Startseite",
+    "viewNotifications": "Benachrichtigungen anzeigen",
+    "userMenu": "Benutzermenü",
+    "toggleMenu": "Menü umschalten",
+    "searchPlaceholder": "Suchen…",
+    "searchIcon": "Suchsymbol",
+    "clearSearch": "Suche löschen",
+    "on": "Ein",
+    "off": "Aus",
+    "switch": "Schalter",
+    "imageLoadError": "Bild konnte nicht geladen werden",
+    "imageDefaultAlt": "Bild",
+    "progress": "Fortschritt: {{value}}%",
+    "requiredLabel": "Pflichtfeld",
+    "clearAll": "Alle löschen",
+    "filters": "Filter",
+    "clearAllFilters": "Alle Filter löschen",
+    "loadingPlaceholder": "Ladeplatzhalter",
+    "radio": "Option",
+    "emptyState": "Leerer Zustand",
+    "message": "Nachricht",
+    "sliderValue": "Schieber: {{value}}",
+    "dropdownMenu": "Dropdown-Menü",
+    "tooltip": "Tooltip",
+    "action": "Aktion"
+  },
+  "greeting": {
+    "hello": "Hallo, {{name}}"
+  },
+  "app": {
+    "name": "KI-Beatmungs-Entscheidungsunterstützung",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Etwas ist schiefgelaufen",
+      "message": "Ein unerwarteter Fehler ist aufgetreten",
+      "retry": "Erneut versuchen",
+      "retryHint": "Nochmal versuchen"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "Ein unbekannter Fehler ist aufgetreten",
+      "NETWORK_ERROR": "Netzwerkverbindung fehlgeschlagen",
+      "UNAUTHORIZED": "Anmeldung erforderlich",
+      "FORBIDDEN": "Zugriff verweigert",
+      "SERVER_ERROR": "Serverfehler aufgetreten",
+      "ROUTE_ERROR": "Beim Laden dieser Seite ist ein Fehler aufgetreten",
+      "INVALID_CREDENTIALS": "Ungültige Anmeldedaten",
+      "MULTIPLE_TENANTS": "Mehrere Mandanten gefunden. Bitte wählen Sie einen Mandanten.",
+      "ACCOUNT_INACTIVE": "Konto ist nicht aktiv",
+      "ACCOUNT_SUSPENDED": "Konto wurde gesperrt",
+      "ACCOUNT_PENDING": "Konto wartet auf Verifizierung",
+      "PASSWORD_INCORRECT": "Aktuelles Passwort ist falsch",
+      "TOKEN_INVALID": "Ungültiges oder abgelaufenes Token",
+      "TOKEN_EXPIRED": "Token ist abgelaufen",
+      "REFRESH_TOKEN_INVALID": "Ungültiges oder abgelaufenes Aktualisierungstoken",
+      "USER_NOT_FOUND": "Benutzer nicht gefunden",
+      "USER_EXISTS": "Ein Benutzer mit dieser E-Mail existiert bereits",
+      "SESSION_NOT_FOUND": "Sitzung nicht gefunden",
+      "ALREADY_VERIFIED": "Konto ist bereits verifiziert",
+      "AI_UNAVAILABLE": "KI nicht verfügbar — lokale Empfehlungen werden verwendet",
+      "AI_TIMEOUT": "KI-Anfrage-Zeitüberschreitung",
+      "AI_UNAUTHORIZED": "KI-API-Schlüssel ungültig oder abgelaufen",
+      "AI_FORBIDDEN": "KI-Zugriff verweigert",
+      "AI_RATE_LIMIT": "KI-Ratenlimit erreicht",
+      "AI_MODEL_UNAVAILABLE": "KI-Modell nicht verfügbar",
+      "AI_MALFORMED_RESPONSE": "KI-Antwort ungültig"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "Dieses Feld ist Pflicht",
+      "invalidEmail": "Ungültiges E-Mail-Format",
+      "invalidUrl": "Ungültiges URL-Format",
+      "invalidUuid": "Ungültiges ID-Format",
+      "maxLength": "Maximal {{max}} Zeichen",
+      "invalidValue": "Ungültiger Wert"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Hauptnavigation",
+      "searchHint": "Zum Suchen tippen",
+      "cartWithItems": "Warenkorb mit {{count}} Artikeln",
+      "cartWithItems_zero": "Warenkorb",
+      "signIn": "Anmelden",
+      "profile": "Profil",
+      "orders": "Bestellungen",
+      "settings": "Einstellungen",
+      "logout": "Abmelden",
+      "hideHeader": "Kopfzeile ausblenden",
+      "showHeader": "Kopfzeile anzeigen",
+      "showMore": "Mehr anzeigen",
+      "customize": "Anpassen",
+      "overflowMenuLabel": "Weitere Kopfzeilenaktionen",
+      "customizationMenuLabel": "Kopfzeilenanpassung",
+      "actions": {
+        "notifications": "Benachrichtigungen",
+        "network": "Netzwerkstatus",
+        "database": "Datenbankstatus",
+        "fullscreen": "Vollbild umschalten"
+      }
+    },
+    "sidebar": {
+      "title": "Hauptnavigation",
+      "label": "Navigation",
+      "resize": "Navigation vergrößern/verkleinern"
+    },
+    "fullscreen": {
+      "enter": "Vollbild",
+      "exit": "Vollbild beenden"
+    },
+    "tabBar": {
+      "title": "Untere Navigation"
+    },
+    "footer": {
+      "title": "Globale Fußzeile",
+      "copyright": "© {{year}} {{appName}}. Alle Rechte vorbehalten.",
+      "supportEmail": "Support (E-Mail)",
+      "supportPhone": "Support (Telefon)",
+      "status": {
+        "title": "Anwendungsstatus",
+        "auth": "Sicheres Anmelden aktiviert",
+        "main": "Alle Systeme betriebsbereit",
+        "patient": "Patientenservices bereit"
+      },
+      "environment": "{{env}} · v{{version}} (Build: {{build}})",
+      "legal": {
+        "title": "Rechtliches und Support",
+        "terms": "AGB",
+        "privacy": "Datenschutz",
+        "support": "Support"
+      }
+    },
+    "network": {
+      "label": "Netzwerkstatus",
+      "status": {
+        "online": "Online",
+        "offline": "Offline",
+        "unstable": "Instabil",
+        "syncing": "Wird synchronisiert"
+      },
+      "database": {
+        "label": "Datenbank",
+        "connected": "Datenbank verbunden",
+        "disconnected": "Datenbank getrennt"
+      }
+    },
+    "notifications": {
+      "label": "Benachrichtigungen",
+      "menuLabel": "Benachrichtigungsmenü",
+      "empty": "Keine neuen Benachrichtigungen",
+      "viewAll": "Alle Benachrichtigungen anzeigen",
+      "items": {
+        "appointments": {
+          "title": "Anstehender Termin",
+          "meta": "Heute um 15:00 Uhr"
+        },
+        "labResults": {
+          "title": "Laborergebnisse bereit",
+          "meta": "Neue Ergebnisse verfügbar"
+        },
+        "messages": {
+          "title": "Neue Nachricht",
+          "meta": "Sie haben ungelesene Nachrichten"
+        }
+      }
+    },
+    "bottomNavigation": "Untere Navigation",
+    "mainNavigation": "Hauptnavigation",
+    "patientNavigation": "Patientennavigation",
+    "items": {
+      "main": {
+        "home": "Start",
+        "assessment": "Beurteilung",
+        "history": "Verlauf",
+        "training": "Schulung",
+        "onboarding": "Erste Schritte",
+        "settings": "Einstellungen",
+        "settings-about": "Über",
+        "settings-data-sources": "Datenquellen",
+        "settings-disclaimer": "Haftungsausschluss",
+        "settings-help": "Hilfe",
+        "settings-privacy": "Datenschutz"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Breadcrumb-Navigation",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "Zum Hauptinhalt springen"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "Systemstatus-Aktualisierungen",
+      "offline": {
+        "title": "Sie sind offline",
+        "message": "Einige Funktionen sind möglicherweise nicht verfügbar, bis die Verbindung wiederhergestellt ist.",
+        "accessibilityLabel": "Offline-Statusbenachrichtigung"
+      },
+      "lowQuality": {
+        "title": "Netzwerk ist instabil",
+        "message": "Verzögerungen oder eingeschränkte Funktionen sind möglich.",
+        "accessibilityLabel": "Benachrichtigung bei schlechter Netzwerkqualität"
+      },
+      "online": {
+        "title": "Wieder online",
+        "message": "Verbindung wiederhergestellt.",
+        "accessibilityLabel": "Online-Statusbenachrichtigung"
+      },
+      "maintenance": {
+        "title": "Geplante Wartung",
+        "message": "Einige Dienste sind vorübergehend nicht verfügbar.",
+        "accessibilityLabel": "Wartungsbenachrichtigung"
+      }
+    },
+    "loadingOverlay": {
+      "title": "Wird bearbeitet…",
+      "message": "Bitte warten Sie, während die Anfrage abgeschlossen wird."
+    },
+    "notices": {
+      "surfaceLabel": "Globale Benachrichtigungen"
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "screen": {
+      "label": "Einstellungsbildschirm"
+    },
+    "theme": {
+      "label": "Design",
+      "accessibilityLabel": "Designauswahl",
+      "hint": "Anwendungsdesign ändern",
+      "options": {
+        "system": "System",
+        "light": "Hell",
+        "dark": "Dunkel",
+        "highContrast": "Hoher Kontrast"
+      }
+    },
+    "language": {
+      "label": "Sprache",
+      "accessibilityLabel": "Sprachauswahl",
+      "hint": "Anwendungssprache ändern",
+      "options": {
+        "en": "Englisch",
+        "ar": "Arabisch",
+        "de": "Deutsch",
+        "es": "Spanisch",
+        "fa": "Persisch",
+        "fr": "Französisch",
+        "hi": "Hindi",
+        "id": "Indonesisch",
+        "it": "Italienisch",
+        "ja": "Japanisch",
+        "ko": "Koreanisch",
+        "ms": "Malaiisch",
+        "nl": "Niederländisch",
+        "pl": "Polnisch",
+        "pt": "Portugiesisch",
+        "ru": "Russisch",
+        "sw": "Swahili",
+        "ta": "Tamil",
+        "th": "Thailändisch",
+        "tr": "Türkisch",
+        "uk": "Ukrainisch",
+        "vi": "Vietnamesisch",
+        "zh": "Chinesisch"
+      }
+    },
+    "density": {
+      "label": "Dichte",
+      "accessibilityLabel": "Dichtemodus-Auswahl",
+      "hint": "Abstände und Layout-Dichte ändern",
+      "options": {
+        "compact": "Kompakt",
+        "comfortable": "Komfortabel"
+      }
+    },
+    "footerVisible": {
+      "label": "Fußzeile anzeigen",
+      "accessibilityLabel": "Fußzeilen-Sichtbarkeit umschalten",
+      "hint": "Fußzeile unten im Layout ein- oder ausblenden (nur Desktop)"
+    },
+    "sidebar": {
+      "resize": "Einstellungs-Seitenleiste vergrößern/verkleinern",
+      "menu": "Einstellungsmenü",
+      "menuOpen": "Einstellungsmenü öffnen",
+      "menuClose": "Einstellungsmenü schließen",
+      "groups": {
+        "general": "Allgemein",
+        "organization": "Organisation",
+        "usersAndAccess": "Benutzer & Zugriff",
+        "security": "Sicherheit"
+      }
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "screen": { "label": "Haftungsausschluss-Bildschirm" },
+      "prototypeFraming": "Diese App ist ein Prototyp zu Referenz- und Schulungszwecken. Sie ist nicht für den direkten klinischen Einsatz bestimmt.",
+      "datasetNotice": "Hinweis zum Datensatz",
+      "acknowledge": "Ich bestätige",
+      "acknowledgeHint": "Bestätigen Sie, dass Sie den Haftungsausschluss gelesen und verstanden haben",
+      "states": { "loading": "Wird geladen…", "error": "Haftungsausschluss konnte nicht geladen werden" }
+    },
+    "dataSources": {
+      "title": "Datenquellen",
+      "screen": { "label": "Datenquellen-Bildschirm" },
+      "datasetVersion": "Datensatzversion",
+      "schemaVersion": "Schema-Version",
+      "lastUpdated": "Zuletzt aktualisiert",
+      "totalCases": "Gesamtfälle",
+      "citations": "Zitate",
+      "doi": "DOI",
+      "states": { "loading": "Wird geladen…", "error": "Datenquellen konnten nicht geladen werden", "empty": "Keine Quellen verfügbar" }
+    },
+    "privacy": {
+      "title": "Datenschutz",
+      "screen": { "label": "Datenschutz-Bildschirm" },
+      "localStorage": "Lokal gespeicherte Daten",
+      "localStorageDescription": "Einstellungen und Sitzungsdaten werden nur auf diesem Gerät gespeichert. Nichts wird an externe Server gesendet.",
+      "optionalAI": "Wenn Online-KI-Funktionen aktiviert sind, können diese Anfragen an konfigurierte Dienste gesendet werden."
+    },
+    "about": {
+      "title": "Über",
+      "screen": { "label": "Über-Bildschirm" },
+      "appName": "Beatmungs-Entscheidungsunterstützung",
+      "version": "Version",
+      "prototypeScope": "Dies ist ein Prototyp zu Referenz- und Schulungszwecken. Nicht für den klinischen Einsatz."
+    },
+    "onboarding": {
+      "title": "Erste Schritte",
+      "accessibilityLabel": "Onboarding-Bildschirm",
+      "steps": {
+        "inputs": {
+          "title": "Eingaben erfassen",
+          "body": "Nutzen Sie die Beurteilung, um klinische Parameter einzugeben (SpO₂, PaO₂, PaCO₂, pH, Atemfrequenz usw.). Je vollständiger die Eingaben, desto besser die Empfehlungsübereinstimmung. BGA-Werte verbessern die Genauigkeit, wenn verfügbar."
+        },
+        "recommendations": {
+          "title": "Empfehlungen interpretieren",
+          "body": "Empfehlungen zeigen vorgeschlagene Beatmungseinstellungen mit einer Vertrauensstufe (hoch, mittel, niedrig). Die Übereinstimmungsqualität zeigt, wie gut Datensatzfälle zu Ihren Eingaben passen. Nutzen Sie übereinstimmende Fälle nur als Referenz — wenden Sie stets Ihre klinische Einschätzung an."
+        },
+        "monitoring": {
+          "title": "Überwachung und Alarme",
+          "body": "Nach einer Empfehlung nutzen Sie die Überwachung, um Vitalwerte und Laborergebnisse über die Zeit zu erfassen. Alarme heben Werte außerhalb der gesetzten Schwellen hervor. Dies dient nur der Entscheidungsunterstützung — prüfen und handeln Sie gemäß Ihrem Protokoll."
+        },
+        "offline": {
+          "title": "Offline-Verhalten",
+          "body": "Kernablauf (Beurteilung, Empfehlungen, Überwachung) funktioniert offline. Daten werden lokal gespeichert. Optionale KI-Funktionen benötigen eine Verbindung. Wenn Sie wieder online sind, fahren Sie normal fort."
+        }
+      },
+      "actions": { "done": "Fertig", "next": "Weiter", "back": "Zurück" },
+      "states": { "loading": "Wird geladen…" }
+    },
+    "help": {
+      "title": "Hilfe & Referenz",
+      "accessibilityLabel": "Hilfebildschirm",
+      "searchPlaceholder": "Glossar oder Anleitungen suchen…",
+      "sections": { "glossary": "Glossar", "troubleshooting": "Fehlerbehebung", "guides": "Nächste Schritte" },
+      "glossary": {
+        "PEEP": "Positiver endexspiratorischer Druck (cmH₂O). Erhält Lungenvolumen und Oxygenierung.",
+        "FiO2": "Inspiratorische Sauerstofffraktion (0–1). Anteil Sauerstoff in der Inspirationsluft.",
+        "IERatio": "I:E-Verhältnis. Inspirations- zu Exspirationszeit (z. B. 1:2).",
+        "tidalVolume": "Atemzugvolumen (mL). Pro Atemzug abgegebenes Volumen.",
+        "respiratoryRate": "Atemfrequenz (Atemzüge/min).",
+        "SpO2": "Sauerstoffsättigung per Pulsoximetrie (%).",
+        "PaO2": "Arterieller Sauerstoffpartialdruck (mmHg).",
+        "PaCO2": "Arterieller Kohlendioxidpartialdruck (mmHg).",
+        "pH": "Arterieller pH (dimensionslos)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "Fehlende BGA-Werte",
+          "body": "Empfehlungen funktionieren ohne BGA; geben Sie SpO₂ und andere Vitalwerte ein, wenn verfügbar. Für bessere Übereinstimmung PaO₂, PaCO₂ und pH ergänzen, wenn vorhanden."
+        },
+        "offline": {
+          "title": "App offline nutzen",
+          "body": "Beurteilung, Empfehlungen und Überwachung funktionieren offline. Daten werden lokal gespeichert. Optionale KI-Vorschläge benötigen Internet. Synchronisation ist für den Kernablauf nicht erforderlich."
+        }
+      },
+      "guides": {
+        "hypoxemia": "FiO₂ und PEEP prüfen; Rekrutierung erwägen; Shunt oder V/Q-Mismatch prüfen.",
+        "hypercapnia": "Minutenventilation (Frequenz × Atemzugvolumen) prüfen; permissive Hyperkapnie gemäß Protokoll erwägen.",
+        "acidosis": "Beatmung und Perfusion adressieren; Ursache gemäß Protokoll behandeln.",
+        "general": "Empfehlungen nur als Entscheidungsunterstützung nutzen. Gegen lokale Protokolle und klinische Einschätzung validieren."
+      },
+      "states": { "loading": "Wird geladen…", "empty": "Keine Ergebnisse", "error": "Hilfe konnte nicht geladen werden" }
+    },
+    "ai": {
+      "label": "KI-Entscheidungsunterstützung",
+      "sectionLabel": "Optionale KI-Empfehlung (online)",
+      "enableLabel": "KI-Empfehlungen aktivieren",
+      "enableHint": "Online-KI nur für komplexe Fälle; lokale Empfehlungen immer verfügbar",
+      "providerLabel": "Anbieter",
+      "providerHint": "KI-Anbieter (z. B. OpenAI); API-Schlüssel pro Anbieter",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "API-Schlüssel",
+      "apiKeyPlaceholder": "Schlüssel eingeben (sicher gespeichert)",
+      "apiKeySave": "Schlüssel speichern",
+      "apiKeyClear": "Schlüssel löschen",
+      "keyConfigured": "Schlüssel gespeichert",
+      "modelLabel": "Modell",
+      "modelHint": "Modell für KI-Vorschläge",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "Wird geladen",
+    "offline": "Offline",
+    "error": "Fehler",
+    "empty": "Leer",
+    "list": "Liste",
+    "emptyState": {
+      "title": "Keine Einträge",
+      "message": "Es sind keine Einträge zum Anzeigen vorhanden"
+    },
+    "errorState": {
+      "title": "Fehler",
+      "message": "Ein Fehler ist aufgetreten"
+    }
+  },
+  "home": {
+    "title": "Start",
+    "welcome": {
+      "title": "Willkommen",
+      "message": "Die KI-Beatmungs-Entscheidungsunterstützung hilft Ihnen bei der Beurteilung von Patienten, Beatmungssitzungen und der Prüfung von Empfehlungen."
+    },
+    "overview": {
+      "title": "Schnellzugriff",
+      "assessment": {
+        "title": "Beurteilung",
+        "description": "Patientenbeurteilung und Beatmungssitzung starten.",
+        "hint": "Zur Beurteilung"
+      },
+      "history": {
+        "title": "Verlauf",
+        "description": "Vergangene Sitzungen anzeigen und fortsetzen.",
+        "hint": "Zum Verlauf"
+      },
+      "training": {
+        "title": "Schulung",
+        "description": "Schulungsthemen und Checklisten durchsuchen.",
+        "hint": "Zur Schulung"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Patientenbeurteilung",
+      "accessibilityLabel": "Beurteilungs-Assistenten-Bildschirm",
+      "summary": {
+        "title": "Sitzungszusammenfassung",
+        "accessibilityLabel": "Kompakte Beurteilungszusammenfassung",
+        "vitalsFormat": "SpO₂: {{spo2}} | AF: {{rr}} | HF: {{hr}}",
+        "condition": "Erkrankung",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Atemfrequenz",
+        "heartRate": "Herzfrequenz",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Alter",
+        "weight": "Gewicht",
+        "height": "Größe",
+        "gender": "Geschlecht",
+        "comorbidities": "Begleiterkrankungen",
+        "bloodPressure": "Blutdruck",
+        "empty": "Noch keine Daten",
+        "expand": "Zusammenfassung aufklappen",
+        "collapse": "Zusammenfassung einklappen"
+      },
+      "steps": {
+        "patientProfile": "Patientenprofil",
+        "clinicalParams": "Klinische Parameter",
+        "observations": "Optionale Beobachtungen",
+        "timeSeries": "Optionale Zeitreihen",
+        "review": "Überprüfung"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "Asthma",
+        "COPD": "COPD",
+        "heartFailure": "Herzinsuffizienz",
+        "pneumonia": "Pneumonie",
+        "sepsis": "Sepsis",
+        "trauma": "Trauma",
+        "other": "Sonstige"
+      },
+      "patientProfile": {
+        "condition": "Erkrankung",
+        "conditionPlaceholder": "Erkrankung auswählen",
+        "conditionHint": "Primäre respiratorische Erkrankung (Pflicht)",
+        "age": "Alter (Jahre)",
+        "agePlaceholder": "Alter eingeben",
+        "ageHint": "Patientenalter in Jahren",
+        "weight": "Gewicht (kg)",
+        "weightPlaceholder": "Gewicht eingeben",
+        "weightHint": "Patientengewicht in kg",
+        "height": "Größe (cm)",
+        "heightPlaceholder": "Größe eingeben",
+        "heightHint": "Patientengröße in cm",
+        "gender": "Geschlecht",
+        "genderPlaceholder": "Geschlecht auswählen",
+        "genderHint": "Patientengeschlecht",
+        "genderMale": "Männlich",
+        "genderFemale": "Weiblich",
+        "genderOther": "Divers",
+        "comorbidities": "Begleiterkrankungen",
+        "comorbiditiesPlaceholder": "z. B. Hypertonie, Diabetes",
+        "comorbiditiesHint": "Kommagetrennte Liste"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "SpO₂ eingeben",
+        "spo2Hint": "Sauerstoffsättigung (%)",
+        "spo2NormalRange": "Normbereich: 95–100 %",
+        "pao2": "PaO₂ (optional)",
+        "pao2Placeholder": "PaO₂ eingeben",
+        "pao2Hint": "Arterieller Sauerstoff (mmHg)",
+        "pao2NormalRange": "Normbereich: 80–100 mmHg",
+        "paco2": "PaCO₂ (optional)",
+        "paco2Placeholder": "PaCO₂ eingeben",
+        "paco2Hint": "Arterielles CO₂ (mmHg)",
+        "paco2NormalRange": "Normbereich: 35–45 mmHg",
+        "ph": "pH (optional)",
+        "phPlaceholder": "pH eingeben",
+        "phHint": "Arterieller pH",
+        "phNormalRange": "Normbereich: 7,35–7,45",
+        "respiratoryRate": "Atemfrequenz",
+        "respiratoryRatePlaceholder": "AF eingeben",
+        "respiratoryRateHint": "Atemzüge pro Minute",
+        "respiratoryRateNormalRange": "Normbereich: 12–20 Atemzüge/min",
+        "heartRate": "Herzfrequenz",
+        "heartRatePlaceholder": "HF eingeben",
+        "heartRateHint": "Schläge pro Minute",
+        "heartRateNormalRange": "Normbereich: 60–100/min",
+        "bloodPressure": "Blutdruck (optional)",
+        "bloodPressurePlaceholder": "z. B. 120/80",
+        "bloodPressureHint": "Systolisch/diastolisch mmHg",
+        "bloodPressureNormalRange": "Normbereich: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "Zusätzliche Beobachtungen",
+        "description": "Erfassen Sie weitere klinische Daten, die oben nicht abgedeckt sind (z. B. Labor, Bildgebung, Medikamente, Komorbiditätsscores). Jede Beobachtung ist ein Name-Wert-Paar. Optional; Sie können diesen Schritt überspringen.",
+        "add": "Beobachtung hinzufügen",
+        "name": "Name",
+        "value": "Wert",
+        "unit": "Einheit",
+        "optional": "Optional"
+      },
+      "timeSeries": {
+        "title": "Zeitreihen (Vitalzeichen über Zeit)",
+        "description": "Vitalzeichen oder andere Metriken zu mehreren Zeitpunkten erfassen (z. B. SpO₂, AF, HF bei 0h, 1h, 2h). Für Trendanalyse und Überwachung nach Sitzungsstart. Optional; Punkte können später auf dem Überwachungsbildschirm ergänzt werden.",
+        "add": "Zeitreihenpunkt hinzufügen",
+        "name": "Name",
+        "value": "Wert",
+        "optional": "Optional"
+      },
+      "recommendationSource": {
+        "label": "Empfehlungsquelle",
+        "local": "Lokaler Datensatz",
+        "localDescription": "Nur den eingebauten Datensatz nutzen. Funktioniert offline; kein API-Schlüssel nötig.",
+        "onlineAi": "Online-KI",
+        "onlineAiDescription": "Mit Ihrem API-Schlüssel KI-gestützte Empfehlungen und Begründungen erhalten. Verbindung erforderlich; Fallback auf lokal bei KI-Fehler.",
+        "modelLabel": "Modell",
+        "modelHint": "KI-Modell wählen (Standard wird verwendet, wenn nicht gesetzt)",
+        "providerLabel": "Anbieter",
+        "gpt4oMini": "GPT-4o mini (Standard)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "KI-Begründung für Empfehlung",
+        "hints": "KI-Hinweise"
+      },
+      "missingTests": {
+        "title": "Vorgeschlagene Zusatzuntersuchungen",
+        "abgPanel": "BGA würde die Vertrauensstufe verbessern",
+        "abgHint": "Arterielle Blutgasanalyse erwägen, wenn verfügbar"
+      },
+      "actions": {
+        "back": "Zurück",
+        "next": "Weiter",
+        "generate": "Empfehlung erzeugen",
+        "generateHint": "Empfehlung aus aktuellen Eingaben erstellen"
+      },
+      "states": {
+        "loading": "Beurteilung wird geladen…",
+        "error": "Beurteilung konnte nicht geladen werden",
+        "offline": "Beurteilung funktioniert offline",
+        "empty": "Patientendaten eingeben, um zu starten"
+      }
+    },
+    "recommendation": {
+      "title": "Empfohlene Einstellungen",
+      "accessibilityLabel": "Empfehlungsbildschirm",
+      "sections": {
+        "settings": "Empfohlene Einstellungen",
+        "confidence": "Vertrauen & Begründung",
+        "monitoring": "Überwachungspunkte",
+        "risks": "Risiken und Komplikationen",
+        "matchedCases": "Übereinstimmende Fälle",
+        "evidence": "Evidenz & Überprüfung",
+        "warning": "Hinweis zum Datensatz"
+      },
+      "settings": {
+        "mode": "Modus",
+        "tidalVolume": "Atemzugvolumen",
+        "respiratoryRate": "Atemfrequenz",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "I:E-Verhältnis"
+      },
+      "confidence": {
+        "high": "Hoch",
+        "medium": "Mittel",
+        "low": "Niedrig",
+        "missingInputs": "Fehlende Eingaben, die das Vertrauen verbessern könnten"
+      },
+      "aiReasons": {
+        "title": "KI-Begründung für Empfehlung",
+        "hints": "KI-Hinweiscodes"
+      },
+      "actions": {
+        "startMonitoring": "Überwachung starten",
+        "startMonitoringHint": "Vitalzeichen und Zeitreihen erfassen",
+        "backToAssessment": "Zurück zur Beurteilung",
+        "requestAiRecommendation": "KI-Empfehlung anfordern",
+        "requestAiHint": "Optionale KI-Hinweise für diesen Fall (Verbindung erforderlich)",
+        "connectivityRequired": "Internetverbindung erforderlich",
+        "supplementalDisclaimer": "KI-Ausgabe ist ergänzend und nicht klinisch validiert",
+        "aiUnavailableFallback": "KI nicht verfügbar — lokale Empfehlungen werden verwendet",
+        "exportSummary": "Zusammenfassung exportieren",
+        "exportSummaryHint": "Sitzungszusammenfassung als Text herunterladen",
+        "anonymizeBeforeExport": "Kennungen vor Export entfernen"
+      },
+      "states": {
+        "loading": "Empfehlung wird geladen…",
+        "error": "Empfehlung konnte nicht geladen werden",
+        "empty": "Keine Empfehlung verfügbar. Zuerst eine Beurteilung abschließen."
+      },
+      "intendedUse": {
+        "warningLabel": "Nicht klinisch validiert",
+        "validationLabel": "Validierungsanforderung"
+      },
+      "reviewStatus": {
+        "unvalidated": "Nicht validiert (Prototyp)",
+        "validated": "Validiert"
+      }
+    },
+    "monitoring": {
+      "title": "Überwachung",
+      "accessibilityLabel": "Überwachungsbildschirm",
+      "decisionSupportOnly": "Nur zur Entscheidungsunterstützung. Kein Ersatz für die klinische Einschätzung.",
+      "sections": {
+        "quickEntry": "Schnelleingabe",
+        "trend": "Trend",
+        "alerts": "Alarme"
+      },
+      "quickEntry": {
+        "addPoint": "Punkt hinzufügen",
+        "addPointHint": "Vital- oder Labor-Datenpunkt hinzufügen",
+        "namePlaceholder": "Name (z. B. SpO₂, AF)",
+        "valuePlaceholder": "Wert",
+        "unitPlaceholder": "Einheit"
+      },
+      "trend": {
+        "insufficientData": "Unzureichende Daten",
+        "directionUp": "Steigend",
+        "directionDown": "Fallend",
+        "directionFlat": "Stabil",
+        "directionUnknown": "Unbekannt"
+      },
+      "alerts": {
+        "severityNormal": "Normal",
+        "severityWarning": "Warnung",
+        "severityCritical": "Kritisch",
+        "severityUnknown": "Unbekannt",
+        "why": "Grund",
+        "whyCriticalLow": "Wert unter kritischer Untergrenze",
+        "whyWarningLow": "Wert unter Warn-Untergrenze",
+        "whyCriticalHigh": "Wert über kritischer Obergrenze",
+        "whyWarningHigh": "Wert über Warn-Obergrenze",
+        "suggestedAction": "Vorgeschlagene Maßnahme",
+        "suggestedActionNormal": "Weiter überwachen",
+        "suggestedActionWarning": "Prüfen und Intervention erwägen",
+        "suggestedActionCritical": "Sofort handeln",
+        "suggestedActionUnknown": "Wert prüfen und ggf. erneut eingeben",
+        "empty": "Keine Alarme"
+      },
+      "actions": {
+        "backToRecommendation": "Zurück zur Empfehlung"
+      },
+      "states": {
+        "loading": "Wird geladen…",
+        "error": "Überwachung konnte nicht geladen werden",
+        "empty": "Vital- oder Laborpunkte hinzufügen, um Trends und Alarme zu sehen.",
+        "offline": "Sie sind offline. Daten werden lokal gespeichert."
+      }
+    },
+    "history": {
+      "title": "Sitzungsverlauf",
+      "accessibilityLabel": "Sitzungsverlauf-Bildschirm",
+      "empty": "Noch keine gespeicherten Sitzungen.",
+      "corruptRecovery": "Der Sitzungsverlauf wurde wegen eines Speicherproblems zurückgesetzt. Sie können neue Sitzungen starten.",
+      "actions": {
+        "resume": "Fortsetzen",
+        "resumeHint": "Diese Sitzung fortsetzen",
+        "viewDetails": "Details anzeigen",
+        "viewDetailsHint": "Sitzungszusammenfassung anzeigen",
+        "delete": "Löschen",
+        "deleteHint": "Aus Verlauf entfernen"
+      },
+      "deleteConfirm": {
+        "title": "Sitzung löschen?",
+        "message": "Diese Sitzung wird aus dem Verlauf entfernt. Dies kann nicht rückgängig gemacht werden.",
+        "confirm": "Löschen",
+        "cancel": "Abbrechen"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Erkrankung: {{condition}}",
+        "tier": "Stufe: {{tier}}",
+        "summary": "Zusammenfassung"
+      },
+      "states": {
+        "loading": "Verlauf wird geladen…",
+        "error": "Sitzungsverlauf konnte nicht geladen werden"
+      }
+    },
+    "caseDetail": {
+      "title": "Fall details",
+      "accessibilityLabel": "Fall-Detail-Bildschirm",
+      "summary": "Fallzusammenfassung",
+      "patientProfile": "Patientenprofil",
+      "clinicalParameters": "Klinische Parameter",
+      "ventilatorSettings": "Beatmunungseinstellungen",
+      "outcomes": "Outcomes",
+      "evidence": "Evidenz",
+      "reviewStatus": "Überprüfungsstatus",
+      "intendedUseWarning": "Dies ist ein Datensatzfall nur zur Referenz. Nicht für den direkten klinischen Einsatz.",
+      "datasetCaseFraming": "Datensatzfall (nur Referenz)",
+      "prototypeFraming": "Prototyp — nicht klinisch validiert",
+      "notFound": "Fall im Datensatz nicht gefunden.",
+      "missingCaseId": "Kein Fall ausgewählt.",
+      "states": {
+        "loading": "Fall wird geladen…"
+      },
+      "review": {
+        "unvalidated": "Nicht validiert (Prototyp)",
+        "validated": "Validiert"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Schulung",
+      "subtitle": "Protokolle, Checklisten und Referenz.",
+      "accessibilityLabel": "Schulungs-Startbildschirm",
+      "searchPlaceholder": "Themen suchen…",
+      "searchHint": "Schulungsinhalte suchen",
+      "topicsSection": "Themen",
+      "searchResults": "Suchergebnisse",
+      "popularTopics": "Beliebte Themen",
+      "quickChecklists": "Schnell-Checklisten",
+      "browseAll": "Alle Themen anzeigen",
+      "browseAllHint": "Alle Schulungsthemen anzeigen",
+      "viewTopic": "Anzeigen",
+      "states": {
+        "loading": "Schulung wird geladen…",
+        "error": "Schulungsinhalte konnten nicht geladen werden",
+        "offline": "Inhalte sind offline verfügbar",
+        "empty": "Keine Schulungsinhalte verfügbar"
+      }
+    },
+    "topics": {
+      "title": "Themen",
+      "accessibilityLabel": "Themenlisten-Bildschirm",
+      "searchPlaceholder": "Suchen oder filtern…",
+      "searchHint": "Themen suchen",
+      "empty": "Keine Themen gefunden.",
+      "filterByType": "Nach Typ filtern",
+      "typeProtocol": "Protokoll",
+      "typeChecklist": "Checkliste",
+      "typeGlossary": "Glossar",
+      "typeFaq": "FAQ",
+      "openTopicHint": "Thema öffnen",
+      "states": {
+        "loading": "Themen werden geladen…",
+        "error": "Themen konnten nicht geladen werden",
+        "offline": "Inhalte sind offline verfügbar"
+      }
+    },
+    "topicDetail": {
+      "title": "Thema",
+      "accessibilityLabel": "Themen-Detail-Bildschirm",
+      "section": "Abschnitt",
+      "expand": "Abschnitt aufklappen",
+      "collapse": "Abschnitt einklappen",
+      "checklistItem": "Punkt",
+      "notFound": "Thema nicht gefunden.",
+      "backToTopics": "Zurück zu Themen",
+      "backToTopicsHint": "Zur Themenliste zurück",
+      "states": {
+        "loading": "Thema wird geladen…",
+        "error": "Thema konnte nicht geladen werden"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "back": "Zurück",
+    "backHint": "Zur vorherigen Seite zurück",
+    "goHome": "Zur Startseite",
+    "goHomeHint": "Zur Startseite navigieren"
+  },
+  "error": {
+    "title": "Etwas ist schiefgelaufen",
+    "message": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kehren Sie zur Startseite zurück.",
+    "retry": "Erneut versuchen",
+    "retryHint": "Aktion erneut ausführen",
+    "goHome": "Zur Startseite",
+    "goHomeHint": "Zur Startseite navigieren"
+  },
+  "errorState": {
+    "defaultTitle": "Etwas ist schiefgelaufen"
+  }
+}

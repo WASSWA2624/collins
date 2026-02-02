@@ -13,6 +13,7 @@ import {
   StyledActivityIndicator,
 } from '@platform/layouts/common/RootLayoutStyles';
 import ThemeProviderWrapper from '@platform/layouts/common/ThemeProviderWrapper';
+import RTLDirectionSync from '@platform/layouts/common/RTLDirectionSync';
 
 /**
  * Root Layout Component
@@ -110,13 +111,15 @@ const RootLayout = () => {
   // Bootstrap completed successfully, render providers
   const persistor = store?.persistor;
   const appContent = (
-    <ThemeProviderWrapper>
-      <I18nProvider>
-        <StyledRootContainer>
-          <Slot />
-        </StyledRootContainer>
-      </I18nProvider>
-    </ThemeProviderWrapper>
+    <RTLDirectionSync>
+      <ThemeProviderWrapper>
+        <I18nProvider>
+          <StyledRootContainer>
+            <Slot />
+          </StyledRootContainer>
+        </I18nProvider>
+      </ThemeProviderWrapper>
+    </RTLDirectionSync>
   );
 
   return (

@@ -1,0 +1,882 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث",
+    "submit": "إرسال",
+    "loading": "جاري التحميل…",
+    "retry": "إعادة المحاولة",
+    "back": "رجوع",
+    "next": "التالي",
+    "continue": "متابعة",
+    "close": "إغلاق",
+    "closeSidebarHint": "إغلاق قائمة الشريط الجانبي",
+    "select": "اختيار",
+    "selectPlaceholder": "اختر…",
+    "closeSelect": "إغلاق الاختيار",
+    "remove": "إزالة",
+    "goToHome": "الذهاب إلى الرئيسية",
+    "viewNotifications": "عرض الإشعارات",
+    "userMenu": "قائمة المستخدم",
+    "toggleMenu": "تبديل القائمة",
+    "searchPlaceholder": "بحث…",
+    "searchIcon": "أيقونة البحث",
+    "clearSearch": "مسح البحث",
+    "on": "تشغيل",
+    "off": "إيقاف",
+    "switch": "مفتاح",
+    "imageLoadError": "فشل تحميل الصورة",
+    "imageDefaultAlt": "صورة",
+    "progress": "التقدم: {{value}}٪",
+    "requiredLabel": "مطلوب",
+    "clearAll": "مسح الكل",
+    "filters": "الفلاتر",
+    "clearAllFilters": "مسح كل الفلاتر",
+    "loadingPlaceholder": "نص بديل للتحميل",
+    "radio": "زر راديو",
+    "emptyState": "لا توجد عناصر",
+    "message": "رسالة",
+    "sliderValue": "شريط التمرير: {{value}}",
+    "dropdownMenu": "قائمة منسدلة",
+    "tooltip": "تلميح",
+    "action": "إجراء"
+  },
+  "greeting": {
+    "hello": "مرحباً، {{name}}"
+  },
+  "app": {
+    "name": "دعم قرار جهاز التنفس الاصطناعي بالذكاء الاصطناعي",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "حدث خطأ ما",
+      "message": "حدث خطأ غير متوقع",
+      "retry": "إعادة المحاولة",
+      "retryHint": "حاول مرة أخرى"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "حدث خطأ غير معروف",
+      "NETWORK_ERROR": "فشل الاتصال بالشبكة",
+      "UNAUTHORIZED": "مطلوب تسجيل الدخول",
+      "FORBIDDEN": "الوصول مرفوض",
+      "SERVER_ERROR": "حدث خطأ في الخادم",
+      "ROUTE_ERROR": "حدث خطأ أثناء تحميل هذه الصفحة",
+      "INVALID_CREDENTIALS": "بيانات الاعتماد غير صالحة",
+      "MULTIPLE_TENANTS": "تم العثور على عدة مستأجرين. يرجى اختيار مستأجر.",
+      "ACCOUNT_INACTIVE": "الحساب غير نشط",
+      "ACCOUNT_SUSPENDED": "تم تعليق الحساب",
+      "ACCOUNT_PENDING": "الحساب قيد التحقق",
+      "PASSWORD_INCORRECT": "كلمة المرور الحالية غير صحيحة",
+      "TOKEN_INVALID": "رمز غير صالح أو منتهي الصلاحية",
+      "TOKEN_EXPIRED": "انتهت صلاحية الرمز",
+      "REFRESH_TOKEN_INVALID": "رمز التحديث غير صالح أو منتهي الصلاحية",
+      "USER_NOT_FOUND": "المستخدم غير موجود",
+      "USER_EXISTS": "يوجد مستخدم بهذا البريد الإلكتروني مسبقاً",
+      "SESSION_NOT_FOUND": "الجلسة غير موجودة",
+      "ALREADY_VERIFIED": "الحساب مُتحقق منه مسبقاً",
+      "AI_UNAVAILABLE": "الذكاء الاصطناعي غير متاح — جاري استخدام التوصيات المحلية",
+      "AI_TIMEOUT": "انتهت مهلة طلب الذكاء الاصطناعي",
+      "AI_UNAUTHORIZED": "مفتاح واجهة الذكاء الاصطناعي غير صالح أو منتهي",
+      "AI_FORBIDDEN": "الوصول إلى الذكاء الاصطناعي مرفوض",
+      "AI_RATE_LIMIT": "تم الوصول إلى حد معدل الذكاء الاصطناعي",
+      "AI_MODEL_UNAVAILABLE": "نموذج الذكاء الاصطناعي غير متاح",
+      "AI_MALFORMED_RESPONSE": "استجابة الذكاء الاصطناعي غير صالحة"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "invalidEmail": "تنسيق البريد الإلكتروني غير صالح",
+      "invalidUrl": "تنسيق الرابط غير صالح",
+      "invalidUuid": "تنسيق المعرّف غير صالح",
+      "maxLength": "الحد الأقصى {{max}} حرفاً",
+      "invalidValue": "قيمة غير صالحة"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "رأس التنقل الرئيسي",
+      "searchHint": "اكتب للبحث",
+      "cartWithItems": "سلة تحتوي على {{count}} عناصر",
+      "cartWithItems_zero": "السلة",
+      "signIn": "تسجيل الدخول",
+      "profile": "الملف الشخصي",
+      "orders": "الطلبات",
+      "settings": "الإعدادات",
+      "logout": "تسجيل الخروج",
+      "hideHeader": "إخفاء الرأس",
+      "showHeader": "إظهار الرأس",
+      "showMore": "عرض المزيد",
+      "customize": "تخصيص",
+      "overflowMenuLabel": "المزيد من إجراءات الرأس",
+      "customizationMenuLabel": "تخصيص الرأس",
+      "actions": {
+        "notifications": "الإشعارات",
+        "network": "حالة الشبكة",
+        "database": "حالة قاعدة البيانات",
+        "fullscreen": "تبديل ملء الشاشة"
+      }
+    },
+    "sidebar": {
+      "title": "التنقل الرئيسي",
+      "label": "التنقل",
+      "resize": "تغيير حجم التنقل"
+    },
+    "fullscreen": {
+      "enter": "ملء الشاشة",
+      "exit": "الخروج من ملء الشاشة"
+    },
+    "tabBar": {
+      "title": "التنقل السفلي"
+    },
+    "footer": {
+      "title": "التذييل العام",
+      "copyright": "© {{year}} {{appName}}. جميع الحقوق محفوظة.",
+      "supportEmail": "الدعم (بريد إلكتروني)",
+      "supportPhone": "الدعم (هاتف)",
+      "status": {
+        "title": "حالة التطبيق",
+        "auth": "تسجيل الدخول الآمن مفعّل",
+        "main": "جميع الأنظمة تعمل",
+        "patient": "خدمات المريض جاهزة"
+      },
+      "environment": "{{env}} · الإصدار {{version}} (بناء: {{build}})",
+      "legal": {
+        "title": "القانوني والدعم",
+        "terms": "الشروط",
+        "privacy": "الخصوصية",
+        "support": "الدعم"
+      }
+    },
+    "network": {
+      "label": "حالة الشبكة",
+      "status": {
+        "online": "متصل",
+        "offline": "غير متصل",
+        "unstable": "غير مستقر",
+        "syncing": "جاري المزامنة"
+      },
+      "database": {
+        "label": "قاعدة البيانات",
+        "connected": "قاعدة البيانات متصلة",
+        "disconnected": "قاعدة البيانات غير متصلة"
+      }
+    },
+    "notifications": {
+      "label": "الإشعارات",
+      "menuLabel": "قائمة الإشعارات",
+      "empty": "لا توجد إشعارات جديدة",
+      "viewAll": "عرض كل الإشعارات",
+      "items": {
+        "appointments": {
+          "title": "موعد قادم",
+          "meta": "اليوم الساعة 3:00 م"
+        },
+        "labResults": {
+          "title": "نتائج المختبر جاهزة",
+          "meta": "نتائج جديدة متاحة"
+        },
+        "messages": {
+          "title": "رسالة جديدة",
+          "meta": "لديك رسائل غير مقروءة"
+        }
+      }
+    },
+    "bottomNavigation": "التنقل السفلي",
+    "mainNavigation": "التنقل الرئيسي",
+    "patientNavigation": "تنقل المريض",
+    "items": {
+      "main": {
+        "home": "الرئيسية",
+        "assessment": "التقييم",
+        "history": "السجل",
+        "training": "التدريب",
+        "onboarding": "البدء",
+        "settings": "الإعدادات",
+        "settings-about": "حول",
+        "settings-data-sources": "مصادر البيانات",
+        "settings-disclaimer": "إخلاء المسؤولية",
+        "settings-help": "المساعدة",
+        "settings-privacy": "الخصوصية"
+      }
+    },
+    "breadcrumbs": {
+      "title": "تنقل مسار التنقل",
+      "label": "مسار التنقل"
+    },
+    "skipToMainContent": "الانتقال إلى المحتوى الرئيسي"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "تحديثات حالة النظام",
+      "offline": {
+        "title": "أنت غير متصل",
+        "message": "قد تكون بعض الميزات غير متاحة حتى يتم استعادة الاتصال.",
+        "accessibilityLabel": "إشعار حالة عدم الاتصال"
+      },
+      "lowQuality": {
+        "title": "الشبكة غير مستقرة",
+        "message": "قد تواجه تأخيرات أو وظائف محدودة.",
+        "accessibilityLabel": "إشعار جودة الشبكة المنخفضة"
+      },
+      "online": {
+        "title": "العودة للاتصال",
+        "message": "تم استعادة الاتصال.",
+        "accessibilityLabel": "إشعار حالة الاتصال"
+      },
+      "maintenance": {
+        "title": "صيانة مجدولة",
+        "message": "قد تكون بعض الخدمات غير متاحة مؤقتاً.",
+        "accessibilityLabel": "إشعار الصيانة"
+      }
+    },
+    "loadingOverlay": {
+      "title": "جاري المعالجة…",
+      "message": "يرجى الانتظار حتى نكمل الطلب."
+    },
+    "notices": {
+      "surfaceLabel": "الإشعارات العامة"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "screen": {
+      "label": "شاشة الإعدادات"
+    },
+    "theme": {
+      "label": "المظهر",
+      "accessibilityLabel": "محدد المظهر",
+      "hint": "تغيير مظهر التطبيق",
+      "options": {
+        "system": "النظام",
+        "light": "فاتح",
+        "dark": "داكن",
+        "highContrast": "تباين عالٍ"
+      }
+    },
+    "language": {
+      "label": "اللغة",
+      "accessibilityLabel": "محدد اللغة",
+      "hint": "تغيير لغة التطبيق",
+      "options": {
+        "en": "الإنجليزية",
+        "ar": "العربية",
+        "de": "الألمانية",
+        "es": "الإسبانية",
+        "fa": "الفارسية",
+        "fr": "الفرنسية",
+        "hi": "الهندية",
+        "id": "الإندونيسية",
+        "it": "الإيطالية",
+        "ja": "اليابانية",
+        "ko": "الكورية",
+        "ms": "الملايوية",
+        "nl": "الهولندية",
+        "pl": "البولندية",
+        "pt": "البرتغالية",
+        "ru": "الروسية",
+        "sw": "السواحيلية",
+        "ta": "التاميلية",
+        "th": "التايلاندية",
+        "tr": "التركية",
+        "uk": "الأوكرانية",
+        "vi": "الفيتنامية",
+        "zh": "الصينية"
+      }
+    },
+    "density": {
+      "label": "الكثافة",
+      "accessibilityLabel": "محدد وضع الكثافة",
+      "hint": "تغيير المسافات وكثافة التخطيط",
+      "options": {
+        "compact": "مضغوط",
+        "comfortable": "مريح"
+      }
+    },
+    "footerVisible": {
+      "label": "إظهار التذييل",
+      "accessibilityLabel": "تبديل إظهار التذييل",
+      "hint": "إظهار أو إخفاء التذييل أسفل التخطيط (سطح المكتب فقط)"
+    },
+    "sidebar": {
+      "resize": "تغيير حجم شريط الإعدادات الجانبي",
+      "menu": "قائمة الإعدادات",
+      "menuOpen": "فتح قائمة الإعدادات",
+      "menuClose": "إغلاق قائمة الإعدادات",
+      "groups": {
+        "general": "عام",
+        "organization": "المؤسسة",
+        "usersAndAccess": "المستخدمون والوصول",
+        "security": "الأمان"
+      }
+    },
+    "disclaimer": {
+      "title": "إخلاء المسؤولية",
+      "screen": { "label": "شاشة إخلاء المسؤولية" },
+      "prototypeFraming": "هذا التطبيق نموذج للمرجعية والتدريب. لا يُقصد به الاستخدام السريري المباشر.",
+      "datasetNotice": "إشعار مجموعة البيانات",
+      "acknowledge": "أقر بأنني",
+      "acknowledgeHint": "تأكيد قراءة وفهم إخلاء المسؤولية",
+      "states": { "loading": "جاري التحميل…", "error": "تعذر تحميل إخلاء المسؤولية" }
+    },
+    "dataSources": {
+      "title": "مصادر البيانات",
+      "screen": { "label": "شاشة مصادر البيانات" },
+      "datasetVersion": "إصدار مجموعة البيانات",
+      "schemaVersion": "إصدار المخطط",
+      "lastUpdated": "آخر تحديث",
+      "totalCases": "إجمالي الحالات",
+      "citations": "المراجع",
+      "doi": "معرّف DOI",
+      "states": { "loading": "جاري التحميل…", "error": "تعذر تحميل مصادر البيانات", "empty": "لا توجد مصادر متاحة" }
+    },
+    "privacy": {
+      "title": "الخصوصية",
+      "screen": { "label": "شاشة الخصوصية" },
+      "localStorage": "البيانات مخزنة محلياً",
+      "localStorageDescription": "يتم تخزين التفضيلات وبيانات الجلسة على هذا الجهاز فقط. لا يُرسل شيء إلى خوادم خارجية.",
+      "optionalAI": "إذا تم تفعيل ميزات الذكاء الاصطناعي عبر الإنترنت، فقد تُرسل تلك الطلبات إلى الخدمات المُكوّنة."
+    },
+    "about": {
+      "title": "حول",
+      "screen": { "label": "شاشة حول" },
+      "appName": "دعم قرار التهوية",
+      "version": "الإصدار",
+      "prototypeScope": "هذا نموذج للمرجعية والتدريب. ليس للاستخدام السريري."
+    },
+    "onboarding": {
+      "title": "البدء",
+      "accessibilityLabel": "شاشة البدء",
+      "steps": {
+        "inputs": {
+          "title": "إدخال المدخلات",
+          "body": "استخدم التقييم لإدخال المعلمات السريرية (SpO₂، PaO₂، PaCO₂، الرقم الهيدروجيني، معدل التنفس، إلخ). كلما كانت المدخلات أكثر اكتمالاً، كان تطابق التوصية أفضل. قيم غازات الدم الشريانية تحسّن الدقة عند توفرها."
+        },
+        "recommendations": {
+          "title": "تفسير التوصيات",
+          "body": "تعرض التوصيات إعدادات جهاز التنفس المقترحة مع مستوى ثقة (عالي، متوسط، منخفض). تعكس جودة التطابق مدى توافق حالات مجموعة البيانات مع مدخلاتك. استخدم الحالات المطابقة كمرجع فقط — طبّق دائماً الحكم السريري."
+        },
+        "monitoring": {
+          "title": "المراقبة والتنبيهات",
+          "body": "بعد الحصول على توصية، استخدم المراقبة لتسجيل العلامات الحيوية والتحاليل بمرور الوقت. تسلط التنبيهات الضوء على القيم خارج العتبات المحددة. هذا لدعم القرار فقط — راجع وتصرف وفق بروتوكولك."
+        },
+        "offline": {
+          "title": "السلوك دون اتصال",
+          "body": "سير العمل الأساسي (التقييم، التوصيات، المراقبة) يعمل دون اتصال. تُحفظ البيانات محلياً. ميزات الذكاء الاصطناعي الاختيارية تتطلب الاتصال. عند العودة للاتصال، تابع كالمعتاد."
+        }
+      },
+      "actions": { "done": "تم", "next": "التالي", "back": "رجوع" },
+      "states": { "loading": "جاري التحميل…" }
+    },
+    "help": {
+      "title": "المساعدة والمرجع",
+      "accessibilityLabel": "شاشة المساعدة",
+      "searchPlaceholder": "بحث في المسرد أو الأدلة…",
+      "sections": { "glossary": "المسرد", "troubleshooting": "استكشاف الأخطاء", "guides": "ما الذي تفعله بعد ذلك" },
+      "glossary": {
+        "PEEP": "ضغط نهاية الزفير الموجب (سم ماء). يحافظ على حجم الرئة والأكسجة.",
+        "FiO2": "جزء الأكسجين المستنشق (0–1). نسبة الأكسجين في الغاز المستنشق.",
+        "IERatio": "نسبة I:E. نسبة زمن الشهيق إلى الزفير (مثلاً 1:2).",
+        "tidalVolume": "الحجم المداري (مل). الحجم المُسلّم في كل نفس.",
+        "respiratoryRate": "معدل التنفس (نفس/دقيقة).",
+        "SpO2": "تشبع الأكسجين بمقياس التأكسج النبضي (٪).",
+        "PaO2": "الضغط الجزئي لأكسجين الدم الشرياني (ملم زئبق).",
+        "PaCO2": "الضغط الجزئي لثاني أكسيد الكربون الشرياني (ملم زئبق).",
+        "pH": "الرقم الهيدروجيني الشرياني (بدون وحدة)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "قيم غازات الدم الشريانية مفقودة",
+          "body": "التوصيات تعمل بدون غازات الدم؛ أدخل SpO₂ والعلامات الحيوية الأخرى عند التوفر. لتطابق أفضل، أضف PaO₂ وPaCO₂ والرقم الهيدروجيني عند توفرها."
+        },
+        "offline": {
+          "title": "استخدام التطبيق دون اتصال",
+          "body": "التقييم والتوصيات والمراقبة تعمل دون اتصال. تُخزن البيانات محلياً. اقتراحات الذكاء الاصطناعي الاختيارية تتطلب الإنترنت. المزامنة غير مطلوبة لسير العمل الأساسي."
+        }
+      },
+      "guides": {
+        "hypoxemia": "راجع FiO₂ وPEEP؛ فكّر في التجنيد؛ تحقق من التحويلة أو عدم تطابق V/Q.",
+        "hypercapnia": "راجع التهوية الدقيقة (المعدل × الحجم المداري)؛ فكّر في فرط ثاني أكسيد الكربون المسموح وفق البروتوكول.",
+        "acidosis": "عالج التهوية والإرواء؛ صحح السبب الكامن وفق البروتوكول.",
+        "general": "استخدم التوصيات كدعم قرار فقط. تحقق منها مقابل البروتوكولات المحلية والحكم السريري."
+      },
+      "states": { "loading": "جاري التحميل…", "empty": "لا توجد نتائج", "error": "تعذر تحميل المساعدة" }
+    },
+    "ai": {
+      "label": "دعم قرار الذكاء الاصطناعي",
+      "sectionLabel": "توصية الذكاء الاصطناعي الاختيارية (عبر الإنترنت)",
+      "enableLabel": "تفعيل توصيات الذكاء الاصطناعي",
+      "enableHint": "استخدم الذكاء الاصطناعي عبر الإنترنت للحالات المعقدة فقط؛ التوصيات المحلية متاحة دائماً",
+      "providerLabel": "المزود",
+      "providerHint": "مزود الذكاء الاصطناعي (مثلاً OpenAI)؛ مفتاح الواجهة لكل مزود",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "مفتاح الواجهة",
+      "apiKeyPlaceholder": "أدخل المفتاح (يُخزن بشكل آمن)",
+      "apiKeySave": "حفظ المفتاح",
+      "apiKeyClear": "مسح المفتاح",
+      "keyConfigured": "تم حفظ المفتاح",
+      "modelLabel": "النموذج",
+      "modelHint": "النموذج المستخدم لاقتراحات الذكاء الاصطناعي",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "جاري التحميل",
+    "offline": "غير متصل",
+    "error": "خطأ",
+    "empty": "فارغ",
+    "list": "قائمة",
+    "emptyState": {
+      "title": "لا توجد عناصر",
+      "message": "لا توجد عناصر لعرضها"
+    },
+    "errorState": {
+      "title": "خطأ",
+      "message": "حدث خطأ"
+    }
+  },
+  "home": {
+    "title": "الرئيسية",
+    "welcome": {
+      "title": "مرحباً",
+      "message": "دعم قرار جهاز التنفس الاصطناعي بالذكاء الاصطناعي يساعدك على تقييم المرضى وتشغيل جلسات التهوية ومراجعة التوصيات."
+    },
+    "overview": {
+      "title": "وصول سريع",
+      "assessment": {
+        "title": "التقييم",
+        "description": "ابدأ تقييم مريض وجلسة تهوية.",
+        "hint": "الذهاب إلى التقييم"
+      },
+      "history": {
+        "title": "السجل",
+        "description": "عرض واستئناف الجلسات السابقة.",
+        "hint": "الذهاب إلى السجل"
+      },
+      "training": {
+        "title": "التدريب",
+        "description": "تصفح مواضيع التدريب وقوائم التحقق.",
+        "hint": "الذهاب إلى التدريب"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "تقييم المريض",
+      "accessibilityLabel": "شاشة معالج التقييم",
+      "summary": {
+        "title": "ملخص الجلسة",
+        "accessibilityLabel": "ملخص التقييم المختصر",
+        "vitalsFormat": "SpO₂: {{spo2}} | معدل التنفس: {{rr}} | معدل النبض: {{hr}}",
+        "condition": "الحالة",
+        "spo2": "SpO₂",
+        "respiratoryRate": "معدل التنفس",
+        "heartRate": "معدل النبض",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "الرقم الهيدروجيني",
+        "age": "العمر",
+        "weight": "الوزن",
+        "height": "الطول",
+        "gender": "الجنس",
+        "comorbidities": "الأمراض المصاحبة",
+        "bloodPressure": "ضغط الدم",
+        "empty": "لا توجد بيانات بعد",
+        "expand": "توسيع الملخص",
+        "collapse": "طي الملخص"
+      },
+      "steps": {
+        "patientProfile": "الملف الشخصي للمريض",
+        "clinicalParams": "المعاملات السريرية",
+        "observations": "الملاحظات الاختيارية",
+        "timeSeries": "السلاسل الزمنية الاختيارية",
+        "review": "المراجعة"
+      },
+      "conditions": {
+        "ARDS": "متلازمة الضائقة التنفسية الحادة",
+        "asthma": "الربو",
+        "COPD": "مرض الانسداد الرئوي المزمن",
+        "heartFailure": "فشل القلب",
+        "pneumonia": "الالتهاب الرئوي",
+        "sepsis": "الإنتان",
+        "trauma": "الصدمة",
+        "other": "أخرى"
+      },
+      "patientProfile": {
+        "condition": "الحالة",
+        "conditionPlaceholder": "اختر الحالة",
+        "conditionHint": "الحالة التنفسية الأساسية (مطلوب)",
+        "age": "العمر (بالسنوات)",
+        "agePlaceholder": "أدخل العمر",
+        "ageHint": "عمر المريض بالسنوات",
+        "weight": "الوزن (كغ)",
+        "weightPlaceholder": "أدخل الوزن",
+        "weightHint": "وزن المريض بالكيلوغرام",
+        "height": "الطول (سم)",
+        "heightPlaceholder": "أدخل الطول",
+        "heightHint": "طول المريض بالسنتيمتر",
+        "gender": "الجنس",
+        "genderPlaceholder": "اختر الجنس",
+        "genderHint": "جنس المريض",
+        "genderMale": "ذكر",
+        "genderFemale": "أنثى",
+        "genderOther": "أخرى",
+        "comorbidities": "الأمراض المصاحبة",
+        "comorbiditiesPlaceholder": "مثلاً ارتفاع ضغط الدم، السكري",
+        "comorbiditiesHint": "قائمة مفصولة بفواصل"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "أدخل SpO₂",
+        "spo2Hint": "تشبع الأكسجين (٪)",
+        "spo2NormalRange": "المدى الطبيعي: 95–100٪",
+        "pao2": "PaO₂ (اختياري)",
+        "pao2Placeholder": "أدخل PaO₂",
+        "pao2Hint": "أكسجين الدم الشرياني (ملم زئبق)",
+        "pao2NormalRange": "المدى الطبيعي: 80–100 ملم زئبق",
+        "paco2": "PaCO₂ (اختياري)",
+        "paco2Placeholder": "أدخل PaCO₂",
+        "paco2Hint": "ثاني أكسيد الكربون الشرياني (ملم زئبق)",
+        "paco2NormalRange": "المدى الطبيعي: 35–45 ملم زئبق",
+        "ph": "الرقم الهيدروجيني (اختياري)",
+        "phPlaceholder": "أدخل الرقم الهيدروجيني",
+        "phHint": "الرقم الهيدروجيني الشرياني",
+        "phNormalRange": "المدى الطبيعي: 7.35–7.45",
+        "respiratoryRate": "معدل التنفس",
+        "respiratoryRatePlaceholder": "أدخل معدل التنفس",
+        "respiratoryRateHint": "نفس في الدقيقة",
+        "respiratoryRateNormalRange": "المدى الطبيعي: 12–20 نفس/دقيقة",
+        "heartRate": "معدل النبض",
+        "heartRatePlaceholder": "أدخل معدل النبض",
+        "heartRateHint": "نبضة في الدقيقة",
+        "heartRateNormalRange": "المدى الطبيعي: 60–100 نبضة/دقيقة",
+        "bloodPressure": "ضغط الدم (اختياري)",
+        "bloodPressurePlaceholder": "مثلاً 120/80",
+        "bloodPressureHint": "انقباضي/انبساطي ملم زئبق",
+        "bloodPressureNormalRange": "المدى الطبيعي: 90–120 / 60–80 ملم زئبق"
+      },
+      "observations": {
+        "title": "ملاحظات إضافية",
+        "description": "سجّل أي بيانات سريرية إضافية غير مغطاة أعلاه (مثلاً التحاليل، التصوير، الأدوية، درجات الأمراض المصاحبة). كل ملاحظة زوج اسم–قيمة واحد. اختياري؛ يمكنك تخطي هذه الخطوة.",
+        "add": "إضافة ملاحظة",
+        "name": "الاسم",
+        "value": "القيمة",
+        "unit": "الوحدة",
+        "optional": "اختياري"
+      },
+      "timeSeries": {
+        "title": "السلاسل الزمنية (العلامات الحيوية بمرور الوقت)",
+        "description": "تتبع العلامات الحيوية أو المقاييس الأخرى عند نقاط زمنية متعددة (مثلاً SpO₂، معدل التنفس، معدل النبض عند 0س، 1س، 2س). تُستخدم لتحليل الاتجاه والمراقبة بعد بدء الجلسة. اختياري؛ يمكنك إضافة نقاط لاحقاً على شاشة المراقبة.",
+        "add": "إضافة نقطة سلسلة زمنية",
+        "name": "الاسم",
+        "value": "القيمة",
+        "optional": "اختياري"
+      },
+      "recommendationSource": {
+        "label": "مصدر التوصية",
+        "local": "مجموعة البيانات المحلية",
+        "localDescription": "استخدم مجموعة البيانات المدمجة فقط. يعمل دون اتصال؛ لا يلزم مفتاح واجهة.",
+        "onlineAi": "الذكاء الاصطناعي عبر الإنترنت",
+        "onlineAiDescription": "استخدم مفتاح واجهتك للحصول على توصيات وأسباب معززة بالذكاء الاصطناعي. يتطلب الاتصال؛ يعود إلى المحلي إذا فشل الذكاء الاصطناعي.",
+        "modelLabel": "النموذج",
+        "modelHint": "اختر نموذج الذكاء الاصطناعي (يُستخدم الافتراضي إن لم يُحدد)",
+        "providerLabel": "المزود",
+        "gpt4oMini": "GPT-4o mini (افتراضي)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "أسباب الذكاء الاصطناعي للتوصية",
+        "hints": "تلميحات الذكاء الاصطناعي"
+      },
+      "missingTests": {
+        "title": "تحاليل إضافية مقترحة",
+        "abgPanel": "لوحة غازات الدم الشريانية ستُحسّن الثقة",
+        "abgHint": "فكّر في طلب غازات الدم الشريانية إن توفرت"
+      },
+      "actions": {
+        "back": "رجوع",
+        "next": "التالي",
+        "generate": "إنشاء التوصية",
+        "generateHint": "إنشاء توصية من المدخلات الحالية"
+      },
+      "states": {
+        "loading": "جاري تحميل التقييم…",
+        "error": "تعذر تحميل التقييم",
+        "offline": "التقييم يعمل دون اتصال",
+        "empty": "أدخل بيانات المريض للبدء"
+      }
+    },
+    "recommendation": {
+      "title": "الإعدادات الموصى بها",
+      "accessibilityLabel": "شاشة التوصية",
+      "sections": {
+        "settings": "الإعدادات الموصى بها",
+        "confidence": "الثقة والسبب",
+        "monitoring": "نقاط المراقبة",
+        "risks": "المخاطر والمضاعفات",
+        "matchedCases": "الحالات المطابقة",
+        "evidence": "الأدلة والمراجعة",
+        "warning": "إشعار مجموعة البيانات"
+      },
+      "settings": {
+        "mode": "الوضع",
+        "tidalVolume": "الحجم المداري",
+        "respiratoryRate": "معدل التنفس",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "نسبة I:E"
+      },
+      "confidence": {
+        "high": "عالي",
+        "medium": "متوسط",
+        "low": "منخفض",
+        "missingInputs": "مدخلات مفقودة يمكن أن تحسّن الثقة"
+      },
+      "aiReasons": {
+        "title": "أسباب الذكاء الاصطناعي للتوصية",
+        "hints": "رموز تلميحات الذكاء الاصطناعي"
+      },
+      "actions": {
+        "startMonitoring": "بدء المراقبة",
+        "startMonitoringHint": "بدء تتبع العلامات الحيوية والسلاسل الزمنية",
+        "backToAssessment": "العودة إلى التقييم",
+        "requestAiRecommendation": "طلب توصية الذكاء الاصطناعي",
+        "requestAiHint": "الحصول على تلميحات ذكاء اصطناعي اختيارية لهذه الحالة (يتطلب الاتصال)",
+        "connectivityRequired": "يتطلب اتصالاً بالإنترنت",
+        "supplementalDisclaimer": "مخرجات الذكاء الاصطناعي تكميلية وغير مُتحقق منها سريرياً",
+        "aiUnavailableFallback": "الذكاء الاصطناعي غير متاح — جاري استخدام التوصيات المحلية",
+        "exportSummary": "تصدير الملخص",
+        "exportSummaryHint": "تنزيل ملخص الجلسة كنص",
+        "anonymizeBeforeExport": "إزالة المعرّفات قبل التصدير"
+      },
+      "states": {
+        "loading": "جاري تحميل التوصية…",
+        "error": "تعذر تحميل التوصية",
+        "empty": "لا توجد توصية متاحة. أكمل التقييم أولاً."
+      },
+      "intendedUse": {
+        "warningLabel": "غير مُتحقق منه سريرياً",
+        "validationLabel": "متطلب التحقق"
+      },
+      "reviewStatus": {
+        "unvalidated": "غير مُتحقق منه (نموذج)",
+        "validated": "مُتحقق منه"
+      }
+    },
+    "monitoring": {
+      "title": "المراقبة",
+      "accessibilityLabel": "شاشة المراقبة",
+      "decisionSupportOnly": "لدعم القرار فقط. ليس بديلاً عن الحكم السريري.",
+      "sections": {
+        "quickEntry": "إدخال سريع",
+        "trend": "الاتجاه",
+        "alerts": "التنبيهات"
+      },
+      "quickEntry": {
+        "addPoint": "إضافة نقطة",
+        "addPointHint": "إضافة نقطة بيانات العلامات الحيوية أو التحاليل",
+        "namePlaceholder": "الاسم (مثلاً SpO₂، معدل التنفس)",
+        "valuePlaceholder": "القيمة",
+        "unitPlaceholder": "الوحدة"
+      },
+      "trend": {
+        "insufficientData": "بيانات غير كافية",
+        "directionUp": "اتجاه تصاعدي",
+        "directionDown": "اتجاه تنازلي",
+        "directionFlat": "مستقر",
+        "directionUnknown": "غير معروف"
+      },
+      "alerts": {
+        "severityNormal": "طبيعي",
+        "severityWarning": "تحذير",
+        "severityCritical": "حرج",
+        "severityUnknown": "غير معروف",
+        "why": "السبب",
+        "whyCriticalLow": "القيمة دون العتبة الحرجة المنخفضة",
+        "whyWarningLow": "القيمة دون عتبة التحذير المنخفضة",
+        "whyCriticalHigh": "القيمة فوق العتبة الحرجة العالية",
+        "whyWarningHigh": "القيمة فوق عتبة التحذير العالية",
+        "suggestedAction": "الإجراء المقترح",
+        "suggestedActionNormal": "متابعة المراقبة",
+        "suggestedActionWarning": "المراجعة والنظر في التدخل",
+        "suggestedActionCritical": "المعالجة فوراً",
+        "suggestedActionUnknown": "التحقق من القيمة وإعادة الإدخال إن لزم",
+        "empty": "لا توجد تنبيهات"
+      },
+      "actions": {
+        "backToRecommendation": "العودة إلى التوصية"
+      },
+      "states": {
+        "loading": "جاري التحميل…",
+        "error": "تعذر تحميل المراقبة",
+        "empty": "أضف نقاط العلامات الحيوية أو التحاليل لرؤية الاتجاهات والتنبيهات.",
+        "offline": "أنت غير متصل. تُحفظ البيانات محلياً."
+      }
+    },
+    "history": {
+      "title": "سجل الجلسات",
+      "accessibilityLabel": "شاشة سجل الجلسات",
+      "empty": "لا توجد جلسات محفوظة بعد.",
+      "corruptRecovery": "تم إعادة تعيين سجل الجلسات بسبب مشكلة تخزين. يمكنك بدء جلسات جديدة.",
+      "actions": {
+        "resume": "استئناف",
+        "resumeHint": "متابعة هذه الجلسة",
+        "viewDetails": "عرض التفاصيل",
+        "viewDetailsHint": "عرض ملخص الجلسة",
+        "delete": "حذف",
+        "deleteHint": "إزالة من السجل"
+      },
+      "deleteConfirm": {
+        "title": "حذف الجلسة؟",
+        "message": "ستُزال هذه الجلسة من السجل. لا يمكن التراجع عن ذلك.",
+        "confirm": "حذف",
+        "cancel": "إلغاء"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "الحالة: {{condition}}",
+        "tier": "المستوى: {{tier}}",
+        "summary": "الملخص"
+      },
+      "states": {
+        "loading": "جاري تحميل السجل…",
+        "error": "تعذر تحميل سجل الجلسات"
+      }
+    },
+    "caseDetail": {
+      "title": "تفاصيل الحالة",
+      "accessibilityLabel": "شاشة تفاصيل الحالة",
+      "summary": "ملخص الحالة",
+      "patientProfile": "الملف الشخصي للمريض",
+      "clinicalParameters": "المعاملات السريرية",
+      "ventilatorSettings": "إعدادات جهاز التنفس",
+      "outcomes": "النتائج",
+      "evidence": "الأدلة",
+      "reviewStatus": "حالة المراجعة",
+      "intendedUseWarning": "هذه حالة من مجموعة البيانات للمرجع فقط. ليست للاستخدام السريري المباشر.",
+      "datasetCaseFraming": "حالة مجموعة البيانات (مرجع فقط)",
+      "prototypeFraming": "نموذج — غير مُتحقق منه سريرياً",
+      "notFound": "الحالة غير موجودة في مجموعة البيانات.",
+      "missingCaseId": "لم يتم اختيار حالة.",
+      "states": {
+        "loading": "جاري تحميل الحالة…"
+      },
+      "review": {
+        "unvalidated": "غير مُتحقق منه (نموذج)",
+        "validated": "مُتحقق منه"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "التدريب",
+      "subtitle": "البروتوكولات وقوائم التحقق والمرجع.",
+      "accessibilityLabel": "شاشة التدريب الرئيسية",
+      "searchPlaceholder": "بحث في المواضيع…",
+      "searchHint": "بحث محتوى التدريب",
+      "topicsSection": "المواضيع",
+      "searchResults": "نتائج البحث",
+      "popularTopics": "المواضيع الشائعة",
+      "quickChecklists": "قوائم التحقق السريعة",
+      "browseAll": "عرض كل المواضيع",
+      "browseAllHint": "عرض كل مواضيع التدريب",
+      "viewTopic": "عرض",
+      "states": {
+        "loading": "جاري تحميل التدريب…",
+        "error": "تعذر تحميل محتوى التدريب",
+        "offline": "المحتوى متاح دون اتصال",
+        "empty": "لا يوجد محتوى تدريب متاح"
+      }
+    },
+    "topics": {
+      "title": "المواضيع",
+      "accessibilityLabel": "شاشة قائمة المواضيع",
+      "searchPlaceholder": "بحث أو تصفية…",
+      "searchHint": "بحث المواضيع",
+      "empty": "لم يتم العثور على مواضيع.",
+      "filterByType": "التصفية حسب النوع",
+      "typeProtocol": "البروتوكول",
+      "typeChecklist": "قائمة التحقق",
+      "typeGlossary": "المسرد",
+      "typeFaq": "الأسئلة الشائعة",
+      "openTopicHint": "فتح الموضوع",
+      "states": {
+        "loading": "جاري تحميل المواضيع…",
+        "error": "تعذر تحميل المواضيع",
+        "offline": "المحتوى متاح دون اتصال"
+      }
+    },
+    "topicDetail": {
+      "title": "الموضوع",
+      "accessibilityLabel": "شاشة تفاصيل الموضوع",
+      "section": "القسم",
+      "expand": "توسيع القسم",
+      "collapse": "طي القسم",
+      "checklistItem": "العنصر",
+      "notFound": "الموضوع غير موجود.",
+      "backToTopics": "العودة إلى المواضيع",
+      "backToTopicsHint": "العودة إلى قائمة المواضيع",
+      "states": {
+        "loading": "جاري تحميل الموضوع…",
+        "error": "تعذر تحميل الموضوع"
+      }
+    }
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "message": "الصفحة التي تبحث عنها غير موجودة أو نُقلت.",
+    "back": "رجوع",
+    "backHint": "العودة إلى الصفحة السابقة",
+    "goHome": "الذهاب إلى الرئيسية",
+    "goHomeHint": "العودة إلى الصفحة الرئيسية"
+  },
+  "error": {
+    "title": "حدث خطأ ما",
+    "message": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو العودة إلى الصفحة الرئيسية.",
+    "retry": "إعادة المحاولة",
+    "retryHint": "إعادة تنفيذ الإجراء",
+    "goHome": "الذهاب إلى الرئيسية",
+    "goHomeHint": "العودة إلى الصفحة الرئيسية"
+  },
+  "errorState": {
+    "defaultTitle": "حدث خطأ ما"
+  }
+}

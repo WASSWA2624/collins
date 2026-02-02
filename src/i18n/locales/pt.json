@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "search": "Pesquisar",
+    "submit": "Submeter",
+    "loading": "A carregar…",
+    "retry": "Tentar novamente",
+    "back": "Voltar",
+    "next": "Seguinte",
+    "continue": "Continuar",
+    "close": "Fechar",
+    "closeSidebarHint": "Fecha o menu lateral",
+    "select": "Selecionar",
+    "selectPlaceholder": "Selecionar…",
+    "closeSelect": "Fechar seleção",
+    "remove": "Remover",
+    "goToHome": "Ir para início",
+    "viewNotifications": "Ver notificações",
+    "userMenu": "Menu do utilizador",
+    "toggleMenu": "Alternar menu",
+    "searchPlaceholder": "Pesquisar…",
+    "searchIcon": "Ícone de pesquisa",
+    "clearSearch": "Limpar pesquisa",
+    "on": "Ligado",
+    "off": "Desligado",
+    "switch": "Alternar",
+    "imageLoadError": "Falha ao carregar imagem",
+    "imageDefaultAlt": "Imagem",
+    "progress": "Progresso: {{value}}%",
+    "requiredLabel": "obrigatório",
+    "clearAll": "Limpar tudo",
+    "filters": "Filtros",
+    "clearAllFilters": "Limpar todos os filtros",
+    "loadingPlaceholder": "Placeholder de carregamento",
+    "radio": "Opção",
+    "emptyState": "Estado vazio",
+    "message": "Mensagem",
+    "sliderValue": "Deslizante: {{value}}",
+    "dropdownMenu": "Menu pendente",
+    "tooltip": "Dica",
+    "action": "Ação"
+  },
+  "greeting": {
+    "hello": "Olá, {{name}}"
+  },
+  "app": {
+    "name": "Suporte à Decisão em Ventilação com IA",
+    "shortName": "SDVIA"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Algo correu mal",
+      "message": "Ocorreu um erro inesperado",
+      "retry": "Tentar novamente",
+      "retryHint": "Tente novamente"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "Ocorreu um erro desconhecido",
+      "NETWORK_ERROR": "Falha na ligação à rede",
+      "UNAUTHORIZED": "Autenticação necessária",
+      "FORBIDDEN": "Acesso negado",
+      "SERVER_ERROR": "Ocorreu um erro no servidor",
+      "ROUTE_ERROR": "Ocorreu um erro ao carregar esta página",
+      "INVALID_CREDENTIALS": "Credenciais inválidas",
+      "MULTIPLE_TENANTS": "Vários inquilinos encontrados. Selecione um inquilino.",
+      "ACCOUNT_INACTIVE": "A conta não está ativa",
+      "ACCOUNT_SUSPENDED": "A conta foi suspensa",
+      "ACCOUNT_PENDING": "A conta está pendente de verificação",
+      "PASSWORD_INCORRECT": "A palavra-passe atual está incorreta",
+      "TOKEN_INVALID": "Token inválido ou expirado",
+      "TOKEN_EXPIRED": "O token expirou",
+      "REFRESH_TOKEN_INVALID": "Token de atualização inválido ou expirado",
+      "USER_NOT_FOUND": "Utilizador não encontrado",
+      "USER_EXISTS": "Já existe um utilizador com este e-mail",
+      "SESSION_NOT_FOUND": "Sessão não encontrada",
+      "ALREADY_VERIFIED": "A conta já está verificada",
+      "AI_UNAVAILABLE": "IA indisponível — a usar recomendações locais",
+      "AI_TIMEOUT": "Pedido à IA expirou",
+      "AI_UNAUTHORIZED": "Chave de API da IA inválida ou expirada",
+      "AI_FORBIDDEN": "Acesso à IA negado",
+      "AI_RATE_LIMIT": "Limite de taxa da IA atingido",
+      "AI_MODEL_UNAVAILABLE": "Modelo de IA indisponível",
+      "AI_MALFORMED_RESPONSE": "Resposta da IA inválida"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "Este campo é obrigatório",
+      "invalidEmail": "Formato de e-mail inválido",
+      "invalidUrl": "Formato de URL inválido",
+      "invalidUuid": "Formato de ID inválido",
+      "maxLength": "O comprimento máximo é {{max}} caracteres",
+      "invalidValue": "Valor inválido"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Cabeçalho de navegação principal",
+      "searchHint": "Escreva para pesquisar",
+      "cartWithItems": "Carrinho com {{count}} itens",
+      "cartWithItems_zero": "Carrinho",
+      "signIn": "Entrar",
+      "profile": "Perfil",
+      "orders": "Encomendas",
+      "settings": "Definições",
+      "logout": "Terminar sessão",
+      "hideHeader": "Ocultar cabeçalho",
+      "showHeader": "Mostrar cabeçalho",
+      "showMore": "Mostrar mais",
+      "customize": "Personalizar",
+      "overflowMenuLabel": "Mais ações do cabeçalho",
+      "customizationMenuLabel": "Personalização do cabeçalho",
+      "actions": {
+        "notifications": "Notificações",
+        "network": "Estado da rede",
+        "database": "Estado da base de dados",
+        "fullscreen": "Alternar ecrã completo"
+      }
+    },
+    "sidebar": {
+      "title": "Navegação principal",
+      "label": "Navegação",
+      "resize": "Redimensionar navegação"
+    },
+    "fullscreen": {
+      "enter": "Ecrã completo",
+      "exit": "Sair do ecrã completo"
+    },
+    "tabBar": {
+      "title": "Navegação inferior"
+    },
+    "footer": {
+      "title": "Rodapé global",
+      "copyright": "© {{year}} {{appName}}. Todos os direitos reservados.",
+      "supportEmail": "Suporte (e-mail)",
+      "supportPhone": "Suporte (telefone)",
+      "status": {
+        "title": "Estado da aplicação",
+        "auth": "Entrada segura ativada",
+        "main": "Todos os sistemas operacionais",
+        "patient": "Serviços ao doente disponíveis"
+      },
+      "environment": "{{env}} · v{{version}} (compilação: {{build}})",
+      "legal": {
+        "title": "Legal e suporte",
+        "terms": "Termos",
+        "privacy": "Privacidade",
+        "support": "Suporte"
+      }
+    },
+    "network": {
+      "label": "Estado da rede",
+      "status": {
+        "online": "Online",
+        "offline": "Offline",
+        "unstable": "Instável",
+        "syncing": "A sincronizar"
+      },
+      "database": {
+        "label": "Base de dados",
+        "connected": "Base de dados ligada",
+        "disconnected": "Base de dados desligada"
+      }
+    },
+    "notifications": {
+      "label": "Notificações",
+      "menuLabel": "Menu de notificações",
+      "empty": "Sem novas notificações",
+      "viewAll": "Ver todas as notificações",
+      "items": {
+        "appointments": {
+          "title": "Consulta próxima",
+          "meta": "Hoje às 15:00"
+        },
+        "labResults": {
+          "title": "Resultados de análises disponíveis",
+          "meta": "Novos resultados disponíveis"
+        },
+        "messages": {
+          "title": "Nova mensagem",
+          "meta": "Tem mensagens por ler"
+        }
+      }
+    },
+    "bottomNavigation": "Navegação inferior",
+    "mainNavigation": "Navegação principal",
+    "patientNavigation": "Navegação do doente",
+    "items": {
+      "main": {
+        "home": "Início",
+        "assessment": "Avaliação",
+        "history": "Histórico",
+        "training": "Formação",
+        "onboarding": "Primeiros passos",
+        "settings": "Definições",
+        "settings-about": "Acerca",
+        "settings-data-sources": "Fontes de dados",
+        "settings-disclaimer": "Aviso legal",
+        "settings-help": "Ajuda",
+        "settings-privacy": "Privacidade"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Navegação por breadcrumbs",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "Saltar para o conteúdo principal"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "Atualizações de estado do sistema",
+      "offline": {
+        "title": "Está offline",
+        "message": "Algumas funcionalidades podem estar indisponíveis até a ligação ser restabelecida.",
+        "accessibilityLabel": "Notificação de estado offline"
+      },
+      "lowQuality": {
+        "title": "A rede está instável",
+        "message": "Pode ver atrasos ou funcionalidade limitada.",
+        "accessibilityLabel": "Notificação de qualidade de rede baixa"
+      },
+      "online": {
+        "title": "Ligação restabelecida",
+        "message": "Ligação restaurada.",
+        "accessibilityLabel": "Notificação de estado online"
+      },
+      "maintenance": {
+        "title": "Manutenção programada",
+        "message": "Alguns serviços podem estar temporariamente indisponíveis.",
+        "accessibilityLabel": "Notificação de manutenção"
+      }
+    },
+    "loadingOverlay": {
+      "title": "A processar…",
+      "message": "Aguarde enquanto concluímos o pedido."
+    },
+    "notices": {
+      "surfaceLabel": "Notificações globais"
+    }
+  },
+  "settings": {
+    "title": "Definições",
+    "screen": {
+      "label": "Ecrã de definições"
+    },
+    "theme": {
+      "label": "Tema",
+      "accessibilityLabel": "Seletor de tema",
+      "hint": "Alterar o tema da aplicação",
+      "options": {
+        "system": "Sistema",
+        "light": "Claro",
+        "dark": "Escuro",
+        "highContrast": "Alto contraste"
+      }
+    },
+    "language": {
+      "label": "Idioma",
+      "accessibilityLabel": "Seletor de idioma",
+      "hint": "Alterar o idioma da aplicação",
+      "options": {
+        "en": "Inglês",
+        "ar": "Árabe",
+        "de": "Alemão",
+        "es": "Espanhol",
+        "fa": "Persa",
+        "fr": "Francês",
+        "hi": "Hindi",
+        "id": "Indonésio",
+        "it": "Italiano",
+        "ja": "Japonês",
+        "ko": "Coreano",
+        "ms": "Malaio",
+        "nl": "Neerlandês",
+        "pl": "Polaco",
+        "pt": "Português",
+        "ru": "Russo",
+        "sw": "Suaíli",
+        "ta": "Tâmil",
+        "th": "Tailandês",
+        "tr": "Turco",
+        "uk": "Ucraniano",
+        "vi": "Vietnamita",
+        "zh": "Chinês"
+      }
+    },
+    "density": {
+      "label": "Densidade",
+      "accessibilityLabel": "Seletor de modo de densidade",
+      "hint": "Alterar o espaçamento e densidade do layout",
+      "options": {
+        "compact": "Compacto",
+        "comfortable": "Confortável"
+      }
+    },
+    "footerVisible": {
+      "label": "Mostrar rodapé",
+      "accessibilityLabel": "Alternar visibilidade do rodapé",
+      "hint": "Mostrar ou ocultar o rodapé na parte inferior do layout (apenas desktop)"
+    },
+    "sidebar": {
+      "resize": "Redimensionar barra lateral de definições",
+      "menu": "Menu de definições",
+      "menuOpen": "Abrir menu de definições",
+      "menuClose": "Fechar menu de definições",
+      "groups": {
+        "general": "Geral",
+        "organization": "Organização",
+        "usersAndAccess": "Utilizadores e acesso",
+        "security": "Segurança"
+      }
+    },
+    "disclaimer": {
+      "title": "Aviso legal",
+      "screen": {
+        "label": "Ecrã de aviso legal"
+      },
+      "prototypeFraming": "Esta aplicação é um protótipo para referência e formação. Não se destina a uso clínico direto.",
+      "datasetNotice": "Aviso sobre o conjunto de dados",
+      "acknowledge": "Confirmo",
+      "acknowledgeHint": "Confirmar que leu e compreendeu o aviso legal",
+      "states": {
+        "loading": "A carregar…",
+        "error": "Não foi possível carregar o aviso legal"
+      }
+    },
+    "dataSources": {
+      "title": "Fontes de dados",
+      "screen": {
+        "label": "Ecrã de fontes de dados"
+      },
+      "datasetVersion": "Versão do conjunto de dados",
+      "schemaVersion": "Versão do esquema",
+      "lastUpdated": "Última atualização",
+      "totalCases": "Total de casos",
+      "citations": "Citações",
+      "doi": "DOI",
+      "states": {
+        "loading": "A carregar…",
+        "error": "Não foi possível carregar as fontes de dados",
+        "empty": "Sem fontes disponíveis"
+      }
+    },
+    "privacy": {
+      "title": "Privacidade",
+      "screen": {
+        "label": "Ecrã de privacidade"
+      },
+      "localStorage": "Dados armazenados localmente",
+      "localStorageDescription": "Preferências e dados de sessão são armazenados apenas neste dispositivo. Nada é enviado para servidores externos.",
+      "optionalAI": "Se as funcionalidades de IA online estiverem ativadas, esses pedidos podem ser enviados para os serviços configurados."
+    },
+    "about": {
+      "title": "Acerca",
+      "screen": {
+        "label": "Ecrã Acerca"
+      },
+      "appName": "Suporte à decisão em ventilação",
+      "version": "Versão",
+      "prototypeScope": "Este é um protótipo para referência e formação. Não para uso clínico."
+    },
+    "onboarding": {
+      "title": "Primeiros passos",
+      "accessibilityLabel": "Ecrã de primeiros passos",
+      "steps": {
+        "inputs": {
+          "title": "Introdução de dados",
+          "body": "Use Avaliação para introduzir parâmetros clínicos (SpO₂, PaO₂, PaCO₂, pH, frequência respiratória, etc.). Quanto mais completos os dados, melhor a correspondência da recomendação. Valores de gasometria arterial melhoram a precisão quando disponíveis."
+        },
+        "recommendations": {
+          "title": "Interpretação das recomendações",
+          "body": "As recomendações mostram configurações de ventilador sugeridas com um nível de confiança (alto, médio, baixo). A qualidade da correspondência reflete o alinhamento dos casos do conjunto de dados com os seus dados. Use os casos correspondentes apenas como referência — aplique sempre o juízo clínico."
+        },
+        "monitoring": {
+          "title": "Monitorização e alertas",
+          "body": "Após obter uma recomendação, use Monitorização para registar sinais vitais e análises ao longo do tempo. Os alertas destacam valores fora dos limiares definidos. Isto é apenas para suporte à decisão — reveja e aja de acordo com o seu protocolo."
+        },
+        "offline": {
+          "title": "Comportamento offline",
+          "body": "O fluxo principal (avaliação, recomendações, monitorização) funciona offline. Os dados são guardados localmente. As funcionalidades opcionais de IA requerem ligação. Quando voltar a estar online, continue normalmente."
+        }
+      },
+      "actions": {
+        "done": "Concluído",
+        "next": "Seguinte",
+        "back": "Voltar"
+      },
+      "states": {
+        "loading": "A carregar…"
+      }
+    },
+    "help": {
+      "title": "Ajuda e referência",
+      "accessibilityLabel": "Ecrã de ajuda",
+      "searchPlaceholder": "Pesquisar glossário ou guias…",
+      "sections": {
+        "glossary": "Glossário",
+        "troubleshooting": "Resolução de problemas",
+        "guides": "Próximos passos"
+      },
+      "glossary": {
+        "PEEP": "Pressão positiva no final da expiração (cmH₂O). Mantém o volume pulmonar e a oxigenação.",
+        "FiO2": "Fração de oxigénio inspirado (0–1). Percentagem de oxigénio no gás inspirado.",
+        "IERatio": "Rácio I:E. Rácio tempo inspiratório/expiratório (ex.: 1:2).",
+        "tidalVolume": "Volume tidal (mL). Volume entregue por ciclo.",
+        "respiratoryRate": "Frequência respiratória (ciclos/min).",
+        "SpO2": "Saturação de oxigénio por oximetria de pulso (%).",
+        "PaO2": "Pressão parcial de oxigénio arterial (mmHg).",
+        "PaCO2": "Pressão parcial de dióxido de carbono arterial (mmHg).",
+        "pH": "pH arterial (adimensional)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "Valores de gasometria arterial em falta",
+          "body": "As recomendações funcionam sem gasometria; introduza SpO₂ e outros sinais vitais quando disponíveis. Para melhor correspondência, adicione PaO₂, PaCO₂ e pH quando os tiver."
+        },
+        "offline": {
+          "title": "Usar a aplicação offline",
+          "body": "Avaliação, recomendações e monitorização funcionam offline. Os dados são armazenados localmente. As sugestões opcionais de IA requerem internet. A sincronização não é necessária para o fluxo principal."
+        }
+      },
+      "guides": {
+        "hypoxemia": "Rever FiO₂ e PEEP; considerar recrutamento; verificar shunt ou desequilíbrio V/Q.",
+        "hypercapnia": "Rever ventilação minuta (frequência × volume tidal); considerar hipercapnia permissiva conforme protocolo.",
+        "acidosis": "Abordar ventilação e perfusão; corrigir causa subjacente conforme protocolo.",
+        "general": "Use as recomendações apenas como suporte à decisão. Valide com os protocolos locais e juízo clínico."
+      },
+      "states": {
+        "loading": "A carregar…",
+        "empty": "Sem resultados",
+        "error": "Não foi possível carregar a ajuda"
+      }
+    },
+    "ai": {
+      "label": "Suporte à decisão com IA",
+      "sectionLabel": "Recomendação de IA opcional (online)",
+      "enableLabel": "Ativar recomendações de IA",
+      "enableHint": "Use IA online apenas para casos complexos; recomendações locais sempre disponíveis",
+      "providerLabel": "Provedor",
+      "providerHint": "Provedor de IA (ex.: OpenAI); a chave de API é por provedor",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "Chave de API",
+      "apiKeyPlaceholder": "Introduza a chave (armazenada em segurança)",
+      "apiKeySave": "Guardar chave",
+      "apiKeyClear": "Limpar chave",
+      "keyConfigured": "Chave guardada",
+      "modelLabel": "Modelo",
+      "modelHint": "Modelo usado para sugestões de IA",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "A carregar",
+    "offline": "Offline",
+    "error": "Erro",
+    "empty": "Vazio",
+    "list": "Lista",
+    "emptyState": {
+      "title": "Sem itens",
+      "message": "Não há itens para mostrar"
+    },
+    "errorState": {
+      "title": "Erro",
+      "message": "Ocorreu um erro"
+    }
+  },
+  "home": {
+    "title": "Início",
+    "welcome": {
+      "title": "Bem-vindo",
+      "message": "O Suporte à Decisão em Ventilação com IA ajuda a avaliar doentes, realizar sessões de ventilação e rever recomendações."
+    },
+    "overview": {
+      "title": "Acesso rápido",
+      "assessment": {
+        "title": "Avaliação",
+        "description": "Iniciar uma avaliação do doente e sessão de ventilação.",
+        "hint": "Ir para Avaliação"
+      },
+      "history": {
+        "title": "Histórico",
+        "description": "Ver e retomar sessões anteriores.",
+        "hint": "Ir para Histórico"
+      },
+      "training": {
+        "title": "Formação",
+        "description": "Explorar tópicos e listas de verificação de formação.",
+        "hint": "Ir para Formação"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Avaliação do doente",
+      "accessibilityLabel": "Ecrã do assistente de avaliação",
+      "summary": {
+        "title": "Resumo da sessão",
+        "accessibilityLabel": "Resumo compacto da avaliação",
+        "vitalsFormat": "SpO₂: {{spo2}} | FR: {{rr}} | FC: {{hr}}",
+        "condition": "Condição",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Frequência respiratória",
+        "heartRate": "Frequência cardíaca",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Idade",
+        "weight": "Peso",
+        "height": "Altura",
+        "gender": "Género",
+        "comorbidities": "Comorbilidades",
+        "bloodPressure": "Pressão arterial",
+        "empty": "Ainda sem dados",
+        "expand": "Expandir resumo",
+        "collapse": "Recolher resumo"
+      },
+      "steps": {
+        "patientProfile": "Perfil do doente",
+        "clinicalParams": "Parâmetros clínicos",
+        "observations": "Observações opcionais",
+        "timeSeries": "Série temporal opcional",
+        "review": "Rever"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "Asma",
+        "COPD": "DPOC",
+        "heartFailure": "Insuficiência cardíaca",
+        "pneumonia": "Pneumonia",
+        "sepsis": "Sépsis",
+        "trauma": "Trauma",
+        "other": "Outro"
+      },
+      "patientProfile": {
+        "condition": "Condição",
+        "conditionPlaceholder": "Selecionar condição",
+        "conditionHint": "Condição respiratória principal (obrigatório)",
+        "age": "Idade (anos)",
+        "agePlaceholder": "Introduzir idade",
+        "ageHint": "Idade do doente em anos",
+        "weight": "Peso (kg)",
+        "weightPlaceholder": "Introduzir peso",
+        "weightHint": "Peso do doente em kg",
+        "height": "Altura (cm)",
+        "heightPlaceholder": "Introduzir altura",
+        "heightHint": "Altura do doente em cm",
+        "gender": "Género",
+        "genderPlaceholder": "Selecionar género",
+        "genderHint": "Género do doente",
+        "genderMale": "Masculino",
+        "genderFemale": "Feminino",
+        "genderOther": "Outro",
+        "comorbidities": "Comorbilidades",
+        "comorbiditiesPlaceholder": "ex.: hipertensão, diabetes",
+        "comorbiditiesHint": "Lista separada por vírgulas"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "Introduzir SpO₂",
+        "spo2Hint": "Saturação de oxigénio (%)",
+        "spo2NormalRange": "Intervalo normal: 95–100%",
+        "pao2": "PaO₂ (opcional)",
+        "pao2Placeholder": "Introduzir PaO₂",
+        "pao2Hint": "Oxigénio arterial (mmHg)",
+        "pao2NormalRange": "Intervalo normal: 80–100 mmHg",
+        "paco2": "PaCO₂ (opcional)",
+        "paco2Placeholder": "Introduzir PaCO₂",
+        "paco2Hint": "CO₂ arterial (mmHg)",
+        "paco2NormalRange": "Intervalo normal: 35–45 mmHg",
+        "ph": "pH (opcional)",
+        "phPlaceholder": "Introduzir pH",
+        "phHint": "pH arterial",
+        "phNormalRange": "Intervalo normal: 7,35–7,45",
+        "respiratoryRate": "Frequência respiratória",
+        "respiratoryRatePlaceholder": "Introduzir FR",
+        "respiratoryRateHint": "Ciclos por minuto",
+        "respiratoryRateNormalRange": "Intervalo normal: 12–20 ciclos/min",
+        "heartRate": "Frequência cardíaca",
+        "heartRatePlaceholder": "Introduzir FC",
+        "heartRateHint": "Batimentos por minuto",
+        "heartRateNormalRange": "Intervalo normal: 60–100 bpm",
+        "bloodPressure": "Pressão arterial (opcional)",
+        "bloodPressurePlaceholder": "ex.: 120/80",
+        "bloodPressureHint": "Sistólica/diastólica mmHg",
+        "bloodPressureNormalRange": "Intervalo normal: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "Observações adicionais",
+        "description": "Registe dados clínicos extra não cobertos acima (ex.: análises, imagiologia, medicação, scores de comorbilidade). Cada observação é um par nome–valor. Opcional; pode saltar este passo.",
+        "add": "Adicionar observação",
+        "name": "Nome",
+        "value": "Valor",
+        "unit": "Unidade",
+        "optional": "Opcional"
+      },
+      "timeSeries": {
+        "title": "Série temporal (sinais vitais ao longo do tempo)",
+        "description": "Registe sinais vitais ou outras métricas em vários momentos (ex.: SpO₂, FR, FC às 0h, 1h, 2h). Usado para análise de tendência e monitorização após iniciar a sessão. Opcional; pode adicionar pontos mais tarde no ecrã de monitorização.",
+        "add": "Adicionar ponto da série",
+        "name": "Nome",
+        "value": "Valor",
+        "optional": "Opcional"
+      },
+      "recommendationSource": {
+        "label": "Fonte da recomendação",
+        "local": "Conjunto de dados local",
+        "localDescription": "Usar apenas o conjunto de dados integrado. Funciona offline; não requer chave de API.",
+        "onlineAi": "IA online",
+        "onlineAiDescription": "Use a sua chave de API para obter recomendações e justificações com IA. Requer ligação; usa recomendações locais se a IA falhar.",
+        "modelLabel": "Modelo",
+        "modelHint": "Selecionar modelo de IA (é usado o predefinido se não definido)",
+        "providerLabel": "Provedor",
+        "gpt4oMini": "GPT-4o mini (predefinido)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "Justificações da IA para a recomendação",
+        "hints": "Sugestões da IA"
+      },
+      "missingTests": {
+        "title": "Testes adicionais sugeridos",
+        "abgPanel": "Painel de gasometria arterial melhoraria a confiança",
+        "abgHint": "Considere solicitar gasometria arterial se disponível"
+      },
+      "actions": {
+        "back": "Voltar",
+        "next": "Seguinte",
+        "generate": "Gerar recomendação",
+        "generateHint": "Criar recomendação a partir dos dados atuais"
+      },
+      "states": {
+        "loading": "A carregar avaliação…",
+        "error": "Não foi possível carregar a avaliação",
+        "offline": "A avaliação funciona offline",
+        "empty": "Introduza dados do doente para começar"
+      }
+    },
+    "recommendation": {
+      "title": "Configurações recomendadas",
+      "accessibilityLabel": "Ecrã de recomendação",
+      "sections": {
+        "settings": "Configurações recomendadas",
+        "confidence": "Confiança e justificação",
+        "monitoring": "Pontos de monitorização",
+        "risks": "Riscos e complicações",
+        "matchedCases": "Casos correspondentes",
+        "evidence": "Evidência e revisão",
+        "warning": "Aviso sobre o conjunto de dados"
+      },
+      "settings": {
+        "mode": "Modo",
+        "tidalVolume": "Volume tidal",
+        "respiratoryRate": "Frequência respiratória",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "Rácio I:E"
+      },
+      "confidence": {
+        "high": "Alto",
+        "medium": "Médio",
+        "low": "Baixo",
+        "missingInputs": "Dados em falta que poderiam melhorar a confiança"
+      },
+      "aiReasons": {
+        "title": "Justificações da IA para a recomendação",
+        "hints": "Códigos de sugestão da IA"
+      },
+      "actions": {
+        "startMonitoring": "Iniciar monitorização",
+        "startMonitoringHint": "Começar a registar sinais vitais e série temporal",
+        "backToAssessment": "Voltar à avaliação",
+        "requestAiRecommendation": "Solicitar recomendação de IA",
+        "requestAiHint": "Obter sugestões opcionais de IA para este caso (requer ligação)",
+        "connectivityRequired": "Requer ligação à internet",
+        "supplementalDisclaimer": "O resultado da IA é complementar e não clinicamente validado",
+        "aiUnavailableFallback": "IA indisponível — a usar recomendações locais",
+        "exportSummary": "Exportar resumo",
+        "exportSummaryHint": "Transferir resumo da sessão como texto",
+        "anonymizeBeforeExport": "Remover identificadores antes de exportar"
+      },
+      "states": {
+        "loading": "A carregar recomendação…",
+        "error": "Não foi possível carregar a recomendação",
+        "empty": "Nenhuma recomendação disponível. Conclua uma avaliação primeiro."
+      },
+      "intendedUse": {
+        "warningLabel": "Não clinicamente validado",
+        "validationLabel": "Requisito de validação"
+      },
+      "reviewStatus": {
+        "unvalidated": "Não validado (protótipo)",
+        "validated": "Validado"
+      }
+    },
+    "monitoring": {
+      "title": "Monitorização",
+      "accessibilityLabel": "Ecrã de monitorização",
+      "decisionSupportOnly": "Apenas para suporte à decisão. Não substitui o juízo clínico.",
+      "sections": {
+        "quickEntry": "Entrada rápida",
+        "trend": "Tendência",
+        "alerts": "Alertas"
+      },
+      "quickEntry": {
+        "addPoint": "Adicionar ponto",
+        "addPointHint": "Adicionar ponto de dados de sinais vitais ou análises",
+        "namePlaceholder": "Nome (ex.: SpO₂, FR)",
+        "valuePlaceholder": "Valor",
+        "unitPlaceholder": "Unidade"
+      },
+      "trend": {
+        "insufficientData": "Dados insuficientes",
+        "directionUp": "Em subida",
+        "directionDown": "Em descida",
+        "directionFlat": "Estável",
+        "directionUnknown": "Desconhecido"
+      },
+      "alerts": {
+        "severityNormal": "Normal",
+        "severityWarning": "Aviso",
+        "severityCritical": "Crítico",
+        "severityUnknown": "Desconhecido",
+        "why": "Porquê",
+        "whyCriticalLow": "Valor abaixo do limiar crítico inferior",
+        "whyWarningLow": "Valor abaixo do limiar de aviso inferior",
+        "whyCriticalHigh": "Valor acima do limiar crítico superior",
+        "whyWarningHigh": "Valor acima do limiar de aviso superior",
+        "suggestedAction": "Ação sugerida",
+        "suggestedActionNormal": "Continuar a monitorizar",
+        "suggestedActionWarning": "Rever e considerar intervenção",
+        "suggestedActionCritical": "Abordar imediatamente",
+        "suggestedActionUnknown": "Verificar valor e reintroduzir se necessário",
+        "empty": "Sem alertas"
+      },
+      "actions": {
+        "backToRecommendation": "Voltar à recomendação"
+      },
+      "states": {
+        "loading": "A carregar…",
+        "error": "Não foi possível carregar a monitorização",
+        "empty": "Adicione pontos de sinais vitais ou análises para ver tendências e alertas.",
+        "offline": "Está offline. Os dados são guardados localmente."
+      }
+    },
+    "history": {
+      "title": "Histórico de sessões",
+      "accessibilityLabel": "Ecrã de histórico de sessões",
+      "empty": "Ainda sem sessões guardadas.",
+      "corruptRecovery": "O histórico de sessões foi reposto devido a um problema de armazenamento. Pode iniciar novas sessões.",
+      "actions": {
+        "resume": "Retomar",
+        "resumeHint": "Continuar esta sessão",
+        "viewDetails": "Ver detalhes",
+        "viewDetailsHint": "Ver resumo da sessão",
+        "delete": "Eliminar",
+        "deleteHint": "Remover do histórico"
+      },
+      "deleteConfirm": {
+        "title": "Eliminar sessão?",
+        "message": "Esta sessão será removida do histórico. Esta ação não pode ser desfeita.",
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Condição: {{condition}}",
+        "tier": "Nível: {{tier}}",
+        "summary": "Resumo"
+      },
+      "states": {
+        "loading": "A carregar histórico…",
+        "error": "Não foi possível carregar o histórico de sessões"
+      }
+    },
+    "caseDetail": {
+      "title": "Detalhe do caso",
+      "accessibilityLabel": "Ecrã de detalhe do caso",
+      "summary": "Resumo do caso",
+      "patientProfile": "Perfil do doente",
+      "clinicalParameters": "Parâmetros clínicos",
+      "ventilatorSettings": "Configurações do ventilador",
+      "outcomes": "Resultados",
+      "evidence": "Evidência",
+      "reviewStatus": "Estado da revisão",
+      "intendedUseWarning": "Este é um caso do conjunto de dados apenas para referência. Não para uso clínico direto.",
+      "datasetCaseFraming": "Caso do conjunto de dados (apenas referência)",
+      "prototypeFraming": "Protótipo — não clinicamente validado",
+      "notFound": "Caso não encontrado no conjunto de dados.",
+      "missingCaseId": "Nenhum caso selecionado.",
+      "states": {
+        "loading": "A carregar caso…"
+      },
+      "review": {
+        "unvalidated": "Não validado (protótipo)",
+        "validated": "Validado"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Formação",
+      "subtitle": "Protocolos, listas de verificação e referência.",
+      "accessibilityLabel": "Ecrã inicial de formação",
+      "searchPlaceholder": "Pesquisar tópicos…",
+      "searchHint": "Pesquisar conteúdo de formação",
+      "topicsSection": "Tópicos",
+      "searchResults": "Resultados da pesquisa",
+      "popularTopics": "Tópicos populares",
+      "quickChecklists": "Listas de verificação rápidas",
+      "browseAll": "Ver todos os tópicos",
+      "browseAllHint": "Ver todos os tópicos de formação",
+      "viewTopic": "Ver",
+      "states": {
+        "loading": "A carregar formação…",
+        "error": "Não foi possível carregar o conteúdo de formação",
+        "offline": "O conteúdo está disponível offline",
+        "empty": "Sem conteúdo de formação disponível"
+      }
+    },
+    "topics": {
+      "title": "Tópicos",
+      "accessibilityLabel": "Ecrã de lista de tópicos",
+      "searchPlaceholder": "Pesquisar ou filtrar…",
+      "searchHint": "Pesquisar tópicos",
+      "empty": "Nenhum tópico encontrado.",
+      "filterByType": "Filtrar por tipo",
+      "typeProtocol": "Protocolo",
+      "typeChecklist": "Lista de verificação",
+      "typeGlossary": "Glossário",
+      "typeFaq": "FAQ",
+      "openTopicHint": "Abrir tópico",
+      "states": {
+        "loading": "A carregar tópicos…",
+        "error": "Não foi possível carregar os tópicos",
+        "offline": "O conteúdo está disponível offline"
+      }
+    },
+    "topicDetail": {
+      "title": "Tópico",
+      "accessibilityLabel": "Ecrã de detalhe do tópico",
+      "section": "Secção",
+      "expand": "Expandir secção",
+      "collapse": "Recolher secção",
+      "checklistItem": "Item",
+      "notFound": "Tópico não encontrado.",
+      "backToTopics": "Voltar aos tópicos",
+      "backToTopicsHint": "Voltar à lista de tópicos",
+      "states": {
+        "loading": "A carregar tópico…",
+        "error": "Não foi possível carregar o tópico"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "message": "A página que procura não existe ou foi movida.",
+    "back": "Voltar",
+    "backHint": "Voltar à página anterior",
+    "goHome": "Ir para início",
+    "goHomeHint": "Navegar de volta à página inicial"
+  },
+  "error": {
+    "title": "Algo correu mal",
+    "message": "Ocorreu um erro inesperado. Tente novamente ou volte à página inicial.",
+    "retry": "Tentar novamente",
+    "retryHint": "Tentar a ação novamente",
+    "goHome": "Ir para início",
+    "goHomeHint": "Navegar de volta à página inicial"
+  },
+  "errorState": {
+    "defaultTitle": "Algo correu mal"
+  }
+}

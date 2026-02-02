@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "ذخیره",
+    "cancel": "لغو",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "search": "جستجو",
+    "submit": "ارسال",
+    "loading": "در حال بارگذاری…",
+    "retry": "تلاش مجدد",
+    "back": "بازگشت",
+    "next": "بعدی",
+    "continue": "ادامه",
+    "close": "بستن",
+    "closeSidebarHint": "بستن منوی کناری",
+    "select": "انتخاب",
+    "selectPlaceholder": "انتخاب…",
+    "closeSelect": "بستن انتخاب",
+    "remove": "حذف",
+    "goToHome": "رفتن به صفحهٔ اصلی",
+    "viewNotifications": "مشاهدهٔ اعلان‌ها",
+    "userMenu": "منوی کاربر",
+    "toggleMenu": "باز/بسته کردن منو",
+    "searchPlaceholder": "جستجو…",
+    "searchIcon": "آیکون جستجو",
+    "clearSearch": "پاک کردن جستجو",
+    "on": "روشن",
+    "off": "خاموش",
+    "switch": "سوییچ",
+    "imageLoadError": "بارگذاری تصویر ناموفق بود",
+    "imageDefaultAlt": "تصویر",
+    "progress": "پیشرفت: {{value}}٪",
+    "requiredLabel": "الزامی",
+    "clearAll": "پاک کردن همه",
+    "filters": "فیلترها",
+    "clearAllFilters": "پاک کردن همهٔ فیلترها",
+    "loadingPlaceholder": "در حال بارگذاری",
+    "radio": "رادیو",
+    "emptyState": "حالت خالی",
+    "message": "پیام",
+    "sliderValue": "اسلایدر: {{value}}",
+    "dropdownMenu": "منوی کشویی",
+    "tooltip": "راهنما",
+    "action": "عملیات"
+  },
+  "greeting": {
+    "hello": "سلام، {{name}}"
+  },
+  "app": {
+    "name": "پشتیبانی تصمیم‌گیری ونتیلاتور با هوش مصنوعی",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "مشکلی پیش آمد",
+      "message": "خطای غیرمنتظره‌ای رخ داد",
+      "retry": "تلاش مجدد",
+      "retryHint": "دوباره امتحان کنید"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "خطای نامشخصی رخ داد",
+      "NETWORK_ERROR": "اتصال شبکه برقرار نشد",
+      "UNAUTHORIZED": "احراز هویت لازم است",
+      "FORBIDDEN": "دسترسی رد شد",
+      "SERVER_ERROR": "خطای سرور رخ داد",
+      "ROUTE_ERROR": "در بارگذاری این صفحه خطایی رخ داد",
+      "INVALID_CREDENTIALS": "اطلاعات ورود نامعتبر است",
+      "MULTIPLE_TENANTS": "چند مستأجر یافت شد. لطفاً یک مستأجر انتخاب کنید.",
+      "ACCOUNT_INACTIVE": "حساب کاربری فعال نیست",
+      "ACCOUNT_SUSPENDED": "حساب کاربری معلق شده است",
+      "ACCOUNT_PENDING": "حساب کاربری در انتظار تأیید است",
+      "PASSWORD_INCORRECT": "رمز عبور فعلی نادرست است",
+      "TOKEN_INVALID": "توکن نامعتبر یا منقضی است",
+      "TOKEN_EXPIRED": "توکن منقضی شده است",
+      "REFRESH_TOKEN_INVALID": "توکن تازه‌سازی نامعتبر یا منقضی است",
+      "USER_NOT_FOUND": "کاربر یافت نشد",
+      "USER_EXISTS": "کاربری با این ایمیل از قبل وجود دارد",
+      "SESSION_NOT_FOUND": "نشست یافت نشد",
+      "ALREADY_VERIFIED": "حساب کاربری قبلاً تأیید شده است",
+      "AI_UNAVAILABLE": "هوش مصنوعی در دسترس نیست — استفاده از پیشنهادهای محلی",
+      "AI_TIMEOUT": "درخواست هوش مصنوعی زمانش تمام شد",
+      "AI_UNAUTHORIZED": "کلید API هوش مصنوعی نامعتبر یا منقضی است",
+      "AI_FORBIDDEN": "دسترسی به هوش مصنوعی رد شد",
+      "AI_RATE_LIMIT": "محدودیت نرخ هوش مصنوعی",
+      "AI_MODEL_UNAVAILABLE": "مدل هوش مصنوعی در دسترس نیست",
+      "AI_MALFORMED_RESPONSE": "پاسخ هوش مصنوعی نامعتبر است"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "این فیلد الزامی است",
+      "invalidEmail": "فرمت ایمیل نامعتبر است",
+      "invalidUrl": "فرمت URL نامعتبر است",
+      "invalidUuid": "فرمت شناسه نامعتبر است",
+      "maxLength": "حداکثر طول {{max}} کاراکتر است",
+      "invalidValue": "مقدار نامعتبر است"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "هدر ناوبری اصلی",
+      "searchHint": "برای جستجو تایپ کنید",
+      "cartWithItems": "سبد با {{count}} آیتم",
+      "cartWithItems_zero": "سبد",
+      "signIn": "ورود",
+      "profile": "پروفایل",
+      "orders": "سفارش‌ها",
+      "settings": "تنظیمات",
+      "logout": "خروج",
+      "hideHeader": "مخفی کردن هدر",
+      "showHeader": "نمایش هدر",
+      "showMore": "بیشتر",
+      "customize": "سفارشی‌سازی",
+      "overflowMenuLabel": "عملیات بیشتر هدر",
+      "customizationMenuLabel": "سفارشی‌سازی هدر",
+      "actions": {
+        "notifications": "اعلان‌ها",
+        "network": "وضعیت شبکه",
+        "database": "وضعیت پایگاه داده",
+        "fullscreen": "تمام‌صفحه"
+      }
+    },
+    "sidebar": {
+      "title": "ناوبری اصلی",
+      "label": "ناوبری",
+      "resize": "تغییر اندازهٔ ناوبری"
+    },
+    "fullscreen": {
+      "enter": "تمام‌صفحه",
+      "exit": "خروج از تمام‌صفحه"
+    },
+    "tabBar": {
+      "title": "ناوبری پایین"
+    },
+    "footer": {
+      "title": "فوتر سراسری",
+      "copyright": "© {{year}} {{appName}}. تمامی حقوق محفوظ است.",
+      "supportEmail": "پشتیبانی (ایمیل)",
+      "supportPhone": "پشتیبانی (تلفن)",
+      "status": {
+        "title": "وضعیت برنامه",
+        "auth": "ورود امن فعال است",
+        "main": "همهٔ سامانه‌ها عملیاتی‌اند",
+        "patient": "خدمات بیمار آماده است"
+      },
+      "environment": "{{env}} · نسخهٔ {{version}} (ساخت: {{build}})",
+      "legal": {
+        "title": "قانونی و پشتیبانی",
+        "terms": "شرایط",
+        "privacy": "حریم خصوصی",
+        "support": "پشتیبانی"
+      }
+    },
+    "network": {
+      "label": "وضعیت شبکه",
+      "status": {
+        "online": "آنلاین",
+        "offline": "آفلاین",
+        "unstable": "ناپایدار",
+        "syncing": "همگام‌سازی"
+      },
+      "database": {
+        "label": "پایگاه داده",
+        "connected": "پایگاه داده متصل است",
+        "disconnected": "پایگاه داده قطع است"
+      }
+    },
+    "notifications": {
+      "label": "اعلان‌ها",
+      "menuLabel": "منوی اعلان‌ها",
+      "empty": "اعلان جدیدی نیست",
+      "viewAll": "مشاهدهٔ همهٔ اعلان‌ها",
+      "items": {
+        "appointments": {
+          "title": "نوبت پیش‌رو",
+          "meta": "امروز ساعت ۱۵:۰۰"
+        },
+        "labResults": {
+          "title": "نتایج آزمایش آماده است",
+          "meta": "نتایج جدید در دسترس است"
+        },
+        "messages": {
+          "title": "پیام جدید",
+          "meta": "پیام‌های خوانده‌نشده دارید"
+        }
+      }
+    },
+    "bottomNavigation": "ناوبری پایین",
+    "mainNavigation": "ناوبری اصلی",
+    "patientNavigation": "ناوبری بیمار",
+    "items": {
+      "main": {
+        "home": "خانه",
+        "assessment": "ارزیابی",
+        "history": "تاریخچه",
+        "training": "آموزش",
+        "onboarding": "شروع",
+        "settings": "تنظیمات",
+        "settings-about": "درباره",
+        "settings-data-sources": "منابع داده",
+        "settings-disclaimer": "سلب مسئولیت",
+        "settings-help": "راهنما",
+        "settings-privacy": "حریم خصوصی"
+      }
+    },
+    "breadcrumbs": {
+      "title": "ناوبری مسیر",
+      "label": "مسیر"
+    },
+    "skipToMainContent": "پرش به محتوای اصلی"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "به‌روزرسانی‌های وضعیت سامانه",
+      "offline": {
+        "title": "شما آفلاین هستید",
+        "message": "برخی امکانات تا برقراری اتصال در دسترس نخواهند بود.",
+        "accessibilityLabel": "اعلان وضعیت آفلاین"
+      },
+      "lowQuality": {
+        "title": "شبکه ناپایدار است",
+        "message": "ممکن است تأخیر یا عملکرد محدود داشته باشید.",
+        "accessibilityLabel": "اعلان کیفیت پایین شبکه"
+      },
+      "online": {
+        "title": "برگشت آنلاین",
+        "message": "اتصال برقرار شد.",
+        "accessibilityLabel": "اعلان وضعیت آنلاین"
+      },
+      "maintenance": {
+        "title": "تعمیرات برنامه‌ریزی‌شده",
+        "message": "برخی سرویس‌ها ممکن است موقتاً در دسترس نباشند.",
+        "accessibilityLabel": "اعلان تعمیرات"
+      }
+    },
+    "loadingOverlay": {
+      "title": "در حال پردازش…",
+      "message": "لطفاً تا اتمام درخواست صبر کنید."
+    },
+    "notices": {
+      "surfaceLabel": "اعلان‌های سراسری"
+    }
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "screen": {
+      "label": "صفحهٔ تنظیمات"
+    },
+    "theme": {
+      "label": "تم",
+      "accessibilityLabel": "انتخابگر تم",
+      "hint": "تغییر تم برنامه",
+      "options": {
+        "system": "سیستم",
+        "light": "روشن",
+        "dark": "تاریک",
+        "highContrast": "کنتراست بالا"
+      }
+    },
+    "language": {
+      "label": "زبان",
+      "accessibilityLabel": "انتخابگر زبان",
+      "hint": "تغییر زبان برنامه",
+      "options": {
+        "en": "انگلیسی",
+        "ar": "عربی",
+        "de": "آلمانی",
+        "es": "اسپانیایی",
+        "fa": "فارسی",
+        "fr": "فرانسوی",
+        "hi": "هندی",
+        "id": "اندونزیایی",
+        "it": "ایتالیایی",
+        "ja": "ژاپنی",
+        "ko": "کره‌ای",
+        "ms": "مالایی",
+        "nl": "هلندی",
+        "pl": "لهستانی",
+        "pt": "پرتغالی",
+        "ru": "روسی",
+        "sw": "سواحیلی",
+        "ta": "تامیلی",
+        "th": "تایلندی",
+        "tr": "ترکی",
+        "uk": "اوکراینی",
+        "vi": "ویتنامی",
+        "zh": "چینی"
+      }
+    },
+    "density": {
+      "label": "تراکم",
+      "accessibilityLabel": "انتخابگر حالت تراکم",
+      "hint": "تغییر فاصله و تراکم چیدمان",
+      "options": {
+        "compact": "فشرده",
+        "comfortable": "راحت"
+      }
+    },
+    "footerVisible": {
+      "label": "نمایش فوتر",
+      "accessibilityLabel": "نمایش/مخفی فوتر",
+      "hint": "نمایش یا مخفی کردن فوتر در پایین چیدمان (فقط دسکتاپ)"
+    },
+    "sidebar": {
+      "resize": "تغییر اندازهٔ نوار کناری تنظیمات",
+      "menu": "منوی تنظیمات",
+      "menuOpen": "باز کردن منوی تنظیمات",
+      "menuClose": "بستن منوی تنظیمات",
+      "groups": {
+        "general": "عمومی",
+        "organization": "سازمان",
+        "usersAndAccess": "کاربران و دسترسی",
+        "security": "امنیت"
+      }
+    },
+    "disclaimer": {
+      "title": "سلب مسئولیت",
+      "screen": {
+        "label": "صفحهٔ سلب مسئولیت"
+      },
+      "prototypeFraming": "این برنامه نمونهٔ اولیه برای مرجع و آموزش است. برای استفادهٔ مستقیم بالینی در نظر گرفته نشده است.",
+      "datasetNotice": "اعلان مجموعهٔ داده",
+      "acknowledge": "تأیید می‌کنم",
+      "acknowledgeHint": "تأیید کنید که سلب مسئولیت را خوانده و درک کرده‌اید",
+      "states": {
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری سلب مسئولیت ممکن نیست"
+      }
+    },
+    "dataSources": {
+      "title": "منابع داده",
+      "screen": {
+        "label": "صفحهٔ منابع داده"
+      },
+      "datasetVersion": "نسخهٔ مجموعهٔ داده",
+      "schemaVersion": "نسخهٔ طرح",
+      "lastUpdated": "آخرین به‌روزرسانی",
+      "totalCases": "مجموع موارد",
+      "citations": "ارجاعات",
+      "doi": "DOI",
+      "states": {
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری منابع داده ممکن نیست",
+        "empty": "منبعی در دسترس نیست"
+      }
+    },
+    "privacy": {
+      "title": "حریم خصوصی",
+      "screen": {
+        "label": "صفحهٔ حریم خصوصی"
+      },
+      "localStorage": "دادهٔ ذخیره‌شدهٔ محلی",
+      "localStorageDescription": "ترجیحات و دادهٔ نشست فقط روی این دستگاه ذخیره می‌شود. چیزی به سرورهای خارجی ارسال نمی‌شود.",
+      "optionalAI": "در صورت فعال بودن امکانات آنلاین هوش مصنوعی، آن درخواست‌ها ممکن است به سرویس‌های پیکربندی‌شده ارسال شوند."
+    },
+    "about": {
+      "title": "درباره",
+      "screen": {
+        "label": "صفحهٔ درباره"
+      },
+      "appName": "پشتیبانی تصمیم‌گیری ونتیلاسیون",
+      "version": "نسخه",
+      "prototypeScope": "این یک نمونهٔ اولیه برای مرجع و آموزش است. برای استفادهٔ بالینی نیست."
+    },
+    "onboarding": {
+      "title": "شروع",
+      "accessibilityLabel": "صفحهٔ راه‌اندازی",
+      "steps": {
+        "inputs": {
+          "title": "وارد کردن ورودی‌ها",
+          "body": "از ارزیابی برای وارد کردن پارامترهای بالینی (SpO₂، PaO₂، PaO₂، pH، نرخ تنفس و غیره) استفاده کنید. هرچه ورودی‌ها کامل‌تر باشد، تطابق پیشنهاد بهتر است. مقادیر ABG در صورت در دسترس بودن دقت را بهبود می‌دهند."
+        },
+        "recommendations": {
+          "title": "تفسیر پیشنهادها",
+          "body": "پیشنهادها تنظیمات پیشنهادی ونتیلاتور را با سطح اطمینان (بالا، متوسط، پایین) نشان می‌دهند. کیفیت تطابق نشان می‌دهد موارد مجموعهٔ داده چقدر با ورودی‌های شما هم‌خوان است. موارد تطابق‌یافته را فقط به‌عنوان مرجع استفاده کنید — همیشه قضاوت بالینی اعمال کنید."
+        },
+        "monitoring": {
+          "title": "پایش و هشدارها",
+          "body": "پس از دریافت پیشنهاد، از پایش برای ثبت علائم حیاتی و آزمایش‌ها در طول زمان استفاده کنید. هشدارها مقادیر خارج از آستانه‌های تعیین‌شده را برجسته می‌کنند. این فقط برای پشتیبانی تصمیم است — طبق پروتکل خود بررسی و اقدام کنید."
+        },
+        "offline": {
+          "title": "رفتار آفلاین",
+          "body": "گردش کار اصلی (ارزیابی، پیشنهادها، پایش) آفلاین کار می‌کند. داده به‌صورت محلی ذخیره می‌شود. امکانات اختیاری هوش مصنوعی به اتصال نیاز دارد. وقتی آنلاین شدید، عادی ادامه دهید."
+        }
+      },
+      "actions": {
+        "done": "تمام",
+        "next": "بعدی",
+        "back": "بازگشت"
+      },
+      "states": {
+        "loading": "در حال بارگذاری…"
+      }
+    },
+    "help": {
+      "title": "راهنما و مرجع",
+      "accessibilityLabel": "صفحهٔ راهنما",
+      "searchPlaceholder": "جستجو در واژه‌نامه یا راهنماها…",
+      "sections": {
+        "glossary": "واژه‌نامه",
+        "troubleshooting": "عیب‌یابی",
+        "guides": "قدم بعدی"
+      },
+      "glossary": {
+        "PEEP": "فشار مثبت انتهای بازدم (cmH₂O). حجم ریه و اکسیژن‌رسانی را حفظ می‌کند.",
+        "FiO2": "کسر اکسیژن دمی (۰–۱). درصد اکسیژن در گاز دمی.",
+        "IERatio": "نسبت I:E. نسبت زمان دم به بازدم (مثلاً ۱:۲).",
+        "tidalVolume": "حجم جاری (میلی‌لیتر). حجم تحویل‌داده‌شده در هر تنفس.",
+        "respiratoryRate": "نرخ تنفس (تنفس/دقیقه).",
+        "SpO2": "اشباع اکسیژن با پالس‌اکسیمتری (٪).",
+        "PaO2": "فشار جزئی اکسیژن شریانی (mmHg).",
+        "PaCO2": "فشار جزئی دی‌اکسید کربن شریانی (mmHg).",
+        "pH": "pH شریانی (بدون واحد)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "مقادیر ABG موجود نیست",
+          "body": "پیشنهادها بدون ABG کار می‌کنند؛ وقتی در دسترس است SpO₂ و سایر علائم حیاتی را وارد کنید. برای تطابق بهتر، وقتی دارید PaO₂، PaCO₂ و pH را اضافه کنید."
+        },
+        "offline": {
+          "title": "استفاده از برنامه به‌صورت آفلاین",
+          "body": "ارزیابی، پیشنهادها و پایش آفلاین کار می‌کنند. داده به‌صورت محلی ذخیره می‌شود. پیشنهادهای اختیاری هوش مصنوعی به اینترنت نیاز دارد. برای گردش کار اصلی همگام‌سازی لازم نیست."
+        }
+      },
+      "guides": {
+        "hypoxemia": "FiO₂ و PEEP را بررسی کنید؛ رکروتمان را در نظر بگیرید؛ شانت یا عدم تطابق V/Q را بررسی کنید.",
+        "hypercapnia": "تهویهٔ دقیقه‌ای (نرخ × حجم جاری) را بررسی کنید؛ هایپرکاپنی مجاز طبق پروتکل را در نظر بگیرید.",
+        "acidosis": "تهویه و پرفیوژن را بررسی کنید؛ علت زمینه‌ای را طبق پروتکل اصلاح کنید.",
+        "general": "پیشنهادها را فقط به‌عنوان پشتیبانی تصمیم استفاده کنید. با پروتکل‌های محلی و قضاوت بالینی اعتبارسنجی کنید."
+      },
+      "states": {
+        "loading": "در حال بارگذاری…",
+        "empty": "نتیجه‌ای یافت نشد",
+        "error": "بارگذاری راهنما ممکن نیست"
+      }
+    },
+    "ai": {
+      "label": "پشتیبانی تصمیم هوش مصنوعی",
+      "sectionLabel": "پیشنهاد اختیاری هوش مصنوعی (آنلاین)",
+      "enableLabel": "فعال‌سازی پیشنهادهای هوش مصنوعی",
+      "enableHint": "هوش مصنوعی آنلاین فقط برای موارد پیچیده؛ پیشنهادهای محلی همیشه در دسترس است",
+      "providerLabel": "ارائه‌دهنده",
+      "providerHint": "ارائه‌دهندهٔ هوش مصنوعی (مثلاً OpenAI)؛ کلید API به‌ازای هر ارائه‌دهنده است",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "گوگل (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "کلید API",
+      "apiKeyPlaceholder": "کلید را وارد کنید (ذخیرهٔ امن)",
+      "apiKeySave": "ذخیرهٔ کلید",
+      "apiKeyClear": "پاک کردن کلید",
+      "keyConfigured": "کلید ذخیره شد",
+      "modelLabel": "مدل",
+      "modelHint": "مدل استفاده‌شده برای پیشنهادهای هوش مصنوعی",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "در حال بارگذاری",
+    "offline": "آفلاین",
+    "error": "خطا",
+    "empty": "خالی",
+    "list": "فهرست",
+    "emptyState": {
+      "title": "آیتمی نیست",
+      "message": "آیتمی برای نمایش نیست"
+    },
+    "errorState": {
+      "title": "خطا",
+      "message": "خطایی رخ داد"
+    }
+  },
+  "home": {
+    "title": "خانه",
+    "welcome": {
+      "title": "خوش آمدید",
+      "message": "پشتیبانی تصمیم‌گیری ونتیلاتور با هوش مصنوعی به شما کمک می‌کند بیماران را ارزیابی کنید، جلسات ونتیلاسیون اجرا کنید و پیشنهادها را مرور کنید."
+    },
+    "overview": {
+      "title": "دسترسی سریع",
+      "assessment": {
+        "title": "ارزیابی",
+        "description": "شروع ارزیابی بیمار و جلسهٔ ونتیلاسیون.",
+        "hint": "رفتن به ارزیابی"
+      },
+      "history": {
+        "title": "تاریخچه",
+        "description": "مشاهده و ادامهٔ جلسات گذشته.",
+        "hint": "رفتن به تاریخچه"
+      },
+      "training": {
+        "title": "آموزش",
+        "description": "مرور موضوعات و چک‌لیست‌های آموزشی.",
+        "hint": "رفتن به آموزش"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "ارزیابی بیمار",
+      "accessibilityLabel": "صفحهٔ جادوی ارزیابی",
+      "summary": {
+        "title": "خلاصهٔ جلسه",
+        "accessibilityLabel": "خلاصهٔ فشردهٔ ارزیابی",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "وضعیت",
+        "spo2": "SpO₂",
+        "respiratoryRate": "نرخ تنفس",
+        "heartRate": "ضربان قلب",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "سن",
+        "weight": "وزن",
+        "height": "قد",
+        "gender": "جنسیت",
+        "comorbidities": "بیماری‌های همراه",
+        "bloodPressure": "فشار خون",
+        "empty": "هنوز داده‌ای نیست",
+        "expand": "باز کردن خلاصه",
+        "collapse": "جمع کردن خلاصه"
+      },
+      "steps": {
+        "patientProfile": "پروفایل بیمار",
+        "clinicalParams": "پارامترهای بالینی",
+        "observations": "مشاهدات اختیاری",
+        "timeSeries": "سری زمانی اختیاری",
+        "review": "بررسی"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "آسم",
+        "COPD": "COPD",
+        "heartFailure": "نارسایی قلبی",
+        "pneumonia": "پنومونی",
+        "sepsis": "سپسیس",
+        "trauma": "تروما",
+        "other": "سایر"
+      },
+      "patientProfile": {
+        "condition": "وضعیت",
+        "conditionPlaceholder": "انتخاب وضعیت",
+        "conditionHint": "وضعیت تنفسی اصلی (الزامی)",
+        "age": "سن (سال)",
+        "agePlaceholder": "سن را وارد کنید",
+        "ageHint": "سن بیمار به سال",
+        "weight": "وزن (کیلوگرم)",
+        "weightPlaceholder": "وزن را وارد کنید",
+        "weightHint": "وزن بیمار به کیلوگرم",
+        "height": "قد (سانتی‌متر)",
+        "heightPlaceholder": "قد را وارد کنید",
+        "heightHint": "قد بیمار به سانتی‌متر",
+        "gender": "جنسیت",
+        "genderPlaceholder": "انتخاب جنسیت",
+        "genderHint": "جنسیت بیمار",
+        "genderMale": "مرد",
+        "genderFemale": "زن",
+        "genderOther": "سایر",
+        "comorbidities": "بیماری‌های همراه",
+        "comorbiditiesPlaceholder": "مثلاً فشار خون، دیابت",
+        "comorbiditiesHint": "فهرست جدا شده با کاما"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "SpO₂ را وارد کنید",
+        "spo2Hint": "اشباع اکسیژن (٪)",
+        "spo2NormalRange": "محدودهٔ طبیعی: ۹۵–۱۰۰٪",
+        "pao2": "PaO₂ (اختیاری)",
+        "pao2Placeholder": "PaO₂ را وارد کنید",
+        "pao2Hint": "اکسیژن شریانی (mmHg)",
+        "pao2NormalRange": "محدودهٔ طبیعی: ۸۰–۱۰۰ mmHg",
+        "paco2": "PaCO₂ (اختیاری)",
+        "paco2Placeholder": "PaCO₂ را وارد کنید",
+        "paco2Hint": "CO₂ شریانی (mmHg)",
+        "paco2NormalRange": "محدودهٔ طبیعی: ۳۵–۴۵ mmHg",
+        "ph": "pH (اختیاری)",
+        "phPlaceholder": "pH را وارد کنید",
+        "phHint": "pH شریانی",
+        "phNormalRange": "محدودهٔ طبیعی: ۷٫۳۵–۷٫۴۵",
+        "respiratoryRate": "نرخ تنفس",
+        "respiratoryRatePlaceholder": "RR را وارد کنید",
+        "respiratoryRateHint": "تنفس در دقیقه",
+        "respiratoryRateNormalRange": "محدودهٔ طبیعی: ۱۲–۲۰ تنفس/دقیقه",
+        "heartRate": "ضربان قلب",
+        "heartRatePlaceholder": "HR را وارد کنید",
+        "heartRateHint": "ضربان در دقیقه",
+        "heartRateNormalRange": "محدودهٔ طبیعی: ۶۰–۱۰۰ bpm",
+        "bloodPressure": "فشار خون (اختیاری)",
+        "bloodPressurePlaceholder": "مثلاً ۱۲۰/۸۰",
+        "bloodPressureHint": "سیستولیک/دیاستولیک mmHg",
+        "bloodPressureNormalRange": "محدودهٔ طبیعی: ۹۰–۱۲۰ / ۶۰–۸۰ mmHg"
+      },
+      "observations": {
+        "title": "مشاهدات اضافی",
+        "description": "هر دادهٔ بالینی دیگری که بالا پوشش داده نشده (مثلاً آزمایش، تصویربرداری، داروها، امتیاز بیماری همراه) را ثبت کنید. هر مشاهده یک جفت نام–مقدار است. اختیاری؛ می‌توانید این مرحله را رد کنید.",
+        "add": "افزودن مشاهده",
+        "name": "نام",
+        "value": "مقدار",
+        "unit": "واحد",
+        "optional": "اختیاری"
+      },
+      "timeSeries": {
+        "title": "سری زمانی (علائم حیاتی در طول زمان)",
+        "description": "علائم حیاتی یا سایر معیارها را در چند نقطهٔ زمانی (مثلاً SpO₂، RR، HR در ۰h، ۱h، ۲h) پیگیری کنید. برای تحلیل روند و پایش پس از شروع جلسه استفاده می‌شود. اختیاری؛ می‌توانید بعداً در صفحهٔ پایش نقطه اضافه کنید.",
+        "add": "افزودن نقطهٔ سری زمانی",
+        "name": "نام",
+        "value": "مقدار",
+        "optional": "اختیاری"
+      },
+      "recommendationSource": {
+        "label": "منبع پیشنهاد",
+        "local": "مجموعهٔ دادهٔ محلی",
+        "localDescription": "فقط از مجموعهٔ دادهٔ داخلی استفاده کنید. آفلاین کار می‌کند؛ کلید API لازم نیست.",
+        "onlineAi": "هوش مصنوعی آنلاین",
+        "onlineAiDescription": "از کلید API خود برای دریافت پیشنهادها و دلایل تقویت‌شده با هوش مصنوعی استفاده کنید. به اتصال نیاز دارد؛ در صورت شکست هوش مصنوعی به محلی برمی‌گردد.",
+        "modelLabel": "مدل",
+        "modelHint": "انتخاب مدل هوش مصنوعی (در صورت تنظیم نشدن پیش‌فرض استفاده می‌شود)",
+        "providerLabel": "ارائه‌دهنده",
+        "gpt4oMini": "GPT-4o mini (پیش‌فرض)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "دلایل هوش مصنوعی برای پیشنهاد",
+        "hints": "راهنمای هوش مصنوعی"
+      },
+      "missingTests": {
+        "title": "آزمایش‌های پیشنهادی اضافی",
+        "abgPanel": "پنل ABG اطمینان را بهبود می‌دهد",
+        "abgHint": "در صورت در دسترس بودن گاز خون شریانی را در نظر بگیرید"
+      },
+      "actions": {
+        "back": "بازگشت",
+        "next": "بعدی",
+        "generate": "ایجاد پیشنهاد",
+        "generateHint": "ساخت پیشنهاد از ورودی‌های فعلی"
+      },
+      "states": {
+        "loading": "در حال بارگذاری ارزیابی…",
+        "error": "بارگذاری ارزیابی ممکن نیست",
+        "offline": "ارزیابی آفلاین کار می‌کند",
+        "empty": "برای شروع دادهٔ بیمار را وارد کنید"
+      }
+    },
+    "recommendation": {
+      "title": "تنظیمات پیشنهادی",
+      "accessibilityLabel": "صفحهٔ پیشنهاد",
+      "sections": {
+        "settings": "تنظیمات پیشنهادی",
+        "confidence": "اطمینان و دلیل",
+        "monitoring": "نقاط پایش",
+        "risks": "خطرها و عوارض",
+        "matchedCases": "موارد تطابق‌یافته",
+        "evidence": "شواهد و بررسی",
+        "warning": "اعلان مجموعهٔ داده"
+      },
+      "settings": {
+        "mode": "حالت",
+        "tidalVolume": "حجم جاری",
+        "respiratoryRate": "نرخ تنفس",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "نسبت I:E"
+      },
+      "confidence": {
+        "high": "بالا",
+        "medium": "متوسط",
+        "low": "پایین",
+        "missingInputs": "ورودی‌های ناقصی که می‌توانند اطمینان را بهبود دهند"
+      },
+      "aiReasons": {
+        "title": "دلایل هوش مصنوعی برای پیشنهاد",
+        "hints": "کدهای راهنمای هوش مصنوعی"
+      },
+      "actions": {
+        "startMonitoring": "شروع پایش",
+        "startMonitoringHint": "شروع ثبت علائم حیاتی و سری زمانی",
+        "backToAssessment": "بازگشت به ارزیابی",
+        "requestAiRecommendation": "درخواست پیشنهاد هوش مصنوعی",
+        "requestAiHint": "دریافت راهنمای اختیاری هوش مصنوعی برای این مورد (نیاز به اتصال)",
+        "connectivityRequired": "اتصال اینترنت لازم است",
+        "supplementalDisclaimer": "خروجی هوش مصنوعی تکمیلی است و از نظر بالینی اعتبارسنجی نشده",
+        "aiUnavailableFallback": "هوش مصنوعی در دسترس نیست — استفاده از پیشنهادهای محلی",
+        "exportSummary": "صادر کردن خلاصه",
+        "exportSummaryHint": "دانلود خلاصهٔ جلسه به‌صورت متن",
+        "anonymizeBeforeExport": "حذف شناسه‌ها قبل از صادرات"
+      },
+      "states": {
+        "loading": "در حال بارگذاری پیشنهاد…",
+        "error": "بارگذاری پیشنهاد ممکن نیست",
+        "empty": "پیشنهادی در دسترس نیست. ابتدا ارزیابی را تکمیل کنید."
+      },
+      "intendedUse": {
+        "warningLabel": "از نظر بالینی اعتبارسنجی نشده",
+        "validationLabel": "الزام اعتبارسنجی"
+      },
+      "reviewStatus": {
+        "unvalidated": "اعتبارسنجی‌نشده (نمونه)",
+        "validated": "اعتبارسنجی‌شده"
+      }
+    },
+    "monitoring": {
+      "title": "پایش",
+      "accessibilityLabel": "صفحهٔ پایش",
+      "decisionSupportOnly": "فقط برای پشتیبانی تصمیم. جایگزین قضاوت بالینی نیست.",
+      "sections": {
+        "quickEntry": "ورود سریع",
+        "trend": "روند",
+        "alerts": "هشدارها"
+      },
+      "quickEntry": {
+        "addPoint": "افزودن نقطه",
+        "addPointHint": "افزودن نقطهٔ دادهٔ علائم حیاتی یا آزمایش",
+        "namePlaceholder": "نام (مثلاً SpO₂، RR)",
+        "valuePlaceholder": "مقدار",
+        "unitPlaceholder": "واحد"
+      },
+      "trend": {
+        "insufficientData": "دادهٔ ناکافی",
+        "directionUp": "روند صعودی",
+        "directionDown": "روند نزولی",
+        "directionFlat": "پایدار",
+        "directionUnknown": "نامشخص"
+      },
+      "alerts": {
+        "severityNormal": "طبیعی",
+        "severityWarning": "هشدار",
+        "severityCritical": "بحرانی",
+        "severityUnknown": "نامشخص",
+        "why": "چرا",
+        "whyCriticalLow": "مقدار زیر آستانهٔ بحرانی پایین",
+        "whyWarningLow": "مقدار زیر آستانهٔ هشدار پایین",
+        "whyCriticalHigh": "مقدار بالای آستانهٔ بحرانی بالا",
+        "whyWarningHigh": "مقدار بالای آستانهٔ هشدار بالا",
+        "suggestedAction": "اقدام پیشنهادی",
+        "suggestedActionNormal": "ادامهٔ پایش",
+        "suggestedActionWarning": "بررسی و در نظر گرفتن مداخله",
+        "suggestedActionCritical": "فوراً رسیدگی کنید",
+        "suggestedActionUnknown": "مقدار را تأیید و در صورت نیاز دوباره وارد کنید",
+        "empty": "هشداری نیست"
+      },
+      "actions": {
+        "backToRecommendation": "بازگشت به پیشنهاد"
+      },
+      "states": {
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری پایش ممکن نیست",
+        "empty": "برای دیدن روند و هشدارها نقطهٔ علائم حیاتی یا آزمایش اضافه کنید.",
+        "offline": "شما آفلاین هستید. داده به‌صورت محلی ذخیره می‌شود."
+      }
+    },
+    "history": {
+      "title": "تاریخچهٔ جلسات",
+      "accessibilityLabel": "صفحهٔ تاریخچهٔ جلسات",
+      "empty": "هنوز جلسهٔ ذخیره‌شده‌ای نیست.",
+      "corruptRecovery": "تاریخچهٔ جلسات به‌دلیل مشکل ذخیره‌سازی بازنشانی شد. می‌توانید جلسات جدید شروع کنید.",
+      "actions": {
+        "resume": "ادامه",
+        "resumeHint": "ادامهٔ این جلسه",
+        "viewDetails": "مشاهدهٔ جزئیات",
+        "viewDetailsHint": "مشاهدهٔ خلاصهٔ جلسه",
+        "delete": "حذف",
+        "deleteHint": "حذف از تاریخچه"
+      },
+      "deleteConfirm": {
+        "title": "جلسه حذف شود؟",
+        "message": "این جلسه از تاریخچه حذف می‌شود. این عمل قابل بازگشت نیست.",
+        "confirm": "حذف",
+        "cancel": "لغو"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "وضعیت: {{condition}}",
+        "tier": "سطح: {{tier}}",
+        "summary": "خلاصه"
+      },
+      "states": {
+        "loading": "در حال بارگذاری تاریخچه…",
+        "error": "بارگذاری تاریخچهٔ جلسات ممکن نیست"
+      }
+    },
+    "caseDetail": {
+      "title": "جزئیات مورد",
+      "accessibilityLabel": "صفحهٔ جزئیات مورد",
+      "summary": "خلاصهٔ مورد",
+      "patientProfile": "پروفایل بیمار",
+      "clinicalParameters": "پارامترهای بالینی",
+      "ventilatorSettings": "تنظیمات ونتیلاتور",
+      "outcomes": "نتایج",
+      "evidence": "شواهد",
+      "reviewStatus": "وضعیت بررسی",
+      "intendedUseWarning": "این مورد مجموعهٔ داده فقط برای مرجع است. برای استفادهٔ مستقیم بالینی نیست.",
+      "datasetCaseFraming": "مورد مجموعهٔ داده (فقط مرجع)",
+      "prototypeFraming": "نمونه — از نظر بالینی اعتبارسنجی نشده",
+      "notFound": "مورد در مجموعهٔ داده یافت نشد.",
+      "missingCaseId": "موردی انتخاب نشده.",
+      "states": {
+        "loading": "در حال بارگذاری مورد…"
+      },
+      "review": {
+        "unvalidated": "اعتبارسنجی‌نشده (نمونه)",
+        "validated": "اعتبارسنجی‌شده"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "آموزش",
+      "subtitle": "پروتکل‌ها، چک‌لیست‌ها و مرجع.",
+      "accessibilityLabel": "صفحهٔ اصلی آموزش",
+      "searchPlaceholder": "جستجوی موضوعات…",
+      "searchHint": "جستجو در محتوای آموزش",
+      "topicsSection": "موضوعات",
+      "searchResults": "نتایج جستجو",
+      "popularTopics": "موضوعات پرطرفدار",
+      "quickChecklists": "چک‌لیست‌های سریع",
+      "browseAll": "مشاهدهٔ همهٔ موضوعات",
+      "browseAllHint": "مشاهدهٔ همهٔ موضوعات آموزش",
+      "viewTopic": "مشاهده",
+      "states": {
+        "loading": "در حال بارگذاری آموزش…",
+        "error": "بارگذاری محتوای آموزش ممکن نیست",
+        "offline": "محتوا آفلاین در دسترس است",
+        "empty": "محتوای آموزشی در دسترس نیست"
+      }
+    },
+    "topics": {
+      "title": "موضوعات",
+      "accessibilityLabel": "صفحهٔ فهرست موضوعات",
+      "searchPlaceholder": "جستجو یا فیلتر…",
+      "searchHint": "جستجوی موضوعات",
+      "empty": "موضوعی یافت نشد.",
+      "filterByType": "فیلتر بر اساس نوع",
+      "typeProtocol": "پروتکل",
+      "typeChecklist": "چک‌لیست",
+      "typeGlossary": "واژه‌نامه",
+      "typeFaq": "سوالات متداول",
+      "openTopicHint": "باز کردن موضوع",
+      "states": {
+        "loading": "در حال بارگذاری موضوعات…",
+        "error": "بارگذاری موضوعات ممکن نیست",
+        "offline": "محتوا آفلاین در دسترس است"
+      }
+    },
+    "topicDetail": {
+      "title": "موضوع",
+      "accessibilityLabel": "صفحهٔ جزئیات موضوع",
+      "section": "بخش",
+      "expand": "باز کردن بخش",
+      "collapse": "جمع کردن بخش",
+      "checklistItem": "آیتم",
+      "notFound": "موضوع یافت نشد.",
+      "backToTopics": "بازگشت به موضوعات",
+      "backToTopicsHint": "بازگشت به فهرست موضوعات",
+      "states": {
+        "loading": "در حال بارگذاری موضوع…",
+        "error": "بارگذاری موضوع ممکن نیست"
+      }
+    }
+  },
+  "notFound": {
+    "title": "صفحه یافت نشد",
+    "message": "صفحه‌ای که دنبالش هستید وجود ندارد یا منتقل شده است.",
+    "back": "بازگشت",
+    "backHint": "بازگشت به صفحهٔ قبل",
+    "goHome": "رفتن به خانه",
+    "goHomeHint": "بازگشت به صفحهٔ اصلی"
+  },
+  "error": {
+    "title": "مشکلی پیش آمد",
+    "message": "خطای غیرمنتظره‌ای رخ داد. لطفاً دوباره تلاش کنید یا به صفحهٔ اصلی برگردید.",
+    "retry": "تلاش مجدد",
+    "retryHint": "دوباره اقدام کنید",
+    "goHome": "رفتن به خانه",
+    "goHomeHint": "بازگشت به صفحهٔ اصلی"
+  },
+  "errorState": {
+    "defaultTitle": "مشکلی پیش آمد"
+  }
+}

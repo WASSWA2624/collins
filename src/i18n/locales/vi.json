@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "search": "Tìm kiếm",
+    "submit": "Gửi",
+    "loading": "Đang tải…",
+    "retry": "Thử lại",
+    "back": "Quay lại",
+    "next": "Tiếp",
+    "continue": "Tiếp tục",
+    "close": "Đóng",
+    "closeSidebarHint": "Đóng menu thanh bên",
+    "select": "Chọn",
+    "selectPlaceholder": "Chọn…",
+    "closeSelect": "Đóng chọn",
+    "remove": "Xóa",
+    "goToHome": "Về trang chủ",
+    "viewNotifications": "Xem thông báo",
+    "userMenu": "Menu người dùng",
+    "toggleMenu": "Bật/tắt menu",
+    "searchPlaceholder": "Tìm kiếm…",
+    "searchIcon": "Biểu tượng tìm kiếm",
+    "clearSearch": "Xóa tìm kiếm",
+    "on": "Bật",
+    "off": "Tắt",
+    "switch": "Chuyển",
+    "imageLoadError": "Không tải được hình ảnh",
+    "imageDefaultAlt": "Hình ảnh",
+    "progress": "Tiến độ: {{value}}%",
+    "requiredLabel": "bắt buộc",
+    "clearAll": "Xóa tất cả",
+    "filters": "Bộ lọc",
+    "clearAllFilters": "Xóa tất cả bộ lọc",
+    "loadingPlaceholder": "Đang tải",
+    "radio": "Radio",
+    "emptyState": "Trống",
+    "message": "Tin nhắn",
+    "sliderValue": "Thanh trượt: {{value}}",
+    "dropdownMenu": "Menu thả xuống",
+    "tooltip": "Chú thích",
+    "action": "Thao tác"
+  },
+  "greeting": {
+    "hello": "Xin chào, {{name}}"
+  },
+  "app": {
+    "name": "Hỗ trợ quyết định thông khí nhân tạo",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Đã xảy ra lỗi",
+      "message": "Đã xảy ra lỗi không mong muốn",
+      "retry": "Thử lại",
+      "retryHint": "Thử lại"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "Đã xảy ra lỗi không xác định",
+      "NETWORK_ERROR": "Kết nối mạng thất bại",
+      "UNAUTHORIZED": "Yêu cầu xác thực",
+      "FORBIDDEN": "Truy cập bị từ chối",
+      "SERVER_ERROR": "Lỗi máy chủ",
+      "ROUTE_ERROR": "Lỗi khi tải trang này",
+      "INVALID_CREDENTIALS": "Thông tin đăng nhập không hợp lệ",
+      "MULTIPLE_TENANTS": "Tìm thấy nhiều tenant. Vui lòng chọn một tenant.",
+      "ACCOUNT_INACTIVE": "Tài khoản chưa kích hoạt",
+      "ACCOUNT_SUSPENDED": "Tài khoản đã bị đình chỉ",
+      "ACCOUNT_PENDING": "Tài khoản đang chờ xác minh",
+      "PASSWORD_INCORRECT": "Mật khẩu hiện tại không đúng",
+      "TOKEN_INVALID": "Token không hợp lệ hoặc đã hết hạn",
+      "TOKEN_EXPIRED": "Token đã hết hạn",
+      "REFRESH_TOKEN_INVALID": "Token làm mới không hợp lệ hoặc đã hết hạn",
+      "USER_NOT_FOUND": "Không tìm thấy người dùng",
+      "USER_EXISTS": "Đã tồn tại người dùng với email này",
+      "SESSION_NOT_FOUND": "Không tìm thấy phiên",
+      "ALREADY_VERIFIED": "Tài khoản đã được xác minh",
+      "AI_UNAVAILABLE": "AI không khả dụng — đang dùng gợi ý cục bộ",
+      "AI_TIMEOUT": "Yêu cầu AI quá thời gian",
+      "AI_UNAUTHORIZED": "Khóa API AI không hợp lệ hoặc đã hết hạn",
+      "AI_FORBIDDEN": "Truy cập AI bị từ chối",
+      "AI_RATE_LIMIT": "Đã đạt giới hạn tốc độ AI",
+      "AI_MODEL_UNAVAILABLE": "Mô hình AI không khả dụng",
+      "AI_MALFORMED_RESPONSE": "Phản hồi AI không hợp lệ"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "Trường này là bắt buộc",
+      "invalidEmail": "Định dạng email không hợp lệ",
+      "invalidUrl": "Định dạng URL không hợp lệ",
+      "invalidUuid": "Định dạng ID không hợp lệ",
+      "maxLength": "Độ dài tối đa là {{max}} ký tự",
+      "invalidValue": "Giá trị không hợp lệ"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Đầu trang điều hướng chính",
+      "searchHint": "Nhập để tìm kiếm",
+      "cartWithItems": "Giỏ có {{count}} mục",
+      "cartWithItems_zero": "Giỏ",
+      "signIn": "Đăng nhập",
+      "profile": "Hồ sơ",
+      "orders": "Đơn hàng",
+      "settings": "Cài đặt",
+      "logout": "Đăng xuất",
+      "hideHeader": "Ẩn đầu trang",
+      "showHeader": "Hiện đầu trang",
+      "showMore": "Xem thêm",
+      "customize": "Tùy chỉnh",
+      "overflowMenuLabel": "Thêm thao tác đầu trang",
+      "customizationMenuLabel": "Tùy chỉnh đầu trang",
+      "actions": {
+        "notifications": "Thông báo",
+        "network": "Trạng thái mạng",
+        "database": "Trạng thái cơ sở dữ liệu",
+        "fullscreen": "Bật/tắt toàn màn hình"
+      }
+    },
+    "sidebar": {
+      "title": "Điều hướng chính",
+      "label": "Điều hướng",
+      "resize": "Thay đổi kích thước điều hướng"
+    },
+    "fullscreen": {
+      "enter": "Toàn màn hình",
+      "exit": "Thoát toàn màn hình"
+    },
+    "tabBar": {
+      "title": "Điều hướng dưới"
+    },
+    "footer": {
+      "title": "Chân trang toàn cục",
+      "copyright": "© {{year}} {{appName}}. Đã bảo lưu mọi quyền.",
+      "supportEmail": "Hỗ trợ (email)",
+      "supportPhone": "Hỗ trợ (điện thoại)",
+      "status": {
+        "title": "Trạng thái ứng dụng",
+        "auth": "Đăng nhập bảo mật đã bật",
+        "main": "Tất cả hệ thống hoạt động bình thường",
+        "patient": "Dịch vụ bệnh nhân sẵn sàng"
+      },
+      "environment": "{{env}} · v{{version}} (bản dựng: {{build}})",
+      "legal": {
+        "title": "Pháp lý và hỗ trợ",
+        "terms": "Điều khoản",
+        "privacy": "Quyền riêng tư",
+        "support": "Hỗ trợ"
+      }
+    },
+    "network": {
+      "label": "Trạng thái mạng",
+      "status": {
+        "online": "Trực tuyến",
+        "offline": "Ngoại tuyến",
+        "unstable": "Không ổn định",
+        "syncing": "Đang đồng bộ"
+      },
+      "database": {
+        "label": "Cơ sở dữ liệu",
+        "connected": "Đã kết nối cơ sở dữ liệu",
+        "disconnected": "Đã ngắt kết nối cơ sở dữ liệu"
+      }
+    },
+    "notifications": {
+      "label": "Thông báo",
+      "menuLabel": "Menu thông báo",
+      "empty": "Không có thông báo mới",
+      "viewAll": "Xem tất cả thông báo",
+      "items": {
+        "appointments": {
+          "title": "Lịch hẹn sắp tới",
+          "meta": "Hôm nay lúc 15:00"
+        },
+        "labResults": {
+          "title": "Kết quả xét nghiệm đã sẵn",
+          "meta": "Có kết quả mới"
+        },
+        "messages": {
+          "title": "Tin nhắn mới",
+          "meta": "Bạn có tin nhắn chưa đọc"
+        }
+      }
+    },
+    "bottomNavigation": "Điều hướng dưới",
+    "mainNavigation": "Điều hướng chính",
+    "patientNavigation": "Điều hướng bệnh nhân",
+    "items": {
+      "main": {
+        "home": "Trang chủ",
+        "assessment": "Đánh giá",
+        "history": "Lịch sử",
+        "training": "Đào tạo",
+        "onboarding": "Bắt đầu",
+        "settings": "Cài đặt",
+        "settings-about": "Giới thiệu",
+        "settings-data-sources": "Nguồn dữ liệu",
+        "settings-disclaimer": "Tuyên bố từ chối",
+        "settings-help": "Trợ giúp",
+        "settings-privacy": "Quyền riêng tư"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Điều hướng breadcrumb",
+      "label": "Breadcrumb"
+    },
+    "skipToMainContent": "Chuyển đến nội dung chính"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "Cập nhật trạng thái hệ thống",
+      "offline": {
+        "title": "Bạn đang ngoại tuyến",
+        "message": "Một số tính năng có thể không dùng được cho đến khi có kết nối.",
+        "accessibilityLabel": "Thông báo trạng thái ngoại tuyến"
+      },
+      "lowQuality": {
+        "title": "Mạng không ổn định",
+        "message": "Bạn có thể gặp trễ hoặc chức năng hạn chế.",
+        "accessibilityLabel": "Thông báo chất lượng mạng thấp"
+      },
+      "online": {
+        "title": "Đã trực tuyến",
+        "message": "Đã khôi phục kết nối.",
+        "accessibilityLabel": "Thông báo trạng thái trực tuyến"
+      },
+      "maintenance": {
+        "title": "Bảo trì theo lịch",
+        "message": "Một số dịch vụ có thể tạm thời không khả dụng.",
+        "accessibilityLabel": "Thông báo bảo trì"
+      }
+    },
+    "loadingOverlay": {
+      "title": "Đang xử lý…",
+      "message": "Vui lòng đợi trong khi chúng tôi hoàn tất yêu cầu."
+    },
+    "notices": {
+      "surfaceLabel": "Thông báo toàn cục"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "screen": {
+      "label": "Màn hình cài đặt"
+    },
+    "theme": {
+      "label": "Giao diện",
+      "accessibilityLabel": "Chọn giao diện",
+      "hint": "Thay đổi giao diện ứng dụng",
+      "options": {
+        "system": "Hệ thống",
+        "light": "Sáng",
+        "dark": "Tối",
+        "highContrast": "Tương phản cao"
+      }
+    },
+    "language": {
+      "label": "Ngôn ngữ",
+      "accessibilityLabel": "Chọn ngôn ngữ",
+      "hint": "Thay đổi ngôn ngữ ứng dụng",
+      "options": {
+        "en": "Tiếng Anh",
+        "ar": "Tiếng Ả Rập",
+        "de": "Tiếng Đức",
+        "es": "Tiếng Tây Ban Nha",
+        "fa": "Tiếng Ba Tư",
+        "fr": "Tiếng Pháp",
+        "hi": "Tiếng Hindi",
+        "id": "Tiếng Indonesia",
+        "it": "Tiếng Ý",
+        "ja": "Tiếng Nhật",
+        "ko": "Tiếng Hàn",
+        "ms": "Tiếng Mã Lai",
+        "nl": "Tiếng Hà Lan",
+        "pl": "Tiếng Ba Lan",
+        "pt": "Tiếng Bồ Đào Nha",
+        "ru": "Tiếng Nga",
+        "sw": "Tiếng Swahili",
+        "ta": "Tiếng Tamil",
+        "th": "Tiếng Thái",
+        "tr": "Tiếng Thổ Nhĩ Kỳ",
+        "uk": "Tiếng Ukraina",
+        "vi": "Tiếng Việt",
+        "zh": "Tiếng Trung"
+      }
+    },
+    "density": {
+      "label": "Mật độ",
+      "accessibilityLabel": "Chọn chế độ mật độ",
+      "hint": "Thay đổi khoảng cách và mật độ bố cục",
+      "options": {
+        "compact": "Gọn",
+        "comfortable": "Thoải mái"
+      }
+    },
+    "footerVisible": {
+      "label": "Hiện chân trang",
+      "accessibilityLabel": "Bật/tắt hiển thị chân trang",
+      "hint": "Hiện hoặc ẩn chân trang ở dưới bố cục (chỉ máy tính)"
+    },
+    "sidebar": {
+      "resize": "Thay đổi kích thước thanh bên cài đặt",
+      "menu": "Menu cài đặt",
+      "menuOpen": "Mở menu cài đặt",
+      "menuClose": "Đóng menu cài đặt",
+      "groups": {
+        "general": "Chung",
+        "organization": "Tổ chức",
+        "usersAndAccess": "Người dùng và quyền truy cập",
+        "security": "Bảo mật"
+      }
+    },
+    "disclaimer": {
+      "title": "Tuyên bố từ chối",
+      "screen": {
+        "label": "Màn hình tuyên bố từ chối"
+      },
+      "prototypeFraming": "Ứng dụng này là nguyên mẫu để tham khảo và đào tạo. Không dùng cho lâm sàng trực tiếp.",
+      "datasetNotice": "Lưu ý về bộ dữ liệu",
+      "acknowledge": "Tôi xác nhận",
+      "acknowledgeHint": "Xác nhận đã đọc và hiểu tuyên bố từ chối",
+      "states": {
+        "loading": "Đang tải…",
+        "error": "Không tải được tuyên bố từ chối"
+      }
+    },
+    "dataSources": {
+      "title": "Nguồn dữ liệu",
+      "screen": {
+        "label": "Màn hình nguồn dữ liệu"
+      },
+      "datasetVersion": "Phiên bản bộ dữ liệu",
+      "schemaVersion": "Phiên bản schema",
+      "lastUpdated": "Cập nhật lần cuối",
+      "totalCases": "Tổng số ca",
+      "citations": "Trích dẫn",
+      "doi": "DOI",
+      "states": {
+        "loading": "Đang tải…",
+        "error": "Không tải được nguồn dữ liệu",
+        "empty": "Không có nguồn"
+      }
+    },
+    "privacy": {
+      "title": "Quyền riêng tư",
+      "screen": {
+        "label": "Màn hình quyền riêng tư"
+      },
+      "localStorage": "Dữ liệu lưu cục bộ",
+      "localStorageDescription": "Tùy chọn và dữ liệu phiên chỉ lưu trên thiết bị này. Không gửi ra máy chủ bên ngoài.",
+      "optionalAI": "Nếu bật tính năng AI trực tuyến, các yêu cầu có thể được gửi đến dịch vụ đã cấu hình."
+    },
+    "about": {
+      "title": "Giới thiệu",
+      "screen": {
+        "label": "Màn hình giới thiệu"
+      },
+      "appName": "Hỗ trợ quyết định thông khí",
+      "version": "Phiên bản",
+      "prototypeScope": "Đây là nguyên mẫu để tham khảo và đào tạo. Không dùng cho lâm sàng."
+    },
+    "onboarding": {
+      "title": "Bắt đầu",
+      "accessibilityLabel": "Màn hình làm quen",
+      "steps": {
+        "inputs": {
+          "title": "Nhập dữ liệu",
+          "body": "Dùng Đánh giá để nhập tham số lâm sàng (SpO₂, PaO₂, PaCO₂, pH, nhịp thở, v.v.). Dữ liệu càng đầy đủ, gợi ý càng khớp. Có ABG sẽ cải thiện độ chính xác."
+        },
+        "recommendations": {
+          "title": "Đọc gợi ý",
+          "body": "Gợi ý hiển thị cài đặt thông khí đề xuất với mức tin cậy (cao, trung bình, thấp). Chất lượng khớp phản ánh mức độ trùng với dữ liệu của bạn. Chỉ dùng làm tham khảo — luôn áp dụng phán đoán lâm sàng."
+        },
+        "monitoring": {
+          "title": "Giám sát và cảnh báo",
+          "body": "Sau khi có gợi ý, dùng Giám sát để ghi dấu sinh tồn và xét nghiệm theo thời gian. Cảnh báo làm nổi bật giá trị ngoài ngưỡng. Chỉ để hỗ trợ quyết định — xem xét và hành động theo quy trình của bạn."
+        },
+        "offline": {
+          "title": "Hoạt động ngoại tuyến",
+          "body": "Quy trình chính (đánh giá, gợi ý, giám sát) hoạt động ngoại tuyến. Dữ liệu lưu cục bộ. Tính năng AI tùy chọn cần kết nối. Khi có mạng trở lại, tiếp tục bình thường."
+        }
+      },
+      "actions": {
+        "done": "Xong",
+        "next": "Tiếp",
+        "back": "Quay lại"
+      },
+      "states": {
+        "loading": "Đang tải…"
+      }
+    },
+    "help": {
+      "title": "Trợ giúp và tham khảo",
+      "accessibilityLabel": "Màn hình trợ giúp",
+      "searchPlaceholder": "Tìm thuật ngữ hoặc hướng dẫn…",
+      "sections": {
+        "glossary": "Thuật ngữ",
+        "troubleshooting": "Xử lý sự cố",
+        "guides": "Bước tiếp theo"
+      },
+      "glossary": {
+        "PEEP": "Áp lực cuối thì thở ra dương (cmH₂O). Duy trì thể tích phổi và oxy hóa.",
+        "FiO2": "Phân suất oxy hít vào (0–1). Phần trăm oxy trong khí hít vào.",
+        "IERatio": "Tỷ lệ I:E. Tỷ lệ thời gian hít vào / thở ra (vd. 1:2).",
+        "tidalVolume": "Thể tích khí lưu thông (mL). Thể tích mỗi nhịp thở.",
+        "respiratoryRate": "Nhịp thở (nhịp/phút).",
+        "SpO2": "Độ bão hòa oxy qua đo oxy mạch (%).",
+        "PaO2": "Áp lực riêng phần oxy động mạch (mmHg).",
+        "PaCO2": "Áp lực riêng phần CO₂ động mạch (mmHg).",
+        "pH": "pH động mạch (không đơn vị)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "Thiếu giá trị ABG",
+          "body": "Gợi ý vẫn dùng được khi không có ABG; nhập SpO₂ và dấu sinh tồn khác khi có. Để khớp tốt hơn, thêm PaO₂, PaCO₂ và pH khi có."
+        },
+        "offline": {
+          "title": "Dùng ứng dụng ngoại tuyến",
+          "body": "Đánh giá, gợi ý và giám sát hoạt động ngoại tuyến. Dữ liệu lưu cục bộ. Gợi ý AI tùy chọn cần internet. Không cần đồng bộ cho quy trình chính."
+        }
+      },
+      "guides": {
+        "hypoxemia": "Xem lại FiO₂ và PEEP; cân nhắc recruitment; kiểm tra shunt hoặc bất tương xứng V/Q.",
+        "hypercapnia": "Xem lại thông khí phút (nhịp × thể tích lưu thông); cân nhắc tăng CO₂ cho phép theo quy trình.",
+        "acidosis": "Xử lý thông khí và tưới máu; điều chỉnh nguyên nhân theo quy trình.",
+        "general": "Chỉ dùng gợi ý để hỗ trợ quyết định. Đối chiếu với quy trình địa phương và phán đoán lâm sàng."
+      },
+      "states": {
+        "loading": "Đang tải…",
+        "empty": "Không có kết quả",
+        "error": "Không tải được trợ giúp"
+      }
+    },
+    "ai": {
+      "label": "Hỗ trợ quyết định AI",
+      "sectionLabel": "Gợi ý AI tùy chọn (trực tuyến)",
+      "enableLabel": "Bật gợi ý AI",
+      "enableHint": "Chỉ dùng AI trực tuyến cho ca phức tạp; gợi ý cục bộ luôn có",
+      "providerLabel": "Nhà cung cấp",
+      "providerHint": "Nhà cung cấp AI (vd. OpenAI); khóa API theo từng nhà cung cấp",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "Khóa API",
+      "apiKeyPlaceholder": "Nhập khóa (lưu bảo mật)",
+      "apiKeySave": "Lưu khóa",
+      "apiKeyClear": "Xóa khóa",
+      "keyConfigured": "Đã lưu khóa",
+      "modelLabel": "Mô hình",
+      "modelHint": "Mô hình dùng cho gợi ý AI",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "Đang tải",
+    "offline": "Ngoại tuyến",
+    "error": "Lỗi",
+    "empty": "Trống",
+    "list": "Danh sách",
+    "emptyState": {
+      "title": "Không có mục",
+      "message": "Không có mục nào để hiển thị"
+    },
+    "errorState": {
+      "title": "Lỗi",
+      "message": "Đã xảy ra lỗi"
+    }
+  },
+  "home": {
+    "title": "Trang chủ",
+    "welcome": {
+      "title": "Chào mừng",
+      "message": "Hỗ trợ quyết định thông khí nhân tạo giúp bạn đánh giá bệnh nhân, chạy phiên thông khí và xem gợi ý."
+    },
+    "overview": {
+      "title": "Truy cập nhanh",
+      "assessment": {
+        "title": "Đánh giá",
+        "description": "Bắt đầu đánh giá bệnh nhân và phiên thông khí.",
+        "hint": "Đến Đánh giá"
+      },
+      "history": {
+        "title": "Lịch sử",
+        "description": "Xem và tiếp tục phiên trước.",
+        "hint": "Đến Lịch sử"
+      },
+      "training": {
+        "title": "Đào tạo",
+        "description": "Duyệt chủ đề và checklist đào tạo.",
+        "hint": "Đến Đào tạo"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Đánh giá bệnh nhân",
+      "accessibilityLabel": "Màn hình wizard đánh giá",
+      "summary": {
+        "title": "Tóm tắt phiên",
+        "accessibilityLabel": "Tóm tắt đánh giá gọn",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "Tình trạng",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Nhịp thở",
+        "heartRate": "Nhịp tim",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Tuổi",
+        "weight": "Cân nặng",
+        "height": "Chiều cao",
+        "gender": "Giới tính",
+        "comorbidities": "Bệnh kèm theo",
+        "bloodPressure": "Huyết áp",
+        "empty": "Chưa có dữ liệu",
+        "expand": "Mở rộng tóm tắt",
+        "collapse": "Thu gọn tóm tắt"
+      },
+      "steps": {
+        "patientProfile": "Hồ sơ bệnh nhân",
+        "clinicalParams": "Tham số lâm sàng",
+        "observations": "Quan sát tùy chọn",
+        "timeSeries": "Chuỗi thời gian tùy chọn",
+        "review": "Xem lại"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "Hen phế quản",
+        "COPD": "COPD",
+        "heartFailure": "Suy tim",
+        "pneumonia": "Viêm phổi",
+        "sepsis": "Nhiễm trùng huyết",
+        "trauma": "Chấn thương",
+        "other": "Khác"
+      },
+      "patientProfile": {
+        "condition": "Tình trạng",
+        "conditionPlaceholder": "Chọn tình trạng",
+        "conditionHint": "Tình trạng hô hấp chính (bắt buộc)",
+        "age": "Tuổi (năm)",
+        "agePlaceholder": "Nhập tuổi",
+        "ageHint": "Tuổi bệnh nhân tính theo năm",
+        "weight": "Cân nặng (kg)",
+        "weightPlaceholder": "Nhập cân nặng",
+        "weightHint": "Cân nặng bệnh nhân (kg)",
+        "height": "Chiều cao (cm)",
+        "heightPlaceholder": "Nhập chiều cao",
+        "heightHint": "Chiều cao bệnh nhân (cm)",
+        "gender": "Giới tính",
+        "genderPlaceholder": "Chọn giới tính",
+        "genderHint": "Giới tính bệnh nhân",
+        "genderMale": "Nam",
+        "genderFemale": "Nữ",
+        "genderOther": "Khác",
+        "comorbidities": "Bệnh kèm theo",
+        "comorbiditiesPlaceholder": "vd. tăng huyết áp, đái tháo đường",
+        "comorbiditiesHint": "Danh sách cách nhau bằng dấu phẩy"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "Nhập SpO₂",
+        "spo2Hint": "Độ bão hòa oxy (%)",
+        "spo2NormalRange": "Khoảng bình thường: 95–100%",
+        "pao2": "PaO₂ (tùy chọn)",
+        "pao2Placeholder": "Nhập PaO₂",
+        "pao2Hint": "Oxy động mạch (mmHg)",
+        "pao2NormalRange": "Khoảng bình thường: 80–100 mmHg",
+        "paco2": "PaCO₂ (tùy chọn)",
+        "paco2Placeholder": "Nhập PaCO₂",
+        "paco2Hint": "CO₂ động mạch (mmHg)",
+        "paco2NormalRange": "Khoảng bình thường: 35–45 mmHg",
+        "ph": "pH (tùy chọn)",
+        "phPlaceholder": "Nhập pH",
+        "phHint": "pH động mạch",
+        "phNormalRange": "Khoảng bình thường: 7,35–7,45",
+        "respiratoryRate": "Nhịp thở",
+        "respiratoryRatePlaceholder": "Nhập RR",
+        "respiratoryRateHint": "Nhịp mỗi phút",
+        "respiratoryRateNormalRange": "Khoảng bình thường: 12–20 nhịp/phút",
+        "heartRate": "Nhịp tim",
+        "heartRatePlaceholder": "Nhập HR",
+        "heartRateHint": "Nhịp mỗi phút",
+        "heartRateNormalRange": "Khoảng bình thường: 60–100 bpm",
+        "bloodPressure": "Huyết áp (tùy chọn)",
+        "bloodPressurePlaceholder": "vd. 120/80",
+        "bloodPressureHint": "Tâm thu/tâm trương mmHg",
+        "bloodPressureNormalRange": "Khoảng bình thường: 90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "Quan sát bổ sung",
+        "description": "Ghi thêm dữ liệu lâm sàng chưa có ở trên (vd. xét nghiệm, hình ảnh, thuốc, điểm bệnh kèm). Mỗi quan sát là một cặp tên–giá trị. Tùy chọn; có thể bỏ qua bước này.",
+        "add": "Thêm quan sát",
+        "name": "Tên",
+        "value": "Giá trị",
+        "unit": "Đơn vị",
+        "optional": "Tùy chọn"
+      },
+      "timeSeries": {
+        "title": "Chuỗi thời gian (dấu sinh tồn theo thời gian)",
+        "description": "Theo dõi dấu sinh tồn hoặc chỉ số khác tại nhiều thời điểm (vd. SpO₂, RR, HR lúc 0h, 1h, 2h). Dùng cho xu hướng và giám sát sau khi bắt đầu phiên. Tùy chọn; có thể thêm điểm sau trên màn hình giám sát.",
+        "add": "Thêm điểm chuỗi thời gian",
+        "name": "Tên",
+        "value": "Giá trị",
+        "optional": "Tùy chọn"
+      },
+      "recommendationSource": {
+        "label": "Nguồn gợi ý",
+        "local": "Bộ dữ liệu cục bộ",
+        "localDescription": "Chỉ dùng bộ dữ liệu tích hợp. Hoạt động ngoại tuyến; không cần khóa API.",
+        "onlineAi": "AI trực tuyến",
+        "onlineAiDescription": "Dùng khóa API để nhận gợi ý và lý do có AI. Cần kết nối; quay về cục bộ nếu AI lỗi.",
+        "modelLabel": "Mô hình",
+        "modelHint": "Chọn mô hình AI (dùng mặc định nếu không đặt)",
+        "providerLabel": "Nhà cung cấp",
+        "gpt4oMini": "GPT-4o mini (mặc định)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "Lý do AI cho gợi ý",
+        "hints": "Gợi ý AI"
+      },
+      "missingTests": {
+        "title": "Xét nghiệm bổ sung đề xuất",
+        "abgPanel": "Panel ABG sẽ cải thiện độ tin cậy",
+        "abgHint": "Cân nhắc chỉ định khí máu động mạch nếu có"
+      },
+      "actions": {
+        "back": "Quay lại",
+        "next": "Tiếp",
+        "generate": "Tạo gợi ý",
+        "generateHint": "Tạo gợi ý từ dữ liệu hiện tại"
+      },
+      "states": {
+        "loading": "Đang tải đánh giá…",
+        "error": "Không tải được đánh giá",
+        "offline": "Đánh giá hoạt động ngoại tuyến",
+        "empty": "Nhập dữ liệu bệnh nhân để bắt đầu"
+      }
+    },
+    "recommendation": {
+      "title": "Cài đặt đề xuất",
+      "accessibilityLabel": "Màn hình gợi ý",
+      "sections": {
+        "settings": "Cài đặt đề xuất",
+        "confidence": "Độ tin cậy và lý do",
+        "monitoring": "Điểm giám sát",
+        "risks": "Rủi ro và biến chứng",
+        "matchedCases": "Ca khớp",
+        "evidence": "Bằng chứng và xem xét",
+        "warning": "Lưu ý bộ dữ liệu"
+      },
+      "settings": {
+        "mode": "Chế độ",
+        "tidalVolume": "Thể tích khí lưu thông",
+        "respiratoryRate": "Nhịp thở",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "Tỷ lệ I:E"
+      },
+      "confidence": {
+        "high": "Cao",
+        "medium": "Trung bình",
+        "low": "Thấp",
+        "missingInputs": "Thiếu dữ liệu có thể cải thiện độ tin cậy"
+      },
+      "aiReasons": {
+        "title": "Lý do AI cho gợi ý",
+        "hints": "Mã gợi ý AI"
+      },
+      "actions": {
+        "startMonitoring": "Bắt đầu giám sát",
+        "startMonitoringHint": "Bắt đầu theo dõi dấu sinh tồn và chuỗi thời gian",
+        "backToAssessment": "Quay lại đánh giá",
+        "requestAiRecommendation": "Yêu cầu gợi ý AI",
+        "requestAiHint": "Lấy gợi ý AI tùy chọn cho ca này (cần kết nối)",
+        "connectivityRequired": "Cần kết nối internet",
+        "supplementalDisclaimer": "Đầu ra AI chỉ bổ trợ, chưa được xác nhận lâm sàng",
+        "aiUnavailableFallback": "AI không khả dụng — đang dùng gợi ý cục bộ",
+        "exportSummary": "Xuất tóm tắt",
+        "exportSummaryHint": "Tải tóm tắt phiên dạng văn bản",
+        "anonymizeBeforeExport": "Xóa định danh trước khi xuất"
+      },
+      "states": {
+        "loading": "Đang tải gợi ý…",
+        "error": "Không tải được gợi ý",
+        "empty": "Chưa có gợi ý. Hoàn tất đánh giá trước."
+      },
+      "intendedUse": {
+        "warningLabel": "Chưa xác nhận lâm sàng",
+        "validationLabel": "Yêu cầu xác nhận"
+      },
+      "reviewStatus": {
+        "unvalidated": "Chưa xác nhận (nguyên mẫu)",
+        "validated": "Đã xác nhận"
+      }
+    },
+    "monitoring": {
+      "title": "Giám sát",
+      "accessibilityLabel": "Màn hình giám sát",
+      "decisionSupportOnly": "Chỉ để hỗ trợ quyết định. Không thay thế phán đoán lâm sàng.",
+      "sections": {
+        "quickEntry": "Nhập nhanh",
+        "trend": "Xu hướng",
+        "alerts": "Cảnh báo"
+      },
+      "quickEntry": {
+        "addPoint": "Thêm điểm",
+        "addPointHint": "Thêm điểm dữ liệu dấu sinh tồn hoặc xét nghiệm",
+        "namePlaceholder": "Tên (vd. SpO₂, RR)",
+        "valuePlaceholder": "Giá trị",
+        "unitPlaceholder": "Đơn vị"
+      },
+      "trend": {
+        "insufficientData": "Chưa đủ dữ liệu",
+        "directionUp": "Đang tăng",
+        "directionDown": "Đang giảm",
+        "directionFlat": "Ổn định",
+        "directionUnknown": "Không rõ"
+      },
+      "alerts": {
+        "severityNormal": "Bình thường",
+        "severityWarning": "Cảnh báo",
+        "severityCritical": "Nghiêm trọng",
+        "severityUnknown": "Không rõ",
+        "why": "Lý do",
+        "whyCriticalLow": "Giá trị dưới ngưỡng thấp nghiêm trọng",
+        "whyWarningLow": "Giá trị dưới ngưỡng thấp cảnh báo",
+        "whyCriticalHigh": "Giá trị trên ngưỡng cao nghiêm trọng",
+        "whyWarningHigh": "Giá trị trên ngưỡng cao cảnh báo",
+        "suggestedAction": "Hành động đề xuất",
+        "suggestedActionNormal": "Tiếp tục giám sát",
+        "suggestedActionWarning": "Xem xét và cân nhắc can thiệp",
+        "suggestedActionCritical": "Xử lý ngay",
+        "suggestedActionUnknown": "Kiểm tra giá trị và nhập lại nếu cần",
+        "empty": "Không có cảnh báo"
+      },
+      "actions": {
+        "backToRecommendation": "Quay lại gợi ý"
+      },
+      "states": {
+        "loading": "Đang tải…",
+        "error": "Không tải được giám sát",
+        "empty": "Thêm điểm dấu sinh tồn hoặc xét nghiệm để xem xu hướng và cảnh báo.",
+        "offline": "Bạn đang ngoại tuyến. Dữ liệu lưu cục bộ."
+      }
+    },
+    "history": {
+      "title": "Lịch sử phiên",
+      "accessibilityLabel": "Màn hình lịch sử phiên",
+      "empty": "Chưa có phiên đã lưu.",
+      "corruptRecovery": "Lịch sử phiên đã được đặt lại do lỗi lưu trữ. Bạn có thể bắt đầu phiên mới.",
+      "actions": {
+        "resume": "Tiếp tục",
+        "resumeHint": "Tiếp tục phiên này",
+        "viewDetails": "Xem chi tiết",
+        "viewDetailsHint": "Xem tóm tắt phiên",
+        "delete": "Xóa",
+        "deleteHint": "Xóa khỏi lịch sử"
+      },
+      "deleteConfirm": {
+        "title": "Xóa phiên?",
+        "message": "Phiên này sẽ bị xóa khỏi lịch sử. Không thể hoàn tác.",
+        "confirm": "Xóa",
+        "cancel": "Hủy"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Tình trạng: {{condition}}",
+        "tier": "Mức: {{tier}}",
+        "summary": "Tóm tắt"
+      },
+      "states": {
+        "loading": "Đang tải lịch sử…",
+        "error": "Không tải được lịch sử phiên"
+      }
+    },
+    "caseDetail": {
+      "title": "Chi tiết ca",
+      "accessibilityLabel": "Màn hình chi tiết ca",
+      "summary": "Tóm tắt ca",
+      "patientProfile": "Hồ sơ bệnh nhân",
+      "clinicalParameters": "Tham số lâm sàng",
+      "ventilatorSettings": "Cài đặt máy thở",
+      "outcomes": "Kết quả",
+      "evidence": "Bằng chứng",
+      "reviewStatus": "Trạng thái xem xét",
+      "intendedUseWarning": "Đây là ca trong bộ dữ liệu chỉ để tham khảo. Không dùng trực tiếp cho lâm sàng.",
+      "datasetCaseFraming": "Ca trong bộ dữ liệu (chỉ tham khảo)",
+      "prototypeFraming": "Nguyên mẫu — chưa xác nhận lâm sàng",
+      "notFound": "Không tìm thấy ca trong bộ dữ liệu.",
+      "missingCaseId": "Chưa chọn ca.",
+      "states": {
+        "loading": "Đang tải ca…"
+      },
+      "review": {
+        "unvalidated": "Chưa xác nhận (nguyên mẫu)",
+        "validated": "Đã xác nhận"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Đào tạo",
+      "subtitle": "Quy trình, checklist và tham khảo.",
+      "accessibilityLabel": "Màn hình đào tạo",
+      "searchPlaceholder": "Tìm chủ đề…",
+      "searchHint": "Tìm nội dung đào tạo",
+      "topicsSection": "Chủ đề",
+      "searchResults": "Kết quả tìm kiếm",
+      "popularTopics": "Chủ đề phổ biến",
+      "quickChecklists": "Checklist nhanh",
+      "browseAll": "Xem tất cả chủ đề",
+      "browseAllHint": "Xem tất cả chủ đề đào tạo",
+      "viewTopic": "Xem",
+      "states": {
+        "loading": "Đang tải đào tạo…",
+        "error": "Không tải được nội dung đào tạo",
+        "offline": "Nội dung có sẵn ngoại tuyến",
+        "empty": "Không có nội dung đào tạo"
+      }
+    },
+    "topics": {
+      "title": "Chủ đề",
+      "accessibilityLabel": "Màn hình danh sách chủ đề",
+      "searchPlaceholder": "Tìm hoặc lọc…",
+      "searchHint": "Tìm chủ đề",
+      "empty": "Không tìm thấy chủ đề.",
+      "filterByType": "Lọc theo loại",
+      "typeProtocol": "Quy trình",
+      "typeChecklist": "Checklist",
+      "typeGlossary": "Thuật ngữ",
+      "typeFaq": "FAQ",
+      "openTopicHint": "Mở chủ đề",
+      "states": {
+        "loading": "Đang tải chủ đề…",
+        "error": "Không tải được chủ đề",
+        "offline": "Nội dung có sẵn ngoại tuyến"
+      }
+    },
+    "topicDetail": {
+      "title": "Chủ đề",
+      "accessibilityLabel": "Màn hình chi tiết chủ đề",
+      "section": "Phần",
+      "expand": "Mở rộng phần",
+      "collapse": "Thu gọn phần",
+      "checklistItem": "Mục",
+      "notFound": "Không tìm thấy chủ đề.",
+      "backToTopics": "Quay lại chủ đề",
+      "backToTopicsHint": "Quay lại danh sách chủ đề",
+      "states": {
+        "loading": "Đang tải chủ đề…",
+        "error": "Không tải được chủ đề"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "message": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
+    "back": "Quay lại",
+    "backHint": "Quay về trang trước",
+    "goHome": "Về trang chủ",
+    "goHomeHint": "Điều hướng về trang chủ"
+  },
+  "error": {
+    "title": "Đã xảy ra lỗi",
+    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại hoặc về trang chủ.",
+    "retry": "Thử lại",
+    "retryHint": "Thử lại thao tác",
+    "goHome": "Về trang chủ",
+    "goHomeHint": "Điều hướng về trang chủ"
+  },
+  "errorState": {
+    "defaultTitle": "Đã xảy ra lỗi"
+  }
+}

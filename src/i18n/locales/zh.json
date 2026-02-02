@@ -1,0 +1,911 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "search": "搜索",
+    "submit": "提交",
+    "loading": "加载中…",
+    "retry": "重试",
+    "back": "返回",
+    "next": "下一步",
+    "continue": "继续",
+    "close": "关闭",
+    "closeSidebarHint": "关闭侧边栏菜单",
+    "select": "选择",
+    "selectPlaceholder": "请选择…",
+    "closeSelect": "关闭选择",
+    "remove": "移除",
+    "goToHome": "返回首页",
+    "viewNotifications": "查看通知",
+    "userMenu": "用户菜单",
+    "toggleMenu": "切换菜单",
+    "searchPlaceholder": "搜索…",
+    "searchIcon": "搜索图标",
+    "clearSearch": "清除搜索",
+    "on": "开",
+    "off": "关",
+    "switch": "开关",
+    "imageLoadError": "图片加载失败",
+    "imageDefaultAlt": "图片",
+    "progress": "进度：{{value}}%",
+    "requiredLabel": "必填",
+    "clearAll": "清除全部",
+    "filters": "筛选",
+    "clearAllFilters": "清除所有筛选",
+    "loadingPlaceholder": "加载占位",
+    "radio": "单选",
+    "emptyState": "空状态",
+    "message": "消息",
+    "sliderValue": "滑块：{{value}}",
+    "dropdownMenu": "下拉菜单",
+    "tooltip": "提示",
+    "action": "操作"
+  },
+  "greeting": {
+    "hello": "你好，{{name}}"
+  },
+  "app": {
+    "name": "AI 呼吸机决策支持",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "出现问题",
+      "message": "发生意外错误",
+      "retry": "重试",
+      "retryHint": "请再试一次"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "发生未知错误",
+      "NETWORK_ERROR": "网络连接失败",
+      "UNAUTHORIZED": "需要身份验证",
+      "FORBIDDEN": "访问被拒绝",
+      "SERVER_ERROR": "服务器错误",
+      "ROUTE_ERROR": "加载此页面时发生错误",
+      "INVALID_CREDENTIALS": "凭据无效",
+      "MULTIPLE_TENANTS": "发现多个租户，请选择租户。",
+      "ACCOUNT_INACTIVE": "账户未激活",
+      "ACCOUNT_SUSPENDED": "账户已被暂停",
+      "ACCOUNT_PENDING": "账户待验证",
+      "PASSWORD_INCORRECT": "当前密码错误",
+      "TOKEN_INVALID": "令牌无效或已过期",
+      "TOKEN_EXPIRED": "令牌已过期",
+      "REFRESH_TOKEN_INVALID": "刷新令牌无效或已过期",
+      "USER_NOT_FOUND": "未找到用户",
+      "USER_EXISTS": "该邮箱已注册用户",
+      "SESSION_NOT_FOUND": "未找到会话",
+      "ALREADY_VERIFIED": "账户已通过验证",
+      "AI_UNAVAILABLE": "AI 不可用 — 使用本地推荐",
+      "AI_TIMEOUT": "AI 请求超时",
+      "AI_UNAUTHORIZED": "AI API 密钥无效或已过期",
+      "AI_FORBIDDEN": "AI 访问被拒绝",
+      "AI_RATE_LIMIT": "已达到 AI 速率限制",
+      "AI_MODEL_UNAVAILABLE": "AI 模型不可用",
+      "AI_MALFORMED_RESPONSE": "AI 响应无效"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "此字段为必填项",
+      "invalidEmail": "邮箱格式无效",
+      "invalidUrl": "URL 格式无效",
+      "invalidUuid": "ID 格式无效",
+      "maxLength": "最大长度为 {{max}} 个字符",
+      "invalidValue": "无效值"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "主导航栏",
+      "searchHint": "输入搜索",
+      "cartWithItems": "购物车（{{count}} 件）",
+      "cartWithItems_zero": "购物车",
+      "signIn": "登录",
+      "profile": "个人资料",
+      "orders": "订单",
+      "settings": "设置",
+      "logout": "退出登录",
+      "hideHeader": "隐藏页眉",
+      "showHeader": "显示页眉",
+      "showMore": "更多",
+      "customize": "自定义",
+      "overflowMenuLabel": "更多页眉操作",
+      "customizationMenuLabel": "页眉自定义",
+      "actions": {
+        "notifications": "通知",
+        "network": "网络状态",
+        "database": "数据库状态",
+        "fullscreen": "全屏切换"
+      }
+    },
+    "sidebar": {
+      "title": "主导航",
+      "label": "导航",
+      "resize": "调整导航栏大小"
+    },
+    "fullscreen": {
+      "enter": "全屏",
+      "exit": "退出全屏"
+    },
+    "tabBar": {
+      "title": "底部导航"
+    },
+    "footer": {
+      "title": "全局页脚",
+      "copyright": "© {{year}} {{appName}}。保留所有权利。",
+      "supportEmail": "支持（电子邮件）",
+      "supportPhone": "支持（电话）",
+      "status": {
+        "title": "应用状态",
+        "auth": "安全登录已启用",
+        "main": "所有系统运行正常",
+        "patient": "患者服务就绪"
+      },
+      "environment": "{{env}} · v{{version}}（构建：{{build}}）",
+      "legal": {
+        "title": "法律与支持",
+        "terms": "条款",
+        "privacy": "隐私",
+        "support": "支持"
+      }
+    },
+    "network": {
+      "label": "网络状态",
+      "status": {
+        "online": "在线",
+        "offline": "离线",
+        "unstable": "不稳定",
+        "syncing": "同步中"
+      },
+      "database": {
+        "label": "数据库",
+        "connected": "数据库已连接",
+        "disconnected": "数据库已断开"
+      }
+    },
+    "notifications": {
+      "label": "通知",
+      "menuLabel": "通知菜单",
+      "empty": "暂无新通知",
+      "viewAll": "查看所有通知",
+      "items": {
+        "appointments": {
+          "title": "即将预约",
+          "meta": "今天下午 3:00"
+        },
+        "labResults": {
+          "title": "检验结果已就绪",
+          "meta": "有新结果可查看"
+        },
+        "messages": {
+          "title": "新消息",
+          "meta": "您有未读消息"
+        }
+      }
+    },
+    "bottomNavigation": "底部导航",
+    "mainNavigation": "主导航",
+    "patientNavigation": "患者导航",
+    "items": {
+      "main": {
+        "home": "首页",
+        "assessment": "评估",
+        "history": "历史",
+        "training": "培训",
+        "onboarding": "入门指南",
+        "settings": "设置",
+        "settings-about": "关于",
+        "settings-data-sources": "数据源",
+        "settings-disclaimer": "免责声明",
+        "settings-help": "帮助",
+        "settings-privacy": "隐私"
+      }
+    },
+    "breadcrumbs": {
+      "title": "面包屑导航",
+      "label": "面包屑"
+    },
+    "skipToMainContent": "跳到主要内容"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "系统状态更新",
+      "offline": {
+        "title": "您已离线",
+        "message": "部分功能可能在恢复连接前不可用。",
+        "accessibilityLabel": "离线状态通知"
+      },
+      "lowQuality": {
+        "title": "网络不稳定",
+        "message": "您可能会遇到延迟或功能受限。",
+        "accessibilityLabel": "网络质量不佳通知"
+      },
+      "online": {
+        "title": "已恢复在线",
+        "message": "连接已恢复。",
+        "accessibilityLabel": "在线状态通知"
+      },
+      "maintenance": {
+        "title": "计划维护",
+        "message": "部分服务可能暂时不可用。",
+        "accessibilityLabel": "维护通知"
+      }
+    },
+    "loadingOverlay": {
+      "title": "处理中…",
+      "message": "请稍候，我们正在完成请求。"
+    },
+    "notices": {
+      "surfaceLabel": "全局通知"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "screen": {
+      "label": "设置页面"
+    },
+    "theme": {
+      "label": "主题",
+      "accessibilityLabel": "主题选择器",
+      "hint": "更改应用主题",
+      "options": {
+        "system": "跟随系统",
+        "light": "浅色",
+        "dark": "深色",
+        "highContrast": "高对比度"
+      }
+    },
+    "language": {
+      "label": "语言",
+      "accessibilityLabel": "语言选择器",
+      "hint": "更改应用语言",
+      "options": {
+        "en": "英语",
+        "ar": "阿拉伯语",
+        "de": "德语",
+        "es": "西班牙语",
+        "fa": "波斯语",
+        "fr": "法语",
+        "hi": "印地语",
+        "id": "印尼语",
+        "it": "意大利语",
+        "ja": "日语",
+        "ko": "韩语",
+        "ms": "马来语",
+        "nl": "荷兰语",
+        "pl": "波兰语",
+        "pt": "葡萄牙语",
+        "ru": "俄语",
+        "sw": "斯瓦希里语",
+        "ta": "泰米尔语",
+        "th": "泰语",
+        "tr": "土耳其语",
+        "uk": "乌克兰语",
+        "vi": "越南语",
+        "zh": "中文"
+      }
+    },
+    "density": {
+      "label": "密度",
+      "accessibilityLabel": "密度模式选择器",
+      "hint": "更改间距和布局密度",
+      "options": {
+        "compact": "紧凑",
+        "comfortable": "舒适"
+      }
+    },
+    "footerVisible": {
+      "label": "显示页脚",
+      "accessibilityLabel": "切换页脚显示",
+      "hint": "显示或隐藏布局底部的页脚（仅桌面版）"
+    },
+    "sidebar": {
+      "resize": "调整设置侧边栏大小",
+      "menu": "设置菜单",
+      "menuOpen": "打开设置菜单",
+      "menuClose": "关闭设置菜单",
+      "groups": {
+        "general": "常规",
+        "organization": "组织",
+        "usersAndAccess": "用户与访问",
+        "security": "安全"
+      }
+    },
+    "disclaimer": {
+      "title": "免责声明",
+      "screen": {
+        "label": "免责声明页面"
+      },
+      "prototypeFraming": "本应用为参考和培训用原型，不适用于直接临床使用。",
+      "datasetNotice": "数据集声明",
+      "acknowledge": "我已知晓",
+      "acknowledgeHint": "确认您已阅读并理解免责声明",
+      "states": {
+        "loading": "加载中…",
+        "error": "无法加载免责声明"
+      }
+    },
+    "dataSources": {
+      "title": "数据源",
+      "screen": {
+        "label": "数据源页面"
+      },
+      "datasetVersion": "数据集版本",
+      "schemaVersion": "架构版本",
+      "lastUpdated": "最后更新",
+      "totalCases": "总病例数",
+      "citations": "引用",
+      "doi": "DOI",
+      "states": {
+        "loading": "加载中…",
+        "error": "无法加载数据源",
+        "empty": "暂无可用数据源"
+      }
+    },
+    "privacy": {
+      "title": "隐私",
+      "screen": {
+        "label": "隐私页面"
+      },
+      "localStorage": "本地存储数据",
+      "localStorageDescription": "偏好设置和会话数据仅存储在此设备上，不会发送到外部服务器。",
+      "optionalAI": "如启用在线 AI 功能，相关请求可能会发送至已配置的服务。"
+    },
+    "about": {
+      "title": "关于",
+      "screen": {
+        "label": "关于页面"
+      },
+      "appName": "通气决策支持",
+      "version": "版本",
+      "prototypeScope": "此为参考和培训用原型，不可用于临床。"
+    },
+    "onboarding": {
+      "title": "入门指南",
+      "accessibilityLabel": "入门指南页面",
+      "steps": {
+        "inputs": {
+          "title": "输入数据",
+          "body": "使用评估功能输入临床参数（SpO₂、PaO₂、PaCO₂、pH、呼吸频率等）。输入越完整，推荐匹配度越高。如有 ABG 值可提高准确性。"
+        },
+        "recommendations": {
+          "title": "解读推荐",
+          "body": "推荐显示建议的呼吸机设置及置信度（高、中、低）。匹配质量反映数据集病例与您输入的吻合程度。匹配病例仅供参考，请始终结合临床判断。"
+        },
+        "monitoring": {
+          "title": "监测与警报",
+          "body": "获取推荐后，使用监测功能记录一段时间内的生命体征和检验数据。警报会标出超出设定阈值的数值。仅作决策支持，请按您的规程审核并采取行动。"
+        },
+        "offline": {
+          "title": "离线行为",
+          "body": "核心流程（评估、推荐、监测）可离线使用，数据保存在本地。可选 AI 功能需要联网。恢复在线后可正常继续使用。"
+        }
+      },
+      "actions": {
+        "done": "完成",
+        "next": "下一步",
+        "back": "返回"
+      },
+      "states": {
+        "loading": "加载中…"
+      }
+    },
+    "help": {
+      "title": "帮助与参考",
+      "accessibilityLabel": "帮助页面",
+      "searchPlaceholder": "搜索术语或指南…",
+      "sections": {
+        "glossary": "术语表",
+        "troubleshooting": "故障排除",
+        "guides": "下一步操作"
+      },
+      "glossary": {
+        "PEEP": "呼气末正压（cmH₂O）。维持肺容量和氧合。",
+        "FiO2": "吸入氧浓度（0–1）。吸入气体中的氧气百分比。",
+        "IERatio": "吸呼比。吸气与呼气时间比（如 1:2）。",
+        "tidalVolume": "潮气量（mL）。每次呼吸输送的气量。",
+        "respiratoryRate": "呼吸频率（次/分钟）。",
+        "SpO2": "脉搏血氧饱和度（%）。",
+        "PaO2": "动脉血氧分压（mmHg）。",
+        "PaCO2": "动脉二氧化碳分压（mmHg）。",
+        "pH": "动脉 pH（无量纲）。"
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "缺少 ABG 值",
+          "body": "无 ABG 也可获得推荐；可用时请输入 SpO₂ 及其他生命体征。为更好匹配，有数据时可补充 PaO₂、PaCO₂ 和 pH。"
+        },
+        "offline": {
+          "title": "离线使用应用",
+          "body": "评估、推荐和监测可离线使用，数据存储在本地。可选 AI 建议需要联网。核心流程无需同步。"
+        }
+      },
+      "guides": {
+        "hypoxemia": "检查 FiO₂ 和 PEEP；考虑肺复张；排查分流或 V/Q 失调。",
+        "hypercapnia": "检查分钟通气量（频率 × 潮气量）；按规程考虑允许性高碳酸血症。",
+        "acidosis": "处理通气和灌注；按规程纠正根本原因。",
+        "general": "推荐仅作决策支持，需结合当地规程和临床判断验证。"
+      },
+      "states": {
+        "loading": "加载中…",
+        "empty": "无结果",
+        "error": "无法加载帮助"
+      }
+    },
+    "ai": {
+      "label": "AI 决策支持",
+      "sectionLabel": "可选 AI 推荐（在线）",
+      "enableLabel": "启用 AI 推荐",
+      "enableHint": "仅对复杂病例使用在线 AI；本地推荐始终可用",
+      "providerLabel": "服务商",
+      "providerHint": "AI 服务商（如 OpenAI）；每个服务商单独配置 API 密钥",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "API 密钥",
+      "apiKeyPlaceholder": "输入密钥（安全存储）",
+      "apiKeySave": "保存密钥",
+      "apiKeyClear": "清除密钥",
+      "keyConfigured": "密钥已保存",
+      "modelLabel": "模型",
+      "modelHint": "用于 AI 建议的模型",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "加载中",
+    "offline": "离线",
+    "error": "错误",
+    "empty": "空",
+    "list": "列表",
+    "emptyState": {
+      "title": "无项目",
+      "message": "暂无项目可显示"
+    },
+    "errorState": {
+      "title": "错误",
+      "message": "发生错误"
+    }
+  },
+  "home": {
+    "title": "首页",
+    "welcome": {
+      "title": "欢迎",
+      "message": "AI 呼吸机决策支持帮助您评估患者、执行通气会话并查看推荐。"
+    },
+    "overview": {
+      "title": "快捷入口",
+      "assessment": {
+        "title": "评估",
+        "description": "开始患者评估和通气会话。",
+        "hint": "进入评估"
+      },
+      "history": {
+        "title": "历史",
+        "description": "查看并恢复以往会话。",
+        "hint": "进入历史"
+      },
+      "training": {
+        "title": "培训",
+        "description": "浏览培训主题和检查清单。",
+        "hint": "进入培训"
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "患者评估",
+      "accessibilityLabel": "评估向导页面",
+      "summary": {
+        "title": "会话摘要",
+        "accessibilityLabel": "评估摘要概览",
+        "vitalsFormat": "SpO₂：{{spo2}} | RR：{{rr}} | HR：{{hr}}",
+        "condition": "诊断",
+        "spo2": "SpO₂",
+        "respiratoryRate": "呼吸频率",
+        "heartRate": "心率",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "年龄",
+        "weight": "体重",
+        "height": "身高",
+        "gender": "性别",
+        "comorbidities": "合并症",
+        "bloodPressure": "血压",
+        "empty": "暂无数据",
+        "expand": "展开摘要",
+        "collapse": "收起摘要"
+      },
+      "steps": {
+        "patientProfile": "患者信息",
+        "clinicalParams": "临床参数",
+        "observations": "可选观察",
+        "timeSeries": "可选时间序列",
+        "review": "审核"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "哮喘",
+        "COPD": "COPD",
+        "heartFailure": "心力衰竭",
+        "pneumonia": "肺炎",
+        "sepsis": "脓毒症",
+        "trauma": "创伤",
+        "other": "其他"
+      },
+      "patientProfile": {
+        "condition": "诊断",
+        "conditionPlaceholder": "选择诊断",
+        "conditionHint": "主要呼吸系统诊断（必填）",
+        "age": "年龄（岁）",
+        "agePlaceholder": "输入年龄",
+        "ageHint": "患者年龄（岁）",
+        "weight": "体重（kg）",
+        "weightPlaceholder": "输入体重",
+        "weightHint": "患者体重（kg）",
+        "height": "身高（cm）",
+        "heightPlaceholder": "输入身高",
+        "heightHint": "患者身高（cm）",
+        "gender": "性别",
+        "genderPlaceholder": "选择性别",
+        "genderHint": "患者性别",
+        "genderMale": "男",
+        "genderFemale": "女",
+        "genderOther": "其他",
+        "comorbidities": "合并症",
+        "comorbiditiesPlaceholder": "如高血压、糖尿病",
+        "comorbiditiesHint": "逗号分隔列表"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "输入 SpO₂",
+        "spo2Hint": "血氧饱和度（%）",
+        "spo2NormalRange": "正常范围：95–100%",
+        "pao2": "PaO₂（可选）",
+        "pao2Placeholder": "输入 PaO₂",
+        "pao2Hint": "动脉血氧（mmHg）",
+        "pao2NormalRange": "正常范围：80–100 mmHg",
+        "paco2": "PaCO₂（可选）",
+        "paco2Placeholder": "输入 PaCO₂",
+        "paco2Hint": "动脉 CO₂（mmHg）",
+        "paco2NormalRange": "正常范围：35–45 mmHg",
+        "ph": "pH（可选）",
+        "phPlaceholder": "输入 pH",
+        "phHint": "动脉 pH",
+        "phNormalRange": "正常范围：7.35–7.45",
+        "respiratoryRate": "呼吸频率",
+        "respiratoryRatePlaceholder": "输入 RR",
+        "respiratoryRateHint": "次/分钟",
+        "respiratoryRateNormalRange": "正常范围：12–20 次/分钟",
+        "heartRate": "心率",
+        "heartRatePlaceholder": "输入 HR",
+        "heartRateHint": "次/分钟",
+        "heartRateNormalRange": "正常范围：60–100 次/分钟",
+        "bloodPressure": "血压（可选）",
+        "bloodPressurePlaceholder": "如 120/80",
+        "bloodPressureHint": "收缩压/舒张压 mmHg",
+        "bloodPressureNormalRange": "正常范围：90–120 / 60–80 mmHg"
+      },
+      "observations": {
+        "title": "其他观察",
+        "description": "记录上述未涵盖的额外临床数据（如检验、影像、用药、合并症评分）。每项观察为单个名称-值对。可选；可跳过此步骤。",
+        "add": "添加观察",
+        "name": "名称",
+        "value": "值",
+        "unit": "单位",
+        "optional": "可选"
+      },
+      "timeSeries": {
+        "title": "时间序列（随时间生命体征）",
+        "description": "在多个时间点记录生命体征或其他指标（如 0h、1h、2h 的 SpO₂、RR、HR）。用于趋势分析和会话开始后的监测。可选；可在监测页面稍后添加。",
+        "add": "添加时间序列点",
+        "name": "名称",
+        "value": "值",
+        "optional": "可选"
+      },
+      "recommendationSource": {
+        "label": "推荐来源",
+        "local": "本地数据集",
+        "localDescription": "仅使用内置数据集。可离线使用；无需 API 密钥。",
+        "onlineAi": "在线 AI",
+        "onlineAiDescription": "使用您的 API 密钥获取 AI 增强推荐及原因。需要联网；AI 失败时回退到本地。",
+        "modelLabel": "模型",
+        "modelHint": "选择 AI 模型（未设置时使用默认）",
+        "providerLabel": "服务商",
+        "gpt4oMini": "GPT-4o mini（默认）",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "AI 推荐原因",
+        "hints": "AI 提示"
+      },
+      "missingTests": {
+        "title": "建议的额外检查",
+        "abgPanel": "ABG 检测可提高置信度",
+        "abgHint": "如有条件可考虑动脉血气分析"
+      },
+      "actions": {
+        "back": "返回",
+        "next": "下一步",
+        "generate": "生成推荐",
+        "generateHint": "根据当前输入创建推荐"
+      },
+      "states": {
+        "loading": "加载评估中…",
+        "error": "无法加载评估",
+        "offline": "评估可离线使用",
+        "empty": "请输入患者数据开始"
+      }
+    },
+    "recommendation": {
+      "title": "推荐设置",
+      "accessibilityLabel": "推荐页面",
+      "sections": {
+        "settings": "推荐设置",
+        "confidence": "置信度与原因",
+        "monitoring": "监测要点",
+        "risks": "风险与并发症",
+        "matchedCases": "匹配病例",
+        "evidence": "证据与审核",
+        "warning": "数据集声明"
+      },
+      "settings": {
+        "mode": "模式",
+        "tidalVolume": "潮气量",
+        "respiratoryRate": "呼吸频率",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "吸呼比"
+      },
+      "confidence": {
+        "high": "高",
+        "medium": "中",
+        "low": "低",
+        "missingInputs": "可提高置信度的缺失输入"
+      },
+      "aiReasons": {
+        "title": "AI 推荐原因",
+        "hints": "AI 提示代码"
+      },
+      "actions": {
+        "startMonitoring": "开始监测",
+        "startMonitoringHint": "开始追踪生命体征和时间序列",
+        "backToAssessment": "返回评估",
+        "requestAiRecommendation": "请求 AI 推荐",
+        "requestAiHint": "获取此病例的可选 AI 提示（需要联网）",
+        "connectivityRequired": "需要网络连接",
+        "supplementalDisclaimer": "AI 输出为补充信息，未经临床验证",
+        "aiUnavailableFallback": "AI 不可用 — 使用本地推荐",
+        "exportSummary": "导出摘要",
+        "exportSummaryHint": "下载会话摘要为文本",
+        "anonymizeBeforeExport": "导出前移除标识符"
+      },
+      "states": {
+        "loading": "加载推荐中…",
+        "error": "无法加载推荐",
+        "empty": "暂无推荐。请先完成评估。"
+      },
+      "intendedUse": {
+        "warningLabel": "未经临床验证",
+        "validationLabel": "验证要求"
+      },
+      "reviewStatus": {
+        "unvalidated": "未验证（原型）",
+        "validated": "已验证"
+      }
+    },
+    "monitoring": {
+      "title": "监测",
+      "accessibilityLabel": "监测页面",
+      "decisionSupportOnly": "仅作决策支持，不能替代临床判断。",
+      "sections": {
+        "quickEntry": "快速录入",
+        "trend": "趋势",
+        "alerts": "警报"
+      },
+      "quickEntry": {
+        "addPoint": "添加数据点",
+        "addPointHint": "添加生命体征或检验数据点",
+        "namePlaceholder": "名称（如 SpO₂、RR）",
+        "valuePlaceholder": "值",
+        "unitPlaceholder": "单位"
+      },
+      "trend": {
+        "insufficientData": "数据不足",
+        "directionUp": "上升",
+        "directionDown": "下降",
+        "directionFlat": "稳定",
+        "directionUnknown": "未知"
+      },
+      "alerts": {
+        "severityNormal": "正常",
+        "severityWarning": "警告",
+        "severityCritical": "危急",
+        "severityUnknown": "未知",
+        "why": "原因",
+        "whyCriticalLow": "值低于危急下限",
+        "whyWarningLow": "值低于警告下限",
+        "whyCriticalHigh": "值高于危急上限",
+        "whyWarningHigh": "值高于警告上限",
+        "suggestedAction": "建议操作",
+        "suggestedActionNormal": "继续监测",
+        "suggestedActionWarning": "审核并考虑干预",
+        "suggestedActionCritical": "立即处理",
+        "suggestedActionUnknown": "核实数值，如需请重新输入",
+        "empty": "无警报"
+      },
+      "actions": {
+        "backToRecommendation": "返回推荐"
+      },
+      "states": {
+        "loading": "加载中…",
+        "error": "无法加载监测",
+        "empty": "请添加生命体征或检验数据点以查看趋势和警报。",
+        "offline": "您已离线。数据保存在本地。"
+      }
+    },
+    "history": {
+      "title": "会话历史",
+      "accessibilityLabel": "会话历史页面",
+      "empty": "暂无已保存会话。",
+      "corruptRecovery": "因存储问题会话历史已重置，您可以开始新会话。",
+      "actions": {
+        "resume": "继续",
+        "resumeHint": "继续此会话",
+        "viewDetails": "查看详情",
+        "viewDetailsHint": "查看会话摘要",
+        "delete": "删除",
+        "deleteHint": "从历史中移除"
+      },
+      "deleteConfirm": {
+        "title": "删除会话？",
+        "message": "此会话将从历史中移除，且无法恢复。",
+        "confirm": "删除",
+        "cancel": "取消"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "诊断：{{condition}}",
+        "tier": "等级：{{tier}}",
+        "summary": "摘要"
+      },
+      "states": {
+        "loading": "加载历史中…",
+        "error": "无法加载会话历史"
+      }
+    },
+    "caseDetail": {
+      "title": "病例详情",
+      "accessibilityLabel": "病例详情页面",
+      "summary": "病例摘要",
+      "patientProfile": "患者信息",
+      "clinicalParameters": "临床参数",
+      "ventilatorSettings": "呼吸机设置",
+      "outcomes": "结局",
+      "evidence": "证据",
+      "reviewStatus": "审核状态",
+      "intendedUseWarning": "此为数据集病例，仅供参考，不可直接用于临床。",
+      "datasetCaseFraming": "数据集病例（仅供参考）",
+      "prototypeFraming": "原型 — 未经临床验证",
+      "notFound": "数据集中未找到该病例。",
+      "missingCaseId": "未选择病例。",
+      "states": {
+        "loading": "加载病例中…"
+      },
+      "review": {
+        "unvalidated": "未验证（原型）",
+        "validated": "已验证"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "培训",
+      "subtitle": "规程、检查清单与参考。",
+      "accessibilityLabel": "培训首页",
+      "searchPlaceholder": "搜索主题…",
+      "searchHint": "搜索培训内容",
+      "topicsSection": "主题",
+      "searchResults": "搜索结果",
+      "popularTopics": "热门主题",
+      "quickChecklists": "快速检查清单",
+      "browseAll": "查看所有主题",
+      "browseAllHint": "查看所有培训主题",
+      "viewTopic": "查看",
+      "states": {
+        "loading": "加载培训中…",
+        "error": "无法加载培训内容",
+        "offline": "内容可离线使用",
+        "empty": "暂无培训内容"
+      }
+    },
+    "topics": {
+      "title": "主题",
+      "accessibilityLabel": "主题列表页面",
+      "searchPlaceholder": "搜索或筛选…",
+      "searchHint": "搜索主题",
+      "empty": "未找到主题。",
+      "filterByType": "按类型筛选",
+      "typeProtocol": "规程",
+      "typeChecklist": "检查清单",
+      "typeGlossary": "术语表",
+      "typeFaq": "常见问题",
+      "openTopicHint": "打开主题",
+      "states": {
+        "loading": "加载主题中…",
+        "error": "无法加载主题",
+        "offline": "内容可离线使用"
+      }
+    },
+    "topicDetail": {
+      "title": "主题",
+      "accessibilityLabel": "主题详情页面",
+      "section": "章节",
+      "expand": "展开章节",
+      "collapse": "收起章节",
+      "checklistItem": "项目",
+      "notFound": "未找到该主题。",
+      "backToTopics": "返回主题列表",
+      "backToTopicsHint": "返回主题列表",
+      "states": {
+        "loading": "加载主题中…",
+        "error": "无法加载主题"
+      }
+    }
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "message": "您访问的页面不存在或已被移除。",
+    "back": "返回",
+    "backHint": "返回上一页",
+    "goHome": "返回首页",
+    "goHomeHint": "返回首页"
+  },
+  "error": {
+    "title": "出现问题",
+    "message": "发生意外错误。请重试或返回首页。",
+    "retry": "重试",
+    "retryHint": "再次尝试操作",
+    "goHome": "返回首页",
+    "goHomeHint": "返回首页"
+  },
+  "errorState": {
+    "defaultTitle": "出现问题"
+  }
+}
