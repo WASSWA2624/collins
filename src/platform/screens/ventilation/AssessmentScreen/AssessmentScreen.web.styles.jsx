@@ -72,27 +72,49 @@ const StyledWizardCard = styled.div.withConfig({
   overflow-y: auto;
 `;
 
+const StyledSummaryWrap = styled.div.withConfig({
+  displayName: 'StyledSummaryWrap',
+  componentId: 'StyledSummaryWrap',
+})`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  order: 1;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  min-width: 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    margin-bottom: 0;
+    order: 2;
+    align-self: flex-start;
+  }
+`;
+
 const StyledSummaryPane = styled.aside.withConfig({
   displayName: 'StyledSummaryPane',
   componentId: 'StyledSummaryPane',
 })`
   width: 100%;
+  max-width: 100%;
   flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: ${({ theme }) => theme.radius?.lg ?? theme.radius?.md ?? 8}px;
   padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  order: 1;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm ?? theme.shadows?.card ?? theme.shadows)};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+  box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     width: 340px;
+    max-width: 340px;
     padding: ${({ theme }) => theme.spacing.xl}px;
-    margin-bottom: 0;
     position: sticky;
     top: ${({ theme }) => theme.spacing.xl}px;
-    order: 2;
   }
 `;
 
@@ -180,7 +202,9 @@ const StyledSummaryHeader = styled.div.withConfig({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 const StyledExpandButton = styled.button.withConfig({
@@ -190,18 +214,18 @@ const StyledExpandButton = styled.button.withConfig({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius.sm}px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   line-height: 1;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.background.tertiary};
@@ -219,20 +243,46 @@ const StyledSummaryBody = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
-  color: ${({ theme }) => theme.colors.text.secondary};
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledSummaryRow = styled.div.withConfig({
   displayName: 'StyledSummaryRow',
   componentId: 'StyledSummaryRow',
 })`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const StyledSummaryLabel = styled.span.withConfig({
+  displayName: 'StyledSummaryLabel',
+  componentId: 'StyledSummaryLabel',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  line-height: 1.4;
+  min-width: 0;
+  word-break: break-word;
+`;
+
+const StyledSummaryValue = styled.span.withConfig({
+  displayName: 'StyledSummaryValue',
+  componentId: 'StyledSummaryValue',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  text-align: right;
+  white-space: nowrap;
 `;
 
 const StyledActionsRow = styled.div.withConfig({
@@ -358,6 +408,7 @@ export {
   StyledActionsRow,
   StyledContainer,
   StyledExpandButton,
+  StyledSummaryWrap,
   StyledFieldGroup,
   StyledFieldGrid,
   StyledFieldGridFull,
@@ -380,8 +431,10 @@ export {
   StyledStepTitle,
   StyledSummaryBody,
   StyledSummaryHeader,
+  StyledSummaryLabel,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryValue,
   StyledWizardCard,
   StyledWizardPane,
 };

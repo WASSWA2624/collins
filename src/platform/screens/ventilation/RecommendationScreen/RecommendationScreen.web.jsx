@@ -326,7 +326,7 @@ const RecommendationScreenWeb = () => {
             <StyledSectionTitle>{t('ventilation.recommendation.actions.editAssessmentTitle')}</StyledSectionTitle>
           </StyledSectionHeader>
           <StyledSectionBody>
-            <Stack direction="row" gap="sm" flexWrap="wrap">
+            <Stack direction="row" gap="sm" wrap>
               {STEP_KEYS.map((stepKey, index) => (
                 <Button
                   key={stepKey}

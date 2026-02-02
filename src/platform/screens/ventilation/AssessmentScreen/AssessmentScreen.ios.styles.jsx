@@ -35,9 +35,11 @@ const StyledSummaryPane = styled(View).withConfig({
 })`
   width: 100%;
   margin-top: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 const StyledStepHeader = styled(View).withConfig({
@@ -61,7 +63,23 @@ const StyledSummaryHeader = styled(View).withConfig({
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledExpandButton = styled(Pressable).withConfig({
+  displayName: 'StyledExpandButton',
+  componentId: 'StyledExpandButton',
+})`
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: ${({ theme }) => theme.radius?.sm ?? 6}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const StyledSummaryBody = styled(View).withConfig({
@@ -77,7 +95,26 @@ const StyledSummaryRow = styled(View).withConfig({
 })`
   flex-direction: row;
   justify-content: space-between;
-  padding-vertical: ${({ theme }) => theme.spacing.xs}px;
+  align-items: center;
+  padding-top: ${({ theme }) => theme.spacing.sm}px;
+  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledSummaryLabelWrap = styled(View).withConfig({
+  displayName: 'StyledSummaryLabelWrap',
+  componentId: 'StyledSummaryLabelWrap',
+})`
+  flex: 1;
+  padding-right: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledSummaryValueWrap = styled(View).withConfig({
+  displayName: 'StyledSummaryValueWrap',
+  componentId: 'StyledSummaryValueWrap',
+})`
+  align-items: flex-end;
 `;
 
 const StyledActionsRow = styled(View).withConfig({
@@ -170,6 +207,7 @@ export {
   StyledMissingTests,
   StyledModelRow,
   StyledRecommendationSource,
+  StyledExpandButton,
   StyledSourceOption,
   StyledSourceOptionDesc,
   StyledSourceOptionLabel,
@@ -178,7 +216,9 @@ export {
   StyledStepHeader,
   StyledSummaryBody,
   StyledSummaryHeader,
+  StyledSummaryLabelWrap,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryValueWrap,
   StyledWizardPane,
 };

@@ -40,8 +40,11 @@ import {
   StyledStepTitle,
   StyledSummaryBody,
   StyledSummaryHeader,
+  StyledSummaryLabel,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryValue,
+  StyledSummaryWrap,
   StyledWizardCard,
   StyledWizardPane,
 } from './AssessmentScreen.web.styles';
@@ -105,8 +108,9 @@ const AssessmentScreenWeb = () => {
     const isEmpty = filled.length === 0;
 
     return (
-      <StyledSummaryPane aria-label={t('ventilation.assessment.summary.accessibilityLabel')} data-testid={testIds.summary}>
-        <StyledSummaryHeader>
+      <StyledSummaryWrap>
+        <StyledSummaryPane aria-label={t('ventilation.assessment.summary.accessibilityLabel')} data-testid={testIds.summary}>
+          <StyledSummaryHeader>
           <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
           <StyledExpandButton
             type="button"
@@ -125,14 +129,15 @@ const AssessmentScreenWeb = () => {
             ) : (
               filled.map(({ key, label, value, unit }) => (
                 <StyledSummaryRow key={key}>
-                  <span>{label}</span>
-                  <span>{value}{unit ? ` ${unit}` : ''}</span>
+                  <StyledSummaryLabel>{label}</StyledSummaryLabel>
+                  <StyledSummaryValue>{value}{unit ? ` ${unit}` : ''}</StyledSummaryValue>
                 </StyledSummaryRow>
               ))
             )}
           </StyledSummaryBody>
         )}
-      </StyledSummaryPane>
+        </StyledSummaryPane>
+      </StyledSummaryWrap>
     );
   };
 

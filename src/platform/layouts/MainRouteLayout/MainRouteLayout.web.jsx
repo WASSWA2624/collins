@@ -5,7 +5,9 @@
  */
 // 1. External dependencies
 import React, { useMemo } from 'react';
+import { useWindowDimensions } from 'react-native';
 import { Slot } from 'expo-router';
+import breakpoints from '@theme/breakpoints';
 
 // 2. Platform components
 import {
@@ -23,6 +25,8 @@ import { getMenuIconGlyph } from '@config/sideMenu';
 
 // 4. Styles
 import {
+  StyledAppNameFull,
+  StyledAppNameShort,
   StyledHeaderAppName,
   StyledHeaderBrand,
   StyledHeaderLeading,
@@ -37,9 +41,12 @@ import {
 import AppFrame from '@platform/layouts/AppFrame';
 
 const MainRouteLayoutWeb = () => {
+  const { width } = useWindowDimensions();
+  const isMobile = width < breakpoints.tablet;
   const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
   const { sidebarCollapsed, sidebarWidth, collapsedWidth, toggleSidebar, resizerProps } =
     useMainRouteLayoutWebShell();
+  const sidebarOnClose = isMobile ? toggleSidebar : undefined;
 
   const overlaySlot = useMemo(
     () => (isLoading ? <LoadingOverlay visible testID="main-loading-overlay" /> : null),
@@ -68,11 +75,18 @@ const MainRouteLayoutWeb = () => {
     [t, toggleSidebar]
   );
 
+  const headerTitle = (
+    <>
+      <StyledAppNameShort>{t('app.shortName')}</StyledAppNameShort>
+      <StyledAppNameFull>{t('app.name')}</StyledAppNameFull>
+    </>
+  );
+
   return (
     <AppFrame
       header={
         <GlobalHeader
-          title={t('navigation.mainNavigation')}
+          title={headerTitle}
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
@@ -97,6 +111,7 @@ const MainRouteLayoutWeb = () => {
             items={items}
             isItemVisible={isItemVisible}
             collapsed={sidebarCollapsed}
+            onClose={sidebarOnClose}
             footerSlot={null}
             testID="main-sidebar"
           />
@@ -119,7 +134,7 @@ const MainRouteLayoutWeb = () => {
       sidebarWidth={sidebarWidth}
       sidebarCollapsed={sidebarCollapsed}
       collapsedWidth={collapsedWidth}
-      accessibilityLabel={t('navigation.mainNavigation')}
+      accessibilityLabel={t('navigation.header.title')}
       testID="main-route-layout"
     >
       <StyledMain>

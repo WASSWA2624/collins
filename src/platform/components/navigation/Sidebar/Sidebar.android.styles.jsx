@@ -24,11 +24,41 @@ const StyledSidebarHeader = styled(View).withConfig({
 })`
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   min-height: 44px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledSidebarHeaderBrand = styled(View).withConfig({
+  displayName: 'StyledSidebarHeaderBrand',
+  componentId: 'StyledSidebarHeaderBrand',
+})`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  flex: 1;
+  min-width: 0;
+`;
+
+const StyledSidebarHeaderLogo = styled(View).withConfig({
+  displayName: 'StyledSidebarHeaderLogo',
+  componentId: 'StyledSidebarHeaderLogo',
+})`
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledSidebarHeaderAppName = styled(Text).withConfig({
+  displayName: 'StyledSidebarHeaderAppName',
+  componentId: 'StyledSidebarHeaderAppName',
+})`
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  flex-shrink: 0;
 `;
 
 const StyledCloseButton = styled(Pressable).withConfig({
@@ -148,6 +178,9 @@ const StyledExpandIcon = styled(Text).withConfig({
 export {
   StyledSidebar,
   StyledSidebarHeader,
+  StyledSidebarHeaderBrand,
+  StyledSidebarHeaderLogo,
+  StyledSidebarHeaderAppName,
   StyledCloseButton,
   StyledSidebarContent,
   StyledContentWrap,

@@ -106,9 +106,9 @@ const ButtonWeb = ({
 
   return (
     <StyledButton
-      variant={variant}
-      size={size}
-      state={state}
+      $variant={variant}
+      $size={size}
+      $state={state}
       type={type}
       disabled={isDisabled}
       onClick={isDisabled ? undefined : handleClick}
@@ -125,15 +125,15 @@ const ButtonWeb = ({
       <StyledButtonContent>
         {loading && (
           <StyledSpinner
-            variant={variant}
-            size={size}
-            hasText={hasText}
+            $variant={variant}
+            $size={size}
+            $hasText={hasText}
             aria-hidden="true"
           />
         )}
         {!loading && icon && icon}
         {displayText && (
-          <StyledButtonText variant={variant} size={size} state={state} hasIcon={hasIcon && !loading}>
+          <StyledButtonText $variant={variant} $size={size} $state={state} $hasIcon={hasIcon && !loading}>
             {displayText}
           </StyledButtonText>
         )}

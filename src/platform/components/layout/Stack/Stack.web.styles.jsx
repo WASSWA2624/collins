@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const StyledStack = styled.div.withConfig({
   displayName: 'StyledStack',
   componentId: 'StyledStack',
-  shouldForwardProp: (prop) => !prop.startsWith('$'),
+  shouldForwardProp: (prop) => !prop.startsWith('$') && prop !== 'gap' && prop !== 'flexWrap',
 })`
   display: flex;
   flex-direction: ${({ $direction }) => ($direction === 'horizontal' ? 'row' : 'column')};

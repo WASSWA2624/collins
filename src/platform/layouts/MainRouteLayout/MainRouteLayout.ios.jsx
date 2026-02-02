@@ -84,7 +84,7 @@ const MainRouteLayoutIOS = () => {
     <AppFrame
       header={
         <GlobalHeader
-          title={t('navigation.mainNavigation')}
+          title={t('app.shortName')}
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
@@ -101,7 +101,7 @@ const MainRouteLayoutIOS = () => {
       }
       overlay={overlaySlot}
       notices={<NoticeSurface testID="main-notice-surface" />}
-      accessibilityLabel={t('navigation.mainNavigation')}
+      accessibilityLabel={t('navigation.header.title')}
       testID="main-route-layout"
     >
       <Modal

@@ -10,7 +10,16 @@ import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar
 import SidebarItem from '@platform/components/navigation/SidebarItem';
 import Icon from '@platform/components/display/Icon';
 import { getMenuIconGlyph } from '@config/sideMenu';
-import { StyledSidebar, StyledSidebarHeader, StyledCloseButton, StyledContentWrap, StyledSidebarContent } from './Sidebar.android.styles';
+import {
+  StyledSidebar,
+  StyledSidebarHeader,
+  StyledSidebarHeaderBrand,
+  StyledSidebarHeaderLogo,
+  StyledSidebarHeaderAppName,
+  StyledCloseButton,
+  StyledContentWrap,
+  StyledSidebarContent,
+} from './Sidebar.android.styles';
 
 /**
  * Sidebar component for Android
@@ -101,6 +110,12 @@ const SidebarAndroid = ({
     >
       {onClose ? (
         <StyledSidebarHeader>
+          <StyledSidebarHeaderBrand>
+            <StyledSidebarHeaderLogo accessibilityElementsHidden>
+              <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+            </StyledSidebarHeaderLogo>
+            <StyledSidebarHeaderAppName>{t('app.shortName')}</StyledSidebarHeaderAppName>
+          </StyledSidebarHeaderBrand>
           <StyledCloseButton
             onPress={onClose}
             accessibilityRole="button"

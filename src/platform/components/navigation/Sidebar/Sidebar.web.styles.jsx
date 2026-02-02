@@ -25,11 +25,44 @@ const StyledSidebarHeader = styled.div.withConfig({
 })`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-shrink: 0;
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   min-height: 44px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledSidebarHeaderBrand = styled.div.withConfig({
+  displayName: 'StyledSidebarHeaderBrand',
+  componentId: 'StyledSidebarHeaderBrand',
+})`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+`;
+
+const StyledSidebarHeaderLogo = styled.span.withConfig({
+  displayName: 'StyledSidebarHeaderLogo',
+  componentId: 'StyledSidebarHeaderLogo',
+})`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`;
+
+const StyledSidebarHeaderAppName = styled.span.withConfig({
+  displayName: 'StyledSidebarHeaderAppName',
+  componentId: 'StyledSidebarHeaderAppName',
+})`
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledCloseButton = styled.button.withConfig({
@@ -80,6 +113,9 @@ const StyledSidebarContent = styled.div.withConfig({
 export {
   StyledSidebar,
   StyledSidebarHeader,
+  StyledSidebarHeaderBrand,
+  StyledSidebarHeaderLogo,
+  StyledSidebarHeaderAppName,
   StyledCloseButton,
   StyledSidebarContent,
 };

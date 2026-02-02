@@ -93,6 +93,28 @@ const StyledHeaderAppName = styled.span.withConfig({
   }
 `;
 
+const StyledAppNameShort = styled.span.withConfig({
+  displayName: 'StyledAppNameShort',
+  componentId: 'StyledAppNameShort',
+})`
+  display: inline;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    display: none;
+  }
+`;
+
+const StyledAppNameFull = styled.span.withConfig({
+  displayName: 'StyledAppNameFull',
+  componentId: 'StyledAppNameFull',
+})`
+  display: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    display: inline;
+  }
+`;
+
 const StyledSidebarBackdrop = styled.div.withConfig({
   displayName: 'StyledSidebarBackdrop',
   componentId: 'StyledSidebarBackdrop',
@@ -133,6 +155,8 @@ const StyledSidebarResizeHandle = styled.div.withConfig({
 `;
 
 export {
+  StyledAppNameFull,
+  StyledAppNameShort,
   StyledHeaderAppName,
   StyledHeaderBrand,
   StyledHeaderLeading,

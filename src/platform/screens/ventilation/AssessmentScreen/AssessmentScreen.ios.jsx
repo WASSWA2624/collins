@@ -3,7 +3,7 @@
  * File: AssessmentScreen.ios.jsx
  */
 import React from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { useDispatch } from 'react-redux';
 import {
@@ -21,6 +21,7 @@ import {
   StyledActionsRow,
   StyledContainer,
   StyledContentWrap,
+  StyledExpandButton,
   StyledFieldGroup,
   StyledMissingTests,
   StyledModelRow,
@@ -33,8 +34,10 @@ import {
   StyledStepHeader,
   StyledSummaryBody,
   StyledSummaryHeader,
+  StyledSummaryLabelWrap,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryValueWrap,
   StyledWizardPane,
 } from './AssessmentScreen.ios.styles';
 import { CONDITION_OPTIONS, GENDER_OPTIONS, STEPS } from './types';
@@ -116,7 +119,7 @@ const AssessmentScreenIOS = () => {
       >
         <StyledSummaryHeader>
           <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
-          <Pressable
+          <StyledExpandButton
             onPress={() => setSummaryExpanded((e) => !e)}
             accessibilityRole="button"
             accessibilityState={{ expanded: summaryExpanded }}
@@ -128,7 +131,7 @@ const AssessmentScreenIOS = () => {
             testID={testIds.summaryExpand}
           >
             <Text>{summaryExpanded ? '−' : '+'}</Text>
-          </Pressable>
+          </StyledExpandButton>
         </StyledSummaryHeader>
         {(summaryExpanded || !isEmpty) && (
           <StyledSummaryBody>
@@ -139,11 +142,15 @@ const AssessmentScreenIOS = () => {
             ) : (
               filled.map(({ key, label, value, unit }) => (
                 <StyledSummaryRow key={key}>
-                  <Text variant="body">{label}</Text>
-                  <Text variant="body">
-                    {value}
-                    {unit ? ` ${unit}` : ''}
-                  </Text>
+                  <StyledSummaryLabelWrap>
+                    <Text variant="body" color="text.secondary">{label}</Text>
+                  </StyledSummaryLabelWrap>
+                  <StyledSummaryValueWrap>
+                    <Text variant="label" color="text.primary">
+                      {value}
+                      {unit ? ` ${unit}` : ''}
+                    </Text>
+                  </StyledSummaryValueWrap>
                 </StyledSummaryRow>
               ))
             )}

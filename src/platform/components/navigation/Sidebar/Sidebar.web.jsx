@@ -4,6 +4,9 @@ import { useI18n } from '@hooks';
 import {
   StyledSidebar,
   StyledSidebarHeader,
+  StyledSidebarHeaderBrand,
+  StyledSidebarHeaderLogo,
+  StyledSidebarHeaderAppName,
   StyledCloseButton,
   StyledSidebarContent,
 } from './Sidebar.web.styles';
@@ -49,6 +52,12 @@ const SidebarWeb = ({
     >
       {onClose ? (
         <StyledSidebarHeader>
+          <StyledSidebarHeaderBrand>
+            <StyledSidebarHeaderLogo aria-hidden="true">
+              <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+            </StyledSidebarHeaderLogo>
+            <StyledSidebarHeaderAppName>{t('app.shortName')}</StyledSidebarHeaderAppName>
+          </StyledSidebarHeaderBrand>
           <StyledCloseButton
             type="button"
             onClick={onClose}
