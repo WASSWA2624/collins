@@ -28,6 +28,14 @@ const StyledSection = styled(View).withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
 `;
 
+const StyledFallbackBody = styled(View).withConfig({
+  displayName: 'StyledFallbackBody',
+  componentId: 'StyledFallbackBody',
+})`
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
 const StyledSectionHeader = styled(View).withConfig({
   displayName: 'StyledSectionHeader',
   componentId: 'StyledSectionHeader',
@@ -105,6 +113,7 @@ export {
   StyledContentWrap,
   StyledEditStepRow,
   StyledExportRow,
+  StyledFallbackBody,
   StyledSection,
   StyledSectionBody,
   StyledSectionHeader,

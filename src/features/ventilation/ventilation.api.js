@@ -6,7 +6,7 @@
 
 import { getAiProviderConfig } from '@config/constants';
 import { aiSdk } from '@services';
-import { secure as secureStorage } from '@services/storage';
+import { aiKeyStorage } from '@services/storage';
 
 const VENTILATION_API_ERROR_CODES = Object.freeze({
   OFFLINE_MODE: 'VENTILATION_ONLINE_AUGMENTATION_OFFLINE_MODE',
@@ -67,7 +67,7 @@ const augmentVentilationCaseApi = async ({ caseInput, isOnline, flags } = {}) =>
   if (!providerConfig) {
     return { ok: true, aiOutput: null, errorCode: VENTILATION_API_ERROR_CODES.NO_API_KEY };
   }
-  const apiKey = await secureStorage.getItem(providerConfig.storageKey);
+  const apiKey = await aiKeyStorage.getItem(providerConfig.storageKey);
   if (!apiKey || typeof apiKey !== 'string' || !apiKey.trim()) {
     return { ok: true, aiOutput: null, errorCode: VENTILATION_API_ERROR_CODES.NO_API_KEY };
   }

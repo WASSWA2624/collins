@@ -426,7 +426,8 @@
       "apiKeyPlaceholder": "Enter key (stored securely)",
       "apiKeySave": "Save key",
       "apiKeyClear": "Clear key",
-      "keyConfigured": "Key saved",
+      "keyConfigured": "Set",
+      "keyNotConfigured": "Not set",
       "modelLabel": "Model",
       "modelHint": "Model used for AI suggestions",
       "models": {
@@ -692,10 +693,19 @@
         "connectivityRequired": "Requires internet connection",
         "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
+        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
         "anonymizeBeforeExport": "Remove identifiers before export"
       },
+      "fallbackReasons": {
+        "userChoseLocal": "You chose local recommendation.",
+        "notComplex": "This case did not need online AI.",
+        "offline": "You are offline.",
+        "noApiKey": "AI API key is not set.",
+        "error": "Online AI failed. Using local dataset instead."
+      },
+      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
       "states": {
         "loading": "Loading recommendation…",
         "error": "Unable to load recommendation",

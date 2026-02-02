@@ -48,12 +48,13 @@ const StyledWizardPane = styled.section.withConfig({
   componentId: 'StyledWizardPane',
 })`
   flex: 1;
-  min-width: 0;
+  min-width: min(100%, 280px);
   display: flex;
   flex-direction: column;
   order: 2;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    min-width: 320px;
     max-width: 600px;
     order: 1;
   }
@@ -64,6 +65,8 @@ const StyledWizardCard = styled.div.withConfig({
   componentId: 'StyledWizardCard',
 })`
   flex: 1;
+  min-width: 0;
+  min-height: 200px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
@@ -122,21 +125,27 @@ const StyledStepHeader = styled.header.withConfig({
   displayName: 'StyledStepHeader',
   componentId: 'StyledStepHeader',
 })`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
   flex-shrink: 0;
+  min-width: 0;
 `;
 
 const StyledStepTitle = styled.h2.withConfig({
   displayName: 'StyledStepTitle',
   componentId: 'StyledStepTitle',
 })`
-  margin: 0 0 ${({ theme }) => theme.spacing.xs}px 0;
+  margin: 0;
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
   font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 `;
 
 const StyledStepIndicator = styled.span.withConfig({
@@ -145,6 +154,7 @@ const StyledStepIndicator = styled.span.withConfig({
 })`
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ theme }) => theme.colors.text.tertiary};
+  flex-shrink: 0;
 `;
 
 const StyledStepContent = styled.div.withConfig({
@@ -205,6 +215,23 @@ const StyledSummaryHeader = styled.div.withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding-bottom: ${({ theme }) => theme.spacing.sm}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  min-width: 0;
+`;
+
+const StyledSummaryTitle = styled.span.withConfig({
+  displayName: 'StyledSummaryTitle',
+  componentId: 'StyledSummaryTitle',
+})`
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  & > * {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 const StyledExpandButton = styled.button.withConfig({
@@ -346,6 +373,7 @@ const StyledFieldGroup = styled.div.withConfig({
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
 `;
 
 const StyledStepDescription = styled.p.withConfig({
@@ -365,6 +393,7 @@ const StyledRecommendationSource = styled.div.withConfig({
   margin-top: ${({ theme }) => theme.spacing.md}px;
   padding-top: ${({ theme }) => theme.spacing.md}px;
   border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  min-width: 0;
 `;
 
 const StyledSourceOption = styled.label.withConfig({
@@ -434,6 +463,7 @@ export {
   StyledSummaryLabel,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryTitle,
   StyledSummaryValue,
   StyledWizardCard,
   StyledWizardPane,

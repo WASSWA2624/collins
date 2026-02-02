@@ -21,7 +21,8 @@ jest.mock('@services/storage', () => ({
     setItem: jest.fn(),
     getItem: jest.fn().mockResolvedValue(null),
   },
-  secure: {
+  aiKeyStorage: {
+    getItem: jest.fn().mockResolvedValue(null),
     setItem: jest.fn().mockResolvedValue(true),
     removeItem: jest.fn().mockResolvedValue(true),
   },

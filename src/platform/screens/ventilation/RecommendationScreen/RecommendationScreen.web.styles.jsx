@@ -63,6 +63,15 @@ const StyledSection = styled.section.withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
 `;
 
+const StyledFallbackBody = styled.div.withConfig({
+  displayName: 'StyledFallbackBody',
+  componentId: 'StyledFallbackBody',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
 const StyledSectionHeader = styled.header.withConfig({
   displayName: 'StyledSectionHeader',
   componentId: 'StyledSectionHeader',
@@ -235,6 +244,7 @@ export {
   StyledContentPane,
   StyledEditStepRow,
   StyledEvidenceItem,
+  StyledFallbackBody,
   StyledList,
   StyledListItem,
   StyledSection,

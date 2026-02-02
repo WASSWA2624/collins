@@ -20,6 +20,7 @@ import {
   StyledContentPane,
   StyledEditStepRow,
   StyledEvidenceItem,
+  StyledFallbackBody,
   StyledList,
   StyledListItem,
   StyledSection,
@@ -64,6 +65,8 @@ const RecommendationScreenWeb = () => {
     requestAiRecommendation,
     aiReasons,
     aiHints,
+    showAiFallbackMessage,
+    fallbackReasonKey,
     responseSource,
     goToAssessmentStep,
     editAssessment,
@@ -133,6 +136,15 @@ const RecommendationScreenWeb = () => {
             </>
           ) : null}
         </StyledWarningBox>
+
+        {showAiFallbackMessage && (
+          <StyledSection data-testid="recommendation-ai-fallback">
+            <StyledFallbackBody>
+              <Text variant="body">{t('ventilation.recommendation.fallbackBanner')}</Text>
+              <Text variant="caption" color="text.secondary">{t(fallbackReasonKey)}</Text>
+            </StyledFallbackBody>
+          </StyledSection>
+        )}
 
         <StyledSection data-testid={RECOMMENDATION_TEST_IDS.settings}>
           <StyledSectionHeader>

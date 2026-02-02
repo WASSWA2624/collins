@@ -128,14 +128,16 @@ const SettingsScreenAndroid = () => {
               secureTextEntry
               testID={testIds.aiApiKeyInput}
             />
-            <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
-              <Button variant="primary" onPress={handleSaveKey} testID={testIds.aiApiKeySave}>
-                {t('settings.ai.apiKeySave')}
-              </Button>
-              <Button variant="outline" onPress={clearAiApiKey} testID={testIds.aiApiKeyClear}>
-                {t('settings.ai.apiKeyClear')}
-              </Button>
-              {aiKeyConfigured && <Text variant="caption">{t('settings.ai.keyConfigured')}</Text>}
+            <View style={{ flexDirection: 'column', gap: 8, marginTop: 8 }}>
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                <Button variant="primary" onPress={handleSaveKey} testID={testIds.aiApiKeySave}>
+                  {t('settings.ai.apiKeySave')}
+                </Button>
+                <Button variant="outline" onPress={clearAiApiKey} testID={testIds.aiApiKeyClear}>
+                  {t('settings.ai.apiKeyClear')}
+                </Button>
+              </View>
+              <Text variant="caption">{t(aiKeyConfigured ? 'settings.ai.keyConfigured' : 'settings.ai.keyNotConfigured')}</Text>
             </View>
             <Select
               label={t('settings.ai.modelLabel')}

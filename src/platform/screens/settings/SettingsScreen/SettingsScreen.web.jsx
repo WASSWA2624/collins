@@ -137,14 +137,16 @@ const SettingsScreenWeb = () => {
                 testID={testIds.aiApiKeyInput}
                 data-testid={testIds.aiApiKeyInput}
               />
-              <Stack direction="horizontal" spacing="sm">
-                <Button variant="primary" onPress={handleSaveKey} testID={testIds.aiApiKeySave} data-testid={testIds.aiApiKeySave}>
-                  {t('settings.ai.apiKeySave')}
-                </Button>
-                <Button variant="outline" onPress={handleClearKey} testID={testIds.aiApiKeyClear} data-testid={testIds.aiApiKeyClear}>
-                  {t('settings.ai.apiKeyClear')}
-                </Button>
-                {aiKeyConfigured && <Text variant="caption" color="text.secondary">{t('settings.ai.keyConfigured')}</Text>}
+              <Stack direction="vertical" spacing="xs">
+                <Stack direction="horizontal" spacing="sm">
+                  <Button variant="primary" onPress={handleSaveKey} testID={testIds.aiApiKeySave} data-testid={testIds.aiApiKeySave}>
+                    {t('settings.ai.apiKeySave')}
+                  </Button>
+                  <Button variant="outline" onPress={handleClearKey} testID={testIds.aiApiKeyClear} data-testid={testIds.aiApiKeyClear}>
+                    {t('settings.ai.apiKeyClear')}
+                  </Button>
+                </Stack>
+                <Text variant="caption" color="text.secondary">{t(aiKeyConfigured ? 'settings.ai.keyConfigured' : 'settings.ai.keyNotConfigured')}</Text>
               </Stack>
               <Select
                 label={t('settings.ai.modelLabel')}

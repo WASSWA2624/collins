@@ -203,7 +203,8 @@ export default function useAssessmentScreen() {
           },
         },
       });
-      const summaryWithSource = rec ? { ...rec, responseSource: useOnlineAi ? 'online' : 'offline' } : null;
+      const applied = rec?.aiAugmentation?.status === 'applied';
+      const summaryWithSource = rec ? { ...rec, responseSource: useOnlineAi && applied ? 'online' : 'offline' } : null;
       setRecommendationSummary(summaryWithSource);
       await appendToHistory();
       await persistDraft();

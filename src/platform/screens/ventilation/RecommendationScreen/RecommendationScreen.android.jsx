@@ -18,6 +18,7 @@ import {
   StyledContentWrap,
   StyledEditStepRow,
   StyledExportRow,
+  StyledFallbackBody,
   StyledSection,
   StyledSectionBody,
   StyledSectionHeader,
@@ -46,6 +47,8 @@ const RecommendationScreenAndroid = () => {
     contributingFactors,
     aiReasons,
     aiHints,
+    showAiFallbackMessage,
+    fallbackReasonKey,
     inputs,
     recommendationSummary,
     sessionId,
@@ -114,6 +117,15 @@ const RecommendationScreenAndroid = () => {
             </>
           ) : null}
         </StyledWarningBox>
+
+        {showAiFallbackMessage && (
+          <StyledSection testID="recommendation-ai-fallback">
+            <StyledFallbackBody>
+              <Text variant="body">{t('ventilation.recommendation.fallbackBanner')}</Text>
+              <Text variant="caption" color="text.secondary">{t(fallbackReasonKey)}</Text>
+            </StyledFallbackBody>
+          </StyledSection>
+        )}
 
         <Accordion title={t('ventilation.recommendation.sections.settings')} defaultExpanded testID={RECOMMENDATION_TEST_IDS.settings}>
         <StyledSection>

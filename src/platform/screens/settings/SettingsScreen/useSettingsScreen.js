@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useI18n } from '@hooks';
 import { selectDensity, selectAiDecisionSupportEnabled, selectAiProviderId, selectAiModelId } from '@store/selectors';
 import { actions } from '@store/slices/ui.slice';
-import { async as asyncStorage, secure as secureStorage } from '@services/storage';
+import { async as asyncStorage, aiKeyStorage } from '@services/storage';
 import { AI_PROVIDERS, getModelsForProvider } from '@config/constants';
 import { SETTINGS_TEST_IDS, DENSITY_MODES, DENSITY_MODE_VALUES } from './types';
 
@@ -31,11 +31,11 @@ export default function useSettingsScreen() {
 
   useEffect(() => {
     let cancelled = false;
-    asyncStorage.getItem(providerConfig.configuredAsyncKey).then((v) => {
-      if (!cancelled) setAiKeyConfigured(v === 'true');
+    aiKeyStorage.getItem(providerConfig.storageKey).then((key) => {
+      if (!cancelled) setAiKeyConfigured(typeof key === 'string' && key.trim().length > 0);
     });
     return () => { cancelled = true; };
-  }, [providerConfig.configuredAsyncKey]);
+  }, [providerConfig.storageKey]);
 
   const densityOptions = useMemo(
     () => [
@@ -94,7 +94,7 @@ export default function useSettingsScreen() {
   const saveAiApiKey = useCallback(
     async (value) => {
       if (typeof value !== 'string' || !value.trim()) return false;
-      const ok = await secureStorage.setItem(providerConfig.storageKey, value.trim());
+      const ok = await aiKeyStorage.setItem(providerConfig.storageKey, value.trim());
       if (ok) {
         await asyncStorage.setItem(providerConfig.configuredAsyncKey, 'true');
         setAiKeyConfigured(true);
@@ -106,7 +106,7 @@ export default function useSettingsScreen() {
 
   const clearAiApiKey = useCallback(
     async () => {
-      await secureStorage.removeItem(providerConfig.storageKey);
+      await aiKeyStorage.removeItem(providerConfig.storageKey);
       await asyncStorage.setItem(providerConfig.configuredAsyncKey, 'false');
       setAiKeyConfigured(false);
     },

@@ -9,19 +9,19 @@ jest.mock('@services', () => ({
 }));
 
 jest.mock('@services/storage', () => ({
-  secure: {
+  aiKeyStorage: {
     getItem: jest.fn(),
   },
 }));
 
 import { VENTILATION_API_ERROR_CODES, augmentVentilationCaseApi } from '@features/ventilation';
 import { aiSdk } from '@services';
-import { secure } from '@services/storage';
+import { aiKeyStorage } from '@services/storage';
 
 describe('ventilation.api', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    secure.getItem.mockResolvedValue('test-api-key');
+    aiKeyStorage.getItem.mockResolvedValue('test-api-key');
   });
 
   it('skips when OFFLINE_MODE is enabled', async () => {
@@ -80,8 +80,8 @@ describe('ventilation.api', () => {
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('skips when no API key in SecureStore', async () => {
-    secure.getItem.mockResolvedValueOnce(null);
+  it('skips when no API key in storage', async () => {
+    aiKeyStorage.getItem.mockResolvedValueOnce(null);
     const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS', spo2: 88 },
       isOnline: true,

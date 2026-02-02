@@ -43,6 +43,7 @@ import {
   StyledSummaryLabel,
   StyledSummaryPane,
   StyledSummaryRow,
+  StyledSummaryTitle,
   StyledSummaryValue,
   StyledSummaryWrap,
   StyledWizardCard,
@@ -111,7 +112,9 @@ const AssessmentScreenWeb = () => {
       <StyledSummaryWrap>
         <StyledSummaryPane aria-label={t('ventilation.assessment.summary.accessibilityLabel')} data-testid={testIds.summary}>
           <StyledSummaryHeader>
-          <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
+          <StyledSummaryTitle>
+            <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
+          </StyledSummaryTitle>
           <StyledExpandButton
             type="button"
             onClick={() => setSummaryExpanded((e) => !e)}

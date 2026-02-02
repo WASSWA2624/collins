@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import useVentilationSession from '@hooks/useVentilationSession';
 import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiProviderId, selectAiModelId } from '@store/selectors';
 import { getVentilationRecommendationUseCase } from '@features/ventilation';
-import { async as asyncStorage } from '@services/storage';
+import { async as asyncStorage, aiKeyStorage } from '@services/storage';
 import { trackScreen, trackEvent } from '@services/analytics';
 import { getAiProviderConfig } from '@config/constants';
 
@@ -42,16 +42,16 @@ export default function useRecommendationScreen() {
 
   useEffect(() => {
     let cancelled = false;
-    const key = providerConfig?.configuredAsyncKey;
-    if (!key) {
+    const storageKey = providerConfig?.storageKey;
+    if (!storageKey) {
       if (!cancelled) setAiKeyConfigured(false);
       return () => {};
     }
-    asyncStorage.getItem(key).then((v) => {
-      if (!cancelled) setAiKeyConfigured(v === 'true');
+    aiKeyStorage.getItem(storageKey).then((key) => {
+      if (!cancelled) setAiKeyConfigured(typeof key === 'string' && key.trim().length > 0);
     });
     return () => { cancelled = true; };
-  }, [providerConfig?.configuredAsyncKey]);
+  }, [providerConfig?.storageKey]);
 
   const similarityInput = useMemo(() => {
     const i = inputs && typeof inputs === 'object' ? inputs : {};
@@ -78,11 +78,27 @@ export default function useRecommendationScreen() {
           flags: { AI_AUGMENTATION_ENABLED: true, aiProviderId, model: aiModelId },
         },
       });
-      const summaryWithSource = rec ? { ...rec, responseSource: 'online' } : null;
+      const applied = rec?.aiAugmentation?.status === 'applied';
+      const summaryWithSource = rec ? { ...rec, responseSource: applied ? 'online' : 'offline' } : null;
       setRecommendationSummary(summaryWithSource);
-      trackEvent('request_ai_recommendation', { success: Boolean(rec) });
+      trackEvent('request_ai_recommendation', { success: Boolean(rec), applied });
     } catch {
       trackEvent('request_ai_recommendation', { success: false });
+      try {
+        const localRec = await getVentilationRecommendationUseCase({
+          input: similarityInput,
+          ai: { useOnlineAi: false },
+        });
+        if (localRec) {
+          setRecommendationSummary({
+            ...localRec,
+            responseSource: 'offline',
+            aiAugmentation: Object.freeze({ provider: 'aiSdk', status: 'skipped', reasonCodes: Object.freeze(['VENTILATION_ONLINE_AUGMENTATION_AI_SDK_FAILED']) }),
+          });
+        }
+      } catch {
+        // Keep existing recommendation if local fetch fails
+      }
     } finally {
       setIsRequestingAi(false);
     }
@@ -166,6 +182,52 @@ export default function useRecommendationScreen() {
     [aiAugmentation]
   );
 
+  /** Reason codes that mean "online AI was attempted but failed" (show fallback message). */
+  const AI_FAILURE_REASON_CODES = useMemo(
+    () =>
+      Object.freeze([
+        'VENTILATION_ONLINE_AUGMENTATION_OFFLINE',
+        'VENTILATION_ONLINE_AUGMENTATION_OFFLINE_MODE',
+        'VENTILATION_ONLINE_AUGMENTATION_NO_API_KEY',
+        'VENTILATION_ONLINE_AUGMENTATION_AI_SDK_FAILED',
+        'VENTILATION_ONLINE_AUGMENTATION_INVALID_INPUT',
+        'VENTILATION_ONLINE_AUGMENTATION_FEATURE_DISABLED',
+        'VENTILATION_AI_SKIPPED',
+      ]),
+    []
+  );
+
+  const usedLocalFallback = useMemo(() => {
+    const status = aiAugmentation?.status;
+    const codes = aiAugmentation?.reasonCodes;
+    return status === 'skipped' && Array.isArray(codes) && codes.length > 0;
+  }, [aiAugmentation]);
+
+  /** True when online AI was requested but failed; show "AI failed, showing local" message. */
+  const showAiFallbackMessage = useMemo(() => {
+    if (aiAugmentation?.status !== 'skipped') return false;
+    const code = aiAugmentation?.reasonCodes?.[0];
+    return code && AI_FAILURE_REASON_CODES.includes(code);
+  }, [aiAugmentation, AI_FAILURE_REASON_CODES]);
+
+  const FALLBACK_REASON_KEYS = useMemo(
+    () =>
+      Object.freeze({
+        VENTILATION_AI_SKIPPED_USER_CHOSE_LOCAL: 'ventilation.recommendation.fallbackReasons.userChoseLocal',
+        VENTILATION_AI_SKIPPED_NOT_COMPLEX: 'ventilation.recommendation.fallbackReasons.notComplex',
+        VENTILATION_ONLINE_AUGMENTATION_OFFLINE: 'ventilation.recommendation.fallbackReasons.offline',
+        VENTILATION_ONLINE_AUGMENTATION_OFFLINE_MODE: 'ventilation.recommendation.fallbackReasons.offline',
+        VENTILATION_ONLINE_AUGMENTATION_NO_API_KEY: 'ventilation.recommendation.fallbackReasons.noApiKey',
+        VENTILATION_ONLINE_AUGMENTATION_AI_SDK_FAILED: 'ventilation.recommendation.fallbackReasons.error',
+        VENTILATION_AI_SKIPPED: 'ventilation.recommendation.fallbackReasons.error',
+      }),
+    []
+  );
+  const fallbackReasonKey = useMemo(() => {
+    const code = aiAugmentation?.reasonCodes?.[0];
+    return code && FALLBACK_REASON_KEYS[code] ? FALLBACK_REASON_KEYS[code] : 'ventilation.recommendation.fallbackReasons.error';
+  }, [aiAugmentation, FALLBACK_REASON_KEYS]);
+
   const isEmpty = !recommendationSummary || !settings;
   const showRequestAi = aiEnabled && aiKeyConfigured;
   const responseSource = recommendationSummary?.responseSource === 'online' ? 'online' : 'offline';
@@ -208,6 +270,9 @@ export default function useRecommendationScreen() {
     aiAugmentation,
     aiReasons,
     aiHints,
+    usedLocalFallback,
+    showAiFallbackMessage,
+    fallbackReasonKey,
     inputs,
     isEmpty,
     isHydrating,
