@@ -6,6 +6,13 @@
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledNotFoundContainer = styled(View).withConfig({
   displayName: 'StyledNotFoundContainer',
   componentId: 'StyledNotFoundContainer',
@@ -47,6 +54,7 @@ const StyledMessageWrapper = styled(View).withConfig({
 `;
 
 export {
+  StyledContentWrap,
   StyledNotFoundContainer,
   StyledContent,
   StyledMessageSection,

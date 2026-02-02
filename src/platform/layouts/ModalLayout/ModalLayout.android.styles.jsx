@@ -1,11 +1,11 @@
-﻿/**
+/**
  * ModalLayout Android Styles
  * Styled-components for Android platform
  * File: ModalLayout.android.styles.jsx
  */
 
 import styled from 'styled-components/native';
-import { ScrollView, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 
 const StyledContainer = styled.View.withConfig({
   displayName: 'StyledContainer',
@@ -20,20 +20,17 @@ const StyledKeyboardAvoidingView = styled(KeyboardAvoidingView).withConfig({
   flex: 1;
 `;
 
-const StyledScrollView = styled(ScrollView).withConfig({
-  displayName: 'StyledScrollView',
-}).attrs({
-  contentContainerStyle: {
-    flexGrow: 1,
-  },
+const StyledContentWrapper = styled.View.withConfig({
+  displayName: 'StyledContentWrapper',
 })`
   flex: 1;
+  min-height: 0;
 `;
 
 export {
   StyledContainer,
   StyledKeyboardAvoidingView,
-  StyledScrollView,
+  StyledContentWrapper,
 };
 
 

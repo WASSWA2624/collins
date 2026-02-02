@@ -597,7 +597,7 @@ describe('MainLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledHeader).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentArea).toBeDefined();
       expect(styles.StyledContent).toBeDefined();
       expect(styles.StyledFooter).toBeDefined();
       expect(styles.StyledBreadcrumbs).toBeDefined();
@@ -609,7 +609,7 @@ describe('MainLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledHeader).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentArea).toBeDefined();
       expect(styles.StyledContent).toBeDefined();
       expect(styles.StyledFooter).toBeDefined();
       expect(styles.StyledBreadcrumbs).toBeDefined();

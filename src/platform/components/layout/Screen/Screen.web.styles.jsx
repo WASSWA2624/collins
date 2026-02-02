@@ -33,16 +33,6 @@ const StyledRoot = styled.main.withConfig({
   }};
 `;
 
-const StyledScroll = styled.div.withConfig({
-  displayName: 'StyledScroll',
-  componentId: 'StyledScroll',
-})`
-  height: 100vh;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-`;
-
 const StyledContent = styled.div.withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
@@ -51,6 +41,6 @@ const StyledContent = styled.div.withConfig({
   width: 100%;
 `;
 
-export { StyledRoot, StyledScroll, StyledContent };
+export { StyledRoot, StyledContent };
 
 

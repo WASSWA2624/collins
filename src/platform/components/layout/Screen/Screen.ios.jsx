@@ -5,8 +5,7 @@
  */
 
 import React from 'react';
-import { RefreshControl } from 'react-native';
-import { StyledContent, StyledRoot, StyledSafeArea, StyledScroll } from './Screen.ios.styles';
+import { StyledContent, StyledRoot, StyledSafeArea } from './Screen.ios.styles';
 import useScreen from './useScreen';
 import { BACKGROUNDS, PADDING } from './types';
 
@@ -24,14 +23,12 @@ import { BACKGROUNDS, PADDING } from './types';
  */
 const ScreenIOS = ({
   children,
-  scroll = false,
+  scroll: _scroll = false,
   safeArea = true,
   padding = PADDING.MD,
   background = BACKGROUNDS.DEFAULT,
   accessibilityLabel,
   accessibilityHint,
-  refreshing = false,
-  onRefresh,
   testID,
   ...rest
 }) => {
@@ -44,30 +41,10 @@ const ScreenIOS = ({
     testID,
   });
 
-  const content = (
+  const body = (
     <StyledContent padding={resolved.padding} testID={testID ? `${testID}-content` : undefined}>
       {children}
     </StyledContent>
-  );
-
-  const body = resolved.scroll ? (
-    <StyledScroll
-      testID={testID ? `${testID}-scroll` : undefined}
-      keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        onRefresh ? (
-          <RefreshControl
-            refreshing={Boolean(refreshing)}
-            onRefresh={onRefresh}
-          />
-        ) : undefined
-      }
-    >
-      {content}
-    </StyledScroll>
-  ) : (
-    content
   );
 
   return (

@@ -13,6 +13,13 @@ const StyledContainer = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
@@ -28,4 +35,4 @@ const StyledSection = styled(View).withConfig({
   padding-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
-export { StyledContainer, StyledContent, StyledSection };
+export { StyledContainer, StyledContent, StyledContentWrap, StyledSection };

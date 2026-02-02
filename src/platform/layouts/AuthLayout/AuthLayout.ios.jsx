@@ -10,9 +10,9 @@ import {
   StyledCard,
   StyledContainer,
   StyledContent,
+  StyledContentWrapper,
   StyledHelpLinks,
   StyledKeyboardAvoidingView,
-  StyledScrollView,
 } from './AuthLayout.ios.styles';
 
 const AuthLayoutIOS = ({
@@ -29,13 +29,13 @@ const AuthLayoutIOS = ({
       {...(testID && { testID })}
     >
       <StyledKeyboardAvoidingView behavior="padding">
-        <StyledScrollView keyboardShouldPersistTaps="handled">
+        <StyledContentWrapper>
           <StyledCard>
             {branding ? <StyledBranding>{branding}</StyledBranding> : null}
             <StyledContent>{children}</StyledContent>
             {helpLinks ? <StyledHelpLinks>{helpLinks}</StyledHelpLinks> : null}
           </StyledCard>
-        </StyledScrollView>
+        </StyledContentWrapper>
       </StyledKeyboardAvoidingView>
     </StyledContainer>
   );

@@ -43,6 +43,14 @@ const StyledCloseButton = styled(Pressable).withConfig({
   border-radius: ${({ theme }) => theme.radius.md}px;
 `;
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+  padding-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
 const StyledSidebarContent = styled(View).withConfig({
   displayName: 'StyledSidebarContent',
   componentId: 'StyledSidebarContent',
@@ -142,6 +150,7 @@ export {
   StyledSidebarHeader,
   StyledCloseButton,
   StyledSidebarContent,
+  StyledContentWrap,
   StyledNavSection,
   StyledNavSectionHeader,
   StyledNavSectionTitle,

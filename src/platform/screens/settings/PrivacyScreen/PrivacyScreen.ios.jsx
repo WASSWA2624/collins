@@ -3,10 +3,9 @@
  * File: PrivacyScreen.ios.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { Text, Stack } from '@platform/components';
 import { useI18n } from '@hooks';
-import { StyledContainer, StyledContent, StyledSection } from './PrivacyScreen.ios.styles';
+import { StyledContainer, StyledContent, StyledContentWrap, StyledSection } from './PrivacyScreen.ios.styles';
 import usePrivacyScreen from './usePrivacyScreen';
 
 const PrivacyScreenIOS = () => {
@@ -15,7 +14,7 @@ const PrivacyScreenIOS = () => {
 
   return (
     <StyledContainer accessibilityLabel={t('settings.privacy.screen.label')} testID={testIds.screen}>
-      <ScrollView>
+      <StyledContentWrap>
         <StyledContent testID={testIds.content}>
           <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
             {t('settings.privacy.title')}
@@ -32,7 +31,7 @@ const PrivacyScreenIOS = () => {
             </StyledSection>
           </Stack>
         </StyledContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

@@ -12,7 +12,7 @@ import {
   StyledContainer,
   StyledErrorBanner,
   StyledHeader,
-  StyledScroll,
+  StyledContentWrap,
   StyledSection,
   StyledSectionContent,
   StyledChecklistItem,
@@ -68,7 +68,7 @@ const TopicDetailScreenIos = ({ topicId }) => {
       accessibilityLabel={t('training.topicDetail.accessibilityLabel')}
       testID={TOPIC_DETAIL_TEST_IDS.screen}
     >
-      <StyledScroll>
+      <StyledContentWrap>
         {loadError ? (
           <StyledErrorBanner testID={TOPIC_DETAIL_TEST_IDS.errorBanner}>
             <Text variant="body" color="status.error.text">{t('training.topicDetail.states.error')}</Text>
@@ -121,7 +121,7 @@ const TopicDetailScreenIos = ({ topicId }) => {
             </StyledSection>
           );
         })}
-      </StyledScroll>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

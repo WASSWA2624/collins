@@ -4,7 +4,6 @@
  * File: Sidebar.ios.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useI18n } from '@hooks';
 import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar/useSidebar';
@@ -113,7 +112,7 @@ const SidebarIOS = ({
           </StyledCloseButton>
         </StyledSidebarHeader>
       ) : null}
-      <ScrollView scrollEnabled showsVerticalScrollIndicator contentContainerStyle={{ paddingBottom: 16 }}>
+      <StyledContentWrap>
         <StyledSidebarContent>
           {filteredItems.map((item) => (
             <React.Fragment key={item?.id ?? ''}>
@@ -122,7 +121,7 @@ const SidebarIOS = ({
             </React.Fragment>
           ))}
         </StyledSidebarContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledSidebar>
   );
 };

@@ -4,14 +4,13 @@
  * File: Sidebar.android.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useI18n } from '@hooks';
 import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar/useSidebar';
 import SidebarItem from '@platform/components/navigation/SidebarItem';
 import Icon from '@platform/components/display/Icon';
 import { getMenuIconGlyph } from '@config/sideMenu';
-import { StyledSidebar, StyledSidebarHeader, StyledCloseButton, StyledSidebarContent } from './Sidebar.android.styles';
+import { StyledSidebar, StyledSidebarHeader, StyledCloseButton, StyledContentWrap, StyledSidebarContent } from './Sidebar.android.styles';
 
 /**
  * Sidebar component for Android
@@ -113,7 +112,7 @@ const SidebarAndroid = ({
           </StyledCloseButton>
         </StyledSidebarHeader>
       ) : null}
-      <ScrollView scrollEnabled showsVerticalScrollIndicator contentContainerStyle={{ paddingBottom: 16 }}>
+      <StyledContentWrap>
         <StyledSidebarContent>
           {filteredItems.map((item) => (
             <React.Fragment key={item?.id ?? ''}>
@@ -122,7 +121,7 @@ const SidebarAndroid = ({
             </React.Fragment>
           ))}
         </StyledSidebarContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledSidebar>
   );
 };

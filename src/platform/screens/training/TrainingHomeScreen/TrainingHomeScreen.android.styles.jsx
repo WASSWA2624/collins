@@ -14,9 +14,9 @@ const StyledContainer = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
-const StyledScroll = styled.ScrollView.withConfig({
-  displayName: 'StyledScroll',
-  componentId: 'StyledScroll',
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
 })`
   flex: 1;
 `;
@@ -75,8 +75,8 @@ const StyledErrorBanner = styled(View).withConfig({
 export {
   StyledChecklistCard,
   StyledContainer,
+  StyledContentWrap,
   StyledErrorBanner,
-  StyledScroll,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,

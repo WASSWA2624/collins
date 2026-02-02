@@ -3,7 +3,7 @@
  * File: AssessmentScreen.android.jsx
  */
 import React from 'react';
-import { Pressable, ScrollView } from 'react-native';
+import { Pressable } from 'react-native';
 import {
   Button,
   ProgressBar,
@@ -16,6 +16,7 @@ import useAssessmentScreen from './useAssessmentScreen';
 import {
   StyledActionsRow,
   StyledContainer,
+  StyledContentWrap,
   StyledFieldGroup,
   StyledMissingTests,
   StyledStepContent,
@@ -299,7 +300,7 @@ const AssessmentScreenAndroid = () => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <StyledContentWrap>
       <StyledContainer accessibilityLabel={t('ventilation.assessment.accessibilityLabel')} testID={testIds.screen}>
         <ProgressBar value={progressPercent} testID={testIds.progressBar} />
         <StyledWizardPane>
@@ -344,7 +345,7 @@ const AssessmentScreenAndroid = () => {
         </StyledWizardPane>
         {renderSummary()}
       </StyledContainer>
-    </ScrollView>
+    </StyledContentWrap>
   );
 };
 

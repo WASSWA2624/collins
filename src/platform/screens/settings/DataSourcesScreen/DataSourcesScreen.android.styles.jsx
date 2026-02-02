@@ -13,6 +13,13 @@ const StyledContainer = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
@@ -44,4 +51,4 @@ const StyledSourceItem = styled(View).withConfig({
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary ?? theme.colors.background.secondary};
 `;
 
-export { StyledContainer, StyledContent, StyledSection, StyledMetaRow, StyledSourceItem };
+export { StyledContainer, StyledContent, StyledContentWrap, StyledSection, StyledMetaRow, StyledSourceItem };

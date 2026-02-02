@@ -5,6 +5,13 @@
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
@@ -104,6 +111,7 @@ const StyledFieldGroup = styled(View).withConfig({
 export {
   StyledActionsRow,
   StyledContainer,
+  StyledContentWrap,
   StyledFieldGroup,
   StyledMissingTests,
   StyledStepContent,

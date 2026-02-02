@@ -3,12 +3,12 @@
  * File: DataSourcesScreen.ios.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { Text, Stack } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledContent,
+  StyledContentWrap,
   StyledSection,
   StyledMetaRow,
   StyledSourceItem,
@@ -21,7 +21,7 @@ const DataSourcesScreenIOS = () => {
 
   return (
     <StyledContainer accessibilityLabel={t('settings.dataSources.screen.label')} testID={testIds.screen}>
-      <ScrollView>
+      <StyledContentWrap>
         <StyledContent testID={testIds.content}>
           <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
             {t('settings.dataSources.title')}
@@ -74,7 +74,7 @@ const DataSourcesScreenIOS = () => {
             </StyledSection>
           </Stack>
         </StyledContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

@@ -540,7 +540,7 @@ describe('AuthLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledKeyboardAvoidingView).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentWrapper).toBeDefined();
       expect(styles.StyledCard).toBeDefined();
       expect(styles.StyledBranding).toBeDefined();
       expect(styles.StyledContent).toBeDefined();
@@ -553,7 +553,7 @@ describe('AuthLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledKeyboardAvoidingView).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentWrapper).toBeDefined();
       expect(styles.StyledCard).toBeDefined();
       expect(styles.StyledBranding).toBeDefined();
       expect(styles.StyledContent).toBeDefined();

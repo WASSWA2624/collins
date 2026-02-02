@@ -18,7 +18,7 @@ import {
   StyledContent,
   StyledMessageSection,
   StyledButtonGroup,
-  StyledScrollView,
+  StyledContentWrapper,
   StyledScrollViewContent,
   StyledMessageWrapper,
 } from './ErrorScreen.android.styles';
@@ -39,7 +39,7 @@ const ErrorScreenAndroid = ({ onRetry, ...rest }) => {
   const { handleGoHome, handleRetry, hasRetry } = useErrorScreen({ onRetry });
 
   return (
-    <StyledScrollView
+    <StyledContentWrapper
       accessibilityLabel={t('error.title')}
       testID="error-screen"
     >
@@ -93,7 +93,7 @@ const ErrorScreenAndroid = ({ onRetry, ...rest }) => {
         </StyledContent>
       </StyledErrorContainer>
       </StyledScrollViewContent>
-    </StyledScrollView>
+    </StyledContentWrapper>
   );
 };
 

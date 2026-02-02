@@ -5,7 +5,6 @@
  */
 
 import styled from 'styled-components/native';
-import { ScrollView } from 'react-native';
 
 const StyledContainer = styled.View.withConfig({
   displayName: 'StyledContainer',
@@ -28,15 +27,12 @@ const StyledHeader = styled.View.withConfig({
   justify-content: stretch;
 `;
 
-const StyledScrollView = styled(ScrollView).withConfig({
-  displayName: 'StyledScrollView',
-  componentId: 'StyledScrollView',
-}).attrs({
-  contentContainerStyle: {
-    flexGrow: 1,
-  },
+const StyledContentArea = styled.View.withConfig({
+  displayName: 'StyledContentArea',
+  componentId: 'StyledContentArea',
 })`
   flex: 1;
+  min-height: 0;
 `;
 
 const StyledContent = styled.View.withConfig({
@@ -72,7 +68,7 @@ const StyledBreadcrumbs = styled.View.withConfig({
 export {
   StyledContainer,
   StyledHeader,
-  StyledScrollView,
+  StyledContentArea,
   StyledContent,
   StyledFooter,
   StyledBreadcrumbs,

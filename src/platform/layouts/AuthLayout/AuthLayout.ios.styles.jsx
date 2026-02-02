@@ -5,7 +5,7 @@
  */
 
 import styled from 'styled-components/native';
-import { KeyboardAvoidingView, ScrollView } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 
 const StyledContainer = styled.View.withConfig({
   displayName: 'StyledContainer',
@@ -22,17 +22,13 @@ const StyledKeyboardAvoidingView = styled(KeyboardAvoidingView).withConfig({
   flex: 1;
 `;
 
-const StyledScrollView = styled(ScrollView).withConfig({
-  displayName: 'StyledScrollView',
-  componentId: 'StyledScrollView',
-}).attrs({
-  contentContainerStyle: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+const StyledContentWrapper = styled.View.withConfig({
+  displayName: 'StyledContentWrapper',
+  componentId: 'StyledContentWrapper',
 })`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledCard = styled.View.withConfig({
@@ -68,7 +64,7 @@ const StyledHelpLinks = styled.View.withConfig({
 export {
   StyledContainer,
   StyledKeyboardAvoidingView,
-  StyledScrollView,
+  StyledContentWrapper,
   StyledCard,
   StyledBranding,
   StyledContent,

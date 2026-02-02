@@ -4,7 +4,7 @@
  * File: ErrorScreen.android.styles.jsx
  */
 import styled from 'styled-components/native';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 
 const StyledErrorContainer = styled(View).withConfig({
   displayName: 'StyledErrorContainer',
@@ -51,9 +51,9 @@ const StyledButtonGroup = styled(View).withConfig({
   max-width: 400px;
 `;
 
-const StyledScrollView = styled(ScrollView).withConfig({
-  displayName: 'StyledScrollView',
-  componentId: 'StyledScrollView',
+const StyledContentWrapper = styled(View).withConfig({
+  displayName: 'StyledContentWrapper',
+  componentId: 'StyledContentWrapper',
 })`
   flex: 1;
 `;
@@ -75,9 +75,9 @@ const StyledMessageWrapper = styled(View).withConfig({
 export {
   StyledErrorContainer,
   StyledContent,
+  StyledContentWrapper,
   StyledMessageSection,
   StyledButtonGroup,
-  StyledScrollView,
   StyledScrollViewContent,
   StyledMessageWrapper,
 };

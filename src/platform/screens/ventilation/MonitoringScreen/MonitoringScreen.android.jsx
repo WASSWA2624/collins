@@ -3,7 +3,6 @@
  * File: MonitoringScreen.android.jsx
  */
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import {
   Button,
@@ -16,6 +15,7 @@ import useMonitoringScreen from './useMonitoringScreen';
 import {
   StyledAlertItem,
   StyledContainer,
+  StyledContentWrap,
   StyledOfflineBanner,
   StyledQuickEntryRow,
   StyledSection,
@@ -76,7 +76,7 @@ const MonitoringScreenAndroid = () => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }} accessibilityLabel={t('ventilation.monitoring.accessibilityLabel')}>
+    <StyledContentWrap accessibilityLabel={t('ventilation.monitoring.accessibilityLabel')}>
       <StyledContainer testID={MONITORING_TEST_IDS.screen}>
         {isOffline && (
           <StyledOfflineBanner testID={MONITORING_TEST_IDS.offlineBanner}>
@@ -201,7 +201,7 @@ const MonitoringScreenAndroid = () => {
           {t('ventilation.monitoring.actions.backToRecommendation')}
         </Button>
       </StyledContainer>
-    </ScrollView>
+    </StyledContentWrap>
   );
 };
 

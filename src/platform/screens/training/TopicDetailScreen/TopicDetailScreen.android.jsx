@@ -10,9 +10,9 @@ import { useI18n } from '@hooks';
 import useTopicDetailScreen from './useTopicDetailScreen';
 import {
   StyledContainer,
+  StyledContentWrap,
   StyledErrorBanner,
   StyledHeader,
-  StyledScroll,
   StyledSection,
   StyledSectionContent,
   StyledChecklistItem,
@@ -68,7 +68,7 @@ const TopicDetailScreenAndroid = ({ topicId }) => {
       accessibilityLabel={t('training.topicDetail.accessibilityLabel')}
       testID={TOPIC_DETAIL_TEST_IDS.screen}
     >
-      <StyledScroll>
+      <StyledContentWrap>
         {loadError ? (
           <StyledErrorBanner testID={TOPIC_DETAIL_TEST_IDS.errorBanner}>
             <Text variant="body" color="status.error.text">{t('training.topicDetail.states.error')}</Text>
@@ -121,7 +121,7 @@ const TopicDetailScreenAndroid = ({ topicId }) => {
             </StyledSection>
           );
         })}
-      </StyledScroll>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

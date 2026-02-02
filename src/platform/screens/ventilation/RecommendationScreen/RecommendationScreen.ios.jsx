@@ -3,7 +3,6 @@
  * File: RecommendationScreen.ios.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import {
   Accordion,
@@ -15,6 +14,7 @@ import useRecommendationScreen from './useRecommendationScreen';
 import {
   StyledActionsRow,
   StyledContainer,
+  StyledContentWrap,
   StyledSection,
   StyledSectionBody,
   StyledSectionHeader,
@@ -83,7 +83,7 @@ const RecommendationScreenIOS = () => {
   const risksAndComplications = [...(riskFactors || []), ...(complicationHistory || [])].filter(Boolean);
 
   return (
-    <ScrollView style={{ flex: 1 }} accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
+    <StyledContentWrap accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
         <StyledWarningBox testID={RECOMMENDATION_TEST_IDS.warning}>
           <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
@@ -205,7 +205,7 @@ const RecommendationScreenIOS = () => {
           <Text variant="caption">{t('ventilation.assessment.summary.vitalsFormat', { spo2: inputs?.spo2 ?? '—', rr: inputs?.respiratoryRate ?? '—', hr: inputs?.heartRate ?? '—' })}</Text>
         </StyledSummaryPane>
       </StyledContainer>
-    </ScrollView>
+    </StyledContentWrap>
   );
 };
 

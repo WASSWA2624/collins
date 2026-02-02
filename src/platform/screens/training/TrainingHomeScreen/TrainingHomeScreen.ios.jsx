@@ -3,7 +3,7 @@
  * File: TrainingHomeScreen.ios.jsx
  */
 import React, { useCallback } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
@@ -12,7 +12,7 @@ import {
   StyledChecklistCard,
   StyledContainer,
   StyledErrorBanner,
-  StyledScroll,
+  StyledContentWrap,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,
@@ -59,7 +59,7 @@ const TrainingHomeScreenIos = () => {
       accessibilityLabel={t('training.home.accessibilityLabel')}
       testID={TRAINING_HOME_TEST_IDS.screen}
     >
-      <StyledScroll>
+      <StyledContentWrap>
         {loadError ? (
           <StyledErrorBanner testID={TRAINING_HOME_TEST_IDS.errorBanner}>
             <Text variant="body" color="status.error.text">{t('training.home.states.error')}</Text>
@@ -131,7 +131,7 @@ const TrainingHomeScreenIos = () => {
             {t('training.home.browseAll')}
           </Button>
         ) : null}
-      </StyledScroll>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

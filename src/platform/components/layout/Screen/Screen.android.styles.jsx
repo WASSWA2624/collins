@@ -25,13 +25,6 @@ const StyledRoot = styled.View.withConfig({
   }};
 `;
 
-const StyledScroll = styled.ScrollView.withConfig({
-  displayName: 'StyledScroll',
-  componentId: 'StyledScroll',
-})`
-  flex: 1;
-`;
-
 const StyledContent = styled.View.withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
@@ -49,6 +42,6 @@ const StyledContent = styled.View.withConfig({
   }};
 `;
 
-export { StyledSafeArea, StyledRoot, StyledScroll, StyledContent };
+export { StyledSafeArea, StyledRoot, StyledContent };
 
 

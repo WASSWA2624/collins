@@ -13,6 +13,13 @@ const StyledContainer = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
@@ -37,4 +44,4 @@ const StyledNotice = styled(View).withConfig({
   border-radius: ${({ theme }) => theme.radii?.md ?? 8}px;
 `;
 
-export { StyledContainer, StyledContent, StyledSection, StyledNotice };
+export { StyledContainer, StyledContent, StyledContentWrap, StyledSection, StyledNotice };

@@ -5,6 +5,13 @@
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 
+const StyledContentWrap = styled(View).withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+`;
+
 const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
@@ -75,6 +82,7 @@ const StyledTrendItem = styled(View).withConfig({
 export {
   StyledAlertItem,
   StyledContainer,
+  StyledContentWrap,
   StyledOfflineBanner,
   StyledQuickEntryRow,
   StyledSection,

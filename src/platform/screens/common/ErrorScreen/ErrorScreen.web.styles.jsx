@@ -57,11 +57,13 @@ const StyledButtonGroup = styled.div.withConfig({
   max-width: 400px;
 `;
 
-const StyledScrollView = styled.div.withConfig({
-  displayName: 'StyledScrollView',
-  componentId: 'StyledScrollView',
+const StyledContentWrapper = styled.div.withConfig({
+  displayName: 'StyledContentWrapper',
+  componentId: 'StyledContentWrapper',
 })`
   flex: 1;
+  min-height: 0;
+  width: 100%;
 `;
 
 const StyledScrollViewContent = styled.div.withConfig({
@@ -83,7 +85,7 @@ export {
   StyledContent,
   StyledMessageSection,
   StyledButtonGroup,
-  StyledScrollView,
+  StyledContentWrapper,
   StyledScrollViewContent,
   StyledMessageWrapper,
 };

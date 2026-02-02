@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Modal Android Styles
  * Styled-components for Android platform
  * File: Modal.android.styles.jsx
@@ -72,6 +72,14 @@ const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView.withConfig({
   align-items: center;
 `;
 
+const StyledContentWrap = styled.View.withConfig({
+  displayName: 'StyledContentWrap',
+  componentId: 'StyledContentWrap',
+})`
+  flex: 1;
+  min-height: 0;
+`;
+
 const StyledScrollViewContent = styled.View.withConfig({
   displayName: 'StyledScrollViewContent',
   componentId: 'StyledScrollViewContent',
@@ -79,6 +87,6 @@ const StyledScrollViewContent = styled.View.withConfig({
   padding: ${({ theme }) => theme.spacing.md}px;
 `;
 
-export { StyledBackdrop, StyledModalContainer, StyledCloseButton, StyledCloseButtonText, StyledKeyboardAvoidingView, StyledScrollViewContent };
+export { StyledBackdrop, StyledModalContainer, StyledCloseButton, StyledCloseButtonText, StyledKeyboardAvoidingView, StyledContentWrap, StyledScrollViewContent };
 
 

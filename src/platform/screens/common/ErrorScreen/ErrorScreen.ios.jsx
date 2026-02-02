@@ -18,7 +18,7 @@ import {
   StyledContent,
   StyledMessageSection,
   StyledButtonGroup,
-  StyledScrollView,
+  StyledContentWrapper,
   StyledScrollViewContent,
   StyledMessageWrapper,
 } from './ErrorScreen.ios.styles';
@@ -39,7 +39,7 @@ const ErrorScreenIOS = ({ onRetry, ...rest }) => {
   const { handleGoHome, handleRetry, hasRetry } = useErrorScreen({ onRetry });
 
   return (
-    <StyledScrollView
+    <StyledContentWrapper
       accessibilityLabel={t('error.title')}
       testID="error-screen"
     >
@@ -93,9 +93,10 @@ const ErrorScreenIOS = ({ onRetry, ...rest }) => {
         </StyledContent>
       </StyledErrorContainer>
       </StyledScrollViewContent>
-    </StyledScrollView>
+    </StyledContentWrapper>
   );
 };
+
 
 export default ErrorScreenIOS;
 

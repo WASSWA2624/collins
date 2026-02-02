@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { Modal, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { StyledBackdrop, StyledModalContainer, StyledCloseButton, StyledCloseButtonText, StyledKeyboardAvoidingView, StyledScrollViewContent } from './Modal.android.styles';
+import { Modal, KeyboardAvoidingView } from 'react-native';
+import { StyledBackdrop, StyledModalContainer, StyledCloseButton, StyledCloseButtonText, StyledKeyboardAvoidingView, StyledContentWrap, StyledScrollViewContent } from './Modal.android.styles';
 import useModal from './useModal';
 import { useI18n } from '@hooks';
 import { SIZES } from './types';
@@ -63,15 +63,11 @@ const ModalAndroid = ({
                 <StyledCloseButtonText>×</StyledCloseButtonText>
               </StyledCloseButton>
             )}
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ flexGrow: 1 }}
-            >
+            <StyledContentWrap>
               <StyledScrollViewContent>
                 {children}
               </StyledScrollViewContent>
-            </ScrollView>
+            </StyledContentWrap>
           </StyledModalContainer>
         </StyledKeyboardAvoidingView>
       </StyledBackdrop>

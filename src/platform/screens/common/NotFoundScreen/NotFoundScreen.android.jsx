@@ -5,7 +5,6 @@
  */
 // 1. External dependencies
 import React from 'react';
-import { ScrollView } from 'react-native';
 
 // 2. Platform components (from barrel file)
 import { Button, Text } from '@platform/components';
@@ -36,8 +35,7 @@ const NotFoundScreenAndroid = (props) => {
   const { handleBack, handleGoHome } = useNotFoundScreen();
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+    <StyledContentWrap
       accessibilityLabel={t('notFound.title')}
       testID="not-found-screen"
     >
@@ -85,7 +83,7 @@ const NotFoundScreenAndroid = (props) => {
           </Button>
         </StyledContent>
       </StyledNotFoundContainer>
-    </ScrollView>
+    </StyledContentWrap>
   );
 };
 

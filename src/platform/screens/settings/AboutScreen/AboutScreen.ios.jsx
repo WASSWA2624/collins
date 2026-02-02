@@ -3,10 +3,9 @@
  * File: AboutScreen.ios.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { Text, Stack } from '@platform/components';
 import { useI18n } from '@hooks';
-import { StyledContainer, StyledContent, StyledSection } from './AboutScreen.ios.styles';
+import { StyledContainer, StyledContent, StyledContentWrap, StyledSection } from './AboutScreen.ios.styles';
 import useAboutScreen from './useAboutScreen';
 
 const APP_VERSION = '1.0.0';
@@ -17,7 +16,7 @@ const AboutScreenIOS = () => {
 
   return (
     <StyledContainer accessibilityLabel={t('settings.about.screen.label')} testID={testIds.screen}>
-      <ScrollView>
+      <StyledContentWrap>
         <StyledContent testID={testIds.content}>
           <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
             {t('settings.about.title')}
@@ -36,7 +35,7 @@ const AboutScreenIOS = () => {
             </StyledSection>
           </Stack>
         </StyledContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

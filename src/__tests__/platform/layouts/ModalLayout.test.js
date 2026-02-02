@@ -558,7 +558,7 @@ describe('ModalLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledKeyboardAvoidingView).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentWrapper).toBeDefined();
     });
 
     it('should export iOS styles', () => {
@@ -567,7 +567,7 @@ describe('ModalLayout Component', () => {
       expect(styles).toBeDefined();
       expect(styles.StyledContainer).toBeDefined();
       expect(styles.StyledKeyboardAvoidingView).toBeDefined();
-      expect(styles.StyledScrollView).toBeDefined();
+      expect(styles.StyledContentWrapper).toBeDefined();
     });
 
     it('should export Web styles', () => {

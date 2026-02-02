@@ -3,12 +3,12 @@
  * File: DisclaimerScreen.android.jsx
  */
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { Text, Button, Stack } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledContent,
+  StyledContentWrap,
   StyledSection,
   StyledNotice,
 } from './DisclaimerScreen.android.styles';
@@ -20,7 +20,7 @@ const DisclaimerScreenAndroid = () => {
 
   return (
     <StyledContainer accessibilityLabel={t('settings.disclaimer.screen.label')} testID={testIds.screen}>
-      <ScrollView>
+      <StyledContentWrap>
         <StyledContent testID={testIds.content}>
           <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
             {t('settings.disclaimer.title')}
@@ -52,7 +52,7 @@ const DisclaimerScreenAndroid = () => {
             )}
           </Stack>
         </StyledContent>
-      </ScrollView>
+      </StyledContentWrap>
     </StyledContainer>
   );
 };

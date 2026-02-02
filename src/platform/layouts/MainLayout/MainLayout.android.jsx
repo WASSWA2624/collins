@@ -9,7 +9,7 @@ import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledHeader,
-  StyledScrollView,
+  StyledContentArea,
   StyledContent,
   StyledFooter,
   StyledBreadcrumbs,
@@ -51,14 +51,11 @@ const MainLayoutAndroid = ({
           {breadcrumbs}
         </StyledBreadcrumbs>
       )}
-      <StyledScrollView
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
+      <StyledContentArea>
         <StyledContent>
           {children}
         </StyledContent>
-      </StyledScrollView>
+      </StyledContentArea>
       {footer && (
         <StyledFooter accessibilityRole="contentinfo">
           {footer}

@@ -3,9 +3,9 @@
  * File: CaseDetailScreen.android.styles.jsx
  */
 import styled from 'styled-components/native';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 
-const StyledContainer = styled(ScrollView).withConfig({
+const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
 })`

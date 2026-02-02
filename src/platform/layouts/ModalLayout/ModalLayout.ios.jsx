@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { StyledContainer, StyledKeyboardAvoidingView, StyledScrollView } from './ModalLayout.ios.styles';
+import { StyledContainer, StyledContentWrapper, StyledKeyboardAvoidingView } from './ModalLayout.ios.styles';
 import Modal from '@platform/components/feedback/Modal';
 
 /**
@@ -36,11 +36,11 @@ const ModalLayoutIOS = ({
       testID={testID}
     >
       <StyledKeyboardAvoidingView behavior="padding">
-        <StyledScrollView keyboardShouldPersistTaps="handled">
+        <StyledContentWrapper>
           <StyledContainer>
             {children}
           </StyledContainer>
-        </StyledScrollView>
+        </StyledContentWrapper>
       </StyledKeyboardAvoidingView>
     </Modal>
   );
