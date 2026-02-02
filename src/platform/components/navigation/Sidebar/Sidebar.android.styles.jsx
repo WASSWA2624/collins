@@ -55,9 +55,11 @@ const StyledSidebarHeaderAppName = styled(Text).withConfig({
   displayName: 'StyledSidebarHeaderAppName',
   componentId: 'StyledSidebarHeaderAppName',
 })`
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
   color: ${({ theme }) => theme.colors.text.primary};
+  letter-spacing: -0.02em;
   flex-shrink: 0;
 `;
 

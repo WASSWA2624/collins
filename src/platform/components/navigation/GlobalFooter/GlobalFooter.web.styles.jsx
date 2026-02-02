@@ -59,6 +59,16 @@ const StyledFooterBrand = styled.span.withConfig({
   text-overflow: ellipsis;
 `;
 
+const StyledFooterAppName = styled.span.withConfig({
+  displayName: 'StyledFooterAppName',
+  componentId: 'StyledFooterAppName',
+})`
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: ${({ theme }) => theme.typography.lineHeight.normal};
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
 const StyledFooterLogo = styled.span.withConfig({
   displayName: 'StyledFooterLogo',
   componentId: 'StyledFooterLogo',
@@ -291,6 +301,7 @@ export {
   StyledFooter,
   StyledFooterRow,
   StyledFooterBrand,
+  StyledFooterAppName,
   StyledFooterLogo,
   StyledFooterCopyright,
   StyledFooterLink,

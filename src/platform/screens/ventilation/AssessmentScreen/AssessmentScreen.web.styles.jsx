@@ -437,30 +437,50 @@ const StyledRecommendationSource = styled.div.withConfig({
   displayName: 'StyledRecommendationSource',
   componentId: 'StyledRecommendationSource',
 })`
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
-  padding-top: ${({ theme }) => theme.spacing.lg}px;
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
   border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   min-width: 0;
+  width: 100%;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    margin-top: ${({ theme }) => theme.spacing.lg}px;
+    padding-top: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const StyledRecommendationSourceTitle = styled.h3.withConfig({
   displayName: 'StyledRecommendationSourceTitle',
   componentId: 'StyledRecommendationSourceTitle',
 })`
-  margin: 0 0 ${({ theme }) => theme.spacing.md}px 0;
+  margin: 0 0 ${({ theme }) => theme.spacing.sm}px 0;
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+    margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const StyledSourceOptionsList = styled.div.withConfig({
   displayName: 'StyledSourceOptionsList',
   componentId: 'StyledSourceOptionsList',
 })`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    gap: ${({ theme }) => theme.spacing.md}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const StyledSourceOption = styled.label.withConfig({
@@ -469,13 +489,14 @@ const StyledSourceOption = styled.label.withConfig({
 })`
   display: flex;
   align-items: flex-start;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  min-width: 0;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.background.tertiary};
@@ -487,8 +508,14 @@ const StyledSourceOption = styled.label.withConfig({
     box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary}20;
   }
 
-  &:last-of-type {
-    margin-bottom: 0;
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+    gap: ${({ theme }) => theme.spacing.md}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.sm}px;
   }
 `;
 
@@ -506,7 +533,11 @@ const StyledSourceOptionLabel = styled.span.withConfig({
 })`
   font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
   color: ${({ theme }) => theme.colors.text.primary};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  }
 `;
 
 const StyledSourceOptionDesc = styled.span.withConfig({
@@ -514,20 +545,29 @@ const StyledSourceOptionDesc = styled.span.withConfig({
   componentId: 'StyledSourceOptionDesc',
 })`
   display: block;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm ?? 14}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs ?? 12}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   margin-top: ${({ theme }) => theme.spacing.xs}px;
-  line-height: 1.45;
+  line-height: 1.4;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.sm ?? 14}px;
+  }
 `;
 
 const StyledModelRow = styled.div.withConfig({
   displayName: 'StyledModelRow',
   componentId: 'StyledModelRow',
 })`
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  margin-top: ${({ theme }) => theme.spacing.md}px;
   padding-top: ${({ theme }) => theme.spacing.md}px;
   border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   width: 100%;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    margin-top: ${({ theme }) => theme.spacing.lg}px;
+    padding-top: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 export {

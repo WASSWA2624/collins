@@ -613,10 +613,10 @@
       },
       "recommendationSource": {
         "label": "Recommendation source",
-        "local": "Local dataset",
-        "localDescription": "Use the built-in dataset only. Works offline; no API key required.",
+        "local": "Local",
+        "localDescription": "Built-in rules. Offline, no API key.",
         "onlineAi": "Online AI",
-        "onlineAiDescription": "Use your API key to get AI-augmented recommendations and reasons. Requires connectivity; falls back to local if AI fails.",
+        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
         "modelLabel": "Model",
         "modelHint": "Select AI model (default used if not set)",
         "providerLabel": "Provider",

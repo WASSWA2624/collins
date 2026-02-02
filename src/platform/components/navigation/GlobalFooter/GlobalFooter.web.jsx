@@ -11,6 +11,7 @@ import {
   StyledFooterRow,
   StyledFooterLogo,
   StyledFooterBrand,
+  StyledFooterAppName,
   StyledFooterCopyright,
   StyledFooterLink,
   StyledFooterSeparator,
@@ -42,7 +43,7 @@ const GlobalFooterWeb = ({
       <StyledFooterRow>
         <StyledFooterBrand>
           <StyledFooterLogo aria-hidden="true">{appShortName}</StyledFooterLogo>
-          <span>{appName}</span>
+          <StyledFooterAppName>{appName}</StyledFooterAppName>
         </StyledFooterBrand>
         <StyledFooterCopyright>{copyright}</StyledFooterCopyright>
         {showEmail && (

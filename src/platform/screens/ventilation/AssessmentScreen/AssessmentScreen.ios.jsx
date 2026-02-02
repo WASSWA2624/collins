@@ -133,7 +133,7 @@ const AssessmentScreenIOS = () => {
             <Text>{summaryExpanded ? '−' : '+'}</Text>
           </StyledExpandButton>
         </StyledSummaryHeader>
-        {(summaryExpanded || !isEmpty) && (
+        {summaryExpanded && (
           <StyledSummaryBody>
             {isEmpty ? (
               <Text variant="body" color="text.tertiary">

@@ -2,7 +2,7 @@
  * MainRouteLayout Web Styles
  * File: MainRouteLayout.web.styles.jsx
  */
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledMain = styled.main.withConfig({
   displayName: 'StyledMain',
@@ -80,13 +80,19 @@ const StyledHeaderLogo = styled.span.withConfig({
   justify-content: center;
 `;
 
+const appNameTypography = css`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+  color: ${({ theme }) => theme.colors.text.primary};
+  letter-spacing: -0.02em;
+`;
+
 const StyledHeaderAppName = styled.span.withConfig({
   displayName: 'StyledHeaderAppName',
   componentId: 'StyledHeaderAppName',
 })`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text.primary};
+  ${appNameTypography}
 
   @media (max-width: 767px) {
     display: none;
@@ -97,6 +103,7 @@ const StyledAppNameShort = styled.span.withConfig({
   displayName: 'StyledAppNameShort',
   componentId: 'StyledAppNameShort',
 })`
+  ${appNameTypography}
   display: inline;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
@@ -108,6 +115,7 @@ const StyledAppNameFull = styled.span.withConfig({
   displayName: 'StyledAppNameFull',
   componentId: 'StyledAppNameFull',
 })`
+  ${appNameTypography}
   display: none;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
