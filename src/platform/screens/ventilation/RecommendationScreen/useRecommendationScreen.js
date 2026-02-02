@@ -3,6 +3,7 @@
  * Shared logic for Recommendation screen.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'expo-router';
 import { useSelector } from 'react-redux';
 import useVentilationSession from '@hooks/useVentilationSession';
 import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiProviderId, selectAiModelId } from '@store/selectors';
@@ -11,9 +12,11 @@ import { async as asyncStorage } from '@services/storage';
 import { trackScreen, trackEvent } from '@services/analytics';
 import { getAiProviderConfig } from '@config/constants';
 
+const TOTAL_STEPS = 5;
 const isFiniteNumber = (v) => typeof v === 'number' && Number.isFinite(v);
 
 export default function useRecommendationScreen() {
+  const router = useRouter();
   const {
     recommendationSummary,
     inputs,
@@ -21,6 +24,8 @@ export default function useRecommendationScreen() {
     errorCode,
     sessionId,
     setRecommendationSummary,
+    setAssessmentStep,
+    resetSession,
   } = useVentilationSession();
   const isOnline = useSelector(selectIsOnline);
   const aiEnabled = useSelector(selectAiDecisionSupportEnabled);
@@ -165,6 +170,20 @@ export default function useRecommendationScreen() {
   const showRequestAi = aiEnabled && aiKeyConfigured;
   const responseSource = recommendationSummary?.responseSource === 'online' ? 'online' : 'offline';
 
+  const goToAssessmentStep = useCallback(
+    (step) => {
+      const s = typeof step === 'number' && step >= 0 && step < TOTAL_STEPS ? step : 0;
+      setAssessmentStep(s);
+      router.push('/assessment');
+    },
+    [setAssessmentStep, router]
+  );
+
+  const startNewAssessment = useCallback(() => {
+    resetSession();
+    router.push('/assessment');
+  }, [resetSession, router]);
+
   return {
     recommendationSummary,
     settings,
@@ -193,5 +212,8 @@ export default function useRecommendationScreen() {
     isRequestingAi,
     requestAiRecommendation,
     responseSource,
+    goToAssessmentStep,
+    startNewAssessment,
+    totalSteps: TOTAL_STEPS,
   };
 }

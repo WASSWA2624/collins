@@ -32,6 +32,7 @@ import {
   StyledWarningBox,
 } from './RecommendationScreen.web.styles';
 import { RECOMMENDATION_TEST_IDS } from './types';
+import { STEP_KEYS } from '../AssessmentScreen/types';
 
 const SETTING_KEYS = ['mode', 'tidalVolume', 'respiratoryRate', 'fio2', 'peep', 'ieRatio'];
 
@@ -63,6 +64,8 @@ const RecommendationScreenWeb = () => {
     aiReasons,
     aiHints,
     responseSource,
+    goToAssessmentStep,
+    startNewAssessment,
   } = useRecommendationScreen();
   const { exportSummary } = useExportSession({
     recommendationSummary,
@@ -75,8 +78,8 @@ const RecommendationScreenWeb = () => {
     router.push('/session/monitoring');
   };
 
-  const handleBackToAssessment = () => {
-    router.push('/assessment');
+  const handleStartNewAssessment = () => {
+    startNewAssessment();
   };
 
   const handleCaseClick = (caseId) => (e) => {
@@ -96,8 +99,8 @@ const RecommendationScreenWeb = () => {
     return (
       <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen}>
         <Text variant="body">{t('ventilation.recommendation.states.error')}</Text>
-        <Button variant="outline" onPress={handleBackToAssessment}>
-          {t('ventilation.recommendation.actions.backToAssessment')}
+        <Button variant="outline" onPress={handleStartNewAssessment}>
+          {t('ventilation.recommendation.actions.startNewAssessment')}
         </Button>
       </StyledContainer>
     );
@@ -107,8 +110,8 @@ const RecommendationScreenWeb = () => {
     return (
       <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen}>
         <Text variant="body">{t('ventilation.recommendation.states.empty')}</Text>
-        <Button variant="primary" onPress={handleBackToAssessment}>
-          {t('ventilation.recommendation.actions.backToAssessment')}
+          <Button variant="primary" onPress={handleStartNewAssessment}>
+          {t('ventilation.recommendation.actions.startNewAssessment')}
         </Button>
       </StyledContainer>
     );
@@ -318,6 +321,26 @@ const RecommendationScreenWeb = () => {
             </Button>
           </StyledSection>
         )}
+        <StyledSection data-testid="recommendation-edit-assessment">
+          <StyledSectionHeader>
+            <StyledSectionTitle>{t('ventilation.recommendation.actions.editAssessmentTitle')}</StyledSectionTitle>
+          </StyledSectionHeader>
+          <StyledSectionBody>
+            <Stack direction="row" gap="sm" flexWrap="wrap">
+              {STEP_KEYS.map((stepKey, index) => (
+                <Button
+                  key={stepKey}
+                  variant="outline"
+                  onPress={() => goToAssessmentStep(index)}
+                  testID={`recommendation-edit-step-${index}`}
+                  accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}
+                >
+                  {t('ventilation.assessment.steps.' + stepKey)}
+                </Button>
+              ))}
+            </Stack>
+          </StyledSectionBody>
+        </StyledSection>
         <StyledActionsRow>
           <Button
             variant="primary"
@@ -327,8 +350,8 @@ const RecommendationScreenWeb = () => {
           >
             {t('ventilation.recommendation.actions.startMonitoring')}
           </Button>
-          <Button variant="outline" onPress={handleBackToAssessment}>
-            {t('ventilation.recommendation.actions.backToAssessment')}
+          <Button variant="outline" onPress={handleStartNewAssessment}>
+            {t('ventilation.recommendation.actions.startNewAssessment')}
           </Button>
         </StyledActionsRow>
       </StyledContentPane>

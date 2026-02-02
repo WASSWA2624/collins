@@ -22,6 +22,7 @@ import {
   StyledWarningBox,
 } from './RecommendationScreen.android.styles';
 import { RECOMMENDATION_TEST_IDS } from './types';
+import { STEP_KEYS } from '../AssessmentScreen/types';
 
 const SETTING_KEYS = ['mode', 'tidalVolume', 'respiratoryRate', 'fio2', 'peep', 'ieRatio'];
 
@@ -47,10 +48,12 @@ const RecommendationScreenAndroid = () => {
     isHydrating,
     errorCode,
     responseSource,
+    goToAssessmentStep,
+    startNewAssessment,
   } = useRecommendationScreen();
 
   const handleStartMonitoring = () => router.push('/session/monitoring');
-  const handleBackToAssessment = () => router.push('/assessment');
+  const handleStartNewAssessment = () => startNewAssessment();
   const handleCasePress = (caseId) => () => caseId && router.push(`/session/case/${encodeURIComponent(caseId)}`);
 
   if (isHydrating) {
@@ -65,8 +68,8 @@ const RecommendationScreenAndroid = () => {
     return (
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
         <Text variant="body">{t('ventilation.recommendation.states.error')}</Text>
-        <Button variant="outline" onPress={handleBackToAssessment}>
-          {t('ventilation.recommendation.actions.backToAssessment')}
+        <Button variant="outline" onPress={handleStartNewAssessment}>
+          {t('ventilation.recommendation.actions.startNewAssessment')}
         </Button>
       </StyledContainer>
     );
@@ -76,8 +79,8 @@ const RecommendationScreenAndroid = () => {
     return (
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
         <Text variant="body">{t('ventilation.recommendation.states.empty')}</Text>
-        <Button variant="primary" onPress={handleBackToAssessment}>
-          {t('ventilation.recommendation.actions.backToAssessment')}
+        <Button variant="primary" onPress={handleStartNewAssessment}>
+          {t('ventilation.recommendation.actions.startNewAssessment')}
         </Button>
       </StyledContainer>
     );
@@ -223,12 +226,30 @@ const RecommendationScreenAndroid = () => {
           </Accordion>
         )}
 
+        <StyledSection testID="recommendation-edit-assessment">
+          <StyledSectionHeader>
+            <Text variant="label">{t('ventilation.recommendation.actions.editAssessmentTitle')}</Text>
+          </StyledSectionHeader>
+          <StyledSectionBody>
+            {STEP_KEYS.map((stepKey, index) => (
+              <Button
+                key={stepKey}
+                variant="outline"
+                onPress={() => goToAssessmentStep(index)}
+                testID={`recommendation-edit-step-${index}`}
+                accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}
+              >
+                {t('ventilation.assessment.steps.' + stepKey)}
+              </Button>
+            ))}
+          </StyledSectionBody>
+        </StyledSection>
         <StyledActionsRow>
           <Button variant="primary" onPress={handleStartMonitoring} testID={RECOMMENDATION_TEST_IDS.startMonitoring}>
             {t('ventilation.recommendation.actions.startMonitoring')}
           </Button>
-          <Button variant="outline" onPress={handleBackToAssessment}>
-            {t('ventilation.recommendation.actions.backToAssessment')}
+          <Button variant="outline" onPress={handleStartNewAssessment}>
+            {t('ventilation.recommendation.actions.startNewAssessment')}
           </Button>
         </StyledActionsRow>
 
