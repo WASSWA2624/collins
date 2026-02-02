@@ -23,8 +23,9 @@ const StyledContainer = styled.main.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xl}px;
+  gap: ${({ theme }) => theme.spacing.lg}px;
   box-sizing: border-box;
+  overflow-x: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-direction: row;
@@ -39,6 +40,7 @@ const StyledProgressSection = styled.div.withConfig({
 })`
   flex-shrink: 0;
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  order: 0;
 `;
 
 const StyledWizardPane = styled.section.withConfig({
@@ -49,9 +51,11 @@ const StyledWizardPane = styled.section.withConfig({
   min-width: 0;
   display: flex;
   flex-direction: column;
+  order: 2;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     max-width: 600px;
+    order: 1;
   }
 `;
 
@@ -73,17 +77,22 @@ const StyledSummaryPane = styled.aside.withConfig({
   componentId: 'StyledSummaryPane',
 })`
   width: 100%;
+  flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
-  padding: ${({ theme }) => theme.spacing.xl}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  order: 1;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     width: 340px;
-    flex-shrink: 0;
+    padding: ${({ theme }) => theme.spacing.xl}px;
+    margin-bottom: 0;
     position: sticky;
     top: ${({ theme }) => theme.spacing.xl}px;
+    order: 2;
   }
 `;
 
@@ -289,6 +298,62 @@ const StyledFieldGroup = styled.div.withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledStepDescription = styled.p.withConfig({
+  displayName: 'StyledStepDescription',
+  componentId: 'StyledStepDescription',
+})`
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px 0;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  line-height: 1.5;
+`;
+
+const StyledRecommendationSource = styled.div.withConfig({
+  displayName: 'StyledRecommendationSource',
+  componentId: 'StyledRecommendationSource',
+})`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
+  border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledSourceOption = styled.label.withConfig({
+  displayName: 'StyledSourceOption',
+  componentId: 'StyledSourceOption',
+})`
+  display: flex;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  cursor: pointer;
+`;
+
+const StyledSourceOptionLabel = styled.span.withConfig({
+  displayName: 'StyledSourceOptionLabel',
+  componentId: 'StyledSourceOptionLabel',
+})`
+  font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSourceOptionDesc = styled.span.withConfig({
+  displayName: 'StyledSourceOptionDesc',
+  componentId: 'StyledSourceOptionDesc',
+})`
+  display: block;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledModelRow = styled.div.withConfig({
+  displayName: 'StyledModelRow',
+  componentId: 'StyledModelRow',
+})`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  max-width: 280px;
+`;
+
 export {
   StyledActionsRow,
   StyledContainer,
@@ -297,13 +362,19 @@ export {
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
-  StyledObservationRow,
   StyledMissingTests,
   StyledMissingTestsHint,
   StyledMissingTestsList,
   StyledMissingTestsTitle,
+  StyledModelRow,
+  StyledObservationRow,
   StyledProgressSection,
+  StyledRecommendationSource,
+  StyledSourceOption,
+  StyledSourceOptionDesc,
+  StyledSourceOptionLabel,
   StyledStepContent,
+  StyledStepDescription,
   StyledStepHeader,
   StyledStepIndicator,
   StyledStepTitle,

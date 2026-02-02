@@ -60,6 +60,8 @@ const RecommendationScreenWeb = () => {
     isOnline,
     isRequestingAi,
     requestAiRecommendation,
+    aiReasons,
+    aiHints,
   } = useRecommendationScreen();
   const { exportSummary } = useExportSession({
     recommendationSummary,
@@ -152,6 +154,33 @@ const RecommendationScreenWeb = () => {
             </StyledSettingsGrid>
           </StyledSectionBody>
         </StyledSection>
+
+        {(aiReasons?.length > 0 || aiHints?.length > 0) && (
+          <StyledSection data-testid="recommendation-ai-reasons">
+            <StyledSectionHeader>
+              <StyledSectionTitle>{t('ventilation.recommendation.aiReasons.title')}</StyledSectionTitle>
+            </StyledSectionHeader>
+            <StyledSectionBody>
+              {aiReasons?.length > 0 && (
+                <StyledList>
+                  {aiReasons.map((reason, i) => (
+                    <StyledListItem key={i}>{reason}</StyledListItem>
+                  ))}
+                </StyledList>
+              )}
+              {aiHints?.length > 0 && (
+                <>
+                  <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.aiReasons.hints')}</Text>
+                  <StyledList>
+                    {aiHints.map((hint, i) => (
+                      <StyledListItem key={i}>{hint}</StyledListItem>
+                    ))}
+                  </StyledList>
+                </>
+              )}
+            </StyledSectionBody>
+          </StyledSection>
+        )}
 
         <StyledSection data-testid={RECOMMENDATION_TEST_IDS.confidence}>
           <StyledSectionHeader>

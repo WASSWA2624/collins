@@ -10,6 +10,8 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   min-height: 100%;
   padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -17,6 +19,25 @@ const StyledContainer = styled.main.withConfig({
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg}px;
   box-sizing: border-box;
+`;
+
+const StyledPageHeader = styled.header.withConfig({
+  displayName: 'StyledPageHeader',
+  componentId: 'StyledPageHeader',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledPageTitle = styled.h1.withConfig({
+  displayName: 'StyledPageTitle',
+  componentId: 'StyledPageTitle',
+})`
+  margin: 0;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xl ?? 24}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const StyledSearchWrap = styled.div.withConfig({
@@ -91,5 +112,7 @@ export {
   StyledItem,
   StyledItemLink,
   StyledList,
+  StyledPageHeader,
+  StyledPageTitle,
   StyledSearchWrap,
 };

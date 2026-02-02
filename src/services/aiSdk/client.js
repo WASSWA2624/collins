@@ -37,7 +37,7 @@ const requestCaseAnalysis = async (minimalPayload, options = {}) => {
   const timeoutMs = typeof options?.timeoutMs === 'number' && options.timeoutMs > 0 ? options.timeoutMs : DEFAULT_TIMEOUT_MS;
   const maxRetries = typeof options?.maxRetries === 'number' && options.maxRetries >= 0 ? options.maxRetries : DEFAULT_MAX_RETRIES;
 
-  const systemPrompt = 'You are a clinical decision-support assistant. Respond only with a JSON object containing a single key "hints" (array of short clinical hint codes, e.g. VENTILATION_*). No explanations.';
+  const systemPrompt = 'You are a clinical decision-support assistant. Respond only with a JSON object with two keys: "hints" (array of short clinical hint codes, e.g. VENTILATION_*) and "reasons" (array of 1–3 short plain-language reasons for your recommendation, each under 200 characters). No other text.';
   const userContent = JSON.stringify(minimalPayload);
 
   let lastError = null;
@@ -119,7 +119,8 @@ const requestCaseAnalysis = async (minimalPayload, options = {}) => {
         throw err;
       }
       const hints = Array.isArray(parsed?.hints) ? parsed.hints.filter((h) => typeof h === 'string' && h.trim()) : [];
-      return Object.freeze({ hints: Object.freeze([...hints]) });
+      const reasons = Array.isArray(parsed?.reasons) ? parsed.reasons.filter((r) => typeof r === 'string' && r.trim()).slice(0, 5).map((r) => r.trim().slice(0, 300)) : [];
+      return Object.freeze({ hints: Object.freeze([...hints]), reasons: Object.freeze([...reasons]) });
     } catch (e) {
       if (e?.name === 'AbortError') {
         const err = new Error('AI_TIMEOUT');

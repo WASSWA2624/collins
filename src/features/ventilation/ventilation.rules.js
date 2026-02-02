@@ -632,6 +632,13 @@ const coerceSafeAiHints = (aiOutput) => {
   return Object.freeze([...unique]);
 };
 
+const coerceSafeAiReasons = (aiOutput) => {
+  const raw = aiOutput?.reasons ?? aiOutput?.explanations;
+  const list = Array.isArray(raw) ? raw : [];
+  const safe = list.filter((r) => typeof r === 'string' && r.trim()).slice(0, 5).map((r) => r.trim().slice(0, 300));
+  return Object.freeze([...safe]);
+};
+
 /**
  * Deterministic merge: dataset output remains primary.
  * AI output is sanitized and attached under `aiAugmentation` only.
@@ -639,12 +646,14 @@ const coerceSafeAiHints = (aiOutput) => {
 const mergeVentilationRecommendationWithAi = (datasetOutput, aiOutput) => {
   const base = datasetOutput && typeof datasetOutput === 'object' ? datasetOutput : {};
   const hints = coerceSafeAiHints(aiOutput);
+  const reasons = coerceSafeAiReasons(aiOutput);
 
   return Object.freeze({
     ...base,
     aiAugmentation: Object.freeze({
       provider: VENTILATION_AI_AUGMENTATION_PROVIDER,
       hints,
+      reasons,
     }),
   });
 };

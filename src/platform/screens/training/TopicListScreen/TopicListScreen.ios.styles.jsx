@@ -14,6 +14,13 @@ const StyledContainer = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const StyledPageHeader = styled(View).withConfig({
+  displayName: 'StyledPageHeader',
+  componentId: 'StyledPageHeader',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+`;
+
 const StyledSearchWrap = styled(View).withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
@@ -54,5 +61,6 @@ export {
   StyledEmpty,
   StyledErrorBanner,
   StyledItem,
+  StyledPageHeader,
   StyledSearchWrap,
 };

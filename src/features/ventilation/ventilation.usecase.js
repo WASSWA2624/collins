@@ -55,7 +55,23 @@ const getVentilationRecommendationUseCase = async ({ input, topN, rawDataset, ai
 
     const datasetOutput = assembleVentilationRecommendationFromMatches({ dataset, rankedMatches, input });
 
-    // Step 10.8: Optional online AI augmentation (never required for core path).
+    // Step 10.8: Optional online AI augmentation (never required for core path). Fail-safe: always return local recommendation.
+    const aiConfig = ai && typeof ai === 'object' ? ai : {};
+    const useOnlineAi = aiConfig.useOnlineAi === true;
+    const isOnline = aiConfig.isOnline === true;
+    const flags = aiConfig.flags ?? null;
+
+    if (!useOnlineAi) {
+      return Object.freeze({
+        ...datasetOutput,
+        aiAugmentation: Object.freeze({
+          provider: 'aiSdk',
+          status: 'skipped',
+          reasonCodes: Object.freeze(['VENTILATION_AI_SKIPPED_USER_CHOSE_LOCAL']),
+        }),
+      });
+    }
+
     const complex = detectVentilationComplexCase({ input, datasetOutput, dataset });
     if (!complex.isComplexCase) {
       return Object.freeze({
@@ -68,14 +84,10 @@ const getVentilationRecommendationUseCase = async ({ input, topN, rawDataset, ai
       });
     }
 
-    const aiConfig = ai && typeof ai === 'object' ? ai : {};
-    const isOnline = aiConfig.isOnline === true;
-    const flags = aiConfig.flags ?? null;
-
     const aiResult = await augmentVentilationCaseApi({
       caseInput: input,
       isOnline,
-      flags,
+      flags: { ...flags, AI_AUGMENTATION_ENABLED: true },
     });
 
     if (!aiResult?.ok || !aiResult?.aiOutput) {

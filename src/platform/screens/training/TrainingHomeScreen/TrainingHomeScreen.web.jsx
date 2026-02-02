@@ -8,9 +8,11 @@ import { Button, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
 import useTrainingHomeScreen from './useTrainingHomeScreen';
 import {
-  StyledChecklistCard,
   StyledContainer,
   StyledErrorBanner,
+  StyledPageHeader,
+  StyledPageTitle,
+  StyledSubtitle,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,
@@ -41,7 +43,6 @@ const TrainingHomeScreenWeb = () => {
   const router = useRouter();
   const {
     popularTopics,
-    quickChecklists,
     loadError,
     isLoading,
     isEmpty,
@@ -49,7 +50,6 @@ const TrainingHomeScreenWeb = () => {
     setSearchQuery,
     searchResults,
     search,
-    isSearching,
   } = useTrainingHomeScreen();
 
   const handleNavigateToTopic = useCallback(
@@ -78,12 +78,22 @@ const TrainingHomeScreenWeb = () => {
     );
   }
 
+  const showSearchResults = searchQuery.trim() && searchResults?.length > 0;
+  const showTopics = !searchQuery.trim() && popularTopics?.length > 0;
+  const listToShow = showSearchResults ? searchResults : popularTopics;
+  const sectionHeadingId = showSearchResults ? 'search-results-heading' : 'topics-heading';
+  const sectionTitleKey = showSearchResults ? 'training.home.searchResults' : 'training.home.topicsSection';
+
   return (
     <StyledContainer
       aria-label={t('training.home.accessibilityLabel')}
       data-testid={TRAINING_HOME_TEST_IDS.screen}
       role="main"
     >
+      <StyledPageHeader>
+        <StyledPageTitle>{t('training.home.title')}</StyledPageTitle>
+        <StyledSubtitle>{t('training.home.subtitle')}</StyledSubtitle>
+      </StyledPageHeader>
       {loadError ? (
         <StyledErrorBanner data-testid={TRAINING_HOME_TEST_IDS.errorBanner}>
           <Text variant="body" color="status.error.text">{t('training.home.states.error')}</Text>
@@ -105,43 +115,16 @@ const TrainingHomeScreenWeb = () => {
           </Button>
         ) : null}
       </StyledSearchWrap>
-      {searchResults?.length > 0 ? (
-        <StyledSection aria-labelledby="search-results-heading">
-          <StyledSectionTitle id="search-results-heading">{t('training.home.popularTopics')}</StyledSectionTitle>
-          <StyledTopicList>
-            {searchResults.map((r) => (
-              <li key={`${r.type}-${r.id}`}>
-                <TopicLink doc={r} t={t} onNavigate={handleNavigateToTopic} />
-              </li>
-            ))}
-          </StyledTopicList>
-        </StyledSection>
-      ) : null}
-      {!searchQuery.trim() && popularTopics?.length > 0 ? (
-        <StyledSection aria-labelledby="popular-heading">
-          <StyledSectionTitle id="popular-heading">{t('training.home.popularTopics')}</StyledSectionTitle>
+      {showSearchResults || showTopics ? (
+        <StyledSection aria-labelledby={sectionHeadingId}>
+          <StyledSectionTitle id={sectionHeadingId}>{t(sectionTitleKey)}</StyledSectionTitle>
           <StyledTopicList data-testid={TRAINING_HOME_TEST_IDS.popularTopics}>
-            {popularTopics.map((doc) => (
+            {listToShow.map((doc) => (
               <li key={`${doc.type}-${doc.id}`}>
                 <TopicLink doc={doc} t={t} onNavigate={handleNavigateToTopic} />
               </li>
             ))}
           </StyledTopicList>
-        </StyledSection>
-      ) : null}
-      {!searchQuery.trim() && quickChecklists?.length > 0 ? (
-        <StyledSection aria-labelledby="checklists-heading">
-          <StyledSectionTitle id="checklists-heading">{t('training.home.quickChecklists')}</StyledSectionTitle>
-          <div data-testid={TRAINING_HOME_TEST_IDS.quickChecklists}>
-            {quickChecklists.map((c) => (
-              <StyledChecklistCard key={c?.id}>
-                <Text variant="label">{c?.title ?? c?.id ?? ''}</Text>
-                <Button variant="outline" onPress={() => handleNavigateToTopic(c?.id)}>
-                  {t('training.home.viewTopic')}
-                </Button>
-              </StyledChecklistCard>
-            ))}
-          </div>
         </StyledSection>
       ) : null}
       {!searchQuery.trim() && isEmpty ? (

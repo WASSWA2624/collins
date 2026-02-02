@@ -13,6 +13,7 @@ import {
   StyledEmpty,
   StyledErrorBanner,
   StyledItem,
+  StyledPageHeader,
   StyledSearchWrap,
 } from './TopicListScreen.android.styles';
 import { TOPIC_LIST_TEST_IDS } from './types';
@@ -57,6 +58,9 @@ const TopicListScreenAndroid = () => {
       accessibilityLabel={t('training.topics.accessibilityLabel')}
       testID={TOPIC_LIST_TEST_IDS.screen}
     >
+      <StyledPageHeader>
+        <Text variant="label">{t('training.topics.title')}</Text>
+      </StyledPageHeader>
       {loadError ? (
         <StyledErrorBanner testID={TOPIC_LIST_TEST_IDS.errorBanner}>
           <Text variant="body" color="status.error.text">{t('training.topics.states.error')}</Text>

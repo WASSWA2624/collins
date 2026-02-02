@@ -3,7 +3,7 @@
  * File: AssessmentScreen.ios.styles.jsx
  */
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 
 const StyledContentWrap = styled(View).withConfig({
   displayName: 'StyledContentWrap',
@@ -110,13 +110,71 @@ const StyledFieldGroup = styled(View).withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
+const StyledStepDescription = styled(Text).withConfig({
+  displayName: 'StyledStepDescription',
+  componentId: 'StyledStepDescription',
+})`
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledRecommendationSource = styled(View).withConfig({
+  displayName: 'StyledRecommendationSource',
+  componentId: 'StyledRecommendationSource',
+})`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledSourceOption = styled(Pressable).withConfig({
+  displayName: 'StyledSourceOption',
+  componentId: 'StyledSourceOption',
+})`
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledSourceOptionLabel = styled(Text).withConfig({
+  displayName: 'StyledSourceOptionLabel',
+  componentId: 'StyledSourceOptionLabel',
+})`
+  font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSourceOptionDesc = styled(Text).withConfig({
+  displayName: 'StyledSourceOptionDesc',
+  componentId: 'StyledSourceOptionDesc',
+})`
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledModelRow = styled(View).withConfig({
+  displayName: 'StyledModelRow',
+  componentId: 'StyledModelRow',
+})`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+`;
+
 export {
   StyledActionsRow,
   StyledContainer,
   StyledContentWrap,
   StyledFieldGroup,
   StyledMissingTests,
+  StyledModelRow,
+  StyledRecommendationSource,
+  StyledSourceOption,
+  StyledSourceOptionDesc,
+  StyledSourceOptionLabel,
   StyledStepContent,
+  StyledStepDescription,
   StyledStepHeader,
   StyledSummaryBody,
   StyledSummaryHeader,

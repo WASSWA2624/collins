@@ -1,6 +1,6 @@
 /**
  * Training Home Route
- * (training)/index - 11.S.7 Training home
+ * (training)/index → /training — 11.S.7 Training home
  */
 import React from 'react';
 import { TrainingHomeScreen } from '@platform/screens';

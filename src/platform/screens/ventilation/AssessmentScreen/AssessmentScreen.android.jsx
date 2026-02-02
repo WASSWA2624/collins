@@ -3,15 +3,20 @@
  * File: AssessmentScreen.android.jsx
  */
 import React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
+import { useTheme } from 'styled-components/native';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   ProgressBar,
+  Radio,
   Select,
   Text,
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
+import { AI_MODELS } from '@config/constants';
+import { actions as uiActions } from '@store/slices/ui.slice';
 import useAssessmentScreen from './useAssessmentScreen';
 import {
   StyledActionsRow,
@@ -19,7 +24,13 @@ import {
   StyledContentWrap,
   StyledFieldGroup,
   StyledMissingTests,
+  StyledModelRow,
+  StyledRecommendationSource,
+  StyledSourceOption,
+  StyledSourceOptionDesc,
+  StyledSourceOptionLabel,
   StyledStepContent,
+  StyledStepDescription,
   StyledStepHeader,
   StyledSummaryBody,
   StyledSummaryHeader,
@@ -44,6 +55,8 @@ const parseComorbidities = (val) => {
 
 const AssessmentScreenAndroid = () => {
   const { t } = useI18n();
+  const dispatch = useDispatch();
+  const theme = useTheme();
   const {
     currentStep,
     progressPercent,
@@ -65,7 +78,11 @@ const AssessmentScreenAndroid = () => {
     addObservation,
     updateObservation,
     removeObservation,
+    recommendationSource,
+    setRecommendationSource,
+    aiModelId,
   } = useAssessmentScreen();
+  const modelOptions = AI_MODELS.map((m) => ({ value: m.id, label: t(`ventilation.assessment.recommendationSource.${m.labelKey}`) }));
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
   const hasMissingTests = additionalTestPrompts?.length > 0;
@@ -249,6 +266,7 @@ const AssessmentScreenAndroid = () => {
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.observations.title')} ({t('ventilation.assessment.observations.optional')})</Text>
+            <StyledStepDescription>{t('ventilation.assessment.observations.description')}</StyledStepDescription>
             {(mergedInputs.observations || []).map((obs, i) => (
               <StyledFieldGroup key={i}>
                 <TextField
@@ -278,12 +296,35 @@ const AssessmentScreenAndroid = () => {
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.timeSeries.title')} ({t('ventilation.assessment.timeSeries.optional')})</Text>
+            <StyledStepDescription>{t('ventilation.assessment.timeSeries.description')}</StyledStepDescription>
           </StyledFieldGroup>
         );
       case STEPS.REVIEW:
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.summary.title')}</Text>
+            <StyledRecommendationSource accessibilityLabel={t('ventilation.assessment.recommendationSource.label')}>
+              <Text variant="label">{t('ventilation.assessment.recommendationSource.label')}</Text>
+              <StyledSourceOption onPress={() => setRecommendationSource('local')}>
+                <Radio selected={recommendationSource === 'local'} onChange={() => setRecommendationSource('local')} value="local" label={t('ventilation.assessment.recommendationSource.local')} testID="assessment-source-local" />
+                <View style={{ marginLeft: 8, flex: 1 }}>
+                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.local')}</StyledSourceOptionLabel>
+                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.localDescription')}</StyledSourceOptionDesc>
+                </View>
+              </StyledSourceOption>
+              <StyledSourceOption onPress={() => setRecommendationSource('online_ai')}>
+                <Radio selected={recommendationSource === 'online_ai'} onChange={() => setRecommendationSource('online_ai')} value="online_ai" label={t('ventilation.assessment.recommendationSource.onlineAi')} testID="assessment-source-online-ai" />
+                <View style={{ marginLeft: 8, flex: 1 }}>
+                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.onlineAi')}</StyledSourceOptionLabel>
+                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.onlineAiDescription')}</StyledSourceOptionDesc>
+                </View>
+              </StyledSourceOption>
+              {recommendationSource === 'online_ai' && (
+                <StyledModelRow>
+                  <Select label={t('ventilation.assessment.recommendationSource.modelLabel')} options={modelOptions} value={modelOptions.find((o) => o.value === aiModelId)?.value ?? modelOptions[0]?.value} onValueChange={(v) => dispatch(uiActions.setAiModelId(v))} accessibilityHint={t('ventilation.assessment.recommendationSource.modelHint')} testID="assessment-model-select" />
+                </StyledModelRow>
+              )}
+            </StyledRecommendationSource>
           </StyledFieldGroup>
         );
       default:
@@ -299,52 +340,61 @@ const AssessmentScreenAndroid = () => {
     );
   }
 
+  const contentPaddingBottom = theme?.spacing?.xl ?? 32;
+
   return (
     <StyledContentWrap>
       <StyledContainer accessibilityLabel={t('ventilation.assessment.accessibilityLabel')} testID={testIds.screen}>
         <ProgressBar value={progressPercent} testID={testIds.progressBar} />
-        <StyledWizardPane>
-          <StyledStepHeader>
-            <Text variant="h2">{stepLabel}</Text>
-          </StyledStepHeader>
-          <StyledStepContent testID={testIds.stepContent}>
-            {renderStepContent()}
-          </StyledStepContent>
-          {hasMissingTests && currentStep === STEPS.REVIEW && (
-            <StyledMissingTests testID={testIds.missingTests} accessibilityRole="alert" accessibilityLabel={t('ventilation.assessment.missingTests.title')}>
-              <Text variant="label" color="status.warning.text">{t('ventilation.assessment.missingTests.title')}</Text>
-              <Text variant="body" color="status.warning.text">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
-              <Text variant="caption" color="status.warning.text">{t('ventilation.assessment.missingTests.abgHint')}</Text>
-            </StyledMissingTests>
-          )}
-          <StyledActionsRow>
-            {currentStep > 0 && (
-              <Button variant="outline" onPress={goBack} testID={testIds.backButton}>
-                {t('ventilation.assessment.actions.back')}
-              </Button>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: contentPaddingBottom }}
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps="handled"
+        >
+          <StyledWizardPane>
+            <StyledStepHeader>
+              <Text variant="h2">{stepLabel}</Text>
+            </StyledStepHeader>
+            <StyledStepContent testID={testIds.stepContent}>
+              {renderStepContent()}
+            </StyledStepContent>
+            {hasMissingTests && currentStep === STEPS.REVIEW && (
+              <StyledMissingTests testID={testIds.missingTests} accessibilityRole="alert" accessibilityLabel={t('ventilation.assessment.missingTests.title')}>
+                <Text variant="label" color="status.warning.text">{t('ventilation.assessment.missingTests.title')}</Text>
+                <Text variant="body" color="status.warning.text">{t('ventilation.assessment.missingTests.abgPanel')}</Text>
+                <Text variant="caption" color="status.warning.text">{t('ventilation.assessment.missingTests.abgHint')}</Text>
+              </StyledMissingTests>
             )}
-            {currentStep < STEPS.REVIEW ? (
-              <Button
-                variant="primary"
-                onPress={goNext}
-                disabled={!canProceedFromStep(currentStep)}
-                testID={testIds.nextButton}
-              >
-                {t('common.next')}
-              </Button>
-            ) : (
-              <Button
-                variant="primary"
-                onPress={generateRecommendation}
-                disabled={isGenerating || !canProceedFromStep(currentStep)}
-                testID={testIds.generateButton}
-              >
-                {isGenerating ? t('common.loading') : t('ventilation.assessment.actions.generate')}
-              </Button>
-            )}
-          </StyledActionsRow>
-        </StyledWizardPane>
-        {renderSummary()}
+            <StyledActionsRow>
+              {currentStep > 0 && (
+                <Button variant="outline" onPress={goBack} testID={testIds.backButton}>
+                  {t('ventilation.assessment.actions.back')}
+                </Button>
+              )}
+              {currentStep < STEPS.REVIEW ? (
+                <Button
+                  variant="primary"
+                  onPress={goNext}
+                  disabled={!canProceedFromStep(currentStep)}
+                  testID={testIds.nextButton}
+                >
+                  {t('common.next')}
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  onPress={generateRecommendation}
+                  disabled={isGenerating || !canProceedFromStep(currentStep)}
+                  testID={testIds.generateButton}
+                >
+                  {isGenerating ? t('common.loading') : t('ventilation.assessment.actions.generate')}
+                </Button>
+              )}
+            </StyledActionsRow>
+          </StyledWizardPane>
+          {renderSummary()}
+        </ScrollView>
       </StyledContainer>
     </StyledContentWrap>
   );

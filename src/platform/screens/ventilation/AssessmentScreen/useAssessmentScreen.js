@@ -14,7 +14,7 @@ import {
 } from '@features/ventilation';
 import useVentilationSession from '@hooks/useVentilationSession';
 import { useSelector } from 'react-redux';
-import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiModelId } from '@store/selectors';
+import { selectIsOnline, selectAiModelId } from '@store/selectors';
 import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
 
 const TOTAL_STEPS = 5;
@@ -44,12 +44,12 @@ export default function useAssessmentScreen() {
     clearError,
   } = useVentilationSession();
   const isOnline = useSelector(selectIsOnline);
-  const aiDecisionSupportEnabled = useSelector(selectAiDecisionSupportEnabled);
   const aiModelId = useSelector(selectAiModelId);
 
   const [currentStep, setCurrentStep] = useState(STEPS.PATIENT_PROFILE);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [recommendationSource, setRecommendationSource] = useState('local'); // 'local' | 'online_ai'
 
   useEffect(() => {
     hydrate();
@@ -163,12 +163,14 @@ export default function useAssessmentScreen() {
     setInputs(mergedInputs);
     setIsGenerating(true);
     try {
+      const useOnlineAi = recommendationSource === 'online_ai';
       const rec = await getVentilationRecommendationUseCase({
         input: similarityInput,
         ai: {
+          useOnlineAi,
           isOnline,
           flags: {
-            AI_AUGMENTATION_ENABLED: aiDecisionSupportEnabled,
+            AI_AUGMENTATION_ENABLED: useOnlineAi ? true : false,
             model: aiModelId,
           },
         },
@@ -181,7 +183,7 @@ export default function useAssessmentScreen() {
     } finally {
       setIsGenerating(false);
     }
-  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, router, isOnline, aiDecisionSupportEnabled, aiModelId]);
+  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, router, recommendationSource, isOnline, aiModelId]);
 
   const addObservation = useCallback(() => {
     const obs = {
@@ -281,6 +283,9 @@ export default function useAssessmentScreen() {
     updateObservation,
     removeObservation,
     addTimeSeriesPoint,
+    recommendationSource,
+    setRecommendationSource,
+    aiModelId,
     testIds: ASSESSMENT_TEST_IDS,
     totalSteps: TOTAL_STEPS,
   };

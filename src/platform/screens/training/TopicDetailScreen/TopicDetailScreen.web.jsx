@@ -14,6 +14,7 @@ import {
   StyledSection,
   StyledSectionContent,
   StyledSectionHeader,
+  StyledTopicTitle,
   StyledChecklistItem,
 } from './TopicDetailScreen.web.styles';
 import { TOPIC_DETAIL_TEST_IDS } from './types';
@@ -84,9 +85,9 @@ const TopicDetailScreenWeb = ({ topicId }) => {
           {t('training.topicDetail.backToTopics')}
         </Button>
       </StyledHeader>
-      <Text variant="label" data-testid={TOPIC_DETAIL_TEST_IDS.title}>
+      <StyledTopicTitle data-testid={TOPIC_DETAIL_TEST_IDS.title}>
         {topic.title ?? topic.id ?? ''}
-      </Text>
+      </StyledTopicTitle>
       {sections.map((section) => {
         const isExpanded = expandedSections.has(section.key);
         return (

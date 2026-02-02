@@ -21,6 +21,20 @@ const StyledContentWrap = styled(View).withConfig({
   flex: 1;
 `;
 
+const StyledPageHeader = styled(View).withConfig({
+  displayName: 'StyledPageHeader',
+  componentId: 'StyledPageHeader',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+const StyledPageTitle = styled(View).withConfig({
+  displayName: 'StyledPageTitle',
+  componentId: 'StyledPageTitle',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+`;
+
 const StyledSearchWrap = styled(View).withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
@@ -52,16 +66,6 @@ const StyledTopicRow = styled(View).withConfig({
   border-radius: ${({ theme }) => theme.radius.sm}px;
 `;
 
-const StyledChecklistCard = styled(View).withConfig({
-  displayName: 'StyledChecklistCard',
-  componentId: 'StyledChecklistCard',
-})`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
-`;
-
 const StyledErrorBanner = styled(View).withConfig({
   displayName: 'StyledErrorBanner',
   componentId: 'StyledErrorBanner',
@@ -73,10 +77,11 @@ const StyledErrorBanner = styled(View).withConfig({
 `;
 
 export {
-  StyledChecklistCard,
   StyledContainer,
   StyledContentWrap,
   StyledErrorBanner,
+  StyledPageHeader,
+  StyledPageTitle,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,

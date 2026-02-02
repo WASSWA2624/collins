@@ -138,6 +138,19 @@ export default function useRecommendationScreen() {
     [recommendationSummary]
   );
 
+  const aiAugmentation = useMemo(
+    () => recommendationSummary?.aiAugmentation ?? null,
+    [recommendationSummary]
+  );
+  const aiReasons = useMemo(
+    () => (Array.isArray(aiAugmentation?.reasons) ? aiAugmentation.reasons : []),
+    [aiAugmentation]
+  );
+  const aiHints = useMemo(
+    () => (Array.isArray(aiAugmentation?.hints) ? aiAugmentation.hints : []),
+    [aiAugmentation]
+  );
+
   const isEmpty = !recommendationSummary || !settings;
   const showRequestAi = aiEnabled && aiKeyConfigured;
 
@@ -156,6 +169,9 @@ export default function useRecommendationScreen() {
     contributingFactors,
     additionalTestPrompts,
     nextActions,
+    aiAugmentation,
+    aiReasons,
+    aiHints,
     inputs,
     isEmpty,
     isHydrating,

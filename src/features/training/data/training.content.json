@@ -1,21 +1,28 @@
 {
   "contentVersion": "1.0",
   "contentSchemaVersion": "1.0",
-  "lastUpdated": "2026-02-01",
+  "lastUpdated": "2026-02-02",
   "protocolSections": [
     {
       "id": "protocol.intro",
       "title": "Introduction",
-      "body": "This training content is for offline learning. It does not replace clinical judgment.",
+      "body": "This training content is designed for offline learning by non-specialists.\n\nIt does not replace clinical judgment. Use it alongside local guidelines and supervision.",
       "tags": ["offline", "safety"],
       "order": 1
     },
     {
       "id": "protocol.assessment",
       "title": "Initial assessment",
-      "body": "Assess oxygenation, ventilation, and hemodynamics. Confirm airway patency and device positioning.",
+      "body": "Assess oxygenation, ventilation, and hemodynamics. Confirm airway patency and device positioning before making changes.",
       "tags": ["assessment", "basics"],
       "order": 2
+    },
+    {
+      "id": "protocol.monitoring",
+      "title": "Monitoring and follow-up",
+      "body": "After any change, recheck SpO2, respiratory rate, and clinical signs. Document settings and response. Escalate if goals are not met.",
+      "tags": ["monitoring", "safety"],
+      "order": 3
     }
   ],
   "checklists": [
@@ -23,22 +30,33 @@
       "id": "checklist.basics",
       "title": "Ventilation basics checklist",
       "tags": ["basics"],
+      "order": 1,
       "items": [
         { "id": "cb.1", "text": "Confirm SpO2 and respiratory rate.", "tags": ["assessment"] },
-        { "id": "cb.2", "text": "Review FiO2 and PEEP settings.", "tags": ["settings"] }
+        { "id": "cb.2", "text": "Review FiO2 and PEEP settings.", "tags": ["settings"] },
+        { "id": "cb.3", "text": "Check airway position and security.", "tags": ["assessment"] }
       ]
     }
   ],
   "glossary": [
-    { "term": "PEEP", "definition": "Positive end-expiratory pressure.", "tags": ["settings"] },
-    { "term": "FiO2", "definition": "Fraction of inspired oxygen.", "tags": ["settings"] }
+    { "term": "PEEP", "definition": "Positive end-expiratory pressure. Maintains lung volume at end expiration.", "tags": ["settings"], "order": 1 },
+    { "term": "FiO2", "definition": "Fraction of inspired oxygen. The concentration of oxygen delivered.", "tags": ["settings"], "order": 2 },
+    { "term": "SpO2", "definition": "Oxygen saturation measured by pulse oximetry.", "tags": ["assessment"], "order": 3 }
   ],
   "faqs": [
     {
       "id": "faq.offline",
       "question": "Is this usable offline?",
       "answer": "Yes. The content is bundled locally and can be searched without network access.",
-      "tags": ["offline"]
+      "tags": ["offline"],
+      "order": 1
+    },
+    {
+      "id": "faq.clinical",
+      "question": "Can I use this for direct patient care?",
+      "answer": "This is training and reference material. It does not replace clinical protocols or specialist advice.",
+      "tags": ["safety"],
+      "order": 2
     }
   ]
 }

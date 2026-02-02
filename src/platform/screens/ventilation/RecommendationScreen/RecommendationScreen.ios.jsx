@@ -40,6 +40,8 @@ const RecommendationScreenIOS = () => {
     safety,
     missingInputs,
     contributingFactors,
+    aiReasons,
+    aiHints,
     inputs,
     isEmpty,
     isHydrating,
@@ -116,6 +118,26 @@ const RecommendationScreenIOS = () => {
           </StyledSectionBody>
         </StyledSection>
         </Accordion>
+
+        {(aiReasons?.length > 0 || aiHints?.length > 0) && (
+          <Accordion title={t('ventilation.recommendation.aiReasons.title')} defaultExpanded={false} testID="recommendation-ai-reasons">
+            <StyledSection>
+              <StyledSectionBody>
+                {aiReasons?.length > 0 && aiReasons.map((reason, i) => (
+                  <Text key={i} variant="body">• {reason}</Text>
+                ))}
+                {aiHints?.length > 0 && (
+                  <>
+                    <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.aiReasons.hints')}</Text>
+                    {aiHints.map((hint, i) => (
+                      <Text key={i} variant="caption">• {hint}</Text>
+                    ))}
+                  </>
+                )}
+              </StyledSectionBody>
+            </StyledSection>
+          </Accordion>
+        )}
 
         <Accordion title={t('ventilation.recommendation.sections.confidence')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.confidence}>
         <StyledSection>

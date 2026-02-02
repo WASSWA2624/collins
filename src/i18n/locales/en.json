@@ -531,6 +531,7 @@
       },
       "observations": {
         "title": "Additional observations",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
         "add": "Add observation",
         "name": "Name",
         "value": "Value",
@@ -538,11 +539,29 @@
         "optional": "Optional"
       },
       "timeSeries": {
-        "title": "Time series (start monitoring)",
+        "title": "Time series (vital signs over time)",
+        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
         "add": "Add time series point",
         "name": "Name",
         "value": "Value",
         "optional": "Optional"
+      },
+      "recommendationSource": {
+        "label": "Recommendation source",
+        "local": "Local dataset",
+        "localDescription": "Use the built-in dataset only. Works offline; no API key required.",
+        "onlineAi": "Online AI",
+        "onlineAiDescription": "Use your API key to get AI-augmented recommendations and reasons. Requires connectivity; falls back to local if AI fails.",
+        "modelLabel": "Model",
+        "modelHint": "Select AI model (default used if not set)",
+        "providerLabel": "Provider",
+        "gpt4oMini": "GPT-4o mini (default)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "AI reasons for recommendation",
+        "hints": "AI hints"
       },
       "missingTests": {
         "title": "Additional tests suggested",
@@ -587,6 +606,10 @@
         "medium": "Medium",
         "low": "Low",
         "missingInputs": "Missing inputs that could improve confidence"
+      },
+      "aiReasons": {
+        "title": "AI reasons for recommendation",
+        "hints": "AI hint codes"
       },
       "actions": {
         "startMonitoring": "Start monitoring",
@@ -721,12 +744,15 @@
   "training": {
     "home": {
       "title": "Training",
+      "subtitle": "Protocols, checklists, and reference.",
       "accessibilityLabel": "Training home screen",
       "searchPlaceholder": "Search topics…",
       "searchHint": "Search training content",
+      "topicsSection": "Topics",
+      "searchResults": "Search results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "Browse all topics",
+      "browseAll": "View all topics",
       "browseAllHint": "View all training topics",
       "viewTopic": "View",
       "states": {

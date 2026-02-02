@@ -48,11 +48,13 @@ const checklistSchema = z
     title: nonEmptyString,
     tags: stringArraySchema,
     items: z.array(checklistItemSchema).min(1),
+    order: z.number().int().nonnegative().optional(),
   })
   .passthrough()
   .transform((value) => {
     return {
       ...value,
+      order: value?.order ?? 0,
       tags: Object.freeze([...(Array.isArray(value.tags) ? value.tags : [])]),
       items: Object.freeze([...(Array.isArray(value.items) ? value.items : [])]),
     };
@@ -63,11 +65,13 @@ const glossaryEntrySchema = z
     term: nonEmptyString,
     definition: nonEmptyString,
     tags: stringArraySchema,
+    order: z.number().int().nonnegative().optional(),
   })
   .passthrough()
   .transform((value) => {
     return {
       ...value,
+      order: value?.order ?? 0,
       tags: Object.freeze([...(Array.isArray(value.tags) ? value.tags : [])]),
     };
   });
@@ -78,11 +82,13 @@ const faqEntrySchema = z
     question: nonEmptyString,
     answer: nonEmptyString,
     tags: stringArraySchema,
+    order: z.number().int().nonnegative().optional(),
   })
   .passthrough()
   .transform((value) => {
     return {
       ...value,
+      order: value?.order ?? 0,
       tags: Object.freeze([...(Array.isArray(value.tags) ? value.tags : [])]),
     };
   });
@@ -99,18 +105,28 @@ const trainingContentSchema = z
   })
   .passthrough()
   .transform((value) => {
+    const sortByOrder = (a, b) => {
+      if ((a?.order ?? 0) !== (b?.order ?? 0)) return (a?.order ?? 0) - (b?.order ?? 0);
+      return String(a?.id ?? a?.term ?? '').localeCompare(String(b?.id ?? b?.term ?? ''));
+    };
     const protocolSections = [...(Array.isArray(value.protocolSections) ? value.protocolSections : [])].slice();
     protocolSections.sort((a, b) => {
       if ((a?.order ?? 0) !== (b?.order ?? 0)) return (a?.order ?? 0) - (b?.order ?? 0);
       return String(a?.id ?? '').localeCompare(String(b?.id ?? ''));
     });
- 
+    const checklists = [...(Array.isArray(value.checklists) ? value.checklists : [])].slice();
+    checklists.sort(sortByOrder);
+    const glossary = [...(Array.isArray(value.glossary) ? value.glossary : [])].slice();
+    glossary.sort(sortByOrder);
+    const faqs = [...(Array.isArray(value.faqs) ? value.faqs : [])].slice();
+    faqs.sort(sortByOrder);
+
     return Object.freeze({
       ...value,
       protocolSections: Object.freeze([...protocolSections]),
-      checklists: Object.freeze([...(Array.isArray(value.checklists) ? value.checklists : [])]),
-      glossary: Object.freeze([...(Array.isArray(value.glossary) ? value.glossary : [])]),
-      faqs: Object.freeze([...(Array.isArray(value.faqs) ? value.faqs : [])]),
+      checklists: Object.freeze([...checklists]),
+      glossary: Object.freeze([...glossary]),
+      faqs: Object.freeze([...faqs]),
     });
   });
  

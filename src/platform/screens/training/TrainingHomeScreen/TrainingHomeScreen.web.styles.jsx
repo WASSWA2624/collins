@@ -10,6 +10,8 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   min-height: 100%;
   padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -19,11 +21,39 @@ const StyledContainer = styled.main.withConfig({
   box-sizing: border-box;
 `;
 
+const StyledPageHeader = styled.header.withConfig({
+  displayName: 'StyledPageHeader',
+  componentId: 'StyledPageHeader',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledPageTitle = styled.h1.withConfig({
+  displayName: 'StyledPageTitle',
+  componentId: 'StyledPageTitle',
+})`
+  margin: 0;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xl ?? 24}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSubtitle = styled.p.withConfig({
+  displayName: 'StyledSubtitle',
+  componentId: 'StyledSubtitle',
+})`
+  margin: 0;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
 const StyledSearchWrap = styled.div.withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
 })`
-  max-width: 400px;
+  max-width: 360px;
 `;
 
 const StyledSection = styled.section.withConfig({
@@ -76,16 +106,6 @@ const StyledTopicLink = styled.a.withConfig({
   }
 `;
 
-const StyledChecklistCard = styled.div.withConfig({
-  displayName: 'StyledChecklistCard',
-  componentId: 'StyledChecklistCard',
-})`
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
-  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-`;
-
 const StyledErrorBanner = styled.div.withConfig({
   displayName: 'StyledErrorBanner',
   componentId: 'StyledErrorBanner',
@@ -97,9 +117,11 @@ const StyledErrorBanner = styled.div.withConfig({
 `;
 
 export {
-  StyledChecklistCard,
   StyledContainer,
   StyledErrorBanner,
+  StyledPageHeader,
+  StyledPageTitle,
+  StyledSubtitle,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,

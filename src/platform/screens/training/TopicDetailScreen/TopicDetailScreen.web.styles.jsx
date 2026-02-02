@@ -10,12 +10,14 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   min-height: 100%;
   padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xl}px;
+  gap: ${({ theme }) => theme.spacing.lg}px;
   box-sizing: border-box;
 `;
 
@@ -26,6 +28,16 @@ const StyledHeader = styled.header.withConfig({
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledTopicTitle = styled.h1.withConfig({
+  displayName: 'StyledTopicTitle',
+  componentId: 'StyledTopicTitle',
+})`
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xl ?? 24}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const StyledSection = styled.section.withConfig({
@@ -91,5 +103,6 @@ export {
   StyledSection,
   StyledSectionContent,
   StyledSectionHeader,
+  StyledTopicTitle,
   StyledChecklistItem,
 };

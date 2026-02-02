@@ -9,10 +9,11 @@ import { Button, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
 import useTrainingHomeScreen from './useTrainingHomeScreen';
 import {
-  StyledChecklistCard,
   StyledContainer,
-  StyledErrorBanner,
   StyledContentWrap,
+  StyledErrorBanner,
+  StyledPageHeader,
+  StyledPageTitle,
   StyledSearchWrap,
   StyledSection,
   StyledSectionTitle,
@@ -25,7 +26,6 @@ const TrainingHomeScreenIos = () => {
   const router = useRouter();
   const {
     popularTopics,
-    quickChecklists,
     loadError,
     isLoading,
     isEmpty,
@@ -52,7 +52,10 @@ const TrainingHomeScreenIos = () => {
     );
   }
 
-  const displayTopics = searchQuery.trim() ? searchResults : popularTopics;
+  const showSearchResults = searchQuery.trim() && (searchResults?.length ?? 0) > 0;
+  const showTopics = !searchQuery.trim() && (popularTopics?.length ?? 0) > 0;
+  const displayTopics = showSearchResults ? searchResults : popularTopics;
+  const sectionTitleKey = showSearchResults ? 'training.home.searchResults' : 'training.home.topicsSection';
 
   return (
     <StyledContainer
@@ -60,6 +63,12 @@ const TrainingHomeScreenIos = () => {
       testID={TRAINING_HOME_TEST_IDS.screen}
     >
       <StyledContentWrap>
+        <StyledPageHeader>
+          <StyledPageTitle>
+            <Text variant="label">{t('training.home.title')}</Text>
+          </StyledPageTitle>
+          <Text variant="caption" color="text.secondary">{t('training.home.subtitle')}</Text>
+        </StyledPageHeader>
         {loadError ? (
           <StyledErrorBanner testID={TRAINING_HOME_TEST_IDS.errorBanner}>
             <Text variant="body" color="status.error.text">{t('training.home.states.error')}</Text>
@@ -78,10 +87,10 @@ const TrainingHomeScreenIos = () => {
             {t('common.search')}
           </Button>
         </StyledSearchWrap>
-        {displayTopics?.length > 0 ? (
+        {(showSearchResults || showTopics) && displayTopics?.length > 0 ? (
           <StyledSection>
             <StyledSectionTitle>
-              <Text variant="label">{t('training.home.popularTopics')}</Text>
+              <Text variant="label">{t(sectionTitleKey)}</Text>
             </StyledSectionTitle>
             <View testID={TRAINING_HOME_TEST_IDS.popularTopics}>
               {displayTopics.map((doc) => (
@@ -95,23 +104,6 @@ const TrainingHomeScreenIos = () => {
                     <Text variant="body">{doc?.title ?? doc?.id ?? ''}</Text>
                   </StyledTopicRow>
                 </TouchableOpacity>
-              ))}
-            </View>
-          </StyledSection>
-        ) : null}
-        {!searchQuery.trim() && quickChecklists?.length > 0 ? (
-          <StyledSection>
-            <StyledSectionTitle>
-              <Text variant="label">{t('training.home.quickChecklists')}</Text>
-            </StyledSectionTitle>
-            <View testID={TRAINING_HOME_TEST_IDS.quickChecklists}>
-              {quickChecklists.map((c) => (
-                <StyledChecklistCard key={c?.id}>
-                  <Text variant="label">{c?.title ?? c?.id ?? ''}</Text>
-                  <Button variant="outline" onPress={() => handleNavigateToTopic(c?.id)}>
-                    {t('training.home.viewTopic')}
-                  </Button>
-                </StyledChecklistCard>
               ))}
             </View>
           </StyledSection>

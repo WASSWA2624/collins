@@ -3,14 +3,18 @@
  * File: AssessmentScreen.web.jsx
  */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   ProgressBar,
+  Radio,
   Select,
   Text,
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
+import { AI_MODELS } from '@config/constants';
+import { actions as uiActions } from '@store/slices/ui.slice';
 import useAssessmentScreen from './useAssessmentScreen';
 import {
   StyledActionsRow,
@@ -23,9 +27,15 @@ import {
   StyledMissingTests,
   StyledMissingTestsHint,
   StyledMissingTestsTitle,
+  StyledModelRow,
   StyledObservationRow,
   StyledProgressSection,
+  StyledRecommendationSource,
+  StyledSourceOption,
+  StyledSourceOptionDesc,
+  StyledSourceOptionLabel,
   StyledStepContent,
+  StyledStepDescription,
   StyledStepHeader,
   StyledStepIndicator,
   StyledStepTitle,
@@ -48,6 +58,7 @@ const parseNum = (v) => {
 
 const AssessmentScreenWeb = () => {
   const { t } = useI18n();
+  const dispatch = useDispatch();
   const {
     currentStep,
     progressPercent,
@@ -69,7 +80,11 @@ const AssessmentScreenWeb = () => {
     addObservation,
     updateObservation,
     removeObservation,
+    recommendationSource,
+    setRecommendationSource,
+    aiModelId,
   } = useAssessmentScreen();
+  const modelOptions = AI_MODELS.map((m) => ({ value: m.id, label: t(`ventilation.assessment.recommendationSource.${m.labelKey}`) }));
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
   const stepIndicator = `Step ${currentStep + 1} of 5`;
@@ -281,6 +296,7 @@ const AssessmentScreenWeb = () => {
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.observations.title')} ({t('ventilation.assessment.observations.optional')})</Text>
+            <StyledStepDescription>{t('ventilation.assessment.observations.description')}</StyledStepDescription>
             {(mergedInputs.observations || []).map((obs, i) => (
               <StyledObservationRow key={i}>
                 <TextField
@@ -316,13 +332,54 @@ const AssessmentScreenWeb = () => {
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.timeSeries.title')} ({t('ventilation.assessment.timeSeries.optional')})</Text>
-            <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.timeSeries.optional')}</Text>
+            <StyledStepDescription>{t('ventilation.assessment.timeSeries.description')}</StyledStepDescription>
           </StyledFieldGroup>
         );
       case STEPS.REVIEW:
         return (
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.summary.title')}</Text>
+            <StyledRecommendationSource role="region" aria-label={t('ventilation.assessment.recommendationSource.label')}>
+              <Text variant="label">{t('ventilation.assessment.recommendationSource.label')}</Text>
+              <StyledSourceOption onClick={() => setRecommendationSource('local')}>
+                <Radio
+                  selected={recommendationSource === 'local'}
+                  onChange={() => setRecommendationSource('local')}
+                  value="local"
+                  label={t('ventilation.assessment.recommendationSource.local')}
+                  testID="assessment-source-local"
+                />
+                <div>
+                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.local')}</StyledSourceOptionLabel>
+                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.localDescription')}</StyledSourceOptionDesc>
+                </div>
+              </StyledSourceOption>
+              <StyledSourceOption onClick={() => setRecommendationSource('online_ai')}>
+                <Radio
+                  selected={recommendationSource === 'online_ai'}
+                  onChange={() => setRecommendationSource('online_ai')}
+                  value="online_ai"
+                  label={t('ventilation.assessment.recommendationSource.onlineAi')}
+                  testID="assessment-source-online-ai"
+                />
+                <div>
+                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.onlineAi')}</StyledSourceOptionLabel>
+                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.onlineAiDescription')}</StyledSourceOptionDesc>
+                </div>
+              </StyledSourceOption>
+              {recommendationSource === 'online_ai' && (
+                <StyledModelRow>
+                  <Select
+                    label={t('ventilation.assessment.recommendationSource.modelLabel')}
+                    options={modelOptions}
+                    value={modelOptions.find((o) => o.value === aiModelId)?.value ?? modelOptions[0]?.value}
+                    onValueChange={(v) => dispatch(uiActions.setAiModelId(v))}
+                    accessibilityHint={t('ventilation.assessment.recommendationSource.modelHint')}
+                    testID="assessment-model-select"
+                  />
+                </StyledModelRow>
+              )}
+            </StyledRecommendationSource>
           </StyledFieldGroup>
         );
       default:

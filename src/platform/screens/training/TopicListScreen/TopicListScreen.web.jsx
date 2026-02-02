@@ -14,6 +14,8 @@ import {
   StyledItem,
   StyledItemLink,
   StyledList,
+  StyledPageHeader,
+  StyledPageTitle,
   StyledSearchWrap,
 } from './TopicListScreen.web.styles';
 import { TOPIC_LIST_TEST_IDS } from './types';
@@ -51,6 +53,9 @@ const TopicListScreenWeb = () => {
       data-testid={TOPIC_LIST_TEST_IDS.screen}
       role="main"
     >
+      <StyledPageHeader>
+        <StyledPageTitle>{t('training.topics.title')}</StyledPageTitle>
+      </StyledPageHeader>
       {loadError ? (
         <StyledErrorBanner data-testid={TOPIC_LIST_TEST_IDS.errorBanner}>
           <Text variant="body" color="status.error.text">{t('training.topics.states.error')}</Text>
