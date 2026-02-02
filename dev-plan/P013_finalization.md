@@ -1,7 +1,7 @@
-# Phase 13: Finalization (Safety, Onboarding, Help, Readiness)
+# Phase 13: Finalization (Safety, Onboarding, Help, Readiness, Full Locale Support)
 
 ## Purpose
-Finalize the ventilation decision-support prototype after core and optional features are complete. Each step is **atomic** and focuses on usability, safety framing, and release readiness.
+Finalize the ventilation decision-support prototype after core and optional features are complete. This phase emphasizes usability, safety framing, release readiness, and comprehensive internationalization.
 
 ## Rule references
 - `.cursor/rules/index.mdc`
@@ -18,7 +18,7 @@ Finalize the ventilation decision-support prototype after core and optional feat
 
 ## Prerequisites
 - Phase 11 completed (core workflow screens working)
-- Phase 12 completed (only if advanced features were added)
+- Phase 12 completed (if advanced features were added)
 
 ## Steps (fully atomic)
 
@@ -51,12 +51,13 @@ Finalize the ventilation decision-support prototype after core and optional feat
   - “what to do next” guides per condition category (prototype-grade)
 - **13.3.3** Tests for help search, rendering, empty/error states.
 
-### Localization completion (all non-`en` locales defined and implemented here)
+### Localization completion (mandatory top 22 international locales)
 All locales other than `en` are **defined and implemented in this phase only**. Phases 0–12 use only `en.json` (see `dev-plan/index.md` and `P001_foundation.md`).
 
-- **13.4.1** Finalize keys in `en.json`
-- **13.4.2** **Define** the supported-locale set (e.g. `sw`, `lg`, or project-specific list) and **implement** all non-`en` locale files in `src/i18n/locales/` (e.g. `sw.json`, `lg.json`). Each locale file must contain all keys present in `en.json`. Validate no missing keys across locales. ’
-- **13.4.3** Verify RTL + font scaling + reduced motion support on representative screens
+- **13.4.1** Finalize all string keys in `en.json`
+- **13.4.2** **Define and implement** the full supported-locale set, covering the 22 most widely-used global locales. For each, place a full locale file in `src/i18n/locales/` (examples: `zh.json`, `es.json`, `fr.json`, `ar.json`, `ru.json`, `pt.json`, `de.json`, `ja.json`, `hi.json`, `it.json`, `ko.json`, `tr.json`, `vi.json`, `pl.json`, `fa.json`, `th.json`, `nl.json`, `id.json`, `ms.json`, `uk.json`, `sw.json`, `ta.json`). **Each file must contain all keys present in `en.json`.** 
+- **13.4.3** Validate that there are no missing keys across all 22 locale files.
+- **13.4.4** Verify RTL (right-to-left) support for languages such as Arabic and Farsi, as well as font scaling and reduced motion support on representative screens.
 
 ### Security + privacy + offline audits (prototype-appropriate)
 - **13.5.1** Verify no secrets shipped in config/env; verify logs contain no sensitive data.
@@ -65,7 +66,7 @@ All locales other than `en` are **defined and implemented in this phase only**. 
   - core workflow usable offline
   - failure-safe behavior for storage corruption
   - network transitions do not crash UI
- - **13.5.4** Online AI audit (only if Phase 12 implemented):
+- **13.5.4** Online AI audit (only if Phase 12 implemented):
   - payload contains no identifiers and is minimally sufficient
   - offline-first behavior remains intact when online calls fail or are unavailable
 
@@ -86,5 +87,4 @@ All locales other than `en` are **defined and implemented in this phase only**. 
   - verify outputs are clinically plausible, clearly framed as decision support only, and do not over-claim validation
   - record only non-identifying feedback
 
-**Exit criteria**: all tests pass (100% coverage), accessibility checks pass for core workflow, offline-first behavior verified, safety disclaimers present and tested, and performance budgets are respected.
-
+**Exit criteria**: all tests pass (100% coverage), accessibility checks for all included locales, offline-first behavior verified, safety disclaimers present and tested, performance budgets respected, and all 22 supported locales implemented and validated.
