@@ -66,6 +66,7 @@ const RecommendationScreenWeb = () => {
     aiHints,
     responseSource,
     goToAssessmentStep,
+    editAssessment,
     startNewAssessment,
   } = useRecommendationScreen();
   const { exportSummary } = useExportSession({
@@ -75,13 +76,9 @@ const RecommendationScreenWeb = () => {
   });
   const [anonymizeExport, setAnonymizeExport] = useState(false);
 
-  const handleStartMonitoring = () => {
-    router.push('/session/monitoring');
-  };
-
-  const handleStartNewAssessment = () => {
-    startNewAssessment();
-  };
+  const handleEditAssessment = () => editAssessment();
+  const handleStartMonitoring = () => router.push('/session/monitoring');
+  const handleStartNewAssessment = () => startNewAssessment();
 
   const handleCaseClick = (caseId) => (e) => {
     e?.preventDefault?.();
@@ -327,11 +324,19 @@ const RecommendationScreenWeb = () => {
             <StyledSectionTitle>{t('ventilation.recommendation.actions.editAssessmentTitle')}</StyledSectionTitle>
           </StyledSectionHeader>
           <StyledSectionBody>
+            <Button
+              variant="outline"
+              onPress={handleEditAssessment}
+              testID="recommendation-edit-assessment-btn"
+              accessibilityLabel={t('ventilation.recommendation.actions.editAssessmentHint')}
+            >
+              {t('ventilation.recommendation.actions.editAssessmentTitle')}
+            </Button>
             <StyledEditStepRow>
               {STEP_KEYS.map((stepKey, index) => (
                 <Button
                   key={stepKey}
-                  variant="outline"
+                  variant="ghost"
                   onPress={() => goToAssessmentStep(index)}
                   testID={`recommendation-edit-step-${index}`}
                   accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}

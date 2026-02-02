@@ -181,8 +181,14 @@ export default function useRecommendationScreen() {
 
   const startNewAssessment = useCallback(() => {
     resetSession();
-    router.push('/assessment');
+    router.replace('/assessment');
   }, [resetSession, router]);
+
+  /** Opens the Edit Assessment form at step 0 with current session data pre-filled (Patient Profile, Clinical Parameters, Optional Observations, Optional Time Series, Review). */
+  const editAssessment = useCallback(() => {
+    setAssessmentStep(0);
+    router.push('/assessment');
+  }, [setAssessmentStep, router]);
 
   return {
     recommendationSummary,
@@ -213,6 +219,7 @@ export default function useRecommendationScreen() {
     requestAiRecommendation,
     responseSource,
     goToAssessmentStep,
+    editAssessment,
     startNewAssessment,
     totalSteps: TOTAL_STEPS,
   };

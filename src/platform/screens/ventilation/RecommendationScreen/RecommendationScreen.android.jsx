@@ -54,6 +54,7 @@ const RecommendationScreenAndroid = () => {
     errorCode,
     responseSource,
     goToAssessmentStep,
+    editAssessment,
     startNewAssessment,
   } = useRecommendationScreen();
   const { exportSummary } = useExportSession({
@@ -63,6 +64,7 @@ const RecommendationScreenAndroid = () => {
   });
   const [anonymizeExport, setAnonymizeExport] = useState(false);
 
+  const handleEditAssessment = () => editAssessment();
   const handleStartMonitoring = () => router.push('/session/monitoring');
   const handleStartNewAssessment = () => startNewAssessment();
   const handleCasePress = (caseId) => () => caseId && router.push(`/session/case/${encodeURIComponent(caseId)}`);
@@ -262,11 +264,19 @@ const RecommendationScreenAndroid = () => {
             <Text variant="label">{t('ventilation.recommendation.actions.editAssessmentTitle')}</Text>
           </StyledSectionHeader>
           <StyledSectionBody>
+            <Button
+              variant="outline"
+              onPress={handleEditAssessment}
+              testID="recommendation-edit-assessment-btn"
+              accessibilityLabel={t('ventilation.recommendation.actions.editAssessmentHint')}
+            >
+              {t('ventilation.recommendation.actions.editAssessmentTitle')}
+            </Button>
             <StyledEditStepRow>
               {STEP_KEYS.map((stepKey, index) => (
                 <Button
                   key={stepKey}
-                  variant="outline"
+                  variant="ghost"
                   onPress={() => goToAssessmentStep(index)}
                   testID={`recommendation-edit-step-${index}`}
                   accessibilityLabel={t('ventilation.assessment.steps.' + stepKey)}
