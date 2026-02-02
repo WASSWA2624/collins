@@ -48,6 +48,8 @@ Shell concerns implemented here (generic):
 ## Required shell component inventory (must exist by end of Phase 9)
 Create these as reusable platform UI (per `platform-ui.mdc` + `component-structure.mdc`). Screens in Phase 11 must only compose them.
 
+**Naming (Phase 6 vs Phase 9)**: Phase 6 introduces `TabBar`, `Header`, and `Sidebar`. Phase 9 shell uses the names below; they may be implemented by reusing or extending those P6 components: `BottomTabs` = mobile primary nav (same role as P6 TabBar); `ScreenHeader` = generic screen header (same role as P6 Header where applicable); `NavigationRail` = tablet/web nav (may extend or differ from P6 Sidebar).
+
 - **Layout primitives**:
   - `AppFrame`: safe-area + keyboard avoidance + responsive container.
   - `SplitPaneFrame`: responsive 1-pane (mobile) / 2-pane (tablet+) layout with optional sticky right pane.

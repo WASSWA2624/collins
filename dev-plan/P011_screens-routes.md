@@ -43,6 +43,7 @@ src/app/
 │
 ├── (main)/
 │   ├── _layout.jsx
+│   ├── index.jsx
 │   ├── assessment.jsx
 │   ├── history.jsx
 │   └── session/

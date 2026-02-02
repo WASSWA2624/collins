@@ -26,7 +26,7 @@ The resulting app must be:
 
 ## Dataset contract (must be supported)
 Primary dataset file (introduced in Phase 10):
-- `src/features/ventilation/data/ventilation_dataset.json`
+- `src/config/data/ventilation_dataset.json`
 
 Minimum supported dataset root fields:
 - `datasetVersion`, `datasetSchemaVersion`, `lastUpdated`, `totalCases`
@@ -97,8 +97,8 @@ Phases **0–9** are generic building blocks (non app-specific). Ventilation-spe
 - All platform UI must follow file-level platform separation (see `component-structure.mdc` + `platform-ui.mdc`).
 
 ## Supported locales (required by `i18n.mdc`)
-- **Currently supported (effective)**: `en` (because `src/i18n/locales/en.json` is the only locale file present).
-- **Future targets (optional; add only when locale files exist)**: `sw` (Swahili), `lg` (Luganda).
+- **Currently supported (effective)**: `en` (because `src/i18n/locales/en.json` is the only locale file present during Phases 0–12).
+- **All other locales**: Defined and implemented in **Phase 13** only (see `P013_finalization.md`). Do not add non-`en` locale files before Phase 13.
 
 ## Rule references (single sources of truth)
 This plan must be executed in compliance with `.cursor/rules/` including (non-exhaustive):

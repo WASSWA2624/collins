@@ -278,11 +278,12 @@ Implement offline-first architecture with request queuing, network detection, an
      },
    });
    
-   export {
+   export default {
      actions: networkSlice.actions,
      reducer: networkSlice.reducer,
    };
    ```
+   **Note**: `rootReducer` imports the reducer via the default export (e.g. `import networkSlice from './slices/network.slice';` then `network: networkSlice.reducer`).
 
 2. Update `src/store/rootReducer.js` to include network slice
 

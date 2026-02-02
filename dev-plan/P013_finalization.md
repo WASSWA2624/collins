@@ -51,9 +51,11 @@ Finalize the ventilation decision-support prototype after core and optional feat
   - “what to do next” guides per condition category (prototype-grade)
 - **13.3.3** Tests for help search, rendering, empty/error states.
 
-### Localization completion
+### Localization completion (all non-`en` locales defined and implemented here)
+All locales other than `en` are **defined and implemented in this phase only**. Phases 0–12 use only `en.json` (see `dev-plan/index.md` and `P001_foundation.md`).
+
 - **13.4.1** Finalize keys in `en.json`
-- **13.4.2** Add additional locale files as required by the project’s supported-locale set and validate no missing keys
+- **13.4.2** **Define** the supported-locale set (e.g. `sw`, `lg`, or project-specific list) and **implement** all non-`en` locale files in `src/i18n/locales/` (e.g. `sw.json`, `lg.json`). Each locale file must contain all keys present in `en.json`. Validate no missing keys across locales. ’
 - **13.4.3** Verify RTL + font scaling + reduced motion support on representative screens
 
 ### Security + privacy + offline audits (prototype-appropriate)
@@ -85,3 +87,4 @@ Finalize the ventilation decision-support prototype after core and optional feat
   - record only non-identifying feedback
 
 **Exit criteria**: all tests pass (100% coverage), accessibility checks pass for core workflow, offline-first behavior verified, safety disclaimers present and tested, and performance budgets are respected.
+

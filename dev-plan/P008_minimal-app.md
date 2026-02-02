@@ -676,5 +676,5 @@ Create a **minimal runnable application** where **Home** is served through the m
 - ✅ Verify responsive design works
 - ✅ Verify accessibility works (basic checks)
 
-**Next Phase**: `P010_core-features.md` (Implement ventilation core feature)
+**Next Phase**: `P009_app-layouts.md`
 

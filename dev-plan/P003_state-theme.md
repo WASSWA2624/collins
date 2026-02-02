@@ -413,6 +413,7 @@ Build Redux store and theme system. Follows rules in `.cursor/rules/`.
      );
    };
    
+   export const ThemeProvider = ThemeProviderWrapper;
    export default {
      ThemeProvider: ThemeProviderWrapper,
      lightTheme,
@@ -421,6 +422,7 @@ Build Redux store and theme system. Follows rules in `.cursor/rules/`.
      getTheme,
    };
    ```
+   **Note**: Root layout imports via named export: `import { ThemeProvider } from '@theme'` (per `bootstrap-config.mdc` / Phase 7).
 
 **Rule Reference**: `.cursor/rules/theme-design.mdc`
 
