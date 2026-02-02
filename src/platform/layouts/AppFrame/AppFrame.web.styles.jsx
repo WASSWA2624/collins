@@ -59,7 +59,10 @@ const StyledBody = styled.div.withConfig({
   flex-direction: row;
   min-height: 0;
   min-width: 0;
-  overflow: visible;
+  /* Own the vertical scroll to avoid nested gutters. */
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 `;
 
 const StyledSidebar = styled.aside.withConfig({
@@ -119,10 +122,8 @@ const StyledContent = styled.main.withConfig({
   padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   margin: 0;
   min-width: 0;
-  /* Keep scrollbar stable to prevent layout shifts on minor reflows (e.g. toggles). */
-  overflow-y: scroll;
   overflow-x: hidden;
-  scrollbar-gutter: stable;
+  overflow-y: visible;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
