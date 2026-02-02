@@ -47,7 +47,7 @@ const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
   { id: 'assessment', icon: 'medkit-outline', path: '/assessment' },
   { id: 'history', icon: 'time-outline', path: '/history' },
-  { id: 'training', icon: 'layers-outline', path: '/(training)' },
+  { id: 'training', icon: 'layers-outline', path: '/training' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 

@@ -3,7 +3,7 @@
  * File: HomeScreen.ios.styles.jsx
  */
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { View, Pressable, Text } from 'react-native';
 
 const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',
@@ -20,10 +20,8 @@ const StyledContent = styled(View).withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
 })`
-  flex: 1;
   width: 100%;
   align-items: center;
-  justify-content: center;
 `;
 
 const StyledMessage = styled(View).withConfig({
@@ -34,4 +32,69 @@ const StyledMessage = styled(View).withConfig({
   align-items: center;
 `;
 
-export { StyledContainer, StyledContent, StyledMessage };
+const StyledOverview = styled(View).withConfig({
+  displayName: 'StyledOverview',
+  componentId: 'StyledOverview',
+})`
+  width: 100%;
+  margin-top: ${({ theme }) => theme.spacing.xl}px;
+`;
+
+const StyledOverviewTitle = styled(Text).withConfig({
+  displayName: 'StyledOverviewTitle',
+  componentId: 'StyledOverviewTitle',
+})`
+  font-size: ${({ theme }) => theme.typography?.fontSize?.lg ?? 18}px;
+  font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledSectionList = styled(View).withConfig({
+  displayName: 'StyledSectionList',
+  componentId: 'StyledSectionList',
+})`
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledSectionItem = styled(Pressable).withConfig({
+  displayName: 'StyledSectionItem',
+  componentId: 'StyledSectionItem',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledSectionTitle = styled(Text).withConfig({
+  displayName: 'StyledSectionTitle',
+  componentId: 'StyledSectionTitle',
+})`
+  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+  font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSectionDesc = styled(Text).withConfig({
+  displayName: 'StyledSectionDesc',
+  componentId: 'StyledSectionDesc',
+})`
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+export {
+  StyledContainer,
+  StyledContent,
+  StyledMessage,
+  StyledOverview,
+  StyledOverviewTitle,
+  StyledSectionList,
+  StyledSectionItem,
+  StyledSectionTitle,
+  StyledSectionDesc,
+};

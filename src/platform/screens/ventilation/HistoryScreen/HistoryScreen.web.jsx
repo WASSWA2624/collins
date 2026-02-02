@@ -17,6 +17,7 @@ import {
   StyledItem,
   StyledItemActions,
   StyledItemMeta,
+  StyledItemMetaLine,
   StyledItemRow,
   StyledList,
   StyledModalOverlay,
@@ -89,8 +90,12 @@ const HistoryScreenWeb = () => {
                 <StyledItemMeta>
                   <Text variant="body">{t('ventilation.history.session.dateTime', { dateTime })}</Text>
                   {condition ? (
-                    <Text variant="caption">{t('ventilation.history.session.condition', { condition })}</Text>
+                    <>
+                      <StyledItemMetaLine aria-hidden="true"> · </StyledItemMetaLine>
+                      <Text variant="caption">{t('ventilation.history.session.condition', { condition })}</Text>
+                    </>
                   ) : null}
+                  <StyledItemMetaLine aria-hidden="true"> · </StyledItemMetaLine>
                   <Text variant="caption">{t(`ventilation.recommendation.confidence.${tierKey}`)}</Text>
                 </StyledItemMeta>
                 <StyledItemActions>

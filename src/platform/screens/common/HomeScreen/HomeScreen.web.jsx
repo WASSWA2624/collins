@@ -12,10 +12,26 @@ import { Text } from '@platform/components';
 import { useI18n } from '@hooks';
 
 // 4. Styles
-import { StyledContainer, StyledContent, StyledMessage } from './HomeScreen.web.styles';
+import {
+  StyledContainer,
+  StyledContent,
+  StyledMessage,
+  StyledOverview,
+  StyledOverviewTitle,
+  StyledSectionList,
+  StyledSectionItem,
+  StyledSectionTitle,
+  StyledSectionDesc,
+} from './HomeScreen.web.styles';
 
 // 5. Component hook
 import useHomeScreen from './useHomeScreen';
+
+const SECTIONS = [
+  { path: '/assessment', key: 'assessment' },
+  { path: '/history', key: 'history' },
+  { path: '/training', key: 'training' },
+];
 
 const HomeScreenWeb = () => {
   const { t } = useI18n();
@@ -33,6 +49,22 @@ const HomeScreenWeb = () => {
           </Text>
         </StyledMessage>
       </StyledContent>
+      <StyledOverview aria-labelledby="home-overview-title">
+        <StyledOverviewTitle id="home-overview-title">{t('home.overview.title')}</StyledOverviewTitle>
+        <StyledSectionList role="list">
+          {SECTIONS.map(({ path, key }) => (
+            <StyledSectionItem
+              key={key}
+              href={path}
+              role="listitem"
+              aria-label={t(`home.overview.${key}.hint`)}
+            >
+              <StyledSectionTitle>{t(`home.overview.${key}.title`)}</StyledSectionTitle>
+              <StyledSectionDesc>{t(`home.overview.${key}.description`)}</StyledSectionDesc>
+            </StyledSectionItem>
+          ))}
+        </StyledSectionList>
+      </StyledOverview>
     </StyledContainer>
   );
 };

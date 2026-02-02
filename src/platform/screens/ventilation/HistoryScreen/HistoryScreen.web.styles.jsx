@@ -60,14 +60,14 @@ const StyledList = styled.ul.withConfig({
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
@@ -86,7 +86,7 @@ const StyledItemRow = styled.div.withConfig({
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledItemMeta = styled.div.withConfig({
@@ -95,6 +95,19 @@ const StyledItemMeta = styled.div.withConfig({
 })`
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+`;
+
+const StyledItemMetaLine = styled.span.withConfig({
+  displayName: 'StyledItemMetaLine',
+  componentId: 'StyledItemMetaLine',
+})`
+  display: inline;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const StyledItemActions = styled.div.withConfig({
@@ -103,6 +116,7 @@ const StyledItemActions = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: row;
+  flex-shrink: 0;
   gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
@@ -154,6 +168,7 @@ export {
   StyledItem,
   StyledItemActions,
   StyledItemMeta,
+  StyledItemMetaLine,
   StyledItemRow,
   StyledList,
   StyledModalOverlay,

@@ -50,8 +50,8 @@ const StyledItem = styled(View).withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.radius.sm}px;
 `;
@@ -64,7 +64,7 @@ const StyledItemRow = styled(View).withConfig({
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledItemMeta = styled(View).withConfig({
@@ -73,6 +73,10 @@ const StyledItemMeta = styled(View).withConfig({
 })`
   flex: 1;
   min-width: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledItemActions = styled(View).withConfig({
@@ -80,6 +84,7 @@ const StyledItemActions = styled(View).withConfig({
   componentId: 'StyledItemActions',
 })`
   flex-direction: row;
+  flex-shrink: 0;
   gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
