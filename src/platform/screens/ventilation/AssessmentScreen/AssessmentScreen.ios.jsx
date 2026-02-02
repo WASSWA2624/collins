@@ -166,11 +166,12 @@ const AssessmentScreenIOS = () => {
         return (
           <StyledFieldGroup>
             <Select
-              label={`${t('ventilation.assessment.patientProfile.condition')} (${t('common.requiredLabel')})`}
+              label={t('ventilation.assessment.patientProfile.condition')}
               placeholder={t('ventilation.assessment.patientProfile.conditionPlaceholder')}
               options={conditionOptions(t)}
               value={mergedInputs.condition}
               onValueChange={(v) => updateInput({ condition: v })}
+              required
               accessibilityHint={t('ventilation.assessment.patientProfile.conditionHint')}
               testID="assessment-condition"
             />
@@ -229,7 +230,7 @@ const AssessmentScreenIOS = () => {
         return (
           <StyledFieldGroup>
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.spo2')} (${units?.spo2 ?? '%'}) (${t('common.requiredLabel')})`}
+              label={`${t('ventilation.assessment.clinicalParams.spo2')} (${units?.spo2 ?? '%'})`}
               placeholder={t('ventilation.assessment.clinicalParams.spo2Placeholder')}
               type="number"
               value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
@@ -239,7 +240,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-spo2"
             />
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.respiratoryRate')} (${units?.respiratoryRate ?? 'breaths/min'}) (${t('common.requiredLabel')})`}
+              label={`${t('ventilation.assessment.clinicalParams.respiratoryRate')} (${units?.respiratoryRate ?? 'breaths/min'})`}
               placeholder={t('ventilation.assessment.clinicalParams.respiratoryRatePlaceholder')}
               type="number"
               value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
@@ -249,7 +250,7 @@ const AssessmentScreenIOS = () => {
               testID="assessment-rr"
             />
             <TextField
-              label={`${t('ventilation.assessment.clinicalParams.heartRate')} (${units?.heartRate ?? 'bpm'}) (${t('common.requiredLabel')})`}
+              label={`${t('ventilation.assessment.clinicalParams.heartRate')} (${units?.heartRate ?? 'bpm'})`}
               placeholder={t('ventilation.assessment.clinicalParams.heartRatePlaceholder')}
               type="number"
               value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
