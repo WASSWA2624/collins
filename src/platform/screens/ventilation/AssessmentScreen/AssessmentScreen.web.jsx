@@ -30,8 +30,11 @@ import {
   StyledObservationRow,
   StyledProgressSection,
   StyledRecommendationSource,
+  StyledRecommendationSourceTitle,
   StyledSourceOption,
+  StyledSourceOptionContent,
   StyledSourceOptionDesc,
+  StyledSourceOptionsList,
   StyledSourceOptionLabel,
   StyledStepContent,
   StyledStepDescription,
@@ -349,33 +352,41 @@ const AssessmentScreenWeb = () => {
           <StyledFieldGroup>
             <Text variant="body">{t('ventilation.assessment.summary.title')}</Text>
             <StyledRecommendationSource role="region" aria-label={t('ventilation.assessment.recommendationSource.label')}>
-              <Text variant="label">{t('ventilation.assessment.recommendationSource.label')}</Text>
-              <StyledSourceOption onClick={() => setRecommendationSource('local')}>
-                <Radio
-                  selected={recommendationSource === 'local'}
-                  onChange={() => setRecommendationSource('local')}
-                  value="local"
-                  label={t('ventilation.assessment.recommendationSource.local')}
-                  testID="assessment-source-local"
-                />
-                <div>
-                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.local')}</StyledSourceOptionLabel>
-                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.localDescription')}</StyledSourceOptionDesc>
-                </div>
-              </StyledSourceOption>
-              <StyledSourceOption onClick={() => setRecommendationSource('online_ai')}>
-                <Radio
-                  selected={recommendationSource === 'online_ai'}
-                  onChange={() => setRecommendationSource('online_ai')}
-                  value="online_ai"
-                  label={t('ventilation.assessment.recommendationSource.onlineAi')}
-                  testID="assessment-source-online-ai"
-                />
-                <div>
-                  <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.onlineAi')}</StyledSourceOptionLabel>
-                  <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.onlineAiDescription')}</StyledSourceOptionDesc>
-                </div>
-              </StyledSourceOption>
+              <StyledRecommendationSourceTitle>{t('ventilation.assessment.recommendationSource.label')}</StyledRecommendationSourceTitle>
+              <StyledSourceOptionsList>
+                <StyledSourceOption
+                  onClick={() => setRecommendationSource('local')}
+                  data-selected={recommendationSource === 'local'}
+                >
+                  <Radio
+                    selected={recommendationSource === 'local'}
+                    onChange={() => setRecommendationSource('local')}
+                    value="local"
+                    label={t('ventilation.assessment.recommendationSource.local')}
+                    testID="assessment-source-local"
+                  />
+                  <StyledSourceOptionContent>
+                    <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.local')}</StyledSourceOptionLabel>
+                    <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.localDescription')}</StyledSourceOptionDesc>
+                  </StyledSourceOptionContent>
+                </StyledSourceOption>
+                <StyledSourceOption
+                  onClick={() => setRecommendationSource('online_ai')}
+                  data-selected={recommendationSource === 'online_ai'}
+                >
+                  <Radio
+                    selected={recommendationSource === 'online_ai'}
+                    onChange={() => setRecommendationSource('online_ai')}
+                    value="online_ai"
+                    label={t('ventilation.assessment.recommendationSource.onlineAi')}
+                    testID="assessment-source-online-ai"
+                  />
+                  <StyledSourceOptionContent>
+                    <StyledSourceOptionLabel>{t('ventilation.assessment.recommendationSource.onlineAi')}</StyledSourceOptionLabel>
+                    <StyledSourceOptionDesc>{t('ventilation.assessment.recommendationSource.onlineAiDescription')}</StyledSourceOptionDesc>
+                  </StyledSourceOptionContent>
+                </StyledSourceOption>
+              </StyledSourceOptionsList>
               {recommendationSource === 'online_ai' && (
                 <StyledModelRow>
                   <Select

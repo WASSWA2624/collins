@@ -29,8 +29,22 @@ const StyledContainer = styled.main.withConfig({
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: ${({ theme }) => theme.spacing.xxl}px ${({ theme }) => theme.spacing.xl}px;
+    gap: ${({ theme }) => theme.spacing.xxl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
+    max-width: 1440px;
+    padding: ${({ theme }) => theme.spacing.xxl}px ${({ theme }) => theme.spacing.xxl}px;
+    gap: ${({ theme }) => theme.spacing.xxl}px;
   }
 `;
 
@@ -41,7 +55,16 @@ const StyledProgressSection = styled.div.withConfig({
   flex-shrink: 0;
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
   order: 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    flex-basis: 100%;
+    width: 100%;
+  }
 `;
+
+const CARD_MAX_WIDTH_TABLET = 560;
+const CARD_MAX_WIDTH_DESKTOP = 640;
+const CARD_MAX_WIDTH_LARGE = 720;
 
 const StyledWizardPane = styled.section.withConfig({
   displayName: 'StyledWizardPane',
@@ -54,9 +77,20 @@ const StyledWizardPane = styled.section.withConfig({
   order: 2;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    min-width: 320px;
-    max-width: 600px;
-    order: 1;
+    flex-basis: 100%;
+    width: 100%;
+    min-width: 280px;
+    max-width: ${CARD_MAX_WIDTH_TABLET}px;
+    margin: 0 auto;
+    order: 2;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    max-width: ${CARD_MAX_WIDTH_DESKTOP}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
+    max-width: ${CARD_MAX_WIDTH_LARGE}px;
   }
 `;
 
@@ -73,6 +107,10 @@ const StyledWizardCard = styled.div.withConfig({
   padding: ${({ theme }) => theme.spacing.xl}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    padding: ${({ theme }) => theme.spacing.xxl}px;
+  }
 `;
 
 const StyledSummaryWrap = styled.div.withConfig({
@@ -88,9 +126,10 @@ const StyledSummaryWrap = styled.div.withConfig({
   min-width: 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    flex-basis: 100%;
+    width: 100%;
+    order: 1;
     margin-bottom: 0;
-    order: 2;
-    align-self: flex-start;
   }
 `;
 
@@ -113,11 +152,19 @@ const StyledSummaryPane = styled.aside.withConfig({
   box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    width: 340px;
-    max-width: 340px;
+    width: 100%;
+    max-width: ${CARD_MAX_WIDTH_TABLET}px;
     padding: ${({ theme }) => theme.spacing.xl}px;
-    position: sticky;
-    top: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    max-width: ${CARD_MAX_WIDTH_DESKTOP}px;
+    padding: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
+    max-width: ${CARD_MAX_WIDTH_LARGE}px;
+    padding: ${({ theme }) => theme.spacing.xxl}px;
   }
 `;
 
@@ -390,10 +437,30 @@ const StyledRecommendationSource = styled.div.withConfig({
   displayName: 'StyledRecommendationSource',
   componentId: 'StyledRecommendationSource',
 })`
-  margin-top: ${({ theme }) => theme.spacing.md}px;
-  padding-top: ${({ theme }) => theme.spacing.md}px;
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
   border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   min-width: 0;
+`;
+
+const StyledRecommendationSourceTitle = styled.h3.withConfig({
+  displayName: 'StyledRecommendationSourceTitle',
+  componentId: 'StyledRecommendationSourceTitle',
+})`
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px 0;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSourceOptionsList = styled.div.withConfig({
+  displayName: 'StyledSourceOptionsList',
+  componentId: 'StyledSourceOptionsList',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledSourceOption = styled.label.withConfig({
@@ -402,9 +469,35 @@ const StyledSourceOption = styled.label.withConfig({
 })`
   display: flex;
   align-items: flex-start;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.background.tertiary};
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  &[data-selected='true'] {
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary}20;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
+
+const StyledSourceOptionContent = styled.div.withConfig({
+  displayName: 'StyledSourceOptionContent',
+  componentId: 'StyledSourceOptionContent',
+})`
+  flex: 1;
+  min-width: 0;
 `;
 
 const StyledSourceOptionLabel = styled.span.withConfig({
@@ -413,6 +506,7 @@ const StyledSourceOptionLabel = styled.span.withConfig({
 })`
   font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
   color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
 `;
 
 const StyledSourceOptionDesc = styled.span.withConfig({
@@ -420,17 +514,20 @@ const StyledSourceOptionDesc = styled.span.withConfig({
   componentId: 'StyledSourceOptionDesc',
 })`
   display: block;
-  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm ?? 14}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   margin-top: ${({ theme }) => theme.spacing.xs}px;
+  line-height: 1.45;
 `;
 
 const StyledModelRow = styled.div.withConfig({
   displayName: 'StyledModelRow',
   componentId: 'StyledModelRow',
 })`
-  margin-top: ${({ theme }) => theme.spacing.md}px;
-  max-width: 280px;
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
+  border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  width: 100%;
 `;
 
 export {
@@ -450,8 +547,11 @@ export {
   StyledObservationRow,
   StyledProgressSection,
   StyledRecommendationSource,
+  StyledRecommendationSourceTitle,
   StyledSourceOption,
+  StyledSourceOptionContent,
   StyledSourceOptionDesc,
+  StyledSourceOptionsList,
   StyledSourceOptionLabel,
   StyledStepContent,
   StyledStepDescription,
