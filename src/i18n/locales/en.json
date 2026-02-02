@@ -590,7 +590,8 @@
         "bloodPressure": "Blood pressure (optional)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg"
+        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Normal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
@@ -647,6 +648,11 @@
     "recommendation": {
       "title": "Recommended Settings",
       "accessibilityLabel": "Recommendation screen",
+      "responseSource": {
+        "title": "Response source",
+        "online": "Online",
+        "offline": "Offline"
+      },
       "sections": {
         "settings": "Recommended settings",
         "confidence": "Confidence & why",

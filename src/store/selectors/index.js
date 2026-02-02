@@ -59,6 +59,18 @@ const selectVentilationHistoryLoading = createSelector(
   [selectVentilation],
   (ventilation) => ventilation?.isHistoryLoading ?? false
 );
+const selectAssessmentCurrentStep = createSelector(
+  [selectVentilation],
+  (ventilation) => (typeof ventilation?.assessmentCurrentStep === 'number' ? ventilation.assessmentCurrentStep : 0)
+);
+const selectAssessmentRecommendationSource = createSelector(
+  [selectVentilation],
+  (ventilation) => (ventilation?.assessmentRecommendationSource === 'online_ai' ? 'online_ai' : 'local')
+);
+const selectMonitoringTimeSeries = createSelector(
+  [selectVentilation],
+  (ventilation) => (Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [])
+);
 
 // Network Selectors (defensive for undefined state)
 const selectNetwork = (state) => state?.network ?? null;
@@ -102,6 +114,9 @@ export {
   selectVentilationSessionHistory,
   selectVentilationHistoryErrorCode,
   selectVentilationHistoryLoading,
+  selectAssessmentCurrentStep,
+  selectAssessmentRecommendationSource,
+  selectMonitoringTimeSeries,
   // Network
   selectIsOnline,
   selectIsOffline,
@@ -141,6 +156,9 @@ export default {
   selectVentilationSessionHistory,
   selectVentilationHistoryErrorCode,
   selectVentilationHistoryLoading,
+  selectAssessmentCurrentStep,
+  selectAssessmentRecommendationSource,
+  selectMonitoringTimeSeries,
   // Network
   selectIsOnline,
   selectIsOffline,

@@ -62,6 +62,7 @@ const RecommendationScreenWeb = () => {
     requestAiRecommendation,
     aiReasons,
     aiHints,
+    responseSource,
   } = useRecommendationScreen();
   const { exportSummary } = useExportSession({
     recommendationSummary,
@@ -136,6 +137,9 @@ const RecommendationScreenWeb = () => {
           <StyledSectionHeader>
             <StyledSectionTitle>{t('ventilation.recommendation.sections.settings')}</StyledSectionTitle>
             <StyledBadge $tier={confidenceTier}>{t(`ventilation.recommendation.confidence.${confidenceTier}`)}</StyledBadge>
+            <StyledBadge $tier={responseSource === 'online' ? 'high' : 'low'} data-testid="recommendation-response-source" aria-label={t('ventilation.recommendation.responseSource.title')}>
+              {t('ventilation.recommendation.responseSource.title')}: {t(`ventilation.recommendation.responseSource.${responseSource}`)}
+            </StyledBadge>
           </StyledSectionHeader>
           <StyledSectionBody>
             <StyledSettingsGrid>
@@ -144,10 +148,13 @@ const RecommendationScreenWeb = () => {
                 if (value == null) return null;
                 const unit = units?.[key] ?? '';
                 const label = t(`ventilation.recommendation.settings.${key}`);
+                const displayValue = key === 'fio2' && typeof value === 'number'
+                  ? `${Math.round(value * 100)}%`
+                  : (typeof value === 'number' ? `${value}${unit ? ` ${unit}` : ''}` : String(value));
                 return (
                   <React.Fragment key={key}>
                     <StyledSettingsTerm>{label}</StyledSettingsTerm>
-                    <StyledSettingsValue>{typeof value === 'number' ? `${value}${unit ? ` ${unit}` : ''}` : String(value)}</StyledSettingsValue>
+                    <StyledSettingsValue>{displayValue}</StyledSettingsValue>
                   </React.Fragment>
                 );
               })}

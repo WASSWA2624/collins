@@ -2,7 +2,7 @@
  * useMonitoringScreen
  * Shared logic for Monitoring screen: time-series entry, trends, alerts.
  */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import useVentilationSession from '@hooks/useVentilationSession';
 import useNetwork from '@hooks/useNetwork';
 import {
@@ -43,40 +43,45 @@ function getWhyKey(severity, value, thresholds) {
 }
 
 export default function useMonitoringScreen() {
-  const { recommendationSummary, isHydrating, errorCode } = useVentilationSession();
+  const { recommendationSummary, monitoringTimeSeries, setMonitoringTimeSeries, isHydrating, errorCode } = useVentilationSession();
   const { isOffline } = useNetwork();
 
-  const [timeSeriesList, setTimeSeriesList] = useState(() => []);
+  const timeSeriesList = Array.isArray(monitoringTimeSeries) ? monitoringTimeSeries : [];
 
   const monitoringPointNames = useMemo(
     () => recommendationSummary?.monitoringPoints ?? [],
     [recommendationSummary]
   );
 
-  const addPoint = useCallback((name, unit, value) => {
-    const trimmedName = typeof name === 'string' ? name.trim() : '';
-    const trimmedUnit = typeof unit === 'string' ? unit.trim() || '—' : '—';
-    const trimmedValue = typeof value === 'string' ? value.trim() : String(value ?? '');
-    if (!trimmedName || !trimmedValue) return;
+  const addPoint = useCallback(
+    (name, unit, value) => {
+      const trimmedName = typeof name === 'string' ? name.trim() : '';
+      const trimmedUnit = typeof unit === 'string' ? unit.trim() || '—' : '—';
+      const trimmedValue = typeof value === 'string' ? value.trim() : String(value ?? '');
+      if (!trimmedName || !trimmedValue) return;
 
-    const point = { timestamp: new Date().toISOString(), value: trimmedValue };
+      const point = { timestamp: new Date().toISOString(), value: trimmedValue };
+      const prev = timeSeriesList;
 
-    setTimeSeriesList((prev) => {
-      const existing = prev.find((s) => s.name === trimmedName);
       try {
-        if (existing) {
-          const next = addTimeSeriesPoint(
-            { name: existing.name, unit: existing.unit, points: existing.points },
-            point
-          );
-          return prev.map((s) => (s.name === trimmedName ? next : s));
-        }
-        return [...prev, { name: trimmedName, unit: trimmedUnit, points: [point] }];
+        const existing = prev.find((s) => s.name === trimmedName);
+        const nextList = existing
+          ? prev.map((s) =>
+              s.name === trimmedName
+                ? addTimeSeriesPoint(
+                    { name: s.name, unit: s.unit, points: s.points ?? [] },
+                    point
+                  )
+                : s
+            )
+          : [...prev, { name: trimmedName, unit: trimmedUnit, points: [point] }];
+        setMonitoringTimeSeries(nextList);
       } catch {
-        return prev;
+        // keep prev on error
       }
-    });
-  }, []);
+    },
+    [timeSeriesList, setMonitoringTimeSeries]
+  );
 
   const trends = useMemo(
     () =>

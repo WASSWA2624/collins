@@ -68,9 +68,11 @@ const AssessmentScreenWeb = () => {
     setSummaryExpanded,
     additionalTestPrompts,
     units,
+    normalRanges,
     canProceedFromStep,
     goNext,
     goBack,
+    goBackOrExit,
     generateRecommendation,
     isGenerating,
     isHydrating,
@@ -212,7 +214,7 @@ const AssessmentScreenWeb = () => {
                 accessibilityHint={t('ventilation.assessment.clinicalParams.spo2Hint')}
                 testID="assessment-spo2"
               />
-              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.spo2NormalRange')}</Text>
+              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.spo2 })}</Text>
             </StyledFieldWithHint>
             <StyledFieldWithHint>
               <TextField
@@ -225,7 +227,7 @@ const AssessmentScreenWeb = () => {
                 accessibilityHint={t('ventilation.assessment.clinicalParams.respiratoryRateHint')}
                 testID="assessment-rr"
               />
-              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.respiratoryRateNormalRange')}</Text>
+              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.respiratoryRate })}</Text>
             </StyledFieldWithHint>
             <StyledFieldWithHint>
               <TextField
@@ -250,7 +252,7 @@ const AssessmentScreenWeb = () => {
                 accessibilityHint={t('ventilation.assessment.clinicalParams.pao2Hint')}
                 testID="assessment-pao2"
               />
-              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.pao2NormalRange')}</Text>
+              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.pao2 })}</Text>
             </StyledFieldWithHint>
             <StyledFieldWithHint>
               <TextField
@@ -262,7 +264,7 @@ const AssessmentScreenWeb = () => {
                 accessibilityHint={t('ventilation.assessment.clinicalParams.paco2Hint')}
                 testID="assessment-paco2"
               />
-              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.paco2NormalRange')}</Text>
+              <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.paco2 })}</Text>
             </StyledFieldWithHint>
             <StyledFieldWithHint>
               <TextField
@@ -286,7 +288,7 @@ const AssessmentScreenWeb = () => {
                   accessibilityHint={t('ventilation.assessment.clinicalParams.bloodPressureHint')}
                   testID="assessment-bp"
                 />
-                <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.bloodPressureNormalRange')}</Text>
+                <Text variant="caption" color="text.tertiary">{t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.bloodPressure })}</Text>
               </StyledFieldWithHint>
             </StyledFieldGridFull>
           </StyledFieldGrid>
@@ -422,11 +424,9 @@ const AssessmentScreenWeb = () => {
           )}
         </StyledWizardCard>
         <StyledActionsRow>
-          {currentStep > 0 && (
-            <Button variant="outline" onPress={goBack} testID={testIds.backButton} accessibilityLabel={t('ventilation.assessment.actions.back')}>
-              {t('ventilation.assessment.actions.back')}
-            </Button>
-          )}
+          <Button variant="outline" onPress={goBackOrExit} testID={testIds.backButton} accessibilityLabel={t('ventilation.assessment.actions.back')}>
+            {t('ventilation.assessment.actions.back')}
+          </Button>
           {currentStep < STEPS.REVIEW ? (
             <Button
               variant="primary"

@@ -21,6 +21,9 @@ const sessionDraftSchema = z
     sessionId: z.string().min(1),
     inputs: jsonObjectSchema.nullable().optional().default(null),
     recommendationSummary: jsonObjectSchema.nullable().optional().default(null),
+    assessmentCurrentStep: z.number().int().min(0).optional().default(0),
+    assessmentRecommendationSource: z.enum(['local', 'online_ai']).optional().default('local'),
+    monitoringTimeSeries: z.array(z.any()).optional().default([]),
     updatedAt: z.number().int().nonnegative(),
   })
   .passthrough();

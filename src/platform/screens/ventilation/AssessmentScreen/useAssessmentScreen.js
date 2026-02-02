@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 import {
   buildVentilationAdditionalTestPrompts,
   getMissingSimilarityFields,
+  getNormalRangesForPatient,
   getVentilationRecommendationUseCase,
   getVentilationUnits,
   VENTILATION_SIMILARITY_OPTIONAL_ABG_FIELDS,
@@ -40,6 +41,11 @@ export default function useAssessmentScreen() {
     startSession,
     setRecommendationSummary,
     appendToHistory,
+    persistDraft,
+    assessmentCurrentStep,
+    assessmentRecommendationSource,
+    setAssessmentStep,
+    setAssessmentRecommendationSource,
     isHydrating,
     errorCode,
     hydrate,
@@ -55,10 +61,10 @@ export default function useAssessmentScreen() {
     [t, aiProviderId]
   );
 
-  const [currentStep, setCurrentStep] = useState(STEPS.PATIENT_PROFILE);
+  const currentStep = typeof assessmentCurrentStep === 'number' ? Math.min(Math.max(0, assessmentCurrentStep), TOTAL_STEPS - 1) : 0;
+  const recommendationSource = assessmentRecommendationSource === 'online_ai' ? 'online_ai' : 'local';
   const [summaryExpanded, setSummaryExpanded] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [recommendationSource, setRecommendationSource] = useState('local'); // 'local' | 'online_ai'
 
   useEffect(() => {
     hydrate();
@@ -129,6 +135,11 @@ export default function useAssessmentScreen() {
 
   const units = useMemo(() => getVentilationUnits(), []);
 
+  const normalRanges = useMemo(
+    () => getNormalRangesForPatient(mergedInputs.age ?? null, mergedInputs.gender ?? ''),
+    [mergedInputs.age, mergedInputs.gender]
+  );
+
   const canProceedFromStep = useCallback(
     (step) => {
       switch (step) {
@@ -154,15 +165,23 @@ export default function useAssessmentScreen() {
 
   const goNext = useCallback(() => {
     if (currentStep < TOTAL_STEPS - 1 && canProceedFromStep(currentStep)) {
-      setCurrentStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+      setAssessmentStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
     }
-  }, [currentStep, canProceedFromStep]);
+  }, [currentStep, canProceedFromStep, setAssessmentStep]);
 
   const goBack = useCallback(() => {
     if (currentStep > 0) {
-      setCurrentStep((s) => Math.max(s - 1, 0));
+      setAssessmentStep(Math.max(currentStep - 1, 0));
     }
-  }, [currentStep]);
+  }, [currentStep, setAssessmentStep]);
+
+  const goBackOrExit = useCallback(() => {
+    if (currentStep > 0) {
+      setAssessmentStep(Math.max(currentStep - 1, 0));
+    } else {
+      router.back();
+    }
+  }, [currentStep, setAssessmentStep, router]);
 
   const generateRecommendation = useCallback(async () => {
     const sid = sessionId || `session-${Date.now()}`;
@@ -184,15 +203,17 @@ export default function useAssessmentScreen() {
           },
         },
       });
-      setRecommendationSummary(rec ?? null);
-      appendToHistory();
+      const summaryWithSource = rec ? { ...rec, responseSource: useOnlineAi ? 'online' : 'offline' } : null;
+      setRecommendationSummary(summaryWithSource);
+      await appendToHistory();
+      await persistDraft();
       router.replace('/session/recommendation');
     } catch (err) {
       setRecommendationSummary(null);
     } finally {
       setIsGenerating(false);
     }
-  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, router, recommendationSource, isOnline, aiModelId]);
+  }, [sessionId, mergedInputs, similarityInput, startSession, setInputs, setRecommendationSummary, appendToHistory, persistDraft, router, recommendationSource, isOnline, aiModelId]);
 
   const addObservation = useCallback(() => {
     const obs = {
@@ -267,8 +288,8 @@ export default function useAssessmentScreen() {
 
   return {
     currentStep,
-    setCurrentStep,
-    stepKey: STEP_KEYS[currentStep],
+    setCurrentStep: setAssessmentStep,
+    stepKey: STEP_KEYS[currentStep] ?? STEP_KEYS[0],
     progressPercent,
     mergedInputs,
     updateInput,
@@ -279,9 +300,11 @@ export default function useAssessmentScreen() {
     missingAbg,
     additionalTestPrompts,
     units,
+    normalRanges,
     canProceedFromStep,
     goNext,
     goBack,
+    goBackOrExit,
     generateRecommendation,
     isGenerating,
     isHydrating,
@@ -293,7 +316,7 @@ export default function useAssessmentScreen() {
     removeObservation,
     addTimeSeriesPoint,
     recommendationSource,
-    setRecommendationSource,
+    setRecommendationSource: (src) => setAssessmentRecommendationSource(src === 'online_ai' ? 'online_ai' : 'local'),
     aiModelId,
     modelOptions,
     testIds: ASSESSMENT_TEST_IDS,

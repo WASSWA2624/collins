@@ -74,9 +74,11 @@ const AssessmentScreenIOS = () => {
     setSummaryExpanded,
     additionalTestPrompts,
     units,
+    normalRanges,
     canProceedFromStep,
     goNext,
     goBack,
+    goBackOrExit,
     generateRecommendation,
     isGenerating,
     isHydrating,
@@ -226,7 +228,7 @@ const AssessmentScreenIOS = () => {
               value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
               onChangeText={(v) => updateInput({ spo2: parseNum(v) })}
               required
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.spo2Hint')}. ${t('ventilation.assessment.clinicalParams.spo2NormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.spo2Hint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.spo2 })}`}
               testID="assessment-spo2"
             />
             <TextField
@@ -236,7 +238,7 @@ const AssessmentScreenIOS = () => {
               value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
               onChangeText={(v) => updateInput({ respiratoryRate: parseNum(v) })}
               required
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.respiratoryRateHint')}. ${t('ventilation.assessment.clinicalParams.respiratoryRateNormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.respiratoryRateHint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.respiratoryRate })}`}
               testID="assessment-rr"
             />
             <TextField
@@ -246,7 +248,7 @@ const AssessmentScreenIOS = () => {
               value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
               onChangeText={(v) => updateInput({ heartRate: parseNum(v) })}
               required
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.heartRateHint')}. ${t('ventilation.assessment.clinicalParams.heartRateNormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.heartRateHint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.heartRate })}`}
               testID="assessment-hr"
             />
             <TextField
@@ -255,7 +257,7 @@ const AssessmentScreenIOS = () => {
               type="number"
               value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
               onChangeText={(v) => updateInput({ pao2: parseNum(v) })}
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.pao2Hint')}. ${t('ventilation.assessment.clinicalParams.pao2NormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.pao2Hint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.pao2 })}`}
               testID="assessment-pao2"
             />
             <TextField
@@ -264,7 +266,7 @@ const AssessmentScreenIOS = () => {
               type="number"
               value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
               onChangeText={(v) => updateInput({ paco2: parseNum(v) })}
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.paco2Hint')}. ${t('ventilation.assessment.clinicalParams.paco2NormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.paco2Hint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.paco2 })}`}
               testID="assessment-paco2"
             />
             <TextField
@@ -273,7 +275,7 @@ const AssessmentScreenIOS = () => {
               type="number"
               value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}
               onChangeText={(v) => updateInput({ ph: parseNum(v) })}
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.phHint')}. ${t('ventilation.assessment.clinicalParams.phNormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.phHint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.ph })}`}
               testID="assessment-ph"
             />
             <TextField
@@ -281,7 +283,7 @@ const AssessmentScreenIOS = () => {
               placeholder={t('ventilation.assessment.clinicalParams.bloodPressurePlaceholder')}
               value={mergedInputs.bloodPressure}
               onChangeText={(v) => updateInput({ bloodPressure: v })}
-              accessibilityHint={`${t('ventilation.assessment.clinicalParams.bloodPressureHint')}. ${t('ventilation.assessment.clinicalParams.bloodPressureNormalRange')}`}
+              accessibilityHint={`${t('ventilation.assessment.clinicalParams.bloodPressureHint')}. ${t('ventilation.assessment.clinicalParams.normalRangeTemplate', { range: normalRanges.bloodPressure })}`}
               testID="assessment-bp"
             />
           </StyledFieldGroup>
@@ -454,15 +456,9 @@ const AssessmentScreenIOS = () => {
                 </StyledMissingTests>
               )}
               <StyledActionsRow>
-                {currentStep > 0 && (
-                  <Button
-                    variant="outline"
-                    onPress={goBack}
-                    testID={testIds.backButton}
-                  >
-                    {t('ventilation.assessment.actions.back')}
-                  </Button>
-                )}
+                <Button variant="outline" onPress={goBackOrExit} testID={testIds.backButton}>
+                  {t('ventilation.assessment.actions.back')}
+                </Button>
                 {currentStep < STEPS.REVIEW ? (
                   <Button
                     variant="primary"

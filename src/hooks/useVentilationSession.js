@@ -6,6 +6,9 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  selectAssessmentCurrentStep,
+  selectAssessmentRecommendationSource,
+  selectMonitoringTimeSeries,
   selectVentilationErrorCode,
   selectVentilationHistoryErrorCode,
   selectVentilationHistoryLoading,
@@ -24,6 +27,9 @@ const useVentilationSession = () => {
   const sessionId = useSelector(selectVentilationSessionId);
   const inputs = useSelector(selectVentilationInputs);
   const recommendationSummary = useSelector(selectVentilationRecommendationSummary);
+  const assessmentCurrentStep = useSelector(selectAssessmentCurrentStep);
+  const assessmentRecommendationSource = useSelector(selectAssessmentRecommendationSource);
+  const monitoringTimeSeries = useSelector(selectMonitoringTimeSeries);
   const isHydrating = useSelector(selectVentilationHydrating);
   const hydratedAt = useSelector(selectVentilationHydratedAt);
   const errorCode = useSelector(selectVentilationErrorCode);
@@ -35,6 +41,9 @@ const useVentilationSession = () => {
     sessionId,
     inputs,
     recommendationSummary,
+    assessmentCurrentStep,
+    assessmentRecommendationSource,
+    monitoringTimeSeries,
     isHydrating,
     hydratedAt,
     errorCode,
@@ -45,6 +54,15 @@ const useVentilationSession = () => {
     setInputs: useCallback((nextInputs) => dispatch(ventilationActions.setInputs(nextInputs)), [dispatch]),
     setRecommendationSummary: useCallback(
       (summary) => dispatch(ventilationActions.setRecommendationSummary(summary)),
+      [dispatch]
+    ),
+    setAssessmentStep: useCallback((step) => dispatch(ventilationActions.setAssessmentStep(step)), [dispatch]),
+    setAssessmentRecommendationSource: useCallback(
+      (src) => dispatch(ventilationActions.setAssessmentRecommendationSource(src)),
+      [dispatch]
+    ),
+    setMonitoringTimeSeries: useCallback(
+      (series) => dispatch(ventilationActions.setMonitoringTimeSeries(series)),
       [dispatch]
     ),
     hydrate: useCallback(() => dispatch(ventilationActions.hydrateVentilationSession()), [dispatch]),
@@ -62,6 +80,15 @@ const useVentilationSession = () => {
           dispatch(ventilationActions.startSession(entry.sessionId));
           dispatch(ventilationActions.setInputs(entry.inputs ?? null));
           dispatch(ventilationActions.setRecommendationSummary(entry.recommendationSummary ?? null));
+          if (typeof entry.assessmentCurrentStep === 'number') {
+            dispatch(ventilationActions.setAssessmentStep(entry.assessmentCurrentStep));
+          }
+          if (entry.assessmentRecommendationSource === 'online_ai') {
+            dispatch(ventilationActions.setAssessmentRecommendationSource('online_ai'));
+          }
+          if (Array.isArray(entry.monitoringTimeSeries)) {
+            dispatch(ventilationActions.setMonitoringTimeSeries(entry.monitoringTimeSeries));
+          }
         }
       },
       [dispatch]

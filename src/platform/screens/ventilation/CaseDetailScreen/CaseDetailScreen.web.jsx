@@ -20,8 +20,9 @@ import { CASE_DETAIL_TEST_IDS } from './types';
 
 const SETTING_KEYS = ['mode', 'tidalVolume', 'respiratoryRate', 'fio2', 'peep', 'ieRatio'];
 
-function formatValue(val) {
+function formatValue(val, key) {
   if (val == null) return '—';
+  if (key === 'fio2' && typeof val === 'number') return `${Math.round(val * 100)}%`;
   if (typeof val === 'boolean') return val ? 'Yes' : 'No';
   if (Array.isArray(val)) return val.length ? val.join(', ') : '—';
   return String(val);
@@ -127,7 +128,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
             {SETTING_KEYS.map((k) => (
               <StyledListItem key={k}>
                 <Text variant="caption">
-                  {t(`ventilation.recommendation.settings.${k}`, { default: k })}: {formatValue(settings[k])}
+                  {t(`ventilation.recommendation.settings.${k}`, { default: k })}: {formatValue(settings[k], k)}
                 </Text>
               </StyledListItem>
             ))}

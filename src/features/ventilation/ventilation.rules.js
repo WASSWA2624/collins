@@ -658,6 +658,53 @@ const mergeVentilationRecommendationWithAi = (datasetOutput, aiOutput) => {
   });
 };
 
+/**
+ * Normal reference ranges for display, by age (years) and gender.
+ * Age in years; null/undefined uses adult. Gender may affect HR slightly.
+ */
+const getNormalRangesForPatient = (age, gender) => {
+  const a = typeof age === 'number' && Number.isFinite(age) ? age : null;
+  const isFemale = String(gender || '').toLowerCase() === 'female';
+
+  const spo2 = '95–100%';
+  const pao2 = '80–100 mmHg';
+  const paco2 = '35–45 mmHg';
+  const ph = '7.35–7.45';
+  const bloodPressure = a !== null && a < 18 ? '70–110 / 40–70 mmHg' : '90–120 / 60–80 mmHg';
+
+  let respiratoryRate;
+  let heartRate;
+  if (a == null || a >= 18) {
+    respiratoryRate = '12–20 breaths/min';
+    heartRate = isFemale ? '60–100 bpm' : '60–100 bpm';
+  } else if (a < 1 / 12) {
+    respiratoryRate = '30–60 breaths/min';
+    heartRate = '100–160 bpm';
+  } else if (a < 1) {
+    respiratoryRate = '24–40 breaths/min';
+    heartRate = '100–160 bpm';
+  } else if (a < 3) {
+    respiratoryRate = '24–40 breaths/min';
+    heartRate = '90–150 bpm';
+  } else if (a < 12) {
+    respiratoryRate = '20–30 breaths/min';
+    heartRate = '70–120 bpm';
+  } else {
+    respiratoryRate = '12–20 breaths/min';
+    heartRate = '60–100 bpm';
+  }
+
+  return Object.freeze({
+    spo2,
+    pao2,
+    paco2,
+    ph,
+    respiratoryRate,
+    heartRate,
+    bloodPressure,
+  });
+};
+
 export {
   assertVentilationUnitsContract,
   VENTILATION_VENTILATOR_SETTING_KEYS,
@@ -680,4 +727,5 @@ export {
   VENTILATION_COMPLEX_CASE_REASON_CODES,
   detectVentilationComplexCase,
   mergeVentilationRecommendationWithAi,
+  getNormalRangesForPatient,
 };

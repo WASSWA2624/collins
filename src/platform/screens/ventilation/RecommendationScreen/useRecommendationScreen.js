@@ -68,11 +68,13 @@ export default function useRecommendationScreen() {
       const rec = await getVentilationRecommendationUseCase({
         input: similarityInput,
         ai: {
+          useOnlineAi: true,
           isOnline: true,
           flags: { AI_AUGMENTATION_ENABLED: true, aiProviderId, model: aiModelId },
         },
       });
-      setRecommendationSummary(rec ?? null);
+      const summaryWithSource = rec ? { ...rec, responseSource: 'online' } : null;
+      setRecommendationSummary(summaryWithSource);
       trackEvent('request_ai_recommendation', { success: Boolean(rec) });
     } catch {
       trackEvent('request_ai_recommendation', { success: false });
@@ -161,6 +163,7 @@ export default function useRecommendationScreen() {
 
   const isEmpty = !recommendationSummary || !settings;
   const showRequestAi = aiEnabled && aiKeyConfigured;
+  const responseSource = recommendationSummary?.responseSource === 'online' ? 'online' : 'offline';
 
   return {
     recommendationSummary,
@@ -189,5 +192,6 @@ export default function useRecommendationScreen() {
     isOnline,
     isRequestingAi,
     requestAiRecommendation,
+    responseSource,
   };
 }

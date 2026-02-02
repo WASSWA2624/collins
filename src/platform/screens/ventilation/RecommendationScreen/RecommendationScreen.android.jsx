@@ -46,6 +46,7 @@ const RecommendationScreenAndroid = () => {
     isEmpty,
     isHydrating,
     errorCode,
+    responseSource,
   } = useRecommendationScreen();
 
   const handleStartMonitoring = () => router.push('/session/monitoring');
@@ -103,6 +104,9 @@ const RecommendationScreenAndroid = () => {
           <StyledSectionHeader>
             <Text variant="label">{t('ventilation.recommendation.sections.settings')}</Text>
             <Text variant="caption">{t(`ventilation.recommendation.confidence.${confidenceTier}`)}</Text>
+            <Text variant="caption" accessibilityLabel={t('ventilation.recommendation.responseSource.title')} testID="recommendation-response-source">
+              {t('ventilation.recommendation.responseSource.title')}: {t(`ventilation.recommendation.responseSource.${responseSource}`)}
+            </Text>
           </StyledSectionHeader>
           <StyledSectionBody>
             {SETTING_KEYS.map((key) => {
@@ -110,9 +114,12 @@ const RecommendationScreenAndroid = () => {
               if (value == null) return null;
               const unit = units?.[key] ?? '';
               const label = t(`ventilation.recommendation.settings.${key}`);
+              const displayValue = key === 'fio2' && typeof value === 'number'
+                ? `${Math.round(value * 100)}%`
+                : (typeof value === 'number' ? `${value}${unit ? ` ${unit}` : ''}` : String(value));
               return (
                 <Text key={key} variant="body">
-                  {label}: {typeof value === 'number' ? `${value}${unit ? ` ${unit}` : ''}` : String(value)}
+                  {label}: {displayValue}
                 </Text>
               );
             })}

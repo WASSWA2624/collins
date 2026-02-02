@@ -11,6 +11,9 @@ const initialState = {
   currentSessionId: null,
   currentInputs: null,
   lastRecommendationSummary: null,
+  assessmentCurrentStep: 0,
+  assessmentRecommendationSource: 'local',
+  monitoringTimeSeries: [],
   isHydrating: false,
   hydratedAt: null,
   errorCode: null,
@@ -53,6 +56,9 @@ const persistVentilationSessionDraft = createAsyncThunk(
         sessionId,
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
+        assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
+        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
+        monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
         updatedAt: Date.now(),
       };
 
@@ -96,6 +102,9 @@ const appendVentilationSessionToHistory = createAsyncThunk(
         sessionId,
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
+        assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
+        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
+        monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
         updatedAt: Date.now(),
       };
 
@@ -164,7 +173,21 @@ const ventilationSlice = createSlice({
       state.currentSessionId = null;
       state.currentInputs = null;
       state.lastRecommendationSummary = null;
+      state.assessmentCurrentStep = 0;
+      state.assessmentRecommendationSource = 'local';
+      state.monitoringTimeSeries = [];
       state.errorCode = null;
+    },
+    setAssessmentStep: (state, action) => {
+      const step = typeof action.payload === 'number' && action.payload >= 0 ? action.payload : 0;
+      state.assessmentCurrentStep = step;
+    },
+    setAssessmentRecommendationSource: (state, action) => {
+      const src = action.payload === 'online_ai' ? 'online_ai' : 'local';
+      state.assessmentRecommendationSource = src;
+    },
+    setMonitoringTimeSeries: (state, action) => {
+      state.monitoringTimeSeries = Array.isArray(action.payload) ? action.payload : [];
     },
   },
   extraReducers: (builder) => {
@@ -189,6 +212,9 @@ const ventilationSlice = createSlice({
         state.currentSessionId = draft.sessionId || null;
         state.currentInputs = draft.inputs ?? null;
         state.lastRecommendationSummary = draft.recommendationSummary ?? null;
+        state.assessmentCurrentStep = typeof draft.assessmentCurrentStep === 'number' ? draft.assessmentCurrentStep : 0;
+        state.assessmentRecommendationSource = draft.assessmentRecommendationSource === 'online_ai' ? 'online_ai' : 'local';
+        state.monitoringTimeSeries = Array.isArray(draft.monitoringTimeSeries) ? draft.monitoringTimeSeries : [];
       })
       .addCase(hydrateVentilationSession.rejected, (state, action) => {
         state.isHydrating = false;
