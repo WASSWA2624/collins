@@ -20,6 +20,11 @@ const selectIsHeaderHidden = createSelector([selectUI], (ui) => ui?.isHeaderHidd
 const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.headerActionVisibility ?? {});
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
 const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
+// P013: redirect to disclaimer when rehydrated and not yet acknowledged (first-run guard)
+const selectDisclaimerGuardRedirect = createSelector(
+  [(state) => state?._persist?.rehydrated, selectDisclaimerAcknowledged],
+  (rehydrated, acknowledged) => (rehydrated && !acknowledged ? '/disclaimer' : null)
+);
 const selectAiDecisionSupportEnabled = createSelector([selectUI], (ui) => ui?.aiDecisionSupportEnabled ?? false);
 const selectAiProviderId = createSelector([selectUI], (ui) => ui?.aiProviderId ?? 'openai');
 const selectAiModelId = createSelector([selectUI], (ui) => ui?.aiModelId ?? 'gpt-4o-mini');
@@ -78,6 +83,7 @@ export {
   selectHeaderActionVisibility,
   selectFooterVisible,
   selectDisclaimerAcknowledged,
+  selectDisclaimerGuardRedirect,
   selectAiDecisionSupportEnabled,
   selectAiProviderId,
   selectAiModelId,
@@ -116,6 +122,7 @@ export default {
   selectHeaderActionVisibility,
   selectFooterVisible,
   selectDisclaimerAcknowledged,
+  selectDisclaimerGuardRedirect,
   selectAiDecisionSupportEnabled,
   selectAiProviderId,
   selectAiModelId,

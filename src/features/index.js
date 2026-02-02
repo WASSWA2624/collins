@@ -9,3 +9,5 @@
 export * from './auth';
 export * from './ventilation';
 export * from './training';
+export * from './onboarding';
+export * from './help';

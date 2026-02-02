@@ -10,6 +10,7 @@ const MONITORING_TEST_IDS = Object.freeze({
   trend: 'monitoring-trend',
   alerts: 'monitoring-alerts',
   offlineBanner: 'monitoring-offline-banner',
+  decisionSupportBanner: 'monitoring-decision-support-banner',
   pointsHistory: 'monitoring-points-history',
 });
 

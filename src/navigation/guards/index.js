@@ -1,3 +1,2 @@
-// Navigation guards barrel export
-// (No app-specific guards are wired before Phase 10.)
-export {};
+// Navigation guards barrel export (P013: disclaimer first-run guard)
+export { useDisclaimerGuard, DisclaimerGuard } from './disclaimer.guard';

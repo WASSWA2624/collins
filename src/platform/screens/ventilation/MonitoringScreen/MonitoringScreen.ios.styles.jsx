@@ -59,6 +59,18 @@ const StyledOfflineBanner = styled(View).withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
+const StyledDecisionSupportBanner = styled(View).withConfig({
+  displayName: 'StyledDecisionSupportBanner',
+  componentId: 'StyledDecisionSupportBanner',
+})`
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-left-width: 4px;
+  border-left-color: ${({ theme }) => theme.colors.status?.warning?.text ?? theme.colors?.warning ?? '#856404'};
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
 const StyledAlertItem = styled(View).withConfig({
   displayName: 'StyledAlertItem',
   componentId: 'StyledAlertItem',
@@ -83,6 +95,7 @@ export {
   StyledAlertItem,
   StyledContainer,
   StyledContentWrap,
+  StyledDecisionSupportBanner,
   StyledOfflineBanner,
   StyledQuickEntryRow,
   StyledSection,

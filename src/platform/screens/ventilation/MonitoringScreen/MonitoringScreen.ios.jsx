@@ -16,6 +16,7 @@ import {
   StyledAlertItem,
   StyledContainer,
   StyledContentWrap,
+  StyledDecisionSupportBanner,
   StyledOfflineBanner,
   StyledQuickEntryRow,
   StyledSection,
@@ -78,6 +79,9 @@ const MonitoringScreenIos = () => {
   return (
     <StyledContentWrap accessibilityLabel={t('ventilation.monitoring.accessibilityLabel')}>
       <StyledContainer testID={MONITORING_TEST_IDS.screen}>
+        <StyledDecisionSupportBanner testID={MONITORING_TEST_IDS.decisionSupportBanner} accessibilityRole="alert" accessibilityLabel={t('ventilation.monitoring.decisionSupportOnly')}>
+          <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.decisionSupportOnly')}</Text>
+        </StyledDecisionSupportBanner>
         {isOffline && (
           <StyledOfflineBanner testID={MONITORING_TEST_IDS.offlineBanner}>
             <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.states.offline')}</Text>

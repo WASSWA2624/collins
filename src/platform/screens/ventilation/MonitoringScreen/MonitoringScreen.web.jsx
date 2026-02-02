@@ -15,6 +15,7 @@ import {
   StyledAlertItem,
   StyledAlertsList,
   StyledContainer,
+  StyledDecisionSupportBanner,
   StyledHistoryList,
   StyledOfflineBanner,
   StyledQuickEntryRow,
@@ -84,6 +85,9 @@ const MonitoringScreenWeb = () => {
 
   return (
     <StyledContainer aria-label={t('ventilation.monitoring.accessibilityLabel')} data-testid={MONITORING_TEST_IDS.screen}>
+      <StyledDecisionSupportBanner data-testid={MONITORING_TEST_IDS.decisionSupportBanner} role="status" aria-live="polite">
+        <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.decisionSupportOnly')}</Text>
+      </StyledDecisionSupportBanner>
       {isOffline && (
         <StyledOfflineBanner data-testid={MONITORING_TEST_IDS.offlineBanner} role="status">
           <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.states.offline')}</Text>
