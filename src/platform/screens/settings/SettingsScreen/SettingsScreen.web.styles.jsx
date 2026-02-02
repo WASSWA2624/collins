@@ -11,7 +11,7 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
-  min-height: 0;
+  min-height: min-content;
   padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;

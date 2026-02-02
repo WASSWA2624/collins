@@ -1,10 +1,10 @@
 /**
- * Training Home Route
- * (training)/index → /training — 11.S.7 Training home
+ * Training group index — redirects to /training (sidebar target).
+ * (training)/index → "/" within group; (training)/training → /training.
  */
 import React from 'react';
-import { TrainingHomeScreen } from '@platform/screens';
+import { Redirect } from 'expo-router';
 
-export default function TrainingHomeRoute() {
-  return <TrainingHomeScreen />;
+export default function TrainingIndexRoute() {
+  return <Redirect href="/training" />;
 }

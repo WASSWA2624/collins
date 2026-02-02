@@ -13,8 +13,10 @@ import {
   VENTILATION_SIMILARITY_OPTIONAL_ABG_FIELDS,
 } from '@features/ventilation';
 import useVentilationSession from '@hooks/useVentilationSession';
+import { useI18n } from '@hooks';
 import { useSelector } from 'react-redux';
-import { selectIsOnline, selectAiModelId } from '@store/selectors';
+import { selectIsOnline, selectAiProviderId, selectAiModelId } from '@store/selectors';
+import { getModelsForProvider } from '@config/constants';
 import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
 
 const TOTAL_STEPS = 5;
@@ -43,8 +45,15 @@ export default function useAssessmentScreen() {
     hydrate,
     clearError,
   } = useVentilationSession();
+  const { t } = useI18n();
   const isOnline = useSelector(selectIsOnline);
+  const aiProviderId = useSelector(selectAiProviderId);
   const aiModelId = useSelector(selectAiModelId);
+
+  const modelOptions = useMemo(
+    () => getModelsForProvider(aiProviderId).map((m) => ({ value: m.id, label: t(m.labelKey) })),
+    [t, aiProviderId]
+  );
 
   const [currentStep, setCurrentStep] = useState(STEPS.PATIENT_PROFILE);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
@@ -286,6 +295,7 @@ export default function useAssessmentScreen() {
     recommendationSource,
     setRecommendationSource,
     aiModelId,
+    modelOptions,
     testIds: ASSESSMENT_TEST_IDS,
     totalSteps: TOTAL_STEPS,
   };

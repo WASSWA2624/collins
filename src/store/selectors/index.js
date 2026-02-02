@@ -21,6 +21,7 @@ const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.head
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
 const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
 const selectAiDecisionSupportEnabled = createSelector([selectUI], (ui) => ui?.aiDecisionSupportEnabled ?? false);
+const selectAiProviderId = createSelector([selectUI], (ui) => ui?.aiProviderId ?? 'openai');
 const selectAiModelId = createSelector([selectUI], (ui) => ui?.aiModelId ?? 'gpt-4o-mini');
 
 // Auth Selectors (defensive for undefined state before rehydration / SSR)
@@ -78,6 +79,7 @@ export {
   selectFooterVisible,
   selectDisclaimerAcknowledged,
   selectAiDecisionSupportEnabled,
+  selectAiProviderId,
   selectAiModelId,
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,
@@ -115,6 +117,7 @@ export default {
   selectFooterVisible,
   selectDisclaimerAcknowledged,
   selectAiDecisionSupportEnabled,
+  selectAiProviderId,
   selectAiModelId,
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,

@@ -13,7 +13,6 @@ import {
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
-import { AI_MODELS } from '@config/constants';
 import { actions as uiActions } from '@store/slices/ui.slice';
 import useAssessmentScreen from './useAssessmentScreen';
 import {
@@ -83,8 +82,8 @@ const AssessmentScreenWeb = () => {
     recommendationSource,
     setRecommendationSource,
     aiModelId,
+    modelOptions,
   } = useAssessmentScreen();
-  const modelOptions = AI_MODELS.map((m) => ({ value: m.id, label: t(`ventilation.assessment.recommendationSource.${m.labelKey}`) }));
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
   const stepIndicator = `Step ${currentStep + 1} of 5`;

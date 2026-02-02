@@ -81,8 +81,8 @@ const AssessmentScreenAndroid = () => {
     recommendationSource,
     setRecommendationSource,
     aiModelId,
+    modelOptions,
   } = useAssessmentScreen();
-  const modelOptions = AI_MODELS.map((m) => ({ value: m.id, label: t(`ventilation.assessment.recommendationSource.${m.labelKey}`) }));
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
   const hasMissingTests = additionalTestPrompts?.length > 0;

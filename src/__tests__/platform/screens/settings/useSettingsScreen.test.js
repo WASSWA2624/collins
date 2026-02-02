@@ -27,9 +27,28 @@ jest.mock('@services/storage', () => ({
   },
 }));
 
+const OPENAI_STORAGE_KEY = 'VENTILATION_AI_API_KEY';
+const OPENAI_CONFIGURED_KEY = 'ai_api_key_configured';
 jest.mock('@config/constants', () => ({
-  AI_API_KEY_CONFIGURED_ASYNC_KEY: 'ai_api_key_configured',
-  VENTILATION_AI_API_KEY_STORAGE_KEY: 'VENTILATION_AI_API_KEY',
+  AI_PROVIDERS: [
+    {
+      id: 'openai',
+      labelKey: 'settings.ai.providers.openai',
+      storageKey: OPENAI_STORAGE_KEY,
+      configuredAsyncKey: OPENAI_CONFIGURED_KEY,
+      models: [
+        { id: 'gpt-4o-mini', labelKey: 'settings.ai.models.gpt-4o-mini' },
+        { id: 'gpt-4o', labelKey: 'settings.ai.models.gpt-4o' },
+      ],
+    },
+  ],
+  getModelsForProvider: (id) =>
+    id === 'openai'
+      ? [
+          { id: 'gpt-4o-mini', labelKey: 'settings.ai.models.gpt-4o-mini' },
+          { id: 'gpt-4o', labelKey: 'settings.ai.models.gpt-4o' },
+        ]
+      : [],
 }));
 
 const useSettingsScreen = require('@platform/screens/settings/SettingsScreen/useSettingsScreen').default;
@@ -54,6 +73,9 @@ describe('useSettingsScreen', () => {
     const translations = {
       'settings.density.options.compact': 'Compact',
       'settings.density.options.comfortable': 'Comfortable',
+      'settings.ai.providers.openai': 'OpenAI',
+      'settings.ai.models.gpt-4o-mini': 'GPT-4o mini',
+      'settings.ai.models.gpt-4o': 'GPT-4o',
     };
     return translations[key] || key;
   });
@@ -68,6 +90,7 @@ describe('useSettingsScreen', () => {
       ui: {
         density: 'comfortable',
         aiDecisionSupportEnabled: false,
+        aiProviderId: 'openai',
         aiModelId: 'gpt-4o-mini',
       },
     };
@@ -97,13 +120,17 @@ describe('useSettingsScreen', () => {
     expect(typeof result.current.setDensity).toBe('function');
   });
 
-  it('returns AI settings (aiEnabled, aiModelId, aiKeyConfigured, saveAiApiKey, clearAiApiKey)', () => {
+  it('returns AI settings (provider, model, key, options)', () => {
     const { result } = renderHook(() => useSettingsScreen());
     expect(typeof result.current.aiEnabled).toBe('boolean');
+    expect(result.current.aiProviderId).toBe('openai');
     expect(typeof result.current.aiModelId).toBe('string');
     expect(typeof result.current.aiKeyConfigured).toBe('boolean');
+    expect(typeof result.current.setAiProviderId).toBe('function');
+    expect(typeof result.current.setAiModelId).toBe('function');
     expect(typeof result.current.saveAiApiKey).toBe('function');
     expect(typeof result.current.clearAiApiKey).toBe('function');
+    expect(Array.isArray(result.current.aiProviderOptions)).toBe(true);
     expect(Array.isArray(result.current.aiModelOptions)).toBe(true);
   });
 });

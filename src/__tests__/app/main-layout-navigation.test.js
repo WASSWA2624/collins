@@ -198,21 +198,14 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(TabBar).not.toHaveBeenCalled();
     });
 
-    it('should render correct layout structure on web (Sidebar + GlobalHeader + Slot)', () => {
+    it('should render correct layout structure on web (Sidebar + GlobalHeader + Slot, no footer)', () => {
       const { getByTestId } = renderWithProviders(<MainRouteLayoutWeb />);
 
       expect(Sidebar).toHaveBeenCalled();
       expect(GlobalHeader).toHaveBeenCalled();
-      expect(GlobalFooter).toHaveBeenCalled();
+      expect(GlobalFooter).not.toHaveBeenCalled();
       expect(TabBar).not.toHaveBeenCalled();
       expect(getByTestId('slot')).toBeDefined();
-    });
-
-    it('should render GlobalFooter with correct testID on web', () => {
-      renderWithProviders(<MainRouteLayoutWeb />);
-      expect(GlobalFooter).toHaveBeenCalled();
-      const footerCall = GlobalFooter.mock.calls[0];
-      expect(footerCall[0]).toMatchObject({ testID: 'main-footer' });
     });
 
     // Auth flow is introduced in a future phase; this test suite intentionally avoids auth expectations.

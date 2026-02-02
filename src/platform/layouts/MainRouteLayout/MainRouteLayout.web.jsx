@@ -10,7 +10,6 @@ import { Slot } from 'expo-router';
 // 2. Platform components
 import {
   GlobalHeader,
-  GlobalFooter,
   Icon,
   LoadingOverlay,
   NoticeSurface,
@@ -114,7 +113,7 @@ const MainRouteLayoutWeb = () => {
           ) : null}
         </>
       }
-      footer={<GlobalFooter testID="main-footer" />}
+      footer={null}
       overlay={overlaySlot}
       notices={<NoticeSurface testID="main-notice-surface" />}
       sidebarWidth={sidebarWidth}

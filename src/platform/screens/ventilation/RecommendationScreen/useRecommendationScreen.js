@@ -5,11 +5,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useVentilationSession from '@hooks/useVentilationSession';
-import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiModelId } from '@store/selectors';
+import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiProviderId, selectAiModelId } from '@store/selectors';
 import { getVentilationRecommendationUseCase } from '@features/ventilation';
 import { async as asyncStorage } from '@services/storage';
 import { trackScreen, trackEvent } from '@services/analytics';
-import { AI_API_KEY_CONFIGURED_ASYNC_KEY } from '@config/constants';
+import { getAiProviderConfig } from '@config/constants';
 
 const isFiniteNumber = (v) => typeof v === 'number' && Number.isFinite(v);
 
@@ -24,9 +24,12 @@ export default function useRecommendationScreen() {
   } = useVentilationSession();
   const isOnline = useSelector(selectIsOnline);
   const aiEnabled = useSelector(selectAiDecisionSupportEnabled);
+  const aiProviderId = useSelector(selectAiProviderId);
   const aiModelId = useSelector(selectAiModelId);
   const [aiKeyConfigured, setAiKeyConfigured] = useState(false);
   const [isRequestingAi, setIsRequestingAi] = useState(false);
+
+  const providerConfig = useMemo(() => getAiProviderConfig(aiProviderId), [aiProviderId]);
 
   useEffect(() => {
     trackScreen('RecommendationScreen');
@@ -34,11 +37,16 @@ export default function useRecommendationScreen() {
 
   useEffect(() => {
     let cancelled = false;
-    asyncStorage.getItem(AI_API_KEY_CONFIGURED_ASYNC_KEY).then((v) => {
+    const key = providerConfig?.configuredAsyncKey;
+    if (!key) {
+      if (!cancelled) setAiKeyConfigured(false);
+      return () => {};
+    }
+    asyncStorage.getItem(key).then((v) => {
       if (!cancelled) setAiKeyConfigured(v === 'true');
     });
     return () => { cancelled = true; };
-  }, []);
+  }, [providerConfig?.configuredAsyncKey]);
 
   const similarityInput = useMemo(() => {
     const i = inputs && typeof inputs === 'object' ? inputs : {};
@@ -61,7 +69,7 @@ export default function useRecommendationScreen() {
         input: similarityInput,
         ai: {
           isOnline: true,
-          flags: { AI_AUGMENTATION_ENABLED: true, model: aiModelId },
+          flags: { AI_AUGMENTATION_ENABLED: true, aiProviderId, model: aiModelId },
         },
       });
       setRecommendationSummary(rec ?? null);
@@ -71,7 +79,7 @@ export default function useRecommendationScreen() {
     } finally {
       setIsRequestingAi(false);
     }
-  }, [aiEnabled, aiKeyConfigured, isOnline, aiModelId, similarityInput, setRecommendationSummary]);
+  }, [aiEnabled, aiKeyConfigured, isOnline, aiProviderId, aiModelId, similarityInput, setRecommendationSummary]);
 
   const settings = useMemo(
     () => recommendationSummary?.initialVentilatorSettings?.settings ?? null,

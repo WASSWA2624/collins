@@ -4,7 +4,7 @@
  * File: ventilation.api.js
  */
 
-import { VENTILATION_AI_API_KEY_STORAGE_KEY } from '@config/constants';
+import { getAiProviderConfig } from '@config/constants';
 import { aiSdk } from '@services';
 import { secure as secureStorage } from '@services/storage';
 
@@ -62,7 +62,12 @@ const augmentVentilationCaseApi = async ({ caseInput, isOnline, flags } = {}) =>
   if (!minimalPayload) {
     return { ok: false, aiOutput: null, errorCode: VENTILATION_API_ERROR_CODES.INVALID_INPUT };
   }
-  const apiKey = await secureStorage.getItem(VENTILATION_AI_API_KEY_STORAGE_KEY);
+  const providerId = flags?.aiProviderId && typeof flags.aiProviderId === 'string' ? flags.aiProviderId.trim() : 'openai';
+  const providerConfig = getAiProviderConfig(providerId);
+  if (!providerConfig) {
+    return { ok: true, aiOutput: null, errorCode: VENTILATION_API_ERROR_CODES.NO_API_KEY };
+  }
+  const apiKey = await secureStorage.getItem(providerConfig.storageKey);
   if (!apiKey || typeof apiKey !== 'string' || !apiKey.trim()) {
     return { ok: true, aiOutput: null, errorCode: VENTILATION_API_ERROR_CODES.NO_API_KEY };
   }

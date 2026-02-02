@@ -15,7 +15,6 @@ import {
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
-import { AI_MODELS } from '@config/constants';
 import { setAiModelId } from '@store/slices/ui.slice';
 import useAssessmentScreen from './useAssessmentScreen';
 import {
@@ -89,11 +88,8 @@ const AssessmentScreenIOS = () => {
     recommendationSource,
     setRecommendationSource,
     aiModelId,
+    modelOptions,
   } = useAssessmentScreen();
-  const modelOptions = AI_MODELS.map((m) => ({
-    value: m.id,
-    label: t(`ventilation.assessment.recommendationSource.${m.labelKey}`),
-  }));
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
   const hasMissingTests = additionalTestPrompts?.length > 0;

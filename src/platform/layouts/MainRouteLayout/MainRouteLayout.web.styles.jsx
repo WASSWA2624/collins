@@ -8,11 +8,11 @@ const StyledMain = styled.main.withConfig({
   displayName: 'StyledMain',
   componentId: 'StyledMain',
 })`
-  flex: 1;
+  flex: 0 0 auto;
+  min-height: min-content;
   display: flex;
   flex-direction: column;
   min-width: 0;
-  min-height: 0;
   max-width: 100%;
   box-sizing: border-box;
   padding: 0;

@@ -145,11 +145,12 @@ const StyledContent = styled.main.withConfig({
   shouldForwardProp: (prop) => !['hasSidebar', 'hasFooter'].includes(prop),
 })`
   flex: 1;
+  min-height: 0;
   padding: 0;
   margin: 0;
   min-width: 0;
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
@@ -164,8 +165,8 @@ const StyledContentBody = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
+  min-height: min-content;
   min-width: 0;
   overflow-x: hidden;
   overflow-y: visible;

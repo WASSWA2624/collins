@@ -25,8 +25,9 @@ const initialState = {
   // Minimal auth state for Phase 0-7 (guards need this)
   isAuthenticated: false,
   user: null,
-  // AI decision support (P012): enabled + model only; API key never in Redux
+  // AI decision support (P012): enabled + provider + model only; API key never in Redux (AI SDK v5–style)
   aiDecisionSupportEnabled: false,
+  aiProviderId: 'openai',
   aiModelId: 'gpt-4o-mini',
 };
 
@@ -96,6 +97,11 @@ const uiSlice = createSlice({
     },
     setAiDecisionSupportEnabled: (state, action) => {
       state.aiDecisionSupportEnabled = Boolean(action.payload);
+    },
+    setAiProviderId: (state, action) => {
+      if (typeof action.payload === 'string' && action.payload.trim()) {
+        state.aiProviderId = action.payload.trim();
+      }
     },
     setAiModelId: (state, action) => {
       if (typeof action.payload === 'string' && action.payload.trim()) {

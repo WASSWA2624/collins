@@ -32,10 +32,13 @@ const SettingsScreenIOS = () => {
     densityOptions,
     setDensity,
     aiEnabled,
+    aiProviderId,
     aiModelId,
     aiKeyConfigured,
+    aiProviderOptions,
     aiModelOptions,
     setAiEnabled,
+    setAiProviderId,
     setAiModelId,
     saveAiApiKey,
     clearAiApiKey,
@@ -107,6 +110,15 @@ const SettingsScreenIOS = () => {
               accessibilityLabel={t('settings.ai.enableLabel')}
               accessibilityHint={t('settings.ai.enableHint')}
               testID={testIds.aiEnableToggle}
+            />
+            <Select
+              label={t('settings.ai.providerLabel')}
+              accessibilityLabel={t('settings.ai.providerLabel')}
+              accessibilityHint={t('settings.ai.providerHint')}
+              options={aiProviderOptions}
+              value={aiProviderId}
+              onValueChange={setAiProviderId}
+              testID={testIds.aiProviderSelector}
             />
             <TextField
               label={t('settings.ai.apiKeyLabel')}

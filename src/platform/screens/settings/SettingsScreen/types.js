@@ -19,6 +19,7 @@ const SETTINGS_TEST_IDS = {
   aiApiKeyInput: 'settings-ai-api-key-input',
   aiApiKeySave: 'settings-ai-api-key-save',
   aiApiKeyClear: 'settings-ai-api-key-clear',
+  aiProviderSelector: 'settings-ai-provider-selector',
   aiModelSelector: 'settings-ai-model-selector',
 };
 
@@ -29,9 +30,4 @@ const DENSITY_MODES = {
 
 const DENSITY_MODE_VALUES = Object.values(DENSITY_MODES);
 
-const AI_MODEL_OPTIONS = [
-  { value: 'gpt-4o-mini', labelKey: 'settings.ai.models.gpt-4o-mini' },
-  { value: 'gpt-4o', labelKey: 'settings.ai.models.gpt-4o' },
-];
-
-export { SETTINGS_TEST_IDS, DENSITY_MODES, DENSITY_MODE_VALUES, AI_MODEL_OPTIONS };
+export { SETTINGS_TEST_IDS, DENSITY_MODES, DENSITY_MODE_VALUES };
