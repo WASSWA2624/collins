@@ -14,7 +14,7 @@ describe('Step 8.0: App Folder Organization', () => {
   const appPath = path.join(srcPath, 'app');
   const platformLayoutsPath = path.join(srcPath, 'platform', 'layouts');
   const platformCommonPath = path.join(platformLayoutsPath, 'common');
-  const platformRouteLayoutsPath = path.join(platformLayoutsPath, 'RouteLayouts');
+  const platformMainRouteLayoutPath = path.join(platformLayoutsPath, 'MainRouteLayout');
 
   describe('Layout Helpers Organization', () => {
     it('should have ThemeProviderWrapper in platform/layouts/common/', () => {
@@ -199,13 +199,12 @@ describe('Step 8.0: App Folder Organization', () => {
       expect(mainLayoutContent).not.toMatch(/useState/);
     });
 
-    it('should have layout logic in platform/layouts/RouteLayouts/', () => {
-      const mainRouteLayoutPath = path.join(platformRouteLayoutsPath, 'MainRouteLayout');
-      expect(fs.existsSync(mainRouteLayoutPath)).toBe(true);
-      
-      const mainRouteLayoutAndroid = path.join(mainRouteLayoutPath, 'MainRouteLayout.android.jsx');
-      const mainRouteLayoutIos = path.join(mainRouteLayoutPath, 'MainRouteLayout.ios.jsx');
-      const mainRouteLayoutWeb = path.join(mainRouteLayoutPath, 'MainRouteLayout.web.jsx');
+    it('should have layout logic in platform/layouts/MainRouteLayout/', () => {
+      expect(fs.existsSync(platformMainRouteLayoutPath)).toBe(true);
+
+      const mainRouteLayoutAndroid = path.join(platformMainRouteLayoutPath, 'MainRouteLayout.android.jsx');
+      const mainRouteLayoutIos = path.join(platformMainRouteLayoutPath, 'MainRouteLayout.ios.jsx');
+      const mainRouteLayoutWeb = path.join(platformMainRouteLayoutPath, 'MainRouteLayout.web.jsx');
       
       expect(fs.existsSync(mainRouteLayoutAndroid)).toBe(true);
       expect(fs.existsSync(mainRouteLayoutIos)).toBe(true);

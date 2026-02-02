@@ -23,9 +23,9 @@ import { render } from '@testing-library/react-native';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '@store/rootReducer';
 // Import platform-specific implementations for coverage
-import MainRouteLayoutWeb from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.web';
-import MainRouteLayoutAndroid from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.android';
-import MainRouteLayoutIOS from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.ios';
+import MainRouteLayoutWeb from '@platform/layouts/MainRouteLayout/MainRouteLayout.web';
+import MainRouteLayoutAndroid from '@platform/layouts/MainRouteLayout/MainRouteLayout.android';
+import MainRouteLayoutIOS from '@platform/layouts/MainRouteLayout/MainRouteLayout.ios';
 
 // Mock expo-router
 jest.mock('expo-router', () => ({

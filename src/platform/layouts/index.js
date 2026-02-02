@@ -10,7 +10,7 @@ export { default as ModalLayout } from './ModalLayout';
 export { default as AppFrame } from './AppFrame';
 
 // Route layouts (reusable route layout components)
-export { default as MainRouteLayout } from './RouteLayouts/MainRouteLayout';
+export { default as MainRouteLayout } from './MainRouteLayout';
 
 // Common layout components
 export { default as ThemeProviderWrapper } from './common/ThemeProviderWrapper';

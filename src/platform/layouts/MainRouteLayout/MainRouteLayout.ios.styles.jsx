@@ -38,6 +38,15 @@ const StyledDrawerContainer = styled(View).withConfig({
   padding: ${({ theme }) => theme.spacing.md}px;
 `;
 
+const StyledHeaderLeading = styled(View).withConfig({
+  displayName: 'StyledHeaderLeading',
+  componentId: 'StyledHeaderLeading',
+})`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
 export {
   StyledContent,
   StyledDrawerBackdrop,
@@ -45,4 +54,3 @@ export {
   StyledDrawerRoot,
   StyledHeaderLeading,
 };
-

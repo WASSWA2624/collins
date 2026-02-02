@@ -6,7 +6,7 @@
 // 1. External dependencies
 import React, { useCallback, useMemo } from 'react';
 import { Modal, Pressable } from 'react-native';
-import { Slot } from 'expo-router';
+import { Slot, useRouter } from 'expo-router';
 
 // 2. Platform components
 import {
@@ -134,4 +134,3 @@ const MainRouteLayoutIOS = () => {
 };
 
 export default MainRouteLayoutIOS;
-

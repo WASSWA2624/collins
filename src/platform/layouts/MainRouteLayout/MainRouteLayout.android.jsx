@@ -134,4 +134,3 @@ const MainRouteLayoutAndroid = () => {
 };
 
 export default MainRouteLayoutAndroid;
-

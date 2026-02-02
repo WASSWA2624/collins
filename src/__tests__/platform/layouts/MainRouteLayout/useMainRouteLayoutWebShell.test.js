@@ -4,9 +4,9 @@
  */
 import React from 'react';
 import { act } from '@testing-library/react-native';
-import { renderHookResult } from '../../../../helpers/render-hook';
+import { renderHookResult } from '../../../helpers/render-hook';
 
-import useMainRouteLayoutWebShell from '@platform/layouts/RouteLayouts/MainRouteLayout/useMainRouteLayoutWebShell';
+import useMainRouteLayoutWebShell from '@platform/layouts/MainRouteLayout/useMainRouteLayoutWebShell';
 
 describe('useMainRouteLayoutWebShell', () => {
   beforeEach(() => {
@@ -69,4 +69,3 @@ describe('useMainRouteLayoutWebShell', () => {
     expect(value.sidebarWidth).toBe(startWidth);
   });
 });
-

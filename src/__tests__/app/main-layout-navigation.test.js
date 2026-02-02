@@ -13,9 +13,9 @@
 
 import React from 'react';
 import { renderWithProviders } from '../helpers/test-utils';
-import MainRouteLayoutWeb from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.web';
-import MainRouteLayoutAndroid from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.android';
-import MainRouteLayoutIOS from '@platform/layouts/RouteLayouts/MainRouteLayout/MainRouteLayout.ios';
+import MainRouteLayoutWeb from '@platform/layouts/MainRouteLayout/MainRouteLayout.web';
+import MainRouteLayoutAndroid from '@platform/layouts/MainRouteLayout/MainRouteLayout.android';
+import MainRouteLayoutIOS from '@platform/layouts/MainRouteLayout/MainRouteLayout.ios';
 import { GlobalFooter, GlobalHeader, TabBar, Sidebar } from '@platform/components';
 import { Slot } from 'expo-router';
 

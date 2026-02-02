@@ -143,4 +143,3 @@ export {
   StyledSidebarBackdrop,
   StyledSidebarResizeHandle,
 };
-
