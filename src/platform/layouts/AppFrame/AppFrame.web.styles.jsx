@@ -15,7 +15,9 @@ const StyledContainer = styled.div.withConfig({
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   max-width: 100vw;
   position: relative;
@@ -170,6 +172,8 @@ const StyledContentBody = styled.div.withConfig({
   min-width: 0;
   overflow-x: hidden;
   overflow-y: visible;
+  padding-bottom: calc(${({ theme }) => theme.spacing.xl}px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
 `;
 
 const FOOTER_HEIGHT_PX = 40;

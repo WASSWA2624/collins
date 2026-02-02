@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Slot } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ErrorBoundary } from '@errors';
 import { I18nProvider } from '@i18n';
 import { bootstrapApp } from '@bootstrap';
@@ -111,15 +112,17 @@ const RootLayout = () => {
   // Bootstrap completed successfully, render providers
   const persistor = store?.persistor;
   const appContent = (
-    <RTLDirectionSync>
-      <ThemeProviderWrapper>
-        <I18nProvider>
-          <StyledRootContainer>
-            <Slot />
-          </StyledRootContainer>
-        </I18nProvider>
-      </ThemeProviderWrapper>
-    </RTLDirectionSync>
+    <SafeAreaProvider>
+      <RTLDirectionSync>
+        <ThemeProviderWrapper>
+          <I18nProvider>
+            <StyledRootContainer>
+              <Slot />
+            </StyledRootContainer>
+          </I18nProvider>
+        </ThemeProviderWrapper>
+      </RTLDirectionSync>
+    </SafeAreaProvider>
   );
 
   return (

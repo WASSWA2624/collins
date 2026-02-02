@@ -4,7 +4,9 @@
  * File: AppFrame.android.jsx
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from 'styled-components/native';
 import { useI18n } from '@hooks';
 import {
   StyledBanner,
@@ -46,6 +48,8 @@ const AppFrameAndroid = ({
   testID,
 }) => {
   const { t } = useI18n();
+  const theme = useTheme();
+  const { bottom: bottomInset } = useSafeAreaInsets();
   const { hasBanner, hasBreadcrumbs, hasFooter, hasHeader, hasOverlay, hasSidebar } = useAppFrame({
     header,
     footer,
@@ -54,6 +58,14 @@ const AppFrameAndroid = ({
     overlay,
     banner,
   });
+
+  const scrollContentStyle = useMemo(
+    () => ({
+      flexGrow: 1,
+      paddingBottom: bottomInset + (theme?.spacing?.md ?? 16),
+    }),
+    [bottomInset, theme?.spacing?.md]
+  );
 
   return (
     <StyledContainer accessibilityRole="main" accessibilityLabel={accessibilityLabel} testID={testID}>
@@ -72,12 +84,16 @@ const AppFrameAndroid = ({
           {breadcrumbs}
         </StyledBreadcrumbs>
       )}
-      <StyledScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <StyledScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={scrollContentStyle}
+      >
         {hasSidebar && <StyledSidebar>{sidebar}</StyledSidebar>}
         <StyledContent>{children}</StyledContent>
       </StyledScrollView>
       {hasFooter && (
-        <StyledFooter accessibilityRole="contentinfo">
+        <StyledFooter accessibilityRole="contentinfo" bottomInset={bottomInset}>
           {footer}
         </StyledFooter>
       )}

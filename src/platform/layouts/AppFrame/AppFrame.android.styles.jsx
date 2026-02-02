@@ -81,15 +81,14 @@ const StyledFooter = styled.View.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
 })`
-  height: ${FOOTER_HEIGHT}px;
   min-height: ${FOOTER_HEIGHT}px;
-  max-height: ${FOOTER_HEIGHT}px;
   flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
   padding-horizontal: ${({ theme }) => theme.spacing.md}px;
   padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+  padding-bottom: ${({ bottomInset, theme }) => (theme?.spacing?.sm ?? 8) + (typeof bottomInset === 'number' ? bottomInset : 0)}px;
   justify-content: center;
 `;
 

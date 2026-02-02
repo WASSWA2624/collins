@@ -366,6 +366,7 @@ const StyledActionsRow = styled.div.withConfig({
   display: flex;
   gap: ${({ theme }) => theme.spacing.sm}px;
   margin-top: ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: env(safe-area-inset-bottom, 0px);
   flex-wrap: wrap;
 `;
 
