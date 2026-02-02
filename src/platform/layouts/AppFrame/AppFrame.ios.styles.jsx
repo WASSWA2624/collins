@@ -64,8 +64,7 @@ const StyledSidebar = styled.View.withConfig({
   displayName: 'StyledSidebar',
   componentId: 'StyledSidebar',
 })`
-  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-top: ${({ theme }) => theme.spacing.md}px;
+  padding: 0;
 `;
 
 const StyledContent = styled.View.withConfig({
@@ -73,7 +72,7 @@ const StyledContent = styled.View.withConfig({
   componentId: 'StyledContent',
 })`
   flex: 1;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: 0;
 `;
 
 const FOOTER_HEIGHT = 48;

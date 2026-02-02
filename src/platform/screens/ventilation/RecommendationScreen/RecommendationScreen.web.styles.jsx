@@ -1,16 +1,8 @@
 /**
  * RecommendationScreen Web Styles
- * File: RecommendationScreen.web.styles.jsx
+ * Word-like document layout. File: RecommendationScreen.web.styles.jsx
  */
 import styled from 'styled-components';
-
-const boxShadowFromToken = (token) => {
-  if (!token || typeof token !== 'object') return '0 1px 3px rgba(0,0,0,0.08)';
-  const { shadowOffset = {}, shadowRadius = 2, shadowOpacity = 0.1 } = token;
-  const h = shadowOffset.height ?? 1;
-  const w = shadowOffset.width ?? 0;
-  return `${w}px ${h}px ${(shadowRadius || 2) * 2}px rgba(0,0,0,${shadowOpacity})`;
-};
 
 const StyledContainer = styled.main.withConfig({
   displayName: 'StyledContainer',
@@ -19,11 +11,12 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.xl}px;
+  box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-direction: row;
@@ -49,11 +42,11 @@ const StyledSummaryPane = styled.aside.withConfig({
   componentId: 'StyledSummaryPane',
 })`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm)};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     width: 320px;

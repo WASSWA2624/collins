@@ -10,9 +10,10 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
-  min-height: 100vh;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  min-height: 100%;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
+  box-sizing: border-box;
 `;
 
 const StyledContent = styled.div.withConfig({
@@ -28,7 +29,7 @@ const StyledSection = styled.section.withConfig({
   displayName: 'StyledSection',
   componentId: 'StyledSection',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px 0;
+  padding: ${({ theme }) => theme.spacing.lg}px 0;
 `;
 
 const StyledMetaRow = styled.div.withConfig({
@@ -42,8 +43,12 @@ const StyledSourceItem = styled.article.withConfig({
   displayName: 'StyledSourceItem',
   componentId: 'StyledSourceItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary ?? theme.colors.background.secondary};
+  padding: ${({ theme }) => theme.spacing.lg}px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export { StyledContainer, StyledContent, StyledSection, StyledMetaRow, StyledSourceItem };

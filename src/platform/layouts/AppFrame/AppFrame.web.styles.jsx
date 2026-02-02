@@ -45,7 +45,7 @@ const StyledBreadcrumbs = styled.nav.withConfig({
   displayName: 'StyledBreadcrumbs',
   componentId: 'StyledBreadcrumbs',
 })`
-  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.xs}px 0;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
 `;
@@ -59,10 +59,36 @@ const StyledBody = styled.div.withConfig({
   flex-direction: row;
   min-height: 0;
   min-width: 0;
+  box-sizing: border-box;
   /* Own the vertical scroll to avoid nested gutters. */
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-gutter: stable;
+  @supports (scrollbar-gutter: stable) {
+    scrollbar-gutter: stable;
+  }
+
+  @supports not (scrollbar-gutter: stable) {
+    /* Reserve a gutter when overlay scrollbars are used. */
+    padding-right: calc(100vw - 100%);
+  }
+
+  scrollbar-width: auto;
+  scrollbar-color: ${({ theme }) =>
+    `${theme.colors.background.tertiary} ${theme.colors.background.secondary}`};
+
+  &::-webkit-scrollbar {
+    width: calc(${({ theme }) => theme.spacing.sm}px + ${({ theme }) => theme.spacing.xs}px);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.background.secondary};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.background.tertiary};
+    border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
+    border: ${({ theme }) => theme.spacing.xs}px solid ${({ theme }) => theme.colors.background.secondary};
+  }
 `;
 
 const StyledSidebar = styled.aside.withConfig({
@@ -119,7 +145,7 @@ const StyledContent = styled.main.withConfig({
   shouldForwardProp: (prop) => !['hasSidebar', 'hasFooter'].includes(prop),
 })`
   flex: 1;
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  padding: 0;
   margin: 0;
   min-width: 0;
   overflow-x: hidden;
@@ -129,13 +155,7 @@ const StyledContent = styled.main.withConfig({
   flex-direction: column;
   gap: 0;
   max-width: 100%;
-  width: 100%;
   box-sizing: border-box;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    padding-left: ${({ theme }) => theme.spacing.xl}px;
-    padding-right: ${({ theme }) => theme.spacing.xl}px;
-  }
 `;
 
 const StyledContentBody = styled.div.withConfig({
@@ -151,7 +171,7 @@ const StyledContentBody = styled.div.withConfig({
   overflow-y: visible;
 `;
 
-const FOOTER_HEIGHT_PX = 48;
+const FOOTER_HEIGHT_PX = 40;
 
 const StyledFooter = styled.footer.withConfig({
   displayName: 'StyledFooter',
@@ -159,6 +179,9 @@ const StyledFooter = styled.footer.withConfig({
 })`
   flex-shrink: 0;
   flex-grow: 0;
+  flex-basis: ${FOOTER_HEIGHT_PX}px;
+  display: flex;
+  align-items: center;
   height: ${FOOTER_HEIGHT_PX}px;
   min-height: ${FOOTER_HEIGHT_PX}px;
   max-height: ${FOOTER_HEIGHT_PX}px;
@@ -168,6 +191,7 @@ const StyledFooter = styled.footer.withConfig({
   border-top: none;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 `;
 
 const StyledOverlay = styled.div.withConfig({

@@ -10,9 +10,10 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
-  min-height: 100vh;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  min-height: 100%;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
+  box-sizing: border-box;
 `;
 
 const StyledContent = styled.div.withConfig({
@@ -28,16 +29,22 @@ const StyledSection = styled.section.withConfig({
   displayName: 'StyledSection',
   componentId: 'StyledSection',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px 0;
+  padding: ${({ theme }) => theme.spacing.lg}px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+
+  &:last-of-type {
+    border-bottom: none;
+  }
 `;
 
 const StyledNotice = styled.div.withConfig({
   displayName: 'StyledNotice',
   componentId: 'StyledNotice',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radii?.md ?? 8}px;
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-left: 4px solid ${({ theme }) => theme.colors.warning};
 `;
 
 export { StyledContainer, StyledContent, StyledSection, StyledNotice };

@@ -19,11 +19,12 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.xl}px;
+  box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-direction: row;
@@ -59,11 +60,11 @@ const StyledWizardCard = styled.div.withConfig({
   componentId: 'StyledWizardCard',
 })`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm)};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
 `;
 
@@ -72,11 +73,11 @@ const StyledSummaryPane = styled.aside.withConfig({
   componentId: 'StyledSummaryPane',
 })`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm)};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     width: 340px;

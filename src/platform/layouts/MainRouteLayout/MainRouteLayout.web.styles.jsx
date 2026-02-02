@@ -15,8 +15,7 @@ const StyledMain = styled.main.withConfig({
   min-height: 0;
   max-width: 100%;
   box-sizing: border-box;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  padding-bottom: ${({ theme }) => theme.spacing.xl}px;
+  padding: 0;
   overflow-x: hidden;
   overflow-y: visible;
 `;

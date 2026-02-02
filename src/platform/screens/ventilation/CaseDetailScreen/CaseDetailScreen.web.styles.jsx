@@ -11,11 +11,12 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.xl}px;
+  box-sizing: border-box;
 `;
 
 const StyledSection = styled.section.withConfig({
@@ -39,9 +40,9 @@ const StyledBlock = styled.div.withConfig({
   displayName: 'StyledBlock',
   componentId: 'StyledBlock',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
 `;
 

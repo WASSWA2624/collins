@@ -1,17 +1,9 @@
 /**
  * SettingsScreen Web Styles
+ * Word-like document layout. Per theme-design.mdc: responsive, theme tokens.
  * File: SettingsScreen.web.styles.jsx
- * Per theme-design.mdc: responsive, card patterns, theme tokens.
  */
 import styled from 'styled-components';
-
-const boxShadowFromToken = (token) => {
-  if (!token || typeof token !== 'object') return '0 1px 3px rgba(0,0,0,0.06)';
-  const { shadowOffset = {}, shadowRadius = 2, shadowOpacity = 0.1 } = token;
-  const h = shadowOffset.height ?? 1;
-  const w = shadowOffset.width ?? 0;
-  return `${w}px ${h}px ${(shadowRadius || 2) * 2}px rgba(0,0,0,${shadowOpacity})`;
-};
 
 const StyledContainer = styled.main.withConfig({
   displayName: 'StyledContainer',
@@ -20,10 +12,12 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 0;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  box-sizing: border-box;
 `;
 
 const StyledContent = styled.div.withConfig({
@@ -35,7 +29,7 @@ const StyledContent = styled.div.withConfig({
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.xl}px;
 `;
 
 const StyledHeader = styled.header.withConfig({
@@ -49,16 +43,16 @@ const StyledSection = styled.section.withConfig({
   displayName: 'StyledSection',
   componentId: 'StyledSection',
 })`
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border: 1px solid ${({ theme }) => theme.colors.background.tertiary ?? theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm)};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:focus-within {
-    box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.md)};
     border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {

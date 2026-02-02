@@ -12,8 +12,8 @@ const StyledContainer = styled(View).withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  background-color: ${({ theme }) => theme.colors.background};
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const StyledContent = styled(View).withConfig({

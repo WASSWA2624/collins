@@ -10,15 +10,14 @@ const StyledNotFoundContainer = styled.main.withConfig({
   componentId: 'StyledNotFoundContainer',
 })`
   width: 100%;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding-top: ${({ theme }) => theme.spacing.xl * 2}px;
-  padding-bottom: ${({ theme }) => theme.spacing.xl * 2}px;
-  padding-left: ${({ theme }) => theme.spacing.lg}px;
-  padding-right: ${({ theme }) => theme.spacing.lg}px;
+  min-height: 100%;
+  flex: 1;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 `;
 
 const StyledContent = styled.div.withConfig({

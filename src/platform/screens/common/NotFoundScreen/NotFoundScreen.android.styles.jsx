@@ -20,11 +20,8 @@ const StyledNotFoundContainer = styled(View).withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding-top: ${({ theme }) => theme.spacing.xl * 2}px;
-  padding-bottom: ${({ theme }) => theme.spacing.xl * 2}px;
-  padding-left: ${({ theme }) => theme.spacing.lg}px;
-  padding-right: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
 `;
 
 const StyledContent = styled(View).withConfig({

@@ -11,10 +11,12 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg}px;
+  box-sizing: border-box;
 `;
 
 const StyledBanner = styled.div.withConfig({
@@ -65,10 +67,15 @@ const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.text.tertiary};
+  }
 `;
 
 const StyledItemRow = styled.div.withConfig({
