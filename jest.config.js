@@ -60,6 +60,8 @@ module.exports = {
         '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/test/mocks/NativeModules.js',
         '^expo/src/async-require/messageSocket$': '<rootDir>/test/mocks/expoMessageSocket.js',
         '^expo-modules-core/src/polyfill/dangerous-internal$': '<rootDir>/test/mocks/expoDangerousInternal.js',
+        '^expo/src/winter/FormData$': '<rootDir>/test/mocks/expoWinterFormData.js',
+        '^expo/src/winter$': '<rootDir>/test/mocks/expoWinter.js',
       },
     },
     {
@@ -100,6 +102,8 @@ module.exports = {
         '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/test/mocks/NativeModules.js',
         '^expo/src/async-require/messageSocket$': '<rootDir>/test/mocks/expoMessageSocket.js',
         '^expo-modules-core/src/polyfill/dangerous-internal$': '<rootDir>/test/mocks/expoDangerousInternal.js',
+        '^expo/src/winter/FormData$': '<rootDir>/test/mocks/expoWinterFormData.js',
+        '^expo/src/winter$': '<rootDir>/test/mocks/expoWinter.js',
       },
     },
   ],

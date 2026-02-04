@@ -22,11 +22,14 @@ const resolveColor = ({ theme, tone }) => {
   return theme.colors.text.primary;
 };
 
+/** Android requires a single font name; never use CSS font stacks. */
+const NATIVE_FONT = 'System';
+
 const StyledIconText = styled.Text.withConfig({
   displayName: 'StyledIconText',
   componentId: 'StyledIconText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${NATIVE_FONT};
   font-size: ${(props) => resolveFontSize(props)}px;
   line-height: ${(props) => Math.round(resolveFontSize(props) * 1.2)}px;
   color: ${(props) => resolveColor(props)};

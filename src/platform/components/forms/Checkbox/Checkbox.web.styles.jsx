@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Checkbox Web Styles
  * Styled-components for Web platform
  * File: Checkbox.web.styles.jsx
@@ -80,7 +80,7 @@ const StyledCheckboxLabel = styled.span.withConfig({
   displayName: 'StyledCheckboxLabel',
   componentId: 'StyledCheckboxLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: 400;
   line-height: ${({ theme }) =>
@@ -90,5 +90,6 @@ const StyledCheckboxLabel = styled.span.withConfig({
 `;
 
 export { StyledCheckbox, StyledCheckboxInput, StyledCheckboxBox, StyledCheckboxCheck, StyledCheckboxLabel };
+
 
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SearchBar Web Styles
  * Styled-components for Web platform
  * File: SearchBar.web.styles.jsx
@@ -38,5 +38,6 @@ export {
   StyledSearchIcon,
   StyledTextFieldWrapper,
 };
+
 
 

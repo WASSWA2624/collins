@@ -18,7 +18,7 @@ const StyledLabel = styled.label.withConfig({
   displayName: 'StyledLabel',
   componentId: 'StyledLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -60,7 +60,7 @@ const StyledInput = styled.textarea.withConfig({
   displayName: 'StyledInput',
   componentId: 'StyledInput',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   color: ${({ theme, disabled }) => (disabled ? theme.colors.text.tertiary : theme.colors.text.primary)};
   border: none;
@@ -84,7 +84,7 @@ const StyledHelperText = styled.span.withConfig({
   displayName: 'StyledHelperText',
   componentId: 'StyledHelperText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   color: ${({ validationState, theme }) => {
     if (validationState === 'error') return theme.colors.error;
@@ -99,7 +99,7 @@ const StyledCharacterCounter = styled.span.withConfig({
   displayName: 'StyledCharacterCounter',
   componentId: 'StyledCharacterCounter',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   color: ${({ theme }) => theme.colors.text.tertiary};
   margin-top: ${({ theme }) => theme.spacing.xs}px;
@@ -123,5 +123,6 @@ export {
   StyledCharacterCounter,
   StyledRequiredIndicator,
 };
+
 
 

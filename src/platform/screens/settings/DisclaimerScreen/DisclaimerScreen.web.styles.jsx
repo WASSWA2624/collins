@@ -48,3 +48,4 @@ const StyledNotice = styled.div.withConfig({
 `;
 
 export { StyledContainer, StyledContent, StyledSection, StyledNotice };
+

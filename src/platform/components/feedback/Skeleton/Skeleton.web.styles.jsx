@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Skeleton Web Styles
  * Styled-components for Web platform
  * File: Skeleton.web.styles.jsx
@@ -64,5 +64,6 @@ const StyledSkeleton = styled.div.withConfig({
 `;
 
 export { StyledSkeleton };
+
 
 

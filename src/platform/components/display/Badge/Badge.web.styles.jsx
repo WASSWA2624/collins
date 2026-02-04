@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Badge Web Styles
  * Styled-components for Web platform
  * File: Badge.web.styles.jsx
@@ -44,7 +44,7 @@ const StyledBadge = styled.span.withConfig({
 const StyledBadgeText = styled.span.withConfig({
   displayName: 'StyledBadgeText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.xs,
@@ -68,5 +68,6 @@ const StyledBadgeText = styled.span.withConfig({
 `;
 
 export { StyledBadge, StyledBadgeText };
+
 
 

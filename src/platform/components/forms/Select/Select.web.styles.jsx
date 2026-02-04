@@ -31,7 +31,7 @@ const StyledLabel = styled.label.withConfig({
   displayName: 'StyledLabel',
   componentId: 'StyledLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -42,7 +42,7 @@ const StyledRequired = styled.span.withConfig({
   displayName: 'StyledRequired',
   componentId: 'StyledRequired',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.error};
@@ -88,7 +88,7 @@ const StyledTriggerText = styled.span.withConfig({
   shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   flex: 1;
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   color: ${({ disabled, $isPlaceholder, theme }) => {
     if (disabled) return theme.colors.text.tertiary;
@@ -159,7 +159,7 @@ const StyledOptionText = styled.span.withConfig({
   displayName: 'StyledOptionText',
   componentId: 'StyledOptionText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   color: ${({ theme }) => theme.colors.text.primary};
   display: block;
@@ -170,7 +170,7 @@ const StyledHelperText = styled.span.withConfig({
   componentId: 'StyledHelperText',
   shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   color: ${({ $validationState, theme }) => {
     if ($validationState === 'error') return theme.colors.error;
@@ -194,5 +194,6 @@ export {
   StyledOptionText,
   StyledHelperText,
 };
+
 
 

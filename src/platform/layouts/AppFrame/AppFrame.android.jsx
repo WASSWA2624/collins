@@ -70,7 +70,7 @@ const AppFrameAndroid = ({
   return (
     <StyledContainer accessibilityRole="main" accessibilityLabel={accessibilityLabel} testID={testID}>
       {hasHeader && (
-        <StyledHeader accessibilityRole="banner">
+        <StyledHeader accessibilityRole="header">
           {header}
         </StyledHeader>
       )}

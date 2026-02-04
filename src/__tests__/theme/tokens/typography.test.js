@@ -20,6 +20,8 @@ describe('Typography Tokens (Step 3.3)', () => {
       expect.objectContaining({
         regular: expect.any(String),
         bold: expect.any(String),
+        regularWeb: expect.any(String),
+        boldWeb: expect.any(String),
       })
     );
 

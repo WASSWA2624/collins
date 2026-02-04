@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Avatar Web Styles
  * Styled-components for Web platform
  * File: Avatar.web.styles.jsx
@@ -41,7 +41,7 @@ const StyledAvatarImage = styled.img.withConfig({
 const StyledAvatarText = styled.span.withConfig({
   displayName: 'StyledAvatarText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.bold};
+  font-family: ${({ theme }) => theme.typography.fontFamily.boldWeb};
   font-size: ${({ size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.xs,
@@ -57,5 +57,6 @@ const StyledAvatarText = styled.span.withConfig({
 `;
 
 export { StyledAvatar, StyledAvatarImage, StyledAvatarText };
+
 
 

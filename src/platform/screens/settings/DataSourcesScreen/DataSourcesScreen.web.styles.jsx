@@ -52,3 +52,4 @@ const StyledSourceItem = styled.article.withConfig({
 `;
 
 export { StyledContainer, StyledContent, StyledSection, StyledMetaRow, StyledSourceItem };
+

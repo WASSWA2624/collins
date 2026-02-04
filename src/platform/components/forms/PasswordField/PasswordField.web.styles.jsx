@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PasswordField Web Styles
  * Styled-components for Web platform
  * File: PasswordField.web.styles.jsx
@@ -55,5 +55,6 @@ export {
   StyledPasswordStrengthBar,
   StyledPasswordStrengthLabel,
 };
+
 
 

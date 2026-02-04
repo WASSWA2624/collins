@@ -96,6 +96,13 @@ Structure enables:
 ├── metro.config.js          # Metro bundler configuration
 ├── package.json             # Dependencies & scripts
 ├── index.js                 # Expo entry point
+├── debug/                   # Generated log files only (see debug.mdc)
+│   ├── .gitkeep, README.md
+│   └── *.log                # expo-debug, android-debug, ios-debug, web-debug (gitignored)
+├── scripts/                 # Project scripts
+│   ├── debug/               # Debug script files (ESM .mjs) — write logs to root debug/
+│   │   └── *.mjs            # expo-with-logging, android/ios logcat, web-log-receiver, debug-all
+│   └── ...                  # Other scripts (e.g. android-logs, generate-locales)
 └── src/                     # Application source root
     ├── app/                 # Expo App Router routes & layouts
     │   ├── _layout.jsx                                  # Root layout (providers, guards, theme, store)

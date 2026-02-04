@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Radio Web Styles
  * Styled-components for Web platform
  * File: Radio.web.styles.jsx
@@ -61,7 +61,7 @@ const StyledRadioLabel = styled.span.withConfig({
   displayName: 'StyledRadioLabel',
   componentId: 'StyledRadioLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: 400;
   line-height: ${({ theme }) => theme.typography.fontSize.md * theme.typography.lineHeight.normal}px;
@@ -69,3 +69,4 @@ const StyledRadioLabel = styled.span.withConfig({
 `;
 
 export { StyledRadio, StyledRadioCircle, StyledRadioDot, StyledRadioLabel };
+

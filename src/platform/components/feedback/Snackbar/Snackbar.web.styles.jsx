@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Snackbar Web Styles
  * Styled-components for Web platform
  * File: Snackbar.web.styles.jsx
@@ -59,7 +59,7 @@ const StyledSnackbarText = styled.span.withConfig({
   displayName: 'StyledSnackbarText',
   componentId: 'StyledSnackbarText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   line-height: ${({ theme }) => theme.typography.fontSize.md * theme.typography.lineHeight.normal}px;
@@ -105,7 +105,7 @@ const StyledActionButtonText = styled.span.withConfig({
   displayName: 'StyledActionButtonText',
   componentId: 'StyledActionButtonText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.onPrimary || theme.colors.text.inverse};
@@ -114,5 +114,6 @@ const StyledActionButtonText = styled.span.withConfig({
 `;
 
 export { StyledSnackbar, StyledSnackbarText, StyledActionButton, StyledActionButtonText };
+
 
 

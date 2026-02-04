@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Container Web Styles
  * Styled-components for Web platform
  * File: Container.web.styles.jsx
@@ -25,5 +25,6 @@ const StyledContainer = styled(View).withConfig({
 `;
 
 export { StyledContainer };
+
 
 

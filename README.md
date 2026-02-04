@@ -31,6 +31,28 @@ This repo includes `src/config/data/ventilation_dataset.json`, intended as the *
 3. Start the app:
    - `npm run start`
 
+## Building an APK (EAS Build)
+
+1. **Install EAS CLI** (once):  
+   `npm install -g eas-cli`
+
+2. **Log in to Expo**:  
+   `eas login`  
+   (Create an account at [expo.dev](https://expo.dev) if needed.)
+
+3. **Build Android APK**:  
+   `eas build --platform android --profile preview`  
+   This uses the `preview` profile in `eas.json`, which is configured to produce an **APK** (internal distribution).
+
+4. **Download the APK**:  
+   After the build finishes, use the link from the CLI or open [expo.dev](https://expo.dev) → your project → Builds to download the APK.
+
+5. **Install on a device**:  
+   Transfer the APK to an Android device and enable “Install from unknown sources” (or “Install unknown apps”) for the app you use to open the file, then install.
+
+For a **production AAB** (Play Store):  
+`eas build --platform android --profile production`
+
 ## Common scripts
 - `npm run start` – start Expo dev server (clears cache)
 - `npm run android` – run on Android

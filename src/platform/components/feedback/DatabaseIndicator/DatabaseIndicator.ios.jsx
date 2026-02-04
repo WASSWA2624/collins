@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { useI18n } from '@hooks';
-import { DatabaseConnectivityIcon } from '@platform/components';
+import DatabaseConnectivityIcon from '../DatabaseConnectivityIcon';
 import { StyledIndicator } from './DatabaseIndicator.ios.styles';
 
 const DatabaseIndicatorIOS = ({ testID, style, title, accessibilityLabel, ...rest }) => {

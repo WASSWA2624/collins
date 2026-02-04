@@ -1,4 +1,4 @@
-﻿/**
+/**
  * List Web Styles
  * Styled-components for Web platform
  * File: List.web.styles.jsx
@@ -15,5 +15,6 @@ const StyledList = styled(View).withConfig({
 `;
 
 export { StyledList };
+
 
 

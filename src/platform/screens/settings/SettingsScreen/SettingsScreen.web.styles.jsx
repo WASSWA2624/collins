@@ -71,3 +71,4 @@ const StyledSectionTitle = styled.div.withConfig({
 `;
 
 export { StyledContainer, StyledContent, StyledHeader, StyledSection, StyledSectionTitle };
+

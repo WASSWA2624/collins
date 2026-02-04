@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ProgressBar Web Styles
  * Styled-components for Web platform
  * File: ProgressBar.web.styles.jsx
@@ -48,5 +48,6 @@ const StyledProgressBarFill = styled.div.withConfig({
 `;
 
 export { StyledProgressBar, StyledProgressBarTrack, StyledProgressBarFill };
+
 
 

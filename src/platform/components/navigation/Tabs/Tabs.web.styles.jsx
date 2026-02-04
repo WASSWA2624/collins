@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tabs Web Styles
  * Styled-components for Web platform
  * File: Tabs.web.styles.jsx
@@ -18,5 +18,6 @@ const StyledTabs = styled(View).withConfig({
 `;
 
 export { StyledTabs };
+
 
 

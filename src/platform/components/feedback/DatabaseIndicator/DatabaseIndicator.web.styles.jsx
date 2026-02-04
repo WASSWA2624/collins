@@ -27,3 +27,4 @@ const StyledIndicator = styled.div.withConfig({
 `;
 
 export { StyledIndicator };
+

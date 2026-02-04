@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dropdown Web Styles
  * Styled-components for Web platform
  * File: Dropdown.web.styles.jsx
@@ -76,5 +76,6 @@ export {
   StyledDropdownMenu,
   StyledDropdownItem,
 };
+
 
 

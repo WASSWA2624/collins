@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tab Web Styles
  * Styled-components for Web platform
  * File: Tab.web.styles.jsx
@@ -50,7 +50,7 @@ const StyledTab = styled(Pressable).withConfig({
 const StyledTabText = styled(Text).withConfig({
   displayName: 'StyledTabText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: ${({ active }) => (active ? 600 : 500)};
   line-height: ${({ theme }) => theme.typography.fontSize.md * theme.typography.lineHeight.normal}px;
@@ -69,5 +69,6 @@ export {
   StyledTab,
   StyledTabText,
 };
+
 
 

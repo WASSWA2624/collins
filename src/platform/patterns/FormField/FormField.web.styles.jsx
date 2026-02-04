@@ -1,4 +1,4 @@
-﻿/**
+/**
  * FormField Web Styles
  * Styled-components for Web platform
  * File: FormField.web.styles.jsx
@@ -18,7 +18,7 @@ const StyledLabel = styled.label.withConfig({
   displayName: 'StyledLabel',
   componentId: 'StyledLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -34,5 +34,6 @@ export {
   StyledContainer,
   StyledLabel,
 };
+
 
 

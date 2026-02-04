@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tooltip Web Styles
  * Styled-components for Web platform
  * File: Tooltip.web.styles.jsx
@@ -118,7 +118,7 @@ const StyledTooltipText = styled.span.withConfig({
   displayName: 'StyledTooltipText',
   componentId: 'StyledTooltipText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
   line-height: ${({ theme }) => theme.typography.fontSize.sm * theme.typography.lineHeight.normal}px;
@@ -127,5 +127,6 @@ const StyledTooltipText = styled.span.withConfig({
 `;
 
 export { StyledTooltip, StyledTooltipText };
+
 
 

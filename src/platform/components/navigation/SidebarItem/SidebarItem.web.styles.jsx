@@ -54,3 +54,4 @@ export const Label = styled.span.withConfig({
     display: inline;
   }
 `;
+

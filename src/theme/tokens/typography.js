@@ -5,8 +5,14 @@
 
 export default {
   fontFamily: {
-    regular: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    bold: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    /** Single font for native (Android/iOS); React Native cannot parse CSS font stacks. */
+    regular: 'System',
+    medium: 'System',
+    bold: 'System',
+    /** Web-only: CSS font stack for cross-browser system fonts. */
+    regularWeb: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    mediumWeb: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    boldWeb: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   fontSize: {
     xs: 12,
@@ -23,8 +29,10 @@ export default {
   },
   fontWeight: {
     normal: 400,
+    regular: 400,
     medium: 500,
     semibold: 600,
+    semiBold: 600,
     bold: 700,
   },
 };

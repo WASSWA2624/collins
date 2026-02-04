@@ -40,7 +40,7 @@ const StyledTitle = styled.h2.withConfig({
   displayName: 'StyledTitle',
   componentId: 'StyledTitle',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.md,
@@ -67,7 +67,7 @@ const StyledDescription = styled.p.withConfig({
   displayName: 'StyledDescription',
   componentId: 'StyledDescription',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.sm,
@@ -101,4 +101,5 @@ const StyledActionContainer = styled.div.withConfig({
 `;
 
 export { StyledErrorState, StyledIconContainer, StyledTitle, StyledDescription, StyledActionContainer };
+
 

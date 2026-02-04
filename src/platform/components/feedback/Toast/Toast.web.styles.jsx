@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Toast Web Styles
  * Styled-components for Web platform
  * File: Toast.web.styles.jsx
@@ -103,7 +103,7 @@ const StyledToastText = styled.span.withConfig({
   displayName: 'StyledToastText',
   componentId: 'StyledToastText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   line-height: ${({ theme }) => theme.typography.fontSize.md * theme.typography.lineHeight.normal}px;
@@ -113,5 +113,6 @@ const StyledToastText = styled.span.withConfig({
 `;
 
 export { StyledToast, StyledToastText };
+
 
 

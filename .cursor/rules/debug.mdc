@@ -1,0 +1,71 @@
+---
+alwaysApply: true
+---
+
+# Debug System Standards
+
+## Purpose
+Define the **cross-platform debugging system** used to capture runtime logs to disk for analysis in the IDE. Development-only; must not affect production builds.
+
+Goals:
+- Capture Expo/Metro, Android, iOS, and web console output to log files
+- Overwrite log files on each run (no append)
+- Debug script files live in `scripts/debug/`; generated log files live in root `debug/`
+- Run from IDE terminal with logs visible and persisted
+
+## Folder Structure
+
+```txt
+debug/                          # Project root: generated log files only (gitignored *.log)
+├── .gitkeep
+├── README.md                   # Log file reference and commands
+├── expo-debug.log              # Written by scripts in scripts/debug/; gitignored
+├── android-debug.log
+├── ios-debug.log
+└── web-debug.log
+
+scripts/debug/                  # Debug script files (Node.js ESM .mjs, per coding-conventions.mdc)
+├── expo-with-logging.mjs       # Starts Expo, tees to debug/expo-debug.log
+├── android-debug-logcat.mjs    # adb logcat → debug/android-debug.log
+├── ios-debug-logcat.mjs        # iOS simulator log stream → debug/ios-debug.log (macOS only)
+├── web-log-receiver.mjs        # HTTP server for browser console → debug/web-debug.log
+└── debug-all.mjs               # Runs expo + android + ios loggers together
+
+src/debug/                      # In-app debug code (e.g. web console logger)
+└── web-console-logger.js       # Patches console on web in __DEV__; sends to receiver
+```
+
+## Log File Rules
+
+- **Overwrite**: Each script run **overwrites** its log file (flags `'w'`), not append.
+- **Location**: All `*.log` files live in **`debug/` at project root** (generated output only).
+- **Gitignore**: `debug/*.log` is ignored; `debug/.gitkeep` and `debug/README.md` are committed.
+
+## Script Rules
+
+- Debug scripts are **Node.js ESM** (`.mjs`, `import`/`export`) in **`scripts/debug/`** to comply with coding-conventions.mdc (no CommonJS outside allowed exceptions).
+- Scripts write log output to the root **`debug/`** folder.
+- Scripts are invoked via npm: `npm run debug:expo`, `debug:android`, `debug:ios`, `debug:web`, `debug:all`.
+- **Expo**: Tees stdout/stderr to terminal and `debug/expo-debug.log`.
+- **Android**: Requires `adb` (ANDROID_HOME or PATH). Writes `debug/android-debug.log`.
+- **iOS**: Requires macOS; uses `xcrun simctl spawn booted log stream`. Writes `debug/ios-debug.log`. Simulator must be booted.
+- **Web receiver**: Listens on `127.0.0.1:9966` (or `DEBUG_LOG_PORT`). POST `/log` body `{ level, message }` → `debug/web-debug.log`. Overwrites file when server starts.
+- **debug:all**: Starts expo, android, and (on macOS) ios loggers in parallel; Ctrl+C stops all.
+
+## Web Console Logger (src/debug)
+
+- **Single import**: Imported once at app entry (`src/app/_layout.jsx`): `import '@debug/web-console-logger'`.
+- **Dev + web only**: Runs only when `__DEV__` is true and `typeof document !== 'undefined'`. No-op on native and in production.
+- **Behavior**: Patches `console.log`, `console.warn`, `console.error` and sends to `http://127.0.0.1:9966/log` (or `EXPO_PUBLIC_DEBUG_LOG_URL`). Also listens for `window.error` and `unhandledrejection`.
+- **Babel**: Alias `@debug` → `./src/debug` (see `coding-conventions.mdc`).
+
+## Production Safety
+
+- Debug scripts are **not** run in production; they are development npm scripts only.
+- Web console logger does not run when `!__DEV__` or on native; no production impact.
+- No debug code in critical path for production builds.
+
+## Related
+
+- **Errors & logging (app)**: `errors-logging.mdc` — application error handling and `src/logging/`.
+- **This document**: IDE/dev-only log capture to `debug/` and `src/debug/web-console-logger.js`.

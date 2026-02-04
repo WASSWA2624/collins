@@ -49,3 +49,4 @@ const StyledItem = styled.article.withConfig({
 `;
 
 export { StyledContainer, StyledContent, StyledSection, StyledSectionTitle, StyledItem };
+

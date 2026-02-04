@@ -88,7 +88,7 @@ const StyledSectionTitle = styled.h3.withConfig({
   componentId: 'StyledSectionTitle',
 })`
   margin: 0;
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -258,3 +258,4 @@ export {
   StyledSummaryPane,
   StyledWarningBox,
 };
+

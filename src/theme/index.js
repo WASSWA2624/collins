@@ -14,6 +14,10 @@ const resolveSystemTheme = () => {
   return systemScheme === 'dark' ? 'dark' : 'light';
 };
 
+/** Returns a single font name safe for React Native; never a CSS font stack. */
+const safeNativeFont = (v) =>
+  typeof v === 'string' && !v.includes(',') ? v : 'System';
+
 export function getTheme(mode = 'light') {
   const resolvedMode = mode === 'system' ? resolveSystemTheme() : mode;
   switch (resolvedMode) {
@@ -28,8 +32,23 @@ export function getTheme(mode = 'light') {
 
 export function ThemeProviderWrapper({ children, theme = 'light' }) {
   const themeObj = getTheme(theme);
+  const ff = themeObj?.typography?.fontFamily;
+  // Native must only receive single font names; strip web-only keys to prevent CSS stack leakage.
+  const themeForNative = ff
+    ? {
+        ...themeObj,
+        typography: {
+          ...themeObj.typography,
+          fontFamily: {
+            regular: safeNativeFont(ff.regular),
+            medium: safeNativeFont(ff.medium),
+            bold: safeNativeFont(ff.bold),
+          },
+        },
+      }
+    : themeObj;
   return (
-    <NativeThemeProvider theme={themeObj}>
+    <NativeThemeProvider theme={themeForNative}>
       {children}
     </NativeThemeProvider>
   );

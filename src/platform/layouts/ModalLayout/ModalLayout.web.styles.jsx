@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ModalLayout Web Styles
  * Styled-components for Web platform
  * File: ModalLayout.web.styles.jsx
@@ -16,5 +16,6 @@ const StyledContainer = styled.div.withConfig({
 export {
   StyledContainer,
 };
+
 
 

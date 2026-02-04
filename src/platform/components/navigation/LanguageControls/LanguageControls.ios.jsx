@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { useI18n } from '@hooks';
-import { Select } from '@platform/components';
+import Select from '../../forms/Select';
 import useLanguageControls from './useLanguageControls';
 import { StyledLanguageControls } from './LanguageControls.ios.styles';
 

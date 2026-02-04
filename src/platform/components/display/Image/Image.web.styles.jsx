@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Image Web Styles
  * Styled-components for Web platform
  * File: Image.web.styles.jsx
@@ -87,5 +87,6 @@ export {
   StyledErrorContainer,
   StyledSpinner,
 };
+
 
 

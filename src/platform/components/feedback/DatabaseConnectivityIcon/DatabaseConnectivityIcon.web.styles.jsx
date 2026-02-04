@@ -33,3 +33,4 @@ const StyledIconWrap = styled.span.withConfig({
 `;
 
 export { StyledIconWrap };
+

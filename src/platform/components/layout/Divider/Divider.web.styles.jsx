@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Divider Web Styles
  * Styled-components for Web platform
  * File: Divider.web.styles.jsx
@@ -28,5 +28,6 @@ const StyledDivider = styled.hr.withConfig({
 `;
 
 export { StyledDivider };
+
 
 

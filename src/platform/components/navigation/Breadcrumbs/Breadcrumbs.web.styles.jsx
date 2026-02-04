@@ -36,7 +36,7 @@ const StyledBreadcrumbItem = styled(View).withConfig({
   min-width: 0;
 
   & > *:last-child {
-    font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+    font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
     font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
     font-weight: ${({ isLast }) => (isLast ? 600 : 400)};
     line-height: ${({ theme }) => theme.typography.fontSize.sm * theme.typography.lineHeight.normal}px;
@@ -60,7 +60,7 @@ const StyledSeparator = styled(Text).withConfig({
   displayName: 'StyledSeparator',
   componentId: 'StyledSeparator',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ theme }) => theme.colors.text.tertiary};
   margin: 0 ${({ theme }) => theme.spacing.xs}px;
@@ -88,7 +88,7 @@ const StyledLink = styled(Pressable).withConfig({
   min-width: 0;
 
   & > *:last-child {
-    font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+    font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
     font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
     font-weight: 400;
     line-height: ${({ theme }) => theme.typography.fontSize.sm * theme.typography.lineHeight.normal}px;
@@ -143,7 +143,7 @@ const StyledBreadcrumbEllipsis = styled(Text).withConfig({
   displayName: 'StyledBreadcrumbEllipsis',
   componentId: 'StyledBreadcrumbEllipsis',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ theme }) => theme.colors.text.tertiary};
   user-select: none;
@@ -163,3 +163,4 @@ export {
   StyledBreadcrumbIcon,
   StyledBreadcrumbEllipsis,
 };
+

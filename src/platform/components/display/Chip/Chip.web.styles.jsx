@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Chip Web Styles
  * Styled-components for Web platform
  * File: Chip.web.styles.jsx
@@ -87,7 +87,7 @@ const StyledChipText = styled.span.withConfig({
   displayName: 'StyledChipText',
   componentId: 'StyledChipText',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.sm,
@@ -143,5 +143,6 @@ const StyledRemoveButton = styled.button.withConfig({
 `;
 
 export { StyledChip, StyledChipText, StyledRemoveButton };
+
 
 

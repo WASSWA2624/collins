@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Modal Web Styles
  * Styled-components for Web platform
  * File: Modal.web.styles.jsx
@@ -130,5 +130,6 @@ const StyledDescription = styled.div.withConfig({
 `;
 
 export { StyledBackdrop, StyledModalContainer, StyledCloseButton, StyledContent, StyledDescription };
+
 
 

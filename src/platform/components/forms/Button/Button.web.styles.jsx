@@ -140,7 +140,7 @@ const StyledButtonText = styled.span.withConfig({
   componentId: 'StyledButtonText',
   shouldForwardProp: (prop) => !['$state', '$variant', '$size', '$hasIcon'].includes(prop),
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ $size, theme }) => {
     const sizes = {
       small: theme.typography.fontSize.sm,
@@ -226,4 +226,5 @@ const StyledSpinner = styled.span.withConfig({
 `;
 
 export { StyledButton, StyledButtonText, StyledButtonContent, StyledSpinner };
+
 

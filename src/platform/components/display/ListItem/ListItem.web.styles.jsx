@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ListItem Web Styles
  * Styled-components for Web platform
  * File: ListItem.web.styles.jsx
@@ -73,5 +73,6 @@ export {
   StyledTitle,
   StyledSubtitle,
 };
+
 
 

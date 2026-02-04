@@ -15,3 +15,4 @@ const StyledThemeControls = styled.div.withConfig({
 `;
 
 export { StyledThemeControls };
+

@@ -75,7 +75,7 @@ const StyledTitle = styled.div.withConfig({
   displayName: 'StyledTitle',
   componentId: 'StyledTitle',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.medium};
+  font-family: ${({ theme }) => theme.typography.fontFamily.mediumWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semiBold};
 `;
@@ -84,7 +84,7 @@ const StyledMessage = styled.div.withConfig({
   displayName: 'StyledMessage',
   componentId: 'StyledMessage',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.regular};
 `;
@@ -107,7 +107,7 @@ const StyledActionButton = styled.button.withConfig({
   color: inherit;
   border-radius: ${({ theme }) => theme.radius.sm}px;
   padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
-  font-family: ${({ theme }) => theme.typography.fontFamily.medium};
+  font-family: ${({ theme }) => theme.typography.fontFamily.mediumWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   cursor: pointer;
   min-height: ${({ theme }) => theme.spacing.xl}px;
@@ -120,7 +120,7 @@ const StyledDismissButton = styled.button.withConfig({
   background: transparent;
   border: none;
   color: inherit;
-  font-family: ${({ theme }) => theme.typography.fontFamily.medium};
+  font-family: ${({ theme }) => theme.typography.fontFamily.mediumWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   cursor: pointer;
   min-height: ${({ theme }) => theme.spacing.xl}px;
@@ -135,3 +135,4 @@ export {
   StyledMessage,
   StyledTitle,
 };
+

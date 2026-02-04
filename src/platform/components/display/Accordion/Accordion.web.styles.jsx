@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Accordion Web Styles
  * Styled-components for Web platform
  * File: Accordion.web.styles.jsx
@@ -63,5 +63,6 @@ export {
   StyledAccordionContent,
   StyledAccordionIcon,
 };
+
 
 

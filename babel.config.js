@@ -29,6 +29,7 @@ module.exports = function babelConfig(api) {
             '@logging': './src/logging',
             '@bootstrap': './src/bootstrap',
             '@navigation': './src/navigation',
+            '@debug': './src/debug',
           },
         },
       ],

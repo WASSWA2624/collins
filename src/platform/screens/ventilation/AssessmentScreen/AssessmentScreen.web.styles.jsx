@@ -185,7 +185,7 @@ const StyledStepTitle = styled.h2.withConfig({
   componentId: 'StyledStepTitle',
 })`
   margin: 0;
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -295,7 +295,7 @@ const StyledExpandButton = styled.button.withConfig({
   border-radius: ${({ theme }) => theme.radius.sm}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   line-height: 1;
   cursor: pointer;
@@ -330,7 +330,7 @@ const StyledSummaryRow = styled.div.withConfig({
   column-gap: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
 
   &:last-child {
     border-bottom: none;
@@ -455,7 +455,7 @@ const StyledRecommendationSourceTitle = styled.h3.withConfig({
   componentId: 'StyledRecommendationSourceTitle',
 })`
   margin: 0 0 ${({ theme }) => theme.spacing.sm}px 0;
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -609,3 +609,4 @@ export {
   StyledWizardCard,
   StyledWizardPane,
 };
+

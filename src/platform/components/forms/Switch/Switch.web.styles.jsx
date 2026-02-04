@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Switch Web Styles
  * Styled-components for Web platform
  * File: Switch.web.styles.jsx
@@ -92,7 +92,7 @@ const StyledSwitchLabel = styled.span.withConfig({
   displayName: 'StyledSwitchLabel',
   componentId: 'StyledSwitchLabel',
 })`
-  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   font-weight: 400;
   line-height: ${({ theme }) =>
@@ -102,5 +102,6 @@ const StyledSwitchLabel = styled.span.withConfig({
 `;
 
 export { StyledSwitch, StyledSwitchInput, StyledSwitchTrack, StyledSwitchThumb, StyledSwitchLabel };
+
 
 

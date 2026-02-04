@@ -38,3 +38,4 @@ const StyledSection = styled.section.withConfig({
 `;
 
 export { StyledContainer, StyledContent, StyledSection };
+

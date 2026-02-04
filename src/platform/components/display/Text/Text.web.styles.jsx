@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Text Web Styles
  * Styled-components for Web platform
  * File: Text.web.styles.jsx
@@ -30,7 +30,7 @@ const StyledText = styled.span.withConfig({
   display: ${({ align }) => (align ? 'block' : 'inline')};
   font-family: ${({ variant, theme }) => {
     const isHeading = variant === 'h1' || variant === 'h2' || variant === 'h3';
-    return isHeading ? theme.typography.fontFamily.bold : theme.typography.fontFamily.regular;
+    return isHeading ? theme.typography.fontFamily.boldWeb : theme.typography.fontFamily.regularWeb;
   }};
   font-size: ${({ variant, theme }) => {
     const sizes = {
@@ -70,5 +70,6 @@ const StyledText = styled.span.withConfig({
 `;
 
 export { StyledText };
+
 
 

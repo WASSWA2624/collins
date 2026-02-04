@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Slider Web Styles
  * Styled-components for Web platform
  * File: Slider.web.styles.jsx
@@ -61,5 +61,6 @@ export {
   StyledSliderFill,
   StyledSliderThumb,
 };
+
 
 
