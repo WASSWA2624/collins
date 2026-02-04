@@ -33,12 +33,23 @@ const StyledContent = styled.div.withConfig({
   padding-bottom: ${({ theme }) => theme.spacing.xl}px;
 `;
 
+const StyledLogoArea = styled.div.withConfig({
+  displayName: 'StyledLogoArea',
+  componentId: 'StyledLogoArea',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StyledMessage = styled.div.withConfig({
   displayName: 'StyledMessage',
   componentId: 'StyledMessage',
 })`
   margin-top: ${({ theme }) => theme.spacing.lg}px;
   color: ${({ theme }) => theme.colors.text.secondary};
+  line-height: 1.5;
 `;
 
 const StyledOverview = styled.section.withConfig({
@@ -75,17 +86,24 @@ const StyledSectionItem = styled.a.withConfig({
   componentId: 'StyledSectionItem',
 })`
   display: block;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-radius: ${({ theme }) => theme.radius.lg ?? 12}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  box-shadow: ${({ theme }) => theme.shadows?.sm ?? '0 1px 3px rgba(0,0,0,0.06)'};
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: ${({ theme }) => theme.shadows?.sm ?? '0 1px 3px rgba(0,0,0,0.08)'};
+    box-shadow: ${({ theme }) => theme.shadows?.md ?? '0 4px 12px rgba(0,0,0,0.08)'};
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
   }
 `;
 
@@ -111,6 +129,7 @@ const StyledSectionDesc = styled.p.withConfig({
 export {
   StyledContainer,
   StyledContent,
+  StyledLogoArea,
   StyledMessage,
   StyledOverview,
   StyledOverviewTitle,

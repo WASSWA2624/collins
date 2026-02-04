@@ -22,13 +22,22 @@ const renderWithTheme = (component) =>
   render(<ThemeProvider theme={lightTheme}>{component}</ThemeProvider>);
 
 describe('HomeScreen', () => {
-  const mockT = jest.fn((key) => {
+  const mockT = jest.fn((key, opts) => {
     const translations = {
       'home.title': 'Home',
       'home.welcome.title': 'Welcome Home',
       'home.welcome.message': 'Welcome message',
+      'home.welcome.logoLabel': 'App logo',
+      'home.overview.title': 'Quick access',
+      'home.overview.goTo': opts?.name ? `Go to ${opts.name}` : 'Go to {{name}}',
+      'home.overview.assessment.description': 'Start a patient assessment.',
+      'home.overview.history.description': 'View and resume past sessions.',
+      'home.overview.training.description': 'Browse training topics.',
+      'navigation.items.main.assessment': 'Admission',
+      'navigation.items.main.history': 'Tracking',
+      'navigation.items.main.training': 'Training',
     };
-    return translations[key] || key;
+    return translations[key] ?? key;
   });
 
   beforeEach(() => {

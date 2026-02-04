@@ -27,4 +27,14 @@ describe('useHomeScreen', () => {
     expect(result.current.testIds).toBeDefined();
     expect(result.current.testIds.screen).toBe('home-screen');
   });
+
+  it('returns sections from MAIN_NAV_ITEMS (assessment, history, training)', () => {
+    const { result } = renderHook(() => useHomeScreen());
+    expect(result.current.sections).toBeDefined();
+    expect(Array.isArray(result.current.sections)).toBe(true);
+    expect(result.current.sections.map((s) => s.id)).toEqual(['assessment', 'history', 'training']);
+    expect(result.current.sections[0].path).toBe('/assessment');
+    expect(result.current.sections[1].path).toBe('/history');
+    expect(result.current.sections[2].path).toBe('/training');
+  });
 });

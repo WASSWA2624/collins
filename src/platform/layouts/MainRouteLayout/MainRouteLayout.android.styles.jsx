@@ -33,9 +33,8 @@ const StyledDrawerContainer = styled(View).withConfig({
   displayName: 'StyledDrawerContainer',
   componentId: 'StyledDrawerContainer',
 })`
-  width: 260px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
-  padding: ${({ theme }) => theme.spacing.md}px;
+  width: 280px;
+  background-color: transparent;
 `;
 
 const StyledHeaderLeading = styled(View).withConfig({

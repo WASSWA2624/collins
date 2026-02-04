@@ -42,6 +42,7 @@ const StyledSidebarHeaderBrand = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
   flex: 1;
   min-width: 0;
+  flex-shrink: 1;
 `;
 
 const StyledSidebarHeaderLogo = styled(View).withConfig({
@@ -50,6 +51,7 @@ const StyledSidebarHeaderLogo = styled(View).withConfig({
 })`
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 `;
 
 const StyledSidebarHeaderAppName = styled(Text).withConfig({
@@ -63,6 +65,7 @@ const StyledSidebarHeaderAppName = styled(Text).withConfig({
   letter-spacing: ${-0.5};
   flex: 1;
   min-width: 0;
+  flex-shrink: 1;
 `;
 
 const StyledCloseButton = styled(Pressable).withConfig({
@@ -76,6 +79,7 @@ const StyledCloseButton = styled(Pressable).withConfig({
   padding: ${({ theme }) => theme.spacing.sm}px;
   border-radius: ${({ theme }) => theme.radius.lg}px;
   background-color: ${({ theme }) => theme.colors.background.tertiary};
+  flex-shrink: 0;
 `;
 
 const StyledContentWrap = styled(View).withConfig({

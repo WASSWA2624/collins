@@ -24,12 +24,22 @@ const StyledContent = styled(View).withConfig({
   align-items: center;
 `;
 
+const StyledLogoArea = styled(View).withConfig({
+  displayName: 'StyledLogoArea',
+  componentId: 'StyledLogoArea',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StyledMessage = styled(View).withConfig({
   displayName: 'StyledMessage',
   componentId: 'StyledMessage',
 })`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   align-items: center;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledOverview = styled(View).withConfig({
@@ -62,11 +72,16 @@ const StyledSectionItem = styled(Pressable).withConfig({
   displayName: 'StyledSectionItem',
   componentId: 'StyledSectionItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-radius: ${({ theme }) => theme.radius.lg ?? 12}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
+  shadow-color: ${({ theme }) => theme.colors.text.primary};
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.06;
+  shadow-radius: 4px;
+  elevation: 2;
 `;
 
 const StyledSectionTitle = styled(Text).withConfig({
@@ -90,6 +105,7 @@ const StyledSectionDesc = styled(Text).withConfig({
 export {
   StyledContainer,
   StyledContent,
+  StyledLogoArea,
   StyledMessage,
   StyledOverview,
   StyledOverviewTitle,

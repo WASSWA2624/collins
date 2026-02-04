@@ -7,6 +7,7 @@ import React from 'react';
 
 // 2. Platform components
 import { Text } from '@platform/components';
+import { AppLogo } from '@platform/components';
 
 // 3. Hooks
 import { useI18n } from '@hooks';
@@ -15,6 +16,7 @@ import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledContent,
+  StyledLogoArea,
   StyledMessage,
   StyledOverview,
   StyledOverviewTitle,
@@ -27,19 +29,16 @@ import {
 // 5. Component hook
 import useHomeScreen from './useHomeScreen';
 
-const SECTIONS = [
-  { path: '/assessment', key: 'assessment' },
-  { path: '/history', key: 'history' },
-  { path: '/training', key: 'training' },
-];
-
 const HomeScreenWeb = () => {
   const { t } = useI18n();
-  const { testIds } = useHomeScreen();
+  const { testIds, sections } = useHomeScreen();
 
   return (
     <StyledContainer aria-label={t('home.title')} testID={testIds.screen}>
       <StyledContent>
+        <StyledLogoArea>
+          <AppLogo size="lg" accessibilityLabel={t('home.welcome.logoLabel')} testID="home-logo" />
+        </StyledLogoArea>
         <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
           {t('home.welcome.title')}
         </Text>
@@ -52,15 +51,15 @@ const HomeScreenWeb = () => {
       <StyledOverview aria-labelledby="home-overview-title">
         <StyledOverviewTitle id="home-overview-title">{t('home.overview.title')}</StyledOverviewTitle>
         <StyledSectionList role="list">
-          {SECTIONS.map(({ path, key }) => (
+          {sections.map(({ path, id }) => (
             <StyledSectionItem
-              key={key}
+              key={id}
               href={path}
               role="listitem"
-              aria-label={t(`home.overview.${key}.hint`)}
+              aria-label={t('home.overview.goTo', { name: t(`navigation.items.main.${id}`) })}
             >
-              <StyledSectionTitle>{t(`home.overview.${key}.title`)}</StyledSectionTitle>
-              <StyledSectionDesc>{t(`home.overview.${key}.description`)}</StyledSectionDesc>
+              <StyledSectionTitle>{t(`navigation.items.main.${id}`)}</StyledSectionTitle>
+              <StyledSectionDesc>{t(`home.overview.${id}.description`)}</StyledSectionDesc>
             </StyledSectionItem>
           ))}
         </StyledSectionList>
