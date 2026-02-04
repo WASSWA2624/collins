@@ -1,6 +1,6 @@
 /**
  * Training Home Route Tests (P011 11.S.7)
- * Tests: src/app/(training)/index.jsx renders TrainingHomeScreen
+ * Tests: src/app/(training)/training.jsx renders TrainingHomeScreen
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -35,11 +35,11 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
-describe('app/(training)/index.jsx', () => {
+describe('app/(training)/training.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should render TrainingHomeScreen', () => {
-    const TrainingHomeRoute = require('../../../../app/(training)/index').default;
+    const TrainingHomeRoute = require('@app/(training)/training').default;
     const { getByTestId } = renderWithProviders(<TrainingHomeRoute />);
     expect(getByTestId('training-home-screen')).toBeDefined();
   });

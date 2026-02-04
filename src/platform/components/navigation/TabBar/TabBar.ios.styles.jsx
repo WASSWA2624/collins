@@ -18,9 +18,9 @@ const StyledTabBar = styled(View).withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
-  padding: ${({ theme }) => theme.spacing.sm}px 0;
+  padding: ${({ theme }) => theme.spacing.xs}px 0;
   padding-bottom: ${({ theme, bottomInset }) =>
-    (theme?.spacing?.md ?? 12) + (theme?.spacing?.lg ?? 24) + (typeof bottomInset === 'number' ? bottomInset : 0)}px;
+    (theme?.spacing?.xs ?? 4) + (theme?.spacing?.md ?? 16) + (typeof bottomInset === 'number' ? bottomInset : 0)}px;
   ${({ theme }) =>
     theme.shadows?.md
       ? `
@@ -40,30 +40,37 @@ const StyledTabBarContent = styled(View).withConfig({
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 0 ${({ theme }) => theme.spacing.md}px;
+  padding: 0 ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledTabItem = styled(Pressable).withConfig({
   displayName: 'StyledTabItem',
   componentId: 'StyledTabItem',
+  shouldForwardProp: (prop) => prop !== 'active',
 })`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.spacing.sm}px;
-  min-height: ${({ theme }) => theme.spacing.xxl + theme.spacing.sm}px;
-  min-width: ${({ theme }) => theme.spacing.xxl + theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px;
+  min-height: 44px;
+  min-width: 44px;
   position: relative;
+  border-radius: ${({ theme }) => theme.radius.md}px;
+  background-color: ${({ theme, active }) =>
+    active ? theme.colors.background.secondary : 'transparent'};
+  border-top-width: 3px;
+  border-top-color: ${({ theme, active }) =>
+    active ? theme.colors.primary : 'transparent'};
 `;
 
 const StyledTabItemIcon = styled(Text).withConfig({
   displayName: 'StyledTabItemIcon',
   componentId: 'StyledTabItemIcon',
 })`
-  font-size: ${({ theme }) => theme.typography.fontSize.xxl}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
   color: ${({ theme, active }) =>
     active ? theme.colors.primary : theme.colors.text.tertiary};
-  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+  margin-bottom: 2px;
 `;
 
 const StyledTabItemLabel = styled(Text).withConfig({

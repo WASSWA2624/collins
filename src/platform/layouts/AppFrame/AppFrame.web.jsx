@@ -104,7 +104,7 @@ const AppFrameWeb = ({
           </StyledSidebar>
         )}
         <StyledContent id="main-content" hasSidebar={hasSidebar} hasFooter={hasFooter}>
-          <StyledContentBody>{children}</StyledContentBody>
+          <StyledContentBody hasFooter={hasFooter}>{children}</StyledContentBody>
         </StyledContent>
       </StyledBody>
       {hasFooter && (

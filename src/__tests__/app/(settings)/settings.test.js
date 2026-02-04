@@ -1,6 +1,6 @@
 /**
  * Settings Route Tests (P011 11.S.10)
- * Tests: src/app/(settings)/index.jsx renders SettingsScreen
+ * Tests: src/app/(settings)/settings.jsx renders SettingsScreen
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -35,11 +35,11 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
-describe('app/(settings)/index.jsx', () => {
+describe('app/(settings)/settings.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should render SettingsScreen', () => {
-    const SettingsRoute = require('../../../../app/(settings)/index').default;
+    const SettingsRoute = require('@app/(settings)/settings').default;
     const { getByTestId } = renderWithProviders(<SettingsRoute />);
     expect(getByTestId('settings-screen')).toBeDefined();
   });

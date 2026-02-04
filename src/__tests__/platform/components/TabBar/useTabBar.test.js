@@ -70,11 +70,25 @@ describe('useTabBar Hook', () => {
     expect(result.isTabActive(mockItems[1])).toBe(false); // search is not active
   });
 
-  it('should identify active tab for nested paths', () => {
+  it('should not mark home active for non-root paths', () => {
     jest.spyOn(require('expo-router'), 'usePathname').mockReturnValue('/settings');
     let result;
     render(<TestComponent items={mockItems} onResult={(value) => (result = value)} />);
-    expect(result.isTabActive(mockItems[0])).toBe(true); // home is active for nested path
+    expect(result.isTabActive(mockItems[0])).toBe(false); // home only active for /
+  });
+
+  it('should identify active tab for nested paths under same segment', () => {
+    const itemsWithSettings = [
+      ...mockItems,
+      { id: 'settings', label: 'Settings', href: '/settings', icon: '⚙️' },
+    ];
+    jest.spyOn(require('expo-router'), 'usePathname').mockReturnValue('/settings');
+    let result;
+    render(<TestComponent items={itemsWithSettings} onResult={(value) => (result = value)} />);
+    expect(result.isTabActive(itemsWithSettings[3])).toBe(true); // settings active for /settings
+    jest.spyOn(require('expo-router'), 'usePathname').mockReturnValue('/settings/about');
+    render(<TestComponent items={itemsWithSettings} onResult={(value) => (result = value)} />);
+    expect(result.isTabActive(itemsWithSettings[3])).toBe(true); // settings active for /settings/about
   });
 
   it('should return false for item without href', () => {

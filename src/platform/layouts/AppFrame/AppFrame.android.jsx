@@ -62,9 +62,9 @@ const AppFrameAndroid = ({
   const scrollContentStyle = useMemo(
     () => ({
       flexGrow: 1,
-      paddingBottom: bottomInset + (theme?.spacing?.md ?? 16),
+      paddingBottom: bottomInset + (hasFooter ? 56 : (theme?.spacing?.md ?? 16)),
     }),
-    [bottomInset, theme?.spacing?.md]
+    [bottomInset, hasFooter, theme?.spacing?.md]
   );
 
   return (

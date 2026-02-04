@@ -1,6 +1,6 @@
 /**
  * Settings Route
- * Single route for settings: (settings)/index → /settings → SettingsScreen.
+ * (settings)/settings → /settings → SettingsScreen.
  * Per app-router.mdc: one route, one screen; no duplicate route for same screen.
  */
 import React from 'react';

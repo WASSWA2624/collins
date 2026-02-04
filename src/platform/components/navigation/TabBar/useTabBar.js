@@ -26,9 +26,14 @@ const useTabBar = ({
 
   const isTabActive = (item) => {
     if (!item.href) return false;
-    // Root tab should remain active for nested paths (e.g. "/" active for "/settings")
-    if (item.href === '/') return String(activePathname || '').startsWith('/');
-    return activePathname === item.href || activePathname.startsWith(item.href + '/');
+    const raw = String(activePathname || '');
+    const path = raw.replace(/^\/+/, '') || '';
+    const itemNorm = String(item.href || '').replace(/^\/+/, '') || '';
+    // Home (/) is active only for exact root, not for /settings or /training
+    if (itemNorm === '' || item.href === '/') {
+      return path === '';
+    }
+    return path === itemNorm || path.startsWith(itemNorm + '/');
   };
 
   const defaultIsTabVisible = (item) => {

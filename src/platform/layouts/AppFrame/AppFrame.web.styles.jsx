@@ -161,9 +161,12 @@ const StyledContent = styled.main.withConfig({
   box-sizing: border-box;
 `;
 
+const FOOTER_CONTENT_HEIGHT_PX = 56;
+
 const StyledContentBody = styled.div.withConfig({
   displayName: 'StyledContentBody',
   componentId: 'StyledContentBody',
+  shouldForwardProp: (prop) => prop !== 'hasFooter',
 })`
   display: flex;
   flex-direction: column;
@@ -172,11 +175,14 @@ const StyledContentBody = styled.div.withConfig({
   min-width: 0;
   overflow-x: hidden;
   overflow-y: visible;
-  padding-bottom: calc(${({ theme }) => theme.spacing.xl}px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: ${({ theme, hasFooter }) =>
+    hasFooter
+      ? `calc(${FOOTER_CONTENT_HEIGHT_PX}px + env(safe-area-inset-bottom, 0px))`
+      : `calc(${theme.spacing.xl}px + env(safe-area-inset-bottom, 0px))`};
   box-sizing: border-box;
 `;
 
-const FOOTER_HEIGHT_PX = 40;
+const FOOTER_HEIGHT_PX = 56;
 
 const StyledFooter = styled.footer.withConfig({
   displayName: 'StyledFooter',
