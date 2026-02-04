@@ -4,7 +4,7 @@
  * File: useSidebar.js
  */
 import { useState, useMemo } from 'react';
-import { usePathname } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
 import { SIDE_MENU_ITEMS } from '@config/sideMenu';
 
 /**
@@ -22,6 +22,7 @@ const useSidebar = ({
   onItemPress,
   isItemVisible,
 } = {}) => {
+  const router = useRouter();
   const [expandedSections, setExpandedSections] = useState({});
   const currentPathname = usePathname();
   const activePathname = pathname || currentPathname;
@@ -50,7 +51,13 @@ const useSidebar = ({
   const handleItemPress = (item) => {
     if (onItemPress) {
       onItemPress(item);
-    } else if (item.onPress) {
+      return;
+    }
+    if (item?.href) {
+      router.push(item.href);
+      return;
+    }
+    if (item?.onPress) {
       item.onPress(item);
     }
   };

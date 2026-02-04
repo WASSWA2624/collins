@@ -24,6 +24,7 @@ const StyledContainer = styled.div.withConfig({
   background-color: ${({ theme }) => theme.colors.background.secondary};
   overflow: hidden;
   box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
 `;
 
 const StyledHeader = styled.header.withConfig({

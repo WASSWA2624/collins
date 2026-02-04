@@ -14,6 +14,8 @@ const StyledContainer = styled.main.withConfig({
   margin: 0 auto;
   min-height: 100%;
   padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  padding-bottom: ${({ theme }) =>
+    `calc(${theme.spacing.xl}px + env(safe-area-inset-bottom, 0px) + ${theme.spacing.xxl ?? theme.spacing.xl * 2}px)`};
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;

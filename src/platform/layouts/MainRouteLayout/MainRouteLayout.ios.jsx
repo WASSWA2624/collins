@@ -51,7 +51,7 @@ const MainRouteLayoutIOS = () => {
     (item) => {
       closeSidebar();
       const href = item?.href ?? item?.path ?? null;
-      if (href) router.replace(href);
+      if (href) router.push(href);
     },
     [closeSidebar, router]
   );

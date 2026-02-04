@@ -49,7 +49,7 @@ const AppFrameAndroid = ({
 }) => {
   const { t } = useI18n();
   const theme = useTheme();
-  const { bottom: bottomInset } = useSafeAreaInsets();
+  const { top: topInset, bottom: bottomInset } = useSafeAreaInsets();
   const { hasBanner, hasBreadcrumbs, hasFooter, hasHeader, hasOverlay, hasSidebar } = useAppFrame({
     header,
     footer,
@@ -62,13 +62,13 @@ const AppFrameAndroid = ({
   const scrollContentStyle = useMemo(
     () => ({
       flexGrow: 1,
-      paddingBottom: bottomInset + (hasFooter ? 56 : (theme?.spacing?.md ?? 16)),
+      paddingBottom: bottomInset + (hasFooter ? 56 : (theme?.spacing?.xl ?? 32)),
     }),
-    [bottomInset, hasFooter, theme?.spacing?.md]
+    [bottomInset, hasFooter, theme?.spacing?.xl]
   );
 
   return (
-    <StyledContainer accessibilityLabel={accessibilityLabel} testID={testID}>
+    <StyledContainer safeAreaTop={topInset} accessibilityLabel={accessibilityLabel} testID={testID}>
       {hasHeader && (
         <StyledHeader>
           {header}

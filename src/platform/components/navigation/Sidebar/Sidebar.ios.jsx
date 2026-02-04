@@ -76,7 +76,7 @@ const SidebarIOS = ({
     }
 
     const href = resolveHref(item);
-    if (href) router.replace(href);
+    if (href) router.push(href);
   };
 
   const renderItem = (item) => {

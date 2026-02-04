@@ -10,10 +10,12 @@ import { ScrollView } from 'react-native';
 const StyledContainer = styled.View.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
+  shouldForwardProp: (prop) => prop !== 'safeAreaTop',
 })`
   flex: 1;
   position: relative;
   background-color: ${({ theme }) => theme.colors.background.primary};
+  padding-top: ${({ safeAreaTop = 0 }) => safeAreaTop}px;
 `;
 
 const StyledHeader = styled.View.withConfig({
