@@ -69,7 +69,6 @@ const TabBarAndroid = ({
 
   return (
     <StyledTabBar
-      accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel || t('navigation.tabBar.title')}
       testID={testID}
       style={style}
@@ -83,7 +82,7 @@ const TabBarAndroid = ({
               key={item.id}
               active={isActive}
               onPress={() => handlePress(item)}
-              accessibilityRole="tab"
+              accessibilityRole="button"
               accessibilityLabel={item.label}
               accessibilityState={{ selected: isActive }}
               testID={testID ? `${testID}-tab-${item.id}` : undefined}

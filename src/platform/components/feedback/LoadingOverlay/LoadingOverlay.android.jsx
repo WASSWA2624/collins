@@ -28,7 +28,7 @@ const LoadingOverlayAndroid = ({
   const label = accessibilityLabel || t('common.loading');
 
   return (
-    <StyledContainer accessibilityRole="alert" accessibilityLabel={label} testID={testID} {...rest}>
+    <StyledContainer accessibilityLabel={label} testID={testID} {...rest}>
       <StyledCard>
         <LoadingSpinner testID={testID ? `${testID}-spinner` : undefined} />
         {resolvedTitle ? <StyledTitle>{resolvedTitle}</StyledTitle> : null}

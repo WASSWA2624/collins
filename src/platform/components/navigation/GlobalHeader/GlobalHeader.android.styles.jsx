@@ -10,11 +10,13 @@ const StyledHeader = styled(View).withConfig({
   displayName: 'StyledHeader',
   componentId: 'StyledHeader',
 })`
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
-  padding: ${({ theme }) => theme.spacing.md}px;
-  padding-top: ${({ theme, topInset }) => theme.spacing.md + (topInset || 0)}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-top: ${({ theme, topInset }) => (topInset || 0) + theme.spacing.sm}px;
+  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
   elevation: 3;
 `;
 

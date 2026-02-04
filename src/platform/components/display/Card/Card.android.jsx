@@ -42,7 +42,6 @@ const CardAndroid = ({
   return (
     <StyledCard
       variant={variant}
-      accessibilityRole="article"
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       testID={testID}

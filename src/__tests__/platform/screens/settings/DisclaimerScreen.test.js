@@ -10,6 +10,7 @@ const { useDispatch, useSelector } = require('react-redux');
 
 jest.mock('@hooks', () => ({ useI18n: jest.fn() }));
 jest.mock('react-redux', () => ({ useDispatch: jest.fn(), useSelector: jest.fn() }));
+jest.mock('expo-router', () => ({ useRouter: () => ({ replace: jest.fn() }) }));
 jest.mock('@services/storage', () => ({ async: { setItem: jest.fn() } }));
 jest.mock('@features/ventilation/ventilation.model', () => ({
   getDefaultVentilationDataset: () => ({}),
@@ -17,10 +18,12 @@ jest.mock('@features/ventilation/ventilation.model', () => ({
 }));
 
 jest.mock('@platform/components', () => {
+  const React = require('react');
   const RN = require('react-native');
   return {
     Text: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
-    Button: ({ label, onPress, testID }) => React.createElement(RN.Pressable, { onPress, testID }, label),
+    Button: ({ text, label, onPress, testID }) =>
+      React.createElement(RN.Pressable, { onPress, testID }, text ?? label),
     Stack: ({ children }) => React.createElement(RN.View, null, children),
   };
 });
@@ -44,6 +47,8 @@ describe('DisclaimerScreen', () => {
       'settings.disclaimer.datasetNotice': 'Dataset notice',
       'settings.disclaimer.acknowledge': 'I acknowledge',
       'settings.disclaimer.acknowledgeHint': 'Confirm acknowledgement',
+      'settings.disclaimer.decline': 'I disagree',
+      'settings.disclaimer.declineHint': 'Exit the app without acknowledging',
     };
     return translations[key] || key;
   });
@@ -62,31 +67,32 @@ describe('DisclaimerScreen', () => {
   it('renders on Android', () => {
     const { getByTestId } = renderWithTheme(<DisclaimerScreenAndroid />);
     expect(getByTestId('disclaimer-screen')).toBeTruthy();
-    expect(getByTestId('disclaimer-title')).toBeTruthy();
     expect(getByTestId('disclaimer-dataset-notice')).toBeTruthy();
     expect(getByTestId('disclaimer-acknowledge-button')).toBeTruthy();
+    expect(getByTestId('disclaimer-decline-button')).toBeTruthy();
   });
 
   it('renders on iOS', () => {
     const { getByTestId } = renderWithTheme(<DisclaimerScreenIOS />);
     expect(getByTestId('disclaimer-screen')).toBeTruthy();
-    expect(getByTestId('disclaimer-title')).toBeTruthy();
     expect(getByTestId('disclaimer-acknowledge-button')).toBeTruthy();
+    expect(getByTestId('disclaimer-decline-button')).toBeTruthy();
   });
 
   it('renders on Web', () => {
     const { getByTestId } = renderWithTheme(<DisclaimerScreenWeb />);
     expect(getByTestId('disclaimer-screen')).toBeTruthy();
-    expect(getByTestId('disclaimer-title')).toBeTruthy();
     expect(getByTestId('disclaimer-acknowledge-button')).toBeTruthy();
+    expect(getByTestId('disclaimer-decline-button')).toBeTruthy();
   });
 
-  it('hides acknowledge button when already acknowledged', () => {
+  it('hides acknowledge and decline buttons when already acknowledged', () => {
     useSelector.mockImplementation((selector) => {
       const mockState = { ui: { disclaimerAcknowledged: true } };
       return selector(mockState);
     });
     const { queryByTestId } = renderWithTheme(<DisclaimerScreenAndroid />);
     expect(queryByTestId('disclaimer-acknowledge-button')).toBeNull();
+    expect(queryByTestId('disclaimer-decline-button')).toBeNull();
   });
 });

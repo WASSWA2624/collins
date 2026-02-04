@@ -9,6 +9,7 @@ import radius from './tokens/radius';
 import shadows from './tokens/shadows';
 import breakpoints from './breakpoints';
 import animations from './animations';
+import brand from './tokens/brand';
 
 const highContrastColors = {
   primary: '#0000FF',
@@ -40,6 +41,7 @@ export default {
   shadows,
   breakpoints,
   animations,
+  brand: { logo: brand.logoDark },
   mode: 'high-contrast',
 };
 

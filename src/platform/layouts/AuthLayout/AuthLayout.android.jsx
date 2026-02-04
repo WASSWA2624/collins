@@ -24,7 +24,6 @@ const AuthLayoutAndroid = ({
 }) => {
   return (
     <StyledContainer
-      accessibilityRole="main"
       {...(accessibilityLabel && { accessibilityLabel })}
       {...(testID && { testID })}
     >

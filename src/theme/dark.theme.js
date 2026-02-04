@@ -9,6 +9,7 @@ import radius from './tokens/radius';
 import shadows from './tokens/shadows';
 import breakpoints from './breakpoints';
 import animations from './animations';
+import brand from './tokens/brand';
 
 // Override colors for dark mode (WCAG AA contrast for callouts)
 const darkColors = {
@@ -48,6 +49,7 @@ export default {
   shadows,
   breakpoints,
   animations,
+  brand: { logo: brand.logoDark },
   mode: 'dark',
 };
 

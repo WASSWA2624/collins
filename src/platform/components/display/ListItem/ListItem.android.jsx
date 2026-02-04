@@ -64,7 +64,7 @@ const ListItemAndroid = ({
     <StyledListItem
       onPress={onPress}
       disabled={!onPress}
-      accessibilityRole={onPress ? 'button' : 'listitem'}
+      accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={accessibilityLabel || title}
       testID={testID}
       style={style}

@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 import { useI18n } from '@hooks';
 import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar/useSidebar';
 import SidebarItem from '@platform/components/navigation/SidebarItem';
+import AppLogo from '@platform/components/display/AppLogo';
 import Icon from '@platform/components/display/Icon';
 import { getMenuIconGlyph } from '@config/sideMenu';
 import {
@@ -102,7 +103,6 @@ const SidebarIOS = ({
 
   return (
     <StyledSidebar
-      accessibilityRole="navigation"
       accessibilityLabel={accessibilityLabel || t('navigation.sidebar.title')}
       testID={testID}
       style={style}
@@ -112,7 +112,7 @@ const SidebarIOS = ({
         <StyledSidebarHeader>
           <StyledSidebarHeaderBrand>
             <StyledSidebarHeaderLogo accessibilityElementsHidden>
-              <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+              <AppLogo size="md" />
             </StyledSidebarHeaderLogo>
             <StyledSidebarHeaderAppName>{t('app.shortName')}</StyledSidebarHeaderAppName>
           </StyledSidebarHeaderBrand>

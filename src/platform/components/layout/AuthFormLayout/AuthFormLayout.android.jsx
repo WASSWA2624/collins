@@ -44,7 +44,6 @@ const AuthFormLayoutAndroid = ({
       <Text
         variant="h2"
         align="center"
-        accessibilityRole="header"
         testID={titleTestID}
       >
         {title}

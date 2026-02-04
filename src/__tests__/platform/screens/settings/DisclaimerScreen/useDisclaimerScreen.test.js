@@ -2,7 +2,7 @@
  * useDisclaimerScreen Hook Tests (P011 11.S.11)
  * File: useDisclaimerScreen.test.js
  */
-const { renderHook, act } = require('@testing-library/react');
+const { renderHook, act } = require('@testing-library/react-native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
 const React = require('react');
@@ -14,6 +14,7 @@ jest.mock('@features/ventilation/ventilation.model', () => ({
   getDefaultVentilationDataset: () => ({}),
   getVentilationDatasetIntendedUse: () => ({ warning: 'Test warning', validationRequirement: 'Test validation' }),
 }));
+jest.mock('expo-router', () => ({ useRouter: () => ({ replace: jest.fn() }) }));
 
 const createStore = (initialState = {}) =>
   configureStore({
@@ -28,7 +29,7 @@ const wrapper = ({ children, store }) =>
   React.createElement(Provider, { store: store || createStore() }, children);
 
 describe('useDisclaimerScreen', () => {
-  it('returns intendedUse, acknowledged, acknowledge', () => {
+  it('returns intendedUse, acknowledged, acknowledge, decline', () => {
     const store = createStore();
     const { result } = renderHook(() => useDisclaimerScreen(), {
       wrapper: ({ children }) => wrapper({ children, store }),
@@ -36,7 +37,16 @@ describe('useDisclaimerScreen', () => {
     expect(result.current.intendedUse).toEqual({ warning: 'Test warning', validationRequirement: 'Test validation' });
     expect(result.current.acknowledged).toBe(false);
     expect(typeof result.current.acknowledge).toBe('function');
+    expect(typeof result.current.decline).toBe('function');
     expect(result.current.testIds.screen).toBe('disclaimer-screen');
+  });
+
+  it('decline does not throw when called', () => {
+    const store = createStore();
+    const { result } = renderHook(() => useDisclaimerScreen(), {
+      wrapper: ({ children }) => wrapper({ children, store }),
+    });
+    expect(() => act(() => result.current.decline())).not.toThrow();
   });
 
   it('acknowledge dispatches and persists', () => {

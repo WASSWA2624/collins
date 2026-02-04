@@ -10,6 +10,7 @@ import {
   StyledCloseButton,
   StyledSidebarContent,
 } from './Sidebar.web.styles';
+import AppLogo from '@platform/components/display/AppLogo';
 import Icon from '@platform/components/display/Icon';
 import SidebarItem from '@platform/components/navigation/SidebarItem';
 import { getMenuIconGlyph, SIDE_MENU_ITEMS } from '@config/sideMenu';
@@ -54,7 +55,7 @@ const SidebarWeb = ({
         <StyledSidebarHeader>
           <StyledSidebarHeaderBrand>
             <StyledSidebarHeaderLogo aria-hidden="true">
-              <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+              <AppLogo size="md" />
             </StyledSidebarHeaderLogo>
             <StyledSidebarHeaderAppName>{t('app.shortName')}</StyledSidebarHeaderAppName>
           </StyledSidebarHeaderBrand>

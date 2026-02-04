@@ -47,5 +47,13 @@ const StyledNotice = styled.div.withConfig({
   border-left: 4px solid ${({ theme }) => theme.colors.warning};
 `;
 
-export { StyledContainer, StyledContent, StyledSection, StyledNotice };
+const StyledButtonWrap = styled.div.withConfig({
+  displayName: 'StyledButtonWrap',
+  componentId: 'StyledButtonWrap',
+})`
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
+  width: 100%;
+`;
+
+export { StyledContainer, StyledContent, StyledSection, StyledNotice, StyledButtonWrap };
 

@@ -10,6 +10,7 @@ export { default as AppFrame } from './AppFrame';
 
 // Route layouts (reusable route layout components)
 export { default as MainRouteLayout } from './MainRouteLayout';
+export { default as DisclaimerLayout } from './DisclaimerLayout';
 
 // Common layout components
 export { default as ThemeProviderWrapper } from './common/ThemeProviderWrapper';

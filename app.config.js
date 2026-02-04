@@ -4,10 +4,10 @@ export default {
     slug: "collins",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/favicon.png",
+    icon: "./public/logos/logo-light.png",
     userInterfaceStyle: "light",
     splash: {
-      image: "./assets/favicon.png",
+      image: "./public/logos/logo-light.png",
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
@@ -18,13 +18,13 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/favicon.png",
+        foregroundImage: "./public/logos/logo-light.png",
         backgroundColor: "#ffffff",
       },
       package: "com.collins.android",
     },
     web: {
-      favicon: "./assets/favicon.png",
+      favicon: "./public/logos/logo-light.png",
       manifest: "./public/manifest.json",
       bundler: "metro",
       output: "static",

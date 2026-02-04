@@ -88,7 +88,7 @@ const buildLegalItems = ({ links, testID }) => {
     }
 
     return (
-      <StyledLegalText key={itemKey} testID={itemTestID} accessibilityRole="text">
+      <StyledLegalText key={itemKey} testID={itemTestID}>
         {renderedLabel}
       </StyledLegalText>
     );

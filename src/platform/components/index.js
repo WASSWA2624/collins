@@ -55,6 +55,7 @@ export { default as DatabaseIndicator } from './feedback/DatabaseIndicator';
 export { default as Text } from './display/Text';
 export { default as Image } from './display/Image';
 export { default as Icon } from './display/Icon';
+export { default as AppLogo, SIZES as AppLogoSizes } from './display/AppLogo';
 export { default as Avatar } from './display/Avatar';
 export { default as Badge } from './display/Badge';
 export { default as Chip } from './display/Chip';

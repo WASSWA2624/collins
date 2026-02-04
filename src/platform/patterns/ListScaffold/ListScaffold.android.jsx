@@ -38,7 +38,6 @@ const ListScaffoldAndroid = ({
       <StyledContainer
         style={style}
         testID={testID ? `${testID}-loading` : undefined}
-        accessibilityRole="progressbar"
         accessibilityLabel={accessibilityLabel || t('listScaffold.loading')}
         {...rest}
       >
@@ -53,7 +52,6 @@ const ListScaffoldAndroid = ({
       <StyledContainer
         style={style}
         testID={testID ? `${testID}-offline` : undefined}
-        accessibilityRole="status"
         accessibilityLabel={accessibilityLabel || t('listScaffold.offline')}
         {...rest}
       >
@@ -80,7 +78,6 @@ const ListScaffoldAndroid = ({
       <StyledContainer
         style={style}
         testID={testID ? `${testID}-error` : undefined}
-        accessibilityRole="alert"
         accessibilityLabel={accessibilityLabel || t('listScaffold.error')}
         {...rest}
       >
@@ -108,7 +105,6 @@ const ListScaffoldAndroid = ({
       <StyledContainer
         style={style}
         testID={testID ? `${testID}-empty` : undefined}
-        accessibilityRole="status"
         accessibilityLabel={accessibilityLabel || t('listScaffold.empty')}
         {...rest}
       >
@@ -128,7 +124,6 @@ const ListScaffoldAndroid = ({
     <StyledContainer
       style={style}
       testID={testID}
-      accessibilityRole="list"
       accessibilityLabel={accessibilityLabel || t('listScaffold.list')}
       {...rest}
     >

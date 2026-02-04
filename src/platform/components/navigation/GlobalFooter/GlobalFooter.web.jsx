@@ -6,6 +6,7 @@
 import React from 'react';
 import { useI18n } from '@hooks';
 import { SUPPORT_EMAIL, SUPPORT_PHONE } from '@config/env';
+import AppLogo from '@platform/components/display/AppLogo';
 import {
   StyledFooter,
   StyledFooterRow,
@@ -25,7 +26,6 @@ const GlobalFooterWeb = ({
 }) => {
   const { t } = useI18n();
   const appName = t('app.name');
-  const appShortName = t('app.shortName');
   const year = new Date().getFullYear();
   const copyright = t('navigation.footer.copyright', { year, appName });
   const showEmail = Boolean(SUPPORT_EMAIL);
@@ -42,7 +42,7 @@ const GlobalFooterWeb = ({
     >
       <StyledFooterRow>
         <StyledFooterBrand>
-          <StyledFooterLogo aria-hidden="true">{appShortName}</StyledFooterLogo>
+          <StyledFooterLogo aria-hidden="true"><AppLogo size="sm" /></StyledFooterLogo>
           <StyledFooterAppName>{appName}</StyledFooterAppName>
         </StyledFooterBrand>
         <StyledFooterCopyright>{copyright}</StyledFooterCopyright>

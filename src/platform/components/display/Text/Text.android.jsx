@@ -38,24 +38,18 @@ const TextAndroid = ({
   children,
   accessibilityLabel,
   accessibilityHint,
-  accessibilityRole,
   testID,
   style,
   ...rest
 }) => {
-  // Map variant to accessibility role if not provided
-  const getAccessibilityRole = () => {
-    if (accessibilityRole) return accessibilityRole;
-    if (variant === 'h1' || variant === 'h2' || variant === 'h3') return 'header';
-    return 'text';
-  };
+  // Do not set accessibilityRole on Android - header/text cause native crashes.
+  // Rely on accessibilityLabel for screen reader support.
 
   return (
     <StyledText
       variant={variant}
       color={color}
       align={align}
-      accessibilityRole={getAccessibilityRole()}
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       testID={testID}

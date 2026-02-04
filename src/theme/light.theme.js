@@ -9,6 +9,7 @@ import radius from './tokens/radius';
 import shadows from './tokens/shadows';
 import breakpoints from './breakpoints';
 import animations from './animations';
+import brand from './tokens/brand';
 
 export default {
   colors,
@@ -18,6 +19,7 @@ export default {
   shadows,
   breakpoints,
   animations,
+  brand: { logo: brand.logoLight },
   mode: 'light',
 };
 

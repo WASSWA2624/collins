@@ -8,6 +8,7 @@ const DISCLAIMER_TEST_IDS = {
   content: 'disclaimer-content',
   datasetNotice: 'disclaimer-dataset-notice',
   acknowledgeButton: 'disclaimer-acknowledge-button',
+  declineButton: 'disclaimer-decline-button',
 };
 
 export { DISCLAIMER_TEST_IDS };

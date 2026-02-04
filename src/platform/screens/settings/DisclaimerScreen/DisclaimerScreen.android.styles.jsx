@@ -44,4 +44,12 @@ const StyledNotice = styled(View).withConfig({
   border-radius: ${({ theme }) => theme.radii?.md ?? 8}px;
 `;
 
-export { StyledContainer, StyledContent, StyledContentWrap, StyledSection, StyledNotice };
+const StyledButtonWrap = styled(View).withConfig({
+  displayName: 'StyledButtonWrap',
+  componentId: 'StyledButtonWrap',
+})`
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
+  align-self: stretch;
+`;
+
+export { StyledContainer, StyledContent, StyledContentWrap, StyledSection, StyledNotice, StyledButtonWrap };

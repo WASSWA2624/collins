@@ -107,7 +107,6 @@ const GlobalHeaderAndroid = ({
   return (
     <StyledHeader
       topInset={topInset}
-      accessibilityRole="header"
       accessibilityLabel={resolvedLabel}
       testID={testID}
       {...rest}

@@ -31,7 +31,6 @@ const TabsAndroid = ({
   return (
     <StyledTabs
       variant={variant}
-      accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel}
       testID={testID}
       style={style}

@@ -68,19 +68,19 @@ const AppFrameIOS = ({
   );
 
   return (
-    <StyledContainer accessibilityRole="main" accessibilityLabel={accessibilityLabel} testID={testID}>
+    <StyledContainer accessibilityLabel={accessibilityLabel} testID={testID}>
       {hasHeader && (
-        <StyledHeader accessibilityRole="header">
+        <StyledHeader>
           {header}
         </StyledHeader>
       )}
       {hasBanner && (
-        <StyledBanner accessibilityRole="region">
+        <StyledBanner>
           {banner}
         </StyledBanner>
       )}
       {hasBreadcrumbs && (
-        <StyledBreadcrumbs accessibilityRole="navigation" accessibilityLabel={t('navigation.breadcrumbs.label')}>
+        <StyledBreadcrumbs accessibilityLabel={t('navigation.breadcrumbs.label')}>
           {breadcrumbs}
         </StyledBreadcrumbs>
       )}
@@ -93,7 +93,7 @@ const AppFrameIOS = ({
         <StyledContent>{children}</StyledContent>
       </StyledScrollView>
       {hasFooter && (
-        <StyledFooter accessibilityRole="contentinfo" bottomInset={bottomInset}>
+        <StyledFooter bottomInset={bottomInset}>
           {footer}
         </StyledFooter>
       )}

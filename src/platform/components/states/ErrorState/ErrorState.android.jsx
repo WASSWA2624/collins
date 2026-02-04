@@ -37,7 +37,6 @@ const ErrorStateAndroid = ({
   return (
     <StyledErrorState
       size={errorState.size}
-      accessibilityRole="alert"
       accessibilityLabel={accessibilityLabel || (typeof title === 'string' ? title : undefined)}
       testID={testID}
       style={style}

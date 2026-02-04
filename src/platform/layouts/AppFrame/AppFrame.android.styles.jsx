@@ -20,15 +20,11 @@ const StyledHeader = styled.View.withConfig({
   displayName: 'StyledHeader',
   componentId: 'StyledHeader',
 })`
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
-  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
-  min-height: ${({ theme }) => theme.spacing.sm * 7}px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  min-height: ${({ theme }) => theme.spacing.sm * 6}px;
 `;
 
 const StyledBanner = styled.View.withConfig({
@@ -80,6 +76,7 @@ const FOOTER_HEIGHT = 48;
 const StyledFooter = styled.View.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
+  shouldForwardProp: (prop) => prop !== 'role' && prop !== 'accessibilityRole',
 })`
   min-height: ${FOOTER_HEIGHT}px;
   flex-shrink: 0;

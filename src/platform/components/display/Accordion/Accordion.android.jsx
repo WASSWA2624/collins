@@ -44,7 +44,6 @@ const AccordionAndroid = ({
 
   return (
     <StyledAccordion
-      accessibilityRole="region"
       accessibilityLabel={accessibilityLabel || title}
       testID={testID}
       style={style}

@@ -11,6 +11,7 @@ import breakpoints from '@theme/breakpoints';
 
 // 2. Platform components
 import {
+  AppLogo,
   GlobalHeader,
   Icon,
   LoadingOverlay,
@@ -66,7 +67,7 @@ const MainRouteLayoutWeb = () => {
         </StyledMenuToggleButton>
         <StyledHeaderBrand href="/" onClick={(e) => e.preventDefault()}>
           <StyledHeaderLogo aria-hidden="true">
-            <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+            <AppLogo size="md" />
           </StyledHeaderLogo>
           <StyledHeaderAppName>{t('app.name')}</StyledHeaderAppName>
         </StyledHeaderBrand>

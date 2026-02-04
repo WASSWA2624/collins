@@ -42,7 +42,6 @@ const ListAndroid = ({
         data={data}
         renderItem={renderItem}
         keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
-        accessibilityRole="list"
         accessibilityLabel={accessibilityLabel || defaultLabel}
         testID={testID}
         style={style}
@@ -54,7 +53,6 @@ const ListAndroid = ({
   // Otherwise, render children directly
   return (
     <StyledList
-      accessibilityRole="list"
       accessibilityLabel={accessibilityLabel || defaultLabel}
       testID={testID}
       style={style}

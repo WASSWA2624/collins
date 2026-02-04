@@ -50,7 +50,6 @@ const BreadcrumbsAndroid = ({
 
   return (
     <StyledBreadcrumbs
-      accessibilityRole="navigation"
       accessibilityLabel={accessibilityLabel || t('navigation.breadcrumbs.title')}
       testID={testID}
       style={style}
@@ -75,7 +74,6 @@ const BreadcrumbsAndroid = ({
             ) : (
               <StyledBreadcrumbItem
                 isLast={isLast}
-                accessibilityRole="text"
                 accessibilityLabel={item.label}
               >
                 {item.label}

@@ -11,26 +11,24 @@ import {
   StyledContentWrap,
   StyledSection,
   StyledNotice,
+  StyledButtonWrap,
 } from './DisclaimerScreen.android.styles';
 import useDisclaimerScreen from './useDisclaimerScreen';
 
 const DisclaimerScreenAndroid = () => {
   const { t } = useI18n();
-  const { testIds, intendedUse, acknowledged, acknowledge } = useDisclaimerScreen();
+  const { testIds, intendedUse, acknowledged, acknowledge, decline } = useDisclaimerScreen();
 
   return (
     <StyledContainer accessibilityLabel={t('settings.disclaimer.screen.label')} testID={testIds.screen}>
       <StyledContentWrap>
         <StyledContent testID={testIds.content}>
-          <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
-            {t('settings.disclaimer.title')}
-          </Text>
           <Stack spacing="lg">
             <StyledSection>
               <Text variant="body">{t('settings.disclaimer.prototypeFraming')}</Text>
             </StyledSection>
             <StyledSection testID={testIds.datasetNotice}>
-              <Text variant="h3" accessibilityRole="header">
+              <Text variant="h3">
                 {t('settings.disclaimer.datasetNotice')}
               </Text>
               <StyledNotice>
@@ -41,13 +39,27 @@ const DisclaimerScreenAndroid = () => {
             </StyledSection>
             {!acknowledged && (
               <StyledSection>
-                <Button
-                  label={t('settings.disclaimer.acknowledge')}
-                  accessibilityLabel={t('settings.disclaimer.acknowledge')}
-                  accessibilityHint={t('settings.disclaimer.acknowledgeHint')}
-                  onPress={acknowledge}
-                  testID={testIds.acknowledgeButton}
-                />
+                <StyledButtonWrap>
+                  <Stack spacing="md">
+                    <Button
+                      text={t('settings.disclaimer.acknowledge')}
+                      size="large"
+                      accessibilityLabel={t('settings.disclaimer.acknowledge')}
+                      accessibilityHint={t('settings.disclaimer.acknowledgeHint')}
+                      onPress={acknowledge}
+                      testID={testIds.acknowledgeButton}
+                    />
+                    <Button
+                      variant="outline"
+                      text={t('settings.disclaimer.decline')}
+                      size="large"
+                      accessibilityLabel={t('settings.disclaimer.decline')}
+                      accessibilityHint={t('settings.disclaimer.declineHint')}
+                      onPress={decline}
+                      testID={testIds.declineButton}
+                    />
+                  </Stack>
+                </StyledButtonWrap>
               </StyledSection>
             )}
           </Stack>

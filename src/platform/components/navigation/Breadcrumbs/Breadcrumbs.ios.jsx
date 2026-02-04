@@ -50,7 +50,6 @@ const BreadcrumbsIOS = ({
 
   return (
     <StyledBreadcrumbs
-      accessibilityRole="navigation"
       accessibilityLabel={accessibilityLabel || t('navigation.breadcrumbs.title')}
       testID={testID}
       style={style}

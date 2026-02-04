@@ -47,7 +47,7 @@ const HomeScreenAndroid = () => {
   return (
     <StyledContainer accessibilityLabel={t('home.title')} testID={testIds.screen}>
       <StyledContent>
-        <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
+        <Text variant="h1" testID={testIds.title}>
           {t('home.welcome.title')}
         </Text>
         <StyledMessage>

@@ -80,6 +80,7 @@ const FOOTER_HEIGHT = 48;
 const StyledFooter = styled.View.withConfig({
   displayName: 'StyledFooter',
   componentId: 'StyledFooter',
+  shouldForwardProp: (prop) => prop !== 'role' && prop !== 'accessibilityRole',
 })`
   min-height: ${FOOTER_HEIGHT}px;
   flex-shrink: 0;

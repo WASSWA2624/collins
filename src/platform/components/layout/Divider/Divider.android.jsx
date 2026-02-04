@@ -26,7 +26,6 @@ const DividerAndroid = ({
   return (
     <StyledDivider
       orientation={orientation}
-      accessibilityRole="separator"
       accessibilityLabel={accessibilityLabel}
       testID={testID}
       style={style}

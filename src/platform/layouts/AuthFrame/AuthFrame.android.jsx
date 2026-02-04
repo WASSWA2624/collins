@@ -24,7 +24,7 @@ const AuthFrameAndroid = ({
   children,
 }) => {
   return (
-    <StyledContainer accessibilityRole="main">
+    <StyledContainer>
       {header ? <StyledHeader>{header}</StyledHeader> : null}
       {banner ? <StyledBanner>{banner}</StyledBanner> : null}
       {notices ? <StyledNotices>{notices}</StyledNotices> : null}

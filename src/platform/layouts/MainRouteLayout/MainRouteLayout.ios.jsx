@@ -10,6 +10,7 @@ import { Slot, useRouter } from 'expo-router';
 
 // 2. Platform components
 import {
+  AppLogo,
   GlobalHeader,
   Icon,
   LoadingOverlay,
@@ -73,7 +74,7 @@ const MainRouteLayoutIOS = () => {
           accessibilityRole="image"
           accessibilityLabel={t('app.shortName')}
         >
-          <Icon glyph={getMenuIconGlyph('medkit-outline')} size="md" decorative />
+          <AppLogo size="md" />
         </Pressable>
       </StyledHeaderLeading>
     ),
