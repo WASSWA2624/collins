@@ -4,18 +4,18 @@
  * File: Sidebar.android.styles.jsx
  */
 import styled from 'styled-components/native';
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable, Text, ScrollView } from 'react-native';
 
 const StyledSidebar = styled(View).withConfig({
   displayName: 'StyledSidebar',
   componentId: 'StyledSidebar',
 })`
   width: 280px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   border-right-width: 1px;
   border-right-color: ${({ theme }) => theme.colors.background.tertiary};
   height: 100%;
-  elevation: 4;
+  elevation: 8;
 `;
 
 const StyledSidebarHeader = styled(View).withConfig({
@@ -25,10 +25,11 @@ const StyledSidebarHeader = styled(View).withConfig({
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
-  min-height: 44px;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  min-height: 56px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
@@ -55,24 +56,26 @@ const StyledSidebarHeaderAppName = styled(Text).withConfig({
   displayName: 'StyledSidebarHeaderAppName',
   componentId: 'StyledSidebarHeaderAppName',
 })`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   line-height: ${({ theme }) => theme.typography.lineHeight.tight};
   color: ${({ theme }) => theme.colors.text.primary};
   letter-spacing: ${-0.5};
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
 `;
 
 const StyledCloseButton = styled(Pressable).withConfig({
   displayName: 'StyledCloseButton',
   componentId: 'StyledCloseButton',
 })`
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 48px;
+  min-height: 48px;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.spacing.xs}px;
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border-radius: ${({ theme }) => theme.radius.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 const StyledContentWrap = styled(View).withConfig({
@@ -80,16 +83,21 @@ const StyledContentWrap = styled(View).withConfig({
   componentId: 'StyledContentWrap',
 })`
   flex: 1;
-  padding-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledScrollView = styled(ScrollView).withConfig({
+  displayName: 'StyledScrollView',
+  componentId: 'StyledScrollView',
+})`
+  flex: 1;
 `;
 
 const StyledSidebarContent = styled(View).withConfig({
   displayName: 'StyledSidebarContent',
   componentId: 'StyledSidebarContent',
 })`
-  flex: 1;
   padding: ${({ theme }) => theme.spacing.md}px;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding-bottom: ${({ theme }) => theme.spacing.xl}px;
 `;
 
 const StyledNavSection = styled(View).withConfig({
@@ -184,8 +192,9 @@ export {
   StyledSidebarHeaderLogo,
   StyledSidebarHeaderAppName,
   StyledCloseButton,
-  StyledSidebarContent,
   StyledContentWrap,
+  StyledScrollView,
+  StyledSidebarContent,
   StyledNavSection,
   StyledNavSectionHeader,
   StyledNavSectionTitle,

@@ -116,9 +116,42 @@ const StyledErrorBanner = styled.div.withConfig({
   border-radius: ${({ theme }) => theme.radius.sm}px;
 `;
 
+const StyledGettingStartedSection = styled.section.withConfig({
+  displayName: 'StyledGettingStartedSection',
+  componentId: 'StyledGettingStartedSection',
+})`
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledGettingStartedTitle = styled.h2.withConfig({
+  displayName: 'StyledGettingStartedTitle',
+  componentId: 'StyledGettingStartedTitle',
+})`
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledGettingStartedActions = styled.div.withConfig({
+  displayName: 'StyledGettingStartedActions',
+  componentId: 'StyledGettingStartedActions',
+})`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+`;
+
 export {
   StyledContainer,
   StyledErrorBanner,
+  StyledGettingStartedSection,
+  StyledGettingStartedTitle,
+  StyledGettingStartedActions,
   StyledPageHeader,
   StyledPageTitle,
   StyledSubtitle,

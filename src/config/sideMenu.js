@@ -28,13 +28,12 @@ export function getMenuIconGlyph(iconKey) {
   return MENU_ICON_GLYPHS[iconKey] ?? DEFAULT_ICON_GLYPH;
 }
 
-/** Main app sidebar: home, assessment, history, training, onboarding, settings */
+/** Main app sidebar: home, assessment (Admission), history (Tracking), training (includes getting started), settings */
 const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
   { id: 'assessment', icon: 'medkit-outline', path: '/assessment' },
   { id: 'history', icon: 'time-outline', path: '/history' },
   { id: 'training', icon: 'layers-outline', path: '/training' },
-  { id: 'onboarding', icon: 'layers-outline', path: '/onboarding' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 

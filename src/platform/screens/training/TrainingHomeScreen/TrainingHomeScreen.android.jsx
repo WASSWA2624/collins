@@ -1,5 +1,6 @@
 /**
  * TrainingHomeScreen Component - Android
+ * Merged: Getting started (onboarding) + Training topics.
  * File: TrainingHomeScreen.android.jsx
  */
 import React, { useCallback } from 'react';
@@ -7,11 +8,14 @@ import { TouchableOpacity, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
+import useOnboardingScreen from '@platform/screens/onboarding/OnboardingScreen/useOnboardingScreen';
 import useTrainingHomeScreen from './useTrainingHomeScreen';
 import {
   StyledContainer,
   StyledContentWrap,
   StyledErrorBanner,
+  StyledGettingStartedSection,
+  StyledGettingStartedActions,
   StyledPageHeader,
   StyledPageTitle,
   StyledSearchWrap,
@@ -25,6 +29,15 @@ const TrainingHomeScreenAndroid = () => {
   const { t } = useI18n();
   const router = useRouter();
   const {
+    currentStepId,
+    stepTitle,
+    stepBody,
+    isFirst,
+    isLast,
+    goNext,
+    goBack,
+  } = useOnboardingScreen();
+  const {
     popularTopics,
     loadError,
     isLoading,
@@ -34,6 +47,11 @@ const TrainingHomeScreenAndroid = () => {
     searchResults,
     search,
   } = useTrainingHomeScreen();
+
+  const handleOnboardingBack = useCallback(() => {
+    if (isFirst) router.back();
+    else goBack();
+  }, [isFirst, router, goBack]);
 
   const handleNavigateToTopic = useCallback(
     (topicId) => {
@@ -69,6 +87,25 @@ const TrainingHomeScreenAndroid = () => {
           </StyledPageTitle>
           <Text variant="caption" color="text.secondary">{t('training.home.subtitle')}</Text>
         </StyledPageHeader>
+        <StyledGettingStartedSection accessibilityLabel={t('settings.onboarding.accessibilityLabel')}>
+          <Text variant="label">{t('navigation.items.main.onboarding')}</Text>
+          <Text variant="h3">{stepTitle(currentStepId)}</Text>
+          <Text variant="body">{stepBody(currentStepId)}</Text>
+          <StyledGettingStartedActions>
+            <Button variant="outline" onPress={handleOnboardingBack} accessibilityLabel={t('settings.onboarding.actions.back')}>
+              {t('settings.onboarding.actions.back')}
+            </Button>
+            {isLast ? (
+              <Button variant="primary" onPress={() => {}} accessibilityLabel={t('settings.onboarding.actions.done')}>
+                {t('settings.onboarding.actions.done')}
+              </Button>
+            ) : (
+              <Button variant="primary" onPress={goNext} accessibilityLabel={t('settings.onboarding.actions.next')}>
+                {t('settings.onboarding.actions.next')}
+              </Button>
+            )}
+          </StyledGettingStartedActions>
+        </StyledGettingStartedSection>
         {loadError ? (
           <StyledErrorBanner testID={TRAINING_HOME_TEST_IDS.errorBanner}>
             <Text variant="body" color="status.error.text">{t('training.home.states.error')}</Text>

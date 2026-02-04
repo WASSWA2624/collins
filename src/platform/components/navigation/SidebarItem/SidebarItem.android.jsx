@@ -48,7 +48,7 @@ const SidebarItemAndroid = (props) => {
         <IconBox>
           <Icon glyph={getMenuIconGlyph(icon)} size="sm" decorative />
         </IconBox>
-        <Label collapsed={collapsed}>{label}</Label>
+        <Label active={active} collapsed={collapsed}>{label}</Label>
       </Row>
     </TouchableOpacity>
   );

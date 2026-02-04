@@ -1,10 +1,10 @@
 /**
- * Onboarding Route (P013)
- * (main)/onboarding - Clinician onboarding
+ * Onboarding Route — redirects to merged Training screen.
+ * (main)/onboarding → /training (Training includes Getting started).
  */
 import React from 'react';
-import { OnboardingScreen } from '@platform/screens';
+import { Redirect } from 'expo-router';
 
 export default function OnboardingRoute() {
-  return <OnboardingScreen />;
+  return <Redirect href="/training" />;
 }

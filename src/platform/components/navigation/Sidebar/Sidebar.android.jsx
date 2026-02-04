@@ -4,6 +4,7 @@
  * File: Sidebar.android.jsx
  */
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useI18n } from '@hooks';
 import useSidebar, { sidebarMenu } from '@platform/components/navigation/Sidebar/useSidebar';
@@ -19,6 +20,7 @@ import {
   StyledSidebarHeaderAppName,
   StyledCloseButton,
   StyledContentWrap,
+  StyledScrollView,
   StyledSidebarContent,
 } from './Sidebar.android.styles';
 
@@ -123,19 +125,21 @@ const SidebarAndroid = ({
             accessibilityHint={t('common.closeSidebarHint')}
             testID="sidebar-close"
           >
-            <Icon glyph={getMenuIconGlyph('close-outline')} size="sm" decorative />
+            <Icon glyph={getMenuIconGlyph('close-outline')} size="lg" decorative />
           </StyledCloseButton>
         </StyledSidebarHeader>
       ) : null}
       <StyledContentWrap>
-        <StyledSidebarContent>
-          {filteredItems.map((item) => (
-            <React.Fragment key={item?.id ?? ''}>
-              {renderItem(item)}
-              {renderChildren(item)}
-            </React.Fragment>
-          ))}
-        </StyledSidebarContent>
+        <StyledScrollView showsVerticalScrollIndicator keyboardShouldPersistTaps="handled">
+          <StyledSidebarContent>
+            {filteredItems.map((item) => (
+              <React.Fragment key={item?.id ?? ''}>
+                {renderItem(item)}
+                {renderChildren(item)}
+              </React.Fragment>
+            ))}
+          </StyledSidebarContent>
+        </StyledScrollView>
       </StyledContentWrap>
     </StyledSidebar>
   );

@@ -14,7 +14,6 @@ import {
   StyledTabBarContent,
   StyledTabItem,
   StyledTabItemIcon,
-  StyledTabItemLabel,
   StyledTabItemBadge,
 } from './TabBar.web.styles';
 
@@ -92,7 +91,6 @@ const TabBarWeb = ({
               testID={testID ? `${testID}-tab-${item.id}` : undefined}
             >
               <StyledTabItemIcon active={isActive}>{item.icon || '○'}</StyledTabItemIcon>
-              <StyledTabItemLabel active={isActive}>{item.label}</StyledTabItemLabel>
               {item.badge && item.badgeCount > 0 && (
                 <StyledTabItemBadge>
                   <Badge variant="error" size="small">

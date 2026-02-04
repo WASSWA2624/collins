@@ -76,10 +76,31 @@ const StyledErrorBanner = styled(View).withConfig({
   border-radius: ${({ theme }) => theme.radius.sm}px;
 `;
 
+const StyledGettingStartedSection = styled(View).withConfig({
+  displayName: 'StyledGettingStartedSection',
+  componentId: 'StyledGettingStartedSection',
+})`
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+`;
+
+const StyledGettingStartedActions = styled(View).withConfig({
+  displayName: 'StyledGettingStartedActions',
+  componentId: 'StyledGettingStartedActions',
+})`
+  flex-direction: row;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+`;
+
 export {
   StyledContainer,
   StyledContentWrap,
   StyledErrorBanner,
+  StyledGettingStartedSection,
+  StyledGettingStartedActions,
   StyledPageHeader,
   StyledPageTitle,
   StyledSearchWrap,

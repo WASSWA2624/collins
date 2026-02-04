@@ -1,15 +1,20 @@
 /**
  * TrainingHomeScreen Component - Web
+ * Merged: Getting started (onboarding) + Training topics.
  * File: TrainingHomeScreen.web.jsx
  */
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { Button, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
+import useOnboardingScreen from '@platform/screens/onboarding/OnboardingScreen/useOnboardingScreen';
 import useTrainingHomeScreen from './useTrainingHomeScreen';
 import {
   StyledContainer,
   StyledErrorBanner,
+  StyledGettingStartedSection,
+  StyledGettingStartedTitle,
+  StyledGettingStartedActions,
   StyledPageHeader,
   StyledPageTitle,
   StyledSubtitle,
@@ -41,6 +46,16 @@ function TopicLink({ doc, t, onNavigate }) {
 const TrainingHomeScreenWeb = () => {
   const { t } = useI18n();
   const router = useRouter();
+  const trainingSectionRef = useRef(null);
+  const {
+    currentStepId,
+    stepTitle,
+    stepBody,
+    isFirst,
+    isLast,
+    goNext,
+    goBack,
+  } = useOnboardingScreen();
   const {
     popularTopics,
     loadError,
@@ -51,6 +66,14 @@ const TrainingHomeScreenWeb = () => {
     searchResults,
     search,
   } = useTrainingHomeScreen();
+
+  const handleOnboardingDone = useCallback(() => {
+    trainingSectionRef.current?.scrollIntoView?.({ behavior: 'smooth' });
+  }, []);
+  const handleOnboardingBack = useCallback(() => {
+    if (isFirst) router.back();
+    else goBack();
+  }, [isFirst, router, goBack]);
 
   const handleNavigateToTopic = useCallback(
     (topicId) => {
@@ -94,6 +117,28 @@ const TrainingHomeScreenWeb = () => {
         <StyledPageTitle>{t('training.home.title')}</StyledPageTitle>
         <StyledSubtitle>{t('training.home.subtitle')}</StyledSubtitle>
       </StyledPageHeader>
+      <StyledGettingStartedSection aria-labelledby="getting-started-heading">
+        <StyledGettingStartedTitle id="getting-started-heading">
+          {t('navigation.items.main.onboarding')}
+        </StyledGettingStartedTitle>
+        <Text as="h3" variant="h3">{stepTitle(currentStepId)}</Text>
+        <Text variant="body">{stepBody(currentStepId)}</Text>
+        <StyledGettingStartedActions>
+          <Button variant="outline" onPress={handleOnboardingBack} accessibilityLabel={t('settings.onboarding.actions.back')}>
+            {t('settings.onboarding.actions.back')}
+          </Button>
+          {isLast ? (
+            <Button variant="primary" onPress={handleOnboardingDone} accessibilityLabel={t('settings.onboarding.actions.done')}>
+              {t('settings.onboarding.actions.done')}
+            </Button>
+          ) : (
+            <Button variant="primary" onPress={goNext} accessibilityLabel={t('settings.onboarding.actions.next')}>
+              {t('settings.onboarding.actions.next')}
+            </Button>
+          )}
+        </StyledGettingStartedActions>
+      </StyledGettingStartedSection>
+      <div ref={trainingSectionRef}>
       {loadError ? (
         <StyledErrorBanner data-testid={TRAINING_HOME_TEST_IDS.errorBanner}>
           <Text variant="body" color="status.error.text">{t('training.home.states.error')}</Text>
@@ -142,6 +187,7 @@ const TrainingHomeScreenWeb = () => {
           {t('training.home.browseAll')}
         </Button>
       ) : null}
+      </div>
     </StyledContainer>
   );
 };
