@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Snackbar Android Styles
  * Styled-components for Android platform
  * File: Snackbar.android.styles.jsx
@@ -71,7 +71,7 @@ const StyledActionButtonText = styled.Text.withConfig({
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.onPrimary || theme.colors.text.inverse};
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: ${0.5};
 `;
 
 export { StyledSnackbar, StyledSnackbarText, StyledActionButton, StyledActionButtonText };

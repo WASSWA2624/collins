@@ -8,8 +8,8 @@ import { useTheme } from 'styled-components/native';
 import { StyledLogoWrapper, StyledLogoImage } from './AppLogo.android.styles';
 import { SIZES } from './types';
 
-const LOGO_LIGHT = require('../../../../../public/logos/logo-light.png');
-const LOGO_DARK = require('../../../../../public/logos/logo-dark.png');
+const LOGO_LIGHT = require('../../../../../assets/logos/logo-light.png');
+const LOGO_DARK = require('../../../../../assets/logos/logo-dark.png');
 
 const getSource = (mode) => (mode === 'dark' || mode === 'high-contrast' ? LOGO_DARK : LOGO_LIGHT);
 
