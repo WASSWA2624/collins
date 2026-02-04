@@ -51,7 +51,7 @@ const MainRouteLayoutAndroid = () => {
     (item) => {
       closeSidebar();
       const href = item?.href ?? item?.path ?? null;
-      if (href) router.push(href);
+      if (href) router.replace(href);
     },
     [closeSidebar, router]
   );

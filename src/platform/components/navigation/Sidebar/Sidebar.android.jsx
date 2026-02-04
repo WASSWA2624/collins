@@ -76,7 +76,7 @@ const SidebarAndroid = ({
     }
 
     const href = resolveHref(item);
-    if (href) router.push(href);
+    if (href) router.replace(href);
   };
 
   const renderItem = (item) => {

@@ -48,7 +48,7 @@ const TabBarWeb = ({
     items,
     onTabPress: onTabPress || ((item) => {
       if (item.href) {
-        router.push(item.href);
+        router.replace(item.href);
       } else if (item.onPress) {
         // istanbul ignore next - Unreachable through normal usage (handlePress checks item.onPress first)
         // This branch exists for completeness but is intentionally optimized away in handlePress

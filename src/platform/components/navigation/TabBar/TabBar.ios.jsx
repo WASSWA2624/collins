@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Badge from '@platform/components/display/Badge';
 import { useI18n } from '@hooks';
 import { getMenuIconGlyph } from '@config/sideMenu';
@@ -38,6 +39,7 @@ const TabBarIOS = ({
 }) => {
   const { t } = useI18n();
   const router = useRouter();
+  const { bottom: bottomInset } = useSafeAreaInsets();
   const {
     filteredItems,
     isTabActive,
@@ -46,7 +48,7 @@ const TabBarIOS = ({
     items,
     onTabPress: onTabPress || ((item) => {
       if (item.href) {
-        router.push(item.href);
+        router.replace(item.href);
       } else if (item.onPress) {
         // istanbul ignore next - Unreachable through normal usage (handlePress checks item.onPress first)
         // This branch exists for completeness but is intentionally optimized away in handlePress
@@ -68,6 +70,7 @@ const TabBarIOS = ({
 
   return (
     <StyledTabBar
+      bottomInset={bottomInset}
       accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel || t('navigation.tabBar.title')}
       testID={testID}

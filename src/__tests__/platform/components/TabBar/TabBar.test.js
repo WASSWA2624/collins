@@ -23,16 +23,20 @@ const _indexExports = {
   TabBar: TabBarIndex,
 };
 
-// Mock expo-router
-const mockPush = jest.fn();
+// Mock expo-router (TabBar uses replace for tab switches)
+const mockReplace = jest.fn();
 const mockPathname = '/';
 
 jest.mock('expo-router', () => ({
   useRouter: () => ({
-    push: mockPush,
-    replace: jest.fn(),
+    push: jest.fn(),
+    replace: mockReplace,
   }),
   usePathname: () => mockPathname,
+}));
+
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 24, left: 0 }),
 }));
 
 // Mock child components
@@ -122,12 +126,12 @@ describe('TabBar Component', () => {
     });
 
     it('should render tab labels', () => {
-      const { getByText } = renderWithProviders(
+      const { getByLabelText } = renderWithProviders(
         <TabBar items={mockItems} testID="tabbar" />
       );
-      expect(getByText('Home')).toBeTruthy();
-      expect(getByText('Search')).toBeTruthy();
-      expect(getByText('Profile')).toBeTruthy();
+      expect(getByLabelText('Home')).toBeTruthy();
+      expect(getByLabelText('Search')).toBeTruthy();
+      expect(getByLabelText('Profile')).toBeTruthy();
     });
 
     it('should render badge when item has badge and badgeCount > 0', () => {
@@ -204,7 +208,7 @@ describe('TabBar Component', () => {
         <TabBar items={mockItems} testID="tabbar" />
       );
       fireEvent.press(getByTestId('tabbar-tab-search'));
-      expect(mockPush).toHaveBeenCalledWith('/search');
+      expect(mockReplace).toHaveBeenCalledWith('/search');
     });
 
     it('should handle web default handler with item.onPress when no onTabPress provided', () => {
@@ -408,10 +412,10 @@ describe('TabBar Component', () => {
           icon: '📝',
         },
       ];
-      const { getByText } = renderWithProviders(
+      const { getByLabelText } = renderWithProviders(
         <TabBar items={itemsWithLongLabels} testID="tabbar" />
       );
-      expect(getByText('Very Long Tab Label That Might Wrap')).toBeTruthy();
+      expect(getByLabelText('Very Long Tab Label That Might Wrap')).toBeTruthy();
     });
   });
 
@@ -429,7 +433,7 @@ describe('TabBar Component', () => {
         <TabBar items={itemsWithHref} testID="tabbar" />
       );
       fireEvent.press(getByTestId('tabbar-tab-test'));
-      expect(mockPush).toHaveBeenCalledWith('/test');
+      expect(mockReplace).toHaveBeenCalledWith('/test');
     });
 
     it('should call item.onPress when no onTabPress prop and item has onPress', () => {
@@ -469,15 +473,15 @@ describe('TabBar Component', () => {
 
     it('should execute default handler item.onPress branch through hook when onTabPress uses default pattern', () => {
       // This test ensures coverage of the default handler pattern used in TabBar components
-      // The pattern: onTabPress || ((item) => { if (item.href) router.push(item.href); else if (item.onPress) item.onPress(item); })
+      // The pattern: onTabPress || ((item) => { if (item.href) router.replace(item.href); else if (item.onPress) item.onPress(item); })
       // Line 52 in TabBar.ios.jsx, line 52 in TabBar.android.jsx, line 54 in TabBar.web.jsx
       const onItemPress = jest.fn();
-      const mockRouter = { push: jest.fn() };
+      const mockRouter = { replace: jest.fn() };
       
       // Replicate the exact default handler pattern from the components
       const defaultHandlerPattern = (item) => {
         if (item.href) {
-          mockRouter.push(item.href);
+          mockRouter.replace(item.href);
         } else if (item.onPress) {
           item.onPress(item); // This pattern matches line 52/54 in component files
         }
@@ -503,7 +507,7 @@ describe('TabBar Component', () => {
       
       render(<TestHookComponent />);
       expect(onItemPress).toHaveBeenCalledWith({ id: 'test', onPress: onItemPress });
-      expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(mockRouter.replace).not.toHaveBeenCalled();
     });
   });
 
@@ -614,7 +618,7 @@ describe('TabBar Component', () => {
         <TabBarIOS items={itemsWithHref} testID="tabbar-ios" />
       );
       fireEvent.press(getByTestId('tabbar-ios-tab-ios-href'));
-      expect(mockPush).toHaveBeenCalledWith('/ios-href');
+      expect(mockReplace).toHaveBeenCalledWith('/ios-href');
     });
 
     it('should handle iOS hookHandleTabPress fallback when no handlers provided', () => {
@@ -732,7 +736,7 @@ describe('TabBar Component', () => {
         <TabBarAndroid items={itemsWithHref} testID="tabbar-android" />
       );
       fireEvent.press(getByTestId('tabbar-android-tab-android-href'));
-      expect(mockPush).toHaveBeenCalledWith('/android-href');
+      expect(mockReplace).toHaveBeenCalledWith('/android-href');
     });
 
     it('should handle Android hookHandleTabPress fallback when no handlers provided', () => {

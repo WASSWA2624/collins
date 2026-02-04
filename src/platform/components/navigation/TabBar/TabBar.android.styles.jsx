@@ -9,6 +9,7 @@ import { View, Pressable, Text } from 'react-native';
 const StyledTabBar = styled(View).withConfig({
   displayName: 'StyledTabBar',
   componentId: 'StyledTabBar',
+  shouldForwardProp: (prop) => prop !== 'bottomInset',
 })`
   position: absolute;
   bottom: 0;
@@ -18,6 +19,8 @@ const StyledTabBar = styled(View).withConfig({
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
   padding: ${({ theme }) => theme.spacing.sm}px 0;
+  padding-bottom: ${({ theme, bottomInset }) =>
+    (theme?.spacing?.sm ?? 8) + (typeof bottomInset === 'number' ? bottomInset : 0)}px;
   elevation: ${({ theme }) => theme?.shadows?.md?.elevation || 4};
 `;
 
