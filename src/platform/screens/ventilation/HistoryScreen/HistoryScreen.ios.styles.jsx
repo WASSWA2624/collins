@@ -130,6 +130,13 @@ const StyledConfirmActions = styled(View).withConfig({
   margin-top: ${({ theme }) => theme.spacing.md}px;
 `;
 
+const StyledList = styled(View).withConfig({
+  displayName: 'StyledList',
+  componentId: 'StyledList',
+})`
+  padding-bottom: ${({ theme }) => theme.spacing.xl}px;
+`;
+
 export {
   StyledBanner,
   StyledConfirmActions,
@@ -141,5 +148,6 @@ export {
   StyledItemActions,
   StyledItemMeta,
   StyledItemRow,
+  StyledList,
   StyledModalOverlay,
 };

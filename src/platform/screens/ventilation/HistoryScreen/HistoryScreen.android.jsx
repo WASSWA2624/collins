@@ -3,10 +3,9 @@
  * File: HistoryScreen.android.jsx
  */
 import React from 'react';
-import { FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, Text } from '@platform/components';
-import { useI18n, useTheme } from '@hooks';
+import { useI18n } from '@hooks';
 import useHistoryScreen from './useHistoryScreen';
 import {
   StyledBanner,
@@ -19,13 +18,13 @@ import {
   StyledItemActions,
   StyledItemMeta,
   StyledItemRow,
+  StyledList,
   StyledModalOverlay,
 } from './HistoryScreen.android.styles';
 import { HISTORY_TEST_IDS } from './types';
 
 const HistoryScreenAndroid = () => {
   const { t } = useI18n();
-  const theme = useTheme();
   const router = useRouter();
   const {
     rows,
@@ -121,14 +120,13 @@ const HistoryScreenAndroid = () => {
           <Text variant="body">{t('ventilation.history.empty')}</Text>
         </StyledEmpty>
       ) : (
-        <FlatList
-          data={rows}
-          keyExtractor={(row) => row.entry.sessionId}
-          renderItem={renderItem}
-          testID={HISTORY_TEST_IDS.list}
-          listKey="history-list"
-          contentContainerStyle={{ paddingBottom: theme?.spacing?.xl ?? 24 }}
-        />
+        <StyledList testID={HISTORY_TEST_IDS.list}>
+          {rows.map((item) => (
+            <React.Fragment key={item.entry.sessionId}>
+              {renderItem({ item })}
+            </React.Fragment>
+          ))}
+        </StyledList>
       )}
       {sessionIdToDelete ? (
         <StyledModalOverlay>

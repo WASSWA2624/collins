@@ -60,9 +60,9 @@ const StyledSidebarHeaderAppName = styled(Text).withConfig({
 })`
   font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+  line-height: ${({ theme }) => theme.typography.fontSize.xl * theme.typography.lineHeight.tight}px;
   color: ${({ theme }) => theme.colors.text.primary};
-  letter-spacing: ${-0.5};
+  letter-spacing: -0.5px;
   flex: 1;
   min-width: 0;
   flex-shrink: 1;
@@ -127,7 +127,7 @@ const StyledNavSectionTitle = styled(Text).withConfig({
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   color: ${({ theme }) => theme.colors.text.tertiary};
   text-transform: uppercase;
-  letter-spacing: ${0.5};
+  letter-spacing: 0.5px;
 `;
 
 const StyledNavItem = styled(Pressable).withConfig({

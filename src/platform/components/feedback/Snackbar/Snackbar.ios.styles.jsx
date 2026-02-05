@@ -74,7 +74,7 @@ const StyledActionButtonText = styled.Text.withConfig({
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.onPrimary || theme.colors.text.inverse};
   text-transform: uppercase;
-  letter-spacing: ${0.5};
+  letter-spacing: 0.5px;
 `;
 
 export { StyledSnackbar, StyledSnackbarText, StyledActionButton, StyledActionButtonText };

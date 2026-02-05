@@ -6,6 +6,9 @@
 // 1. External dependencies
 import React from 'react';
 
+// 2. Platform components
+import { Text } from '@platform/components';
+
 // 4. Styles (relative import - platform-specific)
 import { StyledAccordion, StyledAccordionHeader, StyledAccordionContent, StyledAccordionIcon } from './Accordion.ios.styles';
 
@@ -58,7 +61,7 @@ const AccordionIOS = ({
         testID={testID ? `${testID}-header` : undefined}
       >
         <StyledAccordionIcon expanded={expanded}>▼</StyledAccordionIcon>
-        {title}
+        <Text variant="body">{title}</Text>
       </StyledAccordionHeader>
       {expanded && (
         <StyledAccordionContent testID={testID ? `${testID}-content` : undefined}>
