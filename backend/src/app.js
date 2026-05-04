@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -12,6 +13,12 @@ export const createApp = () => {
   const app = express();
 
   app.disable('x-powered-by');
+  app.use((req, res, next) => {
+    req.id = req.headers['x-request-id'] || crypto.randomUUID();
+    res.setHeader('x-request-id', req.id);
+    next();
+  });
+
   app.use(helmet());
   app.use(cors({
     origin: (origin, callback) => {
@@ -21,7 +28,7 @@ export const createApp = () => {
     credentials: true,
   }));
   app.use(express.json({ limit: '1mb' }));
-  app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000,

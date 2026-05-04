@@ -11,7 +11,7 @@ import {
   refresh,
   register,
 } from './auth.controller.js';
-import { emptySchema, loginSchema, registerSchema } from './auth.validators.js';
+import { loginSchema, logoutSchema, refreshSchema, registerSchema } from './auth.validators.js';
 
 export const authRouter = Router();
 
@@ -19,8 +19,8 @@ authRouter.get('/csrf-token', csrfToken);
 authRouter.get('/identify', identify);
 authRouter.post('/register', validateRequest(registerSchema), register);
 authRouter.post('/login', validateRequest(loginSchema), login);
-authRouter.post('/refresh', validateRequest(emptySchema), refresh);
-authRouter.post('/logout', logout);
+authRouter.post('/refresh', validateRequest(refreshSchema), refresh);
+authRouter.post('/logout', validateRequest(logoutSchema), logout);
 authRouter.get('/me', requireAuth, me);
 
 authRouter.post('/forgot-password', plannedAuth('Forgot password'));

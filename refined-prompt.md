@@ -1,101 +1,132 @@
-Improve the IPD module/screen in the `hms` monorepo.
+Implement the **backend only** for the `collins` monorepo so it is fully aligned with `app-write-up.md`, the backend app rules, and the backend dev-plan. Do **not** modify any frontend files.
 
-Before editing, inspect the relevant `hms-backend` and `hms-frontend` app-rules, architecture, routes, APIs, Prisma models, services, repositories, shared UI components, hooks, dependencies, permissions, tenancy/facility scope, entitlements, and folder structure. Apply minimal, focused changes; modify existing files where possible; create/delete files only when necessary. Do not change Prisma schema, migrations, seed data, tables, columns, enums, relations, indexes, or persisted contracts unless unavoidable.
+Before editing, inspect these files/directories and base all changes on the existing architecture:
 
-Backend requirements:
+* `app-write-up.md`
+* `backend/app-rules/**`
+* `backend/dev-plan/**`
+* `backend/package.json`
+* `backend/.env.example`
+* `backend/prisma/schema.prisma`
+* `backend/prisma/migrations/**`
+* `backend/prisma/seed.*`
+* `backend/src/**`
+* Existing backend routes, validators, controllers, services, repositories, middleware, response helpers, auth/RBAC/ABAC utilities, audit logging, facility/tenant scope logic, sync/offline/idempotency logic, and Prisma client setup.
 
-* Verify and fix, if needed, the Start Admission flow so clicking **Start Admission** correctly creates/updates the patient admission using existing `/api/v1` patterns.
-* Preserve route → controller → service → repository → Prisma layering.
-* Preserve Zod validation, `snake_case` payloads, response helpers, RBAC/ABAC, entitlements, tenancy/facility scoping, audit, and security rules.
-* Ensure ward support requests persist correctly for both `housekeeping` and `equipment_issue`.
-* Ensure facility, ward, room, bed, equipment, manual equipment, problem/description, and request type data are saved using existing contracts where possible.
-* Add or adjust only the minimal APIs needed for IPD tables, actions, nested modals, reports, and request flows.
+Implement the backend requirements from `app-write-up.md` completely, but keep changes minimal and focused. Preserve the existing backend layering:
 
-Frontend requirements:
+`route → validator/controller → service/repository → Prisma`
 
-* Follow Expo Router, JSX, styled-components, Redux, feature/service hooks, theme tokens, entitlement-aware navigation, and existing IPD patterns.
-* Prefer reusable `src/platform/*` components, especially the existing reusable data table and modal patterns.
-* Keep UI responsive across iOS, Android, web, mobile, tablet, and desktop; support light, dark, and high-contrast themes.
-* Handle loading, empty, error, offline, and permission-denied states.
-* Avoid full UI reloads; update data locally/incrementally where safe.
+Modify existing files where possible. Create new files only where necessary. Do not touch `frontend/**`.
 
-Implement these IPD UI fixes and improvements:
+Prisma/database rules:
 
-1. **Start Admission modal**
+* Inspect the current Prisma schema first.
+* Replace or restructure `backend/prisma/schema.prisma` only where truly required by `app-write-up.md` and the backend dev-plan.
+* Do not introduce unnecessary tables, enums, relations, indexes, or persisted contracts.
+* If schema changes are required, add proper MySQL-compatible Prisma models, indexes, relations, constraints, timestamps, facility/tenant scoping fields, audit fields, reviewed/versioned clinical data fields, and migration-ready structure.
+* Preserve the three data layers:
 
-   * Keep the existing patient search/select, ward select, room select, and available bed select flow.
-   * Fix duplicated rooms when selecting a ward such as `IPD2`; room options must be unique and scoped to the selected ward.
-   * Beds must only show available beds for the selected facility/ward/room.
+  1. reference clinical rules,
+  2. facility clinical records,
+  3. reviewed de-identified training datasets.
+* Never allow unreviewed records, raw notes, demo data, or patient identifiers into training/export workflows.
 
-2. **Ward Support Request modal**
+Backend features to implement or complete:
 
-   * Keep request types `housekeeping` and `equipment_issue`; searchable select is fine.
-   * Show the facility select only when the logged-in user has access to multiple facilities.
-   * Ward options must load only for the selected facility.
-   * Disable ward select until a facility is selected when facility selection is required.
-   * Disable room select until a ward is selected.
-   * For equipment issues, support existing equipment selection or manual equipment entry plus problem description.
-   * For housekeeping, require only the relevant location and issue description.
-   * Submit must persist the request and update the UI without unnecessary reloads.
+* `/api/v1` route structure.
+* Zod request validation.
+* Standard response/error helpers.
+* Auth, facility scope, tenancy, RBAC/ABAC, permission checks, and audit logging.
+* Patient/admission clinical record flows.
+* ABG and ventilator update flows using append-only/versioned updates.
+* Server-side recalculation of all clinical flags; never trust client-calculated safety flags.
+* Dataset capture, review queue, de-identification, approval/rejection, export/training eligibility workflow.
+* Dashboard/reporting endpoints with no patient identifier leakage.
+* Reference rules and clinical decision-support endpoints.
+* Offline/sync support: local draft sync, idempotency keys, sync queue handling, retry-safe writes, conflict detection, and no silent overwrite.
+* Safe loading, empty, error, conflict, permission-denied, and reviewer-required API states.
 
-3. **Remove unused section**
+Clinical safety rules:
 
-   * Remove the **IPD Workspace** section entirely to save space.
+* Keep the app decision-support only.
+* Do not implement diagnosis, prescriptions, autonomous ventilator settings, intubation/extubation orders, medication orders, rationing, or transfer-denial decisions.
+* Preserve population/pathway-specific logic for neonate, infant, child, adolescent, adult, obstetric/post-partum, burns, trauma, peri-operative, medical, surgical, and unknown cases.
+* Preserve and calculate server-side:
 
-4. **Summary cards**
+  * reference weight,
+  * VT/kg reference weight,
+  * P/F ratio,
+  * S/F fallback,
+  * minute ventilation,
+  * driving pressure,
+  * ABG flags,
+  * oxygen cautions,
+  * ARDS/respiratory-failure prompts,
+  * COPD/hypercapnia cautions,
+  * humidification cautions,
+  * review priority.
 
-   * Keep the cards for Active Admissions, Pending Admission Requests, Wards, Transfer Queue, Discharge Queue, Critical Alerts, and ICU/Theater Requests.
-   * Remove the small description text from each card.
-   * Make cards more compact, visually distinct, bordered, intuitive, and clickable.
-   * Add a clear hover/pressed card state, not just cursor changes.
+Likely files to modify/create, depending on current structure:
 
-5. **Card drill-downs**
+* `backend/prisma/schema.prisma`
+* `backend/src/app.js`
+* `backend/src/server.js`
+* `backend/src/routes/index.js`
+* `backend/src/routes/v1/**`
+* `backend/src/controllers/**`
+* `backend/src/validators/**`
+* `backend/src/services/**`
+* `backend/src/repositories/**`
+* `backend/src/middleware/auth*.js`
+* `backend/src/middleware/rbac*.js`
+* `backend/src/middleware/facilityScope*.js`
+* `backend/src/middleware/error*.js`
+* `backend/src/utils/response*.js`
+* `backend/src/utils/audit*.js`
+* `backend/src/utils/idempotency*.js`
+* `backend/src/utils/deidentify*.js`
+* `backend/src/clinical/**`
+* `backend/src/sync/**`
+* `backend/src/config/**`
+* `backend/tests/**` or existing test directory.
 
-   * Each summary card must open a modal using the reusable data table component:
+Acceptance criteria:
 
-     * Active Admissions
-     * Pending Admission Requests
-     * Wards
-     * Transfer Queue
-     * Discharge Queue
-     * Critical Alerts
-     * ICU/Theater Requests
-   * Tables should be searchable, cleanly formatted, and use existing reusable table conventions.
-   * For Active Admissions, include columns: row number, patient number, patient ID, patient name, ward, room, bed, status/admission state.
-   * Apply similar appropriate table layouts for the other cards.
+* Backend starts successfully without frontend changes.
+* All required `/api/v1` endpoints are wired, validated, scoped, audited, and return standard responses.
+* Prisma schema matches `app-write-up.md` and supports the required backend workflows.
+* Clinical calculations and safety flags are recalculated server-side.
+* ABG and ventilator updates are append-only/versioned and never silently overwrite reviewed clinical data.
+* Dataset/training/export workflows only use reviewed, de-identified, approved records.
+* Patient identifiers and raw notes are excluded from training/export responses.
+* Facility scope, tenancy, RBAC/ABAC, audit logs, privacy, and security rules are enforced consistently.
+* Offline sync writes are idempotent, conflict-aware, retry-safe, and never silently overwrite existing records.
+* No unrelated refactors, duplicate utilities, circular imports, unsafe logs, hardcoded secrets, hardcoded permissions, or patient identifier leaks.
 
-6. **Nested patient/action modal**
+Testing and verification:
 
-   * Clicking an admission/patient row should open a nested modal with patient/admission details and actions.
-   * Replace the current two-column layout with a single-column layout.
-   * Move **Inpatient History** below the action buttons.
-   * Action buttons should open nested modals following existing conventions:
+* Run backend lint/type checks if available.
+* Run Prisma validation/generation:
 
-     * Patient details
-     * Admit/assign bed
-     * Transfer patient
-     * Discharge patient
-     * Ward round
-     * Doctor stock management
-     * Medication administration
-     * Meal tracking
-     * Request service
-     * ICU/Theater request
-     * Critical alerts
-     * Print report
-   * Ensure each action works on both UI and backend using existing endpoints or minimal new ones.
+  * `npx prisma validate`
+  * `npx prisma generate`
+* If migrations are required, create migration-ready Prisma changes and verify MySQL compatibility.
+* Run backend tests if available.
+* Add or update focused tests for:
 
-7. **Printable IPD report**
+  * auth/facility scope,
+  * RBAC/ABAC,
+  * ABG calculations,
+  * ventilator update versioning,
+  * dataset review/de-identification/export eligibility,
+  * idempotent sync/conflict handling,
+  * permission-denied and reviewer-required states.
+* Manually verify key API flows with representative requests and confirm standard success/error responses.
 
-   * Print only report content, never surrounding UI controls.
-   * Use a clear title, patient information, admission information, medications, ward events/history, relevant clinical/IPD activity, and summary.
-   * Borrow layout ideas from the existing OPD report.
-   * Support multiple pages when content exceeds one page.
-   * Ensure the report is clean, professional, and printable on web.
+Return only:
 
-8. **IPD Patients section**
-
-   * Replace the current IPD Patients section/list with the reusable data table component.
-   * Keep the existing information but display it in a cleaner, compact, searchable table.
-
-Avoid unrelated refactors, duplicate utilities, circular imports, unsafe logs, hardcoded secrets, hardcoded permissions, and broad database changes. Validate all IPD flows end-to-end: start admission, support request, card drill-down tables, nested modal actions, report printing, and local UI updates.
+1. Modified files with full code and exact repository paths.
+2. New files with full code and exact repository paths.
+3. Deleted files, only if deletion is truly required, with a safe deletion script.
+4. A concise verification summary listing commands run, tests performed, and any remaining risks.

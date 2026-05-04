@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { requireAuth } from '../../middleware/auth.middleware.js';
-import { plannedResponse } from '../../utils/apiResponse.js';
+import { validateRequest } from '../../middleware/validateRequest.js';
+import { approve, exclude, queue, requestCorrection } from './review.controller.js';
+import { reviewActionSchema, reviewQueueSchema } from './review.validators.js';
 
 export const reviewRouter = Router();
 
-reviewRouter.get('/queue', requireAuth, (_req, res) => plannedResponse(res, 'Specialist review queue'));
-reviewRouter.post('/:entityType/:entityId/approve', requireAuth, (_req, res) => plannedResponse(res, 'Reviewer approval'));
-reviewRouter.post('/:entityType/:entityId/request-correction', requireAuth, (_req, res) => plannedResponse(res, 'Reviewer correction request'));
-reviewRouter.post('/:entityType/:entityId/exclude', requireAuth, (_req, res) => plannedResponse(res, 'Reviewer exclusion'));
+reviewRouter.use(requireAuth);
+reviewRouter.get('/queue', validateRequest(reviewQueueSchema), queue);
+reviewRouter.post('/:entityType/:entityId/approve', validateRequest(reviewActionSchema), approve);
+reviewRouter.post('/:entityType/:entityId/request-correction', validateRequest(reviewActionSchema), requestCorrection);
+reviewRouter.post('/:entityType/:entityId/exclude', validateRequest(reviewActionSchema), exclude);

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 const idParam = z.object({ id: z.string().min(1) });
+const jsonObject = z.record(z.string(), z.unknown());
 
 export const facilitySearchSchema = z.object({
   body: z.object({}).optional(),
@@ -24,8 +25,8 @@ export const createFacilitySchema = z.object({
     type: z.string().trim().max(120).optional(),
     ownership: z.string().trim().max(120).optional(),
     abgAvailability: z.string().trim().max(120).optional(),
-    oxygenProfileJson: z.record(z.string(), z.unknown()).optional(),
-    ventilatorProfileJson: z.record(z.string(), z.unknown()).optional(),
+    oxygenProfileJson: jsonObject.optional(),
+    ventilatorProfileJson: jsonObject.optional(),
   }),
   params: z.object({}).optional(),
   query: z.object({}).optional(),
@@ -39,8 +40,8 @@ export const facilityIdSchema = z.object({
 
 export const updateEquipmentProfileSchema = z.object({
   body: z.object({
-    oxygenProfileJson: z.record(z.string(), z.unknown()).optional(),
-    ventilatorProfileJson: z.record(z.string(), z.unknown()).optional(),
+    oxygenProfileJson: jsonObject.optional(),
+    ventilatorProfileJson: jsonObject.optional(),
     abgAvailability: z.string().trim().max(120).optional(),
   }),
   params: idParam,
@@ -57,6 +58,31 @@ export const membershipRequestSchema = z.object({
       'RESEARCH_GOVERNANCE_OFFICER',
       'READ_ONLY_REVIEWER',
     ]),
+  }),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
+export const updateMembershipSchema = z.object({
+  body: z.object({
+    status: z.enum(['APPROVED', 'REJECTED', 'SUSPENDED']),
+    role: z.enum([
+      'FACILITY_ADMIN',
+      'CLINICIAN',
+      'ICU_NURSE',
+      'SPECIALIST_REVIEWER',
+      'RESEARCH_GOVERNANCE_OFFICER',
+      'READ_ONLY_REVIEWER',
+    ]).optional(),
+  }),
+  params: z.object({ id: z.string().min(1), membershipId: z.string().min(1) }),
+  query: z.object({}).optional(),
+});
+
+export const verifyFacilitySchema = z.object({
+  body: z.object({
+    verificationStatus: z.enum(['VERIFIED', 'REJECTED', 'SUSPENDED']),
+    reason: z.string().trim().max(1000).optional(),
   }),
   params: idParam,
   query: z.object({}).optional(),

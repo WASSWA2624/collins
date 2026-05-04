@@ -1,15 +1,34 @@
 import { Router } from 'express';
 import { requireAuth } from '../../middleware/auth.middleware.js';
-import { plannedResponse } from '../../utils/apiResponse.js';
+import { validateRequest } from '../../middleware/validateRequest.js';
+import {
+  activateShadowMode,
+  auditLogs,
+  createReference,
+  dashboard,
+  datasetQuality,
+  facilities,
+  modelMonitoring,
+  retire,
+  verifyFacility,
+} from './admin.controller.js';
+import {
+  auditLogSchema,
+  createReferenceSchema,
+  dashboardSchema,
+  modelActionSchema,
+} from './admin.validators.js';
+import { verifyFacilitySchema } from '../facilities/facilities.validators.js';
 
 export const adminRouter = Router();
 
-adminRouter.get('/dashboard', requireAuth, (_req, res) => plannedResponse(res, 'Admin dashboard'));
-adminRouter.get('/facilities', requireAuth, (_req, res) => plannedResponse(res, 'Admin facilities'));
-adminRouter.patch('/facilities/:id/verify', requireAuth, (_req, res) => plannedResponse(res, 'Facility verification decision'));
-adminRouter.get('/audit-logs', requireAuth, (_req, res) => plannedResponse(res, 'Audit log search'));
-adminRouter.get('/dataset-quality', requireAuth, (_req, res) => plannedResponse(res, 'Dataset quality dashboard'));
-adminRouter.get('/model-monitoring', requireAuth, (_req, res) => plannedResponse(res, 'Model monitoring dashboard'));
-adminRouter.post('/references', requireAuth, (_req, res) => plannedResponse(res, 'Reference rule creation'));
-adminRouter.post('/models/:id/activate-shadow-mode', requireAuth, (_req, res) => plannedResponse(res, 'Model shadow-mode activation'));
-adminRouter.post('/models/:id/retire', requireAuth, (_req, res) => plannedResponse(res, 'Model retirement'));
+adminRouter.use(requireAuth);
+adminRouter.get('/dashboard', validateRequest(dashboardSchema), dashboard);
+adminRouter.get('/facilities', facilities);
+adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema), verifyFacility);
+adminRouter.get('/audit-logs', validateRequest(auditLogSchema), auditLogs);
+adminRouter.get('/dataset-quality', validateRequest(dashboardSchema), datasetQuality);
+adminRouter.get('/model-monitoring', modelMonitoring);
+adminRouter.post('/references', validateRequest(createReferenceSchema), createReference);
+adminRouter.post('/models/:id/activate-shadow-mode', validateRequest(modelActionSchema), activateShadowMode);
+adminRouter.post('/models/:id/retire', validateRequest(modelActionSchema), retire);

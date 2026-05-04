@@ -23,6 +23,22 @@ export const loginSchema = z.object({
   query: z.object({}).optional(),
 });
 
+export const refreshSchema = z.object({
+  body: z.object({
+    refreshToken: z.string().min(20).max(500),
+  }),
+  params: z.object({}).optional(),
+  query: z.object({}).optional(),
+});
+
+export const logoutSchema = z.object({
+  body: z.object({
+    refreshToken: z.string().min(20).max(500).optional(),
+  }).optional(),
+  params: z.object({}).optional(),
+  query: z.object({}).optional(),
+});
+
 export const emptySchema = z.object({
   body: z.object({}).optional(),
   params: z.object({}).optional(),

@@ -18,6 +18,22 @@ export const errorMiddleware = (error, _req, res, _next) => {
   }
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error.code === 'P2002') {
+      return errorResponse(res, {
+        status: 409,
+        message: 'A record with the same unique value already exists',
+        errors: [{ code: error.code, meta: error.meta }],
+      });
+    }
+
+    if (error.code === 'P2025') {
+      return errorResponse(res, {
+        status: 404,
+        message: 'Requested record was not found',
+        errors: [{ code: error.code, meta: error.meta }],
+      });
+    }
+
     return errorResponse(res, {
       status: 400,
       message: 'Database request failed',
@@ -36,5 +52,6 @@ export const errorMiddleware = (error, _req, res, _next) => {
     status,
     message: error.message || 'Internal server error',
     errors,
+    meta: error.meta,
   });
 };

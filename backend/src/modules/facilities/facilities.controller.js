@@ -1,13 +1,16 @@
 import { asyncHandler } from '../../utils/asyncHandler.js';
-import { plannedResponse, successResponse } from '../../utils/apiResponse.js';
+import { successResponse } from '../../utils/apiResponse.js';
+import { buildAuditContext } from '../../utils/audit.js';
 import {
   createFacility,
+  decideFacilityVerification,
   getFacilityById,
   getMyFacilities,
   requestFacilityVerification,
   requestMembership,
   searchFacilities,
   updateEquipmentProfile,
+  updateMembershipDecision,
 } from './facilities.service.js';
 
 export const listFacilities = asyncHandler(async (req, res) => {
@@ -19,12 +22,13 @@ export const listFacilities = asyncHandler(async (req, res) => {
       total: result.total,
       page: result.page,
       limit: result.limit,
+      hasNextPage: (result.page * result.limit) < result.total,
     },
   });
 });
 
 export const addFacility = asyncHandler(async (req, res) => {
-  const facility = await createFacility(req.validated.body);
+  const facility = await createFacility(req.validated.body, req.user?.sub || null, buildAuditContext(req));
   return successResponse(res, {
     status: 201,
     message: 'Facility created',
@@ -41,9 +45,17 @@ export const getFacility = asyncHandler(async (req, res) => {
 });
 
 export const requestVerification = asyncHandler(async (req, res) => {
-  const facility = await requestFacilityVerification(req.validated.params.id);
+  const facility = await requestFacilityVerification(req.validated.params.id, req.user?.sub, buildAuditContext(req));
   return successResponse(res, {
     message: 'Facility verification requested',
+    data: { facility },
+  });
+});
+
+export const verifyFacility = asyncHandler(async (req, res) => {
+  const facility = await decideFacilityVerification(req.validated.params.id, req.validated.body, req.user?.sub, buildAuditContext(req));
+  return successResponse(res, {
+    message: 'Facility verification updated',
     data: { facility },
   });
 });
@@ -61,7 +73,7 @@ export const getEquipmentProfile = asyncHandler(async (req, res) => {
 });
 
 export const patchEquipmentProfile = asyncHandler(async (req, res) => {
-  const facility = await updateEquipmentProfile(req.validated.params.id, req.validated.body);
+  const facility = await updateEquipmentProfile(req.validated.params.id, req.validated.body, req.user?.sub, buildAuditContext(req));
   return successResponse(res, {
     message: 'Equipment profile updated',
     data: { facility },
@@ -69,18 +81,11 @@ export const patchEquipmentProfile = asyncHandler(async (req, res) => {
 });
 
 export const createMembershipRequest = asyncHandler(async (req, res) => {
-  const userId = req.user?.sub;
-  if (!userId) {
-    const error = new Error('Authentication required');
-    error.status = 401;
-    throw error;
-  }
-
   const membership = await requestMembership({
     facilityId: req.validated.params.id,
-    userId,
+    userId: req.user?.sub,
     role: req.validated.body.role,
-  });
+  }, buildAuditContext(req));
 
   return successResponse(res, {
     status: 201,
@@ -89,7 +94,19 @@ export const createMembershipRequest = asyncHandler(async (req, res) => {
   });
 });
 
-export const updateMembership = (_req, res) => plannedResponse(res, 'Facility membership approval/update');
+export const updateMembership = asyncHandler(async (req, res) => {
+  const membership = await updateMembershipDecision(
+    req.validated.params.id,
+    req.validated.params.membershipId,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req)
+  );
+  return successResponse(res, {
+    message: 'Facility membership updated',
+    data: { membership },
+  });
+});
 
 export const myFacilities = asyncHandler(async (req, res) => {
   const memberships = await getMyFacilities(req.user?.sub);

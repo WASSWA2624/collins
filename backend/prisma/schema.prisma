@@ -50,6 +50,7 @@ enum PatientPathway {
   PERI_OPERATIVE
   MEDICAL
   SURGICAL
+  UNKNOWN
   OTHER
 }
 
@@ -84,9 +85,12 @@ enum OutcomeType {
 }
 
 enum DatasetReviewStatus {
-  RAW
-  NEEDS_REVIEW
-  APPROVED
+  DRAFT
+  SUBMITTED
+  NEEDS_CORRECTION
+  REVIEWED
+  APPROVED_FOR_DATASET
+  APPROVED_FOR_TRAINING
   EXCLUDED
 }
 
@@ -95,6 +99,19 @@ enum ModelApprovalStatus {
   SHADOW_MODE
   APPROVED_FOR_LIVE_SUPPORT
   RETIRED
+}
+
+enum SyncStatus {
+  LOCAL_DRAFT
+  WAITING_TO_SYNC
+  SYNCING
+  SYNCED
+  DUPLICATE
+  CONFLICT
+  FAILED
+  FAILED_VALIDATION
+  NEEDS_REVIEW
+  REVIEWED
 }
 
 model User {
@@ -107,20 +124,40 @@ model User {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 
-  facilityMemberships          FacilityMembership[]     @relation("FacilityMembershipUser")
-  approvedFacilityMemberships  FacilityMembership[]     @relation("FacilityMembershipApprover")
-  admissionsCreated            Admission[]              @relation("AdmissionCreator")
-  snapshotsEntered             ClinicalSnapshot[]       @relation("ClinicalSnapshotEnteredBy")
-  abgTestsEntered              AbgTest[]                @relation("AbgTestEnteredBy")
-  abgTestsReviewed             AbgTest[]                @relation("AbgTestReviewedBy")
-  ventilatorSettingsEntered    VentilatorSetting[]      @relation("VentilatorSettingEnteredBy")
-  airwayDevicesEntered         AirwayDevice[]           @relation("AirwayDeviceEnteredBy")
-  humidificationsConfirmed     HumidificationDecision[] @relation("HumidificationConfirmedBy")
-  dailyReviews                 DailyVentilationReview[] @relation("DailyReviewReviewer")
-  outcomesEntered              Outcome[]                @relation("OutcomeEnteredBy")
-  datasetCasesApproved         DatasetCase[]            @relation("DatasetApprovedBy")
-  referenceRulesApproved       ReferenceRule[]          @relation("ReferenceRuleApprovedBy")
-  auditLogs                    AuditLog[]               @relation("AuditLogUser")
+  facilityMemberships         FacilityMembership[]     @relation("FacilityMembershipUser")
+  approvedFacilityMemberships FacilityMembership[]     @relation("FacilityMembershipApprover")
+  admissionsCreated           Admission[]              @relation("AdmissionCreator")
+  snapshotsEntered            ClinicalSnapshot[]       @relation("ClinicalSnapshotEnteredBy")
+  abgTestsEntered             AbgTest[]                @relation("AbgTestEnteredBy")
+  abgTestsReviewed            AbgTest[]                @relation("AbgTestReviewedBy")
+  ventilatorSettingsEntered   VentilatorSetting[]      @relation("VentilatorSettingEnteredBy")
+  airwayDevicesEntered        AirwayDevice[]           @relation("AirwayDeviceEnteredBy")
+  humidificationsConfirmed    HumidificationDecision[] @relation("HumidificationConfirmedBy")
+  dailyReviews                DailyVentilationReview[] @relation("DailyReviewReviewer")
+  outcomesEntered             Outcome[]                @relation("OutcomeEnteredBy")
+  datasetCasesApproved        DatasetCase[]            @relation("DatasetApprovedBy")
+  datasetCasesReviewed        DatasetCase[]            @relation("DatasetReviewedBy")
+  referenceRulesApproved      ReferenceRule[]          @relation("ReferenceRuleApprovedBy")
+  reviewActions               ReviewAction[]           @relation("ReviewActionReviewer")
+  refreshSessions             RefreshSession[]
+  idempotencyRecords          IdempotencyRecord[]      @relation("IdempotencyUser")
+  syncEvents                  SyncEvent[]              @relation("SyncEventUser")
+  auditLogs                   AuditLog[]               @relation("AuditLogUser")
+}
+
+model RefreshSession {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, revokedAt])
+  @@index([expiresAt])
 }
 
 model Facility {
@@ -138,11 +175,14 @@ model Facility {
   createdAt             DateTime                   @default(now())
   updatedAt             DateTime                   @updatedAt
 
-  memberships  FacilityMembership[]
-  patients     Patient[]
-  admissions   Admission[]
-  datasetCases DatasetCase[]
-  auditLogs    AuditLog[]
+  memberships        FacilityMembership[]
+  patients           Patient[]
+  admissions         Admission[]
+  datasetCases       DatasetCase[]
+  reviewActions      ReviewAction[]
+  idempotencyRecords IdempotencyRecord[]
+  syncEvents         SyncEvent[]
+  auditLogs          AuditLog[]
 }
 
 model FacilityMembership {
@@ -161,6 +201,7 @@ model FacilityMembership {
 
   @@unique([userId, facilityId, role])
   @@index([facilityId, status])
+  @@index([userId, status])
 }
 
 model Patient {
@@ -189,12 +230,14 @@ model Patient {
 
   @@unique([facilityId, appPatientCode])
   @@index([facilityId, hospitalNumber])
+  @@index([facilityId, patientPathway])
 }
 
 model Admission {
   id                   String          @id @default(cuid())
   patientId            String
   facilityId           String
+  appAdmissionCode     String
   bedNumber            String?
   admittedAt           DateTime        @default(now())
   admissionSource      String?
@@ -202,6 +245,10 @@ model Admission {
   status               AdmissionStatus @default(ACTIVE)
   createdByUserId      String?
   reviewStatus         ReviewStatus    @default(PENDING)
+  clientRecordId       String?
+  deviceId             String?
+  clientCreatedAt      DateTime?
+  clientUpdatedAt      DateTime?
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
 
@@ -217,15 +264,19 @@ model Admission {
   dailyReviews            DailyVentilationReview[]
   outcomes                Outcome[]
   datasetCases            DatasetCase[]
+  modelOutputs            ModelOutput[]
 
+  @@unique([facilityId, appAdmissionCode])
   @@index([facilityId, status])
   @@index([patientId])
+  @@index([clientRecordId])
 }
 
 model ClinicalSnapshot {
-  id                   String   @id @default(cuid())
+  id                   String       @id @default(cuid())
   admissionId          String
-  measuredAt           DateTime @default(now())
+  measuredAt           DateTime     @default(now())
+  oxygenSupportType    String?
   heartRate            Float?
   respiratoryRate      Float?
   systolicBp           Float?
@@ -239,46 +290,61 @@ model ClinicalSnapshot {
   rass                 Float?
   mainCondition        String?
   comorbiditiesJson    Json?
+  validationStatus     String?
+  source               String?
   enteredByUserId      String?
-  createdAt            DateTime @default(now())
+  clientRecordId       String?
+  deviceId             String?
+  clientCreatedAt      DateTime?
+  createdAt            DateTime     @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("ClinicalSnapshotEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
+  @@index([clientRecordId])
 }
 
 model AbgTest {
-  id               String       @id @default(cuid())
-  admissionId      String
-  version          Int          @default(1)
-  collectedAt      DateTime     @default(now())
-  ph               Float?
-  pao2             Float?
-  paco2            Float?
-  hco3             Float?
-  baseExcess       Float?
-  lactate          Float?
-  fio2AtSample     Float?
-  spo2AtSample     Float?
-  source           String?
-  enteredByUserId  String?
-  reviewedByUserId String?
-  reviewStatus     ReviewStatus @default(PENDING)
-  createdAt        DateTime     @default(now())
+  id                     String       @id @default(cuid())
+  admissionId            String
+  version                Int          @default(1)
+  collectedAt            DateTime     @default(now())
+  ph                     Float?
+  pao2                   Float?
+  paco2                  Float?
+  hco3                   Float?
+  baseExcess             Float?
+  lactate                Float?
+  fio2AtSample           Float?
+  spo2AtSample           Float?
+  source                 String?
+  validationStatus       String?
+  clinicalFlagsJson      Json?
+  calculationSummaryJson Json?
+  enteredByUserId        String?
+  reviewedByUserId       String?
+  reviewStatus           ReviewStatus @default(PENDING)
+  clientRecordId         String?
+  deviceId               String?
+  clientCreatedAt        DateTime?
+  createdAt              DateTime     @default(now())
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   enteredBy  User?     @relation("AbgTestEnteredBy", fields: [enteredByUserId], references: [id])
   reviewedBy User?     @relation("AbgTestReviewedBy", fields: [reviewedByUserId], references: [id])
 
   @@index([admissionId, collectedAt])
+  @@index([reviewStatus])
+  @@index([clientRecordId])
   @@unique([admissionId, version])
 }
 
 model VentilatorSetting {
-  id                       String   @id @default(cuid())
+  id                       String       @id @default(cuid())
   admissionId              String
-  measuredAt               DateTime @default(now())
+  version                  Int          @default(1)
+  measuredAt               DateTime     @default(now())
   mode                     String?
   tidalVolumeMl            Float?
   respiratoryRateSet       Float?
@@ -293,13 +359,23 @@ model VentilatorSetting {
   minuteVolumeLMin         Float?
   vtMlPerKgReferenceWeight Float?
   drivingPressure          Float?
+  validationStatus         String?
+  clinicalFlagsJson        Json?
+  calculationSummaryJson   Json?
   enteredByUserId          String?
-  createdAt                DateTime @default(now())
+  reviewStatus             ReviewStatus @default(PENDING)
+  clientRecordId           String?
+  deviceId                 String?
+  clientCreatedAt          DateTime?
+  createdAt                DateTime     @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("VentilatorSettingEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
+  @@index([reviewStatus])
+  @@index([clientRecordId])
+  @@unique([admissionId, version])
 }
 
 model AirwayDevice {
@@ -313,13 +389,19 @@ model AirwayDevice {
   cuffPressureCmH2O  Float?
   tubeSecured        Boolean?
   notes              String?  @db.Text
+  validationStatus   String?
+  clinicalFlagsJson  Json?
   enteredByUserId    String?
+  clientRecordId     String?
+  deviceId           String?
+  clientCreatedAt    DateTime?
   createdAt          DateTime @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("AirwayDeviceEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
+  @@index([clientRecordId])
 }
 
 model HumidificationDecision {
@@ -334,13 +416,18 @@ model HumidificationDecision {
   expectedLongVentilation Boolean?
   suggestedOption         String?
   confirmedOption         String?
+  clinicalFlagsJson       Json?
   confirmedByUserId       String?
+  clientRecordId          String?
+  deviceId                String?
+  clientCreatedAt         DateTime?
   createdAt               DateTime @default(now())
 
   admission   Admission @relation(fields: [admissionId], references: [id])
   confirmedBy User?     @relation("HumidificationConfirmedBy", fields: [confirmedByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
+  @@index([clientRecordId])
 }
 
 model DailyVentilationReview {
@@ -355,13 +442,18 @@ model DailyVentilationReview {
   sbtFailureReason     String?
   proneStatus          String?
   vapBundleJson        Json?
+  clinicalFlagsJson    Json?
   reviewedByUserId     String?
+  clientRecordId       String?
+  deviceId             String?
+  clientCreatedAt      DateTime?
   createdAt            DateTime @default(now())
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   reviewedBy User?     @relation("DailyReviewReviewer", fields: [reviewedByUserId], references: [id])
 
   @@index([admissionId, reviewDate])
+  @@index([clientRecordId])
 }
 
 model Outcome {
@@ -377,12 +469,37 @@ model Outcome {
   vapSuspected             Boolean?
   notes                    String?     @db.Text
   enteredByUserId          String?
+  clientRecordId           String?
+  deviceId                 String?
+  clientCreatedAt          DateTime?
   createdAt                DateTime    @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("OutcomeEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, outcomeDate])
+  @@index([clientRecordId])
+}
+
+model ReviewAction {
+  id             String   @id @default(cuid())
+  facilityId     String?
+  reviewerUserId String?
+  entityType     String
+  entityId       String
+  action         String
+  statusBefore   String?
+  statusAfter    String?
+  comment        String?  @db.Text
+  beforeJson     Json?
+  afterJson      Json?
+  createdAt      DateTime @default(now())
+
+  facility Facility? @relation(fields: [facilityId], references: [id])
+  reviewer User?     @relation("ReviewActionReviewer", fields: [reviewerUserId], references: [id])
+
+  @@index([facilityId, entityType, entityId])
+  @@index([reviewerUserId, createdAt])
 }
 
 model DatasetCase {
@@ -390,21 +507,30 @@ model DatasetCase {
   facilityId             String
   sourceAdmissionId       String?
   sourceType             String
+  sourcePayloadJson      Json?
+  structuredPreviewJson  Json?
   deidentifiedPayloadJson Json
-  reviewStatus           DatasetReviewStatus @default(NEEDS_REVIEW)
+  deidentificationStatus String?
+  reviewStatus           DatasetReviewStatus @default(SUBMITTED)
   approvedForTraining    Boolean             @default(false)
   approvedByUserId        String?
+  reviewedByUserId        String?
+  reviewedAt              DateTime?
   ethicsApprovalId        String?
+  governanceJson          Json?
   datasetVersion          String?
   exclusionReason         String?             @db.Text
   createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 
   facility        Facility   @relation(fields: [facilityId], references: [id])
   sourceAdmission Admission? @relation(fields: [sourceAdmissionId], references: [id])
   approvedBy      User?      @relation("DatasetApprovedBy", fields: [approvedByUserId], references: [id])
+  reviewedBy      User?      @relation("DatasetReviewedBy", fields: [reviewedByUserId], references: [id])
 
   @@index([facilityId, reviewStatus])
   @@index([approvedForTraining, datasetVersion])
+  @@index([sourceAdmissionId])
 }
 
 model ReferenceRule {
@@ -416,7 +542,9 @@ model ReferenceRule {
   activeFrom       DateTime?
   activeTo         DateTime?
   approvedByUserId String?
+  governanceStatus String?
   createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   approvedBy User? @relation("ReferenceRuleApprovedBy", fields: [approvedByUserId], references: [id])
 
@@ -430,6 +558,7 @@ model ModelVersion {
   version                String
   trainingDatasetVersion String?
   intendedUse            String?             @db.Text
+  contraindicatedUse     String?             @db.Text
   performanceSummaryJson Json?
   calibrationSummaryJson Json?
   biasAssessmentJson     Json?
@@ -437,9 +566,83 @@ model ModelVersion {
   activatedAt            DateTime?
   retiredAt              DateTime?
   createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  outputs ModelOutput[]
 
   @@unique([modelName, version])
   @@index([approvalStatus])
+}
+
+model ModelOutput {
+  id                  String   @id @default(cuid())
+  modelVersionId      String
+  facilityId          String?
+  sourceAdmissionId   String?
+  inputSummaryJson    Json
+  outputJson          Json
+  visibleToClinicians Boolean  @default(false)
+  createdAt           DateTime @default(now())
+
+  modelVersion    ModelVersion @relation(fields: [modelVersionId], references: [id])
+  sourceAdmission Admission?   @relation(fields: [sourceAdmissionId], references: [id])
+
+  @@index([modelVersionId, createdAt])
+  @@index([facilityId, createdAt])
+  @@index([sourceAdmissionId])
+}
+
+model IdempotencyRecord {
+  id             String     @id @default(cuid())
+  userId         String?
+  facilityId     String?
+  key            String
+  operation      String
+  requestHash    String
+  responseJson   Json?
+  status         SyncStatus @default(SYNCED)
+  entityType     String?
+  entityId       String?
+  clientRecordId String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  user     User?     @relation("IdempotencyUser", fields: [userId], references: [id])
+  facility Facility? @relation(fields: [facilityId], references: [id])
+
+  @@unique([userId, key])
+  @@index([facilityId, operation])
+  @@index([clientRecordId])
+}
+
+model SyncEvent {
+  id                  String     @id @default(cuid())
+  userId              String?
+  facilityId          String?
+  operation           String
+  entityType          String?
+  entityId            String?
+  clientRecordId      String?
+  idempotencyKey      String?
+  status              SyncStatus @default(WAITING_TO_SYNC)
+  requestPayloadJson  Json?
+  responsePayloadJson Json?
+  conflictPayloadJson Json?
+  errorMessage        String?    @db.Text
+  clientCreatedAt     DateTime?
+  clientUpdatedAt     DateTime?
+  deviceId            String?
+  receivedAt          DateTime   @default(now())
+  resolvedAt          DateTime?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  user     User?     @relation("SyncEventUser", fields: [userId], references: [id])
+  facility Facility? @relation(fields: [facilityId], references: [id])
+
+  @@index([facilityId, status])
+  @@index([clientRecordId])
+  @@index([idempotencyKey])
 }
 
 model AuditLog {
@@ -452,6 +655,8 @@ model AuditLog {
   beforeJson Json?
   afterJson  Json?
   reason     String?  @db.Text
+  requestId  String?
+  ipHash     String?
   createdAt  DateTime @default(now())
 
   user     User?     @relation("AuditLogUser", fields: [userId], references: [id])
@@ -459,4 +664,5 @@ model AuditLog {
 
   @@index([facilityId, entityType, entityId])
   @@index([userId, createdAt])
+  @@index([action, createdAt])
 }

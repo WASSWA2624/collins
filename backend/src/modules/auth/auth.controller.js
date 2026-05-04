@@ -1,7 +1,8 @@
 import crypto from 'crypto';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { successResponse } from '../../utils/apiResponse.js';
-import { getCurrentUser, loginUser, registerUser } from './auth.service.js';
+import { buildAuditContext } from '../../utils/audit.js';
+import { getCurrentUser, loginUser, logoutUser, refreshUserToken, registerUser } from './auth.service.js';
 
 export const csrfToken = (_req, res) => successResponse(res, {
   message: 'CSRF token issued',
@@ -13,12 +14,13 @@ export const identify = (_req, res) => successResponse(res, {
   data: {
     registrationEnabled: true,
     passwordLoginEnabled: true,
+    refreshTokenRotationEnabled: true,
     mfaEnabled: false,
   },
 });
 
 export const register = asyncHandler(async (req, res) => {
-  const result = await registerUser(req.validated.body);
+  const result = await registerUser(req.validated.body, buildAuditContext(req));
   return successResponse(res, {
     status: 201,
     message: 'User registered',
@@ -27,22 +29,27 @@ export const register = asyncHandler(async (req, res) => {
 });
 
 export const login = asyncHandler(async (req, res) => {
-  const result = await loginUser(req.validated.body);
+  const result = await loginUser(req.validated.body, buildAuditContext(req));
   return successResponse(res, {
     message: 'Login successful',
     data: result,
   });
 });
 
-export const refresh = (_req, res) => successResponse(res, {
-  status: 202,
-  message: 'Refresh-token rotation is planned for the next auth hardening phase',
-  data: { planned: true },
+export const refresh = asyncHandler(async (req, res) => {
+  const result = await refreshUserToken(req.validated.body, buildAuditContext(req));
+  return successResponse(res, {
+    message: 'Token refreshed',
+    data: result,
+  });
 });
 
-export const logout = (_req, res) => successResponse(res, {
-  message: 'Logout accepted',
-  data: null,
+export const logout = asyncHandler(async (req, res) => {
+  const result = await logoutUser(req.validated.body, buildAuditContext(req));
+  return successResponse(res, {
+    message: 'Logout accepted',
+    data: result,
+  });
 });
 
 export const me = asyncHandler(async (req, res) => {
