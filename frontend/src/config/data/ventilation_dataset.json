@@ -1,0 +1,4603 @@
+{
+  "datasetVersion": "1.1",
+  "datasetSchemaVersion": "1.1",
+  "lastUpdated": "2026-01-31",
+  "totalCases": 100,
+  "schema": {
+    "notes": "This dataset is designed for offline-first ventilator decision support. To capture any possible patient results, cases may include BOTH fixed common fields (clinicalParameters) and extensible observations/time series (observations, timeSeries).",
+    "units": {
+      "spo2": "%",
+      "pao2": "mmHg",
+      "paco2": "mmHg",
+      "ph": "unitless",
+      "respiratoryRate": "breaths/min",
+      "heartRate": "bpm",
+      "bloodPressure": "mmHg (string: systolic/diastolic)",
+      "fio2": "fraction (0-1)",
+      "peep": "cmH2O",
+      "tidalVolume": "mL",
+      "ieRatio": "string (e.g., 1:2)"
+    },
+    "observationModel": {
+      "observations": "Array of point-in-time results not covered by clinicalParameters (labs, imaging, ventilator measurements, medications, comorbidity scores, etc.).",
+      "timeSeries": "Array of timestamped values for trending (e.g., SpO2 over time, ventilator waveforms, urine output, MAP).",
+      "observationShape": {
+        "codeSystem": "string (optional, e.g., LOINC/SNOMED/local)",
+        "code": "string (optional)",
+        "name": "string (required if code missing)",
+        "value": "number|string|boolean|null",
+        "unit": "string|null",
+        "timestamp": "ISO-8601 string|null",
+        "method": "string|null",
+        "source": "string|null",
+        "referenceRange": {
+          "low": "number|null",
+          "high": "number|null",
+          "text": "string|null"
+        }
+      },
+      "timeSeriesShape": {
+        "name": "string",
+        "unit": "string|null",
+        "points": [
+          {
+            "timestamp": "ISO-8601 string",
+            "value": "number|string|boolean|null"
+          }
+        ]
+      }
+    }
+  },
+  "intendedUse": {
+    "clinicalUse": false,
+    "warning": "Research/prototype dataset. Not clinically validated. Do not use as the sole basis for ventilator management decisions in real patients.",
+    "validationRequirement": "For real-world use: populate from audited clinical sources, perform expert review, run retrospective/prospective validation, and comply with local ethics/regulatory requirements."
+  },
+  "sources": [
+    {
+      "id": "SRC_AARC_2024_PVA",
+      "type": "guideline",
+      "citation": "Goodfellow LT, Miller AG, Varekojis SM, et al. AARC Clinical Practice Guideline: Patient-Ventilator Assessment. Respiratory Care. 2024;69(8):1042–1054.",
+      "doi": "10.4187/RESPCARE.12007"
+    },
+    {
+      "id": "SRC_BOTTA_2021_INTELLIVENT",
+      "type": "review",
+      "citation": "Botta M, Wenstedt EFE, Tsonas AM, et al. Effectiveness, safety and efficacy of INTELLiVENT–adaptive support ventilation. Expert Rev Respir Med. 2021;15(11):1403–1413.",
+      "doi": "10.1080/17476348.2021.1933450"
+    },
+    {
+      "id": "SRC_SINGH_2025_AI_VENT",
+      "type": "review",
+      "citation": "Singh NP, Mujawar MA, Golani A. Role of artificial intelligence in enhancing mechanical ventilation – A peek into the future. Indian J Anaesth. 2025;69(7):722–728.",
+      "doi": "10.4103/IJA.IJA_995_24"
+    },
+    {
+      "id": "SRC_LOSONCZY_2021_EARLY_CRITCARE",
+      "type": "whitepaper",
+      "citation": "Losonczy LI, Papali A, Kivlehan S, et al. White Paper on Early Critical Care Services in Low Resource Settings. Ann Glob Health. 2021;87(1):105.",
+      "doi": "10.5334/aogh.3377"
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "CASE_001",
+      "patientProfile": {
+        "age": 45,
+        "weight": 70,
+        "height": 170,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 55,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 110,
+        "bloodPressure": "120/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 450,
+        "respiratoryRate": 16,
+        "fio2": 0.6,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 450,
+          "respiratoryRate": 16,
+          "fio2": 0.6,
+          "peep": 8
+        },
+        "monitoringPoints": ["plateau pressure", "oxygenation", "compliance"],
+        "riskFactors": ["moderate ARDS", "requires PEEP optimization"]
+      },
+      "evidence": {
+        "sourceIds": ["SRC_AARC_2024_PVA"],
+        "notes": "This case is synthetic/illustrative and must be clinically reviewed before any real-world use."
+      },
+      "review": {
+        "status": "unvalidated",
+        "reviewedByRole": null,
+        "reviewedAt": null
+      }
+    },
+    {
+      "caseId": "CASE_002",
+      "patientProfile": {
+        "age": 65,
+        "weight": 80,
+        "height": 175,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["diabetes", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 65,
+        "paco2": 75,
+        "ph": 7.20,
+        "respiratoryRate": 32,
+        "heartRate": 105,
+        "bloodPressure": "140/90"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 500,
+        "respiratoryRate": 12,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3"
+      },
+      "outcomes": {
+        "complications": ["barotrauma"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 500,
+          "respiratoryRate": 12,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory time", "CO2 retention"],
+        "riskFactors": ["COPD exacerbation", "risk of barotrauma", "permissive hypercapnia needed"]
+      },
+      "evidence": {
+        "sourceIds": ["SRC_AARC_2024_PVA"],
+        "notes": "This case is synthetic/illustrative and must be clinically reviewed before any real-world use."
+      },
+      "review": {
+        "status": "unvalidated",
+        "reviewedByRole": null,
+        "reviewedAt": null
+      }
+    },
+    {
+      "caseId": "CASE_003",
+      "patientProfile": {
+        "age": 35,
+        "weight": 60,
+        "height": 165,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 55,
+        "paco2": 45,
+        "ph": 7.30,
+        "respiratoryRate": 30,
+        "heartRate": 125,
+        "bloodPressure": "110/70"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 420,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 420,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["oxygenation improvement", "infection markers", "lung compliance"],
+        "riskFactors": ["severe pneumonia", "hypoxemia", "requires high FiO2"]
+      }
+    },
+    {
+      "caseId": "CASE_004",
+      "patientProfile": {
+        "age": 28,
+        "weight": 75,
+        "height": 180,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 90,
+        "pao2": 70,
+        "paco2": 40,
+        "ph": 7.35,
+        "respiratoryRate": 24,
+        "heartRate": 130,
+        "bloodPressure": "90/60"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 550,
+        "respiratoryRate": 20,
+        "fio2": 0.5,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 550,
+          "respiratoryRate": 20,
+          "fio2": 0.5,
+          "peep": 8
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "lung protection"],
+        "riskFactors": ["sepsis-induced ARDS", "risk of VILI", "requires lung-protective strategy"]
+      }
+    },
+    {
+      "caseId": "CASE_005",
+      "patientProfile": {
+        "age": 72,
+        "weight": 65,
+        "height": 160,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 58,
+        "paco2": 50,
+        "ph": 7.28,
+        "respiratoryRate": 26,
+        "heartRate": 95,
+        "bloodPressure": "130/85"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 400,
+        "respiratoryRate": 14,
+        "fio2": 0.5,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 400,
+          "respiratoryRate": 14,
+          "fio2": 0.5,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise"]
+      }
+    },
+    {
+      "caseId": "CASE_006",
+      "patientProfile": {
+        "age": 55,
+        "weight": 90,
+        "height": 175,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 80,
+        "pao2": 50,
+        "paco2": 60,
+        "ph": 7.22,
+        "respiratoryRate": 30,
+        "heartRate": 115,
+        "bloodPressure": "125/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 630,
+        "respiratoryRate": 16,
+        "fio2": 0.8,
+        "peep": 12,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["barotrauma", "VILI"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 12,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 630,
+          "respiratoryRate": 16,
+          "fio2": 0.8,
+          "peep": 12
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma signs"],
+        "riskFactors": ["severe ARDS", "obesity", "high risk of complications", "requires careful pressure management"]
+      }
+    },
+    {
+      "caseId": "CASE_007",
+      "patientProfile": {
+        "age": 40,
+        "weight": 70,
+        "height": 170,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 90,
+        "pao2": 68,
+        "paco2": 55,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 120,
+        "bloodPressure": "115/75"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 490,
+        "respiratoryRate": 10,
+        "fio2": 0.4,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 3,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 490,
+          "respiratoryRate": 10,
+          "fio2": 0.4,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "risk of dynamic hyperinflation", "long expiratory time needed"]
+      }
+    },
+    {
+      "caseId": "CASE_008",
+      "patientProfile": {
+        "age": 50,
+        "weight": 85,
+        "height": 178,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 58,
+        "paco2": 48,
+        "ph": 7.28,
+        "respiratoryRate": 26,
+        "heartRate": 110,
+        "bloodPressure": "120/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 510,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 510,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 8
+        },
+        "monitoringPoints": ["oxygenation", "infection response", "lung compliance"],
+        "riskFactors": ["moderate pneumonia", "diabetes may delay recovery"]
+      }
+    },
+    {
+      "caseId": "CASE_009",
+      "patientProfile": {
+        "age": 38,
+        "weight": 55,
+        "height": 162,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 52,
+        "ph": 7.26,
+        "respiratoryRate": 29,
+        "heartRate": 118,
+        "bloodPressure": "105/65"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 385,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 385,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate-severe ARDS", "requires lung-protective ventilation"]
+      }
+    },
+    {
+      "caseId": "CASE_010",
+      "patientProfile": {
+        "age": 60,
+        "weight": 75,
+        "height": 172,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 89,
+        "pao2": 66,
+        "paco2": 70,
+        "ph": 7.18,
+        "respiratoryRate": 30,
+        "heartRate": 100,
+        "bloodPressure": "135/85"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 525,
+        "respiratoryRate": 10,
+        "fio2": 0.35,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 525,
+          "respiratoryRate": 10,
+          "fio2": 0.35,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "expiratory time", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention", "requires permissive hypercapnia"]
+      }
+    },
+    {
+      "caseId": "CASE_011",
+      "patientProfile": {
+        "age": 25,
+        "weight": 68,
+        "height": 175,
+        "gender": "male",
+        "condition": "trauma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 62,
+        "paco2": 42,
+        "ph": 7.32,
+        "respiratoryRate": 22,
+        "heartRate": 105,
+        "bloodPressure": "100/60"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 510,
+        "respiratoryRate": 16,
+        "fio2": 0.5,
+        "peep": 6,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 510,
+          "respiratoryRate": 16,
+          "fio2": 0.5,
+          "peep": 6
+        },
+        "monitoringPoints": ["chest trauma", "pneumothorax risk", "oxygenation"],
+        "riskFactors": ["trauma patient", "monitor for complications"]
+      }
+    },
+    {
+      "caseId": "CASE_012",
+      "patientProfile": {
+        "age": 70,
+        "weight": 60,
+        "height": 158,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": ["hypertension", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 54,
+        "paco2": 46,
+        "ph": 7.27,
+        "respiratoryRate": 28,
+        "heartRate": 112,
+        "bloodPressure": "125/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 420,
+        "respiratoryRate": 16,
+        "fio2": 0.7,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 420,
+          "respiratoryRate": 16,
+          "fio2": 0.7,
+          "peep": 8
+        },
+        "monitoringPoints": ["oxygenation", "renal function", "infection markers"],
+        "riskFactors": ["elderly", "multiple comorbidities", "requires careful monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_013",
+      "patientProfile": {
+        "age": 45,
+        "weight": 95,
+        "height": 180,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 79,
+        "pao2": 48,
+        "paco2": 58,
+        "ph": 7.20,
+        "respiratoryRate": 32,
+        "heartRate": 120,
+        "bloodPressure": "130/85"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 665,
+        "respiratoryRate": 18,
+        "fio2": 0.85,
+        "peep": 14,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI", "barotrauma"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 15,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 665,
+          "respiratoryRate": 18,
+          "fio2": 0.85,
+          "peep": 14
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma", "obesity-related complications"],
+        "riskFactors": ["severe ARDS", "obesity", "very high risk of complications", "requires extremely careful pressure management"]
+      }
+    },
+    {
+      "caseId": "CASE_014",
+      "patientProfile": {
+        "age": 52,
+        "weight": 72,
+        "height": 168,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": ["diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 64,
+        "paco2": 44,
+        "ph": 7.30,
+        "respiratoryRate": 25,
+        "heartRate": 125,
+        "bloodPressure": "95/55"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 504,
+        "respiratoryRate": 18,
+        "fio2": 0.55,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 504,
+          "respiratoryRate": 18,
+          "fio2": 0.55,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring", "lung-protective strategy"]
+      }
+    },
+    {
+      "caseId": "CASE_015",
+      "patientProfile": {
+        "age": 33,
+        "weight": 58,
+        "height": 160,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 59,
+        "paco2": 43,
+        "ph": 7.29,
+        "respiratoryRate": 27,
+        "heartRate": 115,
+        "bloodPressure": "110/70"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 406,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 406,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation improvement", "infection response"],
+        "riskFactors": ["moderate pneumonia", "good prognosis expected"]
+      }
+    },
+    {
+      "caseId": "CASE_016",
+      "patientProfile": {
+        "age": 68,
+        "weight": 78,
+        "height": 170,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 68,
+        "ph": 7.19,
+        "respiratoryRate": 28,
+        "heartRate": 98,
+        "bloodPressure": "140/90"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 546,
+        "respiratoryRate": 11,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 546,
+          "respiratoryRate": 11,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "renal function", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "slow weaning expected"]
+      }
+    },
+    {
+      "caseId": "CASE_017",
+      "patientProfile": {
+        "age": 42,
+        "weight": 65,
+        "height": 165,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 56,
+        "paco2": 50,
+        "ph": 7.24,
+        "respiratoryRate": 29,
+        "heartRate": 116,
+        "bloodPressure": "108/68"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 455,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 455,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+      }
+    },
+    {
+      "caseId": "CASE_018",
+      "patientProfile": {
+        "age": 55,
+        "weight": 88,
+        "height": 178,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 47,
+        "ph": 7.28,
+        "respiratoryRate": 26,
+        "heartRate": 108,
+        "bloodPressure": "125/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 616,
+        "respiratoryRate": 17,
+        "fio2": 0.68,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 616,
+          "respiratoryRate": 17,
+          "fio2": 0.68,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "obesity-related complications", "infection response"],
+        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_019",
+      "patientProfile": {
+        "age": 30,
+        "weight": 70,
+        "height": 175,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 91,
+        "pao2": 70,
+        "paco2": 52,
+        "ph": 7.26,
+        "respiratoryRate": 26,
+        "heartRate": 118,
+        "bloodPressure": "112/72"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 490,
+        "respiratoryRate": 10,
+        "fio2": 0.35,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 490,
+          "respiratoryRate": 10,
+          "fio2": 0.35,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm resolution"],
+        "riskFactors": ["severe asthma", "good prognosis", "short ventilation expected"]
+      }
+    },
+    {
+      "caseId": "CASE_020",
+      "patientProfile": {
+        "age": 75,
+        "weight": 62,
+        "height": 160,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 59,
+        "paco2": 48,
+        "ph": 7.27,
+        "respiratoryRate": 24,
+        "heartRate": 92,
+        "bloodPressure": "135/85"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 372,
+        "respiratoryRate": 14,
+        "fio2": 0.5,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 372,
+          "respiratoryRate": 14,
+          "fio2": 0.5,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires careful management"]
+      }
+    },
+    {
+      "caseId": "CASE_021",
+      "patientProfile": {
+        "age": 48,
+        "weight": 82,
+        "height": 175,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 61,
+        "paco2": 46,
+        "ph": 7.29,
+        "respiratoryRate": 25,
+        "heartRate": 112,
+        "bloodPressure": "125/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 574,
+        "respiratoryRate": 17,
+        "fio2": 0.6,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 574,
+          "respiratoryRate": 17,
+          "fio2": 0.6,
+          "peep": 8
+        },
+        "monitoringPoints": ["oxygenation", "infection markers"],
+        "riskFactors": ["moderate pneumonia", "good prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_022",
+      "patientProfile": {
+        "age": 62,
+        "weight": 70,
+        "height": 168,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": ["diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 53,
+        "paco2": 54,
+        "ph": 7.23,
+        "respiratoryRate": 30,
+        "heartRate": 114,
+        "bloodPressure": "118/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 490,
+        "respiratoryRate": 18,
+        "fio2": 0.75,
+        "peep": 11,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 490,
+          "respiratoryRate": 18,
+          "fio2": 0.75,
+          "peep": 11
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "lung protection"],
+        "riskFactors": ["severe ARDS", "diabetes", "high risk of VILI", "requires careful pressure management"]
+      }
+    },
+    {
+      "caseId": "CASE_023",
+      "patientProfile": {
+        "age": 35,
+        "weight": 64,
+        "height": 170,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 66,
+        "paco2": 41,
+        "ph": 7.33,
+        "respiratoryRate": 23,
+        "heartRate": 128,
+        "bloodPressure": "92/58"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 448,
+        "respiratoryRate": 19,
+        "fio2": 0.5,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 448,
+          "respiratoryRate": 19,
+          "fio2": 0.5,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection response", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic support"]
+      }
+    },
+    {
+      "caseId": "CASE_024",
+      "patientProfile": {
+        "age": 58,
+        "weight": 76,
+        "height": 173,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 67,
+        "paco2": 72,
+        "ph": 7.17,
+        "respiratoryRate": 29,
+        "heartRate": 102,
+        "bloodPressure": "138/88"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 532,
+        "respiratoryRate": 10,
+        "fio2": 0.38,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 11,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 532,
+          "respiratoryRate": 10,
+          "fio2": 0.38,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning"]
+      }
+    },
+    {
+      "caseId": "CASE_025",
+      "patientProfile": {
+        "age": 40,
+        "weight": 68,
+        "height": 172,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 58,
+        "paco2": 45,
+        "ph": 7.28,
+        "respiratoryRate": 27,
+        "heartRate": 113,
+        "bloodPressure": "115/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 476,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 476,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_026",
+      "patientProfile": {
+        "age": 67,
+        "weight": 73,
+        "height": 170,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 79,
+        "pao2": 49,
+        "paco2": 57,
+        "ph": 7.21,
+        "respiratoryRate": 31,
+        "heartRate": 118,
+        "bloodPressure": "122/78"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 511,
+        "respiratoryRate": 18,
+        "fio2": 0.8,
+        "peep": 13,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["barotrauma"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 14,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 511,
+          "respiratoryRate": 18,
+          "fio2": 0.8,
+          "peep": 13
+        },
+        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure"],
+        "riskFactors": ["severe ARDS", "elderly", "high risk of complications"]
+      }
+    },
+    {
+      "caseId": "CASE_027",
+      "patientProfile": {
+        "age": 44,
+        "weight": 71,
+        "height": 174,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 89,
+        "pao2": 69,
+        "paco2": 53,
+        "ph": 7.25,
+        "respiratoryRate": 27,
+        "heartRate": 116,
+        "bloodPressure": "118/76"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 497,
+        "respiratoryRate": 10,
+        "fio2": 0.4,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 3,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 497,
+          "respiratoryRate": 10,
+          "fio2": 0.4,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow"],
+        "riskFactors": ["severe asthma", "good prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_028",
+      "patientProfile": {
+        "age": 56,
+        "weight": 84,
+        "height": 177,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 56,
+        "paco2": 48,
+        "ph": 7.27,
+        "respiratoryRate": 28,
+        "heartRate": 109,
+        "bloodPressure": "128/82"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 588,
+        "respiratoryRate": 17,
+        "fio2": 0.7,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 588,
+          "respiratoryRate": 17,
+          "fio2": 0.7,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "obesity considerations"],
+        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_029",
+      "patientProfile": {
+        "age": 39,
+        "weight": 63,
+        "height": 167,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 62,
+        "paco2": 43,
+        "ph": 7.31,
+        "respiratoryRate": 24,
+        "heartRate": 122,
+        "bloodPressure": "94/56"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 441,
+        "respiratoryRate": 18,
+        "fio2": 0.55,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 441,
+          "respiratoryRate": 18,
+          "fio2": 0.55,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_030",
+      "patientProfile": {
+        "age": 71,
+        "weight": 69,
+        "height": 165,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 57,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 25,
+        "heartRate": 94,
+        "bloodPressure": "132/82"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 414,
+        "respiratoryRate": 14,
+        "fio2": 0.52,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 414,
+          "respiratoryRate": 14,
+          "fio2": 0.52,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "renal function"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac issues"]
+      }
+    },
+    {
+      "caseId": "CASE_031",
+      "patientProfile": {
+        "age": 47,
+        "weight": 79,
+        "height": 176,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 58,
+        "paco2": 51,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 112,
+        "bloodPressure": "120/78"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 553,
+        "respiratoryRate": 17,
+        "fio2": 0.68,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 553,
+          "respiratoryRate": 17,
+          "fio2": 0.68,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio"],
+        "riskFactors": ["moderate-severe ARDS"]
+      }
+    },
+    {
+      "caseId": "CASE_032",
+      "patientProfile": {
+        "age": 53,
+        "weight": 77,
+        "height": 171,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 64,
+        "paco2": 69,
+        "ph": 7.19,
+        "respiratoryRate": 27,
+        "heartRate": 101,
+        "bloodPressure": "136/86"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 539,
+        "respiratoryRate": 11,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 539,
+          "respiratoryRate": 11,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_033",
+      "patientProfile": {
+        "age": 36,
+        "weight": 66,
+        "height": 169,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 44,
+        "ph": 7.29,
+        "respiratoryRate": 26,
+        "heartRate": 114,
+        "bloodPressure": "112/72"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 462,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 462,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_034",
+      "patientProfile": {
+        "age": 49,
+        "weight": 86,
+        "height": 179,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity"]
+      },
+      "clinicalParameters": {
+        "spo2": 80,
+        "pao2": 51,
+        "paco2": 56,
+        "ph": 7.22,
+        "respiratoryRate": 31,
+        "heartRate": 119,
+        "bloodPressure": "128/82"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 602,
+        "respiratoryRate": 17,
+        "fio2": 0.78,
+        "peep": 12,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 602,
+          "respiratoryRate": 17,
+          "fio2": 0.78,
+          "peep": 12
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+      }
+    },
+    {
+      "caseId": "CASE_035",
+      "patientProfile": {
+        "age": 41,
+        "weight": 72,
+        "height": 173,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 89,
+        "pao2": 68,
+        "paco2": 40,
+        "ph": 7.34,
+        "respiratoryRate": 22,
+        "heartRate": 126,
+        "bloodPressure": "96/60"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 504,
+        "respiratoryRate": 19,
+        "fio2": 0.48,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 504,
+          "respiratoryRate": 19,
+          "fio2": 0.48,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection response"],
+        "riskFactors": ["sepsis", "requires hemodynamic support"]
+      }
+    },
+    {
+      "caseId": "CASE_036",
+      "patientProfile": {
+        "age": 64,
+        "weight": 74,
+        "height": 169,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["diabetes", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 47,
+        "ph": 7.28,
+        "respiratoryRate": 27,
+        "heartRate": 111,
+        "bloodPressure": "130/85"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 518,
+        "respiratoryRate": 17,
+        "fio2": 0.68,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 518,
+          "respiratoryRate": 17,
+          "fio2": 0.68,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
+        "riskFactors": ["elderly", "diabetes", "moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_037",
+      "patientProfile": {
+        "age": 32,
+        "weight": 69,
+        "height": 176,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 90,
+        "pao2": 71,
+        "paco2": 51,
+        "ph": 7.27,
+        "respiratoryRate": 25,
+        "heartRate": 117,
+        "bloodPressure": "114/74"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 483,
+        "respiratoryRate": 10,
+        "fio2": 0.38,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 483,
+          "respiratoryRate": 10,
+          "fio2": 0.38,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "good prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_038",
+      "patientProfile": {
+        "age": 59,
+        "weight": 81,
+        "height": 175,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 59,
+        "paco2": 53,
+        "ph": 7.24,
+        "respiratoryRate": 29,
+        "heartRate": 115,
+        "bloodPressure": "125/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 567,
+        "respiratoryRate": 17,
+        "fio2": 0.72,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 567,
+          "respiratoryRate": 17,
+          "fio2": 0.72,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung protection"],
+        "riskFactors": ["moderate-severe ARDS", "multiple comorbidities"]
+      }
+    },
+    {
+      "caseId": "CASE_039",
+      "patientProfile": {
+        "age": 43,
+        "weight": 67,
+        "height": 168,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 58,
+        "paco2": 45,
+        "ph": 7.28,
+        "respiratoryRate": 26,
+        "heartRate": 113,
+        "bloodPressure": "116/74"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 469,
+        "respiratoryRate": 18,
+        "fio2": 0.66,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 469,
+          "respiratoryRate": 18,
+          "fio2": 0.66,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_040",
+      "patientProfile": {
+        "age": 66,
+        "weight": 71,
+        "height": 167,
+        "gender": "female",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 63,
+        "paco2": 71,
+        "ph": 7.18,
+        "respiratoryRate": 28,
+        "heartRate": 99,
+        "bloodPressure": "137/87"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 497,
+        "respiratoryRate": 11,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 497,
+          "respiratoryRate": 11,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "elderly", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_041",
+      "patientProfile": {
+        "age": 37,
+        "weight": 73,
+        "height": 178,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 42,
+        "ph": 7.32,
+        "respiratoryRate": 23,
+        "heartRate": 124,
+        "bloodPressure": "93/57"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 511,
+        "respiratoryRate": 19,
+        "fio2": 0.52,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 511,
+          "respiratoryRate": 19,
+          "fio2": 0.52,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_042",
+      "patientProfile": {
+        "age": 54,
+        "weight": 83,
+        "height": 176,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 52,
+        "paco2": 55,
+        "ph": 7.23,
+        "respiratoryRate": 30,
+        "heartRate": 117,
+        "bloodPressure": "128/83"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 581,
+        "respiratoryRate": 18,
+        "fio2": 0.76,
+        "peep": 11,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 11,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 581,
+          "respiratoryRate": 18,
+          "fio2": 0.76,
+          "peep": 11
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+      }
+    },
+    {
+      "caseId": "CASE_043",
+      "patientProfile": {
+        "age": 46,
+        "weight": 70,
+        "height": 171,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 44,
+        "ph": 7.29,
+        "respiratoryRate": 25,
+        "heartRate": 112,
+        "bloodPressure": "119/76"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 490,
+        "respiratoryRate": 18,
+        "fio2": 0.64,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 490,
+          "respiratoryRate": 18,
+          "fio2": 0.64,
+          "peep": 8
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_044",
+      "patientProfile": {
+        "age": 61,
+        "weight": 75,
+        "height": 172,
+        "gender": "male",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 61,
+        "paco2": 47,
+        "ph": 7.28,
+        "respiratoryRate": 24,
+        "heartRate": 96,
+        "bloodPressure": "133/84"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 525,
+        "respiratoryRate": 14,
+        "fio2": 0.5,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 525,
+          "respiratoryRate": 14,
+          "fio2": 0.5,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
+        "riskFactors": ["elderly", "cardiac compromise", "multiple comorbidities"]
+      }
+    },
+    {
+      "caseId": "CASE_045",
+      "patientProfile": {
+        "age": 34,
+        "weight": 65,
+        "height": 169,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 59,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 28,
+        "heartRate": 114,
+        "bloodPressure": "111/69"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 455,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 455,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio"],
+        "riskFactors": ["moderate ARDS"]
+      }
+    },
+    {
+      "caseId": "CASE_046",
+      "patientProfile": {
+        "age": 57,
+        "weight": 78,
+        "height": 174,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 66,
+        "paco2": 70,
+        "ph": 7.19,
+        "respiratoryRate": 27,
+        "heartRate": 103,
+        "bloodPressure": "139/89"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 546,
+        "respiratoryRate": 10,
+        "fio2": 0.38,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 546,
+          "respiratoryRate": 10,
+          "fio2": 0.38,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_047",
+      "patientProfile": {
+        "age": 29,
+        "weight": 71,
+        "height": 177,
+        "gender": "male",
+        "condition": "trauma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 63,
+        "paco2": 41,
+        "ph": 7.31,
+        "respiratoryRate": 21,
+        "heartRate": 107,
+        "bloodPressure": "102/62"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 497,
+        "respiratoryRate": 16,
+        "fio2": 0.48,
+        "peep": 6,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 497,
+          "respiratoryRate": 16,
+          "fio2": 0.48,
+          "peep": 6
+        },
+        "monitoringPoints": ["chest trauma", "pneumothorax risk"],
+        "riskFactors": ["trauma patient", "monitor for complications"]
+      }
+    },
+    {
+      "caseId": "CASE_048",
+      "patientProfile": {
+        "age": 51,
+        "weight": 80,
+        "height": 175,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 46,
+        "ph": 7.27,
+        "respiratoryRate": 27,
+        "heartRate": 110,
+        "bloodPressure": "122/78"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 560,
+        "respiratoryRate": 17,
+        "fio2": 0.67,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 560,
+          "respiratoryRate": 17,
+          "fio2": 0.67,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
+        "riskFactors": ["moderate pneumonia", "diabetes"]
+      }
+    },
+    {
+      "caseId": "CASE_049",
+      "patientProfile": {
+        "age": 63,
+        "weight": 72,
+        "height": 170,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 80,
+        "pao2": 50,
+        "paco2": 56,
+        "ph": 7.22,
+        "respiratoryRate": 31,
+        "heartRate": 119,
+        "bloodPressure": "121/77"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 504,
+        "respiratoryRate": 18,
+        "fio2": 0.82,
+        "peep": 13,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["barotrauma"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 13,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 504,
+          "respiratoryRate": 18,
+          "fio2": 0.82,
+          "peep": 13
+        },
+        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure"],
+        "riskFactors": ["severe ARDS", "elderly", "multiple comorbidities", "very high risk"]
+      }
+    },
+    {
+      "caseId": "CASE_050",
+      "patientProfile": {
+        "age": 44,
+        "weight": 74,
+        "height": 173,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 63,
+        "paco2": 43,
+        "ph": 7.30,
+        "respiratoryRate": 24,
+        "heartRate": 123,
+        "bloodPressure": "94/58"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 518,
+        "respiratoryRate": 18,
+        "fio2": 0.54,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 518,
+          "respiratoryRate": 18,
+          "fio2": 0.54,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_051",
+      "patientProfile": {
+        "age": 38,
+        "weight": 66,
+        "height": 168,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 59,
+        "paco2": 50,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 116,
+        "bloodPressure": "109/67"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 462,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 462,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+      }
+    },
+    {
+      "caseId": "CASE_052",
+      "patientProfile": {
+        "age": 69,
+        "weight": 68,
+        "height": 163,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": ["hypertension", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 55,
+        "paco2": 46,
+        "ph": 7.27,
+        "respiratoryRate": 28,
+        "heartRate": 113,
+        "bloodPressure": "128/78"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 408,
+        "respiratoryRate": 16,
+        "fio2": 0.7,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 408,
+          "respiratoryRate": 16,
+          "fio2": 0.7,
+          "peep": 8
+        },
+        "monitoringPoints": ["oxygenation", "renal function", "infection markers"],
+        "riskFactors": ["elderly", "multiple comorbidities", "requires careful monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_053",
+      "patientProfile": {
+        "age": 46,
+        "weight": 92,
+        "height": 180,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "diabetes", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 78,
+        "pao2": 47,
+        "paco2": 59,
+        "ph": 7.20,
+        "respiratoryRate": 33,
+        "heartRate": 121,
+        "bloodPressure": "132/86"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 644,
+        "respiratoryRate": 18,
+        "fio2": 0.9,
+        "peep": 15,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI", "barotrauma"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 16,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 644,
+          "respiratoryRate": 18,
+          "fio2": 0.9,
+          "peep": 15
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "multiple comorbidities", "extremely high risk", "requires very careful pressure management"]
+      }
+    },
+    {
+      "caseId": "CASE_054",
+      "patientProfile": {
+        "age": 31,
+        "weight": 61,
+        "height": 164,
+        "gender": "female",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 91,
+        "pao2": 72,
+        "paco2": 50,
+        "ph": 7.26,
+        "respiratoryRate": 24,
+        "heartRate": 115,
+        "bloodPressure": "113/73"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 427,
+        "respiratoryRate": 10,
+        "fio2": 0.35,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 427,
+          "respiratoryRate": 10,
+          "fio2": 0.35,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm resolution"],
+        "riskFactors": ["severe asthma", "excellent prognosis", "short ventilation expected"]
+      }
+    },
+    {
+      "caseId": "CASE_055",
+      "patientProfile": {
+        "age": 58,
+        "weight": 79,
+        "height": 175,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 73,
+        "ph": 7.17,
+        "respiratoryRate": 28,
+        "heartRate": 100,
+        "bloodPressure": "141/91"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 553,
+        "respiratoryRate": 10,
+        "fio2": 0.38,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 553,
+          "respiratoryRate": 10,
+          "fio2": 0.38,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "expiratory time"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning process expected"]
+      }
+    },
+    {
+      "caseId": "CASE_056",
+      "patientProfile": {
+        "age": 42,
+        "weight": 74,
+        "height": 173,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 66,
+        "paco2": 41,
+        "ph": 7.33,
+        "respiratoryRate": 23,
+        "heartRate": 127,
+        "bloodPressure": "91/55"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 518,
+        "respiratoryRate": 19,
+        "fio2": 0.5,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 518,
+          "respiratoryRate": 19,
+          "fio2": 0.5,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection response", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic support", "monitor for organ dysfunction"]
+      }
+    },
+    {
+      "caseId": "CASE_057",
+      "patientProfile": {
+        "age": 50,
+        "weight": 85,
+        "height": 177,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 54,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 29,
+        "heartRate": 111,
+        "bloodPressure": "127/81"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 595,
+        "respiratoryRate": 17,
+        "fio2": 0.72,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 595,
+          "respiratoryRate": 17,
+          "fio2": 0.72,
+          "peep": 10
+        },
+        "monitoringPoints": ["oxygenation", "obesity-related complications", "infection response", "diabetes management"],
+        "riskFactors": ["obesity", "diabetes", "moderate-severe pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_058",
+      "patientProfile": {
+        "age": 73,
+        "weight": 64,
+        "height": 159,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 56,
+        "paco2": 50,
+        "ph": 7.25,
+        "respiratoryRate": 26,
+        "heartRate": 91,
+        "bloodPressure": "138/88"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 384,
+        "respiratoryRate": 14,
+        "fio2": 0.52,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 384,
+          "respiratoryRate": 14,
+          "fio2": 0.52,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires very careful management"]
+      }
+    },
+    {
+      "caseId": "CASE_059",
+      "patientProfile": {
+        "age": 36,
+        "weight": 68,
+        "height": 171,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 58,
+        "paco2": 51,
+        "ph": 7.24,
+        "respiratoryRate": 29,
+        "heartRate": 117,
+        "bloodPressure": "107/66"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 476,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 476,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+      }
+    },
+    {
+      "caseId": "CASE_060",
+      "patientProfile": {
+        "age": 55,
+        "weight": 88,
+        "height": 179,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 79,
+        "pao2": 49,
+        "paco2": 57,
+        "ph": 7.21,
+        "respiratoryRate": 32,
+        "heartRate": 120,
+        "bloodPressure": "129/84"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 616,
+        "respiratoryRate": 18,
+        "fio2": 0.83,
+        "peep": 13,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 12,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 616,
+          "respiratoryRate": 18,
+          "fio2": 0.83,
+          "peep": 13
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications", "VILI signs"],
+        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI", "requires careful pressure management"]
+      }
+    },
+    {
+      "caseId": "CASE_061",
+      "patientProfile": {
+        "age": 27,
+        "weight": 72,
+        "height": 178,
+        "gender": "male",
+        "condition": "trauma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 89,
+        "pao2": 69,
+        "paco2": 40,
+        "ph": 7.33,
+        "respiratoryRate": 20,
+        "heartRate": 104,
+        "bloodPressure": "98/60"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 504,
+        "respiratoryRate": 16,
+        "fio2": 0.45,
+        "peep": 5,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 3,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 504,
+          "respiratoryRate": 16,
+          "fio2": 0.45,
+          "peep": 5
+        },
+        "monitoringPoints": ["chest trauma", "pneumothorax risk", "oxygenation"],
+        "riskFactors": ["trauma patient", "young and healthy", "good prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_062",
+      "patientProfile": {
+        "age": 61,
+        "weight": 76,
+        "height": 171,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 62,
+        "paco2": 74,
+        "ph": 7.16,
+        "respiratoryRate": 29,
+        "heartRate": 98,
+        "bloodPressure": "142/92"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 532,
+        "respiratoryRate": 10,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 11,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 532,
+          "respiratoryRate": 10,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "diabetes management"],
+        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_063",
+      "patientProfile": {
+        "age": 39,
+        "weight": 65,
+        "height": 166,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 44,
+        "ph": 7.29,
+        "respiratoryRate": 26,
+        "heartRate": 114,
+        "bloodPressure": "115/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 455,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 455,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia", "good prognosis expected"]
+      }
+    },
+    {
+      "caseId": "CASE_064",
+      "patientProfile": {
+        "age": 48,
+        "weight": 90,
+        "height": 181,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity"]
+      },
+      "clinicalParameters": {
+        "spo2": 80,
+        "pao2": 52,
+        "paco2": 56,
+        "ph": 7.22,
+        "respiratoryRate": 31,
+        "heartRate": 118,
+        "bloodPressure": "131/85"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 630,
+        "respiratoryRate": 17,
+        "fio2": 0.79,
+        "peep": 12,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 11,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 630,
+          "respiratoryRate": 17,
+          "fio2": 0.79,
+          "peep": 12
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications", "VILI prevention"],
+        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+      }
+    },
+    {
+      "caseId": "CASE_065",
+      "patientProfile": {
+        "age": 33,
+        "weight": 70,
+        "height": 175,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 64,
+        "paco2": 42,
+        "ph": 7.31,
+        "respiratoryRate": 24,
+        "heartRate": 125,
+        "bloodPressure": "95/58"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 490,
+        "respiratoryRate": 19,
+        "fio2": 0.53,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 490,
+          "respiratoryRate": 19,
+          "fio2": 0.53,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_066",
+      "patientProfile": {
+        "age": 66,
+        "weight": 70,
+        "height": 168,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 53,
+        "paco2": 48,
+        "ph": 7.26,
+        "respiratoryRate": 29,
+        "heartRate": 112,
+        "bloodPressure": "133/84"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 490,
+        "respiratoryRate": 16,
+        "fio2": 0.73,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 490,
+          "respiratoryRate": 16,
+          "fio2": 0.73,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management", "renal function"],
+        "riskFactors": ["elderly", "multiple comorbidities", "moderate-severe pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_067",
+      "patientProfile": {
+        "age": 41,
+        "weight": 73,
+        "height": 174,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 90,
+        "pao2": 70,
+        "paco2": 52,
+        "ph": 7.26,
+        "respiratoryRate": 25,
+        "heartRate": 116,
+        "bloodPressure": "117/75"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 511,
+        "respiratoryRate": 10,
+        "fio2": 0.36,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 511,
+          "respiratoryRate": 10,
+          "fio2": 0.36,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "excellent prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_068",
+      "patientProfile": {
+        "age": 52,
+        "weight": 87,
+        "height": 178,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 79,
+        "pao2": 48,
+        "paco2": 58,
+        "ph": 7.20,
+        "respiratoryRate": 33,
+        "heartRate": 121,
+        "bloodPressure": "130/86"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 609,
+        "respiratoryRate": 18,
+        "fio2": 0.87,
+        "peep": 14,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["barotrauma", "VILI"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 15,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 609,
+          "respiratoryRate": 18,
+          "fio2": 0.87,
+          "peep": 14
+        },
+        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "very high risk of complications", "requires extremely careful management"]
+      }
+    },
+    {
+      "caseId": "CASE_069",
+      "patientProfile": {
+        "age": 45,
+        "weight": 71,
+        "height": 172,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 59,
+        "paco2": 45,
+        "ph": 7.28,
+        "respiratoryRate": 27,
+        "heartRate": 113,
+        "bloodPressure": "118/76"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 497,
+        "respiratoryRate": 18,
+        "fio2": 0.66,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 497,
+          "respiratoryRate": 18,
+          "fio2": 0.66,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_070",
+      "patientProfile": {
+        "age": 60,
+        "weight": 77,
+        "height": 173,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 72,
+        "ph": 7.18,
+        "respiratoryRate": 28,
+        "heartRate": 101,
+        "bloodPressure": "140/90"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 539,
+        "respiratoryRate": 11,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 539,
+          "respiratoryRate": 11,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning"]
+      }
+    },
+    {
+      "caseId": "CASE_071",
+      "patientProfile": {
+        "age": 35,
+        "weight": 67,
+        "height": 170,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 67,
+        "paco2": 41,
+        "ph": 7.32,
+        "respiratoryRate": 23,
+        "heartRate": 126,
+        "bloodPressure": "93/57"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 469,
+        "respiratoryRate": 19,
+        "fio2": 0.51,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 469,
+          "respiratoryRate": 19,
+          "fio2": 0.51,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers"],
+        "riskFactors": ["sepsis", "requires hemodynamic support"]
+      }
+    },
+    {
+      "caseId": "CASE_072",
+      "patientProfile": {
+        "age": 56,
+        "weight": 82,
+        "height": 176,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 60,
+        "paco2": 52,
+        "ph": 7.24,
+        "respiratoryRate": 29,
+        "heartRate": 115,
+        "bloodPressure": "124/79"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 574,
+        "respiratoryRate": 17,
+        "fio2": 0.71,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 574,
+          "respiratoryRate": 17,
+          "fio2": 0.71,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung protection", "diabetes management"],
+        "riskFactors": ["moderate-severe ARDS", "multiple comorbidities"]
+      }
+    },
+    {
+      "caseId": "CASE_073",
+      "patientProfile": {
+        "age": 43,
+        "weight": 69,
+        "height": 167,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 44,
+        "ph": 7.29,
+        "respiratoryRate": 26,
+        "heartRate": 114,
+        "bloodPressure": "116/74"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 483,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 483,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_074",
+      "patientProfile": {
+        "age": 70,
+        "weight": 66,
+        "height": 161,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 58,
+        "paco2": 48,
+        "ph": 7.27,
+        "respiratoryRate": 25,
+        "heartRate": 93,
+        "bloodPressure": "136/86"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 396,
+        "respiratoryRate": 14,
+        "fio2": 0.51,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 396,
+          "respiratoryRate": 14,
+          "fio2": 0.51,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise"]
+      }
+    },
+    {
+      "caseId": "CASE_075",
+      "patientProfile": {
+        "age": 37,
+        "weight": 75,
+        "height": 179,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 58,
+        "paco2": 50,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 116,
+        "bloodPressure": "108/68"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 525,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 525,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio"],
+        "riskFactors": ["moderate ARDS"]
+      }
+    },
+    {
+      "caseId": "CASE_076",
+      "patientProfile": {
+        "age": 54,
+        "weight": 84,
+        "height": 177,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 56,
+        "paco2": 47,
+        "ph": 7.27,
+        "respiratoryRate": 28,
+        "heartRate": 110,
+        "bloodPressure": "126/81"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 588,
+        "respiratoryRate": 17,
+        "fio2": 0.69,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 588,
+          "respiratoryRate": 17,
+          "fio2": 0.69,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "obesity considerations", "infection response"],
+        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_077",
+      "patientProfile": {
+        "age": 40,
+        "weight": 64,
+        "height": 165,
+        "gender": "female",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 91,
+        "pao2": 73,
+        "paco2": 49,
+        "ph": 7.28,
+        "respiratoryRate": 23,
+        "heartRate": 114,
+        "bloodPressure": "112/72"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 448,
+        "respiratoryRate": 10,
+        "fio2": 0.33,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 448,
+          "respiratoryRate": 10,
+          "fio2": 0.33,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "excellent prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_078",
+      "patientProfile": {
+        "age": 59,
+        "weight": 78,
+        "height": 174,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 66,
+        "paco2": 71,
+        "ph": 7.19,
+        "respiratoryRate": 27,
+        "heartRate": 100,
+        "bloodPressure": "139/89"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 546,
+        "respiratoryRate": 10,
+        "fio2": 0.39,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 546,
+          "respiratoryRate": 10,
+          "fio2": 0.39,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_079",
+      "patientProfile": {
+        "age": 32,
+        "weight": 71,
+        "height": 176,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 89,
+        "pao2": 69,
+        "paco2": 40,
+        "ph": 7.34,
+        "respiratoryRate": 21,
+        "heartRate": 124,
+        "bloodPressure": "92/56"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 497,
+        "respiratoryRate": 19,
+        "fio2": 0.47,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 497,
+          "respiratoryRate": 19,
+          "fio2": 0.47,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers"],
+        "riskFactors": ["sepsis", "requires hemodynamic support"]
+      }
+    },
+    {
+      "caseId": "CASE_080",
+      "patientProfile": {
+        "age": 65,
+        "weight": 73,
+        "height": 170,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 54,
+        "paco2": 55,
+        "ph": 7.23,
+        "respiratoryRate": 30,
+        "heartRate": 117,
+        "bloodPressure": "123/78"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 511,
+        "respiratoryRate": 18,
+        "fio2": 0.77,
+        "peep": 12,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 511,
+          "respiratoryRate": 18,
+          "fio2": 0.77,
+          "peep": 12
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "VILI prevention"],
+        "riskFactors": ["severe ARDS", "elderly", "multiple comorbidities", "high risk of VILI"]
+      }
+    },
+    {
+      "caseId": "CASE_081",
+      "patientProfile": {
+        "age": 44,
+        "weight": 76,
+        "height": 175,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 59,
+        "paco2": 45,
+        "ph": 7.28,
+        "respiratoryRate": 27,
+        "heartRate": 112,
+        "bloodPressure": "121/77"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 532,
+        "respiratoryRate": 17,
+        "fio2": 0.67,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 532,
+          "respiratoryRate": 17,
+          "fio2": 0.67,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_082",
+      "patientProfile": {
+        "age": 51,
+        "weight": 89,
+        "height": 180,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 77,
+        "pao2": 45,
+        "paco2": 60,
+        "ph": 7.19,
+        "respiratoryRate": 34,
+        "heartRate": 123,
+        "bloodPressure": "134/87"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 623,
+        "respiratoryRate": 18,
+        "fio2": 0.92,
+        "peep": 16,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["barotrauma", "VILI"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 18,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 623,
+          "respiratoryRate": 18,
+          "fio2": 0.92,
+          "peep": 16
+        },
+        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "multiple comorbidities", "extremely high risk", "critical case"]
+      }
+    },
+    {
+      "caseId": "CASE_083",
+      "patientProfile": {
+        "age": 36,
+        "weight": 68,
+        "height": 172,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 86,
+        "pao2": 63,
+        "paco2": 43,
+        "ph": 7.30,
+        "respiratoryRate": 24,
+        "heartRate": 123,
+        "bloodPressure": "94/58"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 476,
+        "respiratoryRate": 19,
+        "fio2": 0.54,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 476,
+          "respiratoryRate": 19,
+          "fio2": 0.54,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_084",
+      "patientProfile": {
+        "age": 62,
+        "weight": 75,
+        "height": 172,
+        "gender": "male",
+        "condition": "COPD",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 61,
+        "paco2": 75,
+        "ph": 7.16,
+        "respiratoryRate": 30,
+        "heartRate": 97,
+        "bloodPressure": "143/93"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 525,
+        "respiratoryRate": 10,
+        "fio2": 0.4,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 12,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 525,
+          "respiratoryRate": 10,
+          "fio2": 0.4,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "diabetes management"],
+        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "very slow weaning expected"]
+      }
+    },
+    {
+      "caseId": "CASE_085",
+      "patientProfile": {
+        "age": 47,
+        "weight": 81,
+        "height": 178,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 46,
+        "ph": 7.27,
+        "respiratoryRate": 28,
+        "heartRate": 109,
+        "bloodPressure": "125/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 567,
+        "respiratoryRate": 17,
+        "fio2": 0.7,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 567,
+          "respiratoryRate": 17,
+          "fio2": 0.7,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "obesity considerations", "infection response"],
+        "riskFactors": ["obesity", "moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_086",
+      "patientProfile": {
+        "age": 39,
+        "weight": 63,
+        "height": 166,
+        "gender": "female",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 60,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 28,
+        "heartRate": 115,
+        "bloodPressure": "110/70"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 441,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 441,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio"],
+        "riskFactors": ["moderate ARDS"]
+      }
+    },
+    {
+      "caseId": "CASE_087",
+      "patientProfile": {
+        "age": 53,
+        "weight": 83,
+        "height": 176,
+        "gender": "male",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 47,
+        "ph": 7.28,
+        "respiratoryRate": 24,
+        "heartRate": 95,
+        "bloodPressure": "131/82"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 581,
+        "respiratoryRate": 14,
+        "fio2": 0.5,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 581,
+          "respiratoryRate": 14,
+          "fio2": 0.5,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
+        "riskFactors": ["cardiac compromise", "multiple comorbidities"]
+      }
+    },
+    {
+      "caseId": "CASE_088",
+      "patientProfile": {
+        "age": 30,
+        "weight": 69,
+        "height": 174,
+        "gender": "male",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 92,
+        "pao2": 74,
+        "paco2": 48,
+        "ph": 7.29,
+        "respiratoryRate": 22,
+        "heartRate": 112,
+        "bloodPressure": "115/73"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 483,
+        "respiratoryRate": 10,
+        "fio2": 0.32,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 1,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 483,
+          "respiratoryRate": 10,
+          "fio2": 0.32,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "excellent prognosis", "very short ventilation"]
+      }
+    },
+    {
+      "caseId": "CASE_089",
+      "patientProfile": {
+        "age": 57,
+        "weight": 80,
+        "height": 175,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["diabetes", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 82,
+        "pao2": 55,
+        "paco2": 48,
+        "ph": 7.26,
+        "respiratoryRate": 29,
+        "heartRate": 111,
+        "bloodPressure": "129/82"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 560,
+        "respiratoryRate": 17,
+        "fio2": 0.71,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 7,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 560,
+          "respiratoryRate": 17,
+          "fio2": 0.71,
+          "peep": 10
+        },
+        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
+        "riskFactors": ["moderate-severe pneumonia", "diabetes", "multiple comorbidities"]
+      }
+    },
+    {
+      "caseId": "CASE_090",
+      "patientProfile": {
+        "age": 41,
+        "weight": 72,
+        "height": 173,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 59,
+        "paco2": 50,
+        "ph": 7.25,
+        "respiratoryRate": 28,
+        "heartRate": 116,
+        "bloodPressure": "119/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 504,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 504,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+      }
+    },
+    {
+      "caseId": "CASE_091",
+      "patientProfile": {
+        "age": 64,
+        "weight": 74,
+        "height": 169,
+        "gender": "female",
+        "condition": "COPD",
+        "comorbidities": ["hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 73,
+        "ph": 7.17,
+        "respiratoryRate": 28,
+        "heartRate": 100,
+        "bloodPressure": "141/91"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 518,
+        "respiratoryRate": 10,
+        "fio2": 0.39,
+        "peep": 5,
+        "ieRatio": "1:3.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 10,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 518,
+          "respiratoryRate": 10,
+          "fio2": 0.39,
+          "peep": 5
+        },
+        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
+        "riskFactors": ["severe COPD", "elderly", "chronic CO2 retention"]
+      }
+    },
+    {
+      "caseId": "CASE_092",
+      "patientProfile": {
+        "age": 34,
+        "weight": 66,
+        "height": 168,
+        "gender": "female",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 88,
+        "pao2": 67,
+        "paco2": 41,
+        "ph": 7.33,
+        "respiratoryRate": 23,
+        "heartRate": 127,
+        "bloodPressure": "92/55"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 462,
+        "respiratoryRate": 19,
+        "fio2": 0.5,
+        "peep": 7,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 462,
+          "respiratoryRate": 19,
+          "fio2": 0.5,
+          "peep": 7
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers"],
+        "riskFactors": ["sepsis", "requires hemodynamic support"]
+      }
+    },
+    {
+      "caseId": "CASE_093",
+      "patientProfile": {
+        "age": 49,
+        "weight": 86,
+        "height": 179,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["obesity", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 78,
+        "pao2": 46,
+        "paco2": 59,
+        "ph": 7.20,
+        "respiratoryRate": 33,
+        "heartRate": 122,
+        "bloodPressure": "133/86"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 602,
+        "respiratoryRate": 18,
+        "fio2": 0.88,
+        "peep": 15,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI", "barotrauma"],
+        "weaningSuccess": false,
+        "lengthOfVentilation": 17,
+        "mortality": true
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 602,
+          "respiratoryRate": 18,
+          "fio2": 0.88,
+          "peep": 15
+        },
+        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
+        "riskFactors": ["severe ARDS", "obesity", "diabetes", "extremely high risk", "critical case"]
+      }
+    },
+    {
+      "caseId": "CASE_094",
+      "patientProfile": {
+        "age": 45,
+        "weight": 70,
+        "height": 171,
+        "gender": "female",
+        "condition": "pneumonia",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 85,
+        "pao2": 60,
+        "paco2": 44,
+        "ph": 7.29,
+        "respiratoryRate": 26,
+        "heartRate": 113,
+        "bloodPressure": "117/75"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 490,
+        "respiratoryRate": 18,
+        "fio2": 0.65,
+        "peep": 9,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 4,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 490,
+          "respiratoryRate": 18,
+          "fio2": 0.65,
+          "peep": 9
+        },
+        "monitoringPoints": ["oxygenation", "infection response"],
+        "riskFactors": ["moderate pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_095",
+      "patientProfile": {
+        "age": 58,
+        "weight": 81,
+        "height": 177,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": ["hypertension", "diabetes"]
+      },
+      "clinicalParameters": {
+        "spo2": 81,
+        "pao2": 53,
+        "paco2": 54,
+        "ph": 7.23,
+        "respiratoryRate": 30,
+        "heartRate": 118,
+        "bloodPressure": "126/80"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 567,
+        "respiratoryRate": 18,
+        "fio2": 0.75,
+        "peep": 11,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["VILI"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 9,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 567,
+          "respiratoryRate": 18,
+          "fio2": 0.75,
+          "peep": 11
+        },
+        "monitoringPoints": ["plateau pressure", "driving pressure", "VILI prevention"],
+        "riskFactors": ["severe ARDS", "multiple comorbidities", "high risk of VILI"]
+      }
+    },
+    {
+      "caseId": "CASE_096",
+      "patientProfile": {
+        "age": 38,
+        "weight": 69,
+        "height": 172,
+        "gender": "female",
+        "condition": "asthma",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 90,
+        "pao2": 71,
+        "paco2": 51,
+        "ph": 7.27,
+        "respiratoryRate": 24,
+        "heartRate": 115,
+        "bloodPressure": "114/74"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 483,
+        "respiratoryRate": 10,
+        "fio2": 0.37,
+        "peep": 0,
+        "ieRatio": "1:4"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 2,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 483,
+          "respiratoryRate": 10,
+          "fio2": 0.37,
+          "peep": 0
+        },
+        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
+        "riskFactors": ["severe asthma", "excellent prognosis"]
+      }
+    },
+    {
+      "caseId": "CASE_097",
+      "patientProfile": {
+        "age": 55,
+        "weight": 88,
+        "height": 178,
+        "gender": "male",
+        "condition": "pneumonia",
+        "comorbidities": ["obesity", "diabetes", "hypertension"]
+      },
+      "clinicalParameters": {
+        "spo2": 80,
+        "pao2": 52,
+        "paco2": 49,
+        "ph": 7.25,
+        "respiratoryRate": 30,
+        "heartRate": 112,
+        "bloodPressure": "130/83"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 616,
+        "respiratoryRate": 17,
+        "fio2": 0.74,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 616,
+          "respiratoryRate": 17,
+          "fio2": 0.74,
+          "peep": 10
+        },
+        "monitoringPoints": ["oxygenation", "obesity complications", "infection response", "diabetes management"],
+        "riskFactors": ["obesity", "diabetes", "hypertension", "severe pneumonia"]
+      }
+    },
+    {
+      "caseId": "CASE_098",
+      "patientProfile": {
+        "age": 43,
+        "weight": 75,
+        "height": 174,
+        "gender": "male",
+        "condition": "sepsis",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 87,
+        "pao2": 65,
+        "paco2": 42,
+        "ph": 7.31,
+        "respiratoryRate": 24,
+        "heartRate": 125,
+        "bloodPressure": "94/57"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 525,
+        "respiratoryRate": 19,
+        "fio2": 0.52,
+        "peep": 8,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 5,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 525,
+          "respiratoryRate": 19,
+          "fio2": 0.52,
+          "peep": 8
+        },
+        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
+        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+      }
+    },
+    {
+      "caseId": "CASE_099",
+      "patientProfile": {
+        "age": 67,
+        "weight": 71,
+        "height": 167,
+        "gender": "female",
+        "condition": "heart failure",
+        "comorbidities": ["hypertension", "diabetes", "CKD"]
+      },
+      "clinicalParameters": {
+        "spo2": 83,
+        "pao2": 57,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 25,
+        "heartRate": 92,
+        "bloodPressure": "137/87"
+      },
+      "ventilatorSettings": {
+        "mode": "SIMV",
+        "tidalVolume": 426,
+        "respiratoryRate": 14,
+        "fio2": 0.51,
+        "peep": 6,
+        "ieRatio": "1:2.5"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 8,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "SIMV",
+          "tidalVolume": 426,
+          "respiratoryRate": 14,
+          "fio2": 0.51,
+          "peep": 6
+        },
+        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
+        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires very careful management"]
+      }
+    },
+    {
+      "caseId": "CASE_100",
+      "patientProfile": {
+        "age": 40,
+        "weight": 73,
+        "height": 175,
+        "gender": "male",
+        "condition": "ARDS",
+        "comorbidities": []
+      },
+      "clinicalParameters": {
+        "spo2": 84,
+        "pao2": 60,
+        "paco2": 49,
+        "ph": 7.26,
+        "respiratoryRate": 28,
+        "heartRate": 115,
+        "bloodPressure": "120/76"
+      },
+      "ventilatorSettings": {
+        "mode": "ACV",
+        "tidalVolume": 511,
+        "respiratoryRate": 18,
+        "fio2": 0.7,
+        "peep": 10,
+        "ieRatio": "1:2"
+      },
+      "outcomes": {
+        "complications": ["none"],
+        "weaningSuccess": true,
+        "lengthOfVentilation": 6,
+        "mortality": false
+      },
+      "recommendations": {
+        "initialSettings": {
+          "mode": "ACV",
+          "tidalVolume": 511,
+          "respiratoryRate": 18,
+          "fio2": 0.7,
+          "peep": 10
+        },
+        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
+        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+      }
+    }
+  ]
+}
+

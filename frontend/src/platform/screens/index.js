@@ -1,0 +1,34 @@
+/**
+ * Screens Barrel Export
+ * Centralized export for all screen components
+ * File: index.js
+ * 
+ * Per component-structure.mdc: Barrel files must use index.js (not index.jsx)
+ * Screens are organized into category folders (common/, main/, etc.)
+ */
+
+// Common screens (public/common screens)
+export { default as HomeScreen } from './common/HomeScreen';
+export { default as NotFoundScreen } from './common/NotFoundScreen';
+export { default as ErrorScreen } from './common/ErrorScreen';
+
+// Ventilation screens
+export { default as AssessmentScreen } from './ventilation/AssessmentScreen';
+export { default as RecommendationScreen } from './ventilation/RecommendationScreen';
+export { default as MonitoringScreen } from './ventilation/MonitoringScreen';
+export { default as HistoryScreen } from './ventilation/HistoryScreen';
+export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
+
+// Training screens
+export { default as TrainingHomeScreen } from './training/TrainingHomeScreen';
+export { default as TopicListScreen } from './training/TopicListScreen';
+export { default as TopicDetailScreen } from './training/TopicDetailScreen';
+
+// Settings screens
+export { default as SettingsScreen } from './settings/SettingsScreen';
+export { default as DisclaimerScreen } from './settings/DisclaimerScreen';
+export { default as DataSourcesScreen } from './settings/DataSourcesScreen';
+export { default as PrivacyScreen } from './settings/PrivacyScreen';
+export { default as AboutScreen } from './settings/AboutScreen';
+export { default as OnboardingScreen } from './onboarding/OnboardingScreen';
+export { default as HelpScreen } from './help/HelpScreen';

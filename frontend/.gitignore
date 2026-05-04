@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+# NOTE: lockfiles should be committed for reproducible frontend builds.
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+# Debug system output (scripts write here)
+debug/*.log
+
+# Testing
+coverage/
+.jest-cache/
+

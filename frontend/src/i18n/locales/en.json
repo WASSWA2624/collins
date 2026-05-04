@@ -1,0 +1,928 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "submit": "Submit",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "close": "Close",
+    "closeSidebarHint": "Closes the sidebar menu",
+    "select": "Select",
+    "selectPlaceholder": "Select…",
+    "closeSelect": "Close select",
+    "remove": "Remove",
+    "goToHome": "Go to home",
+    "viewNotifications": "View notifications",
+    "userMenu": "User menu",
+    "toggleMenu": "Toggle menu",
+    "searchPlaceholder": "Search…",
+    "searchIcon": "Search icon",
+    "clearSearch": "Clear search",
+    "on": "On",
+    "off": "Off",
+    "switch": "Switch",
+    "imageLoadError": "Failed to load image",
+    "imageDefaultAlt": "Image",
+    "progress": "Progress: {{value}}%",
+    "requiredLabel": "required",
+    "clearAll": "Clear all",
+    "filters": "Filters",
+    "clearAllFilters": "Clear all filters",
+    "loadingPlaceholder": "Loading placeholder",
+    "radio": "Radio",
+    "emptyState": "Empty state",
+    "message": "Message",
+    "sliderValue": "Slider: {{value}}",
+    "dropdownMenu": "Dropdown menu",
+    "tooltip": "Tooltip",
+    "action": "Action"
+  },
+  "greeting": {
+    "hello": "Hello, {{name}}"
+  },
+  "app": {
+    "name": "AI Ventilator Decision Support",
+    "shortName": "AIVDS"
+  },
+  "errors": {
+    "fallback": {
+      "title": "Something went wrong",
+      "message": "An unexpected error occurred",
+      "retry": "Retry",
+      "retryHint": "Try again"
+    },
+    "codes": {
+      "UNKNOWN_ERROR": "An unknown error occurred",
+      "NETWORK_ERROR": "Network connection failed",
+      "UNAUTHORIZED": "Authentication required",
+      "FORBIDDEN": "Access denied",
+      "SERVER_ERROR": "Server error occurred",
+      "ROUTE_ERROR": "An error occurred while loading this page",
+      "INVALID_CREDENTIALS": "Invalid credentials",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
+      "ACCOUNT_INACTIVE": "Account is not active",
+      "ACCOUNT_SUSPENDED": "Account has been suspended",
+      "ACCOUNT_PENDING": "Account is pending verification",
+      "PASSWORD_INCORRECT": "Current password is incorrect",
+      "TOKEN_INVALID": "Invalid or expired token",
+      "TOKEN_EXPIRED": "Token has expired",
+      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
+      "USER_NOT_FOUND": "User not found",
+      "USER_EXISTS": "User with this email already exists",
+      "SESSION_NOT_FOUND": "Session not found",
+      "ALREADY_VERIFIED": "Account is already verified",
+      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
+      "AI_TIMEOUT": "AI request timed out",
+      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_FORBIDDEN": "AI access denied",
+      "AI_RATE_LIMIT": "AI rate limit reached",
+      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
+      "AI_MALFORMED_RESPONSE": "AI response invalid"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Invalid email format",
+      "invalidUrl": "Invalid URL format",
+      "invalidUuid": "Invalid ID format",
+      "maxLength": "Maximum length is {{max}} characters",
+      "invalidValue": "Invalid value"
+    }
+  },
+  "navigation": {
+    "header": {
+      "title": "Main navigation header",
+      "searchHint": "Type to search",
+      "cartWithItems": "Cart with {{count}} items",
+      "cartWithItems_zero": "Cart",
+      "signIn": "Sign In",
+      "profile": "Profile",
+      "orders": "Orders",
+      "settings": "Settings",
+      "logout": "Logout",
+      "hideHeader": "Hide header",
+      "showHeader": "Show header",
+      "showMore": "Show more",
+      "customize": "Customize",
+      "overflowMenuLabel": "More header actions",
+      "customizationMenuLabel": "Header customization",
+      "actions": {
+        "notifications": "Notifications",
+        "network": "Network status",
+        "database": "Database status",
+        "fullscreen": "Full screen toggle"
+      }
+    },
+    "sidebar": {
+      "title": "Main navigation",
+      "label": "Navigation",
+      "resize": "Resize navigation"
+    },
+    "fullscreen": {
+      "enter": "Full screen",
+      "exit": "Exit full screen"
+    },
+    "tabBar": {
+      "title": "Bottom navigation"
+    },
+    "footer": {
+      "title": "Global footer",
+      "copyright": "© {{year}} {{appName}}. All rights reserved.",
+      "supportEmail": "Support (email)",
+      "supportPhone": "Support (phone)",
+      "status": {
+        "title": "Application status",
+        "auth": "Secure sign-in enabled",
+        "main": "All systems operational",
+        "patient": "Patient services ready"
+      },
+      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "legal": {
+        "title": "Legal and support",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "support": "Support"
+      }
+    },
+    "network": {
+      "label": "Network status",
+      "status": {
+        "online": "Online",
+        "offline": "Offline",
+        "unstable": "Unstable",
+        "syncing": "Syncing"
+      },
+      "database": {
+        "label": "Database",
+        "connected": "Database connected",
+        "disconnected": "Database disconnected"
+      }
+    },
+    "notifications": {
+      "label": "Notifications",
+      "menuLabel": "Notifications menu",
+      "empty": "No new notifications",
+      "viewAll": "View all notifications",
+      "items": {
+        "appointments": {
+          "title": "Upcoming appointment",
+          "meta": "Today at 3:00 PM"
+        },
+        "labResults": {
+          "title": "Lab results ready",
+          "meta": "New results available"
+        },
+        "messages": {
+          "title": "New message",
+          "meta": "You have unread messages"
+        }
+      }
+    },
+    "bottomNavigation": "Bottom navigation",
+    "mainNavigation": "Main navigation",
+    "patientNavigation": "Patient navigation",
+    "items": {
+      "main": {
+        "home": "Home",
+        "assessment": "Admit",
+        "history": "Tracking",
+        "training": "Training",
+        "onboarding": "Getting started",
+        "settings": "Settings",
+        "settings-about": "About",
+        "settings-data-sources": "Data sources",
+        "settings-disclaimer": "Disclaimer",
+        "settings-help": "Help",
+        "settings-privacy": "Privacy"
+      }
+    },
+    "breadcrumbs": {
+      "title": "Breadcrumb navigation",
+      "label": "Breadcrumbs"
+    },
+    "skipToMainContent": "Skip to main content"
+  },
+  "shell": {
+    "banners": {
+      "surfaceLabel": "System status updates",
+      "offline": {
+        "title": "You are offline",
+        "message": "Some features may be unavailable until connectivity is restored.",
+        "accessibilityLabel": "Offline status notification"
+      },
+      "lowQuality": {
+        "title": "Network is unstable",
+        "message": "You may experience delays or limited functionality.",
+        "accessibilityLabel": "Low network quality notification"
+      },
+      "online": {
+        "title": "Back online",
+        "message": "Connection restored.",
+        "accessibilityLabel": "Online status notification"
+      },
+      "maintenance": {
+        "title": "Scheduled maintenance",
+        "message": "Some services may be temporarily unavailable.",
+        "accessibilityLabel": "Maintenance notification"
+      }
+    },
+    "loadingOverlay": {
+      "title": "Working…",
+      "message": "Please wait while we finish the request."
+    },
+    "notices": {
+      "surfaceLabel": "Global notifications"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "screen": {
+      "label": "Settings screen"
+    },
+    "theme": {
+      "label": "Theme",
+      "accessibilityLabel": "Theme selector",
+      "hint": "Change the application theme",
+      "options": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark",
+        "highContrast": "High contrast"
+      }
+    },
+    "language": {
+      "label": "Language",
+      "accessibilityLabel": "Language selector",
+      "hint": "Change the application language",
+      "options": {
+        "en": "English",
+        "ar": "Arabic",
+        "de": "German",
+        "es": "Spanish",
+        "fa": "Persian",
+        "fr": "French",
+        "hi": "Hindi",
+        "id": "Indonesian",
+        "it": "Italian",
+        "ja": "Japanese",
+        "ko": "Korean",
+        "ms": "Malay",
+        "nl": "Dutch",
+        "pl": "Polish",
+        "pt": "Portuguese",
+        "ru": "Russian",
+        "sw": "Swahili",
+        "ta": "Tamil",
+        "th": "Thai",
+        "tr": "Turkish",
+        "uk": "Ukrainian",
+        "vi": "Vietnamese",
+        "zh": "Chinese"
+      }
+    },
+    "density": {
+      "label": "Density",
+      "accessibilityLabel": "Density mode selector",
+      "hint": "Change the spacing and layout density",
+      "options": {
+        "compact": "Compact",
+        "comfortable": "Comfortable"
+      }
+    },
+    "footerVisible": {
+      "label": "Show footer",
+      "accessibilityLabel": "Toggle footer visibility",
+      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+    },
+    "sidebar": {
+      "resize": "Resize settings sidebar",
+      "menu": "Settings menu",
+      "menuOpen": "Open settings menu",
+      "menuClose": "Close settings menu",
+      "groups": {
+        "general": "General",
+        "organization": "Organization",
+        "usersAndAccess": "Users & access",
+        "security": "Security"
+      }
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "screen": {
+        "label": "Disclaimer screen"
+      },
+      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "datasetNotice": "Dataset notice",
+      "acknowledge": "I acknowledge",
+      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "decline": "I disagree",
+      "declineHint": "Exit the app without acknowledging",
+      "states": {
+        "loading": "Loading…",
+        "error": "Unable to load disclaimer"
+      }
+    },
+    "dataSources": {
+      "title": "Data sources",
+      "screen": {
+        "label": "Data sources screen"
+      },
+      "datasetVersion": "Dataset version",
+      "schemaVersion": "Schema version",
+      "lastUpdated": "Last updated",
+      "totalCases": "Total cases",
+      "citations": "Citations",
+      "doi": "DOI",
+      "states": {
+        "loading": "Loading…",
+        "error": "Unable to load data sources",
+        "empty": "No sources available"
+      }
+    },
+    "privacy": {
+      "title": "Privacy",
+      "screen": {
+        "label": "Privacy screen"
+      },
+      "localStorage": "Data stored locally",
+      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
+      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+    },
+    "about": {
+      "title": "About",
+      "screen": {
+        "label": "About screen"
+      },
+      "appName": "Ventilation decision support",
+      "version": "Version",
+      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+    },
+    "onboarding": {
+      "title": "Getting started",
+      "accessibilityLabel": "Onboarding screen",
+      "steps": {
+        "inputs": {
+          "title": "Entering inputs",
+          "body": "Use Assessment to enter clinical parameters (SpO₂, PaO₂, PaCO₂, pH, respiratory rate, etc.). The more complete the inputs, the better the recommendation match. ABG values improve accuracy when available."
+        },
+        "recommendations": {
+          "title": "Interpreting recommendations",
+          "body": "Recommendations show suggested ventilator settings with a confidence tier (high, medium, low). Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only—always apply clinical judgment."
+        },
+        "monitoring": {
+          "title": "Monitoring and alerts",
+          "body": "After getting a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds. This is for decision support only—review and act according to your protocol."
+        },
+        "offline": {
+          "title": "Offline behavior",
+          "body": "Core workflow (assessment, recommendations, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+        }
+      },
+      "actions": {
+        "done": "Done",
+        "next": "Next",
+        "back": "Back"
+      },
+      "states": {
+        "loading": "Loading…"
+      }
+    },
+    "help": {
+      "title": "Help & reference",
+      "accessibilityLabel": "Help screen",
+      "searchPlaceholder": "Search glossary or guides…",
+      "sections": {
+        "glossary": "Glossary",
+        "troubleshooting": "Troubleshooting",
+        "guides": "What to do next"
+      },
+      "glossary": {
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
+        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
+        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "SpO2": "Oxygen saturation by pulse oximetry (%).",
+        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
+        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
+        "pH": "Arterial pH (unitless)."
+      },
+      "troubleshooting": {
+        "missingABG": {
+          "title": "Missing ABG values",
+          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+        },
+        "offline": {
+          "title": "Using the app offline",
+          "body": "Assessment, recommendations, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+        }
+      },
+      "guides": {
+        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
+        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+      },
+      "states": {
+        "loading": "Loading…",
+        "empty": "No results",
+        "error": "Unable to load help"
+      }
+    },
+    "ai": {
+      "label": "AI decision support",
+      "sectionLabel": "Optional AI recommendation (online)",
+      "enableLabel": "Enable AI recommendations",
+      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "providerLabel": "Provider",
+      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "providers": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "google": "Google (Gemini)",
+        "groq": "Groq",
+        "mistral": "Mistral AI",
+        "deepseek": "DeepSeek",
+        "cohere": "Cohere",
+        "xai": "xAI (Grok)"
+      },
+      "apiKeyLabel": "API key",
+      "apiKeyPlaceholder": "Enter key (stored securely)",
+      "apiKeySave": "Save key",
+      "apiKeyClear": "Clear key",
+      "keyConfigured": "Set",
+      "keyNotConfigured": "Not set",
+      "modelLabel": "Model",
+      "modelHint": "Model used for AI suggestions",
+      "models": {
+        "gpt-4o-mini": "GPT-4o mini",
+        "gpt-4o": "GPT-4o",
+        "gpt-4-turbo": "GPT-4 Turbo",
+        "gpt-4": "GPT-4",
+        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "claude-sonnet-4": "Claude Sonnet 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-3-5-haiku": "Claude 3.5 Haiku",
+        "claude-3-opus": "Claude 3 Opus",
+        "gemini-1.5-pro": "Gemini 1.5 Pro",
+        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.0-pro": "Gemini 1.0 Pro",
+        "llama-3.3-70b": "Llama 3.3 70B",
+        "llama-3.1-8b": "Llama 3.1 8B",
+        "mixtral-8x7b": "Mixtral 8x7B",
+        "mistral-large": "Mistral Large",
+        "mistral-medium": "Mistral Medium",
+        "mistral-small": "Mistral Small",
+        "deepseek-chat": "DeepSeek Chat",
+        "deepseek-reasoner": "DeepSeek Reasoner",
+        "command-r-plus": "Command R+",
+        "command-r": "Command R",
+        "grok-3": "Grok 3",
+        "grok-3-mini": "Grok 3 Mini"
+      }
+    }
+  },
+  "listScaffold": {
+    "loading": "Loading",
+    "offline": "Offline",
+    "error": "Error",
+    "empty": "Empty",
+    "list": "List",
+    "emptyState": {
+      "title": "No items",
+      "message": "There are no items to display"
+    },
+    "errorState": {
+      "title": "Error",
+      "message": "An error occurred"
+    }
+  },
+  "home": {
+    "title": "Home",
+    "welcome": {
+      "title": "Welcome",
+      "message": "AI Ventilator Decision Support helps you assess patients, run ventilation sessions, and review recommendations.",
+      "logoLabel": "App logo"
+    },
+    "overview": {
+      "title": "Quick access",
+      "goTo": "Go to {{name}}",
+      "assessment": {
+        "description": "Start a patient assessment and ventilation session."
+      },
+      "history": {
+        "description": "View and resume past sessions."
+      },
+      "training": {
+        "description": "Browse training topics and checklists."
+      }
+    }
+  },
+  "ventilation": {
+    "assessment": {
+      "title": "Patient Assessment",
+      "accessibilityLabel": "Assessment wizard screen",
+      "summary": {
+        "title": "Session summary",
+        "accessibilityLabel": "Compact assessment summary",
+        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "condition": "Condition",
+        "spo2": "SpO₂",
+        "respiratoryRate": "Respiratory rate",
+        "heartRate": "Heart rate",
+        "pao2": "PaO₂",
+        "paco2": "PaCO₂",
+        "ph": "pH",
+        "age": "Age",
+        "weight": "Weight",
+        "height": "Height",
+        "gender": "Gender",
+        "comorbidities": "Comorbidities",
+        "bloodPressure": "Blood pressure",
+        "empty": "No data yet",
+        "expand": "Expand summary",
+        "collapse": "Collapse summary"
+      },
+      "steps": {
+        "patientProfile": "Patient profile",
+        "clinicalParams": "Clinical parameters",
+        "observations": "Optional observations",
+        "timeSeries": "Optional time series",
+        "review": "Review"
+      },
+      "conditions": {
+        "ARDS": "ARDS",
+        "asthma": "Asthma",
+        "COPD": "COPD",
+        "heartFailure": "Heart failure",
+        "pneumonia": "Pneumonia",
+        "sepsis": "Sepsis",
+        "trauma": "Trauma",
+        "other": "Other"
+      },
+      "patientProfile": {
+        "condition": "Condition",
+        "conditionPlaceholder": "Select condition",
+        "conditionHint": "Primary respiratory condition (required)",
+        "age": "Age (years)",
+        "agePlaceholder": "Enter age",
+        "ageHint": "Patient age in years",
+        "weight": "Weight (kg)",
+        "weightPlaceholder": "Enter weight",
+        "weightHint": "Patient weight in kg",
+        "height": "Height (cm)",
+        "heightPlaceholder": "Enter height",
+        "heightHint": "Patient height in cm",
+        "gender": "Gender",
+        "genderPlaceholder": "Select gender",
+        "genderHint": "Patient gender",
+        "genderMale": "Male",
+        "genderFemale": "Female",
+        "genderOther": "Other",
+        "comorbidities": "Comorbidities",
+        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
+        "comorbiditiesHint": "Comma-separated list"
+      },
+      "clinicalParams": {
+        "spo2": "SpO₂",
+        "spo2Placeholder": "Enter SpO₂",
+        "spo2Hint": "Oxygen saturation (%)",
+        "spo2NormalRange": "Normal range: 95–100%",
+        "pao2": "PaO₂ (optional)",
+        "pao2Placeholder": "Enter PaO₂",
+        "pao2Hint": "Arterial oxygen (mmHg)",
+        "pao2NormalRange": "Normal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (optional)",
+        "paco2Placeholder": "Enter PaCO₂",
+        "paco2Hint": "Arterial CO₂ (mmHg)",
+        "paco2NormalRange": "Normal range: 35–45 mmHg",
+        "ph": "pH (optional)",
+        "phPlaceholder": "Enter pH",
+        "phHint": "Arterial pH",
+        "phNormalRange": "Normal range: 7.35–7.45",
+        "respiratoryRate": "Respiratory rate",
+        "respiratoryRatePlaceholder": "Enter RR",
+        "respiratoryRateHint": "Breaths per minute",
+        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
+        "heartRate": "Heart rate",
+        "heartRatePlaceholder": "Enter HR",
+        "heartRateHint": "Beats per minute",
+        "heartRateNormalRange": "Normal range: 60–100 bpm",
+        "bloodPressure": "Blood pressure (optional)",
+        "bloodPressurePlaceholder": "e.g. 120/80",
+        "bloodPressureHint": "Systolic/diastolic mmHg",
+        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Normal range: {{range}}"
+      },
+      "observations": {
+        "title": "Additional observations",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
+        "add": "Add observation",
+        "name": "Name",
+        "value": "Value",
+        "unit": "Unit",
+        "optional": "Optional"
+      },
+      "timeSeries": {
+        "title": "Time series (vital signs over time)",
+        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
+        "add": "Add time series point",
+        "name": "Name",
+        "value": "Value",
+        "optional": "Optional"
+      },
+      "recommendationSource": {
+        "label": "Recommendation source",
+        "local": "Local",
+        "localDescription": "Built-in rules. Offline, no API key.",
+        "onlineAi": "Online AI",
+        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "modelLabel": "Model",
+        "modelHint": "Select AI model (default used if not set)",
+        "providerLabel": "Provider",
+        "gpt4oMini": "GPT-4o mini (default)",
+        "gpt4o": "GPT-4o",
+        "gpt4Turbo": "GPT-4 Turbo"
+      },
+      "aiReasons": {
+        "title": "AI reasons for recommendation",
+        "hints": "AI hints"
+      },
+      "missingTests": {
+        "title": "Additional tests suggested",
+        "abgPanel": "ABG panel would improve confidence",
+        "abgHint": "Consider ordering arterial blood gas if available"
+      },
+      "actions": {
+        "back": "Back",
+        "next": "Next",
+        "generate": "Generate recommendation",
+        "generateHint": "Create recommendation from current inputs"
+      },
+      "states": {
+        "loading": "Loading assessment…",
+        "error": "Unable to load assessment",
+        "offline": "Assessment works offline",
+        "empty": "Enter patient data to begin"
+      }
+    },
+    "recommendation": {
+      "title": "Recommended Settings",
+      "accessibilityLabel": "Recommendation screen",
+      "responseSource": {
+        "title": "Response source",
+        "online": "Online",
+        "offline": "Offline"
+      },
+      "sections": {
+        "settings": "Recommended settings",
+        "confidence": "Confidence & why",
+        "monitoring": "Monitoring points",
+        "risks": "Risks and complications",
+        "matchedCases": "Matched cases",
+        "evidence": "Evidence & review",
+        "warning": "Dataset notice"
+      },
+      "settings": {
+        "mode": "Mode",
+        "tidalVolume": "Tidal volume",
+        "respiratoryRate": "Respiratory rate",
+        "fio2": "FiO₂",
+        "peep": "PEEP",
+        "ieRatio": "I:E ratio"
+      },
+      "confidence": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "missingInputs": "Missing inputs that could improve confidence"
+      },
+      "aiReasons": {
+        "title": "AI reasons for recommendation",
+        "hints": "AI hint codes"
+      },
+      "actions": {
+        "startMonitoring": "Start monitoring",
+        "startMonitoringHint": "Begin tracking vital signs and time series",
+        "backToAssessment": "Back to assessment",
+        "startNewAssessment": "Start new assessment",
+        "editAssessmentTitle": "Edit assessment",
+        "editAssessmentHint": "Open assessment form with current session data pre-filled",
+        "requestAiRecommendation": "Request AI recommendation",
+        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "connectivityRequired": "Requires internet connection",
+        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "aiUnavailableFallback": "AI unavailable — using local recommendations",
+        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "exportSummary": "Export summary",
+        "exportSummaryHint": "Download session summary as text",
+        "anonymizeBeforeExport": "Remove identifiers before export"
+      },
+      "fallbackReasons": {
+        "userChoseLocal": "You chose local recommendation.",
+        "notComplex": "This case did not need online AI.",
+        "offline": "You are offline.",
+        "noApiKey": "AI API key is not set.",
+        "error": "Online AI failed. Using local dataset instead."
+      },
+      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "states": {
+        "loading": "Loading recommendation…",
+        "error": "Unable to load recommendation",
+        "empty": "No recommendation available. Complete an assessment first."
+      },
+      "intendedUse": {
+        "warningLabel": "Not clinically validated",
+        "validationLabel": "Validation requirement"
+      },
+      "reviewStatus": {
+        "unvalidated": "Unvalidated (prototype)",
+        "validated": "Validated"
+      }
+    },
+    "monitoring": {
+      "title": "Monitoring",
+      "accessibilityLabel": "Monitoring screen",
+      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "sections": {
+        "quickEntry": "Quick entry",
+        "trend": "Trend",
+        "alerts": "Alerts"
+      },
+      "quickEntry": {
+        "addPoint": "Add point",
+        "addPointHint": "Add vitals or labs data point",
+        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "valuePlaceholder": "Value",
+        "unitPlaceholder": "Unit"
+      },
+      "trend": {
+        "insufficientData": "Insufficient data",
+        "directionUp": "Trending up",
+        "directionDown": "Trending down",
+        "directionFlat": "Stable",
+        "directionUnknown": "Unknown"
+      },
+      "alerts": {
+        "severityNormal": "Normal",
+        "severityWarning": "Warning",
+        "severityCritical": "Critical",
+        "severityUnknown": "Unknown",
+        "why": "Why",
+        "whyCriticalLow": "Value below critical low threshold",
+        "whyWarningLow": "Value below warning low threshold",
+        "whyCriticalHigh": "Value above critical high threshold",
+        "whyWarningHigh": "Value above warning high threshold",
+        "suggestedAction": "Suggested action",
+        "suggestedActionNormal": "Continue monitoring",
+        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionCritical": "Address immediately",
+        "suggestedActionUnknown": "Verify value and re-enter if needed",
+        "empty": "No alerts"
+      },
+      "actions": {
+        "backToRecommendation": "Back to recommendation"
+      },
+      "states": {
+        "loading": "Loading…",
+        "error": "Unable to load monitoring",
+        "empty": "Add vitals or labs points to see trends and alerts.",
+        "offline": "You are offline. Data is saved locally."
+      }
+    },
+    "history": {
+      "title": "Session history",
+      "accessibilityLabel": "Session history screen",
+      "empty": "No saved sessions yet.",
+      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "actions": {
+        "resume": "Resume",
+        "resumeHint": "Continue this session",
+        "viewDetails": "View details",
+        "viewDetailsHint": "View session summary",
+        "delete": "Delete",
+        "deleteHint": "Remove from history"
+      },
+      "deleteConfirm": {
+        "title": "Delete session?",
+        "message": "This session will be removed from history. This cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "session": {
+        "dateTime": "{{dateTime}}",
+        "condition": "Condition: {{condition}}",
+        "tier": "Tier: {{tier}}",
+        "summary": "Summary"
+      },
+      "states": {
+        "loading": "Loading history…",
+        "error": "Unable to load session history"
+      }
+    },
+    "caseDetail": {
+      "title": "Case detail",
+      "accessibilityLabel": "Case detail screen",
+      "summary": "Case summary",
+      "patientProfile": "Patient profile",
+      "clinicalParameters": "Clinical parameters",
+      "ventilatorSettings": "Ventilator settings",
+      "outcomes": "Outcomes",
+      "evidence": "Evidence",
+      "reviewStatus": "Review status",
+      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "datasetCaseFraming": "Dataset case (reference only)",
+      "prototypeFraming": "Prototype — not clinically validated",
+      "notFound": "Case not found in dataset.",
+      "missingCaseId": "No case selected.",
+      "states": {
+        "loading": "Loading case…"
+      },
+      "review": {
+        "unvalidated": "Unvalidated (prototype)",
+        "validated": "Validated"
+      }
+    }
+  },
+  "training": {
+    "home": {
+      "title": "Training",
+      "subtitle": "Protocols, checklists, and reference.",
+      "accessibilityLabel": "Training home screen",
+      "searchPlaceholder": "Search topics…",
+      "searchHint": "Search training content",
+      "topicsSection": "Topics",
+      "searchResults": "Search results",
+      "popularTopics": "Popular topics",
+      "quickChecklists": "Quick checklists",
+      "browseAll": "View all topics",
+      "browseAllHint": "View all training topics",
+      "viewTopic": "View",
+      "states": {
+        "loading": "Loading training…",
+        "error": "Unable to load training content",
+        "offline": "Content is available offline",
+        "empty": "No training content available"
+      }
+    },
+    "topics": {
+      "title": "Topics",
+      "accessibilityLabel": "Topic list screen",
+      "searchPlaceholder": "Search or filter…",
+      "searchHint": "Search topics",
+      "empty": "No topics found.",
+      "filterByType": "Filter by type",
+      "typeProtocol": "Protocol",
+      "typeChecklist": "Checklist",
+      "typeGlossary": "Glossary",
+      "typeFaq": "FAQ",
+      "openTopicHint": "Open topic",
+      "states": {
+        "loading": "Loading topics…",
+        "error": "Unable to load topics",
+        "offline": "Content is available offline"
+      }
+    },
+    "topicDetail": {
+      "title": "Topic",
+      "accessibilityLabel": "Topic detail screen",
+      "section": "Section",
+      "expand": "Expand section",
+      "collapse": "Collapse section",
+      "checklistItem": "Item",
+      "notFound": "Topic not found.",
+      "backToTopics": "Back to topics",
+      "backToTopicsHint": "Return to topic list",
+      "states": {
+        "loading": "Loading topic…",
+        "error": "Unable to load topic"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you're looking for doesn't exist or has been moved.",
+    "back": "Go Back",
+    "backHint": "Return to the previous page",
+    "goHome": "Go to Home",
+    "goHomeHint": "Navigate back to the home page"
+  },
+  "error": {
+    "title": "Something Went Wrong",
+    "message": "An unexpected error occurred. Please try again or return to the home page.",
+    "retry": "Retry",
+    "retryHint": "Try the action again",
+    "goHome": "Go to Home",
+    "goHomeHint": "Navigate back to the home page"
+  },
+  "errorState": {
+    "defaultTitle": "Something went wrong"
+  }
+}
