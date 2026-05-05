@@ -21,7 +21,6 @@ import {
   StyledItemMeta,
   StyledItemMetaLine,
   StyledItemRow,
-  StyledItemTitle,
   StyledList,
   StyledStatusGroup,
   StyledStatusPill,
@@ -207,7 +206,7 @@ const HistoryScreenWeb = () => {
             >
               <StyledItemRow>
                 <StyledItemMain>
-                  <StyledItemTitle>{getPatientLabel(row, t)}</StyledItemTitle>
+                  <Text variant="label">{getPatientLabel(row, t)}</Text>
                   <StyledItemMeta>
                     <Text variant="caption">{row.admissionStatusLabel}</Text>
                     <StyledItemMetaLine aria-hidden="true">|</StyledItemMetaLine>

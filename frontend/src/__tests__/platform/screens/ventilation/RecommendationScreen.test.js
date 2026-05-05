@@ -34,6 +34,7 @@ jest.mock('@hooks', () => ({
       locale: 'en',
     };
   },
+  useExportSession: () => ({ exportSummary: jest.fn() }),
   useVentilationSession: jest.fn(),
 }));
 

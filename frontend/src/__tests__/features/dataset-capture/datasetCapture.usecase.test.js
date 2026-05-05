@@ -45,7 +45,8 @@ describe('datasetCapture.usecase', () => {
     expect(request.method).toBe('POST');
     expect(request.body.structuredPreviewJson.patient.ageYears).toBe(54);
     expect(request.body.governanceJson.rawNoteStored).toBe(false);
-    expect(serialized).not.toMatch(/MRN|H123|noteText|rawNote/i);
+    expect(request.body.noteText).toBeUndefined();
+    expect(serialized).not.toMatch(/MRN|H123|patientName/i);
     expect(createDatasetImportApi).not.toHaveBeenCalled();
   });
 

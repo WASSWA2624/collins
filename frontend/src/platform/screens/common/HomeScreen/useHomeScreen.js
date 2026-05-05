@@ -13,6 +13,7 @@ const ROUTES = Object.freeze({
   [HOME_ACTION_IDS.ADMIT]: '/admit',
   [HOME_ACTION_IDS.TRACKING]: '/tracking',
   [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/abg-vent-update',
+  [HOME_ACTION_IDS.DASHBOARD]: '/dashboard',
   [HOME_ACTION_IDS.TRAINING_HELP]: '/training',
   [HOME_ACTION_IDS.SETTINGS]: '/settings',
 });
@@ -20,7 +21,6 @@ const ROUTES = Object.freeze({
 const WORKFLOW_PENDING_IDS = new Set([
   HOME_ACTION_IDS.DATASET_CAPTURE,
   HOME_ACTION_IDS.REVIEW_QUEUE,
-  HOME_ACTION_IDS.DASHBOARD,
 ]);
 
 const numberOrZero = (value) => (Number.isFinite(value) ? value : 0);
@@ -104,7 +104,7 @@ const buildHomeActions = (summary) => {
     }),
     makeAction({
       id: HOME_ACTION_IDS.DASHBOARD,
-      path: null,
+      path: ROUTES[HOME_ACTION_IDS.DASHBOARD],
       visible: canOpenDashboard,
       canUse: canOpenDashboard,
       navigationStatus,

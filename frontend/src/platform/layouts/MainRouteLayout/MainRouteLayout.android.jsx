@@ -35,11 +35,10 @@ import {
 
 // 5. Platform layouts
 import AppFrame from '@platform/layouts/AppFrame';
-import { ACTION_PLACEMENTS, ACTION_VARIANTS } from '@platform/components/navigation/GlobalHeader';
 
 const MainRouteLayoutAndroid = () => {
   const router = useRouter();
-  const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
+  const { t, isLoading, items, tabItems, headerActions, isItemVisible } = useMainRouteLayout();
   const { sidebarOpen, toggleSidebar, closeSidebar } = useMainRouteLayoutMobileShell();
 
   const overlaySlot = useMemo(
@@ -89,13 +88,13 @@ const MainRouteLayoutAndroid = () => {
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={[]}
+          actions={headerActions}
         />
       }
       footer={
         <TabBar
           accessibilityLabel={t('navigation.tabBar.title')}
-          items={items}
+          items={tabItems}
           isTabVisible={isItemVisible}
           testID="main-tabbar"
         />

@@ -14,7 +14,13 @@ const getFacilityId = (auth) => auth.activeFacilityId || auth.user?.activeFacili
 const useReviewQueueScreen = () => {
   const { t } = useI18n();
   const auth = useAuth();
-  const canReview = canUserReview(auth.user);
+  const canReview = canUserReview({
+    ...(auth.user || {}),
+    activeFacility: auth.activeFacility || auth.user?.activeFacility,
+    memberships: auth.memberships || auth.user?.memberships,
+    permissions: auth.permissions || auth.user?.permissions,
+    roles: auth.roleKeys || auth.roles || auth.user?.roles,
+  });
   const facilityId = getFacilityId(auth);
   const {
     items,

@@ -22,6 +22,7 @@ import {
 // 3. Hooks & utilities
 import useMainRouteLayout from './useMainRouteLayout';
 import useMainRouteLayoutWebShell from './useMainRouteLayoutWebShell';
+import FacilityContextIndicator from '@platform/components/feedback/FacilityContextIndicator';
 import { getMenuIconGlyph } from '@config/sideMenu';
 
 // 4. Styles
@@ -44,7 +45,7 @@ import AppFrame from '@platform/layouts/AppFrame';
 const MainRouteLayoutWeb = () => {
   const { width } = useWindowDimensions();
   const isMobile = width < breakpoints.tablet;
-  const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
+  const { t, isLoading, items, headerActions, isItemVisible } = useMainRouteLayout();
   const { sidebarCollapsed, sidebarWidth, collapsedWidth, toggleSidebar, resizerProps } =
     useMainRouteLayoutWebShell();
   const sidebarOnClose = isMobile ? toggleSidebar : undefined;
@@ -91,7 +92,8 @@ const MainRouteLayoutWeb = () => {
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={[]}
+          actions={headerActions}
+          utilitySlot={<FacilityContextIndicator testID="main-facility-context" />}
         />
       }
       sidebarBackdrop={

@@ -49,7 +49,7 @@ const clearStoredSession = async () => {
   clearCsrfToken();
 };
 
-const normalizeSessionError = (error) => handleError(error);
+const normalizeSessionError = (error) => (error?.code ? error : handleError(error));
 
 const refreshStoredTokens = async (payload = {}) => {
   const refreshToken = await tokenManager.getRefreshToken();

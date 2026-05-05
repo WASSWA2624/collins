@@ -22,6 +22,21 @@ test('review queue contract includes reference-rule items', () => {
   assert.equal(result.data.query.entityType, 'reference-rule');
 });
 
+test('review queue contract includes sync conflict items', () => {
+  const result = reviewQueueSchema.safeParse({
+    body: {},
+    params: {},
+    query: {
+      entityType: 'sync-conflict',
+      page: '1',
+      limit: '20',
+    },
+  });
+
+  assert.equal(result.success, true);
+  assert.equal(result.data.query.entityType, 'sync-conflict');
+});
+
 test('review action contract preserves triage, override, and return-to-clinician metadata', () => {
   const result = reviewActionSchema.safeParse({
     body: {
@@ -43,6 +58,24 @@ test('review action contract preserves triage, override, and return-to-clinician
   assert.equal(result.data.body.triagePriority, 'urgent');
   assert.equal(result.data.body.returnedToClinician, true);
   assert.equal(result.data.body.correctionJson.ph.message, 'repeat ABG requested');
+});
+
+test('review action contract supports conflict triage metadata', () => {
+  const result = reviewActionSchema.safeParse({
+    body: {
+      triagePriority: 'deferred',
+      comment: 'Keep reviewed server data; ask clinician to submit append-only correction.',
+    },
+    params: {
+      entityType: 'sync-conflict',
+      entityId: 'sync-1',
+    },
+    query: {},
+  });
+
+  assert.equal(result.success, true);
+  assert.equal(result.data.params.entityType, 'sync-conflict');
+  assert.equal(result.data.body.triagePriority, 'deferred');
 });
 
 test('red or impossible clinical review items require override metadata before approval', () => {

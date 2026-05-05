@@ -29,13 +29,13 @@ const DataSourcesScreenWeb = () => {
   };
 
   return (
-    <StyledContainer aria-label={t('settings.dataSources.screen.label')} data-testid={testIds.screen}>
-      <StyledContent data-testid={testIds.content}>
-        <Text as="h1" variant="h1" data-testid={testIds.title}>
+    <StyledContainer aria-label={t('settings.dataSources.screen.label')} data-testid={testIds.screen} testID={testIds.screen}>
+      <StyledContent data-testid={testIds.content} testID={testIds.content}>
+        <Text as="h1" variant="h1" data-testid={testIds.title} testID={testIds.title}>
           {t('settings.dataSources.title')}
         </Text>
         <Stack spacing="lg">
-          <StyledSection data-testid={testIds.meta}>
+          <StyledSection data-testid={testIds.meta} testID={testIds.meta}>
             <StyledMetaRow>
               <Stack direction="horizontal" spacing="xs">
                 <Text variant="label">{t('settings.dataSources.datasetVersion')}: </Text>
@@ -61,13 +61,13 @@ const DataSourcesScreenWeb = () => {
               </Stack>
             </StyledMetaRow>
           </StyledSection>
-          <StyledSection data-testid={testIds.sourcesList}>
+          <StyledSection data-testid={testIds.sourcesList} testID={testIds.sourcesList}>
             <Text as="h2" variant="h3">
               {t('settings.dataSources.citations')}
             </Text>
             {hasSources
               ? sources.map((src, idx) => (
-                  <StyledSourceItem key={src?.id ?? idx} data-testid={`${testIds.sourceItem}-${idx}`}>
+                  <StyledSourceItem key={src?.id ?? idx} data-testid={`${testIds.sourceItem}-${idx}`} testID={`${testIds.sourceItem}-${idx}`}>
                     <Text variant="body">{src?.citation ?? ''}</Text>
                     {src?.doi ? (
                       <Text variant="caption">
@@ -80,7 +80,7 @@ const DataSourcesScreenWeb = () => {
                   <Text variant="body">{t('settings.dataSources.states.empty')}</Text>
                 )}
           </StyledSection>
-          <StyledSection data-testid={testIds.captureSection}>
+          <StyledSection data-testid={testIds.captureSection} testID={testIds.captureSection}>
             <Stack spacing="md">
               <Text as="h2" variant="h3">
                 {t('settings.dataSources.capture.title')}
@@ -125,12 +125,12 @@ const DataSourcesScreenWeb = () => {
                 <Text variant="caption">{t('settings.dataSources.capture.noteRequired')}</Text>
               ) : null}
               {capture.hasIdentifierWarnings ? (
-                <StyledInlineNotice data-testid={testIds.identifierWarning}>
+                <StyledInlineNotice data-testid={testIds.identifierWarning} testID={testIds.identifierWarning}>
                   <Text variant="body">{t('settings.dataSources.capture.identifierWarning')}</Text>
                 </StyledInlineNotice>
               ) : null}
               {capture.previewCreated ? (
-                <StyledSection data-testid={testIds.preview}>
+                <StyledSection data-testid={testIds.preview} testID={testIds.preview}>
                   <Stack spacing="md">
                     <Text as="h3" variant="h3">
                       {t('settings.dataSources.capture.previewTitle')}
@@ -149,7 +149,7 @@ const DataSourcesScreenWeb = () => {
                         </StyledFieldShell>
                       ))}
                     </StyledCaptureGrid>
-                    <StyledInlineNotice data-testid={testIds.missingList}>
+                    <StyledInlineNotice data-testid={testIds.missingList} testID={testIds.missingList}>
                       <Text variant="label">{t('settings.dataSources.capture.missingFields')}</Text>
                       <StyledList>
                         {capture.missingFields.length > 0
@@ -165,7 +165,7 @@ const DataSourcesScreenWeb = () => {
                             )}
                       </StyledList>
                     </StyledInlineNotice>
-                    <StyledInlineNotice data-testid={testIds.uncertaintyList}>
+                    <StyledInlineNotice data-testid={testIds.uncertaintyList} testID={testIds.uncertaintyList}>
                       <Text variant="label">{t('settings.dataSources.capture.uncertainFields')}</Text>
                       <StyledList>
                         {capture.uncertaintyFields.length > 0
@@ -189,7 +189,7 @@ const DataSourcesScreenWeb = () => {
                         loading={capture.submitStatus === 'loading'}
                         testID={testIds.submitButton}
                       />
-                      <Text variant="caption" data-testid={testIds.status}>
+                      <Text variant="caption" data-testid={testIds.status} testID={testIds.status}>
                         {capture.submitMessage
                           ? t(`settings.dataSources.capture.status.${capture.submitMessage}`)
                           : t('settings.dataSources.capture.status.ready')}
@@ -199,7 +199,7 @@ const DataSourcesScreenWeb = () => {
                 </StyledSection>
               ) : null}
               {capture.trainingApprovalAllowed ? (
-                <StyledInlineNotice data-testid={testIds.approvalControls}>
+                <StyledInlineNotice data-testid={testIds.approvalControls} testID={testIds.approvalControls}>
                   <Text variant="body">{t('settings.dataSources.capture.trainingApprovalAvailable')}</Text>
                 </StyledInlineNotice>
               ) : null}

@@ -1,5 +1,5 @@
 /**
- * Disclaimer guard tests (P013 first-run acknowledgement).
+ * Compatibility tests for legacy disclaimer guard exports.
  */
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -11,6 +11,7 @@ import rootReducer from '@store/rootReducer';
 
 jest.mock('expo-router', () => ({
   Redirect: ({ href }) => <div data-testid="redirect" data-href={href}>Redirect</div>,
+  usePathname: () => '/',
 }));
 
 const defaultState = {
@@ -27,8 +28,8 @@ const createStore = (overrides = {}) =>
     preloadedState: { ...defaultState, ...overrides },
   });
 
-describe('DisclaimerGuard', () => {
-  it('redirects to /disclaimer when rehydrated and not acknowledged', () => {
+describe('DisclaimerGuard compatibility export', () => {
+  it('redirects to /onboarding when rehydrated and onboarding is not complete', () => {
     const store = createStore({
       _persist: { rehydrated: true },
       ui: { ...defaultState.ui, disclaimerAcknowledged: false },
@@ -41,7 +42,7 @@ describe('DisclaimerGuard', () => {
       </Provider>
     );
     expect(screen.getByTestId('redirect')).toBeDefined();
-    expect(screen.getByTestId('redirect').getAttribute('data-href')).toBe('/disclaimer');
+    expect(screen.getByTestId('redirect').getAttribute('data-href')).toBe('/onboarding');
     expect(screen.queryByTestId('children')).toBeNull();
   });
 

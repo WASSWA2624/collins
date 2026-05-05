@@ -236,6 +236,9 @@
         "assessment": "Admit",
         "abg-vent-update": "ABG / Vent Update",
         "history": "Tracking",
+        "dataset-capture": "Dataset Capture",
+        "review-queue": "Review Queue",
+        "dashboard": "Dashboard",
         "training": "Training / Help",
         "onboarding": "Getting started",
         "settings": "Settings",
@@ -771,6 +774,60 @@
         "roleRestricted": "Role restricted",
         "workflowPending": "Route pending"
       }
+    }
+  },
+  "reviewQueue": {
+    "title": "Review Queue",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
+    "accessibilityLabel": "Validation review queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "forbidden": {
+      "title": "Review access required",
+      "message": "An approved reviewer or governance role is required for this queue."
+    },
+    "filters": {
+      "all": "All"
+    },
+    "entityTypes": {
+      "admission": "Admission",
+      "abg-test": "ABG",
+      "ventilator-setting": "Ventilator",
+      "dataset-case": "Dataset",
+      "reference-rule": "Reference range",
+      "sync-conflict": "Sync conflict"
+    },
+    "summary": {
+      "title": "Queue summary",
+      "total": "Total",
+      "urgent": "Urgent",
+      "conflicts": "Conflicts",
+      "datasetReady": "Dataset ready"
+    },
+    "fields": {
+      "type": "Type",
+      "status": "Status",
+      "priority": "Priority",
+      "validation": "Validation",
+      "missingData": "Missing data",
+      "uncertainty": "Uncertainty",
+      "conflict": "Conflict",
+      "datasetReadiness": "Dataset readiness"
+    },
+    "dataset": {
+      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "Not approved for dataset use."
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "approve": "Approve",
+      "requestCorrection": "Request correction",
+      "exclude": "Exclude",
+      "defer": "Defer"
+    },
+    "states": {
+      "loading": "Loading review queue...",
+      "error": "Unable to load or save review queue.",
+      "empty": "No records need review."
     }
   },
   "ventilation": {

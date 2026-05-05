@@ -9,6 +9,7 @@ const DEFAULT_MODEL = 'gpt-4o-mini';
 const DEFAULT_TIMEOUT_MS = 30000;
 const DEFAULT_MAX_RETRIES = 3;
 const OPENAI_CHAT_URL = 'https://api.openai.com/v1/chat/completions';
+const IDENTIFIER_KEY_PATTERN = /(patient.*name|name|hospital.*number|medical.*record|mrn|phone|email|address|appPatientCode|appAdmissionCode|optionalName|rawNote|notes)/i;
 
 const AI_ERROR_CODES = Object.freeze({
   TIMEOUT: 'AI_TIMEOUT',
@@ -22,6 +23,14 @@ const AI_ERROR_CODES = Object.freeze({
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const hasIdentifierLikeKeys = (value) => {
+  if (!value || typeof value !== 'object') return false;
+  if (Array.isArray(value)) return value.some(hasIdentifierLikeKeys);
+  return Object.entries(value).some(([key, entry]) => (
+    IDENTIFIER_KEY_PATTERN.test(key) || hasIdentifierLikeKeys(entry)
+  ));
+};
+
 /**
  * Request ventilator recommendation hints from OpenAI-compatible API.
  * @param {object} minimalPayload - Minimal clinical input (no identifiers).
@@ -30,6 +39,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  */
 const requestCaseAnalysis = async (minimalPayload, options = {}) => {
   if (!minimalPayload || typeof minimalPayload !== 'object') return null;
+  if (hasIdentifierLikeKeys(minimalPayload)) return null;
   const apiKey = options?.apiKey;
   if (!apiKey || typeof apiKey !== 'string' || !apiKey.trim()) return null;
 

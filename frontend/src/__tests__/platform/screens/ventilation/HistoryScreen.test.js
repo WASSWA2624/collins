@@ -126,7 +126,7 @@ describe('Tracking screen compatibility route', () => {
   });
 
   it('web: shows empty tracking state when no active admissions are returned', async () => {
-    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getAllByText, getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
 
     await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined());
     expect(getByText('No active admitted patients for this facility.')).toBeDefined();
@@ -143,7 +143,7 @@ describe('Tracking screen compatibility route', () => {
     expect(getByText('COL-A-1')).toBeDefined();
     expect(getByText('Bed ICU-2')).toBeDefined();
     expect(getByText('Review')).toBeDefined();
-    expect(getByText('Conflict')).toBeDefined();
+    expect(getAllByText('Conflict').length).toBeGreaterThan(0);
     expect(getByText('Missing data: PaO2, PEEP')).toBeDefined();
   });
 

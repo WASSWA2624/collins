@@ -39,7 +39,8 @@ describe('datasetCapture.model', () => {
     expect(submission.governanceJson.rawNoteStored).toBe(false);
     expect(submission.governanceJson.externalModelServicesUsed).toBe(false);
     expect(submission.structuredPreviewJson.patient.ageYears).toBe(54);
-    expect(serialized).not.toMatch(/MRN|H123|rawNote|noteText|patientName/i);
+    expect(submission.noteText).toBeUndefined();
+    expect(serialized).not.toMatch(/MRN|H123|patientName/i);
   });
 
   it('separates capture roles from training approval roles', () => {

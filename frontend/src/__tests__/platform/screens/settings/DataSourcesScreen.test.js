@@ -30,24 +30,25 @@ jest.mock('@features/ventilation/ventilation.model', () => ({
 }));
 
 jest.mock('@platform/components', () => {
+  const MockReact = require('react');
   const RN = require('react-native');
   return {
     Button: ({ text, children, testID, onPress, disabled }) =>
-      React.createElement(
+      MockReact.createElement(
         RN.Pressable,
         { testID, onPress, disabled },
-        React.createElement(RN.Text, null, text || children)
+        MockReact.createElement(RN.Text, null, text || children)
       ),
-    Stack: ({ children }) => React.createElement(RN.View, null, children),
-    Text: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
+    Stack: ({ children }) => MockReact.createElement(RN.View, null, children),
+    Text: ({ children, testID }) => MockReact.createElement(RN.Text, { testID }, children),
     TextArea: ({ testID, value, onChangeText }) =>
-      React.createElement(RN.TextInput, { testID, value, onChangeText, multiline: true }),
+      MockReact.createElement(RN.TextInput, { testID, value, onChangeText, multiline: true }),
     TextField: ({ testID, value, onChangeText, label }) =>
-      React.createElement(
+      MockReact.createElement(
         RN.View,
         null,
-        React.createElement(RN.Text, null, label),
-        React.createElement(RN.TextInput, { testID, value, onChangeText })
+        MockReact.createElement(RN.Text, null, label),
+        MockReact.createElement(RN.TextInput, { testID, value, onChangeText })
       ),
   };
 });

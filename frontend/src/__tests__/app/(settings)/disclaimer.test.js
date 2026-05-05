@@ -1,6 +1,5 @@
 /**
- * Disclaimer Route Tests (P011 11.S.11)
- * Tests: src/app/(settings)/disclaimer.jsx renders DisclaimerScreen
+ * Legacy disclaimer route migration tests.
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -9,11 +8,11 @@ const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
 
-jest.mock('@platform/screens', () => {
+jest.mock('expo-router', () => {
   const React = require('react');
   return {
-    DisclaimerScreen: () =>
-      React.createElement('div', { testID: 'disclaimer-screen', 'data-testid': 'disclaimer-screen' }, 'Mock DisclaimerScreen'),
+    Redirect: ({ href }) =>
+      React.createElement('div', { testID: 'redirect', 'data-testid': 'redirect', 'data-href': href }, 'Redirect'),
   };
 });
 
@@ -38,9 +37,10 @@ const renderWithProviders = (component, store = createMockStore()) =>
 describe('app/(settings)/disclaimer.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('should render DisclaimerScreen', () => {
+  it('redirects old disclaimer links to onboarding', () => {
     const DisclaimerRoute = require('../../../../app/(settings)/disclaimer').default;
     const { getByTestId } = renderWithProviders(<DisclaimerRoute />);
-    expect(getByTestId('disclaimer-screen')).toBeDefined();
+    expect(getByTestId('redirect')).toBeDefined();
+    expect(getByTestId('redirect').props['data-href']).toBe('/onboarding');
   });
 });

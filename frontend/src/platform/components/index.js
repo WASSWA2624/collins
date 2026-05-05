@@ -51,6 +51,7 @@ export { default as ClinicalSafetyNotice } from './feedback/ClinicalSafetyNotice
 export { default as NetworkConnectivityIcon } from './feedback/NetworkConnectivityIcon';
 export { default as DatabaseConnectivityIcon } from './feedback/DatabaseConnectivityIcon';
 export { default as DatabaseIndicator } from './feedback/DatabaseIndicator';
+export { default as FacilityContextIndicator } from './feedback/FacilityContextIndicator';
 
 // Display Components
 export { default as Text } from './display/Text';

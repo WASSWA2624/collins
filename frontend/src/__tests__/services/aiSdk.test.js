@@ -30,6 +30,16 @@ describe('aiSdk client', () => {
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
+  it('returns null when payload contains identifier-like fields', async () => {
+    await expect(
+      requestCaseAnalysis({ condition: 'ARDS', patientName: 'Patient Example' }, { apiKey: 'key' })
+    ).resolves.toBeNull();
+    await expect(
+      requestCaseAnalysis({ patient: { hospitalNumber: 'H-123' }, spo2: 88 }, { apiKey: 'key' })
+    ).resolves.toBeNull();
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
   it('exports DEFAULT_MODEL and AI_ERROR_CODES', () => {
     expect(DEFAULT_MODEL).toBe('gpt-4o-mini');
     expect(AI_ERROR_CODES.TIMEOUT).toBe('AI_TIMEOUT');
@@ -55,7 +65,7 @@ describe('aiSdk client', () => {
       { condition: 'ARDS', spo2: 88 },
       { apiKey: 'sk-test' }
     );
-    expect(result).toEqual({ hints: ['VENTILATION_HINT_1', 'VENTILATION_HINT_2'] });
+    expect(result).toEqual({ hints: ['VENTILATION_HINT_1', 'VENTILATION_HINT_2'], reasons: [] });
     expect(global.fetch).toHaveBeenCalledWith(
       'https://api.openai.com/v1/chat/completions',
       expect.objectContaining({
