@@ -6,7 +6,7 @@ const idParam = z.object({ id: z.string().min(1) });
 export const parseNoteSchema = z.object({
   body: z.object({
     noteText: z.string().trim().min(1).max(10000),
-    facilityId: z.string().min(1).optional(),
+    facilityId: z.string().min(1),
   }),
   params: z.object({}).optional(),
   query: z.object({}).optional(),

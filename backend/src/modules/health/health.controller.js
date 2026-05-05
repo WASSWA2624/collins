@@ -10,7 +10,7 @@ export const getHealth = asyncHandler(async (req, res) => {
     try {
       await prisma.$queryRaw`SELECT 1`;
       database = 'connected';
-    } catch (_error) {
+    } catch {
       database = 'unavailable';
     }
   }

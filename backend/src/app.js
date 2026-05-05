@@ -8,6 +8,7 @@ import { env } from './config/env.js';
 import { apiRouter } from './routes/index.js';
 import { notFoundMiddleware } from './middleware/notFound.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
+import { successResponse } from './utils/apiResponse.js';
 
 export const createApp = () => {
   const app = express();
@@ -42,8 +43,7 @@ export const createApp = () => {
   }
 
   app.get('/', (_req, res) => {
-    res.json({
-      success: true,
+    successResponse(res, {
       message: 'Collins backend is running',
       data: { apiBasePath: `/api/${env.apiVersion}` },
     });

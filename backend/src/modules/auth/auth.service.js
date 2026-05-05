@@ -5,6 +5,8 @@ import { hashPassword, verifyPassword } from '../../utils/password.js';
 import { randomToken, sha256 } from '../../utils/crypto.js';
 import { unauthorized, forbidden, conflict } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
+import { createInitialOnboardingState } from '../onboarding/onboarding.service.js';
+import { buildAuthContext, resolveRequestedFacilityId } from './auth.presenter.js';
 
 const REFRESH_TOKEN_DAYS = 30;
 
@@ -16,6 +18,19 @@ const publicUserSelect = {
   status: true,
   createdAt: true,
   updatedAt: true,
+};
+
+const authOnboardingStateSelect = {
+  id: true,
+  status: true,
+  currentStep: true,
+  completedStepsJson: true,
+  selectedFacilityId: true,
+  requestedRole: true,
+  clinicalSafetyAcknowledgedAt: true,
+  clinicalSafetyAcknowledgementVersion: true,
+  clinicalSafetyStatementHash: true,
+  completedAt: true,
 };
 
 const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
@@ -39,13 +54,21 @@ const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
   orderBy: { createdAt: 'desc' },
 });
 
-const signAccessToken = (user, memberships = []) => jwt.sign(
+const getTokenExpiresAt = (token) => {
+  const decoded = jwt.decode(token);
+  return decoded?.exp ? new Date(decoded.exp * 1000) : null;
+};
+
+const signAccessToken = ({ user, memberships, roles, permissions, activeFacility }, sessionId) => jwt.sign(
   {
     sub: user.id,
+    sid: sessionId,
     email: user.email,
     name: user.name,
-    roles: [...new Set(memberships.map((membership) => membership.role))],
+    roles,
+    permissions,
     facilities: [...new Set(memberships.map((membership) => membership.facilityId))],
+    activeFacilityId: activeFacility?.facilityId || null,
   },
   env.jwtSecret,
   { expiresIn: env.jwtExpiresIn }
@@ -54,31 +77,67 @@ const signAccessToken = (user, memberships = []) => jwt.sign(
 const createRefreshSession = async (tx, userId) => {
   const refreshToken = randomToken();
   const expiresAt = new Date(Date.now() + (REFRESH_TOKEN_DAYS * 24 * 60 * 60 * 1000));
-  await tx.refreshSession.create({
+  const session = await tx.refreshSession.create({
     data: {
       userId,
       tokenHash: sha256(refreshToken),
       expiresAt,
     },
   });
-  return { refreshToken, expiresAt };
+  return { refreshToken, sessionId: session.id, expiresAt };
 };
 
-const buildAuthPayload = async (user, tx = prisma) => {
+const buildAuthPayload = async (user, { tx = prisma, requestedFacilityId = null } = {}) => {
   const memberships = await tx.facilityMembership.findMany({
     where: { userId: user.id, status: 'APPROVED' },
-    select: { id: true, facilityId: true, role: true, status: true },
+    select: {
+      id: true,
+      facilityId: true,
+      role: true,
+      status: true,
+      facility: {
+        select: {
+          id: true,
+          name: true,
+          registryCode: true,
+          district: true,
+          region: true,
+          verificationStatus: true,
+        },
+      },
+    },
+    orderBy: { createdAt: 'desc' },
   });
-  const { refreshToken, expiresAt } = await createRefreshSession(tx, user.id);
-  const token = signAccessToken(user, memberships);
+  const onboardingState = await tx.onboardingState.findUnique({
+    where: { userId: user.id },
+    select: authOnboardingStateSelect,
+  });
+  const context = buildAuthContext({ user, memberships, requestedFacilityId });
+  const { refreshToken, sessionId, expiresAt } = await createRefreshSession(tx, user.id);
+  const token = signAccessToken(context, sessionId);
+  const accessTokenExpiresAt = getTokenExpiresAt(token);
+  const userWithSessionContext = { ...context.user, onboardingState };
 
   return {
-    user,
-    memberships,
+    ...context,
+    user: userWithSessionContext,
     token,
     accessToken: token,
     refreshToken,
+    tokens: {
+      accessToken: token,
+      refreshToken,
+      tokenType: 'Bearer',
+      accessTokenExpiresAt,
+      refreshTokenExpiresAt: expiresAt,
+    },
+    session: {
+      accessTokenExpiresAt,
+      refreshTokenExpiresAt: expiresAt,
+    },
+    accessTokenExpiresAt,
     refreshTokenExpiresAt: expiresAt,
+    onboardingState,
   };
 };
 
@@ -97,6 +156,8 @@ export const registerUser = async ({ name, email, phone, password }, auditContex
       select: publicUserSelect,
     });
 
+    await createInitialOnboardingState(tx, user.id);
+
     await writeAudit({
       tx,
       ...auditContext,
@@ -106,11 +167,11 @@ export const registerUser = async ({ name, email, phone, password }, auditContex
       afterJson: { id: user.id, email: user.email },
     });
 
-    return buildAuthPayload(user, tx);
+    return buildAuthPayload(user, { tx });
   });
 };
 
-export const loginUser = async ({ email, password }, auditContext = {}) => {
+export const loginUser = async ({ email, password, activeFacilityId, facilityId }, auditContext = {}) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user || !(await verifyPassword(password, user.passwordHash))) {
@@ -128,9 +189,10 @@ export const loginUser = async ({ email, password }, auditContext = {}) => {
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   };
+  const requestedFacilityId = resolveRequestedFacilityId({ activeFacilityId, facilityId });
 
   return prisma.$transaction(async (tx) => {
-    const payload = await buildAuthPayload(publicUser, tx);
+    const payload = await buildAuthPayload(publicUser, { tx, requestedFacilityId });
     await writeAudit({
       tx,
       ...auditContext,
@@ -144,7 +206,7 @@ export const loginUser = async ({ email, password }, auditContext = {}) => {
   });
 };
 
-export const refreshUserToken = async ({ refreshToken }, auditContext = {}) => {
+export const refreshUserToken = async ({ refreshToken, activeFacilityId, facilityId }, auditContext = {}) => {
   const tokenHash = sha256(refreshToken);
   const session = await prisma.refreshSession.findUnique({
     where: { tokenHash },
@@ -157,13 +219,17 @@ export const refreshUserToken = async ({ refreshToken }, auditContext = {}) => {
 
   if (session.user.status !== 'ACTIVE') throw forbidden('User account is not active');
 
-  return prisma.$transaction(async (tx) => {
-    await tx.refreshSession.update({
-      where: { id: session.id },
-      data: { revokedAt: new Date() },
-    });
+  const requestedFacilityId = resolveRequestedFacilityId({ activeFacilityId, facilityId });
 
-    const payload = await buildAuthPayload(session.user, tx);
+  return prisma.$transaction(async (tx) => {
+    const revokedAt = new Date();
+    const revokeResult = await tx.refreshSession.updateMany({
+      where: { id: session.id, revokedAt: null, expiresAt: { gt: revokedAt } },
+      data: { revokedAt },
+    });
+    if (revokeResult.count !== 1) throw unauthorized('Invalid or expired refresh token');
+
+    const payload = await buildAuthPayload(session.user, { tx, requestedFacilityId });
     await writeAudit({
       tx,
       ...auditContext,
@@ -176,10 +242,16 @@ export const refreshUserToken = async ({ refreshToken }, auditContext = {}) => {
   });
 };
 
-export const logoutUser = async ({ refreshToken } = {}, auditContext = {}) => {
-  if (!refreshToken) return { revoked: false };
+export const logoutUser = async ({ refreshToken, sessionId } = {}, auditContext = {}) => {
+  const selectors = [
+    refreshToken ? { tokenHash: sha256(refreshToken) } : null,
+    sessionId ? { id: sessionId, ...(auditContext.userId ? { userId: auditContext.userId } : {}) } : null,
+  ].filter(Boolean);
+
+  if (!selectors.length) return { revoked: false };
+
   const result = await prisma.refreshSession.updateMany({
-    where: { tokenHash: sha256(refreshToken), revokedAt: null },
+    where: { revokedAt: null, OR: selectors },
     data: { revokedAt: new Date() },
   });
 
@@ -195,10 +267,15 @@ export const logoutUser = async ({ refreshToken } = {}, auditContext = {}) => {
   return { revoked: result.count > 0 };
 };
 
-export const getCurrentUser = async (userId) => {
+export const getCurrentUser = async (userId, requestedFacilityId = null) => {
   if (!userId) return null;
   const user = await prisma.user.findUnique({ where: { id: userId }, select: publicUserSelect });
   if (!user) return null;
   const memberships = await getApprovedMemberships(userId);
-  return { ...user, memberships };
+  const onboardingState = await prisma.onboardingState.findUnique({
+    where: { userId },
+    select: authOnboardingStateSelect,
+  });
+  const context = buildAuthContext({ user, memberships, requestedFacilityId });
+  return { ...context.user, onboardingState };
 };

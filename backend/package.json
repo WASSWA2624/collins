@@ -18,6 +18,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",
+    "pretest": "node scripts/prisma-generate-if-needed.mjs",
     "test": "node --test"
   },
   "dependencies": {

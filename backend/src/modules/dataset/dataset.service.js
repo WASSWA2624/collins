@@ -5,6 +5,7 @@ import { deidentifyPayload, buildDatasetPayloadFromAdmission } from '../../utils
 import { writeAudit } from '../../utils/audit.js';
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
+const UNSAFE_SOURCE_TYPE_PATTERN = /\b(demo|sample|seed|fixture|test|training)\b/i;
 
 const datasetSelect = {
   id: true,
@@ -33,8 +34,20 @@ const extractNumber = (text, patterns) => {
   return undefined;
 };
 
+export const assertDatasetSourceTypeAllowed = (sourceType = '') => {
+  if (UNSAFE_SOURCE_TYPE_PATTERN.test(sourceType)) {
+    throw badRequest('Demo, sample, seed, test, fixture, or existing training sources cannot enter approved dataset flows.');
+  }
+};
+
+const filterReviewedAdmissionRecords = (admission) => ({
+  ...admission,
+  abgTests: admission.abgTests.filter((record) => record.reviewStatus === 'APPROVED'),
+  ventilatorSettings: admission.ventilatorSettings.filter((record) => record.reviewStatus === 'APPROVED'),
+});
+
 export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContext = {}) => {
-  if (facilityId) await assertFacilityRole(userId, facilityId, REVIEW_ROLES);
+  await assertFacilityRole(userId, facilityId, REVIEW_ROLES);
   const text = noteText.replace(/\s+/g, ' ');
 
   const preview = {
@@ -73,16 +86,14 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
   };
 
   const deidentifiedPreview = deidentifyPayload(preview);
-  if (facilityId) {
-    await writeAudit({
-      ...auditContext,
-      userId,
-      facilityId,
-      action: 'DATASET_NOTE_PARSE_PREVIEW',
-      entityType: 'DatasetCase',
-      afterJson: { fields: Object.keys(deidentifiedPreview) },
-    });
-  }
+  await writeAudit({
+    ...auditContext,
+    userId,
+    facilityId,
+    action: 'DATASET_NOTE_PARSE_PREVIEW',
+    entityType: 'DatasetCase',
+    afterJson: { fields: Object.keys(deidentifiedPreview) },
+  });
 
   return {
     structuredPreviewJson: deidentifiedPreview,
@@ -95,7 +106,8 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
   };
 };
 
-const buildDatasetPayload = async ({ sourceAdmissionId, structuredPreviewJson }) => {
+const buildDatasetPayload = async ({ facilityId, sourceAdmissionId, sourceType, structuredPreviewJson }) => {
+  assertDatasetSourceTypeAllowed(sourceType);
   if (!sourceAdmissionId) return deidentifyPayload(structuredPreviewJson);
 
   const admission = await prisma.admission.findUnique({
@@ -112,10 +124,11 @@ const buildDatasetPayload = async ({ sourceAdmissionId, structuredPreviewJson })
     },
   });
   if (!admission) throw notFound('Source admission not found');
+  if (admission.facilityId !== facilityId) throw notFound('Source admission not found');
   if (admission.reviewStatus !== 'APPROVED') {
     throw reviewerRequired('Source admission must be reviewed before dataset approval.');
   }
-  return buildDatasetPayloadFromAdmission(admission);
+  return buildDatasetPayloadFromAdmission(filterReviewedAdmissionRecords(admission));
 };
 
 export const createDatasetImport = async (payload, userId, auditContext = {}) => {
@@ -143,7 +156,7 @@ export const createDatasetImport = async (payload, userId, auditContext = {}) =>
       ...auditContext,
       userId,
       facilityId: payload.facilityId,
-      action: 'DATASET_IMPORT_CREATE',
+      action: 'DATASET_CAPTURE_CREATE',
       entityType: 'DatasetCase',
       entityId: datasetCase.id,
       afterJson: datasetCase,
@@ -181,6 +194,10 @@ export const reviewDatasetImport = async (id, payload, userId, auditContext = {}
   const existing = await prisma.datasetCase.findUnique({ where: { id }, select: { ...datasetSelect, approvedForTraining: true } });
   if (!existing) throw notFound('Dataset case not found');
   await assertFacilityRole(userId, existing.facilityId, REVIEW_ROLES);
+  assertDatasetSourceTypeAllowed(existing.sourceType);
+  if (payload.action === 'approve_for_training') {
+    await assertFacilityRole(userId, existing.facilityId, DATASET_EXPORT_ROLES);
+  }
 
   let data;
   if (payload.action === 'request_correction') {
@@ -239,7 +256,7 @@ export const reviewDatasetImport = async (id, payload, userId, auditContext = {}
       ...auditContext,
       userId,
       facilityId: existing.facilityId,
-      action: 'DATASET_REVIEW',
+      action: payload.action === 'exclude' ? 'DATASET_EXCLUSION' : 'DATASET_REVIEW',
       entityType: 'DatasetCase',
       entityId: id,
       beforeJson: existing,

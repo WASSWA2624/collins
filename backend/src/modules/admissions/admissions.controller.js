@@ -49,7 +49,7 @@ export const getById = asyncHandler(async (req, res) => {
 export const patchById = asyncHandler(async (req, res) => {
   const result = await updateAdmission(req.user?.sub, req.validated.params.id, req.validated.body, buildAuditContext(req));
   return successResponse(res, {
-    message: 'Admission updated',
+    message: result.syncStatus === 'duplicate' ? 'Duplicate admission update returned original result' : 'Admission updated',
     data: result,
   });
 });

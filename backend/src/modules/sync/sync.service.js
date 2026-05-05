@@ -10,6 +10,7 @@ import {
   addVentilatorSetting,
   createAdmission,
 } from '../admissions/admissions.service.js';
+import { toPublicSyncStatus } from '../../utils/syncStatus.js';
 
 const serializeError = (error) => ({
   message: error.message || 'Sync item failed',
@@ -25,15 +26,6 @@ const statusFromError = (error) => {
   return 'FAILED';
 };
 
-const publicStatus = (status) => ({
-  SYNCED: 'synced',
-  DUPLICATE: 'duplicate',
-  CONFLICT: 'conflict',
-  FAILED_VALIDATION: 'failed_validation',
-  NEEDS_REVIEW: 'needs_review',
-  FAILED: 'failed',
-}[status] || 'failed');
-
 const withOfflineMetadata = (item) => ({
   ...item.payload,
   idempotencyKey: item.idempotencyKey,
@@ -42,6 +34,17 @@ const withOfflineMetadata = (item) => ({
   clientUpdatedAt: item.clientUpdatedAt || item.payload.clientUpdatedAt,
   deviceId: item.deviceId || item.payload.deviceId,
 });
+
+const getResultEntityId = (result, fallbackAdmissionId = null) => result.admission?.id
+  || result.clinicalSnapshot?.id
+  || result.abgTest?.id
+  || result.ventilatorSetting?.id
+  || result.airwayDevice?.id
+  || result.humidificationDecision?.id
+  || result.dailyVentilationReview?.id
+  || result.outcome?.id
+  || fallbackAdmissionId
+  || null;
 
 const runOperation = async (item, userId, req) => {
   const auditContext = buildAuditContext(req);
@@ -77,13 +80,14 @@ export const processSyncQueue = async (items, userId, req) => {
       const result = await runOperation(item, userId, req);
       const status = result.syncStatus === 'duplicate' ? 'DUPLICATE' : 'SYNCED';
       const entityType = item.operation.replace(/^create_/, '');
+      const entityId = getResultEntityId(result, item.admissionId);
       await prisma.syncEvent.create({
         data: {
           userId,
-          facilityId: item.facilityId || item.payload.facilityId || result.admission?.facilityId || null,
+          facilityId: item.facilityId || item.payload.facilityId || result.facilityId || result.admission?.facilityId || null,
           operation: item.operation,
           entityType,
-          entityId: result.admission?.id || result.abgTest?.id || result.ventilatorSetting?.id || null,
+          entityId,
           clientRecordId: item.clientRecordId,
           idempotencyKey: item.idempotencyKey,
           status,
@@ -98,7 +102,7 @@ export const processSyncQueue = async (items, userId, req) => {
       results.push({
         idempotencyKey: item.idempotencyKey,
         operation: item.operation,
-        status: publicStatus(status),
+        status: toPublicSyncStatus(status),
         data: result,
       });
     } catch (error) {
@@ -106,9 +110,10 @@ export const processSyncQueue = async (items, userId, req) => {
       await prisma.syncEvent.create({
         data: {
           userId,
-          facilityId: item.facilityId || item.payload.facilityId || null,
+          facilityId: item.facilityId || item.payload.facilityId || error.meta?.facilityId || null,
           operation: item.operation,
           entityType: item.operation.replace(/^create_/, ''),
+          entityId: item.admissionId || null,
           clientRecordId: item.clientRecordId,
           idempotencyKey: item.idempotencyKey,
           status,
@@ -123,7 +128,7 @@ export const processSyncQueue = async (items, userId, req) => {
       results.push({
         idempotencyKey: item.idempotencyKey,
         operation: item.operation,
-        status: publicStatus(status),
+        status: toPublicSyncStatus(status),
         error: serializeError(error),
       });
     }

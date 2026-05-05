@@ -1,7 +1,9 @@
 import { z } from 'zod';
+import { REQUESTABLE_MEMBERSHIP_ROLE_VALUES } from '../../constants/roles.js';
 
 const idParam = z.object({ id: z.string().min(1) });
 const jsonObject = z.record(z.string(), z.unknown());
+const requestableMembershipRole = z.enum(REQUESTABLE_MEMBERSHIP_ROLE_VALUES);
 
 export const facilitySearchSchema = z.object({
   body: z.object({}).optional(),
@@ -50,14 +52,7 @@ export const updateEquipmentProfileSchema = z.object({
 
 export const membershipRequestSchema = z.object({
   body: z.object({
-    role: z.enum([
-      'FACILITY_ADMIN',
-      'CLINICIAN',
-      'ICU_NURSE',
-      'SPECIALIST_REVIEWER',
-      'RESEARCH_GOVERNANCE_OFFICER',
-      'READ_ONLY_REVIEWER',
-    ]),
+    role: requestableMembershipRole,
   }),
   params: idParam,
   query: z.object({}).optional(),
@@ -66,14 +61,7 @@ export const membershipRequestSchema = z.object({
 export const updateMembershipSchema = z.object({
   body: z.object({
     status: z.enum(['APPROVED', 'REJECTED', 'SUSPENDED']),
-    role: z.enum([
-      'FACILITY_ADMIN',
-      'CLINICIAN',
-      'ICU_NURSE',
-      'SPECIALIST_REVIEWER',
-      'RESEARCH_GOVERNANCE_OFFICER',
-      'READ_ONLY_REVIEWER',
-    ]).optional(),
+    role: requestableMembershipRole.optional(),
   }),
   params: z.object({ id: z.string().min(1), membershipId: z.string().min(1) }),
   query: z.object({}).optional(),

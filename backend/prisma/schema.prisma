@@ -28,6 +28,7 @@ enum MembershipRole {
   ICU_NURSE
   SPECIALIST_REVIEWER
   RESEARCH_GOVERNANCE_OFFICER
+  MODEL_GOVERNANCE_OFFICER
   READ_ONLY_REVIEWER
 }
 
@@ -94,6 +95,15 @@ enum DatasetReviewStatus {
   EXCLUDED
 }
 
+enum ReferenceRuleVerificationStatus {
+  DRAFT
+  PENDING_REVIEW
+  VERIFIED
+  CORRECTION_REQUESTED
+  REJECTED
+  RETIRED
+}
+
 enum ModelApprovalStatus {
   DRAFT
   SHADOW_MODE
@@ -114,6 +124,21 @@ enum SyncStatus {
   REVIEWED
 }
 
+enum OnboardingStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum OnboardingStep {
+  WELCOME
+  CLINICAL_SAFETY
+  USER_SETUP
+  FACILITY_SELECTION
+  MEMBERSHIP_REQUEST
+  COMPLETED
+}
+
 model User {
   id           String     @id @default(cuid())
   name         String
@@ -124,6 +149,7 @@ model User {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 
+  onboardingState             OnboardingState?
   facilityMemberships         FacilityMembership[]     @relation("FacilityMembershipUser")
   approvedFacilityMemberships FacilityMembership[]     @relation("FacilityMembershipApprover")
   admissionsCreated           Admission[]              @relation("AdmissionCreator")
@@ -143,6 +169,7 @@ model User {
   idempotencyRecords          IdempotencyRecord[]      @relation("IdempotencyUser")
   syncEvents                  SyncEvent[]              @relation("SyncEventUser")
   auditLogs                   AuditLog[]               @relation("AuditLogUser")
+  settings                    UserSettings?
 }
 
 model RefreshSession {
@@ -160,6 +187,28 @@ model RefreshSession {
   @@index([expiresAt])
 }
 
+model OnboardingState {
+  id                                   String           @id @default(cuid())
+  userId                               String           @unique
+  status                               OnboardingStatus @default(NOT_STARTED)
+  currentStep                          OnboardingStep   @default(WELCOME)
+  completedStepsJson                   Json?
+  selectedFacilityId                   String?
+  requestedRole                        MembershipRole?
+  clinicalSafetyAcknowledgedAt         DateTime?
+  clinicalSafetyAcknowledgementVersion String?
+  clinicalSafetyStatementHash          String?
+  completedAt                          DateTime?
+  createdAt                            DateTime         @default(now())
+  updatedAt                            DateTime         @updatedAt
+
+  user             User      @relation(fields: [userId], references: [id])
+  selectedFacility Facility? @relation(fields: [selectedFacilityId], references: [id])
+
+  @@index([selectedFacilityId, status])
+  @@index([status, currentStep])
+}
+
 model Facility {
   id                    String                     @id @default(cuid())
   registryCode          String?                    @unique
@@ -175,14 +224,15 @@ model Facility {
   createdAt             DateTime                   @default(now())
   updatedAt             DateTime                   @updatedAt
 
-  memberships        FacilityMembership[]
-  patients           Patient[]
-  admissions         Admission[]
-  datasetCases       DatasetCase[]
-  reviewActions      ReviewAction[]
-  idempotencyRecords IdempotencyRecord[]
-  syncEvents         SyncEvent[]
-  auditLogs          AuditLog[]
+  memberships          FacilityMembership[]
+  onboardingSelections OnboardingState[]
+  patients             Patient[]
+  admissions           Admission[]
+  datasetCases         DatasetCase[]
+  reviewActions        ReviewAction[]
+  idempotencyRecords   IdempotencyRecord[]
+  syncEvents           SyncEvent[]
+  auditLogs            AuditLog[]
 }
 
 model FacilityMembership {
@@ -205,8 +255,8 @@ model FacilityMembership {
 }
 
 model Patient {
-  id                    String                 @id @default(cuid())
-  facilityId            String
+  id                     String                 @id @default(cuid())
+  facilityId             String
   appPatientCode         String
   optionalName           String?
   hospitalNumber         String?
@@ -273,9 +323,9 @@ model Admission {
 }
 
 model ClinicalSnapshot {
-  id                   String       @id @default(cuid())
+  id                   String    @id @default(cuid())
   admissionId          String
-  measuredAt           DateTime     @default(now())
+  measuredAt           DateTime  @default(now())
   oxygenSupportType    String?
   heartRate            Float?
   respiratoryRate      Float?
@@ -296,7 +346,7 @@ model ClinicalSnapshot {
   clientRecordId       String?
   deviceId             String?
   clientCreatedAt      DateTime?
-  createdAt            DateTime     @default(now())
+  createdAt            DateTime  @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("ClinicalSnapshotEnteredBy", fields: [enteredByUserId], references: [id])
@@ -328,16 +378,17 @@ model AbgTest {
   clientRecordId         String?
   deviceId               String?
   clientCreatedAt        DateTime?
+  clientUpdatedAt        DateTime?
   createdAt              DateTime     @default(now())
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   enteredBy  User?     @relation("AbgTestEnteredBy", fields: [enteredByUserId], references: [id])
   reviewedBy User?     @relation("AbgTestReviewedBy", fields: [reviewedByUserId], references: [id])
 
+  @@unique([admissionId, version])
   @@index([admissionId, collectedAt])
   @@index([reviewStatus])
   @@index([clientRecordId])
-  @@unique([admissionId, version])
 }
 
 model VentilatorSetting {
@@ -359,6 +410,7 @@ model VentilatorSetting {
   minuteVolumeLMin         Float?
   vtMlPerKgReferenceWeight Float?
   drivingPressure          Float?
+  source                   String?
   validationStatus         String?
   clinicalFlagsJson        Json?
   calculationSummaryJson   Json?
@@ -367,35 +419,36 @@ model VentilatorSetting {
   clientRecordId           String?
   deviceId                 String?
   clientCreatedAt          DateTime?
+  clientUpdatedAt          DateTime?
   createdAt                DateTime     @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("VentilatorSettingEnteredBy", fields: [enteredByUserId], references: [id])
 
+  @@unique([admissionId, version])
   @@index([admissionId, measuredAt])
   @@index([reviewStatus])
   @@index([clientRecordId])
-  @@unique([admissionId, version])
 }
 
 model AirwayDevice {
-  id                 String   @id @default(cuid())
+  id                 String    @id @default(cuid())
   admissionId        String
-  measuredAt         DateTime @default(now())
+  measuredAt         DateTime  @default(now())
   airwayRoute        String?
   tubeType           String?
   internalDiameterMm Float?
   depthCm            Float?
   cuffPressureCmH2O  Float?
   tubeSecured        Boolean?
-  notes              String?  @db.Text
+  notes              String?   @db.Text
   validationStatus   String?
   clinicalFlagsJson  Json?
   enteredByUserId    String?
   clientRecordId     String?
   deviceId           String?
   clientCreatedAt    DateTime?
-  createdAt          DateTime @default(now())
+  createdAt          DateTime  @default(now())
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("AirwayDeviceEnteredBy", fields: [enteredByUserId], references: [id])
@@ -405,9 +458,9 @@ model AirwayDevice {
 }
 
 model HumidificationDecision {
-  id                      String   @id @default(cuid())
+  id                      String    @id @default(cuid())
   admissionId             String
-  measuredAt              DateTime @default(now())
+  measuredAt              DateTime  @default(now())
   method                  String?
   thickSecretions         Boolean?
   highMinuteVentilation   Boolean?
@@ -421,7 +474,7 @@ model HumidificationDecision {
   clientRecordId          String?
   deviceId                String?
   clientCreatedAt         DateTime?
-  createdAt               DateTime @default(now())
+  createdAt               DateTime  @default(now())
 
   admission   Admission @relation(fields: [admissionId], references: [id])
   confirmedBy User?     @relation("HumidificationConfirmedBy", fields: [confirmedByUserId], references: [id])
@@ -431,9 +484,9 @@ model HumidificationDecision {
 }
 
 model DailyVentilationReview {
-  id                   String   @id @default(cuid())
+  id                   String    @id @default(cuid())
   admissionId          String
-  reviewDate           DateTime @default(now())
+  reviewDate           DateTime  @default(now())
   oxygenationStable    Boolean?
   hemodynamicsStable   Boolean?
   sedationLightEnough  Boolean?
@@ -447,7 +500,7 @@ model DailyVentilationReview {
   clientRecordId       String?
   deviceId             String?
   clientCreatedAt      DateTime?
-  createdAt            DateTime @default(now())
+  createdAt            DateTime  @default(now())
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   reviewedBy User?     @relation("DailyReviewReviewer", fields: [reviewedByUserId], references: [id])
@@ -503,16 +556,16 @@ model ReviewAction {
 }
 
 model DatasetCase {
-  id                     String              @id @default(cuid())
-  facilityId             String
+  id                      String              @id @default(cuid())
+  facilityId              String
   sourceAdmissionId       String?
-  sourceType             String
-  sourcePayloadJson      Json?
-  structuredPreviewJson  Json?
+  sourceType              String
+  sourcePayloadJson       Json?
+  structuredPreviewJson   Json?
   deidentifiedPayloadJson Json
-  deidentificationStatus String?
-  reviewStatus           DatasetReviewStatus @default(SUBMITTED)
-  approvedForTraining    Boolean             @default(false)
+  deidentificationStatus  String?
+  reviewStatus            DatasetReviewStatus @default(SUBMITTED)
+  approvedForTraining     Boolean             @default(false)
   approvedByUserId        String?
   reviewedByUserId        String?
   reviewedAt              DateTime?
@@ -534,17 +587,17 @@ model DatasetCase {
 }
 
 model ReferenceRule {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   name             String
   version          String
-  sourceCitation   String?  @db.Text
+  sourceCitation   String?   @db.Text
   ruleJson         Json
   activeFrom       DateTime?
   activeTo         DateTime?
   approvedByUserId String?
   governanceStatus String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   approvedBy User? @relation("ReferenceRuleApprovedBy", fields: [approvedByUserId], references: [id])
 

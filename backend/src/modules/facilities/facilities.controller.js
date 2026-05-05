@@ -37,7 +37,7 @@ export const addFacility = asyncHandler(async (req, res) => {
 });
 
 export const getFacility = asyncHandler(async (req, res) => {
-  const facility = await getFacilityById(req.validated.params.id);
+  const facility = await getFacilityById(req.validated.params.id, req.user?.sub);
   return successResponse(res, {
     message: 'Facility loaded',
     data: { facility },
@@ -61,7 +61,7 @@ export const verifyFacility = asyncHandler(async (req, res) => {
 });
 
 export const getEquipmentProfile = asyncHandler(async (req, res) => {
-  const facility = await getFacilityById(req.validated.params.id);
+  const facility = await getFacilityById(req.validated.params.id, req.user?.sub);
   return successResponse(res, {
     message: 'Equipment profile loaded',
     data: {

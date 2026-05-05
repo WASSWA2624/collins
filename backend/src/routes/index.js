@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { healthRouter } from '../modules/health/health.routes.js';
 import { authRouter } from '../modules/auth/auth.routes.js';
+import { onboardingRouter } from '../modules/onboarding/onboarding.routes.js';
 import { facilitiesRouter } from '../modules/facilities/facilities.routes.js';
 import { myFacilities } from '../modules/facilities/facilities.controller.js';
+import { homeRouter } from '../modules/home/home.routes.js';
 import { admissionsRouter } from '../modules/admissions/admissions.routes.js';
 import { reviewRouter } from '../modules/review/review.routes.js';
 import { datasetRouter } from '../modules/dataset/dataset.routes.js';
@@ -15,7 +17,9 @@ export const apiRouter = Router();
 
 apiRouter.use('/health', healthRouter);
 apiRouter.use('/auth', authRouter);
+apiRouter.use('/onboarding', onboardingRouter);
 apiRouter.get('/me/facilities', requireAuth, myFacilities);
+apiRouter.use('/home', homeRouter);
 apiRouter.use('/facilities', facilitiesRouter);
 apiRouter.use('/admissions', admissionsRouter);
 apiRouter.use('/review', reviewRouter);

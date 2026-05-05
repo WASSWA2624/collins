@@ -1,42 +1,27 @@
 import { prisma } from '../config/prisma.js';
-import { MEMBERSHIP_ROLES } from '../constants/roles.js';
+import {
+  CLINICAL_WRITE_ROLES,
+  DATASET_GOVERNANCE_ROLES,
+  FACILITY_ADMIN_ROLES,
+  MEMBERSHIP_ROLES,
+  MODEL_GOVERNANCE_ROLES,
+  PLATFORM_ADMIN_ROLES,
+  READ_ROLES,
+  REVIEW_ROLES,
+} from '../constants/roles.js';
 import { forbidden, notFound, unauthorized } from './errors.js';
 
-export const READ_ROLES = Object.freeze([
-  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-  MEMBERSHIP_ROLES.FACILITY_ADMIN,
-  MEMBERSHIP_ROLES.CLINICIAN,
-  MEMBERSHIP_ROLES.ICU_NURSE,
-  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
-  MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
-  MEMBERSHIP_ROLES.READ_ONLY_REVIEWER,
-]);
+export {
+  DATASET_GOVERNANCE_ROLES,
+  FACILITY_ADMIN_ROLES,
+  MODEL_GOVERNANCE_ROLES,
+  PLATFORM_ADMIN_ROLES,
+  READ_ROLES,
+  REVIEW_ROLES,
+};
 
-export const WRITE_ROLES = Object.freeze([
-  MEMBERSHIP_ROLES.FACILITY_ADMIN,
-  MEMBERSHIP_ROLES.CLINICIAN,
-  MEMBERSHIP_ROLES.ICU_NURSE,
-  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
-]);
-
-export const REVIEW_ROLES = Object.freeze([
-  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-  MEMBERSHIP_ROLES.FACILITY_ADMIN,
-  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
-  MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
-]);
-
-export const DATASET_EXPORT_ROLES = Object.freeze([
-  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-  MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
-]);
-
-export const FACILITY_ADMIN_ROLES = Object.freeze([
-  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-  MEMBERSHIP_ROLES.FACILITY_ADMIN,
-]);
-
-export const PLATFORM_ADMIN_ROLES = Object.freeze([MEMBERSHIP_ROLES.PLATFORM_ADMIN]);
+export const WRITE_ROLES = CLINICAL_WRITE_ROLES;
+export const DATASET_EXPORT_ROLES = DATASET_GOVERNANCE_ROLES;
 
 const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
   where: { userId, status: 'APPROVED' },
@@ -56,8 +41,27 @@ export const hasPlatformRole = async (userId) => {
   return count > 0;
 };
 
+export const hasAnyApprovedRole = async (userId, allowedRoles) => {
+  requireUserId(userId);
+  const roles = [...new Set(allowedRoles || [])];
+  if (roles.length === 0) return false;
+
+  const count = await prisma.facilityMembership.count({
+    where: { userId, status: 'APPROVED', role: { in: roles } },
+  });
+  return count > 0;
+};
+
 export const assertPlatformRole = async (userId) => {
   if (!(await hasPlatformRole(userId))) throw forbidden('Platform administrator permission is required');
+};
+
+export const assertAnyApprovedRole = async (
+  userId,
+  allowedRoles,
+  message = 'Required role permission is missing'
+) => {
+  if (!(await hasAnyApprovedRole(userId, allowedRoles))) throw forbidden(message);
 };
 
 export const assertFacilityRole = async (userId, facilityId, allowedRoles = READ_ROLES) => {
@@ -88,7 +92,7 @@ export const resolveFacilityScope = async (userId, requestedFacilityId = undefin
     return requestedFacilityId;
   }
 
-  if (await hasPlatformRole(userId)) return undefined;
+  if (allowedRoles.includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN) && await hasPlatformRole(userId)) return undefined;
 
   const memberships = await getApprovedMemberships(userId);
   const scoped = memberships.filter((membership) => allowedRoles.includes(membership.role));

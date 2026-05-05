@@ -69,6 +69,10 @@ Expose these groups under `/api/v1` as implementation reaches each phase:
 - `PATCH /facilities/:id/memberships/:membershipId`
 - `GET /me/facilities`
 
+### Home
+
+- `GET /home/summary?facilityId=`
+
 ### Admissions and tracking
 
 - `POST /admissions`

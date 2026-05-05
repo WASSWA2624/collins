@@ -1,8 +1,21 @@
 import { prisma } from '../../config/prisma.js';
 import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
-import { assertFacilityRole, assertPlatformRole, FACILITY_ADMIN_ROLES } from '../../utils/authorization.js';
+import { assertFacilityRole, assertPlatformRole, FACILITY_ADMIN_ROLES, READ_ROLES } from '../../utils/authorization.js';
 import { conflict, notFound } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
+
+const publicFacilitySelect = {
+  id: true,
+  registryCode: true,
+  name: true,
+  district: true,
+  region: true,
+  type: true,
+  ownership: true,
+  verificationStatus: true,
+  createdAt: true,
+  updatedAt: true,
+};
 
 const facilitySelect = {
   id: true,
@@ -38,7 +51,7 @@ export const searchFacilities = async ({ q, district, region, verificationStatus
   const [items, total] = await Promise.all([
     prisma.facility.findMany({
       where,
-      select: facilitySelect,
+      select: publicFacilitySelect,
       orderBy: { name: 'asc' },
       skip: (page - 1) * limit,
       take: limit,
@@ -53,7 +66,7 @@ export const createFacility = async (data, userId, auditContext = {}) => prisma.
   const facility = await tx.facility.create({ data, select: facilitySelect });
 
   if (userId) {
-    await tx.facilityMembership.upsert({
+    const membership = await tx.facilityMembership.upsert({
       where: {
         userId_facilityId_role: {
           userId,
@@ -68,6 +81,21 @@ export const createFacility = async (data, userId, auditContext = {}) => prisma.
         role: MEMBERSHIP_ROLES.FACILITY_ADMIN,
         status: 'APPROVED',
         approvedByUserId: userId,
+      },
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId: facility.id,
+      action: 'FACILITY_MEMBERSHIP_AUTO_APPROVE',
+      entityType: 'FacilityMembership',
+      entityId: membership.id,
+      afterJson: {
+        role: membership.role,
+        status: membership.status,
+        approvedByUserId: membership.approvedByUserId,
       },
     });
   }
@@ -86,7 +114,8 @@ export const createFacility = async (data, userId, auditContext = {}) => prisma.
   return facility;
 });
 
-export const getFacilityById = async (id) => {
+export const getFacilityById = async (id, userId) => {
+  await assertFacilityRole(userId, id, READ_ROLES);
   const facility = await prisma.facility.findUnique({ where: { id }, select: facilitySelect });
   if (!facility) throw notFound('Facility not found');
   return facility;
