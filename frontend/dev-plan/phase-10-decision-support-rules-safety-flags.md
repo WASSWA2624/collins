@@ -18,6 +18,13 @@ Show rule-based advisory calculations and flags with explicit uncertainty.
 - Hide predictive or matched-case model output from normal clinicians.
 - Do not send patient identifiers to external AI/model services.
 
+## Paired Backend Requirements
+
+- Verify backend pure clinical helpers, reference/range dataset services, rule metadata, admissions summaries, and verified-only decision-support behavior.
+- Implement missing backend route, validator, controller, service, repository/helper, Prisma schema/migration, Zod contracts, audit trail, and tests for range records before frontend displays them.
+- Require range records to include condition/scenario, pathway/population applicability, parameter, lower/upper bounds, unit, source, version, scope, verification status, verified by/at, review notes, and audit trail.
+- Use backend-confirmed verified reference records for saved clinical summaries; frontend previews must clearly show pending/unconfirmed status until the backend confirms.
+
 ## Cleanup During Future Work
 
 - Remove unsafe recommendation copy and any online-AI clinician path unless governance has approved it.
@@ -26,6 +33,7 @@ Show rule-based advisory calculations and flags with explicit uncertainty.
 ## Future Tests
 
 - Pure calculation tests across supported pathways.
+- Range-based dataset validation and verified-only decision-use tests.
 - Forbidden wording tests for summaries, flags, and alerts.
 - Accessibility tests for critical advisory alerts.
 - Role tests proving model internals are hidden from normal clinicians.

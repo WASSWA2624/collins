@@ -16,6 +16,12 @@ Keep user, facility, privacy, offline, sync, accessibility, and governance setti
 - Keep clinical safety wording in-flow rather than as a standalone disclaimer page.
 - Audit or surface backend-audited settings changes that affect clinical workflows, exports, governance, or model visibility.
 
+## Paired Backend Requirements
+
+- Verify backend user, facility, privacy, offline/sync, accessibility, logging, reference-scope, and governance settings support.
+- Implement missing backend routes, validators, controllers, services, Prisma schema/migrations, Zod contracts, RBAC/facility isolation, audit logs, and tests in the same phase as settings UI changes.
+- Ensure settings cannot activate unverified reference ranges, unapproved datasets, or visible predictive model output for normal clinicians.
+
 ## Cleanup During Future Work
 
 - Remove the obsolete disclaimer route, navigation entry, translations, and persisted acknowledgement state after onboarding and in-flow safety wording are verified.

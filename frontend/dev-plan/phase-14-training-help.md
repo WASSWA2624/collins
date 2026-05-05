@@ -1,4 +1,4 @@
-# Phase 14 - Training And Help
+# Phase 14 - Training / Help
 
 ## Goal
 
@@ -15,6 +15,12 @@ Provide accessible training/help content that supports safe app use without issu
 - Keep training wording advisory and aligned with app safety rules.
 - Keep model/predictive content restricted to approved roles.
 - Make help content readable on mobile web, Android, iOS, and desktop.
+
+## Paired Backend Requirements
+
+- Verify whether Training / Help content needs backend reference/version support, facility-specific content, or governance-managed range explanations.
+- If backend support is needed, implement or reuse routes, validators, controllers, services, Prisma schema/migrations, Zod contracts, RBAC, audit logs, and tests in this phase.
+- Ensure training content explains verified range/reference status without enabling unverified decision-support use.
 
 ## Cleanup During Future Work
 

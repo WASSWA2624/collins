@@ -1,4 +1,4 @@
-# Phase 08 - Clinical Tracking
+# Phase 08 - Tracking
 
 ## Goal
 

@@ -1,4 +1,4 @@
-# Phase 09 - ABG And Ventilator Updates
+# Phase 09 - ABG / Vent Update
 
 ## Goal
 
@@ -15,6 +15,12 @@ Provide a fast append-only update workflow for ABG and ventilator records.
 - Preserve client timestamps, idempotency keys, source, uncertainty, and retry state.
 - Display latest values and history without editing prior records in place.
 - Show advisory flags and missing data, not exact setting orders.
+
+## Paired Backend Requirements
+
+- Verify backend append-only ABG and ventilator routes, validators, controllers, services, Prisma records, idempotency helpers, conflict detection, and audit logging.
+- If append-only behavior or validation is incomplete, implement backend changes and migrations in the same phase as frontend ABG / Vent Update work.
+- Add paired tests for frontend queue/retry/conflict UI and backend route contracts, Zod validation, append-only writes, facility isolation, audit, and idempotency.
 
 ## Cleanup During Future Work
 

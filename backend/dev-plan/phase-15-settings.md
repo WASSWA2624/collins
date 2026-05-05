@@ -12,6 +12,7 @@ Manage user, facility, sync, privacy, and governance settings safely.
 ## Implementation Scope
 
 - Support account, active facility, role visibility, offline/sync preferences, privacy controls, and facility reference settings.
+- Do not allow settings to activate unverified reference ranges or unapproved model/predictive outputs for normal clinicians.
 - Audit settings that affect clinical workflows, exports, governance, or model visibility.
 - Keep settings changes from silently altering reviewed clinical records.
 - Do not place clinical decision outputs in settings.
@@ -25,4 +26,5 @@ Manage user, facility, sync, privacy, and governance settings safely.
 
 - Settings route contract and Zod validation tests.
 - RBAC and facility isolation tests for facility settings.
+- Tests blocking unverified range activation through settings.
 - Audit tests for settings that affect clinical workflows or governance.

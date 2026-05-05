@@ -1,4 +1,4 @@
-# Phase 06 - Patient Registration And Admission Model
+# Phase 06 - Admit
 
 ## Goal
 
@@ -15,6 +15,12 @@ Represent patient and admission data for all required pathways without unsafe as
 - Allow `unknown`, `not_available`, or `null` for clinically missing fields where rules allow saving.
 - Keep patient identifiers out of external AI/model services and approved training datasets.
 - Store drafts with facilityId, idempotency key, and client timestamp.
+
+## Paired Backend Requirements
+
+- Verify backend admission routes, validators, controllers, services, Prisma models, migrations, idempotency helpers, audit logging, and facility isolation for all supported pathways.
+- If the Admit data model is incomplete, implement backend schema/migration and service updates in this phase before completing frontend forms.
+- Add paired tests for frontend validation/draft behavior and backend route contracts, Zod validation, auth/RBAC, facility isolation, audit, and offline idempotency.
 
 ## Cleanup During Future Work
 

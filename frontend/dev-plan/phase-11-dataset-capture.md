@@ -16,6 +16,13 @@ Capture candidate data for review without treating it as approved training data.
 - Do not allow normal clinicians to approve training datasets.
 - Separate live facility records from reviewed de-identified approved training datasets.
 
+## Paired Backend Requirements
+
+- Verify backend dataset parse/import/review routes, validators, controllers, services, Prisma models, migrations, Zod contracts, de-identification, audit logging, idempotency, and conflict handling.
+- If backend capture or review support is incomplete, implement it in the same phase as frontend Dataset Capture.
+- Keep range-based reference datasets separate from captured facility notes and reviewed training datasets; captured notes must not create active reference ranges without authorized review and verification.
+- Add paired frontend parser/preview/offline tests and backend contract, validation, role, facility isolation, de-identification, audit, and dataset-governance tests.
+
 ## Cleanup During Future Work
 
 - Remove dataset flows that bypass reviewer approval or de-identification.

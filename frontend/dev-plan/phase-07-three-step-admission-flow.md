@@ -17,6 +17,12 @@ Convert admission into the required three-step flow: Patient & reason; Oxygen, A
 - Keep saves offline-safe, idempotent, and retryable.
 - Never display exact ventilator-setting orders or autonomous diagnoses.
 
+## Paired Backend Requirements
+
+- Verify backend admission create/patch support for the three steps: Patient & reason; Oxygen, ABG & ventilator; Save & review.
+- Reuse existing append-only ABG/ventilator and admission transaction services where compliant; implement missing validators, controllers, services, Prisma changes/migrations, Zod contracts, audit logs, and idempotency/conflict handling in this phase.
+- Add paired frontend wizard/offline tests and backend contract, validation, facility isolation, audit, and conflict tests before the flow is marked ready.
+
 ## Cleanup During Future Work
 
 - Replace the long assessment flow only after the three-step flow is covered by tests.

@@ -1,4 +1,4 @@
-# Phase 08 - Clinical Tracking
+# Phase 08 - Tracking
 
 ## Goal
 
@@ -15,6 +15,12 @@ Show active admitted patients and their clinical status without overwriting hist
 - Show active facility, active patients, bed/location where allowed, risk/review status, missing data, draft state, sync state, and conflicts.
 - Keep patient details role-aware and facility-scoped.
 - Avoid decision orders; show prompts such as "review" or "consider senior review".
+
+## Paired Backend Requirements
+
+- Verify backend active admissions, admission detail, timeline, review status, and sync/conflict endpoints or service queries.
+- Implement missing backend routes, validators, controllers, services, Prisma indexes/migrations, Zod response contracts, RBAC/facility isolation, audit behavior, and tests in this phase.
+- Ensure frontend Tracking never depends on client-only status when backend-confirmed review or conflict status exists.
 
 ## Cleanup During Future Work
 

@@ -16,6 +16,12 @@ Keep Expo web, Android, and iOS startup stable before feature work continues.
 - Keep startup UI minimal and avoid landing-page or marketing screens.
 - Preserve mobile web layout parity with Android and iOS.
 
+## Paired Backend Requirements
+
+- Verify backend startup, `/api/v1/health`, environment validation, Prisma generate flow, and supported Node.js runtime before frontend startup work is marked complete.
+- If startup fixes require backend package scripts, Prisma schema generation, migrations, or config changes in future work, implement and test them in this same phase.
+- Add or update backend startup/config tests and frontend Expo/Metro/Babel startup tests together.
+
 ## Cleanup During Future Work
 
 - Remove obsolete aliases, unused debug shims, and dead startup files only after cache-cleared web and mobile startup are verified.

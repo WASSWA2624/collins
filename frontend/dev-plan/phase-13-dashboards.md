@@ -1,4 +1,4 @@
-# Phase 13 - Dashboards
+# Phase 13 - Dashboard
 
 ## Goal
 
@@ -15,6 +15,12 @@ Show facility and governance summaries for approved roles without exposing unsaf
 - Keep normal clinician dashboards operational, not predictive.
 - Hide model cards, drift, and override monitoring from normal clinicians.
 - Avoid patient identifiers in aggregate dashboard views unless a protected drill-down requires them.
+
+## Paired Backend Requirements
+
+- Verify backend dashboard/admin routes and services for active workload, review backlog, sync conflicts, dataset readiness, range verification backlog, audit summaries, and governance metrics.
+- Implement missing backend routes, validators, controllers, services, Prisma queries/indexes/migrations, Zod contracts, RBAC/facility isolation, auditability, and tests in this phase.
+- Ensure frontend dashboards use backend-authorized aggregates and never expose governance/model details to normal clinicians.
 
 ## Cleanup During Future Work
 

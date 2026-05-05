@@ -1,4 +1,4 @@
-# Phase 06 - Patient Registration And Admission Model
+# Phase 06 - Admit
 
 ## Goal
 

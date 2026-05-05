@@ -17,6 +17,12 @@ Guide first-run users into a safe facility-aware workflow without a standalone d
 - Do not block clinically valid saving because optional data is missing; show explicit missing-data or uncertainty prompts where app rules allow.
 - Keep onboarding responsive and simple across web, Android, and iOS.
 
+## Paired Backend Requirements
+
+- Verify whether onboarding state, facility selection, safety acknowledgement, or profile setup needs backend persistence.
+- If persistence is needed, implement or reuse the backend route, validator, controller, service, Prisma fields/migration, Zod contracts, auth boundary, audit logging, and tests in this phase.
+- Keep onboarding data separate from facility clinical records and approved training datasets.
+
 ## Cleanup During Future Work
 
 - Remove old disclaimer routes, links, state flags, and translations only after in-flow safety wording and route migration are tested.

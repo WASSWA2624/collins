@@ -16,6 +16,12 @@ Make Home the simple operational starting point for the clinical workflow.
 - Avoid decision-support outputs on Home.
 - Keep layouts readable on mobile web, Android, iOS, tablet, and desktop.
 
+## Paired Backend Requirements
+
+- Verify backend support for active facility context, active admission counts, sync/conflict counts, review queue counts, and role-scoped dashboard summaries.
+- Reuse existing admissions, review, sync, facility, or dashboard services when compliant; add a Home summary endpoint only if necessary.
+- Implement any missing backend route, validator, controller, service, Prisma query/index, Zod response contract, facility isolation, and tests in this same phase.
+
 ## Cleanup During Future Work
 
 - Remove legacy Assessment/History labels from user-facing navigation after route aliases are verified.

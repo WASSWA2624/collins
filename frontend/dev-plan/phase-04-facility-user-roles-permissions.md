@@ -16,6 +16,12 @@ Make active facility and role context visible and use it to gate navigation.
 - Show active facility and sync status on clinical workflows.
 - Prevent cross-facility confusion in drafts, queues, and review screens.
 
+## Paired Backend Requirements
+
+- Verify and reuse backend facility, membership, role, equipment profile, and verification routes with route -> validator -> controller -> service layering.
+- If role or facility behavior is missing, implement Prisma schema/migration updates, Zod contracts, RBAC checks, facility isolation, audit logs, and backend/frontend tests in this phase.
+- Ensure backend facility membership remains authoritative even when frontend hides unavailable actions.
+
 ## Cleanup During Future Work
 
 - Remove duplicated permission checks after shared selectors and route guards cover them.

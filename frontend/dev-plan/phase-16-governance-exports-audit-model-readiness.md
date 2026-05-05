@@ -17,6 +17,12 @@ Prepare role-gated governance workflows while keeping normal clinical use rule-b
 - Show exports as reviewed, de-identified, ethics-approved, traceable, and auditable.
 - Do not send patient identifiers to external AI/model services.
 
+## Paired Backend Requirements
+
+- Verify backend governance routes for exports, audit logs, model cards, dataset cards, drift monitoring, override monitoring, reference range lifecycle, and shadow-mode model output.
+- Implement missing backend validators, controllers, services, Prisma schema/migrations, Zod contracts, RBAC/facility isolation, audit logging, export controls, and tests in this phase.
+- Ensure only verified range records and reviewed/de-identified/ethics-approved datasets can support decision logic, exports, or model-readiness workflows.
+
 ## Cleanup During Future Work
 
 - Remove clinician-facing model/debug/matched-case details unless governance explicitly approves a role-gated workflow.
@@ -25,6 +31,7 @@ Prepare role-gated governance workflows while keeping normal clinical use rule-b
 ## Future Tests
 
 - Role-aware tests for model cards, dataset cards, drift, override monitoring, and exports.
+- Range reference governance tests for verification, activation, retirement, and audit visibility.
 - Tests blocking unreviewed records, raw notes, demo data, and identifiers from approved exports.
 - Accessibility tests for governance tables and alerts.
 - Forbidden wording tests for model and governance output.
