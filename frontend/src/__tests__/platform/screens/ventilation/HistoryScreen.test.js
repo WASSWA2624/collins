@@ -1,19 +1,13 @@
 /**
- * HistoryScreen Component Tests
- * File: HistoryScreen.test.js (P011 11.S.5)
- * Tests: empty state, corrupted persistence recovery messaging, delete confirmation path
+ * Tracking screen tests
+ * File: HistoryScreen.test.js
  */
 const React = require('react');
-const { render, fireEvent } = require('@testing-library/react-native');
+const { render, fireEvent, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
-
-const mockPush = jest.fn();
-jest.mock('expo-router', () => ({
-  useRouter: () => ({ push: mockPush, replace: jest.fn() }),
-}));
 
 jest.mock('@hooks', () => ({
   useI18n: () => {
@@ -21,15 +15,17 @@ jest.mock('@hooks', () => ({
     return {
       t: (key, params) => {
         const keys = key.split('.');
-        let v = mockEn;
+        let value = mockEn;
         for (const k of keys) {
-          v = v?.[k];
-          if (v === undefined) return key;
+          value = value?.[k];
+          if (value === undefined) return key;
         }
-        if (typeof v === 'string' && params) {
-          return Object.entries(params).reduce((s, [k, val]) => s.replace(`{{${k}}}`, String(val)), v);
+        if (typeof value === 'string' && params) {
+          return Object.entries(params).reduce((text, [paramKey, paramValue]) => (
+            text.replace(`{{${paramKey}}}`, String(paramValue))
+          ), value);
         }
-        return v || key;
+        return value || key;
       },
       locale: 'en',
     };
@@ -37,22 +33,50 @@ jest.mock('@hooks', () => ({
   useVentilationSession: jest.fn(),
 }));
 
+jest.mock('@features/tracking', () => ({
+  formatDateTime: jest.fn((value) => String(value || '')),
+  listTrackingAdmissionsUseCase: jest.fn(),
+  getTrackingAdmissionUseCase: jest.fn(),
+}));
+
 const HistoryScreenWeb = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.web').default;
 const HistoryScreenAndroid = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.android').default;
 const HistoryScreenIOS = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.ios').default;
 const { useVentilationSession } = require('@hooks');
+const {
+  getTrackingAdmissionUseCase,
+  listTrackingAdmissionsUseCase,
+} = require('@features/tracking');
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 
 const HISTORY_TEST_IDS = {
   screen: 'history-screen',
   empty: 'history-empty',
-  corruptBanner: 'history-corrupt-banner',
-  errorBanner: 'history-error-banner',
+  draftBanner: 'tracking-draft-banner',
   list: 'history-list',
-  delete: 'history-delete',
-  deleteConfirm: 'history-delete-confirm',
-  deleteConfirmCancel: 'history-delete-confirm-cancel',
+  viewDetails: 'history-view-details',
+  detailPanel: 'tracking-detail-panel',
+};
+
+const trackingRow = {
+  admissionId: 'adm-1',
+  appAdmissionCode: 'COL-A-1',
+  appPatientCode: 'COL-P-1',
+  facilityId: 'facility-1',
+  facilityName: 'City ICU',
+  bedNumber: 'ICU-2',
+  admissionStatusLabel: 'Active',
+  patientPathwayLabel: 'Adult',
+  admittedAtLabel: '5/1/26, 8:00 AM',
+  reviewLabel: 'Review',
+  syncLabel: 'Conflict',
+  missingDataLabel: 'PaO2, PEEP',
+  risk: {
+    level: 'red',
+    label: 'Conflict',
+    prompt: 'Review conflict before using synced status.',
+  },
 };
 
 const createMockStore = (initialState = {}) =>
@@ -77,176 +101,86 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
-describe('HistoryScreen', () => {
+describe('Tracking screen compatibility route', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useVentilationSession.mockReturnValue({
-      sessionHistory: [],
-      historyErrorCode: null,
-      isHistoryLoading: false,
-      loadHistory: jest.fn(),
-      deleteFromHistory: jest.fn(),
-      loadHistoryEntryIntoSession: jest.fn(),
+      sessionId: null,
+      inputs: null,
+      recommendationSummary: null,
+      assessmentCurrentStep: 0,
+      monitoringTimeSeries: [],
+    });
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [] });
+    getTrackingAdmissionUseCase.mockResolvedValue({
+      row: trackingRow,
+      timeline: [
+        {
+          entityType: 'Admission',
+          entityId: 'adm-1',
+          eventType: 'admission_created',
+          occurredAt: '2026-05-01T08:00:00.000Z',
+        },
+      ],
     });
   });
 
-  describe('empty state (no history)', () => {
-    it('web: shows empty message when list is empty', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [],
-        historyErrorCode: null,
-        isHistoryLoading: false,
-        loadHistory: jest.fn(),
-        deleteFromHistory: jest.fn(),
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
-      expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined();
-      expect(getByText('No saved sessions yet.')).toBeDefined();
-    });
+  it('web: shows empty tracking state when no active admissions are returned', async () => {
+    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
 
-    it('android: shows empty message when list is empty', () => {
-      const { getByTestId, getByText } = renderWithProviders(<HistoryScreenAndroid />);
-      expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined();
-      expect(getByText('No saved sessions yet.')).toBeDefined();
-    });
-
-    it('ios: shows empty message when list is empty', () => {
-      const { getByTestId, getByText } = renderWithProviders(<HistoryScreenIOS />);
-      expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined();
-      expect(getByText('No saved sessions yet.')).toBeDefined();
-    });
+    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined());
+    expect(getByText('No active admitted patients for this facility.')).toBeDefined();
+    expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({ status: 'ACTIVE' });
   });
 
-  describe('corrupted persistence recovery messaging', () => {
-    it('web: shows corrupt recovery banner when historyErrorCode is VENTILATION_SESSION_HISTORY_CORRUPT', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [],
-        historyErrorCode: 'VENTILATION_SESSION_HISTORY_CORRUPT',
-        isHistoryLoading: false,
-        loadHistory: jest.fn(),
-        deleteFromHistory: jest.fn(),
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
-      expect(getByTestId(HISTORY_TEST_IDS.corruptBanner)).toBeDefined();
-      expect(
-        getByText('Session history was reset due to a storage issue. You can start new sessions.')
-      ).toBeDefined();
-    });
+  it('web: renders backend-confirmed active patient, review, sync, conflict, and missing-data status', async () => {
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    it('android: shows corrupt recovery banner', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [],
-        historyErrorCode: 'VENTILATION_SESSION_HISTORY_CORRUPT',
-        isHistoryLoading: false,
-        loadHistory: jest.fn(),
-        deleteFromHistory: jest.fn(),
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId } = renderWithProviders(<HistoryScreenAndroid />);
-      expect(getByTestId(HISTORY_TEST_IDS.corruptBanner)).toBeDefined();
-    });
+    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
 
-    it('ios: shows corrupt recovery banner', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [],
-        historyErrorCode: 'VENTILATION_SESSION_HISTORY_CORRUPT',
-        isHistoryLoading: false,
-        loadHistory: jest.fn(),
-        deleteFromHistory: jest.fn(),
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId } = renderWithProviders(<HistoryScreenIOS />);
-      expect(getByTestId(HISTORY_TEST_IDS.corruptBanner)).toBeDefined();
-    });
+    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined());
+    expect(getByText('City ICU')).toBeDefined();
+    expect(getByText('COL-A-1')).toBeDefined();
+    expect(getByText('Bed ICU-2')).toBeDefined();
+    expect(getByText('Review')).toBeDefined();
+    expect(getByText('Conflict')).toBeDefined();
+    expect(getByText('Missing data: PaO2, PEEP')).toBeDefined();
   });
 
-  describe('delete confirmation path', () => {
-    const mockDeleteFromHistory = jest.fn();
-    const mockLoadHistory = jest.fn();
-    const sessionId = 'session-1';
-    const oneEntry = {
-      sessionId,
+  it('web: shows local draft only as draft context', async () => {
+    useVentilationSession.mockReturnValue({
+      sessionId: 'local-session-1',
       inputs: { condition: 'ARDS' },
-      recommendationSummary: { source: { confidenceTier: 'medium' } },
-      updatedAt: Date.now(),
-    };
-
-    beforeEach(() => {
-      mockDeleteFromHistory.mockClear();
-      mockLoadHistory.mockClear();
+      recommendationSummary: null,
+      assessmentCurrentStep: 2,
+      monitoringTimeSeries: [],
     });
 
-    it('web: pressing delete shows confirm modal; pressing confirm calls deleteFromHistory', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [oneEntry],
-        historyErrorCode: null,
-        isHistoryLoading: false,
-        loadHistory: mockLoadHistory,
-        deleteFromHistory: mockDeleteFromHistory,
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getByText, getAllByTestId } = renderWithProviders(<HistoryScreenWeb />);
-      const deleteButtons = getAllByTestId(HISTORY_TEST_IDS.delete);
-      expect(deleteButtons.length).toBeGreaterThan(0);
-      fireEvent.press(deleteButtons[0]);
-      expect(getByTestId(HISTORY_TEST_IDS.deleteConfirm)).toBeDefined();
-      const confirmBtn = getByText('Delete');
-      fireEvent.press(confirmBtn);
-      expect(mockDeleteFromHistory).toHaveBeenCalledWith(sessionId);
-    });
+    const { getByTestId } = renderWithProviders(<HistoryScreenWeb />);
 
-    it('web: delete confirm modal shows title and cancel/confirm buttons after pressing delete', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [oneEntry],
-        historyErrorCode: null,
-        isHistoryLoading: false,
-        loadHistory: mockLoadHistory,
-        deleteFromHistory: mockDeleteFromHistory,
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getByText, getAllByTestId } = renderWithProviders(<HistoryScreenWeb />);
-      fireEvent.press(getAllByTestId(HISTORY_TEST_IDS.delete)[0]);
-      expect(getByTestId(HISTORY_TEST_IDS.deleteConfirm)).toBeDefined();
-      expect(getByText('Delete session?')).toBeDefined();
-      expect(getByTestId(HISTORY_TEST_IDS.deleteConfirmCancel)).toBeDefined();
-      expect(getByText('Cancel')).toBeDefined();
-      expect(getByText('Delete')).toBeDefined();
-    });
+    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.draftBanner)).toBeDefined());
+  });
 
-    it('android: delete confirm modal visible after pressing delete', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [oneEntry],
-        historyErrorCode: null,
-        isHistoryLoading: false,
-        loadHistory: mockLoadHistory,
-        deleteFromHistory: mockDeleteFromHistory,
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getAllByTestId } = renderWithProviders(<HistoryScreenAndroid />);
-      const deleteBtn = getAllByTestId(HISTORY_TEST_IDS.delete)[0];
-      if (deleteBtn) {
-        fireEvent.press(deleteBtn);
-        expect(getByTestId(HISTORY_TEST_IDS.deleteConfirm)).toBeDefined();
-      }
-    });
+  it('web: loads backend detail and append-only timeline on details press', async () => {
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    it('ios: delete confirm modal visible after pressing delete', () => {
-      useVentilationSession.mockReturnValue({
-        sessionHistory: [oneEntry],
-        historyErrorCode: null,
-        isHistoryLoading: false,
-        loadHistory: mockLoadHistory,
-        deleteFromHistory: mockDeleteFromHistory,
-        loadHistoryEntryIntoSession: jest.fn(),
-      });
-      const { getByTestId, getAllByTestId } = renderWithProviders(<HistoryScreenIOS />);
-      const deleteBtn = getAllByTestId(HISTORY_TEST_IDS.delete)[0];
-      if (deleteBtn) {
-        fireEvent.press(deleteBtn);
-        expect(getByTestId(HISTORY_TEST_IDS.deleteConfirm)).toBeDefined();
-      }
-    });
+    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+
+    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined());
+    fireEvent.press(getByTestId(HISTORY_TEST_IDS.viewDetails));
+
+    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined());
+    expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1');
+    expect(getByText('admission_created | 2026-05-01T08:00:00.000Z')).toBeDefined();
+  });
+
+  it('android and ios render the tracking screen', async () => {
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
+
+    const android = renderWithProviders(<HistoryScreenAndroid />);
+    await waitFor(() => expect(android.getByText('COL-A-1')).toBeDefined());
+
+    const ios = renderWithProviders(<HistoryScreenIOS />);
+    await waitFor(() => expect(ios.getByText('COL-A-1')).toBeDefined());
   });
 });

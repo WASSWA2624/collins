@@ -168,7 +168,7 @@ describe('ventilation.usecase', () => {
 
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
     expect(res.source.primaryCaseId).toBeNull();
-    expect(res.aiAugmentation).toMatchObject({ provider: 'aiSdk', status: 'skipped' });
+    expect(res.aiAugmentation).toMatchObject({ provider: 'aiSdk', status: 'disabled_by_governance' });
   });
 
   it('does not call AI SDK even when requested from a clinical flow', async () => {

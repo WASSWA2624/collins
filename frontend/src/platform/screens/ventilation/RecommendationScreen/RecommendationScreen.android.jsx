@@ -8,6 +8,7 @@ import {
   Accordion,
   Button,
   Checkbox,
+  ClinicalSafetyNotice,
   Text,
 } from '@platform/components';
 import { useI18n, useExportSession } from '@hooks';
@@ -23,7 +24,6 @@ import {
   StyledSectionBody,
   StyledSectionHeader,
   StyledSummaryPane,
-  StyledWarningBox,
 } from './RecommendationScreen.android.styles';
 import { RECOMMENDATION_TEST_IDS } from './types';
 import { STEP_KEYS } from '../AssessmentScreen/types';
@@ -114,16 +114,13 @@ const RecommendationScreenAndroid = () => {
   return (
     <StyledContentWrap accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
       <StyledContainer testID={RECOMMENDATION_TEST_IDS.screen}>
-        <StyledWarningBox testID={RECOMMENDATION_TEST_IDS.warning}>
-          <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
-          <Text variant="body" color="status.warning.text">{safety.intendedUseWarning}</Text>
-          {safety.validationRequirement ? (
-            <>
-              <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
-              <Text variant="body" color="status.warning.text">{safety.validationRequirement}</Text>
-            </>
-          ) : null}
-        </StyledWarningBox>
+        <ClinicalSafetyNotice
+          title={t('ventilation.recommendation.intendedUse.warningLabel')}
+          message={safety.intendedUseWarning}
+          secondaryMessage={safety.validationRequirement}
+          accessibilityLabel={t('ventilation.recommendation.sections.warning')}
+          testID={RECOMMENDATION_TEST_IDS.warning}
+        />
 
         {decisionSupport && (
           <Accordion title={t('ventilation.recommendation.sections.decisionSupport')} defaultExpanded testID="recommendation-decision-support">

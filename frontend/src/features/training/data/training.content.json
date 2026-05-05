@@ -170,7 +170,7 @@
     { "term": "SpO2", "definition": "Oxygen saturation measured by pulse oximetry.", "tags": ["assessment"], "order": 3 },
     { "term": "ABG", "definition": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.", "tags": ["abg"], "order": 4 },
     { "term": "Reference status", "definition": "The governance and verification state that decides whether a range can appear in active decision-support displays.", "tags": ["reference-status", "governance"], "order": 5 },
-    { "term": "Shadow mode", "definition": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows.", "tags": ["model", "governance"], "order": 6 }
+    { "term": "Shadow mode", "definition": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows.", "audiences": ["model_governance"], "tags": ["model", "governance"], "order": 6 }
   ],
   "faqs": [
     {
@@ -198,6 +198,7 @@
       "id": "faq.models",
       "question": "Who can see predictive model readiness content?",
       "answer": "Predictive model readiness content is restricted to approved governance roles. Normal clinical workflows do not expose model internals or shadow-mode outputs.",
+      "audiences": ["model_governance"],
       "tags": ["model", "governance", "restricted"],
       "order": 4
     }

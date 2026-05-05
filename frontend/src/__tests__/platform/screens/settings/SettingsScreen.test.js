@@ -96,16 +96,17 @@ jest.mock('@features/settings', () => ({
 }));
 
 jest.mock('@platform/components', () => {
+  const mockReact = require('react');
   const RN = require('react-native');
   return {
-    Text: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
-    Select: ({ testID }) => React.createElement(RN.View, { testID }),
-    Switch: ({ testID }) => React.createElement(RN.View, { testID }),
-    TextField: ({ testID }) => React.createElement(RN.TextInput, { testID }),
-    Button: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
-    Stack: ({ children, testID }) => React.createElement(RN.View, { testID }, children),
-    ThemeControls: ({ testID }) => React.createElement(RN.View, { testID }),
-    LanguageControls: ({ testID }) => React.createElement(RN.View, { testID }),
+    Text: ({ children, testID }) => mockReact.createElement(RN.Text, { testID }, children),
+    Select: ({ testID }) => mockReact.createElement(RN.View, { testID }),
+    Switch: ({ testID }) => mockReact.createElement(RN.View, { testID }),
+    TextField: ({ testID }) => mockReact.createElement(RN.TextInput, { testID }),
+    Button: ({ children, testID }) => mockReact.createElement(RN.Text, { testID }, children),
+    Stack: ({ children, testID }) => mockReact.createElement(RN.View, { testID }, children),
+    ThemeControls: ({ testID }) => mockReact.createElement(RN.View, { testID }),
+    LanguageControls: ({ testID }) => mockReact.createElement(RN.View, { testID }),
   };
 });
 

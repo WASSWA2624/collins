@@ -3,7 +3,6 @@ import path from 'node:path';
 import appConfig from '../../../app.config';
 import babelConfig from '../../../babel.config';
 import jestConfig from '../../../jest.config';
-import metroConfig from '../../../metro.config';
 import packageJson from '../../../package.json';
 
 const projectRoot = path.resolve(__dirname, '../../..');
@@ -49,9 +48,11 @@ describe('Expo web startup config', () => {
   });
 
   test('uses Expo Metro defaults for cross-platform startup', () => {
-    expect(metroConfig.resolver.sourceExts).toEqual(
-      expect.arrayContaining(['js', 'jsx', 'json'])
-    );
+    const metroConfigSource = fs.readFileSync(path.join(projectRoot, 'metro.config.js'), 'utf8');
+
+    expect(metroConfigSource).toContain("require('expo/metro-config')");
+    expect(metroConfigSource).toContain('getDefaultConfig(__dirname)');
+    expect(metroConfigSource).toContain('module.exports = config');
   });
 });
 

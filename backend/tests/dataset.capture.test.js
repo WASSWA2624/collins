@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { prisma } from '../src/config/prisma.js';
 import { MEMBERSHIP_ROLES } from '../src/constants/roles.js';
 import { createDatasetImportSchema } from '../src/modules/dataset/dataset.validators.js';
+import { syncQueueSchema } from '../src/modules/sync/sync.validators.js';
 import {
   assertDatasetSourceTypeAllowed,
   buildReviewedAdmissionDatasetPayload,
@@ -22,6 +23,29 @@ test('dataset import contract rejects demo and existing training source types', 
   });
 
   assert.equal(result.success, false);
+});
+
+test('sync queue contract accepts offline dataset capture candidates', () => {
+  const result = syncQueueSchema.safeParse({
+    body: {
+      items: [{
+        operation: 'create_dataset_import',
+        facilityId: 'facility-1',
+        payload: {
+          facilityId: 'facility-1',
+          sourceType: 'pasted_note_capture',
+          structuredPreviewJson: { patient: { ageYears: 54 } },
+        },
+        idempotencyKey: 'dataset-capture-key-1',
+        clientRecordId: 'capture-1',
+      }],
+    },
+    params: {},
+    query: {},
+  });
+
+  assert.equal(result.success, true);
+  assert.equal(result.data.body.items[0].operation, 'create_dataset_import');
 });
 
 test('clinicians can submit de-identified dataset candidates with idempotency metadata', async (t) => {

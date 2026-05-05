@@ -38,4 +38,10 @@ describe('endpoints.js', () => {
     expect(endpoints.SETTINGS.ME).toMatch(/\/settings\/me$/);
     expect(endpoints.SETTINGS.FACILITY('facility-1')).toMatch(/\/settings\/facilities\/facility-1$/);
   });
+
+  test('should have Tracking endpoint paths', () => {
+    expect(endpoints.TRACKING.LIST).toMatch(/\/tracking$/);
+    expect(endpoints.TRACKING.GET('adm-1')).toMatch(/\/tracking\/adm-1$/);
+    expect(endpoints.TRACKING.TIMELINE('adm-1')).toMatch(/\/tracking\/adm-1\/timeline$/);
+  });
 });

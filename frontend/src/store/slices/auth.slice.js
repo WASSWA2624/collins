@@ -4,7 +4,11 @@
  * File: auth.slice.js
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getActiveFacilityContext, getApprovedMemberships } from '@config/accessControl';
+import {
+  buildActiveFacilityFromMemberships,
+  getActiveFacilityContext,
+  getApprovedMemberships,
+} from '@config/accessControl';
 import {
   changePasswordUseCase,
   forgotPasswordUseCase,
@@ -57,6 +61,13 @@ const toRejectedAuthPayload = (error, fallbackMessage) => ({
 const getMemberships = (user) => getApprovedMemberships(user);
 
 const getActiveFacility = (user) => getActiveFacilityContext(user);
+
+const normalizeFacilityId = (payload) => {
+  const value = payload && typeof payload === 'object'
+    ? payload.facilityId || payload.id
+    : payload;
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+};
 
 const userRequiresActiveFacility = (user) => {
   if (!user) return false;
@@ -227,6 +238,34 @@ const authSlice = createSlice({
       state.hasRestoredSession = true;
       state.errorCode = normalizeErrorCode(action.payload) || 'SESSION_EXPIRED';
       state.sessionErrorCode = state.errorCode;
+    },
+    setActiveFacilityId: (state, action) => {
+      if (!state.user) {
+        state.activeFacility = null;
+        state.requiresActiveFacility = false;
+        state.lastUpdated = Date.now();
+        return;
+      }
+
+      const facilityId = normalizeFacilityId(action.payload);
+      const activeFacility = facilityId
+        ? buildActiveFacilityFromMemberships(state.user, facilityId)
+        : null;
+
+      if (facilityId && !activeFacility) {
+        state.errorCode = 'FACILITY_ACCESS_REQUIRED';
+        return;
+      }
+
+      const nextUser = {
+        ...state.user,
+        activeFacility,
+        activeFacilityId: activeFacility?.facilityId || null,
+      };
+
+      applyUserState(state, nextUser);
+      state.errorCode = null;
+      state.sessionErrorCode = null;
     },
   },
   extraReducers: (builder) => {
