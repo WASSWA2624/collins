@@ -1,6 +1,13 @@
 import { z } from 'zod';
 
-const reviewableEntityType = z.enum(['admission', 'abg-test', 'ventilator-setting', 'dataset-case', 'reference-rule']);
+const reviewableEntityType = z.enum([
+  'admission',
+  'abg-test',
+  'ventilator-setting',
+  'dataset-case',
+  'reference-rule',
+  'sync-conflict',
+]);
 
 export const reviewQueueSchema = z.object({
   body: z.object({}).optional(),

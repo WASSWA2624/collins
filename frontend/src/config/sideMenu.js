@@ -41,7 +41,6 @@ const MAIN_NAV_ITEMS = [
 const SETTINGS_ITEMS = [
   { id: 'settings-about', icon: 'person-outline', path: '/settings/about' },
   { id: 'settings-data-sources', icon: 'folder-outline', path: '/settings/data-sources' },
-  { id: 'settings-disclaimer', icon: 'shield-outline', path: '/settings/disclaimer' },
   { id: 'settings-help', icon: 'layers-outline', path: '/settings/help' },
   { id: 'settings-privacy', icon: 'lock-closed-outline', path: '/settings/privacy' },
 ];

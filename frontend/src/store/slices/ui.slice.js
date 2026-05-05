@@ -20,7 +20,9 @@ const initialState = {
     fullscreen: true,
   },
   footerVisible: true,
-  // Disclaimer acknowledgement (Phase 7 guard / 11.S.11)
+  // Onboarding state. Keep the legacy disclaimer flag for persisted clients during route migration.
+  onboardingCompleted: false,
+  clinicalSafetyAcknowledged: false,
   disclaimerAcknowledged: false,
   // Minimal auth state for Phase 0-7 (guards need this)
   isAuthenticated: false,
@@ -82,7 +84,25 @@ const uiSlice = createSlice({
       state.footerVisible = !state.footerVisible;
     },
     setDisclaimerAcknowledged: (state, action) => {
-      state.disclaimerAcknowledged = Boolean(action.payload);
+      const acknowledged = Boolean(action.payload);
+      state.disclaimerAcknowledged = acknowledged;
+      state.clinicalSafetyAcknowledged = acknowledged;
+      if (acknowledged) {
+        state.onboardingCompleted = true;
+      }
+    },
+    setClinicalSafetyAcknowledged: (state, action) => {
+      const acknowledged = Boolean(action.payload);
+      state.clinicalSafetyAcknowledged = acknowledged;
+      state.disclaimerAcknowledged = acknowledged;
+    },
+    setOnboardingCompleted: (state, action) => {
+      state.onboardingCompleted = Boolean(action.payload);
+    },
+    completeOnboarding: (state) => {
+      state.onboardingCompleted = true;
+      state.clinicalSafetyAcknowledged = true;
+      state.disclaimerAcknowledged = true;
     },
     // Minimal auth reducers for Phase 0-7 (guards need this)
     setAuthenticated: (state, action) => {

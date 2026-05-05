@@ -94,6 +94,7 @@ const patientPayload = z.object({
   heightOrLengthCm: nullableOptional(z.coerce.number().min(20).max(260)),
   referenceWeightKg: nullableOptional(z.coerce.number().min(0.2).max(400)),
   referenceWeightMethod: optionalString(120),
+  pathwayDetailsJson: jsonObject.nullable().optional(),
 });
 
 const clinicalSnapshotBody = z.object({

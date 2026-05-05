@@ -1,15 +1,17 @@
 import { prisma } from '../../config/prisma.js';
-import { DATASET_EXPORT_ROLES, REVIEW_ROLES, assertFacilityRole, resolveFacilityScope } from '../../utils/authorization.js';
+import { DATASET_EXPORT_ROLES, REVIEW_ROLES, WRITE_ROLES, assertFacilityRole, resolveFacilityScope } from '../../utils/authorization.js';
 import { badRequest, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
 import { deidentifyPayload, buildDatasetPayloadFromAdmission, findIdentifierPaths } from '../../utils/deidentify.js';
 import { writeAudit } from '../../utils/audit.js';
 import { sha256 } from '../../utils/crypto.js';
+import { resolveIdempotency, storeIdempotencyResult } from '../../utils/idempotency.js';
 import {
   UNSAFE_DATASET_SOURCE_TYPE_MESSAGE,
   UNSAFE_DATASET_SOURCE_TYPE_PATTERN,
 } from './dataset.constants.js';
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
+const DATASET_CAPTURE_OPERATION = 'dataset.capture.create';
 
 export const REQUIRED_TRAINING_GOVERNANCE_KEYS = Object.freeze([
   'facilityApproval',
@@ -85,7 +87,7 @@ const filterReviewedAdmissionRecords = (admission) => ({
 export const buildReviewedAdmissionDatasetPayload = (admission) => buildDatasetPayloadFromAdmission(filterReviewedAdmissionRecords(admission));
 
 export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContext = {}) => {
-  await assertFacilityRole(userId, facilityId, REVIEW_ROLES);
+  await assertFacilityRole(userId, facilityId, WRITE_ROLES);
   const text = noteText.replace(/\s+/g, ' ');
 
   const preview = {
@@ -170,10 +172,24 @@ const buildDatasetPayload = async ({ facilityId, sourceAdmissionId, sourceType, 
 };
 
 export const createDatasetImport = async (payload, userId, auditContext = {}) => {
-  await assertFacilityRole(userId, payload.facilityId, REVIEW_ROLES);
+  await assertFacilityRole(userId, payload.facilityId, WRITE_ROLES);
   const deidentifiedPayloadJson = await buildDatasetPayload(payload);
 
   return prisma.$transaction(async (tx) => {
+    const idem = await resolveIdempotency({
+      tx,
+      userId,
+      facilityId: payload.facilityId,
+      key: payload.idempotencyKey,
+      operation: DATASET_CAPTURE_OPERATION,
+      payload,
+    });
+
+    if (!idem.shouldRun) {
+      const datasetCase = idem.responseJson?.datasetCase || idem.responseJson;
+      return datasetCase ? { ...datasetCase, syncStatus: 'duplicate' } : idem.responseJson;
+    }
+
     const datasetCase = await tx.datasetCase.create({
       data: {
         facilityId: payload.facilityId,
@@ -199,7 +215,26 @@ export const createDatasetImport = async (payload, userId, auditContext = {}) =>
       entityId: datasetCase.id,
       afterJson: datasetCase,
     });
-    return datasetCase;
+
+    const responseJson = toJson({
+      datasetCase,
+      syncStatus: payload.idempotencyKey ? 'synced' : undefined,
+    });
+
+    await storeIdempotencyResult({
+      tx,
+      userId,
+      facilityId: payload.facilityId,
+      key: payload.idempotencyKey,
+      operation: DATASET_CAPTURE_OPERATION,
+      requestHash: idem.requestHash,
+      responseJson,
+      entityType: 'DatasetCase',
+      entityId: datasetCase.id,
+      clientRecordId: payload.clientRecordId,
+    });
+
+    return payload.idempotencyKey ? { ...datasetCase, syncStatus: 'synced' } : datasetCase;
   });
 };
 
@@ -377,6 +412,25 @@ export const listApprovedDatasets = async (userId, { facilityId, datasetVersion,
     total,
     page,
     limit,
+  };
+};
+
+export const getDatasetCaseCard = async (id, userId) => {
+  const datasetCase = await prisma.datasetCase.findUnique({ where: { id }, select: datasetSelect });
+  if (!datasetCase) throw notFound('Dataset case not found');
+  await assertFacilityRole(userId, datasetCase.facilityId, DATASET_EXPORT_ROLES);
+  assertDatasetSourceTypeAllowed(datasetCase.sourceType);
+
+  return {
+    datasetCard: buildDatasetCard(datasetCase),
+    exportEligible: (() => {
+      try {
+        assertDatasetCaseExportEligible(datasetCase);
+        return true;
+      } catch {
+        return false;
+      }
+    })(),
   };
 };
 

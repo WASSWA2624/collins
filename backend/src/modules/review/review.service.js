@@ -9,7 +9,7 @@ import { badRequest, notFound, reviewerRequired } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { deidentifyPayload } from '../../utils/deidentify.js';
 import { stripUndefined } from '../../utils/object.js';
-import { buildClinicalSummary } from '../admissions/admissions.service.js';
+import { buildAdmissionReadiness, buildClinicalSummary } from '../admissions/admissions.service.js';
 
 const latestMeasured = { orderBy: { measuredAt: 'desc' }, take: 1 };
 
@@ -86,6 +86,18 @@ const entityConfig = {
     excludeStatus: 'REJECTED',
     globalRequiresPlatform: true,
   },
+  'sync-conflict': {
+    model: 'syncEvent',
+    entityType: 'SyncEvent',
+    include: { facility: true },
+    facilityId: (record) => record.facilityId,
+    statusField: 'status',
+    pendingStatuses: ['CONFLICT', 'FAILED_VALIDATION', 'NEEDS_REVIEW', 'FAILED'],
+    approveStatus: 'REVIEWED',
+    correctionStatus: 'NEEDS_REVIEW',
+    excludeStatus: 'FAILED',
+    globalRequiresPlatform: true,
+  },
 };
 
 const getConfig = (entityType) => {
@@ -137,6 +149,13 @@ const getMissingData = (entityType, record) => {
     if (record.upperBound === null || record.upperBound === undefined) missing.push('upperBound');
     return missing;
   }
+  if (entityType === 'sync-conflict') {
+    const missing = [];
+    if (!record.conflictPayloadJson && record.status === 'CONFLICT') missing.push('conflictPayloadJson');
+    if (!record.requestPayloadJson) missing.push('requestPayloadJson');
+    if (!record.clientUpdatedAt) missing.push('clientUpdatedAt');
+    return missing;
+  }
   return [];
 };
 
@@ -154,6 +173,14 @@ const getReviewPriority = ({ record, latestAction }) => {
 
 const sanitizeReviewItem = (entityType, record) => {
   if (['dataset-case', 'reference-rule'].includes(entityType)) return record;
+  if (entityType === 'sync-conflict') {
+    return {
+      ...record,
+      requestPayloadJson: deidentifyPayload(record.requestPayloadJson),
+      responsePayloadJson: deidentifyPayload(record.responsePayloadJson),
+      conflictPayloadJson: deidentifyPayload(record.conflictPayloadJson),
+    };
+  }
   if (entityType === 'admission') {
     return {
       ...record,
@@ -166,22 +193,42 @@ const sanitizeReviewItem = (entityType, record) => {
   };
 };
 
-const buildReviewMetadata = ({ entityType, record, latestAction }) => ({
-  priority: getReviewPriority({ record, latestAction }),
-  validationStatus: latestAction?.validationStatus || record.validationStatus || null,
-  missingData: getMissingData(entityType, record),
-  needsOverrideReason: recordRequiresReviewerOverride(record),
-  returnedToClinician: latestAction?.returnedToClinician || ['CORRECTION_REQUESTED', 'NEEDS_CORRECTION'].includes(record.reviewStatus || record.verificationStatus),
-  latestComment: latestAction?.comment || null,
-  latestOverrideReason: latestAction?.overrideReason || null,
-  latestReviewedAt: latestAction?.createdAt || null,
-});
+const buildReviewMetadata = ({ entityType, record, latestAction }) => {
+  const readiness = entityType === 'admission' ? buildAdmissionReadiness(record) : null;
+  const syncConflict = entityType === 'sync-conflict'
+    ? {
+        status: record.status,
+        operation: record.operation,
+        conflictType: record.conflictPayloadJson?.conflictType || null,
+        preserveReviewedData: record.conflictPayloadJson?.preserveReviewedData === true,
+        resolution: record.conflictPayloadJson?.resolution || null,
+        errorMessage: record.errorMessage || null,
+        resolvedAt: record.resolvedAt || null,
+      }
+    : null;
+
+  return stripUndefined({
+    priority: getReviewPriority({ record, latestAction }),
+    validationStatus: latestAction?.validationStatus || record.validationStatus || null,
+    missingData: getMissingData(entityType, record),
+    permittedMissingFields: readiness?.permittedMissingFields || undefined,
+    uncertainty: readiness?.uncertainty || undefined,
+    warnings: readiness?.warnings || undefined,
+    syncConflict,
+    needsOverrideReason: recordRequiresReviewerOverride(record),
+    returnedToClinician: latestAction?.returnedToClinician || ['CORRECTION_REQUESTED', 'NEEDS_CORRECTION'].includes(record.reviewStatus || record.verificationStatus),
+    latestComment: latestAction?.comment || null,
+    latestOverrideReason: latestAction?.overrideReason || null,
+    latestReviewedAt: latestAction?.createdAt || null,
+  });
+};
 
 const buildFacilityWhere = (type, scopedFacilityId) => {
   if (!scopedFacilityId) return {};
   if (type === 'admission' || type === 'dataset-case' || type === 'reference-rule') {
     return { facilityId: scopedFacilityId };
   }
+  if (type === 'sync-conflict') return { facilityId: scopedFacilityId };
   return { admission: { facilityId: scopedFacilityId } };
 };
 
@@ -321,6 +368,10 @@ const buildReviewUpdateData = ({ entityType, config, action, payload, userId, st
       data.approvedByUserId = null;
       data.governanceStatus = 'rejected';
     }
+  }
+
+  if (entityType === 'sync-conflict' && action !== 'triage') {
+    data.resolvedAt = new Date();
   }
 
   return stripUndefined(data);

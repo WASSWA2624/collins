@@ -1,10 +1,10 @@
 /**
- * Onboarding Route — redirects to merged Training screen.
- * (main)/onboarding → /training (Training includes Getting started).
+ * Onboarding Route
+ * In-flow first-run clinical safety and facility workflow guide.
  */
 import React from 'react';
-import { Redirect } from 'expo-router';
+import { OnboardingScreen } from '@platform/screens';
 
 export default function OnboardingRoute() {
-  return <Redirect href="/training" />;
+  return <OnboardingScreen />;
 }

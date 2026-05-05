@@ -75,7 +75,7 @@ export const createReferenceSchema = z.object({
     name: z.string().trim().min(2).max(160),
     version: z.string().trim().min(1).max(80),
     clinicalCondition: z.string().trim().min(2).max(160),
-    scenario: z.string().trim().min(2).max(160).optional(),
+    scenario: z.string().trim().min(2).max(160),
     patientPathway,
     population: z.string().trim().min(2).max(120),
     scope: z.enum(['GLOBAL', 'FACILITY']).default('GLOBAL'),

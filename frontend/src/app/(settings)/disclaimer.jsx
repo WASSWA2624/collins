@@ -1,11 +1,10 @@
 /**
- * Disclaimer Route
- * Route: (settings)/disclaimer
- * File: disclaimer.jsx
+ * Legacy Disclaimer Route
+ * Migrates old links to in-flow onboarding safety wording.
  */
 import React from 'react';
-import { DisclaimerScreen } from '@platform/screens';
+import { Redirect } from 'expo-router';
 
 export default function DisclaimerRoute() {
-  return <DisclaimerScreen />;
+  return <Redirect href="/onboarding" />;
 }

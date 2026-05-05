@@ -4,18 +4,29 @@ import { prisma } from '../../config/prisma.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { requireAuth } from '../../middleware/auth.middleware.js';
 import { MODEL_GOVERNANCE_ROLES, assertAnyApprovedRole } from '../../utils/authorization.js';
-import { getReferencePolicy, listActiveReferenceRules } from './references.service.js';
+import {
+  getReferencePolicy,
+  listActiveReferenceRangeRecords,
+  listActiveReferenceRules,
+} from './references.service.js';
 
 export const referencesRouter = Router();
 
 referencesRouter.get('/references/active', asyncHandler(async (_req, res) => {
   const rules = await listActiveReferenceRules();
+  const rangeRecords = await listActiveReferenceRangeRecords();
   const referencePolicy = getReferencePolicy();
 
   return successResponse(res, {
     message: 'Active reference rules loaded',
     data: {
       rules,
+      rangeRecords,
+      rangeDatasetStatus: {
+        status: rangeRecords.length > 0 ? 'backend_verified' : 'missing_verified_records',
+        verifiedOnly: true,
+        count: rangeRecords.length,
+      },
       referencePolicy,
       safetyStatement: referencePolicy.safetyStatement,
     },

@@ -6,6 +6,13 @@ import {
 
 const jsonObject = z.record(z.string(), z.unknown());
 const idParam = z.object({ id: z.string().min(1) });
+const offlineMetadataSchema = {
+  idempotencyKey: z.string().trim().min(8).max(160).optional(),
+  clientRecordId: z.string().trim().max(120).optional(),
+  clientCreatedAt: z.coerce.date().optional(),
+  clientUpdatedAt: z.coerce.date().optional(),
+  deviceId: z.string().trim().max(120).optional(),
+};
 const safeSourceType = z.string()
   .trim()
   .min(2)
@@ -30,6 +37,7 @@ export const createDatasetImportSchema = z.object({
     sourceType: safeSourceType.default('structured_import'),
     structuredPreviewJson: jsonObject,
     governanceJson: jsonObject.optional(),
+    ...offlineMetadataSchema,
   }),
   params: z.object({}).optional(),
   query: z.object({}).optional(),

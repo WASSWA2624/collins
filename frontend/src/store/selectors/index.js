@@ -20,10 +20,22 @@ const selectIsHeaderHidden = createSelector([selectUI], (ui) => ui?.isHeaderHidd
 const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.headerActionVisibility ?? {});
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
 const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
-// P013: redirect to disclaimer when rehydrated and not yet acknowledged (first-run guard)
+const selectClinicalSafetyAcknowledged = createSelector(
+  [selectUI],
+  (ui) => ui?.clinicalSafetyAcknowledged ?? ui?.disclaimerAcknowledged ?? false
+);
+const selectOnboardingCompleted = createSelector(
+  [selectUI],
+  (ui) => ui?.onboardingCompleted ?? ui?.disclaimerAcknowledged ?? false
+);
+// Phase 02: redirect first-run users into onboarding instead of a standalone disclaimer.
+const selectOnboardingGuardRedirect = createSelector(
+  [(state) => state?._persist?.rehydrated, selectOnboardingCompleted],
+  (rehydrated, completed) => (rehydrated && !completed ? '/onboarding' : null)
+);
 const selectDisclaimerGuardRedirect = createSelector(
   [(state) => state?._persist?.rehydrated, selectDisclaimerAcknowledged],
-  (rehydrated, acknowledged) => (rehydrated && !acknowledged ? '/disclaimer' : null)
+  (rehydrated, acknowledged) => (rehydrated && !acknowledged ? '/onboarding' : null)
 );
 const selectAiDecisionSupportEnabled = createSelector([selectUI], (ui) => ui?.aiDecisionSupportEnabled ?? false);
 const selectAiProviderId = createSelector([selectUI], (ui) => ui?.aiProviderId ?? 'openai');
@@ -95,6 +107,9 @@ export {
   selectHeaderActionVisibility,
   selectFooterVisible,
   selectDisclaimerAcknowledged,
+  selectClinicalSafetyAcknowledged,
+  selectOnboardingCompleted,
+  selectOnboardingGuardRedirect,
   selectDisclaimerGuardRedirect,
   selectAiDecisionSupportEnabled,
   selectAiProviderId,
@@ -137,6 +152,9 @@ export default {
   selectHeaderActionVisibility,
   selectFooterVisible,
   selectDisclaimerAcknowledged,
+  selectClinicalSafetyAcknowledged,
+  selectOnboardingCompleted,
+  selectOnboardingGuardRedirect,
   selectDisclaimerGuardRedirect,
   selectAiDecisionSupportEnabled,
   selectAiProviderId,

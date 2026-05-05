@@ -7,7 +7,9 @@
  */
 
 export * from './auth';
+export * from './home';
 export * from './ventilation';
 export * from './training';
 export * from './onboarding';
 export * from './help';
+export * from './tracking';

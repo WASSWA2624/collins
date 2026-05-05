@@ -1,88 +1,112 @@
 /**
  * useHistoryScreen
- * Shared logic for History screen.
+ * Shared logic for Tracking screen.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useVentilationSession from '@hooks/useVentilationSession';
+import {
+  getTrackingAdmissionUseCase,
+  listTrackingAdmissionsUseCase,
+} from '@features/tracking';
 
-const CONFIDENCE_TIER_KEYS = { high: 'high', medium: 'medium', low: 'low' };
-
-function formatSessionRow(entry) {
-  const dateTime =
-    typeof entry?.updatedAt === 'number' && Number.isFinite(entry.updatedAt)
-      ? new Date(entry.updatedAt).toLocaleString(undefined, {
-          dateStyle: 'short',
-          timeStyle: 'short',
-        })
-      : '';
-  const condition =
-    typeof entry?.inputs?.condition === 'string'
-      ? entry.inputs.condition.trim()
-      : entry?.inputs?.patientProfile?.condition ?? '';
-  const tier =
-    entry?.recommendationSummary?.source?.confidenceTier ?? 'low';
-  const tierKey = CONFIDENCE_TIER_KEYS[tier] ?? 'low';
-  return { dateTime, condition, tierKey };
-}
+const normalizeErrorCode = (error, fallback = 'TRACKING_LOAD_FAILED') => {
+  if (typeof error === 'string' && error.trim()) return error.trim();
+  if (typeof error?.code === 'string' && error.code.trim()) return error.code.trim();
+  if (typeof error?.errorCode === 'string' && error.errorCode.trim()) return error.errorCode.trim();
+  return fallback;
+};
 
 export default function useHistoryScreen() {
   const {
-    sessionHistory,
-    historyErrorCode,
-    isHistoryLoading,
-    loadHistory,
-    deleteFromHistory,
-    loadHistoryEntryIntoSession,
+    sessionId,
+    inputs,
+    recommendationSummary,
+    assessmentCurrentStep,
+    monitoringTimeSeries,
   } = useVentilationSession();
 
-  const [sessionIdToDelete, setSessionIdToDelete] = useState(null);
+  const [rows, setRows] = useState([]);
+  const [trackingErrorCode, setTrackingErrorCode] = useState(null);
+  const [isTrackingLoading, setIsTrackingLoading] = useState(false);
+  const [selectedAdmissionId, setSelectedAdmissionId] = useState(null);
+  const [selectedTracking, setSelectedTracking] = useState(null);
+  const [detailErrorCode, setDetailErrorCode] = useState(null);
+  const [isDetailLoading, setIsDetailLoading] = useState(false);
+
+  const loadTracking = useCallback(async () => {
+    setIsTrackingLoading(true);
+    setTrackingErrorCode(null);
+    try {
+      const result = await listTrackingAdmissionsUseCase({ status: 'ACTIVE' });
+      setRows(result?.items ?? []);
+    } catch (error) {
+      setRows([]);
+      setTrackingErrorCode(normalizeErrorCode(error));
+    } finally {
+      setIsTrackingLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    loadHistory();
-  }, [loadHistory]);
+    loadTracking();
+  }, [loadTracking]);
 
-  const handleResume = useCallback(
-    (entry) => {
-      loadHistoryEntryIntoSession(entry);
-    },
-    [loadHistoryEntryIntoSession]
-  );
-
-  const handleDeleteRequest = useCallback((sessionId) => {
-    setSessionIdToDelete(sessionId);
-  }, []);
-
-  const handleDeleteConfirm = useCallback(() => {
-    if (sessionIdToDelete) {
-      deleteFromHistory(sessionIdToDelete);
-      setSessionIdToDelete(null);
+  const handleViewDetails = useCallback(async (row) => {
+    const admissionId = row?.admissionId || row?.id;
+    if (!admissionId) return;
+    setSelectedAdmissionId(admissionId);
+    setSelectedTracking(null);
+    setDetailErrorCode(null);
+    setIsDetailLoading(true);
+    try {
+      const tracking = await getTrackingAdmissionUseCase(admissionId);
+      setSelectedTracking(tracking);
+    } catch (error) {
+      setDetailErrorCode(normalizeErrorCode(error, 'TRACKING_DETAIL_LOAD_FAILED'));
+    } finally {
+      setIsDetailLoading(false);
     }
-  }, [sessionIdToDelete, deleteFromHistory]);
-
-  const handleDeleteCancel = useCallback(() => {
-    setSessionIdToDelete(null);
   }, []);
 
-  const list = Array.isArray(sessionHistory) ? sessionHistory : [];
-  const isEmpty = list.length === 0;
-  const isCorrupt = historyErrorCode === 'VENTILATION_SESSION_HISTORY_CORRUPT';
+  const handleCloseDetails = useCallback(() => {
+    setSelectedAdmissionId(null);
+    setSelectedTracking(null);
+    setDetailErrorCode(null);
+  }, []);
 
-  const rows = useMemo(
-    () => list.map((entry) => ({ entry, ...formatSessionRow(entry) })),
-    [list]
-  );
+  const localDraft = useMemo(() => {
+    if (!sessionId || (!inputs && !recommendationSummary)) return null;
+    return {
+      sessionId,
+      hasInputs: Boolean(inputs),
+      hasRecommendation: Boolean(recommendationSummary),
+      hasMonitoring: Array.isArray(monitoringTimeSeries) && monitoringTimeSeries.length > 0,
+      assessmentCurrentStep: typeof assessmentCurrentStep === 'number' ? assessmentCurrentStep : 0,
+    };
+  }, [assessmentCurrentStep, inputs, monitoringTimeSeries, recommendationSummary, sessionId]);
+
+  const activeFacility = rows[0]
+    ? {
+        id: rows[0].facilityId,
+        name: rows[0].facilityName,
+      }
+    : null;
 
   return {
-    list,
+    list: rows,
     rows,
-    isEmpty,
-    isHistoryLoading,
-    historyErrorCode,
-    isCorrupt,
-    sessionIdToDelete,
-    handleResume,
-    handleDeleteRequest,
-    handleDeleteConfirm,
-    handleDeleteCancel,
+    activeFacility,
+    isEmpty: rows.length === 0,
+    isHistoryLoading: isTrackingLoading,
+    historyErrorCode: trackingErrorCode,
+    isCorrupt: false,
+    localDraft,
+    selectedAdmissionId,
+    selectedTracking,
+    isDetailLoading,
+    detailErrorCode,
+    handleRefresh: loadTracking,
+    handleViewDetails,
+    handleCloseDetails,
   };
 }

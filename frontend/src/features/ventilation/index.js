@@ -6,4 +6,5 @@ export * from './ventilation.rules';
 export * from './ventilation.model';
 export * from './ventilation.monitoring.model';
 export * from './ventilation.api';
+export * from './admission.api';
 export * from './ventilation.usecase';

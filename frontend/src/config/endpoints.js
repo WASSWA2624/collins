@@ -11,6 +11,10 @@ const baseUrl = `${normalizeBaseUrl(API_BASE_URL)}/api/${API_VERSION}`;
 export const endpoints = {
   HEALTH: `${baseUrl}/health`,
 
+  HOME: {
+    SUMMARY: `${baseUrl}/home/summary`,
+  },
+
   AUTH: {
     CSRF_TOKEN: `${baseUrl}/auth/csrf-token`,
     IDENTIFY: `${baseUrl}/auth/identify`,
@@ -51,6 +55,10 @@ export const endpoints = {
     CREATE: `${baseUrl}/admissions`,
     GET: (id) => `${baseUrl}/admissions/${id}`,
     UPDATE: (id) => `${baseUrl}/admissions/${id}`,
+    THREE_STEP_PATIENT_REASON: `${baseUrl}/admissions/three-step/patient-reason`,
+    THREE_STEP_OXYGEN_ABG_VENTILATOR: (id) =>
+      `${baseUrl}/admissions/${id}/three-step/oxygen-abg-ventilator`,
+    THREE_STEP_SAVE_REVIEW: (id) => `${baseUrl}/admissions/${id}/three-step/save-review`,
     CLINICAL_SNAPSHOTS: (id) => `${baseUrl}/admissions/${id}/clinical-snapshots`,
     ABG_TESTS: (id) => `${baseUrl}/admissions/${id}/abg-tests`,
     VENTILATOR_SETTINGS: (id) => `${baseUrl}/admissions/${id}/ventilator-settings`,
@@ -60,12 +68,24 @@ export const endpoints = {
     OUTCOME: (id) => `${baseUrl}/admissions/${id}/outcome`,
   },
 
+  TRACKING: {
+    LIST: `${baseUrl}/tracking`,
+    GET: (id) => `${baseUrl}/tracking/${id}`,
+    TIMELINE: (id) => `${baseUrl}/tracking/${id}/timeline`,
+  },
+
   REVIEW: {
     QUEUE: `${baseUrl}/review/queue`,
     APPROVE: (entityType, entityId) => `${baseUrl}/review/${entityType}/${entityId}/approve`,
     REQUEST_CORRECTION: (entityType, entityId) =>
       `${baseUrl}/review/${entityType}/${entityId}/request-correction`,
     EXCLUDE: (entityType, entityId) => `${baseUrl}/review/${entityType}/${entityId}/exclude`,
+  },
+
+  TRACKING: {
+    LIST: `${baseUrl}/tracking`,
+    GET: (id) => `${baseUrl}/tracking/${id}`,
+    TIMELINE: (id) => `${baseUrl}/tracking/${id}/timeline`,
   },
 
   DATASET_IMPORTS: {
@@ -84,6 +104,11 @@ export const endpoints = {
     ACTIVE: `${baseUrl}/references/active`,
   },
 
+  SETTINGS: {
+    ME: `${baseUrl}/settings/me`,
+    FACILITY: (id) => `${baseUrl}/settings/facilities/${id}`,
+  },
+
   MODELS: {
     VERSIONS: `${baseUrl}/models/versions`,
   },
@@ -98,5 +123,10 @@ export const endpoints = {
     CREATE_REFERENCE: `${baseUrl}/admin/references`,
     ACTIVATE_MODEL_SHADOW_MODE: (id) => `${baseUrl}/admin/models/${id}/activate-shadow-mode`,
     RETIRE_MODEL: (id) => `${baseUrl}/admin/models/${id}/retire`,
+  },
+
+  DASHBOARDS: {
+    CLINICAL: `${baseUrl}/dashboards/clinical`,
+    GOVERNANCE: `${baseUrl}/dashboards/governance`,
   },
 };

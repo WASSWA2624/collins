@@ -4,6 +4,7 @@ import { buildAuditContext } from '../../utils/audit.js';
 import {
   createDatasetImport,
   exportDatasetCase,
+  getDatasetCaseCard,
   listApprovedDatasets,
   listPendingDatasetImports,
   parseIcuNote,
@@ -60,6 +61,14 @@ export const approvedDatasets = asyncHandler(async (req, res) => {
       limit: result.limit,
       hasNextPage: (result.page * result.limit) < result.total,
     },
+  });
+});
+
+export const datasetCard = asyncHandler(async (req, res) => {
+  const data = await getDatasetCaseCard(req.validated.params.id, req.user?.sub);
+  return successResponse(res, {
+    message: 'Dataset governance card loaded',
+    data,
   });
 });
 

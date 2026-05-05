@@ -13,6 +13,7 @@ const syncItem = z.object({
     'create_humidification',
     'create_daily_review',
     'create_outcome',
+    'create_dataset_import',
   ]),
   facilityId: z.string().min(1).optional(),
   admissionId: z.string().min(1).optional(),

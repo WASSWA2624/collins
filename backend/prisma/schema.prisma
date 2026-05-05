@@ -311,6 +311,7 @@ model Patient {
   heightOrLengthCm       Float?
   referenceWeightKg      Float?
   referenceWeightMethod  String?
+  pathwayDetailsJson     Json?
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
 

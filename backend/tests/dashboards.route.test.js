@@ -44,3 +44,11 @@ test('governance dashboard route is registered and requires authentication', asy
   assert.equal(body.success, false);
   assert.equal(body.message, 'Authentication required');
 });
+
+test('operational dashboard route is registered and requires authentication', async () => {
+  const { status, body } = await getJson('/api/v1/dashboards/operational');
+
+  assert.equal(status, 401);
+  assert.equal(body.success, false);
+  assert.equal(body.message, 'Authentication required');
+});

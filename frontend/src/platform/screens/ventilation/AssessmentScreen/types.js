@@ -4,37 +4,46 @@
  */
 
 const STEPS = Object.freeze({
-  PATIENT_PROFILE: 0,
-  CLINICAL_PARAMS: 1,
-  OBSERVATIONS: 2,
-  TIME_SERIES: 3,
-  REVIEW: 4,
+  PATIENT_REASON: 0,
+  OXYGEN_ABG_VENTILATOR: 1,
+  SAVE_REVIEW: 2,
 });
 
 const STEP_KEYS = Object.freeze([
-  'patientProfile',
-  'clinicalParams',
-  'observations',
-  'timeSeries',
-  'review',
+  'patientReason',
+  'oxygenAbgVentilator',
+  'saveReview',
 ]);
 
-/** Option value + i18n label key (resolve with t('ventilation.assessment.conditions.' + labelKey) or patientProfile.' + labelKey) */
-const CONDITION_OPTIONS = Object.freeze([
-  { value: 'ARDS', labelKey: 'ARDS' },
-  { value: 'asthma', labelKey: 'asthma' },
-  { value: 'COPD', labelKey: 'COPD' },
-  { value: 'heart failure', labelKey: 'heartFailure' },
-  { value: 'pneumonia', labelKey: 'pneumonia' },
-  { value: 'sepsis', labelKey: 'sepsis' },
-  { value: 'trauma', labelKey: 'trauma' },
-  { value: 'other', labelKey: 'other' },
+const PATIENT_PATHWAY_OPTIONS = Object.freeze([
+  { value: 'NEONATE', labelKey: 'neonate' },
+  { value: 'INFANT', labelKey: 'infant' },
+  { value: 'CHILD', labelKey: 'child' },
+  { value: 'ADOLESCENT', labelKey: 'adolescent' },
+  { value: 'ADULT', labelKey: 'adult' },
+  { value: 'OBSTETRIC', labelKey: 'obstetric' },
+  { value: 'BURNS', labelKey: 'burns' },
+  { value: 'TRAUMA', labelKey: 'trauma' },
+  { value: 'PERI_OPERATIVE', labelKey: 'periOperative' },
+  { value: 'MEDICAL', labelKey: 'medical' },
+  { value: 'SURGICAL', labelKey: 'surgical' },
+  { value: 'UNKNOWN', labelKey: 'unknown' },
+  { value: 'OTHER', labelKey: 'other' },
 ]);
 
-const GENDER_OPTIONS = Object.freeze([
-  { value: 'male', labelKey: 'genderMale' },
-  { value: 'female', labelKey: 'genderFemale' },
-  { value: 'other', labelKey: 'genderOther' },
+const SEX_OPTIONS = Object.freeze([
+  { value: 'MALE', labelKey: 'male' },
+  { value: 'FEMALE', labelKey: 'female' },
+  { value: 'UNKNOWN', labelKey: 'unknown' },
+]);
+
+const PERMITTED_MISSING_FIELD_OPTIONS = Object.freeze([
+  { value: 'actualWeightKg/referenceWeightKg', labelKey: 'weight' },
+  { value: 'SpO2', labelKey: 'spo2' },
+  { value: 'FiO2', labelKey: 'fio2' },
+  { value: 'PaO2', labelKey: 'pao2' },
+  { value: 'tidalVolumeMl', labelKey: 'tidalVolume' },
+  { value: 'PEEP', labelKey: 'peep' },
 ]);
 
 const ASSESSMENT_TEST_IDS = Object.freeze({
@@ -47,6 +56,15 @@ const ASSESSMENT_TEST_IDS = Object.freeze({
   nextButton: 'assessment-next',
   generateButton: 'assessment-generate',
   missingTests: 'assessment-missing-tests',
+  readiness: 'assessment-readiness',
+  syncStatus: 'assessment-sync-status',
 });
 
-export { STEPS, STEP_KEYS, CONDITION_OPTIONS, GENDER_OPTIONS, ASSESSMENT_TEST_IDS };
+export {
+  STEPS,
+  STEP_KEYS,
+  PATIENT_PATHWAY_OPTIONS,
+  SEX_OPTIONS,
+  PERMITTED_MISSING_FIELD_OPTIONS,
+  ASSESSMENT_TEST_IDS,
+};

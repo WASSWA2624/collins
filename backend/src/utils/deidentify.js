@@ -99,6 +99,7 @@ export const buildDatasetPayloadFromAdmission = (admission) => deidentifyPayload
     heightOrLengthCm: admission.patient?.heightOrLengthCm,
     referenceWeightKg: admission.patient?.referenceWeightKg,
     referenceWeightMethod: admission.patient?.referenceWeightMethod,
+    pathwayDetailsJson: admission.patient?.pathwayDetailsJson,
   },
   clinicalSnapshots: admission.clinicalSnapshots,
   abgTests: admission.abgTests,

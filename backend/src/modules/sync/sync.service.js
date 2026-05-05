@@ -14,6 +14,7 @@ import {
   saveAdmissionOxygenAbgVentilatorStep,
   saveAdmissionReviewStep,
 } from '../admissions/admissions.service.js';
+import { createDatasetImport } from '../dataset/dataset.service.js';
 import { toPublicSyncStatus } from '../../utils/syncStatus.js';
 
 const serializeError = (error) => ({
@@ -47,6 +48,8 @@ const getResultEntityId = (result, fallbackAdmissionId = null) => result.admissi
   || result.humidificationDecision?.id
   || result.dailyVentilationReview?.id
   || result.outcome?.id
+  || result.datasetCase?.id
+  || result.id
   || fallbackAdmissionId
   || null;
 
@@ -85,6 +88,8 @@ const runOperation = async (item, userId, req) => {
       return addDailyReview(userId, item.admissionId, payload, auditContext);
     case 'create_outcome':
       return addOutcome(userId, item.admissionId, payload, auditContext);
+    case 'create_dataset_import':
+      return createDatasetImport(payload, userId, auditContext);
     default:
       throw new Error('Unsupported sync operation');
   }

@@ -5,4 +5,10 @@
  */
 export { default } from './AssessmentScreen';
 export { default as useAssessmentScreen } from './useAssessmentScreen';
-export { STEPS, ASSESSMENT_TEST_IDS, CONDITION_OPTIONS, GENDER_OPTIONS } from './types';
+export {
+  STEPS,
+  ASSESSMENT_TEST_IDS,
+  PATIENT_PATHWAY_OPTIONS,
+  SEX_OPTIONS,
+  PERMITTED_MISSING_FIELD_OPTIONS,
+} from './types';

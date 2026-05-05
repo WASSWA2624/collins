@@ -34,6 +34,46 @@ const execute = async (work) => {
 /** Unwrap backend success body: { status, message, data, meta } -> data */
 const unwrap = (res) => res?.data?.data ?? res?.data;
 
+const SESSION_CLEAR_CODES = new Set([
+  'UNAUTHORIZED',
+  'TOKEN_EXPIRED',
+  'TOKEN_INVALID',
+  'REFRESH_TOKEN_INVALID',
+  'SESSION_NOT_FOUND',
+]);
+
+const shouldClearStoredSession = (error) => SESSION_CLEAR_CODES.has(error?.code);
+
+const clearStoredSession = async () => {
+  await tokenManager.clearTokens();
+  clearCsrfToken();
+};
+
+const normalizeSessionError = (error) => handleError(error);
+
+const refreshStoredTokens = async (payload = {}) => {
+  const refreshToken = await tokenManager.getRefreshToken();
+  if (!refreshToken) {
+    throw {
+      status: 401,
+      message: 'Authentication required',
+    };
+  }
+
+  const response = await refreshApi({
+    ...payload,
+    refreshToken,
+  });
+  const data = unwrap(response);
+  const { tokens } = normalizeAuthResponse(data);
+
+  if (tokens?.accessToken && tokens?.refreshToken) {
+    await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
+  }
+
+  return { data, tokens };
+};
+
 const identifyUseCase = async (payload) =>
   execute(async () => {
     const { identifier } = payload;
@@ -103,23 +143,19 @@ const registerUseCase = async (payload) =>
 const logoutUseCase = async () =>
   execute(async () => {
     try {
-      await logoutApi();
-      return true;
+      const refreshToken = await tokenManager.getRefreshToken();
+      await logoutApi(refreshToken ? { refreshToken } : undefined);
+    } catch {
+      // Local logout must still succeed when the network is unavailable.
     } finally {
-      await tokenManager.clearTokens();
-      clearCsrfToken();
+      await clearStoredSession();
     }
+    return true;
   });
 
-const refreshSessionUseCase = async () =>
+const refreshSessionUseCase = async (payload = {}) =>
   execute(async () => {
-    const refreshToken = await tokenManager.getRefreshToken();
-    const response = await refreshApi({ refreshToken });
-    const data = unwrap(response);
-    const { tokens } = normalizeAuthResponse(data);
-    if (tokens?.accessToken && tokens?.refreshToken) {
-      await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
-    }
+    const { tokens } = await refreshStoredTokens(payload);
     return tokens;
   });
 
@@ -130,6 +166,46 @@ const loadCurrentUserUseCase = async () =>
     const { user } = normalizeAuthResponse(data);
     return user;
   });
+
+const restoreSessionUseCase = async () => {
+  try {
+    const accessToken = await tokenManager.getAccessToken();
+    const refreshToken = await tokenManager.getRefreshToken();
+
+    if (!accessToken && !refreshToken) return null;
+
+    if (accessToken && !tokenManager.isTokenExpired(accessToken)) {
+      return await loadCurrentUserUseCase();
+    }
+
+    await refreshStoredTokens();
+    return await loadCurrentUserUseCase();
+  } catch (error) {
+    const normalized = normalizeSessionError(error);
+    if (shouldClearStoredSession(normalized)) {
+      await clearStoredSession();
+    }
+    throw normalized;
+  }
+};
+
+const selectActiveFacilityUseCase = async ({ activeFacilityId, facilityId } = {}) => {
+  try {
+    const requestedFacilityId = activeFacilityId || facilityId;
+    if (!requestedFacilityId) {
+      throw new Error('Active facility is required');
+    }
+
+    await refreshStoredTokens({ activeFacilityId: requestedFacilityId });
+    return await loadCurrentUserUseCase();
+  } catch (error) {
+    const normalized = normalizeSessionError(error);
+    if (shouldClearStoredSession(normalized)) {
+      await clearStoredSession();
+    }
+    throw normalized;
+  }
+};
 
 const verifyEmailUseCase = async (payload) =>
   execute(async () => {
@@ -180,6 +256,8 @@ export {
   logoutUseCase,
   refreshSessionUseCase,
   loadCurrentUserUseCase,
+  restoreSessionUseCase,
+  selectActiveFacilityUseCase,
   verifyEmailUseCase,
   verifyPhoneUseCase,
   resendVerificationUseCase,

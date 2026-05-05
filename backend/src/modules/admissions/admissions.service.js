@@ -7,6 +7,7 @@ import { sha256 } from '../../utils/crypto.js';
 import { isPlainObject, stripUndefined } from '../../utils/object.js';
 import { calculateReferenceWeight } from '../../clinical/calculations.js';
 import { calculateHumidificationFlags, calculateVentilationSummary, interpretAbg } from '../../clinical/flags.js';
+import { listActiveReferenceRangeRecords } from '../references/references.service.js';
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
 
@@ -224,15 +225,63 @@ const getAdmissionForSummary = (admission) => ({
   latestHumidification: admission.humidificationDecisions?.[0] || null,
 });
 
-export const buildClinicalSummary = (admission) => {
+const resolveDecisionSupportReferenceRanges = async (facilityId, { tx = prisma, allowDevelopmentFallback = true } = {}) => (
+  listActiveReferenceRangeRecords({
+    facilityId,
+    client: tx,
+    allowDevelopmentFallback,
+  })
+);
+
+const buildReferenceRangeStatus = (referenceRanges) => {
+  if (referenceRanges === undefined) {
+    return {
+      status: 'development_fallback_unconfirmed',
+      verifiedOnly: true,
+      pendingBackendConfirmation: true,
+      message: 'Development fallback ranges were used; backend reference confirmation is pending.',
+    };
+  }
+
+  if (!Array.isArray(referenceRanges) || referenceRanges.length === 0) {
+    return {
+      status: 'missing_verified_records',
+      verifiedOnly: true,
+      pendingBackendConfirmation: true,
+      message: 'No active verified backend reference range records were available for this summary.',
+    };
+  }
+
+  if (referenceRanges.some((range) => range.source === 'development_fallback_no_reference_repository')) {
+    return {
+      status: 'development_fallback_unconfirmed',
+      verifiedOnly: true,
+      pendingBackendConfirmation: true,
+      message: 'Development fallback ranges were used because the reference repository was unavailable in this runtime.',
+    };
+  }
+
+  return {
+    status: 'backend_verified',
+    verifiedOnly: true,
+    pendingBackendConfirmation: false,
+    message: 'Calculated with active verified backend reference range records.',
+  };
+};
+
+export const buildClinicalSummary = (admission, { referenceRanges } = {}) => {
   const { patient, latestSnapshot, latestAbg, latestVentilator, latestHumidification } = getAdmissionForSummary(admission);
+  const activeReferenceRanges = Array.isArray(referenceRanges) ? referenceRanges : undefined;
   const ventilationSummary = calculateVentilationSummary({
     patient,
     ventilator: latestVentilator || {},
     latestAbg,
     latestSnapshot,
+    ...(activeReferenceRanges ? { referenceRanges: activeReferenceRanges } : {}),
   });
-  const abgSummary = latestAbg ? interpretAbg(latestAbg, patient) : null;
+  const abgSummary = latestAbg
+    ? interpretAbg(latestAbg, patient, activeReferenceRanges ? { referenceRanges: activeReferenceRanges } : {})
+    : null;
   const humidificationFlags = latestHumidification ? calculateHumidificationFlags(latestHumidification) : [];
 
   return {
@@ -240,6 +289,7 @@ export const buildClinicalSummary = (admission) => {
     abg: abgSummary,
     humidificationFlags,
     missingData: buildMissingData(admission),
+    referenceRangeStatus: buildReferenceRangeStatus(activeReferenceRanges),
   };
 };
 
@@ -329,8 +379,8 @@ export const buildAdmissionReadiness = (admission) => {
   };
 };
 
-const buildThreeStepAdmissionResponse = (step, admission, extra = {}) => {
-  const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission);
+const buildThreeStepAdmissionResponse = (step, admission, extra = {}, { referenceRanges } = {}) => {
+  const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission, { referenceRanges });
   const admissionWithSummary = admission.clinicalSummary ? admission : { ...admission, clinicalSummary };
 
   return toJson({
@@ -496,11 +546,12 @@ export const listAdmissions = async (userId, { facilityId, status, reviewStatus,
     }),
     prisma.admission.count({ where }),
   ]);
+  const referenceRanges = await resolveDecisionSupportReferenceRanges(scopedFacilityId, { allowDevelopmentFallback: false });
 
   return {
     items: items.map((admission) => ({
       ...admission,
-      clinicalSummary: buildClinicalSummary(admission),
+      clinicalSummary: buildClinicalSummary(admission, { referenceRanges }),
     })),
     total,
     page,
@@ -543,6 +594,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
         clientUpdatedAt: payload.clientUpdatedAt,
       }),
     });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(payload.facilityId, { tx });
 
     if (payload.clinicalSnapshot) {
       await tx.clinicalSnapshot.create({
@@ -556,7 +608,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
     }
 
     if (payload.abgTest) {
-      const abgInterpretation = interpretAbg(payload.abgTest, createdPatient);
+      const abgInterpretation = interpretAbg(payload.abgTest, createdPatient, { referenceRanges });
       await tx.abgTest.create({
         data: stripUndefined({
           admissionId: admission.id,
@@ -578,6 +630,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
         ventilator: payload.ventilatorSetting,
         latestAbg,
         latestSnapshot,
+        referenceRanges,
       });
       await tx.ventilatorSetting.create({
         data: stripUndefined({
@@ -619,7 +672,11 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
     }
 
     const created = await tx.admission.findUnique({ where: { id: admission.id }, include: admissionInclude });
-    const responseJson = toJson({ admission: created, clinicalSummary: buildClinicalSummary(created), syncStatus: 'synced' });
+    const responseJson = toJson({
+      admission: created,
+      clinicalSummary: buildClinicalSummary(created, { referenceRanges }),
+      syncStatus: 'synced',
+    });
 
     await storeIdempotencyResult({
       tx,
@@ -654,7 +711,8 @@ export const getAdmissionById = async (userId, id) => {
   const admission = await prisma.admission.findUnique({ where: { id }, include: fullAdmissionInclude });
   if (!admission) throw notFound('Admission not found');
   if (admission.facilityId !== admissionAccess.facilityId) throw notFound('Admission not found');
-  return { ...admission, clinicalSummary: buildClinicalSummary(admission) };
+  const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { allowDevelopmentFallback: false });
+  return { ...admission, clinicalSummary: buildClinicalSummary(admission, { referenceRanges }) };
 };
 
 export const createAdmissionPatientReasonStep = async (payload, userId, auditContext = {}) => {
@@ -800,7 +858,8 @@ export const saveAdmissionReviewStep = async (userId, admissionId, payload, audi
     const before = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
     if (!before) throw notFound('Admission not found');
 
-    const clinicalSummary = buildClinicalSummary(before);
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(before.facilityId, { tx });
+    const clinicalSummary = buildClinicalSummary(before, { referenceRanges });
     const readiness = buildAdmissionReadiness({ ...before, clinicalSummary });
     const overrideReasonText = getOverrideReason(payload);
 
@@ -836,16 +895,21 @@ export const saveAdmissionReviewStep = async (userId, admissionId, payload, audi
     }
 
     const after = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
-    const responseJson = buildThreeStepAdmissionResponse('save_review', { ...after, clinicalSummary: buildClinicalSummary(after) }, {
-      facilityId: after.facilityId,
-      review: {
-        clinicianConfirmed: payload.clinicianConfirmed === true,
-        overrideRecorded: Boolean(overrideReasonText),
-        reviewActionId: reviewAction?.id || null,
-        admissionReviewStatus: after.reviewStatus,
+    const responseJson = buildThreeStepAdmissionResponse(
+      'save_review',
+      { ...after, clinicalSummary: buildClinicalSummary(after, { referenceRanges }) },
+      {
+        facilityId: after.facilityId,
+        review: {
+          clinicianConfirmed: payload.clinicianConfirmed === true,
+          overrideRecorded: Boolean(overrideReasonText),
+          reviewActionId: reviewAction?.id || null,
+          admissionReviewStatus: after.reviewStatus,
+        },
+        syncStatus: 'synced',
       },
-      syncStatus: 'synced',
-    });
+      { referenceRanges },
+    );
 
     await storeIdempotencyResult({
       tx,
@@ -913,10 +977,11 @@ export const updateAdmission = async (userId, id, data, auditContext = {}) => {
         include: admissionInclude,
       })
       : await tx.admission.findUnique({ where: { id }, include: admissionInclude });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
 
     const responseJson = toJson({
       admission: updated,
-      clinicalSummary: buildClinicalSummary(updated),
+      clinicalSummary: buildClinicalSummary(updated, { referenceRanges }),
       reviewState: {
         admissionReviewStatus: reviewedWrite.reviewStatus,
         overrideApplied: reviewedWrite.overrideApplied,
@@ -1030,10 +1095,11 @@ const createAppendOnlyRecord = async ({
     });
     const record = await createRecord(tx, admission);
     const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: admissionInclude });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
     const responseJson = toJson({
       [entityType[0].toLowerCase() + entityType.slice(1)]: record,
       facilityId: admission.facilityId,
-      clinicalSummary: buildClinicalSummary(refreshed),
+      clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }),
       ...buildDecisionSupport(entityType, record),
       reviewState: {
         admissionReviewStatus: reviewedWrite.reviewStatus,
@@ -1118,7 +1184,8 @@ export const addAbgTest = (userId, admissionId, payload, auditContext = {}) => c
       latest,
       timestampField: 'collectedAt',
     });
-    const abgInterpretation = interpretAbg(payload, admission.patient);
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
+    const abgInterpretation = interpretAbg(payload, admission.patient, { referenceRanges });
     return tx.abgTest.create({
       data: stripUndefined({
         admissionId,
@@ -1169,11 +1236,13 @@ export const addVentilatorSetting = (userId, admissionId, payload, auditContext 
       latest,
       timestampField: 'measuredAt',
     });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
     const summary = calculateVentilationSummary({
       patient: admission.patient,
       ventilator: payload,
       latestAbg: admission.abgTests[0] || null,
       latestSnapshot: admission.clinicalSnapshots[0] || null,
+      referenceRanges,
     });
     return tx.ventilatorSetting.create({
       data: stripUndefined({

@@ -19,6 +19,10 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
         sexForSizeCalculations: 'not_available',
         ageYears: 'unknown',
         actualWeightKg: null,
+        pathwayDetailsJson: {
+          pregnancyStatus: 'post_partum',
+          gestationWeeksAtDelivery: null,
+        },
       },
       clinicalSnapshot: {
         measuredAt: 'not_available',
@@ -46,6 +50,10 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
   assert.equal(result.data.body.patient.sexForSizeCalculations, 'UNKNOWN');
   assert.equal(result.data.body.patient.ageYears, null);
   assert.equal(result.data.body.patient.actualWeightKg, null);
+  assert.deepEqual(result.data.body.patient.pathwayDetailsJson, {
+    pregnancyStatus: 'post_partum',
+    gestationWeeksAtDelivery: null,
+  });
   assert.equal(result.data.body.clinicalSnapshot.measuredAt, undefined);
   assert.equal(result.data.body.clinicalSnapshot.spo2, null);
   assert.equal(result.data.body.abgTest.ph, null);
