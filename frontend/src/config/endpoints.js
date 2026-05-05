@@ -93,12 +93,6 @@ export const endpoints = {
     TRIAGE: (entityType, entityId) => `${baseUrl}/review/${entityType}/${entityId}/triage`,
   },
 
-  TRACKING: {
-    LIST: `${baseUrl}/tracking`,
-    GET: (id) => `${baseUrl}/tracking/${id}`,
-    TIMELINE: (id) => `${baseUrl}/tracking/${id}/timeline`,
-  },
-
   DATASET_IMPORTS: {
     PARSE_NOTE: `${baseUrl}/dataset-imports/parse-note`,
     CREATE: `${baseUrl}/dataset-imports`,

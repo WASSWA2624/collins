@@ -13,15 +13,14 @@ const ROUTES = Object.freeze({
   [HOME_ACTION_IDS.ADMIT]: '/admit',
   [HOME_ACTION_IDS.TRACKING]: '/tracking',
   [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/abg-vent-update',
+  [HOME_ACTION_IDS.DATASET_CAPTURE]: '/dataset-capture',
+  [HOME_ACTION_IDS.REVIEW_QUEUE]: '/review-queue',
   [HOME_ACTION_IDS.DASHBOARD]: '/dashboard',
   [HOME_ACTION_IDS.TRAINING_HELP]: '/training',
   [HOME_ACTION_IDS.SETTINGS]: '/settings',
 });
 
-const WORKFLOW_PENDING_IDS = new Set([
-  HOME_ACTION_IDS.DATASET_CAPTURE,
-  HOME_ACTION_IDS.REVIEW_QUEUE,
-]);
+const WORKFLOW_PENDING_IDS = new Set();
 
 const numberOrZero = (value) => (Number.isFinite(value) ? value : 0);
 const countOrNull = (value) => (Number.isFinite(value) ? value : null);
@@ -88,7 +87,7 @@ const buildHomeActions = (summary) => {
     }),
     makeAction({
       id: HOME_ACTION_IDS.DATASET_CAPTURE,
-      path: null,
+      path: ROUTES[HOME_ACTION_IDS.DATASET_CAPTURE],
       visible: canUseDatasetCapture,
       canUse: canUseDatasetCapture,
       count: countOrNull(counts?.dataset?.submitted),
@@ -96,7 +95,7 @@ const buildHomeActions = (summary) => {
     }),
     makeAction({
       id: HOME_ACTION_IDS.REVIEW_QUEUE,
-      path: null,
+      path: ROUTES[HOME_ACTION_IDS.REVIEW_QUEUE],
       visible: canOpenReviewQueue,
       canUse: canOpenReviewQueue,
       count: countOrNull(counts?.review?.pendingTotal),

@@ -19,6 +19,7 @@ import {
   TabBar,
 } from '@platform/components';
 import { getMenuIconGlyph } from '@config/sideMenu';
+import FacilityContextIndicator from '@platform/components/feedback/FacilityContextIndicator';
 
 // 3. Hooks & utilities
 import useMainRouteLayout from './useMainRouteLayout';
@@ -89,6 +90,7 @@ const MainRouteLayoutIOS = () => {
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
           actions={headerActions}
+          utilitySlot={<FacilityContextIndicator testID="main-facility-context" />}
         />
       }
       footer={

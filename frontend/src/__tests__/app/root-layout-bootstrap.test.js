@@ -67,6 +67,7 @@ jest.mock('@logging', () => {
 
 jest.mock('react-redux', () => ({
   Provider: ({ children }) => mockReact.createElement(mockReact.Fragment, null, children),
+  useSelector: (selector) => selector({ ui: { locale: 'en', theme: 'light' } }),
 }));
 
 jest.mock('@store', () => ({}), { virtual: true });

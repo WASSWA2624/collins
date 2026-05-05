@@ -37,6 +37,10 @@ import { RECOMMENDATION_TEST_IDS } from './types';
 import { STEP_KEYS } from '../AssessmentScreen/types';
 
 const SETTING_KEYS = ['mode', 'tidalVolume', 'respiratoryRate', 'fio2', 'peep', 'ieRatio'];
+const getTestProps = (testID) => ({
+  testID,
+  'data-testid': testID,
+});
 
 const RecommendationScreenWeb = () => {
   const { t } = useI18n();
@@ -94,7 +98,7 @@ const RecommendationScreenWeb = () => {
 
   if (isHydrating) {
     return (
-      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen}>
+      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} {...getTestProps(RECOMMENDATION_TEST_IDS.screen)}>
         <Text>{t('ventilation.recommendation.states.loading')}</Text>
       </StyledContainer>
     );
@@ -102,7 +106,7 @@ const RecommendationScreenWeb = () => {
 
   if (errorCode) {
     return (
-      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen}>
+      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} {...getTestProps(RECOMMENDATION_TEST_IDS.screen)}>
         <Text variant="body">{t('ventilation.recommendation.states.error')}</Text>
         <Button variant="outline" onPress={handleStartNewAssessment}>
           {t('ventilation.recommendation.actions.startNewAssessment')}
@@ -113,7 +117,7 @@ const RecommendationScreenWeb = () => {
 
   if (isEmpty) {
     return (
-      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen}>
+      <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} {...getTestProps(RECOMMENDATION_TEST_IDS.screen)}>
         <Text variant="body">{t('ventilation.recommendation.states.empty')}</Text>
           <Button variant="primary" onPress={handleStartNewAssessment}>
           {t('ventilation.recommendation.actions.startNewAssessment')}
@@ -131,7 +135,7 @@ const RecommendationScreenWeb = () => {
   );
 
   return (
-    <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen} role="main">
+    <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} {...getTestProps(RECOMMENDATION_TEST_IDS.screen)} role="main">
       <StyledContentPane>
         <ClinicalSafetyNotice
           title={t('ventilation.recommendation.intendedUse.warningLabel')}
@@ -142,7 +146,7 @@ const RecommendationScreenWeb = () => {
         />
 
         {decisionSupport && (
-          <StyledSection data-testid="recommendation-decision-support">
+          <StyledSection {...getTestProps('recommendation-decision-support')}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.decisionSupport')}</StyledSectionTitle>
               <StyledBadge $tier={supportStatus.pendingBackendConfirmation ? 'low' : 'high'}>
@@ -185,7 +189,7 @@ const RecommendationScreenWeb = () => {
         )}
 
         {showAiFallbackMessage && (
-          <StyledSection data-testid="recommendation-ai-fallback">
+          <StyledSection {...getTestProps('recommendation-ai-fallback')}>
             <StyledFallbackBody>
               <Text variant="body">{t('ventilation.recommendation.fallbackBanner')}</Text>
               <Text variant="caption" color="text.secondary">{t(fallbackReasonKey)}</Text>
@@ -193,11 +197,11 @@ const RecommendationScreenWeb = () => {
           </StyledSection>
         )}
 
-        <StyledSection data-testid={RECOMMENDATION_TEST_IDS.settings}>
+        <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.settings)}>
           <StyledSectionHeader>
             <StyledSectionTitle>{t('ventilation.recommendation.sections.settings')}</StyledSectionTitle>
             <StyledBadge $tier={confidenceTier}>{t(`ventilation.recommendation.confidence.${confidenceTier}`)}</StyledBadge>
-            <StyledBadge $tier={responseSource === 'online' ? 'high' : 'low'} data-testid="recommendation-response-source" aria-label={t('ventilation.recommendation.responseSource.title')}>
+            <StyledBadge $tier={responseSource === 'online' ? 'high' : 'low'} {...getTestProps('recommendation-response-source')} aria-label={t('ventilation.recommendation.responseSource.title')}>
               {t('ventilation.recommendation.responseSource.title')}: {t(`ventilation.recommendation.responseSource.${responseSource}`)}
             </StyledBadge>
           </StyledSectionHeader>
@@ -223,7 +227,7 @@ const RecommendationScreenWeb = () => {
         </StyledSection>
 
         {(aiReasons?.length > 0 || aiHints?.length > 0) && (
-          <StyledSection data-testid="recommendation-ai-reasons">
+          <StyledSection {...getTestProps('recommendation-ai-reasons')}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.aiReasons.title')}</StyledSectionTitle>
             </StyledSectionHeader>
@@ -249,7 +253,7 @@ const RecommendationScreenWeb = () => {
           </StyledSection>
         )}
 
-        <StyledSection data-testid={RECOMMENDATION_TEST_IDS.confidence}>
+        <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.confidence)}>
           <StyledSectionHeader>
             <StyledSectionTitle>{t('ventilation.recommendation.sections.confidence')}</StyledSectionTitle>
           </StyledSectionHeader>
@@ -273,7 +277,7 @@ const RecommendationScreenWeb = () => {
         </StyledSection>
 
         {monitoringPoints?.length > 0 && (
-          <StyledSection data-testid={RECOMMENDATION_TEST_IDS.monitoring}>
+          <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.monitoring)}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.monitoring')}</StyledSectionTitle>
             </StyledSectionHeader>
@@ -288,7 +292,7 @@ const RecommendationScreenWeb = () => {
         )}
 
         {risksAndComplications.length > 0 && (
-          <StyledSection data-testid={RECOMMENDATION_TEST_IDS.risks}>
+          <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.risks)}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.risks')}</StyledSectionTitle>
             </StyledSectionHeader>
@@ -303,7 +307,7 @@ const RecommendationScreenWeb = () => {
         )}
 
         {matched?.length > 0 && (
-          <StyledSection data-testid={RECOMMENDATION_TEST_IDS.matchedCases}>
+          <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.matchedCases)}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.matchedCases')}</StyledSectionTitle>
             </StyledSectionHeader>
@@ -314,7 +318,7 @@ const RecommendationScreenWeb = () => {
                     <StyledCaseLink
                       href={`/session/case/${encodeURIComponent(m?.caseId ?? '')}`}
                       onClick={handleCaseClick(m?.caseId)}
-                      data-testid={`recommendation-case-${m?.caseId}`}
+                      {...getTestProps(`recommendation-case-${m?.caseId}`)}
                     >
                       {m?.caseId}
                     </StyledCaseLink>
@@ -327,7 +331,7 @@ const RecommendationScreenWeb = () => {
         )}
 
         {caseEvidence?.length > 0 && (
-          <StyledSection data-testid={RECOMMENDATION_TEST_IDS.evidence}>
+          <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.evidence)}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.evidence')}</StyledSectionTitle>
             </StyledSectionHeader>
@@ -345,7 +349,7 @@ const RecommendationScreenWeb = () => {
           </StyledSection>
         )}
 
-        <StyledSection data-testid="recommendation-export-section">
+        <StyledSection {...getTestProps('recommendation-export-section')}>
           <Stack spacing="xs">
             <Checkbox
               label={t('ventilation.recommendation.actions.anonymizeBeforeExport')}
@@ -364,7 +368,7 @@ const RecommendationScreenWeb = () => {
           </Stack>
         </StyledSection>
         {showRequestAi && (
-          <StyledSection data-testid="recommendation-ai-section">
+          <StyledSection {...getTestProps('recommendation-ai-section')}>
             <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.actions.connectivityRequired')}</Text>
             <Text variant="caption" color="text.secondary">{t('ventilation.recommendation.actions.supplementalDisclaimer')}</Text>
             <Button
@@ -378,7 +382,7 @@ const RecommendationScreenWeb = () => {
             </Button>
           </StyledSection>
         )}
-        <StyledSection data-testid="recommendation-edit-assessment">
+        <StyledSection {...getTestProps('recommendation-edit-assessment')}>
           <StyledSectionHeader>
             <StyledSectionTitle>{t('ventilation.recommendation.actions.editAssessmentTitle')}</StyledSectionTitle>
           </StyledSectionHeader>

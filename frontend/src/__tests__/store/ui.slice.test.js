@@ -25,10 +25,13 @@ describe('UI Slice', () => {
       fullscreen: true,
     },
     footerVisible: true,
+    onboardingCompleted: false,
+    clinicalSafetyAcknowledged: false,
     disclaimerAcknowledged: false,
     isAuthenticated: false,
     user: null,
     aiDecisionSupportEnabled: false,
+    aiProviderId: 'openai',
     aiModelId: 'gpt-4o-mini',
   };
 
@@ -147,14 +150,30 @@ describe('UI Slice', () => {
   });
 
   describe('setAiDecisionSupportEnabled', () => {
-    it('keeps aiDecisionSupportEnabled false for normal clinical workflows', () => {
+    it('should set aiDecisionSupportEnabled to true', () => {
       const state = reducer(initialState, actions.setAiDecisionSupportEnabled(true));
-      expect(state.aiDecisionSupportEnabled).toBe(false);
+      expect(state.aiDecisionSupportEnabled).toBe(true);
     });
 
     it('should set aiDecisionSupportEnabled to false', () => {
       const state = reducer(initialState, actions.setAiDecisionSupportEnabled(false));
       expect(state.aiDecisionSupportEnabled).toBe(false);
+    });
+  });
+
+  describe('onboarding state', () => {
+    it('should acknowledge clinical safety without completing onboarding', () => {
+      const state = reducer(initialState, actions.setClinicalSafetyAcknowledged(true));
+      expect(state.clinicalSafetyAcknowledged).toBe(true);
+      expect(state.disclaimerAcknowledged).toBe(true);
+      expect(state.onboardingCompleted).toBe(false);
+    });
+
+    it('should complete onboarding and preserve legacy acknowledgement compatibility', () => {
+      const state = reducer(initialState, actions.completeOnboarding());
+      expect(state.onboardingCompleted).toBe(true);
+      expect(state.clinicalSafetyAcknowledged).toBe(true);
+      expect(state.disclaimerAcknowledged).toBe(true);
     });
   });
 

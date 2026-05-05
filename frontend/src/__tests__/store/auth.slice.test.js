@@ -78,7 +78,7 @@ describe('auth.slice', () => {
   it('handles refresh and load current user', async () => {
     const store = createStore();
     await store.dispatch(actions.refreshSession());
-    expect(store.getState().auth.isAuthenticated).toBe(true);
+    expect(store.getState().auth.hasRestoredSession).toBe(true);
     await store.dispatch(actions.loadCurrentUser());
     expect(store.getState().auth.user).toEqual({ id: '3' });
   });

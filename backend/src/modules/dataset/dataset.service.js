@@ -12,6 +12,7 @@ import {
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
 const DATASET_CAPTURE_OPERATION = 'dataset.capture.create';
+const DATASET_CAPTURE_ROLES = Object.freeze([...new Set([...WRITE_ROLES, ...REVIEW_ROLES])]);
 
 export const REQUIRED_TRAINING_GOVERNANCE_KEYS = Object.freeze([
   'facilityApproval',
@@ -87,7 +88,7 @@ const filterReviewedAdmissionRecords = (admission) => ({
 export const buildReviewedAdmissionDatasetPayload = (admission) => buildDatasetPayloadFromAdmission(filterReviewedAdmissionRecords(admission));
 
 export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContext = {}) => {
-  await assertFacilityRole(userId, facilityId, WRITE_ROLES);
+  await assertFacilityRole(userId, facilityId, DATASET_CAPTURE_ROLES);
   const text = noteText.replace(/\s+/g, ' ');
 
   const preview = {
@@ -172,7 +173,7 @@ const buildDatasetPayload = async ({ facilityId, sourceAdmissionId, sourceType, 
 };
 
 export const createDatasetImport = async (payload, userId, auditContext = {}) => {
-  await assertFacilityRole(userId, payload.facilityId, WRITE_ROLES);
+  await assertFacilityRole(userId, payload.facilityId, DATASET_CAPTURE_ROLES);
   const deidentifiedPayloadJson = await buildDatasetPayload(payload);
 
   return prisma.$transaction(async (tx) => {

@@ -10,9 +10,16 @@ const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
 
 const mockPush = jest.fn();
+const mockUseVentilationSession = jest.fn();
+
 jest.mock('expo-router', () => ({
   useRouter: () => ({ push: mockPush, replace: jest.fn() }),
   useLocalSearchParams: () => ({}),
+}));
+
+jest.mock('@hooks/useVentilationSession', () => ({
+  __esModule: true,
+  default: mockUseVentilationSession,
 }));
 
 jest.mock('@hooks', () => ({
@@ -35,7 +42,7 @@ jest.mock('@hooks', () => ({
     };
   },
   useExportSession: () => ({ exportSummary: jest.fn() }),
-  useVentilationSession: jest.fn(),
+  useVentilationSession: mockUseVentilationSession,
 }));
 
 const RecommendationScreenWeb = require('@platform/screens/ventilation/RecommendationScreen/RecommendationScreen.web').default;

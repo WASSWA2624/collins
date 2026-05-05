@@ -126,7 +126,7 @@ describe('Tracking screen compatibility route', () => {
   });
 
   it('web: shows empty tracking state when no active admissions are returned', async () => {
-    const { getAllByText, getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
 
     await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined());
     expect(getByText('No active admitted patients for this facility.')).toBeDefined();
@@ -136,7 +136,7 @@ describe('Tracking screen compatibility route', () => {
   it('web: renders backend-confirmed active patient, review, sync, conflict, and missing-data status', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getAllByText, getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
 
     await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined());
     expect(getByText('City ICU')).toBeDefined();

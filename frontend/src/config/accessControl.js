@@ -230,9 +230,11 @@ export const getActiveFacilityRoleKeys = (user) => getActiveFacilityContext(user
 export const getAuthFacilityScope = (authState = {}) => {
   const user = authState?.user || null;
   const activeFacility = getActiveFacilityContext(user);
+  const facilityId = activeFacility?.facilityId || null;
   return {
     userId: user?.id || null,
-    activeFacilityId: activeFacility?.facilityId || null,
+    activeFacilityId: facilityId,
+    facilityId,
   };
 };
 

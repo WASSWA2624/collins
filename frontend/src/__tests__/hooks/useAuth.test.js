@@ -31,9 +31,14 @@ const createStore = (preloadedState = {}) =>
       },
       auth: {
         user: null,
+        activeFacility: null,
+        requiresActiveFacility: false,
         isAuthenticated: false,
         isLoading: false,
+        hasRestoredSession: true,
+        sessionStatus: 'unauthenticated',
         errorCode: null,
+        sessionErrorCode: null,
         lastUpdated: null,
       },
       ...preloadedState,
@@ -51,9 +56,13 @@ describe('useAuth', () => {
     );
     expect(result.isAuthenticated).toBe(false);
     expect(result.user).toBeNull();
+    expect(result.activeFacility).toBeNull();
+    expect(result.requiresActiveFacility).toBe(false);
     expect(result.roles).toEqual([]);
     expect(result.role).toBeNull();
     expect(result.isLoading).toBe(false);
+    expect(result.hasRestoredSession).toBe(true);
+    expect(result.sessionStatus).toBe('unauthenticated');
     expect(result.errorCode).toBeNull();
   });
 
@@ -64,10 +73,19 @@ describe('useAuth', () => {
           id: '1',
           role: 'Patient',
           roles: ['Patient', 'Admin'],
+          activeFacility: {
+            facilityId: 'facility-1',
+            roles: ['CLINICIAN'],
+          },
         },
+        activeFacility: { facilityId: 'facility-1', roles: ['CLINICIAN'] },
+        requiresActiveFacility: false,
         isAuthenticated: true,
         isLoading: false,
+        hasRestoredSession: true,
+        sessionStatus: 'authenticated',
         errorCode: null,
+        sessionErrorCode: null,
         lastUpdated: null,
       },
     });
@@ -79,8 +97,9 @@ describe('useAuth', () => {
     );
     expect(result.isAuthenticated).toBe(true);
     expect(result.user).toMatchObject({ id: '1' });
-    expect(result.roles).toEqual(['patient', 'admin']);
-    expect(result.role).toBe('patient');
+    expect(result.activeFacility).toMatchObject({ facilityId: 'facility-1' });
+    expect(result.roles).toEqual(['clinician']);
+    expect(result.role).toBe('clinician');
     expect(result.isLoading).toBe(false);
     expect(result.errorCode).toBeNull();
   });
@@ -89,9 +108,14 @@ describe('useAuth', () => {
     const store = createStore({
       auth: {
         user: null,
+        activeFacility: null,
+        requiresActiveFacility: false,
         isAuthenticated: false,
         isLoading: true,
+        hasRestoredSession: true,
+        sessionStatus: 'restoring',
         errorCode: 'UNAUTHORIZED',
+        sessionErrorCode: 'SESSION_EXPIRED',
         lastUpdated: null,
       },
     });
@@ -103,5 +127,6 @@ describe('useAuth', () => {
     );
     expect(result.isLoading).toBe(true);
     expect(result.errorCode).toBe('UNAUTHORIZED');
+    expect(result.sessionErrorCode).toBe('SESSION_EXPIRED');
   });
 });
