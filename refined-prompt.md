@@ -1,13 +1,13 @@
-# Task: Refactor development plan files into a chronological implementation roadmap
+# Task: Update dev-plan files for synchronized frontend/backend implementation and verified range-based datasets
 
 You are working in a local monorepo with:
 
 * `backend`: Node.js 20+, Express 5, ESM JavaScript, Prisma, MySQL, Zod, JWT/session auth
 * `frontend`: Expo 54, Expo Router 6, React Native, React 19, Redux Toolkit, redux-persist, styled-components, Zod, offline/network foundations
 
-Refactor only the development planning files so the app can be built chronologically from onboarding through final clinical decision-support, dataset governance, review, and training workflows.
+Update the development planning files so future implementation proceeds chronologically, with frontend work always checked and implemented together with its required backend support, migrations, validation, tests, and dataset governance.
 
-Do not change application source code, tests, package files, schemas, migrations, configs, or runtime behavior.
+Do not change application source code, schemas, migrations, package files, configs, tests, or runtime behavior in this task.
 
 ## Files allowed to change
 
@@ -17,8 +17,6 @@ Only modify or create files under:
 * `backend/dev-plan/*`
 * `frontend/dev-plan.md`
 * `frontend/dev-plan/*`
-
-Do not modify app code or app rules.
 
 ## Required inspection before editing
 
@@ -33,46 +31,101 @@ Before making changes, inspect and follow:
 * `frontend/dev-plan/*`
 * relevant existing backend and frontend source files, tests, routes, services, screens, state, APIs, and shared utilities
 
-Follow these documents over the raw task when there is a conflict.
+Follow these documents over this task when there is a conflict.
 
-## Development plan refactor requirements
+## Required dev-plan updates
 
-Update the dev-plan structure so implementation is chronological, minimal, and non-duplicated.
+Refactor the dev plans so every frontend phase explicitly includes the matching backend checks and implementation requirements.
 
-The roadmap must progress from:
+For each feature phase, require future implementation to verify and update, when needed:
+
+* frontend route/screen/state/API client behavior
+* backend route, validator, controller, service, repository/helper behavior
+* Prisma schema changes and migrations
+* Zod request/response validation
+* auth, RBAC, and facility isolation
+* audit logging
+* offline idempotency and conflict handling
+* tests for both frontend and backend behavior
+
+If backend support already exists, the plan must instruct future implementation to verify compliance and reuse it. If it is missing or incomplete, implement the backend in the same phase as the frontend change. Avoid frontend-only feature plans when backend support is required.
+
+## Chronological workflow alignment
+
+Ensure the roadmap remains chronological and aligned to:
 
 1. project foundations and startup checks
 2. onboarding
 3. authentication and session handling
-4. facility/user roles and permissions
-5. Home workflow
-6. patient registration/admission
+4. facility, user, role, and permission setup
+5. Home
+6. Admit
 7. required 3-step admission flow:
 
    * Patient & reason
    * Oxygen, ABG & ventilator
    * Save & review
-8. clinical tracking
-9. ABG / ventilator updates
+8. Tracking
+9. ABG / Vent Update
 10. decision-support rules and safety flags
-11. dataset capture
-12. validation and review queue
-13. dashboards
-14. training/help
-15. settings
+11. Dataset Capture
+12. Review Queue
+13. Dashboard
+14. Training / Help
+15. Settings
 16. governance, exports, audit, and future model-readiness
 
-Each dev-plan file should focus on one clear functionality or phase. Create additional numbered dev-plan files if needed. Avoid duplicates, overlapping tasks, and vague catch-all files.
+Support all patient pathways where relevant:
 
-When existing functionality already exists, the plan must instruct future implementation to inspect it first, verify compliance with app rules, reuse it when compliant, and only replace it when necessary.
+* neonate
+* infant
+* child
+* adolescent
+* adult
+* obstetric/post-partum
+* burns
+* trauma
+* peri-operative
+* medical
+* surgical
+* other/unknown
 
-Include cleanup steps in the plan for removing unnecessary, duplicated, or obsolete code during future implementation phases, but do not perform that cleanup now.
+Allow `unknown`, `not_available`, or `null` for clinically missing fields where app rules allow saving.
 
-Explicitly include removal of the current disclaimer page as a future implementation task, replacing it with appropriate in-flow clinical safety wording where required.
+## Range-based dataset planning
 
-## Backend planning constraints
+Update the dev plans so clinical reference datasets use validated ranges, not only exact values.
 
-The updated dev plan must preserve existing backend architecture:
+The dataset plan must require range records to include, where relevant:
+
+* clinical condition or scenario
+* patient pathway and population applicability
+* parameter name
+* lower bound
+* upper bound
+* unit
+* source/evidence reference
+* version
+* facility/global scope
+* verification status
+* verified by
+* verified at
+* review notes
+* audit trail
+
+Decision-support logic must only use dataset records marked as verified. For the current development seed/reference dataset only, plan for initial records to be marked verified so MVP decision-support can run. In production, newly added dataset records must require review and verification by authorized clinicians before use.
+
+The plan must preserve separation between:
+
+1. reference/evidence rules
+2. facility clinical records
+3. reviewed, de-identified, ethics-approved training datasets
+
+Do not allow unreviewed records, raw notes, demo data, or patient identifiers into approved training datasets.
+
+## Backend architecture constraints
+
+Preserve existing backend patterns:
 
 * `/api/v1` versioned routes
 * route → validator → controller → service layering
@@ -85,9 +138,9 @@ The updated dev plan must preserve existing backend architecture:
 * offline idempotency and conflict handling
 * pure clinical calculation helpers with tests
 
-## Frontend planning constraints
+## Frontend architecture constraints
 
-The updated dev plan must preserve existing frontend architecture:
+Preserve existing frontend patterns:
 
 * Expo Router routes under `src/app`
 * reusable platform code under `src/platform/*`
@@ -98,7 +151,7 @@ The updated dev plan must preserve existing frontend architecture:
 * styled-components UI conventions
 * role-aware navigation and screen visibility
 
-The roadmap must require minimal, clean, responsive UI across web, Android, and iOS. Mobile web should closely match Android and iOS layouts. Screens must remain simple, readable, and straightforward, with clear spacing, accessible forms, visible critical information, and no unnecessary UI complexity.
+Keep UI planning minimal, readable, responsive, and consistent across web, Android, iOS, and mobile web.
 
 ## Clinical safety requirements
 
@@ -122,40 +175,14 @@ Forbidden outputs:
 
 The plan must require:
 
-* missing data and uncertainty to be explicit
+* explicit missing data and uncertainty
 * clinician override with reason where relevant
 * auditability for edits, reviews, exports, overrides, and model outputs
 * population-specific calculations and wording
 * no adult PBW formulas for neonatal, pediatric, adolescent, or unknown pathways
-* no unreviewed records, raw notes, or demo data in approved training datasets
 * no patient identifiers sent to external AI/model services
 
-## Patient pathways
-
-Where relevant, the roadmap must support:
-
-* neonate
-* infant
-* child
-* adolescent
-* adult
-* obstetric/post-partum
-* burns
-* trauma
-* peri-operative
-* medical
-* surgical
-* other/unknown
-
-Allow `unknown`, `not_available`, or `null` for clinically missing fields where app rules allow saving.
-
-## Data, sync, and governance boundaries
-
-Preserve separation between:
-
-1. reference/evidence rules
-2. facility clinical records
-3. reviewed, de-identified, ethics-approved training datasets
+## Offline, sync, and governance requirements
 
 For offline/sync planning, require:
 
@@ -164,9 +191,9 @@ For offline/sync planning, require:
 * no silent overwrites
 * conflict status display
 * retryable sync states
-* preservation of reviewed data
+* reviewed data preservation
 
-For AI/model planning, require:
+For model/AI planning, require:
 
 * rule-based MVP behavior first
 * predictive models hidden from normal clinicians
@@ -175,8 +202,9 @@ For AI/model planning, require:
 
 ## Tests in the roadmap
 
-Because this task changes planning files only, do not add runtime tests now. Instead, every relevant phase must specify focused tests future implementation must add or update, especially for:
+Because this task changes planning files only, do not add runtime tests now. Instead, every relevant phase must specify future focused tests for:
 
+* range-based dataset validation and verified-only decision use
 * clinical calculators and flags
 * forbidden clinical wording
 * route contracts and response shapes
@@ -189,15 +217,15 @@ Because this task changes planning files only, do not add runtime tests now. Ins
 
 ## Scope limits
 
-Implement only this dev-plan refactor.
+Implement only this dev-plan update.
 
 Avoid unrelated refactors.
 
 Do not change public contracts.
 
-Create missing dev-plan folders/files only when required.
+Create missing dev-plan files only when required.
 
-Preserve existing names, paths, and planning intent unless reorganization is necessary.
+Avoid duplicate or overlapping dev-plan files.
 
 Document unavoidable assumptions in the final implementation summary.
 

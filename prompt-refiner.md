@@ -191,8 +191,3 @@ The refined prompt must require the coding agent to return:
 * a safe deletion script if any files are deleted
 
 ## Raw task to refine
-
-Paste the raw task here:
-For the updates, the dev plan files such that, when we are developing using the frontend, as we are updating or implementing the frontend, the relevant back-end files are developed too. If any update is needed, then we should implement the backtend in sync with the frontend. So, for example, if I am updating auth, then I should also check if the backtend has been implemented for auth, and the updates should automatically also run the necessary migrations that are required, such that we make sure that the backtend is in sync with the frontend.
-
-Also, the dataset should use range values instead of using exact values. For example, for a certain condition, maybe COPD, we have a tidal volume that is in between a range for normal patients of this age and this parameter. So that dataset should be implemented so that it can be used to make decisions. So when you enter patient parameters, the app is able to look at the data which is saved and the data which has been submitted, and make informed decisions using that dataset. And so that dataset should have values, and there should be a way to validate it, and decisions can only be made using this dataset if it has been marked as verified. If not, then it should not be used. But for this development phase, let's have all the datasets be verified for now and marked as verified. All subsequent data which will be added during production should be verified first by authorized clinicians, maybe anesthesiologists or other professionals in the field of ventilation and ICU patient care, that will be permitted to use the app.
