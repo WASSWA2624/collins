@@ -8,17 +8,32 @@ test('removes patient identifiers and raw notes from nested export payloads', ()
     hospitalNumber: 'H123',
     rawNote: 'Free text note',
     patient: {
+      id: 'patient-id',
+      appPatientCode: 'COL-P-123',
       ageYears: 44,
       phone: '+256...',
       sexForSizeCalculations: 'MALE',
     },
-    abgTests: [{ ph: 7.31, notes: 'identifier details' }],
+    admission: {
+      id: 'admission-id',
+      appAdmissionCode: 'COL-A-123',
+      status: 'ACTIVE',
+    },
+    abgTests: [{ id: 'abg-id', admissionId: 'admission-id', deviceId: 'device-id', ph: 7.31, notes: 'identifier details' }],
   });
 
   assert.equal(result.optionalName, undefined);
   assert.equal(result.hospitalNumber, undefined);
   assert.equal(result.rawNote, undefined);
+  assert.equal(result.admission.id, undefined);
+  assert.equal(result.admission.appAdmissionCode, undefined);
+  assert.equal(result.admission.status, 'ACTIVE');
+  assert.equal(result.patient.id, undefined);
+  assert.equal(result.patient.appPatientCode, undefined);
   assert.equal(result.patient.phone, undefined);
   assert.equal(result.patient.ageYears, 44);
+  assert.equal(result.abgTests[0].id, undefined);
+  assert.equal(result.abgTests[0].admissionId, undefined);
+  assert.equal(result.abgTests[0].deviceId, undefined);
   assert.equal(result.abgTests[0].notes, undefined);
 });

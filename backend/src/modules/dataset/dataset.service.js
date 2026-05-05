@@ -3,9 +3,12 @@ import { DATASET_EXPORT_ROLES, REVIEW_ROLES, assertFacilityRole, resolveFacility
 import { badRequest, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
 import { deidentifyPayload, buildDatasetPayloadFromAdmission } from '../../utils/deidentify.js';
 import { writeAudit } from '../../utils/audit.js';
+import {
+  UNSAFE_DATASET_SOURCE_TYPE_MESSAGE,
+  UNSAFE_DATASET_SOURCE_TYPE_PATTERN,
+} from './dataset.constants.js';
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
-const UNSAFE_SOURCE_TYPE_PATTERN = /\b(demo|sample|seed|fixture|test|training)\b/i;
 
 const datasetSelect = {
   id: true,
@@ -26,6 +29,23 @@ const datasetSelect = {
   updatedAt: true,
 };
 
+const approvedDatasetSelect = {
+  id: true,
+  facilityId: true,
+  sourceType: true,
+  structuredPreviewJson: true,
+  deidentifiedPayloadJson: true,
+  deidentificationStatus: true,
+  reviewStatus: true,
+  approvedForTraining: true,
+  ethicsApprovalId: true,
+  governanceJson: true,
+  datasetVersion: true,
+  reviewedAt: true,
+  createdAt: true,
+  updatedAt: true,
+};
+
 const extractNumber = (text, patterns) => {
   for (const pattern of patterns) {
     const match = text.match(pattern);
@@ -35,16 +55,18 @@ const extractNumber = (text, patterns) => {
 };
 
 export const assertDatasetSourceTypeAllowed = (sourceType = '') => {
-  if (UNSAFE_SOURCE_TYPE_PATTERN.test(sourceType)) {
-    throw badRequest('Demo, sample, seed, test, fixture, or existing training sources cannot enter approved dataset flows.');
+  if (UNSAFE_DATASET_SOURCE_TYPE_PATTERN.test(sourceType)) {
+    throw badRequest(UNSAFE_DATASET_SOURCE_TYPE_MESSAGE);
   }
 };
 
 const filterReviewedAdmissionRecords = (admission) => ({
   ...admission,
-  abgTests: admission.abgTests.filter((record) => record.reviewStatus === 'APPROVED'),
-  ventilatorSettings: admission.ventilatorSettings.filter((record) => record.reviewStatus === 'APPROVED'),
+  abgTests: (admission.abgTests || []).filter((record) => record.reviewStatus === 'APPROVED'),
+  ventilatorSettings: (admission.ventilatorSettings || []).filter((record) => record.reviewStatus === 'APPROVED'),
 });
+
+export const buildReviewedAdmissionDatasetPayload = (admission) => buildDatasetPayloadFromAdmission(filterReviewedAdmissionRecords(admission));
 
 export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContext = {}) => {
   await assertFacilityRole(userId, facilityId, REVIEW_ROLES);
@@ -128,7 +150,7 @@ const buildDatasetPayload = async ({ facilityId, sourceAdmissionId, sourceType, 
   if (admission.reviewStatus !== 'APPROVED') {
     throw reviewerRequired('Source admission must be reviewed before dataset approval.');
   }
-  return buildDatasetPayloadFromAdmission(filterReviewedAdmissionRecords(admission));
+  return buildReviewedAdmissionDatasetPayload(admission);
 };
 
 export const createDatasetImport = async (payload, userId, auditContext = {}) => {
@@ -276,7 +298,7 @@ export const listApprovedDatasets = async (userId, { facilityId, datasetVersion,
     reviewStatus: 'APPROVED_FOR_TRAINING',
   };
   const [items, total] = await Promise.all([
-    prisma.datasetCase.findMany({ where, select: datasetSelect, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit }),
+    prisma.datasetCase.findMany({ where, select: approvedDatasetSelect, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit }),
     prisma.datasetCase.count({ where }),
   ]);
   return { items, total, page, limit };
@@ -286,6 +308,7 @@ export const exportDatasetCase = async (id, { reason }, userId, auditContext = {
   const datasetCase = await prisma.datasetCase.findUnique({ where: { id }, select: datasetSelect });
   if (!datasetCase) throw notFound('Dataset case not found');
   await assertFacilityRole(userId, datasetCase.facilityId, DATASET_EXPORT_ROLES);
+  assertDatasetSourceTypeAllowed(datasetCase.sourceType);
   if (!datasetCase.approvedForTraining || datasetCase.reviewStatus !== 'APPROVED_FOR_TRAINING') {
     throw forbidden('Only reviewed, de-identified, approved-for-training dataset cases can be exported');
   }

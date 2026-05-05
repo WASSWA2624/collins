@@ -1,4 +1,5 @@
 import { prisma } from '../../config/prisma.js';
+import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import { READ_ROLES, assertFacilityRole, requireUserId } from '../../utils/authorization.js';
 import { forbidden, notFound } from '../../utils/errors.js';
 import {
@@ -35,10 +36,25 @@ const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
   orderBy: { createdAt: 'desc' },
 });
 
+const rolePriority = [
+  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+  MEMBERSHIP_ROLES.FACILITY_ADMIN,
+  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
+  MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
+  MEMBERSHIP_ROLES.CLINICIAN,
+  MEMBERSHIP_ROLES.ICU_NURSE,
+  MEMBERSHIP_ROLES.READ_ONLY_REVIEWER,
+];
+
+const getHighestPriorityRole = (roles) => rolePriority.find((role) => roles.includes(role)) || roles[0];
+
 const findActiveMembershipRole = (memberships, facilityId, fallbackRole) => (
-  memberships.find((membership) => membership.facilityId === facilityId && membership.role !== 'PLATFORM_ADMIN')?.role
-  || memberships.find((membership) => membership.facilityId === facilityId)?.role
-  || fallbackRole
+  getHighestPriorityRole([
+    ...memberships
+      .filter((membership) => membership.facilityId === facilityId)
+      .map((membership) => membership.role),
+    fallbackRole,
+  ].filter(Boolean))
 );
 
 const resolveHomeFacilityContext = async ({ userId, requestedFacilityId, memberships, availableFacilities }) => {

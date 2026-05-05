@@ -180,8 +180,8 @@ export const calculateSfRatio = ({ spo2, fio2 }) => {
     unit: 'ratio',
     status: 'screening_only',
     message: spo2Value > 97
-      ? 'S/F screening only — ABG preferred if available; SpO2 above 97% is less discriminating.'
-      : 'S/F screening only — ABG preferred if available.',
+      ? 'S/F screening only; ABG preferred if available because SpO2 above 97% is less discriminating.'
+      : 'S/F screening only; ABG preferred if available.',
     ruleVersion: CLINICAL_RULE_VERSION,
   };
 };

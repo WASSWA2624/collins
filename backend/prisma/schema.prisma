@@ -164,6 +164,7 @@ model User {
   datasetCasesApproved        DatasetCase[]            @relation("DatasetApprovedBy")
   datasetCasesReviewed        DatasetCase[]            @relation("DatasetReviewedBy")
   referenceRulesApproved      ReferenceRule[]          @relation("ReferenceRuleApprovedBy")
+  referenceRulesVerified      ReferenceRule[]          @relation("ReferenceRuleVerifiedBy")
   reviewActions               ReviewAction[]           @relation("ReviewActionReviewer")
   refreshSessions             RefreshSession[]
   idempotencyRecords          IdempotencyRecord[]      @relation("IdempotencyUser")
@@ -229,10 +230,43 @@ model Facility {
   patients             Patient[]
   admissions           Admission[]
   datasetCases         DatasetCase[]
+  referenceRules       ReferenceRule[]
   reviewActions        ReviewAction[]
   idempotencyRecords   IdempotencyRecord[]
   syncEvents           SyncEvent[]
   auditLogs            AuditLog[]
+  settings             FacilitySettings?
+  activeUserSettings   UserSettings[] @relation("ActiveFacilityUserSettings")
+}
+
+model UserSettings {
+  id                         String   @id @default(cuid())
+  userId                     String   @unique
+  activeFacilityId           String?
+  roleVisibilityJson         Json?
+  offlineSyncPreferencesJson Json?
+  privacyControlsJson        Json?
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
+
+  user           User      @relation(fields: [userId], references: [id])
+  activeFacility Facility? @relation("ActiveFacilityUserSettings", fields: [activeFacilityId], references: [id])
+
+  @@index([activeFacilityId])
+}
+
+model FacilitySettings {
+  id                     String   @id @default(cuid())
+  facilityId             String   @unique
+  referenceSettingsJson  Json?
+  workflowSettingsJson   Json?
+  privacyControlsJson    Json?
+  governanceSettingsJson Json?
+  modelVisibilityJson    Json?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  facility Facility @relation(fields: [facilityId], references: [id])
 }
 
 model FacilityMembership {
@@ -535,18 +569,23 @@ model Outcome {
 }
 
 model ReviewAction {
-  id             String   @id @default(cuid())
-  facilityId     String?
-  reviewerUserId String?
-  entityType     String
-  entityId       String
-  action         String
-  statusBefore   String?
-  statusAfter    String?
-  comment        String?  @db.Text
-  beforeJson     Json?
-  afterJson      Json?
-  createdAt      DateTime @default(now())
+  id                  String   @id @default(cuid())
+  facilityId          String?
+  reviewerUserId      String?
+  entityType          String
+  entityId            String
+  action              String
+  statusBefore        String?
+  statusAfter         String?
+  validationStatus    String?
+  triagePriority      String?
+  overrideReason      String?  @db.Text
+  correctionJson      Json?
+  returnedToClinician Boolean  @default(false)
+  comment             String?  @db.Text
+  beforeJson          Json?
+  afterJson           Json?
+  createdAt           DateTime @default(now())
 
   facility Facility? @relation(fields: [facilityId], references: [id])
   reviewer User?     @relation("ReviewActionReviewer", fields: [reviewerUserId], references: [id])
@@ -587,22 +626,37 @@ model DatasetCase {
 }
 
 model ReferenceRule {
-  id               String    @id @default(cuid())
-  name             String
-  version          String
-  sourceCitation   String?   @db.Text
-  ruleJson         Json
-  activeFrom       DateTime?
-  activeTo         DateTime?
-  approvedByUserId String?
-  governanceStatus String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id                 String                          @id @default(cuid())
+  facilityId         String?
+  name               String
+  version            String
+  clinicalCondition  String?
+  patientPathway     PatientPathway?
+  parameterName      String?
+  lowerBound         Float?
+  upperBound         Float?
+  unit               String?
+  sourceCitation     String?                         @db.Text
+  ruleJson           Json
+  activeFrom         DateTime?
+  activeTo           DateTime?
+  approvedByUserId   String?
+  verifiedByUserId   String?
+  verifiedAt         DateTime?
+  verificationStatus ReferenceRuleVerificationStatus @default(PENDING_REVIEW)
+  reviewNotes        String?                         @db.Text
+  governanceStatus   String?
+  createdAt          DateTime                        @default(now())
+  updatedAt          DateTime                        @updatedAt
 
-  approvedBy User? @relation("ReferenceRuleApprovedBy", fields: [approvedByUserId], references: [id])
+  facility   Facility? @relation(fields: [facilityId], references: [id])
+  approvedBy User?     @relation("ReferenceRuleApprovedBy", fields: [approvedByUserId], references: [id])
+  verifiedBy User?     @relation("ReferenceRuleVerifiedBy", fields: [verifiedByUserId], references: [id])
 
   @@unique([name, version])
   @@index([activeFrom, activeTo])
+  @@index([facilityId, verificationStatus])
+  @@index([verificationStatus, activeFrom, activeTo])
 }
 
 model ModelVersion {

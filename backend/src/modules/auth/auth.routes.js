@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { requireAuth } from '../../middleware/auth.middleware.js';
+import { optionalAuth, requireAuth } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validateRequest.js';
 import {
   csrfToken,
@@ -20,7 +20,7 @@ authRouter.get('/identify', identify);
 authRouter.post('/register', validateRequest(registerSchema), register);
 authRouter.post('/login', validateRequest(loginSchema), login);
 authRouter.post('/refresh', validateRequest(refreshSchema), refresh);
-authRouter.post('/logout', validateRequest(logoutSchema), logout);
+authRouter.post('/logout', optionalAuth, validateRequest(logoutSchema), logout);
 authRouter.get('/me', requireAuth, me);
 
 authRouter.post('/forgot-password', plannedAuth('Forgot password'));

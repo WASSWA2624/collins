@@ -107,10 +107,13 @@ export const processSyncQueue = async (items, userId, req) => {
       });
     } catch (error) {
       const status = statusFromError(error);
+      const allowedFailureFacilityId = [401, 403].includes(error.status)
+        ? null
+        : item.facilityId || item.payload.facilityId || error.meta?.facilityId || null;
       await prisma.syncEvent.create({
         data: {
           userId,
-          facilityId: item.facilityId || item.payload.facilityId || error.meta?.facilityId || null,
+          facilityId: allowedFailureFacilityId,
           operation: item.operation,
           entityType: item.operation.replace(/^create_/, ''),
           entityId: item.admissionId || null,

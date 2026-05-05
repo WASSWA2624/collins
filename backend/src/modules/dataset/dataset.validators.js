@@ -1,7 +1,18 @@
 import { z } from 'zod';
+import {
+  UNSAFE_DATASET_SOURCE_TYPE_MESSAGE,
+  UNSAFE_DATASET_SOURCE_TYPE_PATTERN,
+} from './dataset.constants.js';
 
 const jsonObject = z.record(z.string(), z.unknown());
 const idParam = z.object({ id: z.string().min(1) });
+const safeSourceType = z.string()
+  .trim()
+  .min(2)
+  .max(120)
+  .refine((value) => !UNSAFE_DATASET_SOURCE_TYPE_PATTERN.test(value), {
+    message: UNSAFE_DATASET_SOURCE_TYPE_MESSAGE,
+  });
 
 export const parseNoteSchema = z.object({
   body: z.object({
@@ -16,7 +27,7 @@ export const createDatasetImportSchema = z.object({
   body: z.object({
     facilityId: z.string().min(1),
     sourceAdmissionId: z.string().min(1).optional(),
-    sourceType: z.string().trim().min(2).max(120).default('structured_import'),
+    sourceType: safeSourceType.default('structured_import'),
     structuredPreviewJson: jsonObject,
     governanceJson: jsonObject.optional(),
   }),

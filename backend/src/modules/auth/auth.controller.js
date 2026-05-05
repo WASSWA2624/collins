@@ -45,7 +45,10 @@ export const refresh = asyncHandler(async (req, res) => {
 });
 
 export const logout = asyncHandler(async (req, res) => {
-  const result = await logoutUser(req.validated.body, buildAuditContext(req));
+  const result = await logoutUser({
+    refreshToken: req.validated.body?.refreshToken,
+    sessionId: req.user?.sid,
+  }, buildAuditContext(req));
   return successResponse(res, {
     message: 'Logout accepted',
     data: result,
@@ -53,7 +56,7 @@ export const logout = asyncHandler(async (req, res) => {
 });
 
 export const me = asyncHandler(async (req, res) => {
-  const user = await getCurrentUser(req.user?.sub);
+  const user = await getCurrentUser(req.user?.sub, req.user?.activeFacilityId);
   return successResponse(res, {
     message: 'Current user loaded',
     data: { user },

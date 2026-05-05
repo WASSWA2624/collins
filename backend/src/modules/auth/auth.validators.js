@@ -1,7 +1,11 @@
 import { z } from 'zod';
 
-const email = z.string().email().trim().toLowerCase();
+const email = z.string().trim().toLowerCase().email();
 const password = z.string().min(8).max(128);
+const activeFacilityFields = {
+  activeFacilityId: z.string().min(1).optional(),
+  facilityId: z.string().min(1).optional(),
+};
 
 export const registerSchema = z.object({
   body: z.object({
@@ -18,6 +22,7 @@ export const loginSchema = z.object({
   body: z.object({
     email,
     password: z.string().min(1).max(128),
+    ...activeFacilityFields,
   }),
   params: z.object({}).optional(),
   query: z.object({}).optional(),
@@ -26,6 +31,7 @@ export const loginSchema = z.object({
 export const refreshSchema = z.object({
   body: z.object({
     refreshToken: z.string().min(20).max(500),
+    ...activeFacilityFields,
   }),
   params: z.object({}).optional(),
   query: z.object({}).optional(),

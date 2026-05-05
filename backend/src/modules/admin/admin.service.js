@@ -4,62 +4,14 @@ import {
   FACILITY_ADMIN_ROLES,
   MODEL_GOVERNANCE_ROLES,
   assertAnyApprovedRole,
-  assertFacilityRole,
   assertPlatformRole,
   resolveFacilityScope,
 } from '../../utils/authorization.js';
 import { notFound, badRequest } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
+import { getOperationalDashboard } from '../dashboards/dashboards.service.js';
 
-export const getAdminDashboard = async (userId, { facilityId } = {}) => {
-  const scopedFacilityId = facilityId
-    ? (await assertFacilityRole(userId, facilityId, FACILITY_ADMIN_ROLES), facilityId)
-    : undefined;
-
-  if (!scopedFacilityId) await assertPlatformRole(userId);
-
-  const admissionWhere = scopedFacilityId ? { facilityId: scopedFacilityId } : {};
-  const activeUserWhere = scopedFacilityId
-    ? { facilityMemberships: { some: { facilityId: scopedFacilityId, status: 'APPROVED' } }, status: 'ACTIVE' }
-    : { status: 'ACTIVE' };
-  const [
-    totalFacilities,
-    pendingFacilityVerification,
-    activeUsers,
-    activeAdmissions,
-    ventilatedPatients,
-    abgsPendingReview,
-    datasetReviewQueue,
-    syncFailures,
-    referenceRules,
-    modelVersions,
-  ] = await Promise.all([
-    scopedFacilityId ? 1 : prisma.facility.count(),
-    scopedFacilityId ? 0 : prisma.facility.count({ where: { verificationStatus: 'PENDING' } }),
-    prisma.user.count({ where: activeUserWhere }),
-    prisma.admission.count({ where: { ...admissionWhere, status: 'ACTIVE' } }),
-    prisma.ventilatorSetting.count({ where: scopedFacilityId ? { admission: { facilityId: scopedFacilityId } } : {} }),
-    prisma.abgTest.count({ where: { reviewStatus: 'PENDING', ...(scopedFacilityId ? { admission: { facilityId: scopedFacilityId } } : {}) } }),
-    prisma.datasetCase.count({ where: { ...(scopedFacilityId ? { facilityId: scopedFacilityId } : {}), reviewStatus: { in: ['SUBMITTED', 'NEEDS_CORRECTION', 'REVIEWED', 'APPROVED_FOR_DATASET'] } } }),
-    prisma.syncEvent.count({ where: { ...(scopedFacilityId ? { facilityId: scopedFacilityId } : {}), status: { in: ['CONFLICT', 'FAILED', 'FAILED_VALIDATION', 'NEEDS_REVIEW'] } } }),
-    prisma.referenceRule.count(),
-    prisma.modelVersion.count(),
-  ]);
-
-  return {
-    totalFacilities,
-    pendingFacilityVerification,
-    activeUsers,
-    activeAdmissions,
-    ventilatedPatients,
-    abgsPendingReview,
-    datasetReviewQueue,
-    syncFailures,
-    referenceRules,
-    modelVersions,
-    privacy: 'Aggregate dashboard only; patient identifiers are not included.',
-  };
-};
+export const getAdminDashboard = getOperationalDashboard;
 
 export const listAdminFacilities = async (userId) => {
   await assertPlatformRole(userId);

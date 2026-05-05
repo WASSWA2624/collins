@@ -1,11 +1,24 @@
 import { z } from 'zod';
+import {
+  DASHBOARD_WINDOW_DEFAULT_DAYS,
+  DASHBOARD_WINDOW_MAX_DAYS,
+} from '../dashboards/dashboards.constants.js';
 
 const jsonObject = z.record(z.string(), z.unknown());
 
 export const dashboardSchema = z.object({
   body: z.object({}).optional(),
   params: z.object({}).optional(),
-  query: z.object({ facilityId: z.string().min(1).optional() }).optional(),
+  query: z.object({
+    facilityId: z.string().min(1).optional(),
+    from: z.coerce.date().optional(),
+    to: z.coerce.date().optional(),
+    days: z.coerce.number()
+      .int()
+      .positive()
+      .max(DASHBOARD_WINDOW_MAX_DAYS)
+      .default(DASHBOARD_WINDOW_DEFAULT_DAYS),
+  }).optional(),
 });
 
 export const auditLogSchema = z.object({

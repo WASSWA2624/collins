@@ -3,7 +3,8 @@ import { assertAdmissionAccess, assertFacilityRole, resolveFacilityScope, REVIEW
 import { conflict, notFound, reviewerRequired } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { resolveIdempotency, storeIdempotencyResult } from '../../utils/idempotency.js';
-import { stripUndefined } from '../../utils/object.js';
+import { sha256 } from '../../utils/crypto.js';
+import { isPlainObject, stripUndefined } from '../../utils/object.js';
 import { calculateReferenceWeight } from '../../clinical/calculations.js';
 import { calculateHumidificationFlags, calculateVentilationSummary, interpretAbg } from '../../clinical/flags.js';
 
@@ -59,6 +60,8 @@ const patientReferenceFields = new Set([
   'referenceWeightMethod',
 ]);
 const admissionPatchFields = ['bedNumber', 'admissionSource', 'reasonForVentilation', 'status', 'clientUpdatedAt'];
+const THREE_STEP_FLOW_VERSION = 'three-step-admission-flow@2026-05-05';
+const THREE_STEP_SOURCE = 'three_step_admission_flow';
 
 const withoutIdempotency = (data = {}) => {
   const { idempotencyKey, overrideReason, ...rest } = data;
@@ -71,6 +74,112 @@ const getOverrideReason = (payload = {}) => {
 };
 
 const hasKeys = (value) => Object.keys(value || {}).length > 0;
+
+const stripNullish = (value) => {
+  if (Array.isArray(value)) return value.map(stripNullish).filter((item) => item !== undefined && item !== null);
+  if (value && typeof value === 'object' && !(value instanceof Date)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, entryValue]) => entryValue !== undefined && entryValue !== null)
+        .map(([key, entryValue]) => [key, stripNullish(entryValue)])
+        .filter(([, entryValue]) => entryValue !== undefined && entryValue !== null)
+    );
+  }
+  return value;
+};
+
+const cleanText = (value) => {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  return trimmed || null;
+};
+
+const uniqueStringList = (items = []) => [...new Set(
+  (Array.isArray(items) ? items : [])
+    .map((item) => cleanText(item))
+    .filter(Boolean)
+)];
+
+const normalizeFieldKey = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+const deriveScopedToken = (base, suffix, maxLength) => {
+  const trimmedBase = cleanText(base);
+  if (!trimmedBase) return undefined;
+
+  const candidate = `${trimmedBase}:${suffix}`;
+  if (candidate.length <= maxLength) return candidate;
+
+  const hash = sha256(candidate).slice(0, 16);
+  return `${trimmedBase.slice(0, maxLength - hash.length - 1)}:${hash}`;
+};
+
+const deriveStepIdempotencyKey = (base, suffix) => deriveScopedToken(base, suffix, 160);
+const deriveStepClientRecordId = (base, suffix) => deriveScopedToken(base, suffix, 120);
+
+const normalizeUncertainty = (uncertainty = null) => {
+  if (!isPlainObject(uncertainty)) return null;
+  const fields = uniqueStringList(uncertainty.fields);
+  const reason = cleanText(uncertainty.reason);
+  const notes = cleanText(uncertainty.notes);
+  const isUncertain = uncertainty.isUncertain === true || fields.length > 0 || Boolean(reason || notes);
+
+  if (!isUncertain) return null;
+  return stripUndefined({
+    isUncertain,
+    fields,
+    reason,
+    notes,
+  });
+};
+
+const normalizeDeviceContext = (payload = {}) => {
+  const context = isPlainObject(payload.deviceContext) ? payload.deviceContext : {};
+  const normalized = stripUndefined({
+    deviceId: cleanText(context.deviceId) || cleanText(payload.deviceId),
+    source: cleanText(context.source),
+    oxygenSource: cleanText(context.oxygenSource),
+    ventilatorType: cleanText(context.ventilatorType),
+    facilityDeviceLabel: cleanText(context.facilityDeviceLabel),
+  });
+  return hasKeys(normalized) ? normalized : null;
+};
+
+const mergeAdmissionFlowMetadata = (existingJson, updates = {}) => {
+  const base = isPlainObject(existingJson) ? existingJson : {};
+  const previousFlow = isPlainObject(base.admissionFlow) ? base.admissionFlow : {};
+  return stripNullish({
+    ...base,
+    admissionFlow: {
+      ...previousFlow,
+      flowVersion: THREE_STEP_FLOW_VERSION,
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    },
+  });
+};
+
+const extractAdmissionFlowMetadata = (admission = {}) => {
+  const snapshots = admission.clinicalSnapshots || [];
+  for (const snapshot of snapshots) {
+    const flow = snapshot?.comorbiditiesJson?.admissionFlow;
+    if (isPlainObject(flow)) return flow;
+  }
+  return {};
+};
+
+const buildStepWriteMetadata = (record, payload, suffix, { includeSource = false, includeClientUpdatedAt = false } = {}) => {
+  const deviceContext = normalizeDeviceContext(payload) || {};
+  return stripNullish({
+    ...record,
+    ...(includeSource ? { source: record?.source || deviceContext.source } : {}),
+    clientRecordId: record?.clientRecordId || deriveStepClientRecordId(payload.clientRecordId, suffix),
+    clientCreatedAt: record?.clientCreatedAt || payload.clientCreatedAt,
+    ...(includeClientUpdatedAt ? { clientUpdatedAt: record?.clientUpdatedAt || payload.clientUpdatedAt } : {}),
+    deviceId: record?.deviceId || deviceContext.deviceId || payload.deviceId,
+    idempotencyKey: deriveStepIdempotencyKey(payload.idempotencyKey, suffix),
+    overrideReason: payload.overrideReason,
+  });
+};
 
 const preparePatientData = (patient) => {
   const reference = calculateReferenceWeight(patient);
@@ -140,6 +249,133 @@ const buildMissingData = (admission) => {
   if (!latestVentilator?.tidalVolumeMl) missing.push('tidalVolumeMl');
   if (!latestVentilator?.peep) missing.push('PEEP');
   return missing;
+};
+
+const isMissingFieldPermitted = (field, permittedFields) => {
+  const normalizedField = normalizeFieldKey(field);
+  return permittedFields.some((permittedField) => {
+    const normalizedPermitted = normalizeFieldKey(permittedField);
+    return normalizedField === normalizedPermitted
+      || normalizedField.includes(normalizedPermitted)
+      || normalizedPermitted.includes(normalizedField);
+  });
+};
+
+const getClinicalFlags = (clinicalSummary = {}) => [
+  ...(clinicalSummary.flags || []),
+  ...(clinicalSummary.abg?.flags || []),
+  ...(clinicalSummary.humidificationFlags || []),
+];
+
+export const buildAdmissionReadiness = (admission) => {
+  const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission);
+  const flowMetadata = extractAdmissionFlowMetadata(admission);
+  const permittedMissingFields = uniqueStringList(flowMetadata.permittedMissingFields);
+  const uncertainty = normalizeUncertainty(flowMetadata.uncertainty);
+  const clinicalFlags = getClinicalFlags(clinicalSummary);
+
+  const missingWarnings = (clinicalSummary.missingData || []).map((field) => {
+    const permitted = isMissingFieldPermitted(field, permittedMissingFields);
+    return {
+      code: permitted ? 'PERMITTED_MISSING_DATA' : 'MISSING_DATA',
+      severity: permitted ? 'info' : 'yellow',
+      field,
+      message: permitted
+        ? `${field} is documented as unavailable; review when it becomes available.`
+        : `${field} is missing; saving is allowed, but clinician review should confirm the gap.`,
+    };
+  });
+
+  const uncertaintyWarnings = uncertainty ? [{
+    code: 'EXPLICIT_UNCERTAINTY',
+    severity: 'yellow',
+    fields: uncertainty.fields || [],
+    message: 'Uncertain values were documented; clinician review should confirm them.',
+    reason: uncertainty.reason,
+  }] : [];
+
+  const clinicalWarnings = clinicalFlags.map((flag) => ({
+    code: flag.code,
+    severity: flag.severity || 'info',
+    field: flag.field,
+    message: flag.message,
+    ruleVersion: flag.ruleVersion,
+  }));
+
+  const blockers = clinicalWarnings
+    .filter((warning) => warning.code === 'IMPOSSIBLE_VALUE')
+    .map((warning) => ({
+      ...warning,
+      message: 'Impossible values require correction or documented clinician override before save review.',
+    }));
+
+  const warnings = [...missingWarnings, ...uncertaintyWarnings, ...clinicalWarnings];
+
+  return {
+    flowVersion: THREE_STEP_FLOW_VERSION,
+    isReadyToSave: blockers.length === 0,
+    needsReview: warnings.some((warning) => ['red', 'yellow'].includes(warning.severity)),
+    missingData: clinicalSummary.missingData || [],
+    permittedMissingFields,
+    uncertainty,
+    warnings,
+    blockers,
+    safetyStatement: clinicalSummary.safetyStatement,
+  };
+};
+
+const buildThreeStepAdmissionResponse = (step, admission, extra = {}) => {
+  const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission);
+  const admissionWithSummary = admission.clinicalSummary ? admission : { ...admission, clinicalSummary };
+
+  return toJson({
+    step,
+    admission: admissionWithSummary,
+    clinicalSummary,
+    readiness: buildAdmissionReadiness(admissionWithSummary),
+    ...extra,
+  });
+};
+
+const buildPatientReasonSnapshot = (payload) => {
+  const clinicalReason = isPlainObject(payload.clinicalReason) ? payload.clinicalReason : {};
+  const comorbiditiesJson = isPlainObject(clinicalReason.comorbiditiesJson) ? clinicalReason.comorbiditiesJson : {};
+  const specialConditionsJson = isPlainObject(clinicalReason.specialConditionsJson) ? clinicalReason.specialConditionsJson : undefined;
+  const reasonForSupport = cleanText(payload.reasonForVentilation) || cleanText(payload.reasonForSupport);
+
+  return stripNullish({
+    measuredAt: payload.admittedAt,
+    mainCondition: cleanText(clinicalReason.mainCondition) || reasonForSupport,
+    comorbiditiesJson: mergeAdmissionFlowMetadata({
+      ...comorbiditiesJson,
+      specialConditionsJson,
+    }, {
+      step: 'patient_reason',
+      permittedMissingFields: uniqueStringList(payload.permittedMissingFields),
+      reasonForSupport,
+    }),
+    source: `${THREE_STEP_SOURCE}:patient_reason`,
+    clientRecordId: deriveStepClientRecordId(payload.clientRecordId, 'patient-reason'),
+    deviceId: payload.deviceId,
+    clientCreatedAt: payload.clientCreatedAt,
+  });
+};
+
+const applyClinicalSnapshotFlowMetadata = (record, admission, payload) => {
+  const existingFlow = extractAdmissionFlowMetadata(admission);
+  const uncertainty = normalizeUncertainty(payload.uncertainty) || existingFlow.uncertainty || null;
+  const deviceContext = normalizeDeviceContext(payload) || existingFlow.deviceContext || null;
+
+  return stripNullish({
+    ...record,
+    source: record?.source || `${THREE_STEP_SOURCE}:oxygen_abg_ventilator`,
+    comorbiditiesJson: mergeAdmissionFlowMetadata(record?.comorbiditiesJson, {
+      ...existingFlow,
+      step: 'oxygen_abg_ventilator',
+      uncertainty,
+      deviceContext,
+    }),
+  });
 };
 
 const toValidDate = (value) => {
@@ -222,7 +458,11 @@ const assertNoReviewedOverwrite = async (tx, admissionId, userId, { allowClinici
           overrideReason,
         };
       }
-      throw reviewerRequired('Reviewed clinical data cannot be overwritten; submit a new append-only record or request reviewer correction.');
+      throw reviewerRequired('Reviewed clinical data cannot be overwritten; submit a new append-only record with overrideReason or request reviewer correction.', [], {
+        status: 'needs_review',
+        overrideRequired: true,
+        reasonField: 'overrideReason',
+      });
     }
   }
   return {

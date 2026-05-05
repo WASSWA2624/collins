@@ -13,6 +13,9 @@ const IDENTIFIER_KEYS = new Set([
   'reviewerUserId',
   'clientRecordId',
   'deviceId',
+  'idempotencyKey',
+  'registryCode',
+  'dateOfBirth',
   'tokenHash',
   'passwordHash',
   'name',
@@ -31,7 +34,16 @@ const IDENTIFIER_KEYS = new Set([
   'notes',
 ]);
 
-const looksLikeIdentifier = (key) => /name|phone|email|address|hospital|identifier|national|kin|rawnote|note/i.test(key);
+const looksLikeIdentifier = (key) => {
+  const normalized = key.toLowerCase();
+  return /name|phone|email|address|hospital|identifier|national|kin|rawnote|note/i.test(normalized)
+    || normalized === 'id'
+    || normalized.endsWith('userid')
+    || normalized.endsWith('recordid')
+    || normalized.endsWith('deviceid')
+    || normalized.endsWith('patientid')
+    || normalized.endsWith('admissionid');
+};
 
 export const deidentifyPayload = (value) => {
   if (Array.isArray(value)) return value.map(deidentifyPayload);
