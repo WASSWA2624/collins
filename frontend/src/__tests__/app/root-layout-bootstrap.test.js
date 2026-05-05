@@ -65,6 +65,10 @@ jest.mock('@logging', () => {
   };
 }, { virtual: true });
 
+jest.mock('@features/auth', () => ({
+  AuthSessionGate: ({ children }) => children,
+}), { virtual: true });
+
 jest.mock('react-redux', () => ({
   Provider: ({ children }) => mockReact.createElement(mockReact.Fragment, null, children),
   useSelector: (selector) => selector({ ui: { locale: 'en', theme: 'light' } }),

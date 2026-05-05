@@ -4,13 +4,14 @@
  */
 import { handleError } from '@errors';
 import { apiClient } from '@services/api';
-import { getQueue, removeFromQueue } from '@offline/queue';
+import { getQueue, removeFromQueue, updateQueueItem } from '@offline/queue';
 import { getIsOnline, subscribe } from '@offline/network.listener';
 import { __unsafeResetForTests, processQueue, startSync } from '@offline/sync.manager';
 
 jest.mock('@offline/queue', () => ({
   getQueue: jest.fn(),
   removeFromQueue: jest.fn(),
+  updateQueueItem: jest.fn(),
 }));
 
 jest.mock('@services/api', () => ({
@@ -34,6 +35,7 @@ describe('Sync Manager', () => {
     getIsOnline.mockReturnValue(true);
     getQueue.mockResolvedValue([]);
     removeFromQueue.mockResolvedValue(true);
+    updateQueueItem.mockResolvedValue(true);
     apiClient.mockResolvedValue({ data: {}, status: 200 });
   });
 
@@ -88,6 +90,10 @@ describe('Sync Manager', () => {
 
       expect(removeFromQueue).not.toHaveBeenCalled();
       expect(handleError).toHaveBeenCalled();
+      expect(updateQueueItem).toHaveBeenCalledWith('1', expect.objectContaining({
+        syncState: 'retry_pending',
+        retryCount: 1,
+      }));
     });
 
     it('continues processing after item failure', async () => {
@@ -103,6 +109,31 @@ describe('Sync Manager', () => {
       expect(apiClient).toHaveBeenCalledTimes(2);
       expect(removeFromQueue).toHaveBeenCalledTimes(1);
       expect(removeFromQueue).toHaveBeenCalledWith('2');
+    });
+
+    it('marks stale append conflicts and skips retrying conflicted items', async () => {
+      const conflict = {
+        status: 409,
+        code: 'CONFLICT',
+        meta: { conflictType: 'STALE_CLIENT_TIMESTAMP' },
+      };
+      getQueue.mockResolvedValue([
+        { id: '1', url: '/api/abg', method: 'POST', retryCount: 2 },
+        { id: '2', url: '/api/conflicted', method: 'POST', syncState: 'conflict' },
+      ]);
+      apiClient.mockRejectedValue(conflict);
+      handleError.mockReturnValue(conflict);
+
+      await processQueue();
+
+      expect(apiClient).toHaveBeenCalledTimes(1);
+      expect(apiClient).toHaveBeenCalledWith(expect.objectContaining({ id: '1' }));
+      expect(updateQueueItem).toHaveBeenCalledWith('1', expect.objectContaining({
+        syncState: 'conflict',
+        retryCount: 3,
+        conflictMeta: { conflictType: 'STALE_CLIENT_TIMESTAMP' },
+      }));
+      expect(removeFromQueue).not.toHaveBeenCalled();
     });
   });
 

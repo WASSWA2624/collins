@@ -175,7 +175,9 @@ const RecommendationScreenWeb = () => {
               {advisoryFlags.length > 0 && (
                 <StyledList>
                   {advisoryFlags.map((flag, i) => (
-                    <StyledListItem key={`${flag.code}-${i}`}>{flag.message}</StyledListItem>
+                    <StyledListItem key={`${flag.code}-${i}`}>
+                      <Text variant="body">{flag.message}</Text>
+                    </StyledListItem>
                   ))}
                 </StyledList>
               )}

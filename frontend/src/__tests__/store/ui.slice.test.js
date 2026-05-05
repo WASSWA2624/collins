@@ -150,9 +150,9 @@ describe('UI Slice', () => {
   });
 
   describe('setAiDecisionSupportEnabled', () => {
-    it('should set aiDecisionSupportEnabled to true', () => {
+    it('should keep clinician AI decision support disabled by governance', () => {
       const state = reducer(initialState, actions.setAiDecisionSupportEnabled(true));
-      expect(state.aiDecisionSupportEnabled).toBe(true);
+      expect(state.aiDecisionSupportEnabled).toBe(false);
     });
 
     it('should set aiDecisionSupportEnabled to false', () => {

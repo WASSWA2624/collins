@@ -5,6 +5,7 @@
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { handleError } from '@errors';
+import { getAuthFacilityScope } from '@config/accessControl';
 import { ventilationSession as ventilationSessionStorage } from '@services/storage';
 
 const initialState = {
@@ -31,9 +32,11 @@ const normalizeErrorCode = (errorOrPayload, fallback = 'UNKNOWN_ERROR') => {
   return fallback;
 };
 
-const hydrateVentilationSession = createAsyncThunk('ventilation/hydrateSession', async (_, { rejectWithValue }) => {
+const getStorageScope = (state) => getAuthFacilityScope(state?.auth ?? {});
+
+const hydrateVentilationSession = createAsyncThunk('ventilation/hydrateSession', async (_, { getState, rejectWithValue }) => {
   try {
-    const result = await ventilationSessionStorage.loadDraft();
+    const result = await ventilationSessionStorage.loadDraft(getStorageScope(getState()));
     if (!result.ok) {
       return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_DRAFT_LOAD_FAILED' });
     }
@@ -48,7 +51,9 @@ const persistVentilationSessionDraft = createAsyncThunk(
   'ventilation/persistDraft',
   async (_, { getState, rejectWithValue }) => {
     try {
-      const ventilation = getState()?.ventilation ?? {};
+      const state = getState();
+      const ventilation = state?.ventilation ?? {};
+      const scope = getStorageScope(state);
       const sessionId = ventilation?.currentSessionId;
       if (!sessionId) return true;
 
@@ -57,12 +62,14 @@ const persistVentilationSessionDraft = createAsyncThunk(
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
         assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
-        assessmentRecommendationSource: 'local',
+        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
         monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
+        userId: scope.userId,
+        facilityId: scope.facilityId,
         updatedAt: Date.now(),
       };
 
-      const result = await ventilationSessionStorage.saveDraft(draft);
+      const result = await ventilationSessionStorage.saveDraft(draft, scope);
       if (!result.ok) {
         return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_DRAFT_SAVE_FAILED' });
       }
@@ -76,9 +83,9 @@ const persistVentilationSessionDraft = createAsyncThunk(
 
 const clearVentilationSessionDraft = createAsyncThunk(
   'ventilation/clearDraft',
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const result = await ventilationSessionStorage.clearDraft();
+      const result = await ventilationSessionStorage.clearDraft(getStorageScope(getState()));
       if (!result.ok) {
         return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_DRAFT_CLEAR_FAILED' });
       }
@@ -94,7 +101,9 @@ const appendVentilationSessionToHistory = createAsyncThunk(
   'ventilation/appendHistory',
   async (_, { getState, rejectWithValue }) => {
     try {
-      const ventilation = getState()?.ventilation ?? {};
+      const state = getState();
+      const ventilation = state?.ventilation ?? {};
+      const scope = getStorageScope(state);
       const sessionId = ventilation?.currentSessionId;
       if (!sessionId) return true;
 
@@ -103,12 +112,14 @@ const appendVentilationSessionToHistory = createAsyncThunk(
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
         assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
-        assessmentRecommendationSource: 'local',
+        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
         monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
+        userId: scope.userId,
+        facilityId: scope.facilityId,
         updatedAt: Date.now(),
       };
 
-      const result = await ventilationSessionStorage.appendHistory(entry);
+      const result = await ventilationSessionStorage.appendHistory(entry, { scope });
       if (!result.ok) {
         return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_HISTORY_SAVE_FAILED' });
       }

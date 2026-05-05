@@ -5,7 +5,7 @@
 import { handleError } from '@errors';
 import { encryption } from '@security';
 import { async as asyncStorage } from '@services/storage';
-import { addToQueue, clearQueue, getQueue, removeFromQueue } from '@offline/queue';
+import { addToQueue, clearQueue, getQueue, removeFromQueue, updateQueueItem } from '@offline/queue';
 
 jest.mock('@services/storage', () => ({
   async: {
@@ -110,7 +110,7 @@ describe('Offline Queue', () => {
 
       expect(ok).toBe(true);
       expect(encryption.encrypt).toHaveBeenCalledWith(
-        JSON.stringify([{ url: '/api/test', method: 'POST', id: '12345', timestamp: 12345 }])
+        JSON.stringify([{ url: '/api/test', method: 'POST', id: '12345', timestamp: 12345, syncState: 'pending', retryCount: 0 }])
       );
       expect(asyncStorage.setItem).toHaveBeenCalledWith('offline_queue', 'encrypted-new');
 
@@ -127,6 +127,36 @@ describe('Offline Queue', () => {
       expect(ok).toBe(false);
       expect(asyncStorage.setItem).not.toHaveBeenCalled();
       expect(handleError).toHaveBeenCalled();
+    });
+  });
+
+  describe('updateQueueItem', () => {
+    it('updates retry and conflict state without replacing id or timestamp', async () => {
+      jest.spyOn(Date, 'now').mockReturnValue(67890);
+      asyncStorage.getItem.mockResolvedValue('ciphertext');
+      encryption.decrypt.mockResolvedValue(
+        JSON.stringify([{ id: '1', url: '/a', timestamp: 12345, syncState: 'pending', retryCount: 0 }])
+      );
+      encryption.encrypt.mockResolvedValue('encrypted-updated');
+
+      const ok = await updateQueueItem('1', {
+        syncState: 'conflict',
+        retryCount: 1,
+        conflictMeta: { conflictType: 'STALE_CLIENT_TIMESTAMP' },
+      });
+
+      expect(ok).toBe(true);
+      expect(encryption.encrypt).toHaveBeenCalledWith(JSON.stringify([{
+        id: '1',
+        url: '/a',
+        timestamp: 12345,
+        syncState: 'conflict',
+        retryCount: 1,
+        conflictMeta: { conflictType: 'STALE_CLIENT_TIMESTAMP' },
+        updatedAt: 67890,
+      }]));
+
+      Date.now.mockRestore();
     });
   });
 

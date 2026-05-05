@@ -9,8 +9,14 @@ global.fetch = jest.fn();
 jest.mock('@security', () => ({
   tokenManager: {
     getAccessToken: jest.fn(),
+    getRefreshToken: jest.fn(),
+    setTokens: jest.fn(),
     clearTokens: jest.fn(),
   },
+}));
+
+jest.mock('@features/auth/session.events', () => ({
+  emitAuthSessionExpired: jest.fn(),
 }));
 
 // Mock error handler
@@ -28,6 +34,7 @@ jest.mock('@config', () => ({
 const { apiClient } = require('@services/api');
 const { tokenManager } = require('@security');
 const { handleError } = require('@errors');
+const { emitAuthSessionExpired } = require('@features/auth/session.events');
 
 describe('API Client', () => {
   beforeEach(() => {
@@ -50,6 +57,7 @@ describe('API Client', () => {
         json: async () => mockData,
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       const result = await apiClient({ url: 'https://api.example.com/test' });
 
@@ -75,6 +83,7 @@ describe('API Client', () => {
         json: async () => mockData,
       });
       tokenManager.getAccessToken.mockResolvedValue(token);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       await apiClient({ url: 'https://api.example.com/test' });
 
@@ -98,6 +107,7 @@ describe('API Client', () => {
         json: async () => mockData,
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       const result = await apiClient({
         url: 'https://api.example.com/test',
@@ -123,6 +133,7 @@ describe('API Client', () => {
         headers: { get: () => 'application/json' },
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
       tokenManager.clearTokens.mockResolvedValue();
 
       await expect(
@@ -130,7 +141,50 @@ describe('API Client', () => {
       ).rejects.toBeDefined();
 
       expect(tokenManager.clearTokens).toHaveBeenCalled();
+      expect(emitAuthSessionExpired).toHaveBeenCalled();
       expect(handleError).toHaveBeenCalled();
+    });
+
+    it('should refresh tokens and retry once on 401', async () => {
+      const mockData = { ok: true };
+      global.fetch
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 401,
+          statusText: 'Unauthorized',
+          headers: { get: () => 'application/json' },
+          json: async () => ({ message: 'Authentication required' }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          headers: { get: () => 'application/json' },
+          json: async () => ({
+            data: {
+              tokens: {
+                accessToken: 'new-access',
+                refreshToken: 'new-refresh',
+              },
+            },
+          }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          headers: { get: () => 'application/json' },
+          json: async () => mockData,
+        });
+      tokenManager.getAccessToken
+        .mockResolvedValueOnce('old-access')
+        .mockResolvedValueOnce('new-access');
+      tokenManager.getRefreshToken.mockResolvedValue('refresh-token');
+      tokenManager.setTokens.mockResolvedValue(true);
+
+      const result = await apiClient({ url: 'https://api.example.com/test' });
+
+      expect(result).toEqual({ data: mockData, status: 200 });
+      expect(tokenManager.setTokens).toHaveBeenCalledWith('new-access', 'new-refresh');
+      expect(global.fetch).toHaveBeenCalledTimes(3);
     });
 
     it('should handle request timeout', async () => {
@@ -150,6 +204,7 @@ describe('API Client', () => {
         });
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       const promise = apiClient({
         url: 'https://api.example.com/test',
@@ -169,6 +224,7 @@ describe('API Client', () => {
       const networkError = new Error('Network request failed');
       global.fetch.mockRejectedValue(networkError);
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       await expect(
         apiClient({ url: 'https://api.example.com/test' })
@@ -186,6 +242,7 @@ describe('API Client', () => {
         json: async () => mockData,
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       await apiClient({
         url: 'https://api.example.com/test',
@@ -204,12 +261,39 @@ describe('API Client', () => {
         headers: { get: () => 'application/json' },
       });
       tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
 
       await expect(
         apiClient({ url: 'https://api.example.com/test' })
       ).rejects.toBeDefined();
 
       expect(handleError).toHaveBeenCalled();
+    });
+
+    it('should preserve backend conflict metadata on API errors', async () => {
+      global.fetch.mockResolvedValue({
+        ok: false,
+        status: 409,
+        statusText: 'Conflict',
+        headers: { get: () => 'application/json' },
+        json: async () => ({
+          message: 'Stale client timestamp',
+          errors: [{ path: 'body.clientUpdatedAt', message: 'Refresh first' }],
+          meta: { conflictType: 'STALE_CLIENT_TIMESTAMP', serverRecord: { id: 'abg-latest' } },
+        }),
+      });
+      tokenManager.getAccessToken.mockResolvedValue(null);
+      tokenManager.getRefreshToken.mockResolvedValue(null);
+
+      await expect(apiClient({ url: 'https://api.example.com/test' })).rejects.toMatchObject({
+        status: 409,
+        meta: { conflictType: 'STALE_CLIENT_TIMESTAMP', serverRecord: { id: 'abg-latest' } },
+      });
+
+      expect(handleError).toHaveBeenCalledWith(expect.objectContaining({
+        status: 409,
+        meta: expect.objectContaining({ conflictType: 'STALE_CLIENT_TIMESTAMP' }),
+      }));
     });
   });
 });

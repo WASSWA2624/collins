@@ -161,6 +161,10 @@ jest.mock('@logging', () => ({
   },
 }), { virtual: true });
 
+jest.mock('@features/auth', () => ({
+  AuthSessionGate: ({ children }) => children,
+}), { virtual: true });
+
 jest.mock('@errors/error.handler', () => ({
   handleError: jest.fn((error) => ({
     code: 'TEST_ERROR',

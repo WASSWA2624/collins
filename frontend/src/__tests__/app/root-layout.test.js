@@ -53,6 +53,13 @@ jest.mock('@i18n', () => {
   };
 }, { virtual: true });
 
+jest.mock('@features/auth', () => {
+  const React = require('react');
+  return {
+    AuthSessionGate: ({ children }) => React.createElement(React.Fragment, null, children),
+  };
+}, { virtual: true });
+
 // Mock store module
 jest.mock('@store', () => {
   const { configureStore } = require('@reduxjs/toolkit');
@@ -145,6 +152,10 @@ jest.mock('@logging', () => ({
     warn: jest.fn(),
     debug: jest.fn(),
   },
+}), { virtual: true });
+
+jest.mock('@features/auth', () => ({
+  AuthSessionGate: ({ children }) => children,
 }), { virtual: true });
 
 // Mock store selectors

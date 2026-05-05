@@ -119,6 +119,10 @@ jest.mock('@logging', () => ({
   },
 }), { virtual: true });
 
+jest.mock('@features/auth', () => ({
+  AuthSessionGate: ({ children }) => children,
+}), { virtual: true });
+
 // Mock ErrorBoundary
 jest.mock('@errors', () => {
   const React = require('react');

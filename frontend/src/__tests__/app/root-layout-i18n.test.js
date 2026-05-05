@@ -54,6 +54,10 @@ jest.mock('@logging', () => ({
   },
 }), { virtual: true });
 
+jest.mock('@features/auth', () => ({
+  AuthSessionGate: ({ children }) => children,
+}), { virtual: true });
+
 // Mock ErrorBoundary to render children normally (for successful renders)
 // but allow testing error states
 jest.mock('@errors', () => {
