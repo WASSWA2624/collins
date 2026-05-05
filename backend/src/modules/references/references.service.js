@@ -4,7 +4,7 @@ import {
   VERIFIED_REFERENCE_GOVERNANCE_STATUSES,
 } from '../training-help/trainingHelp.service.js';
 
-const activeReferenceWhere = (now) => ({
+export const activeReferenceWhere = (now) => ({
   verificationStatus: 'VERIFIED',
   governanceStatus: { in: [...VERIFIED_REFERENCE_GOVERNANCE_STATUSES] },
   OR: [

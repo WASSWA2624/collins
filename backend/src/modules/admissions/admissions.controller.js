@@ -76,7 +76,9 @@ export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
     buildAuditContext(req)
   );
   return successResponse(res, {
-    message: 'Oxygen, ABG, and ventilator step saved',
+    message: result.syncStatus === 'duplicate'
+      ? 'Duplicate oxygen, ABG, and ventilator step returned original result'
+      : 'Oxygen, ABG, and ventilator step saved',
     data: result,
   });
 });

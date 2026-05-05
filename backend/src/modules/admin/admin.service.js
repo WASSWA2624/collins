@@ -75,14 +75,53 @@ export const getModelMonitoring = async (userId) => {
   };
 };
 
+const getReferenceFacilityId = (payload) => (payload.scope === 'FACILITY' ? payload.facilityId : null);
+
+const assertReferenceGovernanceRole = async (userId, facilityId) => {
+  if (facilityId) return assertFacilityRole(userId, facilityId, REVIEW_ROLES);
+  return assertPlatformRole(userId);
+};
+
+const appendReferenceAuditTrail = (existingTrail, entry) => [
+  ...(Array.isArray(existingTrail) ? existingTrail : []),
+  entry,
+];
+
+export const listReferenceRules = async (userId, { facilityId, verificationStatus, page, limit }) => {
+  const scopedFacilityId = facilityId
+    ? (await assertReferenceGovernanceRole(userId, facilityId), facilityId)
+    : undefined;
+
+  if (!scopedFacilityId) await assertPlatformRole(userId);
+
+  const where = {
+    ...(scopedFacilityId ? { facilityId: scopedFacilityId } : {}),
+    ...(verificationStatus ? { verificationStatus } : {}),
+  };
+
+  const [items, total] = await Promise.all([
+    prisma.referenceRule.findMany({
+      where,
+      include: { facility: true, verifiedBy: true, approvedBy: true },
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.referenceRule.count({ where }),
+  ]);
+
+  return { items, total, page, limit };
+};
+
 export const createReferenceRule = async (payload, userId, auditContext = {}) => {
-  await assertPlatformRole(userId);
+  const facilityId = getReferenceFacilityId(payload);
+  await assertReferenceGovernanceRole(userId, facilityId);
   return prisma.$transaction(async (tx) => {
     const createdAt = new Date();
     const rule = await tx.referenceRule.create({
       data: {
         ...payload,
-        facilityId: payload.scope === 'FACILITY' ? payload.facilityId : null,
+        facilityId,
         verificationStatus: 'PENDING_REVIEW',
         verifiedByUserId: null,
         verifiedAt: null,
@@ -102,12 +141,60 @@ export const createReferenceRule = async (payload, userId, auditContext = {}) =>
       tx,
       ...auditContext,
       userId,
+      facilityId,
       action: 'REFERENCE_RULE_CREATE',
       entityType: 'ReferenceRule',
       entityId: rule.id,
       afterJson: rule,
     });
     return rule;
+  });
+};
+
+export const updateReferenceRule = async (id, payload, userId, auditContext = {}) => {
+  const existing = await prisma.referenceRule.findUnique({ where: { id } });
+  if (!existing) throw notFound('Reference rule not found');
+
+  const facilityId = payload.scope === undefined
+    ? existing.facilityId
+    : getReferenceFacilityId({ ...existing, ...payload });
+  await assertReferenceGovernanceRole(userId, facilityId);
+
+  return prisma.$transaction(async (tx) => {
+    const updatedAt = new Date();
+    const updated = await tx.referenceRule.update({
+      where: { id },
+      data: stripUndefined({
+        ...payload,
+        facilityId,
+        verificationStatus: 'PENDING_REVIEW',
+        verifiedByUserId: null,
+        verifiedAt: null,
+        approvedByUserId: null,
+        governanceStatus: 'pending_review',
+        auditTrailJson: appendReferenceAuditTrail(existing.auditTrailJson, {
+          action: 'edited_pending_reference_review',
+          actorUserId: userId,
+          at: updatedAt.toISOString(),
+          note: payload.reviewNotes || 'Reference edit requires authorized review before decision-support use.',
+        }),
+      }),
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId,
+      action: 'REFERENCE_RULE_UPDATE',
+      entityType: 'ReferenceRule',
+      entityId: id,
+      beforeJson: existing,
+      afterJson: updated,
+      reason: payload.reviewNotes,
+    });
+
+    return updated;
   });
 };
 

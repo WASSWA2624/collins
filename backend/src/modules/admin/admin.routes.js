@@ -9,7 +9,9 @@ import {
   datasetQuality,
   facilities,
   modelMonitoring,
+  references,
   retire,
+  updateReference,
   verifyFacility,
 } from './admin.controller.js';
 import {
@@ -17,6 +19,8 @@ import {
   createReferenceSchema,
   dashboardSchema,
   modelActionSchema,
+  referenceListSchema,
+  updateReferenceSchema,
 } from './admin.validators.js';
 import { verifyFacilitySchema } from '../facilities/facilities.validators.js';
 
@@ -29,6 +33,8 @@ adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema
 adminRouter.get('/audit-logs', validateRequest(auditLogSchema), auditLogs);
 adminRouter.get('/dataset-quality', validateRequest(dashboardSchema), datasetQuality);
 adminRouter.get('/model-monitoring', modelMonitoring);
+adminRouter.get('/references', validateRequest(referenceListSchema), references);
 adminRouter.post('/references', validateRequest(createReferenceSchema), createReference);
+adminRouter.patch('/references/:id', validateRequest(updateReferenceSchema), updateReference);
 adminRouter.post('/models/:id/activate-shadow-mode', validateRequest(modelActionSchema), activateShadowMode);
 adminRouter.post('/models/:id/retire', validateRequest(modelActionSchema), retire);

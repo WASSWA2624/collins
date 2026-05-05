@@ -24,9 +24,17 @@ const adultPatient = {
   heightOrLengthCm: 170,
 };
 
+const stubPrismaMethod = (t, target, methodName, implementation) => {
+  const original = target[methodName];
+  target[methodName] = implementation;
+  t.after(() => {
+    target[methodName] = original;
+  });
+};
+
 const installAccessMocks = (t) => {
-  t.mock.method(prisma.admission, 'findUnique', async () => admissionAccess);
-  t.mock.method(prisma.facilityMembership, 'findFirst', async () => ({
+  stubPrismaMethod(t, prisma.admission, 'findUnique', async () => admissionAccess);
+  stubPrismaMethod(t, prisma.facilityMembership, 'findFirst', async () => ({
     id: 'membership-1',
     userId,
     facilityId,
@@ -65,7 +73,7 @@ test('ABG append rejects stale offline client timestamps with conflict metadata'
     },
   };
 
-  t.mock.method(prisma, '$transaction', async (callback) => callback(tx));
+  stubPrismaMethod(t, prisma, '$transaction', async (callback) => callback(tx));
 
   await assert.rejects(
     () => addAbgTest(userId, admissionId, {
@@ -159,7 +167,7 @@ test('ventilator append recalculates stored derived values and returns advisory 
     },
   };
 
-  t.mock.method(prisma, '$transaction', async (callback) => callback(tx));
+  stubPrismaMethod(t, prisma, '$transaction', async (callback) => callback(tx));
 
   const result = await addVentilatorSetting(userId, admissionId, {
     mode: 'VC',

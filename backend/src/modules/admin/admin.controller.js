@@ -10,7 +10,9 @@ import {
   getModelMonitoring,
   listAdminFacilities,
   listAuditLogs,
+  listReferenceRules,
   retireModel,
+  updateReferenceRule,
 } from './admin.service.js';
 
 export { verifyFacility };
@@ -52,6 +54,25 @@ export const modelMonitoring = asyncHandler(async (req, res) => {
 export const createReference = asyncHandler(async (req, res) => {
   const rule = await createReferenceRule(req.validated.body, req.user?.sub, buildAuditContext(req));
   return successResponse(res, { status: 201, message: 'Reference rule created', data: { rule } });
+});
+
+export const references = asyncHandler(async (req, res) => {
+  const result = await listReferenceRules(req.user?.sub, req.validated.query);
+  return successResponse(res, {
+    message: 'Reference rules loaded',
+    data: result.items,
+    meta: {
+      total: result.total,
+      page: result.page,
+      limit: result.limit,
+      hasNextPage: (result.page * result.limit) < result.total,
+    },
+  });
+});
+
+export const updateReference = asyncHandler(async (req, res) => {
+  const rule = await updateReferenceRule(req.validated.params.id, req.validated.body, req.user?.sub, buildAuditContext(req));
+  return successResponse(res, { message: 'Reference rule updated for review', data: { rule } });
 });
 
 export const activateShadowMode = asyncHandler(async (req, res) => {

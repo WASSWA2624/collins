@@ -10,16 +10,25 @@ import {
 } from './trainingHelp.content.js';
 
 const ROLE_AUDIENCES = Object.freeze({
-  [MEMBERSHIP_ROLES.PLATFORM_ADMIN]: Object.freeze(['platform_admin', 'facility_admin', 'reviewer', 'research_governance', 'clinical']),
+  [MEMBERSHIP_ROLES.PLATFORM_ADMIN]: Object.freeze(['platform_admin', 'facility_admin', 'reviewer', 'research_governance', 'model_governance', 'clinical']),
   [MEMBERSHIP_ROLES.FACILITY_ADMIN]: Object.freeze(['facility_admin', 'reviewer', 'clinical']),
   [MEMBERSHIP_ROLES.CLINICIAN]: Object.freeze(['clinical']),
   [MEMBERSHIP_ROLES.ICU_NURSE]: Object.freeze(['clinical']),
   [MEMBERSHIP_ROLES.SPECIALIST_REVIEWER]: Object.freeze(['reviewer', 'clinical']),
   [MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER]: Object.freeze(['research_governance', 'reviewer']),
+  [MEMBERSHIP_ROLES.MODEL_GOVERNANCE_OFFICER]: Object.freeze(['model_governance']),
   [MEMBERSHIP_ROLES.READ_ONLY_REVIEWER]: Object.freeze(['reviewer']),
 });
 
 export const VERIFIED_REFERENCE_GOVERNANCE_STATUSES = Object.freeze([
+  'approved',
+  'verified',
+  'active',
+  'approved_for_decision_support',
+  'verified_for_decision_support',
+]);
+
+export const VERIFIED_REFERENCE_VERIFICATION_STATUSES = Object.freeze([
   'approved',
   'verified',
   'active',
@@ -115,10 +124,12 @@ export const findForbiddenTrainingWording = (content = getTrainingHelpCatalog({ 
 
 export const normalizeReferenceGovernanceStatus = (status) => normalizeText(status || 'unverified');
 
-export const normalizeReferenceVerificationStatus = (status) => normalizeText(status || 'unverified');
+export const normalizeReferenceVerificationStatus = (status, fallbackStatus) => normalizeText(status || fallbackStatus || 'unverified');
 
 export const isVerifiedReferenceRule = (rule) => (
-  normalizeReferenceVerificationStatus(rule?.verificationStatus) === 'verified'
+  VERIFIED_REFERENCE_VERIFICATION_STATUSES.includes(
+    normalizeReferenceVerificationStatus(rule?.verificationStatus, rule?.governanceStatus),
+  )
   && VERIFIED_REFERENCE_GOVERNANCE_STATUSES.includes(normalizeReferenceGovernanceStatus(rule?.governanceStatus))
 );
 
@@ -149,7 +160,7 @@ export const explainReferenceRuleForTraining = (rule, now = new Date()) => {
     name: rule?.name,
     version: rule?.version,
     sourceCitation: rule?.sourceCitation || null,
-    verificationStatus: normalizeReferenceVerificationStatus(rule?.verificationStatus),
+    verificationStatus: normalizeReferenceVerificationStatus(rule?.verificationStatus, rule?.governanceStatus),
     governanceStatus: normalizeReferenceGovernanceStatus(rule?.governanceStatus),
     scope,
     activeFrom: rule?.activeFrom || null,

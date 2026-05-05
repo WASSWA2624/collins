@@ -33,7 +33,7 @@ export const TRAINING_HELP_TOPICS = Object.freeze([
     summary: 'Use Home for facility context, sync state, and workload status before opening a patient workflow.',
     body: Object.freeze([
       'Review the active facility, offline or sync state, active admissions count, red-flag count, and records needing review.',
-      'Home summaries are operational signals only. They do not create diagnosis, prescription, or ventilator-setting instructions.',
+      'Home summaries are operational signals only. They do not create clinical conclusions, treatment instructions, or ventilator-setting instructions.',
     ]),
   }),
   Object.freeze({
@@ -124,7 +124,7 @@ export const TRAINING_HELP_TOPICS = Object.freeze([
     id: 'governance.model-readiness',
     workflow: 'dashboard',
     title: 'Model Readiness',
-    audiences: Object.freeze(['platform_admin', 'research_governance']),
+    audiences: Object.freeze(['platform_admin', 'model_governance']),
     order: 90,
     summary: 'Use model-readiness help for governed shadow-mode review and future model cards.',
     body: Object.freeze([

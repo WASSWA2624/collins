@@ -8,6 +8,7 @@ import {
   addHumidification,
   addOutcome,
   addVentilatorSetting,
+  assertNoConflictForSync,
   createAdmission,
   createAdmissionPatientReasonStep,
   saveAdmissionOxygenAbgVentilatorStep,
@@ -52,6 +53,14 @@ const getResultEntityId = (result, fallbackAdmissionId = null) => result.admissi
 const runOperation = async (item, userId, req) => {
   const auditContext = buildAuditContext(req);
   const payload = withOfflineMetadata(item);
+  const shouldCheckAdmissionConflict = [
+    'save_admission_oxygen_abg_ventilator_step',
+    'save_admission_review_step',
+  ].includes(item.operation);
+
+  if (shouldCheckAdmissionConflict) {
+    await assertNoConflictForSync({ admissionId: item.admissionId, clientUpdatedAt: payload.clientUpdatedAt });
+  }
 
   switch (item.operation) {
     case 'create_admission':

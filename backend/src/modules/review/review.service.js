@@ -278,7 +278,7 @@ const assertReviewPermission = async ({ userId, facilityId, config }) => {
   return assertFacilityRole(userId, facilityId, REVIEW_ROLES);
 };
 
-const buildReviewUpdateData = ({ entityType, config, action, payload, userId, statusAfter }) => {
+const buildReviewUpdateData = ({ entityType, config, action, payload, userId, statusAfter, existing }) => {
   const data = {};
   if (action !== 'triage') data[config.statusField] = statusAfter;
   if (config.validationStatusField && payload.validationStatus) data[config.validationStatusField] = payload.validationStatus;
@@ -294,7 +294,17 @@ const buildReviewUpdateData = ({ entityType, config, action, payload, userId, st
   }
 
   if (entityType === 'reference-rule') {
+    const existingAuditTrail = Array.isArray(existing.auditTrailJson) ? existing.auditTrailJson : [];
     data.reviewNotes = payload.reviewNotes || payload.comment;
+    data.auditTrailJson = [
+      ...existingAuditTrail,
+      {
+        action: `reference_review_${action}`,
+        actorUserId: userId,
+        at: new Date().toISOString(),
+        note: payload.overrideReason || payload.comment || payload.reason || payload.reviewNotes || null,
+      },
+    ];
     if (action === 'approve') {
       data.verifiedByUserId = userId;
       data.verifiedAt = new Date();
@@ -335,7 +345,7 @@ export const applyReviewAction = async ({ entityType, entityId, action, payload 
   }
 
   const statusAfter = getStatusAfter(config, action, existing);
-  const updateData = buildReviewUpdateData({ entityType, config, action, payload, userId, statusAfter });
+  const updateData = buildReviewUpdateData({ entityType, config, action, payload, userId, statusAfter, existing });
   const beforeJson = toJson(existing);
 
   return prisma.$transaction(async (tx) => {

@@ -67,7 +67,6 @@ const withoutIdempotency = (data = {}) => {
   const rest = { ...data };
   delete rest.idempotencyKey;
   delete rest.overrideReason;
-  delete rest.clientUpdatedAt;
   return stripUndefined(rest);
 };
 
@@ -702,6 +701,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
   await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
   const admission = await getAdmissionById(userId, admissionId);
   const saved = {};
+  const writeStatuses = [];
 
   const oxygenRecord = stripNullish(payload.oxygen || payload.clinicalSnapshot || {});
   const shouldStoreFlowSnapshot = hasKeys(stripNullish({
@@ -718,6 +718,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     );
     const result = await addClinicalSnapshot(userId, admissionId, clinicalSnapshotPayload, auditContext);
     saved.clinicalSnapshot = result.clinicalSnapshot;
+    writeStatuses.push(result.syncStatus || 'synced');
   }
 
   const abgRecord = stripNullish(payload.abg || payload.abgTest || {});
@@ -728,6 +729,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     });
     const result = await addAbgTest(userId, admissionId, abgPayload, auditContext);
     saved.abgTest = result.abgTest;
+    writeStatuses.push(result.syncStatus || 'synced');
   }
 
   const ventilatorRecord = stripNullish(payload.ventilator || payload.ventilatorSetting || {});
@@ -738,6 +740,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     });
     const result = await addVentilatorSetting(userId, admissionId, ventilatorPayload, auditContext);
     saved.ventilatorSetting = result.ventilatorSetting;
+    writeStatuses.push(result.syncStatus || 'synced');
   }
 
   const airwayRecord = stripNullish(payload.airwayDevice || {});
@@ -745,6 +748,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     const airwayPayload = buildStepWriteMetadata(airwayRecord, payload, 'airway');
     const result = await addAirwayDevice(userId, admissionId, airwayPayload, auditContext);
     saved.airwayDevice = result.airwayDevice;
+    writeStatuses.push(result.syncStatus || 'synced');
   }
 
   const humidificationRecord = stripNullish(payload.humidification || {});
@@ -752,25 +756,29 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     const humidificationPayload = buildStepWriteMetadata(humidificationRecord, payload, 'humidification');
     const result = await addHumidification(userId, admissionId, humidificationPayload, auditContext);
     saved.humidificationDecision = result.humidificationDecision;
+    writeStatuses.push(result.syncStatus || 'synced');
   }
 
   const refreshed = await getAdmissionById(userId, admissionId);
+  const syncStatus = writeStatuses.length > 0 && writeStatuses.every((status) => status === 'duplicate') ? 'duplicate' : 'synced';
   const response = buildThreeStepAdmissionResponse('oxygen_abg_ventilator', refreshed, {
     facilityId: refreshed.facilityId,
     saved,
-    syncStatus: Object.keys(saved).length === 0 ? 'synced' : 'synced',
+    syncStatus,
   });
 
-  await writeAudit({
-    ...auditContext,
-    userId,
-    facilityId: refreshed.facilityId,
-    action: 'ADMISSION_THREE_STEP_OXYGEN_ABG_VENTILATOR',
-    entityType: 'Admission',
-    entityId: admissionId,
-    afterJson: response,
-    reason: getOverrideReason(payload),
-  });
+  if (syncStatus !== 'duplicate') {
+    await writeAudit({
+      ...auditContext,
+      userId,
+      facilityId: refreshed.facilityId,
+      action: 'ADMISSION_THREE_STEP_OXYGEN_ABG_VENTILATOR',
+      entityType: 'Admission',
+      entityId: admissionId,
+      afterJson: response,
+      reason: getOverrideReason(payload),
+    });
+  }
 
   return response;
 };
@@ -1288,12 +1296,17 @@ export const assertNoConflictForSync = async ({ admissionId, clientUpdatedAt }) 
   if (!admissionId || !clientUpdatedAt) return null;
   const admission = await prisma.admission.findUnique({
     where: { id: admissionId },
-    select: { id: true, updatedAt: true, reviewStatus: true },
+    select: { id: true, facilityId: true, updatedAt: true, reviewStatus: true },
   });
   if (!admission) throw notFound('Admission not found');
   if (admission.reviewStatus === 'APPROVED') {
     throw conflict('Reviewed admission requires reviewer resolution before sync overwrite', [], {
       status: 'conflict',
+      facilityId: admission.facilityId,
+      admissionId: admission.id,
+      reviewStatus: admission.reviewStatus,
+      preserveReviewedData: true,
+      resolution: 'submit_new_append_only_record_or_request_reviewer_correction',
       serverUpdatedAt: admission.updatedAt,
       clientUpdatedAt,
     });
@@ -1301,6 +1314,11 @@ export const assertNoConflictForSync = async ({ admissionId, clientUpdatedAt }) 
   if (new Date(clientUpdatedAt) < admission.updatedAt) {
     throw conflict('Another update exists. Keep both values for reviewer?', [], {
       status: 'conflict',
+      facilityId: admission.facilityId,
+      admissionId: admission.id,
+      reviewStatus: admission.reviewStatus,
+      preserveReviewedData: true,
+      resolution: 'keep_server_record_and_route_client_payload_for_review',
       serverUpdatedAt: admission.updatedAt,
       clientUpdatedAt,
     });
