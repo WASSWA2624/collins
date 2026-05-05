@@ -27,4 +27,5 @@ export { default as useTrainingContent } from './useTrainingContent';
 export { default as useExportSession } from './useExportSession';
 export { default as useOnboarding } from './useOnboarding';
 export { default as useHelp } from './useHelp';
+export { default as useReviewQueue } from './useReviewQueue';
 

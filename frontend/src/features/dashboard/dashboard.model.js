@@ -199,7 +199,11 @@ const dashboardSchemas = Object.freeze({
   [DASHBOARD_TYPES.GOVERNANCE]: governanceDashboardSchema,
 });
 
-const normalizeRole = (role) => String(role || '').trim().toUpperCase();
+const normalizeRole = (role) => {
+  const value = String(role || '').trim().toUpperCase();
+  if (value === 'SUPER_ADMIN') return MEMBERSHIP_ROLES.PLATFORM_ADMIN;
+  return value;
+};
 
 const normalizeRoles = (roles = []) => {
   const list = Array.isArray(roles) ? roles : [roles];

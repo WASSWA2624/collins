@@ -4,12 +4,23 @@
  * File: useNavigationVisibility.js
  */
 import { useCallback } from 'react';
+import useAuth from './useAuth';
+import { normalizeRoles } from '@features/dashboard';
 
 /**
- * @returns {Object} isItemVisible(item) - true when item is truthy (sidebar/tab bar always show nav items)
+ * @returns {Object} isItemVisible(item) - true when auth and item role requirements allow it
  */
 const useNavigationVisibility = () => {
-  const isItemVisible = useCallback((item) => Boolean(item), []);
+  const { isAuthenticated, roles } = useAuth();
+  const normalizedRoles = normalizeRoles(roles);
+
+  const isItemVisible = useCallback((item) => {
+    if (!item || !isAuthenticated) return false;
+    if (!Array.isArray(item.requiredRoles) || item.requiredRoles.length === 0) return true;
+    const requiredRoles = normalizeRoles(item.requiredRoles);
+    return requiredRoles.some((role) => normalizedRoles.includes(role));
+  }, [isAuthenticated, normalizedRoles]);
+
   return { isItemVisible };
 };
 

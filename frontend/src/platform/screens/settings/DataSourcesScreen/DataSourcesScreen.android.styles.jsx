@@ -51,4 +51,60 @@ const StyledSourceItem = styled(View).withConfig({
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary ?? theme.colors.background.secondary};
 `;
 
-export { StyledContainer, StyledContent, StyledContentWrap, StyledSection, StyledMetaRow, StyledSourceItem };
+const StyledCaptureGrid = styled(View).withConfig({
+  displayName: 'StyledCaptureGrid',
+  componentId: 'StyledCaptureGrid',
+})`
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledFieldShell = styled(View).withConfig({
+  displayName: 'StyledFieldShell',
+  componentId: 'StyledFieldShell',
+})`
+  padding-left: ${({ theme }) => theme.spacing.sm}px;
+  border-left-width: 3px;
+  border-left-color: ${({ state, theme }) => {
+    if (state === 'missing') return theme.colors.error;
+    if (state === 'uncertain') return theme.colors.warning;
+    return theme.colors.background.tertiary ?? theme.colors.background.secondary;
+  }};
+`;
+
+const StyledInlineNotice = styled(View).withConfig({
+  displayName: 'StyledInlineNotice',
+  componentId: 'StyledInlineNotice',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px 0;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary ?? theme.colors.background.secondary};
+`;
+
+const StyledList = styled(View).withConfig({
+  displayName: 'StyledList',
+  componentId: 'StyledList',
+})`
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledActionRow = styled(View).withConfig({
+  displayName: 'StyledActionRow',
+  componentId: 'StyledActionRow',
+})`
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+export {
+  StyledActionRow,
+  StyledCaptureGrid,
+  StyledContainer,
+  StyledContent,
+  StyledContentWrap,
+  StyledFieldShell,
+  StyledInlineNotice,
+  StyledList,
+  StyledMetaRow,
+  StyledSection,
+  StyledSourceItem,
+};

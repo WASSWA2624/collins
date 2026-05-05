@@ -5,6 +5,7 @@ import {
 } from '../dashboards/dashboards.constants.js';
 
 const jsonObject = z.record(z.string(), z.unknown());
+const idParam = z.object({ id: z.string().min(1) });
 
 const patientPathway = z.enum([
   'NEONATE',
@@ -56,6 +57,21 @@ export const auditLogSchema = z.object({
     page: z.coerce.number().int().positive().default(1),
     limit: z.coerce.number().int().positive().max(100).default(20),
   }),
+});
+
+export const monitoringSchema = z.object({
+  body: z.object({}).optional(),
+  params: z.object({}).optional(),
+  query: z.object({
+    facilityId: z.string().min(1).optional(),
+    from: z.coerce.date().optional(),
+    to: z.coerce.date().optional(),
+    days: z.coerce.number()
+      .int()
+      .positive()
+      .max(DASHBOARD_WINDOW_MAX_DAYS)
+      .default(DASHBOARD_WINDOW_DEFAULT_DAYS),
+  }).optional(),
 });
 
 export const referenceListSchema = z.object({
@@ -157,7 +173,25 @@ export const updateReferenceSchema = z.object({
       });
     }
   }),
-  params: z.object({ id: z.string().min(1) }),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
+export const referenceLifecycleSchema = z.object({
+  body: z.object({
+    reviewNotes: z.string().trim().max(2000).optional(),
+    reason: z.string().trim().max(1000).optional(),
+    governanceStatus: z.enum(['approved', 'verified', 'active']).optional(),
+    activeFrom: z.coerce.date().optional(),
+    activeTo: z.coerce.date().optional(),
+  }).optional().default({}),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
+export const modelCardSchema = z.object({
+  body: z.object({}).optional(),
+  params: idParam,
   query: z.object({}).optional(),
 });
 
@@ -165,7 +199,7 @@ export const modelActionSchema = z.object({
   body: z.object({
     reason: z.string().trim().max(1000).optional(),
   }).optional(),
-  params: z.object({ id: z.string().min(1) }),
+  params: idParam,
   query: z.object({}).optional(),
 });
 
@@ -177,6 +211,6 @@ export const modelShadowOutputSchema = z.object({
     outputJson: jsonObject,
     reason: z.string().trim().max(1000).optional(),
   }),
-  params: z.object({ id: z.string().min(1) }),
+  params: idParam,
   query: z.object({}).optional(),
 });

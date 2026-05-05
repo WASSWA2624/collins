@@ -108,6 +108,12 @@ const normalizeError = (error) => {
   // API errors
   if (error.status || error.statusCode) {
     const status = error.status || error.statusCode;
+    const apiContext = {
+      status,
+      statusText: error.statusText,
+      errors: Array.isArray(error.errors) ? error.errors : [],
+      meta: error.meta,
+    };
     
     // Extract error code from backend message if available
     const extractedRaw = error.message ? extractErrorCode(error.message) : null;
@@ -118,6 +124,7 @@ const normalizeError = (error) => {
       const code = extractedCode || 'UNAUTHORIZED';
       const safeMessage = getSafeMessageForCode(code);
       return {
+        ...apiContext,
         code,
         message: safeMessage,
         safeMessage,
@@ -128,16 +135,29 @@ const normalizeError = (error) => {
       const code = extractedCode || 'FORBIDDEN';
       const safeMessage = getSafeMessageForCode(code);
       return {
+        ...apiContext,
         code,
         message: safeMessage,
         safeMessage,
         severity: 'error',
       };
     }
+    if (status === 409) {
+      const code = extractedCode || 'CONFLICT';
+      const safeMessage = getSafeMessageForCode(code);
+      return {
+        ...apiContext,
+        code,
+        message: safeMessage,
+        safeMessage,
+        severity: 'warning',
+      };
+    }
     if (status >= 500) {
       const code = extractedCode || 'SERVER_ERROR';
       const safeMessage = getSafeMessageForCode(code);
       return {
+        ...apiContext,
         code,
         message: safeMessage,
         safeMessage,
@@ -149,6 +169,7 @@ const normalizeError = (error) => {
     if (extractedCode && extractedCode !== 'UNKNOWN_ERROR') {
       const safeMessage = getSafeMessageForCode(extractedCode);
       return {
+        ...apiContext,
         code: extractedCode,
         message: safeMessage,
         safeMessage,

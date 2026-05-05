@@ -4,32 +4,92 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { loadTrainingContentUseCase, searchTrainingContentUseCase } from '@features/training';
-import { buildTrainingDocuments, TRAINING_DOC_TYPES } from '@features/training';
+import { buildTrainingDocuments, isTrainingAudienceVisible, TRAINING_DOC_TYPES } from '@features/training';
+import useAuth from './useAuth';
 
-function getTopicFromContent(content, topicId) {
+function getTopicFromContent(content, topicId, options = {}) {
   if (!content || typeof topicId !== 'string' || !topicId.trim()) return null;
   const id = topicId.trim();
+
+  const remoteTopics = Array.isArray(content.topics) ? content.topics : [];
+  const remoteTopic = remoteTopics.find((s) => s?.id === id && isTrainingAudienceVisible(s, options.roles));
+  if (remoteTopic) {
+    return {
+      type: TRAINING_DOC_TYPES.protocol,
+      id: remoteTopic.id,
+      title: remoteTopic.title,
+      body: remoteTopic.body,
+      summary: remoteTopic.summary,
+      workflow: remoteTopic.workflow,
+      tags: remoteTopic.tags,
+      raw: remoteTopic,
+    };
+  }
+
   const ps = Array.isArray(content.protocolSections) ? content.protocolSections : [];
-  const section = ps.find((s) => s?.id === id);
-  if (section) return { type: TRAINING_DOC_TYPES.protocol, id: section.id, title: section.title, body: section.body, tags: section.tags, raw: section };
+  const section = ps.find((s) => s?.id === id && isTrainingAudienceVisible(s, options.roles));
+  if (section) {
+    return {
+      type: TRAINING_DOC_TYPES.protocol,
+      id: section.id,
+      title: section.title,
+      body: section.body,
+      summary: section.summary,
+      workflow: section.workflow,
+      tags: section.tags,
+      raw: section,
+    };
+  }
 
   const checklists = Array.isArray(content.checklists) ? content.checklists : [];
-  const checklist = checklists.find((c) => c?.id === id);
-  if (checklist) return { type: TRAINING_DOC_TYPES.checklist, id: checklist.id, title: checklist.title, items: checklist.items, tags: checklist.tags, raw: checklist };
+  const checklist = checklists.find((c) => c?.id === id && isTrainingAudienceVisible(c, options.roles));
+  if (checklist) {
+    return {
+      type: TRAINING_DOC_TYPES.checklist,
+      id: checklist.id,
+      title: checklist.title,
+      workflow: checklist.workflow,
+      items: checklist.items,
+      tags: checklist.tags,
+      raw: checklist,
+    };
+  }
 
   const glossary = Array.isArray(content.glossary) ? content.glossary : [];
-  const entry = glossary.find((g) => g?.term === id);
-  if (entry) return { type: TRAINING_DOC_TYPES.glossary, id: entry.term, title: entry.term, body: entry.definition, tags: entry.tags, raw: entry };
+  const entry = glossary.find((g) => g?.term === id && isTrainingAudienceVisible(g, options.roles));
+  if (entry) {
+    return {
+      type: TRAINING_DOC_TYPES.glossary,
+      id: entry.term,
+      title: entry.term,
+      workflow: entry.workflow,
+      body: entry.definition,
+      tags: entry.tags,
+      raw: entry,
+    };
+  }
 
   const faqs = Array.isArray(content.faqs) ? content.faqs : [];
-  const faq = faqs.find((f) => f?.id === id);
-  if (faq) return { type: TRAINING_DOC_TYPES.faq, id: faq.id, title: faq.question, body: faq.answer, tags: faq.tags, raw: faq };
+  const faq = faqs.find((f) => f?.id === id && isTrainingAudienceVisible(f, options.roles));
+  if (faq) {
+    return {
+      type: TRAINING_DOC_TYPES.faq,
+      id: faq.id,
+      title: faq.question,
+      workflow: faq.workflow,
+      body: faq.answer,
+      tags: faq.tags,
+      raw: faq,
+    };
+  }
 
   return null;
 }
 
 export default function useTrainingContent(options = {}) {
-  const { topicId = null } = options;
+  const { topicId = null, roles = null, workflow = null } = options;
+  const auth = useAuth();
+  const effectiveRoles = roles ?? auth.roles ?? [];
   const [content, setContent] = useState(null);
   const [loadError, setLoadError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,13 +116,13 @@ export default function useTrainingContent(options = {}) {
 
   const topics = useMemo(() => {
     if (!content) return [];
-    return buildTrainingDocuments(content);
-  }, [content]);
+    return buildTrainingDocuments(content, { roles: effectiveRoles, workflow });
+  }, [content, effectiveRoles, workflow]);
 
   const topic = useMemo(() => {
     if (!content || !topicId) return null;
-    return getTopicFromContent(content, topicId);
-  }, [content, topicId]);
+    return getTopicFromContent(content, topicId, { roles: effectiveRoles });
+  }, [content, topicId, effectiveRoles]);
 
   const search = useCallback(async (query) => {
     const q = typeof query === 'string' ? query : searchQuery;
@@ -73,7 +133,12 @@ export default function useTrainingContent(options = {}) {
     }
     setIsSearching(true);
     try {
-      const results = await searchTrainingContentUseCase({ query: q, limit: 20 });
+      const results = await searchTrainingContentUseCase({
+        query: q,
+        roles: effectiveRoles,
+        workflow,
+        limit: 20,
+      });
       setSearchResults(Array.isArray(results) ? results : []);
       return results;
     } catch {
@@ -82,7 +147,7 @@ export default function useTrainingContent(options = {}) {
     } finally {
       setIsSearching(false);
     }
-  }, [searchQuery]);
+  }, [effectiveRoles, searchQuery, workflow]);
 
   const popularTopics = useMemo(() => topics.slice(0, 6), [topics]);
   const quickChecklists = useMemo(() => {

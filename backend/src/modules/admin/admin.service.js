@@ -446,6 +446,112 @@ export const updateReferenceRule = async (id, payload, userId, auditContext = {}
   });
 };
 
+const updateReferenceLifecycle = async ({
+  id,
+  payload = {},
+  userId,
+  auditContext = {},
+  data,
+  auditAction,
+  trailAction,
+  defaultNote,
+}) => {
+  const existing = await prisma.referenceRule.findUnique({ where: { id } });
+  if (!existing) throw notFound('Reference rule not found');
+  await assertReferenceGovernanceRole(userId, existing.facilityId);
+
+  return prisma.$transaction(async (tx) => {
+    const updatedAt = new Date();
+    const updated = await tx.referenceRule.update({
+      where: { id },
+      data: stripUndefined({
+        ...data,
+        reviewNotes: payload.reviewNotes,
+        auditTrailJson: appendReferenceAuditTrail(existing.auditTrailJson, {
+          action: trailAction,
+          actorUserId: userId,
+          at: updatedAt.toISOString(),
+          note: payload.reviewNotes || defaultNote,
+        }),
+      }),
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId: existing.facilityId,
+      action: auditAction,
+      entityType: 'ReferenceRule',
+      entityId: id,
+      beforeJson: existing,
+      afterJson: updated,
+      reason: payload.reviewNotes || payload.reason,
+    });
+
+    return updated;
+  });
+};
+
+export const verifyReferenceRule = async (id, payload = {}, userId, auditContext = {}) => {
+  const verifiedAt = new Date();
+  return updateReferenceLifecycle({
+    id,
+    payload,
+    userId,
+    auditContext,
+    data: {
+      verificationStatus: 'VERIFIED',
+      governanceStatus: payload.governanceStatus || 'verified',
+      verifiedByUserId: userId,
+      approvedByUserId: userId,
+      verifiedAt,
+      activeFrom: payload.activeFrom || verifiedAt,
+      activeTo: payload.activeTo,
+    },
+    auditAction: 'REFERENCE_RULE_VERIFY',
+    trailAction: 'verified_reference_rule',
+    defaultNote: 'Reference rule verified for active decision-support lookup.',
+  });
+};
+
+export const requestReferenceCorrection = async (id, payload = {}, userId, auditContext = {}) => (
+  updateReferenceLifecycle({
+    id,
+    payload,
+    userId,
+    auditContext,
+    data: {
+      verificationStatus: 'CORRECTION_REQUESTED',
+      governanceStatus: 'correction_requested',
+      verifiedByUserId: null,
+      approvedByUserId: null,
+      verifiedAt: null,
+    },
+    auditAction: 'REFERENCE_RULE_CORRECTION_REQUESTED',
+    trailAction: 'reference_correction_requested',
+    defaultNote: 'Reference rule correction requested before decision-support use.',
+  })
+);
+
+export const retireReferenceRule = async (id, payload = {}, userId, auditContext = {}) => {
+  const retiredAt = payload.activeTo || new Date();
+  return updateReferenceLifecycle({
+    id,
+    payload,
+    userId,
+    auditContext,
+    data: {
+      verificationStatus: 'RETIRED',
+      governanceStatus: 'retired',
+      activeTo: retiredAt,
+    },
+    auditAction: 'REFERENCE_RULE_RETIRE',
+    trailAction: 'retired_reference_rule',
+    defaultNote: 'Reference rule retired from active decision-support lookup.',
+  });
+};
+
 export const activateModelShadowMode = async (id, userId, auditContext = {}) => {
   await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
   const existing = await prisma.modelVersion.findUnique({ where: { id } });

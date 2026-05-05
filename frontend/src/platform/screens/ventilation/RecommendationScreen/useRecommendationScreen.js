@@ -2,15 +2,11 @@
  * useRecommendationScreen
  * Shared logic for Recommendation screen.
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'expo-router';
-import { useSelector } from 'react-redux';
 import useVentilationSession from '@hooks/useVentilationSession';
-import { selectIsOnline, selectAiDecisionSupportEnabled, selectAiProviderId, selectAiModelId } from '@store/selectors';
 import { getVentilationRecommendationUseCase } from '@features/ventilation';
-import { async as asyncStorage, aiKeyStorage } from '@services/storage';
-import { trackScreen, trackEvent } from '@services/analytics';
-import { getAiProviderConfig } from '@config/constants';
+import { trackScreen } from '@services/analytics';
 
 const TOTAL_STEPS = 5;
 const isFiniteNumber = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -27,31 +23,9 @@ export default function useRecommendationScreen() {
     setAssessmentStep,
     resetSession,
   } = useVentilationSession();
-  const isOnline = useSelector(selectIsOnline);
-  const aiEnabled = useSelector(selectAiDecisionSupportEnabled);
-  const aiProviderId = useSelector(selectAiProviderId);
-  const aiModelId = useSelector(selectAiModelId);
-  const [aiKeyConfigured, setAiKeyConfigured] = useState(false);
-  const [isRequestingAi, setIsRequestingAi] = useState(false);
-
-  const providerConfig = useMemo(() => getAiProviderConfig(aiProviderId), [aiProviderId]);
-
   useEffect(() => {
     trackScreen('RecommendationScreen');
   }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const storageKey = providerConfig?.storageKey;
-    if (!storageKey) {
-      if (!cancelled) setAiKeyConfigured(false);
-      return () => {};
-    }
-    aiKeyStorage.getItem(storageKey).then((key) => {
-      if (!cancelled) setAiKeyConfigured(typeof key === 'string' && key.trim().length > 0);
-    });
-    return () => { cancelled = true; };
-  }, [providerConfig?.storageKey]);
 
   const similarityInput = useMemo(() => {
     const i = inputs && typeof inputs === 'object' ? inputs : {};
@@ -67,42 +41,13 @@ export default function useRecommendationScreen() {
   }, [inputs]);
 
   const requestAiRecommendation = useCallback(async () => {
-    if (!aiEnabled || !aiKeyConfigured || !isOnline) return;
-    setIsRequestingAi(true);
-    try {
-      const rec = await getVentilationRecommendationUseCase({
-        input: similarityInput,
-        ai: {
-          useOnlineAi: true,
-          isOnline: true,
-          flags: { AI_AUGMENTATION_ENABLED: true, aiProviderId, model: aiModelId },
-        },
-      });
-      const applied = rec?.aiAugmentation?.status === 'applied';
-      const summaryWithSource = rec ? { ...rec, responseSource: applied ? 'online' : 'offline' } : null;
-      setRecommendationSummary(summaryWithSource);
-      trackEvent('request_ai_recommendation', { success: Boolean(rec), applied });
-    } catch {
-      trackEvent('request_ai_recommendation', { success: false });
-      try {
-        const localRec = await getVentilationRecommendationUseCase({
-          input: similarityInput,
-          ai: { useOnlineAi: false },
-        });
-        if (localRec) {
-          setRecommendationSummary({
-            ...localRec,
-            responseSource: 'offline',
-            aiAugmentation: Object.freeze({ provider: 'aiSdk', status: 'skipped', reasonCodes: Object.freeze(['VENTILATION_ONLINE_AUGMENTATION_AI_SDK_FAILED']) }),
-          });
-        }
-      } catch {
-        // Keep existing recommendation if local fetch fails
-      }
-    } finally {
-      setIsRequestingAi(false);
-    }
-  }, [aiEnabled, aiKeyConfigured, isOnline, aiProviderId, aiModelId, similarityInput, setRecommendationSummary]);
+    const rec = await getVentilationRecommendationUseCase({
+      input: similarityInput,
+      ai: { useOnlineAi: false },
+    });
+    const summaryWithSource = rec ? { ...rec, responseSource: 'offline' } : null;
+    setRecommendationSummary(summaryWithSource);
+  }, [similarityInput, setRecommendationSummary]);
 
   const settings = useMemo(
     () => recommendationSummary?.initialVentilatorSettings?.settings ?? null,
@@ -135,12 +80,12 @@ export default function useRecommendationScreen() {
   );
 
   const matched = useMemo(
-    () => recommendationSummary?.matched ?? [],
+    () => [],
     [recommendationSummary]
   );
 
   const caseEvidence = useMemo(
-    () => recommendationSummary?.caseEvidence ?? [],
+    () => [],
     [recommendationSummary]
   );
 
@@ -174,12 +119,34 @@ export default function useRecommendationScreen() {
     [recommendationSummary]
   );
   const aiReasons = useMemo(
-    () => (Array.isArray(aiAugmentation?.reasons) ? aiAugmentation.reasons : []),
-    [aiAugmentation]
+    () => [],
+    []
   );
   const aiHints = useMemo(
-    () => (Array.isArray(aiAugmentation?.hints) ? aiAugmentation.hints : []),
-    [aiAugmentation]
+    () => [],
+    []
+  );
+
+  const decisionSupport = useMemo(
+    () => recommendationSummary?.decisionSupport ?? null,
+    [recommendationSummary]
+  );
+  const advisoryFlags = useMemo(
+    () => (Array.isArray(decisionSupport?.flags) ? decisionSupport.flags : []),
+    [decisionSupport]
+  );
+  const missingData = useMemo(
+    () => (Array.isArray(decisionSupport?.missingData) ? decisionSupport.missingData : []),
+    [decisionSupport]
+  );
+  const supportStatus = useMemo(
+    () => decisionSupport?.status ?? {
+      reviewStatus: 'pending_clinician_review',
+      syncStatus: 'local_preview_pending_backend_confirmation',
+      referenceStatus: 'frontend_preview_unconfirmed',
+      pendingBackendConfirmation: true,
+    },
+    [decisionSupport]
   );
 
   /** Reason codes that mean "online AI was attempted but failed" (show fallback message). */
@@ -228,9 +195,9 @@ export default function useRecommendationScreen() {
     return code && FALLBACK_REASON_KEYS[code] ? FALLBACK_REASON_KEYS[code] : 'ventilation.recommendation.fallbackReasons.error';
   }, [aiAugmentation, FALLBACK_REASON_KEYS]);
 
-  const isEmpty = !recommendationSummary || !settings;
-  const showRequestAi = aiEnabled && aiKeyConfigured;
-  const responseSource = recommendationSummary?.responseSource === 'online' ? 'online' : 'offline';
+  const isEmpty = !recommendationSummary;
+  const showRequestAi = false;
+  const responseSource = 'offline';
 
   const goToAssessmentStep = useCallback(
     (step) => {
@@ -267,6 +234,10 @@ export default function useRecommendationScreen() {
     contributingFactors,
     additionalTestPrompts,
     nextActions,
+    decisionSupport,
+    advisoryFlags,
+    missingData,
+    supportStatus,
     aiAugmentation,
     aiReasons,
     aiHints,
@@ -279,8 +250,8 @@ export default function useRecommendationScreen() {
     errorCode,
     sessionId,
     showRequestAi,
-    isOnline,
-    isRequestingAi,
+    isOnline: false,
+    isRequestingAi: false,
     requestAiRecommendation,
     responseSource,
     goToAssessmentStep,

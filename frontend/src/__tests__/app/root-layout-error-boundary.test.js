@@ -48,19 +48,30 @@ jest.mock('@bootstrap', () => ({
 // Mock store module
 jest.mock('@store', () => {
   const { configureStore } = require('@reduxjs/toolkit');
-  const rootReducer = require('@store/rootReducer').default;
+  const initialUiState = {
+    theme: 'light',
+    locale: 'en',
+    isLoading: false,
+  };
+
+  const uiReducer = (state = initialUiState, action) => {
+    if (action.type === 'ui/setTheme') {
+      return { ...state, theme: action.payload };
+    }
+    if (action.type === 'ui/setLocale') {
+      return { ...state, locale: action.payload };
+    }
+    return state;
+  };
   
   const store = configureStore({
-    reducer: rootReducer,
+    reducer: {
+      ui: uiReducer,
+      network: (state = { isOnline: true }) => state,
+    },
     preloadedState: {
-      ui: {
-        theme: 'light',
-        locale: 'en',
-        isLoading: false,
-      },
-      network: {
-        isOnline: true,
-      },
+      ui: initialUiState,
+      network: { isOnline: true },
     },
   });
   

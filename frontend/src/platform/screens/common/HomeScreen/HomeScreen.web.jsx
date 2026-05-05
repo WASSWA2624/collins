@@ -2,68 +2,169 @@
  * HomeScreen Component - Web
  * File: HomeScreen.web.jsx
  */
-// 1. External dependencies
 import React from 'react';
-
-// 2. Platform components
-import { Text } from '@platform/components';
-import { AppLogo } from '@platform/components';
-
-// 3. Hooks
+import { AppLogo, Badge, Text } from '@platform/components';
 import { useI18n } from '@hooks';
-
-// 4. Styles
 import {
+  StyledActionBody,
+  StyledActionGrid,
+  StyledActionItem,
+  StyledActionMeta,
+  StyledActionTitle,
   StyledContainer,
-  StyledContent,
+  StyledFacilityButton,
+  StyledFacilityList,
+  StyledHeader,
+  StyledHeaderCopy,
   StyledLogoArea,
   StyledMessage,
-  StyledOverview,
-  StyledOverviewTitle,
-  StyledSectionList,
-  StyledSectionItem,
+  StyledNoticeItem,
+  StyledNoticeList,
+  StyledNoticeMessage,
+  StyledSection,
   StyledSectionTitle,
-  StyledSectionDesc,
+  StyledShell,
+  StyledStatusDetail,
+  StyledStatusGrid,
+  StyledStatusItem,
+  StyledStatusLabel,
+  StyledStatusValue,
 } from './HomeScreen.web.styles';
-
-// 5. Component hook
 import useHomeScreen from './useHomeScreen';
+
+const badgeVariantForTone = (tone) => {
+  if (tone === 'error') return 'error';
+  if (tone === 'warning') return 'warning';
+  if (tone === 'success') return 'success';
+  return 'primary';
+};
 
 const HomeScreenWeb = () => {
   const { t } = useI18n();
-  const { testIds, sections } = useHomeScreen();
+  const {
+    activeFacility,
+    actions,
+    availableFacilities,
+    errorCode,
+    isLoading,
+    notices,
+    selectFacility,
+    statusItems,
+    testIds,
+  } = useHomeScreen();
+
+  const renderStatusValue = (item) => {
+    if (item.valueKey) return t(item.valueKey);
+    if (item.value !== null && item.value !== undefined) return String(item.value);
+    return item.fallbackKey ? t(item.fallbackKey) : '-';
+  };
+
+  const renderStatusDetail = (item) => {
+    if (item.detailKey) return t(item.detailKey, { count: item.detailValue ?? 0 });
+    return item.detail ? String(item.detail) : null;
+  };
+
+  const showFacilitySelector = !activeFacility && availableFacilities.length > 1;
 
   return (
     <StyledContainer aria-label={t('home.title')} testID={testIds.screen}>
-      <StyledContent>
-        <StyledLogoArea>
-          <AppLogo size="lg" accessibilityLabel={t('home.welcome.logoLabel')} testID="home-logo" />
-        </StyledLogoArea>
-        <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
-          {t('home.welcome.title')}
-        </Text>
-        <StyledMessage>
-          <Text variant="body" testID={testIds.message}>
-            {t('home.welcome.message')}
-          </Text>
-        </StyledMessage>
-      </StyledContent>
-      <StyledOverview aria-labelledby="home-overview-title">
-        <StyledOverviewTitle id="home-overview-title">{t('home.overview.title')}</StyledOverviewTitle>
-        <StyledSectionList role="list">
-          {sections.map(({ path, id }) => (
-            <StyledSectionItem
-              key={id}
-              href={path}
-              role="listitem"
-              aria-label={t('home.overview.goTo', { name: t(`navigation.items.main.${id}`) })}
-            >
-              <StyledSectionTitle>{t(`navigation.items.main.${id}`)}</StyledSectionTitle>
-              <StyledSectionDesc>{t(`home.overview.${id}.description`)}</StyledSectionDesc>
-            </StyledSectionItem>
+      <StyledShell>
+        <StyledHeader>
+          <StyledLogoArea>
+            <AppLogo size="md" accessibilityLabel={t('home.welcome.logoLabel')} testID="home-logo" />
+          </StyledLogoArea>
+          <StyledHeaderCopy>
+            <Text accessibilityRole="header" variant="h1" testID={testIds.title}>
+              {t('home.welcome.title')}
+            </Text>
+            <StyledMessage data-testid={testIds.message}>{t('home.welcome.message')}</StyledMessage>
+          </StyledHeaderCopy>
+        </StyledHeader>
+
+        {(errorCode || notices.length > 0) && (
+          <StyledNoticeList aria-label={t('home.notices.title')} data-testid={testIds.notices}>
+            {errorCode && (
+              <StyledNoticeItem $severity="error" data-testid={testIds.error}>
+                <StyledNoticeMessage>{t(`errors.codes.${errorCode}`)}</StyledNoticeMessage>
+              </StyledNoticeItem>
+            )}
+            {notices.map((notice) => (
+              <StyledNoticeItem key={`${notice.code}-${notice.message}`} $severity={notice.severity}>
+                <StyledNoticeMessage>{notice.message}</StyledNoticeMessage>
+                {Number.isFinite(notice.count) && (
+                  <Badge variant={badgeVariantForTone(notice.severity)} size="small">
+                    {notice.count}
+                  </Badge>
+                )}
+              </StyledNoticeItem>
+            ))}
+          </StyledNoticeList>
+        )}
+
+        {showFacilitySelector && (
+          <StyledSection aria-label={t('home.facilities.title')} data-testid={testIds.facilities}>
+            <StyledSectionTitle>{t('home.facilities.title')}</StyledSectionTitle>
+            <StyledFacilityList>
+              {availableFacilities.map((facility) => (
+                <StyledFacilityButton
+                  key={facility.id}
+                  type="button"
+                  aria-label={t('home.facilities.select', { name: facility.name })}
+                  onClick={() => selectFacility(facility.id)}
+                >
+                  {facility.name}
+                </StyledFacilityButton>
+              ))}
+            </StyledFacilityList>
+          </StyledSection>
+        )}
+
+        <StyledStatusGrid aria-label={t('home.status.title')} data-testid={testIds.status}>
+          {statusItems.map((item) => (
+            <StyledStatusItem key={item.id} $tone={item.tone}>
+              <StyledStatusLabel>{t(`home.status.${item.id}.label`)}</StyledStatusLabel>
+              <StyledStatusValue>{renderStatusValue(item)}</StyledStatusValue>
+              {renderStatusDetail(item) && (
+                <StyledStatusDetail>{renderStatusDetail(item)}</StyledStatusDetail>
+              )}
+            </StyledStatusItem>
           ))}
-        </StyledSectionList>
-      </StyledOverview>
+        </StyledStatusGrid>
+
+        <StyledSection aria-label={t('home.actions.title')}>
+          <StyledSectionTitle>{t('home.actions.title')}</StyledSectionTitle>
+          <StyledActionGrid data-testid={testIds.actions}>
+            {actions.map((action) => (
+              <StyledActionItem
+                key={action.id}
+                $emphasis={action.emphasis}
+                $enabled={action.enabled}
+                aria-busy={isLoading}
+                aria-disabled={!action.enabled}
+                aria-label={t('home.actions.accessibilityLabel', {
+                  name: t(`home.actions.${action.id}.title`),
+                })}
+                href={action.enabled ? action.path : undefined}
+                tabIndex={action.enabled ? 0 : -1}
+              >
+                <StyledActionBody>
+                  <StyledActionTitle>{t(`home.actions.${action.id}.title`)}</StyledActionTitle>
+                  <StyledActionMeta>
+                    {action.enabled
+                      ? t('home.actions.meta.open')
+                      : t(`home.actions.disabled.${action.disabledReason}`)}
+                  </StyledActionMeta>
+                </StyledActionBody>
+                {Number.isFinite(action.count) && (
+                  <Badge variant="primary" size="small">
+                    {action.count}
+                  </Badge>
+                )}
+              </StyledActionItem>
+            ))}
+          </StyledActionGrid>
+        </StyledSection>
+      </StyledShell>
     </StyledContainer>
   );
 };

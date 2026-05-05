@@ -17,8 +17,6 @@ const CSRF_HEADER = 'x-csrf-token';
 const fetchCsrfToken = async () => {
   try {
     const url = endpoints.AUTH.CSRF_TOKEN;
-    console.log('[CSRF] Fetching token from:', url);
-    
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include', // Include cookies for session
@@ -32,17 +30,15 @@ const fetchCsrfToken = async () => {
     }
 
     const result = await response.json();
-    const token = result?.data?.token;
+    const token = result?.data?.csrfToken || result?.data?.token;
     
     if (!token) {
-      throw new Error(`CSRF token not in response: ${JSON.stringify(result)}`);
+      throw new Error('CSRF token missing from response');
     }
 
     cachedToken = token;
-    console.log('[CSRF] Token fetched successfully');
     return token;
   } catch (error) {
-    console.error('[CSRF] Error fetching token:', error);
     throw error;
   }
 };
@@ -88,12 +84,10 @@ const clearCsrfToken = () => {
 const getCsrfHeaders = async () => {
   try {
     const token = await getCsrfToken();
-    console.log('[CSRF] Adding token to request headers');
     return {
       [CSRF_HEADER]: token,
     };
   } catch (error) {
-    console.error('[CSRF] Failed to get CSRF token for headers:', error.message);
     // Don't silently fail - let the caller know
     throw error;
   }

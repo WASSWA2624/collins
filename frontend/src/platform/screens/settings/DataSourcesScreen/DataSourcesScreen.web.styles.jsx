@@ -51,5 +51,66 @@ const StyledSourceItem = styled.article.withConfig({
   }
 `;
 
-export { StyledContainer, StyledContent, StyledSection, StyledMetaRow, StyledSourceItem };
+const StyledCaptureGrid = styled.div.withConfig({
+  displayName: 'StyledCaptureGrid',
+  componentId: 'StyledCaptureGrid',
+})`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledFieldShell = styled.div.withConfig({
+  displayName: 'StyledFieldShell',
+  componentId: 'StyledFieldShell',
+})`
+  padding-left: ${({ theme }) => theme.spacing.sm}px;
+  border-left: 3px solid ${({ $state, theme }) => (
+    $state === 'missing'
+      ? theme.colors.error
+      : $state === 'uncertain'
+        ? theme.colors.warning
+        : theme.colors.background.tertiary
+  )};
+`;
+
+const StyledInlineNotice = styled.div.withConfig({
+  displayName: 'StyledInlineNotice',
+  componentId: 'StyledInlineNotice',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledList = styled.ul.withConfig({
+  displayName: 'StyledList',
+  componentId: 'StyledList',
+})`
+  margin: ${({ theme }) => theme.spacing.xs}px 0 0;
+  padding-left: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+const StyledActionRow = styled.div.withConfig({
+  displayName: 'StyledActionRow',
+  componentId: 'StyledActionRow',
+})`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  align-items: center;
+`;
+
+export {
+  StyledActionRow,
+  StyledCaptureGrid,
+  StyledContainer,
+  StyledContent,
+  StyledFieldShell,
+  StyledInlineNotice,
+  StyledList,
+  StyledMetaRow,
+  StyledSection,
+  StyledSourceItem,
+};
 

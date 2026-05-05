@@ -7,6 +7,13 @@
  */
 import { createSelector } from '@reduxjs/toolkit';
 import { NETWORK_QUALITY } from '@utils/networkQuality';
+import {
+  getActiveFacilityContext,
+  getActiveFacilityRoleKeys,
+  getApprovedMemberships,
+  getPermissionsForUser,
+  getRoleKeysForUser,
+} from '@config/accessControl';
 
 // UI Selectors (defensive for undefined state before rehydration / SSR)
 const selectUI = (state) => state?.ui ?? null;
@@ -45,7 +52,15 @@ const selectAiModelId = createSelector([selectUI], (ui) => ui?.aiModelId ?? 'gpt
 const selectAuth = (state) => state?.auth ?? null;
 const selectIsAuthenticated = createSelector([selectAuth], (auth) => auth?.isAuthenticated ?? false);
 const selectUser = createSelector([selectAuth], (auth) => auth?.user ?? null);
-const selectActiveFacility = createSelector([selectAuth], (auth) => auth?.activeFacility ?? auth?.user?.activeFacility ?? null);
+const selectActiveFacility = createSelector([selectUser], (user) => getActiveFacilityContext(user));
+const selectActiveFacilityId = createSelector(
+  [selectActiveFacility],
+  (facility) => facility?.facilityId || facility?.id || null
+);
+const selectActiveFacilityRoles = createSelector([selectUser], (user) => getActiveFacilityRoleKeys(user));
+const selectUserRoleKeys = createSelector([selectUser], (user) => getRoleKeysForUser(user));
+const selectUserPermissions = createSelector([selectUser], (user) => getPermissionsForUser(user));
+const selectUserMemberships = createSelector([selectUser], (user) => getApprovedMemberships(user));
 const selectRequiresActiveFacility = createSelector(
   [selectAuth],
   (auth) => auth?.requiresActiveFacility ?? false
@@ -95,6 +110,15 @@ const selectMonitoringTimeSeries = createSelector(
   (ventilation) => (Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [])
 );
 
+// Review Queue
+const selectReview = (state) => state?.review ?? null;
+const selectReviewQueueItems = createSelector([selectReview], (review) => review?.items ?? []);
+const selectReviewQueueMeta = createSelector([selectReview], (review) => review?.meta ?? {});
+const selectReviewQueueFilters = createSelector([selectReview], (review) => review?.filters ?? {});
+const selectReviewQueueLoading = createSelector([selectReview], (review) => review?.isLoading ?? false);
+const selectReviewActionLoadingById = createSelector([selectReview], (review) => review?.actionLoadingById ?? {});
+const selectReviewQueueErrorCode = createSelector([selectReview], (review) => review?.errorCode ?? null);
+
 // Network Selectors (defensive for undefined state)
 const selectNetwork = (state) => state?.network ?? null;
 const selectIsOnline = createSelector([selectNetwork], (network) => network?.isOnline ?? true);
@@ -129,6 +153,11 @@ export {
   selectIsAuthenticated,
   selectUser,
   selectActiveFacility,
+  selectActiveFacilityId,
+  selectActiveFacilityRoles,
+  selectUserRoleKeys,
+  selectUserPermissions,
+  selectUserMemberships,
   selectRequiresActiveFacility,
   selectAuthErrorCode,
   selectAuthSessionErrorCode,
@@ -148,6 +177,13 @@ export {
   selectAssessmentCurrentStep,
   selectAssessmentRecommendationSource,
   selectMonitoringTimeSeries,
+  // Review
+  selectReviewQueueItems,
+  selectReviewQueueMeta,
+  selectReviewQueueFilters,
+  selectReviewQueueLoading,
+  selectReviewActionLoadingById,
+  selectReviewQueueErrorCode,
   // Network
   selectIsOnline,
   selectIsOffline,
@@ -179,6 +215,11 @@ export default {
   selectIsAuthenticated,
   selectUser,
   selectActiveFacility,
+  selectActiveFacilityId,
+  selectActiveFacilityRoles,
+  selectUserRoleKeys,
+  selectUserPermissions,
+  selectUserMemberships,
   selectRequiresActiveFacility,
   selectAuthErrorCode,
   selectAuthSessionErrorCode,
@@ -198,6 +239,13 @@ export default {
   selectAssessmentCurrentStep,
   selectAssessmentRecommendationSource,
   selectMonitoringTimeSeries,
+  // Review
+  selectReviewQueueItems,
+  selectReviewQueueMeta,
+  selectReviewQueueFilters,
+  selectReviewQueueLoading,
+  selectReviewActionLoadingById,
+  selectReviewQueueErrorCode,
   // Network
   selectIsOnline,
   selectIsOffline,

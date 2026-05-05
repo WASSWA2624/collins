@@ -22,10 +22,10 @@ const loadTrainingContentUseCase = async (rawContent) =>
     return getDefaultTrainingContent();
   });
  
-const searchTrainingContentUseCase = async ({ query, types, tags, limit, rawContent } = {}) =>
+const searchTrainingContentUseCase = async ({ query, types, tags, roles, workflow, limit, rawContent } = {}) =>
   execute(async () => {
     const content = rawContent !== undefined ? parseTrainingContent(rawContent) : getDefaultTrainingContent();
-    return searchTrainingContent({ content, query, types, tags, limit });
+    return searchTrainingContent({ content, query, types, tags, roles, workflow, limit });
   });
  
 export { loadTrainingContentUseCase, searchTrainingContentUseCase };

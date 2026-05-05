@@ -7,11 +7,14 @@
  */
 
 export * from './auth';
+export * from './admissions';
 export * from './home';
+export * from './dashboard';
 export * from './ventilation';
 export * from './abgVentUpdates';
 export * from './training';
 export * from './onboarding';
 export * from './help';
+export * from './review';
 export * from './tracking';
 export * from './dataset-capture';

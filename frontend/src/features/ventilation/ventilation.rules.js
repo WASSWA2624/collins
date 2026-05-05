@@ -11,6 +11,7 @@ import {
   getVentilationUnits,
   normalizeVentilationConditionKey,
 } from './ventilation.model';
+import { buildRuleBasedDecisionSupportPreview } from './ventilation.decisionSupport';
  
 const assertVentilationUnitsContract = (units) => {
   if (!units || typeof units !== 'object') {
@@ -241,7 +242,13 @@ const getVentilationNextActionsChecklist = ({ condition, confidenceTier }) => {
   );
 };
 
-const assembleVentilationRecommendationFromMatches = ({ dataset, rankedMatches, input }) => {
+const assembleVentilationRecommendationFromMatches = ({
+  dataset,
+  rankedMatches,
+  input,
+  includeModelInternals = false,
+  backendSummary = null,
+}) => {
   const matches = Array.isArray(rankedMatches) ? rankedMatches : [];
   const top = matches[0] ?? null;
 
@@ -304,18 +311,18 @@ const assembleVentilationRecommendationFromMatches = ({ dataset, rankedMatches, 
     )
   );
 
-  return Object.freeze({
+  const visibleRecommendation = {
     source: Object.freeze({
-      caseIds: caseIdOrder,
-      primaryCaseId: primaryCase?.caseId ?? null,
+      caseIds: includeModelInternals ? caseIdOrder : Object.freeze([]),
+      primaryCaseId: includeModelInternals ? primaryCase?.caseId ?? null : null,
       confidenceTier,
     }),
     safety: Object.freeze({
       intendedUseWarning: intendedUse.warning,
       validationRequirement: intendedUse.validationRequirement,
+      clinicianVisibleModelOutput: false,
     }),
     units: Object.freeze({ ...units }),
-    caseEvidence,
     initialVentilatorSettings: Object.freeze({
       source: initial.source,
       settings: initial.settings,
@@ -325,8 +332,25 @@ const assembleVentilationRecommendationFromMatches = ({ dataset, rankedMatches, 
     complicationHistory,
     additionalTestPrompts,
     nextActions,
-    matched,
-  });
+    decisionSupport: buildRuleBasedDecisionSupportPreview({
+      input,
+      settings: initial.settings || {},
+      backendSummary,
+    }),
+    governance: Object.freeze({
+      ruleBasedMvp: true,
+      caseMatchingHiddenFromClinicians: !includeModelInternals,
+      onlineAiClinicianPathEnabled: false,
+      patientIdentifiersSentToExternalModelServices: false,
+    }),
+  };
+
+  if (includeModelInternals) {
+    visibleRecommendation.caseEvidence = caseEvidence;
+    visibleRecommendation.matched = matched;
+  }
+
+  return Object.freeze(visibleRecommendation);
 };
 
 const getMissingSimilarityFields = (input) => {
