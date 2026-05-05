@@ -1,74 +1,41 @@
 # Frontend Development Plan
 
-## Current implementation state
+This frontend roadmap is chronological and docs-only. It starts with Expo startup and project foundations, then moves through onboarding, authentication, facility access, Home, admission, tracking, ABG / ventilator updates, decision-support safety flags, dataset capture, review, dashboards, training/help, settings, exports, audit, and future model-readiness.
 
-The frontend is an Expo Router React Native codebase for Android, iOS, and Web. It already includes:
+The app already has Expo Router routes under `src/app`, reusable platform code under `src/platform`, Redux Toolkit state, persistence, offline/network foundations, API client conventions, theme, accessibility, i18n, logging, error boundaries, styled-components UI conventions, and existing ventilation, training, settings, and data-source screens. Future implementation must inspect existing screens, state, services, shared utilities, tests, aliases, and configs first; reuse compliant code; and replace only code that conflicts with the app rules or clinical safety requirements.
 
-- Expo app configuration for Android, iOS, and Web.
-- Cross-platform route structure under `src/app/`.
-- Platform-aware reusable components and screens under `src/platform/`.
-- Redux Toolkit store, persistence, and slices.
-- Offline/network infrastructure.
-- Theme, accessibility, i18n, logging, error boundaries, and API client foundations.
-- Existing ventilation assessment, recommendation, history/tracking, training/help, settings, and data-source screens.
-- Local ventilation dataset support through `src/config/data/ventilation_dataset.json`.
+## Global Frontend Rules
 
-This frontend still needs app-write-up alignment for ICU admission terminology, 3-step admission, inclusive pathways, live clinical summary, offline-safe clinical writes, review workflow, and dataset governance.
+- Preserve Expo Router routes under `src/app`.
+- Keep reusable platform code under `src/platform/*` and prefer uniform reusable UI components.
+- Preserve Redux Toolkit state ownership, redux-persist, API client conventions, offline drafts, sync queue behavior, theme, accessibility, i18n, logging, and error boundaries.
+- Keep styled-components conventions and avoid unnecessary UI complexity.
+- Keep UI minimal, clean, readable, responsive, and consistent across web, Android, and iOS; mobile web should closely match native layouts.
+- Keep role-aware navigation and screen visibility, while relying on backend enforcement for security.
+- Make missing data, uncertainty, review status, and sync state visible.
+- Use advisory wording only: "check", "review", "consider senior review", "confirm clinically", and "clinician confirms final settings".
+- Never display autonomous diagnoses, exact ventilator-setting orders, direct airway action commands, treatment/resource-allocation orders, or transfer refusal orders.
+- Keep reference/evidence rules, facility clinical records, and reviewed de-identified ethics-approved training datasets separated.
 
-## App-write-up alignment gaps to close
+## Chronological Roadmap
 
-| Area | Required frontend work |
-| --- | --- |
-| Navigation | Rename user-facing Assessment to Admit and History to Tracking; add ABG / Vent Update, Dataset Capture, Review Queue, Dashboard where roles allow. |
-| Admission UX | Convert long assessment flow into a maximum 3-step guided wizard. |
-| Inclusive pathways | Add pathway-specific fields/prompts for neonate, infant, child, adolescent, adult, obstetric/post-partum, burns, trauma, peri-operative, medical, surgical, and unknown. |
-| Live summary | Add sticky/collapsible card with reference weight, VT/kg, P/F or S/F, ABG flag, pressure flags, oxygen caution, missing data, review/sync status. |
-| Calculators/flags | Add tested preview helpers for reference weight, VT/kg, P/F, S/F, minute ventilation, driving pressure, ABG and ventilation flags. |
-| Offline-first | Harden local drafts, sync queue, conflict display, retry, and grey draft/offline status. |
-| Dataset capture | Paste note, parse fields, editable preview, highlight uncertain/missing values, submit for specialist review. |
-| Governance | Hide model/debug/matched-case details from normal clinicians; add reviewer/admin role-aware screens. |
+1. [Project foundations and startup checks](./dev-plan/phase-01-project-foundations-startup.md)
+2. [Onboarding](./dev-plan/phase-02-onboarding.md)
+3. [Authentication and session handling](./dev-plan/phase-03-auth-session.md)
+4. [Facility, user roles, and permissions](./dev-plan/phase-04-facility-user-roles-permissions.md)
+5. [Home workflow](./dev-plan/phase-05-home-workflow.md)
+6. [Patient registration and admission model](./dev-plan/phase-06-patient-registration-admission-model.md)
+7. [Required three-step admission flow](./dev-plan/phase-07-three-step-admission-flow.md)
+8. [Clinical tracking](./dev-plan/phase-08-clinical-tracking.md)
+9. [ABG and ventilator updates](./dev-plan/phase-09-abg-ventilator-updates.md)
+10. [Decision-support rules and safety flags](./dev-plan/phase-10-decision-support-rules-safety-flags.md)
+11. [Dataset capture](./dev-plan/phase-11-dataset-capture.md)
+12. [Validation and review queue](./dev-plan/phase-12-validation-review-queue.md)
+13. [Dashboards](./dev-plan/phase-13-dashboards.md)
+14. [Training and help](./dev-plan/phase-14-training-help.md)
+15. [Settings](./dev-plan/phase-15-settings.md)
+16. [Governance, exports, audit, and model-readiness](./dev-plan/phase-16-governance-exports-audit-model-readiness.md)
 
-## Chronological implementation plan
+## Cleanup Policy For Future Phases
 
-Detailed phase files are in `frontend/dev-plan/`.
-
-1. **Navigation and admission workflow**
-   - Update labels, route aliases, home actions, and the 3-step admission wizard.
-2. **Calculators, flags, and live summary**
-   - Add pure preview helpers, status colors, missing-data display, and safe wording.
-3. **API integration and offline sync**
-   - Wire facility/admission/tracking/ABG/ventilator endpoints, local drafts, queue, idempotency, and conflict UI.
-4. **Review, dataset capture, and admin dashboards**
-   - Add role-aware review queue, dataset note preview, dashboard metrics, and export restrictions.
-5. **Shadow-mode governance UI**
-   - Add admin/research-only model version and shadow-mode monitoring screens after backend governance exists.
-
-## Immediate next tasks
-
-1. Add `frontend/app-rules/` as the frontend implementation contract.
-2. Update visible navigation labels without breaking existing route paths.
-3. Build the admission wizard shell and live summary card.
-4. Extract clinical preview calculations into pure helpers with tests.
-5. Add active facility and sync status to clinical screens.
-6. Wire the first end-to-end `POST /api/v1/admissions` flow.
-
-## Acceptance criteria for frontend MVP
-
-- User can register, log in, select/request facility membership, and see active facility.
-- Home has four large actions: Admit patient, Update ABG / ventilator, View tracking board, Paste ICU note.
-- Any supported patient pathway can be admitted in 3 steps.
-- Unknown/not available values are accepted where appropriate.
-- Live summary shows calculations, flags, missing data, review status, and sync status.
-- Tracking board shows active patients by bed and risk status.
-- Repeat ABG/ventilator update UI appends a new time-stamped record.
-- Offline drafts and queued writes are visible and retryable.
-- Dataset capture uses editable preview and cannot mark records approved for training.
-- Normal clinicians do not see matched-case/debug/model internals.
-
-## Known limitations and risks
-
-- Current route paths still include legacy names such as assessment/history; rename user-facing labels first, then migrate paths safely.
-- Offline storage exists as a foundation but needs encryption, conflict handling, and verified sync behavior before production.
-- Clinical rules and reference ranges require specialist approval.
-- Backend integration is not fully wired into all frontend screens yet.
-- Production clinical use requires governance, privacy, and security review.
+Each phase must include a cleanup pass for only the area it touches. Remove duplicated, obsolete, or non-compliant frontend code after a compliant replacement exists and focused tests cover user-visible behavior. Do not change public route paths or backend contracts unless a phase explicitly includes a safe migration path.

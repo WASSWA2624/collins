@@ -1,77 +1,43 @@
 # Backend Development Plan
 
-## Current implementation state
+This backend roadmap is chronological and intentionally narrow. It starts with startup and project foundations, then moves through onboarding, authentication, facility access, Home, admission, tracking, clinical decision-support, dataset governance, review, dashboards, training, settings, exports, audit, and future model-readiness.
 
-The backend is an Express.js + Prisma + MySQL foundation aligned with `../app-write-up.md`. It already includes:
+Existing backend modules already cover substantial parts of this plan, including `/api/v1` routing, authentication/session handling, facility membership, admissions, append-only ABG and ventilator updates, review, dataset exports, sync conflicts, audit events, governance metadata, and pure clinical helpers. Future implementation must inspect existing routes, validators, controllers, services, Prisma usage, and tests first; reuse compliant code; and replace only code that conflicts with the app rules or clinical safety requirements.
 
-- Express server and versioned API routing under `/api/v1` by default.
-- Environment configuration through `.env.example` and `src/config/env.js`.
-- Prisma schema covering the main ventilation app entities.
-- Zod validation pattern for request body, params, and query validation.
-- Basic auth route foundation with password hashing and JWT token issuance.
-- Facility, admission/tracking, review, dataset, references, models, admin, and health route foundations.
-- Centralized success/error response helpers.
-- Security middleware foundation using Helmet, CORS, JSON body limits, and rate limiting.
-- Backend app rules under `backend/app-rules/`.
+## Global Backend Rules
 
-This is a foundation, not a complete production clinical backend.
+- Preserve `/api/v1` versioned routes and route -> validator -> controller -> service layering.
+- Keep Prisma access inside services or repository helpers.
+- Validate `body`, `params`, and `query` with Zod for every route contract.
+- Return the standard success/error response shape.
+- Enforce facility membership, role checks, and facility-level isolation on every facility record.
+- Audit clinical edits, reviews, exports, overrides, and model outputs.
+- Keep ABG and ventilator records append-only.
+- Preserve offline idempotency keys, client timestamps, retryable states, conflict status display, and no silent overwrites.
+- Keep clinical calculation helpers pure and covered by focused tests.
+- Use advisory wording only: "check", "review", "consider senior review", "confirm clinically", and "clinician confirms final settings".
+- Never emit autonomous diagnoses, exact ventilator-setting orders, direct airway action commands, treatment/resource-allocation orders, or transfer refusal orders.
+- Keep reference/evidence rules, facility clinical records, and reviewed de-identified ethics-approved training datasets separated.
 
-## App-write-up alignment gaps to close
+## Chronological Roadmap
 
-| Area | Required backend work |
-| --- | --- |
-| Facility readiness | NHFR/Master Facility List search, verification workflow, equipment profile, ABG availability, facility-level isolation. |
-| Inclusive patient pathways | Full support for neonate, infant, child, adolescent, adult, obstetric/post-partum, burns, trauma, peri-operative, medical, surgical, and unknown pathways. |
-| Admission/tracking | 3-step admission payload, active tracking board, fast ABG/ventilator update, airway, humidification, daily review, outcomes. |
-| Calculations/flags | Reference weight, VT/kg, P/F, S/F, minute ventilation, driving pressure, ABG flags, ARDS/respiratory-failure helper, COPD/oedema/humidification cautions. |
-| Review/audit | Specialist review queue, correction/exclusion workflow, append-only clinical versions, full audit logs. |
-| Dataset governance | Note parser, structured preview, de-identification, reviewer approval, ethics/facility metadata, approved export only. |
-| Offline-first | Idempotency, sync statuses, encrypted local payload expectations, conflict resolution, no silent overwrite. |
-| Model governance | Dataset cards, model cards, shadow-mode only before approval, drift and override monitoring. |
+1. [Project foundations and startup checks](./dev-plan/phase-01-project-foundations-startup.md)
+2. [Onboarding](./dev-plan/phase-02-onboarding.md)
+3. [Authentication and session handling](./dev-plan/phase-03-auth-session.md)
+4. [Facility, user roles, and permissions](./dev-plan/phase-04-facility-user-roles-permissions.md)
+5. [Home workflow](./dev-plan/phase-05-home-workflow.md)
+6. [Patient registration and admission model](./dev-plan/phase-06-patient-registration-admission-model.md)
+7. [Required three-step admission flow](./dev-plan/phase-07-three-step-admission-flow.md)
+8. [Clinical tracking](./dev-plan/phase-08-clinical-tracking.md)
+9. [ABG and ventilator updates](./dev-plan/phase-09-abg-ventilator-updates.md)
+10. [Decision-support rules and safety flags](./dev-plan/phase-10-decision-support-rules-safety-flags.md)
+11. [Dataset capture](./dev-plan/phase-11-dataset-capture.md)
+12. [Validation and review queue](./dev-plan/phase-12-validation-review-queue.md)
+13. [Dashboards](./dev-plan/phase-13-dashboards.md)
+14. [Training and help](./dev-plan/phase-14-training-help.md)
+15. [Settings](./dev-plan/phase-15-settings.md)
+16. [Governance, exports, audit, and model-readiness](./dev-plan/phase-16-governance-exports-audit-model-readiness.md)
 
-## Chronological implementation plan
+## Cleanup Policy For Future Phases
 
-Detailed phase files are in `backend/dev-plan/`.
-
-1. **Foundation, security, and facility model**
-   - Harden auth, sessions, RBAC, facility memberships, registry search, facility verification, and equipment profiles.
-2. **Admissions, tracking, calculations, and clinical flags**
-   - Implement 3-step admission save, active tracking board, ABG/ventilator/airway/humidification writes, and rule-based calculator services.
-3. **Review, audit, dataset capture, and governance**
-   - Implement append-only review workflows, audit logging, de-identification, note import review, dataset approval/export, and reference rule versions.
-4. **Offline sync and conflict resolution**
-   - Implement sync ingestion, idempotency keys, conflict responses, retry states, and no-overwrite rules for reviewed data.
-5. **Admin dashboards and model shadow mode**
-   - Implement dashboard metrics, dataset/model cards, model version registry, shadow-mode storage, drift monitoring, and model retirement.
-
-## Immediate next tasks
-
-1. Install dependencies and generate Prisma client:
-   - `npm install`
-   - `npm run prisma:generate`
-2. Create a local MySQL database and run the first migration:
-   - `npm run prisma:migrate`
-3. Add seed scaffolding for roles and demo-only references.
-4. Expand RBAC middleware around facility membership and route permissions.
-5. Complete `POST /api/v1/admissions` as the first end-to-end clinical write.
-6. Add pure calculator/flag helpers and unit tests before wiring them into endpoints.
-
-## Acceptance criteria for backend MVP
-
-- A user can register, log in, and request/select a facility membership.
-- Facility admins can manage users and equipment/ABG availability.
-- Clinicians can admit any supported patient pathway with missing-data-safe validation.
-- ABGs and ventilator updates are append-only and time-stamped.
-- Calculations and flags are returned with safe wording and rule/version metadata where available.
-- Tracking board is filtered by facility and active status.
-- Reviewer can approve, correct, or exclude records.
-- Dataset entries cannot become training data until reviewed, de-identified, and governance-approved.
-- Offline queued writes are idempotent and conflict-safe.
-- Audit logs capture clinical edits, reviews, exports, overrides, reference changes, and model lifecycle events.
-
-## Known limitations and risks
-
-- Prisma migrations are not generated in this deliverable because database credentials are environment-specific.
-- Many route modules still need complete service implementations.
-- Clinical rules and reference ranges require specialist approval before real patient use.
-- Production deployment requires security review, encryption-at-rest strategy, backup/retention policy, and governance sign-off.
+Each phase must include a cleanup pass for only the area it touches. Remove duplicated, obsolete, or non-compliant backend code after a compliant replacement exists and tests cover the public contract. Do not change public contracts unless the phase explicitly requires a safer contract and migration path.
