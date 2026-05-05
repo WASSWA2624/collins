@@ -234,6 +234,7 @@
       "main": {
         "home": "Home",
         "assessment": "Admit",
+        "abg-vent-update": "ABG / Vent Update",
         "history": "Tracking",
         "training": "Training / Help",
         "onboarding": "Getting started",
@@ -509,18 +510,35 @@
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
+      "safety": {
+        "title": "Clinical safety",
+        "body": "Collins provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
+        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "accessibilityLabel": "Clinical safety notice",
+        "acknowledgeLabel": "I understand this is advisory decision support only",
+        "acknowledgeHint": "Required before continuing to clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+      },
       "steps": {
+        "clinicalSafety": {
+          "title": "Use as advisory support",
+          "body": "Review the safety note before using Collins. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+        },
+        "facilityWorkflow": {
+          "title": "Stay in facility context",
+          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+        },
         "inputs": {
           "title": "Entering inputs",
-          "body": "Use Assessment to enter clinical parameters (SpO₂, PaO₂, PaCO₂, pH, respiratory rate, etc.). The more complete the inputs, the better the recommendation match. ABG values improve accuracy when available."
+          "body": "Use Assessment to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show suggested ventilator settings with a confidence tier (high, medium, low). Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only—always apply clinical judgment."
+          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
         },
         "monitoring": {
           "title": "Monitoring and alerts",
-          "body": "After getting a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds. This is for decision support only—review and act according to your protocol."
+          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
         },
         "offline": {
           "title": "Offline behavior",
@@ -987,6 +1005,47 @@
         "error": "Unable to load assessment",
         "offline": "Assessment works offline",
         "empty": "Enter patient data to begin"
+      }
+    },
+    "abgVentUpdate": {
+      "title": "ABG / Vent Update",
+      "subtitle": "Append current ABG and ventilator values without changing prior records.",
+      "accessibilityLabel": "ABG and ventilator update screen",
+      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "sections": {
+        "admission": "Active admission",
+        "latest": "Latest values",
+        "abg": "ABG update",
+        "ventilator": "Ventilator update",
+        "uncertainty": "Uncertainty",
+        "missing": "Missing data",
+        "advisory": "Advisory checks",
+        "history": "History"
+      },
+      "admission": {
+        "label": "Select active admission",
+        "empty": "No active admissions are available."
+      },
+      "latest": {
+        "abg": "Latest ABG",
+        "ventilator": "Latest ventilator"
+      },
+      "uncertainty": {
+        "fields": "Uncertain fields",
+        "fieldsHint": "Separate fields with commas.",
+        "reason": "Uncertainty reason"
+      },
+      "history": {
+        "empty": "No ABG or ventilator history yet.",
+        "abg": "ABG",
+        "ventilator": "Ventilator",
+        "version": "Version {{version}} - {{dateTime}}"
+      },
+      "conflict": {
+        "serverRecord": "Latest saved record: {{dateTime}}"
+      },
+      "actions": {
+        "save": "Save append-only update"
       }
     },
     "recommendation": {

@@ -24,7 +24,7 @@ describe('ventilation.api', () => {
     aiKeyStorage.getItem.mockResolvedValue('test-api-key');
   });
 
-  it('skips when OFFLINE_MODE is enabled', async () => {
+  it('returns feature-disabled when OFFLINE_MODE is enabled', async () => {
     const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS' },
       isOnline: true,
@@ -34,12 +34,12 @@ describe('ventilation.api', () => {
     expect(res).toEqual({
       ok: true,
       aiOutput: null,
-      errorCode: VENTILATION_API_ERROR_CODES.OFFLINE_MODE,
+      errorCode: VENTILATION_API_ERROR_CODES.FEATURE_DISABLED,
     });
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('skips when AI_AUGMENTATION_ENABLED is disabled', async () => {
+  it('returns feature-disabled when AI_AUGMENTATION_ENABLED is disabled', async () => {
     const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS' },
       isOnline: true,
@@ -52,7 +52,7 @@ describe('ventilation.api', () => {
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('skips when offline', async () => {
+  it('returns feature-disabled when offline', async () => {
     const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS' },
       isOnline: false,
@@ -61,26 +61,26 @@ describe('ventilation.api', () => {
 
     expect(res.ok).toBe(true);
     expect(res.aiOutput).toBeNull();
-    expect(res.errorCode).toBe(VENTILATION_API_ERROR_CODES.OFFLINE);
+    expect(res.errorCode).toBe(VENTILATION_API_ERROR_CODES.FEATURE_DISABLED);
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('returns invalid-input when caseInput is missing', async () => {
+  it('keeps normal clinical workflows rule-based even when input is present', async () => {
     const res = await augmentVentilationCaseApi({
-      caseInput: null,
+      caseInput: { condition: 'ARDS', patientName: 'Patient Example' },
       isOnline: true,
       flags: { OFFLINE_MODE: false, AI_AUGMENTATION_ENABLED: true },
     });
 
     expect(res).toEqual({
-      ok: false,
+      ok: true,
       aiOutput: null,
-      errorCode: VENTILATION_API_ERROR_CODES.INVALID_INPUT,
+      errorCode: VENTILATION_API_ERROR_CODES.FEATURE_DISABLED,
     });
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('skips when no API key in storage', async () => {
+  it('does not read API keys in clinical recommendation flows', async () => {
     aiKeyStorage.getItem.mockResolvedValueOnce(null);
     const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS', spo2: 88 },
@@ -89,11 +89,12 @@ describe('ventilation.api', () => {
     });
     expect(res.ok).toBe(true);
     expect(res.aiOutput).toBeNull();
-    expect(res.errorCode).toBe(VENTILATION_API_ERROR_CODES.NO_API_KEY);
+    expect(res.errorCode).toBe(VENTILATION_API_ERROR_CODES.FEATURE_DISABLED);
+    expect(aiKeyStorage.getItem).not.toHaveBeenCalled();
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 
-  it('calls AI SDK with minimal payload when enabled + online + key set', async () => {
+  it('does not call AI SDK when enabled flags are supplied', async () => {
     aiSdk.requestCaseAnalysis.mockResolvedValue({ hints: ['VENTILATION_AI_HINT_1'] });
 
     const res = await augmentVentilationCaseApi({
@@ -102,23 +103,22 @@ describe('ventilation.api', () => {
       flags: { OFFLINE_MODE: false, AI_AUGMENTATION_ENABLED: true },
     });
 
-    expect(aiSdk.requestCaseAnalysis).toHaveBeenCalledWith(
-      expect.objectContaining({ condition: 'ARDS', spo2: 88 }),
-      expect.objectContaining({ apiKey: 'test-api-key' })
-    );
-    expect(res).toEqual({ ok: true, aiOutput: { hints: ['VENTILATION_AI_HINT_1'] }, errorCode: null });
+    expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
+    expect(res).toEqual({
+      ok: true,
+      aiOutput: null,
+      errorCode: VENTILATION_API_ERROR_CODES.FEATURE_DISABLED,
+    });
   });
 
-  it('passes model from flags to AI SDK', async () => {
+  it('ignores model flags for normal clinical workflows', async () => {
     aiSdk.requestCaseAnalysis.mockResolvedValue({ hints: [] });
-    await augmentVentilationCaseApi({
+    const res = await augmentVentilationCaseApi({
       caseInput: { condition: 'ARDS' },
       isOnline: true,
       flags: { AI_AUGMENTATION_ENABLED: true, model: 'gpt-4o' },
     });
-    expect(aiSdk.requestCaseAnalysis).toHaveBeenCalledWith(
-      expect.any(Object),
-      expect.objectContaining({ model: 'gpt-4o' })
-    );
+    expect(res.errorCode).toBe(VENTILATION_API_ERROR_CODES.FEATURE_DISABLED);
+    expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
   });
 });

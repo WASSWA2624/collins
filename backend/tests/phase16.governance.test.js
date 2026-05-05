@@ -9,6 +9,7 @@ import {
 import {
   buildModelCard,
   createShadowModelOutput,
+  verifyReferenceRule,
 } from '../src/modules/admin/admin.service.js';
 
 const completeDatasetCase = {
@@ -193,3 +194,63 @@ test('shadow model output capture stores hidden outputs and writes audit', async
   }
 });
 
+test('reference lifecycle verification writes governed active metadata and audit', async () => {
+  const originals = {
+    facilityMembership: prisma.facilityMembership,
+    referenceRule: prisma.referenceRule,
+    $transaction: prisma.$transaction,
+  };
+
+  let updatedRule;
+  let auditData;
+  const existing = {
+    id: 'reference-1',
+    facilityId: null,
+    name: 'adult-ph',
+    version: '1',
+    verificationStatus: 'PENDING_REVIEW',
+    governanceStatus: 'pending_review',
+    auditTrailJson: [],
+  };
+
+  prisma.facilityMembership = {
+    count: async ({ where }) => (
+      where.role === MEMBERSHIP_ROLES.PLATFORM_ADMIN ? 1 : 0
+    ),
+  };
+  prisma.referenceRule = {
+    findUnique: async () => existing,
+  };
+  prisma.$transaction = async (callback) => callback({
+    referenceRule: {
+      update: async ({ data }) => {
+        updatedRule = { ...existing, ...data };
+        return updatedRule;
+      },
+    },
+    auditLog: {
+      create: async ({ data }) => {
+        auditData = data;
+        return { id: 'audit-reference-1', ...data };
+      },
+    },
+  });
+
+  try {
+    const result = await verifyReferenceRule('reference-1', {
+      reviewNotes: 'Verified against approved local governance pack.',
+    }, 'platform-admin-1', { requestId: 'req-reference-1' });
+
+    assert.equal(result.verificationStatus, 'VERIFIED');
+    assert.equal(result.governanceStatus, 'verified');
+    assert.equal(result.verifiedByUserId, 'platform-admin-1');
+    assert.equal(result.approvedByUserId, 'platform-admin-1');
+    assert.equal(Array.isArray(updatedRule.auditTrailJson), true);
+    assert.equal(auditData.action, 'REFERENCE_RULE_VERIFY');
+    assert.equal(auditData.entityType, 'ReferenceRule');
+  } finally {
+    prisma.facilityMembership = originals.facilityMembership;
+    prisma.referenceRule = originals.referenceRule;
+    prisma.$transaction = originals.$transaction;
+  }
+});

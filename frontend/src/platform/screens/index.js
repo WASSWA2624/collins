@@ -12,6 +12,7 @@ export { LoginScreen, FacilitySelectionScreen } from './auth';
 export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';
+export { default as DashboardScreen } from './dashboard/DashboardScreen';
 
 // Ventilation screens
 export { default as AssessmentScreen } from './ventilation/AssessmentScreen';
@@ -21,6 +22,9 @@ export { default as HistoryScreen } from './ventilation/HistoryScreen';
 export { default as TrackingScreen } from './ventilation/HistoryScreen';
 export { default as AbgVentUpdateScreen } from './ventilation/AbgVentUpdateScreen';
 export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
+
+// Review screens
+export { default as ReviewQueueScreen } from './review/ReviewQueueScreen';
 
 // Training screens
 export { default as TrainingHomeScreen } from './training/TrainingHomeScreen';

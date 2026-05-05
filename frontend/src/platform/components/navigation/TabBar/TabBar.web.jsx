@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 import Text from '@platform/components/display/Text';
 import Badge from '@platform/components/display/Badge';
 import { useI18n } from '@hooks';
+import { getMenuIconGlyph } from '@config/sideMenu';
 import useTabBar from './useTabBar';
 import {
   StyledTabBar,
@@ -90,7 +91,7 @@ const TabBarWeb = ({
               accessibilityState={{ selected: isActive }}
               testID={testID ? `${testID}-tab-${item.id}` : undefined}
             >
-              <StyledTabItemIcon active={isActive}>{item.icon || '○'}</StyledTabItemIcon>
+              <StyledTabItemIcon active={isActive}>{getMenuIconGlyph(item.icon)}</StyledTabItemIcon>
               {item.badge && item.badgeCount > 0 && (
                 <StyledTabItemBadge>
                   <Badge variant="error" size="small">

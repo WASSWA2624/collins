@@ -1,17 +1,19 @@
 /**
  * useNavigationVisibility Hook
- * Visibility for nav items (used with items from config/sideMenu).
+ * Visibility for role-aware nav items.
  * File: useNavigationVisibility.js
  */
 import { useCallback } from 'react';
-import useAuth from './useAuth';
+import { useSelector } from 'react-redux';
 import { canAccessNavigationItem } from '@config/accessControl';
+import { selectIsAuthenticated, selectUser } from '@store/selectors';
 
 /**
- * @returns {Object} isItemVisible(item) - true when auth and item role requirements allow it
+ * @returns {Object} isItemVisible(item) - true when auth, facility, roles, and permissions allow it
  */
 const useNavigationVisibility = () => {
-  const { isAuthenticated, user } = useAuth();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
 
   const isItemVisible = useCallback((item) => {
     return canAccessNavigationItem({ item, user, isAuthenticated });

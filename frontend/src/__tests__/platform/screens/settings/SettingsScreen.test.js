@@ -2,7 +2,7 @@
  * SettingsScreen Component Tests
  */
 const React = require('react');
-const { render } = require('@testing-library/react-native');
+const { render, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { useI18n } = require('@hooks');
 const { useDispatch, useSelector } = require('react-redux');
@@ -179,18 +179,18 @@ describe('SettingsScreen', () => {
     expect(getByTestId('settings-model-visibility-status')).toBeTruthy();
   };
 
-  it('renders on Android', () => {
+  it('renders on Android', async () => {
     const { getByTestId } = renderWithTheme(<SettingsScreenAndroid />);
-    expectSettingsSections(getByTestId);
+    await waitFor(() => expectSettingsSections(getByTestId));
   });
 
-  it('renders on iOS', () => {
+  it('renders on iOS', async () => {
     const { getByTestId } = renderWithTheme(<SettingsScreenIOS />);
-    expectSettingsSections(getByTestId);
+    await waitFor(() => expectSettingsSections(getByTestId));
   });
 
-  it('renders on Web', () => {
+  it('renders on Web', async () => {
     const { getByTestId } = renderWithTheme(<SettingsScreenWeb />);
-    expectSettingsSections(getByTestId);
+    await waitFor(() => expectSettingsSections(getByTestId));
   });
 });

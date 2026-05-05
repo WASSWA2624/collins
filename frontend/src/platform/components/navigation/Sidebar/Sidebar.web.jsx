@@ -31,6 +31,7 @@ const SidebarWeb = ({
   itemsI18nPrefix = 'navigation.items.main',
   collapsed = false,
   onClose,
+  isItemVisible,
   accessibilityLabel,
   testID,
   className,
@@ -39,7 +40,12 @@ const SidebarWeb = ({
 }) => {
   const { t } = useI18n();
   const pathname = usePathname();
-  const topLevel = useMemo(() => (Array.isArray(items) ? items : []), [items]);
+  const topLevel = useMemo(
+    () => (Array.isArray(items)
+      ? items.filter((item) => (isItemVisible ? isItemVisible(item) : true))
+      : []),
+    [items, isItemVisible]
+  );
 
   return (
     <StyledSidebar

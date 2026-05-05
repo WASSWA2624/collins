@@ -102,7 +102,7 @@ const StyledSectionBody = styled.div.withConfig({
   color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
-const StyledSettingsGrid = styled.dl.withConfig({
+const StyledSettingsGrid = styled.div.withConfig({
   displayName: 'StyledSettingsGrid',
   componentId: 'StyledSettingsGrid',
 })`
@@ -119,7 +119,7 @@ const StyledSettingsRow = styled.div.withConfig({
   display: contents;
 `;
 
-const StyledSettingsTerm = styled.dt.withConfig({
+const StyledSettingsTerm = styled.div.withConfig({
   displayName: 'StyledSettingsTerm',
   componentId: 'StyledSettingsTerm',
 })`
@@ -127,7 +127,7 @@ const StyledSettingsTerm = styled.dt.withConfig({
   color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
-const StyledSettingsValue = styled.dd.withConfig({
+const StyledSettingsValue = styled.div.withConfig({
   displayName: 'StyledSettingsValue',
   componentId: 'StyledSettingsValue',
 })`

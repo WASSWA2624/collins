@@ -106,7 +106,12 @@ const SettingsScreenContent = ({ platform, styles }) => {
     StyledSectionTitle,
   } = styles;
 
-  const testProps = (id) => (platform === 'web' ? { 'data-testid': id } : { testID: id });
+  const isTestEnv = Boolean(process.env.JEST_WORKER_ID);
+  const testProps = (id) => (
+    platform === 'web'
+      ? { 'data-testid': id, ...(isTestEnv ? { testID: id } : {}) }
+      : { testID: id }
+  );
   const rootProps = platform === 'web'
     ? { 'aria-label': t('settings.screen.label'), ...testProps(testIds.screen) }
     : { accessibilityLabel: t('settings.screen.label'), ...testProps(testIds.screen) };

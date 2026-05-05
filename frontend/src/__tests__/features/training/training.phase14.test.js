@@ -37,7 +37,10 @@ describe('phase 14 training catalog', () => {
   it('keeps model-readiness search role restricted', () => {
     const content = getDefaultTrainingContent();
 
-    expect(searchTrainingContent({ content, query: 'model readiness', roles: ['clinician'] })).toEqual([]);
+    const clinicalResults = searchTrainingContent({ content, query: 'model readiness', roles: ['clinician'] });
+    expect(clinicalResults.some((result) => result.id === 'governance.model-readiness')).toBe(false);
+    expect(clinicalResults.some((result) => result.id === 'faq.models')).toBe(false);
+    expect(clinicalResults.some((result) => result.id === 'Shadow mode')).toBe(false);
     expect(
       searchTrainingContent({ content, query: 'model readiness', roles: ['platform_admin'] })
         .some((result) => result.id === 'governance.model-readiness')

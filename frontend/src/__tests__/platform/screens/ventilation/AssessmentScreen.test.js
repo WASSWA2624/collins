@@ -37,6 +37,8 @@ jest.mock('@hooks', () => ({
   useVentilationSession: jest.fn(),
 }));
 
+jest.mock('@hooks/useVentilationSession', () => jest.fn());
+
 jest.mock('@features/ventilation', () => ({
   ADMISSION_SYNC_STATUS: {
     SYNCED: 'synced',
@@ -79,7 +81,7 @@ const AssessmentScreenIOS = require('@platform/screens/ventilation/AssessmentScr
 const AssessmentScreenWeb = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.web').default;
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
-const { useVentilationSession } = require('@hooks');
+const useVentilationSession = require('@hooks/useVentilationSession');
 
 const createMockStore = (initialState = {}) =>
   configureStore({

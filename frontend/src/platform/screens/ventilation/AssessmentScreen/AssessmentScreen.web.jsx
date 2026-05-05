@@ -123,6 +123,7 @@ const AssessmentScreenWeb = () => {
         <StyledSummaryPane
           aria-label={t('ventilation.assessment.summary.accessibilityLabel')}
           data-testid={testIds.summary}
+          testID={testIds.summary}
         >
           <StyledSummaryHeader>
             <StyledSummaryTitle>
@@ -133,6 +134,7 @@ const AssessmentScreenWeb = () => {
               onClick={() => setSummaryExpanded((expanded) => !expanded)}
               aria-expanded={summaryExpanded}
               data-testid={testIds.summaryExpand}
+              testID={testIds.summaryExpand}
               aria-label={
                 summaryExpanded
                   ? t('ventilation.assessment.summary.collapse')
@@ -420,14 +422,14 @@ const AssessmentScreenWeb = () => {
 
   if (isHydrating) {
     return (
-      <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen}>
+      <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen}>
         <Text>{t('ventilation.assessment.states.loading')}</Text>
       </StyledContainer>
     );
   }
 
   return (
-    <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} role="main">
+    <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen} role="main">
       <StyledProgressSection>
         <ProgressBar
           value={progressPercent}
