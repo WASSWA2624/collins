@@ -1,0 +1,485 @@
+/**
+ * AssessmentScreen Component - Web
+ * File: AssessmentScreen.web.jsx
+ */
+import React from 'react';
+import {
+  Button,
+  Checkbox,
+  ProgressBar,
+  Select,
+  Text,
+  TextArea,
+  TextField,
+} from '@platform/components';
+import { useI18n } from '@hooks';
+import useAssessmentScreen from './useAssessmentScreen';
+import {
+  StyledActionsRow,
+  StyledContainer,
+  StyledExpandButton,
+  StyledFieldGroup,
+  StyledFieldGrid,
+  StyledFieldGridFull,
+  StyledFieldWithHint,
+  StyledMissingTests,
+  StyledMissingTestsHint,
+  StyledMissingTestsTitle,
+  StyledProgressSection,
+  StyledStepContent,
+  StyledStepDescription,
+  StyledStepHeader,
+  StyledStepIndicator,
+  StyledStepTitle,
+  StyledSummaryBody,
+  StyledSummaryHeader,
+  StyledSummaryLabel,
+  StyledSummaryPane,
+  StyledSummaryRow,
+  StyledSummaryTitle,
+  StyledSummaryValue,
+  StyledSummaryWrap,
+  StyledWizardCard,
+  StyledWizardPane,
+} from './AssessmentScreen.web.styles';
+import {
+  PATIENT_PATHWAY_OPTIONS,
+  PERMITTED_MISSING_FIELD_OPTIONS,
+  SEX_OPTIONS,
+  STEPS,
+} from './types';
+
+const mapOptions = (options, t, keyPrefix) =>
+  options.map((option) => ({
+    value: option.value,
+    label: t(`${keyPrefix}.${option.labelKey}`),
+  }));
+
+const parseNum = (value) => {
+  const parsed = parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const formatValue = (value, unit) => {
+  if (value == null || value === '') return null;
+  return unit ? `${value} ${unit}` : String(value);
+};
+
+const AssessmentScreenWeb = () => {
+  const { t } = useI18n();
+  const {
+    currentStep,
+    progressPercent,
+    mergedInputs,
+    updateInput,
+    summaryData,
+    summaryExpanded,
+    setSummaryExpanded,
+    readiness,
+    canProceedFromStep,
+    goNext,
+    goBackOrExit,
+    saveAdmission,
+    isSaving,
+    isHydrating,
+    errorCode,
+    testIds,
+    stepKey,
+    totalSteps,
+    syncStatus,
+    togglePermittedMissingField,
+  } = useAssessmentScreen();
+
+  const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
+  const stepIndicator = t('ventilation.assessment.stepIndicator', {
+    current: currentStep + 1,
+    total: totalSteps,
+  });
+
+  const pathwayOptions = mapOptions(
+    PATIENT_PATHWAY_OPTIONS,
+    t,
+    'ventilation.assessment.patientReason.pathways'
+  );
+  const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
+
+  const renderSummary = () => {
+    const rows = [
+      { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityId },
+      { key: 'pathway', label: t('ventilation.assessment.summary.pathway'), value: summaryData.pathway },
+      { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
+      { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
+      { key: 'fio2', label: t('ventilation.assessment.summary.fio2'), value: summaryData.fio2 },
+      { key: 'pao2', label: t('ventilation.assessment.summary.pao2'), value: formatValue(summaryData.pao2, 'mmHg') },
+      { key: 'ph', label: t('ventilation.assessment.summary.ph'), value: summaryData.ph },
+      { key: 'ventMode', label: t('ventilation.assessment.summary.ventilatorMode'), value: summaryData.ventilatorMode },
+      { key: 'peep', label: t('ventilation.assessment.summary.peep'), value: formatValue(summaryData.peep, 'cmH2O') },
+      { key: 'vt', label: t('ventilation.assessment.summary.tidalVolume'), value: formatValue(summaryData.tidalVolumeMl, 'mL') },
+      { key: 'sync', label: t('ventilation.assessment.summary.syncStatus'), value: syncStatus },
+    ].filter((row) => row.value != null && row.value !== '');
+
+    return (
+      <StyledSummaryWrap>
+        <StyledSummaryPane
+          aria-label={t('ventilation.assessment.summary.accessibilityLabel')}
+          data-testid={testIds.summary}
+        >
+          <StyledSummaryHeader>
+            <StyledSummaryTitle>
+              <Text variant="label">{t('ventilation.assessment.summary.title')}</Text>
+            </StyledSummaryTitle>
+            <StyledExpandButton
+              type="button"
+              onClick={() => setSummaryExpanded((expanded) => !expanded)}
+              aria-expanded={summaryExpanded}
+              data-testid={testIds.summaryExpand}
+              aria-label={
+                summaryExpanded
+                  ? t('ventilation.assessment.summary.collapse')
+                  : t('ventilation.assessment.summary.expand')
+              }
+            >
+              {summaryExpanded ? '-' : '+'}
+            </StyledExpandButton>
+          </StyledSummaryHeader>
+          {summaryExpanded && (
+            <StyledSummaryBody>
+              {rows.length === 0 ? (
+                <Text variant="body" color="text.tertiary">
+                  {t('ventilation.assessment.summary.empty')}
+                </Text>
+              ) : (
+                rows.map(({ key, label, value }) => (
+                  <StyledSummaryRow key={key}>
+                    <StyledSummaryLabel>{label}</StyledSummaryLabel>
+                    <StyledSummaryValue>{value}</StyledSummaryValue>
+                  </StyledSummaryRow>
+                ))
+              )}
+            </StyledSummaryBody>
+          )}
+        </StyledSummaryPane>
+      </StyledSummaryWrap>
+    );
+  };
+
+  const renderPatientReasonStep = () => (
+    <StyledFieldGroup>
+      <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
+      <StyledFieldGrid>
+        <TextField
+          label={t('ventilation.assessment.patientReason.facilityId')}
+          placeholder={t('ventilation.assessment.patientReason.facilityIdPlaceholder')}
+          value={mergedInputs.facilityId}
+          onChangeText={(value) => updateInput({ facilityId: value })}
+          required
+          testID="assessment-facility-id"
+        />
+        <TextField
+          label={t('ventilation.assessment.patientReason.bedNumber')}
+          placeholder={t('ventilation.assessment.patientReason.bedNumberPlaceholder')}
+          value={mergedInputs.bedNumber}
+          onChangeText={(value) => updateInput({ bedNumber: value })}
+          testID="assessment-bed-number"
+        />
+        <Select
+          label={t('ventilation.assessment.patientReason.pathway')}
+          placeholder={t('ventilation.assessment.patientReason.pathwayPlaceholder')}
+          options={pathwayOptions}
+          value={mergedInputs.patientPathway}
+          onValueChange={(value) => updateInput({ patientPathway: value })}
+          required
+          testID="assessment-patient-pathway"
+        />
+        <Select
+          label={t('ventilation.assessment.patientReason.sexForSize')}
+          options={sexOptions}
+          value={mergedInputs.sexForSizeCalculations}
+          onValueChange={(value) => updateInput({ sexForSizeCalculations: value })}
+          testID="assessment-sex-for-size"
+        />
+        <TextField
+          label={t('ventilation.assessment.patientReason.ageYears')}
+          type="number"
+          value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
+          onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
+          testID="assessment-age"
+        />
+        <TextField
+          label={t('ventilation.assessment.patientReason.weightKg')}
+          type="number"
+          value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
+          onChangeText={(value) => updateInput({ actualWeightKg: parseNum(value) })}
+          testID="assessment-weight"
+        />
+        <StyledFieldGridFull>
+          <TextArea
+            label={t('ventilation.assessment.patientReason.reasonForSupport')}
+            placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')}
+            value={mergedInputs.reasonForSupport}
+            onChangeText={(value) => updateInput({ reasonForSupport: value })}
+            required
+            minHeight={76}
+            testID="assessment-reason"
+          />
+        </StyledFieldGridFull>
+      </StyledFieldGrid>
+      <StyledFieldGroup>
+        <Text variant="label">{t('ventilation.assessment.patientReason.permittedMissing')}</Text>
+        {PERMITTED_MISSING_FIELD_OPTIONS.map((field) => (
+          <Checkbox
+            key={field.value}
+            checked={mergedInputs.permittedMissingFields.includes(field.value)}
+            onChange={(checked) => togglePermittedMissingField(field.value, checked)}
+            value={field.value}
+            label={t(`ventilation.assessment.patientReason.permittedMissingFields.${field.labelKey}`)}
+            testID={`assessment-permitted-${field.labelKey}`}
+          />
+        ))}
+      </StyledFieldGroup>
+    </StyledFieldGroup>
+  );
+
+  const renderOxygenAbgVentilatorStep = () => (
+    <StyledFieldGroup>
+      <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
+      <StyledFieldGrid>
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')}
+          value={mergedInputs.oxygenSupportType}
+          onChangeText={(value) => updateInput({ oxygenSupportType: value })}
+          testID="assessment-oxygen-support"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.measuredAt')}
+          placeholder={t('ventilation.assessment.oxygenAbgVentilator.timePlaceholder')}
+          value={mergedInputs.measuredAt}
+          onChangeText={(value) => updateInput({ measuredAt: value })}
+          testID="assessment-measured-at"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.spo2')}
+          type="number"
+          value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
+          onChangeText={(value) => updateInput({ spo2: parseNum(value) })}
+          testID="assessment-spo2"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.fio2')}
+          type="number"
+          value={mergedInputs.fio2 != null ? String(mergedInputs.fio2) : ''}
+          onChangeText={(value) => updateInput({ fio2: parseNum(value) })}
+          testID="assessment-fio2"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.ph')}
+          type="number"
+          value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}
+          onChangeText={(value) => updateInput({ ph: parseNum(value) })}
+          testID="assessment-ph"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.pao2')}
+          type="number"
+          value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
+          onChangeText={(value) => updateInput({ pao2: parseNum(value) })}
+          testID="assessment-pao2"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.paco2')}
+          type="number"
+          value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
+          onChangeText={(value) => updateInput({ paco2: parseNum(value) })}
+          testID="assessment-paco2"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.ventilatorMode')}
+          value={mergedInputs.ventilatorMode}
+          onChangeText={(value) => updateInput({ ventilatorMode: value })}
+          testID="assessment-ventilator-mode"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.tidalVolumeMl')}
+          type="number"
+          value={mergedInputs.tidalVolumeMl != null ? String(mergedInputs.tidalVolumeMl) : ''}
+          onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
+          testID="assessment-tidal-volume"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.peep')}
+          type="number"
+          value={mergedInputs.peep != null ? String(mergedInputs.peep) : ''}
+          onChangeText={(value) => updateInput({ peep: parseNum(value) })}
+          testID="assessment-peep"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.deviceId')}
+          value={mergedInputs.deviceId}
+          onChangeText={(value) => updateInput({ deviceId: value })}
+          testID="assessment-device-id"
+        />
+        <TextField
+          label={t('ventilation.assessment.oxygenAbgVentilator.ventilatorType')}
+          value={mergedInputs.ventilatorType}
+          onChangeText={(value) => updateInput({ ventilatorType: value })}
+          testID="assessment-ventilator-type"
+        />
+        <StyledFieldGridFull>
+          <StyledFieldWithHint>
+            <TextField
+              label={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyFields')}
+              placeholder={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyFieldsPlaceholder')}
+              value={mergedInputs.uncertaintyFieldsText}
+              onChangeText={(value) => updateInput({ uncertaintyFieldsText: value })}
+              testID="assessment-uncertainty-fields"
+            />
+            <Text variant="caption" color="text.tertiary">
+              {t('ventilation.assessment.oxygenAbgVentilator.uncertaintyHint')}
+            </Text>
+          </StyledFieldWithHint>
+        </StyledFieldGridFull>
+        <StyledFieldGridFull>
+          <TextArea
+            label={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyReason')}
+            value={mergedInputs.uncertaintyReason}
+            onChangeText={(value) => updateInput({ uncertaintyReason: value })}
+            minHeight={76}
+            testID="assessment-uncertainty-reason"
+          />
+        </StyledFieldGridFull>
+      </StyledFieldGrid>
+    </StyledFieldGroup>
+  );
+
+  const renderReadiness = () => (
+    <StyledMissingTests data-testid={testIds.readiness} role="region" aria-label={t('ventilation.assessment.saveReview.readiness')}>
+      <StyledMissingTestsTitle>
+        {readiness.isReadyToSave
+          ? t('ventilation.assessment.saveReview.ready')
+          : t('ventilation.assessment.saveReview.needsCorrection')}
+      </StyledMissingTestsTitle>
+      <StyledMissingTestsHint data-testid={testIds.syncStatus}>
+        {t('ventilation.assessment.saveReview.syncStatus', { status: syncStatus })}
+      </StyledMissingTestsHint>
+      {(readiness.warnings || []).map((warning, index) => (
+        <StyledMissingTestsHint key={`${warning.code}-${warning.field}-${index}`}>
+          {warning.message}
+        </StyledMissingTestsHint>
+      ))}
+      {(readiness.blockers || []).map((blocker, index) => (
+        <StyledMissingTestsHint key={`${blocker.code}-${blocker.field}-${index}`}>
+          {blocker.message}
+        </StyledMissingTestsHint>
+      ))}
+      {errorCode ? <StyledMissingTestsHint>{t('ventilation.assessment.states.error')}</StyledMissingTestsHint> : null}
+    </StyledMissingTests>
+  );
+
+  const renderSaveReviewStep = () => (
+    <StyledFieldGroup>
+      <StyledStepDescription>{t('ventilation.assessment.saveReview.description')}</StyledStepDescription>
+      {renderReadiness()}
+      <Checkbox
+        checked={mergedInputs.clinicianConfirmed}
+        onChange={(checked) => updateInput({ clinicianConfirmed: checked })}
+        label={t('ventilation.assessment.saveReview.clinicianConfirmed')}
+        testID="assessment-clinician-confirmed"
+      />
+      {(readiness.blockers || []).length > 0 && (
+        <TextArea
+          label={t('ventilation.assessment.saveReview.overrideReason')}
+          value={mergedInputs.overrideReason}
+          onChangeText={(value) => updateInput({ overrideReason: value })}
+          minHeight={76}
+          required
+          testID="assessment-override-reason"
+        />
+      )}
+      <TextArea
+        label={t('ventilation.assessment.saveReview.reviewNote')}
+        value={mergedInputs.reviewNote}
+        onChangeText={(value) => updateInput({ reviewNote: value })}
+        minHeight={76}
+        testID="assessment-review-note"
+      />
+    </StyledFieldGroup>
+  );
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case STEPS.PATIENT_REASON:
+        return renderPatientReasonStep();
+      case STEPS.OXYGEN_ABG_VENTILATOR:
+        return renderOxygenAbgVentilatorStep();
+      case STEPS.SAVE_REVIEW:
+        return renderSaveReviewStep();
+      default:
+        return null;
+    }
+  };
+
+  if (isHydrating) {
+    return (
+      <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen}>
+        <Text>{t('ventilation.assessment.states.loading')}</Text>
+      </StyledContainer>
+    );
+  }
+
+  return (
+    <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} role="main">
+      <StyledProgressSection>
+        <ProgressBar
+          value={progressPercent}
+          testID={testIds.progressBar}
+          aria-label={t('common.progress', { value: Math.round(progressPercent) })}
+        />
+      </StyledProgressSection>
+      <StyledWizardPane>
+        <StyledWizardCard>
+          <StyledStepHeader>
+            <StyledStepTitle>{stepLabel}</StyledStepTitle>
+            <StyledStepIndicator>{stepIndicator}</StyledStepIndicator>
+          </StyledStepHeader>
+          <StyledStepContent data-testid={testIds.stepContent}>{renderStepContent()}</StyledStepContent>
+        </StyledWizardCard>
+        <StyledActionsRow>
+          <Button
+            variant="outline"
+            onPress={goBackOrExit}
+            testID={testIds.backButton}
+            accessibilityLabel={t('ventilation.assessment.actions.back')}
+          >
+            {t('ventilation.assessment.actions.back')}
+          </Button>
+          {currentStep < STEPS.SAVE_REVIEW ? (
+            <Button
+              variant="primary"
+              onPress={goNext}
+              disabled={isSaving || !canProceedFromStep(currentStep)}
+              loading={isSaving}
+              testID={testIds.nextButton}
+              accessibilityLabel={t('ventilation.assessment.actions.next')}
+            >
+              {t('common.next')}
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              onPress={saveAdmission}
+              disabled={isSaving || !canProceedFromStep(currentStep)}
+              loading={isSaving}
+              testID={testIds.generateButton}
+              accessibilityLabel={t('ventilation.assessment.actions.saveAdmission')}
+            >
+              {t('ventilation.assessment.actions.saveAdmission')}
+            </Button>
+          )}
+        </StyledActionsRow>
+      </StyledWizardPane>
+      {renderSummary()}
+    </StyledContainer>
+  );
+};
+
+export default AssessmentScreenWeb;

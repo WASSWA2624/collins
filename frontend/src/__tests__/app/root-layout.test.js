@@ -139,6 +139,7 @@ jest.mock('@logging', () => ({
 // Mock store selectors
 jest.mock('@store/selectors', () => ({
   selectTheme: jest.fn(() => 'light'),
+  selectLocale: jest.fn(() => 'en'),
 }), { virtual: true });
 
 // Import RootLayout after mocks are set up

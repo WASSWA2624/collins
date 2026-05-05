@@ -14,9 +14,56 @@ import { notFound, badRequest } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { stripUndefined } from '../../utils/object.js';
 import { deidentifyPayload, findIdentifierPaths } from '../../utils/deidentify.js';
-import { getOperationalDashboard } from '../dashboards/dashboards.service.js';
+import { buildDashboardWindow, getOperationalDashboard } from '../dashboards/dashboards.service.js';
 
 export const getAdminDashboard = getOperationalDashboard;
+
+const GOVERNANCE_MONITORING_ROLES = Object.freeze([
+  ...new Set([
+    ...FACILITY_ADMIN_ROLES,
+    ...DATASET_EXPORT_ROLES,
+    ...MODEL_GOVERNANCE_ROLES,
+  ]),
+]);
+
+const addDays = (date, days) => new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
+
+const dateFilter = (field, window) => ({
+  [field]: {
+    gte: window.from,
+    lt: window.toExclusive,
+  },
+});
+
+const formatDay = (date) => date.toISOString().slice(0, 10);
+
+const dailyCountTrend = async (client, model, dateField, baseWhere, window) => Promise.all(
+  window.days.map(async (day) => ({
+    date: formatDay(day),
+    count: await client[model].count({
+      where: {
+        ...baseWhere,
+        [dateField]: {
+          gte: day,
+          lt: addDays(day, 1),
+        },
+      },
+    }),
+  })),
+);
+
+const groupCountByField = async (client, model, field, where = {}) => {
+  const rows = await client[model].groupBy({
+    by: [field],
+    where,
+    _count: { _all: true },
+  });
+
+  return rows.reduce((summary, row) => ({
+    ...summary,
+    [row[field] || 'UNSPECIFIED']: row._count._all,
+  }), {});
+};
 
 export const listAdminFacilities = async (userId) => {
   await assertPlatformRole(userId);
@@ -105,6 +152,33 @@ export const buildModelCard = (model) => {
   };
 };
 
+export const listModelCards = async (userId) => {
+  await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
+  const versions = await prisma.modelVersion.findMany({ orderBy: { createdAt: 'desc' } });
+  return {
+    modelCards: versions.map(buildModelCard),
+    visibility: {
+      liveClinicalPredictionEnabled: false,
+      clinicianVisibleOutputsAllowed: false,
+      externalModelServicesAllowed: false,
+    },
+  };
+};
+
+export const getModelCard = async (id, userId) => {
+  await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
+  const model = await prisma.modelVersion.findUnique({ where: { id } });
+  if (!model) throw notFound('Model version not found');
+  return {
+    modelCard: buildModelCard(model),
+    visibility: {
+      liveClinicalPredictionEnabled: false,
+      clinicianVisibleOutputsAllowed: false,
+      externalModelServicesAllowed: false,
+    },
+  };
+};
+
 const assertModelReadyForShadowMode = (model) => {
   const modelCard = buildModelCard(model);
   if (!modelCard.shadowModeEligible) {
@@ -143,6 +217,109 @@ export const getModelMonitoring = async (userId) => {
       liveClinicalDriftMonitoringEnabled: false,
     },
     safetyStatement: 'Shadow-mode outputs are admin/research only and hidden from clinical users.',
+  };
+};
+
+export const getModelDriftMonitoring = async (userId, query = {}) => {
+  await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
+  const facilityId = await resolveFacilityScope(userId, query.facilityId, MODEL_GOVERNANCE_ROLES);
+  const window = buildDashboardWindow(query);
+  const shadowWhere = {
+    ...(facilityId ? { facilityId } : {}),
+    visibleToClinicians: false,
+  };
+  const windowWhere = {
+    ...shadowWhere,
+    ...dateFilter('createdAt', window),
+  };
+
+  const [
+    shadowOutputs,
+    outputsInWindow,
+    outputsByModelVersion,
+    outputsByFacility,
+    trend,
+    clinicianVisibleOutputs,
+  ] = await Promise.all([
+    prisma.modelOutput.count({ where: shadowWhere }),
+    prisma.modelOutput.count({ where: windowWhere }),
+    groupCountByField(prisma, 'modelOutput', 'modelVersionId', shadowWhere),
+    groupCountByField(prisma, 'modelOutput', 'facilityId', shadowWhere),
+    dailyCountTrend(prisma, 'modelOutput', 'createdAt', shadowWhere, window),
+    prisma.modelOutput.count({
+      where: {
+        ...(facilityId ? { facilityId } : {}),
+        visibleToClinicians: true,
+      },
+    }),
+  ]);
+
+  return {
+    scope: facilityId ? { scope: 'facility', facilityId } : { scope: 'platform' },
+    window: { from: window.from, to: window.to },
+    source: 'shadow_model_outputs',
+    shadowOutputs,
+    outputsInWindow,
+    outputsByModelVersion,
+    outputsByFacility,
+    trend,
+    driftSignals: {
+      liveClinicalDriftMonitoringEnabled: false,
+      externalModelServicesUsed: false,
+      clinicianVisibleOutputCount: clinicianVisibleOutputs,
+    },
+    safetyStatement: 'Drift monitoring uses shadow-mode aggregate output counts only; outputs remain hidden from clinicians.',
+    privacy: 'Aggregate monitoring only; patient identifiers and raw model inputs are not included.',
+  };
+};
+
+export const getOverrideMonitoring = async (userId, query = {}) => {
+  const facilityId = await resolveFacilityScope(userId, query.facilityId, GOVERNANCE_MONITORING_ROLES);
+  const window = buildDashboardWindow(query);
+  const scopedWhere = facilityId ? { facilityId } : {};
+  const reviewWindowWhere = {
+    ...scopedWhere,
+    ...dateFilter('createdAt', window),
+  };
+  const auditOverrideWhere = {
+    ...scopedWhere,
+    action: { contains: 'OVERRIDE' },
+    ...dateFilter('createdAt', window),
+  };
+
+  const [
+    auditedOverrides,
+    reviewedOverrides,
+    correctionRequests,
+    exclusions,
+    byReviewAction,
+    auditedOverrideTrend,
+  ] = await Promise.all([
+    prisma.auditLog.count({ where: auditOverrideWhere }),
+    prisma.reviewAction.count({
+      where: {
+        ...reviewWindowWhere,
+        overrideReason: { not: null },
+      },
+    }),
+    prisma.reviewAction.count({ where: { ...reviewWindowWhere, action: 'request_correction' } }),
+    prisma.reviewAction.count({ where: { ...reviewWindowWhere, action: 'exclude' } }),
+    groupCountByField(prisma, 'reviewAction', 'action', reviewWindowWhere),
+    dailyCountTrend(prisma, 'auditLog', 'createdAt', auditOverrideWhere, window),
+  ]);
+
+  return {
+    scope: facilityId ? { scope: 'facility', facilityId } : { scope: 'platform' },
+    window: { from: window.from, to: window.to },
+    auditedOverrides,
+    reviewedOverrides,
+    correctionRequests,
+    exclusions,
+    byReviewAction,
+    auditedOverrideTrend,
+    source: 'ReviewAction override reasons and AuditLog override actions.',
+    safetyStatement: 'Override monitoring is governance-only and does not expose patient identifiers.',
+    privacy: 'Aggregate monitoring only; patient identifiers are not included.',
   };
 };
 

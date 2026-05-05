@@ -4,6 +4,7 @@ import { validateRequest } from '../../middleware/validateRequest.js';
 import {
   approvedDatasets,
   createImport,
+  datasetCard,
   exportDataset,
   parseNote,
   pendingReview,
@@ -12,6 +13,7 @@ import {
 import {
   approvedDatasetsSchema,
   createDatasetImportSchema,
+  datasetCardSchema,
   exportDatasetSchema,
   parseNoteSchema,
   pendingDatasetSchema,
@@ -26,4 +28,5 @@ datasetRouter.post('/dataset-imports', validateRequest(createDatasetImportSchema
 datasetRouter.get('/dataset-imports/pending-review', validateRequest(pendingDatasetSchema), pendingReview);
 datasetRouter.post('/dataset-imports/:id/review', validateRequest(reviewDatasetSchema), reviewImport);
 datasetRouter.get('/datasets/approved', validateRequest(approvedDatasetsSchema), approvedDatasets);
+datasetRouter.get('/datasets/:id/card', validateRequest(datasetCardSchema), datasetCard);
 datasetRouter.post('/datasets/:id/export', validateRequest(exportDatasetSchema), exportDataset);

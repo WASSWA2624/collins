@@ -1,62 +1,205 @@
 {
-  "contentVersion": "1.0",
-  "contentSchemaVersion": "1.0",
-  "lastUpdated": "2026-02-02",
+  "contentVersion": "2026.05.phase14",
+  "contentSchemaVersion": "1.1",
+  "lastUpdated": "2026-05-05",
+  "safetyStatement": "Training and help content is advisory. It supports app use, documentation, review, and escalation without creating clinical orders.",
+  "dataBoundary": "Training/help content is separate from live facility records and approved training datasets.",
+  "workflows": [
+    "home",
+    "admit",
+    "tracking",
+    "abg-vent-update",
+    "dataset-capture",
+    "review-queue",
+    "dashboard",
+    "settings"
+  ],
+  "referencePolicy": {
+    "activeReferenceEndpoint": "/references/active",
+    "verifiedOnly": true,
+    "requiredMetadata": ["verificationStatus", "sourceCitation", "version", "scope"],
+    "decisionSupportUse": "Only active approved or verified reference rules are eligible for decision-support display.",
+    "excludedUse": "Draft, retired, pending, rejected, or unverified reference records are not active decision-support rules."
+  },
   "protocolSections": [
     {
       "id": "protocol.intro",
-      "title": "Introduction",
-      "body": "This training content is designed for offline learning by non-specialists.\n\nIt does not replace clinical judgment. Use it alongside local guidelines and supervision.",
-      "tags": ["offline", "safety"],
+      "workflow": "home",
+      "title": "Training and help overview",
+      "summary": "Use this content to learn safe app workflows and documentation expectations.",
+      "body": "This training content is bundled for offline use and supports safe navigation of the app.\n\nIt does not replace local clinical protocol, senior review, or clinical judgement. Treat app flags and calculated values as advisory prompts that require clinical confirmation.",
+      "audiences": ["all"],
+      "tags": ["offline", "safety", "overview"],
       "order": 1
     },
     {
-      "id": "protocol.assessment",
-      "title": "Initial assessment",
-      "body": "Assess oxygenation, ventilation, and hemodynamics. Confirm airway patency and device positioning before making changes.",
-      "tags": ["assessment", "basics"],
-      "order": 2
+      "id": "workflow.home",
+      "workflow": "home",
+      "title": "Home",
+      "summary": "Use Home for facility context, sync state, and workload status before opening a patient workflow.",
+      "body": "Review the active facility, offline or sync state, active admissions count, red-flag count, and records needing review.\n\nHome summaries are operational signals only. They do not create clinical conclusions, treatment instructions, or ventilator-setting instructions.",
+      "audiences": ["all"],
+      "tags": ["home", "sync", "workload"],
+      "order": 10
     },
     {
-      "id": "protocol.monitoring",
-      "title": "Monitoring and follow-up",
-      "body": "After any change, recheck SpO2, respiratory rate, and clinical signs. Document settings and response. Escalate if goals are not met.",
-      "tags": ["monitoring", "safety"],
-      "order": 3
+      "id": "workflow.admit",
+      "workflow": "admit",
+      "title": "Admit",
+      "summary": "Use Admit to capture patient, pathway, oxygenation, ABG, ventilator, airway, and humidification data.",
+      "body": "Enter available data and mark unavailable values explicitly when the bedside record is incomplete.\n\nServer-side calculations and flags are advisory prompts for clinical review after save. The clinician confirms final documentation and setting choices.",
+      "audiences": ["clinical", "facility_admin"],
+      "tags": ["admit", "assessment", "missing-data", "pathway"],
+      "order": 20
+    },
+    {
+      "id": "workflow.tracking",
+      "workflow": "tracking",
+      "title": "Tracking",
+      "summary": "Use Tracking as a bed-board view for recent ventilation status and review needs.",
+      "body": "Use trend and review-status indicators to decide which record needs attention or specialist review.\n\nRead tracking flags with source data, pathway, reference weight, and local protocol context. Missing data should remain visible instead of being treated as a danger flag.",
+      "audiences": ["clinical", "reviewer", "facility_admin"],
+      "tags": ["tracking", "review-status", "trends"],
+      "order": 30
+    },
+    {
+      "id": "workflow.abg-vent-update",
+      "workflow": "abg-vent-update",
+      "title": "ABG / Vent Update",
+      "summary": "Use ABG / Vent Update to append time-stamped ABG and ventilator records.",
+      "body": "New ABGs and ventilator records are appended as versions so earlier clinical records remain available for review.\n\nCalculated ratios, VT/kg, and pressure flags are recalculated by the backend after save. Review calculations against the source time point before acting.",
+      "audiences": ["clinical", "facility_admin"],
+      "tags": ["abg", "ventilator", "time-series", "versions"],
+      "order": 40
+    },
+    {
+      "id": "workflow.dataset-capture",
+      "workflow": "dataset-capture",
+      "title": "Dataset Capture",
+      "summary": "Use Dataset Capture for candidate de-identified records that require review before dataset or training use.",
+      "body": "Raw notes are parsed into structured previews for human review, then stored separately from live facility records.\n\nOnly reviewed, de-identified, governance-approved records can become approved training data. Do not treat unreviewed imports as active reference data.",
+      "audiences": ["reviewer", "research_governance", "facility_admin"],
+      "tags": ["dataset", "de-identified", "governance", "preview"],
+      "order": 50
+    },
+    {
+      "id": "workflow.review-queue",
+      "workflow": "review-queue",
+      "title": "Review Queue",
+      "summary": "Use Review Queue to approve, request correction, or exclude records with an audit trail.",
+      "body": "Review actions preserve the submitted record, reviewer decision, status transition, and reason where provided.\n\nReference ranges require approved or verified governance status before decision-support display. Unverified records remain hidden from active decision-support use.",
+      "audiences": ["reviewer", "research_governance", "facility_admin"],
+      "tags": ["review", "audit", "reference-status", "governance"],
+      "order": 60
+    },
+    {
+      "id": "workflow.dashboard",
+      "workflow": "dashboard",
+      "title": "Dashboard",
+      "summary": "Use Dashboard for aggregate facility, quality, review, reference, and governance status.",
+      "body": "Dashboards should remain aggregate and role-scoped, without patient identifiers in governance summaries.\n\nNormal clinician workflows should not expose predictive model controls or model internals. Use aggregate views to monitor quality and review readiness.",
+      "audiences": ["facility_admin", "platform_admin", "reviewer", "research_governance"],
+      "tags": ["dashboard", "aggregate", "quality", "governance"],
+      "order": 70
+    },
+    {
+      "id": "workflow.settings",
+      "workflow": "settings",
+      "title": "Settings",
+      "summary": "Use Settings for account, active facility, accessibility, privacy, sync, and reference visibility preferences.",
+      "body": "Settings can change user or facility preferences where authorized, but cannot activate unverified reference ranges.\n\nSettings should not enable predictive model outputs for normal clinicians. Keep privacy, sync, and reference visibility choices aligned with facility policy.",
+      "audiences": ["all"],
+      "tags": ["settings", "privacy", "accessibility", "references"],
+      "order": 80
+    },
+    {
+      "id": "governance.model-readiness",
+      "workflow": "dashboard",
+      "title": "Model Readiness",
+      "summary": "Use model-readiness help for governed shadow-mode review and future model cards.",
+      "body": "Model metadata is available only to approved governance roles.\n\nShadow-mode outputs remain hidden from normal clinical workflows until future governance approval explicitly changes that policy.",
+      "audiences": ["model_governance"],
+      "tags": ["model", "shadow-mode", "governance", "restricted"],
+      "order": 90
     }
   ],
   "checklists": [
     {
-      "id": "checklist.basics",
-      "title": "Ventilation basics checklist",
-      "tags": ["basics"],
+      "id": "checklist.safe-app-use",
+      "title": "Safe app use checklist",
+      "workflow": "home",
+      "audiences": ["all"],
+      "tags": ["safety", "offline"],
       "order": 1,
       "items": [
-        { "id": "cb.1", "text": "Confirm SpO2 and respiratory rate.", "tags": ["assessment"] },
-        { "id": "cb.2", "text": "Review FiO2 and PEEP settings.", "tags": ["settings"] },
-        { "id": "cb.3", "text": "Check airway position and security.", "tags": ["assessment"] }
+        { "id": "safe.1", "text": "Confirm the active facility and sync state before entering or reviewing records.", "tags": ["home", "sync"] },
+        { "id": "safe.2", "text": "Keep missing or unavailable data visible instead of entering guessed values.", "tags": ["missing-data"] },
+        { "id": "safe.3", "text": "Use app flags as advisory prompts that require clinical confirmation.", "tags": ["safety"] }
+      ]
+    },
+    {
+      "id": "checklist.admit-capture",
+      "title": "Admit data capture checklist",
+      "workflow": "admit",
+      "audiences": ["clinical", "facility_admin"],
+      "tags": ["admit", "documentation"],
+      "order": 2,
+      "items": [
+        { "id": "admit.1", "text": "Capture patient pathway, age group, size data, and available oxygenation values.", "tags": ["pathway"] },
+        { "id": "admit.2", "text": "Add ABG, ventilator, airway, and humidification values when they are available.", "tags": ["abg", "ventilator"] },
+        { "id": "admit.3", "text": "Review backend-confirmed calculations and flags after save.", "tags": ["review"] }
+      ]
+    },
+    {
+      "id": "checklist.reference-governance",
+      "title": "Reference governance checklist",
+      "workflow": "review-queue",
+      "audiences": ["reviewer", "research_governance", "facility_admin"],
+      "tags": ["reference-status", "governance"],
+      "order": 3,
+      "items": [
+        { "id": "ref.1", "text": "Check source citation, version, scope, and verification status before approving reference use.", "tags": ["reference-status"] },
+        { "id": "ref.2", "text": "Keep draft, pending, retired, rejected, and unverified ranges out of active decision-support display.", "tags": ["verification"] },
+        { "id": "ref.3", "text": "Record review reasons so later audits can understand the decision.", "tags": ["audit"] }
       ]
     }
   ],
   "glossary": [
     { "term": "PEEP", "definition": "Positive end-expiratory pressure. Maintains lung volume at end expiration.", "tags": ["settings"], "order": 1 },
     { "term": "FiO2", "definition": "Fraction of inspired oxygen. The concentration of oxygen delivered.", "tags": ["settings"], "order": 2 },
-    { "term": "SpO2", "definition": "Oxygen saturation measured by pulse oximetry.", "tags": ["assessment"], "order": 3 }
+    { "term": "SpO2", "definition": "Oxygen saturation measured by pulse oximetry.", "tags": ["assessment"], "order": 3 },
+    { "term": "ABG", "definition": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.", "tags": ["abg"], "order": 4 },
+    { "term": "Reference status", "definition": "The governance and verification state that decides whether a range can appear in active decision-support displays.", "tags": ["reference-status", "governance"], "order": 5 },
+    { "term": "Shadow mode", "definition": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows.", "tags": ["model", "governance"], "order": 6 }
   ],
   "faqs": [
     {
       "id": "faq.offline",
       "question": "Is this usable offline?",
-      "answer": "Yes. The content is bundled locally and can be searched without network access.",
+      "answer": "Yes. The core training catalog is bundled locally and can be searched without network access.",
       "tags": ["offline"],
       "order": 1
     },
     {
       "id": "faq.clinical",
-      "question": "Can I use this for direct patient care?",
-      "answer": "This is training and reference material. It does not replace clinical protocols or specialist advice.",
+      "question": "Can this content guide direct patient care?",
+      "answer": "This is training and reference material for app use. It does not replace clinical protocols, senior review, or clinical judgement.",
       "tags": ["safety"],
       "order": 2
+    },
+    {
+      "id": "faq.references",
+      "question": "Why do some ranges not appear in decision support?",
+      "answer": "Only active approved or verified reference records are eligible for active decision-support display. Draft, pending, retired, rejected, and unverified records remain unavailable for active use.",
+      "tags": ["reference-status", "governance"],
+      "order": 3
+    },
+    {
+      "id": "faq.models",
+      "question": "Who can see predictive model readiness content?",
+      "answer": "Predictive model readiness content is restricted to approved governance roles. Normal clinical workflows do not expose model internals or shadow-mode outputs.",
+      "tags": ["model", "governance", "restricted"],
+      "order": 4
     }
   ]
 }

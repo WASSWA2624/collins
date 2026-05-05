@@ -85,3 +85,9 @@ export const exportDatasetSchema = z.object({
   params: idParam,
   query: z.object({}).optional(),
 });
+
+export const datasetCardSchema = z.object({
+  body: z.object({}).optional(),
+  params: idParam,
+  query: z.object({}).optional(),
+});

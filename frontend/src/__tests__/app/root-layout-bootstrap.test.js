@@ -84,6 +84,11 @@ jest.mock('@platform/layouts/common/ThemeProviderWrapper', () => ({
   default: ({ children }) => children,
 }), { virtual: true });
 
+jest.mock('@platform/layouts/common/RTLDirectionSync', () => ({
+  __esModule: true,
+  default: ({ children }) => children,
+}), { virtual: true });
+
 jest.mock('@platform/layouts/common/RootLayoutStyles', () => ({
   StyledRootContainer: ({ children }) => mockReact.createElement(MockView, null, children),
   StyledLoadingContainer: ({ children }) => mockReact.createElement(MockView, null, children),

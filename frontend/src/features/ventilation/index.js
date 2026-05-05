@@ -3,6 +3,7 @@
  * File: index.js
  */
 export * from './ventilation.rules';
+export * from './ventilation.decisionSupport';
 export * from './ventilation.model';
 export * from './ventilation.monitoring.model';
 export * from './ventilation.api';

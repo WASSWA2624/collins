@@ -45,8 +45,19 @@ const selectAiModelId = createSelector([selectUI], (ui) => ui?.aiModelId ?? 'gpt
 const selectAuth = (state) => state?.auth ?? null;
 const selectIsAuthenticated = createSelector([selectAuth], (auth) => auth?.isAuthenticated ?? false);
 const selectUser = createSelector([selectAuth], (auth) => auth?.user ?? null);
+const selectActiveFacility = createSelector([selectAuth], (auth) => auth?.activeFacility ?? auth?.user?.activeFacility ?? null);
+const selectRequiresActiveFacility = createSelector(
+  [selectAuth],
+  (auth) => auth?.requiresActiveFacility ?? false
+);
 const selectAuthErrorCode = createSelector([selectAuth], (auth) => auth?.errorCode ?? null);
+const selectAuthSessionErrorCode = createSelector([selectAuth], (auth) => auth?.sessionErrorCode ?? null);
 const selectAuthLoading = createSelector([selectAuth], (auth) => auth?.isLoading ?? false);
+const selectAuthHasRestoredSession = createSelector(
+  [selectAuth],
+  (auth) => auth?.hasRestoredSession ?? false
+);
+const selectAuthSessionStatus = createSelector([selectAuth], (auth) => auth?.sessionStatus ?? 'idle');
 
 // Ventilation (Session persistence)
 const selectVentilation = (state) => state?.ventilation ?? null;
@@ -117,8 +128,13 @@ export {
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,
   selectUser,
+  selectActiveFacility,
+  selectRequiresActiveFacility,
   selectAuthErrorCode,
+  selectAuthSessionErrorCode,
   selectAuthLoading,
+  selectAuthHasRestoredSession,
+  selectAuthSessionStatus,
   // Ventilation
   selectVentilationSessionId,
   selectVentilationInputs,
@@ -162,8 +178,13 @@ export default {
   // Auth (minimal - Phase 0-7)
   selectIsAuthenticated,
   selectUser,
+  selectActiveFacility,
+  selectRequiresActiveFacility,
   selectAuthErrorCode,
+  selectAuthSessionErrorCode,
   selectAuthLoading,
+  selectAuthHasRestoredSession,
+  selectAuthSessionStatus,
   // Ventilation
   selectVentilationSessionId,
   selectVentilationInputs,

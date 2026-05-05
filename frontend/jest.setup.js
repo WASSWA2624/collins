@@ -313,11 +313,16 @@ jest.mock('expo-secure-store', () => ({
 jest.mock('react-native-safe-area-context', () => {
   const React = require('react');
   const { View } = require('react-native');
+  const SafeAreaProvider = React.forwardRef(({ children, ...props }, ref) => {
+    return React.createElement(View, { ref, ...props }, children);
+  });
+  SafeAreaProvider.displayName = 'SafeAreaProvider';
   const SafeAreaView = React.forwardRef((props, ref) => {
     return React.createElement(View, { ref, ...props });
   });
   SafeAreaView.displayName = 'SafeAreaView';
   return {
+    SafeAreaProvider,
     SafeAreaView,
     useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
     useSafeAreaFrame: () => ({ x: 0, y: 0, width: 375, height: 812 }),

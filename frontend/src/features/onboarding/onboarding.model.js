@@ -3,7 +3,7 @@
  * Step shape for UI; no external data.
  */
 const defaultSteps = () =>
-  ['inputs', 'recommendations', 'monitoring', 'offline'].map((id, order) => ({
+  ['clinicalSafety', 'facilityWorkflow', 'inputs', 'recommendations', 'monitoring', 'offline'].map((id, order) => ({
     id,
     order,
   }));

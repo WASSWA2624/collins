@@ -110,6 +110,7 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
 // Mock store selectors
 jest.mock('@store/selectors', () => ({
   selectTheme: jest.fn(() => 'light'),
+  selectLocale: jest.fn(() => 'en'),
 }), { virtual: true });
 
 // Mock i18n

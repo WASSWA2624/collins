@@ -6,9 +6,14 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  selectActiveFacility,
   selectAuthErrorCode,
+  selectAuthHasRestoredSession,
   selectAuthLoading,
+  selectAuthSessionErrorCode,
+  selectAuthSessionStatus,
   selectIsAuthenticated,
+  selectRequiresActiveFacility,
   selectUser,
 } from '@store/selectors';
 import { actions as authActions } from '@store/slices/auth.slice';
@@ -32,26 +37,38 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const user = useSelector(selectUser);
+  const activeFacility = useSelector(selectActiveFacility);
+  const requiresActiveFacility = useSelector(selectRequiresActiveFacility);
   const isLoading = useSelector(selectAuthLoading);
   const errorCode = useSelector(selectAuthErrorCode);
+  const sessionErrorCode = useSelector(selectAuthSessionErrorCode);
+  const hasRestoredSession = useSelector(selectAuthHasRestoredSession);
+  const sessionStatus = useSelector(selectAuthSessionStatus);
 
   const roles = useMemo(() => {
-    const userRoles = user?.roles || user?.role || [];
+    const userRoles = activeFacility?.roles || user?.roles || user?.role || [];
     return normalizeRoles(userRoles);
-  }, [user]);
+  }, [activeFacility, user]);
 
   return {
     isAuthenticated,
     user: user || null,
+    activeFacility,
+    requiresActiveFacility,
     roles,
     role: roles[0] || null,
     isLoading: Boolean(isLoading),
+    hasRestoredSession,
+    sessionStatus,
     errorCode: errorCode || null,
+    sessionErrorCode: sessionErrorCode || null,
     login: useCallback((payload) => dispatch(authActions.login(payload)), [dispatch]),
     register: useCallback((payload) => dispatch(authActions.register(payload)), [dispatch]),
     logout: useCallback(() => dispatch(authActions.logout()), [dispatch]),
-    refreshSession: useCallback(() => dispatch(authActions.refreshSession()), [dispatch]),
+    refreshSession: useCallback((payload) => dispatch(authActions.refreshSession(payload)), [dispatch]),
     loadCurrentUser: useCallback(() => dispatch(authActions.loadCurrentUser()), [dispatch]),
+    restoreSession: useCallback(() => dispatch(authActions.restoreSession()), [dispatch]),
+    selectActiveFacility: useCallback((payload) => dispatch(authActions.selectActiveFacility(payload)), [dispatch]),
     verifyEmail: useCallback((payload) => dispatch(authActions.verifyEmail(payload)), [dispatch]),
     verifyPhone: useCallback((payload) => dispatch(authActions.verifyPhone(payload)), [dispatch]),
     resendVerification: useCallback((payload) => dispatch(authActions.resendVerification(payload)), [dispatch]),

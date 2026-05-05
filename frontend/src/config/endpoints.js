@@ -33,6 +33,12 @@ export const endpoints = {
     MFA_RESEND: `${baseUrl}/auth/mfa/resend`,
   },
 
+  ONBOARDING: {
+    CONFIG: `${baseUrl}/onboarding/config`,
+    STATE: `${baseUrl}/onboarding/state`,
+    ACKNOWLEDGE_CLINICAL_SAFETY: `${baseUrl}/onboarding/clinical-safety/acknowledgement`,
+  },
+
   FACILITIES: {
     SEARCH: `${baseUrl}/facilities/search`,
     LIST: `${baseUrl}/facilities`,
@@ -80,6 +86,7 @@ export const endpoints = {
     REQUEST_CORRECTION: (entityType, entityId) =>
       `${baseUrl}/review/${entityType}/${entityId}/request-correction`,
     EXCLUDE: (entityType, entityId) => `${baseUrl}/review/${entityType}/${entityId}/exclude`,
+    TRIAGE: (entityType, entityId) => `${baseUrl}/review/${entityType}/${entityId}/triage`,
   },
 
   TRACKING: {
@@ -127,6 +134,7 @@ export const endpoints = {
 
   DASHBOARDS: {
     CLINICAL: `${baseUrl}/dashboards/clinical`,
+    OPERATIONAL: `${baseUrl}/dashboards/operational`,
     GOVERNANCE: `${baseUrl}/dashboards/governance`,
   },
 };

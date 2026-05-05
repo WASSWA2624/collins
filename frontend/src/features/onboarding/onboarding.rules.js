@@ -2,7 +2,14 @@
  * Onboarding feature rules (P013).
  * Pure helpers: step order, completion.
  */
-const ONBOARDING_STEP_IDS = Object.freeze(['inputs', 'recommendations', 'monitoring', 'offline']);
+const ONBOARDING_STEP_IDS = Object.freeze([
+  'clinicalSafety',
+  'facilityWorkflow',
+  'inputs',
+  'recommendations',
+  'monitoring',
+  'offline',
+]);
 
 const getOnboardingStepOrder = () => [...ONBOARDING_STEP_IDS];
 
