@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
+process.env.NODE_ENV ||= 'test';
 process.env.REQUEST_LOGGING = 'false';
 
 const { createApp } = await import('../src/app.js');
@@ -14,7 +15,7 @@ const closeServer = (server) => new Promise((resolve, reject) => {
   server.close((error) => (error ? reject(error) : resolve()));
 });
 
-const getJson = async (path, requestId) => {
+const requestPath = async (path, requestId) => {
   const server = await startServer(createApp());
 
   try {
@@ -24,11 +25,19 @@ const getJson = async (path, requestId) => {
     });
     return {
       status: response.status,
-      body: await response.json(),
+      text: await response.text(),
     };
   } finally {
     await closeServer(server);
   }
+};
+
+const getJson = async (path, requestId) => {
+  const response = await requestPath(path, requestId);
+  return {
+    status: response.status,
+    body: JSON.parse(response.text),
+  };
 };
 
 test('root endpoint uses the standard success response shape', async () => {
@@ -52,4 +61,52 @@ test('health endpoint reports startup state without checking the database by def
   assert.equal(body.data.database, 'not_checked');
   assert.equal(Number.isNaN(Date.parse(body.data.timestamp)), false);
   assert.equal(body.meta.requestId, 'health-contract-test');
+});
+
+test('root health endpoint aliases the versioned health contract for local probes', async () => {
+  const { status, body } = await getJson('/health', 'root-health-test');
+
+  assert.equal(status, 200);
+  assert.equal(body.success, true);
+  assert.equal(body.message, 'Collins backend health check passed');
+  assert.equal(body.data.service, 'collins-backend');
+  assert.equal(body.data.apiVersion, 'v1');
+  assert.equal(body.data.database, 'not_checked');
+  assert.equal(body.meta.requestId, 'root-health-test');
+});
+
+test('liveness endpoint reports process availability without checking the database', async () => {
+  const { status, body } = await getJson('/live', 'live-contract-test');
+
+  assert.equal(status, 200);
+  assert.equal(body.success, true);
+  assert.equal(body.message, 'Collins backend liveness check passed');
+  assert.equal(body.data.service, 'collins-backend');
+  assert.equal(body.data.database, 'not_checked');
+  assert.equal(body.meta.requestId, 'live-contract-test');
+});
+
+test('readiness endpoint reports database readiness using the standard response shape', async () => {
+  const { status, body } = await getJson('/ready', 'ready-contract-test');
+
+  assert.ok([200, 503].includes(status));
+  assert.equal(body.success, status === 200);
+  assert.ok([
+    'Collins backend readiness check passed',
+    'Collins backend readiness check failed',
+  ].includes(body.message));
+  assert.equal(body.meta.requestId, 'ready-contract-test');
+
+  if (status === 200) {
+    assert.equal(body.data.database, 'connected');
+  } else {
+    assert.equal(body.meta.database, 'unavailable');
+  }
+});
+
+test('favicon probe is handled before the API not-found middleware', async () => {
+  const { status, text } = await requestPath('/favicon.ico', 'favicon-contract-test');
+
+  assert.equal(status, 204);
+  assert.equal(text, '');
 });

@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import { env } from './config/env.js';
 import { apiRouter } from './routes/index.js';
+import { operationalHealthRouter } from './modules/health/health.routes.js';
 import { notFoundMiddleware } from './middleware/notFound.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 import { successResponse } from './utils/apiResponse.js';
@@ -49,6 +50,7 @@ export const createApp = () => {
     });
   });
 
+  app.use(operationalHealthRouter);
   app.use(`/api/${env.apiVersion}`, apiRouter);
   app.use(notFoundMiddleware);
   app.use(errorMiddleware);
