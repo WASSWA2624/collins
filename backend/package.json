@@ -8,9 +8,13 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "postinstall": "node scripts/prisma-generate-if-needed.mjs",
+    "predev": "node scripts/prisma-generate-if-needed.mjs",
     "dev": "nodemon src/server.js",
+    "prestart": "node scripts/prisma-generate-if-needed.mjs",
     "start": "node src/server.js",
-    "prisma:generate": "prisma generate",
+    "prisma:generate": "node scripts/prisma-generate-if-needed.mjs",
+    "prisma:generate:force": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",

@@ -194,4 +194,3 @@ The refined prompt must require the coding agent to return:
 
 Paste the raw task here:
 
-When I run the app, I get the following errors. The backend runs, but it gives this error, which we should make sure to fix. Also, the front end starts and compiles, but when I run it, it gives this error. And also, when I run the Expo app on my Android, it does not start. So fix these errors, and then also update all the dependencies to make sure that the app is running well and is on the latest possible versions, and make sure everything is compatible. So before we start modifying the code, let us first fix all the available errors and make sure they are fixed, sorted, and running properly.

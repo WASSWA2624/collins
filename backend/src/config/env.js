@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const getEnv = (key, fallback = undefined) => {
   const value = process.env[key];
