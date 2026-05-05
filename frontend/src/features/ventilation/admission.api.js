@@ -29,6 +29,11 @@ const extractPayload = (response) => {
   return envelope?.data ?? envelope ?? null;
 };
 
+const withoutLocalOnlyFields = (payload = {}) => {
+  const { facilityId, ...body } = payload || {};
+  return body;
+};
+
 const sendOrQueue = async (request, queuedPayload) => {
   const queuedBeforeSend = await queueRequestIfOffline(request);
   if (queuedBeforeSend) {
@@ -66,14 +71,6 @@ const createLocalAdmissionPayload = ({ step, admissionId, clientRecordId, facili
     clientRecordId,
     facilityId,
   },
-  readiness: {
-    isReadyToSave: true,
-    needsReview: true,
-    missingData: [],
-    permittedMissingFields: [],
-    warnings: [],
-    blockers: [],
-  },
 });
 
 const savePatientReasonStepApi = async (payload) =>
@@ -96,7 +93,7 @@ const saveOxygenAbgVentilatorStepApi = async (admissionId, payload) =>
     {
       url: endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR(admissionId),
       method: 'POST',
-      body: payload,
+      body: withoutLocalOnlyFields(payload),
     },
     createLocalAdmissionPayload({
       step: 'oxygen_abg_ventilator',
@@ -111,7 +108,7 @@ const saveAdmissionReviewStepApi = async (admissionId, payload) =>
     {
       url: endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW(admissionId),
       method: 'POST',
-      body: payload,
+      body: withoutLocalOnlyFields(payload),
     },
     {
       ...createLocalAdmissionPayload({

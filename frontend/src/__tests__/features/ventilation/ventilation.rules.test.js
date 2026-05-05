@@ -354,19 +354,30 @@ describe('ventilation.rules', () => {
       expect(assembled.units.spo2).toBe('%');
 
       expect(assembled.source).toEqual({
-        caseIds: ['CASE_1', 'CASE_2'],
-        primaryCaseId: 'CASE_1',
+        caseIds: [],
+        primaryCaseId: null,
         confidenceTier: 'medium',
       });
+      expect(assembled.governance.caseMatchingHiddenFromClinicians).toBe(true);
+      expect(assembled.caseEvidence).toBeUndefined();
+      expect(assembled.matched).toBeUndefined();
+      expect(assembled.decisionSupport.status.syncStatus).toBe('local_preview_pending_backend_confirmation');
 
-      expect(assembled.caseEvidence[0]).toMatchObject({
+      const internal = assembleVentilationRecommendationFromMatches({
+        dataset,
+        rankedMatches,
+        input,
+        includeModelInternals: true,
+      });
+
+      expect(internal.caseEvidence[0]).toMatchObject({
         caseId: 'CASE_1',
         reviewStatus: 'validated',
         evidenceNotes: 'evidence_notes',
       });
 
-      expect(assembled.caseEvidence[0].citations.map((c) => c.id)).toEqual(['SRC_B', 'SRC_A']);
-      expect(assembled.caseEvidence[0].citations[0]).not.toBe(dataset.sources[1]); // ensure no raw dataset source object leaks by ref
+      expect(internal.caseEvidence[0].citations.map((c) => c.id)).toEqual(['SRC_B', 'SRC_A']);
+      expect(internal.caseEvidence[0].citations[0]).not.toBe(dataset.sources[1]); // ensure no raw dataset source object leaks by ref
       expect(assembled).not.toHaveProperty('cases');
     });
 

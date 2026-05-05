@@ -10,7 +10,7 @@ module.exports = function babelConfig(api) {
         'module-resolver',
         {
           root: ['./src'],
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.json','txt'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.txt'],
           alias: {
             '@': './src',
             '@app': './src/app',

@@ -57,7 +57,7 @@ const persistVentilationSessionDraft = createAsyncThunk(
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
         assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
-        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
+        assessmentRecommendationSource: 'local',
         monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
         updatedAt: Date.now(),
       };
@@ -103,7 +103,7 @@ const appendVentilationSessionToHistory = createAsyncThunk(
         inputs: ventilation?.currentInputs ?? null,
         recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
         assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
-        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
+        assessmentRecommendationSource: 'local',
         monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
         updatedAt: Date.now(),
       };
@@ -182,9 +182,8 @@ const ventilationSlice = createSlice({
       const step = typeof action.payload === 'number' && action.payload >= 0 ? action.payload : 0;
       state.assessmentCurrentStep = step;
     },
-    setAssessmentRecommendationSource: (state, action) => {
-      const src = action.payload === 'online_ai' ? 'online_ai' : 'local';
-      state.assessmentRecommendationSource = src;
+    setAssessmentRecommendationSource: (state) => {
+      state.assessmentRecommendationSource = 'local';
     },
     setMonitoringTimeSeries: (state, action) => {
       state.monitoringTimeSeries = Array.isArray(action.payload) ? action.payload : [];
@@ -213,7 +212,7 @@ const ventilationSlice = createSlice({
         state.currentInputs = draft.inputs ?? null;
         state.lastRecommendationSummary = draft.recommendationSummary ?? null;
         state.assessmentCurrentStep = typeof draft.assessmentCurrentStep === 'number' ? draft.assessmentCurrentStep : 0;
-        state.assessmentRecommendationSource = draft.assessmentRecommendationSource === 'online_ai' ? 'online_ai' : 'local';
+        state.assessmentRecommendationSource = 'local';
         state.monitoringTimeSeries = Array.isArray(draft.monitoringTimeSeries) ? draft.monitoringTimeSeries : [];
       })
       .addCase(hydrateVentilationSession.rejected, (state, action) => {

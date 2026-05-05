@@ -104,10 +104,29 @@ export const resolveFacilityScope = async (userId, requestedFacilityId = undefin
 
 export const assertAdmissionAccess = async (userId, admissionId, allowedRoles = READ_ROLES) => {
   requireUserId(userId);
-  const admission = await prisma.admission.findUnique({
+  let admission = await prisma.admission.findUnique({
     where: { id: admissionId },
     select: { id: true, facilityId: true, reviewStatus: true, status: true },
   });
+
+  if (!admission) {
+    const isPlatformScoped = allowedRoles.includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN) && await hasPlatformRole(userId);
+    const memberships = isPlatformScoped ? [] : await getApprovedMemberships(userId);
+    const allowedFacilityIds = memberships
+      .filter((membership) => allowedRoles.includes(membership.role))
+      .map((membership) => membership.facilityId);
+
+    if (isPlatformScoped || allowedFacilityIds.length > 0) {
+      admission = await prisma.admission.findFirst({
+        where: {
+          clientRecordId: admissionId,
+          ...(!isPlatformScoped ? { facilityId: { in: allowedFacilityIds } } : {}),
+        },
+        select: { id: true, facilityId: true, reviewStatus: true, status: true },
+        orderBy: { createdAt: 'desc' },
+      });
+    }
+  }
 
   if (!admission) throw notFound('Admission not found');
   await assertFacilityRole(userId, admission.facilityId, allowedRoles);

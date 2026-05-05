@@ -9,13 +9,15 @@
 
 import React from 'react';
 import { MainRouteLayout } from '@platform/layouts';
-import { OnboardingGuard } from '@navigation/guards';
+import { AuthGuard, OnboardingGuard } from '@navigation/guards';
 
 const MainLayout = () => {
   return (
-    <OnboardingGuard>
-      <MainRouteLayout />
-    </OnboardingGuard>
+    <AuthGuard>
+      <OnboardingGuard>
+        <MainRouteLayout />
+      </OnboardingGuard>
+    </AuthGuard>
   );
 };
 

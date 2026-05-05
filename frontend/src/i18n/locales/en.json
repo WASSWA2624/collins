@@ -50,6 +50,42 @@
     "name": "AI Ventilator Decision Support",
     "shortName": "AIVDS"
   },
+  "auth": {
+    "logout": "Logout",
+    "password": "Password",
+    "enterPassword": "Enter password",
+    "passwordStrength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong",
+      "veryStrong": "Very strong"
+    },
+    "login": {
+      "title": "Sign in",
+      "description": "Use your Collins account to continue.",
+      "accessibilityLabel": "Sign in screen",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter password",
+      "submit": "Sign in",
+      "footer": "Clinical data stays hidden until your session and facility are verified.",
+      "errorTitle": "Sign-in issue"
+    },
+    "session": {
+      "noticeTitle": "Session notice",
+      "retry": "Retry session"
+    },
+    "facility": {
+      "title": "Choose facility",
+      "description": "Select the facility context for this session.",
+      "accessibilityLabel": "Facility selection screen",
+      "selectFacility": "Select {{name}}",
+      "empty": "No approved facilities are available for this account.",
+      "errorTitle": "Facility selection issue"
+    }
+  },
   "errors": {
     "fallback": {
       "title": "Something went wrong",
@@ -71,10 +107,11 @@
       "ACCOUNT_SUSPENDED": "Account has been suspended",
       "ACCOUNT_PENDING": "Account is pending verification",
       "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "USER_NOT_FOUND": "User not found",
+        "TOKEN_INVALID": "Invalid or expired token",
+        "TOKEN_EXPIRED": "Token has expired",
+        "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
+        "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+        "USER_NOT_FOUND": "User not found",
       "USER_EXISTS": "User with this email already exists",
       "SESSION_NOT_FOUND": "Session not found",
       "ALREADY_VERIFIED": "Account is already verified",
@@ -84,7 +121,9 @@
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid"
+      "AI_MALFORMED_RESPONSE": "AI response invalid",
+      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary"
     }
   },
   "forms": {
@@ -194,7 +233,7 @@
         "home": "Home",
         "assessment": "Admit",
         "history": "Tracking",
-        "training": "Training",
+        "training": "Training / Help",
         "onboarding": "Getting started",
         "settings": "Settings",
         "settings-about": "About",
@@ -246,6 +285,25 @@
     "title": "Settings",
     "screen": {
       "label": "Settings screen"
+    },
+    "status": {
+      "loading": "Loading settingsâ€¦",
+      "saved": "Settings saved",
+      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+    },
+    "account": {
+      "title": "Account and facility",
+      "name": "Name",
+      "phone": "Phone",
+      "saveProfile": "Save profile",
+      "activeFacility": "Active facility",
+      "activeRole": "Active role",
+      "approvedRoles": "Approved roles",
+      "noActiveFacility": "No active facility",
+      "none": "None"
+    },
+    "accessibility": {
+      "title": "Appearance and accessibility"
     },
     "theme": {
       "label": "Theme",
@@ -302,6 +360,62 @@
       "accessibilityLabel": "Toggle footer visibility",
       "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
     },
+    "sync": {
+      "title": "Offline and sync",
+      "network": "Network",
+      "status": "Sync status",
+      "quality": "Network quality",
+      "idle": "Idle",
+      "unknownQuality": "Unknown",
+      "offlineModeEnabled": "Allow offline mode",
+      "syncOnWifiOnly": "Sync on Wi-Fi only",
+      "autoSyncEnabled": "Auto-sync",
+      "backgroundSyncEnabled": "Background sync",
+      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "syncIntervalMinutes": "Sync interval",
+      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
+      "conflictResolutionMode": "Conflict resolution",
+      "manualReview": "Manual review",
+      "intervalOption": "{{value}} minutes",
+      "purgeOption": "{{value}} days"
+    },
+    "privacyControls": {
+      "title": "Privacy and logging",
+      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "shareUsageDiagnostics": "Share usage diagnostics",
+      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
+      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+    },
+    "governance": {
+      "title": "Governance and clinical workflow",
+      "activeFacility": "Active facility",
+      "manageAccess": "Can manage facility settings",
+      "visibility": "Governance visibility",
+      "defaultReferenceRuleScope": "Default reference scope",
+      "referenceScope": {
+        "global": "Global verified rules",
+        "facility": "Facility verified rules"
+      },
+      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "requireVerifiedReferenceRules": "Require verified reference rules",
+      "activeReferenceRules": "Active reference rules",
+      "requireReasonForClinicalOverride": "Require reason for clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
+      "allowDeidentifiedExports": "Allow de-identified exports",
+      "requireExportAuditReason": "Require export audit reason",
+      "exportPatientIdentifiers": "Export patient identifiers",
+      "allowRawNotesInExports": "Allow raw notes in exports",
+      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
+      "datasetExportsRequireReview": "Dataset exports require review",
+      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
+      "modelVisibility": "Model visibility",
+      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
+      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
+      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+    },
     "sidebar": {
       "resize": "Resize settings sidebar",
       "menu": "Settings menu",
@@ -345,6 +459,31 @@
         "loading": "Loading…",
         "error": "Unable to load data sources",
         "empty": "No sources available"
+      },
+      "capture": {
+        "title": "Dataset capture",
+        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
+        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "noteLabel": "Paste ICU note",
+        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "parse": "Parse preview",
+        "facilityReady": "Facility scope ready",
+        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "noteRequired": "Paste a note before creating a preview.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "previewTitle": "Structured candidate preview",
+        "missingFields": "Missing values",
+        "uncertainFields": "Uncertainty highlights",
+        "none": "None",
+        "submitForReview": "Submit for review",
+        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "status": {
+          "ready": "Ready for review submission",
+          "submitted": "Submitted for reviewer approval",
+          "queued": "Queued for sync",
+          "error": "Submission failed"
+        }
       }
     },
     "privacy": {
@@ -413,7 +552,13 @@
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless)."
+        "pH": "Arterial pH (unitless).",
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
+        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
+        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
+        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
@@ -423,9 +568,29 @@
         "offline": {
           "title": "Using the app offline",
           "body": "Assessment, recommendations, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+        },
+        "unverifiedReference": {
+          "title": "Reference range is not active",
+          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+        },
+        "roleRestrictedModelHelp": {
+          "title": "Model-readiness help is restricted",
+          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+        },
+        "needsReview": {
+          "title": "Record needs review",
+          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
         }
       },
       "guides": {
+        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
+        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
+        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "abgVentUpdate": "Append ABG and ventilator values as time-stamped records so earlier values remain available for review.",
+        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
+        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
+        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
+        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
         "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
         "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
         "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
@@ -508,21 +673,83 @@
   "home": {
     "title": "Home",
     "welcome": {
-      "title": "Welcome",
-      "message": "AI Ventilator Decision Support helps you assess patients, run ventilation sessions, and review recommendations.",
+      "title": "Clinical workflow",
+      "message": "Active facility, sync status, drafts, and review work are shown here.",
       "logoLabel": "App logo"
     },
-    "overview": {
-      "title": "Quick access",
-      "goTo": "Go to {{name}}",
-      "assessment": {
-        "description": "Start a patient assessment and ventilation session."
+    "notices": {
+      "title": "Home notices"
+    },
+    "facilities": {
+      "title": "Select facility",
+      "select": "Select {{name}}"
+    },
+    "status": {
+      "title": "Operational status",
+      "facility": {
+        "label": "Facility",
+        "empty": "Not selected"
       },
-      "history": {
-        "description": "View and resume past sessions."
+      "network": {
+        "label": "Network",
+        "values": {
+          "online": "Online",
+          "offline": "Offline",
+          "syncing": "Syncing",
+          "unstable": "Unstable"
+        }
       },
-      "training": {
-        "description": "Browse training topics and checklists."
+      "activeAdmissions": {
+        "label": "Active admissions",
+        "detail": "{{count}} active patients"
+      },
+      "drafts": {
+        "label": "Drafts",
+        "detail": "{{count}} waiting to sync"
+      },
+      "syncAttention": {
+        "label": "Sync attention",
+        "detail": "{{count}} conflicts"
+      },
+      "reviewNeeds": {
+        "label": "Review queue",
+        "detail": "{{count}} corrections requested"
+      }
+    },
+    "actions": {
+      "title": "Workflow actions",
+      "accessibilityLabel": "Open {{name}}",
+      "admit": {
+        "title": "Admit"
+      },
+      "tracking": {
+        "title": "Tracking"
+      },
+      "abgVentUpdate": {
+        "title": "ABG / Vent Update"
+      },
+      "datasetCapture": {
+        "title": "Dataset Capture"
+      },
+      "reviewQueue": {
+        "title": "Review Queue"
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "trainingHelp": {
+        "title": "Training / Help"
+      },
+      "settings": {
+        "title": "Settings"
+      },
+      "meta": {
+        "open": "Open"
+      },
+      "disabled": {
+        "facilityRequired": "Select facility",
+        "roleRestricted": "Role restricted",
+        "workflowPending": "Route pending"
       }
     }
   },
@@ -530,12 +757,17 @@
     "assessment": {
       "title": "Patient Assessment",
       "accessibilityLabel": "Assessment wizard screen",
+      "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
         "accessibilityLabel": "Compact assessment summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
+        "facility": "Facility",
+        "pathway": "Pathway",
+        "reason": "Reason",
         "condition": "Condition",
         "spo2": "SpO₂",
+        "fio2": "FiO2",
         "respiratoryRate": "Respiratory rate",
         "heartRate": "Heart rate",
         "pao2": "PaO₂",
@@ -547,6 +779,10 @@
         "gender": "Gender",
         "comorbidities": "Comorbidities",
         "bloodPressure": "Blood pressure",
+        "ventilatorMode": "Ventilator mode",
+        "peep": "PEEP",
+        "tidalVolume": "Tidal volume",
+        "syncStatus": "Sync",
         "empty": "No data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
@@ -556,7 +792,83 @@
         "clinicalParams": "Clinical parameters",
         "observations": "Optional observations",
         "timeSeries": "Optional time series",
-        "review": "Review"
+        "review": "Review",
+        "patientReason": "Patient & reason",
+        "oxygenAbgVentilator": "Oxygen, ABG & ventilator",
+        "saveReview": "Save & review"
+      },
+      "patientReason": {
+        "description": "Capture the patient pathway, facility context, reason for support, and any values that are permitted to be unavailable at admission.",
+        "facilityId": "Facility ID",
+        "facilityIdPlaceholder": "Enter facility ID",
+        "bedNumber": "Bed",
+        "bedNumberPlaceholder": "ICU bed or ward location",
+        "pathway": "Patient pathway",
+        "pathwayPlaceholder": "Select pathway",
+        "sexForSize": "Sex for size calculations",
+        "ageYears": "Age (years)",
+        "weightKg": "Weight (kg)",
+        "reasonForSupport": "Reason for support",
+        "reasonForSupportPlaceholder": "Brief admission reason",
+        "permittedMissing": "Permitted missing values",
+        "pathways": {
+          "neonate": "Neonate",
+          "infant": "Infant",
+          "child": "Child",
+          "adolescent": "Adolescent",
+          "adult": "Adult",
+          "obstetric": "Obstetric/post-partum",
+          "burns": "Burns",
+          "trauma": "Trauma",
+          "periOperative": "Peri-operative",
+          "medical": "Medical",
+          "surgical": "Surgical",
+          "unknown": "Unknown",
+          "other": "Other"
+        },
+        "sex": {
+          "male": "Male",
+          "female": "Female",
+          "unknown": "Unknown"
+        },
+        "permittedMissingFields": {
+          "weight": "Weight or reference weight unavailable",
+          "spo2": "SpO2 unavailable",
+          "fio2": "FiO2 unavailable",
+          "pao2": "PaO2 unavailable",
+          "tidalVolume": "Tidal volume unavailable",
+          "peep": "PEEP unavailable"
+        }
+      },
+      "oxygenAbgVentilator": {
+        "description": "Record oxygen support, available ABG values, ventilator context, timestamps, device context, and uncertain values.",
+        "oxygenSupportType": "Oxygen support",
+        "measuredAt": "Oxygen measured at",
+        "timePlaceholder": "ISO time or leave blank",
+        "spo2": "SpO2 (%)",
+        "fio2": "FiO2 (0-1)",
+        "ph": "pH",
+        "pao2": "PaO2 (mmHg)",
+        "paco2": "PaCO2 (mmHg)",
+        "ventilatorMode": "Ventilator mode",
+        "tidalVolumeMl": "Tidal volume (mL)",
+        "peep": "PEEP (cmH2O)",
+        "deviceId": "Device ID",
+        "ventilatorType": "Ventilator type",
+        "uncertaintyFields": "Uncertain fields",
+        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
+        "uncertaintyHint": "Separate multiple fields with commas.",
+        "uncertaintyReason": "Uncertainty reason"
+      },
+      "saveReview": {
+        "description": "Review missing data, readiness, clinician confirmation, override reason when needed, review status, and sync state.",
+        "readiness": "Save readiness",
+        "ready": "Ready to save",
+        "needsCorrection": "Correction or override required",
+        "syncStatus": "Sync status: {{status}}",
+        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
+        "overrideReason": "Override reason",
+        "reviewNote": "Review note"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -665,7 +977,8 @@
         "back": "Back",
         "next": "Next",
         "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs"
+        "generateHint": "Create recommendation from current inputs",
+        "saveAdmission": "Save admission"
       },
       "states": {
         "loading": "Loading assessment…",
@@ -689,7 +1002,8 @@
         "risks": "Risks and complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & review",
-        "warning": "Dataset notice"
+        "warning": "Dataset notice",
+        "decisionSupport": "Decision-support checks"
       },
       "settings": {
         "mode": "Mode",
@@ -704,6 +1018,33 @@
         "medium": "Medium",
         "low": "Low",
         "missingInputs": "Missing inputs that could improve confidence"
+      },
+      "decisionSupport": {
+        "pending": "Pending",
+        "referenceWeight": "Reference weight",
+        "vtPerKg": "VT/kg",
+        "pfRatio": "P/F ratio",
+        "sfRatio": "S/F ratio",
+        "drivingPressure": "Driving pressure",
+        "reviewStatus": "Review status",
+        "syncStatus": "Sync status",
+        "missingData": "Missing data",
+        "referenceStatus": {
+          "frontend_preview_unconfirmed": "Unconfirmed preview",
+          "backend_verified": "Backend verified",
+          "missing_verified_records": "Missing verified records",
+          "development_fallback_unconfirmed": "Development fallback"
+        },
+        "review": {
+          "pending_clinician_review": "Pending clinician review",
+          "backend_confirmed": "Backend confirmed"
+        },
+        "sync": {
+          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
+          "synced": "Synced",
+          "queued": "Queued",
+          "duplicate": "Duplicate"
+        }
       },
       "aiReasons": {
         "title": "AI reasons for recommendation",
@@ -798,10 +1139,45 @@
         "offline": "You are offline. Data is saved locally."
       }
     },
+    "tracking": {
+      "title": "Tracking",
+      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical tracking screen",
+      "activePatients": "{{count}} active patients",
+      "empty": "No active admitted patients for this facility.",
+      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "activeFacility": {
+        "none": "No active facility selected"
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "refreshHint": "Reload active tracking records",
+        "viewDetails": "Details",
+        "viewDetailsHint": "View tracking detail and timeline",
+        "closeDetailsHint": "Close tracking detail"
+      },
+      "patient": {
+        "unknown": "Patient not labelled",
+        "bed": "Bed {{bed}}",
+        "bedMissing": "Bed not recorded",
+        "admitted": "Admitted {{dateTime}}",
+        "missingData": "Missing data: {{fields}}"
+      },
+      "detail": {
+        "title": "Tracking detail",
+        "noTimeline": "No timeline entries returned."
+      },
+      "states": {
+        "loading": "Loading tracking...",
+        "loadingDetail": "Loading tracking detail...",
+        "error": "Unable to load tracking records",
+        "detailError": "Unable to load tracking detail"
+      }
+    },
     "history": {
-      "title": "Session history",
-      "accessibilityLabel": "Session history screen",
-      "empty": "No saved sessions yet.",
+      "title": "Tracking",
+      "accessibilityLabel": "Clinical tracking screen",
+      "empty": "No active admitted patients for this facility.",
       "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",

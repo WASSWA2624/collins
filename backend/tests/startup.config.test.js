@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
 
 const { createEnv, EnvValidationError, DEVELOPMENT_JWT_SECRET } = await import('../src/config/env.js');
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const packageJson = JSON.parse(readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 
 test('loads safe development defaults while requiring only backend configuration', () => {
   const config = createEnv({
@@ -54,4 +59,18 @@ test('validates startup scalar settings', () => {
       && error.errors.includes('BCRYPT_SALT_ROUNDS must be an integer between 4 and 31.')
       && error.errors.includes('REQUEST_LOGGING must be true or false.'),
   );
+});
+
+test('pins supported Node runtime for backend startup', () => {
+  assert.equal(packageJson.engines.node, '>=20.0.0');
+});
+
+test('runs Prisma generation before backend startup and tests', () => {
+  assert.equal(packageJson.scripts.predev, 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts.start, 'node src/server.js');
+  assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
+  assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
 });

@@ -27,7 +27,7 @@ const initialState = {
   // Minimal auth state for Phase 0-7 (guards need this)
   isAuthenticated: false,
   user: null,
-  // AI decision support (P012): enabled + provider + model only; API key never in Redux (AI SDK v5–style)
+  // Legacy keys kept for persisted clients; Phase 16 keeps clinical UI rule-based.
   aiDecisionSupportEnabled: false,
   aiProviderId: 'openai',
   aiModelId: 'gpt-4o-mini',
@@ -115,8 +115,8 @@ const uiSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
     },
-    setAiDecisionSupportEnabled: (state, action) => {
-      state.aiDecisionSupportEnabled = Boolean(action.payload);
+    setAiDecisionSupportEnabled: (state) => {
+      state.aiDecisionSupportEnabled = false;
     },
     setAiProviderId: (state, action) => {
       if (typeof action.payload === 'string' && action.payload.trim()) {

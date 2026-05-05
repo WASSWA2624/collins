@@ -35,10 +35,11 @@ const StyledSection = styled(View).withConfig({
   componentId: 'StyledSection',
 })`
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? 12}px;
+  border-radius: 0;
   padding: ${({ theme }) => theme.spacing.lg}px;
   overflow: hidden;
-  elevation: ${({ theme }) => theme.shadows?.md?.elevation ?? theme.shadows?.sm?.elevation ?? 4};
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 const StyledSectionTitle = styled(View).withConfig({

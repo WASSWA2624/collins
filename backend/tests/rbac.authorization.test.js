@@ -5,6 +5,7 @@ import {
   MODEL_GOVERNANCE_ROLES,
   READ_ROLES,
   WRITE_ROLES,
+  assertAdmissionAccess,
   assertAnyApprovedRole,
   assertFacilityRole,
   resolveFacilityScope,
@@ -12,9 +13,11 @@ import {
 import { MEMBERSHIP_ROLES, getPermissionsForRoles } from '../src/constants/roles.js';
 
 const originalFacilityMembership = prisma.facilityMembership;
+const originalAdmission = prisma.admission;
 
 test.afterEach(() => {
   prisma.facilityMembership = originalFacilityMembership;
+  prisma.admission = originalAdmission;
 });
 
 const useMemberships = (memberships) => {
@@ -119,4 +122,32 @@ test('model governance role exposes model governance permission and passes syste
     'clinical:read',
     'model:govern',
   ]);
+});
+
+test('assertAdmissionAccess resolves queued admission steps by clientRecordId within facility scope', async () => {
+  useMemberships([{
+    id: 'm1',
+    userId: 'user-1',
+    facilityId: 'facility-1',
+    role: MEMBERSHIP_ROLES.CLINICIAN,
+    status: 'APPROVED',
+  }]);
+
+  prisma.admission = {
+    findUnique: async () => null,
+    findFirst: async ({ where }) => {
+      assert.equal(where.clientRecordId, 'client-admission-1');
+      assert.deepEqual(where.facilityId, { in: ['facility-1'] });
+      return {
+        id: 'admission-1',
+        facilityId: 'facility-1',
+        reviewStatus: 'PENDING',
+        status: 'ACTIVE',
+      };
+    },
+  };
+
+  const admission = await assertAdmissionAccess('user-1', 'client-admission-1', WRITE_ROLES);
+  assert.equal(admission.id, 'admission-1');
+  assert.equal(admission.facilityId, 'facility-1');
 });

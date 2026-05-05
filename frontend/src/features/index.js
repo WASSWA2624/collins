@@ -15,6 +15,7 @@ export * from './abgVentUpdates';
 export * from './training';
 export * from './onboarding';
 export * from './help';
+export * from './settings';
 export * from './review';
 export * from './tracking';
 export * from './dataset-capture';

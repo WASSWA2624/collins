@@ -25,7 +25,7 @@ const StyledContent = styled.div.withConfig({
   componentId: 'StyledContent',
 })`
   width: 100%;
-  max-width: 640px;
+  max-width: 920px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -45,14 +45,12 @@ const StyledSection = styled.section.withConfig({
 })`
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   padding: ${({ theme }) => theme.spacing.xl}px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:focus-within {
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {

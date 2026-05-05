@@ -10,8 +10,9 @@ const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
 
 const mockReplace = jest.fn();
+const mockBack = jest.fn();
 jest.mock('expo-router', () => ({
-  useRouter: () => ({ replace: mockReplace }),
+  useRouter: () => ({ replace: mockReplace, back: mockBack }),
 }));
 
 jest.mock('@hooks', () => ({
@@ -37,6 +38,31 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@features/ventilation', () => ({
+  ADMISSION_SYNC_STATUS: {
+    SYNCED: 'synced',
+    DUPLICATE: 'duplicate',
+    QUEUED: 'queued',
+  },
+  createAdmissionClientRecordId: jest.fn(() => 'admission-test-client'),
+  savePatientReasonStepApi: jest.fn(() => Promise.resolve({
+    step: 'patient_reason',
+    admission: { id: 'admission-1', clientRecordId: 'admission-test-client' },
+    readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
+    syncStatus: 'synced',
+  })),
+  saveOxygenAbgVentilatorStepApi: jest.fn(() => Promise.resolve({
+    step: 'oxygen_abg_ventilator',
+    admission: { id: 'admission-1', clientRecordId: 'admission-test-client' },
+    readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
+    syncStatus: 'synced',
+  })),
+  saveAdmissionReviewStepApi: jest.fn(() => Promise.resolve({
+    step: 'save_review',
+    admission: { id: 'admission-1', clientRecordId: 'admission-test-client' },
+    review: { clinicianConfirmed: true, admissionReviewStatus: 'PENDING' },
+    readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
+    syncStatus: 'synced',
+  })),
   buildVentilationAdditionalTestPrompts: jest.fn(() => []),
   getMissingSimilarityFields: jest.fn(() => []),
   getVentilationRecommendationUseCase: jest.fn(() => Promise.resolve({})),
@@ -78,6 +104,9 @@ const defaultSessionMock = {
   startSession: jest.fn(),
   setRecommendationSummary: jest.fn(),
   appendToHistory: jest.fn(),
+  persistDraft: jest.fn(() => Promise.resolve(true)),
+  assessmentCurrentStep: 0,
+  setAssessmentStep: jest.fn(),
   isHydrating: false,
   errorCode: null,
   hydrate: jest.fn(),
@@ -122,9 +151,9 @@ describe('AssessmentScreen', () => {
   });
 
   describe('Wizard steps', () => {
-    it('should show patient profile step initially', () => {
+    it('should show patient and reason step initially', () => {
       const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
-      expect(getByText('Patient profile')).toBeTruthy();
+      expect(getByText('Patient & reason')).toBeTruthy();
     });
 
     it('should have Next button on first step', () => {
@@ -137,6 +166,15 @@ describe('AssessmentScreen', () => {
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBe(true);
+    });
+
+    it('should show the three-step flow labels', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+      });
+      const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getByText('Oxygen, ABG & ventilator')).toBeTruthy();
     });
   });
 

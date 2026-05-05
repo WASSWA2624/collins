@@ -103,7 +103,7 @@ const StyledWizardCard = styled.div.withConfig({
   min-height: 200px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   padding: ${({ theme }) => theme.spacing.xl}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
@@ -142,7 +142,7 @@ const StyledSummaryPane = styled.aside.withConfig({
   flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.lg ?? theme.radius?.md ?? 8}px;
+  border-radius: 0;
   padding: ${({ theme }) => theme.spacing.lg}px;
   box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm ?? theme.shadows?.card ?? theme.shadows)};
   display: flex;
@@ -292,7 +292,7 @@ const StyledExpandButton = styled.button.withConfig({
   height: 28px;
   padding: 0;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
@@ -378,7 +378,7 @@ const StyledMissingTests = styled.div.withConfig({
   padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
   color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   border: 1px solid ${({ theme }) => theme.colors.warning ?? 'rgba(255, 149, 0, 0.35)'};
   border-left: 4px solid ${({ theme }) => theme.colors.warning ?? '#FF9500'};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -493,7 +493,7 @@ const StyledSourceOption = styled.label.withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;

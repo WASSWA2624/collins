@@ -30,6 +30,9 @@ const StyledSection = styled.section.withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.lg}px 0;
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledActions = styled.div.withConfig({

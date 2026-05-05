@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Slot } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ErrorBoundary } from '@errors';
+import { AuthSessionGate } from '@features/auth';
 import { I18nProvider } from '@i18n';
 import { bootstrapApp } from '@bootstrap';
 import { logger } from '@logging';
@@ -117,9 +118,11 @@ const RootLayout = () => {
       <RTLDirectionSync>
         <ThemeProviderWrapper>
           <I18nProvider>
-            <StyledRootContainer>
-              <Slot />
-            </StyledRootContainer>
+            <AuthSessionGate>
+              <StyledRootContainer>
+                <Slot />
+              </StyledRootContainer>
+            </AuthSessionGate>
           </I18nProvider>
         </ThemeProviderWrapper>
       </RTLDirectionSync>

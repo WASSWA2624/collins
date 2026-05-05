@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { Button, Text, Stack } from '@platform/components';
+import { Button, Checkbox, ClinicalSafetyNotice, Text } from '@platform/components';
 import { useI18n } from '@hooks';
 import useOnboardingScreen from './useOnboardingScreen';
 import { StyledContainer, StyledContent, StyledSection, StyledActions } from './OnboardingScreen.web.styles';
@@ -18,13 +18,27 @@ const OnboardingScreenWeb = () => {
     stepBody,
     isFirst,
     isLast,
+    clinicalSafetyAcknowledged,
+    isPersistingSafety,
+    syncErrorCode,
+    canComplete,
     goNext,
     goBack,
+    setClinicalSafetyAcknowledged,
+    completeOnboarding,
     testIds,
   } = useOnboardingScreen();
 
-  const handleDone = () => router.replace('/');
+  const isSafetyStep = currentStepId === 'clinicalSafety';
+  const handleDone = async () => {
+    const completed = await completeOnboarding();
+    if (completed) router.replace('/');
+  };
   const handleBack = () => (isFirst ? router.back() : goBack());
+  const handleNext = () => {
+    if (isSafetyStep && !clinicalSafetyAcknowledged) return;
+    goNext();
+  };
 
   return (
     <StyledContainer aria-label={t('settings.onboarding.accessibilityLabel')} data-testid={testIds.screen} role="main">
@@ -39,17 +53,42 @@ const OnboardingScreenWeb = () => {
           <Text variant="body" data-testid={testIds.stepBody}>
             {stepBody(currentStepId)}
           </Text>
+          {isSafetyStep ? (
+            <>
+              <ClinicalSafetyNotice
+                title={t('settings.onboarding.safety.title')}
+                message={t('settings.onboarding.safety.body')}
+                secondaryMessage={t('settings.onboarding.safety.secondary')}
+                accessibilityLabel={t('settings.onboarding.safety.accessibilityLabel')}
+                testID={testIds.safetyNotice}
+              />
+              <Checkbox
+                checked={clinicalSafetyAcknowledged}
+                disabled={isPersistingSafety}
+                label={t('settings.onboarding.safety.acknowledgeLabel')}
+                onChange={setClinicalSafetyAcknowledged}
+                accessibilityLabel={t('settings.onboarding.safety.acknowledgeLabel')}
+                accessibilityHint={t('settings.onboarding.safety.acknowledgeHint')}
+                testID={testIds.safetyAcknowledge}
+              />
+              {syncErrorCode ? (
+                <Text variant="caption" color="text.secondary" data-testid={testIds.syncNotice}>
+                  {t('settings.onboarding.safety.syncDeferred')}
+                </Text>
+              ) : null}
+            </>
+          ) : null}
         </StyledSection>
         <StyledActions>
           <Button variant="outline" onPress={handleBack} data-testid={testIds.back} accessibilityLabel={t('settings.onboarding.actions.back')}>
             {t('settings.onboarding.actions.back')}
           </Button>
           {isLast ? (
-            <Button variant="primary" onPress={handleDone} data-testid={testIds.done} accessibilityLabel={t('settings.onboarding.actions.done')}>
+            <Button variant="primary" onPress={handleDone} disabled={!canComplete} data-testid={testIds.done} accessibilityLabel={t('settings.onboarding.actions.done')}>
               {t('settings.onboarding.actions.done')}
             </Button>
           ) : (
-            <Button variant="primary" onPress={goNext} data-testid={testIds.next} accessibilityLabel={t('settings.onboarding.actions.next')}>
+            <Button variant="primary" onPress={handleNext} disabled={isSafetyStep && !clinicalSafetyAcknowledged} data-testid={testIds.next} accessibilityLabel={t('settings.onboarding.actions.next')}>
               {t('settings.onboarding.actions.next')}
             </Button>
           )}

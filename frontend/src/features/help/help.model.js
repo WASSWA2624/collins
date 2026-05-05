@@ -2,10 +2,10 @@
  * Help feature model (P013).
  * Glossary, troubleshooting, and guide entry shapes (keys only; content from i18n).
  */
-const getGlossaryKeys = () =>
-  ['PEEP', 'FiO2', 'IERatio', 'tidalVolume', 'respiratoryRate', 'SpO2', 'PaO2', 'PaCO2', 'pH'];
+import { GLOSSARY_KEYS, GUIDE_KEYS, TROUBLESHOOTING_KEYS } from './help.rules';
 
-const getTroubleshootingKeys = () => ['missingABG', 'offline'];
-const getGuideKeys = () => ['hypoxemia', 'hypercapnia', 'acidosis', 'general'];
+const getGlossaryKeys = () => [...GLOSSARY_KEYS];
+const getTroubleshootingKeys = () => [...TROUBLESHOOTING_KEYS];
+const getGuideKeys = () => [...GUIDE_KEYS];
 
 export { getGlossaryKeys, getTroubleshootingKeys, getGuideKeys };

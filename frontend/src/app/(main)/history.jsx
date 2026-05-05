@@ -1,6 +1,6 @@
 /**
- * History Route
- * (main)/history - Session history screen
+ * Tracking Route
+ * (main)/history - compatibility route for active clinical tracking
  */
 import React from 'react';
 import { HistoryScreen } from '@platform/screens';

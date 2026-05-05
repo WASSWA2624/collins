@@ -44,7 +44,7 @@ const selectDisclaimerGuardRedirect = createSelector(
   [(state) => state?._persist?.rehydrated, selectDisclaimerAcknowledged],
   (rehydrated, acknowledged) => (rehydrated && !acknowledged ? '/onboarding' : null)
 );
-const selectAiDecisionSupportEnabled = createSelector([selectUI], (ui) => ui?.aiDecisionSupportEnabled ?? false);
+const selectAiDecisionSupportEnabled = createSelector([selectUI], () => false);
 const selectAiProviderId = createSelector([selectUI], (ui) => ui?.aiProviderId ?? 'openai');
 const selectAiModelId = createSelector([selectUI], (ui) => ui?.aiModelId ?? 'gpt-4o-mini');
 
@@ -103,7 +103,7 @@ const selectAssessmentCurrentStep = createSelector(
 );
 const selectAssessmentRecommendationSource = createSelector(
   [selectVentilation],
-  (ventilation) => (ventilation?.assessmentRecommendationSource === 'online_ai' ? 'online_ai' : 'local')
+  () => 'local'
 );
 const selectMonitoringTimeSeries = createSelector(
   [selectVentilation],

@@ -1,11 +1,15 @@
 /**
  * useSettingsScreen Hook Tests
- * File: useSettingsScreen.test.js
  */
 const React = require('react');
 const TestRenderer = require('react-test-renderer');
 const { useDispatch, useSelector } = require('react-redux');
 const { useI18n } = require('@hooks');
+const {
+  loadFacilitySettingsUseCase,
+  loadMySettingsUseCase,
+  updateMySettingsUseCase,
+} = require('@features/settings');
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -19,64 +23,85 @@ jest.mock('@hooks', () => ({
 jest.mock('@services/storage', () => ({
   async: {
     setItem: jest.fn(),
-    getItem: jest.fn().mockResolvedValue(null),
-  },
-  aiKeyStorage: {
-    getItem: jest.fn().mockResolvedValue(null),
-    setItem: jest.fn().mockResolvedValue(true),
-    removeItem: jest.fn().mockResolvedValue(true),
   },
 }));
 
-const OPENAI_STORAGE_KEY = 'VENTILATION_AI_API_KEY';
-const OPENAI_CONFIGURED_KEY = 'ai_api_key_configured';
-jest.mock('@config/constants', () => ({
-  AI_PROVIDERS: [
-    {
-      id: 'openai',
-      labelKey: 'settings.ai.providers.openai',
-      storageKey: OPENAI_STORAGE_KEY,
-      configuredAsyncKey: OPENAI_CONFIGURED_KEY,
-      models: [
-        { id: 'gpt-4o-mini', labelKey: 'settings.ai.models.gpt-4o-mini' },
-        { id: 'gpt-4o', labelKey: 'settings.ai.models.gpt-4o' },
-      ],
-    },
-  ],
-  getModelsForProvider: (id) =>
-    id === 'openai'
-      ? [
-          { id: 'gpt-4o-mini', labelKey: 'settings.ai.models.gpt-4o-mini' },
-          { id: 'gpt-4o', labelKey: 'settings.ai.models.gpt-4o' },
-        ]
-      : [],
+jest.mock('@features/settings', () => ({
+  canManageFacilitySettings: jest.fn((roles) =>
+    roles.includes('PLATFORM_ADMIN') || roles.includes('FACILITY_ADMIN')
+  ),
+  canSeeGovernanceSettings: jest.fn((roles) =>
+    roles.includes('PLATFORM_ADMIN') ||
+    roles.includes('FACILITY_ADMIN') ||
+    roles.includes('RESEARCH_GOVERNANCE_OFFICER') ||
+    roles.includes('MODEL_GOVERNANCE_OFFICER')
+  ),
+  getRoleLabel: jest.fn((role) => role),
+  loadMySettingsUseCase: jest.fn(),
+  loadFacilitySettingsUseCase: jest.fn(),
+  updateMySettingsUseCase: jest.fn(),
+  updateFacilitySettingsUseCase: jest.fn(),
 }));
 
 const useSettingsScreen = require('@platform/screens/settings/SettingsScreen/useSettingsScreen').default;
 const { DENSITY_MODES } = require('@platform/screens/settings/SettingsScreen/types');
 
 const act = TestRenderer.act;
-const renderHook = (hook) => {
+const renderHook = async (hook) => {
   const result = {};
   const HookHarness = () => {
     Object.assign(result, hook());
     return null;
   };
   let renderer;
-  act(() => {
+  await act(async () => {
     renderer = TestRenderer.create(React.createElement(HookHarness));
+    await Promise.resolve();
+    await Promise.resolve();
   });
   return { result: { current: result }, unmount: () => renderer.unmount() };
 };
 
+const userSettingsFixture = {
+  account: { id: 'user-1', name: 'Ada Clinician', phone: '+256700000000' },
+  activeFacilityId: 'facility-1',
+  memberships: [
+    {
+      id: 'membership-1',
+      facilityId: 'facility-1',
+      role: 'FACILITY_ADMIN',
+      status: 'APPROVED',
+      facility: { id: 'facility-1', name: 'Mulago ICU' },
+    },
+  ],
+  roleVisibility: {
+    activeRole: 'FACILITY_ADMIN',
+    visibleRoles: ['FACILITY_ADMIN'],
+    showFacilitySwitcher: true,
+  },
+  offlineSyncPreferences: {
+    offlineModeEnabled: true,
+    autoSyncEnabled: true,
+    conflictResolutionMode: 'manual_review',
+    syncIntervalMinutes: 15,
+    purgeSyncedDraftsAfterDays: 30,
+  },
+  privacyControls: {
+    hidePatientIdentifiersInLists: false,
+    requireUnlockForIdentifiers: true,
+  },
+};
+
 describe('useSettingsScreen', () => {
-  const mockT = jest.fn((key) => {
+  const mockT = jest.fn((key, params) => {
+    if (key === 'settings.sync.intervalOption') return `${params.value} minutes`;
+    if (key === 'settings.sync.purgeOption') return `${params.value} days`;
     const translations = {
       'settings.density.options.compact': 'Compact',
       'settings.density.options.comfortable': 'Comfortable',
-      'settings.ai.providers.openai': 'OpenAI',
-      'settings.ai.models.gpt-4o-mini': 'GPT-4o mini',
-      'settings.ai.models.gpt-4o': 'GPT-4o',
+      'settings.account.noActiveFacility': 'No active facility',
+      'settings.governance.referenceScope.global': 'Global verified rules',
+      'settings.governance.referenceScope.facility': 'Facility verified rules',
     };
     return translations[key] || key;
   });
@@ -90,48 +115,65 @@ describe('useSettingsScreen', () => {
     const state = {
       ui: {
         density: 'comfortable',
-        aiDecisionSupportEnabled: false,
-        aiProviderId: 'openai',
-        aiModelId: 'gpt-4o-mini',
+        footerVisible: true,
+      },
+      network: {
+        isOnline: true,
+        isSyncing: false,
+        quality: 'good',
       },
     };
     useSelector.mockImplementation((selector) => selector(state));
+    loadMySettingsUseCase.mockResolvedValue(userSettingsFixture);
+    loadFacilitySettingsUseCase.mockResolvedValue({
+      facility: { id: 'facility-1', name: 'Mulago ICU' },
+      modelVisibility: {
+        liveClinicalPredictionEnabled: false,
+        clinicianVisibleModelVersionIds: [],
+        showShadowModelOutputsToClinicians: false,
+      },
+    });
+    updateMySettingsUseCase.mockResolvedValue(userSettingsFixture);
   });
 
-  it('returns testIds', () => {
-    const { result } = renderHook(() => useSettingsScreen());
-    expect(result.current.testIds).toBeDefined();
+  it('returns test ids and local display state', async () => {
+    const { result } = await renderHook(() => useSettingsScreen());
+
     expect(result.current.testIds.screen).toBe('settings-screen');
-  });
-
-  it('returns density state', () => {
-    const { result } = renderHook(() => useSettingsScreen());
     expect(result.current.density).toBe('comfortable');
-  });
-
-  it('returns density options', () => {
-    const { result } = renderHook(() => useSettingsScreen());
     expect(result.current.densityOptions).toHaveLength(2);
     expect(result.current.densityOptions[0].value).toBe(DENSITY_MODES.COMPACT);
-    expect(result.current.densityOptions[1].value).toBe(DENSITY_MODES.COMFORTABLE);
   });
 
-  it('returns setDensity function', () => {
-    const { result } = renderHook(() => useSettingsScreen());
-    expect(typeof result.current.setDensity).toBe('function');
+  it('loads account, facility, and role settings', async () => {
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    expect(result.current.accountDraft.name).toBe('Ada Clinician');
+    expect(result.current.activeFacilityValue).toBe('facility-1');
+    expect(result.current.facilityOptions[1]).toEqual({
+      label: 'Mulago ICU',
+      value: 'facility-1',
+    });
+    expect(result.current.roleOptions[0].value).toBe('FACILITY_ADMIN');
+    expect(result.current.canManageActiveFacility).toBe(true);
   });
 
-  it('returns AI settings (provider, model, key, options)', () => {
-    const { result } = renderHook(() => useSettingsScreen());
-    expect(typeof result.current.aiEnabled).toBe('boolean');
-    expect(result.current.aiProviderId).toBe('openai');
-    expect(typeof result.current.aiModelId).toBe('string');
-    expect(typeof result.current.aiKeyConfigured).toBe('boolean');
-    expect(typeof result.current.setAiProviderId).toBe('function');
-    expect(typeof result.current.setAiModelId).toBe('function');
-    expect(typeof result.current.saveAiApiKey).toBe('function');
-    expect(typeof result.current.clearAiApiKey).toBe('function');
-    expect(Array.isArray(result.current.aiProviderOptions)).toBe(true);
-    expect(Array.isArray(result.current.aiModelOptions)).toBe(true);
+  it('saves account updates through the settings use case', async () => {
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    await act(async () => {
+      result.current.setAccountField('name', 'Ada Updated');
+    });
+    await act(async () => {
+      await result.current.saveAccountSettings();
+    });
+
+    expect(updateMySettingsUseCase).toHaveBeenCalledWith({
+      account: {
+        name: 'Ada Updated',
+        phone: '+256700000000',
+      },
+      reason: 'Account settings updated by user',
+    });
   });
 });

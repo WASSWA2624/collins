@@ -77,8 +77,8 @@ const PasswordFieldIOS = ({
   }, [controlledShowPassword]);
 
   const toggleButtonLabel = showPassword 
-    ? t('auth.password.hide') || 'Hide password'
-    : t('auth.password.show') || 'Show password';
+    ? t('auth.passwordHide')
+    : t('auth.passwordShow');
 
   const toggleIcon = showPassword ? '👁️‍🗨️' : '👁️';
 

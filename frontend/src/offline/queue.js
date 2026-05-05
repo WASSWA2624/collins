@@ -79,8 +79,29 @@ export const addToQueue = async (request) => {
     ...request,
     id: String(now),
     timestamp: now,
+    syncState: request?.syncState || 'pending',
+    retryCount: Number.isFinite(Number(request?.retryCount)) ? Number(request.retryCount) : 0,
   });
   return await persistEncryptedQueue(queue);
+};
+
+export const updateQueueItem = async (requestId, updates = {}) => {
+  const queue = await getQueue();
+  let didUpdate = false;
+  const nextQueue = queue.map((item) => {
+    if (item?.id !== requestId) return item;
+    didUpdate = true;
+    return {
+      ...item,
+      ...updates,
+      id: item.id,
+      timestamp: item.timestamp,
+      updatedAt: Date.now(),
+    };
+  });
+
+  if (!didUpdate) return false;
+  return await persistEncryptedQueue(nextQueue);
 };
 
 export const removeFromQueue = async (requestId) => {
@@ -97,6 +118,7 @@ export const clearQueue = async () => {
 export default {
   getQueue,
   addToQueue,
+  updateQueueItem,
   removeFromQueue,
   clearQueue,
 };

@@ -99,7 +99,9 @@ describe('ventilation.usecase', () => {
       topN: 1,
     });
 
-    expect(res.source.primaryCaseId).toBe('CASE_1');
+    expect(res.source.primaryCaseId).toBeNull();
+    expect(res.governance.caseMatchingHiddenFromClinicians).toBe(true);
+    expect(res.decisionSupport.status.referenceStatus).toBe('frontend_preview_unconfirmed');
     expect(res.safety.intendedUseWarning).toBe('warn');
     expect(res.units.spo2).toBe('%');
     expect(res).not.toHaveProperty('cases');
@@ -165,11 +167,11 @@ describe('ventilation.usecase', () => {
     });
 
     expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
-    expect(res.source.primaryCaseId).toBe('CASE_1');
+    expect(res.source.primaryCaseId).toBeNull();
     expect(res.aiAugmentation).toMatchObject({ provider: 'aiSdk', status: 'skipped' });
   });
 
-  it('calls AI SDK and merges deterministically when enabled + online for complex cases', async () => {
+  it('does not call AI SDK even when requested from a clinical flow', async () => {
     aiSdk.requestCaseAnalysis.mockResolvedValue({
       hints: ['VENTILATION_AI_HINT_2', 'not safe'],
       rawText: 'should not leak',
@@ -232,9 +234,12 @@ describe('ventilation.usecase', () => {
       ai: { isOnline: true, flags: { OFFLINE_MODE: false, AI_AUGMENTATION_ENABLED: true } },
     });
 
-    expect(aiSdk.requestCaseAnalysis).toHaveBeenCalledTimes(1);
-    expect(res.aiAugmentation).toMatchObject({ provider: 'aiSdk', status: 'applied' });
-    expect(res.aiAugmentation.hints).toEqual(['VENTILATION_AI_HINT_2']);
-    expect(res.aiAugmentation).not.toHaveProperty('rawText');
+    expect(aiSdk.requestCaseAnalysis).not.toHaveBeenCalled();
+    expect(res.aiAugmentation).toMatchObject({
+      provider: 'aiSdk',
+      status: 'disabled_by_governance',
+    });
+    expect(res.aiAugmentation.reasonCodes).toEqual(['VENTILATION_AI_DISABLED_BY_GOVERNANCE']);
+    expect(res.governance.onlineAiClinicianPathEnabled).toBe(false);
   });
 });

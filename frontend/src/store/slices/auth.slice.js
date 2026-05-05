@@ -4,6 +4,7 @@
  * File: auth.slice.js
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getActiveFacilityContext, getApprovedMemberships } from '@config/accessControl';
 import {
   changePasswordUseCase,
   forgotPasswordUseCase,
@@ -53,14 +54,14 @@ const toRejectedAuthPayload = (error, fallbackMessage) => ({
   status: error?.status || 500,
 });
 
-const getMemberships = (user) => (Array.isArray(user?.memberships) ? user.memberships : []);
+const getMemberships = (user) => getApprovedMemberships(user);
 
-const getActiveFacility = (user) => user?.activeFacility || null;
+const getActiveFacility = (user) => getActiveFacilityContext(user);
 
 const userRequiresActiveFacility = (user) => {
   if (!user) return false;
   if (getActiveFacility(user)) return false;
-  return getMemberships(user).some((membership) => membership?.status === 'APPROVED' && membership?.facilityId);
+  return getMemberships(user).length > 0;
 };
 
 const applyUnauthenticatedState = (state, status = SESSION_STATUS.UNAUTHENTICATED) => {
@@ -432,4 +433,3 @@ const reducer = authSlice.reducer;
 
 export { actions, reducer, SESSION_STATUS };
 export default { actions, reducer, SESSION_STATUS };
-

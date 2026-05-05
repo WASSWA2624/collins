@@ -37,7 +37,7 @@ const StyledSummaryPane = styled(View).withConfig({
   margin-top: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
@@ -78,7 +78,7 @@ const StyledExpandButton = styled(Pressable).withConfig({
   justify-content: center;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius?.sm ?? 6}px;
+  border-radius: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
@@ -133,7 +133,7 @@ const StyledMissingTests = styled(View).withConfig({
   margin-top: ${({ theme }) => theme.spacing.lg}px;
   padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
-  border-radius: ${({ theme }) => theme.radius?.md ?? 8}px;
+  border-radius: 0;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.warning ?? 'rgba(255, 149, 0, 0.35)'};
   border-left-width: 4px;

@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import {
   Button,
+  ClinicalSafetyNotice,
   Text,
   Checkbox,
   Stack,
@@ -31,7 +32,6 @@ import {
   StyledSettingsTerm,
   StyledSettingsValue,
   StyledSummaryPane,
-  StyledWarningBox,
 } from './RecommendationScreen.web.styles';
 import { RECOMMENDATION_TEST_IDS } from './types';
 import { STEP_KEYS } from '../AssessmentScreen/types';
@@ -54,6 +54,10 @@ const RecommendationScreenWeb = () => {
     safety,
     missingInputs,
     contributingFactors,
+    decisionSupport,
+    advisoryFlags,
+    missingData,
+    supportStatus,
     inputs,
     isEmpty,
     isHydrating,
@@ -122,20 +126,63 @@ const RecommendationScreenWeb = () => {
     ...(riskFactors || []),
     ...(complicationHistory || []),
   ].filter(Boolean);
+  const formatMetric = (metric) => (
+    metric?.value == null ? t('ventilation.recommendation.decisionSupport.pending') : `${metric.value}${metric.unit ? ` ${metric.unit}` : ''}`
+  );
 
   return (
     <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} data-testid={RECOMMENDATION_TEST_IDS.screen} role="main">
       <StyledContentPane>
-        <StyledWarningBox data-testid={RECOMMENDATION_TEST_IDS.warning}>
-          <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.warningLabel')}</Text>
-          <Text variant="body" color="status.warning.text">{safety.intendedUseWarning}</Text>
-          {safety.validationRequirement ? (
-            <>
-              <Text variant="label" color="status.warning.text">{t('ventilation.recommendation.intendedUse.validationLabel')}</Text>
-              <Text variant="body" color="status.warning.text">{safety.validationRequirement}</Text>
-            </>
-          ) : null}
-        </StyledWarningBox>
+        <ClinicalSafetyNotice
+          title={t('ventilation.recommendation.intendedUse.warningLabel')}
+          message={safety.intendedUseWarning}
+          secondaryMessage={safety.validationRequirement}
+          accessibilityLabel={t('ventilation.recommendation.sections.warning')}
+          testID={RECOMMENDATION_TEST_IDS.warning}
+        />
+
+        {decisionSupport && (
+          <StyledSection data-testid="recommendation-decision-support">
+            <StyledSectionHeader>
+              <StyledSectionTitle>{t('ventilation.recommendation.sections.decisionSupport')}</StyledSectionTitle>
+              <StyledBadge $tier={supportStatus.pendingBackendConfirmation ? 'low' : 'high'}>
+                {t(`ventilation.recommendation.decisionSupport.referenceStatus.${supportStatus.referenceStatus}`)}
+              </StyledBadge>
+            </StyledSectionHeader>
+            <StyledSectionBody>
+              <Text variant="caption" color="text.secondary">
+                {t('ventilation.recommendation.decisionSupport.reviewStatus')}: {t(`ventilation.recommendation.decisionSupport.review.${supportStatus.reviewStatus}`)}
+              </Text>
+              <Text variant="caption" color="text.secondary">
+                {t('ventilation.recommendation.decisionSupport.syncStatus')}: {t(`ventilation.recommendation.decisionSupport.sync.${supportStatus.syncStatus}`)}
+              </Text>
+              <StyledSettingsGrid>
+                <StyledSettingsTerm>{t('ventilation.recommendation.decisionSupport.referenceWeight')}</StyledSettingsTerm>
+                <StyledSettingsValue>{formatMetric(decisionSupport.referenceWeight)}</StyledSettingsValue>
+                <StyledSettingsTerm>{t('ventilation.recommendation.decisionSupport.vtPerKg')}</StyledSettingsTerm>
+                <StyledSettingsValue>{formatMetric(decisionSupport.vtPerKg)}</StyledSettingsValue>
+                <StyledSettingsTerm>{t('ventilation.recommendation.decisionSupport.pfRatio')}</StyledSettingsTerm>
+                <StyledSettingsValue>{formatMetric(decisionSupport.pfRatio)}</StyledSettingsValue>
+                <StyledSettingsTerm>{t('ventilation.recommendation.decisionSupport.sfRatio')}</StyledSettingsTerm>
+                <StyledSettingsValue>{formatMetric(decisionSupport.sfRatio)}</StyledSettingsValue>
+                <StyledSettingsTerm>{t('ventilation.recommendation.decisionSupport.drivingPressure')}</StyledSettingsTerm>
+                <StyledSettingsValue>{formatMetric(decisionSupport.drivingPressure)}</StyledSettingsValue>
+              </StyledSettingsGrid>
+              {advisoryFlags.length > 0 && (
+                <StyledList>
+                  {advisoryFlags.map((flag, i) => (
+                    <StyledListItem key={`${flag.code}-${i}`}>{flag.message}</StyledListItem>
+                  ))}
+                </StyledList>
+              )}
+              {missingData.length > 0 && (
+                <Text variant="caption" color="text.secondary">
+                  {t('ventilation.recommendation.decisionSupport.missingData')}: {missingData.join(', ')}
+                </Text>
+              )}
+            </StyledSectionBody>
+          </StyledSection>
+        )}
 
         {showAiFallbackMessage && (
           <StyledSection data-testid="recommendation-ai-fallback">

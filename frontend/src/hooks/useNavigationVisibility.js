@@ -5,21 +5,17 @@
  */
 import { useCallback } from 'react';
 import useAuth from './useAuth';
-import { normalizeRoles } from '@features/dashboard';
+import { canAccessNavigationItem } from '@config/accessControl';
 
 /**
  * @returns {Object} isItemVisible(item) - true when auth and item role requirements allow it
  */
 const useNavigationVisibility = () => {
-  const { isAuthenticated, roles } = useAuth();
-  const normalizedRoles = normalizeRoles(roles);
+  const { isAuthenticated, user } = useAuth();
 
   const isItemVisible = useCallback((item) => {
-    if (!item || !isAuthenticated) return false;
-    if (!Array.isArray(item.requiredRoles) || item.requiredRoles.length === 0) return true;
-    const requiredRoles = normalizeRoles(item.requiredRoles);
-    return requiredRoles.some((role) => normalizedRoles.includes(role));
-  }, [isAuthenticated, normalizedRoles]);
+    return canAccessNavigationItem({ item, user, isAuthenticated });
+  }, [isAuthenticated, user]);
 
   return { isItemVisible };
 };

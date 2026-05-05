@@ -9,4 +9,14 @@ describe('services/api/endpoints', () => {
     expect(endpoints).toBeDefined();
     expect(endpoints.AUTH).toBeDefined();
   });
+
+  it('defines three-step admission endpoints', () => {
+    expect(endpoints.ADMISSIONS.THREE_STEP_PATIENT_REASON).toContain('/admissions/three-step/patient-reason');
+    expect(endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR('admission-1')).toContain(
+      '/admissions/admission-1/three-step/oxygen-abg-ventilator'
+    );
+    expect(endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW('admission-1')).toContain(
+      '/admissions/admission-1/three-step/save-review'
+    );
+  });
 });

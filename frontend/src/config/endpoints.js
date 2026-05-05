@@ -15,6 +15,10 @@ export const endpoints = {
     SUMMARY: `${baseUrl}/home/summary`,
   },
 
+  TRAINING_HELP: {
+    CATALOG: `${baseUrl}/training-help`,
+  },
+
   AUTH: {
     CSRF_TOKEN: `${baseUrl}/auth/csrf-token`,
     IDENTIFY: `${baseUrl}/auth/identify`,
@@ -104,6 +108,7 @@ export const endpoints = {
 
   DATASETS: {
     APPROVED: `${baseUrl}/datasets/approved`,
+    CARD: (id) => `${baseUrl}/datasets/${id}/card`,
     EXPORT: (id) => `${baseUrl}/datasets/${id}/export`,
   },
 
@@ -126,9 +131,17 @@ export const endpoints = {
     AUDIT_LOGS: `${baseUrl}/admin/audit-logs`,
     DATASET_QUALITY: `${baseUrl}/admin/dataset-quality`,
     MODEL_MONITORING: `${baseUrl}/admin/model-monitoring`,
+    MODEL_DRIFT_MONITORING: `${baseUrl}/admin/model-monitoring/drift`,
+    OVERRIDE_MONITORING: `${baseUrl}/admin/override-monitoring`,
+    MODEL_CARDS: `${baseUrl}/admin/models/cards`,
+    MODEL_CARD: (id) => `${baseUrl}/admin/models/${id}/card`,
     VERIFY_FACILITY: (id) => `${baseUrl}/admin/facilities/${id}/verify`,
     CREATE_REFERENCE: `${baseUrl}/admin/references`,
+    VERIFY_REFERENCE: (id) => `${baseUrl}/admin/references/${id}/verify`,
+    REQUEST_REFERENCE_CORRECTION: (id) => `${baseUrl}/admin/references/${id}/request-correction`,
+    RETIRE_REFERENCE: (id) => `${baseUrl}/admin/references/${id}/retire`,
     ACTIVATE_MODEL_SHADOW_MODE: (id) => `${baseUrl}/admin/models/${id}/activate-shadow-mode`,
+    RECORD_MODEL_SHADOW_OUTPUT: (id) => `${baseUrl}/admin/models/${id}/shadow-outputs`,
     RETIRE_MODEL: (id) => `${baseUrl}/admin/models/${id}/retire`,
   },
 

@@ -172,7 +172,6 @@ const buildPatientReasonPayload = (inputs) => {
 const buildOxygenAbgVentilatorPayload = (inputs) => {
   const timestamp = nowIso();
   return {
-    facilityId: cleanText(inputs.facilityId),
     oxygen: {
       measuredAt: textOrUndefined(inputs.measuredAt),
       oxygenSupportType: textOrUndefined(inputs.oxygenSupportType),
@@ -227,7 +226,6 @@ const buildOxygenAbgVentilatorPayload = (inputs) => {
 const buildSaveReviewPayload = (inputs) => {
   const timestamp = nowIso();
   return {
-    facilityId: cleanText(inputs.facilityId),
     clinicianConfirmed: inputs.clinicianConfirmed === true,
     overrideReason: textOrUndefined(inputs.overrideReason),
     reviewNote: textOrUndefined(inputs.reviewNote),

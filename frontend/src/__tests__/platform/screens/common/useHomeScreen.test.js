@@ -5,7 +5,27 @@
 const React = require('react');
 const TestRenderer = require('react-test-renderer');
 
-const useHomeScreen = require('@platform/screens/common/HomeScreen/useHomeScreen').default;
+jest.mock('@hooks/useNetwork', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    isOnline: true,
+    isOffline: false,
+    isSyncing: false,
+    networkQuality: 'good',
+    isLowQuality: false,
+  })),
+}));
+
+jest.mock('@features/home', () => ({
+  loadHomeSummaryUseCase: jest.fn(() => new Promise(() => {})),
+}));
+
+const {
+  buildHomeActions,
+  buildHomeNotices,
+  buildHomeStatusItems,
+  default: useHomeScreen,
+} = require('@platform/screens/common/HomeScreen/useHomeScreen');
 
 const act = TestRenderer.act;
 const renderHook = (hook) => {
@@ -21,20 +41,114 @@ const renderHook = (hook) => {
   return { result: { current: result }, unmount: () => renderer.unmount() };
 };
 
+const readySummary = {
+  activeFacility: {
+    id: 'facility-1',
+    name: 'City ICU',
+    district: 'Central',
+    verificationStatus: 'VERIFIED',
+  },
+  availableFacilities: [],
+  counts: {
+    patientActivity: {
+      activePatients: 3,
+      activeAdmissions: 4,
+    },
+    drafts: {
+      localDrafts: 1,
+      waitingToSync: 2,
+    },
+    sync: {
+      waitingToSync: 2,
+      conflicts: 1,
+      failedValidation: 0,
+      needsReview: 0,
+      failed: 0,
+      attentionTotal: 1,
+    },
+    review: {
+      visible: true,
+      pendingTotal: 5,
+      correctionRequestedTotal: 2,
+    },
+    dataset: {
+      visible: true,
+      submitted: 7,
+    },
+  },
+  navigation: {
+    status: 'ready',
+    canOpenAdmissions: true,
+    canCreateAdmission: true,
+    canOpenReviewQueue: true,
+    canManageFacility: false,
+    canResolveSyncConflicts: true,
+    notices: [],
+  },
+};
+
 describe('useHomeScreen', () => {
-  it('returns testIds', () => {
+  it('returns testIds and operational collections', () => {
     const { result } = renderHook(() => useHomeScreen());
-    expect(result.current.testIds).toBeDefined();
     expect(result.current.testIds.screen).toBe('home-screen');
+    expect(Array.isArray(result.current.actions)).toBe(true);
+    expect(Array.isArray(result.current.statusItems)).toBe(true);
   });
 
-  it('returns sections from MAIN_NAV_ITEMS (assessment, history, training)', () => {
-    const { result } = renderHook(() => useHomeScreen());
-    expect(result.current.sections).toBeDefined();
-    expect(Array.isArray(result.current.sections)).toBe(true);
-    expect(result.current.sections.map((s) => s.id)).toEqual(['assessment', 'history', 'training']);
-    expect(result.current.sections[0].path).toBe('/assessment');
-    expect(result.current.sections[1].path).toBe('/history');
-    expect(result.current.sections[2].path).toBe('/training');
+  it('builds role-aware Home actions', () => {
+    const actions = buildHomeActions(readySummary);
+    expect(actions.map((action) => action.id)).toEqual([
+      'admit',
+      'tracking',
+      'abgVentUpdate',
+      'datasetCapture',
+      'reviewQueue',
+      'dashboard',
+      'trainingHelp',
+      'settings',
+    ]);
+    expect(actions.find((action) => action.id === 'admit').enabled).toBe(true);
+    expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
+    expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);
+    expect(actions.find((action) => action.id === 'reviewQueue').disabledReason).toBe('workflowPending');
+  });
+
+  it('hides reviewer actions for non-review roles', () => {
+    const actions = buildHomeActions({
+      ...readySummary,
+      counts: {
+        ...readySummary.counts,
+        review: { visible: false, pendingTotal: null, correctionRequestedTotal: null },
+      },
+      navigation: {
+        ...readySummary.navigation,
+        canOpenReviewQueue: false,
+      },
+    });
+    expect(actions.some((action) => action.id === 'reviewQueue')).toBe(false);
+  });
+
+  it('builds status items without decision-support outputs', () => {
+    const items = buildHomeStatusItems(readySummary, {
+      isOffline: false,
+      isSyncing: false,
+      isLowQuality: false,
+      networkQuality: 'good',
+    });
+    expect(items.map((item) => item.id)).toEqual([
+      'facility',
+      'network',
+      'activeAdmissions',
+      'drafts',
+      'syncAttention',
+      'reviewNeeds',
+    ]);
+    expect(items.find((item) => item.id === 'syncAttention').value).toBe(1);
+    expect(JSON.stringify(items)).not.toMatch(/recommendation|decision|risk/i);
+  });
+
+  it('adds an offline notice from local network state', () => {
+    const notices = buildHomeNotices(readySummary, { isOffline: true });
+    expect(notices[0].code).toBe('OFFLINE');
   });
 });

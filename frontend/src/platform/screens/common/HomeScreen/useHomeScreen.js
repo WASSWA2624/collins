@@ -10,9 +10,9 @@ import { loadHomeSummaryUseCase } from '@features/home';
 import { HOME_ACTION_IDS, HOME_STATUS_IDS, HOME_TEST_IDS } from './types';
 
 const ROUTES = Object.freeze({
-  [HOME_ACTION_IDS.ADMIT]: '/assessment',
-  [HOME_ACTION_IDS.TRACKING]: '/history',
-  [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/session/monitoring',
+  [HOME_ACTION_IDS.ADMIT]: '/admit',
+  [HOME_ACTION_IDS.TRACKING]: '/tracking',
+  [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/abg-vent-update',
   [HOME_ACTION_IDS.TRAINING_HELP]: '/training',
   [HOME_ACTION_IDS.SETTINGS]: '/settings',
 });

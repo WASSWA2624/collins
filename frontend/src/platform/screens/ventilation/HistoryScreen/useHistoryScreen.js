@@ -3,7 +3,7 @@
  * Shared logic for Tracking screen.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useVentilationSession from '@hooks/useVentilationSession';
+import { useVentilationSession } from '@hooks';
 import {
   getTrackingAdmissionUseCase,
   listTrackingAdmissionsUseCase,
@@ -27,7 +27,7 @@ export default function useHistoryScreen() {
 
   const [rows, setRows] = useState([]);
   const [trackingErrorCode, setTrackingErrorCode] = useState(null);
-  const [isTrackingLoading, setIsTrackingLoading] = useState(false);
+  const [isTrackingLoading, setIsTrackingLoading] = useState(true);
   const [selectedAdmissionId, setSelectedAdmissionId] = useState(null);
   const [selectedTracking, setSelectedTracking] = useState(null);
   const [detailErrorCode, setDetailErrorCode] = useState(null);

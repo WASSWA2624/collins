@@ -87,9 +87,9 @@ export default function useDataSourcesScreen() {
       setSubmitStatus(result?.queued ? 'queued' : 'submitted');
       setSubmitMessage(result?.queued ? 'queued' : 'submitted');
       setNoteText('');
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
-      setSubmitMessage(error?.code || 'error');
+      setSubmitMessage('error');
     }
   }, [captureAllowed, facilityId, fieldValues, previewCreated]);
 

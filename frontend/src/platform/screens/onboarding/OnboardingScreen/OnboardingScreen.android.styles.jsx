@@ -26,6 +26,7 @@ const StyledSection = styled(View).withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.lg}px 0;
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledActions = styled(View).withConfig({

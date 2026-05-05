@@ -45,6 +45,10 @@ const RecommendationScreenAndroid = () => {
     safety,
     missingInputs,
     contributingFactors,
+    decisionSupport,
+    advisoryFlags,
+    missingData,
+    supportStatus,
     aiReasons,
     aiHints,
     showAiFallbackMessage,
@@ -103,6 +107,9 @@ const RecommendationScreenAndroid = () => {
   }
 
   const risksAndComplications = [...(riskFactors || []), ...(complicationHistory || [])].filter(Boolean);
+  const formatMetric = (metric) => (
+    metric?.value == null ? t('ventilation.recommendation.decisionSupport.pending') : `${metric.value}${metric.unit ? ` ${metric.unit}` : ''}`
+  );
 
   return (
     <StyledContentWrap accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
@@ -117,6 +124,34 @@ const RecommendationScreenAndroid = () => {
             </>
           ) : null}
         </StyledWarningBox>
+
+        {decisionSupport && (
+          <Accordion title={t('ventilation.recommendation.sections.decisionSupport')} defaultExpanded testID="recommendation-decision-support">
+            <StyledSection>
+              <StyledSectionBody>
+                <Text variant="caption">
+                  {t('ventilation.recommendation.decisionSupport.reviewStatus')}: {t(`ventilation.recommendation.decisionSupport.review.${supportStatus.reviewStatus}`)}
+                </Text>
+                <Text variant="caption">
+                  {t('ventilation.recommendation.decisionSupport.syncStatus')}: {t(`ventilation.recommendation.decisionSupport.sync.${supportStatus.syncStatus}`)}
+                </Text>
+                <Text variant="body">{t('ventilation.recommendation.decisionSupport.referenceWeight')}: {formatMetric(decisionSupport.referenceWeight)}</Text>
+                <Text variant="body">{t('ventilation.recommendation.decisionSupport.vtPerKg')}: {formatMetric(decisionSupport.vtPerKg)}</Text>
+                <Text variant="body">{t('ventilation.recommendation.decisionSupport.pfRatio')}: {formatMetric(decisionSupport.pfRatio)}</Text>
+                <Text variant="body">{t('ventilation.recommendation.decisionSupport.sfRatio')}: {formatMetric(decisionSupport.sfRatio)}</Text>
+                <Text variant="body">{t('ventilation.recommendation.decisionSupport.drivingPressure')}: {formatMetric(decisionSupport.drivingPressure)}</Text>
+                {advisoryFlags.map((flag, i) => (
+                  <Text key={`${flag.code}-${i}`} variant="caption">- {flag.message}</Text>
+                ))}
+                {missingData.length > 0 && (
+                  <Text variant="caption">
+                    {t('ventilation.recommendation.decisionSupport.missingData')}: {missingData.join(', ')}
+                  </Text>
+                )}
+              </StyledSectionBody>
+            </StyledSection>
+          </Accordion>
+        )}
 
         {showAiFallbackMessage && (
           <StyledSection testID="recommendation-ai-fallback">

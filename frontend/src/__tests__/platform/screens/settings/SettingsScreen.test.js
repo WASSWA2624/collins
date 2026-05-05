@@ -1,6 +1,5 @@
 /**
  * SettingsScreen Component Tests
- * File: SettingsScreen.test.js
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -23,12 +22,88 @@ jest.mock('@services/storage', () => ({
   },
 }));
 
+jest.mock('@features/settings', () => ({
+  canManageFacilitySettings: jest.fn((roles) => roles.includes('FACILITY_ADMIN')),
+  canSeeGovernanceSettings: jest.fn(() => true),
+  getRoleLabel: jest.fn((role) => role),
+  loadMySettingsUseCase: jest.fn().mockResolvedValue({
+    account: { id: 'user-1', name: 'Ada Clinician', phone: null },
+    activeFacilityId: 'facility-1',
+    memberships: [
+      {
+        id: 'membership-1',
+        facilityId: 'facility-1',
+        role: 'FACILITY_ADMIN',
+        status: 'APPROVED',
+        facility: { id: 'facility-1', name: 'Mulago ICU' },
+      },
+    ],
+    roleVisibility: {
+      activeRole: 'FACILITY_ADMIN',
+      visibleRoles: ['FACILITY_ADMIN'],
+      showFacilitySwitcher: true,
+    },
+    offlineSyncPreferences: {
+      offlineModeEnabled: true,
+      syncOnWifiOnly: false,
+      autoSyncEnabled: true,
+      backgroundSyncEnabled: true,
+      retryFailedSyncAutomatically: true,
+      syncIntervalMinutes: 15,
+      purgeSyncedDraftsAfterDays: 30,
+      conflictResolutionMode: 'manual_review',
+    },
+    privacyControls: {
+      hidePatientIdentifiersInLists: false,
+      requireUnlockForIdentifiers: true,
+      shareUsageDiagnostics: false,
+      allowDeidentifiedAnalytics: true,
+      allowDeidentifiedTrainingDatasetContribution: false,
+    },
+  }),
+  loadFacilitySettingsUseCase: jest.fn().mockResolvedValue({
+    facility: { id: 'facility-1', name: 'Mulago ICU' },
+    referenceSettings: {
+      activeReferenceRuleIds: [],
+      requireVerifiedReferenceRules: true,
+      defaultReferenceRuleScope: 'global',
+      showReferenceVersionToClinicians: true,
+    },
+    workflowSettings: {
+      requireReasonForClinicalOverride: true,
+      requireSecondReviewerForCriticalFlags: false,
+      lockReviewedClinicalRecords: true,
+    },
+    privacyControls: {
+      allowDeidentifiedExports: false,
+      requireExportAuditReason: true,
+      exportPatientIdentifiers: false,
+      allowRawNotesInExports: false,
+    },
+    governanceSettings: {
+      datasetExportsRequireEthicsApproval: true,
+      datasetExportsRequireReview: true,
+      allowUnreviewedDatasetExports: false,
+    },
+    modelVisibility: {
+      liveClinicalPredictionEnabled: false,
+      clinicianVisibleModelVersionIds: [],
+      showShadowModelOutputsToClinicians: false,
+    },
+  }),
+  updateMySettingsUseCase: jest.fn(),
+  updateFacilitySettingsUseCase: jest.fn(),
+}));
+
 jest.mock('@platform/components', () => {
   const RN = require('react-native');
   return {
-    Text: RN.Text,
+    Text: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
     Select: ({ testID }) => React.createElement(RN.View, { testID }),
-    Stack: ({ children }) => React.createElement(RN.View, null, children),
+    Switch: ({ testID }) => React.createElement(RN.View, { testID }),
+    TextField: ({ testID }) => React.createElement(RN.TextInput, { testID }),
+    Button: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),
+    Stack: ({ children, testID }) => React.createElement(RN.View, { testID }, children),
     ThemeControls: ({ testID }) => React.createElement(RN.View, { testID }),
     LanguageControls: ({ testID }) => React.createElement(RN.View, { testID }),
   };
@@ -45,21 +120,25 @@ const renderWithTheme = (component) =>
   render(<ThemeProvider theme={lightTheme}>{component}</ThemeProvider>);
 
 describe('SettingsScreen', () => {
-  const mockT = jest.fn((key) => {
+  const mockT = jest.fn((key, params) => {
+    if (key === 'settings.sync.intervalOption') return `${params.value} minutes`;
+    if (key === 'settings.sync.purgeOption') return `${params.value} days`;
     const translations = {
       'settings.title': 'Settings',
       'settings.screen.label': 'Settings screen',
+      'settings.account.title': 'Account and facility',
+      'settings.accessibility.title': 'Appearance and accessibility',
       'settings.theme.label': 'Theme',
-      'settings.theme.accessibilityLabel': 'Theme selector',
-      'settings.theme.hint': 'Change the application theme',
       'settings.density.label': 'Density',
-      'settings.density.accessibilityLabel': 'Density mode selector',
-      'settings.density.hint': 'Change the spacing and layout density',
       'settings.density.options.compact': 'Compact',
       'settings.density.options.comfortable': 'Comfortable',
       'settings.language.label': 'Language',
-      'settings.language.accessibilityLabel': 'Language selector',
-      'settings.language.hint': 'Change the application language',
+      'settings.sync.title': 'Offline and sync',
+      'settings.privacyControls.title': 'Privacy and logging',
+      'settings.governance.title': 'Governance and clinical workflow',
+      'settings.account.noActiveFacility': 'No active facility',
+      'settings.governance.referenceScope.global': 'Global verified rules',
+      'settings.governance.referenceScope.facility': 'Facility verified rules',
     };
     return translations[key] || key;
   });
@@ -74,36 +153,43 @@ describe('SettingsScreen', () => {
       const mockState = {
         ui: {
           density: 'comfortable',
+          footerVisible: true,
+        },
+        network: {
+          isOnline: true,
+          isSyncing: false,
+          quality: 'good',
         },
       };
       return selector(mockState);
     });
   });
 
-  it('renders on Android', () => {
-    const { getByTestId } = renderWithTheme(<SettingsScreenAndroid />);
+  const expectSettingsSections = (getByTestId) => {
     expect(getByTestId('settings-screen')).toBeTruthy();
     expect(getByTestId('settings-title')).toBeTruthy();
+    expect(getByTestId('settings-account-section')).toBeTruthy();
     expect(getByTestId('settings-theme-section')).toBeTruthy();
     expect(getByTestId('settings-density-section')).toBeTruthy();
     expect(getByTestId('settings-language-section')).toBeTruthy();
+    expect(getByTestId('settings-sync-section')).toBeTruthy();
+    expect(getByTestId('settings-privacy-section')).toBeTruthy();
+    expect(getByTestId('settings-governance-section')).toBeTruthy();
+    expect(getByTestId('settings-model-visibility-status')).toBeTruthy();
+  };
+
+  it('renders on Android', () => {
+    const { getByTestId } = renderWithTheme(<SettingsScreenAndroid />);
+    expectSettingsSections(getByTestId);
   });
 
   it('renders on iOS', () => {
     const { getByTestId } = renderWithTheme(<SettingsScreenIOS />);
-    expect(getByTestId('settings-screen')).toBeTruthy();
-    expect(getByTestId('settings-title')).toBeTruthy();
-    expect(getByTestId('settings-theme-section')).toBeTruthy();
-    expect(getByTestId('settings-density-section')).toBeTruthy();
-    expect(getByTestId('settings-language-section')).toBeTruthy();
+    expectSettingsSections(getByTestId);
   });
 
   it('renders on Web', () => {
     const { getByTestId } = renderWithTheme(<SettingsScreenWeb />);
-    expect(getByTestId('settings-screen')).toBeTruthy();
-    expect(getByTestId('settings-title')).toBeTruthy();
-    expect(getByTestId('settings-theme-section')).toBeTruthy();
-    expect(getByTestId('settings-density-section')).toBeTruthy();
-    expect(getByTestId('settings-language-section')).toBeTruthy();
+    expectSettingsSections(getByTestId);
   });
 });

@@ -17,6 +17,24 @@ const stringifyConsoleArg = (value) => {
   }
 };
 
+const getWebLogEndpoint = () => {
+  if (typeof process === 'undefined') return null;
+  return process.env?.EXPO_PUBLIC_WEB_LOG_ENDPOINT || null;
+};
+
+const postConsoleEvent = (detail) => {
+  const endpoint = getWebLogEndpoint();
+  if (!endpoint || typeof fetch !== 'function') {
+    return;
+  }
+
+  fetch(endpoint, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(detail),
+  }).catch(() => undefined);
+};
+
 const emitConsoleEvent = (level, args) => {
   if (typeof window === 'undefined' || typeof window.dispatchEvent !== 'function') {
     return;
@@ -32,6 +50,8 @@ const emitConsoleEvent = (level, args) => {
   if (typeof CustomEvent === 'function') {
     window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail }));
   }
+
+  postConsoleEvent(detail);
 };
 
 const installWebConsoleLogger = () => {

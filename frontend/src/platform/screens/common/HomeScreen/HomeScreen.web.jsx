@@ -67,7 +67,7 @@ const HomeScreenWeb = () => {
   const showFacilitySelector = !activeFacility && availableFacilities.length > 1;
 
   return (
-    <StyledContainer aria-label={t('home.title')} testID={testIds.screen}>
+    <StyledContainer aria-label={t('home.title')} data-testid={testIds.screen} testID={testIds.screen}>
       <StyledShell>
         <StyledHeader>
           <StyledLogoArea>

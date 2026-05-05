@@ -67,6 +67,21 @@ const mockRecommendation = {
   complicationHistory: [],
   matched: [{ caseId: 'CASE_001', score: 0.9, completeness: 0.8, confidenceTier: 'medium' }],
   caseEvidence: [{ caseId: 'CASE_001', reviewStatus: 'unvalidated', evidenceNotes: null, citations: [] }],
+  decisionSupport: {
+    referenceWeight: { value: 66, unit: 'kg' },
+    vtPerKg: { value: 6.8, unit: 'mL/kg' },
+    pfRatio: { value: 170, unit: 'ratio' },
+    sfRatio: { value: 142, unit: 'ratio' },
+    drivingPressure: { value: null, unit: 'cmH2O' },
+    flags: [{ code: 'OXYGENATION_IMPAIRMENT', severity: 'yellow', message: 'Oxygenation impairment pattern; confirm clinically.' }],
+    missingData: ['plateauPressure'],
+    status: {
+      reviewStatus: 'pending_clinician_review',
+      syncStatus: 'local_preview_pending_backend_confirmation',
+      referenceStatus: 'frontend_preview_unconfirmed',
+      pendingBackendConfirmation: true,
+    },
+  },
 };
 
 const defaultSessionMock = {
@@ -148,14 +163,20 @@ describe('RecommendationScreen', () => {
       expect(getByTestId('recommendation-risks')).toBeTruthy();
     });
 
-    it('should show matched cases section when data present', () => {
-      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
-      expect(getByTestId('recommendation-matched-cases')).toBeTruthy();
+    it('should hide matched cases from normal clinician view', () => {
+      const { queryByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(queryByTestId('recommendation-matched-cases')).toBeNull();
     });
 
-    it('should show evidence section when data present', () => {
-      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
-      expect(getByTestId('recommendation-evidence')).toBeTruthy();
+    it('should hide case evidence internals from normal clinician view', () => {
+      const { queryByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(queryByTestId('recommendation-evidence')).toBeNull();
+    });
+
+    it('should show decision-support advisory checks', () => {
+      const { getByTestId, getByText } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-decision-support')).toBeTruthy();
+      expect(getByText(/Oxygenation impairment pattern/)).toBeTruthy();
     });
 
     it('should have accessible screen label', () => {
@@ -163,11 +184,9 @@ describe('RecommendationScreen', () => {
       expect(getByLabelText('Recommendation screen')).toBeTruthy();
     });
 
-    it('should navigate to case detail when case link clicked (web)', () => {
-      const { getByTestId } = renderWithProviders(<RecommendationScreenWeb />);
-      const caseLink = getByTestId('recommendation-case-CASE_001');
-      caseLink.click?.();
-      expect(mockPush).toHaveBeenCalledWith('/session/case/CASE_001');
+    it('should not expose case detail links in normal clinician view', () => {
+      const { queryByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(queryByTestId('recommendation-case-CASE_001')).toBeNull();
     });
   });
 

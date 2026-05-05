@@ -11,6 +11,21 @@ jest.mock('@hooks', () => ({
   useI18n: jest.fn(),
 }));
 
+jest.mock('@hooks/useNetwork', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    isOnline: true,
+    isOffline: false,
+    isSyncing: false,
+    networkQuality: 'good',
+    isLowQuality: false,
+  })),
+}));
+
+jest.mock('@features/home', () => ({
+  loadHomeSummaryUseCase: jest.fn(() => new Promise(() => {})),
+}));
+
 const HomeScreenAndroid = require('@platform/screens/common/HomeScreen/HomeScreen.android').default;
 const HomeScreenIOS = require('@platform/screens/common/HomeScreen/HomeScreen.ios').default;
 const HomeScreenWeb = require('@platform/screens/common/HomeScreen/HomeScreen.web').default;
@@ -25,17 +40,25 @@ describe('HomeScreen', () => {
   const mockT = jest.fn((key, opts) => {
     const translations = {
       'home.title': 'Home',
-      'home.welcome.title': 'Welcome Home',
-      'home.welcome.message': 'Welcome message',
+      'home.welcome.title': 'Clinical workflow',
+      'home.welcome.message': 'Status message',
       'home.welcome.logoLabel': 'App logo',
-      'home.overview.title': 'Quick access',
-      'home.overview.goTo': opts?.name ? `Go to ${opts.name}` : 'Go to {{name}}',
-      'home.overview.assessment.description': 'Start a patient assessment.',
-      'home.overview.history.description': 'View and resume past sessions.',
-      'home.overview.training.description': 'Browse training topics.',
-      'navigation.items.main.assessment': 'Admission',
-      'navigation.items.main.history': 'Tracking',
-      'navigation.items.main.training': 'Training',
+      'home.actions.title': 'Workflow actions',
+      'home.actions.accessibilityLabel': opts?.name ? `Open ${opts.name}` : 'Open {{name}}',
+      'home.actions.trainingHelp.title': 'Training / Help',
+      'home.actions.settings.title': 'Settings',
+      'home.actions.meta.open': 'Open',
+      'home.status.title': 'Operational status',
+      'home.status.facility.label': 'Facility',
+      'home.status.facility.empty': 'Not selected',
+      'home.status.network.label': 'Network',
+      'home.status.network.values.online': 'Online',
+      'home.status.activeAdmissions.label': 'Active admissions',
+      'home.status.activeAdmissions.detail': `${opts?.count ?? 0} active patients`,
+      'home.status.drafts.label': 'Drafts',
+      'home.status.drafts.detail': `${opts?.count ?? 0} waiting to sync`,
+      'home.status.syncAttention.label': 'Sync attention',
+      'home.status.syncAttention.detail': `${opts?.count ?? 0} conflicts`,
     };
     return translations[key] ?? key;
   });

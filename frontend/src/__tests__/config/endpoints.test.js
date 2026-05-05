@@ -33,5 +33,9 @@ describe('endpoints.js', () => {
     expect(endpoints.AUTH.LOGIN).toMatch(/\/auth\/login$/);
     expect(endpoints.AUTH.REGISTER).toMatch(/\/auth\/register$/);
   });
-});
 
+  test('should have settings endpoint paths', () => {
+    expect(endpoints.SETTINGS.ME).toMatch(/\/settings\/me$/);
+    expect(endpoints.SETTINGS.FACILITY('facility-1')).toMatch(/\/settings\/facilities\/facility-1$/);
+  });
+});

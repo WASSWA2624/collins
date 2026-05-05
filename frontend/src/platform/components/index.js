@@ -47,6 +47,7 @@ export { default as SystemBanner } from './feedback/SystemBanner';
 export { default as ShellBanners } from './feedback/ShellBanners';
 export { default as LoadingOverlay } from './feedback/LoadingOverlay';
 export { default as NoticeSurface } from './feedback/NoticeSurface';
+export { default as ClinicalSafetyNotice } from './feedback/ClinicalSafetyNotice';
 export { default as NetworkConnectivityIcon } from './feedback/NetworkConnectivityIcon';
 export { default as DatabaseConnectivityIcon } from './feedback/DatabaseConnectivityIcon';
 export { default as DatabaseIndicator } from './feedback/DatabaseIndicator';
