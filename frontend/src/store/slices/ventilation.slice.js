@@ -133,9 +133,9 @@ const appendVentilationSessionToHistory = createAsyncThunk(
 
 const loadVentilationHistory = createAsyncThunk(
   'ventilation/loadHistory',
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const result = await ventilationSessionStorage.loadHistory();
+      const result = await ventilationSessionStorage.loadHistory(getStorageScope(getState()));
       return { history: result.history ?? [], errorCode: result.errorCode ?? null };
     } catch (error) {
       const normalized = handleError(error, { scope: 'store.slices.ventilation.loadHistory' });
@@ -146,9 +146,9 @@ const loadVentilationHistory = createAsyncThunk(
 
 const removeVentilationSessionFromHistory = createAsyncThunk(
   'ventilation/removeFromHistory',
-  async (sessionId, { rejectWithValue }) => {
+  async (sessionId, { getState, rejectWithValue }) => {
     try {
-      const result = await ventilationSessionStorage.removeHistoryEntry(sessionId);
+      const result = await ventilationSessionStorage.removeHistoryEntry(sessionId, getStorageScope(getState()));
       if (!result.ok) {
         return rejectWithValue({ errorCode: result.errorCode || 'VENTILATION_SESSION_HISTORY_DELETE_FAILED' });
       }
