@@ -11,6 +11,7 @@ npm install
 cp .env.example .env
 npm run prisma:generate
 npm run prisma:migrate
+npm run prisma:seed
 npm run dev
 ```
 
@@ -33,6 +34,18 @@ GET /api/v1/training-help
 ```
 
 `npm install`, `npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in `.env`. The backend starts independently from the frontend, Expo, and clinical dataset assets.
+
+Database setup for a clean local MySQL database:
+
+```bash
+npm ci
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
+npm test
+```
+
+The seed command adds only a disabled development reference-seed user and verified MVP reference/evidence ranges. It does not seed patients, admissions, raw notes, demo cases, or approved training datasets.
 
 ## Safety position
 

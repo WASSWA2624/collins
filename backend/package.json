@@ -16,6 +16,7 @@
     "prisma:generate": "node scripts/prisma-generate-if-needed.mjs",
     "prisma:generate:force": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "node prisma/seed.mjs",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",
     "pretest": "node scripts/prisma-generate-if-needed.mjs",

@@ -86,22 +86,31 @@ test('reference rules must be approved and currently active for settings activat
   const now = new Date('2026-05-05T00:00:00.000Z');
   const approved = getReferenceRuleSettingsStatus({
     id: 'rule_approved',
+    verificationStatus: 'VERIFIED',
     governanceStatus: 'approved',
     approvedByUserId: 'user_1',
+    verifiedByUserId: 'user_1',
+    verifiedAt: new Date('2026-01-01T00:00:00.000Z'),
     activeFrom: new Date('2026-01-01T00:00:00.000Z'),
     activeTo: null,
   }, now);
   const unverified = getReferenceRuleSettingsStatus({
     id: 'rule_pending',
-    governanceStatus: 'pending',
-    approvedByUserId: null,
+    verificationStatus: 'PENDING_REVIEW',
+    governanceStatus: 'approved',
+    approvedByUserId: 'user_1',
+    verifiedByUserId: null,
+    verifiedAt: null,
     activeFrom: null,
     activeTo: null,
   }, now);
   const expired = getReferenceRuleSettingsStatus({
     id: 'rule_expired',
+    verificationStatus: 'VERIFIED',
     governanceStatus: 'approved',
     approvedByUserId: 'user_1',
+    verifiedByUserId: 'user_1',
+    verifiedAt: new Date('2026-01-01T00:00:00.000Z'),
     activeFrom: null,
     activeTo: new Date('2026-01-01T00:00:00.000Z'),
   }, now);
@@ -110,4 +119,3 @@ test('reference rules must be approved and currently active for settings activat
   assert.deepEqual(unverified, { id: 'rule_pending', approvedForSettings: false });
   assert.deepEqual(expired, { id: 'rule_expired', approvedForSettings: false });
 });
-

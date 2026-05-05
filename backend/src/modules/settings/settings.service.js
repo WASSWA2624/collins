@@ -103,7 +103,14 @@ const DEFAULT_MODEL_VISIBILITY = Object.freeze({
   showShadowModelOutputsToClinicians: false,
 });
 
-const APPROVED_REFERENCE_STATUSES = new Set(['APPROVED', 'VERIFIED']);
+const APPROVED_REFERENCE_GOVERNANCE_STATUSES = new Set([
+  'APPROVED',
+  'VERIFIED',
+  'ACTIVE',
+  'APPROVED_FOR_DECISION_SUPPORT',
+  'VERIFIED_FOR_DECISION_SUPPORT',
+]);
+const VERIFIED_REFERENCE_STATUS = 'VERIFIED';
 
 const unique = (items) => [...new Set(items.filter((item) => item !== undefined && item !== null))];
 
@@ -298,8 +305,11 @@ const referenceRuleIsApprovedForSettings = (rule, now = new Date()) => {
   const status = String(rule.governanceStatus || '').trim().toUpperCase();
   const startsInFuture = rule.activeFrom && rule.activeFrom > now;
   const alreadyEnded = rule.activeTo && rule.activeTo < now;
-  return APPROVED_REFERENCE_STATUSES.has(status)
+  return rule.verificationStatus === VERIFIED_REFERENCE_STATUS
+    && APPROVED_REFERENCE_GOVERNANCE_STATUSES.has(status)
     && Boolean(rule.approvedByUserId)
+    && Boolean(rule.verifiedByUserId)
+    && Boolean(rule.verifiedAt)
     && !startsInFuture
     && !alreadyEnded;
 };
@@ -319,8 +329,11 @@ const assertReferenceRulesCanBeActivated = async (referenceSettings) => {
       id: true,
       name: true,
       version: true,
+      verificationStatus: true,
       governanceStatus: true,
       approvedByUserId: true,
+      verifiedByUserId: true,
+      verifiedAt: true,
       activeFrom: true,
       activeTo: true,
     },
@@ -465,4 +478,3 @@ export const updateFacilitySettings = async (userId, facilityId, payload, auditC
 
   return buildFacilitySettingsPayload(facilityId);
 };
-
