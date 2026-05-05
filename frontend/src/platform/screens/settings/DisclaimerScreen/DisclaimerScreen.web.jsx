@@ -17,19 +17,27 @@ import useDisclaimerScreen from './useDisclaimerScreen';
 const DisclaimerScreenWeb = () => {
   const { t } = useI18n();
   const { testIds, intendedUse, acknowledged, acknowledge, decline } = useDisclaimerScreen();
+  const getNativeTestProps = (testID) =>
+    process.env.JEST_WORKER_ID ? { testID } : {};
 
   return (
     <StyledContainer
       aria-label={t('settings.disclaimer.screen.label')}
-      testID={testIds.screen}
       data-testid={testIds.screen}
+      {...getNativeTestProps(testIds.screen)}
     >
-      <StyledContent testID={testIds.content} data-testid={testIds.content}>
+      <StyledContent
+        data-testid={testIds.content}
+        {...getNativeTestProps(testIds.content)}
+      >
         <Stack spacing="lg">
           <StyledSection>
             <Text variant="body">{t('settings.disclaimer.prototypeFraming')}</Text>
           </StyledSection>
-          <StyledSection testID={testIds.datasetNotice} data-testid={testIds.datasetNotice}>
+          <StyledSection
+            data-testid={testIds.datasetNotice}
+            {...getNativeTestProps(testIds.datasetNotice)}
+          >
             <Text as="h2" variant="h3">
               {t('settings.disclaimer.datasetNotice')}
             </Text>

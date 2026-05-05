@@ -27,7 +27,7 @@ export default {
       favicon: "./public/logos/logo-light.png",
       manifest: "./public/manifest.json",
       bundler: "metro",
-      output: "static",
+      output: "single",
       // PWA configuration
       name: "Collins",
       shortName: "Collins",

@@ -68,6 +68,7 @@ const ButtonWeb = ({
     disabled,
     loading,
   });
+  const testOnlyNativeProps = process.env.JEST_WORKER_ID ? { testID } : {};
 
   const displayText = text || children;
   const hasIcon = !!icon;
@@ -116,10 +117,10 @@ const ButtonWeb = ({
       aria-label={computedA11yLabel}
       aria-description={accessibilityHint}
       aria-busy={loading}
-      testID={testID}
       data-testid={testID}
       className={className}
       style={style}
+      {...testOnlyNativeProps}
       {...cleanRest}
     >
       <StyledButtonContent>

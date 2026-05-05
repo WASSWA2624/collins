@@ -5,10 +5,12 @@
  */
 import styled from 'styled-components';
 
+const shouldForwardDomProp = (prop) => !String(prop).startsWith('$');
+
 const StyledButton = styled.button.withConfig({
   displayName: 'StyledButton',
   componentId: 'StyledButton',
-  shouldForwardProp: (prop) => !['$state', '$variant', '$size'].includes(prop),
+  shouldForwardProp: shouldForwardDomProp,
 })`
   display: inline-flex;
   flex-direction: row;
@@ -138,7 +140,7 @@ const StyledButton = styled.button.withConfig({
 const StyledButtonText = styled.span.withConfig({
   displayName: 'StyledButtonText',
   componentId: 'StyledButtonText',
-  shouldForwardProp: (prop) => !['$state', '$variant', '$size', '$hasIcon'].includes(prop),
+  shouldForwardProp: shouldForwardDomProp,
 })`
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ $size, theme }) => {
@@ -188,7 +190,7 @@ const StyledButtonContent = styled.span.withConfig({
 const StyledSpinner = styled.span.withConfig({
   displayName: 'StyledSpinner',
   componentId: 'StyledSpinner',
-  shouldForwardProp: (prop) => !['$variant', '$size', '$hasText'].includes(prop),
+  shouldForwardProp: shouldForwardDomProp,
 })`
   display: inline-block;
   width: ${({ $size, theme }) => {

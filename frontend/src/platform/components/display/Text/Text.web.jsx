@@ -62,25 +62,30 @@ const TextWeb = ({
     return undefined;
   };
 
-  // For React Native testing compatibility, also pass accessibilityRole
+  // For React Native testing compatibility, also pass accessibilityRole in Jest.
   const accessibilityRoleProp = accessibilityRole || (isHeading ? 'header' : 'text');
+  const testOnlyNativeProps = isTestEnv
+    ? {
+        accessibilityRole: accessibilityRoleProp,
+        accessibilityLabel,
+        accessibilityHint,
+        testID,
+      }
+    : {};
 
   return (
     <StyledText
-      variant={variant}
-      color={color}
-      align={align}
+      $variant={variant}
+      $color={color}
+      $align={align}
       as={tag}
       role={resolveRole()}
       aria-label={accessibilityLabel}
       aria-description={accessibilityHint}
       data-testid={testID}
-      accessibilityRole={accessibilityRoleProp}
-      accessibilityLabel={accessibilityLabel}
-      accessibilityHint={accessibilityHint}
-      testID={testID}
       className={className}
       style={style}
+      {...testOnlyNativeProps}
       {...rest}
     >
       {children}

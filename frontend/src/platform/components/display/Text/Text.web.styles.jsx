@@ -26,13 +26,14 @@ const resolveThemeColor = (theme, color) => {
 const StyledText = styled.span.withConfig({
   displayName: 'StyledText',
   componentId: 'StyledText',
+  shouldForwardProp: (prop) => !String(prop).startsWith('$'),
 })`
-  display: ${({ align }) => (align ? 'block' : 'inline')};
-  font-family: ${({ variant, theme }) => {
-    const isHeading = variant === 'h1' || variant === 'h2' || variant === 'h3';
+  display: ${({ $align }) => ($align ? 'block' : 'inline')};
+  font-family: ${({ $variant, theme }) => {
+    const isHeading = $variant === 'h1' || $variant === 'h2' || $variant === 'h3';
     return isHeading ? theme.typography.fontFamily.boldWeb : theme.typography.fontFamily.regularWeb;
   }};
-  font-size: ${({ variant, theme }) => {
+  font-size: ${({ $variant, theme }) => {
     const sizes = {
       h1: theme.typography.fontSize.xxl,
       h2: theme.typography.fontSize.xl,
@@ -41,16 +42,16 @@ const StyledText = styled.span.withConfig({
       caption: theme.typography.fontSize.sm,
       label: theme.typography.fontSize.sm,
     };
-    return sizes[variant] || sizes.body;
+    return sizes[$variant] || sizes.body;
   }}px;
-  font-weight: ${({ variant, theme }) => {
-    const isHeading = variant === 'h1' || variant === 'h2' || variant === 'h3';
-    const isLabel = variant === 'label';
+  font-weight: ${({ $variant, theme }) => {
+    const isHeading = $variant === 'h1' || $variant === 'h2' || $variant === 'h3';
+    const isLabel = $variant === 'label';
     if (isHeading) return theme.typography.fontWeight.bold;
     if (isLabel) return theme.typography.fontWeight.semibold;
     return theme.typography.fontWeight.normal;
   }};
-  line-height: ${({ variant, theme }) => {
+  line-height: ${({ $variant, theme }) => {
     const lineHeights = {
       h1: theme.typography.fontSize.xxl * theme.typography.lineHeight.tight,
       h2: theme.typography.fontSize.xl * theme.typography.lineHeight.tight,
@@ -59,12 +60,12 @@ const StyledText = styled.span.withConfig({
       caption: theme.typography.fontSize.sm * theme.typography.lineHeight.normal,
       label: theme.typography.fontSize.sm * theme.typography.lineHeight.normal,
     };
-    return lineHeights[variant] || lineHeights.body;
+    return lineHeights[$variant] || lineHeights.body;
   }}px;
-  color: ${({ color, theme }) => {
-    return resolveThemeColor(theme, color);
+  color: ${({ $color, theme }) => {
+    return resolveThemeColor(theme, $color);
   }};
-  text-align: ${({ align }) => align || 'left'};
+  text-align: ${({ $align }) => $align || 'left'};
   margin: 0;
   padding: 0;
 `;
