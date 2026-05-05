@@ -3,6 +3,9 @@ import { z } from 'zod';
 const syncItem = z.object({
   operation: z.enum([
     'create_admission',
+    'create_admission_patient_reason_step',
+    'save_admission_oxygen_abg_ventilator_step',
+    'save_admission_review_step',
     'create_clinical_snapshot',
     'create_abg_test',
     'create_ventilator_setting',

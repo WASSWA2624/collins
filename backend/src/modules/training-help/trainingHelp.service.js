@@ -115,8 +115,12 @@ export const findForbiddenTrainingWording = (content = getTrainingHelpCatalog({ 
 
 export const normalizeReferenceGovernanceStatus = (status) => normalizeText(status || 'unverified');
 
-export const isVerifiedReferenceRule = (rule) => VERIFIED_REFERENCE_GOVERNANCE_STATUSES
-  .includes(normalizeReferenceGovernanceStatus(rule?.governanceStatus));
+export const normalizeReferenceVerificationStatus = (status) => normalizeText(status || 'unverified');
+
+export const isVerifiedReferenceRule = (rule) => (
+  normalizeReferenceVerificationStatus(rule?.verificationStatus) === 'verified'
+  && VERIFIED_REFERENCE_GOVERNANCE_STATUSES.includes(normalizeReferenceGovernanceStatus(rule?.governanceStatus))
+);
 
 export const isActiveReferenceRule = (rule, now = new Date()) => {
   const activeFrom = rule?.activeFrom ? new Date(rule.activeFrom) : null;
@@ -130,7 +134,7 @@ export const isActiveReferenceRule = (rule, now = new Date()) => {
 const getReferenceScope = (rule) => {
   const ruleScope = rule?.ruleJson?.scope;
   const facilityId = rule?.facilityId || ruleScope?.facilityId || rule?.ruleJson?.facilityId || null;
-  return facilityId
+  return facilityId || rule?.scope === 'FACILITY'
     ? { type: 'facility', facilityId }
     : { type: 'global', facilityId: null };
 };
@@ -145,7 +149,8 @@ export const explainReferenceRuleForTraining = (rule, now = new Date()) => {
     name: rule?.name,
     version: rule?.version,
     sourceCitation: rule?.sourceCitation || null,
-    verificationStatus: normalizeReferenceGovernanceStatus(rule?.governanceStatus),
+    verificationStatus: normalizeReferenceVerificationStatus(rule?.verificationStatus),
+    governanceStatus: normalizeReferenceGovernanceStatus(rule?.governanceStatus),
     scope,
     activeFrom: rule?.activeFrom || null,
     activeTo: rule?.activeTo || null,

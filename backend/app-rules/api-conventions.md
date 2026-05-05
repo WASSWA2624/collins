@@ -102,6 +102,7 @@ Expose these groups under `/api/v1` as implementation reaches each phase:
 
 ### References, models, and admin
 
+- `GET /training-help`
 - `GET /references/active`
 - `POST /admin/references`
 - `GET /models/versions`

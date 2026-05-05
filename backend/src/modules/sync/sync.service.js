@@ -9,6 +9,9 @@ import {
   addOutcome,
   addVentilatorSetting,
   createAdmission,
+  createAdmissionPatientReasonStep,
+  saveAdmissionOxygenAbgVentilatorStep,
+  saveAdmissionReviewStep,
 } from '../admissions/admissions.service.js';
 import { toPublicSyncStatus } from '../../utils/syncStatus.js';
 
@@ -53,6 +56,12 @@ const runOperation = async (item, userId, req) => {
   switch (item.operation) {
     case 'create_admission':
       return createAdmission(payload, userId, auditContext);
+    case 'create_admission_patient_reason_step':
+      return createAdmissionPatientReasonStep(payload, userId, auditContext);
+    case 'save_admission_oxygen_abg_ventilator_step':
+      return saveAdmissionOxygenAbgVentilatorStep(userId, item.admissionId, payload, auditContext);
+    case 'save_admission_review_step':
+      return saveAdmissionReviewStep(userId, item.admissionId, payload, auditContext);
     case 'create_clinical_snapshot':
       return addClinicalSnapshot(userId, item.admissionId, payload, auditContext);
     case 'create_abg_test':

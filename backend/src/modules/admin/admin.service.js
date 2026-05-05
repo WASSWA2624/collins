@@ -3,12 +3,15 @@ import {
   DATASET_EXPORT_ROLES,
   FACILITY_ADMIN_ROLES,
   MODEL_GOVERNANCE_ROLES,
+  REVIEW_ROLES,
   assertAnyApprovedRole,
+  assertFacilityRole,
   assertPlatformRole,
   resolveFacilityScope,
 } from '../../utils/authorization.js';
 import { notFound, badRequest } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
+import { stripUndefined } from '../../utils/object.js';
 import { getOperationalDashboard } from '../dashboards/dashboards.service.js';
 
 export const getAdminDashboard = getOperationalDashboard;
@@ -75,8 +78,25 @@ export const getModelMonitoring = async (userId) => {
 export const createReferenceRule = async (payload, userId, auditContext = {}) => {
   await assertPlatformRole(userId);
   return prisma.$transaction(async (tx) => {
+    const createdAt = new Date();
     const rule = await tx.referenceRule.create({
-      data: { ...payload, approvedByUserId: userId },
+      data: {
+        ...payload,
+        facilityId: payload.scope === 'FACILITY' ? payload.facilityId : null,
+        verificationStatus: 'PENDING_REVIEW',
+        verifiedByUserId: null,
+        verifiedAt: null,
+        approvedByUserId: null,
+        governanceStatus: 'pending_review',
+        auditTrailJson: [
+          {
+            action: 'created_pending_reference_review',
+            actorUserId: userId,
+            at: createdAt.toISOString(),
+            note: 'Production reference additions require authorized review before decision-support use.',
+          },
+        ],
+      },
     });
     await writeAudit({
       tx,

@@ -1,10 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { createApp } from '../src/app.js';
+import express from 'express';
+import { errorMiddleware } from '../src/middleware/error.middleware.js';
+import { onboardingRouter } from '../src/modules/onboarding/onboarding.routes.js';
 
 const withAppServer = async (callback) => {
-  const server = createServer(createApp());
+  const app = express();
+  app.use(express.json());
+  app.use('/api/v1/onboarding', onboardingRouter);
+  app.use(errorMiddleware);
+
+  const server = createServer(app);
 
   await new Promise((resolve) => {
     server.listen(0, '127.0.0.1', resolve);

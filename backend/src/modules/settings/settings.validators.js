@@ -1,14 +1,7 @@
 import { z } from 'zod';
+import { MEMBERSHIP_ROLE_VALUES } from '../../constants/roles.js';
 
-const membershipRole = z.enum([
-  'PLATFORM_ADMIN',
-  'FACILITY_ADMIN',
-  'CLINICIAN',
-  'ICU_NURSE',
-  'SPECIALIST_REVIEWER',
-  'RESEARCH_GOVERNANCE_OFFICER',
-  'READ_ONLY_REVIEWER',
-]);
+const membershipRole = z.enum(MEMBERSHIP_ROLE_VALUES);
 
 const accountSettings = z.object({
   name: z.string().trim().min(2).max(160).optional(),
@@ -125,4 +118,3 @@ export const facilitySettingsSchema = z.object({
   params: z.object({ facilityId: z.string().min(1) }),
   query: z.object({}).optional(),
 });
-

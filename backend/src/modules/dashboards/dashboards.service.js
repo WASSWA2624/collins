@@ -20,7 +20,11 @@ import {
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const STATUS_UNKNOWN = 'UNSPECIFIED';
 
-const startOfDay = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+const startOfDay = (date) => new Date(Date.UTC(
+  date.getUTCFullYear(),
+  date.getUTCMonth(),
+  date.getUTCDate(),
+));
 const addDays = (date, days) => new Date(date.getTime() + (days * MS_PER_DAY));
 
 const formatDay = (date) => date.toISOString().slice(0, 10);

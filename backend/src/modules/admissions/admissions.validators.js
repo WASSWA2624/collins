@@ -134,9 +134,10 @@ const abgBody = z.object({
   clientRecordId: optionalString(120),
   deviceId: optionalString(120),
   clientCreatedAt: optionalDate,
+  clientUpdatedAt: optionalDate,
   idempotencyKey,
   overrideReason,
-});
+}).strict();
 
 const ventilatorBody = z.object({
   measuredAt: optionalDefaultDate,
@@ -155,6 +156,7 @@ const ventilatorBody = z.object({
   clientRecordId: optionalString(120),
   deviceId: optionalString(120),
   clientCreatedAt: optionalDate,
+  clientUpdatedAt: optionalDate,
   idempotencyKey,
   overrideReason,
 }).strict();

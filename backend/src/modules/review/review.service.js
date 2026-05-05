@@ -121,7 +121,21 @@ const getMissingData = (entityType, record) => {
     return ['mode', 'tidalVolumeMl', 'fio2', 'peep'].filter((field) => record[field] === null || record[field] === undefined);
   }
   if (entityType === 'reference-rule') {
-    return ['parameterName', 'unit', 'sourceCitation'].filter((field) => record[field] === null || record[field] === undefined);
+    const missing = [
+      'clinicalCondition',
+      'patientPathway',
+      'population',
+      'parameterName',
+      'unit',
+      'sourceCitation',
+      'version',
+      'scope',
+      'reviewNotes',
+      'auditTrailJson',
+    ].filter((field) => record[field] === null || record[field] === undefined);
+    if (record.lowerBound === null || record.lowerBound === undefined) missing.push('lowerBound');
+    if (record.upperBound === null || record.upperBound === undefined) missing.push('upperBound');
+    return missing;
   }
   return [];
 };
@@ -201,6 +215,7 @@ const loadLatestReviewActions = async (entries) => {
 export const listReviewQueue = async (userId, { facilityId, entityType, page, limit }) => {
   const scopedFacilityId = await resolveFacilityScope(userId, facilityId, REVIEW_ROLES);
   const entityTypes = entityType ? [entityType] : Object.keys(entityConfig);
+  const combinedSkip = (page - 1) * limit;
 
   const results = [];
   let total = 0;
@@ -218,7 +233,7 @@ export const listReviewQueue = async (userId, { facilityId, entityType, page, li
         include: config.include,
         orderBy: { createdAt: 'desc' },
         skip: entityType ? (page - 1) * limit : 0,
-        take: entityType ? limit : limit,
+        take: entityType ? limit : combinedSkip + limit,
       }),
       prisma[config.model].count({ where }),
     ]);
@@ -235,7 +250,7 @@ export const listReviewQueue = async (userId, { facilityId, entityType, page, li
 
   const sorted = results
     .sort((a, b) => new Date(b.item.createdAt).getTime() - new Date(a.item.createdAt).getTime())
-    .slice(0, limit);
+    .slice(entityType ? 0 : combinedSkip, entityType ? limit : combinedSkip + limit);
   const latestActions = await loadLatestReviewActions(sorted);
 
   return {

@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  abgTestSchema,
   createAdmissionSchema,
   humidificationSchema,
   patchAdmissionSchema,
+  ventilatorSettingSchema,
 } from '../src/modules/admissions/admissions.validators.js';
 
 test('normalizes admission missing-data sentinels and pathway aliases', () => {
@@ -88,4 +90,69 @@ test('parses string boolean false without treating it as true', () => {
   assert.equal(result.success, true);
   assert.equal(result.data.body.thickSecretions, false);
   assert.equal(result.data.body.expectedLongVentilation, true);
+});
+
+test('validates ABG append metadata and rejects client-calculated fields', () => {
+  const accepted = abgTestSchema.safeParse({
+    body: {
+      ph: '7.31',
+      pao2: '82',
+      fio2AtSample: '0.4',
+      source: 'point-of-care-analyzer',
+      clientRecordId: 'client-abg-1',
+      clientCreatedAt: '2026-05-05T07:00:00.000Z',
+      clientUpdatedAt: '2026-05-05T07:01:00.000Z',
+      idempotencyKey: 'abg-append-key-1',
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  assert.equal(accepted.success, true);
+  assert.equal(accepted.data.body.ph, 7.31);
+  assert.equal(accepted.data.body.source, 'point-of-care-analyzer');
+  assert.equal(accepted.data.body.clientUpdatedAt.toISOString(), '2026-05-05T07:01:00.000Z');
+
+  const rejected = abgTestSchema.safeParse({
+    body: {
+      ph: 7.31,
+      clinicalFlagsJson: [{ code: 'CLIENT_FLAG' }],
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  assert.equal(rejected.success, false);
+});
+
+test('validates ventilator append metadata and empty query contract', () => {
+  const accepted = ventilatorSettingSchema.safeParse({
+    body: {
+      mode: 'VC',
+      tidalVolumeMl: '420',
+      respiratoryRateSet: '20',
+      peep: '8',
+      plateauPressure: '24',
+      source: 'bedside-entry',
+      clientUpdatedAt: '2026-05-05T07:05:00.000Z',
+      idempotencyKey: 'vent-append-key-1',
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  assert.equal(accepted.success, true);
+  assert.equal(accepted.data.body.tidalVolumeMl, 420);
+  assert.equal(accepted.data.body.source, 'bedside-entry');
+
+  const rejected = ventilatorSettingSchema.safeParse({
+    body: {
+      tidalVolumeMl: 420,
+      minuteVolumeLMin: 8.4,
+    },
+    params: { id: 'admission-1' },
+    query: { includeOrders: 'true' },
+  });
+
+  assert.equal(rejected.success, false);
 });

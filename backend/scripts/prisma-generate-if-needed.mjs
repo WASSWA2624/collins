@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,10 +23,10 @@ const hasGeneratedClient = () => {
   }
 
   const generatedClient = readText(generatedClientPath);
-  const generatedSchema = readText(generatedSchemaPath);
-  const projectSchema = readText(projectSchemaPath);
+  const generatedSchemaUpdatedAt = statSync(generatedSchemaPath).mtimeMs;
+  const projectSchemaUpdatedAt = statSync(projectSchemaPath).mtimeMs;
 
-  return !generatedClient.includes(PLACEHOLDER_TEXT) && generatedSchema === projectSchema;
+  return !generatedClient.includes(PLACEHOLDER_TEXT) && generatedSchemaUpdatedAt >= projectSchemaUpdatedAt;
 };
 
 if (hasGeneratedClient()) {

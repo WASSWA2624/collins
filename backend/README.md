@@ -26,6 +26,12 @@ Health check:
 GET /api/v1/health
 ```
 
+Training/help content:
+
+```txt
+GET /api/v1/training-help
+```
+
 `npm install`, `npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in `.env`. The backend starts independently from the frontend, Expo, and clinical dataset assets.
 
 ## Safety position

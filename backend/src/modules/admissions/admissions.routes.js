@@ -9,15 +9,21 @@ import {
   createDailyReview,
   createHumidification,
   createOutcome,
+  createPatientReasonStep,
   createVentilatorSetting,
   getById,
   list,
   patchById,
+  saveOxygenAbgVentilatorStep,
+  saveReviewStep,
 } from './admissions.controller.js';
 import {
   abgTestSchema,
   admissionIdSchema,
   admissionListSchema,
+  admissionOxygenAbgVentilatorStepSchema,
+  admissionPatientReasonStepSchema,
+  admissionSaveReviewStepSchema,
   airwayDeviceSchema,
   clinicalSnapshotSchema,
   createAdmissionSchema,
@@ -33,8 +39,11 @@ export const admissionsRouter = Router();
 admissionsRouter.use(requireAuth);
 admissionsRouter.get('/', validateRequest(admissionListSchema), list);
 admissionsRouter.post('/', validateRequest(createAdmissionSchema), create);
+admissionsRouter.post('/three-step/patient-reason', validateRequest(admissionPatientReasonStepSchema), createPatientReasonStep);
 admissionsRouter.get('/:id', validateRequest(admissionIdSchema), getById);
 admissionsRouter.patch('/:id', validateRequest(patchAdmissionSchema), patchById);
+admissionsRouter.post('/:id/three-step/oxygen-abg-ventilator', validateRequest(admissionOxygenAbgVentilatorStepSchema), saveOxygenAbgVentilatorStep);
+admissionsRouter.post('/:id/three-step/save-review', validateRequest(admissionSaveReviewStepSchema), saveReviewStep);
 admissionsRouter.post('/:id/clinical-snapshots', validateRequest(clinicalSnapshotSchema), createClinicalSnapshot);
 admissionsRouter.post('/:id/abg-tests', validateRequest(abgTestSchema), createAbgTest);
 admissionsRouter.post('/:id/ventilator-settings', validateRequest(ventilatorSettingSchema), createVentilatorSetting);

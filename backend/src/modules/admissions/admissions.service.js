@@ -64,7 +64,10 @@ const THREE_STEP_FLOW_VERSION = 'three-step-admission-flow@2026-05-05';
 const THREE_STEP_SOURCE = 'three_step_admission_flow';
 
 const withoutIdempotency = (data = {}) => {
-  const { idempotencyKey, overrideReason, ...rest } = data;
+  const rest = { ...data };
+  delete rest.idempotencyKey;
+  delete rest.overrideReason;
+  delete rest.clientUpdatedAt;
   return stripUndefined(rest);
 };
 
@@ -168,14 +171,15 @@ const extractAdmissionFlowMetadata = (admission = {}) => {
 };
 
 const buildStepWriteMetadata = (record, payload, suffix, { includeSource = false, includeClientUpdatedAt = false } = {}) => {
+  const { clientUpdatedAt, source, ...baseRecord } = record || {};
   const deviceContext = normalizeDeviceContext(payload) || {};
   return stripNullish({
-    ...record,
-    ...(includeSource ? { source: record?.source || deviceContext.source } : {}),
-    clientRecordId: record?.clientRecordId || deriveStepClientRecordId(payload.clientRecordId, suffix),
-    clientCreatedAt: record?.clientCreatedAt || payload.clientCreatedAt,
-    ...(includeClientUpdatedAt ? { clientUpdatedAt: record?.clientUpdatedAt || payload.clientUpdatedAt } : {}),
-    deviceId: record?.deviceId || deviceContext.deviceId || payload.deviceId,
+    ...baseRecord,
+    ...(includeSource ? { source: source || deviceContext.source } : {}),
+    clientRecordId: baseRecord.clientRecordId || deriveStepClientRecordId(payload.clientRecordId, suffix),
+    clientCreatedAt: baseRecord.clientCreatedAt || payload.clientCreatedAt,
+    ...(includeClientUpdatedAt ? { clientUpdatedAt: clientUpdatedAt || payload.clientUpdatedAt } : {}),
+    deviceId: baseRecord.deviceId || deviceContext.deviceId || payload.deviceId,
     idempotencyKey: deriveStepIdempotencyKey(payload.idempotencyKey, suffix),
     overrideReason: payload.overrideReason,
   });
@@ -193,6 +197,8 @@ const preparePatientData = (patient) => {
 
 const preparePatientUpdateData = (currentPatient, patientPatch = {}) => {
   const patientData = stripUndefined(patientPatch);
+  if (!hasKeys(patientData)) return null;
+  if (patientData.appPatientCode === null) delete patientData.appPatientCode;
   if (!hasKeys(patientData)) return null;
 
   const shouldRecalculateReference = Object.keys(patientData).some((field) => patientReferenceFields.has(field));
@@ -450,7 +456,7 @@ const assertNoReviewedOverwrite = async (tx, admissionId, userId, { allowClinici
   if (admission.reviewStatus === 'APPROVED') {
     try {
       await assertFacilityRole(userId, admission.facilityId, REVIEW_ROLES);
-    } catch (_error) {
+    } catch {
       if (allowClinicianOverride && overrideReason) {
         return {
           ...admission,
@@ -650,6 +656,217 @@ export const getAdmissionById = async (userId, id) => {
   if (!admission) throw notFound('Admission not found');
   if (admission.facilityId !== admissionAccess.facilityId) throw notFound('Admission not found');
   return { ...admission, clinicalSummary: buildClinicalSummary(admission) };
+};
+
+export const createAdmissionPatientReasonStep = async (payload, userId, auditContext = {}) => {
+  const admissionPayload = stripNullish({
+    facilityId: payload.facilityId,
+    appAdmissionCode: payload.appAdmissionCode,
+    bedNumber: payload.bedNumber,
+    admittedAt: payload.admittedAt,
+    admissionSource: payload.admissionSource,
+    reasonForVentilation: cleanText(payload.reasonForVentilation) || cleanText(payload.reasonForSupport),
+    patient: payload.patient,
+    clinicalSnapshot: buildPatientReasonSnapshot(payload),
+    clientRecordId: payload.clientRecordId,
+    deviceId: payload.deviceId,
+    clientCreatedAt: payload.clientCreatedAt,
+    clientUpdatedAt: payload.clientUpdatedAt,
+    idempotencyKey: payload.idempotencyKey,
+  });
+
+  const result = await createAdmission(admissionPayload, userId, auditContext);
+  const admissionId = result.admission?.id;
+  const admission = admissionId ? await getAdmissionById(userId, admissionId) : result.admission;
+  const response = buildThreeStepAdmissionResponse('patient_reason', admission, {
+    facilityId: admission?.facilityId || payload.facilityId,
+    syncStatus: result.syncStatus || 'synced',
+  });
+
+  if (admissionId && result.syncStatus !== 'duplicate') {
+    await writeAudit({
+      ...auditContext,
+      userId,
+      facilityId: admission.facilityId,
+      action: 'ADMISSION_THREE_STEP_PATIENT_REASON',
+      entityType: 'Admission',
+      entityId: admissionId,
+      afterJson: response,
+    });
+  }
+
+  return response;
+};
+
+export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, payload, auditContext = {}) => {
+  await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
+  const admission = await getAdmissionById(userId, admissionId);
+  const saved = {};
+
+  const oxygenRecord = stripNullish(payload.oxygen || payload.clinicalSnapshot || {});
+  const shouldStoreFlowSnapshot = hasKeys(stripNullish({
+    uncertainty: normalizeUncertainty(payload.uncertainty),
+    deviceContext: normalizeDeviceContext(payload),
+  }));
+
+  if (hasKeys(oxygenRecord) || shouldStoreFlowSnapshot) {
+    const clinicalSnapshotPayload = buildStepWriteMetadata(
+      applyClinicalSnapshotFlowMetadata(oxygenRecord, admission, payload),
+      payload,
+      'oxygen',
+      { includeSource: true }
+    );
+    const result = await addClinicalSnapshot(userId, admissionId, clinicalSnapshotPayload, auditContext);
+    saved.clinicalSnapshot = result.clinicalSnapshot;
+  }
+
+  const abgRecord = stripNullish(payload.abg || payload.abgTest || {});
+  if (hasKeys(abgRecord)) {
+    const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
+      includeSource: true,
+      includeClientUpdatedAt: true,
+    });
+    const result = await addAbgTest(userId, admissionId, abgPayload, auditContext);
+    saved.abgTest = result.abgTest;
+  }
+
+  const ventilatorRecord = stripNullish(payload.ventilator || payload.ventilatorSetting || {});
+  if (hasKeys(ventilatorRecord)) {
+    const ventilatorPayload = buildStepWriteMetadata(ventilatorRecord, payload, 'ventilator', {
+      includeSource: true,
+      includeClientUpdatedAt: true,
+    });
+    const result = await addVentilatorSetting(userId, admissionId, ventilatorPayload, auditContext);
+    saved.ventilatorSetting = result.ventilatorSetting;
+  }
+
+  const airwayRecord = stripNullish(payload.airwayDevice || {});
+  if (hasKeys(airwayRecord)) {
+    const airwayPayload = buildStepWriteMetadata(airwayRecord, payload, 'airway');
+    const result = await addAirwayDevice(userId, admissionId, airwayPayload, auditContext);
+    saved.airwayDevice = result.airwayDevice;
+  }
+
+  const humidificationRecord = stripNullish(payload.humidification || {});
+  if (hasKeys(humidificationRecord)) {
+    const humidificationPayload = buildStepWriteMetadata(humidificationRecord, payload, 'humidification');
+    const result = await addHumidification(userId, admissionId, humidificationPayload, auditContext);
+    saved.humidificationDecision = result.humidificationDecision;
+  }
+
+  const refreshed = await getAdmissionById(userId, admissionId);
+  const response = buildThreeStepAdmissionResponse('oxygen_abg_ventilator', refreshed, {
+    facilityId: refreshed.facilityId,
+    saved,
+    syncStatus: Object.keys(saved).length === 0 ? 'synced' : 'synced',
+  });
+
+  await writeAudit({
+    ...auditContext,
+    userId,
+    facilityId: refreshed.facilityId,
+    action: 'ADMISSION_THREE_STEP_OXYGEN_ABG_VENTILATOR',
+    entityType: 'Admission',
+    entityId: admissionId,
+    afterJson: response,
+    reason: getOverrideReason(payload),
+  });
+
+  return response;
+};
+
+export const saveAdmissionReviewStep = async (userId, admissionId, payload, auditContext = {}) => {
+  const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
+
+  return prisma.$transaction(async (tx) => {
+    const idem = await resolveIdempotency({
+      tx,
+      userId,
+      facilityId: admissionAccess.facilityId,
+      key: payload.idempotencyKey,
+      operation: 'admission.threeStep.saveReview',
+      payload: { admissionId, ...payload },
+    });
+    if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
+
+    const before = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
+    if (!before) throw notFound('Admission not found');
+
+    const clinicalSummary = buildClinicalSummary(before);
+    const readiness = buildAdmissionReadiness({ ...before, clinicalSummary });
+    const overrideReasonText = getOverrideReason(payload);
+
+    if (readiness.blockers.length > 0 && !overrideReasonText) {
+      throw reviewerRequired('Save review requires correction or a clinician override reason for impossible values.', readiness.blockers, {
+        status: 'needs_review',
+        facilityId: before.facilityId,
+        admissionId,
+      });
+    }
+
+    let reviewAction = null;
+    const reviewComment = overrideReasonText || cleanText(payload.reviewNote);
+    if (payload.clinicianConfirmed === true || reviewComment) {
+      reviewAction = await tx.reviewAction.create({
+        data: {
+          facilityId: before.facilityId,
+          reviewerUserId: userId,
+          entityType: 'Admission',
+          entityId: admissionId,
+          action: overrideReasonText ? 'clinician_override' : 'clinician_save_review',
+          statusBefore: before.reviewStatus,
+          statusAfter: before.reviewStatus,
+          comment: reviewComment,
+          beforeJson: { readiness },
+          afterJson: {
+            readiness,
+            clinicianConfirmed: payload.clinicianConfirmed === true,
+            overrideReason: overrideReasonText,
+          },
+        },
+      });
+    }
+
+    const after = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
+    const responseJson = buildThreeStepAdmissionResponse('save_review', { ...after, clinicalSummary: buildClinicalSummary(after) }, {
+      facilityId: after.facilityId,
+      review: {
+        clinicianConfirmed: payload.clinicianConfirmed === true,
+        overrideRecorded: Boolean(overrideReasonText),
+        reviewActionId: reviewAction?.id || null,
+        admissionReviewStatus: after.reviewStatus,
+      },
+      syncStatus: 'synced',
+    });
+
+    await storeIdempotencyResult({
+      tx,
+      userId,
+      facilityId: before.facilityId,
+      key: payload.idempotencyKey,
+      operation: 'admission.threeStep.saveReview',
+      requestHash: idem.requestHash,
+      responseJson,
+      entityType: 'Admission',
+      entityId: admissionId,
+      clientRecordId: payload.clientRecordId,
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId: before.facilityId,
+      action: 'ADMISSION_THREE_STEP_SAVE_REVIEW',
+      entityType: 'Admission',
+      entityId: admissionId,
+      beforeJson: { readiness },
+      afterJson: responseJson,
+      reason: overrideReasonText || cleanText(payload.reviewNote),
+    });
+
+    return responseJson;
+  });
 };
 
 export const updateAdmission = async (userId, id, data, auditContext = {}) => {

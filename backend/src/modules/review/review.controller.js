@@ -35,3 +35,4 @@ const makeAction = (action) => asyncHandler(async (req, res) => {
 export const approve = makeAction('approve');
 export const requestCorrection = makeAction('request_correction');
 export const exclude = makeAction('exclude');
+export const triage = makeAction('triage');

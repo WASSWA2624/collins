@@ -4,27 +4,20 @@ import { prisma } from '../../config/prisma.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { requireAuth } from '../../middleware/auth.middleware.js';
 import { MODEL_GOVERNANCE_ROLES, assertAnyApprovedRole } from '../../utils/authorization.js';
+import { getReferencePolicy, listActiveReferenceRules } from './references.service.js';
 
 export const referencesRouter = Router();
 
 referencesRouter.get('/references/active', asyncHandler(async (_req, res) => {
-  const now = new Date();
-  const rules = await prisma.referenceRule.findMany({
-    where: {
-      OR: [
-        { activeFrom: null },
-        { activeFrom: { lte: now } },
-      ],
-      AND: [{ OR: [{ activeTo: null }, { activeTo: { gte: now } }] }],
-    },
-    orderBy: [{ name: 'asc' }, { version: 'desc' }],
-  });
+  const rules = await listActiveReferenceRules();
+  const referencePolicy = getReferencePolicy();
 
   return successResponse(res, {
     message: 'Active reference rules loaded',
     data: {
       rules,
-      safetyStatement: 'Reference rules support clinical judgement only and do not create treatment orders.',
+      referencePolicy,
+      safetyStatement: referencePolicy.safetyStatement,
     },
   });
 }));

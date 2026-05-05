@@ -10,8 +10,11 @@ import {
   addOutcome,
   addVentilatorSetting,
   createAdmission,
+  createAdmissionPatientReasonStep,
   getAdmissionById,
   listAdmissions,
+  saveAdmissionOxygenAbgVentilatorStep,
+  saveAdmissionReviewStep,
   updateAdmission,
 } from './admissions.service.js';
 
@@ -38,6 +41,17 @@ export const create = asyncHandler(async (req, res) => {
   });
 });
 
+export const createPatientReasonStep = asyncHandler(async (req, res) => {
+  const result = await createAdmissionPatientReasonStep(req.validated.body, req.user?.sub, buildAuditContext(req));
+  return successResponse(res, {
+    status: result.syncStatus === 'duplicate' ? 200 : 201,
+    message: result.syncStatus === 'duplicate'
+      ? 'Duplicate patient and reason step returned original result'
+      : 'Patient and reason step saved',
+    data: result,
+  });
+});
+
 export const getById = asyncHandler(async (req, res) => {
   const admission = await getAdmissionById(req.user?.sub, req.validated.params.id);
   return successResponse(res, {
@@ -50,6 +64,34 @@ export const patchById = asyncHandler(async (req, res) => {
   const result = await updateAdmission(req.user?.sub, req.validated.params.id, req.validated.body, buildAuditContext(req));
   return successResponse(res, {
     message: result.syncStatus === 'duplicate' ? 'Duplicate admission update returned original result' : 'Admission updated',
+    data: result,
+  });
+});
+
+export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
+  const result = await saveAdmissionOxygenAbgVentilatorStep(
+    req.user?.sub,
+    req.validated.params.id,
+    req.validated.body,
+    buildAuditContext(req)
+  );
+  return successResponse(res, {
+    message: 'Oxygen, ABG, and ventilator step saved',
+    data: result,
+  });
+});
+
+export const saveReviewStep = asyncHandler(async (req, res) => {
+  const result = await saveAdmissionReviewStep(
+    req.user?.sub,
+    req.validated.params.id,
+    req.validated.body,
+    buildAuditContext(req)
+  );
+  return successResponse(res, {
+    message: result.syncStatus === 'duplicate'
+      ? 'Duplicate save and review step returned original result'
+      : 'Save and review step recorded',
     data: result,
   });
 });

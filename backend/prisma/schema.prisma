@@ -104,6 +104,11 @@ enum ReferenceRuleVerificationStatus {
   RETIRED
 }
 
+enum ReferenceScope {
+  GLOBAL
+  FACILITY
+}
+
 enum ModelApprovalStatus {
   DRAFT
   SHADOW_MODE
@@ -236,7 +241,7 @@ model Facility {
   syncEvents           SyncEvent[]
   auditLogs            AuditLog[]
   settings             FacilitySettings?
-  activeUserSettings   UserSettings[] @relation("ActiveFacilityUserSettings")
+  activeUserSettings   UserSettings[]       @relation("ActiveFacilityUserSettings")
 }
 
 model UserSettings {
@@ -631,7 +636,10 @@ model ReferenceRule {
   name               String
   version            String
   clinicalCondition  String?
+  scenario           String?
   patientPathway     PatientPathway?
+  population         String?
+  scope              ReferenceScope                  @default(GLOBAL)
   parameterName      String?
   lowerBound         Float?
   upperBound         Float?
@@ -645,6 +653,7 @@ model ReferenceRule {
   verifiedAt         DateTime?
   verificationStatus ReferenceRuleVerificationStatus @default(PENDING_REVIEW)
   reviewNotes        String?                         @db.Text
+  auditTrailJson     Json?
   governanceStatus   String?
   createdAt          DateTime                        @default(now())
   updatedAt          DateTime                        @updatedAt
@@ -655,6 +664,7 @@ model ReferenceRule {
 
   @@unique([name, version])
   @@index([activeFrom, activeTo])
+  @@index([parameterName, patientPathway, population])
   @@index([facilityId, verificationStatus])
   @@index([verificationStatus, activeFrom, activeTo])
 }

@@ -156,7 +156,7 @@ export const updateOnboardingState = async (userId, data, auditContext = {}) => 
     where: { userId },
     data: {
       ...(data.currentStep ? { currentStep: data.currentStep } : {}),
-      ...(data.completedSteps ? { completedStepsJson: nextCompletedSteps } : {}),
+      ...(data.completedSteps || requestedCompletion ? { completedStepsJson: nextCompletedSteps } : {}),
       ...(data.selectedFacilityId !== undefined ? { selectedFacilityId: data.selectedFacilityId } : {}),
       ...(data.requestedRole !== undefined ? { requestedRole: data.requestedRole } : {}),
       status: requestedCompletion ? 'COMPLETED' : 'IN_PROGRESS',
