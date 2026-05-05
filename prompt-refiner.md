@@ -191,3 +191,4 @@ The refined prompt must require the coding agent to return:
 * a safe deletion script if any files are deleted
 
 ## Raw task to refine
+The backend is now fully implemented. The current task I want you to do is to test everything in the backend, all the code, all the API endpoints, to make sure everything is fully functional without any errors. Test and check everything against the app rules, implementations against the app rules, and fix all the gaps, all the inconsistencies. Do a thorough test, a complete test for the backend, to ensure that everything is fully functional before we can proceed to implementing the front end, the UI, and the functionalities, because the front end will strictly use the current backend without making any major modifications unless it is fully or really inevitable. Make sure the database is uptodate with the backend code.

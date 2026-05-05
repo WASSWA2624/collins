@@ -4,6 +4,7 @@ import { buildAuditContext } from '../../utils/audit.js';
 import { verifyFacility } from '../facilities/facilities.controller.js';
 import {
   activateModelShadowMode,
+  createShadowModelOutput,
   createReferenceRule,
   getAdminDashboard,
   getDatasetQuality,
@@ -83,4 +84,18 @@ export const activateShadowMode = asyncHandler(async (req, res) => {
 export const retire = asyncHandler(async (req, res) => {
   const model = await retireModel(req.validated.params.id, req.user?.sub, buildAuditContext(req));
   return successResponse(res, { message: 'Model retired', data: { model } });
+});
+
+export const recordShadowOutput = asyncHandler(async (req, res) => {
+  const result = await createShadowModelOutput(
+    req.validated.params.id,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req),
+  );
+  return successResponse(res, {
+    status: 201,
+    message: 'Shadow model output recorded',
+    data: result,
+  });
 });

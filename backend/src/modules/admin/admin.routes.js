@@ -9,6 +9,7 @@ import {
   datasetQuality,
   facilities,
   modelMonitoring,
+  recordShadowOutput,
   references,
   retire,
   updateReference,
@@ -19,6 +20,7 @@ import {
   createReferenceSchema,
   dashboardSchema,
   modelActionSchema,
+  modelShadowOutputSchema,
   referenceListSchema,
   updateReferenceSchema,
 } from './admin.validators.js';
@@ -37,4 +39,5 @@ adminRouter.get('/references', validateRequest(referenceListSchema), references)
 adminRouter.post('/references', validateRequest(createReferenceSchema), createReference);
 adminRouter.patch('/references/:id', validateRequest(updateReferenceSchema), updateReference);
 adminRouter.post('/models/:id/activate-shadow-mode', validateRequest(modelActionSchema), activateShadowMode);
+adminRouter.post('/models/:id/shadow-outputs', validateRequest(modelShadowOutputSchema), recordShadowOutput);
 adminRouter.post('/models/:id/retire', validateRequest(modelActionSchema), retire);

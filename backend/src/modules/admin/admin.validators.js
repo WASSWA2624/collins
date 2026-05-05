@@ -168,3 +168,15 @@ export const modelActionSchema = z.object({
   params: z.object({ id: z.string().min(1) }),
   query: z.object({}).optional(),
 });
+
+export const modelShadowOutputSchema = z.object({
+  body: z.object({
+    facilityId: z.string().min(1).optional(),
+    sourceAdmissionId: z.string().min(1).optional(),
+    inputSummaryJson: jsonObject,
+    outputJson: jsonObject,
+    reason: z.string().trim().max(1000).optional(),
+  }),
+  params: z.object({ id: z.string().min(1) }),
+  query: z.object({}).optional(),
+});

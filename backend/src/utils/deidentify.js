@@ -30,6 +30,10 @@ const IDENTIFIER_KEYS = new Set([
   'nationalId',
   'patientName',
   'patientIdentifier',
+  'mrn',
+  'medicalRecordNumber',
+  'dob',
+  'birthDate',
   'rawNote',
   'notes',
 ]);
@@ -38,6 +42,10 @@ const looksLikeIdentifier = (key) => {
   const normalized = key.toLowerCase();
   return /name|phone|email|address|hospital|identifier|national|kin|rawnote|note/i.test(normalized)
     || normalized === 'id'
+    || normalized === 'mrn'
+    || normalized === 'dob'
+    || normalized.includes('medicalrecord')
+    || normalized.includes('birthdate')
     || normalized.endsWith('userid')
     || normalized.endsWith('recordid')
     || normalized.endsWith('deviceid')
@@ -55,6 +63,20 @@ export const deidentifyPayload = (value) => {
     }, {});
   }
   return value;
+};
+
+export const findIdentifierPaths = (value, path = []) => {
+  if (Array.isArray(value)) {
+    return value.flatMap((entry, index) => findIdentifierPaths(entry, [...path, String(index)]));
+  }
+
+  if (!value || typeof value !== 'object' || value instanceof Date) return [];
+
+  return Object.entries(value).flatMap(([key, entry]) => {
+    const nextPath = [...path, key];
+    if (IDENTIFIER_KEYS.has(key) || looksLikeIdentifier(key)) return [nextPath.join('.')];
+    return findIdentifierPaths(entry, nextPath);
+  });
 };
 
 export const buildDatasetPayloadFromAdmission = (admission) => deidentifyPayload({

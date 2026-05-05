@@ -1,14 +1,30 @@
 import { prisma } from '../../config/prisma.js';
 import { DATASET_EXPORT_ROLES, REVIEW_ROLES, assertFacilityRole, resolveFacilityScope } from '../../utils/authorization.js';
 import { badRequest, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
-import { deidentifyPayload, buildDatasetPayloadFromAdmission } from '../../utils/deidentify.js';
+import { deidentifyPayload, buildDatasetPayloadFromAdmission, findIdentifierPaths } from '../../utils/deidentify.js';
 import { writeAudit } from '../../utils/audit.js';
+import { sha256 } from '../../utils/crypto.js';
 import {
   UNSAFE_DATASET_SOURCE_TYPE_MESSAGE,
   UNSAFE_DATASET_SOURCE_TYPE_PATTERN,
 } from './dataset.constants.js';
 
 const toJson = (value) => JSON.parse(JSON.stringify(value));
+
+export const REQUIRED_TRAINING_GOVERNANCE_KEYS = Object.freeze([
+  'facilityApproval',
+  'dataSharingAgreement',
+  'deidentificationReviewed',
+]);
+
+export const DATASET_EXPORT_POLICY = Object.freeze({
+  deidentifiedOnly: true,
+  reviewedOnly: true,
+  ethicsApprovalRequired: true,
+  datasetVersionRequired: true,
+  rawNotesAllowed: false,
+  patientIdentifiersAllowed: false,
+});
 
 const datasetSelect = {
   id: true,
@@ -205,10 +221,62 @@ const assertTrainingGovernance = (payload) => {
   if (!payload.ethicsApprovalId) throw badRequest('ethicsApprovalId is required before approving data for training');
   if (!payload.datasetVersion) throw badRequest('datasetVersion is required before approving data for training');
   const governance = payload.governanceJson || {};
-  const required = ['facilityApproval', 'dataSharingAgreement', 'deidentificationReviewed'];
-  const missing = required.filter((key) => governance[key] !== true);
+  const missing = REQUIRED_TRAINING_GOVERNANCE_KEYS.filter((key) => governance[key] !== true);
   if (missing.length > 0) {
     throw badRequest('Governance metadata is incomplete', missing.map((key) => ({ path: `governanceJson.${key}`, message: 'Must be true before training approval' })));
+  }
+};
+
+const getMissingExportGovernance = (datasetCase) => {
+  const governance = datasetCase.governanceJson || {};
+  return REQUIRED_TRAINING_GOVERNANCE_KEYS.filter((key) => governance[key] !== true);
+};
+
+export const buildDatasetCard = (datasetCase) => ({
+  datasetCaseId: datasetCase.id,
+  datasetVersion: datasetCase.datasetVersion || null,
+  ethicsApprovalId: datasetCase.ethicsApprovalId || null,
+  facilityId: datasetCase.facilityId,
+  sourceType: datasetCase.sourceType,
+  reviewStatus: datasetCase.reviewStatus,
+  approvedForTraining: datasetCase.approvedForTraining === true,
+  deidentificationStatus: datasetCase.deidentificationStatus || null,
+  reviewedAt: datasetCase.reviewedAt || null,
+  governanceChecks: Object.fromEntries(
+    REQUIRED_TRAINING_GOVERNANCE_KEYS.map((key) => [key, datasetCase.governanceJson?.[key] === true])
+  ),
+  exportPolicy: DATASET_EXPORT_POLICY,
+});
+
+export const assertDatasetCaseExportEligible = (datasetCase) => {
+  assertDatasetSourceTypeAllowed(datasetCase.sourceType);
+
+  if (!datasetCase.approvedForTraining || datasetCase.reviewStatus !== 'APPROVED_FOR_TRAINING') {
+    throw forbidden('Only reviewed, de-identified, approved-for-training dataset cases can be exported');
+  }
+
+  if (!datasetCase.ethicsApprovalId || !datasetCase.datasetVersion) {
+    throw forbidden('Dataset export requires ethics approval and dataset version metadata');
+  }
+
+  if (!String(datasetCase.deidentificationStatus || '').startsWith('deidentified')) {
+    throw forbidden('Dataset export requires server-side de-identification status');
+  }
+
+  const missingGovernance = getMissingExportGovernance(datasetCase);
+  if (missingGovernance.length > 0) {
+    throw forbidden('Dataset export requires complete governance metadata', missingGovernance.map((key) => ({
+      path: `governanceJson.${key}`,
+      message: 'Must be true before export',
+    })));
+  }
+
+  const identifierPaths = findIdentifierPaths(datasetCase.deidentifiedPayloadJson);
+  if (identifierPaths.length > 0) {
+    throw forbidden('Dataset export payload still contains identifier-like fields', identifierPaths.map((path) => ({
+      path: `deidentifiedPayloadJson.${path}`,
+      message: 'Remove identifier-like field before export',
+    })));
   }
 };
 
@@ -301,38 +369,61 @@ export const listApprovedDatasets = async (userId, { facilityId, datasetVersion,
     prisma.datasetCase.findMany({ where, select: approvedDatasetSelect, orderBy: { createdAt: 'desc' }, skip: (page - 1) * limit, take: limit }),
     prisma.datasetCase.count({ where }),
   ]);
-  return { items, total, page, limit };
+  return {
+    items: items.map((item) => ({
+      ...item,
+      datasetCard: buildDatasetCard(item),
+    })),
+    total,
+    page,
+    limit,
+  };
 };
 
 export const exportDatasetCase = async (id, { reason }, userId, auditContext = {}) => {
   const datasetCase = await prisma.datasetCase.findUnique({ where: { id }, select: datasetSelect });
   if (!datasetCase) throw notFound('Dataset case not found');
   await assertFacilityRole(userId, datasetCase.facilityId, DATASET_EXPORT_ROLES);
-  assertDatasetSourceTypeAllowed(datasetCase.sourceType);
-  if (!datasetCase.approvedForTraining || datasetCase.reviewStatus !== 'APPROVED_FOR_TRAINING') {
-    throw forbidden('Only reviewed, de-identified, approved-for-training dataset cases can be exported');
-  }
-  if (!datasetCase.ethicsApprovalId || !datasetCase.datasetVersion) {
-    throw forbidden('Dataset export requires ethics approval and dataset version metadata');
-  }
+  assertDatasetCaseExportEligible(datasetCase);
 
+  const exportedAt = new Date();
+  const payload = deidentifyPayload(datasetCase.deidentifiedPayloadJson);
+  const datasetCard = buildDatasetCard(datasetCase);
   const exportPayload = toJson({
+    exportId: sha256(`${datasetCase.id}:${userId}:${auditContext.requestId || ''}:${exportedAt.toISOString()}`).slice(0, 24),
     datasetCaseId: datasetCase.id,
     datasetVersion: datasetCase.datasetVersion,
     ethicsApprovalId: datasetCase.ethicsApprovalId,
-    payload: deidentifyPayload(datasetCase.deidentifiedPayloadJson),
+    exportedAt,
+    datasetCard,
+    exportPolicy: DATASET_EXPORT_POLICY,
+    payload,
   });
 
-  await writeAudit({
+  const auditLog = await writeAudit({
     ...auditContext,
     userId,
     facilityId: datasetCase.facilityId,
     action: 'DATASET_EXPORT',
     entityType: 'DatasetCase',
     entityId: id,
-    afterJson: { datasetCaseId: id, datasetVersion: datasetCase.datasetVersion },
+    afterJson: {
+      exportId: exportPayload.exportId,
+      datasetCaseId: id,
+      datasetVersion: datasetCase.datasetVersion,
+      ethicsApprovalId: datasetCase.ethicsApprovalId,
+      exportedAt,
+      datasetCard,
+    },
     reason,
   });
 
-  return exportPayload;
+  return {
+    ...exportPayload,
+    audit: {
+      auditLogId: auditLog.id,
+      action: auditLog.action,
+      requestId: auditLog.requestId,
+    },
+  };
 };

@@ -3,6 +3,7 @@ import {
   DATASET_EXPORT_ROLES,
   FACILITY_ADMIN_ROLES,
   MODEL_GOVERNANCE_ROLES,
+  READ_ROLES,
   REVIEW_ROLES,
   assertAnyApprovedRole,
   assertFacilityRole,
@@ -12,6 +13,7 @@ import {
 import { notFound, badRequest } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { stripUndefined } from '../../utils/object.js';
+import { deidentifyPayload, findIdentifierPaths } from '../../utils/deidentify.js';
 import { getOperationalDashboard } from '../dashboards/dashboards.service.js';
 
 export const getAdminDashboard = getOperationalDashboard;
@@ -61,16 +63,85 @@ export const getDatasetQuality = async (userId, { facilityId } = {}) => {
   };
 };
 
+export const REQUIRED_MODEL_CARD_FIELDS = Object.freeze([
+  'modelName',
+  'version',
+  'trainingDatasetVersion',
+  'intendedUse',
+  'contraindicatedUse',
+  'performanceSummaryJson',
+  'calibrationSummaryJson',
+  'biasAssessmentJson',
+]);
+
+const fieldIsPresent = (value) => {
+  if (value === null || value === undefined) return false;
+  if (typeof value === 'string') return value.trim().length > 0;
+  if (typeof value === 'object') return Object.keys(value).length > 0;
+  return true;
+};
+
+export const buildModelCard = (model) => {
+  const missingFields = REQUIRED_MODEL_CARD_FIELDS.filter((field) => !fieldIsPresent(model[field]));
+  const modelCardComplete = missingFields.length === 0;
+
+  return {
+    modelVersionId: model.id,
+    modelName: model.modelName,
+    version: model.version,
+    approvalStatus: model.approvalStatus,
+    trainingDatasetVersion: model.trainingDatasetVersion || null,
+    intendedUse: model.intendedUse || null,
+    contraindicatedUse: model.contraindicatedUse || null,
+    performanceSummaryJson: model.performanceSummaryJson || null,
+    calibrationSummaryJson: model.calibrationSummaryJson || null,
+    biasAssessmentJson: model.biasAssessmentJson || null,
+    missingFields,
+    readinessStatus: modelCardComplete ? 'model_card_complete' : 'model_card_incomplete',
+    shadowModeEligible: modelCardComplete && ['DRAFT', 'SHADOW_MODE'].includes(model.approvalStatus),
+    liveClinicalPredictionEnabled: false,
+    clinicianVisibleOutputsAllowed: false,
+    externalModelServicesAllowed: false,
+  };
+};
+
+const assertModelReadyForShadowMode = (model) => {
+  const modelCard = buildModelCard(model);
+  if (!modelCard.shadowModeEligible) {
+    throw badRequest('Model card metadata is required before shadow mode.', modelCard.missingFields.map((field) => ({
+      path: field,
+      message: 'Required for shadow-mode readiness',
+    })));
+  }
+  return modelCard;
+};
+
 export const getModelMonitoring = async (userId) => {
   await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
-  const [versions, shadowOutputs] = await Promise.all([
+  const [versions, shadowOutputs, outputsByModel] = await Promise.all([
     prisma.modelVersion.findMany({ orderBy: { createdAt: 'desc' } }),
     prisma.modelOutput.count({ where: { visibleToClinicians: false } }),
+    prisma.modelOutput.groupBy({
+      by: ['modelVersionId'],
+      where: { visibleToClinicians: false },
+      _count: { _all: true },
+    }),
   ]);
+  const outputCountsByModel = Object.fromEntries(outputsByModel.map((row) => [row.modelVersionId, row._count._all]));
+
   return {
-    versions,
+    versions: versions.map((model) => ({
+      ...model,
+      modelCard: buildModelCard(model),
+      shadowOutputCount: outputCountsByModel[model.id] || 0,
+    })),
     shadowOutputs,
     liveClinicalPredictionEnabled: false,
+    driftMetrics: {
+      source: 'shadow_model_outputs',
+      outputsByModelVersion: outputCountsByModel,
+      liveClinicalDriftMonitoringEnabled: false,
+    },
     safetyStatement: 'Shadow-mode outputs are admin/research only and hidden from clinical users.',
   };
 };
@@ -202,9 +273,7 @@ export const activateModelShadowMode = async (id, userId, auditContext = {}) => 
   await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
   const existing = await prisma.modelVersion.findUnique({ where: { id } });
   if (!existing) throw notFound('Model version not found');
-  if (!existing.intendedUse || !existing.trainingDatasetVersion) {
-    throw badRequest('Model card metadata and training dataset version are required before shadow mode.');
-  }
+  const modelCard = assertModelReadyForShadowMode(existing);
   return prisma.$transaction(async (tx) => {
     const model = await tx.modelVersion.update({
       where: { id },
@@ -218,7 +287,7 @@ export const activateModelShadowMode = async (id, userId, auditContext = {}) => 
       entityType: 'ModelVersion',
       entityId: id,
       beforeJson: existing,
-      afterJson: model,
+      afterJson: { ...model, modelCard },
     });
     return model;
   });
@@ -244,5 +313,86 @@ export const retireModel = async (id, userId, auditContext = {}) => {
       afterJson: model,
     });
     return model;
+  });
+};
+
+const assertModelPayloadHasNoIdentifiers = (payload, label) => {
+  const identifierPaths = findIdentifierPaths(payload);
+  if (identifierPaths.length > 0) {
+    throw badRequest(`${label} cannot contain patient identifiers`, identifierPaths.map((path) => ({
+      path,
+      message: 'Remove identifier-like field before model processing',
+    })));
+  }
+};
+
+export const createShadowModelOutput = async (id, payload, userId, auditContext = {}) => {
+  await assertAnyApprovedRole(userId, MODEL_GOVERNANCE_ROLES, 'Model governance permission is required');
+  const model = await prisma.modelVersion.findUnique({ where: { id } });
+  if (!model) throw notFound('Model version not found');
+  if (model.approvalStatus !== 'SHADOW_MODE') {
+    throw badRequest('Model outputs can only be recorded for shadow-mode model versions.');
+  }
+
+  assertModelPayloadHasNoIdentifiers(payload.inputSummaryJson, 'Model input summary');
+  assertModelPayloadHasNoIdentifiers(payload.outputJson, 'Model output');
+
+  let facilityId = payload.facilityId || null;
+  if (payload.sourceAdmissionId) {
+    const admission = await prisma.admission.findUnique({
+      where: { id: payload.sourceAdmissionId },
+      select: { id: true, facilityId: true },
+    });
+    if (!admission) throw notFound('Source admission not found');
+    if (facilityId && facilityId !== admission.facilityId) throw notFound('Source admission not found');
+    facilityId = admission.facilityId;
+  }
+
+  if (facilityId) await assertFacilityRole(userId, facilityId, READ_ROLES);
+
+  const inputSummaryJson = deidentifyPayload(payload.inputSummaryJson);
+  const outputJson = deidentifyPayload(payload.outputJson);
+
+  return prisma.$transaction(async (tx) => {
+    const modelOutput = await tx.modelOutput.create({
+      data: stripUndefined({
+        modelVersionId: id,
+        facilityId,
+        sourceAdmissionId: payload.sourceAdmissionId,
+        inputSummaryJson,
+        outputJson,
+        visibleToClinicians: false,
+      }),
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId,
+      action: 'MODEL_OUTPUT_SHADOW_CREATE',
+      entityType: 'ModelOutput',
+      entityId: modelOutput.id,
+      afterJson: {
+        modelOutputId: modelOutput.id,
+        modelVersionId: id,
+        modelCard: buildModelCard(model),
+        facilityId,
+        sourceAdmissionId: payload.sourceAdmissionId || null,
+        visibleToClinicians: false,
+        externalModelServicesUsed: false,
+      },
+      reason: payload.reason || null,
+    });
+
+    return {
+      modelOutput,
+      modelCard: buildModelCard(model),
+      visibility: {
+        visibleToClinicians: false,
+        liveClinicalPredictionEnabled: false,
+      },
+      privacy: 'Input and output payloads are de-identified and were not sent to external AI/model services.',
+    };
   });
 };
