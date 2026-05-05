@@ -10,9 +10,10 @@ const rootReducer = require('@store/rootReducer').default;
 
 jest.mock('expo-router', () => {
   const React = require('react');
+  const { Text, View } = require('react-native');
   return {
     Redirect: ({ href }) =>
-      React.createElement('div', { testID: 'redirect', 'data-testid': 'redirect', 'data-href': href }, 'Redirect'),
+      React.createElement(View, { testID: 'redirect', href }, React.createElement(Text, null, 'Redirect')),
   };
 });
 
@@ -38,9 +39,9 @@ describe('app/(settings)/disclaimer.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('redirects old disclaimer links to onboarding', () => {
-    const DisclaimerRoute = require('../../../../app/(settings)/disclaimer').default;
+    const DisclaimerRoute = require('../../../app/(settings)/disclaimer').default;
     const { getByTestId } = renderWithProviders(<DisclaimerRoute />);
     expect(getByTestId('redirect')).toBeDefined();
-    expect(getByTestId('redirect').props['data-href']).toBe('/onboarding');
+    expect(getByTestId('redirect').props.href).toBe('/onboarding');
   });
 });

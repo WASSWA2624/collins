@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { OnboardingGuard } from '@navigation/guards';
 import rootReducer from '@store/rootReducer';
@@ -9,11 +9,15 @@ import rootReducer from '@store/rootReducer';
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({
-  Redirect: ({ href }) => (
-    <View testID="redirect" href={href}>
-      <Text>Redirect</Text>
-    </View>
-  ),
+  Redirect: ({ href }) => {
+    const React = require('react');
+    const { Text, View } = require('react-native');
+    return React.createElement(
+      View,
+      { testID: 'redirect', href },
+      React.createElement(Text, null, 'Redirect')
+    );
+  },
   usePathname: () => mockPathname,
 }));
 

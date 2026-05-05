@@ -57,9 +57,12 @@ describe('useAuth', () => {
     expect(result.isAuthenticated).toBe(false);
     expect(result.user).toBeNull();
     expect(result.activeFacility).toBeNull();
+    expect(result.activeFacilityId).toBeNull();
     expect(result.requiresActiveFacility).toBe(false);
     expect(result.roles).toEqual([]);
     expect(result.role).toBeNull();
+    expect(result.roleKeys).toEqual([]);
+    expect(result.permissions).toEqual([]);
     expect(result.isLoading).toBe(false);
     expect(result.hasRestoredSession).toBe(true);
     expect(result.sessionStatus).toBe('unauthenticated');
@@ -75,8 +78,18 @@ describe('useAuth', () => {
           roles: ['Patient', 'Admin'],
           activeFacility: {
             facilityId: 'facility-1',
+            name: 'Kampala ICU',
             roles: ['CLINICIAN'],
           },
+          memberships: [
+            {
+              id: 'membership-1',
+              facilityId: 'facility-1',
+              role: 'CLINICIAN',
+              status: 'APPROVED',
+              facility: { id: 'facility-1', name: 'Kampala ICU' },
+            },
+          ],
         },
         activeFacility: { facilityId: 'facility-1', roles: ['CLINICIAN'] },
         requiresActiveFacility: false,
@@ -97,11 +110,16 @@ describe('useAuth', () => {
     );
     expect(result.isAuthenticated).toBe(true);
     expect(result.user).toMatchObject({ id: '1' });
-    expect(result.activeFacility).toMatchObject({ facilityId: 'facility-1' });
-    expect(result.roles).toEqual(['clinician']);
-    expect(result.role).toBe('clinician');
+    expect(result.activeFacility).toMatchObject({ facilityId: 'facility-1', name: 'Kampala ICU' });
+    expect(result.activeFacilityId).toBe('facility-1');
+    expect(result.activeFacilityRoles).toEqual(['CLINICIAN']);
+    expect(result.roles).toEqual(['patient', 'facility_admin', 'clinician']);
+    expect(result.role).toBe('patient');
+    expect(result.roleKeys).toEqual(['PATIENT', 'FACILITY_ADMIN', 'CLINICIAN']);
+    expect(result.permissions).toEqual(expect.arrayContaining(['clinical:read', 'clinical:write', 'facility:admin']));
     expect(result.isLoading).toBe(false);
     expect(result.errorCode).toBeNull();
+    expect(typeof result.setActiveFacilityId).toBe('function');
   });
 
   it('returns loading and error state', () => {

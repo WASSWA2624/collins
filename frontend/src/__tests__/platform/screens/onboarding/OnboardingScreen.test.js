@@ -40,7 +40,6 @@ jest.mock('@hooks', () => ({
 }));
 
 const OnboardingScreenAndroid = require('@platform/screens/onboarding/OnboardingScreen/OnboardingScreen.android').default;
-const OnboardingScreenWeb = require('@platform/screens/onboarding/OnboardingScreen/OnboardingScreen.web').default;
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 
 const baseOnboarding = {
@@ -69,11 +68,10 @@ describe('OnboardingScreen', () => {
   });
 
   it('renders in-flow clinical safety notice on Android', () => {
-    const { getByTestId, getByText } = renderWithTheme(<OnboardingScreenAndroid />);
+    const { getByTestId } = renderWithTheme(<OnboardingScreenAndroid />);
 
     expect(getByTestId('onboarding-screen')).toBeTruthy();
-    expect(getByTestId('onboarding-safety-notice')).toBeTruthy();
-    expect(getByText('Clinical safety')).toBeTruthy();
+    expect(getByTestId('onboarding-safety-notice').props.title).toBe('Clinical safety');
   });
 
   it('requires acknowledgement before advancing from the safety step', () => {
@@ -98,7 +96,7 @@ describe('OnboardingScreen', () => {
       completeOnboarding,
     });
 
-    const { getByTestId } = renderWithTheme(<OnboardingScreenWeb />);
+    const { getByTestId } = renderWithTheme(<OnboardingScreenAndroid />);
     fireEvent.press(getByTestId('onboarding-done'));
 
     await Promise.resolve();
@@ -106,4 +104,3 @@ describe('OnboardingScreen', () => {
     expect(mockReplace).toHaveBeenCalledWith('/');
   });
 });
-

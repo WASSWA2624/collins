@@ -10,6 +10,8 @@ jest.mock('@services/storage', () => ({
     saveDraft: jest.fn(),
     clearDraft: jest.fn(),
     appendHistory: jest.fn(),
+    loadHistory: jest.fn(),
+    removeHistoryEntry: jest.fn(),
   },
 }));
 
@@ -23,10 +25,13 @@ import { ventilationSession } from '@services/storage';
 const createStore = (preloadedState = {}) =>
   configureStore({
     reducer: {
+      auth: (state = preloadedState.auth ?? null) => state,
       ventilation: reducer,
     },
     preloadedState,
   });
+
+const emptyScope = { userId: null, activeFacilityId: null, facilityId: null };
 
 describe('ventilation.slice (session persistence)', () => {
   beforeEach(() => {
@@ -44,9 +49,15 @@ describe('ventilation.slice (session persistence)', () => {
       currentSessionId: null,
       currentInputs: null,
       lastRecommendationSummary: null,
+      assessmentCurrentStep: 0,
+      assessmentRecommendationSource: 'local',
+      monitoringTimeSeries: [],
       isHydrating: false,
       hydratedAt: null,
       errorCode: null,
+      sessionHistory: null,
+      historyErrorCode: null,
+      isHistoryLoading: false,
     });
   });
 
@@ -146,8 +157,13 @@ describe('ventilation.slice (session persistence)', () => {
       sessionId: 's1',
       inputs: { spo2: 91 },
       recommendationSummary: { x: 1 },
+      assessmentCurrentStep: 0,
+      assessmentRecommendationSource: 'local',
+      monitoringTimeSeries: [],
+      userId: null,
+      facilityId: null,
       updatedAt: 1000,
-    });
+    }, emptyScope);
   });
 
   it('sets error code when persistDraft fails', async () => {
@@ -192,8 +208,13 @@ describe('ventilation.slice (session persistence)', () => {
       sessionId: 's1',
       inputs: { spo2: 92 },
       recommendationSummary: { y: 2 },
+      assessmentCurrentStep: 0,
+      assessmentRecommendationSource: 'local',
+      monitoringTimeSeries: [],
+      userId: null,
+      facilityId: null,
       updatedAt: 1000,
-    });
+    }, { scope: emptyScope });
     expect(store.getState().ventilation.errorCode).toBe('VENTILATION_SESSION_HISTORY_SAVE_FAILED');
   });
 });

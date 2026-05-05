@@ -10,7 +10,11 @@ import { AuthGuard, PublicAuthGuard } from '@navigation/guards';
 import rootReducer from '@store/rootReducer';
 
 jest.mock('expo-router', () => ({
-  Redirect: ({ href }) => <Text testID="redirect" dataHref={href}>Redirect</Text>,
+  Redirect: ({ href }) => {
+    const React = require('react');
+    const { Text: MockText } = require('react-native');
+    return React.createElement(MockText, { testID: 'redirect', dataHref: href }, 'Redirect');
+  },
 }));
 
 const createStore = (auth) =>

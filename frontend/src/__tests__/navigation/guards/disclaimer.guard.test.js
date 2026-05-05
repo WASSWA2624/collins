@@ -4,13 +4,21 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { render, screen } from '@testing-library/react';
-import { Redirect } from 'expo-router';
-import { DisclaimerGuard, useDisclaimerGuard } from '@navigation/guards';
+import { Text } from 'react-native';
+import { render } from '@testing-library/react-native';
+import { DisclaimerGuard } from '@navigation/guards';
 import rootReducer from '@store/rootReducer';
 
 jest.mock('expo-router', () => ({
-  Redirect: ({ href }) => <div data-testid="redirect" data-href={href}>Redirect</div>,
+  Redirect: ({ href }) => {
+    const React = require('react');
+    const { Text, View } = require('react-native');
+    return React.createElement(
+      View,
+      { testID: 'redirect', href },
+      React.createElement(Text, null, 'Redirect')
+    );
+  },
   usePathname: () => '/',
 }));
 
@@ -20,11 +28,20 @@ const defaultState = {
   network: {},
   auth: {},
   ventilation: {},
+  review: {},
+};
+
+const createPersistedReducer = (rehydrated = false) => (state, action) => {
+  const { _persist, ...sliceState } = state ?? {};
+  return {
+    ...rootReducer(sliceState, action),
+    _persist: _persist ?? { rehydrated },
+  };
 };
 
 const createStore = (overrides = {}) =>
   configureStore({
-    reducer: rootReducer,
+    reducer: createPersistedReducer(overrides._persist?.rehydrated ?? defaultState._persist.rehydrated),
     preloadedState: { ...defaultState, ...overrides },
   });
 
@@ -34,16 +51,16 @@ describe('DisclaimerGuard compatibility export', () => {
       _persist: { rehydrated: true },
       ui: { ...defaultState.ui, disclaimerAcknowledged: false },
     });
-    render(
+    const { getByTestId, queryByTestId } = render(
       <Provider store={store}>
         <DisclaimerGuard>
-          <div data-testid="children">Main</div>
+          <Text testID="children">Main</Text>
         </DisclaimerGuard>
       </Provider>
     );
-    expect(screen.getByTestId('redirect')).toBeDefined();
-    expect(screen.getByTestId('redirect').getAttribute('data-href')).toBe('/onboarding');
-    expect(screen.queryByTestId('children')).toBeNull();
+    expect(getByTestId('redirect')).toBeDefined();
+    expect(getByTestId('redirect').props.href).toBe('/onboarding');
+    expect(queryByTestId('children')).toBeNull();
   });
 
   it('renders children when rehydrated and acknowledged', () => {
@@ -51,15 +68,15 @@ describe('DisclaimerGuard compatibility export', () => {
       _persist: { rehydrated: true },
       ui: { ...defaultState.ui, disclaimerAcknowledged: true },
     });
-    render(
+    const { getByTestId, queryByTestId } = render(
       <Provider store={store}>
         <DisclaimerGuard>
-          <div data-testid="children">Main</div>
+          <Text testID="children">Main</Text>
         </DisclaimerGuard>
       </Provider>
     );
-    expect(screen.queryByTestId('redirect')).toBeNull();
-    expect(screen.getByTestId('children').textContent).toBe('Main');
+    expect(queryByTestId('redirect')).toBeNull();
+    expect(getByTestId('children').props.children).toBe('Main');
   });
 
   it('renders children when not yet rehydrated (no redirect before rehydration)', () => {
@@ -67,14 +84,14 @@ describe('DisclaimerGuard compatibility export', () => {
       _persist: { rehydrated: false },
       ui: { ...defaultState.ui, disclaimerAcknowledged: false },
     });
-    render(
+    const { getByTestId, queryByTestId } = render(
       <Provider store={store}>
         <DisclaimerGuard>
-          <div data-testid="children">Main</div>
+          <Text testID="children">Main</Text>
         </DisclaimerGuard>
       </Provider>
     );
-    expect(screen.queryByTestId('redirect')).toBeNull();
-    expect(screen.getByTestId('children')).toBeDefined();
+    expect(queryByTestId('redirect')).toBeNull();
+    expect(getByTestId('children')).toBeDefined();
   });
 });

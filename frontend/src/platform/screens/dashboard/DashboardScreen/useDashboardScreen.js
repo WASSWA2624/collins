@@ -198,10 +198,11 @@ const getVisibleTypes = (capabilities) => [
 export default function useDashboardScreen() {
   const { user, roles } = useAuth();
   const activeFacility = useMemo(() => getActiveFacilityContext(user), [user]);
-  const roleKeys = useMemo(
-    () => normalizeRoles([...roles, ...(activeFacility?.roles || [])]),
-    [activeFacility?.roles, roles]
-  );
+  const roleKeys = useMemo(() => {
+    const authRoles = Array.isArray(roles) ? roles : [];
+    const facilityRoles = Array.isArray(activeFacility?.roles) ? activeFacility.roles : [];
+    return normalizeRoles([...authRoles, ...facilityRoles]);
+  }, [activeFacility?.roles, roles]);
   const capabilities = useMemo(() => getDashboardCapabilities(roleKeys), [roleKeys]);
   const visibleTypes = useMemo(() => getVisibleTypes(capabilities), [capabilities]);
   const defaultType = useMemo(() => getDashboardTypeForRoles(roleKeys), [roleKeys]);

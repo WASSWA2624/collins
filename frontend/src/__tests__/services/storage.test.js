@@ -268,7 +268,28 @@ describe('Storage Services', () => {
         const result = await ventilationSession.saveDraft(draft);
         expect(result.ok).toBe(true);
         expect(result.errorCode).toBeNull();
-        expect(mockAsyncStorage.setItem).toHaveBeenCalledWith('ventilation.session.draft.v1', JSON.stringify(draft));
+        const saved = JSON.parse(mockAsyncStorage.setItem.mock.calls.find((c) => c[0] === 'ventilation.session.draft.v1')[1]);
+        expect(saved).toMatchObject(draft);
+        expect(saved.assessmentCurrentStep).toBe(0);
+        expect(saved.assessmentRecommendationSource).toBe('local');
+      });
+
+      it('uses scoped keys when user and facility scope are provided', async () => {
+        const draft = {
+          sessionId: 's4',
+          inputs: {},
+          recommendationSummary: null,
+          userId: 'user-1',
+          facilityId: 'facility-1',
+          updatedAt: 12,
+        };
+        const result = await ventilationSession.saveDraft(draft, { userId: 'user-1', facilityId: 'facility-1' });
+
+        expect(result.ok).toBe(true);
+        expect(mockAsyncStorage.setItem).toHaveBeenCalledWith(
+          'ventilation.session.draft.v1.user-1.facility-1',
+          expect.any(String)
+        );
       });
 
       it('returns failure code when setItem fails', async () => {

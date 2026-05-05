@@ -6,9 +6,32 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react-native';
-import { MEMBERSHIP_ROLES, PERMISSIONS } from '@config/accessControl';
 import rootReducer from '@store/rootReducer';
 import useNavigationVisibility from '@hooks/useNavigationVisibility';
+import { MAIN_NAV_ITEMS } from '@config/sideMenu';
+
+const getNavItem = (id) => MAIN_NAV_ITEMS.find((item) => item.id === id);
+
+const membership = (role, overrides = {}) => ({
+  id: `${role}-membership`,
+  facilityId: 'facility-1',
+  role,
+  status: 'APPROVED',
+  facility: { id: 'facility-1', name: 'Kampala ICU' },
+  ...overrides,
+});
+
+const userWithRole = (role, overrides = {}) => ({
+  id: 'user-1',
+  activeFacility: {
+    id: 'facility-1',
+    facilityId: 'facility-1',
+    name: 'Kampala ICU',
+    roles: [role],
+  },
+  memberships: [membership(role)],
+  ...overrides,
+});
 
 const TestComponent = ({ onResult }) => {
   const result = useNavigationVisibility();
@@ -29,94 +52,88 @@ const createStore = (preloadedState = {}) =>
     },
   });
 
+const renderHookWithStore = (store) => {
+  let result;
+  render(
+    <Provider store={store}>
+      <TestComponent onResult={(value) => (result = value)} />
+    </Provider>
+  );
+  return result;
+};
+
 describe('useNavigationVisibility', () => {
-  it('returns isItemVisible that is true when authenticated and item is truthy', () => {
+  it('shows base navigation for authenticated users', () => {
     const store = createStore({
-      auth: { isAuthenticated: true, user: {} },
+      auth: { isAuthenticated: true, user: { id: 'user-1' } },
     });
-    let result;
-    render(
-      <Provider store={store}>
-        <TestComponent onResult={(value) => (result = value)} />
-      </Provider>
-    );
-    expect(result.isItemVisible({ id: 'home' })).toBe(true);
+    const result = renderHookWithStore(store);
+
+    expect(result.isItemVisible(getNavItem('home'))).toBe(true);
   });
 
-  it('returns isItemVisible that is false when not authenticated', () => {
+  it('hides auth-required navigation when unauthenticated', () => {
     const store = createStore({ auth: { isAuthenticated: false, user: null } });
-    let result;
-    render(
-      <Provider store={store}>
-        <TestComponent onResult={(value) => (result = value)} />
-      </Provider>
-    );
-    expect(result.isItemVisible({ id: 'home' })).toBe(false);
+    const result = renderHookWithStore(store);
+
+    expect(result.isItemVisible(getNavItem('home'))).toBe(false);
   });
 
-  it('returns isItemVisible that is false when item is falsy', () => {
+  it('hides falsy items', () => {
     const store = createStore({
-      auth: { isAuthenticated: true, user: {} },
+      auth: { isAuthenticated: true, user: { id: 'user-1' } },
     });
-    let result;
-    render(
-      <Provider store={store}>
-        <TestComponent onResult={(value) => (result = value)} />
-      </Provider>
-    );
+    const result = renderHookWithStore(store);
+
     expect(result.isItemVisible(null)).toBe(false);
     expect(result.isItemVisible(undefined)).toBe(false);
   });
 
-  it('allows clinicians to see clinical aggregate dashboard navigation', () => {
+  it('shows facility-scoped clinical write navigation to clinicians with an active facility', () => {
     const store = createStore({
-      auth: {
-        isAuthenticated: true,
-        user: {
-          id: 'user-1',
-          roles: [MEMBERSHIP_ROLES.CLINICIAN],
-        },
-      },
+      auth: { isAuthenticated: true, user: userWithRole('CLINICIAN') },
     });
-    let result;
-    render(
-      <Provider store={store}>
-        <TestComponent onResult={(value) => (result = value)} />
-      </Provider>
-    );
+    const result = renderHookWithStore(store);
 
-    expect(
-      result.isItemVisible({
-        id: 'dashboard',
-        roles: [MEMBERSHIP_ROLES.CLINICIAN],
-        anyPermissions: [PERMISSIONS.CLINICAL_READ],
-      })
-    ).toBe(true);
+    expect(result.isItemVisible(getNavItem('assessment'))).toBe(true);
+    expect(result.isItemVisible(getNavItem('history'))).toBe(true);
+    expect(result.isItemVisible(getNavItem('dashboard'))).toBe(true);
   });
 
-  it('hides governance-only navigation from normal clinicians', () => {
+  it('allows read-only reviewers to see read history but not clinical write workflows', () => {
+    const store = createStore({
+      auth: { isAuthenticated: true, user: userWithRole('READ_ONLY_REVIEWER') },
+    });
+    const result = renderHookWithStore(store);
+
+    expect(result.isItemVisible(getNavItem('history'))).toBe(true);
+    expect(result.isItemVisible(getNavItem('assessment'))).toBe(false);
+  });
+
+  it('shows review queue to approved reviewer roles', () => {
+    const store = createStore({
+      auth: { isAuthenticated: true, user: userWithRole('SPECIALIST_REVIEWER') },
+    });
+    const result = renderHookWithStore(store);
+
+    expect(result.isItemVisible(getNavItem('review-queue'))).toBe(true);
+  });
+
+  it('hides facility-scoped workflows when no active facility can be resolved', () => {
     const store = createStore({
       auth: {
         isAuthenticated: true,
         user: {
           id: 'user-1',
-          roles: [MEMBERSHIP_ROLES.CLINICIAN],
+          memberships: [
+            membership('CLINICIAN', { facilityId: 'facility-1', facility: { id: 'facility-1', name: 'A' } }),
+            membership('CLINICIAN', { id: 'membership-2', facilityId: 'facility-2', facility: { id: 'facility-2', name: 'B' } }),
+          ],
         },
       },
     });
-    let result;
-    render(
-      <Provider store={store}>
-        <TestComponent onResult={(value) => (result = value)} />
-      </Provider>
-    );
+    const result = renderHookWithStore(store);
 
-    expect(
-      result.isItemVisible({
-        id: 'model-governance',
-        roles: [MEMBERSHIP_ROLES.MODEL_GOVERNANCE_OFFICER],
-        permissions: [PERMISSIONS.MODEL_GOVERN],
-      })
-    ).toBe(false);
+    expect(result.isItemVisible(getNavItem('assessment'))).toBe(false);
   });
 });
