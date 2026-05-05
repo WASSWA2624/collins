@@ -10,7 +10,10 @@ const { ThemeProvider } = require('styled-components/native');
 const mockHandleAction = jest.fn();
 const mockRefresh = jest.fn();
 
-jest.mock('@platform/screens/review/ReviewQueueScreen/useReviewQueueScreen', () => jest.fn());
+jest.mock('@platform/screens/review/ReviewQueueScreen/useReviewQueueScreen', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 const useReviewQueueScreen = require('@platform/screens/review/ReviewQueueScreen/useReviewQueueScreen').default;
 const ReviewQueueScreenAndroid = require('@platform/screens/review/ReviewQueueScreen/ReviewQueueScreen.android').default;

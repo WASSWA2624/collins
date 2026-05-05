@@ -15,6 +15,7 @@ const FacilitySelectionScreen = () => {
   const { t } = useI18n();
   const {
     errorCode,
+    hasRestoredSession,
     isAuthenticated,
     isLoading,
     logout,
@@ -36,6 +37,7 @@ const FacilitySelectionScreen = () => {
     void logout();
   }, [logout]);
 
+  if (!hasRestoredSession) return null;
   if (!isAuthenticated) return <Redirect href="/login" />;
   if (!requiresActiveFacility) return <Redirect href="/" />;
 
@@ -96,4 +98,3 @@ const FacilitySelectionScreen = () => {
 };
 
 export default FacilitySelectionScreen;
-

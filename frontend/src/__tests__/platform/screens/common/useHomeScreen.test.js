@@ -111,6 +111,7 @@ describe('useHomeScreen', () => {
     expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
     expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);
     expect(actions.find((action) => action.id === 'reviewQueue').enabled).toBe(true);
+    expect(actions.find((action) => action.id === 'dashboard').path).toBe('/dashboard');
   });
 
   it('hides reviewer actions for non-review roles', () => {

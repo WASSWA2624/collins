@@ -40,6 +40,12 @@ jest.mock('expo-router', () => ({
 jest.mock('@platform/components', () => {
   const React = require('react');
   return {
+    AppLogo: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement('div', { ...props, ref }, children || 'AppLogo')
+    ),
+    Icon: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement('div', { ...props, ref }, children || 'Icon')
+    ),
     GlobalHeader: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children || 'GlobalHeader')
     ),

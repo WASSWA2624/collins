@@ -154,10 +154,6 @@ jest.mock('@logging', () => ({
   },
 }), { virtual: true });
 
-jest.mock('@features/auth', () => ({
-  AuthSessionGate: ({ children }) => children,
-}), { virtual: true });
-
 // Mock store selectors
 jest.mock('@store/selectors', () => ({
   selectTheme: jest.fn(() => 'light'),

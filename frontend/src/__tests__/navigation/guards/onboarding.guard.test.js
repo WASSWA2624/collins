@@ -1,20 +1,33 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { render, screen } from '@testing-library/react';
+import { Text, View } from 'react-native';
+import { render } from '@testing-library/react-native';
 import { OnboardingGuard } from '@navigation/guards';
 import rootReducer from '@store/rootReducer';
 
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({
-  Redirect: ({ href }) => <div data-testid="redirect" data-href={href}>Redirect</div>,
+  Redirect: ({ href }) => (
+    <View testID="redirect" href={href}>
+      <Text>Redirect</Text>
+    </View>
+  ),
   usePathname: () => mockPathname,
 }));
 
-const createStore = (overrides = {}) =>
+const createPersistedReducer = (rehydrated = true) => (state, action) => {
+  const { _persist, ...sliceState } = state ?? {};
+  return {
+    ...rootReducer(sliceState, action),
+    _persist: _persist ?? { rehydrated },
+  };
+};
+
+const createStore = (overrides = {}, rehydrated = true) =>
   configureStore({
-    reducer: rootReducer,
+    reducer: createPersistedReducer(rehydrated),
     preloadedState: {
       _persist: { rehydrated: true },
       ui: { onboardingCompleted: false, clinicalSafetyAcknowledged: false, disclaimerAcknowledged: false },
@@ -32,31 +45,30 @@ describe('OnboardingGuard', () => {
 
   it('redirects first-run users to onboarding', () => {
     const store = createStore();
-    render(
+    const { getByTestId, queryByTestId } = render(
       <Provider store={store}>
         <OnboardingGuard>
-          <div data-testid="children">Main</div>
+          <Text testID="children">Main</Text>
         </OnboardingGuard>
       </Provider>
     );
 
-    expect(screen.getByTestId('redirect').getAttribute('data-href')).toBe('/onboarding');
-    expect(screen.queryByTestId('children')).toBeNull();
+    expect(getByTestId('redirect').props.href).toBe('/onboarding');
+    expect(queryByTestId('children')).toBeNull();
   });
 
   it('allows the onboarding route to render without a redirect loop', () => {
     mockPathname = '/onboarding';
     const store = createStore();
-    render(
+    const { getByTestId, queryByTestId } = render(
       <Provider store={store}>
         <OnboardingGuard>
-          <div data-testid="children">Onboarding</div>
+          <Text testID="children">Onboarding</Text>
         </OnboardingGuard>
       </Provider>
     );
 
-    expect(screen.queryByTestId('redirect')).toBeNull();
-    expect(screen.getByTestId('children').textContent).toBe('Onboarding');
+    expect(queryByTestId('redirect')).toBeNull();
+    expect(getByTestId('children').props.children).toBe('Onboarding');
   });
 });
-

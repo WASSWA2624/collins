@@ -1,6 +1,6 @@
 /**
- * History Route Tests
- * File: history.test.js - tests src/app/(main)/history.jsx (P011 11.S.5)
+ * Dashboard Route Tests
+ * File: dashboard.test.js
  */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
@@ -12,8 +12,12 @@ const rootReducer = require('@store/rootReducer').default;
 jest.mock('@platform/screens', () => {
   const React = require('react');
   return {
-    HistoryScreen: () =>
-      React.createElement('div', { testID: 'history-screen', 'data-testid': 'history-screen' }, 'Mock HistoryScreen'),
+    DashboardScreen: () =>
+      React.createElement(
+        'div',
+        { testID: 'dashboard-screen', 'data-testid': 'dashboard-screen' },
+        'Mock DashboardScreen'
+      ),
   };
 });
 
@@ -24,7 +28,7 @@ const createMockStore = (initialState = {}) =>
     reducer: rootReducer,
     preloadedState: {
       ui: { theme: 'light', locale: 'en', isLoading: false },
-      ventilation: { sessionHistory: null, historyErrorCode: null, isHistoryLoading: false },
+      auth: { isAuthenticated: true, user: null },
       ...initialState,
     },
   });
@@ -36,12 +40,12 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
-describe('app/(main)/history.jsx', () => {
+describe('app/(main)/dashboard.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('should render HistoryScreen', () => {
-    const HistoryRoute = require('../../../app/(main)/history').default;
-    const { getByTestId } = renderWithProviders(<HistoryRoute />);
-    expect(getByTestId('history-screen')).toBeDefined();
+  it('renders DashboardScreen', () => {
+    const DashboardRoute = require('../../../app/(main)/dashboard').default;
+    const { getByTestId } = renderWithProviders(<DashboardRoute />);
+    expect(getByTestId('dashboard-screen')).toBeDefined();
   });
 });

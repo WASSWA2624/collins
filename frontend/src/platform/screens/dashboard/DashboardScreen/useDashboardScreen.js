@@ -38,7 +38,7 @@ const row = (label, value) => ({ label, value: numberOrZero(value) });
 
 const rowsFromCountMap = (value = {}) => Object.entries(value || {})
   .filter(([, count]) => numberOrZero(count) > 0)
-  .map(([label, count]) => ({ label: label.replaceAll('_', ' '), value: numberOrZero(count) }));
+  .map(([label, count]) => ({ label: label.split('_').join(' '), value: numberOrZero(count) }));
 
 const reviewBacklogRows = (backlog = {}) => [
   row('Admissions', sumCountMap(backlog.admissions)),
@@ -197,7 +197,7 @@ const getVisibleTypes = (capabilities) => [
 
 export default function useDashboardScreen() {
   const { user, roles } = useAuth();
-  const activeFacility = getActiveFacilityContext(user);
+  const activeFacility = useMemo(() => getActiveFacilityContext(user), [user]);
   const roleKeys = useMemo(
     () => normalizeRoles([...roles, ...(activeFacility?.roles || [])]),
     [activeFacility?.roles, roles]

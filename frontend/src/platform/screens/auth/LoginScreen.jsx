@@ -89,7 +89,7 @@ const LoginScreen = () => {
   if (isAuthenticated && requiresActiveFacility) return <Redirect href="/select-facility" />;
   if (isAuthenticated) return <Redirect href="/" />;
 
-  const status = (
+  const status = sessionMessage || authMessage ? (
     <Stack spacing="sm">
       {sessionMessage ? (
         <SystemBanner
@@ -110,7 +110,7 @@ const LoginScreen = () => {
         />
       ) : null}
     </Stack>
-  );
+  ) : null;
 
   return (
     <AuthFormLayout

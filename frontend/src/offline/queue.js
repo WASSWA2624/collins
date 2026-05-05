@@ -20,6 +20,37 @@ const asSafeArray = (value) => {
   return Array.isArray(value) ? value : [];
 };
 
+const normalizeFacilityId = (value) => {
+  if (value == null) return null;
+  const normalized = String(value).trim();
+  return normalized || null;
+};
+
+const getBodyObject = (request) => {
+  if (!request || typeof request !== 'object') return null;
+  if (request.body && typeof request.body === 'object' && !Array.isArray(request.body)) return request.body;
+  if (request.data && typeof request.data === 'object' && !Array.isArray(request.data)) return request.data;
+  return null;
+};
+
+export const getRequestFacilityId = (request = {}) => {
+  const body = getBodyObject(request);
+  return normalizeFacilityId(
+    request.facilityId ||
+      request.activeFacilityId ||
+      request.params?.facilityId ||
+      request.query?.facilityId ||
+      body?.facilityId ||
+      body?.activeFacilityId
+  );
+};
+
+const filterQueueByFacility = (queue, facilityId) => {
+  const normalizedFacilityId = normalizeFacilityId(facilityId);
+  if (!normalizedFacilityId) return asSafeArray(queue);
+  return asSafeArray(queue).filter((item) => getRequestFacilityId(item) === normalizedFacilityId);
+};
+
 const persistEncryptedQueue = async (queue) => {
   try {
     const json = JSON.stringify(asSafeArray(queue));
@@ -35,7 +66,7 @@ const persistEncryptedQueue = async (queue) => {
  * Read queue from storage, decrypting if available.
  * Security-first: queue is never persisted unencrypted.
  */
-export const getQueue = async () => {
+export const getQueue = async (options = {}) => {
   const stored = await asyncStorage.getItem(QUEUE_KEY);
   if (!stored) return [];
 
@@ -48,7 +79,7 @@ export const getQueue = async () => {
         await asyncStorage.removeItem(QUEUE_KEY);
         return [];
       }
-      return stored;
+      return filterQueueByFacility(stored, options.facilityId);
     } catch (error) {
       reportQueueError(error, { op: 'migrateLegacyQueue', key: QUEUE_KEY });
       await asyncStorage.removeItem(QUEUE_KEY);
@@ -64,7 +95,7 @@ export const getQueue = async () => {
   try {
     const json = await encryption.decrypt(stored);
     const parsed = JSON.parse(json);
-    return asSafeArray(parsed);
+    return filterQueueByFacility(parsed, options.facilityId);
   } catch (error) {
     reportQueueError(error, { op: 'decryptQueue', key: QUEUE_KEY });
     await asyncStorage.removeItem(QUEUE_KEY);
@@ -75,8 +106,10 @@ export const getQueue = async () => {
 export const addToQueue = async (request) => {
   const queue = await getQueue();
   const now = Date.now();
+  const facilityId = getRequestFacilityId(request);
   queue.push({
     ...request,
+    ...(facilityId ? { facilityId } : {}),
     id: String(now),
     timestamp: now,
     syncState: request?.syncState || 'pending',
@@ -84,6 +117,8 @@ export const addToQueue = async (request) => {
   });
   return await persistEncryptedQueue(queue);
 };
+
+export const getQueueForFacility = async (facilityId) => getQueue({ facilityId });
 
 export const updateQueueItem = async (requestId, updates = {}) => {
   const queue = await getQueue();
@@ -117,6 +152,8 @@ export const clearQueue = async () => {
 
 export default {
   getQueue,
+  getQueueForFacility,
+  getRequestFacilityId,
   addToQueue,
   updateQueueItem,
   removeFromQueue,

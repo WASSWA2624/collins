@@ -1,6 +1,5 @@
 /**
- * Dataset Capture Route
- * Routes ICU note capture through the data sources workflow surface.
+ * (main)/dataset-capture - De-identified dataset candidate capture workflow
  */
 import React from 'react';
 import { DataSourcesScreen } from '@platform/screens';

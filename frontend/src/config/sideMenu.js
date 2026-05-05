@@ -74,7 +74,7 @@ const MAIN_NAV_ITEMS = [
   {
     id: 'history',
     icon: 'time-outline',
-    path: '/history',
+    path: '/tracking',
     facilityScoped: true,
     requireActiveFacility: true,
     permissions: [PERMISSIONS.CLINICAL_READ],

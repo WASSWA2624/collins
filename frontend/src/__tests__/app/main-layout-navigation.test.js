@@ -32,9 +32,12 @@ jest.mock('@hooks', () => ({
   useFocusTrap: jest.fn(),
   useShellBanners: () => [],
   useUiState: () => ({ isLoading: false }),
+  useAuth: () => ({ logout: jest.fn() }),
 }));
 
 jest.mock('@platform/components', () => ({
+  AppLogo: jest.fn(() => null),
+  Icon: jest.fn(() => null),
   GlobalFooter: jest.fn(() => null),
   GlobalHeader: jest.fn(() => null),
   LanguageControls: jest.fn(() => null),
@@ -96,13 +99,11 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).not.toHaveBeenCalled();
     });
 
-    it('should not include auth-specific actions on iOS', () => {
+    it('should include logout action on iOS', () => {
       renderWithProviders(<MainRouteLayoutIOS />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).not.toContain('login');
-      expect(actionIds).not.toContain('logout');
-      expect(actionIds).not.toContain('register');
+      const actionKeys = headerCall[0].actions.map((action) => action.key);
+      expect(actionKeys).toContain('logout');
     });
 
     it('should render correct layout structure on Android', () => {
@@ -114,13 +115,11 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(getByTestId('slot')).toBeDefined();
     });
 
-    it('should not include auth-specific actions on Android', () => {
+    it('should include logout action on Android', () => {
       renderWithProviders(<MainRouteLayoutAndroid />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = headerCall[0].actions.map((action) => action.id);
-      expect(actionIds).not.toContain('login');
-      expect(actionIds).not.toContain('logout');
-      expect(actionIds).not.toContain('register');
+      const actionKeys = headerCall[0].actions.map((action) => action.key);
+      expect(actionKeys).toContain('logout');
     });
 
     it('should render GlobalHeader with correct accessibility props on Android', () => {
@@ -177,13 +176,11 @@ describe('MainLayout with Navigation Skeleton', () => {
       });
     });
 
-    it('should not include auth-specific actions on web', () => {
+    it('should include logout action on web', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionIds = (headerCall?.[0]?.actions ?? []).map((action) => action.id);
-      expect(actionIds).not.toContain('login');
-      expect(actionIds).not.toContain('logout');
-      expect(actionIds).not.toContain('register');
+      const actionKeys = (headerCall?.[0]?.actions ?? []).map((action) => action.key);
+      expect(actionKeys).toContain('logout');
     });
 
     it('should include menu toggle in leading slot on web', () => {
