@@ -3,10 +3,10 @@
  * Searchable registration-time facility selector.
  * File: FacilitySearchSelect.native.jsx
  */
-import React, { useCallback, useMemo } from 'react';
-import { Pressable, ScrollView } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { Pressable, ScrollView, TextInput } from 'react-native';
 import styled from 'styled-components/native';
-import { Button, Text, TextField } from '@platform/components';
+import { Button, Text } from '@platform/components';
 
 const MAX_VISIBLE_OPTIONS = 18;
 
@@ -32,40 +32,89 @@ const FacilitySearchSelectNative = ({
   accessibilityHint,
   testID = 'facility-search-select',
 }) => {
-  const selectedMatchesQuery = Boolean(value) && normalize(query) === normalize(value.name);
-  const hasQuery = normalize(query).length > 0;
+  const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef(null);
+  const closeTimerRef = useRef(null);
+
   const visibleOptions = useMemo(() => {
-    if (!hasQuery || selectedMatchesQuery) return [];
+    if (!isOpen) return [];
     return options.slice(0, MAX_VISIBLE_OPTIONS);
-  }, [hasQuery, options, selectedMatchesQuery]);
-  const showNoResults = hasQuery && !selectedMatchesQuery && visibleOptions.length === 0;
-  const fieldHelperText = value
+  }, [isOpen, options]);
+  const hasQuery = normalize(query).length > 0;
+  const showNoResults = isOpen && hasQuery && visibleOptions.length === 0;
+  const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
+
+  const openMenu = useCallback(() => {
+    if (disabled) return;
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setIsOpen(true);
+  }, [disabled]);
+
+  const closeMenuSoon = useCallback(() => {
+    closeTimerRef.current = setTimeout(() => {
+      setIsOpen(false);
+      closeTimerRef.current = null;
+    }, 120);
+  }, []);
+
+  const handleSurfacePress = useCallback(() => {
+    if (disabled) return;
+    inputRef.current?.focus();
+    setIsOpen(true);
+  }, [disabled]);
+
+  const handleQueryChange = useCallback((nextQuery) => {
+    onQueryChange(nextQuery);
+    setIsOpen(true);
+  }, [onQueryChange]);
 
   const handleSelect = useCallback((facility) => {
     if (disabled) return;
     onValueChange(facility);
+    setIsOpen(false);
+    inputRef.current?.blur();
   }, [disabled, onValueChange]);
 
   return (
     <StyledContainer testID={testID}>
-      <TextField
-        label={label}
-        placeholder={placeholder}
-        value={query}
-        onChangeText={onQueryChange}
-        autoCapitalize="words"
-        autoCorrect
-        disabled={disabled}
-        validationState="default"
-        helperText={fieldHelperText}
-        accessibilityLabel={label}
-        accessibilityHint={accessibilityHint || helperText}
-        testID={`${testID}-input`}
-      />
+      {label ? (
+        <Text variant="label">
+          {label}
+        </Text>
+      ) : null}
 
-      {visibleOptions.length > 0 ? (
+      <StyledSelectSurface
+        accessibilityLabel={label || placeholder}
+        accessibilityHint={accessibilityHint || helperText}
+        accessibilityRole="combobox"
+        accessibilityState={{ expanded: isOpen, disabled }}
+        disabled={disabled}
+        isOpen={isOpen}
+        onPress={handleSurfacePress}
+      >
+        <StyledInput
+          ref={inputRef}
+          value={query}
+          onChangeText={handleQueryChange}
+          onFocus={openMenu}
+          onBlur={closeMenuSoon}
+          placeholder={placeholder}
+          editable={!disabled}
+          autoCapitalize="words"
+          autoCorrect
+          testID={`${testID}-input`}
+        />
+        <StyledChevron>
+          {isOpen ? '▴' : '▾'}
+        </StyledChevron>
+      </StyledSelectSurface>
+
+      {isOpen && visibleOptions.length > 0 ? (
         <StyledOptionsPanel
           accessibilityLabel={label}
           accessibilityRole="list"
@@ -104,6 +153,12 @@ const FacilitySearchSelectNative = ({
         </StyledEmptyState>
       ) : null}
 
+      {displayHelperText ? (
+        <StyledHelperText>
+          {displayHelperText}
+        </StyledHelperText>
+      ) : null}
+
       {value && onClear ? (
         <StyledClearAction>
           <Button
@@ -123,6 +178,34 @@ const FacilitySearchSelectNative = ({
 
 const StyledContainer = styled.View`
   width: 100%;
+`;
+
+const StyledSelectSurface = styled(Pressable)`
+  width: 100%;
+  min-height: 48px;
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  border-width: 1px;
+  border-color: ${({ isOpen, theme }) => (isOpen ? theme.colors.primary : theme.colors.background.tertiary)};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-radius: ${({ theme }) => theme.radius.sm}px;
+`;
+
+const StyledInput = styled(TextInput)`
+  flex: 1;
+  min-width: 0px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledChevron = styled.Text`
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
 `;
 
 const StyledOptionsPanel = styled.View`
@@ -156,6 +239,13 @@ const StyledEmptyState = styled.View`
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.radius.sm}px;
+`;
+
+const StyledHelperText = styled.Text`
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const StyledClearAction = styled.View`

@@ -30,6 +30,11 @@ jest.mock(
   { virtual: true }
 );
 
+jest.mock('expo-constants', () => ({
+  __esModule: true,
+  default: {},
+}), { virtual: true });
+
 // Setup global test environment
 global.__DEV__ = true;
 

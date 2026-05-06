@@ -123,13 +123,13 @@ const UserAccountMenuIOS = ({ testID = 'user-account-menu', style }) => {
                       </StyledFacilityOption>
                     ))}
                   </StyledFacilityOptions>
-                    ) : (
-                      <StyledFieldValue>
-                        <Text variant="label" numberOfLines={1}>
-                          {facilityName}
-                        </Text>
-                      </StyledFieldValue>
-                    )}
+                ) : (
+                  <StyledFieldValue>
+                    <Text variant="label" numberOfLines={1}>
+                      {facilityName}
+                    </Text>
+                  </StyledFieldValue>
+                )}
               </StyledMenuField>
 
               <StyledMenuField>

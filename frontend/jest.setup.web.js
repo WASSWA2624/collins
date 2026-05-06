@@ -11,6 +11,11 @@ global.fetch = jest.fn(() => Promise.resolve({ ok: true, json: () => Promise.res
 // Setup global test environment
 global.__DEV__ = true;
 
+jest.mock('expo-constants', () => ({
+  __esModule: true,
+  default: {},
+}), { virtual: true });
+
 // Mock styled-components for web
 jest.mock('styled-components', () => {
   const React = require('react');

@@ -34,6 +34,14 @@ Health check:
 GET /api/v1/health
 ```
 
+Local LAN access:
+
+```txt
+HOST=0.0.0.0
+```
+
+The development default binds the backend to all network interfaces so Expo clients on the same Wi-Fi/LAN can reach `http://<computer-lan-ip>:3000`.
+
 Training/help content:
 
 ```txt

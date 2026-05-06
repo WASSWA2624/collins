@@ -16,6 +16,7 @@ test('loads safe development defaults while requiring only backend configuration
   });
 
   assert.equal(config.nodeEnv, 'development');
+  assert.equal(config.host, '0.0.0.0');
   assert.equal(config.port, 3000);
   assert.equal(config.apiVersion, 'v1');
   assert.equal(config.jwtSecret, DEVELOPMENT_JWT_SECRET);
@@ -25,6 +26,15 @@ test('loads safe development defaults while requiring only backend configuration
     'http://localhost:19006',
     'http://localhost:3000',
   ]);
+});
+
+test('allows overriding the backend bind host', () => {
+  const config = createEnv({
+    DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+    HOST: '127.0.0.1',
+  });
+
+  assert.equal(config.host, '127.0.0.1');
 });
 
 test('fails fast when required backend environment is missing', () => {

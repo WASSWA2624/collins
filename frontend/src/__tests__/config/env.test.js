@@ -2,7 +2,6 @@
  * Environment Configuration Tests
  * File: env.test.js
  */
-import { NODE_ENV, API_BASE_URL, API_VERSION } from '@config/env';
 
 describe('env.js', () => {
   const originalEnv = process.env;
@@ -60,6 +59,47 @@ describe('env.js', () => {
       const mod = await import('@config/env');
       expect(mod.API_BASE_URL).toBe('https://api.example.com');
       expect(mod.API_VERSION).toBe('v2');
+    });
+
+    test('should derive local API URL from Expo LAN host when API base URL is unset', async () => {
+      const mod = await import('@config/env');
+      const url = mod.resolveApiBaseUrl(
+        {},
+        { expoConfig: { hostUri: '192.168.1.25:8081' } },
+        {},
+      );
+
+      expect(url).toBe('http://192.168.1.25:3000');
+    });
+
+    test('should use custom API port with derived Expo LAN host', async () => {
+      const mod = await import('@config/env');
+      const url = mod.resolveApiBaseUrl(
+        { EXPO_PUBLIC_API_PORT: '4000' },
+        { manifest: { debuggerHost: '192.168.1.25:19000' } },
+        {},
+      );
+
+      expect(url).toBe('http://192.168.1.25:4000');
+    });
+
+    test('should prefer browser location host for web LAN access', async () => {
+      const mod = await import('@config/env');
+      const url = mod.resolveApiBaseUrl(
+        {},
+        { expoConfig: { hostUri: 'localhost:8081' } },
+        { location: { host: '192.168.1.25:8081' } },
+      );
+
+      expect(url).toBe('http://192.168.1.25:3000');
+    });
+
+    test('should ignore unroutable development hosts', async () => {
+      const mod = await import('@config/env');
+
+      expect(mod.resolveHostFromUrl('0.0.0.0:8081')).toBeNull();
+      expect(mod.resolveApiBaseUrl({}, { expoConfig: { hostUri: '0.0.0.0:8081' } }, {}))
+        .toBe('http://localhost:3000');
     });
   });
 });

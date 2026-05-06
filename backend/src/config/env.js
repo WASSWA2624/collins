@@ -7,6 +7,7 @@ export const DEFAULT_CORS_ORIGINS = [
   'http://localhost:19006',
   'http://localhost:3000',
 ];
+export const DEFAULT_HOST = '0.0.0.0';
 
 export const DEVELOPMENT_JWT_SECRET = 'development-only-change-me';
 
@@ -95,6 +96,7 @@ export const createEnv = (source = process.env) => {
   const port = getIntegerEnv(source, 'PORT', 3000, { min: 1, max: 65535 }, errors);
   const bcryptSaltRounds = getIntegerEnv(source, 'BCRYPT_SALT_ROUNDS', 12, { min: 4, max: 31 }, errors);
   const requestLogging = getBooleanEnv(source, 'REQUEST_LOGGING', true, errors);
+  const host = getEnv(source, 'HOST', DEFAULT_HOST);
 
   if (errors.length > 0) {
     throw new EnvValidationError(errors);
@@ -102,6 +104,7 @@ export const createEnv = (source = process.env) => {
 
   return Object.freeze({
     nodeEnv,
+    host,
     port,
     apiVersion,
     databaseUrl,

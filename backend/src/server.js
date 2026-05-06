@@ -4,8 +4,11 @@ import { prisma } from './config/prisma.js';
 
 const app = createApp();
 
-const server = app.listen(env.port, () => {
-  console.log(`AI Vent backend listening on port ${env.port}`);
+const server = app.listen(env.port, env.host, () => {
+  const hostLabel = env.host === '0.0.0.0' || env.host === '::'
+    ? 'all network interfaces'
+    : env.host;
+  console.log(`AI Vent backend listening on ${hostLabel}:${env.port}`);
 });
 
 const shutdown = async (signal) => {

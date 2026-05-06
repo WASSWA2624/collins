@@ -256,6 +256,10 @@ describe('auth entry screens', () => {
     expect(getByTestId('register-submit')).toBeTruthy();
     expect(queryByText(/Clinical data stays hidden/i)).toBeNull();
 
+    fireEvent(getByTestId('register-facility-combobox-input'), 'focus');
+
+    expect(getByTestId('register-facility-combobox-options')).toBeTruthy();
+
     fireEvent.press(getByTestId('register-sign-in'));
 
     expect(mockPush).toHaveBeenCalledWith('/login');

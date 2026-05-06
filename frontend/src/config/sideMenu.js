@@ -8,24 +8,24 @@ import { MEMBERSHIP_ROLES, PERMISSIONS } from '@config/accessControl';
 
 /** Icon key to glyph (single source of truth for menu icons; UI uses getMenuIconGlyph). */
 export const MENU_ICON_GLYPHS = {
-  'menu-outline': '=',
-  'home-outline': 'H',
-  'settings-outline': '*',
-  'shield-outline': '#',
-  'folder-outline': '[]',
-  'lock-closed-outline': 'L',
-  'layers-outline': '::',
-  'person-outline': 'U',
-  'time-outline': 'T',
-  'medkit-outline': '+',
-  'analytics-outline': '%',
-  'clipboard-outline': 'C',
-  'document-text-outline': 'D',
-  'git-compare-outline': 'V',
-  'close-outline': 'x',
+  'menu-outline': '☰',
+  'home-outline': '🏠',
+  'admit-outline': '🩺',
+  'tracking-outline': '📈',
+  'ventilator-outline': '🫁',
+  'dataset-outline': '🗂️',
+  'review-queue-outline': '☑️',
+  'dashboard-outline': '📊',
+  'training-outline': '🎓',
+  'settings-outline': '⚙️',
+  'about-outline': '👤',
+  'data-sources-outline': '🗄️',
+  'help-outline': '❔',
+  'privacy-outline': '🔒',
+  'close-outline': '×',
 };
 
-const DEFAULT_ICON_GLYPH = '.';
+const DEFAULT_ICON_GLYPH = '•';
 
 /** Resolve menu icon key to glyph for display. */
 export function getMenuIconGlyph(iconKey) {
@@ -64,7 +64,7 @@ const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
   {
     id: 'assessment',
-    icon: 'medkit-outline',
+    icon: 'admit-outline',
     path: '/assessment',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -73,7 +73,7 @@ const MAIN_NAV_ITEMS = [
   },
   {
     id: 'history',
-    icon: 'time-outline',
+    icon: 'tracking-outline',
     path: '/tracking',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -81,7 +81,7 @@ const MAIN_NAV_ITEMS = [
   },
   {
     id: 'abg-vent-update',
-    icon: 'git-compare-outline',
+    icon: 'ventilator-outline',
     path: '/abg-vent-update',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -90,7 +90,7 @@ const MAIN_NAV_ITEMS = [
   },
   {
     id: 'dataset-capture',
-    icon: 'document-text-outline',
+    icon: 'dataset-outline',
     path: '/dataset-capture',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -99,7 +99,7 @@ const MAIN_NAV_ITEMS = [
   },
   {
     id: 'review-queue',
-    icon: 'clipboard-outline',
+    icon: 'review-queue-outline',
     path: '/review-queue',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -109,7 +109,7 @@ const MAIN_NAV_ITEMS = [
   },
   {
     id: 'dashboard',
-    icon: 'analytics-outline',
+    icon: 'dashboard-outline',
     path: '/dashboard',
     allowPlatformScope: true,
     roles: DASHBOARD_ROLES,
@@ -122,7 +122,7 @@ const MAIN_NAV_ITEMS = [
       PERMISSIONS.MODEL_GOVERN,
     ],
   },
-  { id: 'training', icon: 'layers-outline', path: '/training' },
+  { id: 'training', icon: 'training-outline', path: '/training' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 
@@ -131,10 +131,10 @@ const MOBILE_TAB_ITEMS = MAIN_NAV_ITEMS.filter((item) => MOBILE_TAB_ITEM_IDS.inc
 
 /** Settings sub-routes (this app's (settings) routes only). */
 const SETTINGS_ITEMS = [
-  { id: 'settings-about', icon: 'person-outline', path: '/settings/about' },
-  { id: 'settings-data-sources', icon: 'folder-outline', path: '/settings/data-sources' },
-  { id: 'settings-help', icon: 'layers-outline', path: '/settings/help' },
-  { id: 'settings-privacy', icon: 'lock-closed-outline', path: '/settings/privacy' },
+  { id: 'settings-about', icon: 'about-outline', path: '/settings/about' },
+  { id: 'settings-data-sources', icon: 'data-sources-outline', path: '/settings/data-sources' },
+  { id: 'settings-help', icon: 'help-outline', path: '/settings/help' },
+  { id: 'settings-privacy', icon: 'privacy-outline', path: '/settings/privacy' },
 ];
 
 /** Full list for main sidebar (main nav + settings children). Labels via t('navigation.items.main.<id>'). */

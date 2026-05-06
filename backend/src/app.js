@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { URL } from 'node:url';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -10,6 +11,32 @@ import { operationalHealthRouter } from './modules/health/health.routes.js';
 import { notFoundMiddleware } from './middleware/notFound.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 import { successResponse } from './utils/apiResponse.js';
+
+const LOCAL_DEVELOPMENT_HOSTS = new Set([
+  'localhost',
+  '127.0.0.1',
+  '::1',
+  '[::1]',
+  '10.0.2.2',
+]);
+
+const isPrivateNetworkHost = (hostname) => /^10\./.test(hostname)
+  || /^192\.168\./.test(hostname)
+  || /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+
+const isDevelopmentCorsOrigin = (origin) => {
+  try {
+    const { hostname, protocol } = new URL(origin);
+    return ['http:', 'https:'].includes(protocol)
+      && (LOCAL_DEVELOPMENT_HOSTS.has(hostname) || isPrivateNetworkHost(hostname));
+  } catch {
+    return false;
+  }
+};
+
+const isCorsOriginAllowed = (origin) => !origin
+  || env.corsOrigins.includes(origin)
+  || (env.nodeEnv !== 'production' && isDevelopmentCorsOrigin(origin));
 
 export const createApp = () => {
   const app = express();
@@ -24,7 +51,7 @@ export const createApp = () => {
   app.use(helmet());
   app.use(cors({
     origin: (origin, callback) => {
-      if (!origin || env.corsOrigins.includes(origin)) return callback(null, true);
+      if (isCorsOriginAllowed(origin)) return callback(null, true);
       return callback(new Error('CORS origin not allowed'));
     },
     credentials: true,

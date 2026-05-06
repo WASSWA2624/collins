@@ -3,9 +3,9 @@
  * Searchable registration-time facility selector.
  * File: FacilitySearchSelect.web.jsx
  */
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Button, Text, TextField } from '@platform/components';
+import { Button, Text } from '@platform/components';
 
 const MAX_VISIBLE_OPTIONS = 18;
 
@@ -31,44 +31,96 @@ const FacilitySearchSelectWeb = ({
   accessibilityHint,
   testID = 'facility-search-select',
 }) => {
-  const selectedMatchesQuery = Boolean(value) && normalize(query) === normalize(value.name);
-  const hasQuery = normalize(query).length > 0;
+  const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef(null);
+  const closeTimerRef = useRef(null);
+  const listboxId = `${testID}-options`;
+  const inputId = `${testID}-input`;
+  const helperId = `${testID}-helper`;
+
   const visibleOptions = useMemo(() => {
-    if (!hasQuery || selectedMatchesQuery) return [];
+    if (!isOpen) return [];
     return options.slice(0, MAX_VISIBLE_OPTIONS);
-  }, [hasQuery, options, selectedMatchesQuery]);
-  const showNoResults = hasQuery && !selectedMatchesQuery && visibleOptions.length === 0;
-  const fieldHelperText = value
+  }, [isOpen, options]);
+  const hasQuery = normalize(query).length > 0;
+  const showNoResults = isOpen && hasQuery && visibleOptions.length === 0;
+  const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
-  const listboxId = `${testID}-options`;
+
+  const openMenu = useCallback(() => {
+    if (disabled) return;
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setIsOpen(true);
+  }, [disabled]);
+
+  const closeMenuSoon = useCallback(() => {
+    closeTimerRef.current = setTimeout(() => {
+      setIsOpen(false);
+      closeTimerRef.current = null;
+    }, 120);
+  }, []);
+
+  const handleSurfaceMouseDown = useCallback(() => {
+    openMenu();
+    inputRef.current?.focus();
+  }, [openMenu]);
+
+  const handleChange = useCallback((event) => {
+    onQueryChange(event.target.value);
+    setIsOpen(true);
+  }, [onQueryChange]);
 
   const handleSelect = useCallback((facility) => {
     if (disabled) return;
     onValueChange(facility);
+    setIsOpen(false);
+    inputRef.current?.blur();
   }, [disabled, onValueChange]);
 
   return (
     <StyledContainer data-testid={testID}>
-      <TextField
-        label={label}
-        placeholder={placeholder}
-        value={query}
-        onChangeText={onQueryChange}
-        autoCapitalize="words"
-        disabled={disabled}
-        validationState="default"
-        helperText={fieldHelperText}
-        accessibilityLabel={label}
-        accessibilityHint={accessibilityHint || helperText}
-        role="combobox"
-        aria-autocomplete="list"
-        aria-controls={listboxId}
-        aria-expanded={visibleOptions.length > 0}
-        testID={`${testID}-input`}
-      />
+      {label ? (
+        <StyledLabel htmlFor={inputId}>
+          {label}
+        </StyledLabel>
+      ) : null}
 
-      {visibleOptions.length > 0 ? (
+      <StyledSelectSurface
+        $isOpen={isOpen}
+        $disabled={disabled}
+        onMouseDown={handleSurfaceMouseDown}
+      >
+        <StyledInput
+          id={inputId}
+          ref={inputRef}
+          value={query}
+          onChange={handleChange}
+          onClick={openMenu}
+          onFocus={openMenu}
+          onBlur={closeMenuSoon}
+          placeholder={placeholder}
+          disabled={disabled}
+          autoCapitalize="words"
+          autoComplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls={listboxId}
+          aria-describedby={displayHelperText ? helperId : undefined}
+          aria-description={accessibilityHint || helperText}
+          aria-expanded={isOpen}
+          aria-label={label || placeholder}
+          data-testid={inputId}
+        />
+        <StyledChevron aria-hidden="true">
+          {isOpen ? '▴' : '▾'}
+        </StyledChevron>
+      </StyledSelectSurface>
+
+      {isOpen && visibleOptions.length > 0 ? (
         <StyledOptionsPanel
           id={listboxId}
           role="listbox"
@@ -81,8 +133,9 @@ const FacilitySearchSelectWeb = ({
               type="button"
               role="option"
               aria-label={`${facility.name}, ${describeFacility(facility)}`}
-              aria-selected="false"
+              aria-selected={value?.id === facility.id}
               disabled={disabled}
+              onMouseDown={(event) => event.preventDefault()}
               onClick={() => handleSelect(facility)}
               data-testid={`${testID}-option-${index}`}
             >
@@ -103,6 +156,12 @@ const FacilitySearchSelectWeb = ({
             {noResultsText}
           </Text>
         </StyledEmptyState>
+      ) : null}
+
+      {displayHelperText ? (
+        <StyledHelperText id={helperId}>
+          {displayHelperText}
+        </StyledHelperText>
       ) : null}
 
       {value && onClear ? (
@@ -129,6 +188,70 @@ const StyledContainer = styled.div.withConfig({
   width: 100%;
 `;
 
+const StyledLabel = styled.label.withConfig({
+  displayName: 'StyledLabel',
+  componentId: 'FacilitySearchSelectLabel',
+})`
+  display: inline-flex;
+  align-items: center;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledSelectSurface = styled.div.withConfig({
+  displayName: 'StyledSelectSurface',
+  componentId: 'FacilitySearchSelectSurface',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
+})`
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  padding: 0 ${({ theme }) => theme.spacing.md}px;
+  border: 1px solid ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.background.tertiary};
+  border-radius: ${({ theme }) => theme.radius.sm}px;
+  background: ${({ theme }) => theme.colors.background.primary};
+  box-shadow: ${({ $isOpen, theme }) => ($isOpen ? `0 0 0 3px ${theme.colors.primary}15` : 'none')};
+  box-sizing: border-box;
+  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'text')};
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+`;
+
+const StyledInput = styled.input.withConfig({
+  displayName: 'StyledInput',
+  componentId: 'FacilitySearchSelectInput',
+})`
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: ${({ theme }) => theme.spacing.sm}px 0;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  color: ${({ theme, disabled }) => (disabled ? theme.colors.text.tertiary : theme.colors.text.primary)};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.tertiary};
+  }
+`;
+
+const StyledChevron = styled.span.withConfig({
+  displayName: 'StyledChevron',
+  componentId: 'FacilitySearchSelectChevron',
+})`
+  flex-shrink: 0;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  line-height: 1;
+`;
+
 const StyledOptionsPanel = styled.div.withConfig({
   displayName: 'StyledOptionsPanel',
   componentId: 'FacilitySearchSelectOptions',
@@ -140,6 +263,11 @@ const StyledOptionsPanel = styled.div.withConfig({
   background: ${({ theme }) => theme.colors.background.primary};
   border-radius: ${({ theme }) => theme.radius.sm}px;
   overflow-y: auto;
+  box-shadow: ${({ theme }) => {
+    const shadow = theme.shadows?.md;
+    if (!shadow) return '0 8px 20px rgba(0, 0, 0, 0.12)';
+    return `${shadow.shadowOffset.width}px ${shadow.shadowOffset.height}px ${shadow.shadowRadius * 2}px rgba(0, 0, 0, ${shadow.shadowOpacity})`;
+  }};
   box-sizing: border-box;
 `;
 
@@ -183,6 +311,16 @@ const StyledEmptyState = styled.div.withConfig({
   background: ${({ theme }) => theme.colors.background.secondary};
   border-radius: ${({ theme }) => theme.radius.sm}px;
   box-sizing: border-box;
+`;
+
+const StyledHelperText = styled.div.withConfig({
+  displayName: 'StyledHelperText',
+  componentId: 'FacilitySearchSelectHelper',
+})`
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const StyledClearAction = styled.div.withConfig({

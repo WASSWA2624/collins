@@ -86,6 +86,23 @@ test('liveness endpoint reports process availability without checking the databa
   assert.equal(body.meta.requestId, 'live-contract-test');
 });
 
+test('development CORS allows Expo clients from private LAN origins', async () => {
+  const server = await startServer(createApp());
+
+  try {
+    const { port } = server.address();
+    const origin = 'http://192.168.1.25:8081';
+    const response = await fetch(`http://127.0.0.1:${port}/api/v1/health`, {
+      headers: { origin },
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('access-control-allow-origin'), origin);
+  } finally {
+    await closeServer(server);
+  }
+});
+
 test('readiness endpoint reports database readiness using the standard response shape', async () => {
   const { status, body } = await getJson('/ready', 'ready-contract-test');
 

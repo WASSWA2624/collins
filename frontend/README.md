@@ -36,12 +36,18 @@ npm run start
 
 ```bash
 npm run start         # Start Expo dev server
+npm run start:lan     # Start Expo for devices on the same Wi-Fi/LAN
 npm run android       # Run Android app
+npm run android:lan   # Run Android app through the LAN Expo server
 npm run ios           # Run iOS app
 npm run web           # Run web app
 npm run test          # Run tests
 npm run test:coverage # Run tests with coverage
 ```
+
+## Local backend from a phone
+
+Leave `EXPO_PUBLIC_API_BASE_URL` unset during LAN development. The app derives the backend host from the Expo dev server host, so a phone on the same network uses `http://<computer-lan-ip>:3000` instead of `localhost`.
 
 ## Project structure
 
