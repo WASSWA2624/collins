@@ -123,4 +123,14 @@ describe('auth.usecase', () => {
       code: 'UNAUTHORIZED',
     });
   });
+
+  it('reports invalid backend sign-in responses explicitly', async () => {
+    loginApi.mockResolvedValueOnce({ data: null, status: 200 });
+    await expect(loginUseCase({
+      email: 'user@example.com',
+      password: 'pass',
+    })).rejects.toMatchObject({
+      code: 'BACKEND_INVALID_RESPONSE',
+    });
+  });
 });

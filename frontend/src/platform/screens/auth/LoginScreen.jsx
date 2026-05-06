@@ -16,8 +16,25 @@ import {
   TextField,
 } from '@platform/components';
 import { useAuth, useI18n } from '@hooks';
+import { BANNER_VARIANTS } from '@utils/shellBanners';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const WARNING_ERROR_CODES = new Set([
+  'BACKEND_HOST_UNREACHABLE',
+  'NETWORK_ERROR',
+  'RATE_LIMITED',
+  'REQUEST_TIMEOUT',
+]);
+const RETRYABLE_SESSION_CODES = new Set([
+  'BACKEND_HOST_UNREACHABLE',
+  'NETWORK_ERROR',
+  'REQUEST_TIMEOUT',
+]);
+
+const getBannerVariant = (code) => {
+  if (!code) return BANNER_VARIANTS.INFO;
+  return WARNING_ERROR_CODES.has(code) ? BANNER_VARIANTS.WARNING : BANNER_VARIANTS.ERROR;
+};
 
 const getErrorMessage = (t, code) => {
   if (!code) return null;
@@ -99,17 +116,17 @@ const LoginScreen = () => {
     <Stack spacing="sm">
       {sessionMessage ? (
         <SystemBanner
-          variant="info"
+          variant={getBannerVariant(sessionErrorCode)}
           title={t('auth.session.noticeTitle')}
           message={sessionMessage}
-          actionLabel={sessionErrorCode === 'NETWORK_ERROR' ? t('auth.session.retry') : undefined}
-          onAction={sessionErrorCode === 'NETWORK_ERROR' ? handleRetryRestore : undefined}
+          actionLabel={RETRYABLE_SESSION_CODES.has(sessionErrorCode) ? t('auth.session.retry') : undefined}
+          onAction={RETRYABLE_SESSION_CODES.has(sessionErrorCode) ? handleRetryRestore : undefined}
           testID="login-session-banner"
         />
       ) : null}
       {authMessage ? (
         <SystemBanner
-          variant="info"
+          variant={getBannerVariant(errorCode)}
           title={t('auth.login.errorTitle')}
           message={authMessage}
           testID="login-error-banner"

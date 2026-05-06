@@ -7,14 +7,14 @@ import styled from 'styled-components';
 import { BANNER_VARIANTS } from '@utils/shellBanners';
 
 const getVariantColors = (variant, theme) => {
-  if (variant === BANNER_VARIANTS.MAINTENANCE) {
+  if (variant === BANNER_VARIANTS.ERROR || variant === BANNER_VARIANTS.MAINTENANCE) {
     return {
       background: theme.colors.status.error.background,
       text: theme.colors.status.error.text,
       border: theme.colors.error,
     };
   }
-  if (variant === BANNER_VARIANTS.LOW_QUALITY) {
+  if (variant === BANNER_VARIANTS.WARNING || variant === BANNER_VARIANTS.LOW_QUALITY) {
     return {
       background: theme.colors.status.warning.background,
       text: theme.colors.status.warning.text,

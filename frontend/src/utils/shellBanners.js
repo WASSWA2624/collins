@@ -4,6 +4,8 @@
  * File: shellBanners.js
  */
 export const BANNER_VARIANTS = {
+  ERROR: 'error',
+  WARNING: 'warning',
   OFFLINE: 'offline',
   ONLINE: 'online',
   MAINTENANCE: 'maintenance',

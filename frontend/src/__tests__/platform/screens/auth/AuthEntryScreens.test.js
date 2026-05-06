@@ -156,10 +156,10 @@ jest.mock('@platform/components', () => {
       helperText ? React.createElement(NativeText, {}, helperText) : null
     );
 
-  const SystemBanner = ({ actionLabel, message, onAction, testID, title }) =>
+  const SystemBanner = ({ actionLabel, message, onAction, testID, title, variant }) =>
     React.createElement(
       View,
-      { testID },
+      { testID, variant },
       title ? React.createElement(NativeText, {}, title) : null,
       message ? React.createElement(NativeText, {}, message) : null,
       actionLabel
@@ -238,6 +238,22 @@ describe('auth entry screens', () => {
         password: 'secure-pass',
       });
     });
+  });
+
+  it('shows backend route failures as red sign-in errors', () => {
+    mockAuthState = createAuthState({ errorCode: 'BACKEND_ENDPOINT_NOT_FOUND' });
+    const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
+
+    expect(getByText('Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.')).toBeTruthy();
+    expect(getByTestId('login-error-banner').props.variant).toBe('error');
+  });
+
+  it('shows network sign-in failures as warning errors', () => {
+    mockAuthState = createAuthState({ errorCode: 'NETWORK_ERROR' });
+    const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
+
+    expect(getByText('Network connection failed')).toBeTruthy();
+    expect(getByTestId('login-error-banner').props.variant).toBe('warning');
   });
 
   it('renders a branded registration entry with sign-in navigation', () => {

@@ -91,7 +91,13 @@ const loginUseCase = async (payload) =>
     try {
       const response = await loginApi(parsed);
       const data = unwrap(response);
-      if (!data) throw new Error('Invalid login response');
+      if (!data) {
+        throw {
+          code: 'BACKEND_INVALID_RESPONSE',
+          message: 'Invalid login response',
+          status: response?.status || 502,
+        };
+      }
 
       if (data.requires_facility_selection) {
         return {

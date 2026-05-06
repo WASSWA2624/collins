@@ -59,6 +59,13 @@ describe('errors/error.handler.js', () => {
       expect(normalized.severity).toBe('error');
     });
 
+    test('should normalize invalid sign-in credentials from backend message', () => {
+      const authError = { status: 401, message: 'Invalid email or password' };
+      const normalized = normalizeError(authError);
+      expect(normalized.code).toBe('INVALID_CREDENTIALS');
+      expect(normalized.safeMessage).toBe('Invalid email or password');
+    });
+
     test('should normalize 403 forbidden errors', () => {
       const forbiddenError = { status: 403 };
       const normalized = normalizeError(forbiddenError);
@@ -78,6 +85,24 @@ describe('errors/error.handler.js', () => {
       const normalized = normalizeError(serverError);
       expect(normalized.code).toBe('BACKEND_UNAVAILABLE');
       expect(normalized.severity).toBe('error');
+    });
+
+    test('should normalize missing backend API routes', () => {
+      const notFoundError = {
+        status: 404,
+        statusText: 'Not Found',
+        message: 'API request failed: Not Found',
+      };
+      const normalized = normalizeError(notFoundError);
+      expect(normalized.code).toBe('BACKEND_ENDPOINT_NOT_FOUND');
+      expect(normalized.severity).toBe('error');
+    });
+
+    test('should normalize invalid backend responses', () => {
+      const invalidResponse = { code: 'BACKEND_INVALID_RESPONSE', message: 'Invalid login response' };
+      const normalized = normalizeError(invalidResponse);
+      expect(normalized.code).toBe('BACKEND_INVALID_RESPONSE');
+      expect(normalized.safeMessage).toContain('invalid sign-in response');
     });
 
     test('should normalize errors with statusCode', () => {
