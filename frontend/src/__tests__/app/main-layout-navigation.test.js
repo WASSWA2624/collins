@@ -16,7 +16,7 @@ import { renderWithProviders } from '../helpers/test-utils';
 import MainRouteLayoutWeb from '@platform/layouts/MainRouteLayout/MainRouteLayout.web';
 import MainRouteLayoutAndroid from '@platform/layouts/MainRouteLayout/MainRouteLayout.android';
 import MainRouteLayoutIOS from '@platform/layouts/MainRouteLayout/MainRouteLayout.ios';
-import { GlobalFooter, GlobalHeader, TabBar, Sidebar } from '@platform/components';
+import { GlobalFooter, GlobalHeader, TabBar, Sidebar, UserAccountMenu } from '@platform/components';
 import { Slot } from 'expo-router';
 
 // Mock dependencies
@@ -44,6 +44,7 @@ jest.mock('@platform/components', () => ({
   ThemeControls: jest.fn(() => null),
   TabBar: jest.fn(() => null),
   Sidebar: jest.fn(() => null),
+  UserAccountMenu: jest.fn(() => null),
   ShellBanners: jest.fn(() => null),
   LoadingOverlay: jest.fn(() => null),
   NoticeSurface: jest.fn(() => null),
@@ -99,11 +100,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(Sidebar).not.toHaveBeenCalled();
     });
 
-    it('should include logout action on iOS', () => {
+    it('should move account controls into the avatar menu on iOS', () => {
       renderWithProviders(<MainRouteLayoutIOS />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionKeys = headerCall[0].actions.map((action) => action.key);
-      expect(actionKeys).toContain('logout');
+      expect(headerCall[0].actions).toEqual([]);
+      expect(headerCall[0].utilitySlot).toBeDefined();
+      expect(headerCall[0].utilitySlot.type).toBe(UserAccountMenu);
     });
 
     it('should render correct layout structure on Android', () => {
@@ -115,11 +117,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       expect(getByTestId('slot')).toBeDefined();
     });
 
-    it('should include logout action on Android', () => {
+    it('should move account controls into the avatar menu on Android', () => {
       renderWithProviders(<MainRouteLayoutAndroid />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionKeys = headerCall[0].actions.map((action) => action.key);
-      expect(actionKeys).toContain('logout');
+      expect(headerCall[0].actions).toEqual([]);
+      expect(headerCall[0].utilitySlot).toBeDefined();
+      expect(headerCall[0].utilitySlot.type).toBe(UserAccountMenu);
     });
 
     it('should render GlobalHeader with correct accessibility props on Android', () => {
@@ -176,11 +179,12 @@ describe('MainLayout with Navigation Skeleton', () => {
       });
     });
 
-    it('should include logout action on web', () => {
+    it('should move account controls into the avatar menu on web', () => {
       renderWithProviders(<MainRouteLayoutWeb />);
       const headerCall = GlobalHeader.mock.calls[0];
-      const actionKeys = (headerCall?.[0]?.actions ?? []).map((action) => action.key);
-      expect(actionKeys).toContain('logout');
+      expect(headerCall?.[0]?.actions).toEqual([]);
+      expect(headerCall?.[0]?.utilitySlot).toBeDefined();
+      expect(headerCall?.[0]?.utilitySlot.type).toBe(UserAccountMenu);
     });
 
     it('should include menu toggle in leading slot on web', () => {

@@ -4,7 +4,6 @@
  * File: GlobalHeader.android.jsx
  */
 import React, { useMemo } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Text from '@platform/components/display/Text';
 import Breadcrumbs from '@platform/components/navigation/Breadcrumbs';
 import { useI18n } from '@hooks';
@@ -86,13 +85,13 @@ const GlobalHeaderAndroid = ({
   ...rest
 }) => {
   const { t } = useI18n();
-  const { top: topInset } = useSafeAreaInsets();
   const { primaryActions, secondaryActions, hasBreadcrumbs } = useGlobalHeader({
     actions,
     currentRole,
     breadcrumbs,
   });
-  const resolvedTitle = title || t('navigation.mainNavigation');
+  const hasTitle = title !== null;
+  const resolvedTitle = hasTitle ? title || t('navigation.mainNavigation') : null;
   const resolvedLabel = accessibilityLabel || t('navigation.header.title');
 
   const secondaryActionItems = useMemo(() => {
@@ -103,37 +102,41 @@ const GlobalHeaderAndroid = ({
     return buildActionItems({ actions: primaryActions, testID });
   }, [primaryActions, testID]);
   const hasUtilities = primaryActionItems.length > 0 || !!utilitySlot;
+  const hasTitleGroup = hasTitle || secondaryActionItems.length > 0;
 
   return (
     <StyledHeader
-      topInset={topInset}
       accessibilityLabel={resolvedLabel}
       testID={testID}
       {...rest}
     >
       <StyledHeaderRow>
         {leadingSlot ? <StyledLeadingSlot>{leadingSlot}</StyledLeadingSlot> : null}
-        <StyledTitleGroup>
-          {secondaryActionItems.length > 0 ? (
-            <StyledActionsGroup>{secondaryActionItems}</StyledActionsGroup>
-          ) : null}
-          <StyledTitleBlock>
-            {typeof resolvedTitle === 'string' ? (
-              <Text variant="h3">{resolvedTitle}</Text>
-            ) : (
-              resolvedTitle
-            )}
-            {subtitle
-              ? typeof subtitle === 'string'
-                ? (
-                  <Text variant="caption" color="text.secondary">
-                    {subtitle}
-                  </Text>
-                )
-                : subtitle
-              : null}
-          </StyledTitleBlock>
-        </StyledTitleGroup>
+        {hasTitleGroup ? (
+          <StyledTitleGroup>
+            {secondaryActionItems.length > 0 ? (
+              <StyledActionsGroup>{secondaryActionItems}</StyledActionsGroup>
+            ) : null}
+            {hasTitle ? (
+              <StyledTitleBlock>
+                {typeof resolvedTitle === 'string' ? (
+                  <Text variant="h3">{resolvedTitle}</Text>
+                ) : (
+                  resolvedTitle
+                )}
+                {subtitle
+                  ? typeof subtitle === 'string'
+                    ? (
+                      <Text variant="caption" color="text.secondary">
+                        {subtitle}
+                      </Text>
+                    )
+                    : subtitle
+                  : null}
+              </StyledTitleBlock>
+            ) : null}
+          </StyledTitleGroup>
+        ) : null}
         {hasUtilities ? (
           <StyledActionsGroup>
             {primaryActionItems}

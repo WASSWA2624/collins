@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { prisma } from '../../config/prisma.js';
 import { env } from '../../config/env.js';
+import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import { hashPassword, verifyPassword } from '../../utils/password.js';
 import { randomToken, sha256 } from '../../utils/crypto.js';
-import { unauthorized, forbidden, conflict } from '../../utils/errors.js';
+import { unauthorized, forbidden, conflict, notFound } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { createInitialOnboardingState } from '../onboarding/onboarding.service.js';
 import { buildAuthContext, resolveRequestedFacilityId } from './auth.presenter.js';
@@ -31,6 +32,17 @@ const authOnboardingStateSelect = {
   clinicalSafetyAcknowledgementVersion: true,
   clinicalSafetyStatementHash: true,
   completedAt: true,
+};
+
+const registrationFacilitySelect = {
+  id: true,
+  registryCode: true,
+  name: true,
+  district: true,
+  region: true,
+  type: true,
+  ownership: true,
+  verificationStatus: true,
 };
 
 const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
@@ -141,7 +153,72 @@ const buildAuthPayload = async (user, { tx = prisma, requestedFacilityId = null 
   };
 };
 
-export const registerUser = async ({ name, email, phone, password }, auditContext = {}) => {
+const resolveRegistrationFacility = async (tx, {
+  facilityId,
+  facilityName,
+  facilityDistrict,
+  facilityRegion,
+  facilityType,
+  facilityOwnership,
+} = {}, userId, auditContext = {}) => {
+  if (facilityId) {
+    const facility = await tx.facility.findUnique({
+      where: { id: facilityId },
+      select: registrationFacilitySelect,
+    });
+    if (!facility) throw notFound('Facility not found');
+    return facility;
+  }
+
+  if (!facilityName) return null;
+
+  const existing = await tx.facility.findFirst({
+    where: {
+      name: facilityName,
+      ...(facilityDistrict ? { district: facilityDistrict } : {}),
+    },
+    select: registrationFacilitySelect,
+  });
+  if (existing) return existing;
+
+  const facility = await tx.facility.create({
+    data: {
+      name: facilityName,
+      ...(facilityDistrict ? { district: facilityDistrict } : {}),
+      ...(facilityRegion ? { region: facilityRegion } : {}),
+      ...(facilityType ? { type: facilityType } : { type: 'Hospital' }),
+      ...(facilityOwnership ? { ownership: facilityOwnership } : {}),
+    },
+    select: registrationFacilitySelect,
+  });
+
+  await writeAudit({
+    tx,
+    ...auditContext,
+    userId,
+    facilityId: facility.id,
+    action: 'FACILITY_CREATE_FROM_REGISTRATION',
+    entityType: 'Facility',
+    entityId: facility.id,
+    afterJson: facility,
+  });
+
+  return facility;
+};
+
+export const registerUser = async ({
+  name,
+  email,
+  phone,
+  password,
+  facilityId,
+  facilityName,
+  facilityDistrict,
+  facilityRegion,
+  facilityType,
+  facilityOwnership,
+  requestedRole = MEMBERSHIP_ROLES.CLINICIAN,
+}, auditContext = {}) => {
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) throw conflict('A user with this email already exists');
 
@@ -156,7 +233,44 @@ export const registerUser = async ({ name, email, phone, password }, auditContex
       select: publicUserSelect,
     });
 
-    await createInitialOnboardingState(tx, user.id);
+    const selectedFacility = await resolveRegistrationFacility(tx, {
+      facilityId,
+      facilityName,
+      facilityDistrict,
+      facilityRegion,
+      facilityType,
+      facilityOwnership,
+    }, user.id, auditContext);
+
+    if (selectedFacility) {
+      const membership = await tx.facilityMembership.create({
+        data: {
+          userId: user.id,
+          facilityId: selectedFacility.id,
+          role: requestedRole,
+          status: 'PENDING',
+        },
+        include: { facility: true },
+      });
+
+      await writeAudit({
+        tx,
+        ...auditContext,
+        userId: user.id,
+        facilityId: selectedFacility.id,
+        action: 'FACILITY_MEMBERSHIP_REQUEST',
+        entityType: 'FacilityMembership',
+        entityId: membership.id,
+        afterJson: { role: membership.role, status: membership.status },
+      });
+    }
+
+    await createInitialOnboardingState(tx, user.id, {
+      ...(selectedFacility ? {
+        selectedFacilityId: selectedFacility.id,
+        requestedRole,
+      } : {}),
+    });
 
     await writeAudit({
       tx,
@@ -164,7 +278,12 @@ export const registerUser = async ({ name, email, phone, password }, auditContex
       action: 'AUTH_REGISTER',
       entityType: 'User',
       entityId: user.id,
-      afterJson: { id: user.id, email: user.email },
+      afterJson: {
+        id: user.id,
+        email: user.email,
+        selectedFacilityId: selectedFacility?.id || null,
+        requestedRole: selectedFacility ? requestedRole : null,
+      },
     });
 
     return buildAuthPayload(user, { tx });

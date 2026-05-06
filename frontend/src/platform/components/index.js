@@ -32,6 +32,7 @@ export { default as TabBar } from './navigation/TabBar';
 export { default as Tabs } from './navigation/Tabs';
 export { default as Tab } from './navigation/Tab';
 export { default as Breadcrumbs } from './navigation/Breadcrumbs';
+export { default as UserAccountMenu } from './navigation/UserAccountMenu';
 export { default as ThemeControls } from './navigation/ThemeControls';
 export { default as LanguageControls } from './navigation/LanguageControls';
 

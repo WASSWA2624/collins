@@ -44,6 +44,52 @@ const StyledHeaderLeading = styled(View).withConfig({
   flex-direction: row;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+`;
+
+const StyledMenuToggleButton = styled(Pressable).withConfig({
+  displayName: 'StyledMenuToggleButton',
+  componentId: 'StyledMenuToggleButton',
+})`
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+`;
+
+const StyledHeaderBrand = styled(View).withConfig({
+  displayName: 'StyledHeaderBrand',
+  componentId: 'StyledHeaderBrand',
+})`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+  flex-shrink: 1;
+`;
+
+const StyledHeaderLogo = styled(View).withConfig({
+  displayName: 'StyledHeaderLogo',
+  componentId: 'StyledHeaderLogo',
+})`
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`;
+
+const StyledHeaderAppName = styled.Text.withConfig({
+  displayName: 'StyledHeaderAppName',
+  componentId: 'StyledHeaderAppName',
+})`
+  flex-shrink: 1;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  letter-spacing: 0;
 `;
 
 export {
@@ -51,5 +97,9 @@ export {
   StyledDrawerBackdrop,
   StyledDrawerContainer,
   StyledDrawerRoot,
+  StyledHeaderAppName,
+  StyledHeaderBrand,
   StyledHeaderLeading,
+  StyledHeaderLogo,
+  StyledMenuToggleButton,
 };

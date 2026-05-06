@@ -11,8 +11,8 @@ const StyledHeader = styled.header.withConfig({
 })`
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
-  min-height: 36px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  min-height: 58px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -20,17 +20,18 @@ const StyledHeader = styled.header.withConfig({
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: visible;
 
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
-    min-height: 36px;
-    padding: 6px ${({ theme }) => theme.spacing.sm}px;
+    min-height: 56px;
+    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   }
 
   /* Mobile: Compact header */
   @media (max-width: 767px) {
-    min-height: 40px;
-    padding: 6px 8px;
+    min-height: 56px;
+    padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
   }
 `;
 
@@ -45,6 +46,7 @@ const StyledHeaderRow = styled.div.withConfig({
   width: 100%;
   flex-wrap: nowrap;
   min-width: 0;
+  position: relative;
 
   @media (min-width: 768px) and (max-width: 1023px) {
     gap: ${({ theme }) => theme.spacing.sm}px;
@@ -61,6 +63,7 @@ const StyledLeadingSlot = styled.div.withConfig({
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
+  min-width: 0;
 `;
 
 const StyledTitleGroup = styled.div.withConfig({
@@ -96,6 +99,8 @@ const StyledActionsGroup = styled.div.withConfig({
   gap: ${({ theme }) => theme.spacing.xs}px;
   flex-wrap: nowrap;
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 `;
 
 const StyledUtilityGroup = styled.div.withConfig({

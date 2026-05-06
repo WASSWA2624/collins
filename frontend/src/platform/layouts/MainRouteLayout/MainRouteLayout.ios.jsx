@@ -5,7 +5,7 @@
  */
 // 1. External dependencies
 import React, { useCallback, useMemo } from 'react';
-import { Modal, Pressable } from 'react-native';
+import { Modal } from 'react-native';
 import { Slot, useRouter } from 'expo-router';
 
 // 2. Platform components
@@ -17,9 +17,9 @@ import {
   NoticeSurface,
   Sidebar,
   TabBar,
+  UserAccountMenu,
 } from '@platform/components';
 import { getMenuIconGlyph } from '@config/sideMenu';
-import FacilityContextIndicator from '@platform/components/feedback/FacilityContextIndicator';
 
 // 3. Hooks & utilities
 import useMainRouteLayout from './useMainRouteLayout';
@@ -31,7 +31,11 @@ import {
   StyledDrawerBackdrop,
   StyledDrawerContainer,
   StyledDrawerRoot,
+  StyledHeaderAppName,
+  StyledHeaderBrand,
   StyledHeaderLeading,
+  StyledHeaderLogo,
+  StyledMenuToggleButton,
 } from './MainRouteLayout.ios.styles';
 
 // 5. Platform layouts
@@ -39,7 +43,7 @@ import AppFrame from '@platform/layouts/AppFrame';
 
 const MainRouteLayoutIOS = () => {
   const router = useRouter();
-  const { t, isLoading, items, tabItems, headerActions, isItemVisible } = useMainRouteLayout();
+  const { t, isLoading, items, tabItems, isItemVisible } = useMainRouteLayout();
   const { sidebarOpen, toggleSidebar, closeSidebar } = useMainRouteLayoutMobileShell();
 
   const overlaySlot = useMemo(
@@ -59,23 +63,20 @@ const MainRouteLayoutIOS = () => {
   const headerLeadingSlot = useMemo(
     () => (
       <StyledHeaderLeading>
-        <Pressable
+        <StyledMenuToggleButton
           onPress={toggleSidebar}
-          style={{ padding: 8 }}
           accessibilityRole="button"
           accessibilityLabel={t('common.toggleMenu')}
           testID="main-header-toggle-menu"
         >
           <Icon glyph={getMenuIconGlyph('menu-outline')} size="md" decorative />
-        </Pressable>
-        <Pressable
-          onPress={() => {}}
-          style={{ padding: 4 }}
-          accessibilityRole="image"
-          accessibilityLabel={t('app.shortName')}
-        >
-          <AppLogo size="md" />
-        </Pressable>
+        </StyledMenuToggleButton>
+        <StyledHeaderBrand accessibilityLabel={t('app.shortName')}>
+          <StyledHeaderLogo>
+            <AppLogo size="md" />
+          </StyledHeaderLogo>
+          <StyledHeaderAppName numberOfLines={1}>{t('app.name')}</StyledHeaderAppName>
+        </StyledHeaderBrand>
       </StyledHeaderLeading>
     ),
     [t, toggleSidebar]
@@ -85,12 +86,12 @@ const MainRouteLayoutIOS = () => {
     <AppFrame
       header={
         <GlobalHeader
-          title={t('app.shortName')}
+          title={null}
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={headerActions}
-          utilitySlot={<FacilityContextIndicator testID="main-facility-context" />}
+          actions={[]}
+          utilitySlot={<UserAccountMenu testID="main-account-menu" />}
         />
       }
       footer={

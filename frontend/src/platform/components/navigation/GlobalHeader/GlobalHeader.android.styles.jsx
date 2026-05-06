@@ -15,9 +15,11 @@ const StyledHeader = styled(View).withConfig({
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
   padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-top: ${({ theme, topInset }) => (topInset || 0) + theme.spacing.sm}px;
+  padding-top: ${({ theme }) => theme.spacing.sm}px;
   padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  min-height: 60px;
   elevation: 3;
+  overflow: visible;
 `;
 
 const StyledHeaderRow = styled(View).withConfig({
@@ -28,6 +30,7 @@ const StyledHeaderRow = styled(View).withConfig({
   align-items: center;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
 `;
 
 const StyledLeadingSlot = styled(View).withConfig({
@@ -36,6 +39,7 @@ const StyledLeadingSlot = styled(View).withConfig({
 })`
   flex-direction: row;
   align-items: center;
+  min-width: 0;
 `;
 
 const StyledTitleGroup = styled(View).withConfig({
@@ -46,6 +50,7 @@ const StyledTitleGroup = styled(View).withConfig({
   flex-direction: row;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
 `;
 
 const StyledTitleBlock = styled(View).withConfig({
@@ -64,6 +69,7 @@ const StyledActionsGroup = styled(View).withConfig({
   flex-direction: row;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs}px;
+  flex-shrink: 0;
 `;
 
 const StyledUtilityGroup = styled(View).withConfig({
@@ -74,6 +80,7 @@ const StyledUtilityGroup = styled(View).withConfig({
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
   flex-wrap: wrap;
+  flex-shrink: 0;
 `;
 
 const StyledActionButton = styled(Pressable).withConfig({

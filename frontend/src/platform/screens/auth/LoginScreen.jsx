@@ -120,6 +120,7 @@ const LoginScreen = () => {
 
   return (
     <AuthFormLayout
+      size="sm"
       actions={
         <Button
           text={t('auth.login.submit')}
@@ -128,6 +129,7 @@ const LoginScreen = () => {
           disabled={!canSubmit}
           loading={isLoading}
           accessibilityLabel={t('auth.login.submit')}
+          style={{ width: '100%' }}
           testID="login-submit"
         />
       }
@@ -150,7 +152,7 @@ const LoginScreen = () => {
       testID="login-screen"
       accessibilityLabel={t('auth.login.accessibilityLabel')}
     >
-      <Stack spacing="md">
+      <Stack spacing="md" style={{ width: '100%' }}>
         <AuthBrand
           name={t('auth.brand.name')}
           logoLabel={t('auth.brand.logoLabel')}

@@ -1,6 +1,41 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { loginSchema, refreshSchema } from '../src/modules/auth/auth.validators.js';
+import { loginSchema, refreshSchema, registerSchema } from '../src/modules/auth/auth.validators.js';
+
+test('register schema accepts optional facility affiliation metadata', () => {
+  const result = registerSchema.parse({
+    body: {
+      name: ' Clinician One ',
+      email: ' Clinician@Example.COM ',
+      password: 'secure-pass',
+      facilityName: ' Mulago National Referral Hospital ',
+      facilityDistrict: ' Kampala ',
+      facilityRegion: ' Central ',
+      facilityType: ' National referral hospital ',
+      facilityOwnership: ' Government ',
+      requestedRole: 'CLINICIAN',
+    },
+  });
+
+  assert.equal(result.body.name, 'Clinician One');
+  assert.equal(result.body.email, 'clinician@example.com');
+  assert.equal(result.body.facilityName, 'Mulago National Referral Hospital');
+  assert.equal(result.body.facilityDistrict, 'Kampala');
+  assert.equal(result.body.requestedRole, 'CLINICIAN');
+});
+
+test('register schema defaults optional facility requests to clinician role', () => {
+  const result = registerSchema.parse({
+    body: {
+      name: 'Clinician One',
+      email: 'clinician@example.com',
+      password: 'secure-pass',
+      facilityName: 'Mengo Hospital',
+    },
+  });
+
+  assert.equal(result.body.requestedRole, 'CLINICIAN');
+});
 
 test('login schema normalizes email and accepts an active facility selection', () => {
   const result = loginSchema.parse({

@@ -122,8 +122,8 @@ export const getOnboardingState = async (userId) => {
   return buildStateResponse(state, userId);
 };
 
-export const createInitialOnboardingState = (tx, userId) => tx.onboardingState.create({
-  data: { userId },
+export const createInitialOnboardingState = (tx, userId, data = {}) => tx.onboardingState.create({
+  data: { userId, ...data },
   select: onboardingStateSelect,
 });
 

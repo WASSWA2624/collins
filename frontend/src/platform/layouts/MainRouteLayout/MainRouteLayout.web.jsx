@@ -17,18 +17,16 @@ import {
   LoadingOverlay,
   NoticeSurface,
   Sidebar,
+  UserAccountMenu,
 } from '@platform/components';
 
 // 3. Hooks & utilities
 import useMainRouteLayout from './useMainRouteLayout';
 import useMainRouteLayoutWebShell from './useMainRouteLayoutWebShell';
-import FacilityContextIndicator from '@platform/components/feedback/FacilityContextIndicator';
 import { getMenuIconGlyph } from '@config/sideMenu';
 
 // 4. Styles
 import {
-  StyledAppNameFull,
-  StyledAppNameShort,
   StyledHeaderAppName,
   StyledHeaderBrand,
   StyledHeaderLeading,
@@ -45,7 +43,7 @@ import AppFrame from '@platform/layouts/AppFrame';
 const MainRouteLayoutWeb = () => {
   const { width } = useWindowDimensions();
   const isMobile = width < breakpoints.tablet;
-  const { t, isLoading, items, headerActions, isItemVisible } = useMainRouteLayout();
+  const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
   const { sidebarCollapsed, sidebarWidth, collapsedWidth, toggleSidebar, resizerProps } =
     useMainRouteLayoutWebShell();
   const sidebarOnClose = isMobile ? toggleSidebar : undefined;
@@ -77,23 +75,16 @@ const MainRouteLayoutWeb = () => {
     [t, toggleSidebar]
   );
 
-  const headerTitle = (
-    <>
-      <StyledAppNameShort>{t('app.shortName')}</StyledAppNameShort>
-      <StyledAppNameFull>{t('app.name')}</StyledAppNameFull>
-    </>
-  );
-
   return (
     <AppFrame
       header={
         <GlobalHeader
-          title={headerTitle}
+          title={null}
           leadingSlot={headerLeadingSlot}
           accessibilityLabel={t('navigation.header.title')}
           testID="main-header"
-          actions={headerActions}
-          utilitySlot={<FacilityContextIndicator testID="main-facility-context" />}
+          actions={[]}
+          utilitySlot={<UserAccountMenu testID="main-account-menu" />}
         />
       }
       sidebarBackdrop={

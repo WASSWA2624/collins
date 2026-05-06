@@ -126,6 +126,36 @@ jest.mock('@platform/components', () => {
 
   const PasswordField = TextField;
 
+  const Select = ({
+    disabled,
+    helperText,
+    label,
+    onValueChange,
+    options = [],
+    placeholder,
+    testID,
+    value,
+  }) =>
+    React.createElement(
+      View,
+      { testID, options, value },
+      label ? React.createElement(NativeText, {}, label) : null,
+      React.createElement(NativeText, {}, value || placeholder),
+      options.map((option, index) =>
+        React.createElement(
+          TouchableOpacity,
+          {
+            disabled: disabled || option.disabled,
+            key: option.value,
+            onPress: () => onValueChange(option.value),
+            testID: `${testID}-option-${index}`,
+          },
+          React.createElement(NativeText, {}, option.label)
+        )
+      ),
+      helperText ? React.createElement(NativeText, {}, helperText) : null
+    );
+
   const SystemBanner = ({ actionLabel, message, onAction, testID, title }) =>
     React.createElement(
       View,
@@ -143,6 +173,7 @@ jest.mock('@platform/components', () => {
     AuthFormLayout,
     Button,
     PasswordField,
+    Select,
     Stack,
     SystemBanner,
     Text,
@@ -210,13 +241,18 @@ describe('auth entry screens', () => {
   });
 
   it('renders a branded registration entry with sign-in navigation', () => {
-    const { getByPlaceholderText, getByTestId, queryByText } = renderWithTheme(<RegisterScreen />);
+    const { getByPlaceholderText, getByTestId, queryByTestId, queryByText } = renderWithTheme(<RegisterScreen />);
 
     expect(getByTestId('register-brand-logo')).toBeTruthy();
+    expect(getByTestId('register-brand').props.layout).toBe('horizontal');
     expect(getByTestId('register-brand-name').props.children).toBe('AI Vent');
+    expect(getByTestId('register-title').props.children).toBe('Create account');
     expect(getByTestId('register-name')).toBeTruthy();
     expect(getByTestId('register-email')).toBeTruthy();
     expect(getByPlaceholderText('Create password')).toBeTruthy();
+    expect(getByTestId('register-facility-combobox')).toBeTruthy();
+    expect(getByTestId('register-facility-combobox-input')).toBeTruthy();
+    expect(queryByTestId('register-facility-select')).toBeNull();
     expect(getByTestId('register-submit')).toBeTruthy();
     expect(queryByText(/Clinical data stays hidden/i)).toBeNull();
 
@@ -239,6 +275,31 @@ describe('auth entry screens', () => {
         email: 'nurse@example.com',
         password: 'long-pass',
       });
+    });
+  });
+
+  it('submits an optional facility affiliation as a pending clinician request', async () => {
+    const { getByPlaceholderText, getByTestId } = renderWithTheme(<RegisterScreen />);
+
+    fireEvent.changeText(getByTestId('register-name'), 'Nurse User');
+    fireEvent.changeText(getByTestId('register-email'), 'nurse@example.com');
+    fireEvent.changeText(getByPlaceholderText('Create password'), 'long-pass');
+    fireEvent.changeText(getByTestId('register-facility-combobox-input'), 'Mulago');
+    fireEvent.press(getByTestId('register-facility-combobox-option-0'));
+    fireEvent.press(getByTestId('register-submit'));
+
+    await waitFor(() => {
+      expect(mockAuthState.register).toHaveBeenCalledWith(expect.objectContaining({
+        name: 'Nurse User',
+        email: 'nurse@example.com',
+        password: 'long-pass',
+        facilityName: 'Mulago National Referral Hospital',
+        facilityDistrict: 'Kampala',
+        facilityRegion: 'Central',
+        facilityType: 'National referral hospital',
+        facilityOwnership: 'Government',
+        requestedRole: 'CLINICIAN',
+      }));
     });
   });
 

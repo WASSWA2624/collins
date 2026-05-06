@@ -94,7 +94,8 @@ const GlobalHeaderWeb = ({
     currentRole,
     breadcrumbs,
   });
-  const resolvedTitle = title || t('navigation.mainNavigation');
+  const hasTitle = title !== null;
+  const resolvedTitle = hasTitle ? title || t('navigation.mainNavigation') : null;
   const resolvedLabel = accessibilityLabel || t('navigation.header.title');
 
   const secondaryActionItems = useMemo(() => {
@@ -105,6 +106,7 @@ const GlobalHeaderWeb = ({
     return buildActionItems({ actions: primaryActions, testID });
   }, [primaryActions, testID]);
   const hasUtilities = primaryActionItems.length > 0 || !!utilitySlot;
+  const hasTitleGroup = hasTitle || secondaryActionItems.length > 0;
 
   return (
     <StyledHeader
@@ -117,27 +119,31 @@ const GlobalHeaderWeb = ({
     >
       <StyledHeaderRow>
         {leadingSlot ? <StyledLeadingSlot>{leadingSlot}</StyledLeadingSlot> : null}
-        <StyledTitleGroup>
-          {secondaryActionItems.length > 0 ? (
-            <StyledActionsGroup>{secondaryActionItems}</StyledActionsGroup>
-          ) : null}
-          <StyledTitleBlock>
-            {typeof resolvedTitle === 'string' ? (
-              <Text variant="h2">{resolvedTitle}</Text>
-            ) : (
-              resolvedTitle
-            )}
-            {subtitle
-              ? typeof subtitle === 'string'
-                ? (
-                  <Text variant="caption" color="text.secondary">
-                    {subtitle}
-                  </Text>
-                )
-                : subtitle
-              : null}
-          </StyledTitleBlock>
-        </StyledTitleGroup>
+        {hasTitleGroup ? (
+          <StyledTitleGroup>
+            {secondaryActionItems.length > 0 ? (
+              <StyledActionsGroup>{secondaryActionItems}</StyledActionsGroup>
+            ) : null}
+            {hasTitle ? (
+              <StyledTitleBlock>
+                {typeof resolvedTitle === 'string' ? (
+                  <Text variant="h2">{resolvedTitle}</Text>
+                ) : (
+                  resolvedTitle
+                )}
+                {subtitle
+                  ? typeof subtitle === 'string'
+                    ? (
+                      <Text variant="caption" color="text.secondary">
+                        {subtitle}
+                      </Text>
+                    )
+                    : subtitle
+                  : null}
+              </StyledTitleBlock>
+            ) : null}
+          </StyledTitleGroup>
+        ) : null}
         {hasUtilities ? (
           <StyledActionsGroup>
             {primaryActionItems}

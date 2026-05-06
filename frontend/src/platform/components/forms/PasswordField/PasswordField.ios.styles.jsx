@@ -10,6 +10,8 @@ const StyledContainer = styled(View).withConfig({
   displayName: 'StyledContainer',
 })`
   width: 100%;
+  min-width: 0px;
+  align-self: stretch;
   flex-direction: column;
 `;
 

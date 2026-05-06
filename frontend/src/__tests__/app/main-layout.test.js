@@ -58,6 +58,9 @@ jest.mock('@platform/components', () => {
     Sidebar: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children || 'Sidebar')
     ),
+    UserAccountMenu: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement('div', { ...props, ref }, children || 'UserAccountMenu')
+    ),
     ShellBanners: React.forwardRef(({ children, ...props }, ref) =>
       React.createElement('div', { ...props, ref }, children || 'ShellBanners')
     ),

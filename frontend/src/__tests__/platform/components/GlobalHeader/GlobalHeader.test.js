@@ -74,6 +74,14 @@ describe('GlobalHeader Component', () => {
     expect(getByText('Custom Title')).toBeTruthy();
   });
 
+  it('should allow a header with no visible title', () => {
+    const { queryByText, getByTestId } = renderWithProviders(
+      <GlobalHeader title={null} testID="global-header" />
+    );
+    expect(getByTestId('global-header')).toBeTruthy();
+    expect(queryByText('navigation.mainNavigation')).toBeNull();
+  });
+
   it('should filter actions by current role', () => {
     const { getByTestId, queryByTestId } = renderWithProviders(
       <GlobalHeader actions={actions} currentRole="admin" testID="global-header" />

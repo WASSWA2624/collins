@@ -27,6 +27,7 @@ const StyledHeaderLeading = styled.div.withConfig({
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
 `;
 
 const StyledMenuToggleButton = styled.button.withConfig({
@@ -36,17 +37,24 @@ const StyledMenuToggleButton = styled.button.withConfig({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  min-height: 36px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  border: none;
-  border-radius: ${({ theme }) => theme.radius.sm}px;
-  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
   cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background.tertiary};
+    background-color: ${({ theme }) => theme.colors.background.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}1A`};
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   &:focus-visible {
@@ -62,6 +70,7 @@ const StyledHeaderBrand = styled.a.withConfig({
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -85,7 +94,7 @@ const appNameTypography = css`
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   line-height: ${({ theme }) => theme.typography.lineHeight.tight};
   color: ${({ theme }) => theme.colors.text.primary};
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 `;
 
 const StyledHeaderAppName = styled.span.withConfig({
@@ -93,33 +102,16 @@ const StyledHeaderAppName = styled.span.withConfig({
   componentId: 'StyledHeaderAppName',
 })`
   ${appNameTypography}
+  display: inline-block;
+  min-width: 0;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   @media (max-width: 767px) {
-    display: none;
-  }
-`;
-
-const StyledAppNameShort = styled.span.withConfig({
-  displayName: 'StyledAppNameShort',
-  componentId: 'StyledAppNameShort',
-})`
-  ${appNameTypography}
-  display: inline;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    display: none;
-  }
-`;
-
-const StyledAppNameFull = styled.span.withConfig({
-  displayName: 'StyledAppNameFull',
-  componentId: 'StyledAppNameFull',
-})`
-  ${appNameTypography}
-  display: none;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    display: inline;
+    max-width: 112px;
+    font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   }
 `;
 
@@ -163,8 +155,6 @@ const StyledSidebarResizeHandle = styled.div.withConfig({
 `;
 
 export {
-  StyledAppNameFull,
-  StyledAppNameShort,
   StyledHeaderAppName,
   StyledHeaderBrand,
   StyledHeaderLeading,

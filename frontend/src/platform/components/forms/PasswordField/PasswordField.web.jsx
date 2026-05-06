@@ -5,7 +5,6 @@
  */
 // 1. External dependencies
 import React, { useState, useCallback } from 'react';
-import { View } from 'react-native';
 
 // 2. Platform components (from barrel file)
 import TextField from '../TextField';
@@ -137,11 +136,11 @@ const PasswordFieldWeb = ({
       {showStrengthIndicator && value && (
         <StyledPasswordStrength>
           <StyledPasswordStrengthBar
-            strength={passwordStrength.strength}
-            color={passwordStrength.color}
+            $strength={passwordStrength.strength}
+            $color={passwordStrength.color}
           />
           {strengthLabel && (
-            <StyledPasswordStrengthLabel color={passwordStrength.color}>
+            <StyledPasswordStrengthLabel $color={passwordStrength.color}>
               {strengthLabel}
             </StyledPasswordStrengthLabel>
           )}
