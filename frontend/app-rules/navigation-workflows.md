@@ -11,8 +11,7 @@ Use short ICU-friendly labels:
 5. Dataset Capture
 6. Review Queue
 7. Dashboard
-8. Training / Help
-9. Settings
+8. Settings
 
 Normal clinicians should see clinical summaries, risk flags, missing data, and reference-backed prompts. They should not see matched-case debug details or model internals.
 

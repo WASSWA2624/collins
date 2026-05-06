@@ -41,6 +41,7 @@ describe('abgVentUpdates.usecase', () => {
     expect(addToQueue).toHaveBeenCalledTimes(1);
     expect(addToQueue.mock.calls[0][0]).toMatchObject({
       method: 'POST',
+      url: expect.stringContaining('/admissions/admission-1/abg-ventilator-updates'),
       syncState: 'pending',
       retryCount: 0,
       queueMeta: {

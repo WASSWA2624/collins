@@ -1,9 +1,9 @@
 /**
- * (main)/dataset-capture - De-identified dataset candidate capture workflow
+ * (main)/dataset-capture - Structured clinical dataset candidate capture workflow
  */
 import React from 'react';
-import { DataSourcesScreen } from '@platform/screens';
+import { DatasetCaptureScreen } from '@platform/screens';
 
-const DatasetCaptureRoute = () => <DataSourcesScreen />;
+const DatasetCaptureRoute = () => <DatasetCaptureScreen />;
 
 export default DatasetCaptureRoute;

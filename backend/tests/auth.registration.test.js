@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { prisma } from '../src/config/prisma.js';
 import { registerUser } from '../src/modules/auth/auth.service.js';
 
-test('registerUser creates a pending facility membership when affiliation is supplied', async (t) => {
+const installRegistrationPrismaMock = (t) => {
   const originals = {
     user: prisma.user,
     $transaction: prisma.$transaction,
@@ -36,13 +36,13 @@ test('registerUser creates a pending facility membership when affiliation is sup
     facility: {
       findFirst: async () => null,
       create: async ({ data }) => {
-        calls.createdFacility = data;
-        return {
+        calls.createdFacility = {
           id: 'facility-1',
           registryCode: null,
           verificationStatus: 'PENDING',
           ...data,
         };
+        return calls.createdFacility;
       },
     },
     facilityMembership: {
@@ -50,11 +50,28 @@ test('registerUser creates a pending facility membership when affiliation is sup
         calls.createdMembership = data;
         return {
           id: 'membership-1',
+          approvedByUserId: null,
           ...data,
-          facility: { id: data.facilityId, name: 'Mulago National Referral Hospital' },
+          facility: calls.createdFacility,
         };
       },
-      findMany: async () => [],
+      findMany: async ({ where }) => {
+        if (
+          where?.userId !== 'user-1' ||
+          where?.status !== 'APPROVED' ||
+          calls.createdMembership?.status !== 'APPROVED'
+        ) {
+          return [];
+        }
+
+        return [{
+          id: 'membership-1',
+          facilityId: calls.createdMembership.facilityId,
+          role: calls.createdMembership.role,
+          status: calls.createdMembership.status,
+          facility: calls.createdFacility,
+        }];
+      },
     },
     onboardingState: {
       create: async ({ data }) => {
@@ -93,31 +110,62 @@ test('registerUser creates a pending facility membership when affiliation is sup
   prisma.user = { findUnique: async () => null };
   prisma.$transaction = async (work) => work(tx);
 
-  const payload = await registerUser({
-    name: 'Clinician One',
-    email: 'clinician@example.com',
-    password: 'secure-pass',
-    facilityName: 'Mulago National Referral Hospital',
-    facilityDistrict: 'Kampala',
-    facilityRegion: 'Central',
-    facilityType: 'National referral hospital',
-    facilityOwnership: 'Government',
-    requestedRole: 'CLINICIAN',
-  });
+  return calls;
+};
+
+const registrationPayload = (overrides = {}) => ({
+  name: 'Clinician One',
+  email: 'clinician@example.com',
+  password: 'secure-pass',
+  facilityName: 'Mulago National Referral Hospital',
+  facilityDistrict: 'Kampala',
+  facilityRegion: 'Central',
+  facilityType: 'National referral hospital',
+  facilityOwnership: 'Government',
+  requestedRole: 'CLINICIAN',
+  ...overrides,
+});
+
+test('registerUser auto-approves default clinical facility access from registration', async (t) => {
+  const calls = installRegistrationPrismaMock(t);
+
+  const payload = await registerUser(registrationPayload());
 
   assert.equal(calls.createdFacility.name, 'Mulago National Referral Hospital');
-  assert.equal(calls.createdFacility.verificationStatus, undefined);
+  assert.equal(calls.createdFacility.verificationStatus, 'PENDING');
   assert.deepEqual(calls.createdMembership, {
     userId: 'user-1',
     facilityId: 'facility-1',
     role: 'CLINICIAN',
-    status: 'PENDING',
+    status: 'APPROVED',
+    approvedByUserId: 'user-1',
   });
   assert.equal(calls.createdOnboardingState.selectedFacilityId, 'facility-1');
   assert.equal(calls.createdOnboardingState.requestedRole, 'CLINICIAN');
   assert.ok(calls.auditActions.includes('FACILITY_CREATE_FROM_REGISTRATION'));
-  assert.ok(calls.auditActions.includes('FACILITY_MEMBERSHIP_REQUEST'));
+  assert.ok(calls.auditActions.includes('FACILITY_MEMBERSHIP_AUTO_APPROVE_REGISTRATION'));
   assert.ok(calls.auditActions.includes('AUTH_REGISTER'));
   assert.equal(payload.user.id, 'user-1');
   assert.equal(payload.user.onboardingState.selectedFacilityId, 'facility-1');
+  assert.equal(payload.activeFacility.facilityId, 'facility-1');
+  assert.deepEqual(payload.activeFacility.roles, ['CLINICIAN']);
+  assert.ok(payload.user.permissions.includes('clinical:write'));
+});
+
+test('registerUser keeps elevated self-service role requests pending', async (t) => {
+  const calls = installRegistrationPrismaMock(t);
+
+  const payload = await registerUser(registrationPayload({
+    requestedRole: 'FACILITY_ADMIN',
+  }));
+
+  assert.deepEqual(calls.createdMembership, {
+    userId: 'user-1',
+    facilityId: 'facility-1',
+    role: 'FACILITY_ADMIN',
+    status: 'PENDING',
+  });
+  assert.ok(calls.auditActions.includes('FACILITY_MEMBERSHIP_REQUEST'));
+  assert.equal(payload.activeFacility, null);
+  assert.deepEqual(payload.roles, []);
 });

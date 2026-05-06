@@ -45,7 +45,6 @@ describe('HomeScreen', () => {
       'home.welcome.logoLabel': 'App logo',
       'home.actions.title': 'Workflow actions',
       'home.actions.accessibilityLabel': opts?.name ? `Open ${opts.name}` : 'Open {{name}}',
-      'home.actions.trainingHelp.title': 'Training / Help',
       'home.actions.settings.title': 'Settings',
       'home.actions.meta.open': 'Open',
       'home.status.title': 'Operational status',

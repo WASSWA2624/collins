@@ -117,6 +117,20 @@ const StyledOptionList = styled.ScrollView.withConfig({
   width: 100%;
 `;
 
+const StyledSearchInput = styled.TextInput.withConfig({
+  displayName: 'StyledSearchInput',
+  componentId: 'StyledSearchInput',
+})`
+  min-height: 44px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+`;
+
 const StyledOption = styled.Pressable.withConfig({
   displayName: 'StyledOption',
   componentId: 'StyledOption',
@@ -148,6 +162,16 @@ const StyledHelperText = styled.Text.withConfig({
   margin-top: ${({ theme }) => theme.spacing.xs}px;
 `;
 
+const StyledNoResultsText = styled.Text.withConfig({
+  displayName: 'StyledNoResultsText',
+  componentId: 'StyledNoResultsText',
+})`
+  padding: ${({ theme }) => theme.spacing.md}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+`;
+
 export {
   StyledContainer,
   StyledLabelRow,
@@ -159,8 +183,10 @@ export {
   StyledOverlay,
   StyledSheet,
   StyledOptionList,
+  StyledSearchInput,
   StyledOption,
   StyledOptionText,
+  StyledNoResultsText,
   StyledHelperText,
 };
 

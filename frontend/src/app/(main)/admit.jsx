@@ -1,6 +1,6 @@
 /**
  * Admit Route
- * Route alias for the admission workflow.
+ * Canonical admission workflow URL.
  */
 import React from 'react';
 import { AssessmentScreen } from '@platform/screens';

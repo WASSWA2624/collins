@@ -3,6 +3,7 @@ import { requireAuth } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validateRequest.js';
 import {
   create,
+  createAbgVentilatorUpdate,
   createAbgTest,
   createAirwayDevice,
   createClinicalSnapshot,
@@ -19,6 +20,7 @@ import {
 } from './admissions.controller.js';
 import {
   abgTestSchema,
+  admissionAbgVentilatorUpdateSchema,
   admissionIdSchema,
   admissionListSchema,
   admissionOxygenAbgVentilatorStepSchema,
@@ -44,6 +46,7 @@ admissionsRouter.get('/:id', validateRequest(admissionIdSchema), getById);
 admissionsRouter.patch('/:id', validateRequest(patchAdmissionSchema), patchById);
 admissionsRouter.post('/:id/three-step/oxygen-abg-ventilator', validateRequest(admissionOxygenAbgVentilatorStepSchema), saveOxygenAbgVentilatorStep);
 admissionsRouter.post('/:id/three-step/save-review', validateRequest(admissionSaveReviewStepSchema), saveReviewStep);
+admissionsRouter.post('/:id/abg-ventilator-updates', validateRequest(admissionAbgVentilatorUpdateSchema), createAbgVentilatorUpdate);
 admissionsRouter.post('/:id/clinical-snapshots', validateRequest(clinicalSnapshotSchema), createClinicalSnapshot);
 admissionsRouter.post('/:id/abg-tests', validateRequest(abgTestSchema), createAbgTest);
 admissionsRouter.post('/:id/ventilator-settings', validateRequest(ventilatorSettingSchema), createVentilatorSetting);

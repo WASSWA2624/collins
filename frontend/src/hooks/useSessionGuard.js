@@ -1,6 +1,6 @@
 /**
  * useSessionGuard
- * Redirects to /assessment when no ventilation session exists.
+ * Redirects to /admit when no ventilation session exists.
  * Used by session route layout to guard recommendation/monitoring/case routes.
  */
 import { useEffect } from 'react';
@@ -24,7 +24,7 @@ export default function useSessionGuard() {
 
   useEffect(() => {
     if (isReady && !hasSession) {
-      router.replace('/assessment');
+      router.replace('/admit');
     }
   }, [hasSession, isReady, router]);
 

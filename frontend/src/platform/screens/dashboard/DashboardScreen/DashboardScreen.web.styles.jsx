@@ -126,6 +126,30 @@ const StyledSections = styled.div.withConfig({
   margin-top: ${({ theme }) => theme.spacing.xl}px;
 `;
 
+const StyledStatusPanel = styled.div.withConfig({
+  displayName: 'StyledStatusPanel',
+  componentId: 'DashboardWebStyledStatusPanel',
+})`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  border: 1px solid ${({ theme, $tone }) => (
+    $tone === 'error' ? theme.colors.error : theme.colors.background.tertiary
+  )};
+  background-color: ${({ theme, $tone }) => (
+    $tone === 'error' ? theme.colors.status.error.background : theme.colors.background.secondary
+  )};
+`;
+
+const StyledStatusActions = styled.div.withConfig({
+  displayName: 'StyledStatusActions',
+  componentId: 'DashboardWebStyledStatusActions',
+})`
+  display: flex;
+  justify-content: flex-start;
+`;
+
 const StyledSection = styled.section.withConfig({
   displayName: 'StyledSection',
   componentId: 'DashboardWebStyledSection',
@@ -158,6 +182,8 @@ export {
   StyledRow,
   StyledSection,
   StyledSections,
+  StyledStatusActions,
+  StyledStatusPanel,
   StyledTab,
   StyledTabs,
 };

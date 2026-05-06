@@ -29,7 +29,7 @@ const useTabBar = ({
     const raw = String(activePathname || '');
     const path = raw.replace(/^\/+/, '') || '';
     const itemNorm = String(item.href || '').replace(/^\/+/, '') || '';
-    // Home (/) is active only for exact root, not for /settings or /training
+    // Home (/) is active only for exact root, not for nested app routes.
     if (itemNorm === '' || item.href === '/') {
       return path === '';
     }

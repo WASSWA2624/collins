@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  admissionAbgVentilatorUpdateSchema,
   admissionOxygenAbgVentilatorStepSchema,
   admissionPatientReasonStepSchema,
 } from '../src/modules/admissions/admissions.validators.js';
 import { buildAdmissionReadiness } from '../src/modules/admissions/admissions.service.js';
 
-test('patient and reason step accepts minimal pathway data and permitted missing fields', () => {
+test('patient and reason step accepts minimal patient data without explicit facility or bed', () => {
   const parsed = admissionPatientReasonStepSchema.parse({
     body: {
-      facilityId: 'facility-1',
-      bedNumber: 'ICU-04',
-      reasonForSupport: 'Pneumonia with oxygen support',
       patient: {
         patientPathway: 'adult',
         sexForSizeCalculations: 'male',
+        ageYears: '54',
         actualWeightKg: null,
+        heightOrLengthCm: '170',
       },
       permittedMissingFields: ['PaO2', 'actualWeightKg/referenceWeightKg'],
       idempotencyKey: 'patient-step-1',
@@ -26,7 +26,12 @@ test('patient and reason step accepts minimal pathway data and permitted missing
 
   assert.equal(parsed.body.patient.patientPathway, 'ADULT');
   assert.equal(parsed.body.patient.sexForSizeCalculations, 'MALE');
+  assert.equal(parsed.body.patient.ageYears, 54);
   assert.equal(parsed.body.patient.actualWeightKg, null);
+  assert.equal(parsed.body.patient.heightOrLengthCm, 170);
+  assert.equal(parsed.body.facilityId, undefined);
+  assert.equal(parsed.body.bedNumber, undefined);
+  assert.equal(parsed.body.reasonForSupport, undefined);
   assert.deepEqual(parsed.body.permittedMissingFields, ['PaO2', 'actualWeightKg/referenceWeightKg']);
 });
 
@@ -68,6 +73,51 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
   assert.equal(parsed.body.abg.pao2, null);
   assert.equal(parsed.body.ventilator.peep, 8);
   assert.equal(parsed.body.uncertainty.fields[0], 'FiO2');
+});
+
+test('ABG and ventilator settings update accepts only update records and sync metadata', () => {
+  const parsed = admissionAbgVentilatorUpdateSchema.parse({
+    body: {
+      abgTest: {
+        ph: '7.31',
+        pao2: '82',
+        fio2AtSample: '0.40',
+        source: 'abg_vent_update',
+      },
+      ventilatorSetting: {
+        mode: 'VC',
+        peep: '8',
+        fio2: '0.40',
+        source: 'abg_vent_update',
+      },
+      clientRecordId: 'client-update-1',
+      clientCreatedAt: '2026-05-05T07:30:00.000Z',
+      clientUpdatedAt: '2026-05-05T07:30:00.000Z',
+      idempotencyKey: 'abg-vent-update-1',
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  assert.equal(parsed.body.abgTest.ph, 7.31);
+  assert.equal(parsed.body.ventilatorSetting.peep, 8);
+  assert.equal(parsed.body.uncertainty, undefined);
+});
+
+test('ABG and ventilator settings update rejects uncertainty-only payloads', () => {
+  assert.throws(() =>
+    admissionAbgVentilatorUpdateSchema.parse({
+      body: {
+        uncertainty: {
+          fields: ['FiO2'],
+          reason: 'Not part of this workflow',
+        },
+        idempotencyKey: 'abg-vent-update-2',
+      },
+      params: { id: 'admission-1' },
+      query: {},
+    })
+  );
 });
 
 test('readiness keeps missing-data warnings advisory and honors permitted fields', () => {

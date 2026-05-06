@@ -1,10 +1,10 @@
 /**
- * Assessment Route
- * (main)/assessment - Ventilation assessment wizard
+ * Legacy Assessment Route
+ * Redirects old /assessment links to the Admit workflow.
  */
 import React from 'react';
-import { AssessmentScreen } from '@platform/screens';
+import { Redirect } from 'expo-router';
 
 export default function AssessmentRoute() {
-  return <AssessmentScreen />;
+  return <Redirect href="/admit" />;
 }

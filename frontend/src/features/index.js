@@ -12,7 +12,6 @@ export * from './home';
 export * from './dashboard';
 export * from './ventilation';
 export * from './abgVentUpdates';
-export * from './training';
 export * from './onboarding';
 export * from './help';
 export * from './settings';

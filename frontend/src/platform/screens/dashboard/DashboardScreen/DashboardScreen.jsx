@@ -48,9 +48,23 @@ const DashboardScreen = () => {
 
       <Button text={t('common.retry')} onPress={screen.refresh} loading={screen.isLoading} testID={screen.testIds.refresh} />
 
-      {screen.errorMessage ? (
+      {screen.isLoading ? (
         <View style={styles.notice}>
+          <Text variant="body">Loading dashboard...</Text>
+        </View>
+      ) : null}
+
+      {screen.errorMessage ? (
+        <View style={[styles.notice, styles.errorNotice]} accessibilityRole="alert">
+          <Text variant="label">{screen.errorTitle}</Text>
           <Text variant="body">{screen.errorMessage}</Text>
+          <Button text={t('common.retry')} onPress={screen.refresh} />
+        </View>
+      ) : null}
+
+      {!screen.isLoading && !screen.errorMessage && !screen.dashboard ? (
+        <View style={styles.notice}>
+          <Text variant="body">No dashboard data available.</Text>
         </View>
       ) : null}
 
@@ -100,10 +114,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAF3FF',
   },
   notice: {
-    borderLeftWidth: 3,
-    borderLeftColor: '#FF9500',
+    borderWidth: 1,
+    borderColor: '#E5E5EA',
     padding: 10,
-    backgroundColor: '#FFF8E8',
+    backgroundColor: '#F2F2F7',
+    gap: 8,
+  },
+  errorNotice: {
+    borderColor: '#FF3B30',
+    backgroundColor: '#FFEBEE',
   },
   grid: {
     flexDirection: 'row',

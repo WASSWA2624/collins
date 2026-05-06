@@ -16,7 +16,6 @@ export const MENU_ICON_GLYPHS = {
   'dataset-outline': '🗂️',
   'review-queue-outline': '☑️',
   'dashboard-outline': '📊',
-  'training-outline': '🎓',
   'settings-outline': '⚙️',
   'about-outline': '👤',
   'data-sources-outline': '🗄️',
@@ -48,6 +47,8 @@ const REVIEW_ROLES = [
   MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
 ];
 
+const DATASET_CAPTURE_ROLES = [...new Set([...CLINICAL_WRITE_ROLES, ...REVIEW_ROLES])];
+
 const DASHBOARD_ROLES = [
   MEMBERSHIP_ROLES.PLATFORM_ADMIN,
   MEMBERSHIP_ROLES.FACILITY_ADMIN,
@@ -59,13 +60,13 @@ const DASHBOARD_ROLES = [
   MEMBERSHIP_ROLES.READ_ONLY_REVIEWER,
 ];
 
-/** Main app sidebar: clinical, review, governance, training/help, and settings entrypoints. */
+/** Main app sidebar: clinical, review, governance, and settings entrypoints. */
 const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
   {
-    id: 'assessment',
+    id: 'admit',
     icon: 'admit-outline',
-    path: '/assessment',
+    path: '/admit',
     facilityScoped: true,
     requireActiveFacility: true,
     roles: CLINICAL_WRITE_ROLES,
@@ -80,9 +81,9 @@ const MAIN_NAV_ITEMS = [
     permissions: [PERMISSIONS.CLINICAL_READ],
   },
   {
-    id: 'abg-vent-update',
+    id: 'abg-ventilator-updates',
     icon: 'ventilator-outline',
-    path: '/abg-vent-update',
+    path: '/abg-ventilator-updates',
     facilityScoped: true,
     requireActiveFacility: true,
     roles: CLINICAL_WRITE_ROLES,
@@ -94,8 +95,8 @@ const MAIN_NAV_ITEMS = [
     path: '/dataset-capture',
     facilityScoped: true,
     requireActiveFacility: true,
-    roles: REVIEW_ROLES,
-    permissions: [PERMISSIONS.REVIEW_WRITE],
+    roles: DATASET_CAPTURE_ROLES,
+    anyPermissions: [PERMISSIONS.CLINICAL_WRITE, PERMISSIONS.REVIEW_WRITE],
   },
   {
     id: 'review-queue',
@@ -122,11 +123,10 @@ const MAIN_NAV_ITEMS = [
       PERMISSIONS.MODEL_GOVERN,
     ],
   },
-  { id: 'training', icon: 'training-outline', path: '/training' },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 
-const MOBILE_TAB_ITEM_IDS = ['home', 'assessment', 'history', 'training', 'settings'];
+const MOBILE_TAB_ITEM_IDS = ['home', 'admit', 'history', 'settings'];
 const MOBILE_TAB_ITEMS = MAIN_NAV_ITEMS.filter((item) => MOBILE_TAB_ITEM_IDS.includes(item.id));
 
 /** Settings sub-routes (this app's (settings) routes only). */

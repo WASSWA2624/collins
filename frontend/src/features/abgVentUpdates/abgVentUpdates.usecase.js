@@ -1,5 +1,5 @@
 /**
- * ABG / Vent Update Use Cases
+ * ABG and ventilator setting update use cases
  */
 import { normalizeError } from '@errors';
 import { addToQueue } from '@offline/queue';
@@ -26,8 +26,6 @@ const submitAbgVentUpdateUseCase = async ({
   admissionId,
   abg,
   ventilator,
-  uncertainty,
-  deviceContext,
   source = 'abg_vent_update',
   clientRecordId,
   idempotencyKey,
@@ -38,8 +36,6 @@ const submitAbgVentUpdateUseCase = async ({
     admissionId,
     abg,
     ventilator,
-    uncertainty,
-    deviceContext,
     source,
     clientRecordId,
     idempotencyKey,

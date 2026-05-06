@@ -122,8 +122,10 @@ const StyledActionsRow = styled(View).withConfig({
   componentId: 'StyledActionsRow',
 })`
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
-  flex-wrap: wrap;
+  width: 100%;
 `;
 
 const StyledMissingTests = styled(View).withConfig({

@@ -18,5 +18,8 @@ describe('services/api/endpoints', () => {
     expect(endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW('admission-1')).toContain(
       '/admissions/admission-1/three-step/save-review'
     );
+    expect(endpoints.ADMISSIONS.ABG_VENTILATOR_UPDATES('admission-1')).toContain(
+      '/admissions/admission-1/abg-ventilator-updates'
+    );
   });
 });

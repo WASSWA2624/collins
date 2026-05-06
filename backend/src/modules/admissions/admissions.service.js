@@ -1,6 +1,6 @@
 import { prisma } from '../../config/prisma.js';
 import { assertAdmissionAccess, assertFacilityRole, resolveFacilityScope, REVIEW_ROLES, WRITE_ROLES } from '../../utils/authorization.js';
-import { conflict, notFound, reviewerRequired } from '../../utils/errors.js';
+import { conflict, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { resolveIdempotency, storeIdempotencyResult } from '../../utils/idempotency.js';
 import { sha256 } from '../../utils/crypto.js';
@@ -63,6 +63,29 @@ const patientReferenceFields = new Set([
 const admissionPatchFields = ['bedNumber', 'admissionSource', 'reasonForVentilation', 'status', 'clientUpdatedAt'];
 const THREE_STEP_FLOW_VERSION = 'three-step-admission-flow@2026-05-05';
 const THREE_STEP_SOURCE = 'three_step_admission_flow';
+const ABG_UPDATE_VALUE_FIELDS = [
+  'ph',
+  'pao2',
+  'paco2',
+  'hco3',
+  'baseExcess',
+  'lactate',
+  'fio2AtSample',
+  'spo2AtSample',
+];
+const VENTILATOR_UPDATE_VALUE_FIELDS = [
+  'mode',
+  'tidalVolumeMl',
+  'respiratoryRateSet',
+  'respiratoryRateMeasured',
+  'fio2',
+  'peep',
+  'pressureSupport',
+  'inspiratoryPressure',
+  'peakPressure',
+  'plateauPressure',
+  'ieRatio',
+];
 
 const withoutIdempotency = (data = {}) => {
   const rest = { ...data };
@@ -76,7 +99,15 @@ const getOverrideReason = (payload = {}) => {
   return reason || null;
 };
 
+const resolveAdmissionCreateFacilityId = async (userId, requestedFacilityId) => {
+  const facilityId = await resolveFacilityScope(userId, cleanText(requestedFacilityId) || undefined, WRITE_ROLES);
+  if (!facilityId) throw forbidden('Facility scope is required to create an admission');
+  return facilityId;
+};
+
 const hasKeys = (value) => Object.keys(value || {}).length > 0;
+const hasClinicalValue = (record, fields) =>
+  Boolean(record && fields.some((field) => record[field] !== undefined && record[field] !== null));
 
 const stripNullish = (value) => {
   if (Array.isArray(value)) return value.map(stripNullish).filter((item) => item !== undefined && item !== null);
@@ -560,60 +591,64 @@ export const listAdmissions = async (userId, { facilityId, status, reviewStatus,
 };
 
 export const createAdmission = async (payload, createdByUserId, auditContext = {}) => {
-  await assertFacilityRole(createdByUserId, payload.facilityId, WRITE_ROLES);
+  const facilityId = await resolveAdmissionCreateFacilityId(createdByUserId, payload.facilityId);
+  const admissionPayload = {
+    ...payload,
+    facilityId,
+  };
 
   return prisma.$transaction(async (tx) => {
     const idem = await resolveIdempotency({
       tx,
       userId: createdByUserId,
-      facilityId: payload.facilityId,
-      key: payload.idempotencyKey,
+      facilityId,
+      key: admissionPayload.idempotencyKey,
       operation: 'admission.create',
-      payload,
+      payload: admissionPayload,
     });
     if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
 
-    const patientData = preparePatientData(payload.patient);
+    const patientData = preparePatientData(admissionPayload.patient);
     const createdPatient = await tx.patient.create({
-      data: { ...patientData, facilityId: payload.facilityId },
+      data: { ...patientData, facilityId },
     });
 
     const admission = await tx.admission.create({
       data: stripUndefined({
         patientId: createdPatient.id,
-        facilityId: payload.facilityId,
-        appAdmissionCode: payload.appAdmissionCode || createAdmissionCode(),
-        bedNumber: payload.bedNumber,
-        admittedAt: payload.admittedAt,
-        admissionSource: payload.admissionSource,
-        reasonForVentilation: payload.reasonForVentilation,
+        facilityId,
+        appAdmissionCode: admissionPayload.appAdmissionCode || createAdmissionCode(),
+        bedNumber: admissionPayload.bedNumber,
+        admittedAt: admissionPayload.admittedAt,
+        admissionSource: admissionPayload.admissionSource,
+        reasonForVentilation: admissionPayload.reasonForVentilation,
         createdByUserId,
-        clientRecordId: payload.clientRecordId,
-        deviceId: payload.deviceId,
-        clientCreatedAt: payload.clientCreatedAt,
-        clientUpdatedAt: payload.clientUpdatedAt,
+        clientRecordId: admissionPayload.clientRecordId,
+        deviceId: admissionPayload.deviceId,
+        clientCreatedAt: admissionPayload.clientCreatedAt,
+        clientUpdatedAt: admissionPayload.clientUpdatedAt,
       }),
     });
-    const referenceRanges = await resolveDecisionSupportReferenceRanges(payload.facilityId, { tx });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(facilityId, { tx });
 
-    if (payload.clinicalSnapshot) {
+    if (admissionPayload.clinicalSnapshot) {
       await tx.clinicalSnapshot.create({
         data: stripUndefined({
           admissionId: admission.id,
-          ...withoutIdempotency(payload.clinicalSnapshot),
+          ...withoutIdempotency(admissionPayload.clinicalSnapshot),
           enteredByUserId: createdByUserId,
           validationStatus: 'valid_or_missing',
         }),
       });
     }
 
-    if (payload.abgTest) {
-      const abgInterpretation = interpretAbg(payload.abgTest, createdPatient, { referenceRanges });
+    if (admissionPayload.abgTest) {
+      const abgInterpretation = interpretAbg(admissionPayload.abgTest, createdPatient, { referenceRanges });
       await tx.abgTest.create({
         data: stripUndefined({
           admissionId: admission.id,
           version: 1,
-          ...withoutIdempotency(payload.abgTest),
+          ...withoutIdempotency(admissionPayload.abgTest),
           enteredByUserId: createdByUserId,
           validationStatus: abgInterpretation.flags.some((flag) => flag.code === 'IMPOSSIBLE_VALUE') ? 'impossible' : 'valid_or_suspicious',
           clinicalFlagsJson: abgInterpretation.flags,
@@ -622,12 +657,12 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
       });
     }
 
-    if (payload.ventilatorSetting) {
-      const latestAbg = payload.abgTest || null;
-      const latestSnapshot = payload.clinicalSnapshot || null;
+    if (admissionPayload.ventilatorSetting) {
+      const latestAbg = admissionPayload.abgTest || null;
+      const latestSnapshot = admissionPayload.clinicalSnapshot || null;
       const summary = calculateVentilationSummary({
         patient: createdPatient,
-        ventilator: payload.ventilatorSetting,
+        ventilator: admissionPayload.ventilatorSetting,
         latestAbg,
         latestSnapshot,
         referenceRanges,
@@ -636,7 +671,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
         data: stripUndefined({
           admissionId: admission.id,
           version: 1,
-          ...withoutIdempotency(payload.ventilatorSetting),
+          ...withoutIdempotency(admissionPayload.ventilatorSetting),
           minuteVolumeLMin: summary.minuteVentilation.value,
           vtMlPerKgReferenceWeight: summary.vtPerKg.value,
           drivingPressure: summary.drivingPressure.value,
@@ -648,23 +683,23 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
       });
     }
 
-    if (payload.airwayDevice) {
+    if (admissionPayload.airwayDevice) {
       await tx.airwayDevice.create({
         data: stripUndefined({
           admissionId: admission.id,
-          ...withoutIdempotency(payload.airwayDevice),
+          ...withoutIdempotency(admissionPayload.airwayDevice),
           enteredByUserId: createdByUserId,
           validationStatus: 'valid_or_missing',
         }),
       });
     }
 
-    if (payload.humidification) {
-      const humidificationFlags = calculateHumidificationFlags(payload.humidification);
+    if (admissionPayload.humidification) {
+      const humidificationFlags = calculateHumidificationFlags(admissionPayload.humidification);
       await tx.humidificationDecision.create({
         data: stripUndefined({
           admissionId: admission.id,
-          ...withoutIdempotency(payload.humidification),
+          ...withoutIdempotency(admissionPayload.humidification),
           confirmedByUserId: createdByUserId,
           clinicalFlagsJson: humidificationFlags,
         }),
@@ -681,21 +716,21 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
     await storeIdempotencyResult({
       tx,
       userId: createdByUserId,
-      facilityId: payload.facilityId,
-      key: payload.idempotencyKey,
+      facilityId,
+      key: admissionPayload.idempotencyKey,
       operation: 'admission.create',
       requestHash: idem.requestHash,
       responseJson,
       entityType: 'Admission',
       entityId: admission.id,
-      clientRecordId: payload.clientRecordId,
+      clientRecordId: admissionPayload.clientRecordId,
     });
 
     await writeAudit({
       tx,
       ...auditContext,
       userId: createdByUserId,
-      facilityId: payload.facilityId,
+      facilityId,
       action: 'ADMISSION_CREATE',
       entityType: 'Admission',
       entityId: admission.id,
@@ -831,6 +866,57 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
       userId,
       facilityId: refreshed.facilityId,
       action: 'ADMISSION_THREE_STEP_OXYGEN_ABG_VENTILATOR',
+      entityType: 'Admission',
+      entityId: admissionId,
+      afterJson: response,
+      reason: getOverrideReason(payload),
+    });
+  }
+
+  return response;
+};
+
+export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payload, auditContext = {}) => {
+  await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
+  const saved = {};
+  const writeStatuses = [];
+
+  const abgRecord = stripNullish(payload.abgTest || {});
+  if (hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS)) {
+    const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
+      includeSource: true,
+      includeClientUpdatedAt: true,
+    });
+    const result = await addAbgTest(userId, admissionId, abgPayload, auditContext);
+    saved.abgTest = result.abgTest;
+    writeStatuses.push(result.syncStatus || 'synced');
+  }
+
+  const ventilatorRecord = stripNullish(payload.ventilatorSetting || {});
+  if (hasClinicalValue(ventilatorRecord, VENTILATOR_UPDATE_VALUE_FIELDS)) {
+    const ventilatorPayload = buildStepWriteMetadata(ventilatorRecord, payload, 'ventilator', {
+      includeSource: true,
+      includeClientUpdatedAt: true,
+    });
+    const result = await addVentilatorSetting(userId, admissionId, ventilatorPayload, auditContext);
+    saved.ventilatorSetting = result.ventilatorSetting;
+    writeStatuses.push(result.syncStatus || 'synced');
+  }
+
+  const refreshed = await getAdmissionById(userId, admissionId);
+  const syncStatus = writeStatuses.length > 0 && writeStatuses.every((status) => status === 'duplicate') ? 'duplicate' : 'synced';
+  const response = buildThreeStepAdmissionResponse('abg_ventilator_update', refreshed, {
+    facilityId: refreshed.facilityId,
+    saved,
+    syncStatus,
+  });
+
+  if (syncStatus !== 'duplicate') {
+    await writeAudit({
+      ...auditContext,
+      userId,
+      facilityId: refreshed.facilityId,
+      action: 'ADMISSION_ABG_VENTILATOR_UPDATE',
       entityType: 'Admission',
       entityId: admissionId,
       afterJson: response,

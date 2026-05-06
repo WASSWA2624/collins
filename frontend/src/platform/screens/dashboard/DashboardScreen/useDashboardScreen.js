@@ -3,11 +3,12 @@
  * Shared dashboard loading and role-aware presentation logic.
  * File: useDashboardScreen.js
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getActiveFacilityContext } from '@config/accessControl';
 import { useAuth } from '@hooks';
 import {
   DASHBOARD_TYPES,
+  MEMBERSHIP_ROLES,
   getDashboardCapabilities,
   getDashboardTypeForRoles,
   loadDashboardUseCase,
@@ -195,6 +196,12 @@ const getVisibleTypes = (capabilities) => [
   capabilities.canViewGovernance ? DASHBOARD_TYPES.GOVERNANCE : null,
 ].filter(Boolean);
 
+const getDashboardErrorTitle = (type) =>
+  `Unable to load ${(DASHBOARD_LABELS[type] || 'dashboard').toLowerCase()} dashboard`;
+
+const getDashboardErrorMessage = (error) =>
+  error?.safeMessage || error?.message || 'Unable to load dashboard';
+
 export default function useDashboardScreen() {
   const { user, roles } = useAuth();
   const activeFacility = useMemo(() => getActiveFacilityContext(user), [user]);
@@ -203,6 +210,7 @@ export default function useDashboardScreen() {
     const facilityRoles = Array.isArray(activeFacility?.roles) ? activeFacility.roles : [];
     return normalizeRoles([...authRoles, ...facilityRoles]);
   }, [activeFacility?.roles, roles]);
+  const isPlatformAdmin = roleKeys.includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN);
   const capabilities = useMemo(() => getDashboardCapabilities(roleKeys), [roleKeys]);
   const visibleTypes = useMemo(() => getVisibleTypes(capabilities), [capabilities]);
   const defaultType = useMemo(() => getDashboardTypeForRoles(roleKeys), [roleKeys]);
@@ -210,6 +218,7 @@ export default function useDashboardScreen() {
   const [dashboard, setDashboard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
     if (!visibleTypes.includes(activeType)) {
@@ -217,28 +226,40 @@ export default function useDashboardScreen() {
     }
   }, [activeType, defaultType, visibleTypes]);
 
+  const dashboardParams = useMemo(() => {
+    const facilityId = activeFacility?.facilityId || activeFacility?.id || undefined;
+    return {
+      days: 14,
+      ...(facilityId && !isPlatformAdmin ? { facilityId } : {}),
+    };
+  }, [activeFacility?.facilityId, activeFacility?.id, isPlatformAdmin]);
+
   const loadDashboard = useCallback(async () => {
+    const requestId = requestIdRef.current + 1;
+    requestIdRef.current = requestId;
+
     if (!visibleTypes.includes(activeType)) {
       setDashboard(null);
+      setErrorMessage(null);
+      setIsLoading(false);
       return;
     }
 
     setIsLoading(true);
     setErrorMessage(null);
+    setDashboard(null);
     try {
-      const facilityId = activeFacility?.facilityId || activeFacility?.id || undefined;
-      const data = await loadDashboardUseCase(activeType, {
-        days: 14,
-        ...(facilityId ? { facilityId } : {}),
-      });
-      setDashboard(data);
+      const data = await loadDashboardUseCase(activeType, dashboardParams);
+      if (requestIdRef.current === requestId) setDashboard(data);
     } catch (error) {
-      setDashboard(null);
-      setErrorMessage(error?.message || 'Unable to load dashboard');
+      if (requestIdRef.current === requestId) {
+        setDashboard(null);
+        setErrorMessage(getDashboardErrorMessage(error));
+      }
     } finally {
-      setIsLoading(false);
+      if (requestIdRef.current === requestId) setIsLoading(false);
     }
-  }, [activeFacility?.facilityId, activeFacility?.id, activeType, visibleTypes]);
+  }, [activeType, dashboardParams, visibleTypes]);
 
   useEffect(() => {
     void loadDashboard();
@@ -250,14 +271,17 @@ export default function useDashboardScreen() {
     id: type,
     label: DASHBOARD_LABELS[type],
   })), [visibleTypes]);
-  const scopeLabel = dashboard?.scope?.facility?.name || activeFacility?.name || (
-    dashboard?.scope?.scope === 'platform' ? 'Platform scope' : 'No active facility'
+  const scopeLabel = dashboard?.scope?.facility?.name || (
+    dashboard?.scope?.scope === 'platform' || isPlatformAdmin
+      ? 'Platform scope'
+      : activeFacility?.name || 'No active facility'
   );
 
   return {
     activeFacility,
     activeType,
     dashboard,
+    errorTitle: errorMessage ? getDashboardErrorTitle(activeType) : null,
     errorMessage,
     isLoading,
     metrics,

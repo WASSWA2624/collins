@@ -1,4 +1,5 @@
 const {
+  VENTILATOR_MODE_OPTIONS,
   buildAbgVentUpdatePayload,
   getAbgVentAdvisoryFlags,
   getAbgVentHistory,
@@ -7,7 +8,7 @@ const {
 } = require('@features/abgVentUpdates');
 
 describe('abgVentUpdates.model', () => {
-  it('builds append-only payloads with client timestamps, idempotency, source, and uncertainty', () => {
+  it('builds append-only payloads with client timestamps, idempotency, and source', () => {
     const payload = buildAbgVentUpdatePayload({
       admissionId: 'admission-1',
       abg: {
@@ -20,10 +21,6 @@ describe('abgVentUpdates.model', () => {
         tidalVolumeMl: '420',
         peep: '8',
         fio2: '0.40',
-      },
-      uncertainty: {
-        fields: 'FiO2, PaO2',
-        reason: 'Charted after bedside entry',
       },
       clientRecordId: 'client-update-1',
       idempotencyKey: 'idem-update-1',
@@ -48,11 +45,7 @@ describe('abgVentUpdates.model', () => {
       fio2: 0.4,
       source: 'abg_vent_update',
     });
-    expect(payload.uncertainty).toEqual({
-      isUncertain: true,
-      fields: ['FiO2', 'PaO2'],
-      reason: 'Charted after bedside entry',
-    });
+    expect(payload.uncertainty).toBeUndefined();
   });
 
   it('rejects empty updates before queueing or submitting', () => {
@@ -63,6 +56,12 @@ describe('abgVentUpdates.model', () => {
         ventilator: {},
       })
     ).toThrow('ABG_VENT_UPDATE_EMPTY');
+  });
+
+  it('exposes standardized ventilator mode options for select entry', () => {
+    expect(VENTILATOR_MODE_OPTIONS.map((option) => option.value)).toEqual(
+      expect.arrayContaining(['AC/VC', 'AC/PC', 'SIMV', 'PSV', 'CPAP', 'BiPAP/NIV'])
+    );
   });
 
   it('keeps history append-only and sorts newest events first', () => {
@@ -92,4 +91,3 @@ describe('abgVentUpdates.model', () => {
     expect(toAdvisoryMessage('Review ABG trend and confirm clinically.')).toBe('Review ABG trend and confirm clinically.');
   });
 });
-

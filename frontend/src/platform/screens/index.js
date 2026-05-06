@@ -13,6 +13,7 @@ export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';
 export { default as DashboardScreen } from './dashboard/DashboardScreen';
+export { DatasetCaptureScreen } from './dataset';
 
 // Ventilation screens
 export { default as AssessmentScreen } from './ventilation/AssessmentScreen';
@@ -25,11 +26,6 @@ export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
 
 // Review screens
 export { default as ReviewQueueScreen } from './review/ReviewQueueScreen';
-
-// Training screens
-export { default as TrainingHomeScreen } from './training/TrainingHomeScreen';
-export { default as TopicListScreen } from './training/TopicListScreen';
-export { default as TopicDetailScreen } from './training/TopicDetailScreen';
 
 // Settings screens
 export { default as SettingsScreen } from './settings/SettingsScreen';

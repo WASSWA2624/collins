@@ -82,6 +82,18 @@ describe('Select Component - Web', () => {
       expect(onValueChange).toHaveBeenCalledWith('two');
       expect(queryByText('One')).toBeFalsy();
     });
+
+    it('should filter options when searchable on Web', () => {
+      const { getByTestId, getByText, queryByText } = renderWebWithProviders(
+        <SelectWeb testID="web-select" options={options} value={undefined} onValueChange={() => {}} searchable />
+      );
+
+      fireEvent.click(getByTestId('web-select'));
+      fireEvent.change(getByTestId('web-select-search'), { target: { value: 'Two' } });
+
+      expect(getByText('Two')).toBeTruthy();
+      expect(queryByText('One')).toBeFalsy();
+    });
   });
 
   describe('Keyboard Navigation', () => {

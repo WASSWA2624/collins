@@ -16,7 +16,7 @@ test('training help catalog covers required workflows without unsafe order-like 
     'home',
     'admit',
     'tracking',
-    'abg-vent-update',
+    'abg-ventilator-updates',
     'dataset-capture',
     'review-queue',
     'dashboard',

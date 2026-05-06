@@ -95,7 +95,7 @@ describe('useNavigationVisibility', () => {
     });
     const result = renderHookWithStore(store);
 
-    expect(result.isItemVisible(getNavItem('assessment'))).toBe(true);
+    expect(result.isItemVisible(getNavItem('admit'))).toBe(true);
     expect(result.isItemVisible(getNavItem('history'))).toBe(true);
     expect(result.isItemVisible(getNavItem('dashboard'))).toBe(true);
   });
@@ -107,7 +107,7 @@ describe('useNavigationVisibility', () => {
     const result = renderHookWithStore(store);
 
     expect(result.isItemVisible(getNavItem('history'))).toBe(true);
-    expect(result.isItemVisible(getNavItem('assessment'))).toBe(false);
+    expect(result.isItemVisible(getNavItem('admit'))).toBe(false);
   });
 
   it('shows review queue to approved reviewer roles', () => {
@@ -134,6 +134,6 @@ describe('useNavigationVisibility', () => {
     });
     const result = renderHookWithStore(store);
 
-    expect(result.isItemVisible(getNavItem('assessment'))).toBe(false);
+    expect(result.isItemVisible(getNavItem('admit'))).toBe(false);
   });
 });

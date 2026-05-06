@@ -57,6 +57,7 @@ const ASSESSMENT_TEST_IDS = Object.freeze({
   generateButton: 'assessment-generate',
   missingTests: 'assessment-missing-tests',
   readiness: 'assessment-readiness',
+  recommendation: 'assessment-recommendation',
   syncStatus: 'assessment-sync-status',
 });
 

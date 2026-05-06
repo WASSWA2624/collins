@@ -4,6 +4,8 @@ import { buildAuditContext } from '../../utils/audit.js';
 import { verifyFacility } from '../facilities/facilities.controller.js';
 import {
   activateModelShadowMode,
+  assignManagedUserMemberships,
+  createManagedUser,
   createShadowModelOutput,
   createReferenceRule,
   getAdminDashboard,
@@ -15,11 +17,13 @@ import {
   listModelCards,
   listAdminFacilities,
   listAuditLogs,
+  listManagedUsers,
   listReferenceRules,
   requestReferenceCorrection,
   retireReferenceRule,
   retireModel,
   updateReferenceRule,
+  updateManagedUserMembership,
   verifyReferenceRule,
 } from './admin.service.js';
 
@@ -33,6 +37,46 @@ export const dashboard = asyncHandler(async (req, res) => {
 export const facilities = asyncHandler(async (req, res) => {
   const data = await listAdminFacilities(req.user?.sub);
   return successResponse(res, { message: 'Admin facilities loaded', data });
+});
+
+export const users = asyncHandler(async (req, res) => {
+  const result = await listManagedUsers(req.user?.sub, req.validated.query);
+  return successResponse(res, {
+    message: 'Managed users loaded',
+    data: result.items,
+    meta: {
+      total: result.total,
+      page: result.page,
+      limit: result.limit,
+      hasNextPage: (result.page * result.limit) < result.total,
+    },
+  });
+});
+
+export const createUser = asyncHandler(async (req, res) => {
+  const user = await createManagedUser(req.user?.sub, req.validated.body, buildAuditContext(req));
+  return successResponse(res, { status: 201, message: 'Managed user created', data: { user } });
+});
+
+export const assignUserMemberships = asyncHandler(async (req, res) => {
+  const data = await assignManagedUserMemberships(
+    req.validated.params.id,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req),
+  );
+  return successResponse(res, { message: 'User access updated', data });
+});
+
+export const updateUserMembership = asyncHandler(async (req, res) => {
+  const data = await updateManagedUserMembership(
+    req.validated.params.id,
+    req.validated.params.membershipId,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req),
+  );
+  return successResponse(res, { message: 'User membership updated', data });
 });
 
 export const auditLogs = asyncHandler(async (req, res) => {

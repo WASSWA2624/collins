@@ -34,7 +34,7 @@ export const createDatasetImportSchema = z.object({
   body: z.object({
     facilityId: z.string().min(1),
     sourceAdmissionId: z.string().min(1).optional(),
-    sourceType: safeSourceType.default('structured_import'),
+    sourceType: safeSourceType.default('clinical_case_capture'),
     structuredPreviewJson: jsonObject,
     governanceJson: jsonObject.optional(),
     ...offlineMetadataSchema,

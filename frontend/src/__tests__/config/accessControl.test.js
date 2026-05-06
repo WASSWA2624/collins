@@ -47,7 +47,7 @@ describe('accessControl', () => {
       isAuthenticated: true,
       user,
       item: {
-        id: 'assessment',
+        id: 'admit',
         facilityScoped: true,
         requireActiveFacility: true,
         permissions: [PERMISSIONS.CLINICAL_WRITE],
@@ -58,7 +58,7 @@ describe('accessControl', () => {
       isAuthenticated: true,
       user: { id: 'user-2', memberships: [] },
       item: {
-        id: 'assessment',
+        id: 'admit',
         facilityScoped: true,
         requireActiveFacility: true,
         permissions: [PERMISSIONS.CLINICAL_WRITE],

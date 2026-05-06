@@ -22,6 +22,7 @@
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
     "searchPlaceholder": "Search…",
+    "noResults": "No results",
     "searchIcon": "Search icon",
     "clearSearch": "Clear search",
     "on": "On",
@@ -273,13 +274,13 @@
     "items": {
       "main": {
         "home": "Home",
+        "admit": "Admit",
         "assessment": "Admit",
-        "abg-vent-update": "ABG / Vent Update",
+        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
         "history": "Tracking",
         "dataset-capture": "Dataset Capture",
         "review-queue": "Review Queue",
         "dashboard": "Dashboard",
-        "training": "Training / Help",
         "onboarding": "Getting started",
         "settings": "Settings",
         "settings-about": "About",
@@ -664,7 +665,7 @@
         "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
         "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
         "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
-        "abgVentUpdate": "Append ABG and ventilator values as time-stamped records so earlier values remain available for review.",
+        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
         "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
         "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
         "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
@@ -804,7 +805,7 @@
         "title": "Tracking"
       },
       "abgVentUpdate": {
-        "title": "ABG / Vent Update"
+        "title": "Update ABG & Ventilator Settings"
       },
       "datasetCapture": {
         "title": "Dataset Capture"
@@ -814,9 +815,6 @@
       },
       "dashboard": {
         "title": "Dashboard"
-      },
-      "trainingHelp": {
-        "title": "Training / Help"
       },
       "settings": {
         "title": "Settings"
@@ -887,6 +885,45 @@
     }
   },
   "ventilation": {
+    "datasetCapture": {
+      "title": "Clinical Data Capture",
+      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "accessibilityLabel": "Clinical data capture screen",
+      "notices": {
+        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
+        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+      },
+      "summary": {
+        "facility": "Facility",
+        "facilityReady": "Facility scope ready",
+        "facilityMissing": "Select an active facility before submitting.",
+        "required": "Required fields",
+        "requiredProgress": "{{complete}}/{{total}} complete",
+        "entered": "Entered fields",
+        "enteredProgress": "{{entered}}/{{total}} entered",
+        "sync": "Sync",
+        "online": "Online submission",
+        "offline": "Queued offline"
+      },
+      "fields": {
+        "required": "Required for review submission",
+        "optional": "Optional"
+      },
+      "missing": {
+        "title": "Submission readiness",
+        "none": "All required fields are complete."
+      },
+      "actions": {
+        "submit": "Submit for review",
+        "reset": "Clear form"
+      },
+      "status": {
+        "ready": "Complete the required fields, then submit for reviewer approval.",
+        "submitted": "Submitted for reviewer approval.",
+        "queued": "Queued for sync.",
+        "error": "Submission failed."
+      }
+    },
     "assessment": {
       "title": "Admit patient",
       "accessibilityLabel": "Admit patient wizard screen",
@@ -931,7 +968,7 @@
         "saveReview": "Save & review"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, facility context, reason for support, and any values that are permitted to be unavailable at admission.",
+        "description": "Capture the patient pathway, age, body metrics, and optional reason for support.",
         "facilityId": "Facility ID",
         "facilityIdPlaceholder": "Enter facility ID",
         "bedNumber": "Bed",
@@ -941,6 +978,8 @@
         "sexForSize": "Sex for size calculations",
         "ageYears": "Age (years)",
         "weightKg": "Weight (kg)",
+        "heightCm": "Height (cm)",
+        "bmi": "BMI",
         "reasonForSupport": "Reason for support",
         "reasonForSupportPlaceholder": "Brief admission reason",
         "permittedMissing": "Permitted missing values",
@@ -980,12 +1019,22 @@
         "timePlaceholder": "ISO time or leave blank",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
+        "respiratoryRate": "Respiratory rate",
+        "heartRate": "Heart rate",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
+        "hco3": "HCO3 (mmol/L)",
+        "baseExcess": "Base excess",
+        "lactate": "Lactate (mmol/L)",
+        "fio2AtSample": "FiO2 at ABG sample",
+        "spo2AtSample": "SpO2 at ABG sample",
         "ventilatorMode": "Ventilator mode",
         "tidalVolumeMl": "Tidal volume (mL)",
+        "ventilatorFio2": "Ventilator FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
+        "respiratoryRateSet": "Set respiratory rate",
+        "plateauPressure": "Plateau pressure (cmH2O)",
         "deviceId": "Device ID",
         "ventilatorType": "Ventilator type",
         "uncertaintyFields": "Uncertain fields",
@@ -994,8 +1043,12 @@
         "uncertaintyReason": "Uncertainty reason"
       },
       "saveReview": {
-        "description": "Review missing data, readiness, clinician confirmation, override reason when needed, review status, and sync state.",
+        "description": "Review the dataset recommendation, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
         "readiness": "Save readiness",
+        "recommendationTitle": "Dataset recommendation",
+        "recommendationConfidence": "Confidence: {{confidence}}",
+        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
         "ready": "Ready to save",
         "needsCorrection": "Correction or override required",
         "syncStatus": "Sync status: {{status}}",
@@ -1121,16 +1174,15 @@
       }
     },
     "abgVentUpdate": {
-      "title": "ABG / Vent Update",
-      "subtitle": "Append current ABG and ventilator values without changing prior records.",
-      "accessibilityLabel": "ABG and ventilator update screen",
+      "title": "Update ABG & Ventilator Settings",
+      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "accessibilityLabel": "Update ABG and ventilator settings screen",
       "offline": "Offline mode: this update will stay queued until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
-        "abg": "ABG update",
-        "ventilator": "Ventilator update",
-        "uncertainty": "Uncertainty",
+        "abg": "New ABG result",
+        "ventilator": "New ventilator settings",
         "missing": "Missing data",
         "advisory": "Advisory checks",
         "history": "History"
@@ -1143,10 +1195,9 @@
         "abg": "Latest ABG",
         "ventilator": "Latest ventilator"
       },
-      "uncertainty": {
-        "fields": "Uncertain fields",
-        "fieldsHint": "Separate fields with commas.",
-        "reason": "Uncertainty reason"
+      "ventilator": {
+        "modePlaceholder": "Select ventilator mode",
+        "modeSearchPlaceholder": "Search ventilator modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
@@ -1158,7 +1209,8 @@
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save append-only update"
+        "save": "Save new values",
+        "saving": "Validating & saving"
       }
     },
     "recommendation": {

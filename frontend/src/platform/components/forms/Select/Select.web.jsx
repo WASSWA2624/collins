@@ -21,8 +21,10 @@ import {
   StyledTriggerText,
   StyledChevron,
   StyledMenu,
+  StyledSearchInput,
   StyledOption,
   StyledOptionText,
+  StyledNoResultsText,
   StyledHelperText,
 } from './Select.web.styles';
 
@@ -51,6 +53,8 @@ import { VALIDATION_STATES } from './types';
  * @param {string} [props.validationState]
  * @param {string} [props.errorMessage]
  * @param {string} [props.helperText]
+ * @param {boolean} [props.searchable]
+ * @param {string} [props.searchPlaceholder]
  * @param {(value: any) => boolean|{valid: boolean, error?: string}} [props.validate]
  * @param {string} [props.accessibilityLabel]
  * @param {string} [props.accessibilityHint]
@@ -70,6 +74,8 @@ const SelectWeb = ({
   validationState,
   errorMessage,
   helperText,
+  searchable = false,
+  searchPlaceholder,
   validate,
   accessibilityLabel,
   accessibilityHint,
@@ -80,6 +86,7 @@ const SelectWeb = ({
 }) => {
   const { t } = useI18n();
   const defaultPlaceholder = placeholder || t('common.selectPlaceholder');
+  const finalSearchPlaceholder = searchPlaceholder || t('common.searchPlaceholder');
   
   const {
     open,
@@ -101,7 +108,19 @@ const SelectWeb = ({
 
   const rootRef = useRef(null);
   const menuRef = useRef(null);
+  const searchRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = React.useState(-1);
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const visibleOptions = React.useMemo(() => {
+    const rows = options.map((option, index) => ({ option, index }));
+    const query = String(searchQuery || '').trim().toLowerCase();
+    if (!searchable || !query) return rows;
+    return rows.filter(({ option }) =>
+      [option.label, option.value]
+        .some((entry) => String(entry || '').toLowerCase().includes(query))
+    );
+  }, [options, searchable, searchQuery]);
 
   // Close on outside click
   useEffect(() => {
@@ -121,11 +140,17 @@ const SelectWeb = ({
   useEffect(() => {
     if (open) {
       setFocusedIndex(-1);
+    } else {
+      setSearchQuery('');
     }
-  }, [open]);
+  }, [open, searchable]);
 
-  // Focus first option when menu opens
+  // Focus search or first option when menu opens
   useEffect(() => {
+    if (open && searchable && searchRef.current) {
+      searchRef.current.focus();
+      return;
+    }
     if (open && menuRef.current) {
       const firstOption = menuRef.current.querySelector('[role="option"]:not([aria-disabled="true"])');
       if (firstOption) {
@@ -153,22 +178,19 @@ const SelectWeb = ({
   const handleMenuKeyDown = (e) => {
     if (disabled) return;
 
-    const enabledOptions = options.filter((opt) => !opt.disabled);
-    const currentIndex = enabledOptions.findIndex((opt, idx) => {
-      const optionIndex = options.indexOf(opt);
-      return optionIndex === focusedIndex;
-    });
+    const enabledOptions = visibleOptions.filter(({ option }) => !option.disabled);
+    const currentIndex = enabledOptions.findIndex(({ index }) => index === focusedIndex);
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = currentIndex < enabledOptions.length - 1 ? currentIndex + 1 : 0;
       const nextOption = enabledOptions[nextIndex];
-      const nextOptionIndex = options.indexOf(nextOption);
+      const nextOptionIndex = nextOption.index;
       setFocusedIndex(nextOptionIndex);
       if (menuRef.current) {
         const optionElement = testID
           ? menuRef.current.querySelector(`[data-testid="${testID}-option-${nextOptionIndex}"]`)
-          : menuRef.current.querySelectorAll('[role="option"]')[nextOptionIndex];
+          : menuRef.current.querySelector(`[data-option-index="${nextOptionIndex}"]`);
         if (optionElement) {
           optionElement.focus();
         }
@@ -177,12 +199,12 @@ const SelectWeb = ({
       e.preventDefault();
       const prevIndex = currentIndex > 0 ? currentIndex - 1 : enabledOptions.length - 1;
       const prevOption = enabledOptions[prevIndex];
-      const prevOptionIndex = options.indexOf(prevOption);
+      const prevOptionIndex = prevOption.index;
       setFocusedIndex(prevOptionIndex);
       if (menuRef.current) {
         const optionElement = testID
           ? menuRef.current.querySelector(`[data-testid="${testID}-option-${prevOptionIndex}"]`)
-          : menuRef.current.querySelectorAll('[role="option"]')[prevOptionIndex];
+          : menuRef.current.querySelector(`[data-option-index="${prevOptionIndex}"]`);
         if (optionElement) {
           optionElement.focus();
         }
@@ -190,7 +212,7 @@ const SelectWeb = ({
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (currentIndex >= 0 && currentIndex < enabledOptions.length) {
-        handleSelect(enabledOptions[currentIndex].value);
+        handleSelect(enabledOptions[currentIndex].option.value);
       }
     } else if (e.key === 'Escape') {
       e.preventDefault();
@@ -201,6 +223,28 @@ const SelectWeb = ({
           trigger.focus();
         }
       }
+    }
+  };
+
+  const focusFirstVisibleOption = () => {
+    const firstEnabled = visibleOptions.find(({ option }) => !option.disabled);
+    if (!firstEnabled) return;
+    setFocusedIndex(firstEnabled.index);
+    if (menuRef.current) {
+      const optionElement = testID
+        ? menuRef.current.querySelector(`[data-testid="${testID}-option-${firstEnabled.index}"]`)
+        : menuRef.current.querySelector('[role="option"]:not([aria-disabled="true"])');
+      if (optionElement) optionElement.focus();
+    }
+  };
+
+  const handleSearchKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      focusFirstVisibleOption();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      closeSelect();
     }
   };
 
@@ -244,25 +288,41 @@ const SelectWeb = ({
           onKeyDown={handleMenuKeyDown}
           data-testid={testID ? `${testID}-menu` : undefined}
         >
-          {options.map((opt, index) => (
-            <StyledOption
-              key={`${String(opt.value)}-${index}`}
-              disabled={!!opt.disabled}
-              onClick={() => {
-                if (opt.disabled) return;
-                handleSelect(opt.value);
-              }}
-              onFocus={() => setFocusedIndex(index)}
-              role="option"
-              aria-selected={value === opt.value}
-              aria-disabled={opt.disabled}
-              aria-label={opt.label}
-              tabIndex={opt.disabled ? -1 : index === 0 ? 0 : -1}
-              data-testid={testID ? `${testID}-option-${index}` : undefined}
-            >
-              <StyledOptionText>{opt.label}</StyledOptionText>
-            </StyledOption>
-          ))}
+          {searchable ? (
+            <StyledSearchInput
+              ref={searchRef}
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              placeholder={finalSearchPlaceholder}
+              aria-label={finalSearchPlaceholder}
+              data-testid={testID ? `${testID}-search` : undefined}
+            />
+          ) : null}
+          {visibleOptions.length === 0 ? (
+            <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
+          ) : (
+            visibleOptions.map(({ option: opt, index }) => (
+              <StyledOption
+                key={`${String(opt.value)}-${index}`}
+                disabled={!!opt.disabled}
+                onClick={() => {
+                  if (opt.disabled) return;
+                  handleSelect(opt.value);
+                }}
+                onFocus={() => setFocusedIndex(index)}
+                role="option"
+                aria-selected={value === opt.value}
+                aria-disabled={opt.disabled}
+                aria-label={opt.label}
+                tabIndex={opt.disabled ? -1 : index === 0 ? 0 : -1}
+                data-option-index={index}
+                data-testid={testID ? `${testID}-option-${index}` : undefined}
+              >
+                <StyledOptionText>{opt.label}</StyledOptionText>
+              </StyledOption>
+            ))
+          )}
         </StyledMenu>
       ) : null}
 

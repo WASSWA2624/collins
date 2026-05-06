@@ -3,7 +3,7 @@
  * File: AssessmentScreen.test.js
  */
 const React = require('react');
-const { render, fireEvent } = require('@testing-library/react-native');
+const { render, fireEvent, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
@@ -67,7 +67,14 @@ jest.mock('@features/ventilation', () => ({
   })),
   buildVentilationAdditionalTestPrompts: jest.fn(() => []),
   getMissingSimilarityFields: jest.fn(() => []),
-  getVentilationRecommendationUseCase: jest.fn(() => Promise.resolve({})),
+  getVentilationRecommendationUseCase: jest.fn(() => Promise.resolve({
+    source: { confidenceTier: 'medium' },
+    safety: { intendedUseWarning: 'Dataset preview only.', validationRequirement: 'Clinician review required.' },
+    units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+    initialVentilatorSettings: {
+      settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+    },
+  })),
   getVentilationUnits: jest.fn(() => ({
     spo2: '%',
     respiratoryRate: 'breaths/min',
@@ -79,9 +86,15 @@ jest.mock('@features/ventilation', () => ({
 const AssessmentScreenAndroid = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.android').default;
 const AssessmentScreenIOS = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.ios').default;
 const AssessmentScreenWeb = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.web').default;
+const { updateBodyMetricInputs } = require('@platform/screens/ventilation/AssessmentScreen/useAssessmentScreen');
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 const useVentilationSession = require('@hooks/useVentilationSession');
+const {
+  getVentilationRecommendationUseCase,
+  saveOxygenAbgVentilatorStepApi,
+  savePatientReasonStepApi,
+} = require('@features/ventilation');
 
 const createMockStore = (initialState = {}) =>
   configureStore({
@@ -163,11 +176,20 @@ describe('AssessmentScreen', () => {
       expect(getByTestId('assessment-next')).toBeTruthy();
     });
 
-    it('should disable Next when required fields missing', () => {
+    it('should allow Next with default pathway and optional reason', () => {
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
-      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBe(true);
+      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
+    });
+
+    it('should hide facility, bed, and permitted missing fields from the admit form', () => {
+      const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getByTestId('assessment-height')).toBeTruthy();
+      expect(getByTestId('assessment-bmi')).toBeTruthy();
+      expect(queryByTestId('assessment-facility-id')).toBeNull();
+      expect(queryByTestId('assessment-bed-number')).toBeNull();
+      expect(queryByTestId('assessment-permitted-weight')).toBeNull();
     });
 
     it('should show the three-step flow labels', () => {
@@ -177,6 +199,78 @@ describe('AssessmentScreen', () => {
       });
       const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByText('Oxygen, ABG & ventilator')).toBeTruthy();
+    });
+
+    it('advances to clinical information after the patient step save', async () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(1);
+      });
+    });
+
+    it('still advances locally when the patient step sync fails', async () => {
+      savePatientReasonStepApi.mockRejectedValueOnce({ code: 'NETWORK_ERROR' });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(1);
+      });
+    });
+
+    it('generates the dataset recommendation after the clinical information step', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+        inputs: {
+          admissionId: 'admission-1',
+          clientRecordId: 'admission-test-client',
+          patientPathway: 'ADULT',
+          reasonForSupport: 'ARDS',
+          spo2: 88,
+          respiratoryRate: 28,
+          heartRate: 110,
+          pao2: 65,
+          paco2: 45,
+          ph: 7.35,
+        },
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.any(Object));
+        expect(getVentilationRecommendationUseCase).toHaveBeenCalledWith(expect.objectContaining({
+          input: expect.objectContaining({ condition: 'ARDS', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
+        }));
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
+      });
+    });
+
+    it('shows the dataset recommendation on the final admit step', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 2,
+        recommendationSummary: {
+          source: { confidenceTier: 'medium' },
+          units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+          initialVentilatorSettings: {
+            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+          },
+        },
+      });
+
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      expect(getByTestId('assessment-recommendation')).toBeTruthy();
+      expect(getByText('Dataset recommendation')).toBeTruthy();
+      expect(getByText(/ACV/)).toBeTruthy();
     });
   });
 
@@ -200,6 +294,28 @@ describe('AssessmentScreen', () => {
       expect(expandBtn).toBeTruthy();
       fireEvent.press(expandBtn);
       fireEvent.press(expandBtn);
+    });
+  });
+
+  describe('Body metrics', () => {
+    it('calculates BMI from weight and height', () => {
+      const first = updateBodyMetricInputs({}, 'actualWeightKg', 70);
+      const second = updateBodyMetricInputs(first, 'heightOrLengthCm', 175);
+      expect(second).toMatchObject({
+        actualWeightKg: 70,
+        heightOrLengthCm: 175,
+        bmi: 22.9,
+      });
+    });
+
+    it('calculates the missing weight from BMI and height', () => {
+      const first = updateBodyMetricInputs({}, 'heightOrLengthCm', 180);
+      const second = updateBodyMetricInputs(first, 'bmi', 25);
+      expect(second).toMatchObject({
+        actualWeightKg: 81,
+        heightOrLengthCm: 180,
+        bmi: 25,
+      });
     });
   });
 });

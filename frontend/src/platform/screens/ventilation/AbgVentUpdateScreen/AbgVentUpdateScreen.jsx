@@ -1,5 +1,5 @@
 /**
- * ABG / Vent Update Screen
+ * ABG and ventilator setting update screen
  */
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -10,19 +10,39 @@ import useAbgVentUpdateScreen from './useAbgVentUpdateScreen';
 const renderValue = (value, fallback = '-') =>
   value === undefined || value === null || value === '' ? fallback : String(value);
 
-const renderField = ({ field, value, onChange, prefix }) => (
-  <View key={field.key} style={styles.field}>
-    <TextField
-      label={field.unit ? `${field.label} (${field.unit})` : field.label}
-      value={value[field.key] ?? ''}
-      onChangeText={(next) => onChange(field.key, next)}
-      type={field.min !== undefined ? 'number' : 'text'}
-      accessibilityLabel={field.label}
-      testID={`${prefix}-${field.key}`}
-      debounceMs={0}
-    />
-  </View>
-);
+const renderField = ({ field, value, onChange, prefix, modeOptions, t }) => {
+  if (field.key === 'mode') {
+    return (
+      <View key={field.key} style={styles.field}>
+        <Select
+          label={field.label}
+          options={modeOptions}
+          value={value[field.key] || undefined}
+          onValueChange={(next) => onChange(field.key, next)}
+          placeholder={t('ventilation.abgVentUpdate.ventilator.modePlaceholder')}
+          searchPlaceholder={t('ventilation.abgVentUpdate.ventilator.modeSearchPlaceholder')}
+          accessibilityLabel={field.label}
+          testID={`${prefix}-${field.key}`}
+          searchable
+        />
+      </View>
+    );
+  }
+
+  return (
+    <View key={field.key} style={styles.field}>
+      <TextField
+        label={field.unit ? `${field.label} (${field.unit})` : field.label}
+        value={value[field.key] ?? ''}
+        onChangeText={(next) => onChange(field.key, next)}
+        type={field.min !== undefined ? 'number' : 'text'}
+        accessibilityLabel={field.label}
+        testID={`${prefix}-${field.key}`}
+        debounceMs={0}
+      />
+    </View>
+  );
+};
 
 const AbgVentUpdateScreen = () => {
   const { t } = useI18n();
@@ -95,7 +115,7 @@ const AbgVentUpdateScreen = () => {
         <Text variant="h2">{t('ventilation.abgVentUpdate.sections.abg')}</Text>
         <View style={styles.fieldGrid}>
           {screen.abgFields.map((field) =>
-            renderField({ field, value: screen.abg, onChange: screen.setAbgField, prefix: 'abg-update' })
+            renderField({ field, value: screen.abg, onChange: screen.setAbgField, prefix: 'abg-update', t })
           )}
         </View>
       </View>
@@ -104,33 +124,15 @@ const AbgVentUpdateScreen = () => {
         <Text variant="h2">{t('ventilation.abgVentUpdate.sections.ventilator')}</Text>
         <View style={styles.fieldGrid}>
           {screen.ventilatorFields.map((field) =>
-            renderField({ field, value: screen.ventilator, onChange: screen.setVentilatorField, prefix: 'vent-update' })
+            renderField({
+              field,
+              value: screen.ventilator,
+              onChange: screen.setVentilatorField,
+              prefix: 'vent-update',
+              modeOptions: screen.ventilatorModeOptions,
+              t,
+            })
           )}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text variant="h2">{t('ventilation.abgVentUpdate.sections.uncertainty')}</Text>
-        <View style={styles.fieldGrid}>
-          <View style={styles.field}>
-            <TextField
-              label={t('ventilation.abgVentUpdate.uncertainty.fields')}
-              value={screen.uncertainty.fields}
-              onChangeText={(value) => screen.setUncertaintyField('fields', value)}
-              helperText={t('ventilation.abgVentUpdate.uncertainty.fieldsHint')}
-              testID="abg-vent-uncertainty-fields"
-              debounceMs={0}
-            />
-          </View>
-          <View style={styles.field}>
-            <TextField
-              label={t('ventilation.abgVentUpdate.uncertainty.reason')}
-              value={screen.uncertainty.reason}
-              onChangeText={(value) => screen.setUncertaintyField('reason', value)}
-              testID="abg-vent-uncertainty-reason"
-              debounceMs={0}
-            />
-          </View>
         </View>
       </View>
 
@@ -178,7 +180,7 @@ const AbgVentUpdateScreen = () => {
           disabled={!hasAdmissions || screen.isSaving}
           testID={screen.testIds.submit}
         >
-          {screen.isSaving ? t('common.loading') : t('ventilation.abgVentUpdate.actions.save')}
+          {screen.isSaving ? t('ventilation.abgVentUpdate.actions.saving') : t('ventilation.abgVentUpdate.actions.save')}
         </Button>
         {screen.isOffline ? <Text variant="caption">{t('ventilation.abgVentUpdate.offline')}</Text> : null}
       </View>

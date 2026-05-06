@@ -111,6 +111,29 @@ const StyledSection = styled(View).withConfig({
   border-top-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
+const StyledStatusPanel = styled(View).withConfig({
+  displayName: 'StyledStatusPanel',
+  componentId: 'DashboardStyledStatusPanel',
+})`
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  border-width: 1px;
+  border-color: ${({ theme, $tone }) => (
+    $tone === 'error' ? theme.colors.error : theme.colors.background.tertiary
+  )};
+  background-color: ${({ theme, $tone }) => (
+    $tone === 'error' ? theme.colors.status.error.background : theme.colors.background.secondary
+  )};
+`;
+
+const StyledStatusActions = styled(View).withConfig({
+  displayName: 'StyledStatusActions',
+  componentId: 'DashboardStyledStatusActions',
+})`
+  align-items: flex-start;
+`;
+
 const StyledRow = styled(View).withConfig({
   displayName: 'StyledRow',
   componentId: 'DashboardStyledRow',
@@ -135,6 +158,8 @@ export {
   StyledRefreshButton,
   StyledRow,
   StyledSection,
+  StyledStatusActions,
+  StyledStatusPanel,
   StyledTab,
   StyledTabs,
 };

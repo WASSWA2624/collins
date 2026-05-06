@@ -140,6 +140,24 @@ describe('Select Component', () => {
       fireEvent.press(getByTestId('select-option-0'));
       expect(onValueChange).toHaveBeenCalledWith('one');
     });
+
+    it('should filter options when searchable', () => {
+      const { getByTestId, getByText, queryByText } = renderWithProviders(
+        <SelectAndroid
+          testID="select"
+          options={options}
+          value={undefined}
+          onValueChange={() => {}}
+          searchable
+        />
+      );
+
+      fireEvent.press(getByTestId('select'));
+      fireEvent.changeText(getByTestId('select-search'), 'Two');
+
+      expect(getByText('Two')).toBeTruthy();
+      expect(queryByText('One')).toBeFalsy();
+    });
   });
 
   describe('Accessibility', () => {

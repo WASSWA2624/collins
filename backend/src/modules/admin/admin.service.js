@@ -1,4 +1,5 @@
 import { prisma } from '../../config/prisma.js';
+import { MEMBERSHIP_ROLES, MEMBERSHIP_ROLE_VALUES, getPermissionsForRoles } from '../../constants/roles.js';
 import {
   DATASET_EXPORT_ROLES,
   FACILITY_ADMIN_ROLES,
@@ -8,13 +9,16 @@ import {
   assertAnyApprovedRole,
   assertFacilityRole,
   assertPlatformRole,
+  hasPlatformRole,
   resolveFacilityScope,
 } from '../../utils/authorization.js';
-import { notFound, badRequest } from '../../utils/errors.js';
+import { notFound, badRequest, conflict, forbidden } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { stripUndefined } from '../../utils/object.js';
+import { hashPassword } from '../../utils/password.js';
 import { deidentifyPayload, findIdentifierPaths } from '../../utils/deidentify.js';
 import { buildDashboardWindow, getOperationalDashboard } from '../dashboards/dashboards.service.js';
+import { createInitialOnboardingState } from '../onboarding/onboarding.service.js';
 
 export const getAdminDashboard = getOperationalDashboard;
 
@@ -27,6 +31,168 @@ const GOVERNANCE_MONITORING_ROLES = Object.freeze([
 ]);
 
 const addDays = (date, days) => new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
+
+const USER_MANAGEMENT_ROLES = Object.freeze([
+  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+  MEMBERSHIP_ROLES.FACILITY_ADMIN,
+]);
+
+const CLINICAL_CAPTURE_ROLES = Object.freeze([
+  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+  MEMBERSHIP_ROLES.FACILITY_ADMIN,
+  MEMBERSHIP_ROLES.CLINICIAN,
+  MEMBERSHIP_ROLES.ICU_NURSE,
+  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
+]);
+
+const CLINICAL_VALIDATE_ROLES = Object.freeze([
+  MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+  MEMBERSHIP_ROLES.FACILITY_ADMIN,
+  MEMBERSHIP_ROLES.SPECIALIST_REVIEWER,
+  MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
+]);
+
+const managedUserSelect = {
+  id: true,
+  name: true,
+  email: true,
+  phone: true,
+  status: true,
+  createdAt: true,
+  updatedAt: true,
+  facilityMemberships: {
+    select: {
+      id: true,
+      facilityId: true,
+      role: true,
+      status: true,
+      approvedByUserId: true,
+      createdAt: true,
+      updatedAt: true,
+      facility: {
+        select: {
+          id: true,
+          name: true,
+          registryCode: true,
+          district: true,
+          region: true,
+          verificationStatus: true,
+        },
+      },
+      approvedBy: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+    orderBy: [{ facility: { name: 'asc' } }, { role: 'asc' }],
+  },
+};
+
+const serializeManagedMembership = (membership) => ({
+  id: membership.id,
+  facilityId: membership.facilityId,
+  role: membership.role,
+  status: membership.status,
+  permissions: getPermissionsForRoles([membership.role]),
+  approvedByUserId: membership.approvedByUserId || null,
+  approvedBy: membership.approvedBy || null,
+  facility: membership.facility || null,
+  createdAt: membership.createdAt,
+  updatedAt: membership.updatedAt,
+});
+
+const serializeManagedUser = (user) => {
+  const memberships = (user.facilityMemberships || []).map(serializeManagedMembership);
+  const approvedRoles = memberships
+    .filter((membership) => membership.status === 'APPROVED')
+    .map((membership) => membership.role);
+  const approvedRoleSet = new Set(approvedRoles);
+
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    status: user.status,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    memberships,
+    capabilities: {
+      canCaptureData: CLINICAL_CAPTURE_ROLES.some((role) => approvedRoleSet.has(role)),
+      canValidateData: CLINICAL_VALIDATE_ROLES.some((role) => approvedRoleSet.has(role)),
+      canManageUsers: USER_MANAGEMENT_ROLES.some((role) => approvedRoleSet.has(role)),
+    },
+  };
+};
+
+const getManagedFacilityIds = async (userId) => {
+  if (await hasPlatformRole(userId)) return null;
+
+  const memberships = await prisma.facilityMembership.findMany({
+    where: {
+      userId,
+      status: 'APPROVED',
+      role: MEMBERSHIP_ROLES.FACILITY_ADMIN,
+    },
+    select: { facilityId: true },
+  });
+  const facilityIds = [...new Set(memberships.map((membership) => membership.facilityId))];
+  if (facilityIds.length === 0) throw forbidden('User management requires administrator permission');
+  return facilityIds;
+};
+
+const assertCanManageMembership = async (adminUserId, { facilityId, role }) => {
+  if (!MEMBERSHIP_ROLE_VALUES.includes(role)) throw badRequest('Unsupported membership role');
+  if (role === MEMBERSHIP_ROLES.PLATFORM_ADMIN) {
+    await assertPlatformRole(adminUserId);
+    return;
+  }
+  await assertFacilityRole(adminUserId, facilityId, FACILITY_ADMIN_ROLES);
+};
+
+const userSearchWhere = ({ q, facilityQ, facilityId, role, status }, managedFacilityIds) => {
+  const terms = String(q || '').trim();
+  const facilityTerms = String(facilityQ || '').trim();
+  const scopedFacilityIds = managedFacilityIds
+    ? managedFacilityIds.filter((id) => !facilityId || id === facilityId)
+    : (facilityId ? [facilityId] : null);
+
+  if (managedFacilityIds && facilityId && !managedFacilityIds.includes(facilityId)) {
+    throw forbidden('You do not have permission for this facility');
+  }
+
+  return {
+    ...(status ? { status } : {}),
+    ...(terms ? {
+      OR: [
+        { name: { contains: terms } },
+        { email: { contains: terms } },
+        { phone: { contains: terms } },
+      ],
+    } : {}),
+    ...((scopedFacilityIds || facilityTerms || role) ? {
+      facilityMemberships: {
+        some: {
+          ...(scopedFacilityIds ? { facilityId: { in: scopedFacilityIds } } : {}),
+          ...(role ? { role } : {}),
+          ...(facilityTerms ? {
+            facility: {
+              OR: [
+                { name: { contains: facilityTerms } },
+                { registryCode: { contains: facilityTerms } },
+                { district: { contains: facilityTerms } },
+                { region: { contains: facilityTerms } },
+              ],
+            },
+          } : {}),
+        },
+      },
+    } : {}),
+  };
+};
 
 const dateFilter = (field, window) => ({
   [field]: {
@@ -72,6 +238,238 @@ export const listAdminFacilities = async (userId) => {
       _count: { select: { admissions: true, memberships: true, datasetCases: true } },
     },
     orderBy: { createdAt: 'desc' },
+  });
+};
+
+export const listManagedUsers = async (userId, query = {}) => {
+  const managedFacilityIds = await getManagedFacilityIds(userId);
+  const where = userSearchWhere(query, managedFacilityIds);
+  const page = query.page || 1;
+  const limit = query.limit || 20;
+
+  const [items, total] = await Promise.all([
+    prisma.user.findMany({
+      where,
+      select: managedUserSelect,
+      orderBy: [{ name: 'asc' }, { email: 'asc' }],
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.user.count({ where }),
+  ]);
+
+  return {
+    items: items.map(serializeManagedUser),
+    total,
+    page,
+    limit,
+  };
+};
+
+export const createManagedUser = async (adminUserId, payload, auditContext = {}) => {
+  const memberships = payload.memberships || [];
+  const existing = await prisma.user.findUnique({ where: { email: payload.email } });
+  if (existing) throw conflict('A user with this email already exists');
+
+  for (const membership of memberships) {
+    await assertCanManageMembership(adminUserId, membership);
+  }
+  if (memberships.length === 0) await assertAnyApprovedRole(adminUserId, USER_MANAGEMENT_ROLES, 'User management requires administrator permission');
+
+  return prisma.$transaction(async (tx) => {
+    const user = await tx.user.create({
+      data: {
+        name: payload.name,
+        email: payload.email,
+        phone: payload.phone,
+        passwordHash: await hashPassword(payload.password),
+        status: payload.status || 'ACTIVE',
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    const createdMemberships = [];
+    for (const membership of memberships) {
+      const created = await tx.facilityMembership.create({
+        data: {
+          userId: user.id,
+          facilityId: membership.facilityId,
+          role: membership.role,
+          status: membership.status || 'APPROVED',
+          approvedByUserId: (membership.status || 'APPROVED') === 'APPROVED' ? adminUserId : null,
+        },
+      });
+      createdMemberships.push(created);
+      await writeAudit({
+        tx,
+        ...auditContext,
+        userId: adminUserId,
+        facilityId: membership.facilityId,
+        action: 'ADMIN_USER_MEMBERSHIP_CREATE',
+        entityType: 'FacilityMembership',
+        entityId: created.id,
+        afterJson: {
+          targetUserId: user.id,
+          role: created.role,
+          status: created.status,
+          approvedByUserId: created.approvedByUserId,
+        },
+      });
+    }
+
+    await createInitialOnboardingState(tx, user.id, {
+      ...(createdMemberships[0] ? {
+        selectedFacilityId: createdMemberships[0].facilityId,
+        requestedRole: createdMemberships[0].role,
+      } : {}),
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId: adminUserId,
+      action: 'ADMIN_USER_CREATE',
+      entityType: 'User',
+      entityId: user.id,
+      afterJson: {
+        id: user.id,
+        email: user.email,
+        membershipCount: createdMemberships.length,
+      },
+    });
+
+    const createdUser = await tx.user.findUnique({ where: { id: user.id }, select: managedUserSelect });
+    return serializeManagedUser(createdUser);
+  });
+};
+
+export const assignManagedUserMemberships = async (targetUserId, payload, adminUserId, auditContext = {}) => {
+  const roles = [...new Set(payload.roles || [])];
+  if (roles.length === 0) throw badRequest('At least one role is required');
+
+  for (const role of roles) {
+    await assertCanManageMembership(adminUserId, { facilityId: payload.facilityId, role });
+  }
+
+  return prisma.$transaction(async (tx) => {
+    const [targetUser, facility] = await Promise.all([
+      tx.user.findUnique({ where: { id: targetUserId }, select: { id: true, email: true, name: true } }),
+      tx.facility.findUnique({ where: { id: payload.facilityId }, select: { id: true, name: true } }),
+    ]);
+    if (!targetUser) throw notFound('User not found');
+    if (!facility) throw notFound('Facility not found');
+
+    const savedMemberships = [];
+    for (const role of roles) {
+      const before = await tx.facilityMembership.findUnique({
+        where: {
+          userId_facilityId_role: {
+            userId: targetUserId,
+            facilityId: payload.facilityId,
+            role,
+          },
+        },
+      });
+      const membership = await tx.facilityMembership.upsert({
+        where: {
+          userId_facilityId_role: {
+            userId: targetUserId,
+            facilityId: payload.facilityId,
+            role,
+          },
+        },
+        update: {
+          status: payload.status,
+          approvedByUserId: payload.status === 'APPROVED' ? adminUserId : null,
+        },
+        create: {
+          userId: targetUserId,
+          facilityId: payload.facilityId,
+          role,
+          status: payload.status,
+          approvedByUserId: payload.status === 'APPROVED' ? adminUserId : null,
+        },
+      });
+      savedMemberships.push(membership);
+      await writeAudit({
+        tx,
+        ...auditContext,
+        userId: adminUserId,
+        facilityId: payload.facilityId,
+        action: before ? 'ADMIN_USER_MEMBERSHIP_UPDATE' : 'ADMIN_USER_MEMBERSHIP_CREATE',
+        entityType: 'FacilityMembership',
+        entityId: membership.id,
+        beforeJson: before ? { role: before.role, status: before.status, approvedByUserId: before.approvedByUserId } : null,
+        afterJson: {
+          targetUserId,
+          role: membership.role,
+          status: membership.status,
+          approvedByUserId: membership.approvedByUserId,
+        },
+        reason: payload.reason,
+      });
+    }
+
+    const user = await tx.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
+    return {
+      user: serializeManagedUser(user),
+      memberships: savedMemberships,
+    };
+  });
+};
+
+export const updateManagedUserMembership = async (targetUserId, membershipId, payload, adminUserId, auditContext = {}) => {
+  const existing = await prisma.facilityMembership.findFirst({
+    where: { id: membershipId, userId: targetUserId },
+  });
+  if (!existing) throw notFound('Membership not found');
+
+  await assertCanManageMembership(adminUserId, {
+    facilityId: existing.facilityId,
+    role: payload.role || existing.role,
+  });
+
+  return prisma.$transaction(async (tx) => {
+    const updated = await tx.facilityMembership.update({
+      where: { id: membershipId },
+      data: {
+        ...(payload.role ? { role: payload.role } : {}),
+        ...(payload.status ? { status: payload.status } : {}),
+        approvedByUserId: (payload.status || existing.status) === 'APPROVED' ? adminUserId : null,
+      },
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId: adminUserId,
+      facilityId: updated.facilityId,
+      action: 'ADMIN_USER_MEMBERSHIP_UPDATE',
+      entityType: 'FacilityMembership',
+      entityId: updated.id,
+      beforeJson: { role: existing.role, status: existing.status, approvedByUserId: existing.approvedByUserId },
+      afterJson: {
+        targetUserId,
+        role: updated.role,
+        status: updated.status,
+        approvedByUserId: updated.approvedByUserId,
+      },
+      reason: payload.reason,
+    });
+
+    const user = await tx.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
+    return {
+      user: serializeManagedUser(user),
+      membership: updated,
+    };
   });
 };
 

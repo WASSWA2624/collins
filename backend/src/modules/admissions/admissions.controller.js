@@ -13,6 +13,7 @@ import {
   createAdmissionPatientReasonStep,
   getAdmissionById,
   listAdmissions,
+  saveAdmissionAbgVentilatorUpdate,
   saveAdmissionOxygenAbgVentilatorStep,
   saveAdmissionReviewStep,
   updateAdmission,
@@ -79,6 +80,21 @@ export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
     message: result.syncStatus === 'duplicate'
       ? 'Duplicate oxygen, ABG, and ventilator step returned original result'
       : 'Oxygen, ABG, and ventilator step saved',
+    data: result,
+  });
+});
+
+export const createAbgVentilatorUpdate = asyncHandler(async (req, res) => {
+  const result = await saveAdmissionAbgVentilatorUpdate(
+    req.user?.sub,
+    req.validated.params.id,
+    req.validated.body,
+    buildAuditContext(req)
+  );
+  return successResponse(res, {
+    message: result.syncStatus === 'duplicate'
+      ? 'Duplicate ABG and ventilator settings update returned original result'
+      : 'ABG and ventilator settings saved as new history entries',
     data: result,
   });
 });

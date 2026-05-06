@@ -38,6 +38,8 @@ export const REFERENCE_APPROVED_STATUSES = Object.freeze([
   'approved',
   'verified',
   'active',
+  'verified_for_decision_support',
+  'approved_for_decision_support',
 ]);
 
 export const REFERENCE_RETIRED_STATUSES = Object.freeze([

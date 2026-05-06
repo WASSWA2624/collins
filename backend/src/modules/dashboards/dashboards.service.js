@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '../../config/prisma.js';
 import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import {
@@ -120,20 +121,6 @@ const getApprovedDashboardMemberships = (client, userId, allowedRoles) => client
     },
   },
 });
-
-const resolveRequiredFacilityScope = async (userId, requestedFacilityId, allowedRoles, client = prisma) => {
-  if (requestedFacilityId) {
-    await assertFacilityRole(userId, requestedFacilityId, allowedRoles);
-    return requestedFacilityId;
-  }
-
-  const memberships = await getApprovedDashboardMemberships(client, userId, allowedRoles);
-  const uniqueFacilityIds = [...new Set(memberships.map((membership) => membership.facilityId))];
-
-  if (uniqueFacilityIds.length === 1) return uniqueFacilityIds[0];
-  if (await hasPlatformRole(userId)) throw forbidden('facilityId is required for facility-scoped dashboards');
-  throw forbidden('facilityId is required when the user has zero or multiple active facilities');
-};
 
 const resolveOptionalFacilityScope = async (userId, requestedFacilityId, allowedRoles, client = prisma) => {
   if (requestedFacilityId) {
@@ -367,18 +354,7 @@ const getModelGovernance = async (client, facilityId, window) => {
     groupCountByField(client, 'modelVersion', 'approvalStatus', {}),
     client.modelOutput.count({ where: outputWhere }),
     client.modelOutput.count({ where: { ...outputWhere, ...dateFilter('createdAt', window) } }),
-    client.modelVersion.count({
-      where: {
-        approvalStatus: { not: 'RETIRED' },
-        OR: [
-          { trainingDatasetVersion: null },
-          { intendedUse: null },
-          { performanceSummaryJson: null },
-          { calibrationSummaryJson: null },
-          { biasAssessmentJson: null },
-        ],
-      },
-    }),
+    client.modelVersion.count({ where: buildMissingModelReadinessWhere() }),
     dailyTrend(client, 'modelOutput', 'createdAt', outputWhere, window),
   ]);
 
@@ -393,6 +369,17 @@ const getModelGovernance = async (client, facilityId, window) => {
     safetyStatement: 'Model outputs remain hidden from normal clinicians.',
   };
 };
+
+export const buildMissingModelReadinessWhere = () => ({
+  approvalStatus: { not: 'RETIRED' },
+  OR: [
+    { trainingDatasetVersion: null },
+    { intendedUse: null },
+    { performanceSummaryJson: { equals: Prisma.AnyNull } },
+    { calibrationSummaryJson: { equals: Prisma.AnyNull } },
+    { biasAssessmentJson: { equals: Prisma.AnyNull } },
+  ],
+});
 
 const getAuditSummary = async (client, facilityId, window) => {
   const where = {
@@ -511,7 +498,7 @@ const getClinicianWorkload = async (client, facilityId, window) => {
 
 export const getClinicalDashboard = async (userId, query = {}, client = prisma) => {
   const window = buildDashboardWindow(query);
-  const facilityId = await resolveRequiredFacilityScope(userId, query.facilityId, CLINICIAN_DASHBOARD_ROLES, client);
+  const facilityId = await resolveOptionalFacilityScope(userId, query.facilityId, CLINICIAN_DASHBOARD_ROLES, client);
   const [scope, workload, syncConflicts] = await Promise.all([
     facilityMetadata(client, facilityId),
     getClinicianWorkload(client, facilityId, window),

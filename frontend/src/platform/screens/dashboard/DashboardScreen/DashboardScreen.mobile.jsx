@@ -15,6 +15,8 @@ import {
   StyledRefreshButton,
   StyledRow,
   StyledSection,
+  StyledStatusActions,
+  StyledStatusPanel,
   StyledTab,
   StyledTabs,
 } from './DashboardScreen.native.styles';
@@ -27,6 +29,7 @@ const DashboardScreenMobile = () => {
     activeType,
     dashboard,
     errorMessage,
+    errorTitle,
     isLoading,
     metrics,
     refresh,
@@ -82,10 +85,34 @@ const DashboardScreenMobile = () => {
               ))}
             </StyledTabs>
 
-            {isLoading ? <Text variant="body">Loading dashboard...</Text> : null}
-            {errorMessage ? <Text variant="body">{errorMessage}</Text> : null}
+            {isLoading ? (
+              <StyledStatusPanel $tone="loading" accessibilityRole="none">
+                <Text variant="body">Loading dashboard...</Text>
+              </StyledStatusPanel>
+            ) : null}
+            {errorMessage ? (
+              <StyledStatusPanel $tone="error" accessibilityRole="alert">
+                <Text variant="label" color="status.error.text">
+                  {errorTitle}
+                </Text>
+                <Text variant="body" color="status.error.text">
+                  {errorMessage}
+                </Text>
+                <StyledStatusActions>
+                  <StyledRefreshButton
+                    onPress={refresh}
+                    accessibilityRole="button"
+                    accessibilityLabel="Retry loading dashboard"
+                  >
+                    <Text variant="label">Retry</Text>
+                  </StyledRefreshButton>
+                </StyledStatusActions>
+              </StyledStatusPanel>
+            ) : null}
             {!isLoading && !errorMessage && !dashboard ? (
-              <Text variant="body">No dashboard data available.</Text>
+              <StyledStatusPanel $tone="empty" accessibilityRole="none">
+                <Text variant="body">No dashboard data available.</Text>
+              </StyledStatusPanel>
             ) : null}
 
             {dashboard ? (

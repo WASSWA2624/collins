@@ -129,6 +129,27 @@ const StyledMenu = styled.div.withConfig({
   overscroll-behavior: contain;
 `;
 
+const StyledSearchInput = styled.input.withConfig({
+  displayName: 'StyledSearchInput',
+  componentId: 'StyledSearchInput',
+})`
+  width: 100%;
+  min-height: 40px;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: -2px;
+  }
+`;
+
 const StyledOption = styled.button.withConfig({
   displayName: 'StyledOption',
   componentId: 'StyledOption',
@@ -181,6 +202,17 @@ const StyledHelperText = styled.span.withConfig({
   display: block;
 `;
 
+const StyledNoResultsText = styled.span.withConfig({
+  displayName: 'StyledNoResultsText',
+  componentId: 'StyledNoResultsText',
+})`
+  display: block;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+`;
+
 export {
   StyledContainer,
   StyledLabelRow,
@@ -190,8 +222,10 @@ export {
   StyledTriggerText,
   StyledChevron,
   StyledMenu,
+  StyledSearchInput,
   StyledOption,
   StyledOptionText,
+  StyledNoResultsText,
   StyledHelperText,
 };
 

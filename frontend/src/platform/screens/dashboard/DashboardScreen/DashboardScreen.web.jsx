@@ -15,6 +15,8 @@ import {
   StyledRow,
   StyledSection,
   StyledSections,
+  StyledStatusActions,
+  StyledStatusPanel,
   StyledTab,
   StyledTabs,
 } from './DashboardScreen.web.styles';
@@ -27,6 +29,7 @@ const DashboardScreenWeb = () => {
     activeType,
     dashboard,
     errorMessage,
+    errorTitle,
     isLoading,
     metrics,
     refresh,
@@ -80,10 +83,34 @@ const DashboardScreenWeb = () => {
               ))}
             </StyledTabs>
 
-            {isLoading ? <Text variant="body">Loading dashboard...</Text> : null}
-            {errorMessage ? <Text variant="body">{errorMessage}</Text> : null}
+            {isLoading ? (
+              <StyledStatusPanel $tone="loading" role="status" aria-live="polite">
+                <Text variant="body">Loading dashboard...</Text>
+              </StyledStatusPanel>
+            ) : null}
+            {errorMessage ? (
+              <StyledStatusPanel $tone="error" role="alert">
+                <Text as="h2" variant="label" color="status.error.text">
+                  {errorTitle}
+                </Text>
+                <Text variant="body" color="status.error.text">
+                  {errorMessage}
+                </Text>
+                <StyledStatusActions>
+                  <StyledRefreshButton
+                    type="button"
+                    onClick={refresh}
+                    aria-label="Retry loading dashboard"
+                  >
+                    Retry
+                  </StyledRefreshButton>
+                </StyledStatusActions>
+              </StyledStatusPanel>
+            ) : null}
             {!isLoading && !errorMessage && !dashboard ? (
-              <Text variant="body">No dashboard data available.</Text>
+              <StyledStatusPanel $tone="empty" role="status">
+                <Text variant="body">No dashboard data available.</Text>
+              </StyledStatusPanel>
             ) : null}
 
             {dashboard ? (

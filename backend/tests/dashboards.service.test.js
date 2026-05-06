@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
 
-const { buildDashboardWindow } = await import('../src/modules/dashboards/dashboards.service.js');
+const { Prisma } = await import('@prisma/client');
+const {
+  buildDashboardWindow,
+  buildMissingModelReadinessWhere,
+} = await import('../src/modules/dashboards/dashboards.service.js');
 
 test('dashboard window includes each calendar day in the requested range', () => {
   const window = buildDashboardWindow({
@@ -24,4 +28,16 @@ test('dashboard window rejects ranges beyond the dashboard maximum', () => {
     }),
     /cannot exceed 90 days/,
   );
+});
+
+test('model readiness dashboard query uses Prisma JSON null filters', () => {
+  const where = buildMissingModelReadinessWhere();
+
+  assert.deepEqual(where.OR, [
+    { trainingDatasetVersion: null },
+    { intendedUse: null },
+    { performanceSummaryJson: { equals: Prisma.AnyNull } },
+    { calibrationSummaryJson: { equals: Prisma.AnyNull } },
+    { biasAssessmentJson: { equals: Prisma.AnyNull } },
+  ]);
 });

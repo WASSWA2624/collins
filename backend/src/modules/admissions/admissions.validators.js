@@ -162,6 +162,34 @@ const ventilatorBody = z.object({
   overrideReason,
 }).strict();
 
+const ABG_UPDATE_VALUE_FIELDS = [
+  'ph',
+  'pao2',
+  'paco2',
+  'hco3',
+  'baseExcess',
+  'lactate',
+  'fio2AtSample',
+  'spo2AtSample',
+];
+
+const VENTILATOR_UPDATE_VALUE_FIELDS = [
+  'mode',
+  'tidalVolumeMl',
+  'respiratoryRateSet',
+  'respiratoryRateMeasured',
+  'fio2',
+  'peep',
+  'pressureSupport',
+  'inspiratoryPressure',
+  'peakPressure',
+  'plateauPressure',
+  'ieRatio',
+];
+
+const hasClinicalValue = (record, fields) =>
+  Boolean(record && fields.some((field) => record[field] !== undefined && record[field] !== null));
+
 export const admissionListSchema = z.object({
   body: z.object({}).optional(),
   params: z.object({}).optional(),
@@ -183,7 +211,7 @@ export const admissionIdSchema = z.object({
 
 export const createAdmissionSchema = z.object({
   body: z.object({
-    facilityId: z.string().min(1),
+    facilityId: optionalString(120),
     appAdmissionCode: optionalString(80),
     bedNumber: optionalString(80),
     admittedAt: optionalDefaultDate,
@@ -234,6 +262,26 @@ export const abgTestSchema = z.object({
 
 export const ventilatorSettingSchema = z.object({
   body: ventilatorBody,
+  params: idParam,
+  query: emptyQuery.optional(),
+});
+
+export const admissionAbgVentilatorUpdateSchema = z.object({
+  body: z.object({
+    abgTest: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
+    ventilatorSetting: ventilatorBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
+    clientRecordId: optionalString(120),
+    deviceId: optionalString(120),
+    clientCreatedAt: optionalDate,
+    clientUpdatedAt: optionalDate,
+    idempotencyKey,
+    overrideReason,
+  }).strict().refine(
+    (body) =>
+      hasClinicalValue(body.abgTest, ABG_UPDATE_VALUE_FIELDS)
+      || hasClinicalValue(body.ventilatorSetting, VENTILATOR_UPDATE_VALUE_FIELDS),
+    { message: 'At least one ABG or ventilator setting value is required' }
+  ),
   params: idParam,
   query: emptyQuery.optional(),
 });
@@ -350,7 +398,7 @@ const clinicalReasonBody = z.object({
 
 export const admissionPatientReasonStepSchema = z.object({
   body: z.object({
-    facilityId: z.string().min(1),
+    facilityId: optionalString(120),
     appAdmissionCode: optionalString(80),
     bedNumber: optionalString(80),
     admittedAt: optionalDate,

@@ -11,7 +11,6 @@ import {
 test('normalizes admission missing-data sentinels and pathway aliases', () => {
   const result = createAdmissionSchema.safeParse({
     body: {
-      facilityId: 'facility-1',
       appAdmissionCode: null,
       admittedAt: '',
       patient: {
@@ -44,6 +43,7 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
   });
 
   assert.equal(result.success, true);
+  assert.equal(result.data.body.facilityId, undefined);
   assert.equal(result.data.body.appAdmissionCode, null);
   assert.equal(result.data.body.admittedAt, undefined);
   assert.equal(result.data.body.patient.patientPathway, 'OBSTETRIC');

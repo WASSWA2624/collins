@@ -364,10 +364,12 @@ const StyledActionsRow = styled.div.withConfig({
   componentId: 'StyledActionsRow',
 })`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
   margin-top: ${({ theme }) => theme.spacing.lg}px;
   margin-bottom: env(safe-area-inset-bottom, 0px);
-  flex-wrap: wrap;
+  width: 100%;
 `;
 
 const StyledMissingTests = styled.div.withConfig({

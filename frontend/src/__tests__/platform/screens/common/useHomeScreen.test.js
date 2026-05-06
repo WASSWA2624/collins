@@ -104,14 +104,15 @@ describe('useHomeScreen', () => {
       'datasetCapture',
       'reviewQueue',
       'dashboard',
-      'trainingHelp',
       'settings',
     ]);
     expect(actions.find((action) => action.id === 'admit').enabled).toBe(true);
     expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
+    expect(actions.find((action) => action.id === 'abgVentUpdate').path).toBe('/abg-ventilator-updates');
     expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);
     expect(actions.find((action) => action.id === 'reviewQueue').enabled).toBe(true);
     expect(actions.find((action) => action.id === 'dashboard').path).toBe('/dashboard');
+    expect(actions.some((action) => action.id === 'trainingHelp')).toBe(false);
   });
 
   it('hides reviewer actions for non-review roles', () => {

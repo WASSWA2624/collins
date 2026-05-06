@@ -1,6 +1,8 @@
 import {
   MAIN_NAV_ITEMS,
   MENU_ICON_GLYPHS,
+  MOBILE_TAB_ITEMS,
+  SIDE_MENU_ITEMS,
   SETTINGS_ITEMS,
   getMenuIconGlyph,
 } from '@config/sideMenu';
@@ -17,13 +19,19 @@ describe('sideMenu icon configuration', () => {
     const iconById = Object.fromEntries(MAIN_NAV_ITEMS.map((item) => [item.id, getMenuIconGlyph(item.icon)]));
 
     expect(iconById.home).toBe('🏠');
-    expect(iconById.assessment).toBe('🩺');
+    expect(iconById.admit).toBe('🩺');
     expect(iconById.history).toBe('📈');
-    expect(iconById['abg-vent-update']).toBe('🫁');
+    expect(iconById['abg-ventilator-updates']).toBe('🫁');
     expect(iconById['dataset-capture']).toBe('🗂️');
     expect(iconById['review-queue']).toBe('☑️');
     expect(iconById.dashboard).toBe('📊');
-    expect(iconById.training).toBe('🎓');
     expect(iconById.settings).toBe('⚙️');
+  });
+
+  it('does not expose Training / Help entry points in main or mobile navigation', () => {
+    const allItems = [...SIDE_MENU_ITEMS, ...MOBILE_TAB_ITEMS];
+
+    expect(allItems.some((item) => item.id === 'training')).toBe(false);
+    expect(allItems.some((item) => item.path === '/training')).toBe(false);
   });
 });

@@ -7,8 +7,9 @@ import { useRouter } from 'expo-router';
 import useVentilationSession from '@hooks/useVentilationSession';
 import { getVentilationRecommendationUseCase } from '@features/ventilation';
 import { trackScreen } from '@services/analytics';
+import { STEP_KEYS } from '../AssessmentScreen/types';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = STEP_KEYS.length;
 const isFiniteNumber = (v) => typeof v === 'number' && Number.isFinite(v);
 
 export default function useRecommendationScreen() {
@@ -203,20 +204,20 @@ export default function useRecommendationScreen() {
     (step) => {
       const s = typeof step === 'number' && step >= 0 && step < TOTAL_STEPS ? step : 0;
       setAssessmentStep(s);
-      router.push('/assessment');
+      router.push('/admit');
     },
     [setAssessmentStep, router]
   );
 
   const startNewAssessment = useCallback(() => {
     resetSession();
-    router.replace('/assessment');
+    router.replace('/admit');
   }, [resetSession, router]);
 
   /** Opens the Edit Assessment form at step 0 with current session data pre-filled (Patient Profile, Clinical Parameters, Optional Observations, Optional Time Series, Review). */
   const editAssessment = useCallback(() => {
     setAssessmentStep(0);
-    router.push('/assessment');
+    router.push('/admit');
   }, [setAssessmentStep, router]);
 
   return {

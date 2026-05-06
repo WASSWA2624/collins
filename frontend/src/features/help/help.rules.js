@@ -72,7 +72,7 @@ const HELP_SEARCH_TERMS = Object.freeze({
     home: Object.freeze(['home', 'facility context', 'workload', 'sync state']),
     admit: Object.freeze(['admit', 'patient capture', 'pathway', 'assessment']),
     tracking: Object.freeze(['tracking', 'bed board', 'review status', 'trend']),
-    abgVentUpdate: Object.freeze(['abg vent update', 'abg update', 'ventilator update', 'time stamped']),
+    abgVentUpdate: Object.freeze(['abg vent update', 'abg update', 'ventilator settings', 'time stamped']),
     datasetCapture: Object.freeze(['dataset capture', 'de identified', 'research dataset']),
     reviewQueue: Object.freeze(['review queue', 'approve', 'request correction', 'exclude']),
     dashboard: Object.freeze(['dashboard', 'aggregate', 'quality', 'governance']),

@@ -1,11 +1,12 @@
 /**
- * Shared ABG / Vent Update screen logic.
+ * Shared ABG and ventilator setting update screen logic.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNetwork } from '@hooks';
 import {
   ABG_FIELD_DEFINITIONS,
   VENTILATOR_FIELD_DEFINITIONS,
+  VENTILATOR_MODE_OPTIONS,
   getAbgVentAdvisoryFlags,
   getAbgVentHistory,
   getAbgVentMissingData,
@@ -41,11 +42,6 @@ const INITIAL_VENTILATOR_FORM = Object.freeze({
   ieRatio: '',
 });
 
-const INITIAL_UNCERTAINTY_FORM = Object.freeze({
-  fields: '',
-  reason: '',
-});
-
 const toDisplayDate = (value) => {
   const date = value ? new Date(value) : null;
   if (!date || Number.isNaN(date.getTime())) return '';
@@ -78,7 +74,6 @@ export default function useAbgVentUpdateScreen() {
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [abg, setAbg] = useState({ ...INITIAL_ABG_FORM });
   const [ventilator, setVentilator] = useState({ ...INITIAL_VENTILATOR_FORM });
-  const [uncertainty, setUncertainty] = useState({ ...INITIAL_UNCERTAINTY_FORM });
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [status, setStatus] = useState(createInitialStatus);
@@ -127,14 +122,9 @@ export default function useAbgVentUpdateScreen() {
     setVentilator((current) => ({ ...current, [field]: value }));
   }, []);
 
-  const setUncertaintyField = useCallback((field, value) => {
-    setUncertainty((current) => ({ ...current, [field]: value }));
-  }, []);
-
   const resetForms = useCallback(() => {
     setAbg({ ...INITIAL_ABG_FORM });
     setVentilator({ ...INITIAL_VENTILATOR_FORM });
-    setUncertainty({ ...INITIAL_UNCERTAINTY_FORM });
   }, []);
 
   const handleSubmit = useCallback(async () => {
@@ -143,20 +133,18 @@ export default function useAbgVentUpdateScreen() {
       return;
     }
 
-    if (!hasAnyValue(abg) && !hasAnyValue(ventilator) && !hasAnyValue(uncertainty)) {
-      setStatus({ kind: 'error', message: 'Enter at least one ABG, ventilator, or uncertainty value.', conflict: null });
+    if (!hasAnyValue(abg) && !hasAnyValue(ventilator)) {
+      setStatus({ kind: 'error', message: 'Enter at least one ABG or ventilator setting value.', conflict: null });
       return;
     }
 
     setIsSaving(true);
-    setStatus({ kind: 'saving', message: 'Saving append-only update.', conflict: null });
+    setStatus({ kind: 'saving', message: 'Validating and saving the new ABG and ventilator values.', conflict: null });
     try {
       const result = await submitAbgVentUpdateUseCase({
         admissionId: selectedAdmissionId,
         abg,
         ventilator,
-        uncertainty,
-        deviceContext: { source: 'abg_vent_update' },
         isOnline: !isOffline,
       });
 
@@ -175,7 +163,7 @@ export default function useAbgVentUpdateScreen() {
         return;
       }
 
-      setStatus({ kind: 'synced', message: 'ABG / vent update saved as a new history entry.', conflict: null });
+      setStatus({ kind: 'synced', message: 'ABG and ventilator settings saved as new history entries.', conflict: null });
       resetForms();
       await loadSelectedAdmission(selectedAdmissionId);
       await loadAdmissions();
@@ -184,7 +172,7 @@ export default function useAbgVentUpdateScreen() {
     } finally {
       setIsSaving(false);
     }
-  }, [abg, ventilator, uncertainty, selectedAdmissionId, isOffline, resetForms, loadSelectedAdmission, loadAdmissions]);
+  }, [abg, ventilator, selectedAdmissionId, isOffline, resetForms, loadSelectedAdmission, loadAdmissions]);
 
   const admissionOptions = useMemo(() => createAdmissionOptions(admissions), [admissions]);
   const selectedLabel = useMemo(() => formatAdmissionLabel(selectedAdmission), [selectedAdmission]);
@@ -211,12 +199,11 @@ export default function useAbgVentUpdateScreen() {
     selectedLabel,
     setAbgField,
     setSelectedAdmissionId,
-    setUncertaintyField,
     setVentilatorField,
     status,
     toDisplayDate,
-    uncertainty,
     ventilator,
     ventilatorFields: VENTILATOR_FIELD_DEFINITIONS,
+    ventilatorModeOptions: VENTILATOR_MODE_OPTIONS,
   };
 }

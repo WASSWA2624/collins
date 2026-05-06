@@ -1,5 +1,5 @@
 /**
- * ABG / Vent Update Model
+ * ABG and ventilator setting update model
  * Append-only payload builders and summary helpers.
  */
 import { z } from 'zod';
@@ -25,6 +25,22 @@ const VENTILATOR_NUMERIC_FIELDS = Object.freeze([
   'inspiratoryPressure',
   'peakPressure',
   'plateauPressure',
+]);
+
+const VENTILATOR_MODE_OPTIONS = Object.freeze([
+  { label: 'Assist-control volume control (AC/VC)', value: 'AC/VC' },
+  { label: 'Assist-control pressure control (AC/PC)', value: 'AC/PC' },
+  { label: 'Volume control ventilation (VCV)', value: 'VCV' },
+  { label: 'Pressure control ventilation (PCV)', value: 'PCV' },
+  { label: 'Pressure-regulated volume control (PRVC)', value: 'PRVC' },
+  { label: 'Synchronized intermittent mandatory ventilation (SIMV)', value: 'SIMV' },
+  { label: 'Pressure support ventilation (PSV)', value: 'PSV' },
+  { label: 'Continuous positive airway pressure (CPAP)', value: 'CPAP' },
+  { label: 'BiPAP / NIV', value: 'BiPAP/NIV' },
+  { label: 'Airway pressure release ventilation (APRV)', value: 'APRV' },
+  { label: 'High-frequency oscillatory ventilation (HFOV)', value: 'HFOV' },
+  { label: 'High-flow nasal cannula (HFNC)', value: 'HFNC' },
+  { label: 'Other / not listed', value: 'OTHER' },
 ]);
 
 const ABG_FIELD_DEFINITIONS = Object.freeze([
@@ -121,32 +137,6 @@ const ventilatorUpdateSchema = z.object({
   deviceId: optionalText(120),
 }).strict();
 
-const uncertaintySchema = z.object({
-  isUncertain: z.preprocess(emptyToUndefined, z.coerce.boolean().optional()),
-  fields: z.preprocess(
-    (value) => {
-      if (typeof value === 'string') {
-        return value
-          .split(',')
-          .map((field) => field.trim())
-          .filter(Boolean);
-      }
-      return Array.isArray(value) ? value : undefined;
-    },
-    z.array(z.string().trim().min(1).max(120)).max(80).optional()
-  ),
-  reason: optionalText(1000),
-  notes: optionalText(2000),
-}).strict();
-
-const deviceContextSchema = z.object({
-  deviceId: optionalText(120),
-  source: optionalText(80),
-  oxygenSource: optionalText(120),
-  ventilatorType: optionalText(120),
-  facilityDeviceLabel: optionalText(160),
-}).strict();
-
 const stripUndefined = (value) => {
   if (Array.isArray(value)) return value.map(stripUndefined).filter((entry) => entry !== undefined);
   if (value && typeof value === 'object' && !(value instanceof Date)) {
@@ -181,25 +171,10 @@ const parseRecord = (schema, record) => {
   return stripUndefined(parsed) || {};
 };
 
-const normalizeUncertainty = (value) => {
-  const parsed = parseRecord(uncertaintySchema, value || {});
-  const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
-  const isUncertain = parsed.isUncertain === true || fields.length > 0 || Boolean(parsed.reason || parsed.notes);
-  if (!isUncertain) return undefined;
-  return stripUndefined({
-    isUncertain,
-    fields,
-    reason: parsed.reason,
-    notes: parsed.notes,
-  });
-};
-
 const buildAbgVentUpdatePayload = ({
   admissionId,
   abg,
   ventilator,
-  uncertainty,
-  deviceContext,
   clientRecordId,
   idempotencyKey,
   source = 'abg_vent_update',
@@ -215,16 +190,11 @@ const buildAbgVentUpdatePayload = ({
   const resolvedIdempotencyKey = idempotencyKey || createScopedToken('abg-vent-idem', admissionId, resolvedNow);
   const parsedAbg = parseRecord(abgUpdateSchema, abg);
   const parsedVentilator = parseRecord(ventilatorUpdateSchema, ventilator);
-  const parsedDeviceContext = parseRecord(deviceContextSchema, {
-    ...(deviceContext || {}),
-    source: deviceContext?.source || source,
-  });
 
   const hasAbg = hasAnyField(parsedAbg, ABG_NUMERIC_FIELDS);
   const hasVentilator = hasAnyField(parsedVentilator, [...VENTILATOR_NUMERIC_FIELDS, 'mode', 'ieRatio']);
-  const parsedUncertainty = normalizeUncertainty(uncertainty);
 
-  if (!hasAbg && !hasVentilator && !parsedUncertainty) {
+  if (!hasAbg && !hasVentilator) {
     throw new Error('ABG_VENT_UPDATE_EMPTY');
   }
 
@@ -241,8 +211,6 @@ const buildAbgVentUpdatePayload = ({
           source: parsedVentilator.source || source,
         }
       : undefined,
-    uncertainty: parsedUncertainty,
-    deviceContext: parsedDeviceContext,
     clientRecordId: resolvedClientRecordId,
     clientCreatedAt: timestamp,
     clientUpdatedAt: timestamp,
@@ -329,6 +297,7 @@ const getAbgVentMissingData = (admission = {}) => {
 export {
   ABG_FIELD_DEFINITIONS,
   VENTILATOR_FIELD_DEFINITIONS,
+  VENTILATOR_MODE_OPTIONS,
   abgUpdateSchema,
   buildAbgVentUpdatePayload,
   containsForbiddenSettingOrder,
@@ -338,6 +307,5 @@ export {
   getLatestAbgVentValues,
   safeBuildAbgVentUpdatePayload,
   toAdvisoryMessage,
-  uncertaintySchema,
   ventilatorUpdateSchema,
 };

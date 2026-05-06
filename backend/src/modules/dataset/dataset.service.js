@@ -68,9 +68,50 @@ const approvedDatasetSelect = {
 const extractNumber = (text, patterns) => {
   for (const pattern of patterns) {
     const match = text.match(pattern);
-    if (match) return Number(match[1]);
+    if (!match) continue;
+    const value = Number(match[1]);
+    if (Number.isFinite(value)) return value;
   }
   return undefined;
+};
+
+const extractRange = (text, patterns) => {
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (!match) continue;
+    const lower = Number(match[1]);
+    const upper = Number(match[2]);
+    if (Number.isFinite(lower) && Number.isFinite(upper)) return [lower, upper];
+  }
+  return [undefined, undefined];
+};
+
+const normalizeDiagnosis = (text) => {
+  if (/\bcopd\b|chronic obstructive/i.test(text)) return 'COPD';
+  if (/\basthma\b/i.test(text)) return 'ASTHMA';
+  if (/\bpneumonia\b/i.test(text)) return 'PNEUMONIA';
+  if (/\bards\b/i.test(text)) return 'ARDS';
+  if (/\bheart failure\b|\bchf\b/i.test(text)) return 'HEART_FAILURE';
+  if (/\bsepsis\b/i.test(text)) return 'SEPSIS';
+  if (/\btrauma\b/i.test(text)) return 'TRAUMA';
+  return undefined;
+};
+
+const normalizeVentilatorMode = (text) => {
+  if (/\bprvc\b/i.test(text)) return 'PRVC';
+  if (/\bsimv\b/i.test(text)) return 'SIMV';
+  if (/\b(psv|pressure support)\b/i.test(text)) return 'PSV';
+  if (/\b(bipap|niv)\b/i.test(text)) return 'BIPAP';
+  if (/\b(volume control|vc)\b/i.test(text)) return 'VC';
+  if (/\b(pressure control|pc)\b/i.test(text)) return 'PC';
+  return text.match(/\bmode\s*[:=]?\s*([A-Za-z0-9 /+-]{2,20})/i)?.[1]?.trim()?.toUpperCase();
+};
+
+const normalizePatientPathway = (text) => {
+  if (/\b(neonate|newborn)\b/i.test(text)) return 'NEONATE';
+  if (/\b(child|paediatric|pediatric)\b/i.test(text)) return 'CHILD';
+  if (/\badolescent\b/i.test(text)) return 'ADOLESCENT';
+  return 'ADULT';
 };
 
 export const assertDatasetSourceTypeAllowed = (sourceType = '') => {

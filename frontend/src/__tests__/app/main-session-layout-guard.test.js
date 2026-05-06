@@ -3,7 +3,7 @@
  * File: main-session-layout-guard.test.js
  *
  * Tests for src/app/(main)/session/_layout.jsx (P011 11.S.2).
- * - Uses useSessionGuard; redirects to /assessment when missing session (via hook).
+ * - Uses useSessionGuard; redirects to /admit when missing session (via hook).
  * - Renders <Slot /> when session exists and ready.
  */
 import React from 'react';

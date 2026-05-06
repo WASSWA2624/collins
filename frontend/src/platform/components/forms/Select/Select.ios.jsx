@@ -20,8 +20,10 @@ import {
   StyledOverlay,
   StyledSheet,
   StyledOptionList,
+  StyledSearchInput,
   StyledOption,
   StyledOptionText,
+  StyledNoResultsText,
   StyledHelperText,
 } from './Select.ios.styles';
 
@@ -44,6 +46,8 @@ import {
  * @param {string} [props.validationState]
  * @param {string} [props.errorMessage]
  * @param {string} [props.helperText]
+ * @param {boolean} [props.searchable]
+ * @param {string} [props.searchPlaceholder]
  * @param {(value: any) => boolean|{valid: boolean, error?: string}} [props.validate]
  * @param {string} [props.accessibilityLabel]
  * @param {string} [props.accessibilityHint]
@@ -61,6 +65,8 @@ const SelectIOS = ({
   validationState,
   errorMessage,
   helperText,
+  searchable = false,
+  searchPlaceholder,
   validate,
   accessibilityLabel,
   accessibilityHint,
@@ -69,6 +75,18 @@ const SelectIOS = ({
 }) => {
   const { t } = useI18n();
   const defaultPlaceholder = placeholder || t('common.selectPlaceholder');
+  const finalSearchPlaceholder = searchPlaceholder || t('common.searchPlaceholder');
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const visibleOptions = React.useMemo(() => {
+    const rows = options.map((option, index) => ({ option, index }));
+    const query = String(searchQuery || '').trim().toLowerCase();
+    if (!searchable || !query) return rows;
+    return rows.filter(({ option }) =>
+      [option.label, option.value]
+        .some((entry) => String(entry || '').toLowerCase().includes(query))
+    );
+  }, [options, searchable, searchQuery]);
   
   const {
     open,
@@ -86,6 +104,10 @@ const SelectIOS = ({
   const finalValidationState = validationState || (disabled ? VALIDATION_STATES.DISABLED : internalValidationState);
   const finalErrorMessage = errorMessage || internalErrorMessage;
   const displayHelperText = finalErrorMessage || helperText;
+
+  React.useEffect(() => {
+    if (!open) setSearchQuery('');
+  }, [open]);
 
   return (
     <StyledContainer style={style}>
@@ -122,22 +144,36 @@ const SelectIOS = ({
       <Modal transparent visible={open} animationType="fade" onRequestClose={closeSelect}>
         <StyledOverlay onPress={closeSelect} accessibilityRole="button" accessibilityLabel={t('common.closeSelect')}>
           <StyledSheet>
+            {searchable ? (
+              <StyledSearchInput
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholder={finalSearchPlaceholder}
+                accessibilityLabel={finalSearchPlaceholder}
+                testID={testID ? `${testID}-search` : undefined}
+                autoFocus
+              />
+            ) : null}
             <StyledOptionList>
-              {options.map((opt, index) => (
-                <StyledOption
-                  key={`${String(opt.value)}-${index}`}
-                  disabled={!!opt.disabled}
-                  onPress={() => {
-                    if (opt.disabled) return;
-                    handleSelect(opt.value);
-                  }}
-                  accessibilityRole="button"
-                  accessibilityLabel={opt.label}
-                  testID={testID ? `${testID}-option-${index}` : undefined}
-                >
-                  <StyledOptionText>{opt.label}</StyledOptionText>
-                </StyledOption>
-              ))}
+              {visibleOptions.length === 0 ? (
+                <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
+              ) : (
+                visibleOptions.map(({ option: opt, index }) => (
+                  <StyledOption
+                    key={`${String(opt.value)}-${index}`}
+                    disabled={!!opt.disabled}
+                    onPress={() => {
+                      if (opt.disabled) return;
+                      handleSelect(opt.value);
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={opt.label}
+                    testID={testID ? `${testID}-option-${index}` : undefined}
+                  >
+                    <StyledOptionText>{opt.label}</StyledOptionText>
+                  </StyledOption>
+                ))
+              )}
             </StyledOptionList>
           </StyledSheet>
         </StyledOverlay>

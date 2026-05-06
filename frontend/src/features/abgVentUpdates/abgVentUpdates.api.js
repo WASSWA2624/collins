@@ -1,5 +1,5 @@
 /**
- * ABG / Vent Update API
+ * ABG and ventilator setting update API
  */
 import { endpoints } from '@config/endpoints';
 import { apiClient } from '@services/api';
@@ -15,7 +15,7 @@ const appendQuery = (url, query = {}) => {
 const unwrapData = (response) => response?.data?.data ?? response?.data ?? null;
 
 const createAbgVentUpdateRequest = (admissionId, body) => ({
-  url: endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR(admissionId),
+  url: endpoints.ADMISSIONS.ABG_VENTILATOR_UPDATES(admissionId),
   method: 'POST',
   body,
 });

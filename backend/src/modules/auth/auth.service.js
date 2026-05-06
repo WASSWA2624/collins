@@ -10,6 +10,10 @@ import { createInitialOnboardingState } from '../onboarding/onboarding.service.j
 import { buildAuthContext, resolveRequestedFacilityId } from './auth.presenter.js';
 
 const REFRESH_TOKEN_DAYS = 30;
+const AUTO_APPROVED_REGISTRATION_ROLES = new Set([
+  MEMBERSHIP_ROLES.CLINICIAN,
+  MEMBERSHIP_ROLES.ICU_NURSE,
+]);
 
 const publicUserSelect = {
   id: true,
@@ -206,6 +210,17 @@ const resolveRegistrationFacility = async (tx, {
   return facility;
 };
 
+const getRegistrationMembershipApproval = (role, userId) => {
+  const autoApproved = AUTO_APPROVED_REGISTRATION_ROLES.has(role);
+  return {
+    status: autoApproved ? 'APPROVED' : 'PENDING',
+    approvedByUserId: autoApproved ? userId : null,
+    auditAction: autoApproved
+      ? 'FACILITY_MEMBERSHIP_AUTO_APPROVE_REGISTRATION'
+      : 'FACILITY_MEMBERSHIP_REQUEST',
+  };
+};
+
 export const registerUser = async ({
   name,
   email,
@@ -243,12 +258,14 @@ export const registerUser = async ({
     }, user.id, auditContext);
 
     if (selectedFacility) {
+      const membershipApproval = getRegistrationMembershipApproval(requestedRole, user.id);
       const membership = await tx.facilityMembership.create({
         data: {
           userId: user.id,
           facilityId: selectedFacility.id,
           role: requestedRole,
-          status: 'PENDING',
+          status: membershipApproval.status,
+          ...(membershipApproval.approvedByUserId ? { approvedByUserId: membershipApproval.approvedByUserId } : {}),
         },
         include: { facility: true },
       });
@@ -258,10 +275,14 @@ export const registerUser = async ({
         ...auditContext,
         userId: user.id,
         facilityId: selectedFacility.id,
-        action: 'FACILITY_MEMBERSHIP_REQUEST',
+        action: membershipApproval.auditAction,
         entityType: 'FacilityMembership',
         entityId: membership.id,
-        afterJson: { role: membership.role, status: membership.status },
+        afterJson: {
+          role: membership.role,
+          status: membership.status,
+          approvedByUserId: membership.approvedByUserId || null,
+        },
       });
     }
 

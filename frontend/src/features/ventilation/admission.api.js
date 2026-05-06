@@ -12,6 +12,7 @@ const ADMISSION_SYNC_STATUS = Object.freeze({
   SYNCED: 'synced',
   DUPLICATE: 'duplicate',
   QUEUED: 'queued',
+  NEEDS_SYNC: 'needs_sync',
 });
 
 const createAdmissionClientRecordId = () => {

@@ -15,10 +15,6 @@ export const endpoints = {
     SUMMARY: `${baseUrl}/home/summary`,
   },
 
-  TRAINING_HELP: {
-    CATALOG: `${baseUrl}/training-help`,
-  },
-
   AUTH: {
     CSRF_TOKEN: `${baseUrl}/auth/csrf-token`,
     IDENTIFY: `${baseUrl}/auth/identify`,
@@ -69,6 +65,7 @@ export const endpoints = {
     THREE_STEP_OXYGEN_ABG_VENTILATOR: (id) =>
       `${baseUrl}/admissions/${id}/three-step/oxygen-abg-ventilator`,
     THREE_STEP_SAVE_REVIEW: (id) => `${baseUrl}/admissions/${id}/three-step/save-review`,
+    ABG_VENTILATOR_UPDATES: (id) => `${baseUrl}/admissions/${id}/abg-ventilator-updates`,
     CLINICAL_SNAPSHOTS: (id) => `${baseUrl}/admissions/${id}/clinical-snapshots`,
     ABG_TESTS: (id) => `${baseUrl}/admissions/${id}/abg-tests`,
     VENTILATOR_SETTINGS: (id) => `${baseUrl}/admissions/${id}/ventilator-settings`,

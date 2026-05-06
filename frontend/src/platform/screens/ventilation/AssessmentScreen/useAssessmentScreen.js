@@ -4,14 +4,17 @@
  * File: useAssessmentScreen.js
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
 import {
   ADMISSION_SYNC_STATUS,
   createAdmissionClientRecordId,
+  getVentilationRecommendationUseCase,
   saveAdmissionReviewStepApi,
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } from '@features/ventilation';
+import { selectActiveFacility } from '@store/selectors';
 import useVentilationSession from '@hooks/useVentilationSession';
 import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
 
@@ -33,19 +36,38 @@ const textOrUndefined = (value) => {
   return text || undefined;
 };
 const numberOrUndefined = (value) => (isFiniteNumber(value) ? value : undefined);
+const roundTo = (value, precision = 1) => {
+  if (!isFiniteNumber(value)) return null;
+  const factor = 10 ** precision;
+  return Math.round(value * factor) / factor;
+};
+const calculateBmi = (weightKg, heightCm) => {
+  if (!isFiniteNumber(weightKg) || !isFiniteNumber(heightCm) || weightKg <= 0 || heightCm <= 0) return null;
+  const heightM = heightCm / 100;
+  return roundTo(weightKg / (heightM * heightM), 1);
+};
+const calculateWeightFromBmi = (bmi, heightCm) => {
+  if (!isFiniteNumber(bmi) || !isFiniteNumber(heightCm) || bmi <= 0 || heightCm <= 0) return null;
+  const heightM = heightCm / 100;
+  return roundTo(bmi * heightM * heightM, 1);
+};
+const calculateHeightFromBmi = (weightKg, bmi) => {
+  if (!isFiniteNumber(weightKg) || !isFiniteNumber(bmi) || weightKg <= 0 || bmi <= 0) return null;
+  return roundTo(Math.sqrt(weightKg / bmi) * 100, 1);
+};
 
 const defaultAdmissionInputs = (clientRecordId) => ({
   clientRecordId,
   clientCreatedAt: nowIso(),
   facilityId: '',
-  bedNumber: '',
   admissionSource: '',
   reasonForSupport: '',
-  patientPathway: '',
+  patientPathway: 'ADULT',
   ageYears: null,
-  sexForSizeCalculations: 'UNKNOWN',
+  sexForSizeCalculations: 'MALE',
   actualWeightKg: null,
   heightOrLengthCm: null,
+  bmi: null,
   permittedMissingFields: [],
   oxygenSupportType: '',
   measuredAt: '',
@@ -57,6 +79,9 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   ph: null,
   pao2: null,
   paco2: null,
+  hco3: null,
+  baseExcess: null,
+  lactate: null,
   fio2AtSample: null,
   spo2AtSample: null,
   ventilatorMeasuredAt: '',
@@ -90,11 +115,48 @@ const normalizeInputs = (inputs, clientRecordId) => {
     ...base,
     clientRecordId: base.clientRecordId || clientRecordId,
     clientCreatedAt: base.clientCreatedAt || nowIso(),
-    patientPathway: base.patientPathway || '',
-    sexForSizeCalculations: base.sexForSizeCalculations || 'UNKNOWN',
+    patientPathway: base.patientPathway || 'ADULT',
+    sexForSizeCalculations: base.sexForSizeCalculations || 'MALE',
     permittedMissingFields: Array.isArray(base.permittedMissingFields) ? base.permittedMissingFields : [],
     clinicianConfirmed: base.clinicianConfirmed === true,
   };
+};
+
+export const updateBodyMetricInputs = (inputs, field, value) => {
+  const numericValue = numberOrNull(value);
+  const next = {
+    actualWeightKg: numberOrNull(inputs?.actualWeightKg),
+    heightOrLengthCm: numberOrNull(inputs?.heightOrLengthCm),
+    bmi: numberOrNull(inputs?.bmi),
+    [field]: numericValue,
+  };
+
+  if (numericValue == null) return next;
+
+  if (field === 'actualWeightKg' || field === 'heightOrLengthCm') {
+    const bmi = calculateBmi(next.actualWeightKg, next.heightOrLengthCm);
+    if (bmi != null) return { ...next, bmi };
+
+    if (field === 'actualWeightKg' && isFiniteNumber(next.bmi)) {
+      const heightOrLengthCm = calculateHeightFromBmi(next.actualWeightKg, next.bmi);
+      return heightOrLengthCm == null ? next : { ...next, heightOrLengthCm };
+    }
+
+    if (field === 'heightOrLengthCm' && isFiniteNumber(next.bmi)) {
+      const actualWeightKg = calculateWeightFromBmi(next.bmi, next.heightOrLengthCm);
+      return actualWeightKg == null ? next : { ...next, actualWeightKg };
+    }
+  }
+
+  if (field === 'bmi') {
+    const actualWeightKg = calculateWeightFromBmi(next.bmi, next.heightOrLengthCm);
+    if (actualWeightKg != null) return { ...next, actualWeightKg };
+
+    const heightOrLengthCm = calculateHeightFromBmi(next.actualWeightKg, next.bmi);
+    if (heightOrLengthCm != null) return { ...next, heightOrLengthCm };
+  }
+
+  return next;
 };
 
 const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
@@ -146,10 +208,9 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
 const buildPatientReasonPayload = (inputs) => {
   const timestamp = nowIso();
   return {
-    facilityId: cleanText(inputs.facilityId),
-    bedNumber: textOrUndefined(inputs.bedNumber),
+    facilityId: textOrUndefined(inputs.facilityId),
     admissionSource: textOrUndefined(inputs.admissionSource),
-    reasonForSupport: cleanText(inputs.reasonForSupport),
+    reasonForSupport: textOrUndefined(inputs.reasonForSupport),
     patient: {
       patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
       ageYears: numberOrNull(inputs.ageYears),
@@ -172,6 +233,7 @@ const buildPatientReasonPayload = (inputs) => {
 const buildOxygenAbgVentilatorPayload = (inputs) => {
   const timestamp = nowIso();
   return {
+    facilityId: textOrUndefined(inputs.facilityId),
     oxygen: {
       measuredAt: textOrUndefined(inputs.measuredAt),
       oxygenSupportType: textOrUndefined(inputs.oxygenSupportType),
@@ -185,6 +247,9 @@ const buildOxygenAbgVentilatorPayload = (inputs) => {
       ph: numberOrUndefined(inputs.ph),
       pao2: numberOrUndefined(inputs.pao2),
       paco2: numberOrUndefined(inputs.paco2),
+      hco3: numberOrUndefined(inputs.hco3),
+      baseExcess: numberOrUndefined(inputs.baseExcess),
+      lactate: numberOrUndefined(inputs.lactate),
       fio2AtSample: numberOrUndefined(inputs.fio2AtSample),
       spo2AtSample: numberOrUndefined(inputs.spo2AtSample),
     },
@@ -226,6 +291,7 @@ const buildOxygenAbgVentilatorPayload = (inputs) => {
 const buildSaveReviewPayload = (inputs) => {
   const timestamp = nowIso();
   return {
+    facilityId: textOrUndefined(inputs.facilityId),
     clinicianConfirmed: inputs.clinicianConfirmed === true,
     overrideReason: textOrUndefined(inputs.overrideReason),
     reviewNote: textOrUndefined(inputs.reviewNote),
@@ -237,14 +303,53 @@ const buildSaveReviewPayload = (inputs) => {
   };
 };
 
+const firstFiniteNumber = (...values) => {
+  for (const value of values) {
+    if (isFiniteNumber(value)) return value;
+  }
+  return null;
+};
+
+const buildRecommendationInput = (inputs) => ({
+  condition:
+    cleanText(inputs.condition) ||
+    cleanText(inputs.reasonForSupport) ||
+    cleanText(inputs.oxygenSupportType) ||
+    'general',
+  patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
+  sexForSizeCalculations: cleanText(inputs.sexForSizeCalculations) || 'UNKNOWN',
+  ageYears: numberOrNull(inputs.ageYears),
+  actualWeightKg: numberOrNull(inputs.actualWeightKg),
+  heightOrLengthCm: numberOrNull(inputs.heightOrLengthCm),
+  spo2: firstFiniteNumber(inputs.spo2, inputs.spo2AtSample),
+  fio2: firstFiniteNumber(inputs.fio2AtSample, inputs.ventilatorFio2, inputs.fio2),
+  pao2: numberOrNull(inputs.pao2),
+  paco2: numberOrNull(inputs.paco2),
+  ph: numberOrNull(inputs.ph),
+  respiratoryRate: firstFiniteNumber(
+    inputs.respiratoryRate,
+    inputs.respiratoryRateMeasured,
+    inputs.respiratoryRateSet
+  ),
+  heartRate: numberOrNull(inputs.heartRate),
+  tidalVolumeMl: numberOrNull(inputs.tidalVolumeMl),
+  peep: numberOrNull(inputs.peep),
+  plateauPressure: numberOrNull(inputs.plateauPressure),
+});
+
 export default function useAssessmentScreen() {
   const router = useRouter();
+  const activeFacility = useSelector(selectActiveFacility);
+  const activeFacilityId = activeFacility?.facilityId || activeFacility?.id || null;
+  const activeFacilityLabel = activeFacility?.name || activeFacilityId || null;
   const {
     sessionId,
     inputs,
     setInputs,
     startSession,
     persistDraft,
+    recommendationSummary,
+    setRecommendationSummary,
     assessmentCurrentStep,
     setAssessmentStep,
     isHydrating,
@@ -258,6 +363,7 @@ export default function useAssessmentScreen() {
   const [isSaving, setIsSaving] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
   const [saveErrorCode, setSaveErrorCode] = useState(null);
+  const [recommendationErrorCode, setRecommendationErrorCode] = useState(null);
   const [admissionId, setAdmissionId] = useState(() => inputs?.admissionId || inputs?.clientRecordId || clientRecordId);
   const [syncStatus, setSyncStatus] = useState(inputs?.syncStatus || 'draft');
 
@@ -271,10 +377,13 @@ export default function useAssessmentScreen() {
     }
   }, [clientRecordId, sessionId, startSession]);
 
-  const mergedInputs = useMemo(
-    () => normalizeInputs(inputs, clientRecordId),
-    [clientRecordId, inputs]
-  );
+  const mergedInputs = useMemo(() => {
+    const normalized = normalizeInputs(inputs, clientRecordId);
+    if (!cleanText(normalized.facilityId) && activeFacilityId) {
+      return { ...normalized, facilityId: activeFacilityId };
+    }
+    return normalized;
+  }, [activeFacilityId, clientRecordId, inputs]);
 
   const currentStep = typeof assessmentCurrentStep === 'number'
     ? Math.min(Math.max(0, assessmentCurrentStep), TOTAL_STEPS - 1)
@@ -289,6 +398,13 @@ export default function useAssessmentScreen() {
     [mergedInputs, setInputs]
   );
 
+  const updateBodyMetric = useCallback(
+    (field, value) => {
+      updateInput(updateBodyMetricInputs(mergedInputs, field, value));
+    },
+    [mergedInputs, updateInput]
+  );
+
   const readiness = useMemo(
     () => buildReadinessFromInputs(mergedInputs, serverResponse?.readiness),
     [mergedInputs, serverResponse]
@@ -298,11 +414,7 @@ export default function useAssessmentScreen() {
     (step) => {
       switch (step) {
         case STEPS.PATIENT_REASON:
-          return Boolean(
-            cleanText(mergedInputs.facilityId) &&
-            cleanText(mergedInputs.patientPathway) &&
-            cleanText(mergedInputs.reasonForSupport)
-          );
+          return Boolean(cleanText(mergedInputs.patientPathway));
         case STEPS.OXYGEN_ABG_VENTILATOR:
           return true;
         case STEPS.SAVE_REVIEW:
@@ -325,6 +437,14 @@ export default function useAssessmentScreen() {
     [mergedInputs, persistDraft, setInputs]
   );
 
+  const advanceToStep = useCallback(
+    async (nextStep) => {
+      setAssessmentStep(Math.min(Math.max(nextStep, 0), TOTAL_STEPS - 1));
+      await persistDraft();
+    },
+    [persistDraft, setAssessmentStep]
+  );
+
   const applyStepResponse = useCallback((response) => {
     if (!response || typeof response !== 'object') return;
     setServerResponse(response);
@@ -338,6 +458,38 @@ export default function useAssessmentScreen() {
       mergedInputs.clientRecordId;
     if (nextAdmissionId) setAdmissionId(nextAdmissionId);
   }, [admissionId, mergedInputs.clientRecordId]);
+
+  const generateDatasetRecommendation = useCallback(
+    async (backendSummary = null) => {
+      try {
+        const recommendation = await getVentilationRecommendationUseCase({
+          input: buildRecommendationInput(mergedInputs),
+          ai: {
+            useOnlineAi: false,
+            backendSummary,
+          },
+        });
+        const summaryWithSource = recommendation
+          ? {
+              ...recommendation,
+              responseSource: 'offline',
+              admissionId,
+              syncStatus,
+            }
+          : null;
+        setRecommendationSummary(summaryWithSource);
+        setRecommendationErrorCode(null);
+        await persistDraft();
+        return summaryWithSource;
+      } catch (error) {
+        setRecommendationSummary(null);
+        setRecommendationErrorCode(error?.code || error?.message || 'ADMISSION_RECOMMENDATION_FAILED');
+        await persistDraft();
+        return null;
+      }
+    },
+    [admissionId, mergedInputs, persistDraft, setRecommendationSummary, syncStatus]
+  );
 
   const savePatientReasonStep = useCallback(async () => {
     const payload = buildPatientReasonPayload(mergedInputs);
@@ -374,29 +526,43 @@ export default function useAssessmentScreen() {
 
   const goNext = useCallback(async () => {
     if (!canProceedFromStep(currentStep)) return;
+    const nextStep = Math.min(currentStep + 1, TOTAL_STEPS - 1);
     setIsSaving(true);
     setSaveErrorCode(null);
     try {
+      let response = null;
       if (currentStep === STEPS.PATIENT_REASON) {
-        await savePatientReasonStep();
+        response = await savePatientReasonStep();
       }
       if (currentStep === STEPS.OXYGEN_ABG_VENTILATOR) {
-        await saveOxygenAbgVentilatorStep();
+        response = await saveOxygenAbgVentilatorStep();
+        await generateDatasetRecommendation(response?.clinicalSummary || null);
       }
       if (currentStep < TOTAL_STEPS - 1) {
-        setAssessmentStep(Math.min(currentStep + 1, TOTAL_STEPS - 1));
+        await advanceToStep(nextStep);
       }
     } catch (error) {
       setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
+      setSyncStatus(ADMISSION_SYNC_STATUS.NEEDS_SYNC);
+      await persistCurrentDraft({ syncStatus: ADMISSION_SYNC_STATUS.NEEDS_SYNC });
+      if (currentStep === STEPS.OXYGEN_ABG_VENTILATOR) {
+        await generateDatasetRecommendation(serverResponse?.clinicalSummary || null);
+      }
+      if (currentStep < TOTAL_STEPS - 1) {
+        await advanceToStep(nextStep);
+      }
     } finally {
       setIsSaving(false);
     }
   }, [
+    advanceToStep,
     canProceedFromStep,
     currentStep,
+    generateDatasetRecommendation,
+    persistCurrentDraft,
     saveOxygenAbgVentilatorStep,
     savePatientReasonStep,
-    setAssessmentStep,
+    serverResponse,
   ]);
 
   const goBack = useCallback(() => {
@@ -417,21 +583,25 @@ export default function useAssessmentScreen() {
     setSaveErrorCode(null);
     try {
       await saveReviewStep();
+      router.replace('/tracking');
     } catch (error) {
       setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
     } finally {
       setIsSaving(false);
     }
-  }, [canProceedFromStep, saveReviewStep]);
+  }, [canProceedFromStep, router, saveReviewStep]);
 
   const togglePermittedMissingField = useCallback(
     (field, checked) => {
+      const fieldKey = cleanText(field);
+      if (!fieldKey) return;
+      const nextChecked = checked === true || checked?.target?.checked === true;
       const current = Array.isArray(mergedInputs.permittedMissingFields)
         ? mergedInputs.permittedMissingFields
         : [];
-      const next = checked
-        ? [...new Set([...current, field])]
-        : current.filter((item) => item !== field);
+      const next = nextChecked
+        ? [...new Set([...current, fieldKey])]
+        : current.filter((item) => item !== fieldKey);
       updateInput({ permittedMissingFields: next });
     },
     [mergedInputs.permittedMissingFields, updateInput]
@@ -440,6 +610,7 @@ export default function useAssessmentScreen() {
   const summaryData = useMemo(
     () => ({
       facilityId: mergedInputs.facilityId,
+      facilityLabel: activeFacilityLabel || mergedInputs.facilityId,
       pathway: mergedInputs.patientPathway,
       reasonForSupport: mergedInputs.reasonForSupport,
       oxygenSupportType: mergedInputs.oxygenSupportType,
@@ -453,10 +624,26 @@ export default function useAssessmentScreen() {
       tidalVolumeMl: mergedInputs.tidalVolumeMl,
       syncStatus,
     }),
-    [mergedInputs, syncStatus]
+    [activeFacilityLabel, mergedInputs, syncStatus]
   );
 
   const progressPercent = useMemo(() => ((currentStep + 1) / TOTAL_STEPS) * 100, [currentStep]);
+  const recommendationSettings = useMemo(
+    () => recommendationSummary?.initialVentilatorSettings?.settings ?? null,
+    [recommendationSummary]
+  );
+  const recommendationUnits = useMemo(
+    () => recommendationSummary?.units ?? {},
+    [recommendationSummary]
+  );
+  const recommendationMissingInputs = useMemo(
+    () => recommendationSummary?.source?.missingInputs ?? [],
+    [recommendationSummary]
+  );
+  const recommendationConfidence = useMemo(
+    () => recommendationSummary?.source?.confidenceTier ?? 'low',
+    [recommendationSummary]
+  );
 
   return {
     currentStep,
@@ -465,10 +652,17 @@ export default function useAssessmentScreen() {
     progressPercent,
     mergedInputs,
     updateInput,
+    updateBodyMetric,
     summaryData,
     summaryExpanded,
     setSummaryExpanded,
     readiness,
+    recommendationSummary,
+    recommendationSettings,
+    recommendationUnits,
+    recommendationMissingInputs,
+    recommendationConfidence,
+    recommendationErrorCode,
     canProceedFromStep,
     goNext,
     goBack,
@@ -477,7 +671,7 @@ export default function useAssessmentScreen() {
     isSaving,
     isGenerating: isSaving,
     isHydrating,
-    errorCode: saveErrorCode || errorCode,
+    errorCode: saveErrorCode || recommendationErrorCode || errorCode,
     clearError,
     sessionId,
     admissionId,

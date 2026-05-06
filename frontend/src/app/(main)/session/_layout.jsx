@@ -1,6 +1,6 @@
 /**
  * Session Route Layout
- * (main)/session - Guards child routes; redirects to /assessment when no session
+ * (main)/session - Guards child routes; redirects to /admit when no session
  */
 import React from 'react';
 import { Slot } from 'expo-router';
