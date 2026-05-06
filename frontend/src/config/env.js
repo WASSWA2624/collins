@@ -10,7 +10,31 @@ const DEFAULT_API_PORT = '3000';
 const DEFAULT_API_BASE_URL = `${DEFAULT_API_PROTOCOL}://localhost:${DEFAULT_API_PORT}`;
 const UNROUTABLE_HOSTS = new Set(['', '0.0.0.0', '::', '[::]']);
 
-const runtimeEnv = typeof process === 'undefined' ? {} : process.env || {};
+const rawRuntimeEnv = typeof process === 'undefined' ? {} : process.env || {};
+
+const stripUndefinedValues = (values) => Object.fromEntries(
+  Object.entries(values).filter(([, value]) => value !== undefined),
+);
+
+const getExpoPublicEnv = () => {
+  if (typeof process === 'undefined') return {};
+
+  return stripUndefinedValues({
+    EXPO_PUBLIC_API_BASE_URL: process.env.EXPO_PUBLIC_API_BASE_URL,
+    EXPO_PUBLIC_API_PORT: process.env.EXPO_PUBLIC_API_PORT,
+    EXPO_PUBLIC_API_VERSION: process.env.EXPO_PUBLIC_API_VERSION,
+    EXPO_PUBLIC_APP_VERSION: process.env.EXPO_PUBLIC_APP_VERSION,
+    EXPO_PUBLIC_BUILD_NUMBER: process.env.EXPO_PUBLIC_BUILD_NUMBER,
+    EXPO_PUBLIC_APP_ENVIRONMENT: process.env.EXPO_PUBLIC_APP_ENVIRONMENT,
+    EXPO_PUBLIC_SUPPORT_EMAIL: process.env.EXPO_PUBLIC_SUPPORT_EMAIL,
+    EXPO_PUBLIC_SUPPORT_PHONE: process.env.EXPO_PUBLIC_SUPPORT_PHONE,
+  });
+};
+
+const runtimeEnv = {
+  ...rawRuntimeEnv,
+  ...getExpoPublicEnv(),
+};
 
 const getEnvVar = (key, defaultValue = null, source = runtimeEnv) => {
   const value = source?.[key];

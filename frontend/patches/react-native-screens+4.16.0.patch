@@ -1,0 +1,31 @@
+diff --git a/node_modules/react-native-screens/android/CMakeLists.txt b/node_modules/react-native-screens/android/CMakeLists.txt
+--- a/node_modules/react-native-screens/android/CMakeLists.txt
++++ b/node_modules/react-native-screens/android/CMakeLists.txt
+@@ -44,8 +44,9 @@ if(${RNS_NEW_ARCH_ENABLED})
+     if(ReactAndroid_VERSION_MINOR GREATER_EQUAL 76)
+     target_link_libraries(rnscreens
+         ReactAndroid::reactnative
+         ReactAndroid::jsi
+         fbjni::fbjni
++        c++_shared
+         android
+     )
+     else()
+@@ -67,8 +68,9 @@ if(${RNS_NEW_ARCH_ENABLED})
+                 ReactAndroid::react_render_componentregistry
+                 ReactAndroid::react_render_consistency
+                 ReactAndroid::react_performance_timeline
+                 ReactAndroid::react_render_observers_events
+                 fbjni::fbjni
++                c++_shared
+                 android
+         )
+     endif()
+@@ -75,6 +77,7 @@ if(${RNS_NEW_ARCH_ENABLED})
+ else()
+     target_link_libraries(rnscreens
+         ReactAndroid::jsi
++        c++_shared
+         android
+     )
+ endif()
