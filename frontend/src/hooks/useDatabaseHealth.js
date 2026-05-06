@@ -8,6 +8,16 @@ import { endpoints } from '@config';
 import useNetwork from './useNetwork';
 
 const HEALTH_POLL_MS = 30000;
+const HEALTH_TIMEOUT_MS = 5000;
+
+const createTimeoutSignal = (timeoutMs) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  return {
+    signal: controller.signal,
+    clear: () => clearTimeout(timeoutId),
+  };
+};
 
 const useDatabaseHealth = () => {
   const { isOffline } = useNetwork();
@@ -16,14 +26,17 @@ const useDatabaseHealth = () => {
   const check = useCallback(async () => {
     if (typeof fetch === 'undefined') return;
     const url = endpoints.HEALTH;
+    const timeout = createTimeoutSignal(HEALTH_TIMEOUT_MS);
     try {
-      const res = await fetch(url, { method: 'GET', signal: AbortSignal.timeout(5000) });
+      const res = await fetch(url, { method: 'GET', signal: timeout.signal });
       const ok = res.ok;
       const data = res.ok && res.headers.get('content-type')?.includes('json') ? await res.json() : {};
       const dbOk = data?.database === 'ok' || data?.database === true || (ok && typeof data.database === 'undefined');
       setIsConnected(ok && (dbOk || typeof data.database === 'undefined'));
     } catch {
       setIsConnected(false);
+    } finally {
+      timeout.clear();
     }
   }, []);
 

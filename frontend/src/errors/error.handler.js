@@ -59,6 +59,42 @@ const extractErrorCode = (message) => {
   return 'UNKNOWN_ERROR';
 };
 
+const NETWORK_ERROR_PATTERNS = [
+  'failed to fetch',
+  'network request failed',
+  'network request timed out',
+  'load failed',
+  'unable to resolve host',
+  'connection refused',
+  'connection reset',
+  'connection timed out',
+  'request timeout',
+  'request timed out',
+  'sslhandshakeexception',
+  'certificate',
+  'enotfound',
+  'econnrefused',
+  'econnreset',
+  'etimedout',
+  'ehostunreach',
+];
+
+const isTimeoutError = (error) => (
+  error?.name === 'AbortError' ||
+  error?.code === 'ECONNABORTED' ||
+  String(error?.message || '').toLowerCase().includes('timeout') ||
+  String(error?.message || '').toLowerCase().includes('timed out')
+);
+
+const isNetworkConnectionError = (error) => {
+  const name = String(error?.name || '').toLowerCase();
+  const code = String(error?.code || '').toLowerCase();
+  const message = String(error?.message || '').toLowerCase();
+  const value = `${name} ${code} ${message}`;
+
+  return name === 'networkerror' || NETWORK_ERROR_PATTERNS.some((pattern) => value.includes(pattern));
+};
+
 const normalizeError = (error) => {
   if (!error) {
     const safeMessage = getSafeMessageForCode('UNKNOWN_ERROR');
@@ -90,12 +126,17 @@ const normalizeError = (error) => {
     };
   }
 
-  // Network errors (browser often throws TypeError with "Failed to fetch")
-  if (
-    error.name === 'NetworkError' ||
-    error.message?.includes('network') ||
-    (typeof error.message === 'string' && error.message.toLowerCase().includes('failed to fetch'))
-  ) {
+  if (isTimeoutError(error)) {
+    const safeMessage = getSafeMessageForCode('REQUEST_TIMEOUT');
+    return {
+      code: 'REQUEST_TIMEOUT',
+      message: safeMessage,
+      safeMessage,
+      severity: 'warning',
+    };
+  }
+
+  if (isNetworkConnectionError(error)) {
     const safeMessage = getSafeMessageForCode('NETWORK_ERROR');
     return {
       code: 'NETWORK_ERROR',
@@ -154,7 +195,7 @@ const normalizeError = (error) => {
       };
     }
     if (status >= 500) {
-      const code = extractedCode || 'SERVER_ERROR';
+      const code = extractedCode || ([502, 503, 504].includes(status) ? 'BACKEND_UNAVAILABLE' : 'SERVER_ERROR');
       const safeMessage = getSafeMessageForCode(code);
       return {
         ...apiContext,

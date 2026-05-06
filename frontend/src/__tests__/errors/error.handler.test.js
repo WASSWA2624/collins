@@ -38,6 +38,20 @@ describe('errors/error.handler.js', () => {
       expect(normalized.severity).toBe('warning');
     });
 
+    test('should normalize React Native fetch connection errors', () => {
+      const networkError = new Error('Network request failed');
+      const normalized = normalizeError(networkError);
+      expect(normalized.code).toBe('NETWORK_ERROR');
+      expect(normalized.severity).toBe('warning');
+    });
+
+    test('should normalize request timeouts', () => {
+      const timeoutError = new Error('Request timeout');
+      const normalized = normalizeError(timeoutError);
+      expect(normalized.code).toBe('REQUEST_TIMEOUT');
+      expect(normalized.severity).toBe('warning');
+    });
+
     test('should normalize 401 unauthorized errors', () => {
       const authError = { status: 401 };
       const normalized = normalizeError(authError);
@@ -56,6 +70,13 @@ describe('errors/error.handler.js', () => {
       const serverError = { status: 500 };
       const normalized = normalizeError(serverError);
       expect(normalized.code).toBe('SERVER_ERROR');
+      expect(normalized.severity).toBe('error');
+    });
+
+    test('should normalize gateway and unavailable backend errors', () => {
+      const serverError = { status: 503 };
+      const normalized = normalizeError(serverError);
+      expect(normalized.code).toBe('BACKEND_UNAVAILABLE');
       expect(normalized.severity).toBe('error');
     });
 
