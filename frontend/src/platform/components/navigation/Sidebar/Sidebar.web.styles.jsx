@@ -102,6 +102,8 @@ const StyledSidebarContent = styled.div.withConfig({
   componentId: 'StyledSidebarContent',
   shouldForwardProp: (prop) => prop !== '$collapsed',
 })`
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-height: 0;
   padding: ${({ theme, $collapsed }) =>

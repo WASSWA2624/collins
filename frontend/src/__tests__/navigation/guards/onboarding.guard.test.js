@@ -75,4 +75,31 @@ describe('OnboardingGuard', () => {
     expect(queryByTestId('redirect')).toBeNull();
     expect(getByTestId('children').props.children).toBe('Onboarding');
   });
+
+  it('allows users whose server onboarding state is already completed', () => {
+    const store = createStore({
+      ui: { onboardingCompleted: false, clinicalSafetyAcknowledged: false, disclaimerAcknowledged: false },
+      auth: {
+        user: {
+          id: 'user-1',
+          onboardingState: {
+            status: 'COMPLETED',
+            currentStep: 'COMPLETED',
+            completedStepsJson: ['CLINICAL_SAFETY', 'COMPLETED'],
+            completedAt: '2026-05-06T00:00:00.000Z',
+          },
+        },
+      },
+    });
+    const { getByTestId, queryByTestId } = render(
+      <Provider store={store}>
+        <OnboardingGuard>
+          <Text testID="children">Main</Text>
+        </OnboardingGuard>
+      </Provider>
+    );
+
+    expect(queryByTestId('redirect')).toBeNull();
+    expect(getByTestId('children').props.children).toBe('Main');
+  });
 });

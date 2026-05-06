@@ -9,6 +9,7 @@ process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test'
 const { createEnv, EnvValidationError, DEVELOPMENT_JWT_SECRET } = await import('../src/config/env.js');
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packageJson = JSON.parse(readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
+const nodemonConfig = JSON.parse(readFileSync(path.join(projectRoot, 'nodemon.json'), 'utf8'));
 
 test('loads safe development defaults while requiring only backend configuration', () => {
   const config = createEnv({
@@ -80,7 +81,16 @@ test('runs Prisma generation before backend startup and tests', () => {
   assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs');
   assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs');
   assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts.dev, 'nodemon --config nodemon.json');
   assert.equal(packageJson.scripts.start, 'node src/server.js');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
+});
+
+test('dev watcher is scoped to backend source and config files', () => {
+  assert.deepEqual(nodemonConfig.watch, ['src', 'prisma/schema.prisma', '.env']);
+  assert.ok(nodemonConfig.ignore.includes('node_modules/**'));
+  assert.ok(nodemonConfig.ignore.includes('prisma/migrations/**'));
+  assert.ok(nodemonConfig.ignore.includes('tests/**'));
+  assert.equal(nodemonConfig.exec, 'node src/server.js');
 });

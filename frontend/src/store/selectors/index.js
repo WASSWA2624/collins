@@ -17,6 +17,39 @@ import {
 
 // UI Selectors (defensive for undefined state before rehydration / SSR)
 const selectUI = (state) => state?.ui ?? null;
+const selectAuthUserForOnboarding = (state) => state?.auth?.user ?? null;
+const getUserOnboardingState = (user) => user?.onboardingState || user?.onboarding_state || null;
+const getOnboardingCompletedSteps = (onboardingState) => {
+  const steps =
+    onboardingState?.completedSteps ||
+    onboardingState?.completedStepsJson ||
+    onboardingState?.completed_steps ||
+    onboardingState?.completed_steps_json ||
+    [];
+  return Array.isArray(steps) ? steps.map((step) => String(step).toUpperCase()) : [];
+};
+const hasOnboardingStep = (onboardingState, step) =>
+  getOnboardingCompletedSteps(onboardingState).includes(step);
+const hasServerCompletedOnboarding = (user) => {
+  const onboardingState = getUserOnboardingState(user);
+  if (!onboardingState) return false;
+  return (
+    onboardingState.status === 'COMPLETED' ||
+    onboardingState.currentStep === 'COMPLETED' ||
+    Boolean(onboardingState.completedAt) ||
+    hasOnboardingStep(onboardingState, 'COMPLETED')
+  );
+};
+const hasServerClinicalSafetyAcknowledgement = (user) => {
+  const onboardingState = getUserOnboardingState(user);
+  if (!onboardingState) return false;
+  return (
+    Boolean(onboardingState.clinicalSafetyAcknowledgedAt) ||
+    Boolean(onboardingState.clinicalSafetyAcknowledgement?.acknowledged) ||
+    hasOnboardingStep(onboardingState, 'CLINICAL_SAFETY') ||
+    hasServerCompletedOnboarding(user)
+  );
+};
 const selectTheme = createSelector([selectUI], (ui) => ui?.theme ?? 'light');
 const selectLocale = createSelector([selectUI], (ui) => ui?.locale ?? 'en');
 const selectDensity = createSelector([selectUI], (ui) => ui?.density ?? 'comfortable');
@@ -28,12 +61,20 @@ const selectHeaderActionVisibility = createSelector([selectUI], (ui) => ui?.head
 const selectFooterVisible = createSelector([selectUI], (ui) => ui?.footerVisible ?? true);
 const selectDisclaimerAcknowledged = createSelector([selectUI], (ui) => ui?.disclaimerAcknowledged ?? false);
 const selectClinicalSafetyAcknowledged = createSelector(
-  [selectUI],
-  (ui) => ui?.clinicalSafetyAcknowledged ?? ui?.disclaimerAcknowledged ?? false
+  [selectUI, selectAuthUserForOnboarding],
+  (ui, user) => Boolean(
+    ui?.clinicalSafetyAcknowledged ||
+    ui?.disclaimerAcknowledged ||
+    hasServerClinicalSafetyAcknowledgement(user)
+  )
 );
 const selectOnboardingCompleted = createSelector(
-  [selectUI],
-  (ui) => ui?.onboardingCompleted ?? ui?.disclaimerAcknowledged ?? false
+  [selectUI, selectAuthUserForOnboarding],
+  (ui, user) => Boolean(
+    ui?.onboardingCompleted ||
+    ui?.disclaimerAcknowledged ||
+    hasServerCompletedOnboarding(user)
+  )
 );
 // Phase 02: redirect first-run users into onboarding instead of a standalone disclaimer.
 const selectOnboardingGuardRedirect = createSelector(

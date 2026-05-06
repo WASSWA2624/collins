@@ -71,6 +71,20 @@ test('assertFacilityRole rejects read-only members for writes', async () => {
   );
 });
 
+test('assertFacilityRole allows platform administrators for clinical writes', async () => {
+  useMemberships([{
+    id: 'm1',
+    userId: 'admin-1',
+    facilityId: 'facility-1',
+    role: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+    status: 'APPROVED',
+  }]);
+
+  const membership = await assertFacilityRole('admin-1', 'facility-2', WRITE_ROLES);
+  assert.equal(membership.role, MEMBERSHIP_ROLES.PLATFORM_ADMIN);
+  assert.equal(membership.facilityId, 'facility-2');
+});
+
 test('resolveFacilityScope requires explicit facility when user has multiple active facilities', async () => {
   useMemberships([
     {

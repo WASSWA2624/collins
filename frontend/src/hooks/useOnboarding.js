@@ -16,6 +16,7 @@ import {
 import {
   selectClinicalSafetyAcknowledged,
   selectIsAuthenticated,
+  selectOnboardingCompleted,
   selectUser,
 } from '@store/selectors';
 import { actions as uiActions } from '@store/slices/ui.slice';
@@ -32,6 +33,7 @@ const SERVER_COMPLETED_STEPS = Object.freeze([
 export default function useOnboarding() {
   const dispatch = useDispatch();
   const clinicalSafetyAcknowledged = useSelector(selectClinicalSafetyAcknowledged);
+  const onboardingCompleted = useSelector(selectOnboardingCompleted);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const user = useSelector(selectUser);
   const [currentStepId, setCurrentStepId] = useState(INITIAL_STEP);
@@ -104,6 +106,7 @@ export default function useOnboarding() {
       isFirst,
       isLast,
       clinicalSafetyAcknowledged,
+      onboardingCompleted,
       isPersistingSafety,
       syncErrorCode,
       canComplete: clinicalSafetyAcknowledged,
@@ -120,6 +123,7 @@ export default function useOnboarding() {
       isFirst,
       isLast,
       clinicalSafetyAcknowledged,
+      onboardingCompleted,
       isPersistingSafety,
       syncErrorCode,
       goNext,

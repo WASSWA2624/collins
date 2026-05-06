@@ -124,6 +124,20 @@ test('reviewer Home summary exposes review status counts without patient identif
   assert.doesNotMatch(JSON.stringify(summary), /optionalName|hospitalNumber|appPatientCode/);
 });
 
+test('platform administrator Home summary can create admissions', () => {
+  const summary = buildScopedHomeSummary({
+    userId: 'admin-1',
+    activeRole: 'PLATFORM_ADMIN',
+    facility,
+    availableFacilities: [{ ...facility, roles: ['PLATFORM_ADMIN'] }],
+    counts: baseCounts,
+  });
+
+  assert.equal(summary.navigation.canCreateAdmission, true);
+  assert.equal(summary.navigation.canManageFacility, true);
+  assert.equal(summary.navigation.canOpenReviewQueue, true);
+});
+
 test('suspended facility blocks Home workflow navigation', () => {
   const summary = buildScopedHomeSummary({
     userId: 'admin-1',

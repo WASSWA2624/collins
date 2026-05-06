@@ -1,5 +1,5 @@
 const React = require('react');
-const { fireEvent, render } = require('@testing-library/react-native');
+const { fireEvent, render, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 
 const useOnboarding = require('@hooks/useOnboarding').default;
@@ -53,6 +53,7 @@ const baseOnboarding = {
   isPersistingSafety: false,
   syncErrorCode: null,
   canComplete: false,
+  onboardingCompleted: false,
   goNext: jest.fn(),
   goBack: jest.fn(),
   setClinicalSafetyAcknowledged: jest.fn(),
@@ -72,6 +73,13 @@ describe('OnboardingScreen', () => {
 
     expect(getByTestId('onboarding-screen')).toBeTruthy();
     expect(getByTestId('onboarding-safety-notice').props.title).toBe('Clinical safety');
+  });
+
+  it('uses compact edge-aligned action buttons', () => {
+    const { getByTestId } = renderWithTheme(<OnboardingScreenAndroid />);
+
+    expect(getByTestId('onboarding-back').props.size).toBe('small');
+    expect(getByTestId('onboarding-next').props.size).toBe('small');
   });
 
   it('requires acknowledgement before advancing from the safety step', () => {
@@ -102,5 +110,13 @@ describe('OnboardingScreen', () => {
     await Promise.resolve();
     expect(completeOnboarding).toHaveBeenCalled();
     expect(mockReplace).toHaveBeenCalledWith('/');
+  });
+
+  it('redirects home when onboarding is already completed', async () => {
+    useOnboarding.mockReturnValue({ ...baseOnboarding, onboardingCompleted: true });
+
+    renderWithTheme(<OnboardingScreenAndroid />);
+
+    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/'));
   });
 });

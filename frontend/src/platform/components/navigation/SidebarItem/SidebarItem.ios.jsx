@@ -45,10 +45,10 @@ const SidebarItemIOS = (props) => {
       accessibilityState={{ selected: !!active }}
     >
       <Row active={active}>
-        <IconBox>
+        <IconBox active={active}>
           <Icon glyph={getMenuIconGlyph(icon)} size="sm" decorative />
         </IconBox>
-        <Label collapsed={collapsed}>{label}</Label>
+        <Label active={active} collapsed={collapsed}>{label}</Label>
       </Row>
     </TouchableOpacity>
   );

@@ -2,14 +2,19 @@
  * OnboardingScreen iOS Styles (P013)
  */
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
-const StyledContainer = styled(View).withConfig({
+const StyledContainer = styled(ScrollView).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
-})`
+}).attrs(({ theme }) => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    paddingVertical: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.lg,
+  },
+}))`
   flex: 1;
-  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
@@ -18,14 +23,28 @@ const StyledContent = styled(View).withConfig({
   componentId: 'StyledContent',
 })`
   flex: 1;
+  width: 100%;
+  max-width: 640px;
+  align-self: center;
 `;
 
 const StyledSection = styled(View).withConfig({
   displayName: 'StyledSection',
   componentId: 'StyledSection',
 })`
-  padding: ${({ theme }) => theme.spacing.lg}px 0;
-  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px 0;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledAcknowledgement = styled(View).withConfig({
+  displayName: 'StyledAcknowledgement',
+  componentId: 'StyledAcknowledgement',
+})`
+  align-self: flex-start;
+  max-width: 100%;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  margin-top: ${({ theme }) => -theme.spacing.xs}px;
 `;
 
 const StyledActions = styled(View).withConfig({
@@ -33,8 +52,12 @@ const StyledActions = styled(View).withConfig({
   componentId: 'StyledActions',
 })`
   flex-direction: row;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  margin-top: ${({ theme }) => theme.spacing.xl}px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-top: auto;
+  padding-top: ${({ theme }) => theme.spacing.lg}px;
 `;
 
-export { StyledContainer, StyledContent, StyledSection, StyledActions };
+export { StyledContainer, StyledContent, StyledSection, StyledAcknowledgement, StyledActions };

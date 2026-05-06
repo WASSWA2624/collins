@@ -227,7 +227,9 @@ describe('Sidebar Component', () => {
         <Sidebar items={mockItems} testID="sidebar" />
       );
       const dashboardItem = getByTestId('sidebar-item-dashboard');
-      expect(dashboardItem).toBeTruthy();
+      const homeItem = getByTestId('sidebar-item-home');
+      expect(dashboardItem.props.accessibilityState).toMatchObject({ selected: true });
+      expect(homeItem.props.accessibilityState).toMatchObject({ selected: false });
     });
   });
 
