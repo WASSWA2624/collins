@@ -14,9 +14,16 @@ import {
   StyledHeader,
   StyledMissingList,
   StyledNotice,
+  StyledProgressFill,
+  StyledProgressHeader,
+  StyledProgressSection,
+  StyledProgressTrack,
   StyledScroll,
   StyledSection,
   StyledSectionHeader,
+  StyledStepItem,
+  StyledStepList,
+  StyledStepScroll,
   StyledSummaryGrid,
   StyledSummaryItem,
   StyledWideFieldShell,
@@ -25,7 +32,17 @@ import useDatasetCaptureScreen from './useDatasetCaptureScreen';
 
 const DatasetCaptureScreenAndroid = () => {
   const { t } = useI18n();
-  const { testIds, sections, capture } = useDatasetCaptureScreen();
+  const {
+    activeSection,
+    activeStepIndex,
+    canGoNext,
+    canGoPrevious,
+    progressPercent,
+    sectionProgress,
+    stepCount,
+    testIds,
+    capture,
+  } = useDatasetCaptureScreen();
 
   const getFieldState = (path) => (capture.missingFields.includes(path) ? 'missing' : 'default');
   const getHelperText = (field) => (
@@ -91,6 +108,49 @@ const DatasetCaptureScreenAndroid = () => {
             <Text variant="body">{t('ventilation.datasetCapture.subtitle')}</Text>
           </StyledHeader>
 
+          <StyledProgressSection
+            accessibilityLabel={t('ventilation.datasetCapture.progress.label')}
+            testID={testIds.progress}
+          >
+            <StyledProgressHeader>
+              <Text variant="label">
+                {t('ventilation.datasetCapture.progress.stepCounter', {
+                  current: activeStepIndex + 1,
+                  total: stepCount,
+                })}
+              </Text>
+              <Text variant="caption">{activeSection?.title || ''}</Text>
+            </StyledProgressHeader>
+            <StyledProgressTrack>
+              <StyledProgressFill percent={progressPercent} testID={testIds.progressFill} />
+            </StyledProgressTrack>
+            <StyledStepScroll horizontal showsHorizontalScrollIndicator={false}>
+              <StyledStepList>
+                {sectionProgress.map((step, index) => (
+                  <StyledStepItem
+                    key={step.id}
+                    active={step.active}
+                    complete={step.complete}
+                    onPress={() => capture.onGoToStep(index)}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: step.active }}
+                    testID={`${testIds.stepItem}-${step.id}`}
+                  >
+                    <Text variant="caption">
+                      {t('ventilation.datasetCapture.progress.stepLabel', { step: step.stepNumber })}
+                    </Text>
+                    <Text variant="label">{step.title}</Text>
+                    <Text variant="caption">
+                      {step.requiredTotal > 0
+                        ? `${step.requiredComplete}/${step.requiredTotal}`
+                        : `${step.enteredTotal}/${step.totalFields}`}
+                    </Text>
+                  </StyledStepItem>
+                ))}
+              </StyledStepList>
+            </StyledStepScroll>
+          </StyledProgressSection>
+
           <StyledSummaryGrid testID={testIds.summary}>
             <StyledSummaryItem tone={capture.facilityId ? 'success' : 'error'}>
               <Text variant="label">{t('ventilation.datasetCapture.summary.facility')}</Text>
@@ -139,21 +199,21 @@ const DatasetCaptureScreenAndroid = () => {
             </StyledNotice>
           ) : null}
 
-          {sections.map((section, sectionIndex) => (
-            <StyledSection key={section.id} testID={`${testIds.section}-${section.id}`}>
+          {activeSection ? (
+            <StyledSection key={activeSection.id} testID={`${testIds.section}-${activeSection.id}`}>
               <StyledSectionHeader>
                 <Text
                   accessibilityRole="header"
                   variant="h3"
-                  testID={`${testIds.sectionTitle}-${section.id}`}
+                  testID={`${testIds.sectionTitle}-${activeSection.id}`}
                 >
-                  {`${sectionIndex + 1}. ${section.title}`}
+                  {`${activeStepIndex + 1}. ${activeSection.title}`}
                 </Text>
-                <Text variant="body">{section.description}</Text>
+                <Text variant="body">{activeSection.description}</Text>
               </StyledSectionHeader>
-              <StyledFieldGrid>{section.fields.map(renderField)}</StyledFieldGrid>
+              <StyledFieldGrid>{activeSection.fields.map(renderField)}</StyledFieldGrid>
             </StyledSection>
-          ))}
+          ) : null}
 
           <StyledSection>
             <Stack spacing="sm">
@@ -185,12 +245,27 @@ const DatasetCaptureScreenAndroid = () => {
                 testID={testIds.resetButton}
               />
               <Button
-                text={t('ventilation.datasetCapture.actions.submit')}
-                onPress={capture.onSubmitForReview}
-                disabled={capture.submitDisabled}
-                loading={capture.submitStatus === 'loading'}
-                testID={testIds.submitButton}
+                text={t('ventilation.datasetCapture.actions.previous')}
+                variant="outline"
+                onPress={capture.onPreviousStep}
+                disabled={!canGoPrevious}
+                testID={testIds.previousButton}
               />
+              {canGoNext ? (
+                <Button
+                  text={t('ventilation.datasetCapture.actions.next')}
+                  onPress={capture.onNextStep}
+                  testID={testIds.nextButton}
+                />
+              ) : (
+                <Button
+                  text={t('ventilation.datasetCapture.actions.submit')}
+                  onPress={capture.onSubmitForReview}
+                  disabled={capture.submitDisabled}
+                  loading={capture.submitStatus === 'loading'}
+                  testID={testIds.submitButton}
+                />
+              )}
             </StyledActionGroup>
           </StyledActionBar>
         </StyledContent>

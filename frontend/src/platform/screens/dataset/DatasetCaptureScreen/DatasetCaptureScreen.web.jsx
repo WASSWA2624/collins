@@ -14,8 +14,14 @@ import {
   StyledHeader,
   StyledMissingList,
   StyledNotice,
+  StyledProgressFill,
+  StyledProgressHeader,
+  StyledProgressSection,
+  StyledProgressTrack,
   StyledSection,
   StyledSectionHeader,
+  StyledStepItem,
+  StyledStepList,
   StyledSummaryGrid,
   StyledSummaryItem,
   StyledWideFieldShell,
@@ -24,7 +30,17 @@ import useDatasetCaptureScreen from './useDatasetCaptureScreen';
 
 const DatasetCaptureScreenWeb = () => {
   const { t } = useI18n();
-  const { testIds, sections, capture } = useDatasetCaptureScreen();
+  const {
+    activeSection,
+    activeStepIndex,
+    canGoNext,
+    canGoPrevious,
+    progressPercent,
+    sectionProgress,
+    stepCount,
+    testIds,
+    capture,
+  } = useDatasetCaptureScreen();
 
   const getFieldState = (path) => (capture.missingFields.includes(path) ? 'missing' : 'default');
   const getHelperText = (field) => (
@@ -89,6 +105,53 @@ const DatasetCaptureScreenWeb = () => {
           <Text variant="body">{t('ventilation.datasetCapture.subtitle')}</Text>
         </StyledHeader>
 
+        <StyledProgressSection
+          aria-label={t('ventilation.datasetCapture.progress.label')}
+          data-testid={testIds.progress}
+          testID={testIds.progress}
+        >
+          <StyledProgressHeader>
+            <Text variant="label">
+              {t('ventilation.datasetCapture.progress.stepCounter', {
+                current: activeStepIndex + 1,
+                total: stepCount,
+              })}
+            </Text>
+            <Text variant="caption">{activeSection?.title || ''}</Text>
+          </StyledProgressHeader>
+          <StyledProgressTrack>
+            <StyledProgressFill
+              $percent={progressPercent}
+              data-testid={testIds.progressFill}
+              testID={testIds.progressFill}
+            />
+          </StyledProgressTrack>
+          <StyledStepList>
+            {sectionProgress.map((step, index) => (
+              <StyledStepItem
+                key={step.id}
+                type="button"
+                $active={step.active}
+                $complete={step.complete}
+                aria-current={step.active ? 'step' : undefined}
+                onClick={() => capture.onGoToStep(index)}
+                data-testid={`${testIds.stepItem}-${step.id}`}
+                testID={`${testIds.stepItem}-${step.id}`}
+              >
+                <Text variant="caption">
+                  {t('ventilation.datasetCapture.progress.stepLabel', { step: step.stepNumber })}
+                </Text>
+                <Text variant="label">{step.title}</Text>
+                <Text variant="caption">
+                  {step.requiredTotal > 0
+                    ? `${step.requiredComplete}/${step.requiredTotal}`
+                    : `${step.enteredTotal}/${step.totalFields}`}
+                </Text>
+              </StyledStepItem>
+            ))}
+          </StyledStepList>
+        </StyledProgressSection>
+
         <StyledSummaryGrid data-testid={testIds.summary} testID={testIds.summary}>
           <StyledSummaryItem $tone={capture.facilityId ? 'success' : 'error'}>
             <Text variant="label">{t('ventilation.datasetCapture.summary.facility')}</Text>
@@ -137,26 +200,26 @@ const DatasetCaptureScreenWeb = () => {
           </StyledNotice>
         ) : null}
 
-        {sections.map((section, sectionIndex) => (
+        {activeSection ? (
           <StyledSection
-            key={section.id}
-            data-testid={`${testIds.section}-${section.id}`}
-            testID={`${testIds.section}-${section.id}`}
+            key={activeSection.id}
+            data-testid={`${testIds.section}-${activeSection.id}`}
+            testID={`${testIds.section}-${activeSection.id}`}
           >
             <StyledSectionHeader>
               <Text
                 as="h2"
                 variant="h3"
-                data-testid={`${testIds.sectionTitle}-${section.id}`}
-                testID={`${testIds.sectionTitle}-${section.id}`}
+                data-testid={`${testIds.sectionTitle}-${activeSection.id}`}
+                testID={`${testIds.sectionTitle}-${activeSection.id}`}
               >
-                {`${sectionIndex + 1}. ${section.title}`}
+                {`${activeStepIndex + 1}. ${activeSection.title}`}
               </Text>
-              <Text variant="body">{section.description}</Text>
+              <Text variant="body">{activeSection.description}</Text>
             </StyledSectionHeader>
-            <StyledFieldGrid>{section.fields.map(renderField)}</StyledFieldGrid>
+            <StyledFieldGrid>{activeSection.fields.map(renderField)}</StyledFieldGrid>
           </StyledSection>
-        ))}
+        ) : null}
 
         <StyledSection>
           <Stack spacing="sm">
@@ -190,12 +253,27 @@ const DatasetCaptureScreenWeb = () => {
               testID={testIds.resetButton}
             />
             <Button
+              text={t('ventilation.datasetCapture.actions.previous')}
+              variant="outline"
+              onPress={capture.onPreviousStep}
+              disabled={!canGoPrevious}
+              testID={testIds.previousButton}
+            />
+            {canGoNext ? (
+              <Button
+                text={t('ventilation.datasetCapture.actions.next')}
+                onPress={capture.onNextStep}
+                testID={testIds.nextButton}
+              />
+            ) : (
+            <Button
               text={t('ventilation.datasetCapture.actions.submit')}
               onPress={capture.onSubmitForReview}
               disabled={capture.submitDisabled}
               loading={capture.submitStatus === 'loading'}
               testID={testIds.submitButton}
             />
+            )}
           </StyledActionGroup>
         </StyledActionBar>
       </StyledContent>

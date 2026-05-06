@@ -2,7 +2,7 @@
  * DatasetCaptureScreen tests
  */
 const React = require('react');
-const { render } = require('@testing-library/react-native');
+const { fireEvent, render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { useAuth, useI18n, useNetwork } = require('@hooks');
 
@@ -69,11 +69,16 @@ describe('DatasetCaptureScreen', () => {
       'ventilation.datasetCapture.summary.sync': 'Sync',
       'ventilation.datasetCapture.summary.online': 'Online',
       'ventilation.datasetCapture.summary.offline': 'Offline',
+      'ventilation.datasetCapture.progress.label': 'Dataset capture steps',
+      'ventilation.datasetCapture.progress.stepCounter': `${params?.current} of ${params?.total}`,
+      'ventilation.datasetCapture.progress.stepLabel': `Step ${params?.step}`,
       'ventilation.datasetCapture.fields.required': 'Required',
       'ventilation.datasetCapture.fields.optional': 'Optional',
       'ventilation.datasetCapture.missing.title': 'Submission readiness',
       'ventilation.datasetCapture.missing.none': 'None',
       'ventilation.datasetCapture.actions.reset': 'Clear form',
+      'ventilation.datasetCapture.actions.next': 'Next',
+      'ventilation.datasetCapture.actions.previous': 'Previous',
       'ventilation.datasetCapture.actions.submit': 'Submit for review',
       'ventilation.datasetCapture.status.ready': 'Ready',
       'ventilation.datasetCapture.status.submitted': 'Submitted',
@@ -96,12 +101,17 @@ describe('DatasetCaptureScreen', () => {
     useNetwork.mockReturnValue({ isOffline: false });
   });
 
-  it('renders the clinical capture page on Android without data-source framing', () => {
-    const { getByTestId, queryByText } = renderWithTheme(<DatasetCaptureScreenAndroid />);
+  it('renders a stepwise clinical capture page on Android without data-source framing', () => {
+    const { getByTestId, queryByTestId, queryByText } = renderWithTheme(<DatasetCaptureScreenAndroid />);
 
     expect(getByTestId('dataset-capture-screen')).toBeTruthy();
     expect(getByTestId('dataset-capture-title')).toBeTruthy();
+    expect(getByTestId('dataset-capture-progress')).toBeTruthy();
     expect(getByTestId('dataset-capture-section-caseContext')).toBeTruthy();
+    expect(queryByTestId('dataset-capture-section-ventilatorSetting')).toBeNull();
+
+    fireEvent.press(getByTestId('dataset-capture-step-item-ventilatorSetting'));
+
     expect(getByTestId('dataset-capture-section-ventilatorSetting')).toBeTruthy();
     expect(queryByText('Citations')).toBeNull();
     expect(queryByText('Data sources')).toBeNull();
