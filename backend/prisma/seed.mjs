@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { MEMBERSHIP_ROLES } from '../src/constants/roles.js';
+import { env } from '../src/config/env.js';
 import {
   DEVELOPMENT_REFERENCE_SEED_EMAIL,
   DEVELOPMENT_REFERENCE_SEED_USER_ID,
@@ -12,7 +14,8 @@ import {
   ONBOARDING_STEPS,
 } from '../src/modules/onboarding/onboarding.constants.js';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaMariaDb(env.databaseUrl);
+const prisma = new PrismaClient({ adapter });
 
 const DEVELOPMENT_ADMIN_USER_ID = 'development-platform-admin-user';
 const DEVELOPMENT_ADMIN_EMAIL = 'admin@admin.com';
