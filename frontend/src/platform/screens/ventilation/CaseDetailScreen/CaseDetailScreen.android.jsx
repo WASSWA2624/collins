@@ -136,8 +136,9 @@ const CaseDetailScreenAndroid = ({ caseId }) => {
           ) : (
             citations.map((s) => (
               <Text key={s?.id} variant="caption">
-                {s?.citation ?? s?.id}
+                {s?.publisher ? `${s.publisher}: ` : ''}{s?.citation ?? s?.id}
                 {s?.doi ? ` DOI: ${s.doi}` : ''}
+                {s?.url ? ` URL: ${s.url}` : ''}
               </Text>
             ))
           )}

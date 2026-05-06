@@ -41,7 +41,7 @@ const RecommendationScreenAndroid = () => {
     riskFactors,
     complicationHistory,
     matched,
-    caseEvidence,
+    decisionProvenance,
     safety,
     missingInputs,
     contributingFactors,
@@ -110,6 +110,13 @@ const RecommendationScreenAndroid = () => {
   const formatMetric = (metric) => (
     metric?.value == null ? t('ventilation.recommendation.decisionSupport.pending') : `${metric.value}${metric.unit ? ` ${metric.unit}` : ''}`
   );
+  const provenanceSources = Array.isArray(decisionProvenance?.sources) ? decisionProvenance.sources : [];
+  const provenanceReviewStatus = decisionProvenance?.reviewStatus || 'unvalidated';
+  const reviewStatusKey = provenanceReviewStatus === 'validated'
+    ? 'validated'
+    : provenanceReviewStatus === 'pending_clinician_validation'
+      ? 'pendingClinicianValidation'
+      : 'unvalidated';
 
   return (
     <StyledContentWrap accessibilityLabel={t('ventilation.recommendation.accessibilityLabel')}>
@@ -267,15 +274,20 @@ const RecommendationScreenAndroid = () => {
           </Accordion>
         )}
 
-        {caseEvidence?.length > 0 && (
+        {(provenanceSources.length > 0 || decisionProvenance?.sourceNote) && (
           <Accordion title={t('ventilation.recommendation.sections.evidence')} defaultExpanded={false} testID={RECOMMENDATION_TEST_IDS.evidence}>
           <StyledSection>
             <StyledSectionBody>
-              {caseEvidence.map((ev, i) => (
-                <React.Fragment key={ev?.caseId ?? i}>
-                  <Text variant="label">{ev?.caseId}</Text>
-                  <Text variant="caption">{t(`ventilation.recommendation.reviewStatus.${ev?.reviewStatus === 'validated' ? 'validated' : 'unvalidated'}`)}</Text>
-                  {ev?.evidenceNotes ? <Text variant="body">{ev.evidenceNotes}</Text> : null}
+              <Text variant="caption">
+                {t('ventilation.recommendation.provenance.reviewStatus')}: {t(`ventilation.recommendation.reviewStatus.${reviewStatusKey}`)}
+              </Text>
+              {decisionProvenance?.sourceNote ? <Text variant="body">{decisionProvenance.sourceNote}</Text> : null}
+              {provenanceSources.map((source, i) => (
+                <React.Fragment key={source?.id ?? i}>
+                  <Text variant="label">{source?.publisher || source?.type || source?.id}</Text>
+                  {source?.citation ? <Text variant="body">{source.citation}</Text> : null}
+                  {source?.doi ? <Text variant="caption">{t('ventilation.recommendation.provenance.doi')}: {source.doi}</Text> : null}
+                  {source?.url ? <Text variant="caption">{t('ventilation.recommendation.provenance.sourceUrl')}: {source.url}</Text> : null}
                 </React.Fragment>
               ))}
             </StyledSectionBody>

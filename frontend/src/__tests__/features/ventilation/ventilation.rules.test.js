@@ -289,8 +289,8 @@ describe('ventilation.rules', () => {
           validationRequirement: 'dataset_validation_requirement',
         },
         sources: [
-          { id: 'SRC_A', type: 'guideline', citation: 'citation_a' },
-          { id: 'SRC_B', type: 'review', citation: 'citation_b', doi: 'doi_b' },
+          { id: 'SRC_A', type: 'guideline', citation: 'citation_a', url: 'https://example.test/a', publisher: 'Publisher A' },
+          { id: 'SRC_B', type: 'review', citation: 'citation_b', doi: 'doi_b', url: 'https://example.test/b' },
         ],
         cases,
       });
@@ -361,6 +361,16 @@ describe('ventilation.rules', () => {
       expect(assembled.governance.caseMatchingHiddenFromClinicians).toBe(true);
       expect(assembled.caseEvidence).toBeUndefined();
       expect(assembled.matched).toBeUndefined();
+      expect(assembled.decisionProvenance).toMatchObject({
+        reviewStatus: 'validated',
+        sourceNote: expect.any(String),
+      });
+      expect(assembled.decisionProvenance.sources.map((s) => s.id)).toEqual(['SRC_B', 'SRC_A']);
+      expect(assembled.decisionProvenance.sources[0]).toMatchObject({
+        citation: 'citation_b',
+        doi: 'doi_b',
+        url: 'https://example.test/b',
+      });
       expect(assembled.decisionSupport.status.syncStatus).toBe('local_preview_pending_backend_confirmation');
 
       const internal = assembleVentilationRecommendationFromMatches({

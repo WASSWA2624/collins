@@ -93,9 +93,14 @@ const DatasetCaptureScreenAndroid = () => {
     );
   };
 
+  const missingReadinessItems = capture.missingFieldDetails?.length
+    ? capture.missingFieldDetails
+    : capture.missingFields.map((field) => ({ path: field, label: field, section: '' }));
   const statusKey = capture.submitMessage
     ? `ventilation.datasetCapture.status.${capture.submitMessage}`
-    : 'ventilation.datasetCapture.status.ready';
+    : capture.submitDisabled
+      ? 'ventilation.datasetCapture.status.needsInput'
+      : 'ventilation.datasetCapture.status.ready';
 
   return (
     <StyledContainer accessibilityLabel={t('ventilation.datasetCapture.accessibilityLabel')} testID={testIds.screen}>
@@ -219,10 +224,12 @@ const DatasetCaptureScreenAndroid = () => {
             <Stack spacing="sm">
               <Text accessibilityRole="header" variant="h3">{t('ventilation.datasetCapture.missing.title')}</Text>
               <StyledNotice testID={testIds.missingList}>
-                {capture.missingFields.length > 0 ? (
+                {missingReadinessItems.length > 0 ? (
                   <StyledMissingList>
-                    {capture.missingFields.map((field) => (
-                      <Text key={field} variant="caption">- {field}</Text>
+                    {missingReadinessItems.map((field) => (
+                      <Text key={field.path} variant="caption">
+                        {field.section ? `- ${field.section}: ${field.label}` : `- ${field.label}`}
+                      </Text>
                     ))}
                   </StyledMissingList>
                 ) : (

@@ -26,9 +26,15 @@ const getFieldEntered = (fieldValues, path) => {
 const buildSectionProgress = (sections, fieldValues, activeStepIndex) =>
   sections.map((section, index) => {
     const requiredFields = section.fields.filter((field) => field.required);
-    const missingFields = requiredFields
+    const missingFieldDetails = requiredFields
       .filter((field) => !getFieldEntered(fieldValues, field.path))
-      .map((field) => field.path);
+      .map((field) => ({
+        path: field.path,
+        label: field.label,
+        section: field.section,
+        sectionId: field.sectionId,
+      }));
+    const missingFields = missingFieldDetails.map((field) => field.path);
     const enteredTotal = section.fields.filter((field) => getFieldEntered(fieldValues, field.path)).length;
     const requiredComplete = requiredFields.length - missingFields.length;
     const complete = requiredFields.length > 0
@@ -44,6 +50,7 @@ const buildSectionProgress = (sections, fieldValues, activeStepIndex) =>
       requiredTotal: requiredFields.length,
       requiredComplete,
       missingFields,
+      missingFieldDetails,
       complete,
       active: index === activeStepIndex,
     };
@@ -158,6 +165,7 @@ export default function useDatasetCaptureScreen() {
         isOffline,
         lastSubmittedCaseId,
         missingFields: completeness.missingFields,
+        missingFieldDetails: completeness.missingFieldDetails,
         submitDisabled,
         submitMessage,
         submitStatus,

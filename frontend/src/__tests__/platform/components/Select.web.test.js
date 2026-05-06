@@ -83,9 +83,9 @@ describe('Select Component - Web', () => {
       expect(queryByText('One')).toBeFalsy();
     });
 
-    it('should filter options when searchable on Web', () => {
+    it('should filter options by default on Web', () => {
       const { getByTestId, getByText, queryByText } = renderWebWithProviders(
-        <SelectWeb testID="web-select" options={options} value={undefined} onValueChange={() => {}} searchable />
+        <SelectWeb testID="web-select" options={options} value={undefined} onValueChange={() => {}} />
       );
 
       fireEvent.click(getByTestId('web-select'));

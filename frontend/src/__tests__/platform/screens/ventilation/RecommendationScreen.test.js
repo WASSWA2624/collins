@@ -74,7 +74,19 @@ const mockRecommendation = {
   riskFactors: ['moderate ARDS'],
   complicationHistory: [],
   matched: [{ caseId: 'CASE_001', score: 0.9, completeness: 0.8, confidenceTier: 'medium' }],
-  caseEvidence: [{ caseId: 'CASE_001', reviewStatus: 'unvalidated', evidenceNotes: null, citations: [] }],
+  decisionProvenance: {
+    reviewStatus: 'pending_clinician_validation',
+    sourceNote: 'Source-backed research seed evidence is pending clinician validation.',
+    sources: [
+      {
+        id: 'SRC_AARC_2024_PVA',
+        type: 'guideline',
+        publisher: 'AARC',
+        citation: 'AARC Patient-Ventilator Assessment guideline.',
+        url: 'https://journals.sagepub.com/doi/10.4187/respcare.12007',
+      },
+    ],
+  },
   decisionSupport: {
     referenceWeight: { value: 66, unit: 'kg' },
     vtPerKg: { value: 6.8, unit: 'mL/kg' },
@@ -176,9 +188,11 @@ describe('RecommendationScreen', () => {
       expect(queryByTestId('recommendation-matched-cases')).toBeNull();
     });
 
-    it('should hide case evidence internals from normal clinician view', () => {
-      const { queryByTestId } = renderWithProviders(<RecommendationScreenWeb />);
-      expect(queryByTestId('recommendation-evidence')).toBeNull();
+    it('should show source provenance without exposing case links in normal clinician view', () => {
+      const { getByTestId, getByText, queryByTestId } = renderWithProviders(<RecommendationScreenWeb />);
+      expect(getByTestId('recommendation-evidence')).toBeTruthy();
+      expect(getByText(/AARC Patient-Ventilator Assessment guideline/)).toBeTruthy();
+      expect(queryByTestId('recommendation-case-CASE_001')).toBeNull();
     });
 
     it('should show decision-support advisory checks', () => {

@@ -46,6 +46,22 @@ const buildSessionSummaryText = ({ summary, inputs, intendedUse, sessionId, anon
   if (summary?.source?.confidenceTier) {
     lines.push('Confidence: ' + summary.source.confidenceTier);
   }
+  if (summary?.decisionProvenance) {
+    const provenance = summary.decisionProvenance;
+    lines.push('');
+    lines.push('--- Evidence provenance ---');
+    if (provenance.reviewStatus) lines.push('Review status: ' + provenance.reviewStatus);
+    if (provenance.sourceNote) lines.push('Note: ' + provenance.sourceNote);
+    const sources = Array.isArray(provenance.sources) ? provenance.sources : [];
+    sources.forEach((source) => {
+      if (!source) return;
+      const label = source.publisher || source.type || source.id || 'Source';
+      lines.push('- ' + label);
+      if (source.citation) lines.push('  Citation: ' + source.citation);
+      if (source.doi) lines.push('  DOI: ' + source.doi);
+      if (source.url) lines.push('  URL: ' + source.url);
+    });
+  }
   return lines.join('\n');
 };
 

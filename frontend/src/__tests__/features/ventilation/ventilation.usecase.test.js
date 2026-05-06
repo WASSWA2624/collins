@@ -78,7 +78,7 @@ describe('ventilation.usecase', () => {
         },
       },
       intendedUse: { clinicalUse: false, warning: 'warn', validationRequirement: 'validate' },
-      sources: [{ id: 'SRC_1', type: 'guideline', citation: 'c1' }],
+      sources: [{ id: 'SRC_1', type: 'guideline', citation: 'c1', url: 'https://example.test/source' }],
       cases: [
         {
           caseId: 'CASE_1',
@@ -102,6 +102,9 @@ describe('ventilation.usecase', () => {
     expect(res.source.primaryCaseId).toBeNull();
     expect(res.governance.caseMatchingHiddenFromClinicians).toBe(true);
     expect(res.decisionSupport.status.referenceStatus).toBe('frontend_preview_unconfirmed');
+    expect(res.decisionProvenance.sources).toEqual([
+      expect.objectContaining({ id: 'SRC_1', url: 'https://example.test/source' }),
+    ]);
     expect(res.safety.intendedUseWarning).toBe('warn');
     expect(res.units.spo2).toBe('%');
     expect(res).not.toHaveProperty('cases');

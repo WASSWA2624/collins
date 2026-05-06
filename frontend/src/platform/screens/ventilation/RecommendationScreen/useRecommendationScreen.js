@@ -86,7 +86,12 @@ export default function useRecommendationScreen() {
   );
 
   const caseEvidence = useMemo(
-    () => [],
+    () => recommendationSummary?.caseEvidence ?? [],
+    [recommendationSummary]
+  );
+
+  const decisionProvenance = useMemo(
+    () => recommendationSummary?.decisionProvenance ?? { reviewStatus: 'unvalidated', sourceNote: '', sources: [] },
     [recommendationSummary]
   );
 
@@ -230,6 +235,7 @@ export default function useRecommendationScreen() {
     complicationHistory,
     matched,
     caseEvidence,
+    decisionProvenance,
     safety,
     missingInputs,
     contributingFactors,

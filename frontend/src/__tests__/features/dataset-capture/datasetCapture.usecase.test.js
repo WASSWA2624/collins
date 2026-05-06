@@ -45,7 +45,10 @@ describe('datasetCapture.usecase', () => {
     expect(request.method).toBe('POST');
     expect(request.body.sourceType).toBe('clinical_case_capture');
     expect(request.body.structuredPreviewJson.patient.ageYears).toBe(54);
+    expect(request.body.structuredPreviewJson.caseContext.capturedAt).toBe('2026-05-05T00:00:00.000Z');
     expect(request.body.governanceJson.rawNoteStored).toBe(false);
+    expect(request.body.governanceJson.pendingHumanReview).toBe(true);
+    expect(request.body.governanceJson.sourceProvenance.sourceType).toBe('CLINICIAN_CHART_ABSTRACTION');
     expect(request.body.noteText).toBeUndefined();
     expect(serialized).not.toMatch(/MRN|H123|patientName/i);
     expect(createDatasetImportApi).not.toHaveBeenCalled();
@@ -74,6 +77,8 @@ describe('datasetCapture.usecase', () => {
 
     expect(result.queued).toBe(false);
     expect(result.datasetCase.id).toBe('dataset-1');
+    expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.caseContext.capturedAt)
+      .toBe('2026-05-05T00:00:00.000Z');
     expect(createDatasetImportApi).toHaveBeenCalledTimes(1);
   });
 });

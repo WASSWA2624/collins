@@ -102,6 +102,11 @@ const sourceSchema = z
     type: z.string().min(1),
     citation: z.string().min(1),
     doi: z.string().min(1).optional(),
+    url: z.string().url().optional(),
+    publisher: z.string().min(1).optional(),
+    accessedAt: isoDateSchema.optional(),
+    trustLevel: z.string().min(1).optional(),
+    reviewStatus: z.string().min(1).optional(),
   })
   .passthrough();
  

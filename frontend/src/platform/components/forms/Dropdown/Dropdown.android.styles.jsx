@@ -43,11 +43,45 @@ const StyledDropdownItem = styled.Pressable.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const StyledDropdownItemText = styled.Text.withConfig({
+  displayName: 'StyledDropdownItemText',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+`;
+
+const StyledDropdownSearchInput = styled.TextInput.withConfig({
+  displayName: 'StyledDropdownSearchInput',
+})`
+  min-height: 40px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledDropdownEmptyText = styled.Text.withConfig({
+  displayName: 'StyledDropdownEmptyText',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+`;
+
 export {
   StyledDropdown,
   StyledDropdownTrigger,
   StyledDropdownMenu,
   StyledDropdownItem,
+  StyledDropdownItemText,
+  StyledDropdownSearchInput,
+  StyledDropdownEmptyText,
 };
 
 

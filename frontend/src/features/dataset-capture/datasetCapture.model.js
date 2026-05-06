@@ -81,6 +81,11 @@ const DATASET_CAPTURE_SECTION_DEFINITIONS = Object.freeze([
     description: 'Observed response and outcome values for model evaluation or training.',
   },
   {
+    id: 'provenance',
+    title: 'Source and validation',
+    description: 'Where the de-identified data came from and whether a clinician has validated it.',
+  },
+  {
     id: 'quality',
     title: 'Quality review',
     description: 'Structured uncertainty and readiness flags for reviewer triage.',
@@ -88,14 +93,6 @@ const DATASET_CAPTURE_SECTION_DEFINITIONS = Object.freeze([
 ]);
 
 const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
-  {
-    path: 'caseContext.capturedAt',
-    label: 'Capture time',
-    section: 'Case context',
-    sectionId: 'caseContext',
-    type: 'text',
-    placeholder: 'ISO time or local chart time',
-  },
   {
     path: 'caseContext.primaryDiagnosis',
     label: 'Primary diagnosis',
@@ -564,6 +561,78 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
     placeholder: 'Comma-separated, de-identified terms',
   },
   {
+    path: 'provenance.sourceType',
+    label: 'Source type',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'select',
+    required: true,
+    options: [
+      option('Clinician chart abstraction', 'CLINICIAN_CHART_ABSTRACTION'),
+      option('EHR or bedside chart export', 'EHR_CHART_EXPORT'),
+      option('Ventilator or monitor export', 'DEVICE_EXPORT'),
+      option('Credentialed registry extraction', 'REGISTRY_EXTRACTION'),
+      option('Literature-derived research seed', 'LITERATURE_DERIVED_SEED'),
+      option('Synthetic research seed', 'SYNTHETIC_RESEARCH_SEED'),
+      option('Other', 'OTHER'),
+    ],
+  },
+  {
+    path: 'provenance.sourceName',
+    label: 'Source name',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'text',
+    required: true,
+    placeholder: 'e.g. ICU chart review, MIMIC-IV extraction, local QI export',
+  },
+  {
+    path: 'provenance.sourceReference',
+    label: 'De-identified source reference',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'text',
+    placeholder: 'Batch or case reference only; no MRN or patient name',
+  },
+  {
+    path: 'provenance.sourceUrl',
+    label: 'Source URL',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'text',
+    placeholder: 'Trusted website, DOI, or registry URL when applicable',
+  },
+  {
+    path: 'provenance.sourceCitation',
+    label: 'Source citation or extraction note',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'textarea',
+    placeholder: 'Citation, extraction query, or data dictionary note. Do not include identifiers.',
+  },
+  {
+    path: 'provenance.sourceAccessedAt',
+    label: 'Source accessed at',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'text',
+    placeholder: 'YYYY-MM-DD',
+  },
+  {
+    path: 'provenance.clinicianValidationStatus',
+    label: 'Clinician validation status',
+    section: 'Source and validation',
+    sectionId: 'provenance',
+    type: 'select',
+    required: true,
+    options: [
+      option('Pending clinician validation', 'PENDING_CLINICIAN_VALIDATION'),
+      option('Validated by clinician', 'VALIDATED_BY_CLINICIAN'),
+      option('Correction required', 'CORRECTION_REQUIRED'),
+      option('Excluded from training', 'EXCLUDED_FROM_TRAINING'),
+    ],
+  },
+  {
     path: 'quality.reviewerConfidence',
     label: 'Reviewer confidence',
     section: 'Quality review',
@@ -621,6 +690,9 @@ const createEmptyDatasetCapturePreview = () => {
   DATASET_CAPTURE_FIELD_DEFINITIONS.forEach((field) => {
     setByPath(preview, field.path, null);
   });
+  preview.provenance.sourceType = 'CLINICIAN_CHART_ABSTRACTION';
+  preview.provenance.clinicianValidationStatus = 'PENDING_CLINICIAN_VALIDATION';
+  preview.quality.reviewerConfidence = 'NEEDS_REVIEW';
 
   return preview;
 };
@@ -721,13 +793,25 @@ const getDatasetCaptureSections = () =>
     fields: DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => field.sectionId === section.id),
   }));
 
-const getMissingDatasetFields = (preview) => DATASET_CAPTURE_FIELD_DEFINITIONS
+const getMissingDatasetFieldDefinitions = (preview) => DATASET_CAPTURE_FIELD_DEFINITIONS
   .filter((field) => field.required)
   .filter((field) => {
     const value = getByPath(preview, field.path);
     return value === null || value === undefined || value === '';
-  })
-  .map((field) => field.path);
+  });
+
+const toMissingDatasetFieldDetail = (field) => ({
+  path: field.path,
+  label: field.label,
+  section: field.section,
+  sectionId: field.sectionId,
+});
+
+const getMissingDatasetFieldDetails = (preview) =>
+  getMissingDatasetFieldDefinitions(preview).map(toMissingDatasetFieldDetail);
+
+const getMissingDatasetFields = (preview) =>
+  getMissingDatasetFieldDefinitions(preview).map((field) => field.path);
 
 const hasAnyDatasetCaptureValue = (fieldValues = {}) =>
   DATASET_CAPTURE_FIELD_DEFINITIONS.some((field) => {
@@ -737,7 +821,8 @@ const hasAnyDatasetCaptureValue = (fieldValues = {}) =>
 
 const getDatasetCaptureCompleteness = (fieldValues = {}) => {
   const preview = hydrateDatasetPreview(fieldValues);
-  const missingFields = getMissingDatasetFields(preview);
+  const missingFieldDetails = getMissingDatasetFieldDetails(preview);
+  const missingFields = missingFieldDetails.map((field) => field.path);
   const requiredTotal = DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => field.required).length;
   const requiredComplete = requiredTotal - missingFields.length;
   const enteredTotal = DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => {
@@ -751,6 +836,7 @@ const getDatasetCaptureCompleteness = (fieldValues = {}) => {
     requiredComplete,
     requiredTotal,
     missingFields,
+    missingFieldDetails,
   };
 };
 
@@ -839,6 +925,9 @@ const parseDatasetCaptureNote = (noteText) => {
   const [paco2Lower, paco2Upper] = extractRange(text, [/target\s*paco2\s*[:=]?\s*(\d{1,3})\s*[-to]+\s*(\d{1,3})/i]);
   preview.targetRanges.paco2Lower = paco2Lower;
   preview.targetRanges.paco2Upper = paco2Upper;
+  preview.provenance.sourceType = 'CLINICIAN_CHART_ABSTRACTION';
+  preview.provenance.sourceName = 'Pasted ICU note structured preview';
+  preview.provenance.clinicianValidationStatus = 'PENDING_CLINICIAN_VALIDATION';
   preview.quality.reviewerConfidence = 'NEEDS_REVIEW';
 
   return {
@@ -867,9 +956,17 @@ const buildDatasetCaptureSubmission = ({
   const recordId = clientRecordId || createDatasetCaptureClientRecordId();
   const timestamp = submittedAt || new Date().toISOString();
   const structuredPreviewJson = hydrateDatasetPreview(fieldValues);
+  structuredPreviewJson.caseContext = {
+    ...structuredPreviewJson.caseContext,
+    capturedAt: timestamp,
+  };
+  const provenance = structuredPreviewJson.provenance || {};
   structuredPreviewJson.captureMetadata = {
     ...structuredPreviewJson.captureMetadata,
+    capturedAt: timestamp,
     submittedAt: timestamp,
+    sourceType: provenance.sourceType || 'CLINICIAN_CHART_ABSTRACTION',
+    clinicianValidationStatus: provenance.clinicianValidationStatus || 'PENDING_CLINICIAN_VALIDATION',
   };
 
   return {
@@ -882,6 +979,15 @@ const buildDatasetCaptureSubmission = ({
       rawNoteStored: false,
       externalModelServicesUsed: false,
       pendingHumanReview: true,
+      clinicianValidationStatus: provenance.clinicianValidationStatus || 'PENDING_CLINICIAN_VALIDATION',
+      sourceProvenance: {
+        sourceType: provenance.sourceType || 'CLINICIAN_CHART_ABSTRACTION',
+        sourceName: provenance.sourceName || null,
+        sourceReference: provenance.sourceReference || null,
+        sourceUrl: provenance.sourceUrl || null,
+        sourceCitation: provenance.sourceCitation || null,
+        sourceAccessedAt: provenance.sourceAccessedAt || null,
+      },
       submittedAt: timestamp,
     },
     idempotencyKey: idempotencyKey || recordId,
@@ -929,6 +1035,7 @@ export {
   flattenDatasetPreview,
   getDatasetCaptureCompleteness,
   getDatasetCaptureSections,
+  getMissingDatasetFieldDetails,
   getMissingDatasetFields,
   hasAnyDatasetCaptureValue,
   hydrateDatasetPreview,

@@ -80,6 +80,7 @@ describe('DatasetCaptureScreen', () => {
       'ventilation.datasetCapture.actions.next': 'Next',
       'ventilation.datasetCapture.actions.previous': 'Previous',
       'ventilation.datasetCapture.actions.submit': 'Submit for review',
+      'ventilation.datasetCapture.status.needsInput': 'Needs input',
       'ventilation.datasetCapture.status.ready': 'Ready',
       'ventilation.datasetCapture.status.submitted': 'Submitted',
       'ventilation.datasetCapture.status.queued': 'Queued',
@@ -109,10 +110,16 @@ describe('DatasetCaptureScreen', () => {
     expect(getByTestId('dataset-capture-progress')).toBeTruthy();
     expect(getByTestId('dataset-capture-section-caseContext')).toBeTruthy();
     expect(queryByTestId('dataset-capture-section-ventilatorSetting')).toBeNull();
+    expect(queryByText('Capture time')).toBeNull();
+    expect(queryByText('- caseContext.primaryDiagnosis')).toBeNull();
+    expect(queryByText('- Case context: Primary diagnosis')).toBeTruthy();
 
     fireEvent.press(getByTestId('dataset-capture-step-item-ventilatorSetting'));
 
     expect(getByTestId('dataset-capture-section-ventilatorSetting')).toBeTruthy();
+    fireEvent.press(getByTestId('dataset-capture-step-item-provenance'));
+
+    expect(getByTestId('dataset-capture-section-provenance')).toBeTruthy();
     expect(queryByText('Citations')).toBeNull();
     expect(queryByText('Data sources')).toBeNull();
   });

@@ -3,7 +3,7 @@
  * Tests: missing caseId path, not-found-in-dataset path, intended-use warning
  */
 const React = require('react');
-const { render, screen } = require('@testing-library/react-native');
+const { render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
@@ -56,24 +56,24 @@ describe('CaseDetailScreen', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('shows missing caseId message when caseId is missing (missing caseId path)', () => {
-    renderWithProviders(<CaseDetailScreenWeb caseId={undefined} />);
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.missingCaseId)).toBeDefined();
-    expect(screen.getByText('No case selected.')).toBeDefined();
+    const { getByTestId, getByText } = renderWithProviders(<CaseDetailScreenWeb caseId={undefined} />);
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.missingCaseId)).toBeDefined();
+    expect(getByText('No case selected.')).toBeDefined();
   });
 
   it('shows not-found message when caseId is not in dataset (not-found-in-dataset path)', () => {
-    renderWithProviders(<CaseDetailScreenWeb caseId="NON_EXISTENT_CASE_ID" />);
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.notFound)).toBeDefined();
-    expect(screen.getByText('Case not found in dataset.')).toBeDefined();
+    const { getByTestId, getByText } = renderWithProviders(<CaseDetailScreenWeb caseId="NON_EXISTENT_CASE_ID" />);
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.notFound)).toBeDefined();
+    expect(getByText('Case not found in dataset.')).toBeDefined();
   });
 
   it('shows intended-use warning and case content when case exists', () => {
-    renderWithProviders(<CaseDetailScreenWeb caseId="CASE_001" />);
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.screen)).toBeDefined();
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.intendedUseWarning)).toBeDefined();
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.summary)).toBeDefined();
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.patientProfile)).toBeDefined();
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.ventilatorSettings)).toBeDefined();
-    expect(screen.getByTestId(CASE_DETAIL_TEST_IDS.reviewStatus)).toBeDefined();
+    const { getByTestId } = renderWithProviders(<CaseDetailScreenWeb caseId="CASE_001" />);
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.screen)).toBeDefined();
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.intendedUseWarning)).toBeDefined();
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.summary)).toBeDefined();
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.patientProfile)).toBeDefined();
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.ventilatorSettings)).toBeDefined();
+    expect(getByTestId(CASE_DETAIL_TEST_IDS.reviewStatus)).toBeDefined();
   });
 });

@@ -1,7 +1,7 @@
 {
-  "datasetVersion": "1.1",
-  "datasetSchemaVersion": "1.1",
-  "lastUpdated": "2026-01-31",
+  "datasetVersion": "1.2",
+  "datasetSchemaVersion": "1.2",
+  "lastUpdated": "2026-05-06",
   "totalCases": 100,
   "schema": {
     "notes": "This dataset is designed for offline-first ventilator decision support. To capture any possible patient results, cases may include BOTH fixed common fields (clinicalParameters) and extensible observations/time series (observations, timeSeries).",
@@ -50,33 +50,113 @@
   },
   "intendedUse": {
     "clinicalUse": false,
-    "warning": "Research/prototype dataset. Not clinically validated. Do not use as the sole basis for ventilator management decisions in real patients.",
-    "validationRequirement": "For real-world use: populate from audited clinical sources, perform expert review, run retrospective/prospective validation, and comply with local ethics/regulatory requirements."
+    "warning": "Research/prototype dataset. Seed cases are synthetic, source-backed, and pending clinician validation. Do not use as the sole basis for ventilator management decisions in real patients.",
+    "validationRequirement": "Before patient-care use or model training approval, cases require audited source extraction or chart abstraction, de-identification review, ethics/governance approval, authorized clinician validation, and retrospective/prospective performance validation."
   },
   "sources": [
     {
       "id": "SRC_AARC_2024_PVA",
       "type": "guideline",
-      "citation": "Goodfellow LT, Miller AG, Varekojis SM, et al. AARC Clinical Practice Guideline: Patient-Ventilator Assessment. Respiratory Care. 2024;69(8):1042–1054.",
-      "doi": "10.4187/RESPCARE.12007"
+      "publisher": "American Association for Respiratory Care / Respiratory Care",
+      "title": "Patient-Ventilator Assessment",
+      "citation": "Goodfellow LT, Miller AG, Varekojis SM, et al. AARC Clinical Practice Guideline: Patient-Ventilator Assessment. Respiratory Care. 2024;69(8):1042-1054.",
+      "doi": "10.4187/RESPCARE.12007",
+      "url": "https://journals.sagepub.com/doi/10.4187/respcare.12007",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "primary_guideline",
+      "reviewStatus": "source_verified"
+    },
+    {
+      "id": "SRC_AHRQ_LTVV_FACTS",
+      "type": "clinical_safety_program",
+      "publisher": "Agency for Healthcare Research and Quality",
+      "title": "Low Tidal Volume Ventilation Facts",
+      "citation": "Agency for Healthcare Research and Quality. Low Tidal Volume Ventilation Facts. Safety Program for Mechanically Ventilated Patients.",
+      "url": "https://www.ahrq.gov/hai/tools/mvp/modules/technical/ltvv-fact-sheet.html",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "government_clinical_safety_source",
+      "reviewStatus": "source_verified"
+    },
+    {
+      "id": "SRC_BTS_2017_OXYGEN",
+      "type": "guideline",
+      "publisher": "British Thoracic Society / BMJ Open Respiratory Research",
+      "title": "Guideline for oxygen use in adults in healthcare and emergency settings",
+      "citation": "O Driscoll BR, Howard LS, Earis J, Mak V, et al. British Thoracic Society Guideline for oxygen use in adults in healthcare and emergency settings. BMJ Open Respiratory Research. 2017;4:e000170.",
+      "doi": "10.1136/bmjresp-2016-000170",
+      "url": "https://bmjopenrespres.bmj.com/content/4/1/e000170",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "primary_guideline",
+      "reviewStatus": "source_verified"
+    },
+    {
+      "id": "SRC_PHYSIONET_MIMIC_IV_3_1",
+      "type": "credentialed_clinical_database",
+      "publisher": "PhysioNet",
+      "title": "MIMIC-IV v3.1",
+      "citation": "Johnson A, Bulgarelli L, Pollard T, Gow B, Moody B, Horng S, Celi LA, Mark R. MIMIC-IV (version 3.1). PhysioNet. 2024.",
+      "doi": "10.13026/kpb9-mt58",
+      "url": "https://physionet.org/content/mimiciv/3.1/",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "credentialed_deidentified_icu_database",
+      "reviewStatus": "eligible_future_extraction_source"
+    },
+    {
+      "id": "SRC_PHYSIONET_EICU_2_0",
+      "type": "credentialed_clinical_database",
+      "publisher": "PhysioNet",
+      "title": "eICU Collaborative Research Database v2.0",
+      "citation": "Pollard TJ, Johnson AEW, Raffa JD, Celi LA, Mark RG, Badawi O. The eICU Collaborative Research Database, a freely available multi-center database for critical care research. Scientific Data. 2018;5:180178.",
+      "doi": "10.1038/sdata.2018.178",
+      "url": "https://archive.physionet.org/physiobank/database/eicucrdb/",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "credentialed_deidentified_multi_center_icu_database",
+      "reviewStatus": "eligible_future_extraction_source"
+    },
+    {
+      "id": "SRC_AMSTERDAMUMCDB_2021",
+      "type": "credentialed_clinical_database",
+      "publisher": "Amsterdam UMC",
+      "title": "AmsterdamUMCdb",
+      "citation": "Thoral PJ, Peppink JM, Driessen RH, et al. Sharing ICU Patient Data Responsibly Under the SCCM/ESICM Joint Data Science Collaboration: The AmsterdamUMCdb Example. Critical Care Medicine. 2021;49(6):e563-e577.",
+      "doi": "10.1097/CCM.0000000000004916",
+      "url": "https://github.com/AmsterdamUMC/AmsterdamUMCdb",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "credentialed_deidentified_icu_database",
+      "reviewStatus": "eligible_future_extraction_source"
     },
     {
       "id": "SRC_BOTTA_2021_INTELLIVENT",
       "type": "review",
-      "citation": "Botta M, Wenstedt EFE, Tsonas AM, et al. Effectiveness, safety and efficacy of INTELLiVENT–adaptive support ventilation. Expert Rev Respir Med. 2021;15(11):1403–1413.",
-      "doi": "10.1080/17476348.2021.1933450"
+      "publisher": "Expert Review of Respiratory Medicine",
+      "citation": "Botta M, Wenstedt EFE, Tsonas AM, et al. Effectiveness, safety and efficacy of INTELLiVENT-adaptive support ventilation. Expert Review of Respiratory Medicine. 2021;15(11):1403-1413.",
+      "doi": "10.1080/17476348.2021.1933450",
+      "url": "https://doi.org/10.1080/17476348.2021.1933450",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "peer_reviewed_review",
+      "reviewStatus": "source_verified"
     },
     {
       "id": "SRC_SINGH_2025_AI_VENT",
       "type": "review",
-      "citation": "Singh NP, Mujawar MA, Golani A. Role of artificial intelligence in enhancing mechanical ventilation – A peek into the future. Indian J Anaesth. 2025;69(7):722–728.",
-      "doi": "10.4103/IJA.IJA_995_24"
+      "publisher": "Indian Journal of Anaesthesia",
+      "citation": "Singh NP, Mujawar MA, Golani A. Role of artificial intelligence in enhancing mechanical ventilation - A peek into the future. Indian Journal of Anaesthesia. 2025;69(7):722-728.",
+      "doi": "10.4103/IJA.IJA_995_24",
+      "url": "https://doi.org/10.4103/IJA.IJA_995_24",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "peer_reviewed_review",
+      "reviewStatus": "source_verified"
     },
     {
       "id": "SRC_LOSONCZY_2021_EARLY_CRITCARE",
       "type": "whitepaper",
-      "citation": "Losonczy LI, Papali A, Kivlehan S, et al. White Paper on Early Critical Care Services in Low Resource Settings. Ann Glob Health. 2021;87(1):105.",
-      "doi": "10.5334/aogh.3377"
+      "publisher": "Annals of Global Health",
+      "citation": "Losonczy LI, Papali A, Kivlehan S, et al. White Paper on Early Critical Care Services in Low Resource Settings. Annals of Global Health. 2021;87(1):105.",
+      "doi": "10.5334/aogh.3377",
+      "url": "https://doi.org/10.5334/aogh.3377",
+      "accessedAt": "2026-05-06",
+      "trustLevel": "peer_reviewed_whitepaper",
+      "reviewStatus": "source_verified"
     }
   ],
   "cases": [
@@ -88,7 +168,9 @@
         "height": 170,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 85,
@@ -108,7 +190,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -121,15 +205,25 @@
           "fio2": 0.6,
           "peep": 8
         },
-        "monitoringPoints": ["plateau pressure", "oxygenation", "compliance"],
-        "riskFactors": ["moderate ARDS", "requires PEEP optimization"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "oxygenation",
+          "compliance"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "requires PEEP optimization"
+        ]
       },
       "evidence": {
-        "sourceIds": ["SRC_AARC_2024_PVA"],
-        "notes": "This case is synthetic/illustrative and must be clinically reviewed before any real-world use."
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
       },
       "review": {
-        "status": "unvalidated",
+        "status": "pending_clinician_validation",
         "reviewedByRole": null,
         "reviewedAt": null
       }
@@ -142,13 +236,16 @@
         "height": 175,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["diabetes", "hypertension"]
+        "comorbidities": [
+          "diabetes",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 88,
         "pao2": 65,
         "paco2": 75,
-        "ph": 7.20,
+        "ph": 7.2,
         "respiratoryRate": 32,
         "heartRate": 105,
         "bloodPressure": "140/90"
@@ -162,7 +259,9 @@
         "ieRatio": "1:3"
       },
       "outcomes": {
-        "complications": ["barotrauma"],
+        "complications": [
+          "barotrauma"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -175,15 +274,27 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory time", "CO2 retention"],
-        "riskFactors": ["COPD exacerbation", "risk of barotrauma", "permissive hypercapnia needed"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory time",
+          "CO2 retention"
+        ],
+        "riskFactors": [
+          "COPD exacerbation",
+          "risk of barotrauma",
+          "permissive hypercapnia needed"
+        ]
       },
       "evidence": {
-        "sourceIds": ["SRC_AARC_2024_PVA"],
-        "notes": "This case is synthetic/illustrative and must be clinically reviewed before any real-world use."
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
       },
       "review": {
-        "status": "unvalidated",
+        "status": "pending_clinician_validation",
         "reviewedByRole": null,
         "reviewedAt": null
       }
@@ -202,7 +313,7 @@
         "spo2": 82,
         "pao2": 55,
         "paco2": 45,
-        "ph": 7.30,
+        "ph": 7.3,
         "respiratoryRate": 30,
         "heartRate": 125,
         "bloodPressure": "110/70"
@@ -216,7 +327,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -229,8 +342,28 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["oxygenation improvement", "infection markers", "lung compliance"],
-        "riskFactors": ["severe pneumonia", "hypoxemia", "requires high FiO2"]
+        "monitoringPoints": [
+          "oxygenation improvement",
+          "infection markers",
+          "lung compliance"
+        ],
+        "riskFactors": [
+          "severe pneumonia",
+          "hypoxemia",
+          "requires high FiO2"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -261,7 +394,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -274,8 +409,28 @@
           "fio2": 0.5,
           "peep": 8
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "lung protection"],
-        "riskFactors": ["sepsis-induced ARDS", "risk of VILI", "requires lung-protective strategy"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis-induced ARDS",
+          "risk of VILI",
+          "requires lung-protective strategy"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -286,7 +441,11 @@
         "height": 160,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 86,
@@ -306,7 +465,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -319,8 +480,28 @@
           "fio2": 0.5,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac compromise"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -331,7 +512,10 @@
         "height": 175,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 80,
@@ -351,7 +535,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["barotrauma", "VILI"],
+        "complications": [
+          "barotrauma",
+          "VILI"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 12,
         "mortality": true
@@ -364,8 +551,29 @@
           "fio2": 0.8,
           "peep": 12
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma signs"],
-        "riskFactors": ["severe ARDS", "obesity", "high risk of complications", "requires careful pressure management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "barotrauma signs"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "high risk of complications",
+          "requires careful pressure management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -396,7 +604,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 3,
         "mortality": false
@@ -409,8 +619,29 @@
           "fio2": 0.4,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "risk of dynamic hyperinflation", "long expiratory time needed"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "risk of dynamic hyperinflation",
+          "long expiratory time needed"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -421,7 +652,9 @@
         "height": 178,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["diabetes"]
+        "comorbidities": [
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 84,
@@ -441,7 +674,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -454,8 +689,27 @@
           "fio2": 0.65,
           "peep": 8
         },
-        "monitoringPoints": ["oxygenation", "infection response", "lung compliance"],
-        "riskFactors": ["moderate pneumonia", "diabetes may delay recovery"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response",
+          "lung compliance"
+        ],
+        "riskFactors": [
+          "moderate pneumonia",
+          "diabetes may delay recovery"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -486,7 +740,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -499,8 +755,27 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate-severe ARDS", "requires lung-protective ventilation"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate-severe ARDS",
+          "requires lung-protective ventilation"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -511,7 +786,9 @@
         "height": 172,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 89,
@@ -531,7 +808,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -544,8 +823,30 @@
           "fio2": 0.35,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "expiratory time", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention", "requires permissive hypercapnia"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "expiratory time",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention",
+          "requires permissive hypercapnia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -576,7 +877,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -589,8 +892,27 @@
           "fio2": 0.5,
           "peep": 6
         },
-        "monitoringPoints": ["chest trauma", "pneumothorax risk", "oxygenation"],
-        "riskFactors": ["trauma patient", "monitor for complications"]
+        "monitoringPoints": [
+          "chest trauma",
+          "pneumothorax risk",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "trauma patient",
+          "monitor for complications"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -601,7 +923,10 @@
         "height": 158,
         "gender": "female",
         "condition": "pneumonia",
-        "comorbidities": ["hypertension", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -621,7 +946,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -634,8 +961,28 @@
           "fio2": 0.7,
           "peep": 8
         },
-        "monitoringPoints": ["oxygenation", "renal function", "infection markers"],
-        "riskFactors": ["elderly", "multiple comorbidities", "requires careful monitoring"]
+        "monitoringPoints": [
+          "oxygenation",
+          "renal function",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "requires careful monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -646,13 +993,16 @@
         "height": 180,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 79,
         "pao2": 48,
         "paco2": 58,
-        "ph": 7.20,
+        "ph": 7.2,
         "respiratoryRate": 32,
         "heartRate": 120,
         "bloodPressure": "130/85"
@@ -666,7 +1016,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI", "barotrauma"],
+        "complications": [
+          "VILI",
+          "barotrauma"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 15,
         "mortality": true
@@ -679,8 +1032,30 @@
           "fio2": 0.85,
           "peep": 14
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma", "obesity-related complications"],
-        "riskFactors": ["severe ARDS", "obesity", "very high risk of complications", "requires extremely careful pressure management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "barotrauma",
+          "obesity-related complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "very high risk of complications",
+          "requires extremely careful pressure management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -691,13 +1066,15 @@
         "height": 168,
         "gender": "female",
         "condition": "sepsis",
-        "comorbidities": ["diabetes"]
+        "comorbidities": [
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
         "pao2": 64,
         "paco2": 44,
-        "ph": 7.30,
+        "ph": 7.3,
         "respiratoryRate": 25,
         "heartRate": 125,
         "bloodPressure": "95/55"
@@ -711,7 +1088,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -724,8 +1103,28 @@
           "fio2": 0.55,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring", "lung-protective strategy"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring",
+          "lung-protective strategy"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -756,7 +1155,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -769,8 +1170,26 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation improvement", "infection response"],
-        "riskFactors": ["moderate pneumonia", "good prognosis expected"]
+        "monitoringPoints": [
+          "oxygenation improvement",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia",
+          "good prognosis expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -781,7 +1200,10 @@
         "height": 170,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
@@ -801,7 +1223,9 @@
         "ieRatio": "1:3"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -814,8 +1238,31 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "renal function", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "slow weaning expected"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "renal function",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "elderly",
+          "multiple comorbidities",
+          "slow weaning expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -846,7 +1293,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -859,8 +1308,27 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "lung-protective ventilation required"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -871,7 +1339,10 @@
         "height": 178,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -891,7 +1362,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -904,8 +1377,28 @@
           "fio2": 0.68,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "obesity-related complications", "infection response"],
-        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity-related complications",
+          "infection response"
+        ],
+        "riskFactors": [
+          "obesity",
+          "diabetes",
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -936,7 +1429,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -949,8 +1444,29 @@
           "fio2": 0.35,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm resolution"],
-        "riskFactors": ["severe asthma", "good prognosis", "short ventilation expected"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm resolution"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "good prognosis",
+          "short ventilation expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -961,7 +1477,11 @@
         "height": 160,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 85,
@@ -981,7 +1501,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -994,8 +1516,30 @@
           "fio2": 0.5,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires careful management"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "renal function",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac compromise",
+          "requires careful management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1006,7 +1550,9 @@
         "height": 175,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 86,
@@ -1026,7 +1572,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -1039,8 +1587,26 @@
           "fio2": 0.6,
           "peep": 8
         },
-        "monitoringPoints": ["oxygenation", "infection markers"],
-        "riskFactors": ["moderate pneumonia", "good prognosis"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "moderate pneumonia",
+          "good prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1051,7 +1617,9 @@
         "height": 168,
         "gender": "female",
         "condition": "ARDS",
-        "comorbidities": ["diabetes"]
+        "comorbidities": [
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -1071,7 +1639,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -1084,8 +1654,29 @@
           "fio2": 0.75,
           "peep": 11
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "lung protection"],
-        "riskFactors": ["severe ARDS", "diabetes", "high risk of VILI", "requires careful pressure management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "diabetes",
+          "high risk of VILI",
+          "requires careful pressure management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1116,7 +1707,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -1129,8 +1722,27 @@
           "fio2": 0.5,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection response", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic support"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection response",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1141,7 +1753,9 @@
         "height": 173,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 88,
@@ -1161,7 +1775,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 11,
         "mortality": false
@@ -1174,8 +1790,29 @@
           "fio2": 0.38,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention",
+          "slow weaning"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1206,7 +1843,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -1219,8 +1858,25 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1231,7 +1887,10 @@
         "height": 170,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 79,
@@ -1251,7 +1910,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["barotrauma"],
+        "complications": [
+          "barotrauma"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 14,
         "mortality": true
@@ -1264,8 +1925,28 @@
           "fio2": 0.8,
           "peep": 13
         },
-        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure"],
-        "riskFactors": ["severe ARDS", "elderly", "high risk of complications"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "barotrauma",
+          "driving pressure"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "elderly",
+          "high risk of complications"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1296,7 +1977,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 3,
         "mortality": false
@@ -1309,8 +1992,27 @@
           "fio2": 0.4,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow"],
-        "riskFactors": ["severe asthma", "good prognosis"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "good prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1321,7 +2023,10 @@
         "height": 177,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -1341,7 +2046,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -1354,8 +2061,27 @@
           "fio2": 0.7,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "obesity considerations"],
-        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity considerations"
+        ],
+        "riskFactors": [
+          "obesity",
+          "diabetes",
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1386,7 +2112,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -1399,8 +2127,26 @@
           "fio2": 0.55,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1411,7 +2157,11 @@
         "height": 165,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 84,
@@ -1431,7 +2181,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -1444,8 +2196,28 @@
           "fio2": 0.52,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "renal function"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac issues"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "renal function"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac issues"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1456,7 +2228,9 @@
         "height": 176,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -1476,7 +2250,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -1489,8 +2265,25 @@
           "fio2": 0.68,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio"],
-        "riskFactors": ["moderate-severe ARDS"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio"
+        ],
+        "riskFactors": [
+          "moderate-severe ARDS"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1501,7 +2294,9 @@
         "height": 171,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
@@ -1521,7 +2316,9 @@
         "ieRatio": "1:3"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -1534,8 +2331,28 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1566,7 +2383,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -1579,8 +2398,25 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1591,7 +2427,9 @@
         "height": 179,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity"]
+        "comorbidities": [
+          "obesity"
+        ]
       },
       "clinicalParameters": {
         "spo2": 80,
@@ -1611,7 +2449,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -1624,8 +2464,28 @@
           "fio2": 0.78,
           "peep": 12
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "high risk of VILI"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1656,7 +2516,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -1669,8 +2531,26 @@
           "fio2": 0.48,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection response"],
-        "riskFactors": ["sepsis", "requires hemodynamic support"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection response"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1681,7 +2561,10 @@
         "height": 169,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["diabetes", "hypertension"]
+        "comorbidities": [
+          "diabetes",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -1701,7 +2584,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -1714,8 +2599,28 @@
           "fio2": 0.68,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
-        "riskFactors": ["elderly", "diabetes", "moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection markers",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "elderly",
+          "diabetes",
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1746,7 +2651,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -1759,8 +2666,28 @@
           "fio2": 0.38,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "good prognosis"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "good prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1771,7 +2698,10 @@
         "height": 175,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -1791,7 +2721,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -1804,8 +2736,27 @@
           "fio2": 0.72,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung protection"],
-        "riskFactors": ["moderate-severe ARDS", "multiple comorbidities"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "moderate-severe ARDS",
+          "multiple comorbidities"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1836,7 +2787,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -1849,8 +2802,25 @@
           "fio2": 0.66,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1861,7 +2831,9 @@
         "height": 167,
         "gender": "female",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 86,
@@ -1881,7 +2853,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -1894,8 +2868,29 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "elderly", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "elderly",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1926,7 +2921,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -1939,8 +2936,26 @@
           "fio2": 0.52,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -1951,7 +2966,10 @@
         "height": 176,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -1971,7 +2989,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 11,
         "mortality": false
@@ -1984,8 +3004,28 @@
           "fio2": 0.76,
           "peep": 11
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "high risk of VILI"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2016,7 +3056,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -2029,8 +3071,25 @@
           "fio2": 0.64,
           "peep": 8
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2041,7 +3100,10 @@
         "height": 172,
         "gender": "male",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 86,
@@ -2061,7 +3123,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -2074,8 +3138,28 @@
           "fio2": 0.5,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
-        "riskFactors": ["elderly", "cardiac compromise", "multiple comorbidities"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "cardiac compromise",
+          "multiple comorbidities"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2106,7 +3190,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -2119,8 +3205,25 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio"],
-        "riskFactors": ["moderate ARDS"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio"
+        ],
+        "riskFactors": [
+          "moderate ARDS"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2131,7 +3234,9 @@
         "height": 174,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 88,
@@ -2151,7 +3256,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -2164,8 +3271,28 @@
           "fio2": 0.38,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2196,7 +3323,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -2209,8 +3338,26 @@
           "fio2": 0.48,
           "peep": 6
         },
-        "monitoringPoints": ["chest trauma", "pneumothorax risk"],
-        "riskFactors": ["trauma patient", "monitor for complications"]
+        "monitoringPoints": [
+          "chest trauma",
+          "pneumothorax risk"
+        ],
+        "riskFactors": [
+          "trauma patient",
+          "monitor for complications"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2221,7 +3368,9 @@
         "height": 175,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["diabetes"]
+        "comorbidities": [
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -2241,7 +3390,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -2254,8 +3405,27 @@
           "fio2": 0.67,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
-        "riskFactors": ["moderate pneumonia", "diabetes"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection markers",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "moderate pneumonia",
+          "diabetes"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2266,7 +3436,10 @@
         "height": 170,
         "gender": "female",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 80,
@@ -2286,7 +3459,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["barotrauma"],
+        "complications": [
+          "barotrauma"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 13,
         "mortality": true
@@ -2299,8 +3474,29 @@
           "fio2": 0.82,
           "peep": 13
         },
-        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure"],
-        "riskFactors": ["severe ARDS", "elderly", "multiple comorbidities", "very high risk"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "barotrauma",
+          "driving pressure"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "elderly",
+          "multiple comorbidities",
+          "very high risk"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2317,7 +3513,7 @@
         "spo2": 86,
         "pao2": 63,
         "paco2": 43,
-        "ph": 7.30,
+        "ph": 7.3,
         "respiratoryRate": 24,
         "heartRate": 123,
         "bloodPressure": "94/58"
@@ -2331,7 +3527,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -2344,8 +3542,27 @@
           "fio2": 0.54,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2376,7 +3593,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -2389,8 +3608,27 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "lung-protective ventilation required"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2401,7 +3639,10 @@
         "height": 163,
         "gender": "female",
         "condition": "pneumonia",
-        "comorbidities": ["hypertension", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -2421,7 +3662,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -2434,8 +3677,28 @@
           "fio2": 0.7,
           "peep": 8
         },
-        "monitoringPoints": ["oxygenation", "renal function", "infection markers"],
-        "riskFactors": ["elderly", "multiple comorbidities", "requires careful monitoring"]
+        "monitoringPoints": [
+          "oxygenation",
+          "renal function",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "requires careful monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2446,13 +3709,17 @@
         "height": 180,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "diabetes", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "diabetes",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 78,
         "pao2": 47,
         "paco2": 59,
-        "ph": 7.20,
+        "ph": 7.2,
         "respiratoryRate": 33,
         "heartRate": 121,
         "bloodPressure": "132/86"
@@ -2466,7 +3733,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI", "barotrauma"],
+        "complications": [
+          "VILI",
+          "barotrauma"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 16,
         "mortality": true
@@ -2479,8 +3749,31 @@
           "fio2": 0.9,
           "peep": 15
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "barotrauma", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "multiple comorbidities", "extremely high risk", "requires very careful pressure management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "barotrauma",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "multiple comorbidities",
+          "extremely high risk",
+          "requires very careful pressure management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2511,7 +3804,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -2524,8 +3819,29 @@
           "fio2": 0.35,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm resolution"],
-        "riskFactors": ["severe asthma", "excellent prognosis", "short ventilation expected"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm resolution"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "excellent prognosis",
+          "short ventilation expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2536,7 +3852,9 @@
         "height": 175,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
@@ -2556,7 +3874,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -2569,8 +3889,30 @@
           "fio2": 0.38,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "expiratory time"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning process expected"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia",
+          "expiratory time"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention",
+          "slow weaning process expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2601,7 +3943,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -2614,8 +3958,28 @@
           "fio2": 0.5,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection response", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic support", "monitor for organ dysfunction"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection response",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support",
+          "monitor for organ dysfunction"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2626,7 +3990,10 @@
         "height": 177,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -2646,7 +4013,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -2659,8 +4028,29 @@
           "fio2": 0.72,
           "peep": 10
         },
-        "monitoringPoints": ["oxygenation", "obesity-related complications", "infection response", "diabetes management"],
-        "riskFactors": ["obesity", "diabetes", "moderate-severe pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity-related complications",
+          "infection response",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "obesity",
+          "diabetes",
+          "moderate-severe pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2671,7 +4061,11 @@
         "height": 159,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -2691,7 +4085,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -2704,8 +4100,30 @@
           "fio2": 0.52,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires very careful management"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "renal function",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac compromise",
+          "requires very careful management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2736,7 +4154,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -2749,8 +4169,27 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "lung-protective ventilation required"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2761,7 +4200,10 @@
         "height": 179,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 79,
@@ -2781,7 +4223,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 12,
         "mortality": false
@@ -2794,8 +4238,30 @@
           "fio2": 0.83,
           "peep": 13
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications", "VILI signs"],
-        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI", "requires careful pressure management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "obesity complications",
+          "VILI signs"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "high risk of VILI",
+          "requires careful pressure management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2826,7 +4292,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 3,
         "mortality": false
@@ -2839,8 +4307,28 @@
           "fio2": 0.45,
           "peep": 5
         },
-        "monitoringPoints": ["chest trauma", "pneumothorax risk", "oxygenation"],
-        "riskFactors": ["trauma patient", "young and healthy", "good prognosis"]
+        "monitoringPoints": [
+          "chest trauma",
+          "pneumothorax risk",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "trauma patient",
+          "young and healthy",
+          "good prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2851,7 +4339,10 @@
         "height": 171,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 86,
@@ -2871,7 +4362,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 11,
         "mortality": false
@@ -2884,8 +4377,31 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "diabetes management"],
-        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "elderly",
+          "multiple comorbidities",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2916,7 +4432,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -2929,8 +4447,26 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia", "good prognosis expected"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia",
+          "good prognosis expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -2941,7 +4477,9 @@
         "height": 181,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity"]
+        "comorbidities": [
+          "obesity"
+        ]
       },
       "clinicalParameters": {
         "spo2": 80,
@@ -2961,7 +4499,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 11,
         "mortality": false
@@ -2974,8 +4514,29 @@
           "fio2": 0.79,
           "peep": 12
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "obesity complications", "VILI prevention"],
-        "riskFactors": ["severe ARDS", "obesity", "high risk of VILI"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "obesity complications",
+          "VILI prevention"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "high risk of VILI"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3006,7 +4567,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -3019,8 +4582,27 @@
           "fio2": 0.53,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3031,7 +4613,10 @@
         "height": 168,
         "gender": "female",
         "condition": "pneumonia",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -3051,7 +4636,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -3064,8 +4651,29 @@
           "fio2": 0.73,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management", "renal function"],
-        "riskFactors": ["elderly", "multiple comorbidities", "moderate-severe pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection markers",
+          "diabetes management",
+          "renal function"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "moderate-severe pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3096,7 +4704,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -3109,8 +4719,28 @@
           "fio2": 0.36,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "excellent prognosis"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "excellent prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3121,13 +4751,16 @@
         "height": 178,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 79,
         "pao2": 48,
         "paco2": 58,
-        "ph": 7.20,
+        "ph": 7.2,
         "respiratoryRate": 33,
         "heartRate": 121,
         "bloodPressure": "130/86"
@@ -3141,7 +4774,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["barotrauma", "VILI"],
+        "complications": [
+          "barotrauma",
+          "VILI"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 15,
         "mortality": true
@@ -3154,8 +4790,30 @@
           "fio2": 0.87,
           "peep": 14
         },
-        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "very high risk of complications", "requires extremely careful management"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "barotrauma",
+          "driving pressure",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "very high risk of complications",
+          "requires extremely careful management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3186,7 +4844,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -3199,8 +4859,25 @@
           "fio2": 0.66,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3211,7 +4888,9 @@
         "height": 173,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
@@ -3231,7 +4910,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -3244,8 +4925,29 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention", "slow weaning"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention",
+          "slow weaning"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3276,7 +4978,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -3289,8 +4993,26 @@
           "fio2": 0.51,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers"],
-        "riskFactors": ["sepsis", "requires hemodynamic support"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3301,7 +5023,10 @@
         "height": 176,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -3321,7 +5046,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -3334,8 +5061,28 @@
           "fio2": 0.71,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung protection", "diabetes management"],
-        "riskFactors": ["moderate-severe ARDS", "multiple comorbidities"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung protection",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "moderate-severe ARDS",
+          "multiple comorbidities"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3366,7 +5113,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -3379,8 +5128,25 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3391,7 +5157,11 @@
         "height": 161,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 84,
@@ -3411,7 +5181,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -3424,8 +5196,29 @@
           "fio2": 0.51,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "renal function",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac compromise"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3456,7 +5249,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -3469,8 +5264,25 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio"],
-        "riskFactors": ["moderate ARDS"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio"
+        ],
+        "riskFactors": [
+          "moderate ARDS"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3481,7 +5293,10 @@
         "height": 177,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -3501,7 +5316,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -3514,8 +5331,28 @@
           "fio2": 0.69,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "obesity considerations", "infection response"],
-        "riskFactors": ["obesity", "diabetes", "moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity considerations",
+          "infection response"
+        ],
+        "riskFactors": [
+          "obesity",
+          "diabetes",
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3546,7 +5383,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -3559,8 +5398,28 @@
           "fio2": 0.33,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "excellent prognosis"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "excellent prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3571,7 +5430,9 @@
         "height": 174,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 88,
@@ -3591,7 +5452,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -3604,8 +5467,28 @@
           "fio2": 0.39,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3636,7 +5519,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -3649,8 +5534,26 @@
           "fio2": 0.47,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers"],
-        "riskFactors": ["sepsis", "requires hemodynamic support"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3661,7 +5564,10 @@
         "height": 170,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -3681,7 +5587,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -3694,8 +5602,29 @@
           "fio2": 0.77,
           "peep": 12
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "VILI prevention"],
-        "riskFactors": ["severe ARDS", "elderly", "multiple comorbidities", "high risk of VILI"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "VILI prevention"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "elderly",
+          "multiple comorbidities",
+          "high risk of VILI"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3726,7 +5655,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -3739,8 +5670,25 @@
           "fio2": 0.67,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3751,7 +5699,11 @@
         "height": 180,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "hypertension", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 77,
@@ -3771,7 +5723,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["barotrauma", "VILI"],
+        "complications": [
+          "barotrauma",
+          "VILI"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 18,
         "mortality": true
@@ -3784,8 +5739,31 @@
           "fio2": 0.92,
           "peep": 16
         },
-        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "multiple comorbidities", "extremely high risk", "critical case"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "barotrauma",
+          "driving pressure",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "multiple comorbidities",
+          "extremely high risk",
+          "critical case"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3802,7 +5780,7 @@
         "spo2": 86,
         "pao2": 63,
         "paco2": 43,
-        "ph": 7.30,
+        "ph": 7.3,
         "respiratoryRate": 24,
         "heartRate": 123,
         "bloodPressure": "94/58"
@@ -3816,7 +5794,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -3829,8 +5809,27 @@
           "fio2": 0.54,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3841,7 +5840,10 @@
         "height": 172,
         "gender": "male",
         "condition": "COPD",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 85,
@@ -3861,7 +5863,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 12,
         "mortality": false
@@ -3874,8 +5878,31 @@
           "fio2": 0.4,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia", "diabetes management"],
-        "riskFactors": ["severe COPD", "elderly", "multiple comorbidities", "very slow weaning expected"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "elderly",
+          "multiple comorbidities",
+          "very slow weaning expected"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3886,7 +5913,9 @@
         "height": 178,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity"]
+        "comorbidities": [
+          "obesity"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -3906,7 +5935,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -3919,8 +5950,27 @@
           "fio2": 0.7,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "obesity considerations", "infection response"],
-        "riskFactors": ["obesity", "moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity considerations",
+          "infection response"
+        ],
+        "riskFactors": [
+          "obesity",
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3951,7 +6001,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -3964,8 +6016,25 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio"],
-        "riskFactors": ["moderate ARDS"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio"
+        ],
+        "riskFactors": [
+          "moderate ARDS"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -3976,7 +6045,10 @@
         "height": 176,
         "gender": "male",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 85,
@@ -3996,7 +6068,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -4009,8 +6083,27 @@
           "fio2": 0.5,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "oxygenation"],
-        "riskFactors": ["cardiac compromise", "multiple comorbidities"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "cardiac compromise",
+          "multiple comorbidities"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4041,7 +6134,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 1,
         "mortality": false
@@ -4054,8 +6149,29 @@
           "fio2": 0.32,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "excellent prognosis", "very short ventilation"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "excellent prognosis",
+          "very short ventilation"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4066,7 +6182,10 @@
         "height": 175,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["diabetes", "hypertension"]
+        "comorbidities": [
+          "diabetes",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 82,
@@ -4086,7 +6205,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 7,
         "mortality": false
@@ -4099,8 +6220,28 @@
           "fio2": 0.71,
           "peep": 10
         },
-        "monitoringPoints": ["oxygenation", "infection markers", "diabetes management"],
-        "riskFactors": ["moderate-severe pneumonia", "diabetes", "multiple comorbidities"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection markers",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "moderate-severe pneumonia",
+          "diabetes",
+          "multiple comorbidities"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4131,7 +6272,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -4144,8 +6287,27 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "lung-protective ventilation required"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4156,7 +6318,9 @@
         "height": 169,
         "gender": "female",
         "condition": "COPD",
-        "comorbidities": ["hypertension"]
+        "comorbidities": [
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 87,
@@ -4176,7 +6340,9 @@
         "ieRatio": "1:3.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 10,
         "mortality": false
@@ -4189,8 +6355,29 @@
           "fio2": 0.39,
           "peep": 5
         },
-        "monitoringPoints": ["CO2 levels", "auto-PEEP", "permissive hypercapnia"],
-        "riskFactors": ["severe COPD", "elderly", "chronic CO2 retention"]
+        "monitoringPoints": [
+          "CO2 levels",
+          "auto-PEEP",
+          "permissive hypercapnia"
+        ],
+        "riskFactors": [
+          "severe COPD",
+          "elderly",
+          "chronic CO2 retention"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4221,7 +6408,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -4234,8 +6423,26 @@
           "fio2": 0.5,
           "peep": 7
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers"],
-        "riskFactors": ["sepsis", "requires hemodynamic support"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic support"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4246,13 +6453,16 @@
         "height": 179,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["obesity", "diabetes"]
+        "comorbidities": [
+          "obesity",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 78,
         "pao2": 46,
         "paco2": 59,
-        "ph": 7.20,
+        "ph": 7.2,
         "respiratoryRate": 33,
         "heartRate": 122,
         "bloodPressure": "133/86"
@@ -4266,7 +6476,10 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI", "barotrauma"],
+        "complications": [
+          "VILI",
+          "barotrauma"
+        ],
         "weaningSuccess": false,
         "lengthOfVentilation": 17,
         "mortality": true
@@ -4279,8 +6492,31 @@
           "fio2": 0.88,
           "peep": 15
         },
-        "monitoringPoints": ["plateau pressure", "barotrauma", "driving pressure", "obesity complications"],
-        "riskFactors": ["severe ARDS", "obesity", "diabetes", "extremely high risk", "critical case"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "barotrauma",
+          "driving pressure",
+          "obesity complications"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "obesity",
+          "diabetes",
+          "extremely high risk",
+          "critical case"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4311,7 +6547,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 4,
         "mortality": false
@@ -4324,8 +6562,25 @@
           "fio2": 0.65,
           "peep": 9
         },
-        "monitoringPoints": ["oxygenation", "infection response"],
-        "riskFactors": ["moderate pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "infection response"
+        ],
+        "riskFactors": [
+          "moderate pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4336,7 +6591,10 @@
         "height": 177,
         "gender": "male",
         "condition": "ARDS",
-        "comorbidities": ["hypertension", "diabetes"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes"
+        ]
       },
       "clinicalParameters": {
         "spo2": 81,
@@ -4356,7 +6614,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["VILI"],
+        "complications": [
+          "VILI"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 9,
         "mortality": false
@@ -4369,8 +6629,28 @@
           "fio2": 0.75,
           "peep": 11
         },
-        "monitoringPoints": ["plateau pressure", "driving pressure", "VILI prevention"],
-        "riskFactors": ["severe ARDS", "multiple comorbidities", "high risk of VILI"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "driving pressure",
+          "VILI prevention"
+        ],
+        "riskFactors": [
+          "severe ARDS",
+          "multiple comorbidities",
+          "high risk of VILI"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4401,7 +6681,9 @@
         "ieRatio": "1:4"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 2,
         "mortality": false
@@ -4414,8 +6696,28 @@
           "fio2": 0.37,
           "peep": 0
         },
-        "monitoringPoints": ["auto-PEEP", "expiratory flow", "bronchospasm"],
-        "riskFactors": ["severe asthma", "excellent prognosis"]
+        "monitoringPoints": [
+          "auto-PEEP",
+          "expiratory flow",
+          "bronchospasm"
+        ],
+        "riskFactors": [
+          "severe asthma",
+          "excellent prognosis"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS",
+          "SRC_BTS_2017_OXYGEN"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4426,7 +6728,11 @@
         "height": 178,
         "gender": "male",
         "condition": "pneumonia",
-        "comorbidities": ["obesity", "diabetes", "hypertension"]
+        "comorbidities": [
+          "obesity",
+          "diabetes",
+          "hypertension"
+        ]
       },
       "clinicalParameters": {
         "spo2": 80,
@@ -4446,7 +6752,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -4459,8 +6767,30 @@
           "fio2": 0.74,
           "peep": 10
         },
-        "monitoringPoints": ["oxygenation", "obesity complications", "infection response", "diabetes management"],
-        "riskFactors": ["obesity", "diabetes", "hypertension", "severe pneumonia"]
+        "monitoringPoints": [
+          "oxygenation",
+          "obesity complications",
+          "infection response",
+          "diabetes management"
+        ],
+        "riskFactors": [
+          "obesity",
+          "diabetes",
+          "hypertension",
+          "severe pneumonia"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4491,7 +6821,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 5,
         "mortality": false
@@ -4504,8 +6836,27 @@
           "fio2": 0.52,
           "peep": 8
         },
-        "monitoringPoints": ["hemodynamic stability", "infection markers", "lung protection"],
-        "riskFactors": ["sepsis", "requires hemodynamic monitoring"]
+        "monitoringPoints": [
+          "hemodynamic stability",
+          "infection markers",
+          "lung protection"
+        ],
+        "riskFactors": [
+          "sepsis",
+          "requires hemodynamic monitoring"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4516,7 +6867,11 @@
         "height": 167,
         "gender": "female",
         "condition": "heart failure",
-        "comorbidities": ["hypertension", "diabetes", "CKD"]
+        "comorbidities": [
+          "hypertension",
+          "diabetes",
+          "CKD"
+        ]
       },
       "clinicalParameters": {
         "spo2": 83,
@@ -4536,7 +6891,9 @@
         "ieRatio": "1:2.5"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 8,
         "mortality": false
@@ -4549,8 +6906,30 @@
           "fio2": 0.51,
           "peep": 6
         },
-        "monitoringPoints": ["cardiac function", "fluid balance", "renal function", "oxygenation"],
-        "riskFactors": ["elderly", "multiple comorbidities", "cardiac compromise", "requires very careful management"]
+        "monitoringPoints": [
+          "cardiac function",
+          "fluid balance",
+          "renal function",
+          "oxygenation"
+        ],
+        "riskFactors": [
+          "elderly",
+          "multiple comorbidities",
+          "cardiac compromise",
+          "requires very careful management"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     },
     {
@@ -4581,7 +6960,9 @@
         "ieRatio": "1:2"
       },
       "outcomes": {
-        "complications": ["none"],
+        "complications": [
+          "none"
+        ],
         "weaningSuccess": true,
         "lengthOfVentilation": 6,
         "mortality": false
@@ -4594,10 +6975,41 @@
           "fio2": 0.7,
           "peep": 10
         },
-        "monitoringPoints": ["plateau pressure", "P/F ratio", "lung recruitment"],
-        "riskFactors": ["moderate ARDS", "lung-protective ventilation required"]
+        "monitoringPoints": [
+          "plateau pressure",
+          "P/F ratio",
+          "lung recruitment"
+        ],
+        "riskFactors": [
+          "moderate ARDS",
+          "lung-protective ventilation required"
+        ]
+      },
+      "evidence": {
+        "sourceIds": [
+          "SRC_AARC_2024_PVA",
+          "SRC_AHRQ_LTVV_FACTS"
+        ],
+        "notes": "Synthetic research seed case derived from source-backed ventilation parameter ranges and scenario variation. No patient-level record was fetched for this case. Pending clinician validation before real-world use."
+      },
+      "review": {
+        "status": "pending_clinician_validation",
+        "reviewedByRole": null,
+        "reviewedAt": null
       }
     }
-  ]
+  ],
+  "provenance": {
+    "seedType": "synthetic_research_seed",
+    "caseCount": 100,
+    "patientLevelDataFetched": false,
+    "caseReviewStatus": "pending_clinician_validation",
+    "sourceAccessedAt": "2026-05-06",
+    "summary": "One hundred synthetic research seed cases with source-backed ventilation parameters. No patient-level records were fetched or copied into this seed file.",
+    "trustedExtractionCandidates": [
+      "SRC_PHYSIONET_MIMIC_IV_3_1",
+      "SRC_PHYSIONET_EICU_2_0",
+      "SRC_AMSTERDAMUMCDB_2021"
+    ]
+  }
 }
-

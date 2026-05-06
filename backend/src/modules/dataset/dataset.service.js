@@ -202,6 +202,15 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
       paco2Lower,
       paco2Upper,
     },
+    provenance: {
+      sourceType: 'CLINICIAN_CHART_ABSTRACTION',
+      sourceName: 'Pasted ICU note structured preview',
+      sourceReference: undefined,
+      sourceUrl: undefined,
+      sourceCitation: undefined,
+      sourceAccessedAt: undefined,
+      clinicianValidationStatus: 'PENDING_CLINICIAN_VALIDATION',
+    },
     quality: {
       reviewerConfidence: 'NEEDS_REVIEW',
     },
@@ -239,6 +248,8 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
     'targetRanges.spo2Lower',
     'targetRanges.spo2Upper',
     'outcome.outcomeType',
+    'provenance.sourceType',
+    'provenance.clinicianValidationStatus',
     'quality.reviewerConfidence',
   ];
   const getPreviewPath = (path) => path.split('.').reduce((acc, key) => acc?.[key], deidentifiedPreview);

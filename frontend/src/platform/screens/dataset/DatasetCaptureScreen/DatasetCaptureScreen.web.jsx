@@ -91,9 +91,14 @@ const DatasetCaptureScreenWeb = () => {
     );
   };
 
+  const missingReadinessItems = capture.missingFieldDetails?.length
+    ? capture.missingFieldDetails
+    : capture.missingFields.map((field) => ({ path: field, label: field, section: '' }));
   const statusKey = capture.submitMessage
     ? `ventilation.datasetCapture.status.${capture.submitMessage}`
-    : 'ventilation.datasetCapture.status.ready';
+    : capture.submitDisabled
+      ? 'ventilation.datasetCapture.status.needsInput'
+      : 'ventilation.datasetCapture.status.ready';
 
   return (
     <StyledContainer aria-label={t('ventilation.datasetCapture.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen}>
@@ -225,11 +230,13 @@ const DatasetCaptureScreenWeb = () => {
           <Stack spacing="sm">
             <Text as="h2" variant="h3">{t('ventilation.datasetCapture.missing.title')}</Text>
             <StyledNotice data-testid={testIds.missingList} testID={testIds.missingList}>
-              {capture.missingFields.length > 0 ? (
+              {missingReadinessItems.length > 0 ? (
                 <StyledMissingList>
-                  {capture.missingFields.map((field) => (
-                    <li key={field}>
-                      <Text variant="caption">{field}</Text>
+                  {missingReadinessItems.map((field) => (
+                    <li key={field.path}>
+                      <Text variant="caption">
+                        {field.section ? `${field.section}: ${field.label}` : field.label}
+                      </Text>
                     </li>
                   ))}
                 </StyledMissingList>

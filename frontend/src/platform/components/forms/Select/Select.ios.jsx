@@ -65,7 +65,7 @@ const SelectIOS = ({
   validationState,
   errorMessage,
   helperText,
-  searchable = false,
+  searchable = true,
   searchPlaceholder,
   validate,
   accessibilityLabel,

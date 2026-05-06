@@ -155,8 +155,8 @@ describe('ventilation.model', () => {
     const dataset = parseVentilationDataset(
       makeValidMinimalDataset({
         sources: [
-          { id: 'SRC_A', type: 'guideline', citation: 'a' },
-          { id: 'SRC_B', type: 'review', citation: 'b' },
+          { id: 'SRC_A', type: 'guideline', citation: 'a', url: 'https://example.test/a', publisher: 'Publisher A' },
+          { id: 'SRC_B', type: 'review', citation: 'b', url: 'https://example.test/b', accessedAt: '2026-05-06' },
         ],
       })
     );
@@ -166,8 +166,12 @@ describe('ventilation.model', () => {
       evidence: { sourceIds: ['SRC_B', 'SRC_MISSING', 'SRC_A'] },
       review: { status: 'unvalidated' },
     };
- 
+
     expect(getVentilationCaseCitations(caseWithSources, dataset).map((s) => s.id)).toEqual(['SRC_B', 'SRC_A']);
+    expect(getVentilationCaseCitations(caseWithSources, dataset)[0]).toMatchObject({
+      url: 'https://example.test/b',
+      accessedAt: '2026-05-06',
+    });
     expect(getVentilationCaseCitations({ caseId: 'CASE_EMPTY' }, dataset)).toEqual([]);
   });
  

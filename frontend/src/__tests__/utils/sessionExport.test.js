@@ -77,6 +77,18 @@ describe('sessionExport', () => {
           settings: { mode: 'VCV', tidalVolume: 420, peep: 8 },
         },
         source: { confidenceTier: 'medium' },
+        decisionProvenance: {
+          reviewStatus: 'pending_clinician_validation',
+          sourceNote: 'Pending clinician validation.',
+          sources: [
+            {
+              publisher: 'AARC',
+              citation: 'AARC Patient-Ventilator Assessment guideline.',
+              doi: '10.4187/RESPCARE.12007',
+              url: 'https://journals.sagepub.com/doi/10.4187/respcare.12007',
+            },
+          ],
+        },
       },
       inputs: { condition: 'ARDS' },
       intendedUse: {},
@@ -86,5 +98,8 @@ describe('sessionExport', () => {
     expect(text).toContain('mode: VCV');
     expect(text).toContain('tidalVolume: 420');
     expect(text).toContain('Confidence: medium');
+    expect(text).toContain('--- Evidence provenance ---');
+    expect(text).toContain('Review status: pending_clinician_validation');
+    expect(text).toContain('AARC Patient-Ventilator Assessment guideline.');
   });
 });

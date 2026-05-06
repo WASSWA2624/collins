@@ -74,7 +74,7 @@ const SelectWeb = ({
   validationState,
   errorMessage,
   helperText,
-  searchable = false,
+  searchable = true,
   searchPlaceholder,
   validate,
   accessibilityLabel,
@@ -211,9 +211,10 @@ const SelectWeb = ({
       }
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      if (currentIndex >= 0 && currentIndex < enabledOptions.length) {
-        handleSelect(enabledOptions[currentIndex].option.value);
-      }
+      const selected = currentIndex >= 0 && currentIndex < enabledOptions.length
+        ? enabledOptions[currentIndex]
+        : enabledOptions[0];
+      if (selected) handleSelect(selected.option.value);
     } else if (e.key === 'Escape') {
       e.preventDefault();
       closeSelect();
@@ -239,9 +240,14 @@ const SelectWeb = ({
   };
 
   const handleSearchKeyDown = (event) => {
+    event.stopPropagation();
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       focusFirstVisibleOption();
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      const firstEnabled = visibleOptions.find(({ option }) => !option.disabled);
+      if (firstEnabled) handleSelect(firstEnabled.option.value);
     } else if (event.key === 'Escape') {
       event.preventDefault();
       closeSelect();
@@ -292,7 +298,10 @@ const SelectWeb = ({
             <StyledSearchInput
               ref={searchRef}
               value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setFocusedIndex(-1);
+              }}
               onKeyDown={handleSearchKeyDown}
               placeholder={finalSearchPlaceholder}
               aria-label={finalSearchPlaceholder}
@@ -302,7 +311,7 @@ const SelectWeb = ({
           {visibleOptions.length === 0 ? (
             <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
           ) : (
-            visibleOptions.map(({ option: opt, index }) => (
+            visibleOptions.map(({ option: opt, index }, visibleIndex) => (
               <StyledOption
                 key={`${String(opt.value)}-${index}`}
                 disabled={!!opt.disabled}
@@ -315,7 +324,7 @@ const SelectWeb = ({
                 aria-selected={value === opt.value}
                 aria-disabled={opt.disabled}
                 aria-label={opt.label}
-                tabIndex={opt.disabled ? -1 : index === 0 ? 0 : -1}
+                tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
                 data-option-index={index}
                 data-testid={testID ? `${testID}-option-${index}` : undefined}
               >

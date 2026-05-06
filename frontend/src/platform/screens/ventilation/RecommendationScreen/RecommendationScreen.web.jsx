@@ -54,7 +54,7 @@ const RecommendationScreenWeb = () => {
     riskFactors,
     complicationHistory,
     matched,
-    caseEvidence,
+    decisionProvenance,
     safety,
     missingInputs,
     contributingFactors,
@@ -133,6 +133,13 @@ const RecommendationScreenWeb = () => {
   const formatMetric = (metric) => (
     metric?.value == null ? t('ventilation.recommendation.decisionSupport.pending') : `${metric.value}${metric.unit ? ` ${metric.unit}` : ''}`
   );
+  const provenanceSources = Array.isArray(decisionProvenance?.sources) ? decisionProvenance.sources : [];
+  const provenanceReviewStatus = decisionProvenance?.reviewStatus || 'unvalidated';
+  const reviewStatusKey = provenanceReviewStatus === 'validated'
+    ? 'validated'
+    : provenanceReviewStatus === 'pending_clinician_validation'
+      ? 'pendingClinicianValidation'
+      : 'unvalidated';
 
   return (
     <StyledContainer aria-label={t('ventilation.recommendation.accessibilityLabel')} {...getTestProps(RECOMMENDATION_TEST_IDS.screen)} role="main">
@@ -332,19 +339,32 @@ const RecommendationScreenWeb = () => {
           </StyledSection>
         )}
 
-        {caseEvidence?.length > 0 && (
+        {(provenanceSources.length > 0 || decisionProvenance?.sourceNote) && (
           <StyledSection {...getTestProps(RECOMMENDATION_TEST_IDS.evidence)}>
             <StyledSectionHeader>
               <StyledSectionTitle>{t('ventilation.recommendation.sections.evidence')}</StyledSectionTitle>
             </StyledSectionHeader>
             <StyledSectionBody>
-              {caseEvidence.map((ev, i) => (
-                <StyledEvidenceItem key={ev?.caseId ?? i}>
-                  <Text variant="label">{ev?.caseId}</Text>
-                  <Text variant="caption" color="text.tertiary">
-                    {t(`ventilation.recommendation.reviewStatus.${ev?.reviewStatus === 'validated' ? 'validated' : 'unvalidated'}`)}
-                  </Text>
-                  {ev?.evidenceNotes && <Text variant="body">{ev.evidenceNotes}</Text>}
+              <Text variant="caption" color="text.tertiary">
+                {t('ventilation.recommendation.provenance.reviewStatus')}: {t(`ventilation.recommendation.reviewStatus.${reviewStatusKey}`)}
+              </Text>
+              {decisionProvenance?.sourceNote ? (
+                <Text variant="body">{decisionProvenance.sourceNote}</Text>
+              ) : null}
+              {provenanceSources.map((source, i) => (
+                <StyledEvidenceItem key={source?.id ?? i}>
+                  <Text variant="label">{source?.publisher || source?.type || source?.id}</Text>
+                  {source?.citation ? <Text variant="body">{source.citation}</Text> : null}
+                  {source?.doi ? (
+                    <Text variant="caption" color="text.tertiary">
+                      {t('ventilation.recommendation.provenance.doi')}: {source.doi}
+                    </Text>
+                  ) : null}
+                  {source?.url ? (
+                    <StyledCaseLink href={source.url} target="_blank" rel="noopener noreferrer">
+                      {t('ventilation.recommendation.provenance.sourceUrl')}
+                    </StyledCaseLink>
+                  ) : null}
                 </StyledEvidenceItem>
               ))}
             </StyledSectionBody>

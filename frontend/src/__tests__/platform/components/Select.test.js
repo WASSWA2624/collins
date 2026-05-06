@@ -141,14 +141,13 @@ describe('Select Component', () => {
       expect(onValueChange).toHaveBeenCalledWith('one');
     });
 
-    it('should filter options when searchable', () => {
+    it('should filter options by default', () => {
       const { getByTestId, getByText, queryByText } = renderWithProviders(
         <SelectAndroid
           testID="select"
           options={options}
           value={undefined}
           onValueChange={() => {}}
-          searchable
         />
       );
 

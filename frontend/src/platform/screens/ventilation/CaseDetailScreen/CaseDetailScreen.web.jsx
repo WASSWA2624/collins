@@ -44,6 +44,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
       <StyledContainer
         aria-label={t('ventilation.caseDetail.accessibilityLabel')}
         data-testid={CASE_DETAIL_TEST_IDS.missingCaseId}
+        testID={CASE_DETAIL_TEST_IDS.missingCaseId}
         role="main"
       >
         <StyledNotFound>
@@ -58,6 +59,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
       <StyledContainer
         aria-label={t('ventilation.caseDetail.accessibilityLabel')}
         data-testid={CASE_DETAIL_TEST_IDS.notFound}
+        testID={CASE_DETAIL_TEST_IDS.notFound}
         role="main"
       >
         <StyledNotFound>
@@ -76,17 +78,18 @@ const CaseDetailScreenWeb = ({ caseId }) => {
     <StyledContainer
       aria-label={t('ventilation.caseDetail.accessibilityLabel')}
       data-testid={CASE_DETAIL_TEST_IDS.screen}
+      testID={CASE_DETAIL_TEST_IDS.screen}
       role="main"
     >
-      <StyledWarningBox data-testid={CASE_DETAIL_TEST_IDS.intendedUseWarning}>
+      <StyledWarningBox data-testid={CASE_DETAIL_TEST_IDS.intendedUseWarning} testID={CASE_DETAIL_TEST_IDS.intendedUseWarning}>
         <Text variant="body" color="status.warning.text">
           {intendedUse?.warning ?? t('ventilation.caseDetail.intendedUseWarning')}
         </Text>
       </StyledWarningBox>
 
-      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.summary}>
+      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.summary} testID={CASE_DETAIL_TEST_IDS.summary}>
         <StyledSectionTitle>{t('ventilation.caseDetail.summary')}</StyledSectionTitle>
-        <StyledBlock data-testid={CASE_DETAIL_TEST_IDS.patientProfile}>
+        <StyledBlock data-testid={CASE_DETAIL_TEST_IDS.patientProfile} testID={CASE_DETAIL_TEST_IDS.patientProfile}>
           <Text variant="label">{t('ventilation.caseDetail.patientProfile')}</Text>
           <StyledList>
             {['condition', 'age', 'weight', 'height', 'gender'].map((k) => (
@@ -105,7 +108,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
             ) : null}
           </StyledList>
         </StyledBlock>
-        <StyledBlock data-testid={CASE_DETAIL_TEST_IDS.clinicalParameters}>
+        <StyledBlock data-testid={CASE_DETAIL_TEST_IDS.clinicalParameters} testID={CASE_DETAIL_TEST_IDS.clinicalParameters}>
           <Text variant="label">{t('ventilation.caseDetail.clinicalParameters')}</Text>
           <StyledList>
             {['spo2', 'pao2', 'paco2', 'ph', 'respiratoryRate', 'heartRate', 'bloodPressure']
@@ -121,7 +124,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
         </StyledBlock>
       </StyledSection>
 
-      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.ventilatorSettings}>
+      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.ventilatorSettings} testID={CASE_DETAIL_TEST_IDS.ventilatorSettings}>
         <StyledSectionTitle>{t('ventilation.caseDetail.ventilatorSettings')}</StyledSectionTitle>
         <StyledBlock>
           <StyledList>
@@ -136,7 +139,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
         </StyledBlock>
       </StyledSection>
 
-      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.outcomes}>
+      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.outcomes} testID={CASE_DETAIL_TEST_IDS.outcomes}>
         <StyledSectionTitle>{t('ventilation.caseDetail.outcomes')}</StyledSectionTitle>
         <Text variant="caption" color="text.secondary">
           {t('ventilation.caseDetail.datasetCaseFraming')}
@@ -167,7 +170,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
         </StyledBlock>
       </StyledSection>
 
-      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.evidence}>
+      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.evidence} testID={CASE_DETAIL_TEST_IDS.evidence}>
         <StyledSectionTitle>{t('ventilation.caseDetail.evidence')}</StyledSectionTitle>
         <StyledBlock>
           {citations.length === 0 ? (
@@ -176,9 +179,13 @@ const CaseDetailScreenWeb = ({ caseId }) => {
             <StyledList>
               {citations.map((s) => (
                 <StyledListItem key={s?.id}>
+                  {s?.publisher ? <Text variant="caption">{s.publisher}</Text> : null}
                   <Text variant="caption">{s?.citation ?? s?.id}</Text>
                   {s?.doi ? (
                     <Text variant="caption"> DOI: {s.doi}</Text>
+                  ) : null}
+                  {s?.url ? (
+                    <Text variant="caption"> URL: {s.url}</Text>
                   ) : null}
                 </StyledListItem>
               ))}
@@ -187,7 +194,7 @@ const CaseDetailScreenWeb = ({ caseId }) => {
         </StyledBlock>
       </StyledSection>
 
-      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.reviewStatus}>
+      <StyledSection data-testid={CASE_DETAIL_TEST_IDS.reviewStatus} testID={CASE_DETAIL_TEST_IDS.reviewStatus}>
         <StyledSectionTitle>{t('ventilation.caseDetail.reviewStatus')}</StyledSectionTitle>
         <Text variant="caption" color="text.secondary">
           {t('ventilation.caseDetail.prototypeFraming')}

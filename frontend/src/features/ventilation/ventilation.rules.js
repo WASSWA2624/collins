@@ -242,6 +242,41 @@ const getVentilationNextActionsChecklist = ({ condition, confidenceTier }) => {
   );
 };
 
+const sanitizeVentilationSource = (source) =>
+  Object.freeze({
+    id: source.id,
+    type: source.type,
+    citation: source.citation,
+    doi: source.doi ?? undefined,
+    url: source.url ?? undefined,
+    publisher: source.publisher ?? undefined,
+    accessedAt: source.accessedAt ?? undefined,
+    trustLevel: source.trustLevel ?? undefined,
+    reviewStatus: source.reviewStatus ?? undefined,
+  });
+
+const getAggregateReviewStatus = (caseEvidence) => {
+  const statuses = (Array.isArray(caseEvidence) ? caseEvidence : [])
+    .map((item) => item?.reviewStatus)
+    .filter((status) => typeof status === 'string' && status.trim());
+
+  if (statuses.length === 0) return 'unvalidated';
+  if (statuses.every((status) => status === 'validated')) return 'validated';
+  if (statuses.some((status) => status === 'pending_clinician_validation')) return 'pending_clinician_validation';
+  return 'unvalidated';
+};
+
+const getUniqueSourcesFromEvidence = (caseEvidence) => {
+  const byId = new Map();
+  (Array.isArray(caseEvidence) ? caseEvidence : []).forEach((item) => {
+    (Array.isArray(item?.citations) ? item.citations : []).forEach((source) => {
+      if (!source?.id || byId.has(source.id)) return;
+      byId.set(source.id, source);
+    });
+  });
+  return Object.freeze(Array.from(byId.values()));
+};
+
 const assembleVentilationRecommendationFromMatches = ({
   dataset,
   rankedMatches,
@@ -282,14 +317,7 @@ const assembleVentilationRecommendationFromMatches = ({
 
   const caseEvidence = Object.freeze(
     matchedCases.map((caseItem) => {
-      const citations = getVentilationCaseCitations(caseItem, dataset).map((s) =>
-        Object.freeze({
-          id: s.id,
-          type: s.type,
-          citation: s.citation,
-          doi: s.doi ?? undefined,
-        })
-      );
+      const citations = getVentilationCaseCitations(caseItem, dataset).map(sanitizeVentilationSource);
 
       return Object.freeze({
         caseId: caseItem.caseId,
@@ -310,6 +338,13 @@ const assembleVentilationRecommendationFromMatches = ({
       })
     )
   );
+
+  const decisionSources = getUniqueSourcesFromEvidence(caseEvidence);
+  const decisionProvenance = Object.freeze({
+    reviewStatus: getAggregateReviewStatus(caseEvidence),
+    sourceNote: 'Source-backed research seed evidence is pending clinician validation and is not approved for direct patient-care use.',
+    sources: decisionSources,
+  });
 
   const visibleRecommendation = {
     source: Object.freeze({
@@ -332,6 +367,7 @@ const assembleVentilationRecommendationFromMatches = ({
     complicationHistory,
     additionalTestPrompts,
     nextActions,
+    decisionProvenance,
     decisionSupport: buildRuleBasedDecisionSupportPreview({
       input,
       settings: initial.settings || {},

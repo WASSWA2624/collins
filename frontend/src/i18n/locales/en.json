@@ -926,7 +926,8 @@
         "reset": "Clear form"
       },
       "status": {
-        "ready": "Complete the required fields, then submit for reviewer approval.",
+        "needsInput": "Complete required fields and facility scope before submitting.",
+        "ready": "Ready to submit for reviewer approval.",
         "submitted": "Submitted for reviewer approval.",
         "queued": "Queued for sync.",
         "error": "Submission failed."
@@ -1260,7 +1261,7 @@
         "monitoring": "Monitoring points",
         "risks": "Risks and complications",
         "matchedCases": "Matched cases",
-        "evidence": "Evidence & review",
+        "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
         "decisionSupport": "Decision-support checks"
       },
@@ -1343,8 +1344,14 @@
         "warningLabel": "Not clinically validated",
         "validationLabel": "Validation requirement"
       },
+      "provenance": {
+        "reviewStatus": "Evidence review status",
+        "sourceUrl": "Open source",
+        "doi": "DOI"
+      },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
+        "pendingClinicianValidation": "Pending clinician validation",
         "validated": "Validated"
       }
     },
@@ -1483,6 +1490,7 @@
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
+        "pending_clinician_validation": "Pending clinician validation",
         "validated": "Validated"
       }
     }

@@ -12,7 +12,15 @@ import React, { useEffect, useRef } from 'react';
 import { useI18n } from '@hooks';
 
 // 4. Styles (relative import - platform-specific)
-import { StyledDropdown, StyledDropdownTrigger, StyledDropdownMenu, StyledDropdownItem } from './Dropdown.web.styles';
+import {
+  StyledDropdown,
+  StyledDropdownTrigger,
+  StyledDropdownMenu,
+  StyledDropdownItem,
+  StyledDropdownItemText,
+  StyledDropdownSearchInput,
+  StyledDropdownEmptyText,
+} from './Dropdown.web.styles';
 
 // 5. Component-specific hook (relative import)
 import useDropdown from './useDropdown';
@@ -35,6 +43,8 @@ import useDropdown from './useDropdown';
  * @param {Array<DropdownItem>} props.items - Dropdown items
  * @param {boolean} props.open - Controlled open state
  * @param {Function} props.onOpenChange - Open state change handler
+ * @param {boolean} props.searchable - Whether to show a search field
+ * @param {string} props.searchPlaceholder - Search input placeholder
  * @param {string} props.accessibilityLabel - Accessibility label
  * @param {string} props.testID - Test identifier
  * @param {string} props.className - Additional CSS class
@@ -45,6 +55,8 @@ const DropdownWeb = ({
   items = [],
   open: controlledOpen,
   onOpenChange,
+  searchable = true,
+  searchPlaceholder,
   accessibilityLabel,
   testID,
   className,
@@ -57,7 +69,18 @@ const DropdownWeb = ({
     onOpenChange,
   });
   const dropdownRef = useRef(null);
+  const [searchQuery, setSearchQuery] = React.useState('');
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const finalSearchPlaceholder = searchPlaceholder || t('common.searchPlaceholder');
+  const visibleItems = React.useMemo(() => {
+    const rows = items.map((item, index) => ({ item, index }));
+    const query = String(searchQuery || '').trim().toLowerCase();
+    if (!searchable || !query) return rows;
+    return rows.filter(({ item }) =>
+      [item.label, item.value]
+        .some((entry) => String(entry || '').toLowerCase().includes(query))
+    );
+  }, [items, searchable, searchQuery]);
 
   // Close on outside click
   useEffect(() => {
@@ -75,36 +98,56 @@ const DropdownWeb = ({
     };
   }, [open, close]);
 
+  useEffect(() => {
+    if (!open) setSearchQuery('');
+  }, [open]);
+
   return (
-    <StyledDropdown ref={dropdownRef} testID={testID} className={className} style={style} {...rest}>
+    <StyledDropdown ref={dropdownRef} data-testid={testID} className={className} style={style} {...rest}>
       <StyledDropdownTrigger
-        onPress={toggle}
-        accessibilityRole="button"
-        accessibilityExpanded={open}
-        accessibilityLabel={accessibilityLabel || t('common.dropdownMenu')}
-        testID={testID ? `${testID}-trigger` : undefined}
+        type="button"
+        onClick={toggle}
+        aria-expanded={open}
+        aria-label={accessibilityLabel || t('common.dropdownMenu')}
+        data-testid={testID ? `${testID}-trigger` : undefined}
       >
         {trigger}
       </StyledDropdownTrigger>
       {open && (
-        <StyledDropdownMenu testID={testID ? `${testID}-menu` : undefined}>
-          {items.map((item, index) => (
-            <StyledDropdownItem
-              key={item.value || index}
-              onPress={() => {
-                if (!item.disabled && item.onPress) {
-                  item.onPress(item.value);
-                  close();
-                }
-              }}
-              disabled={item.disabled}
-              accessibilityRole="menuitem"
-              accessibilityLabel={item.label}
-              testID={testID ? `${testID}-item-${index}` : undefined}
-            >
-              {item.label}
-            </StyledDropdownItem>
-          ))}
+        <StyledDropdownMenu data-testid={testID ? `${testID}-menu` : undefined}>
+          {searchable ? (
+            <StyledDropdownSearchInput
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              onKeyDown={(event) => event.stopPropagation()}
+              placeholder={finalSearchPlaceholder}
+              aria-label={finalSearchPlaceholder}
+              data-testid={testID ? `${testID}-search` : undefined}
+              autoFocus
+            />
+          ) : null}
+          {visibleItems.length === 0 ? (
+            <StyledDropdownEmptyText>{t('common.noResults')}</StyledDropdownEmptyText>
+          ) : (
+            visibleItems.map(({ item, index }) => (
+              <StyledDropdownItem
+                key={item.value || index}
+                type="button"
+                onClick={() => {
+                  if (!item.disabled && item.onPress) {
+                    item.onPress(item.value);
+                    close();
+                  }
+                }}
+                disabled={item.disabled}
+                role="menuitem"
+                aria-label={item.label}
+                data-testid={testID ? `${testID}-item-${index}` : undefined}
+              >
+                <StyledDropdownItemText>{item.label}</StyledDropdownItemText>
+              </StyledDropdownItem>
+            ))
+          )}
         </StyledDropdownMenu>
       )}
     </StyledDropdown>

@@ -33,6 +33,27 @@ const replaceUser = (users, nextUser) => {
   return users.map((user) => (user.id === nextUser.id ? nextUser : user));
 };
 
+const normalizeMembershipFacility = (membership = {}) => {
+  const facility = membership.facility || {};
+  const id = facility.id || membership.facilityId;
+  if (!id) return null;
+  return {
+    id,
+    name: facility.name || id,
+    registryCode: facility.registryCode || null,
+    district: facility.district || null,
+    region: facility.region || null,
+    verificationStatus: facility.verificationStatus || null,
+  };
+};
+
+const matchesFacilityQuery = (facility, query) => {
+  const term = String(query || '').trim().toLowerCase();
+  if (!term) return true;
+  return [facility.name, facility.registryCode, facility.district, facility.region]
+    .some((value) => String(value || '').toLowerCase().includes(term));
+};
+
 export default function useUserManagementScreen() {
   const { t } = useI18n();
   const auth = useAuth();
@@ -75,6 +96,15 @@ export default function useUserManagementScreen() {
     () => (auth.roleKeys || []).includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN),
     [auth.roleKeys]
   );
+  const managedLocalFacilities = useMemo(() => {
+    const byId = new Map();
+    (auth.memberships || auth.user?.memberships || [])
+      .filter((membership) => membership?.role === MEMBERSHIP_ROLES.FACILITY_ADMIN)
+      .map(normalizeMembershipFacility)
+      .filter(Boolean)
+      .forEach((facility) => byId.set(facility.id, facility));
+    return [...byId.values()];
+  }, [auth.memberships, auth.user?.memberships]);
   const summary = useMemo(() => buildUserManagementSummary(users), [users]);
   const userOptions = useMemo(
     () => users.map((user) => ({
@@ -140,6 +170,11 @@ export default function useUserManagementScreen() {
 
   const loadFacilities = useCallback(async () => {
     if (!canManage) return;
+    if (!isPlatformAdmin) {
+      setFacilities(managedLocalFacilities.filter((facility) => matchesFacilityQuery(facility, debouncedFacilityQuery)));
+      setIsLoadingFacilities(false);
+      return;
+    }
     const requestId = facilitiesRequestRef.current + 1;
     facilitiesRequestRef.current = requestId;
     setIsLoadingFacilities(true);
@@ -157,7 +192,7 @@ export default function useUserManagementScreen() {
     } finally {
       if (facilitiesRequestRef.current === requestId) setIsLoadingFacilities(false);
     }
-  }, [canManage, debouncedFacilityQuery]);
+  }, [canManage, debouncedFacilityQuery, isPlatformAdmin, managedLocalFacilities]);
 
   useEffect(() => {
     void loadUsers();

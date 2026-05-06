@@ -4,22 +4,27 @@
  * File: Dropdown.web.styles.jsx
  */
 import styled from 'styled-components';
-import { View, Pressable } from 'react-native';
 
-const StyledDropdown = styled(View).withConfig({
+const StyledDropdown = styled.div.withConfig({
   displayName: 'StyledDropdown',
 })`
   position: relative;
   display: inline-block;
 `;
 
-const StyledDropdownTrigger = styled(Pressable).withConfig({
+const StyledDropdownTrigger = styled.button.withConfig({
   displayName: 'StyledDropdownTrigger',
 })`
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font: inherit;
   cursor: pointer;
 `;
 
-const StyledDropdownMenu = styled(View).withConfig({
+const StyledDropdownMenu = styled.div.withConfig({
   displayName: 'StyledDropdownMenu',
 })`
   position: absolute;
@@ -28,8 +33,7 @@ const StyledDropdownMenu = styled(View).withConfig({
   margin-top: ${({ theme }) => theme.spacing.xs}px;
   min-width: 200px;
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-width: 1px;
-  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius.md}px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
@@ -48,11 +52,14 @@ const StyledDropdownMenu = styled(View).withConfig({
   }
 `;
 
-const StyledDropdownItem = styled(Pressable).withConfig({
+const StyledDropdownItem = styled.button.withConfig({
   displayName: 'StyledDropdownItem',
 })`
-  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+  appearance: none;
+  width: 100%;
+  border: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  text-align: left;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -70,11 +77,50 @@ const StyledDropdownItem = styled(Pressable).withConfig({
   }
 `;
 
+const StyledDropdownItemText = styled.span.withConfig({
+  displayName: 'StyledDropdownItemText',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb || theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+`;
+
+const StyledDropdownSearchInput = styled.input.withConfig({
+  displayName: 'StyledDropdownSearchInput',
+})`
+  width: 100%;
+  min-height: 40px;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb || theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: -2px;
+  }
+`;
+
+const StyledDropdownEmptyText = styled.div.withConfig({
+  displayName: 'StyledDropdownEmptyText',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+`;
+
 export {
   StyledDropdown,
   StyledDropdownTrigger,
   StyledDropdownMenu,
   StyledDropdownItem,
+  StyledDropdownItemText,
+  StyledDropdownSearchInput,
+  StyledDropdownEmptyText,
 };
 
 
