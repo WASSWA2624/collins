@@ -75,11 +75,10 @@ describe('OnboardingScreen', () => {
     expect(getByTestId('onboarding-safety-notice').props.title).toBe('Clinical safety');
   });
 
-  it('uses compact edge-aligned action buttons', () => {
+  it('keeps native onboarding content scrollable on constrained screens', () => {
     const { getByTestId } = renderWithTheme(<OnboardingScreenAndroid />);
 
-    expect(getByTestId('onboarding-back').props.size).toBe('small');
-    expect(getByTestId('onboarding-next').props.size).toBe('small');
+    expect(getByTestId('onboarding-screen').props.contentContainerStyle).toEqual({ flexGrow: 1 });
   });
 
   it('requires acknowledgement before advancing from the safety step', () => {

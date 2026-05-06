@@ -22,6 +22,13 @@ Email: admin@admin.com
 Password: Admin
 ```
 
+Local development clinician login:
+
+```txt
+Email: clinician@clinician.com
+Password: Clinician
+```
+
 Default API namespace:
 
 ```txt
@@ -60,7 +67,7 @@ npm run prisma:seed
 npm test
 ```
 
-The seed command adds a local development platform-admin user, a verified development facility for that user, a disabled development reference-seed user, and verified MVP reference/evidence ranges. It does not seed patients, admissions, raw notes, demo cases, or approved training datasets.
+The seed command adds local development platform-admin and clinician users, a verified development facility for those users, a disabled development reference-seed user, and verified MVP reference/evidence ranges. It does not seed patients, admissions, raw notes, demo cases, or approved training datasets.
 
 ## Safety position
 

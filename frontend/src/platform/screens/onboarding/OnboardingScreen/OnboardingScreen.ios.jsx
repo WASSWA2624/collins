@@ -15,6 +15,8 @@ import {
 } from './OnboardingScreen.ios.styles';
 import { ONBOARDING_TEST_IDS } from './types';
 
+const SCROLL_CONTENT_STYLE = { flexGrow: 1 };
+
 const OnboardingScreenIos = () => {
   const { t } = useI18n();
   const router = useRouter();
@@ -54,7 +56,11 @@ const OnboardingScreenIos = () => {
   if (onboardingCompleted) return null;
 
   return (
-    <StyledContainer testID={testIds.screen} accessibilityLabel={t('settings.onboarding.accessibilityLabel')}>
+    <StyledContainer
+      contentContainerStyle={SCROLL_CONTENT_STYLE}
+      testID={testIds.screen}
+      accessibilityLabel={t('settings.onboarding.accessibilityLabel')}
+    >
       <StyledContent>
         <Text variant="h1" testID={testIds.title}>{t('settings.onboarding.title')}</Text>
         <StyledSection>

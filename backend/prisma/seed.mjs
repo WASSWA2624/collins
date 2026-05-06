@@ -19,23 +19,99 @@ const DEVELOPMENT_ADMIN_EMAIL = 'admin@admin.com';
 const DEVELOPMENT_ADMIN_PASSWORD = 'Admin';
 const DEVELOPMENT_ADMIN_FACILITY_ID = 'development-admin-facility';
 const DEVELOPMENT_ADMIN_ONBOARDED_AT = new Date('2026-05-06T00:00:00.000Z');
+const DEVELOPMENT_CLINICIAN_USER_ID = 'development-clinician-user';
+const DEVELOPMENT_CLINICIAN_EMAIL = 'clinician@clinician.com';
+const DEVELOPMENT_CLINICIAN_PASSWORD = 'Clinician';
 
-const main = async () => {
-  const adminPasswordHash = await bcrypt.hash(DEVELOPMENT_ADMIN_PASSWORD, 12);
-  const adminUser = await prisma.user.upsert({
-    where: { email: DEVELOPMENT_ADMIN_EMAIL },
+const upsertDevelopmentUser = async ({
+  id,
+  name,
+  email,
+  password,
+}) => {
+  const passwordHash = await bcrypt.hash(password, 12);
+  return prisma.user.upsert({
+    where: { email },
     update: {
-      name: 'Development Platform Admin',
-      passwordHash: adminPasswordHash,
+      name,
+      passwordHash,
       status: 'ACTIVE',
     },
     create: {
-      id: DEVELOPMENT_ADMIN_USER_ID,
-      name: 'Development Platform Admin',
-      email: DEVELOPMENT_ADMIN_EMAIL,
-      passwordHash: adminPasswordHash,
+      id,
+      name,
+      email,
+      passwordHash,
       status: 'ACTIVE',
     },
+  });
+};
+
+const approveFacilityMembership = ({ userId, facilityId, role, approvedByUserId }) => prisma.facilityMembership.upsert({
+  where: {
+    userId_facilityId_role: {
+      userId,
+      facilityId,
+      role,
+    },
+  },
+  update: {
+    status: 'APPROVED',
+    approvedByUserId,
+  },
+  create: {
+    userId,
+    facilityId,
+    role,
+    status: 'APPROVED',
+    approvedByUserId,
+  },
+});
+
+const completeOnboarding = ({ userId, facilityId, requestedRole }) => prisma.onboardingState.upsert({
+  where: { userId },
+  update: {
+    status: 'COMPLETED',
+    currentStep: 'COMPLETED',
+    completedStepsJson: ONBOARDING_STEPS,
+    selectedFacilityId: facilityId,
+    requestedRole,
+    clinicalSafetyAcknowledgedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
+    clinicalSafetyAcknowledgementVersion: CLINICAL_SAFETY_ACKNOWLEDGEMENT.version,
+    clinicalSafetyStatementHash: CLINICAL_SAFETY_STATEMENT_HASH,
+    completedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
+  },
+  create: {
+    userId,
+    status: 'COMPLETED',
+    currentStep: 'COMPLETED',
+    completedStepsJson: ONBOARDING_STEPS,
+    selectedFacilityId: facilityId,
+    requestedRole,
+    clinicalSafetyAcknowledgedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
+    clinicalSafetyAcknowledgementVersion: CLINICAL_SAFETY_ACKNOWLEDGEMENT.version,
+    clinicalSafetyStatementHash: CLINICAL_SAFETY_STATEMENT_HASH,
+    completedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
+  },
+});
+
+const setActiveFacility = ({ userId, facilityId }) => prisma.userSettings.upsert({
+  where: { userId },
+  update: {
+    activeFacilityId: facilityId,
+  },
+  create: {
+    userId,
+    activeFacilityId: facilityId,
+  },
+});
+
+const main = async () => {
+  const adminUser = await upsertDevelopmentUser({
+    id: DEVELOPMENT_ADMIN_USER_ID,
+    name: 'Development Platform Admin',
+    email: DEVELOPMENT_ADMIN_EMAIL,
+    password: DEVELOPMENT_ADMIN_PASSWORD,
   });
 
   const adminFacility = await prisma.facility.upsert({
@@ -61,63 +137,47 @@ const main = async () => {
     },
   });
 
-  await prisma.facilityMembership.upsert({
-    where: {
-      userId_facilityId_role: {
-        userId: adminUser.id,
-        facilityId: adminFacility.id,
-        role: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-      },
-    },
-    update: {
-      status: 'APPROVED',
-      approvedByUserId: adminUser.id,
-    },
-    create: {
-      userId: adminUser.id,
-      facilityId: adminFacility.id,
-      role: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-      status: 'APPROVED',
-      approvedByUserId: adminUser.id,
-    },
+  await approveFacilityMembership({
+    userId: adminUser.id,
+    facilityId: adminFacility.id,
+    role: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
+    approvedByUserId: adminUser.id,
   });
 
-  await prisma.onboardingState.upsert({
-    where: { userId: adminUser.id },
-    update: {
-      status: 'COMPLETED',
-      currentStep: 'COMPLETED',
-      completedStepsJson: ONBOARDING_STEPS,
-      selectedFacilityId: adminFacility.id,
-      requestedRole: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-      clinicalSafetyAcknowledgedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
-      clinicalSafetyAcknowledgementVersion: CLINICAL_SAFETY_ACKNOWLEDGEMENT.version,
-      clinicalSafetyStatementHash: CLINICAL_SAFETY_STATEMENT_HASH,
-      completedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
-    },
-    create: {
-      userId: adminUser.id,
-      status: 'COMPLETED',
-      currentStep: 'COMPLETED',
-      completedStepsJson: ONBOARDING_STEPS,
-      selectedFacilityId: adminFacility.id,
-      requestedRole: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
-      clinicalSafetyAcknowledgedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
-      clinicalSafetyAcknowledgementVersion: CLINICAL_SAFETY_ACKNOWLEDGEMENT.version,
-      clinicalSafetyStatementHash: CLINICAL_SAFETY_STATEMENT_HASH,
-      completedAt: DEVELOPMENT_ADMIN_ONBOARDED_AT,
-    },
+  await completeOnboarding({
+    userId: adminUser.id,
+    facilityId: adminFacility.id,
+    requestedRole: MEMBERSHIP_ROLES.PLATFORM_ADMIN,
   });
 
-  await prisma.userSettings.upsert({
-    where: { userId: adminUser.id },
-    update: {
-      activeFacilityId: adminFacility.id,
-    },
-    create: {
-      userId: adminUser.id,
-      activeFacilityId: adminFacility.id,
-    },
+  await setActiveFacility({
+    userId: adminUser.id,
+    facilityId: adminFacility.id,
+  });
+
+  const clinicianUser = await upsertDevelopmentUser({
+    id: DEVELOPMENT_CLINICIAN_USER_ID,
+    name: 'Development Clinician',
+    email: DEVELOPMENT_CLINICIAN_EMAIL,
+    password: DEVELOPMENT_CLINICIAN_PASSWORD,
+  });
+
+  await approveFacilityMembership({
+    userId: clinicianUser.id,
+    facilityId: adminFacility.id,
+    role: MEMBERSHIP_ROLES.CLINICIAN,
+    approvedByUserId: adminUser.id,
+  });
+
+  await completeOnboarding({
+    userId: clinicianUser.id,
+    facilityId: adminFacility.id,
+    requestedRole: MEMBERSHIP_ROLES.CLINICIAN,
+  });
+
+  await setActiveFacility({
+    userId: clinicianUser.id,
+    facilityId: adminFacility.id,
   });
 
   const passwordHash = await bcrypt.hash('disabled-development-reference-seed-user', 12);
@@ -151,6 +211,7 @@ const main = async () => {
   }
 
   console.log(`Seeded development admin user ${DEVELOPMENT_ADMIN_EMAIL}.`);
+  console.log(`Seeded development clinician user ${DEVELOPMENT_CLINICIAN_EMAIL}.`);
   console.log(`Seeded ${rules.length} verified development reference rules.`);
 };
 

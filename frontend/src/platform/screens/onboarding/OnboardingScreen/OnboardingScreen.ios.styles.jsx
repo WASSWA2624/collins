@@ -7,14 +7,9 @@ import { ScrollView, View } from 'react-native';
 const StyledContainer = styled(ScrollView).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
-}).attrs(({ theme }) => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    paddingVertical: theme.spacing.lg,
-    paddingHorizontal: theme.spacing.lg,
-  },
-}))`
+})`
   flex: 1;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
