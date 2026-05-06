@@ -22,7 +22,7 @@ export const CLINICAL_SAFETY_ACKNOWLEDGEMENT = Object.freeze({
   code: 'CLINICAL_SAFETY',
   version: 'clinical-safety@2026-05-05',
   required: true,
-  statement: 'Collins provides documentation support and advisory safety prompts only. It does not replace clinical judgement, issue treatment orders, or determine ventilator settings. A qualified clinician confirms all clinical decisions.',
+  statement: 'AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgement, issue treatment orders, or determine ventilator settings. A qualified clinician confirms all clinical decisions.',
 });
 
 export const CLINICAL_SAFETY_STATEMENT_HASH = sha256({

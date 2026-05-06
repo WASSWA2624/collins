@@ -31,7 +31,7 @@ export const REFERENCE_SCOPES = Object.freeze({
 
 const VERIFIED_AT = '2026-05-04T00:00:00.000Z';
 const VERIFIED_BY = 'development-seed';
-const DEVELOPMENT_SOURCE = 'Collins development seed safety guardrail; replace with locally approved reference before production clinical use.';
+const DEVELOPMENT_SOURCE = 'AI Vent development seed safety guardrail; replace with locally approved reference before production clinical use.';
 
 const verifiedSeedRange = ({
   id,

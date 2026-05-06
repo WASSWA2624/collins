@@ -25,11 +25,18 @@ const StyledRoot = styled.View.withConfig({
   }};
 `;
 
+const StyledScroll = styled.ScrollView.withConfig({
+  displayName: 'StyledScroll',
+  componentId: 'StyledScroll',
+})`
+  flex: 1;
+`;
+
 const StyledContent = styled.View.withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
 })`
-  flex: 1;
+  flex: ${({ scroll }) => (scroll ? 0 : 1)};
   padding: ${({ padding, theme }) => {
     const map = {
       none: 0,
@@ -42,6 +49,6 @@ const StyledContent = styled.View.withConfig({
   }};
 `;
 
-export { StyledSafeArea, StyledRoot, StyledContent };
+export { StyledSafeArea, StyledRoot, StyledScroll, StyledContent };
 
 

@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: "collins",
+    name: "AI Vent",
     slug: "collins",
     version: "1.0.0",
     orientation: "portrait",
@@ -29,9 +29,9 @@ export default {
       bundler: "metro",
       output: "single",
       // PWA configuration
-      name: "Collins",
-      shortName: "Collins",
-      description: "Collins",
+      name: "AI Vent",
+      shortName: "AI Vent",
+      description: "AI Vent ventilation decision support",
       themeColor: "#007AFF",
       backgroundColor: "#ffffff",
       display: "standalone",

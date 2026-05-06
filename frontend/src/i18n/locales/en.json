@@ -47,10 +47,15 @@
     "hello": "Hello, {{name}}"
   },
   "app": {
-    "name": "AI Ventilator Decision Support",
-    "shortName": "AIVDS"
+    "name": "AI Vent",
+    "shortName": "AI Vent"
   },
   "auth": {
+    "brand": {
+      "name": "AI Vent",
+      "subtitle": "Ventilation decision support",
+      "logoLabel": "AI Vent logo"
+    },
     "logout": "Logout",
     "password": "Password",
     "passwordHide": "Hide password",
@@ -65,15 +70,33 @@
     },
     "login": {
       "title": "Sign in",
-      "description": "Use your Collins account to continue.",
       "accessibilityLabel": "Sign in screen",
       "emailLabel": "Email",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter password",
       "submit": "Sign in",
-      "footer": "Clinical data stays hidden until your session and facility are verified.",
+      "createPrompt": "No account yet?",
+      "createAccount": "Create account",
+      "createAccountHint": "Open account registration",
       "errorTitle": "Sign-in issue"
+    },
+    "register": {
+      "title": "Create account",
+      "description": "Create an AI Vent account to request facility access.",
+      "accessibilityLabel": "Create account screen",
+      "nameLabel": "Full name",
+      "namePlaceholder": "Clinician name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create password",
+      "passwordHelper": "Use at least 8 characters.",
+      "submit": "Create account",
+      "signInPrompt": "Already have an account?",
+      "signIn": "Sign in",
+      "signInHint": "Return to sign in",
+      "errorTitle": "Account creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
@@ -132,6 +155,7 @@
     "validation": {
       "required": "This field is required",
       "invalidEmail": "Invalid email format",
+      "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
       "maxLength": "Maximum length is {{max}} characters",
@@ -521,7 +545,7 @@
       "screen": {
         "label": "About screen"
       },
-      "appName": "Ventilation decision support",
+      "appName": "AI Vent",
       "version": "Version",
       "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
     },
@@ -530,7 +554,7 @@
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "Collins provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
+        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
         "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
@@ -540,7 +564,7 @@
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using Collins. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
         },
         "facilityWorkflow": {
           "title": "Stay in facility context",
@@ -548,7 +572,7 @@
         },
         "inputs": {
           "title": "Entering inputs",
-          "body": "Use Assessment to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
@@ -560,7 +584,7 @@
         },
         "offline": {
           "title": "Offline behavior",
-          "body": "Core workflow (assessment, recommendations, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
         }
       },
       "actions": {
@@ -605,7 +629,7 @@
         },
         "offline": {
           "title": "Using the app offline",
-          "body": "Assessment, recommendations, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
@@ -848,12 +872,12 @@
   },
   "ventilation": {
     "assessment": {
-      "title": "Patient Assessment",
-      "accessibilityLabel": "Assessment wizard screen",
+      "title": "Admit patient",
+      "accessibilityLabel": "Admit patient wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact assessment summary",
+        "accessibilityLabel": "Compact admit summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Facility",
         "pathway": "Pathway",
@@ -1074,9 +1098,9 @@
         "saveAdmission": "Save admission"
       },
       "states": {
-        "loading": "Loading assessment…",
-        "error": "Unable to load assessment",
-        "offline": "Assessment works offline",
+        "loading": "Loading admit workflow…",
+        "error": "Unable to load admit workflow",
+        "offline": "Admit works offline",
         "empty": "Enter patient data to begin"
       }
     },
@@ -1187,10 +1211,10 @@
       "actions": {
         "startMonitoring": "Start monitoring",
         "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to assessment",
-        "startNewAssessment": "Start new assessment",
-        "editAssessmentTitle": "Edit assessment",
-        "editAssessmentHint": "Open assessment form with current session data pre-filled",
+        "backToAssessment": "Back to Admit",
+        "startNewAssessment": "Start new admit",
+        "editAssessmentTitle": "Edit admit record",
+        "editAssessmentHint": "Open admit form with current session data pre-filled",
         "requestAiRecommendation": "Request AI recommendation",
         "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
@@ -1212,7 +1236,7 @@
       "states": {
         "loading": "Loading recommendation…",
         "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete an assessment first."
+        "empty": "No recommendation available. Complete Admit first."
       },
       "intendedUse": {
         "warningLabel": "Not clinically validated",

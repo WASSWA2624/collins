@@ -9,9 +9,13 @@ import styled from 'styled-components';
 const StyledRoot = styled.main.withConfig({
   displayName: 'StyledRoot',
   componentId: 'StyledRoot',
+  shouldForwardProp: (prop) => !String(prop).startsWith('$'),
 })`
   min-height: 100vh;
+  height: ${({ $scroll }) => ($scroll ? '100vh' : 'auto')};
   width: 100%;
+  overflow-y: ${({ $scroll }) => ($scroll ? 'auto' : 'visible')};
+  overflow-x: hidden;
   background-color: ${({ background, theme }) => {
     if (background === 'surface') return theme.colors.background.secondary;
     return theme.colors.background.primary;
@@ -36,8 +40,9 @@ const StyledRoot = styled.main.withConfig({
 const StyledContent = styled.div.withConfig({
   displayName: 'StyledContent',
   componentId: 'StyledContent',
+  shouldForwardProp: (prop) => !String(prop).startsWith('$'),
 })`
-  min-height: 100%;
+  min-height: ${({ $scroll }) => ($scroll ? '100%' : '100vh')};
   width: 100%;
 `;
 

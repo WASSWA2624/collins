@@ -22,7 +22,7 @@ jest.mock('@hooks', () => ({
         'settings.onboarding.title': 'Getting started',
         'settings.onboarding.accessibilityLabel': 'Onboarding screen',
         'settings.onboarding.steps.clinicalSafety.title': 'Use as advisory support',
-        'settings.onboarding.steps.clinicalSafety.body': 'Review the safety note before using Collins.',
+        'settings.onboarding.steps.clinicalSafety.body': 'Review the safety note before using AI Vent.',
         'settings.onboarding.safety.title': 'Clinical safety',
         'settings.onboarding.safety.body': 'Advisory safety prompts only.',
         'settings.onboarding.safety.secondary': 'Confirm all decisions locally.',

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { StyledContent, StyledRoot, StyledSafeArea } from './Screen.android.styles';
+import { StyledContent, StyledRoot, StyledSafeArea, StyledScroll } from './Screen.android.styles';
 import useScreen from './useScreen';
 import { BACKGROUNDS, PADDING } from './types';
 
@@ -23,7 +23,7 @@ import { BACKGROUNDS, PADDING } from './types';
  */
 const ScreenAndroid = ({
   children,
-  scroll: _scroll = false,
+  scroll = false,
   safeArea = true,
   padding = PADDING.MD,
   background = BACKGROUNDS.DEFAULT,
@@ -42,10 +42,24 @@ const ScreenAndroid = ({
   });
 
   const body = (
-    <StyledContent padding={resolved.padding} testID={testID ? `${testID}-content` : undefined}>
+    <StyledContent
+      padding={resolved.padding}
+      scroll={resolved.scroll}
+      testID={testID ? `${testID}-content` : undefined}
+    >
       {children}
     </StyledContent>
   );
+
+  const content = resolved.scroll ? (
+    <StyledScroll
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ flexGrow: 1 }}
+      testID={testID ? `${testID}-scroll` : undefined}
+    >
+      {body}
+    </StyledScroll>
+  ) : body;
 
   return (
     <>
@@ -58,7 +72,7 @@ const ScreenAndroid = ({
             testID={testID}
             {...rest}
           >
-            {body}
+            {content}
           </StyledRoot>
         </StyledSafeArea>
       ) : (
@@ -69,7 +83,7 @@ const ScreenAndroid = ({
           testID={testID}
           {...rest}
         >
-          {body}
+          {content}
         </StyledRoot>
       )}
     </>

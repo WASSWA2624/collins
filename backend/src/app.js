@@ -45,7 +45,7 @@ export const createApp = () => {
 
   app.get('/', (_req, res) => {
     successResponse(res, {
-      message: 'Collins backend is running',
+      message: 'AI Vent backend is running',
       data: { apiBasePath: `/api/${env.apiVersion}` },
     });
   });

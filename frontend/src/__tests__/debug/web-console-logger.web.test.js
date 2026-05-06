@@ -30,7 +30,7 @@ describe('debug/web-console-logger web bridge', () => {
     window.addEventListener('collins:web-console', (event) => events.push(event.detail));
 
     const { isWebConsoleLoggerEnabled } = await import('@debug/web-console-logger');
-    console.info('Collins web logger ready');
+    console.info('AI Vent web logger ready');
 
     expect(isWebConsoleLoggerEnabled).toBe(true);
     expect(events).toEqual(
@@ -38,7 +38,7 @@ describe('debug/web-console-logger web bridge', () => {
         expect.objectContaining({
           source: 'web-console',
           level: 'info',
-          message: 'Collins web logger ready',
+          message: 'AI Vent web logger ready',
         }),
       ])
     );

@@ -5,7 +5,7 @@
  */
 import React, { useCallback, useMemo } from 'react';
 import { Redirect } from 'expo-router';
-import { AuthFormLayout, Button, Stack, SystemBanner, Text } from '@platform/components';
+import { AuthBrand, AuthFormLayout, Button, Stack, SystemBanner, Text } from '@platform/components';
 import { getFacilityOptionsForUser } from '@config/accessControl';
 import { useAuth, useI18n } from '@hooks';
 
@@ -69,6 +69,12 @@ const FacilitySelectionScreen = () => {
       accessibilityLabel={t('auth.facility.accessibilityLabel')}
     >
       <Stack spacing="md">
+        <AuthBrand
+          name={t('auth.brand.name')}
+          subtitle={t('auth.brand.subtitle')}
+          logoLabel={t('auth.brand.logoLabel')}
+          testID="facility-selection-brand"
+        />
         {facilities.length > 0 ? (
           facilities.map((facility) => {
             const name = facility.facility?.name || facility.name || facility.facilityId;

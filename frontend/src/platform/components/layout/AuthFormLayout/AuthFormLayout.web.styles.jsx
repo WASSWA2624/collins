@@ -21,11 +21,12 @@ const StyledAuthFormContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.md}px;
+  box-sizing: border-box;
   ${({ $isTwoColumn, theme }) =>
     $isTwoColumn
       ? `
@@ -43,13 +44,15 @@ const StyledAuthFormContainer = styled.div.withConfig({
     padding: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.sm}px`)};
     align-items: ${({ $isTwoColumn }) => ($isTwoColumn ? 'stretch' : 'flex-start')};
     justify-content: ${({ $isTwoColumn }) => ($isTwoColumn ? 'flex-start' : 'center')};
-    padding-top: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.lg}px`)};
+    padding-top: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.md}px`)};
+    padding-bottom: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.md}px`)};
     ${({ $isTwoColumn }) => ($isTwoColumn ? 'margin: 0;' : '')}
   }
   
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile * 1.5}px) {
-    padding: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.xs}px`)};
-    padding-top: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.md}px`)};
+    padding: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.sm}px`)};
+    padding-top: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.sm}px`)};
+    padding-bottom: ${({ theme, $isTwoColumn }) => ($isTwoColumn ? '0' : `${theme.spacing.sm}px`)};
     ${({ $isTwoColumn }) => ($isTwoColumn ? 'margin: 0;' : '')}
   }
 `;
@@ -60,6 +63,7 @@ const StyledAuthFormCardWrapper = styled.div.withConfig({
 })`
   width: 100%;
   max-width: ${({ theme, size }) => resolveMaxWidth(theme, size)}px;
+  margin: 0 auto;
   
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile * 1.5}px) {
     max-width: 100%;
@@ -67,7 +71,7 @@ const StyledAuthFormCardWrapper = styled.div.withConfig({
   
   /* Reduce Card padding for compact layout */
   article {
-    padding: ${({ theme }) => theme.spacing.sm}px !important;
+    padding: 0 !important;
   }
   
   /* Reduce Card header padding */

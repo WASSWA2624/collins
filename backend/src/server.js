@@ -5,11 +5,11 @@ import { prisma } from './config/prisma.js';
 const app = createApp();
 
 const server = app.listen(env.port, () => {
-  console.log(`Collins backend listening on port ${env.port}`);
+  console.log(`AI Vent backend listening on port ${env.port}`);
 });
 
 const shutdown = async (signal) => {
-  console.log(`${signal} received. Shutting down Collins backend.`);
+  console.log(`${signal} received. Shutting down AI Vent backend.`);
   server.close(async () => {
     await prisma.$disconnect();
     process.exit(0);

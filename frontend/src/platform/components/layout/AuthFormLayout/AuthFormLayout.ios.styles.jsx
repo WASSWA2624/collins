@@ -31,6 +31,7 @@ const StyledAuthFormCardWrapper = styled.View.withConfig({
 })`
   width: 100%;
   max-width: ${({ theme, size }) => resolveMaxWidth(theme, size)}px;
+  align-self: center;
 `;
 
 const StyledAuthFormStatus = styled.View.withConfig({

@@ -4,8 +4,9 @@
  * File: LoginScreen.jsx
  */
 import React, { useCallback, useMemo, useState } from 'react';
-import { Redirect } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import {
+  AuthBrand,
   AuthFormLayout,
   Button,
   PasswordField,
@@ -25,6 +26,7 @@ const getErrorMessage = (t, code) => {
 
 const LoginScreen = () => {
   const { t } = useI18n();
+  const router = useRouter();
   const {
     clearError,
     errorCode,
@@ -85,6 +87,10 @@ const LoginScreen = () => {
     void restoreSession();
   }, [clearError, restoreSession]);
 
+  const handleCreateAccount = useCallback(() => {
+    router.push('/register');
+  }, [router]);
+
   if (!hasRestoredSession) return null;
   if (isAuthenticated && requiresActiveFacility) return <Redirect href="/select-facility" />;
   if (isAuthenticated) return <Redirect href="/" />;
@@ -114,9 +120,6 @@ const LoginScreen = () => {
 
   return (
     <AuthFormLayout
-      title={t('auth.login.title')}
-      description={t('auth.login.description')}
-      status={status}
       actions={
         <Button
           text={t('auth.login.submit')}
@@ -128,11 +131,36 @@ const LoginScreen = () => {
           testID="login-submit"
         />
       }
-      footer={<Text variant="caption">{t('auth.login.footer')}</Text>}
+      footer={(
+        <Stack spacing="xs" align="center">
+          <Text variant="caption" align="center">
+            {t('auth.login.createPrompt')}
+          </Text>
+          <Button
+            variant="text"
+            text={t('auth.login.createAccount')}
+            onPress={handleCreateAccount}
+            onClick={handleCreateAccount}
+            accessibilityLabel={t('auth.login.createAccount')}
+            accessibilityHint={t('auth.login.createAccountHint')}
+            testID="login-create-account"
+          />
+        </Stack>
+      )}
       testID="login-screen"
       accessibilityLabel={t('auth.login.accessibilityLabel')}
     >
       <Stack spacing="md">
+        <AuthBrand
+          name={t('auth.brand.name')}
+          logoLabel={t('auth.brand.logoLabel')}
+          layout="horizontal"
+          testID="login-brand"
+        />
+        <Text variant="h2" align="center" accessibilityLabel={t('auth.login.title')} testID="login-title">
+          {t('auth.login.title')}
+        </Text>
+        {status}
         <TextField
           label={t('auth.login.emailLabel')}
           placeholder={t('auth.login.emailPlaceholder')}

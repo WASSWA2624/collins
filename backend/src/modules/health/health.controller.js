@@ -24,13 +24,13 @@ export const getHealth = asyncHandler(async (req, res) => {
   const database = req.query.includeDb === 'true' ? await checkDatabase() : 'not_checked';
 
   return successResponse(res, {
-    message: 'Collins backend health check passed',
+    message: 'AI Vent backend health check passed',
     data: buildHealthData(database),
   });
 });
 
 export const getLive = asyncHandler(async (_req, res) => successResponse(res, {
-  message: 'Collins backend liveness check passed',
+  message: 'AI Vent backend liveness check passed',
   data: buildHealthData('not_checked'),
 }));
 
@@ -40,7 +40,7 @@ export const getReady = asyncHandler(async (_req, res) => {
   if (database !== 'connected') {
     return errorResponse(res, {
       status: 503,
-      message: 'Collins backend readiness check failed',
+      message: 'AI Vent backend readiness check failed',
       errors: [
         {
           path: ['database'],
@@ -52,7 +52,7 @@ export const getReady = asyncHandler(async (_req, res) => {
   }
 
   return successResponse(res, {
-    message: 'Collins backend readiness check passed',
+    message: 'AI Vent backend readiness check passed',
     data: buildHealthData(database),
   });
 });

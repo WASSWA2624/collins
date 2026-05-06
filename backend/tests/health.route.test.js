@@ -45,7 +45,7 @@ test('root endpoint uses the standard success response shape', async () => {
 
   assert.equal(status, 200);
   assert.equal(body.success, true);
-  assert.equal(body.message, 'Collins backend is running');
+  assert.equal(body.message, 'AI Vent backend is running');
   assert.deepEqual(body.data, { apiBasePath: '/api/v1' });
   assert.equal(body.meta.requestId, 'root-contract-test');
 });
@@ -55,7 +55,7 @@ test('health endpoint reports startup state without checking the database by def
 
   assert.equal(status, 200);
   assert.equal(body.success, true);
-  assert.equal(body.message, 'Collins backend health check passed');
+  assert.equal(body.message, 'AI Vent backend health check passed');
   assert.equal(body.data.service, 'collins-backend');
   assert.equal(body.data.apiVersion, 'v1');
   assert.equal(body.data.database, 'not_checked');
@@ -68,7 +68,7 @@ test('root health endpoint aliases the versioned health contract for local probe
 
   assert.equal(status, 200);
   assert.equal(body.success, true);
-  assert.equal(body.message, 'Collins backend health check passed');
+  assert.equal(body.message, 'AI Vent backend health check passed');
   assert.equal(body.data.service, 'collins-backend');
   assert.equal(body.data.apiVersion, 'v1');
   assert.equal(body.data.database, 'not_checked');
@@ -80,7 +80,7 @@ test('liveness endpoint reports process availability without checking the databa
 
   assert.equal(status, 200);
   assert.equal(body.success, true);
-  assert.equal(body.message, 'Collins backend liveness check passed');
+  assert.equal(body.message, 'AI Vent backend liveness check passed');
   assert.equal(body.data.service, 'collins-backend');
   assert.equal(body.data.database, 'not_checked');
   assert.equal(body.meta.requestId, 'live-contract-test');
@@ -92,8 +92,8 @@ test('readiness endpoint reports database readiness using the standard response 
   assert.ok([200, 503].includes(status));
   assert.equal(body.success, status === 200);
   assert.ok([
-    'Collins backend readiness check passed',
-    'Collins backend readiness check failed',
+    'AI Vent backend readiness check passed',
+    'AI Vent backend readiness check failed',
   ].includes(body.message));
   assert.equal(body.meta.requestId, 'ready-contract-test');
 

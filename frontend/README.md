@@ -1,6 +1,6 @@
-# Collins Frontend
+# AI Vent Frontend
 
-Expo Router React Native frontend for the Collins ICU ventilation admission, tracking, and decision-support app.
+Expo Router React Native frontend for the AI Vent ventilation admission, tracking, and decision-support app.
 
 ## Purpose
 

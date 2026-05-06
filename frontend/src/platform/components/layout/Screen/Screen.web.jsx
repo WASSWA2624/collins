@@ -24,7 +24,7 @@ import { BACKGROUNDS, PADDING } from './types';
  */
 const ScreenWeb = ({
   children,
-  scroll: _scroll = false,
+  scroll = false,
   safeArea = true,
   padding = PADDING.MD,
   background = BACKGROUNDS.DEFAULT,
@@ -35,7 +35,7 @@ const ScreenWeb = ({
   ...rest
 }) => {
   const resolved = useScreen({
-    scroll: false,
+    scroll,
     safeArea,
     padding,
     background,
@@ -51,10 +51,11 @@ const ScreenWeb = ({
       aria-label={resolved.accessibilityLabel}
       aria-description={accessibilityHint}
       data-testid={testID}
+      $scroll={resolved.scroll}
       className={className}
       {...rest}
     >
-      <StyledContent data-testid={testID ? `${testID}-content` : undefined}>
+      <StyledContent $scroll={resolved.scroll} data-testid={testID ? `${testID}-content` : undefined}>
         {children}
       </StyledContent>
     </StyledRoot>

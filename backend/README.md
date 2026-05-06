@@ -1,6 +1,6 @@
-# Collins Backend
+# AI Vent Backend
 
-Express + Prisma backend foundation for the Collins ICU ventilation admission, tracking, review, and dataset governance app.
+Express + Prisma backend foundation for the AI Vent ventilation admission, tracking, review, and dataset governance app.
 
 ## Setup
 

@@ -8,7 +8,7 @@
  */
 
 // Common screens (public/common screens)
-export { LoginScreen, FacilitySelectionScreen } from './auth';
+export { LoginScreen, RegisterScreen, FacilitySelectionScreen } from './auth';
 export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';

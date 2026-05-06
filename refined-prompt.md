@@ -1,24 +1,6 @@
-# Task: Update dev-plan files for synchronized frontend/backend implementation and verified range-based datasets
+## Task: Rebrand App to AI Vent and Improve Authentication Entry UX
 
-You are working in a local monorepo with:
-
-* `backend`: Node.js 20+, Express 5, ESM JavaScript, Prisma, MySQL, Zod, JWT/session auth
-* `frontend`: Expo 54, Expo Router 6, React Native, React 19, Redux Toolkit, redux-persist, styled-components, Zod, offline/network foundations
-
-Update the development planning files so future implementation proceeds chronologically, with frontend work always checked and implemented together with its required backend support, migrations, validation, tests, and dataset governance.
-
-Do not change application source code, schemas, migrations, package files, configs, tests, or runtime behavior in this task.
-
-## Files allowed to change
-
-Only modify or create files under:
-
-* `backend/dev-plan.md`
-* `backend/dev-plan/*`
-* `frontend/dev-plan.md`
-* `frontend/dev-plan/*`
-
-## Required inspection before editing
+Update the local monorepo app branding and sign-in experience.
 
 Before making changes, inspect and follow:
 
@@ -29,51 +11,142 @@ Before making changes, inspect and follow:
 * `frontend/app-rules/*`
 * `frontend/dev-plan.md`
 * `frontend/dev-plan/*`
-* relevant existing backend and frontend source files, tests, routes, services, screens, state, APIs, and shared utilities
+* relevant backend/frontend source files, tests, routes, services, screens, state, APIs, assets, navigation, auth flows, and shared utilities
 
-Follow these documents over this task when there is a conflict.
+Follow these documents over this task if there is a conflict.
 
-## Required dev-plan updates
+## Required changes
 
-Refactor the dev plans so every frontend phase explicitly includes the matching backend checks and implementation requirements.
+### Branding
 
-For each feature phase, require future implementation to verify and update, when needed:
+* Rename the app globally from `Collins`, `Collins ICU`, or similar visible branding to **AI Vent**.
+* Update visible UI copy, app metadata, page/screen titles, navigation labels, splash/header branding, auth screens, and any user-facing references where appropriate.
+* Add/use the app logo consistently across the app, especially on the sign-in page and shared branded entry surfaces.
+* Preserve existing paths, architecture, and behavior unless a rename is required for user-facing branding.
+* Do not rename internal files, APIs, database fields, or contracts unless existing project rules clearly require it.
 
-* frontend route/screen/state/API client behavior
-* backend route, validator, controller, service, repository/helper behavior
-* Prisma schema changes and migrations
-* Zod request/response validation
-* auth, RBAC, and facility isolation
+### Sign-in page
+
+Update the sign-in/login screen so it includes:
+
+* branded **AI Vent** logo/name
+* email field
+* password field
+* sign-in button
+* clear option/link/button for users without an account to create/register an account
+* removal of the wording: “create account data stay hidden until your session and your CDT are verified” or equivalent wording
+
+Improve the sign-in layout so it is polished, accessible, and responsive across:
+
+* mobile
+* tablet
+* desktop/web
+* iOS
+* Android
+
+Use existing styled-components, theme, accessibility, i18n, logging, error boundary, API client, Redux Toolkit, and Expo Router conventions.
+
+### Registration entry
+
+* If a registration screen/route already exists, link to it from sign-in using existing navigation patterns.
+* If registration UI is missing but backend support exists, add the minimal required registration screen/route using existing auth patterns.
+* If backend registration support is missing, add only the smallest backend/frontend changes required, preserving `/api/v1`, route → validator → controller → service layering, Zod validation, standard response shapes, auth/session conventions, audit logging, RBAC, and facility isolation.
+
+## Architecture constraints
+
+Preserve backend patterns for:
+
+* `/api/v1` versioned routes
+* route → validator → controller → service layering
+* Prisma access inside services/repository helpers
+* Zod validation for `body`, `params`, and `query`
+* standard success/error response shape
+* facility membership and facility-level isolation
 * audit logging
+* append-only ABG and ventilator records
 * offline idempotency and conflict handling
-* tests for both frontend and backend behavior
+* pure clinical calculation helpers with tests
 
-If backend support already exists, the plan must instruct future implementation to verify compliance and reuse it. If it is missing or incomplete, implement the backend in the same phase as the frontend change. Avoid frontend-only feature plans when backend support is required.
+Preserve frontend patterns for:
 
-## Chronological workflow alignment
+* Expo Router routes under `src/app`
+* reusable platform code under `src/platform/*`
+* Redux Toolkit state ownership
+* API client conventions
+* offline draft/sync queue behavior
+* theme, accessibility, i18n, logging, and error boundaries
+* styled-components UI conventions
+* role-aware navigation and screen visibility
 
-Ensure the roadmap remains chronological and aligned to:
+## Clinical safety and governance
 
-1. project foundations and startup checks
-2. onboarding
-3. authentication and session handling
-4. facility, user, role, and permission setup
-5. Home
-6. Admit
-7. required 3-step admission flow:
+This app is decision support only.
 
-   * Patient & reason
-   * Oxygen, ABG & ventilator
-   * Save & review
-8. Tracking
-9. ABG / Vent Update
-10. decision-support rules and safety flags
-11. Dataset Capture
-12. Review Queue
-13. Dashboard
-14. Training / Help
-15. Settings
-16. governance, exports, audit, and future model-readiness
+Do not add autonomous clinical orders or unsafe wording. Allowed wording includes:
+
+* “check”
+* “review”
+* “consider senior review”
+* “confirm clinically”
+* “clinician confirms final settings”
+
+Forbidden outputs include:
+
+* “Diagnosed ARDS”
+* exact ventilator-setting orders
+* “intubate now”
+* “extubate now”
+* medication, fluid, vasopressor, paralysis, ECMO, rationing, or transfer-denial orders
+
+Ensure:
+
+* missing data and uncertainty remain explicit where relevant
+* clinician override with reason is preserved where relevant
+* auditability is preserved for edits, reviews, exports, overrides, and model outputs
+* population-specific calculations and wording are preserved
+* no adult PBW formulas are used for neonatal, pediatric, adolescent, or unknown pathways
+* no unreviewed records, raw notes, or demo data enter approved training datasets
+* no patient identifiers are sent to external AI/model services
+
+Preserve separation between:
+
+1. reference/evidence rules
+2. facility clinical records
+3. reviewed, de-identified, ethics-approved training datasets
+
+For offline/sync behavior, preserve:
+
+* idempotency keys
+* client timestamps
+* no silent overwrites
+* conflict status display
+* retryable sync states
+* reviewed data
+
+For model/AI areas, preserve:
+
+* rule-based MVP behavior first
+* predictive models hidden from normal clinicians
+* shadow-mode only until governance approval
+* model cards, dataset cards, drift monitoring, and override monitoring only for approved roles
+
+Do not disrupt the ICU workflow:
+
+* Home
+* Admit
+* Tracking
+* ABG / Vent Update
+* Dataset Capture
+* Review Queue
+* Dashboard
+* Training / Help
+* Settings
+
+If admission-related code is touched, preserve the required 3-step admission flow:
+
+1. Patient & reason
+2. Oxygen, ABG & ventilator
+3. Save & review
 
 Support all patient pathways where relevant:
 
@@ -90,153 +163,40 @@ Support all patient pathways where relevant:
 * surgical
 * other/unknown
 
-Allow `unknown`, `not_available`, or `null` for clinically missing fields where app rules allow saving.
+Allow `unknown`, `not_available`, or `null` for clinically missing fields where existing app rules allow saving.
 
-## Range-based dataset planning
+## Tests
 
-Update the dev plans so clinical reference datasets use validated ranges, not only exact values.
+Add or update focused tests for changed behavior, especially:
 
-The dataset plan must require range records to include, where relevant:
-
-* clinical condition or scenario
-* patient pathway and population applicability
-* parameter name
-* lower bound
-* upper bound
-* unit
-* source/evidence reference
-* version
-* facility/global scope
-* verification status
-* verified by
-* verified at
-* review notes
-* audit trail
-
-Decision-support logic must only use dataset records marked as verified. For the current development seed/reference dataset only, plan for initial records to be marked verified so MVP decision-support can run. In production, newly added dataset records must require review and verification by authorized clinicians before use.
-
-The plan must preserve separation between:
-
-1. reference/evidence rules
-2. facility clinical records
-3. reviewed, de-identified, ethics-approved training datasets
-
-Do not allow unreviewed records, raw notes, demo data, or patient identifiers into approved training datasets.
-
-## Backend architecture constraints
-
-Preserve existing backend patterns:
-
-* `/api/v1` versioned routes
-* route → validator → controller → service layering
-* Prisma access inside services/repository helpers
-* Zod validation for `body`, `params`, and `query`
-* standard success/error response shape
-* facility membership and facility-level isolation
-* audit logging
-* append-only ABG and ventilator records
-* offline idempotency and conflict handling
-* pure clinical calculation helpers with tests
-
-## Frontend architecture constraints
-
-Preserve existing frontend patterns:
-
-* Expo Router routes under `src/app`
-* reusable platform code under `src/platform/*`
-* Redux Toolkit state ownership
-* API client conventions
-* offline draft/sync queue behavior
-* theme, accessibility, i18n, logging, and error boundaries
-* styled-components UI conventions
-* role-aware navigation and screen visibility
-
-Keep UI planning minimal, readable, responsive, and consistent across web, Android, iOS, and mobile web.
-
-## Clinical safety requirements
-
-This app is clinical decision support only. Do not plan autonomous clinical orders.
-
-Allowed wording:
-
-* “check”
-* “review”
-* “consider senior review”
-* “confirm clinically”
-* “clinician confirms final settings”
-
-Forbidden outputs:
-
-* “Diagnosed ARDS”
-* exact ventilator-setting orders
-* “intubate now”
-* “extubate now”
-* medication, fluid, vasopressor, paralysis, ECMO, rationing, or transfer-denial orders
-
-The plan must require:
-
-* explicit missing data and uncertainty
-* clinician override with reason where relevant
-* auditability for edits, reviews, exports, overrides, and model outputs
-* population-specific calculations and wording
-* no adult PBW formulas for neonatal, pediatric, adolescent, or unknown pathways
-* no patient identifiers sent to external AI/model services
-
-## Offline, sync, and governance requirements
-
-For offline/sync planning, require:
-
-* idempotency keys
-* client timestamps
-* no silent overwrites
-* conflict status display
-* retryable sync states
-* reviewed data preservation
-
-For model/AI planning, require:
-
-* rule-based MVP behavior first
-* predictive models hidden from normal clinicians
-* shadow-mode only until governance approval
-* model cards, dataset cards, drift monitoring, and override monitoring only for approved roles
-
-## Tests in the roadmap
-
-Because this task changes planning files only, do not add runtime tests now. Instead, every relevant phase must specify future focused tests for:
-
-* range-based dataset validation and verified-only decision use
-* clinical calculators and flags
-* forbidden clinical wording
-* route contracts and response shapes
-* Zod validation
-* auth, RBAC, and facility isolation
-* append-only ABG/ventilator updates
-* offline drafts, sync queue, retry, and conflicts
+* branding/UI copy updates
+* auth route/screen contracts
+* registration entry/navigation
+* Zod validation if backend auth changes
+* response shapes if backend auth changes
+* auth, RBAC, and facility isolation if backend auth changes
 * role-aware frontend visibility
-* accessibility for critical forms and alerts
+* accessibility for sign-in/register forms and critical alerts
+* forbidden clinical wording if any clinical text is touched
+* offline drafts, sync queue, retry, and conflicts if touched
 
 ## Scope limits
 
-Implement only this dev-plan update.
+* Implement only this requested task.
+* Avoid unrelated refactors.
+* Avoid changing public contracts unless necessary.
+* Create missing folders/files only when required.
+* Preserve existing names, paths, tests, and behavior unless the task requires a change.
+* Document unavoidable assumptions in the final implementation summary.
 
-Avoid unrelated refactors.
-
-Do not change public contracts.
-
-Create missing dev-plan files only when required.
-
-Avoid duplicate or overlapping dev-plan files.
-
-Document unavoidable assumptions in the final implementation summary.
-
-## Final response required
+## Coding-agent output required
 
 Return:
 
 * brief implementation summary
-* complete changed dev-plan files only
+* complete changed files only
 * each file labeled as `Modified file`, `New file`, or `Deleted file`
 * exact repository-relative paths
-* tests added/updated, or state that no runtime tests were changed because this was docs-only
-* commands to run, if any
+* tests added/updated
+* commands to run
 * safe deletion script if any files are deleted

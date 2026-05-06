@@ -1,5 +1,5 @@
 /**
- * Collins API Endpoints Registry
+ * AI Vent API Endpoints Registry
  * Central source of truth for backend routes.
  */
 
