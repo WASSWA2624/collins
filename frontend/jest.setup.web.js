@@ -23,10 +23,17 @@ jest.mock('styled-components', () => {
   // Create a theme context that will be used by ThemeProvider and useTheme
   const ThemeContext = React.createContext(null);
   
-  const createStyledMock = (component, displayName) => {
+  const filterProps = (props, shouldForwardProp) => {
+    if (!shouldForwardProp) return props;
+    return Object.fromEntries(
+      Object.entries(props).filter(([prop]) => shouldForwardProp(prop))
+    );
+  };
+
+  const createStyledMock = (component, displayName, shouldForwardProp) => {
     const styledFn = (strings, ...interpolations) => {
       const StyledComponent = React.forwardRef((props, ref) => {
-        return React.createElement(component, { ref, ...props });
+        return React.createElement(component, { ref, ...filterProps(props, shouldForwardProp) });
       });
       StyledComponent.displayName = displayName || `Styled${component.displayName || component.name || 'Component'}`;
       return StyledComponent;
@@ -36,7 +43,7 @@ jest.mock('styled-components', () => {
       return (strings, ...interpolations) => {
         const StyledComponent = React.forwardRef((props, ref) => {
           const attrs = typeof attrsFn === 'function' ? attrsFn(props) : attrsFn;
-          return React.createElement(component, { ref, ...attrs, ...props });
+          return React.createElement(component, { ref, ...attrs, ...filterProps(props, shouldForwardProp) });
         });
         StyledComponent.displayName = displayName || `Styled${component.displayName || component.name || 'Component'}`;
         return StyledComponent;
@@ -45,11 +52,12 @@ jest.mock('styled-components', () => {
     
     // Add .withConfig() method support
     styledFn.withConfig = (config) => {
-      const { displayName: configDisplayName, componentId } = config || {};
+      const { displayName: configDisplayName, componentId, shouldForwardProp: configShouldForwardProp } = config || {};
+      const finalShouldForwardProp = configShouldForwardProp || shouldForwardProp;
       const finalDisplayName = configDisplayName || displayName || `Styled${component.displayName || component.name || 'Component'}`;
       const styledWithConfig = (strings, ...interpolations) => {
         const StyledComponent = React.forwardRef((props, ref) => {
-          return React.createElement(component, { ref, ...props });
+          return React.createElement(component, { ref, ...filterProps(props, finalShouldForwardProp) });
         });
         StyledComponent.displayName = finalDisplayName;
         if (componentId) {
@@ -63,7 +71,7 @@ jest.mock('styled-components', () => {
         return (strings, ...interpolations) => {
           const StyledComponent = React.forwardRef((props, ref) => {
             const attrs = typeof attrsFn === 'function' ? attrsFn(props) : attrsFn;
-            return React.createElement(component, { ref, ...attrs, ...props });
+            return React.createElement(component, { ref, ...attrs, ...filterProps(props, finalShouldForwardProp) });
           });
           StyledComponent.displayName = finalDisplayName;
           if (componentId) {
@@ -87,7 +95,10 @@ jest.mock('styled-components', () => {
       if (prop === 'default') {
         return styled;
       }
-      // Map HTML elements to div for web
+      if (prop === 'input') {
+        return createStyledMock('input', 'StyledInput');
+      }
+      // Map most HTML elements to div for web
       const htmlElements = ['div', 'button', 'span', 'label', 'ul', 'li', 'input', 'select', 'option', 'img'];
       if (htmlElements.includes(prop.toLowerCase())) {
         return createStyledMock('div', `Styled${prop}`);

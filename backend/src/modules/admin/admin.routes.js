@@ -3,7 +3,9 @@ import { requireAuth } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validateRequest.js';
 import {
   activateShadowMode,
+  assignUserMemberships,
   auditLogs,
+  createUser,
   createReference,
   dashboard,
   datasetQuality,
@@ -18,12 +20,17 @@ import {
   requestReferenceUpdate,
   retire,
   retireReference,
+  updateUserMembership,
   updateReference,
+  users,
   verifyReference,
   verifyFacility,
 } from './admin.controller.js';
 import {
+  adminUserListSchema,
   auditLogSchema,
+  assignManagedUserMembershipsSchema,
+  createManagedUserSchema,
   createReferenceSchema,
   dashboardSchema,
   modelActionSchema,
@@ -32,6 +39,7 @@ import {
   modelShadowOutputSchema,
   referenceLifecycleSchema,
   referenceListSchema,
+  updateManagedUserMembershipSchema,
   updateReferenceSchema,
 } from './admin.validators.js';
 import { verifyFacilitySchema } from '../facilities/facilities.validators.js';
@@ -42,6 +50,10 @@ adminRouter.use(requireAuth);
 adminRouter.get('/dashboard', validateRequest(dashboardSchema), dashboard);
 adminRouter.get('/facilities', facilities);
 adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema), verifyFacility);
+adminRouter.get('/users', validateRequest(adminUserListSchema), users);
+adminRouter.post('/users', validateRequest(createManagedUserSchema), createUser);
+adminRouter.post('/users/:id/facility-memberships', validateRequest(assignManagedUserMembershipsSchema), assignUserMemberships);
+adminRouter.patch('/users/:id/facility-memberships/:membershipId', validateRequest(updateManagedUserMembershipSchema), updateUserMembership);
 adminRouter.get('/audit-logs', validateRequest(auditLogSchema), auditLogs);
 adminRouter.get('/dataset-quality', validateRequest(dashboardSchema), datasetQuality);
 adminRouter.get('/model-monitoring', modelMonitoring);

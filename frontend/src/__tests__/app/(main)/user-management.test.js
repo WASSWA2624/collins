@@ -1,7 +1,3 @@
-/**
- * Data Sources Route Tests (P011 11.S.12)
- * Tests: src/app/(settings)/data-sources.jsx renders DataSourcesScreen
- */
 const React = require('react');
 const { render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
@@ -12,8 +8,12 @@ const rootReducer = require('@store/rootReducer').default;
 jest.mock('@platform/screens', () => {
   const React = require('react');
   return {
-    DataSourcesScreen: () =>
-      React.createElement('div', { testID: 'data-sources-screen', 'data-testid': 'data-sources-screen' }, 'Mock DataSourcesScreen'),
+    UserManagementScreen: () =>
+      React.createElement(
+        'div',
+        { testID: 'user-management-screen', 'data-testid': 'user-management-screen' },
+        'Mock UserManagementScreen'
+      ),
   };
 });
 
@@ -23,7 +23,8 @@ const createMockStore = (initialState = {}) =>
   configureStore({
     reducer: rootReducer,
     preloadedState: {
-      ui: { theme: 'light', locale: 'en', density: 'comfortable', isLoading: false },
+      ui: { theme: 'light', locale: 'en', isLoading: false },
+      auth: { isAuthenticated: true, user: null },
       ...initialState,
     },
   });
@@ -35,12 +36,12 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
-describe('app/(settings)/data-sources.jsx', () => {
+describe('app/(main)/user-management.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('should render DataSourcesScreen', () => {
-    const DataSourcesRoute = require('../../../app/(settings)/data-sources').default;
-    const { getByTestId } = renderWithProviders(<DataSourcesRoute />);
-    expect(getByTestId('data-sources-screen')).toBeDefined();
+  it('renders UserManagementScreen', () => {
+    const UserManagementRoute = require('../../../app/(main)/user-management').default;
+    const { getByTestId } = renderWithProviders(<UserManagementRoute />);
+    expect(getByTestId('user-management-screen')).toBeDefined();
   });
 });

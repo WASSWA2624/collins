@@ -36,6 +36,12 @@ const textOrUndefined = (value) => {
   return text || undefined;
 };
 const numberOrUndefined = (value) => (isFiniteNumber(value) ? value : undefined);
+const dateTimeOrUndefined = (value) => {
+  const text = cleanText(value);
+  if (!text) return undefined;
+  const parsed = new Date(text);
+  return Number.isNaN(parsed.getTime()) ? text : parsed.toISOString();
+};
 const roundTo = (value, precision = 1) => {
   if (!isFiniteNumber(value)) return null;
   const factor = 10 ** precision;
@@ -106,6 +112,7 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   clinicianConfirmed: false,
   overrideReason: '',
   reviewNote: '',
+  suggestedVentilatorSettings: null,
 });
 
 const normalizeInputs = (inputs, clientRecordId) => {
@@ -230,20 +237,40 @@ const buildPatientReasonPayload = (inputs) => {
   };
 };
 
-const buildOxygenAbgVentilatorPayload = (inputs) => {
+const buildOxygenAbgVentilatorPayload = (
+  inputs,
+  {
+    includeOxygen = true,
+    includeAbg = true,
+    includeVentilator = true,
+    includeFlowContext = true,
+    idempotencyKeySuffix = 'oxygen-abg-ventilator',
+  } = {}
+) => {
   const timestamp = nowIso();
-  return {
+  const payload = {
     facilityId: textOrUndefined(inputs.facilityId),
-    oxygen: {
-      measuredAt: textOrUndefined(inputs.measuredAt),
+    clientRecordId: inputs.clientRecordId,
+    deviceId: textOrUndefined(inputs.deviceId),
+    clientCreatedAt: inputs.clientCreatedAt || timestamp,
+    clientUpdatedAt: timestamp,
+    idempotencyKey: `${inputs.clientRecordId}:${idempotencyKeySuffix}`,
+  };
+
+  if (includeOxygen) {
+    payload.oxygen = {
+      measuredAt: dateTimeOrUndefined(inputs.measuredAt),
       oxygenSupportType: textOrUndefined(inputs.oxygenSupportType),
       spo2: numberOrUndefined(inputs.spo2),
       fio2: numberOrUndefined(inputs.fio2),
       respiratoryRate: numberOrUndefined(inputs.respiratoryRate),
       heartRate: numberOrUndefined(inputs.heartRate),
-    },
-    abg: {
-      collectedAt: textOrUndefined(inputs.abgCollectedAt),
+    };
+  }
+
+  if (includeAbg) {
+    payload.abg = {
+      collectedAt: dateTimeOrUndefined(inputs.abgCollectedAt),
       ph: numberOrUndefined(inputs.ph),
       pao2: numberOrUndefined(inputs.pao2),
       paco2: numberOrUndefined(inputs.paco2),
@@ -252,9 +279,12 @@ const buildOxygenAbgVentilatorPayload = (inputs) => {
       lactate: numberOrUndefined(inputs.lactate),
       fio2AtSample: numberOrUndefined(inputs.fio2AtSample),
       spo2AtSample: numberOrUndefined(inputs.spo2AtSample),
-    },
-    ventilator: {
-      measuredAt: textOrUndefined(inputs.ventilatorMeasuredAt),
+    };
+  }
+
+  if (includeVentilator) {
+    payload.ventilator = {
+      measuredAt: dateTimeOrUndefined(inputs.ventilatorMeasuredAt) || timestamp,
       mode: textOrUndefined(inputs.ventilatorMode),
       tidalVolumeMl: numberOrUndefined(inputs.tidalVolumeMl),
       respiratoryRateSet: numberOrUndefined(inputs.respiratoryRateSet),
@@ -266,26 +296,26 @@ const buildOxygenAbgVentilatorPayload = (inputs) => {
       peakPressure: numberOrUndefined(inputs.peakPressure),
       plateauPressure: numberOrUndefined(inputs.plateauPressure),
       ieRatio: textOrUndefined(inputs.ieRatio),
-    },
-    uncertainty: {
+    };
+  }
+
+  if (includeFlowContext) {
+    payload.uncertainty = {
       isUncertain: Boolean(cleanText(inputs.uncertaintyFieldsText) || cleanText(inputs.uncertaintyReason)),
       fields: splitList(inputs.uncertaintyFieldsText),
       reason: textOrUndefined(inputs.uncertaintyReason),
       notes: textOrUndefined(inputs.uncertaintyNotes),
-    },
-    deviceContext: {
+    };
+    payload.deviceContext = {
       deviceId: textOrUndefined(inputs.deviceId),
       source: 'manual',
       oxygenSource: textOrUndefined(inputs.oxygenSource),
       ventilatorType: textOrUndefined(inputs.ventilatorType),
       facilityDeviceLabel: textOrUndefined(inputs.facilityDeviceLabel),
-    },
-    clientRecordId: inputs.clientRecordId,
-    deviceId: textOrUndefined(inputs.deviceId),
-    clientCreatedAt: inputs.clientCreatedAt || timestamp,
-    clientUpdatedAt: timestamp,
-    idempotencyKey: `${inputs.clientRecordId}:oxygen-abg-ventilator`,
-  };
+    };
+  }
+
+  return payload;
 };
 
 const buildSaveReviewPayload = (inputs) => {
@@ -336,6 +366,36 @@ const buildRecommendationInput = (inputs) => ({
   peep: numberOrNull(inputs.peep),
   plateauPressure: numberOrNull(inputs.plateauPressure),
 });
+
+const hasSuggestedVentilatorSettings = (inputs) =>
+  Boolean(
+    cleanText(inputs.ventilatorMode) ||
+    cleanText(inputs.ieRatio) ||
+    isFiniteNumber(inputs.tidalVolumeMl) ||
+    isFiniteNumber(inputs.respiratoryRateSet) ||
+    isFiniteNumber(inputs.ventilatorFio2) ||
+    isFiniteNumber(inputs.peep) ||
+    isFiniteNumber(inputs.pressureSupport) ||
+    isFiniteNumber(inputs.inspiratoryPressure) ||
+    isFiniteNumber(inputs.peakPressure) ||
+    isFiniteNumber(inputs.plateauPressure)
+  );
+
+const buildSuggestedVentilatorInputPatch = (settings) => {
+  if (!settings || typeof settings !== 'object') return {};
+  const patch = {
+    suggestedVentilatorSettings: settings,
+  };
+
+  if (textOrUndefined(settings.mode)) patch.ventilatorMode = settings.mode;
+  if (isFiniteNumber(settings.tidalVolume)) patch.tidalVolumeMl = settings.tidalVolume;
+  if (isFiniteNumber(settings.respiratoryRate)) patch.respiratoryRateSet = settings.respiratoryRate;
+  if (isFiniteNumber(settings.fio2)) patch.ventilatorFio2 = settings.fio2;
+  if (isFiniteNumber(settings.peep)) patch.peep = settings.peep;
+  if (textOrUndefined(settings.ieRatio)) patch.ieRatio = settings.ieRatio;
+
+  return patch;
+};
 
 export default function useAssessmentScreen() {
   const router = useRouter();
@@ -479,7 +539,9 @@ export default function useAssessmentScreen() {
           : null;
         setRecommendationSummary(summaryWithSource);
         setRecommendationErrorCode(null);
-        await persistDraft();
+        await persistCurrentDraft(buildSuggestedVentilatorInputPatch(
+          summaryWithSource?.initialVentilatorSettings?.settings
+        ));
         return summaryWithSource;
       } catch (error) {
         setRecommendationSummary(null);
@@ -488,7 +550,7 @@ export default function useAssessmentScreen() {
         return null;
       }
     },
-    [admissionId, mergedInputs, persistDraft, setRecommendationSummary, syncStatus]
+    [admissionId, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
   );
 
   const savePatientReasonStep = useCallback(async () => {
@@ -503,7 +565,9 @@ export default function useAssessmentScreen() {
   }, [applyStepResponse, mergedInputs, persistCurrentDraft]);
 
   const saveOxygenAbgVentilatorStep = useCallback(async () => {
-    const payload = buildOxygenAbgVentilatorPayload(mergedInputs);
+    const payload = buildOxygenAbgVentilatorPayload(mergedInputs, {
+      includeVentilator: false,
+    });
     const response = await saveOxygenAbgVentilatorStepApi(admissionId || mergedInputs.clientRecordId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
@@ -512,6 +576,31 @@ export default function useAssessmentScreen() {
     });
     return response;
   }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft]);
+
+  const saveSuggestedVentilatorSettingsStep = useCallback(async () => {
+    const fallbackPatch = buildSuggestedVentilatorInputPatch(
+      recommendationSummary?.initialVentilatorSettings?.settings
+    );
+    const inputsForVentilator = hasSuggestedVentilatorSettings(mergedInputs)
+      ? mergedInputs
+      : { ...mergedInputs, ...fallbackPatch };
+
+    if (!hasSuggestedVentilatorSettings(inputsForVentilator)) return null;
+    const payload = buildOxygenAbgVentilatorPayload(inputsForVentilator, {
+      includeOxygen: false,
+      includeAbg: false,
+      includeVentilator: true,
+      includeFlowContext: false,
+      idempotencyKeySuffix: 'suggested-ventilator-settings',
+    });
+    const response = await saveOxygenAbgVentilatorStepApi(admissionId || mergedInputs.clientRecordId, payload);
+    applyStepResponse(response);
+    await persistCurrentDraft({
+      admissionId: response?.admission?.id || admissionId || mergedInputs.clientRecordId,
+      syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+    });
+    return response;
+  }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft, recommendationSummary]);
 
   const saveReviewStep = useCallback(async () => {
     const payload = buildSaveReviewPayload(mergedInputs);
@@ -582,6 +671,7 @@ export default function useAssessmentScreen() {
     setIsSaving(true);
     setSaveErrorCode(null);
     try {
+      await saveSuggestedVentilatorSettingsStep();
       await saveReviewStep();
       router.replace('/tracking');
     } catch (error) {
@@ -589,7 +679,7 @@ export default function useAssessmentScreen() {
     } finally {
       setIsSaving(false);
     }
-  }, [canProceedFromStep, router, saveReviewStep]);
+  }, [canProceedFromStep, router, saveReviewStep, saveSuggestedVentilatorSettingsStep]);
 
   const togglePermittedMissingField = useCallback(
     (field, checked) => {
@@ -632,6 +722,14 @@ export default function useAssessmentScreen() {
     () => recommendationSummary?.initialVentilatorSettings?.settings ?? null,
     [recommendationSummary]
   );
+  const suggestedVentilatorInputs = useMemo(() => ({
+    ventilatorMode: mergedInputs.ventilatorMode || recommendationSettings?.mode || '',
+    tidalVolumeMl: mergedInputs.tidalVolumeMl ?? recommendationSettings?.tidalVolume ?? null,
+    respiratoryRateSet: mergedInputs.respiratoryRateSet ?? recommendationSettings?.respiratoryRate ?? null,
+    ventilatorFio2: mergedInputs.ventilatorFio2 ?? recommendationSettings?.fio2 ?? null,
+    peep: mergedInputs.peep ?? recommendationSettings?.peep ?? null,
+    ieRatio: mergedInputs.ieRatio || recommendationSettings?.ieRatio || '',
+  }), [mergedInputs, recommendationSettings]);
   const recommendationUnits = useMemo(
     () => recommendationSummary?.units ?? {},
     [recommendationSummary]
@@ -659,6 +757,7 @@ export default function useAssessmentScreen() {
     readiness,
     recommendationSummary,
     recommendationSettings,
+    suggestedVentilatorInputs,
     recommendationUnits,
     recommendationMissingInputs,
     recommendationConfidence,

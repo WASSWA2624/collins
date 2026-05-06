@@ -14,8 +14,9 @@ jest.mock('@platform/screens', () => {
     AbgVentUpdateScreen: makeScreen('abg-vent-update-screen', 'Update ABG & Ventilator Settings'),
     AssessmentScreen: makeScreen('admit-screen', 'Admit'),
     DashboardScreen: makeScreen('dashboard-screen', 'Dashboard'),
-    DataSourcesScreen: makeScreen('dataset-capture-screen', 'Dataset Capture'),
+    DatasetCaptureScreen: makeScreen('dataset-capture-screen', 'Dataset Capture'),
     HistoryScreen: makeScreen('tracking-screen', 'Tracking'),
+    UserManagementScreen: makeScreen('user-management-screen', 'User Management'),
   };
 });
 
@@ -27,6 +28,7 @@ describe('home workflow route aliases', () => {
     ['abg-vent-update', 'abg-vent-update-screen'],
     ['dataset-capture', 'dataset-capture-screen'],
     ['dashboard', 'dashboard-screen'],
+    ['user-management', 'user-management-screen'],
   ])('renders %s route', (route, testID) => {
     const RouteComponent = require(`../../../app/(main)/${route}`).default;
     const { getByTestId } = render(<RouteComponent />);

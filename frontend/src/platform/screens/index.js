@@ -13,6 +13,7 @@ export { default as HomeScreen } from './common/HomeScreen';
 export { default as NotFoundScreen } from './common/NotFoundScreen';
 export { default as ErrorScreen } from './common/ErrorScreen';
 export { default as DashboardScreen } from './dashboard/DashboardScreen';
+export { default as UserManagementScreen } from './admin/UserManagementScreen';
 export { DatasetCaptureScreen } from './dataset';
 
 // Ventilation screens

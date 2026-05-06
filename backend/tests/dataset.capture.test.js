@@ -33,7 +33,7 @@ test('sync queue contract accepts offline dataset capture candidates', () => {
         facilityId: 'facility-1',
         payload: {
           facilityId: 'facility-1',
-          sourceType: 'pasted_note_capture',
+          sourceType: 'clinical_case_capture',
           structuredPreviewJson: { patient: { ageYears: 54 } },
         },
         idempotencyKey: 'dataset-capture-key-1',
@@ -101,7 +101,7 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
 
   const result = await createDatasetImport({
     facilityId: 'facility-1',
-    sourceType: 'pasted_note_capture',
+    sourceType: 'clinical_case_capture',
     structuredPreviewJson: {
       patient: { ageYears: 52, hospitalNumber: 'H-123' },
       clinicalSnapshot: { spo2: 93 },
@@ -137,7 +137,7 @@ test('normal clinicians cannot approve dataset candidates', async (t) => {
     findUnique: async () => ({
       id: 'dataset-1',
       facilityId: 'facility-1',
-      sourceType: 'pasted_note_capture',
+      sourceType: 'clinical_case_capture',
       structuredPreviewJson: {},
       deidentifiedPayloadJson: {},
       deidentificationStatus: 'deidentified_server_side',

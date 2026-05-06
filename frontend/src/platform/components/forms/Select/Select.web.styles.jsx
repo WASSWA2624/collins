@@ -9,11 +9,12 @@ import styled from 'styled-components';
 const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
-  shouldForwardProp: (prop) => prop !== '$compact',
+  shouldForwardProp: (prop) => !['$compact', '$isOpen'].includes(prop),
 })`
   position: relative;
   width: ${({ $compact }) => ($compact ? 'auto' : '100%')};
   margin-bottom: ${({ $compact, theme }) => ($compact ? 0 : theme.spacing.md)}px;
+  z-index: ${({ $isOpen }) => ($isOpen ? 10000 : 'auto')};
 `;
 
 const StyledLabelRow = styled.div.withConfig({
@@ -122,7 +123,7 @@ const StyledMenu = styled.div.withConfig({
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   border-radius: ${({ theme }) => theme.radius.md}px;
-  z-index: 1000;
+  z-index: 10000;
   overflow: hidden;
   max-height: min(50vh, 240px);
   overflow-y: auto;

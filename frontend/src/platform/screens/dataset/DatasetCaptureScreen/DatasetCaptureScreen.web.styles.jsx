@@ -52,6 +52,80 @@ const StyledSummaryGrid = styled.div.withConfig({
   }
 `;
 
+const StyledProgressSection = styled.nav.withConfig({
+  displayName: 'StyledDatasetCaptureProgressSection',
+  componentId: 'StyledDatasetCaptureProgressSection',
+})`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.lg}px 0 0;
+`;
+
+const StyledProgressHeader = styled.div.withConfig({
+  displayName: 'StyledDatasetCaptureProgressHeader',
+  componentId: 'StyledDatasetCaptureProgressHeader',
+})`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledProgressTrack = styled.div.withConfig({
+  displayName: 'StyledDatasetCaptureProgressTrack',
+  componentId: 'StyledDatasetCaptureProgressTrack',
+})`
+  width: 100%;
+  height: 6px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledProgressFill = styled.div.withConfig({
+  displayName: 'StyledDatasetCaptureProgressFill',
+  componentId: 'StyledDatasetCaptureProgressFill',
+})`
+  width: ${({ $percent }) => Math.max(0, Math.min(100, $percent || 0))}%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+const StyledStepList = styled.div.withConfig({
+  displayName: 'StyledDatasetCaptureStepList',
+  componentId: 'StyledDatasetCaptureStepList',
+})`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledStepItem = styled.button.withConfig({
+  displayName: 'StyledDatasetCaptureStepItem',
+  componentId: 'StyledDatasetCaptureStepItem',
+})`
+  min-height: 64px;
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  align-content: start;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ $active, $complete, theme }) => {
+    if ($active) return theme.colors.primary;
+    if ($complete) return theme.colors.success;
+    return theme.colors.background.tertiary;
+  }};
+  border-left-width: 3px;
+  background-color: ${({ $active, theme }) => (
+    $active ? theme.colors.background.secondary : theme.colors.background.primary
+  )};
+  color: ${({ theme }) => theme.colors.text.primary};
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:disabled {
+    cursor: default;
+  }
+`;
+
 const StyledSummaryItem = styled.div.withConfig({
   displayName: 'StyledDatasetCaptureSummaryItem',
   componentId: 'StyledDatasetCaptureSummaryItem',
@@ -182,8 +256,14 @@ export {
   StyledHeader,
   StyledMissingList,
   StyledNotice,
+  StyledProgressFill,
+  StyledProgressHeader,
+  StyledProgressSection,
+  StyledProgressTrack,
   StyledSection,
   StyledSectionHeader,
+  StyledStepItem,
+  StyledStepList,
   StyledSummaryGrid,
   StyledSummaryItem,
   StyledWideFieldShell,

@@ -50,6 +50,7 @@ test('phase 16 governance monitoring routes are registered and require authentic
     '/api/v1/admin/model-monitoring/drift',
     '/api/v1/admin/override-monitoring',
     '/api/v1/admin/models/cards',
+    '/api/v1/admin/users',
     '/api/v1/datasets/dataset-1/card',
   ];
 

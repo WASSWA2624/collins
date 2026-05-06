@@ -6,6 +6,7 @@ import {
   getFacilityOptionsForUser,
   getPermissionsForUser,
 } from '@config/accessControl';
+import { MAIN_NAV_ITEMS } from '@config/sideMenu';
 
 const user = {
   id: 'user-1',
@@ -64,5 +65,22 @@ describe('accessControl', () => {
         permissions: [PERMISSIONS.CLINICAL_WRITE],
       },
     })).toBe(false);
+  });
+
+  it('exposes user management only to administrators', () => {
+    const item = MAIN_NAV_ITEMS.find((navItem) => navItem.id === 'user-management');
+    const adminUser = {
+      id: 'admin-1',
+      memberships: [{
+        id: 'membership-admin',
+        facilityId: 'facility-1',
+        role: MEMBERSHIP_ROLES.FACILITY_ADMIN,
+        status: 'APPROVED',
+        facility: { id: 'facility-1', name: 'Kampala ICU' },
+      }],
+    };
+
+    expect(canAccessNavigationItem({ isAuthenticated: true, user: adminUser, item })).toBe(true);
+    expect(canAccessNavigationItem({ isAuthenticated: true, user, item })).toBe(false);
   });
 });

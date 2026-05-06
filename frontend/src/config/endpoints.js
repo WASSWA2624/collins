@@ -119,6 +119,9 @@ export const endpoints = {
   ADMIN: {
     DASHBOARD: `${baseUrl}/admin/dashboard`,
     FACILITIES: `${baseUrl}/admin/facilities`,
+    USERS: `${baseUrl}/admin/users`,
+    USER_MEMBERSHIPS: (id) => `${baseUrl}/admin/users/${id}/facility-memberships`,
+    USER_MEMBERSHIP: (id, membershipId) => `${baseUrl}/admin/users/${id}/facility-memberships/${membershipId}`,
     AUDIT_LOGS: `${baseUrl}/admin/audit-logs`,
     DATASET_QUALITY: `${baseUrl}/admin/dataset-quality`,
     MODEL_MONITORING: `${baseUrl}/admin/model-monitoring`,

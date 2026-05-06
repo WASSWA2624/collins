@@ -220,6 +220,7 @@ const StyledActionItem = styled.a.withConfig({
   displayName: 'StyledActionItem',
   componentId: 'StyledActionItem',
 })`
+  position: relative;
   min-height: 88px;
   display: flex;
   align-items: center;
@@ -233,11 +234,45 @@ const StyledActionItem = styled.a.withConfig({
   text-decoration: none;
   opacity: ${({ $enabled }) => ($enabled ? 1 : 0.58)};
   pointer-events: ${({ $enabled }) => ($enabled ? 'auto' : 'none')};
+  cursor: ${({ $enabled }) => ($enabled ? 'pointer' : 'default')};
   box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  transition:
+    background-color ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut},
+    border-color ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut},
+    box-shadow ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut},
+    transform ${({ theme }) => theme.animations.duration.fast}ms ${({ theme }) => theme.animations.easing.easeOut};
+
+  &:visited,
+  &:hover,
+  &:active {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ${({ $enabled, theme }) =>
+    $enabled
+      ? `
+        &:hover {
+          border-color: ${theme.colors.primary};
+          background-color: ${theme.colors.background.primary};
+          box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          opacity: 1;
+          background-color: ${theme.colors.background.secondary};
+          box-shadow: 0 3px 8px rgba(15, 23, 42, 0.10);
+          transform: translateY(0);
+        }
+      `
+      : ''}
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
     outline-offset: 2px;
+    border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 

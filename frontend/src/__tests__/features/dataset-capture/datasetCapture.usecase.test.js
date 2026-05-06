@@ -43,6 +43,7 @@ describe('datasetCapture.usecase', () => {
 
     expect(result.queued).toBe(true);
     expect(request.method).toBe('POST');
+    expect(request.body.sourceType).toBe('clinical_case_capture');
     expect(request.body.structuredPreviewJson.patient.ageYears).toBe(54);
     expect(request.body.governanceJson.rawNoteStored).toBe(false);
     expect(request.body.noteText).toBeUndefined();

@@ -249,7 +249,7 @@ const SelectWeb = ({
   };
 
   return (
-    <StyledContainer ref={rootRef} style={style} className={className} $compact={compact}>
+    <StyledContainer ref={rootRef} style={style} className={className} $compact={compact} $isOpen={open}>
       {label ? (
         <StyledLabelRow $compact={compact}>
           <StyledLabel>{label}</StyledLabel>

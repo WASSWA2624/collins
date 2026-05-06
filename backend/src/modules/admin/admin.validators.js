@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { MEMBERSHIP_ROLE_VALUES } from '../../constants/roles.js';
 import {
   DASHBOARD_WINDOW_DEFAULT_DAYS,
   DASHBOARD_WINDOW_MAX_DAYS,
@@ -6,6 +7,16 @@ import {
 
 const jsonObject = z.record(z.string(), z.unknown());
 const idParam = z.object({ id: z.string().min(1) });
+const membershipIdParam = idParam.extend({ membershipId: z.string().min(1) });
+const membershipRole = z.enum(MEMBERSHIP_ROLE_VALUES);
+const membershipStatus = z.enum(['PENDING', 'APPROVED', 'REJECTED', 'SUSPENDED']);
+const userStatus = z.enum(['ACTIVE', 'INVITED', 'SUSPENDED', 'DEACTIVATED']);
+
+const membershipAssignmentSchema = z.object({
+  facilityId: z.string().min(1),
+  role: membershipRole,
+  status: membershipStatus.optional().default('APPROVED'),
+});
 
 const patientPathway = z.enum([
   'NEONATE',
@@ -57,6 +68,62 @@ export const auditLogSchema = z.object({
     page: z.coerce.number().int().positive().default(1),
     limit: z.coerce.number().int().positive().max(100).default(20),
   }),
+});
+
+export const adminUserListSchema = z.object({
+  body: z.object({}).optional(),
+  params: z.object({}).optional(),
+  query: z.object({
+    q: z.string().trim().max(120).optional(),
+    facilityQ: z.string().trim().max(160).optional(),
+    facilityId: z.string().min(1).optional(),
+    role: membershipRole.optional(),
+    status: userStatus.optional(),
+    page: z.coerce.number().int().positive().default(1),
+    limit: z.coerce.number().int().positive().max(100).default(20),
+  }),
+});
+
+export const createManagedUserSchema = z.object({
+  body: z.object({
+    name: z.string().trim().min(2).max(120),
+    email: z.string().trim().toLowerCase().email(),
+    phone: z.string().trim().max(40).optional(),
+    password: z.string().min(8).max(128),
+    status: userStatus.optional().default('ACTIVE'),
+    memberships: z.array(membershipAssignmentSchema).max(12).optional().default([]),
+  }),
+  params: z.object({}).optional(),
+  query: z.object({}).optional(),
+});
+
+export const assignManagedUserMembershipsSchema = z.object({
+  body: z.object({
+    facilityId: z.string().min(1),
+    roles: z.array(membershipRole).min(1).max(8),
+    status: membershipStatus.optional().default('APPROVED'),
+    reason: z.string().trim().max(1000).optional(),
+  }),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
+export const updateManagedUserMembershipSchema = z.object({
+  body: z.object({
+    role: membershipRole.optional(),
+    status: membershipStatus.optional(),
+    reason: z.string().trim().max(1000).optional(),
+  }).superRefine((value, ctx) => {
+    if (!value.role && !value.status) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: [],
+        message: 'At least one membership update field is required.',
+      });
+    }
+  }),
+  params: membershipIdParam,
+  query: z.object({}).optional(),
 });
 
 export const monitoringSchema = z.object({

@@ -131,20 +131,50 @@ export const buildReviewedAdmissionDatasetPayload = (admission) => buildDatasetP
 export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContext = {}) => {
   await assertFacilityRole(userId, facilityId, DATASET_CAPTURE_ROLES);
   const text = noteText.replace(/\s+/g, ' ');
+  const fio2 = (() => {
+    const value = extractNumber(text, [/fio2\s*[:=]?\s*(0?\.\d{1,2})/i, /fio2\s*[:=]?\s*(\d{2,3})\s*%/i]);
+    if (value === undefined) return undefined;
+    return value > 1 ? Number((value / 100).toFixed(2)) : value;
+  })();
+  const peep = extractNumber(text, [/PEEP\s*[:=]?\s*(\d{1,2})/i]);
+  const plateauPressure = extractNumber(text, [/plateau\s*[:=]?\s*(\d{1,2})/i]);
+  const [spo2Lower, spo2Upper] = extractRange(text, [/target\s*spo2\s*[:=]?\s*(\d{2,3})\s*[-to]+\s*(\d{2,3})/i]);
+  const [paco2Lower, paco2Upper] = extractRange(text, [/target\s*paco2\s*[:=]?\s*(\d{1,3})\s*[-to]+\s*(\d{1,3})/i]);
 
   const preview = {
+    captureMetadata: {
+      schemaVersion: 'clinical_case_v1',
+      entryMode: 'structured_clinician_entry',
+      rawNoteStored: false,
+    },
+    caseContext: {
+      primaryDiagnosis: normalizeDiagnosis(text),
+      reasonForVentilation: /\bhypercap/i.test(text)
+        ? 'Hypercapnic respiratory failure'
+        : /\bhypox/i.test(text)
+          ? 'Hypoxemic respiratory failure'
+          : undefined,
+      ventilationIndication: /\bhypercap/i.test(text)
+        ? 'HYPERCAPNIA'
+        : /\bhypox/i.test(text)
+          ? 'HYPOXEMIA'
+          : undefined,
+    },
     patient: {
-      ageYears: extractNumber(text, [/\bage\s*(\d{1,3})\b/i, /\b(\d{1,3})\s*y(?:ears?)?\b/i]),
-      sexForSizeCalculations: /\bmale\b|\bman\b/i.test(text) ? 'MALE' : /\bfemale\b|\bwoman\b/i.test(text) ? 'FEMALE' : 'UNKNOWN',
+      patientPathway: normalizePatientPathway(text),
+      ageYears: extractNumber(text, [/\bage\s*[:=]?\s*(\d{1,3})\b/i, /\b(\d{1,3})\s*y(?:ears?)?\b/i]),
+      sexForSizeCalculations: /\bmale\b|\bman\b/i.test(text) ? 'MALE' : /\bfemale\b|\bwoman\b/i.test(text) ? 'FEMALE' : undefined,
+      actualWeightKg: extractNumber(text, [/\bweight\s*[:=]?\s*(\d{1,3}(?:\.\d+)?)\s*kg/i]),
+      heightOrLengthCm: extractNumber(text, [/\bheight\s*[:=]?\s*(\d{2,3}(?:\.\d+)?)\s*cm/i]),
+    },
+    clinicalContext: {
+      copdPhenotype: /\bcopd\b/i.test(text) ? 'ACUTE_HYPERCAPNIC_EXACERBATION' : undefined,
     },
     clinicalSnapshot: {
       spo2: extractNumber(text, [/spo2\s*[:=]?\s*(\d{2,3})/i, /saturation\s*[:=]?\s*(\d{2,3})/i]),
-      fio2: (() => {
-        const value = extractNumber(text, [/fio2\s*[:=]?\s*(0?\.\d{1,2})/i, /fio2\s*[:=]?\s*(\d{2,3})\s*%/i]);
-        if (value === undefined) return undefined;
-        return value > 1 ? value / 100 : value;
-      })(),
-      respiratoryRate: extractNumber(text, [/\bRR\s*[:=]?\s*(\d{1,3})/i]),
+      fio2,
+      respiratoryRate: extractNumber(text, [/\bRR\s*[:=]?\s*(\d{1,3})/i, /respiratory rate\s*[:=]?\s*(\d{1,3})/i]),
+      heartRate: extractNumber(text, [/\bHR\s*[:=]?\s*(\d{1,3})/i, /heart rate\s*[:=]?\s*(\d{1,3})/i]),
     },
     abgTest: {
       ph: extractNumber(text, [/\bpH\s*[:=]?\s*(\d\.\d{1,3})/i]),
@@ -152,14 +182,28 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
       paco2: extractNumber(text, [/pa[cC][o0]2\s*[:=]?\s*(\d{1,3})/i]),
       hco3: extractNumber(text, [/hco3\s*[:=]?\s*(\d{1,3})/i]),
       lactate: extractNumber(text, [/lactate\s*[:=]?\s*(\d+(?:\.\d+)?)/i]),
+      fio2AtSample: fio2,
     },
     ventilatorSetting: {
-      mode: text.match(/\bmode\s*[:=]?\s*([A-Za-z0-9 -]{2,20})/i)?.[1]?.trim(),
+      mode: normalizeVentilatorMode(text),
       tidalVolumeMl: extractNumber(text, [/\bVT\s*[:=]?\s*(\d{2,4})/i, /tidal volume\s*[:=]?\s*(\d{2,4})/i]),
       respiratoryRateSet: extractNumber(text, [/set\s*RR\s*[:=]?\s*(\d{1,3})/i]),
-      peep: extractNumber(text, [/PEEP\s*[:=]?\s*(\d{1,2})/i]),
-      plateauPressure: extractNumber(text, [/plateau\s*[:=]?\s*(\d{1,2})/i]),
+      fio2,
+      peep,
+      plateauPressure,
       peakPressure: extractNumber(text, [/peak\s*[:=]?\s*(\d{1,2})/i]),
+      drivingPressure: Number.isFinite(plateauPressure) && Number.isFinite(peep)
+        ? plateauPressure - peep
+        : undefined,
+    },
+    targetRanges: {
+      spo2Lower,
+      spo2Upper,
+      paco2Lower,
+      paco2Upper,
+    },
+    quality: {
+      reviewerConfidence: 'NEEDS_REVIEW',
     },
     parserWarnings: [
       'Structured preview requires human review before dataset use.',
@@ -177,13 +221,34 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
     afterJson: { fields: Object.keys(deidentifiedPreview) },
   });
 
+  const requiredPreviewPaths = [
+    'caseContext.primaryDiagnosis',
+    'caseContext.reasonForVentilation',
+    'patient.patientPathway',
+    'patient.ageYears',
+    'patient.sexForSizeCalculations',
+    'clinicalSnapshot.spo2',
+    'clinicalSnapshot.fio2',
+    'clinicalSnapshot.respiratoryRate',
+    'abgTest.ph',
+    'abgTest.paco2',
+    'ventilatorSetting.mode',
+    'ventilatorSetting.tidalVolumeMl',
+    'ventilatorSetting.respiratoryRateSet',
+    'ventilatorSetting.peep',
+    'targetRanges.spo2Lower',
+    'targetRanges.spo2Upper',
+    'outcome.outcomeType',
+    'quality.reviewerConfidence',
+  ];
+  const getPreviewPath = (path) => path.split('.').reduce((acc, key) => acc?.[key], deidentifiedPreview);
+
   return {
     structuredPreviewJson: deidentifiedPreview,
-    missingFields: Object.entries(deidentifiedPreview).flatMap(([section, value]) => (
-      value && typeof value === 'object'
-        ? Object.entries(value).filter(([, entry]) => entry === undefined || entry === null).map(([key]) => `${section}.${key}`)
-        : []
-    )),
+    missingFields: requiredPreviewPaths.filter((path) => {
+      const value = getPreviewPath(path);
+      return value === undefined || value === null || value === '';
+    }),
     noteStorage: 'raw_note_not_saved',
   };
 };

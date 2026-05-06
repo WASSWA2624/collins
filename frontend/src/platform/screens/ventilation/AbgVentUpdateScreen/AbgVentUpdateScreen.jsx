@@ -13,7 +13,7 @@ const renderValue = (value, fallback = '-') =>
 const renderField = ({ field, value, onChange, prefix, modeOptions, t }) => {
   if (field.key === 'mode') {
     return (
-      <View key={field.key} style={styles.field}>
+      <View key={field.key} style={[styles.field, styles.modeField]}>
         <Select
           label={field.label}
           options={modeOptions}
@@ -237,6 +237,11 @@ const styles = StyleSheet.create({
   field: {
     flexGrow: 1,
     flexBasis: 220,
+  },
+  modeField: {
+    position: 'relative',
+    zIndex: 50,
+    elevation: 50,
   },
   historyRow: {
     gap: 2,

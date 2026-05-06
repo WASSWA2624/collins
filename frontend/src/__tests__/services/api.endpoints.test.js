@@ -22,4 +22,12 @@ describe('services/api/endpoints', () => {
       '/admissions/admission-1/abg-ventilator-updates'
     );
   });
+
+  it('defines administrator user-management endpoints', () => {
+    expect(endpoints.ADMIN.USERS).toContain('/admin/users');
+    expect(endpoints.ADMIN.USER_MEMBERSHIPS('user-1')).toContain('/admin/users/user-1/facility-memberships');
+    expect(endpoints.ADMIN.USER_MEMBERSHIP('user-1', 'membership-1')).toContain(
+      '/admin/users/user-1/facility-memberships/membership-1'
+    );
+  });
 });

@@ -43,9 +43,11 @@ import {
   StyledWizardPane,
 } from './AssessmentScreen.web.styles';
 import {
+  OXYGEN_SUPPORT_OPTIONS,
   PATIENT_PATHWAY_OPTIONS,
   SEX_OPTIONS,
   STEPS,
+  VENTILATOR_MODE_OPTIONS,
 } from './types';
 
 const mapOptions = (options, t, keyPrefix) =>
@@ -77,7 +79,7 @@ const AssessmentScreenWeb = () => {
     setSummaryExpanded,
     readiness,
     recommendationSettings,
-    recommendationUnits,
+    suggestedVentilatorInputs,
     recommendationMissingInputs,
     recommendationConfidence,
     recommendationErrorCode,
@@ -106,6 +108,16 @@ const AssessmentScreenWeb = () => {
     'ventilation.assessment.patientReason.pathways'
   );
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
+  const oxygenSupportOptions = mapOptions(
+    OXYGEN_SUPPORT_OPTIONS,
+    t,
+    'ventilation.assessment.oxygenAbgVentilator.oxygenSupportOptions'
+  );
+  const ventilatorModeOptions = mapOptions(
+    VENTILATOR_MODE_OPTIONS,
+    t,
+    'ventilation.assessment.saveReview.ventilatorModeOptions'
+  );
 
   const renderSummary = () => {
     const rows = [
@@ -235,15 +247,20 @@ const AssessmentScreenWeb = () => {
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
       <StyledFieldGrid>
-        <TextField
+        <Select
           label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')}
+          placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')}
+          helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')}
+          options={oxygenSupportOptions}
           value={mergedInputs.oxygenSupportType}
-          onChangeText={(value) => updateInput({ oxygenSupportType: value })}
+          onValueChange={(value) => updateInput({ oxygenSupportType: value })}
           testID="assessment-oxygen-support"
         />
         <TextField
           label={t('ventilation.assessment.oxygenAbgVentilator.measuredAt')}
+          type="datetime-local"
           placeholder={t('ventilation.assessment.oxygenAbgVentilator.timePlaceholder')}
+          helperText={t('ventilation.assessment.oxygenAbgVentilator.timeHint')}
           value={mergedInputs.measuredAt}
           onChangeText={(value) => updateInput({ measuredAt: value })}
           testID="assessment-measured-at"
@@ -332,59 +349,6 @@ const AssessmentScreenWeb = () => {
           onChangeText={(value) => updateInput({ spo2AtSample: parseNum(value) })}
           testID="assessment-spo2-at-sample"
         />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.ventilatorMode')}
-          value={mergedInputs.ventilatorMode}
-          onChangeText={(value) => updateInput({ ventilatorMode: value })}
-          testID="assessment-ventilator-mode"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.tidalVolumeMl')}
-          type="number"
-          value={mergedInputs.tidalVolumeMl != null ? String(mergedInputs.tidalVolumeMl) : ''}
-          onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
-          testID="assessment-tidal-volume"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.ventilatorFio2')}
-          type="number"
-          value={mergedInputs.ventilatorFio2 != null ? String(mergedInputs.ventilatorFio2) : ''}
-          onChangeText={(value) => updateInput({ ventilatorFio2: parseNum(value) })}
-          testID="assessment-ventilator-fio2"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.peep')}
-          type="number"
-          value={mergedInputs.peep != null ? String(mergedInputs.peep) : ''}
-          onChangeText={(value) => updateInput({ peep: parseNum(value) })}
-          testID="assessment-peep"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.respiratoryRateSet')}
-          type="number"
-          value={mergedInputs.respiratoryRateSet != null ? String(mergedInputs.respiratoryRateSet) : ''}
-          onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })}
-          testID="assessment-respiratory-rate-set"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.plateauPressure')}
-          type="number"
-          value={mergedInputs.plateauPressure != null ? String(mergedInputs.plateauPressure) : ''}
-          onChangeText={(value) => updateInput({ plateauPressure: parseNum(value) })}
-          testID="assessment-plateau-pressure"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.deviceId')}
-          value={mergedInputs.deviceId}
-          onChangeText={(value) => updateInput({ deviceId: value })}
-          testID="assessment-device-id"
-        />
-        <TextField
-          label={t('ventilation.assessment.oxygenAbgVentilator.ventilatorType')}
-          value={mergedInputs.ventilatorType}
-          onChangeText={(value) => updateInput({ ventilatorType: value })}
-          testID="assessment-ventilator-type"
-        />
         <StyledFieldGridFull>
           <StyledFieldWithHint>
             <TextField
@@ -412,44 +376,66 @@ const AssessmentScreenWeb = () => {
     </StyledFieldGroup>
   );
 
-  const formatRecommendationValue = (key, value) => {
-    if (value == null || value === '') return null;
-    if (key === 'fio2' && typeof value === 'number') return `${Math.round(value * 100)}%`;
-    const unit = recommendationUnits?.[key] ?? '';
-    return typeof value === 'number' && unit ? `${value} ${unit}` : String(value);
-  };
-
   const renderRecommendation = () => {
-    const rows = [
-      ['mode', recommendationSettings?.mode],
-      ['tidalVolume', recommendationSettings?.tidalVolume],
-      ['respiratoryRate', recommendationSettings?.respiratoryRate],
-      ['fio2', recommendationSettings?.fio2],
-      ['peep', recommendationSettings?.peep],
-      ['ieRatio', recommendationSettings?.ieRatio],
-    ]
-      .map(([key, value]) => ({
-        key,
-        label: t(`ventilation.recommendation.settings.${key}`),
-        value: formatRecommendationValue(key, value),
-      }))
-      .filter((row) => row.value != null);
+    const hasRecommendation = recommendationSettings && Object.keys(recommendationSettings).length > 0;
 
     return (
       <StyledMissingTests data-testid={testIds.recommendation} role="region" aria-label={t('ventilation.assessment.saveReview.recommendationTitle')}>
         <StyledMissingTestsTitle>
           {t('ventilation.assessment.saveReview.recommendationTitle')}
         </StyledMissingTestsTitle>
-        {rows.length > 0 ? (
+        {hasRecommendation ? (
           <>
             <StyledMissingTestsHint>
               {t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}
             </StyledMissingTestsHint>
-            {rows.map((row) => (
-              <StyledMissingTestsHint key={row.key}>
-                {row.label}: {row.value}
-              </StyledMissingTestsHint>
-            ))}
+            <StyledMissingTestsHint>
+              {t('ventilation.assessment.saveReview.suggestedSettingsHint')}
+            </StyledMissingTestsHint>
+            <StyledFieldGrid>
+              <Select
+                label={t('ventilation.assessment.saveReview.ventilatorMode')}
+                placeholder={t('ventilation.assessment.saveReview.modePlaceholder')}
+                options={ventilatorModeOptions}
+                value={suggestedVentilatorInputs.ventilatorMode}
+                onValueChange={(value) => updateInput({ ventilatorMode: value })}
+                testID="assessment-suggested-ventilator-mode"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.tidalVolumeMl')}
+                type="number"
+                value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''}
+                onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
+                testID="assessment-suggested-tidal-volume"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.respiratoryRateSet')}
+                type="number"
+                value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''}
+                onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })}
+                testID="assessment-suggested-respiratory-rate-set"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.ventilatorFio2')}
+                type="number"
+                value={suggestedVentilatorInputs.ventilatorFio2 != null ? String(suggestedVentilatorInputs.ventilatorFio2) : ''}
+                onChangeText={(value) => updateInput({ ventilatorFio2: parseNum(value) })}
+                testID="assessment-suggested-ventilator-fio2"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.peep')}
+                type="number"
+                value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''}
+                onChangeText={(value) => updateInput({ peep: parseNum(value) })}
+                testID="assessment-suggested-peep"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.ieRatio')}
+                value={suggestedVentilatorInputs.ieRatio}
+                onChangeText={(value) => updateInput({ ieRatio: value })}
+                testID="assessment-suggested-ie-ratio"
+              />
+            </StyledFieldGrid>
           </>
         ) : (
           <StyledMissingTestsHint>

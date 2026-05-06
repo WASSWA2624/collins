@@ -87,7 +87,7 @@ const managedUserSelect = {
         },
       },
     },
-    orderBy: [{ facility: { name: 'asc' } }, { role: 'asc' }],
+    orderBy: [{ createdAt: 'desc' }, { role: 'asc' }],
   },
 };
 
@@ -126,6 +126,16 @@ const serializeManagedUser = (user) => {
       canManageUsers: USER_MANAGEMENT_ROLES.some((role) => approvedRoleSet.has(role)),
     },
   };
+};
+
+const serializeManagedUserForScope = (user, managedFacilityIds = null) => {
+  if (!managedFacilityIds) return serializeManagedUser(user);
+  const allowedFacilityIds = new Set(managedFacilityIds);
+  return serializeManagedUser({
+    ...user,
+    facilityMemberships: (user.facilityMemberships || [])
+      .filter((membership) => allowedFacilityIds.has(membership.facilityId)),
+  });
 };
 
 const getManagedFacilityIds = async (userId) => {
@@ -259,7 +269,7 @@ export const listManagedUsers = async (userId, query = {}) => {
   ]);
 
   return {
-    items: items.map(serializeManagedUser),
+    items: items.map((user) => serializeManagedUserForScope(user, managedFacilityIds)),
     total,
     page,
     limit,
@@ -270,11 +280,11 @@ export const createManagedUser = async (adminUserId, payload, auditContext = {})
   const memberships = payload.memberships || [];
   const existing = await prisma.user.findUnique({ where: { email: payload.email } });
   if (existing) throw conflict('A user with this email already exists');
+  const managedFacilityIds = await getManagedFacilityIds(adminUserId);
 
   for (const membership of memberships) {
     await assertCanManageMembership(adminUserId, membership);
   }
-  if (memberships.length === 0) await assertAnyApprovedRole(adminUserId, USER_MANAGEMENT_ROLES, 'User management requires administrator permission');
 
   return prisma.$transaction(async (tx) => {
     const user = await tx.user.create({
@@ -347,13 +357,14 @@ export const createManagedUser = async (adminUserId, payload, auditContext = {})
     });
 
     const createdUser = await tx.user.findUnique({ where: { id: user.id }, select: managedUserSelect });
-    return serializeManagedUser(createdUser);
+    return serializeManagedUserForScope(createdUser, managedFacilityIds);
   });
 };
 
 export const assignManagedUserMemberships = async (targetUserId, payload, adminUserId, auditContext = {}) => {
   const roles = [...new Set(payload.roles || [])];
   if (roles.length === 0) throw badRequest('At least one role is required');
+  const managedFacilityIds = await getManagedFacilityIds(adminUserId);
 
   for (const role of roles) {
     await assertCanManageMembership(adminUserId, { facilityId: payload.facilityId, role });
@@ -420,7 +431,7 @@ export const assignManagedUserMemberships = async (targetUserId, payload, adminU
 
     const user = await tx.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
     return {
-      user: serializeManagedUser(user),
+      user: serializeManagedUserForScope(user, managedFacilityIds),
       memberships: savedMemberships,
     };
   });
@@ -431,6 +442,7 @@ export const updateManagedUserMembership = async (targetUserId, membershipId, pa
     where: { id: membershipId, userId: targetUserId },
   });
   if (!existing) throw notFound('Membership not found');
+  const managedFacilityIds = await getManagedFacilityIds(adminUserId);
 
   await assertCanManageMembership(adminUserId, {
     facilityId: existing.facilityId,
@@ -467,7 +479,7 @@ export const updateManagedUserMembership = async (targetUserId, membershipId, pa
 
     const user = await tx.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
     return {
-      user: serializeManagedUser(user),
+      user: serializeManagedUserForScope(user, managedFacilityIds),
       membership: updated,
     };
   });

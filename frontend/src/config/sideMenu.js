@@ -16,6 +16,7 @@ export const MENU_ICON_GLYPHS = {
   'dataset-outline': '🗂️',
   'review-queue-outline': '☑️',
   'dashboard-outline': '📊',
+  'user-management-outline': 'UM',
   'settings-outline': '⚙️',
   'about-outline': '👤',
   'data-sources-outline': '🗄️',
@@ -122,6 +123,14 @@ const MAIN_NAV_ITEMS = [
       PERMISSIONS.DATASET_EXPORT,
       PERMISSIONS.MODEL_GOVERN,
     ],
+  },
+  {
+    id: 'user-management',
+    icon: 'user-management-outline',
+    path: '/user-management',
+    allowPlatformScope: true,
+    roles: [MEMBERSHIP_ROLES.PLATFORM_ADMIN, MEMBERSHIP_ROLES.FACILITY_ADMIN],
+    permissions: [PERMISSIONS.FACILITY_ADMIN],
   },
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];

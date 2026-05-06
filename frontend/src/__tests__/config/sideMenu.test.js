@@ -25,6 +25,7 @@ describe('sideMenu icon configuration', () => {
     expect(iconById['dataset-capture']).toBe('🗂️');
     expect(iconById['review-queue']).toBe('☑️');
     expect(iconById.dashboard).toBe('📊');
+    expect(iconById['user-management']).toBe('UM');
     expect(iconById.settings).toBe('⚙️');
   });
 

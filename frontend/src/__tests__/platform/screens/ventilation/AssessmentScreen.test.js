@@ -44,6 +44,7 @@ jest.mock('@features/ventilation', () => ({
     SYNCED: 'synced',
     DUPLICATE: 'duplicate',
     QUEUED: 'queued',
+    NEEDS_SYNC: 'needs_sync',
   },
   createAdmissionClientRecordId: jest.fn(() => 'admission-test-client'),
   savePatientReasonStepApi: jest.fn(() => Promise.resolve({
@@ -92,6 +93,7 @@ const lightTheme = require('@theme/light.theme').default || require('@theme/ligh
 const useVentilationSession = require('@hooks/useVentilationSession');
 const {
   getVentilationRecommendationUseCase,
+  saveAdmissionReviewStepApi,
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } = require('@features/ventilation');
@@ -198,7 +200,23 @@ describe('AssessmentScreen', () => {
         assessmentCurrentStep: 1,
       });
       const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
-      expect(getByText('Oxygen, ABG & ventilator')).toBeTruthy();
+      expect(getByText('Oxygen & ABG')).toBeTruthy();
+    });
+
+    it('captures oxygen and ABG values without manual ventilator settings on step two', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+      });
+
+      const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      expect(getByTestId('assessment-oxygen-support')).toBeTruthy();
+      expect(getByTestId('assessment-measured-at')).toBeTruthy();
+      expect(getByTestId('assessment-ph')).toBeTruthy();
+      expect(queryByTestId('assessment-ventilator-mode')).toBeNull();
+      expect(queryByTestId('assessment-tidal-volume')).toBeNull();
+      expect(queryByTestId('assessment-peep')).toBeNull();
     });
 
     it('advances to clinical information after the patient step save', async () => {
@@ -245,9 +263,21 @@ describe('AssessmentScreen', () => {
       fireEvent.press(getByTestId('assessment-next'));
 
       await waitFor(() => {
-        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.any(Object));
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          oxygen: expect.any(Object),
+          abg: expect.any(Object),
+        }));
+        expect(saveOxygenAbgVentilatorStepApi.mock.calls[0][1].ventilator).toBeUndefined();
         expect(getVentilationRecommendationUseCase).toHaveBeenCalledWith(expect.objectContaining({
           input: expect.objectContaining({ condition: 'ARDS', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
+        }));
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          ventilatorMode: 'ACV',
+          tidalVolumeMl: 420,
+          respiratoryRateSet: 18,
+          ventilatorFio2: 0.5,
+          peep: 8,
+          ieRatio: '1:2',
         }));
         expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
       });
@@ -270,7 +300,55 @@ describe('AssessmentScreen', () => {
 
       expect(getByTestId('assessment-recommendation')).toBeTruthy();
       expect(getByText('Dataset recommendation')).toBeTruthy();
-      expect(getByText(/ACV/)).toBeTruthy();
+      expect(getByTestId('assessment-suggested-ventilator-mode').props.value).toBe('ACV');
+      expect(getByTestId('assessment-suggested-tidal-volume')).toBeTruthy();
+    });
+
+    it('saves suggested ventilator settings before completing admit review', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 2,
+        inputs: {
+          admissionId: 'admission-1',
+          clientRecordId: 'admission-test-client',
+          patientPathway: 'ADULT',
+          clinicianConfirmed: true,
+          ventilatorMode: 'ACV',
+          tidalVolumeMl: 420,
+          respiratoryRateSet: 18,
+          ventilatorFio2: 0.5,
+          peep: 8,
+          ieRatio: '1:2',
+        },
+        recommendationSummary: {
+          source: { confidenceTier: 'medium' },
+          units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+          initialVentilatorSettings: {
+            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+          },
+        },
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-generate'));
+
+      await waitFor(() => {
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          ventilator: expect.objectContaining({
+            mode: 'ACV',
+            tidalVolumeMl: 420,
+            respiratoryRateSet: 18,
+            fio2: 0.5,
+            peep: 8,
+            ieRatio: '1:2',
+          }),
+        }));
+        expect(saveAdmissionReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          clinicianConfirmed: true,
+        }));
+        expect(mockReplace).toHaveBeenCalledWith('/tracking');
+      });
     });
   });
 
