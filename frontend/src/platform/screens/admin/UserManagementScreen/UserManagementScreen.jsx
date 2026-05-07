@@ -16,7 +16,15 @@ const Capability = ({ label, active }) => (
   </View>
 );
 
-const UserMembership = ({ membership, onStatusChange, saving }) => (
+const UserMembership = ({
+  membership,
+  onStatusChange,
+  savedMessage,
+  saving,
+  savingStatus,
+  testIds,
+  userId,
+}) => (
   <View style={styles.membership}>
     <View style={styles.membershipText}>
       <Text variant="label">{membership.facility?.name || membership.facilityId}</Text>
@@ -32,7 +40,9 @@ const UserMembership = ({ membership, onStatusChange, saving }) => (
         variant={membership.status === 'APPROVED' ? 'primary' : 'outline'}
         size="small"
         disabled={saving}
-        onPress={() => onStatusChange(membership, 'APPROVED')}
+        loading={savingStatus === 'APPROVED'}
+        onPress={() => onStatusChange(userId, membership, 'APPROVED')}
+        testID={`${testIds.membershipApprove}-${membership.id}`}
       >
         Approve
       </Button>
@@ -40,11 +50,24 @@ const UserMembership = ({ membership, onStatusChange, saving }) => (
         variant={membership.status === 'SUSPENDED' ? 'primary' : 'outline'}
         size="small"
         disabled={saving}
-        onPress={() => onStatusChange(membership, 'SUSPENDED')}
+        loading={savingStatus === 'SUSPENDED'}
+        onPress={() => onStatusChange(userId, membership, 'SUSPENDED')}
+        testID={`${testIds.membershipSuspend}-${membership.id}`}
       >
         Suspend
       </Button>
     </View>
+    {savedMessage ? (
+      <Text
+        variant="caption"
+        style={styles.savedStatus}
+        accessibilityRole="status"
+        accessibilityLiveRegion="polite"
+        testID={`${testIds.membershipSaved}-${membership.id}`}
+      >
+        {savedMessage}
+      </Text>
+    ) : null}
   </View>
 );
 
@@ -260,14 +283,30 @@ const UserManagementScreen = () => {
             testId={screen.testIds.userItem}
           >
             <View style={styles.membershipList}>
-              {user.memberships.length ? user.memberships.map((membership) => (
-                <UserMembership
-                  key={membership.id}
-                  membership={membership}
-                  saving={screen.isSaving}
-                  onStatusChange={screen.updateMembershipStatus}
-                />
-              )) : (
+              {user.memberships.length ? (
+                user.memberships.map((membership) => (
+                  <UserMembership
+                    key={membership.id}
+                    membership={membership}
+                    saving={screen.isSaving}
+                    savingStatus={
+                      screen.savingMembership?.userId === user.id &&
+                      screen.savingMembership?.membershipId === membership.id
+                        ? screen.savingMembership.status
+                        : null
+                    }
+                    savedMessage={
+                      screen.savedMembership?.userId === user.id &&
+                      screen.savedMembership?.membershipId === membership.id
+                        ? screen.savedMembership.message
+                        : null
+                    }
+                    testIds={screen.testIds}
+                    userId={user.id}
+                    onStatusChange={screen.updateMembershipStatus}
+                  />
+                ))
+              ) : (
                 <Text variant="caption">No facility roles</Text>
               )}
             </View>
@@ -408,6 +447,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
+  },
+  savedStatus: {
+    color: '#248A3D',
+    width: '100%',
   },
 });
 

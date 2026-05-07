@@ -26,6 +26,12 @@ const emptyNewUser = {
 const getErrorMessage = (error) =>
   error?.safeMessage || error?.message || 'Unable to update user access';
 
+const getMembershipSaveMessage = (status) => {
+  if (status === 'APPROVED') return 'Approval saved';
+  if (status === 'SUSPENDED') return 'Suspension saved';
+  return 'Membership saved';
+};
+
 const replaceUser = (users, nextUser) => {
   if (!nextUser?.id) return users;
   const exists = users.some((user) => user.id === nextUser.id);
@@ -80,6 +86,8 @@ export default function useUserManagementScreen() {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [isLoadingFacilities, setIsLoadingFacilities] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [savingMembership, setSavingMembership] = useState(null);
+  const [savedMembership, setSavedMembership] = useState(null);
   const [notice, setNotice] = useState(null);
   const usersRequestRef = useRef(0);
   const facilitiesRequestRef = useRef(0);
@@ -213,6 +221,7 @@ export default function useUserManagementScreen() {
 
   const handleCreateUser = useCallback(async () => {
     setIsSaving(true);
+    setSavedMembership(null);
     setNotice(null);
     try {
       const memberships = selectedFacilityId
@@ -238,6 +247,7 @@ export default function useUserManagementScreen() {
   const handleAssignMembership = useCallback(async () => {
     if (!selectedUser?.id || !selectedFacilityId || !selectedRole) return;
     setIsSaving(true);
+    setSavedMembership(null);
     setNotice(null);
     try {
       const updated = await assignManagedUserMembershipsUseCase(selectedUser.id, {
@@ -254,20 +264,33 @@ export default function useUserManagementScreen() {
     }
   }, [selectedFacilityId, selectedRole, selectedStatus, selectedUser?.id]);
 
-  const updateMembershipStatus = useCallback(async (membership, status) => {
-    if (!selectedUser?.id || !membership?.id) return;
-    setIsSaving(true);
-    setNotice(null);
-    try {
-      const updated = await updateManagedUserMembershipUseCase(selectedUser.id, membership.id, { status });
-      setUsers((current) => replaceUser(current, updated));
-      setNotice({ type: 'success', message: 'Membership updated' });
-    } catch (error) {
-      setNotice({ type: 'error', message: getErrorMessage(error) });
-    } finally {
-      setIsSaving(false);
-    }
-  }, [selectedUser?.id]);
+  const updateMembershipStatus = useCallback(
+    async (userId, membership, status) => {
+      if (!userId || !membership?.id) return;
+      const membershipState = { userId, membershipId: membership.id, status };
+      setIsSaving(true);
+      setSavingMembership(membershipState);
+      setSavedMembership(null);
+      setNotice(null);
+      try {
+        const updated = await updateManagedUserMembershipUseCase(
+          userId,
+          membership.id,
+          { status }
+        );
+        const message = getMembershipSaveMessage(status);
+        setUsers((current) => replaceUser(current, updated));
+        setSavedMembership({ ...membershipState, status, message });
+        setNotice({ type: 'success', message });
+      } catch (error) {
+        setNotice({ type: 'error', message: getErrorMessage(error) });
+      } finally {
+        setSavingMembership(null);
+        setIsSaving(false);
+      }
+    },
+    []
+  );
 
   return {
     t,
@@ -286,6 +309,8 @@ export default function useUserManagementScreen() {
     selectedStatus,
     selectedUser,
     selectedUserId,
+    savedMembership,
+    savingMembership,
     setFacilityQuery,
     setSelectedFacilityId,
     setSelectedRole,

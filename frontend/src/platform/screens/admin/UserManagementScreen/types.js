@@ -14,6 +14,9 @@ const USER_MANAGEMENT_TEST_IDS = Object.freeze({
   create: 'user-management-create',
   refresh: 'user-management-refresh',
   notice: 'user-management-notice',
+  membershipApprove: 'user-management-membership-approve',
+  membershipSuspend: 'user-management-membership-suspend',
+  membershipSaved: 'user-management-membership-saved',
 });
 
 export { USER_MANAGEMENT_TEST_IDS };
