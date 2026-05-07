@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { prisma } from '../src/config/prisma.js';
+import { prisma } from './helpers/prisma.js';
 import {
   MODEL_GOVERNANCE_ROLES,
   READ_ROLES,

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { prisma } from '../src/config/prisma.js';
+import { prisma } from './helpers/prisma.js';
 import { MEMBERSHIP_ROLES } from '../src/constants/roles.js';
 import { createDatasetImportSchema } from '../src/modules/dataset/dataset.validators.js';
 import { syncQueueSchema } from '../src/modules/sync/sync.validators.js';

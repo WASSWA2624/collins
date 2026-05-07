@@ -5,6 +5,7 @@ process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test'
 process.env.NODE_ENV ||= 'test';
 process.env.REQUEST_LOGGING = 'false';
 
+await import('./helpers/prisma.js');
 const { createApp } = await import('../src/app.js');
 
 const startServer = (app) => new Promise((resolve) => {

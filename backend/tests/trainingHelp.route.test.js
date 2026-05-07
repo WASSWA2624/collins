@@ -7,7 +7,7 @@ process.env.REQUEST_LOGGING = 'false';
 const { default: jwt } = await import('jsonwebtoken');
 const { createApp } = await import('../src/app.js');
 const { env } = await import('../src/config/env.js');
-const { prisma } = await import('../src/config/prisma.js');
+const { prisma } = await import('./helpers/prisma.js');
 
 const originalRefreshSessionFindFirst = prisma.refreshSession.findFirst;
 
