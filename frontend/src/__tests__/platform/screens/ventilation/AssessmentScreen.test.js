@@ -131,6 +131,42 @@ const defaultSessionMock = {
   errorCode: null,
   hydrate: jest.fn(),
   clearError: jest.fn(),
+  clearDraft: jest.fn(() => Promise.resolve(true)),
+  resetSession: jest.fn(),
+};
+
+const completePatientInputs = {
+  clientRecordId: 'admission-test-client',
+  patientPathway: 'ADULT',
+  reasonForSupport: 'ARDS with hypoxaemia',
+  ageYears: 48,
+  actualWeightKg: 70,
+  heightOrLengthCm: 172,
+};
+
+const completeClinicalInputs = {
+  ...completePatientInputs,
+  admissionId: 'admission-1',
+  oxygenSupportType: 'INVASIVE_VENTILATION',
+  measuredAt: '2026-05-07T10:00',
+  spo2: 88,
+  fio2: 0.6,
+  respiratoryRate: 28,
+  heartRate: 110,
+  ph: 7.35,
+  pao2: 65,
+  paco2: 45,
+};
+
+const completeReviewInputs = {
+  ...completeClinicalInputs,
+  clinicianConfirmed: true,
+  ventilatorMode: 'ACV',
+  tidalVolumeMl: 420,
+  respiratoryRateSet: 18,
+  ventilatorFio2: 0.5,
+  peep: 8,
+  ieRatio: '1:2',
 };
 
 const renderWithProviders = (component, store = createMockStore()) =>
@@ -181,7 +217,18 @@ describe('AssessmentScreen', () => {
       expect(getByTestId('assessment-next')).toBeTruthy();
     });
 
-    it('should allow Next with default pathway and optional reason', () => {
+    it('blocks Next until required patient details are complete', () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const nextBtn = getByTestId('assessment-next');
+      expect(nextBtn).toBeTruthy();
+      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeTruthy();
+    });
+
+    it('allows Next when required patient details are complete', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: completePatientInputs,
+      });
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
@@ -223,6 +270,10 @@ describe('AssessmentScreen', () => {
     });
 
     it('advances to clinical information after the patient step save', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: completePatientInputs,
+      });
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
       fireEvent.press(getByTestId('assessment-next'));
@@ -233,33 +284,30 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('still advances locally when the patient step sync fails', async () => {
+    it('does not advance when the patient step save fails', async () => {
       savePatientReasonStepApi.mockRejectedValueOnce({ code: 'NETWORK_ERROR' });
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: completePatientInputs,
+      });
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
       fireEvent.press(getByTestId('assessment-next'));
 
       await waitFor(() => {
-        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(1);
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          syncStatus: 'needs_sync',
+        }));
       });
+      expect(defaultSessionMock.setAssessmentStep).not.toHaveBeenCalledWith(1);
     });
 
     it('generates the dataset recommendation after the clinical information step', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
-        inputs: {
-          admissionId: 'admission-1',
-          clientRecordId: 'admission-test-client',
-          patientPathway: 'ADULT',
-          reasonForSupport: 'ARDS',
-          spo2: 88,
-          respiratoryRate: 28,
-          heartRate: 110,
-          pao2: 65,
-          paco2: 45,
-          ph: 7.35,
-        },
+        inputs: completeClinicalInputs,
       });
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
@@ -272,7 +320,7 @@ describe('AssessmentScreen', () => {
         }));
         expect(saveOxygenAbgVentilatorStepApi.mock.calls[0][1].ventilator).toBeUndefined();
         expect(getVentilationRecommendationUseCase).toHaveBeenCalledWith(expect.objectContaining({
-          input: expect.objectContaining({ condition: 'ARDS', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
+          input: expect.objectContaining({ condition: 'ARDS with hypoxaemia', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
         }));
         expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
           ventilatorMode: 'ACV',
@@ -312,9 +360,13 @@ describe('AssessmentScreen', () => {
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
         inputs: {
-          clientRecordId: 'admission-test-client',
-          patientPathway: 'ADULT',
+          ...completeClinicalInputs,
           clinicianConfirmed: false,
+          ventilatorMode: 'ACV',
+          tidalVolumeMl: 420,
+          respiratoryRateSet: 18,
+          ventilatorFio2: 0.5,
+          peep: 8,
         },
       });
 
@@ -334,8 +386,7 @@ describe('AssessmentScreen', () => {
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
         inputs: {
-          clientRecordId: 'admission-test-client',
-          patientPathway: 'ADULT',
+          ...completeClinicalInputs,
           spo2: 140,
         },
       });
@@ -352,12 +403,7 @@ describe('AssessmentScreen', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
-        inputs: {
-          admissionId: 'admission-1',
-          clientRecordId: 'admission-test-client',
-          patientPathway: 'ADULT',
-          spo2: 88,
-        },
+        inputs: completeClinicalInputs,
       });
 
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
@@ -370,22 +416,28 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('saves suggested ventilator settings before completing admit review', async () => {
+    it('blocks final save when an earlier required clinical value is missing', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
         inputs: {
-          admissionId: 'admission-1',
-          clientRecordId: 'admission-test-client',
-          patientPathway: 'ADULT',
-          clinicianConfirmed: true,
-          ventilatorMode: 'ACV',
-          tidalVolumeMl: 420,
-          respiratoryRateSet: 18,
-          ventilatorFio2: 0.5,
-          peep: 8,
-          ieRatio: '1:2',
+          ...completeReviewInputs,
+          pao2: null,
         },
+      });
+
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      const saveBtn = getByTestId('assessment-generate');
+
+      expect(getByText('PaO2 is required before continuing.')).toBeTruthy();
+      expect(saveBtn.props.accessibilityState?.disabled ?? saveBtn.props.disabled).toBeTruthy();
+    });
+
+    it('saves suggested ventilator settings before completing admit review', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 2,
+        inputs: completeReviewInputs,
         recommendationSummary: {
           source: { confidenceTier: 'medium' },
           units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
@@ -401,6 +453,15 @@ describe('AssessmentScreen', () => {
 
       await waitFor(() => {
         expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          oxygen: expect.objectContaining({
+            spo2: 88,
+            fio2: 0.6,
+          }),
+          abg: expect.objectContaining({
+            pao2: 65,
+            paco2: 45,
+            ph: 7.35,
+          }),
           ventilator: expect.objectContaining({
             mode: 'ACV',
             tidalVolumeMl: 420,
@@ -413,7 +474,9 @@ describe('AssessmentScreen', () => {
         expect(saveAdmissionReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
           clinicianConfirmed: true,
         }));
-        expect(mockReplace).toHaveBeenCalledWith('/tracking');
+        expect(defaultSessionMock.clearDraft).toHaveBeenCalled();
+        expect(defaultSessionMock.resetSession).toHaveBeenCalled();
+        expect(mockReplace).toHaveBeenCalledWith('/tracking?admissionId=admission-1&admitted=1');
       });
     });
   });

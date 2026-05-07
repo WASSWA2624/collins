@@ -166,6 +166,7 @@ const HistoryScreenWeb = () => {
     isHistoryLoading,
     historyErrorCode,
     localDraft,
+    showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
     isDetailLoading,
@@ -228,6 +229,18 @@ const HistoryScreenWeb = () => {
           {t('ventilation.tracking.activePatients', { count: rows.length })}
         </Text>
       </StyledSummaryBar>
+
+      {showAdmittedBanner && (
+        <StyledBanner
+          $tone="success"
+          data-testid={HISTORY_TEST_IDS.admittedBanner}
+          testID={HISTORY_TEST_IDS.admittedBanner}
+        >
+          <Text variant="body" color="status.success.text">
+            {t('ventilation.tracking.admittedBanner')}
+          </Text>
+        </StyledBanner>
+      )}
 
       {localDraft && (
         <StyledBanner

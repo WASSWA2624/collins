@@ -145,6 +145,8 @@
       "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
       "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
       "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
+      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
       "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
       "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
@@ -1024,7 +1026,7 @@
         "saveReview": "Save & review"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and optional reason for support.",
+        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
         "facilityId": "Facility ID",
         "facilityIdPlaceholder": "Enter facility ID",
         "bedNumber": "Bed",
@@ -1466,6 +1468,7 @@
       "activePatients": "{{count}} active patients",
       "empty": "No admitted patients are available for tracking yet.",
       "emptyHint": "Admit a patient first to begin tracking.",
+      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
       "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
       "activeFacility": {
         "none": "No active facility selected"

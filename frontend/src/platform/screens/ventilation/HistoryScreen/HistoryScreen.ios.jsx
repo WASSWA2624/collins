@@ -155,6 +155,7 @@ const HistoryScreenIos = () => {
     isHistoryLoading,
     historyErrorCode,
     localDraft,
+    showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
     isDetailLoading,
@@ -214,6 +215,17 @@ const HistoryScreenIos = () => {
             {t('ventilation.tracking.activePatients', { count: rows.length })}
           </Text>
         </StyledSummaryBar>
+
+        {showAdmittedBanner && (
+          <StyledBanner
+            tone="success"
+            testID={HISTORY_TEST_IDS.admittedBanner}
+          >
+            <Text variant="body" color="status.success.text">
+              {t('ventilation.tracking.admittedBanner')}
+            </Text>
+          </StyledBanner>
+        )}
 
         {localDraft && (
           <StyledBanner testID={HISTORY_TEST_IDS.draftBanner}>

@@ -284,6 +284,7 @@ const AssessmentScreenWeb = () => {
             placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')}
             value={mergedInputs.reasonForSupport}
             onChangeText={(value) => updateInput({ reasonForSupport: value })}
+            {...getFieldErrorProps('reasonForSupport')}
             minHeight={76}
             testID="assessment-reason"
           />
@@ -304,6 +305,7 @@ const AssessmentScreenWeb = () => {
           options={oxygenSupportOptions}
           value={mergedInputs.oxygenSupportType}
           onValueChange={(value) => updateInput({ oxygenSupportType: value })}
+          {...getFieldErrorProps('oxygenSupportType')}
           testID="assessment-oxygen-support"
         />
         <TextField
@@ -473,6 +475,7 @@ const AssessmentScreenWeb = () => {
                 options={ventilatorModeOptions}
                 value={suggestedVentilatorInputs.ventilatorMode}
                 onValueChange={(value) => updateInput({ ventilatorMode: value })}
+                {...getFieldErrorProps('ventilatorMode')}
                 testID="assessment-suggested-ventilator-mode"
               />
               <TextField

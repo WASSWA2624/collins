@@ -23,6 +23,8 @@ const statusBorder = (theme, level) => {
   return theme.colors.background.tertiary;
 };
 
+const bannerLevel = (tone) => (tone === 'success' ? 'green' : 'yellow');
+
 const StyledContainer = styled(ScrollView).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
@@ -76,11 +78,11 @@ const StyledBanner = styled(View).withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) =>
-    theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  background-color: ${({ theme, tone }) =>
+    statusBackground(theme, bannerLevel(tone))};
   border-left-width: 4px;
-  border-left-color: ${({ theme }) =>
-    theme.colors.status?.warning?.text ?? '#856404'};
+  border-left-color: ${({ theme, tone }) =>
+    statusBorder(theme, bannerLevel(tone))};
 `;
 
 const StyledErrorBanner = styled(View).withConfig({

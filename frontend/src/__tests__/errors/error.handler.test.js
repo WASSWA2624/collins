@@ -63,7 +63,7 @@ describe('errors/error.handler.js', () => {
       const authError = { status: 401, message: 'Invalid email or password' };
       const normalized = normalizeError(authError);
       expect(normalized.code).toBe('INVALID_CREDENTIALS');
-      expect(normalized.safeMessage).toBe('Invalid email or password');
+      expect(normalized.safeMessage).toContain('Invalid email or password');
     });
 
     test('should normalize 403 forbidden errors', () => {
@@ -91,11 +91,22 @@ describe('errors/error.handler.js', () => {
       const notFoundError = {
         status: 404,
         statusText: 'Not Found',
-        message: 'API request failed: Not Found',
+        message: 'Cannot POST /api/v1/missing-route',
       };
       const normalized = normalizeError(notFoundError);
       expect(normalized.code).toBe('BACKEND_ENDPOINT_NOT_FOUND');
       expect(normalized.severity).toBe('error');
+    });
+
+    test('should normalize missing admission records without reporting an undeployed route', () => {
+      const notFoundError = {
+        status: 404,
+        statusText: 'Not Found',
+        message: 'Admission not found',
+      };
+      const normalized = normalizeError(notFoundError);
+      expect(normalized.code).toBe('ADMISSION_NOT_FOUND');
+      expect(normalized.safeMessage).toContain('admission record');
     });
 
     test('should normalize invalid backend responses', () => {

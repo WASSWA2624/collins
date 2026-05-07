@@ -32,7 +32,6 @@ const TRANSPORT_ERROR_CODES = new Set([
 
 const STATUS_ERROR_CODES = {
   400: 'VALIDATION_ERROR',
-  404: 'BACKEND_ENDPOINT_NOT_FOUND',
   405: 'BACKEND_METHOD_NOT_ALLOWED',
   408: 'REQUEST_TIMEOUT',
   413: 'PAYLOAD_TOO_LARGE',
@@ -107,6 +106,36 @@ const extractErrorCode = (message) => {
   }
 
   return 'UNKNOWN_ERROR';
+};
+
+const getNotFoundCode = (error) => {
+  const searchValue = [
+    error?.message,
+    error?.statusText,
+    error?.path,
+    error?.url,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  const isRouteNotFound = [
+    'cannot delete',
+    'cannot get',
+    'cannot patch',
+    'cannot post',
+    'cannot put',
+    'api route',
+    'endpoint not found',
+    'not deployed',
+    'route not found',
+  ].some((pattern) => searchValue.includes(pattern));
+
+  if (isRouteNotFound) return 'BACKEND_ENDPOINT_NOT_FOUND';
+  if (searchValue.includes('admission') && searchValue.includes('not found')) {
+    return 'ADMISSION_NOT_FOUND';
+  }
+  return 'RESOURCE_NOT_FOUND';
 };
 
 const SECURE_CONNECTION_PATTERNS = [
@@ -307,6 +336,17 @@ const normalizeError = (error) => {
         message: safeMessage,
         safeMessage,
         severity: 'warning',
+      };
+    }
+    if (status === 404) {
+      const code = extractedCode || getNotFoundCode(error);
+      const safeMessage = getSafeMessageForCode(code);
+      return {
+        ...apiContext,
+        code,
+        message: safeMessage,
+        safeMessage,
+        severity: 'error',
       };
     }
     if (status >= 500) {

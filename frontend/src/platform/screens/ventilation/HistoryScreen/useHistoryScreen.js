@@ -3,7 +3,7 @@
  * Shared logic for Tracking screen.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useVentilationSession } from '@hooks';
 import {
   getTrackingAdmissionUseCase,
@@ -21,6 +21,7 @@ const normalizeErrorCode = (error, fallback = 'TRACKING_LOAD_FAILED') => {
 
 export default function useHistoryScreen() {
   const router = useRouter();
+  const searchParams = useLocalSearchParams();
   const {
     sessionId,
     inputs,
@@ -36,6 +37,43 @@ export default function useHistoryScreen() {
   const [selectedTracking, setSelectedTracking] = useState(null);
   const [detailErrorCode, setDetailErrorCode] = useState(null);
   const [isDetailLoading, setIsDetailLoading] = useState(false);
+  const [autoOpenedAdmissionId, setAutoOpenedAdmissionId] = useState(null);
+
+  const admittedAdmissionId = useMemo(() => {
+    const value = searchParams?.admissionId;
+    if (Array.isArray(value)) return value[0] || '';
+    return typeof value === 'string' ? value : '';
+  }, [searchParams?.admissionId]);
+
+  const showAdmittedBanner = useMemo(() => {
+    const value = searchParams?.admitted;
+    const admitted = Array.isArray(value) ? value[0] : value;
+    return admitted === '1' && Boolean(admittedAdmissionId);
+  }, [admittedAdmissionId, searchParams?.admitted]);
+
+  const loadTrackingDetail = useCallback(async (admissionId) => {
+    if (!admissionId) return;
+    setSelectedTracking(null);
+    setDetailErrorCode(null);
+    setIsDetailLoading(true);
+    try {
+      const tracking = await getTrackingAdmissionUseCase(admissionId);
+      setSelectedTracking(tracking);
+    } catch (error) {
+      setDetailErrorCode(
+        normalizeErrorCode(error, 'TRACKING_DETAIL_LOAD_FAILED')
+      );
+    } finally {
+      setIsDetailLoading(false);
+    }
+  }, []);
+
+  const handleViewDetails = useCallback(async (row) => {
+    const admissionId = row?.admissionId || row?.id;
+    if (!admissionId) return;
+    setSelectedAdmissionId(admissionId);
+    await loadTrackingDetail(admissionId);
+  }, [loadTrackingDetail]);
 
   const loadTracking = useCallback(async () => {
     setIsTrackingLoading(true);
@@ -55,24 +93,38 @@ export default function useHistoryScreen() {
     loadTracking();
   }, [loadTracking]);
 
-  const handleViewDetails = useCallback(async (row) => {
-    const admissionId = row?.admissionId || row?.id;
-    if (!admissionId) return;
-    setSelectedAdmissionId(admissionId);
-    setSelectedTracking(null);
-    setDetailErrorCode(null);
-    setIsDetailLoading(true);
-    try {
-      const tracking = await getTrackingAdmissionUseCase(admissionId);
-      setSelectedTracking(tracking);
-    } catch (error) {
-      setDetailErrorCode(
-        normalizeErrorCode(error, 'TRACKING_DETAIL_LOAD_FAILED')
-      );
-    } finally {
-      setIsDetailLoading(false);
+  const handleRefresh = useCallback(async () => {
+    await loadTracking();
+    if (selectedAdmissionId) {
+      await loadTrackingDetail(selectedAdmissionId);
     }
-  }, []);
+  }, [loadTracking, loadTrackingDetail, selectedAdmissionId]);
+
+  useEffect(() => {
+    if (
+      !admittedAdmissionId ||
+      isTrackingLoading ||
+      autoOpenedAdmissionId === admittedAdmissionId ||
+      selectedAdmissionId === admittedAdmissionId
+    ) {
+      return;
+    }
+
+    const admittedRow = rows.find(
+      (row) => (row?.admissionId || row?.id) === admittedAdmissionId
+    );
+    if (!admittedRow) return;
+
+    setAutoOpenedAdmissionId(admittedAdmissionId);
+    handleViewDetails(admittedRow);
+  }, [
+    admittedAdmissionId,
+    autoOpenedAdmissionId,
+    handleViewDetails,
+    isTrackingLoading,
+    rows,
+    selectedAdmissionId,
+  ]);
 
   const handleCloseDetails = useCallback(() => {
     setSelectedAdmissionId(null);
@@ -130,11 +182,13 @@ export default function useHistoryScreen() {
     historyErrorCode: trackingErrorCode,
     isCorrupt: false,
     localDraft,
+    admittedAdmissionId,
+    showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
     isDetailLoading,
     detailErrorCode,
-    handleRefresh: loadTracking,
+    handleRefresh,
     handleOpenAdmit,
     handleUpdateTracking,
     handleViewDetails,

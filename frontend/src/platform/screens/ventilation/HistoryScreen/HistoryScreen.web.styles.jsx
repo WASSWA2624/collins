@@ -22,6 +22,8 @@ const statusBorder = (theme, level) => {
   return theme.colors.background.tertiary;
 };
 
+const bannerLevel = (tone) => (tone === 'success' ? 'green' : 'yellow');
+
 const StyledContainer = styled.main.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
@@ -81,12 +83,12 @@ const StyledBanner = styled.div.withConfig({
   componentId: 'StyledBanner',
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) =>
-    theme.colors.status?.warning?.background ?? '#FFF3CD'};
-  color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
+  background-color: ${({ theme, $tone }) =>
+    statusBackground(theme, bannerLevel($tone))};
+  color: ${({ theme, $tone }) => statusBorder(theme, bannerLevel($tone))};
   border-radius: 0;
   border-left: 4px solid
-    ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
+    ${({ theme, $tone }) => statusBorder(theme, bannerLevel($tone))};
 `;
 
 const StyledErrorBanner = styled.div.withConfig({

@@ -93,6 +93,9 @@ const installRegistrationPrismaMock = (t) => {
       },
       findUnique: async () => onboardingState,
     },
+    userSettings: {
+      findUnique: async () => null,
+    },
     refreshSession: {
       create: async () => ({
         id: 'session-1',

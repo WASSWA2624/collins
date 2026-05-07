@@ -3,7 +3,7 @@
  * Shared logic for the three-step admission wizard.
  * File: useAssessmentScreen.js
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
 import {
@@ -24,6 +24,27 @@ const DATE_FIELDS = [
   { field: 'measuredAt', label: 'Oxygen measured at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'abgCollectedAt', label: 'ABG collected at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
+];
+const REQUIRED_FIELDS = [
+  { field: 'patientPathway', label: 'Patient pathway', steps: [STEPS.PATIENT_REASON] },
+  { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
+  { field: 'ageYears', label: 'Age', steps: [STEPS.PATIENT_REASON], type: 'number' },
+  { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
+  { field: 'heightOrLengthCm', label: 'Height', steps: [STEPS.PATIENT_REASON], type: 'number' },
+  { field: 'oxygenSupportType', label: 'Oxygen support type', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'measuredAt', label: 'Oxygen measured at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'spo2', label: 'SpO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'fio2', label: 'FiO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'respiratoryRate', label: 'Respiratory rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'heartRate', label: 'Heart rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'ph', label: 'pH', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'pao2', label: 'PaO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'paco2', label: 'PaCO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
+  { field: 'ventilatorMode', label: 'Ventilator mode', steps: [STEPS.SAVE_REVIEW] },
+  { field: 'tidalVolumeMl', label: 'Tidal volume', steps: [STEPS.SAVE_REVIEW], type: 'number' },
+  { field: 'respiratoryRateSet', label: 'Set respiratory rate', steps: [STEPS.SAVE_REVIEW], type: 'number' },
+  { field: 'ventilatorFio2', label: 'Ventilator FiO2', steps: [STEPS.SAVE_REVIEW], type: 'number' },
+  { field: 'peep', label: 'PEEP', steps: [STEPS.SAVE_REVIEW], type: 'number' },
 ];
 const NUMERIC_RULES = [
   { field: 'ageYears', label: 'Age', min: 0, max: 130, steps: [STEPS.PATIENT_REASON] },
@@ -116,6 +137,8 @@ const calculateHeightFromBmi = (weightKg, bmi) => {
   if (!isFiniteNumber(weightKg) || !isFiniteNumber(bmi) || weightKg <= 0 || bmi <= 0) return null;
   return roundTo(Math.sqrt(weightKg / bmi) * 100, 1);
 };
+
+const toArray = (value) => (Array.isArray(value) ? value : []);
 
 export const parseAdmissionNumberInput = (value) => {
   const text = String(value ?? '').trim();
@@ -230,8 +253,6 @@ export const updateBodyMetricInputs = (inputs, field, value) => {
 };
 
 const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
-  if (serverReadiness && typeof serverReadiness === 'object') return serverReadiness;
-
   const missingData = [];
   if (!isFiniteNumber(inputs.actualWeightKg)) missingData.push('actualWeightKg/referenceWeightKg');
   if (!isFiniteNumber(inputs.spo2)) missingData.push('SpO2');
@@ -248,8 +269,8 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
     severity: permitted.includes(field) ? 'info' : 'yellow',
     field,
     message: permitted.includes(field)
-      ? `${field} is documented as unavailable; review when it becomes available.`
-      : `${field} is missing; saving is allowed, but clinician review should confirm the gap.`,
+      ? `${field} is documented as unavailable. Complete this required value before saving.`
+      : `${field} is missing. Complete this value before saving.`,
   }));
 
   const impossibleFields = [];
@@ -265,13 +286,59 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
     message: 'Impossible values require correction or documented clinician override before save review.',
   }));
 
-  return {
-    isReadyToSave: blockers.length === 0,
+  const localReadiness = {
+    isReadyToSave: blockers.length === 0 && missingData.length === 0,
     needsReview: warnings.some((warning) => ['red', 'yellow'].includes(warning.severity)),
     missingData,
     permittedMissingFields: permitted,
     warnings,
     blockers,
+  };
+
+  if (!serverReadiness || typeof serverReadiness !== 'object') return localReadiness;
+
+  const localMissingFields = new Set(localReadiness.missingData);
+  const serverWarnings = toArray(serverReadiness.warnings)
+    .filter((warning) => {
+      const code = warning?.code;
+      if (code !== 'MISSING_DATA' && code !== 'PERMITTED_MISSING_DATA') return true;
+      return localMissingFields.has(warning?.field);
+    })
+    .map((warning) => {
+      const message = cleanText(warning?.message);
+      if (!/saving is allowed/i.test(message)) return warning;
+      const field = cleanText(warning?.field) || 'This value';
+      return {
+        ...warning,
+        message: `${field} is missing. Complete this value before saving.`,
+      };
+    });
+  const combinedWarnings = [...serverWarnings];
+  localReadiness.warnings.forEach((warning) => {
+    if (!combinedWarnings.some((item) => item?.code === warning.code && item?.field === warning.field)) {
+      combinedWarnings.push(warning);
+    }
+  });
+
+  const serverBlockers = toArray(serverReadiness.blockers);
+  const combinedBlockers = [...serverBlockers];
+  localReadiness.blockers.forEach((blocker) => {
+    if (!combinedBlockers.some((item) => item?.code === blocker.code && item?.field === blocker.field)) {
+      combinedBlockers.push(blocker);
+    }
+  });
+
+  return {
+    ...serverReadiness,
+    isReadyToSave: localReadiness.isReadyToSave && combinedBlockers.length === 0,
+    needsReview:
+      localReadiness.needsReview ||
+      combinedWarnings.some((warning) => ['red', 'yellow'].includes(warning?.severity)) ||
+      combinedBlockers.length > 0,
+    missingData: localReadiness.missingData,
+    permittedMissingFields: localReadiness.permittedMissingFields,
+    warnings: combinedWarnings,
+    blockers: combinedBlockers,
   };
 };
 
@@ -280,16 +347,28 @@ const addValidationError = (fieldErrors, messages, field, message) => {
   if (!messages.includes(message)) messages.push(message);
 };
 
+const hasRequiredFieldValue = (inputs, rule) => {
+  if (rule.type === 'number') return isFiniteNumber(inputs[rule.field]);
+  return Boolean(cleanText(inputs[rule.field]));
+};
+
+const shouldValidateRuleForStep = (rule, step) =>
+  rule.steps.some((ruleStep) => ruleStep <= step);
+
 const buildValidationFromInputs = (inputs, step, readiness) => {
   const fieldErrors = {};
   const messages = [];
 
-  if (step === STEPS.PATIENT_REASON && !cleanText(inputs.patientPathway)) {
-    addValidationError(fieldErrors, messages, 'patientPathway', 'Select a patient pathway before continuing.');
-  }
+  REQUIRED_FIELDS
+    .filter((rule) => shouldValidateRuleForStep(rule, step))
+    .forEach((rule) => {
+      if (!hasRequiredFieldValue(inputs, rule)) {
+        addValidationError(fieldErrors, messages, rule.field, `${rule.label} is required before continuing.`);
+      }
+    });
 
   NUMERIC_RULES
-    .filter((rule) => rule.steps.includes(step))
+    .filter((rule) => shouldValidateRuleForStep(rule, step))
     .forEach((rule) => {
       if (!isWithinRule(inputs[rule.field], rule)) {
         addValidationError(fieldErrors, messages, rule.field, rangeMessage(rule));
@@ -297,7 +376,7 @@ const buildValidationFromInputs = (inputs, step, readiness) => {
     });
 
   DATE_FIELDS
-    .filter((rule) => rule.steps.includes(step))
+    .filter((rule) => shouldValidateRuleForStep(rule, step))
     .forEach((rule) => {
       if (!isValidDateTimeValue(inputs[rule.field])) {
         addValidationError(fieldErrors, messages, rule.field, `${rule.label} must be a valid date and time.`);
@@ -535,6 +614,8 @@ export default function useAssessmentScreen() {
     errorCode,
     hydrate,
     clearError,
+    clearDraft,
+    resetSession,
   } = useVentilationSession();
 
   const [clientRecordId] = useState(() => inputs?.clientRecordId || createAdmissionClientRecordId());
@@ -564,6 +645,11 @@ export default function useAssessmentScreen() {
     }
     return normalized;
   }, [activeFacilityId, clientRecordId, inputs]);
+  const latestInputsRef = useRef(mergedInputs);
+
+  useEffect(() => {
+    latestInputsRef.current = mergedInputs;
+  }, [mergedInputs]);
 
   const currentStep = typeof assessmentCurrentStep === 'number'
     ? Math.min(Math.max(0, assessmentCurrentStep), TOTAL_STEPS - 1)
@@ -572,17 +658,19 @@ export default function useAssessmentScreen() {
   const updateInput = useCallback(
     (partial) => {
       if (!partial || typeof partial !== 'object') return;
-      setInputs({ ...mergedInputs, ...partial });
+      const nextInputs = { ...latestInputsRef.current, ...partial };
+      latestInputsRef.current = nextInputs;
+      setInputs(nextInputs);
       setSaveErrorCode(null);
     },
-    [mergedInputs, setInputs]
+    [setInputs]
   );
 
   const updateBodyMetric = useCallback(
     (field, value) => {
-      updateInput(updateBodyMetricInputs(mergedInputs, field, value));
+      updateInput(updateBodyMetricInputs(latestInputsRef.current, field, value));
     },
-    [mergedInputs, updateInput]
+    [updateInput]
   );
 
   const readiness = useMemo(
@@ -619,10 +707,12 @@ export default function useAssessmentScreen() {
 
   const persistCurrentDraft = useCallback(
     async (partial = {}) => {
-      setInputs({ ...mergedInputs, ...partial });
+      const nextInputs = { ...latestInputsRef.current, ...partial };
+      latestInputsRef.current = nextInputs;
+      setInputs(nextInputs);
       await persistDraft();
     },
-    [mergedInputs, persistDraft, setInputs]
+    [persistDraft, setInputs]
   );
 
   const advanceToStep = useCallback(
@@ -718,8 +808,8 @@ export default function useAssessmentScreen() {
 
     if (!hasSuggestedVentilatorSettings(inputsForVentilator)) return null;
     const payload = buildOxygenAbgVentilatorPayload(inputsForVentilator, {
-      includeOxygen: false,
-      includeAbg: false,
+      includeOxygen: true,
+      includeAbg: true,
       includeVentilator: true,
       includeFlowContext: false,
       idempotencyKeySuffix: 'suggested-ventilator-settings',
@@ -770,14 +860,6 @@ export default function useAssessmentScreen() {
       setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
       setSyncStatus(ADMISSION_SYNC_STATUS.NEEDS_SYNC);
       await persistCurrentDraft({ syncStatus: ADMISSION_SYNC_STATUS.NEEDS_SYNC });
-      if (currentStep === STEPS.OXYGEN_ABG_VENTILATOR) {
-        if (currentStep < TOTAL_STEPS - 1) {
-          await advanceToStep(nextStep);
-        }
-        await generateDatasetRecommendation(serverResponse?.clinicalSummary || null);
-      } else if (currentStep < TOTAL_STEPS - 1) {
-        await advanceToStep(nextStep);
-      }
     } finally {
       setIsSaving(false);
     }
@@ -813,14 +895,35 @@ export default function useAssessmentScreen() {
     setSaveErrorCode(null);
     try {
       await saveSuggestedVentilatorSettingsStep();
-      await saveReviewStep();
-      router.replace('/tracking');
+      const reviewResponse = await saveReviewStep();
+      const trackingAdmissionId =
+        reviewResponse?.admission?.id ||
+        reviewResponse?.admissionId ||
+        admissionId ||
+        mergedInputs.admissionId ||
+        mergedInputs.clientRecordId;
+      const trackingPath = trackingAdmissionId
+        ? `/tracking?admissionId=${encodeURIComponent(trackingAdmissionId)}&admitted=1`
+        : '/tracking';
+      await clearDraft();
+      resetSession();
+      router.replace(trackingPath);
     } catch (error) {
       setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
     } finally {
       setIsSaving(false);
     }
-  }, [canProceedFromStep, router, saveReviewStep, saveSuggestedVentilatorSettingsStep]);
+  }, [
+    admissionId,
+    canProceedFromStep,
+    clearDraft,
+    mergedInputs.admissionId,
+    mergedInputs.clientRecordId,
+    resetSession,
+    router,
+    saveReviewStep,
+    saveSuggestedVentilatorSettingsStep,
+  ]);
 
   const toggleClinicianConfirmed = useCallback(
     (checked) => {

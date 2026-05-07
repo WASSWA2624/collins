@@ -9,6 +9,14 @@ const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
 const rootReducer = require('@store/rootReducer').default;
 
+const mockPush = jest.fn();
+jest.mock('expo-router', () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+  useLocalSearchParams: jest.fn(() => ({})),
+}));
+
 jest.mock('@hooks', () => ({
   useI18n: () => {
     const mockEn = require('@i18n/locales/en.json');
@@ -48,6 +56,7 @@ const HistoryScreenAndroid =
 const HistoryScreenIOS =
   require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.ios').default;
 const { useVentilationSession } = require('@hooks');
+const { useLocalSearchParams } = require('expo-router');
 const {
   getTrackingAdmissionUseCase,
   listTrackingAdmissionsUseCase,
@@ -60,6 +69,7 @@ const HISTORY_TEST_IDS = {
   screen: 'history-screen',
   empty: 'history-empty',
   draftBanner: 'tracking-draft-banner',
+  admittedBanner: 'tracking-admitted-banner',
   list: 'history-list',
   viewDetails: 'history-view-details',
   detailPanel: 'tracking-detail-panel',
@@ -110,6 +120,7 @@ const renderWithProviders = (component, store = createMockStore()) =>
 describe('Tracking screen compatibility route', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useLocalSearchParams.mockReturnValue({});
     useVentilationSession.mockReturnValue({
       sessionId: null,
       inputs: null,
@@ -202,6 +213,29 @@ describe('Tracking screen compatibility route', () => {
     expect(
       getByText('admission_created | 2026-05-01T08:00:00.000Z')
     ).toBeDefined();
+  });
+
+  it('web: confirms a saved admission and auto-opens its tracking detail', async () => {
+    useLocalSearchParams.mockReturnValue({
+      admissionId: 'adm-1',
+      admitted: '1',
+    });
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
+
+    const { getByTestId, getByText } = renderWithProviders(
+      <HistoryScreenWeb />
+    );
+
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.admittedBanner)).toBeDefined()
+    );
+    expect(
+      getByText('Admission saved. This patient is admitted and available for tracking.')
+    ).toBeDefined();
+    await waitFor(() =>
+      expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1')
+    );
+    expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
   });
 
   it('android and ios render the tracking screen', async () => {

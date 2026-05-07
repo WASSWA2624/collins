@@ -5,7 +5,7 @@ import {
   admissionOxygenAbgVentilatorStepSchema,
   admissionPatientReasonStepSchema,
 } from '../src/modules/admissions/admissions.validators.js';
-import { buildAdmissionReadiness } from '../src/modules/admissions/admissions.service.js';
+import { buildAdmissionReadiness, buildClinicalSummary } from '../src/modules/admissions/admissions.service.js';
 
 test('patient and reason step accepts minimal patient data without explicit facility or bed', () => {
   const parsed = admissionPatientReasonStepSchema.parse({
@@ -173,4 +173,43 @@ test('readiness blocks impossible values until correction or documented override
 
   assert.equal(readiness.isReadyToSave, false);
   assert.ok(readiness.blockers.some((blocker) => blocker.code === 'IMPOSSIBLE_VALUE'));
+});
+
+test('clinical summary ignores metadata-only snapshots when checking current missing data', () => {
+  const summary = buildClinicalSummary({
+    patient: {
+      patientPathway: 'ADULT',
+      sexForSizeCalculations: 'MALE',
+      actualWeightKg: 76,
+    },
+    clinicalSnapshots: [
+      {
+        measuredAt: new Date('2026-05-07T20:09:00.000Z'),
+        comorbiditiesJson: {
+          admissionFlow: {
+            flowVersion: 'three-step-admission-flow@2026-05-05',
+          },
+        },
+      },
+      {
+        measuredAt: new Date('2026-05-07T08:20:00.000Z'),
+        spo2: 91,
+        fio2: 0.5,
+        respiratoryRate: 24,
+        heartRate: 98,
+      },
+    ],
+    abgTests: [{ pao2: 82, fio2AtSample: 0.5 }],
+    ventilatorSettings: [{
+      tidalVolumeMl: 427,
+      peep: 0,
+      fio2: 0.35,
+    }],
+    humidificationDecisions: [],
+  });
+
+  assert.equal(summary.missingData.includes('SpO2'), false);
+  assert.equal(summary.missingData.includes('FiO2'), false);
+  assert.equal(summary.missingData.includes('PaO2'), false);
+  assert.equal(summary.missingData.includes('PEEP'), false);
 });

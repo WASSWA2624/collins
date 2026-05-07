@@ -26,7 +26,7 @@ export const admissionInclude = {
       abgAvailability: true,
     },
   },
-  clinicalSnapshots: latestOnly,
+  clinicalSnapshots: { orderBy: { measuredAt: 'desc' }, take: 5 },
   abgTests: { orderBy: { collectedAt: 'desc' }, take: 1 },
   ventilatorSettings: latestOnly,
   airwayDevices: latestOnly,
@@ -247,14 +247,35 @@ const pickAdmissionPatchData = (data) => stripUndefined(Object.fromEntries(
   admissionPatchFields.map((field) => [field, data[field]])
 ));
 
-const getAdmissionForSummary = (admission) => ({
-  patient: admission.patient,
-  latestSnapshot: admission.clinicalSnapshots?.[0] || null,
-  latestAbg: admission.abgTests?.[0] || null,
-  latestVentilator: admission.ventilatorSettings?.[0] || null,
-  latestAirway: admission.airwayDevices?.[0] || null,
-  latestHumidification: admission.humidificationDecisions?.[0] || null,
-});
+const clinicalSnapshotValueFields = [
+  'spo2',
+  'fio2',
+  'heartRate',
+  'respiratoryRate',
+  'systolicBp',
+  'diastolicBp',
+  'meanArterialPressure',
+  'temperatureC',
+  'gcs',
+  'avpu',
+  'rass',
+  'oxygenSupportType',
+];
+
+const hasRecordedClinicalSnapshotValue = (snapshot = {}) =>
+  clinicalSnapshotValueFields.some((field) => snapshot[field] !== null && snapshot[field] !== undefined && snapshot[field] !== '');
+
+const getAdmissionForSummary = (admission) => {
+  const clinicalSnapshots = admission.clinicalSnapshots || [];
+  return {
+    patient: admission.patient,
+    latestSnapshot: clinicalSnapshots.find(hasRecordedClinicalSnapshotValue) || clinicalSnapshots[0] || null,
+    latestAbg: admission.abgTests?.[0] || null,
+    latestVentilator: admission.ventilatorSettings?.[0] || null,
+    latestAirway: admission.airwayDevices?.[0] || null,
+    latestHumidification: admission.humidificationDecisions?.[0] || null,
+  };
+};
 
 const resolveDecisionSupportReferenceRanges = async (facilityId, { tx = prisma, allowDevelopmentFallback = true } = {}) => (
   listActiveReferenceRangeRecords({
@@ -328,12 +349,12 @@ const buildMissingData = (admission) => {
   const missing = [];
   const { patient, latestSnapshot, latestAbg, latestVentilator } = getAdmissionForSummary(admission);
   if (!patient?.patientPathway || ['UNKNOWN', 'OTHER'].includes(patient.patientPathway)) missing.push('patientPathway');
-  if (!patient?.actualWeightKg && !patient?.referenceWeightKg) missing.push('actualWeightKg/referenceWeightKg');
-  if (!latestSnapshot?.spo2) missing.push('SpO2');
-  if (!latestSnapshot?.fio2 && !latestAbg?.fio2AtSample && !latestVentilator?.fio2) missing.push('FiO2');
-  if (!latestAbg?.pao2) missing.push('PaO2');
-  if (!latestVentilator?.tidalVolumeMl) missing.push('tidalVolumeMl');
-  if (!latestVentilator?.peep) missing.push('PEEP');
+  if (patient?.actualWeightKg == null && patient?.referenceWeightKg == null) missing.push('actualWeightKg/referenceWeightKg');
+  if (latestSnapshot?.spo2 == null) missing.push('SpO2');
+  if (latestSnapshot?.fio2 == null && latestAbg?.fio2AtSample == null && latestVentilator?.fio2 == null) missing.push('FiO2');
+  if (latestAbg?.pao2 == null) missing.push('PaO2');
+  if (latestVentilator?.tidalVolumeMl == null) missing.push('tidalVolumeMl');
+  if (latestVentilator?.peep == null) missing.push('PEEP');
   return missing;
 };
 

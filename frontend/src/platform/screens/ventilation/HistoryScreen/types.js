@@ -8,6 +8,7 @@ const HISTORY_TEST_IDS = Object.freeze({
   list: 'history-list',
   empty: 'history-empty',
   draftBanner: 'tracking-draft-banner',
+  admittedBanner: 'tracking-admitted-banner',
   corruptBanner: 'history-corrupt-banner',
   errorBanner: 'history-error-banner',
   item: 'history-item',
