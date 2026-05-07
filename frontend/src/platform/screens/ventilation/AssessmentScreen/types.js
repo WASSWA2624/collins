@@ -37,6 +37,20 @@ const SEX_OPTIONS = Object.freeze([
   { value: 'UNKNOWN', labelKey: 'unknown' },
 ]);
 
+const REASON_FOR_SUPPORT_OPTIONS = Object.freeze([
+  { valueKey: 'acuteHypoxemicRespiratoryFailure', labelKey: 'acuteHypoxemicRespiratoryFailure' },
+  { valueKey: 'acuteHypercapnicRespiratoryFailure', labelKey: 'acuteHypercapnicRespiratoryFailure' },
+  { valueKey: 'ardsOrSeverePneumonia', labelKey: 'ardsOrSeverePneumonia' },
+  { valueKey: 'sepsisWithRespiratoryFailure', labelKey: 'sepsisWithRespiratoryFailure' },
+  { valueKey: 'postOperativeVentilatorySupport', labelKey: 'postOperativeVentilatorySupport' },
+  { valueKey: 'traumaRelatedRespiratoryFailure', labelKey: 'traumaRelatedRespiratoryFailure' },
+  { valueKey: 'airwayProtection', labelKey: 'airwayProtection' },
+  { valueKey: 'neuromuscularWeakness', labelKey: 'neuromuscularWeakness' },
+  { valueKey: 'copdOrAsthmaExacerbation', labelKey: 'copdOrAsthmaExacerbation' },
+  { valueKey: 'neonatalRespiratoryDistress', labelKey: 'neonatalRespiratoryDistress' },
+  { valueKey: 'burnOrInhalationInjury', labelKey: 'burnOrInhalationInjury' },
+]);
+
 const OXYGEN_SUPPORT_OPTIONS = Object.freeze([
   { value: 'ROOM_AIR', labelKey: 'roomAir' },
   { value: 'NASAL_CANNULA', labelKey: 'nasalCannula' },
@@ -87,6 +101,7 @@ export {
   STEP_KEYS,
   PATIENT_PATHWAY_OPTIONS,
   SEX_OPTIONS,
+  REASON_FOR_SUPPORT_OPTIONS,
   OXYGEN_SUPPORT_OPTIONS,
   VENTILATOR_MODE_OPTIONS,
   PERMITTED_MISSING_FIELD_OPTIONS,

@@ -48,6 +48,7 @@ import {
  * @param {string} [props.helperText]
  * @param {boolean} [props.searchable]
  * @param {string} [props.searchPlaceholder]
+ * @param {boolean} [props.allowCustomValue]
  * @param {(value: any) => boolean|{valid: boolean, error?: string}} [props.validate]
  * @param {string} [props.accessibilityLabel]
  * @param {string} [props.accessibilityHint]
@@ -67,6 +68,7 @@ const SelectAndroid = ({
   helperText,
   searchable = true,
   searchPlaceholder,
+  allowCustomValue = false,
   validate,
   accessibilityLabel,
   accessibilityHint,
@@ -87,6 +89,18 @@ const SelectAndroid = ({
         .some((entry) => String(entry || '').toLowerCase().includes(query))
     );
   }, [options, searchable, searchQuery]);
+  const normalizedSearchQuery = String(searchQuery || '').trim();
+  const exactSearchMatch = React.useMemo(() => {
+    if (!normalizedSearchQuery) return false;
+    const query = normalizedSearchQuery.toLowerCase();
+    return options.some((option) =>
+      [option.label, option.value].some((entry) => String(entry || '').trim().toLowerCase() === query)
+    );
+  }, [normalizedSearchQuery, options]);
+  const canUseCustomValue = allowCustomValue && searchable && normalizedSearchQuery && !exactSearchMatch;
+  const customValueLabel = canUseCustomValue
+    ? String(t('common.useCustomValue', { value: normalizedSearchQuery })).replace('{{value}}', normalizedSearchQuery)
+    : '';
   
   const {
     open,
@@ -104,6 +118,13 @@ const SelectAndroid = ({
   const finalValidationState = validationState || (disabled ? VALIDATION_STATES.DISABLED : internalValidationState);
   const finalErrorMessage = errorMessage || internalErrorMessage;
   const displayHelperText = finalErrorMessage || helperText;
+  const hasValue = value !== null && value !== undefined && value !== '';
+  const displayValue = selectedOption
+    ? selectedOption.label
+    : allowCustomValue && hasValue
+    ? String(value)
+    : defaultPlaceholder;
+  const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
 
   React.useEffect(() => {
     if (!open) setSearchQuery('');
@@ -131,8 +152,8 @@ const SelectAndroid = ({
         accessibilityState={{ disabled }}
         testID={testID}
       >
-        <StyledTriggerText disabled={disabled} isPlaceholder={!selectedOption}>
-          {selectedOption ? selectedOption.label : defaultPlaceholder}
+        <StyledTriggerText disabled={disabled} isPlaceholder={isPlaceholderValue}>
+          {displayValue}
         </StyledTriggerText>
         <StyledChevron aria-hidden>▾</StyledChevron>
       </StyledTrigger>
@@ -155,9 +176,10 @@ const SelectAndroid = ({
               />
             ) : null}
             <StyledOptionList>
-              {visibleOptions.length === 0 ? (
+              {visibleOptions.length === 0 && !canUseCustomValue ? (
                 <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
-              ) : (
+              ) : null}
+              {visibleOptions.length > 0 ? (
                 visibleOptions.map(({ option: opt, index }) => (
                   <StyledOption
                     key={`${String(opt.value)}-${index}`}
@@ -173,7 +195,18 @@ const SelectAndroid = ({
                     <StyledOptionText>{opt.label}</StyledOptionText>
                   </StyledOption>
                 ))
-              )}
+              ) : null}
+              {canUseCustomValue ? (
+                <StyledOption
+                  key="custom-value"
+                  onPress={() => handleSelect(normalizedSearchQuery)}
+                  accessibilityRole="button"
+                  accessibilityLabel={customValueLabel}
+                  testID={testID ? `${testID}-custom-option` : undefined}
+                >
+                  <StyledOptionText>{customValueLabel}</StyledOptionText>
+                </StyledOption>
+              ) : null}
             </StyledOptionList>
           </StyledSheet>
         </StyledOverlay>

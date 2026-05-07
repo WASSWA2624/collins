@@ -94,6 +94,26 @@ describe('Select Component - Web', () => {
       expect(getByText('Two')).toBeTruthy();
       expect(queryByText('One')).toBeFalsy();
     });
+
+    it('should allow a typed custom value when enabled on Web', () => {
+      const onValueChange = jest.fn();
+      const { getByTestId, getByText } = renderWebWithProviders(
+        <SelectWeb
+          testID="web-select"
+          options={options}
+          value={undefined}
+          onValueChange={onValueChange}
+          allowCustomValue
+        />
+      );
+
+      fireEvent.click(getByTestId('web-select'));
+      fireEvent.change(getByTestId('web-select-search'), { target: { value: 'Custom clinical reason' } });
+
+      expect(getByText('Use "Custom clinical reason"')).toBeTruthy();
+      fireEvent.click(getByTestId('web-select-custom-option'));
+      expect(onValueChange).toHaveBeenCalledWith('Custom clinical reason');
+    });
   });
 
   describe('Keyboard Navigation', () => {

@@ -5,7 +5,13 @@
  */
 
 import React from 'react';
-import { StyledCheckbox, StyledCheckboxBox, StyledCheckboxCheck, StyledCheckboxLabel } from './Checkbox.android.styles';
+import {
+  StyledCheckbox,
+  StyledCheckboxBox,
+  StyledCheckboxCheck,
+  StyledCheckboxLabel,
+  StyledRequiredIndicator,
+} from './Checkbox.android.styles';
 
 /**
  * Checkbox component for Android
@@ -15,6 +21,7 @@ import { StyledCheckbox, StyledCheckboxBox, StyledCheckboxCheck, StyledCheckboxL
  * @param {boolean} props.disabled - Disabled state
  * @param {string} props.label - Checkbox label
  * @param {string} props.value - Checkbox value
+ * @param {boolean} props.required - Required field
  * @param {string} props.accessibilityLabel - Accessibility label
  * @param {string} props.testID - Test identifier
  * @param {Object} props.style - Additional styles
@@ -25,6 +32,7 @@ const CheckboxAndroid = ({
   disabled = false,
   label,
   value,
+  required = false,
   accessibilityLabel,
   testID,
   style,
@@ -50,7 +58,12 @@ const CheckboxAndroid = ({
       <StyledCheckboxBox checked={checked} disabled={disabled}>
         {checked && <StyledCheckboxCheck />}
       </StyledCheckboxBox>
-      {label && <StyledCheckboxLabel disabled={disabled}>{label}</StyledCheckboxLabel>}
+      {label && (
+        <StyledCheckboxLabel disabled={disabled}>
+          {label}
+          {required && <StyledRequiredIndicator> *</StyledRequiredIndicator>}
+        </StyledCheckboxLabel>
+      )}
     </StyledCheckbox>
   );
 };

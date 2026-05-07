@@ -49,6 +49,7 @@ import {
 import {
   OXYGEN_SUPPORT_OPTIONS,
   PATIENT_PATHWAY_OPTIONS,
+  REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
   STEPS,
   VENTILATOR_MODE_OPTIONS,
@@ -59,6 +60,15 @@ const mapOptions = (options, t, keyPrefix) =>
     value: option.value,
     label: t(`${keyPrefix}.${option.labelKey}`),
   }));
+
+const mapReasonOptions = (options, t, keyPrefix) =>
+  options.map((option) => {
+    const label = t(`${keyPrefix}.${option.labelKey}`);
+    return {
+      value: label,
+      label,
+    };
+  });
 
 const parseNum = parseAdmissionNumberInput;
 
@@ -114,6 +124,11 @@ const AssessmentScreenWeb = () => {
     'ventilation.assessment.patientReason.pathways'
   );
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
+  const reasonForSupportOptions = mapReasonOptions(
+    REASON_FOR_SUPPORT_OPTIONS,
+    t,
+    'ventilation.assessment.patientReason.reasonOptions'
+  );
   const oxygenSupportOptions = mapOptions(
     OXYGEN_SUPPORT_OPTIONS,
     t,
@@ -252,6 +267,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
           onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
           {...getFieldErrorProps('ageYears')}
+          required
           testID="assessment-age"
         />
         <TextField
@@ -260,6 +276,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
           onChangeText={(value) => updateBodyMetric('actualWeightKg', parseNum(value))}
           {...getFieldErrorProps('actualWeightKg')}
+          required
           testID="assessment-weight"
         />
         <TextField
@@ -268,6 +285,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.heightOrLengthCm != null ? String(mergedInputs.heightOrLengthCm) : ''}
           onChangeText={(value) => updateBodyMetric('heightOrLengthCm', parseNum(value))}
           {...getFieldErrorProps('heightOrLengthCm')}
+          required
           testID="assessment-height"
         />
         <TextField
@@ -279,13 +297,16 @@ const AssessmentScreenWeb = () => {
           testID="assessment-bmi"
         />
         <StyledFieldGridFull>
-          <TextArea
+          <Select
             label={t('ventilation.assessment.patientReason.reasonForSupport')}
             placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')}
+            searchPlaceholder={t('ventilation.assessment.patientReason.reasonForSupportSearchPlaceholder')}
+            options={reasonForSupportOptions}
             value={mergedInputs.reasonForSupport}
-            onChangeText={(value) => updateInput({ reasonForSupport: value })}
+            onValueChange={(value) => updateInput({ reasonForSupport: value })}
             {...getFieldErrorProps('reasonForSupport')}
-            minHeight={76}
+            allowCustomValue
+            required
             testID="assessment-reason"
           />
         </StyledFieldGridFull>
@@ -306,6 +327,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.oxygenSupportType}
           onValueChange={(value) => updateInput({ oxygenSupportType: value })}
           {...getFieldErrorProps('oxygenSupportType')}
+          required
           testID="assessment-oxygen-support"
         />
         <TextField
@@ -316,6 +338,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.measuredAt}
           onChangeText={(value) => updateInput({ measuredAt: value })}
           {...getFieldErrorProps('measuredAt')}
+          required
           testID="assessment-measured-at"
         />
         <TextField
@@ -324,6 +347,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
           onChangeText={(value) => updateInput({ spo2: parseNum(value) })}
           {...getFieldErrorProps('spo2')}
+          required
           testID="assessment-spo2"
         />
         <TextField
@@ -332,6 +356,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.fio2 != null ? String(mergedInputs.fio2) : ''}
           onChangeText={(value) => updateInput({ fio2: parseNum(value) })}
           {...getFieldErrorProps('fio2')}
+          required
           testID="assessment-fio2"
         />
         <TextField
@@ -340,6 +365,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
           onChangeText={(value) => updateInput({ respiratoryRate: parseNum(value) })}
           {...getFieldErrorProps('respiratoryRate')}
+          required
           testID="assessment-respiratory-rate"
         />
         <TextField
@@ -348,6 +374,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
           onChangeText={(value) => updateInput({ heartRate: parseNum(value) })}
           {...getFieldErrorProps('heartRate')}
+          required
           testID="assessment-heart-rate"
         />
         <TextField
@@ -356,6 +383,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}
           onChangeText={(value) => updateInput({ ph: parseNum(value) })}
           {...getFieldErrorProps('ph')}
+          required
           testID="assessment-ph"
         />
         <TextField
@@ -364,6 +392,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
           onChangeText={(value) => updateInput({ pao2: parseNum(value) })}
           {...getFieldErrorProps('pao2')}
+          required
           testID="assessment-pao2"
         />
         <TextField
@@ -372,6 +401,7 @@ const AssessmentScreenWeb = () => {
           value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
           onChangeText={(value) => updateInput({ paco2: parseNum(value) })}
           {...getFieldErrorProps('paco2')}
+          required
           testID="assessment-paco2"
         />
         <TextField
@@ -476,6 +506,7 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.ventilatorMode}
                 onValueChange={(value) => updateInput({ ventilatorMode: value })}
                 {...getFieldErrorProps('ventilatorMode')}
+                required
                 testID="assessment-suggested-ventilator-mode"
               />
               <TextField
@@ -484,6 +515,7 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''}
                 onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
                 {...getFieldErrorProps('tidalVolumeMl')}
+                required
                 testID="assessment-suggested-tidal-volume"
               />
               <TextField
@@ -492,6 +524,7 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''}
                 onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })}
                 {...getFieldErrorProps('respiratoryRateSet')}
+                required
                 testID="assessment-suggested-respiratory-rate-set"
               />
               <TextField
@@ -500,6 +533,7 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.ventilatorFio2 != null ? String(suggestedVentilatorInputs.ventilatorFio2) : ''}
                 onChangeText={(value) => updateInput({ ventilatorFio2: parseNum(value) })}
                 {...getFieldErrorProps('ventilatorFio2')}
+                required
                 testID="assessment-suggested-ventilator-fio2"
               />
               <TextField
@@ -508,6 +542,7 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''}
                 onChangeText={(value) => updateInput({ peep: parseNum(value) })}
                 {...getFieldErrorProps('peep')}
+                required
                 testID="assessment-suggested-peep"
               />
               <TextField
@@ -568,6 +603,7 @@ const AssessmentScreenWeb = () => {
         checked={mergedInputs.clinicianConfirmed}
         onChange={toggleClinicianConfirmed}
         label={t('ventilation.assessment.saveReview.clinicianConfirmed')}
+        required
         testID="assessment-clinician-confirmed"
       />
       {(readiness.blockers || []).length > 0 && (

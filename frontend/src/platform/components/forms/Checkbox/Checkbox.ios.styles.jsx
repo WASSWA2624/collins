@@ -59,6 +59,19 @@ const StyledCheckboxLabel = styled.Text.withConfig({
   color: ${({ disabled, theme }) => (disabled ? theme.colors.text.tertiary : theme.colors.text.primary)};
 `;
 
-export { StyledCheckbox, StyledCheckboxBox, StyledCheckboxCheck, StyledCheckboxLabel };
+const StyledRequiredIndicator = styled.Text.withConfig({
+  displayName: 'StyledRequiredIndicator',
+  componentId: 'StyledRequiredIndicator',
+})`
+  color: ${({ theme }) => theme.colors.error};
+`;
+
+export {
+  StyledCheckbox,
+  StyledCheckboxBox,
+  StyledCheckboxCheck,
+  StyledCheckboxLabel,
+  StyledRequiredIndicator,
+};
 
 

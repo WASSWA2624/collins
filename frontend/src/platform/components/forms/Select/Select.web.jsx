@@ -55,6 +55,7 @@ import { VALIDATION_STATES } from './types';
  * @param {string} [props.helperText]
  * @param {boolean} [props.searchable]
  * @param {string} [props.searchPlaceholder]
+ * @param {boolean} [props.allowCustomValue]
  * @param {(value: any) => boolean|{valid: boolean, error?: string}} [props.validate]
  * @param {string} [props.accessibilityLabel]
  * @param {string} [props.accessibilityHint]
@@ -76,6 +77,7 @@ const SelectWeb = ({
   helperText,
   searchable = true,
   searchPlaceholder,
+  allowCustomValue = false,
   validate,
   accessibilityLabel,
   accessibilityHint,
@@ -121,6 +123,25 @@ const SelectWeb = ({
         .some((entry) => String(entry || '').toLowerCase().includes(query))
     );
   }, [options, searchable, searchQuery]);
+  const normalizedSearchQuery = String(searchQuery || '').trim();
+  const exactSearchMatch = React.useMemo(() => {
+    if (!normalizedSearchQuery) return false;
+    const query = normalizedSearchQuery.toLowerCase();
+    return options.some((option) =>
+      [option.label, option.value].some((entry) => String(entry || '').trim().toLowerCase() === query)
+    );
+  }, [normalizedSearchQuery, options]);
+  const canUseCustomValue = allowCustomValue && searchable && normalizedSearchQuery && !exactSearchMatch;
+  const customValueLabel = canUseCustomValue
+    ? String(t('common.useCustomValue', { value: normalizedSearchQuery })).replace('{{value}}', normalizedSearchQuery)
+    : '';
+  const hasValue = value !== null && value !== undefined && value !== '';
+  const displayValue = selectedOption
+    ? selectedOption.label
+    : allowCustomValue && hasValue
+    ? String(value)
+    : defaultPlaceholder;
+  const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
 
   // Close on outside click
   useEffect(() => {
@@ -183,6 +204,7 @@ const SelectWeb = ({
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+      if (enabledOptions.length === 0) return;
       const nextIndex = currentIndex < enabledOptions.length - 1 ? currentIndex + 1 : 0;
       const nextOption = enabledOptions[nextIndex];
       const nextOptionIndex = nextOption.index;
@@ -197,6 +219,7 @@ const SelectWeb = ({
       }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
+      if (enabledOptions.length === 0) return;
       const prevIndex = currentIndex > 0 ? currentIndex - 1 : enabledOptions.length - 1;
       const prevOption = enabledOptions[prevIndex];
       const prevOptionIndex = prevOption.index;
@@ -215,6 +238,7 @@ const SelectWeb = ({
         ? enabledOptions[currentIndex]
         : enabledOptions[0];
       if (selected) handleSelect(selected.option.value);
+      if (!selected && canUseCustomValue) handleSelect(normalizedSearchQuery);
     } else if (e.key === 'Escape') {
       e.preventDefault();
       closeSelect();
@@ -246,6 +270,10 @@ const SelectWeb = ({
       focusFirstVisibleOption();
     } else if (event.key === 'Enter') {
       event.preventDefault();
+      if (canUseCustomValue) {
+        handleSelect(normalizedSearchQuery);
+        return;
+      }
       const firstEnabled = visibleOptions.find(({ option }) => !option.disabled);
       if (firstEnabled) handleSelect(firstEnabled.option.value);
     } else if (event.key === 'Escape') {
@@ -281,8 +309,8 @@ const SelectWeb = ({
         aria-required={required}
         data-testid={testID}
       >
-        <StyledTriggerText disabled={disabled} $isPlaceholder={!selectedOption}>
-          {selectedOption ? selectedOption.label : defaultPlaceholder}
+        <StyledTriggerText disabled={disabled} $isPlaceholder={isPlaceholderValue}>
+          {displayValue}
         </StyledTriggerText>
         <StyledChevron aria-hidden="true">▾</StyledChevron>
       </StyledTrigger>
@@ -308,9 +336,10 @@ const SelectWeb = ({
               data-testid={testID ? `${testID}-search` : undefined}
             />
           ) : null}
-          {visibleOptions.length === 0 ? (
+          {visibleOptions.length === 0 && !canUseCustomValue ? (
             <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
-          ) : (
+          ) : null}
+          {visibleOptions.length > 0 ? (
             visibleOptions.map(({ option: opt, index }, visibleIndex) => (
               <StyledOption
                 key={`${String(opt.value)}-${index}`}
@@ -331,7 +360,19 @@ const SelectWeb = ({
                 <StyledOptionText>{opt.label}</StyledOptionText>
               </StyledOption>
             ))
-          )}
+          ) : null}
+          {canUseCustomValue ? (
+            <StyledOption
+              key="custom-value"
+              onClick={() => handleSelect(normalizedSearchQuery)}
+              role="option"
+              aria-selected={value === normalizedSearchQuery}
+              tabIndex={visibleOptions.length === 0 ? 0 : -1}
+              data-testid={testID ? `${testID}-custom-option` : undefined}
+            >
+              <StyledOptionText>{customValueLabel}</StyledOptionText>
+            </StyledOption>
+          ) : null}
         </StyledMenu>
       ) : null}
 

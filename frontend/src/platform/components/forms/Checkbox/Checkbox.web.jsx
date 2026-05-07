@@ -11,6 +11,7 @@ import {
   StyledCheckboxBox,
   StyledCheckboxCheck,
   StyledCheckboxLabel,
+  StyledRequiredIndicator,
 } from './Checkbox.web.styles';
 
 /**
@@ -21,6 +22,7 @@ import {
  * @param {boolean} props.disabled - Disabled state
  * @param {string} props.label - Checkbox label
  * @param {string} props.value - Checkbox value
+ * @param {boolean} props.required - Required field
  * @param {string} props.accessibilityLabel - Accessibility label
  * @param {string} props.accessibilityHint - Accessibility hint
  * @param {string} props.testID - Test identifier
@@ -33,6 +35,7 @@ const CheckboxWeb = ({
   disabled = false,
   label,
   value,
+  required = false,
   accessibilityLabel,
   accessibilityHint,
   testID,
@@ -88,6 +91,7 @@ const CheckboxWeb = ({
         disabled={disabled}
         aria-label={computedA11yLabel}
         aria-description={accessibilityHint}
+        aria-required={required}
         onChange={handleChange}
         data-testid={testID}
       />
@@ -101,6 +105,7 @@ const CheckboxWeb = ({
       {label && (
         <StyledCheckboxLabel disabled={disabled}>
           {label}
+          {required && <StyledRequiredIndicator aria-hidden="true"> *</StyledRequiredIndicator>}
         </StyledCheckboxLabel>
       )}
     </StyledCheckbox>

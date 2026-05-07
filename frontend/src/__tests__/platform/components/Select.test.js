@@ -157,6 +157,26 @@ describe('Select Component', () => {
       expect(getByText('Two')).toBeTruthy();
       expect(queryByText('One')).toBeFalsy();
     });
+
+    it('should allow a typed custom value when enabled', () => {
+      const onValueChange = jest.fn();
+      const { getByTestId, getByText } = renderWithProviders(
+        <SelectAndroid
+          testID="select"
+          options={options}
+          value={undefined}
+          onValueChange={onValueChange}
+          allowCustomValue
+        />
+      );
+
+      fireEvent.press(getByTestId('select'));
+      fireEvent.changeText(getByTestId('select-search'), 'Custom clinical reason');
+
+      expect(getByText('Use "Custom clinical reason"')).toBeTruthy();
+      fireEvent.press(getByTestId('select-custom-option'));
+      expect(onValueChange).toHaveBeenCalledWith('Custom clinical reason');
+    });
   });
 
   describe('Accessibility', () => {
