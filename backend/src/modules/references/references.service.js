@@ -99,7 +99,7 @@ export const listActiveReferenceRangeRecords = async ({
     .map(referenceRuleToRangeRecord)
     .filter((record) => record?.validation?.valid);
 
-  return records.map(({ validation, ...record }) => record);
+  return records.map(({ validation: _validation, ...record }) => record);
 };
 
 export const getReferencePolicy = () => ({
