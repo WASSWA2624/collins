@@ -76,7 +76,7 @@ Training/help content:
 GET /api/v1/training-help
 ```
 
-`npm install`, `npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
+`npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Production hosting should run `npm run prisma:generate:production` after dependency installation and before restart if the host starts the configured startup file directly instead of running `npm start`. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
 
 Database setup for a clean local MySQL database:
 

@@ -81,6 +81,8 @@ test('runs Prisma generation before backend startup and tests', () => {
   assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs --env=production');
   assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs --env=development');
   assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs --env=development');
+  assert.equal(packageJson.scripts['prisma:generate:production'], 'node scripts/prisma-generate-if-needed.mjs --env=production');
+  assert.equal(packageJson.scripts.postinstall, undefined);
   assert.equal(packageJson.scripts.dev, 'nodemon --config nodemon.json');
   assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
