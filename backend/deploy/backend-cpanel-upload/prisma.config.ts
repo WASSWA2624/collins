@@ -1,5 +1,11 @@
-import 'dotenv/config';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, env } from 'prisma/config';
+import { loadEnvironmentFile } from './src/config/envFile.js';
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
+loadEnvironmentFile({ projectRoot });
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',

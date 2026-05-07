@@ -77,20 +77,20 @@ test('pins supported Node runtime for backend startup', () => {
 });
 
 test('runs Prisma generation before backend startup and tests', () => {
-  assert.equal(packageJson.scripts.predev, 'node scripts/prisma-generate-if-needed.mjs');
-  assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs');
-  assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs');
-  assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs');
+  assert.equal(packageJson.scripts.predev, 'node scripts/prisma-generate-if-needed.mjs --env=development');
+  assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs --env=production');
+  assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs --env=development');
+  assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs --env=development');
   assert.equal(packageJson.scripts.dev, 'nodemon --config nodemon.json');
-  assert.equal(packageJson.scripts.start, 'node src/server.js');
+  assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
 });
 
 test('dev watcher is scoped to backend source and config files', () => {
-  assert.deepEqual(nodemonConfig.watch, ['src', 'prisma/schema.prisma', '.env']);
+  assert.deepEqual(nodemonConfig.watch, ['src', 'prisma/schema.prisma', '.env.development', '.env.production']);
   assert.ok(nodemonConfig.ignore.includes('node_modules/**'));
   assert.ok(nodemonConfig.ignore.includes('prisma/migrations/**'));
   assert.ok(nodemonConfig.ignore.includes('tests/**'));
-  assert.equal(nodemonConfig.exec, 'node src/server.js');
+  assert.equal(nodemonConfig.exec, 'node src/server.js --env=development');
 });

@@ -31,7 +31,26 @@ npm install
 npm run start
 ```
 
-Configure `.env` before starting Expo. The file contains production and development blocks; keep one block uncommented and comment the other.
+Configure the environment-specific file before starting Expo. Do not rename or delete env files:
+
+- `.env.development` is loaded by local Expo commands such as `npm run start`, `npm run android`, `npm run ios`, and `npm run web`.
+- `.env.production` is loaded when `COLLINS_ENV`, `APP_ENV`, `EXPO_PUBLIC_APP_ENVIRONMENT`, or `NODE_ENV` selects `production`, and by production build-style npm lifecycles.
+
+To override automatic selection, set `COLLINS_ENV`, `APP_ENV`, or `NODE_ENV` to `development` or `production`, or pass `--env=development` / `--env=production`.
+
+Frontend env variables:
+
+| Variable | Development | Production | Purpose |
+| --- | --- | --- | --- |
+| `NODE_ENV` | `development` | `production` | Selects runtime behavior and logging mode. |
+| `EXPO_PUBLIC_API_BASE_URL` | Blank for Expo/LAN auto-discovery | Production API URL | Public backend base URL bundled into the client. |
+| `EXPO_PUBLIC_API_PORT` | `3000` | `3000` | API port used by development host auto-discovery. |
+| `EXPO_PUBLIC_API_VERSION` | `v1` | `v1` | API namespace used by endpoint construction. |
+| `EXPO_PUBLIC_APP_ENVIRONMENT` | `development` | `production` | Public environment label shown in app metadata. |
+| `EXPO_PUBLIC_APP_VERSION` | App version | App version | Public app version displayed in the app. |
+| `EXPO_PUBLIC_BUILD_NUMBER` | Build number | Build number | Public build number displayed in the app. |
+| `EXPO_PUBLIC_SUPPORT_EMAIL` | Optional | Optional | Public support email shown in the footer. |
+| `EXPO_PUBLIC_SUPPORT_PHONE` | Optional | Optional | Public support phone shown in the footer. |
 
 ## Common scripts
 

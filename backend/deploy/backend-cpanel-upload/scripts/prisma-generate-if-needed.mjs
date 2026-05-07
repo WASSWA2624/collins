@@ -2,7 +2,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import dotenv from 'dotenv';
+import { loadEnvironmentFile } from '../src/config/envFile.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -13,7 +13,7 @@ const generatedSchemaPath = path.join(projectRoot, 'node_modules', '.prisma', 'c
 const PLACEHOLDER_TEXT = '@prisma/client did not initialize yet';
 const GENERATE_ONLY_DATABASE_URL = 'mysql://collins:collins@localhost:3306/collins';
 
-dotenv.config({ path: path.join(projectRoot, '.env'), quiet: true });
+loadEnvironmentFile({ projectRoot });
 
 const readText = (filePath) => readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n').trimEnd();
 

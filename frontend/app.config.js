@@ -1,3 +1,107 @@
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+
+const ENVIRONMENT_ALIASES = {
+  dev: "development",
+  local: "development",
+  prod: "production",
+};
+
+const SUPPORTED_ENVIRONMENTS = new Set(["development", "production"]);
+
+const normalizeEnvironment = (value) => {
+  const normalized = String(value || "").trim().toLowerCase();
+  if (!normalized) return null;
+
+  const environment = ENVIRONMENT_ALIASES[normalized] || normalized;
+  return SUPPORTED_ENVIRONMENTS.has(environment) ? environment : null;
+};
+
+const getEnvironmentFromArgs = (argv = []) => {
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    const inlineMatch = /^--(?:app-)?env(?:ironment)?=(.+)$/i.exec(arg);
+    if (inlineMatch) return normalizeEnvironment(inlineMatch[1]);
+
+    if (/^--(?:app-)?env(?:ironment)?$/i.test(arg)) {
+      return normalizeEnvironment(argv[index + 1]);
+    }
+  }
+
+  return null;
+};
+
+const getEnvironmentFromLifecycle = (lifecycleEvent) => {
+  const event = String(lifecycleEvent || "").toLowerCase();
+  if (!event) return null;
+
+  if (event.includes("eas") || event.includes("apk") || event.includes("build")) {
+    return "production";
+  }
+
+  if (
+    event.includes("start")
+    || event.includes("android")
+    || event.includes("ios")
+    || event.includes("web")
+    || event.includes("test")
+    || event.includes("debug")
+  ) {
+    return "development";
+  }
+
+  return null;
+};
+
+const parseEnvFile = (content) => {
+  const values = {};
+
+  for (const rawLine of content.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#")) continue;
+
+    const separatorIndex = line.indexOf("=");
+    if (separatorIndex === -1) continue;
+
+    const key = line.slice(0, separatorIndex).trim();
+    const rawValue = line.slice(separatorIndex + 1).trim();
+    const value = rawValue.replace(/^(['"])(.*)\1$/, "$2");
+
+    if (key) values[key] = value;
+  }
+
+  return values;
+};
+
+const resolveEnvironmentName = () => (
+  normalizeEnvironment(process.env.COLLINS_ENV)
+  || normalizeEnvironment(process.env.APP_ENV)
+  || getEnvironmentFromArgs(process.argv)
+  || normalizeEnvironment(process.env.EXPO_PUBLIC_APP_ENVIRONMENT)
+  || normalizeEnvironment(process.env.NODE_ENV)
+  || getEnvironmentFromLifecycle(process.env.npm_lifecycle_event)
+  || "development"
+);
+
+const loadEnvironmentFile = () => {
+  const environment = resolveEnvironmentName();
+  const envFile = path.resolve(process.cwd(), `.env.${environment}`);
+
+  if (existsSync(envFile)) {
+    const parsedEnv = parseEnvFile(readFileSync(envFile, "utf8"));
+    for (const [key, value] of Object.entries(parsedEnv)) {
+      process.env[key] ??= value;
+    }
+  }
+
+  process.env.NODE_ENV ??= environment;
+  process.env.EXPO_PUBLIC_APP_ENVIRONMENT ??= environment;
+
+  return { environment, envFile };
+};
+
+loadEnvironmentFile();
+
 export default {
   expo: {
     name: "AI Vent",

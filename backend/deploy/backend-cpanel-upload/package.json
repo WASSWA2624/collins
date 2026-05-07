@@ -9,18 +9,18 @@
   },
   "scripts": {
     "postinstall": "node scripts/prisma-generate-if-needed.mjs",
-    "predev": "node scripts/prisma-generate-if-needed.mjs",
+    "predev": "node scripts/prisma-generate-if-needed.mjs --env=development",
     "dev": "nodemon --config nodemon.json",
-    "prestart": "node scripts/prisma-generate-if-needed.mjs",
-    "start": "node src/server.js",
-    "prisma:generate": "node scripts/prisma-generate-if-needed.mjs",
+    "prestart": "node scripts/prisma-generate-if-needed.mjs --env=production",
+    "start": "node src/server.js --env=production",
+    "prisma:generate": "node scripts/prisma-generate-if-needed.mjs --env=development",
     "prisma:generate:force": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:seed": "node prisma/seed.mjs",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",
-    "pretest": "node scripts/prisma-generate-if-needed.mjs",
+    "pretest": "node scripts/prisma-generate-if-needed.mjs --env=development",
     "test": "node --test"
   },
   "dependencies": {

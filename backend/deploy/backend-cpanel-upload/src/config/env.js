@@ -1,6 +1,10 @@
-import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { loadEnvironmentFile } from './envFile.js';
 
-dotenv.config({ quiet: true });
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+export const loadedEnvironmentFile = loadEnvironmentFile({ projectRoot });
 
 export const DEFAULT_CORS_ORIGINS = [
   'http://localhost:8081',
@@ -78,7 +82,7 @@ export const createEnv = (source = process.env) => {
   }
 
   if (!databaseUrl) {
-    errors.push('DATABASE_URL is required for Prisma. Set DATABASE_URL in .env to a MySQL connection string.');
+    errors.push('DATABASE_URL is required for Prisma. Set DATABASE_URL in the selected .env.development or .env.production file.');
   }
 
   if (nodeEnv === 'production' && !jwtSecret) {
