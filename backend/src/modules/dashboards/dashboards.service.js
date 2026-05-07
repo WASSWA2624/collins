@@ -30,6 +30,15 @@ const addDays = (date, days) => new Date(date.getTime() + (days * MS_PER_DAY));
 
 const formatDay = (date) => date.toISOString().slice(0, 10);
 
+const hasWhereKeys = (where) => where && Object.keys(where).length > 0;
+
+const combineAnd = (...clauses) => {
+  const where = clauses.filter(hasWhereKeys);
+  if (where.length === 0) return {};
+  if (where.length === 1) return where[0];
+  return { AND: where };
+};
+
 export const buildDashboardWindow = ({ from, to, days } = {}) => {
   const end = to ? startOfDay(new Date(to)) : startOfDay(new Date());
   const start = from ? startOfDay(new Date(from)) : addDays(end, -((days || 1) - 1));
@@ -156,11 +165,23 @@ const facilityMetadata = async (client, facilityId) => {
 
 const admissionFacilityWhere = (facilityId) => (facilityId ? { facilityId } : {});
 const childAdmissionFacilityWhere = (facilityId) => (facilityId ? { admission: { facilityId } } : {});
+const activeChildAdmissionFacilityWhere = (facilityId) => ({
+  admission: {
+    ...(facilityId ? { facilityId } : {}),
+    status: 'ACTIVE',
+  },
+});
+const referenceRuleFacilityWhere = (facilityId) => (facilityId
+  ? { OR: [{ facilityId }, { facilityId: null }] }
+  : {});
+const facilityOrGlobalAuditWhere = (facilityId) => (facilityId
+  ? { OR: [{ facilityId }, { facilityId: null }] }
+  : {});
 
 const getVentilatedAdmissionCount = async (client, facilityId) => {
   const rows = await client.ventilatorSetting.groupBy({
     by: ['admissionId'],
-    where: childAdmissionFacilityWhere(facilityId),
+    where: activeChildAdmissionFacilityWhere(facilityId),
     _count: { admissionId: true },
   });
   return rows.length;
@@ -281,35 +302,37 @@ const getOverrideSummary = async (client, facilityId, window) => {
   };
 };
 
-const getReferenceGovernance = async (client, window) => {
+const getReferenceGovernance = async (client, facilityId, window) => {
   const now = new Date();
+  const scopeWhere = referenceRuleFacilityWhere(facilityId);
+  const auditScopeWhere = facilityOrGlobalAuditWhere(facilityId);
   const activeWindow = {
     OR: [{ activeFrom: null }, { activeFrom: { lte: now } }],
     AND: [{ OR: [{ activeTo: null }, { activeTo: { gte: now } }] }],
   };
-  const retiredWhere = {
+  const retiredCondition = {
     OR: [
       { activeTo: { lt: now } },
       { governanceStatus: { in: REFERENCE_RETIRED_STATUSES } },
     ],
   };
-  const backlogWhere = {
-    AND: [
-      { NOT: retiredWhere },
-      {
-        OR: [
-          { approvedByUserId: null },
-          { governanceStatus: null },
-          { governanceStatus: { notIn: REFERENCE_APPROVED_STATUSES } },
-        ],
-      },
+  const needsGovernanceCondition = {
+    OR: [
+      { approvedByUserId: null },
+      { governanceStatus: null },
+      { governanceStatus: { notIn: REFERENCE_APPROVED_STATUSES } },
     ],
   };
-  const activeWhere = {
-    ...activeWindow,
+  const retiredWhere = combineAnd(scopeWhere, retiredCondition);
+  const backlogWhere = combineAnd(scopeWhere, { NOT: retiredCondition }, needsGovernanceCondition);
+  const activeWhere = combineAnd(scopeWhere, activeWindow, {
     approvedByUserId: { not: null },
     governanceStatus: { in: REFERENCE_APPROVED_STATUSES },
-  };
+  });
+  const referenceAuditWhere = combineAnd(
+    auditScopeWhere,
+    { entityType: 'ReferenceRule', ...dateFilter('createdAt', window) },
+  );
 
   const [
     verificationBacklog,
@@ -322,9 +345,9 @@ const getReferenceGovernance = async (client, window) => {
     client.referenceRule.count({ where: backlogWhere }),
     client.referenceRule.count({ where: activeWhere }),
     client.referenceRule.count({ where: retiredWhere }),
-    groupCountByField(client, 'referenceRule', 'governanceStatus', {}),
-    groupCountByField(client, 'auditLog', 'action', { entityType: 'ReferenceRule', ...dateFilter('createdAt', window) }),
-    dailyTrend(client, 'auditLog', 'createdAt', { entityType: 'ReferenceRule' }, window),
+    groupCountByField(client, 'referenceRule', 'governanceStatus', scopeWhere),
+    groupCountByField(client, 'auditLog', 'action', referenceAuditWhere),
+    dailyTrend(client, 'auditLog', 'createdAt', referenceAuditWhere, window),
   ]);
 
   return {
@@ -429,7 +452,7 @@ const getOperationalCounts = async (client, facilityId) => {
     client.abgTest.count({ where: { reviewStatus: 'PENDING', ...childAdmissionFacilityWhere(facilityId) } }),
     client.datasetCase.count({ where: { ...(facilityId ? { facilityId } : {}), reviewStatus: { in: DATASET_QUEUE_STATUSES } } }),
     client.syncEvent.count({ where: { ...(facilityId ? { facilityId } : {}), status: { in: SYNC_ATTENTION_STATUSES } } }),
-    client.referenceRule.count(),
+    client.referenceRule.count({ where: referenceRuleFacilityWhere(facilityId) }),
     client.modelVersion.count(),
   ]);
 
@@ -542,7 +565,7 @@ export const getOperationalDashboard = async (userId, query = {}, client = prism
     getDatasetReadiness(client, facilityId),
     getSyncConflictSummary(client, facilityId, window),
     getOverrideSummary(client, facilityId, window),
-    getReferenceGovernance(client, window),
+    getReferenceGovernance(client, facilityId, window),
     getModelGovernance(client, facilityId, window),
     getAuditSummary(client, facilityId, window),
     dailyTrend(client, 'admission', 'createdAt', admissionFacilityWhere(facilityId), window),
@@ -584,7 +607,7 @@ export const getGovernanceDashboard = async (userId, query = {}, client = prisma
   ] = await Promise.all([
     facilityMetadata(client, facilityId),
     getDatasetReadiness(client, facilityId),
-    getReferenceGovernance(client, window),
+    getReferenceGovernance(client, facilityId, window),
     getModelGovernance(client, facilityId, window),
     getAuditSummary(client, facilityId, window),
     getOverrideSummary(client, facilityId, window),

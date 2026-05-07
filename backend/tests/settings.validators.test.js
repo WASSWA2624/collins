@@ -15,6 +15,9 @@ test('validates canonical user settings payloads', () => {
         activeRole: 'CLINICIAN',
         visibleRoles: ['CLINICIAN', 'ICU_NURSE'],
       },
+      displayPreferences: {
+        themePreference: 'dark',
+      },
       offlineSyncPreferences: {
         offlineModeEnabled: true,
         autoSyncEnabled: true,
@@ -30,6 +33,21 @@ test('validates canonical user settings payloads', () => {
   });
 
   assert.equal(result.success, true);
+});
+
+test('rejects invalid display theme preferences', () => {
+  const result = userSettingsSchema.safeParse({
+    body: {
+      displayPreferences: {
+        themePreference: 'sepia',
+      },
+    },
+    params: {},
+    query: {},
+  });
+
+  assert.equal(result.success, false);
+  assert.ok(result.error.issues.some((issue) => issue.path.join('.') === 'body.displayPreferences.themePreference'));
 });
 
 test('rejects clinical decision outputs in settings payloads', () => {

@@ -3,6 +3,7 @@
  * WCAG AAA compliance
  * File: high-contrast.theme.js
  */
+import colors from './tokens/colors';
 import spacing from './tokens/spacing';
 import typography from './tokens/typography';
 import radius from './tokens/radius';
@@ -12,6 +13,7 @@ import animations from './animations';
 import brand from './tokens/brand';
 
 const highContrastColors = {
+  ...colors,
   primary: '#0000FF',
   onPrimary: '#FFFFFF',
   secondary: '#000080',
@@ -31,6 +33,21 @@ const highContrastColors = {
   },
   textPrimary: '#000000',
   textSecondary: '#000000',
+  status: {
+    ...colors.status,
+    success: {
+      background: '#FFFFFF',
+      text: '#006400',
+    },
+    warning: {
+      background: '#FFFFFF',
+      text: '#8B4500',
+    },
+    error: {
+      background: '#FFFFFF',
+      text: '#B00000',
+    },
+  },
 };
 
 export default {

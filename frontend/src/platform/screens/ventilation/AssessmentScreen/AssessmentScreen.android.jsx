@@ -8,6 +8,7 @@ import { useTheme } from 'styled-components/native';
 import {
   Button,
   Checkbox,
+  LoadingSpinner,
   ProgressBar,
   Select,
   Text,
@@ -15,13 +16,15 @@ import {
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
-import useAssessmentScreen from './useAssessmentScreen';
+import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
 import {
   StyledActionsRow,
   StyledContainer,
   StyledContentWrap,
   StyledExpandButton,
   StyledFieldGroup,
+  StyledLoadingPane,
+  StyledLoadingText,
   StyledMissingTests,
   StyledStepContent,
   StyledStepDescription,
@@ -48,10 +51,7 @@ const mapOptions = (options, t, keyPrefix) =>
     label: t(`${keyPrefix}.${option.labelKey}`),
   }));
 
-const parseNum = (value) => {
-  const parsed = parseFloat(value);
-  return Number.isFinite(parsed) ? parsed : null;
-};
+const parseNum = parseAdmissionNumberInput;
 
 const formatValue = (value, unit) => {
   if (value == null || value === '') return null;
@@ -67,6 +67,7 @@ const AssessmentScreenAndroid = () => {
     mergedInputs,
     updateInput,
     updateBodyMetric,
+    toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,
     setSummaryExpanded,
@@ -76,6 +77,8 @@ const AssessmentScreenAndroid = () => {
     recommendationMissingInputs,
     recommendationConfidence,
     recommendationErrorCode,
+    isGeneratingRecommendation,
+    validation,
     canProceedFromStep,
     goNext,
     goBackOrExit,
@@ -83,6 +86,8 @@ const AssessmentScreenAndroid = () => {
     isSaving,
     isHydrating,
     errorCode,
+    loadErrorCode,
+    retryLoadAdmissionForm,
     testIds,
     stepKey,
     totalSteps,
@@ -98,6 +103,39 @@ const AssessmentScreenAndroid = () => {
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
   const oxygenSupportOptions = mapOptions(OXYGEN_SUPPORT_OPTIONS, t, 'ventilation.assessment.oxygenAbgVentilator.oxygenSupportOptions');
   const ventilatorModeOptions = mapOptions(VENTILATOR_MODE_OPTIONS, t, 'ventilation.assessment.saveReview.ventilatorModeOptions');
+  const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
+  const translatedErrorMessage = errorTranslationKey ? t(errorTranslationKey) : null;
+  const errorMessage =
+    translatedErrorMessage && translatedErrorMessage !== errorTranslationKey
+      ? translatedErrorMessage
+      : errorCode
+      ? t('errors.codes.UNKNOWN_ERROR')
+      : null;
+
+  const renderValidationMessages = () => {
+    if (!validation?.messages?.length) return null;
+    return (
+      <StyledMissingTests testID="assessment-validation" accessibilityRole="alert">
+        <Text variant="label" color="status.warning.text">{t('ventilation.assessment.validation.title')}</Text>
+        {validation.messages.map((message) => (
+          <Text key={message} variant="body" color="status.warning.text">{message}</Text>
+        ))}
+      </StyledMissingTests>
+    );
+  };
+
+  const renderLoadError = () => {
+    if (!loadErrorCode) return null;
+    return (
+      <StyledMissingTests testID="assessment-load-error" accessibilityRole="alert">
+        <Text variant="label" color="status.warning.text">{t('ventilation.assessment.states.errorTitle')}</Text>
+        <Text variant="body" color="status.warning.text">{t('ventilation.assessment.states.error')}</Text>
+        <Button variant="outline" onPress={retryLoadAdmissionForm}>
+          {t('ventilation.assessment.states.retryLoad')}
+        </Button>
+      </StyledMissingTests>
+    );
+  };
 
   const renderSummary = () => {
     const rows = [
@@ -160,6 +198,7 @@ const AssessmentScreenAndroid = () => {
   const renderPatientReasonStep = () => (
       <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
+      {renderValidationMessages()}
       <Select
         label={t('ventilation.assessment.patientReason.pathway')}
         placeholder={t('ventilation.assessment.patientReason.pathwayPlaceholder')}
@@ -218,6 +257,7 @@ const AssessmentScreenAndroid = () => {
   const renderOxygenAbgVentilatorStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
+      {renderValidationMessages()}
       <Select label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')} placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')} helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')} options={oxygenSupportOptions} value={mergedInputs.oxygenSupportType} onValueChange={(value) => updateInput({ oxygenSupportType: value })} testID="assessment-oxygen-support" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.measuredAt')} type="datetime-local" placeholder={t('ventilation.assessment.oxygenAbgVentilator.timePlaceholder')} helperText={t('ventilation.assessment.oxygenAbgVentilator.timeHint')} value={mergedInputs.measuredAt} onChangeText={(value) => updateInput({ measuredAt: value })} testID="assessment-measured-at" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2')} type="number" value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''} onChangeText={(value) => updateInput({ spo2: parseNum(value) })} testID="assessment-spo2" />
@@ -243,7 +283,12 @@ const AssessmentScreenAndroid = () => {
     return (
       <StyledMissingTests testID={testIds.recommendation} accessibilityRole="alert">
         <Text variant="label" color="status.warning.text">{t('ventilation.assessment.saveReview.recommendationTitle')}</Text>
-        {hasRecommendation ? (
+        {isGeneratingRecommendation ? (
+          <>
+            <LoadingSpinner size="large" accessibilityLabel={t('ventilation.assessment.saveReview.recommendationGenerating')} testID="assessment-recommendation-loading" />
+            <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.recommendationGenerating')}</Text>
+          </>
+        ) : hasRecommendation ? (
           <>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}</Text>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.suggestedSettingsHint')}</Text>
@@ -256,7 +301,7 @@ const AssessmentScreenAndroid = () => {
           </>
         ) : (
           <Text variant="body" color="status.warning.text">
-            {recommendationErrorCode ? t('ventilation.assessment.saveReview.recommendationNeedsClinicalInputs') : t('ventilation.assessment.saveReview.recommendationEmpty')}
+            {recommendationErrorCode ? t('ventilation.assessment.saveReview.recommendationError') : t('ventilation.assessment.saveReview.recommendationEmpty')}
           </Text>
         )}
         {recommendationMissingInputs.length > 0 ? (
@@ -289,9 +334,10 @@ const AssessmentScreenAndroid = () => {
             {blocker.message}
           </Text>
         ))}
-        {errorCode ? <Text variant="body" color="status.warning.text">{t('ventilation.assessment.states.error')}</Text> : null}
+        {errorMessage ? <Text variant="body" color="status.warning.text">{errorMessage}</Text> : null}
       </StyledMissingTests>
-      <Checkbox checked={mergedInputs.clinicianConfirmed} onChange={(checked) => updateInput({ clinicianConfirmed: checked })} label={t('ventilation.assessment.saveReview.clinicianConfirmed')} testID="assessment-clinician-confirmed" />
+      {renderValidationMessages()}
+      <Checkbox checked={mergedInputs.clinicianConfirmed} onChange={toggleClinicianConfirmed} label={t('ventilation.assessment.saveReview.clinicianConfirmed')} testID="assessment-clinician-confirmed" />
       {(readiness.blockers || []).length > 0 && (
         <TextArea label={t('ventilation.assessment.saveReview.overrideReason')} value={mergedInputs.overrideReason} onChangeText={(value) => updateInput({ overrideReason: value })} minHeight={76} required testID="assessment-override-reason" />
       )}
@@ -309,7 +355,10 @@ const AssessmentScreenAndroid = () => {
   if (isHydrating) {
     return (
       <StyledContainer accessibilityLabel={t('ventilation.assessment.accessibilityLabel')} testID={testIds.screen}>
-        <Text>{t('ventilation.assessment.states.loading')}</Text>
+        <StyledLoadingPane>
+          <LoadingSpinner size="large" accessibilityLabel={t('ventilation.assessment.states.loading')} testID="assessment-loading-spinner" />
+          <StyledLoadingText>{t('ventilation.assessment.states.loading')}</StyledLoadingText>
+        </StyledLoadingPane>
       </StyledContainer>
     );
   }
@@ -326,6 +375,7 @@ const AssessmentScreenAndroid = () => {
           showsVerticalScrollIndicator={true}
           keyboardShouldPersistTaps="handled"
         >
+          {renderLoadError()}
           <StyledWizardPane>
             <StyledStepHeader>
               <Text variant="h2">{stepLabel}</Text>

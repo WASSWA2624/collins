@@ -28,6 +28,7 @@ const DashboardScreenWeb = () => {
   const {
     activeType,
     dashboard,
+    emptyMessage,
     errorMessage,
     errorTitle,
     isLoading,
@@ -53,8 +54,10 @@ const DashboardScreenWeb = () => {
             </Text>
             <StyledRefreshButton
               type="button"
+              disabled={isLoading}
               onClick={refresh}
               aria-label="Refresh dashboard"
+              aria-busy={isLoading}
               data-testid={testIds.refresh}
             >
               Refresh
@@ -75,6 +78,7 @@ const DashboardScreenWeb = () => {
                   type="button"
                   role="tab"
                   $active={tab.id === activeType}
+                  disabled={isLoading}
                   aria-selected={tab.id === activeType}
                   onClick={() => setActiveType(tab.id)}
                 >
@@ -85,7 +89,7 @@ const DashboardScreenWeb = () => {
 
             {isLoading ? (
               <StyledStatusPanel $tone="loading" role="status" aria-live="polite">
-                <Text variant="body">Loading dashboard...</Text>
+                <Text variant="body">{dashboard ? 'Refreshing dashboard...' : 'Loading dashboard...'}</Text>
               </StyledStatusPanel>
             ) : null}
             {errorMessage ? (
@@ -99,6 +103,7 @@ const DashboardScreenWeb = () => {
                 <StyledStatusActions>
                   <StyledRefreshButton
                     type="button"
+                    disabled={isLoading}
                     onClick={refresh}
                     aria-label="Retry loading dashboard"
                   >
@@ -109,7 +114,7 @@ const DashboardScreenWeb = () => {
             ) : null}
             {!isLoading && !errorMessage && !dashboard ? (
               <StyledStatusPanel $tone="empty" role="status">
-                <Text variant="body">No dashboard data available.</Text>
+                <Text variant="body">{emptyMessage}</Text>
               </StyledStatusPanel>
             ) : null}
 

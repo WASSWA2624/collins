@@ -9,6 +9,7 @@ const {
   getDatasetCaptureCompleteness,
   getDatasetCaptureSections,
   parseDatasetCaptureNote,
+  validateDatasetCaptureFieldValues,
 } = require('@features/dataset-capture');
 
 describe('datasetCapture.model', () => {
@@ -67,6 +68,8 @@ describe('datasetCapture.model', () => {
     expect(submission.governanceJson.pendingHumanReview).toBe(true);
     expect(submission.governanceJson.clinicianValidationStatus).toBe('PENDING_CLINICIAN_VALIDATION');
     expect(submission.governanceJson.sourceProvenance.sourceType).toBe('CLINICIAN_CHART_ABSTRACTION');
+    expect(submission.governanceJson.outcomeReview.referenceUseCategory).toBe('OUTCOME_PENDING');
+    expect(submission.governanceJson.outcomeReview.excludeFromRecommendations).toBe(true);
     expect(submission.structuredPreviewJson.captureMetadata.schemaVersion).toBe('clinical_case_v1');
     expect(submission.structuredPreviewJson.captureMetadata.capturedAt).toBe('2026-05-05T00:00:00.000Z');
     expect(submission.structuredPreviewJson.captureMetadata.clinicianValidationStatus).toBe('PENDING_CLINICIAN_VALIDATION');
@@ -74,6 +77,39 @@ describe('datasetCapture.model', () => {
     expect(submission.structuredPreviewJson.patient.ageYears).toBe(54);
     expect(submission.noteText).toBeUndefined();
     expect(serialized).not.toMatch(/MRN|H123|patientName/i);
+  });
+
+  it('validates numeric ranges and separates poor outcomes from positive references', () => {
+    const result = validateDatasetCaptureFieldValues({
+      'caseContext.primaryDiagnosis': 'COPD',
+      'caseContext.reasonForVentilation': 'Hypercapnic respiratory failure',
+      'patient.patientPathway': 'ADULT',
+      'patient.ageYears': '54',
+      'patient.sexForSizeCalculations': 'MALE',
+      'clinicalSnapshot.spo2': '101',
+      'clinicalSnapshot.fio2': '0.4',
+      'clinicalSnapshot.respiratoryRate': '24',
+      'abgTest.ph': '8',
+      'abgTest.paco2': '50',
+      'ventilatorSetting.mode': 'VC',
+      'ventilatorSetting.tidalVolumeMl': '450',
+      'ventilatorSetting.respiratoryRateSet': '20',
+      'ventilatorSetting.peep': '8',
+      'targetRanges.spo2Lower': '95',
+      'targetRanges.spo2Upper': '90',
+      'outcome.outcomeType': 'DECEASED',
+      'outcome.referenceUseCategory': 'POSITIVE_REFERENCE',
+      'provenance.sourceType': 'CLINICIAN_CHART_ABSTRACTION',
+      'provenance.sourceName': 'ICU chart review',
+      'provenance.clinicianValidationStatus': 'VALIDATED_BY_CLINICIAN',
+      'quality.reviewerConfidence': 'HIGH',
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.fieldErrors['clinicalSnapshot.spo2']).toBe('Please enter a valid SpO2 percentage.');
+    expect(result.fieldErrors['abgTest.ph']).toBe('Please enter a valid pH value.');
+    expect(result.fieldErrors['targetRanges.spo2Upper']).toMatch(/lower target/);
+    expect(result.fieldErrors['outcome.referenceUseCategory']).toMatch(/cannot be marked as positive/);
   });
 
   it('separates capture roles from training approval roles', () => {

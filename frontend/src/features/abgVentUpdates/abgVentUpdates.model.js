@@ -33,7 +33,10 @@ const VENTILATOR_MODE_OPTIONS = Object.freeze([
   { label: 'Volume control ventilation (VCV)', value: 'VCV' },
   { label: 'Pressure control ventilation (PCV)', value: 'PCV' },
   { label: 'Pressure-regulated volume control (PRVC)', value: 'PRVC' },
-  { label: 'Synchronized intermittent mandatory ventilation (SIMV)', value: 'SIMV' },
+  {
+    label: 'Synchronized intermittent mandatory ventilation (SIMV)',
+    value: 'SIMV',
+  },
   { label: 'Pressure support ventilation (PSV)', value: 'PSV' },
   { label: 'Continuous positive airway pressure (CPAP)', value: 'CPAP' },
   { label: 'BiPAP / NIV', value: 'BiPAP/NIV' },
@@ -48,25 +51,95 @@ const ABG_FIELD_DEFINITIONS = Object.freeze([
   { key: 'pao2', label: 'PaO2', min: 20, max: 600, unit: 'mmHg' },
   { key: 'paco2', label: 'PaCO2', min: 10, max: 150, unit: 'mmHg' },
   { key: 'hco3', label: 'HCO3', min: 0, max: 80, unit: 'mmol/L' },
-  { key: 'baseExcess', label: 'Base excess', min: -40, max: 40, unit: 'mmol/L' },
+  {
+    key: 'baseExcess',
+    label: 'Base excess',
+    min: -40,
+    max: 40,
+    unit: 'mmol/L',
+  },
   { key: 'lactate', label: 'Lactate', min: 0, max: 40, unit: 'mmol/L' },
-  { key: 'fio2AtSample', label: 'FiO2 at sample', min: 0.01, max: 1 },
-  { key: 'spo2AtSample', label: 'SpO2 at sample', min: 40, max: 100, unit: '%' },
+  {
+    key: 'fio2AtSample',
+    label: 'FiO2 at sample',
+    min: 0.01,
+    max: 1,
+    unit: 'fraction 0-1',
+  },
+  {
+    key: 'spo2AtSample',
+    label: 'SpO2 at sample',
+    min: 40,
+    max: 100,
+    unit: '%',
+  },
 ]);
 
 const VENTILATOR_FIELD_DEFINITIONS = Object.freeze([
   { key: 'mode', label: 'Mode' },
-  { key: 'tidalVolumeMl', label: 'Tidal volume', min: 1, max: 3000, unit: 'mL' },
-  { key: 'respiratoryRateSet', label: 'Set respiratory rate', min: 0, max: 120, unit: 'breaths/min' },
-  { key: 'respiratoryRateMeasured', label: 'Measured respiratory rate', min: 0, max: 180, unit: 'breaths/min' },
-  { key: 'fio2', label: 'FiO2', min: 0.01, max: 1 },
+  {
+    key: 'tidalVolumeMl',
+    label: 'Tidal volume',
+    min: 1,
+    max: 3000,
+    unit: 'mL',
+  },
+  {
+    key: 'respiratoryRateSet',
+    label: 'Set respiratory rate',
+    min: 0,
+    max: 120,
+    unit: 'breaths/min',
+  },
+  {
+    key: 'respiratoryRateMeasured',
+    label: 'Measured respiratory rate',
+    min: 0,
+    max: 180,
+    unit: 'breaths/min',
+  },
+  { key: 'fio2', label: 'FiO2', min: 0.01, max: 1, unit: 'fraction 0-1' },
   { key: 'peep', label: 'PEEP', min: 0, max: 30, unit: 'cmH2O' },
-  { key: 'pressureSupport', label: 'Pressure support', min: 0, max: 80, unit: 'cmH2O' },
-  { key: 'inspiratoryPressure', label: 'Inspiratory pressure', min: 0, max: 100, unit: 'cmH2O' },
-  { key: 'peakPressure', label: 'Peak pressure', min: 0, max: 100, unit: 'cmH2O' },
-  { key: 'plateauPressure', label: 'Plateau pressure', min: 0, max: 60, unit: 'cmH2O' },
+  {
+    key: 'pressureSupport',
+    label: 'Pressure support',
+    min: 0,
+    max: 80,
+    unit: 'cmH2O',
+  },
+  {
+    key: 'inspiratoryPressure',
+    label: 'Inspiratory pressure',
+    min: 0,
+    max: 100,
+    unit: 'cmH2O',
+  },
+  {
+    key: 'peakPressure',
+    label: 'Peak pressure',
+    min: 0,
+    max: 100,
+    unit: 'cmH2O',
+  },
+  {
+    key: 'plateauPressure',
+    label: 'Plateau pressure',
+    min: 0,
+    max: 60,
+    unit: 'cmH2O',
+  },
   { key: 'ieRatio', label: 'I:E ratio' },
 ]);
+
+const FIELD_DEFINITION_BY_KEY = Object.freeze(
+  [...ABG_FIELD_DEFINITIONS, ...VENTILATOR_FIELD_DEFINITIONS].reduce(
+    (map, field) => {
+      map[field.key] = field;
+      return map;
+    },
+    {}
+  )
+);
 
 const MISSING_DATA_FIELD_LABELS = Object.freeze({
   FiO2: 'FiO2',
@@ -78,7 +151,8 @@ const MISSING_DATA_FIELD_LABELS = Object.freeze({
   patientPathway: 'patient pathway',
 });
 
-const FORBIDDEN_EXACT_SETTING_ORDER = /\b(set|increase|decrease|reduce)\s+(peep|fio2|tidal volume|rate)\s+(to|by)\b/i;
+const FORBIDDEN_EXACT_SETTING_ORDER =
+  /\b(set|increase|decrease|reduce)\s+(peep|fio2|tidal volume|rate)\s+(to|by)\b/i;
 
 const emptyToUndefined = (value) => {
   if (value === undefined || value === null) return undefined;
@@ -86,11 +160,177 @@ const emptyToUndefined = (value) => {
   return value;
 };
 
+const isBlankValue = (value) =>
+  value === undefined ||
+  value === null ||
+  (typeof value === 'string' && value.trim() === '');
+
+const NUMERIC_INPUT_PATTERN = /^[-+]?(?:\d+\.?\d*|\.\d+)$/;
+const IE_RATIO_PATTERN = /^\d+(?:\.\d+)?\s*:\s*\d+(?:\.\d+)?$/;
+
+const formatRange = (field) => {
+  const unit = field.unit ? ` ${field.unit}` : '';
+  if (field.min !== undefined && field.max !== undefined) {
+    return `${field.min} to ${field.max}${unit}`;
+  }
+  if (field.min !== undefined) return `at least ${field.min}${unit}`;
+  if (field.max !== undefined) return `no more than ${field.max}${unit}`;
+  return '';
+};
+
+const validateNumericValue = (field, value) => {
+  if (isBlankValue(value)) return null;
+  const text = String(value).trim();
+  if (!NUMERIC_INPUT_PATTERN.test(text)) {
+    return `${field.label} must be a valid number.`;
+  }
+
+  const numberValue = Number(text);
+  if (!Number.isFinite(numberValue)) {
+    return `${field.label} must be a valid number.`;
+  }
+  if (field.min !== undefined && numberValue < field.min) {
+    return `${field.label} must be between ${formatRange(field)}.`;
+  }
+  if (field.max !== undefined && numberValue > field.max) {
+    return `${field.label} must be between ${formatRange(field)}.`;
+  }
+  return null;
+};
+
+const validateTextValue = (field, value) => {
+  if (isBlankValue(value)) return null;
+  const text = String(value).trim();
+  if (field.key === 'ieRatio' && !IE_RATIO_PATTERN.test(text)) {
+    return 'I:E ratio must use a ratio such as 1:2.';
+  }
+  if (text.length > 40 && field.key === 'ieRatio') {
+    return 'I:E ratio must be 40 characters or fewer.';
+  }
+  if (text.length > 80 && field.key === 'mode') {
+    return 'Ventilator mode must be 80 characters or fewer.';
+  }
+  return null;
+};
+
+const validateFieldSet = (fields, values = {}) =>
+  fields.reduce((errors, field) => {
+    const message =
+      field.min !== undefined || field.max !== undefined
+        ? validateNumericValue(field, values[field.key])
+        : validateTextValue(field, values[field.key]);
+    if (message) errors[field.key] = message;
+    return errors;
+  }, {});
+
+const sanitizeNumericInput = (value, { allowNegative = false } = {}) => {
+  const text = String(value ?? '').replace(',', '.');
+  let next = '';
+  let hasDot = false;
+
+  for (const char of text) {
+    if (/\d/.test(char)) {
+      next += char;
+      continue;
+    }
+    if (char === '.' && !hasDot) {
+      next += char;
+      hasDot = true;
+      continue;
+    }
+    if (char === '-' && allowNegative && next.length === 0) {
+      next += char;
+    }
+  }
+
+  return next;
+};
+
+const sanitizeAbgVentFieldInput = (fieldKey, value) => {
+  const field = FIELD_DEFINITION_BY_KEY[fieldKey];
+  if (!field || (field.min === undefined && field.max === undefined))
+    return value;
+  return sanitizeNumericInput(value, { allowNegative: Number(field.min) < 0 });
+};
+
+const validateAbgVentUpdateForm = ({
+  admissionId,
+  admission,
+  abg,
+  ventilator,
+} = {}) => {
+  const fieldErrors = {
+    abg: validateFieldSet(ABG_FIELD_DEFINITIONS, abg),
+    ventilator: validateFieldSet(VENTILATOR_FIELD_DEFINITIONS, ventilator),
+  };
+  const formErrors = [];
+
+  if (!admissionId || !admission?.id || admission.id !== admissionId) {
+    formErrors.push(
+      "Unable to load this patient's update form. Please return to the patient list and try again."
+    );
+  } else if (admission.status && admission.status !== 'ACTIVE') {
+    formErrors.push(
+      'This patient is not currently listed as actively admitted. Please return to the patient list and try again.'
+    );
+  }
+
+  if (
+    !hasAnyField(stripUndefined(abg || {}), ABG_NUMERIC_FIELDS) &&
+    !hasAnyField(stripUndefined(ventilator || {}), [
+      ...VENTILATOR_NUMERIC_FIELDS,
+      'mode',
+      'ieRatio',
+    ])
+  ) {
+    formErrors.push(
+      'Enter at least one ABG result or ventilator setting before saving.'
+    );
+  }
+
+  return {
+    isValid:
+      formErrors.length === 0 &&
+      Object.keys(fieldErrors.abg).length === 0 &&
+      Object.keys(fieldErrors.ventilator).length === 0,
+    fieldErrors,
+    formErrors,
+  };
+};
+
+const hasAnyInputValue = (value) =>
+  Object.values(value || {}).some((entry) => !isBlankValue(entry));
+
+const validateNumericFieldValue = validateNumericValue;
+
+const validateAbgVentUpdateDraft = ({
+  admissionId,
+  admission,
+  abg,
+  ventilator,
+} = {}) => {
+  const validation = validateAbgVentUpdateForm({
+    admissionId,
+    admission,
+    abg,
+    ventilator,
+  });
+  const hasValues = hasAnyInputValue(abg) || hasAnyInputValue(ventilator);
+
+  return {
+    ...validation,
+    hasValues,
+  };
+};
+
 const optionalText = (max = 120) =>
   z.preprocess(emptyToUndefined, z.string().trim().min(1).max(max).optional());
 
 const optionalNumber = (min, max) =>
-  z.preprocess(emptyToUndefined, z.coerce.number().min(min).max(max).optional());
+  z.preprocess(
+    emptyToUndefined,
+    z.coerce.number().min(min).max(max).optional()
+  );
 
 const optionalIsoDate = z
   .preprocess(
@@ -106,39 +346,44 @@ const optionalIsoDate = z
     return date.toISOString();
   });
 
-const abgUpdateSchema = z.object({
-  collectedAt: optionalIsoDate,
-  ph: optionalNumber(6.8, 7.8),
-  pao2: optionalNumber(20, 600),
-  paco2: optionalNumber(10, 150),
-  hco3: optionalNumber(0, 80),
-  baseExcess: optionalNumber(-40, 40),
-  lactate: optionalNumber(0, 40),
-  fio2AtSample: optionalNumber(0.01, 1),
-  spo2AtSample: optionalNumber(40, 100),
-  source: optionalText(80),
-  deviceId: optionalText(120),
-}).strict();
+const abgUpdateSchema = z
+  .object({
+    collectedAt: optionalIsoDate,
+    ph: optionalNumber(6.8, 7.8),
+    pao2: optionalNumber(20, 600),
+    paco2: optionalNumber(10, 150),
+    hco3: optionalNumber(0, 80),
+    baseExcess: optionalNumber(-40, 40),
+    lactate: optionalNumber(0, 40),
+    fio2AtSample: optionalNumber(0.01, 1),
+    spo2AtSample: optionalNumber(40, 100),
+    source: optionalText(80),
+    deviceId: optionalText(120),
+  })
+  .strict();
 
-const ventilatorUpdateSchema = z.object({
-  measuredAt: optionalIsoDate,
-  mode: optionalText(80),
-  tidalVolumeMl: optionalNumber(1, 3000),
-  respiratoryRateSet: optionalNumber(0, 120),
-  respiratoryRateMeasured: optionalNumber(0, 180),
-  fio2: optionalNumber(0.01, 1),
-  peep: optionalNumber(0, 30),
-  pressureSupport: optionalNumber(0, 80),
-  inspiratoryPressure: optionalNumber(0, 100),
-  peakPressure: optionalNumber(0, 100),
-  plateauPressure: optionalNumber(0, 60),
-  ieRatio: optionalText(40),
-  source: optionalText(80),
-  deviceId: optionalText(120),
-}).strict();
+const ventilatorUpdateSchema = z
+  .object({
+    measuredAt: optionalIsoDate,
+    mode: optionalText(80),
+    tidalVolumeMl: optionalNumber(1, 3000),
+    respiratoryRateSet: optionalNumber(0, 120),
+    respiratoryRateMeasured: optionalNumber(0, 180),
+    fio2: optionalNumber(0.01, 1),
+    peep: optionalNumber(0, 30),
+    pressureSupport: optionalNumber(0, 80),
+    inspiratoryPressure: optionalNumber(0, 100),
+    peakPressure: optionalNumber(0, 100),
+    plateauPressure: optionalNumber(0, 60),
+    ieRatio: optionalText(40),
+    source: optionalText(80),
+    deviceId: optionalText(120),
+  })
+  .strict();
 
 const stripUndefined = (value) => {
-  if (Array.isArray(value)) return value.map(stripUndefined).filter((entry) => entry !== undefined);
+  if (Array.isArray(value))
+    return value.map(stripUndefined).filter((entry) => entry !== undefined);
   if (value && typeof value === 'object' && !(value instanceof Date)) {
     const next = Object.fromEntries(
       Object.entries(value)
@@ -151,11 +396,19 @@ const stripUndefined = (value) => {
 };
 
 const hasAnyField = (record, fields) =>
-  Boolean(record && fields.some((field) => record[field] !== undefined && record[field] !== null));
+  Boolean(
+    record &&
+    fields.some(
+      (field) => record[field] !== undefined && record[field] !== null
+    )
+  );
 
 const createScopedToken = (prefix, admissionId, now) => {
   const timestamp = now instanceof Date ? now.getTime() : Date.now();
-  const scope = String(admissionId || 'admission').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 32) || 'admission';
+  const scope =
+    String(admissionId || 'admission')
+      .replace(/[^a-zA-Z0-9_-]/g, '')
+      .slice(0, 32) || 'admission';
   const randomPart = Math.random().toString(36).slice(2, 10);
   return `${prefix}-${scope}-${timestamp.toString(36)}-${randomPart}`;
 };
@@ -186,13 +439,20 @@ const buildAbgVentUpdatePayload = ({
 
   const resolvedNow = resolveNow(now);
   const timestamp = resolvedNow.toISOString();
-  const resolvedClientRecordId = clientRecordId || createScopedToken('abg-vent', admissionId, resolvedNow);
-  const resolvedIdempotencyKey = idempotencyKey || createScopedToken('abg-vent-idem', admissionId, resolvedNow);
+  const resolvedClientRecordId =
+    clientRecordId || createScopedToken('abg-vent', admissionId, resolvedNow);
+  const resolvedIdempotencyKey =
+    idempotencyKey ||
+    createScopedToken('abg-vent-idem', admissionId, resolvedNow);
   const parsedAbg = parseRecord(abgUpdateSchema, abg);
   const parsedVentilator = parseRecord(ventilatorUpdateSchema, ventilator);
 
   const hasAbg = hasAnyField(parsedAbg, ABG_NUMERIC_FIELDS);
-  const hasVentilator = hasAnyField(parsedVentilator, [...VENTILATOR_NUMERIC_FIELDS, 'mode', 'ieRatio']);
+  const hasVentilator = hasAnyField(parsedVentilator, [
+    ...VENTILATOR_NUMERIC_FIELDS,
+    'mode',
+    'ieRatio',
+  ]);
 
   if (!hasAbg && !hasVentilator) {
     throw new Error('ABG_VENT_UPDATE_EMPTY');
@@ -235,38 +495,57 @@ const sortRecordsDesc = (records, timestampField) =>
   [...(Array.isArray(records) ? records : [])].sort((a, b) => {
     const versionDelta = Number(b?.version || 0) - Number(a?.version || 0);
     if (versionDelta !== 0) return versionDelta;
-    return asTime(b?.[timestampField] || b?.createdAt) - asTime(a?.[timestampField] || a?.createdAt);
+    return (
+      asTime(b?.[timestampField] || b?.createdAt) -
+      asTime(a?.[timestampField] || a?.createdAt)
+    );
   });
 
 const getLatestAbgVentValues = (admission = {}) => {
-  const latestAbg = sortRecordsDesc(admission.abgTests, 'collectedAt')[0] || null;
-  const latestVentilator = sortRecordsDesc(admission.ventilatorSettings, 'measuredAt')[0] || null;
+  const latestAbg =
+    sortRecordsDesc(admission.abgTests, 'collectedAt')[0] || null;
+  const latestVentilator =
+    sortRecordsDesc(admission.ventilatorSettings, 'measuredAt')[0] || null;
   return { latestAbg, latestVentilator };
 };
 
 const getAbgVentHistory = (admission = {}) => {
-  const abgEvents = (Array.isArray(admission.abgTests) ? admission.abgTests : []).map((record) => ({
+  const abgEvents = (
+    Array.isArray(admission.abgTests) ? admission.abgTests : []
+  ).map((record) => ({
     id: record.id || record.clientRecordId,
     type: 'abg',
     version: record.version,
     recordedAt: record.collectedAt || record.createdAt,
     record,
   }));
-  const ventilatorEvents = (Array.isArray(admission.ventilatorSettings) ? admission.ventilatorSettings : []).map((record) => ({
+  const ventilatorEvents = (
+    Array.isArray(admission.ventilatorSettings)
+      ? admission.ventilatorSettings
+      : []
+  ).map((record) => ({
     id: record.id || record.clientRecordId,
     type: 'ventilator',
     version: record.version,
     recordedAt: record.measuredAt || record.createdAt,
     record,
   }));
-  return [...abgEvents, ...ventilatorEvents].sort((a, b) => asTime(b.recordedAt) - asTime(a.recordedAt));
+  return [...abgEvents, ...ventilatorEvents].sort(
+    (a, b) => asTime(b.recordedAt) - asTime(a.recordedAt)
+  );
 };
 
-const containsForbiddenSettingOrder = (value) => FORBIDDEN_EXACT_SETTING_ORDER.test(String(value || ''));
+const containsForbiddenSettingOrder = (value) =>
+  FORBIDDEN_EXACT_SETTING_ORDER.test(String(value || ''));
 
 const toAdvisoryMessage = (message) => {
-  const text = typeof message === 'string' && message.trim() ? message.trim() : 'Review this value and confirm clinically.';
-  return containsForbiddenSettingOrder(text) ? 'Review ventilator settings and confirm clinically.' : text;
+  const text =
+    typeof message === 'string' && message.trim()
+      ? message.trim()
+      : 'Review this value and confirm clinically.';
+  return containsForbiddenSettingOrder(text)
+    ? 'Review ventilator settings and confirm clinically.'
+    : text;
 };
 
 const getAbgVentAdvisoryFlags = (admission = {}) => {
@@ -274,9 +553,15 @@ const getAbgVentAdvisoryFlags = (admission = {}) => {
   const clinicalSummary = admission.clinicalSummary || {};
   const flags = [
     ...(Array.isArray(clinicalSummary.flags) ? clinicalSummary.flags : []),
-    ...(Array.isArray(clinicalSummary.abg?.flags) ? clinicalSummary.abg.flags : []),
-    ...(Array.isArray(latestAbg?.clinicalFlagsJson) ? latestAbg.clinicalFlagsJson : []),
-    ...(Array.isArray(latestVentilator?.clinicalFlagsJson) ? latestVentilator.clinicalFlagsJson : []),
+    ...(Array.isArray(clinicalSummary.abg?.flags)
+      ? clinicalSummary.abg.flags
+      : []),
+    ...(Array.isArray(latestAbg?.clinicalFlagsJson)
+      ? latestAbg.clinicalFlagsJson
+      : []),
+    ...(Array.isArray(latestVentilator?.clinicalFlagsJson)
+      ? latestVentilator.clinicalFlagsJson
+      : []),
   ];
 
   return flags.map((flag) => ({
@@ -286,7 +571,10 @@ const getAbgVentAdvisoryFlags = (admission = {}) => {
 };
 
 const getAbgVentMissingData = (admission = {}) => {
-  const missing = admission.clinicalSummary?.missingData || admission.readiness?.missingData || [];
+  const missing =
+    admission.clinicalSummary?.missingData ||
+    admission.readiness?.missingData ||
+    [];
   return (Array.isArray(missing) ? missing : []).map((field) => ({
     field,
     label: MISSING_DATA_FIELD_LABELS[field] || field,
@@ -296,6 +584,7 @@ const getAbgVentMissingData = (admission = {}) => {
 
 export {
   ABG_FIELD_DEFINITIONS,
+  FIELD_DEFINITION_BY_KEY,
   VENTILATOR_FIELD_DEFINITIONS,
   VENTILATOR_MODE_OPTIONS,
   abgUpdateSchema,
@@ -306,6 +595,10 @@ export {
   getAbgVentMissingData,
   getLatestAbgVentValues,
   safeBuildAbgVentUpdatePayload,
+  sanitizeAbgVentFieldInput,
   toAdvisoryMessage,
+  validateAbgVentUpdateForm,
+  validateAbgVentUpdateDraft,
+  validateNumericFieldValue,
   ventilatorUpdateSchema,
 };

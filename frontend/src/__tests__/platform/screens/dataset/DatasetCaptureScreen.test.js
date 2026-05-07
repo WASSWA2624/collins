@@ -2,7 +2,7 @@
  * DatasetCaptureScreen tests
  */
 const React = require('react');
-const { fireEvent, render } = require('@testing-library/react-native');
+const { fireEvent, render, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { useAuth, useI18n, useNetwork } = require('@hooks');
 
@@ -82,6 +82,13 @@ describe('DatasetCaptureScreen', () => {
       'ventilation.datasetCapture.actions.submit': 'Submit for review',
       'ventilation.datasetCapture.status.needsInput': 'Needs input',
       'ventilation.datasetCapture.status.ready': 'Ready',
+      'ventilation.datasetCapture.status.loadingDraft': 'Loading draft',
+      'ventilation.datasetCapture.status.savingDraft': 'Saving draft',
+      'ventilation.datasetCapture.status.draftSaved': 'Draft saved',
+      'ventilation.datasetCapture.status.draftError': 'Draft error',
+      'ventilation.datasetCapture.status.stepInvalid': 'Step invalid',
+      'ventilation.datasetCapture.status.reviewInvalid': 'Review invalid',
+      'ventilation.datasetCapture.status.submitting': 'Submitting',
       'ventilation.datasetCapture.status.submitted': 'Submitted',
       'ventilation.datasetCapture.status.queued': 'Queued',
       'ventilation.datasetCapture.status.error': 'Error',
@@ -102,8 +109,12 @@ describe('DatasetCaptureScreen', () => {
     useNetwork.mockReturnValue({ isOffline: false });
   });
 
-  it('renders a stepwise clinical capture page on Android without data-source framing', () => {
+  it('renders a stepwise clinical capture page on Android without data-source framing', async () => {
     const { getByTestId, queryByTestId, queryByText } = renderWithTheme(<DatasetCaptureScreenAndroid />);
+
+    await waitFor(() => {
+      expect(queryByText('Needs input')).toBeTruthy();
+    });
 
     expect(getByTestId('dataset-capture-screen')).toBeTruthy();
     expect(getByTestId('dataset-capture-title')).toBeTruthy();
@@ -112,7 +123,7 @@ describe('DatasetCaptureScreen', () => {
     expect(queryByTestId('dataset-capture-section-ventilatorSetting')).toBeNull();
     expect(queryByText('Capture time')).toBeNull();
     expect(queryByText('- caseContext.primaryDiagnosis')).toBeNull();
-    expect(queryByText('- Case context: Primary diagnosis')).toBeTruthy();
+    expect(queryByText('- Case context: Primary diagnosis - This field is required before continuing.')).toBeTruthy();
 
     fireEvent.press(getByTestId('dataset-capture-step-item-ventilatorSetting'));
 
@@ -124,8 +135,15 @@ describe('DatasetCaptureScreen', () => {
     expect(queryByText('Data sources')).toBeNull();
   });
 
-  it('renders on iOS and Web', () => {
-    expect(renderWithTheme(<DatasetCaptureScreenIOS />).getByTestId('dataset-capture-screen')).toBeTruthy();
-    expect(renderWithTheme(<DatasetCaptureScreenWeb />).getByTestId('dataset-capture-screen')).toBeTruthy();
+  it('renders on iOS and Web', async () => {
+    const ios = renderWithTheme(<DatasetCaptureScreenIOS />);
+    const web = renderWithTheme(<DatasetCaptureScreenWeb />);
+
+    await waitFor(() => {
+      expect(ios.getByTestId('dataset-capture-screen')).toBeTruthy();
+      expect(web.getByTestId('dataset-capture-screen')).toBeTruthy();
+      expect(ios.queryByText('Needs input')).toBeTruthy();
+      expect(web.queryByText('Needs input')).toBeTruthy();
+    });
   });
 });

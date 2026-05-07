@@ -372,6 +372,42 @@ const StyledActionsRow = styled.div.withConfig({
   width: 100%;
 `;
 
+const StyledLoadingPane = styled.section.withConfig({
+  displayName: 'StyledLoadingPane',
+  componentId: 'StyledLoadingPane',
+})`
+  width: 100%;
+  min-height: min(420px, 70vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+const StyledLoadingTitle = styled.h2.withConfig({
+  displayName: 'StyledLoadingTitle',
+  componentId: 'StyledLoadingTitle',
+})`
+  margin: 0;
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledLoadingMessage = styled.p.withConfig({
+  displayName: 'StyledLoadingMessage',
+  componentId: 'StyledLoadingMessage',
+})`
+  margin: 0;
+  max-width: 420px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  line-height: 1.5;
+`;
+
 const StyledMissingTests = styled.div.withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
@@ -582,6 +618,9 @@ export {
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
+  StyledLoadingMessage,
+  StyledLoadingPane,
+  StyledLoadingTitle,
   StyledMissingTests,
   StyledMissingTestsHint,
   StyledMissingTestsList,

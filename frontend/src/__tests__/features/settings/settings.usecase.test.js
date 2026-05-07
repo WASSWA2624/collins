@@ -29,6 +29,7 @@ describe('settings.usecase', () => {
           settings: {
             account: { id: 'user-1', name: 'Ada Clinician' },
             activeFacilityId: 'facility-1',
+            displayPreferences: { themePreference: 'dark' },
             memberships: [],
           },
         },
@@ -49,6 +50,7 @@ describe('settings.usecase', () => {
     const settings = await loadMySettingsUseCase();
 
     expect(settings.account.name).toBe('Ada Clinician');
+    expect(settings.displayPreferences.themePreference).toBe('dark');
     expect(settings.offlineSyncPreferences.conflictResolutionMode).toBe('manual_review');
     expect(settings.privacyControls.requireUnlockForIdentifiers).toBe(true);
   });

@@ -68,6 +68,7 @@ describe('admission three-step API', () => {
 
     expect(apiClient).not.toHaveBeenCalled();
     expect(queueRequestIfOffline).toHaveBeenCalledWith(expect.objectContaining({
+      facilityId: 'facility-1',
       method: 'POST',
       url: expect.stringContaining('/admissions/client-admission-1/three-step/oxygen-abg-ventilator'),
     }));
@@ -80,10 +81,12 @@ describe('admission three-step API', () => {
 
     const result = await saveAdmissionReviewStepApi('client-admission-1', {
       clientRecordId: 'client-admission-1',
+      facilityId: 'facility-1',
       clinicianConfirmed: true,
     });
 
     expect(addToQueue).toHaveBeenCalledWith(expect.objectContaining({
+      facilityId: 'facility-1',
       method: 'POST',
       url: expect.stringContaining('/admissions/client-admission-1/three-step/save-review'),
     }));

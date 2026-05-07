@@ -254,6 +254,7 @@ model UserSettings {
   userId                     String   @unique @map("user_id")
   activeFacilityId           String?  @map("active_facility_id")
   roleVisibilityJson         Json?    @map("role_visibility_json")
+  displayPreferencesJson     Json?    @map("display_preferences_json")
   offlineSyncPreferencesJson Json?    @map("offline_sync_preferences_json")
   privacyControlsJson        Json?    @map("privacy_controls_json")
   createdAt                  DateTime @default(now()) @map("created_at")

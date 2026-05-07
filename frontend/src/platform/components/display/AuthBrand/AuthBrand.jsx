@@ -22,6 +22,7 @@ const AuthBrand = ({
     <Stack
       spacing="xs"
       align="center"
+      style={{ width: '100%' }}
       accessibilityLabel={accessibilityLabel || name}
       testID={testID}
     >

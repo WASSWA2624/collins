@@ -60,7 +60,7 @@ const LoginScreen = () => {
   const [localError, setLocalError] = useState(null);
 
   const trimmedEmail = email.trim();
-  const canSubmit = trimmedEmail.length > 0 && password.length > 0 && !isLoading;
+  const canSubmit = EMAIL_PATTERN.test(trimmedEmail) && password.length > 0 && !isLoading;
   const sessionMessage = getErrorMessage(t, sessionErrorCode);
   const authMessage = getErrorMessage(t, errorCode);
 
@@ -87,6 +87,7 @@ const LoginScreen = () => {
   }, [clearError]);
 
   const handleSubmit = useCallback(async () => {
+    if (isLoading) return;
     if (!EMAIL_PATTERN.test(trimmedEmail)) {
       setLocalError('INVALID_EMAIL');
       return;
@@ -97,7 +98,7 @@ const LoginScreen = () => {
     }
 
     await login({ email: trimmedEmail, password });
-  }, [login, password, trimmedEmail]);
+  }, [isLoading, login, password, trimmedEmail]);
 
   const handleRetryRestore = useCallback(() => {
     clearError();
@@ -126,7 +127,7 @@ const LoginScreen = () => {
       ) : null}
       {authMessage ? (
         <SystemBanner
-          variant={getBannerVariant(errorCode)}
+          variant={BANNER_VARIANTS.ERROR}
           title={t('auth.login.errorTitle')}
           message={authMessage}
           testID="login-error-banner"
@@ -140,7 +141,7 @@ const LoginScreen = () => {
       size="sm"
       actions={
         <Button
-          text={t('auth.login.submit')}
+          text={isLoading ? t('auth.login.submitting') : t('auth.login.submit')}
           onPress={handleSubmit}
           onClick={handleSubmit}
           disabled={!canSubmit}
@@ -169,7 +170,7 @@ const LoginScreen = () => {
       testID="login-screen"
       accessibilityLabel={t('auth.login.accessibilityLabel')}
     >
-      <Stack spacing="md" style={{ width: '100%' }}>
+      <Stack spacing="md" align="stretch" style={{ width: '100%' }}>
         <AuthBrand
           name={t('auth.brand.name')}
           logoLabel={t('auth.brand.logoLabel')}

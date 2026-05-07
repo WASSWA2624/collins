@@ -30,6 +30,10 @@ const darkColors = {
   onPrimary: '#FFFFFF',
   status: {
     ...colors.status,
+    success: {
+      background: '#123B20',
+      text: '#D7FBE1',
+    },
     warning: {
       background: '#5C4A00',
       text: '#FFF8E1',

@@ -86,8 +86,22 @@ describe('useDashboardScreen', () => {
 
     await waitFor(() => {
       expect(screen.errorTitle).toBe('Unable to load operations dashboard');
-      expect(screen.errorMessage).toBe('Server error occurred');
+      expect(screen.errorMessage).toBe('Something went wrong while loading the dashboard. Please try again.');
       expect(screen.dashboard).toBeNull();
+    });
+  });
+
+  it('uses friendly connection copy for dashboard network failures', async () => {
+    let screen;
+    loadDashboardUseCase.mockRejectedValue({
+      safeMessage: 'Backend database request failed',
+      code: 'NETWORK_ERROR',
+    });
+
+    render(<TestComponent onResult={(value) => { screen = value; }} />);
+
+    await waitFor(() => {
+      expect(screen.errorMessage).toBe('Unable to load dashboard data. Please check your connection and try again.');
     });
   });
 });

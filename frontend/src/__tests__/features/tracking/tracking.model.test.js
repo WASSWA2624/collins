@@ -2,7 +2,10 @@
  * Tracking model tests
  * File: tracking.model.test.js
  */
-import { normalizeTrackingItem, normalizeTrackingList } from '@features/tracking';
+import {
+  normalizeTrackingItem,
+  normalizeTrackingList,
+} from '@features/tracking';
 
 const activeAdmission = {
   admissionId: 'adm-1',
@@ -13,7 +16,11 @@ const activeAdmission = {
   status: 'ACTIVE',
   admittedAt: '2026-05-01T08:00:00.000Z',
   facility: { id: 'facility-1', name: 'City ICU' },
-  patient: { id: 'patient-1', appPatientCode: 'COL-P-1', patientPathway: 'ADULT' },
+  patient: {
+    id: 'patient-1',
+    appPatientCode: 'COL-P-1',
+    patientPathway: 'ADULT',
+  },
   currentStatus: {
     advisory: {
       missingData: ['PaO2', 'PEEP'],
@@ -47,9 +54,28 @@ describe('tracking.model', () => {
   });
 
   it('filters invalid list records without admission ids', () => {
-    const rows = normalizeTrackingList([activeAdmission, { patientId: 'missing-admission' }]);
+    const rows = normalizeTrackingList([
+      activeAdmission,
+      { patientId: 'missing-admission' },
+    ]);
 
     expect(rows).toHaveLength(1);
     expect(rows[0].admissionId).toBe('adm-1');
+  });
+
+  it('normalizes malformed optional tracking data without throwing', () => {
+    const row = normalizeTrackingItem({
+      admissionId: 'adm-2',
+      currentStatus: {
+        advisory: {
+          missingData: [{ field: 'PaO2' }, 'PEEP'],
+        },
+      },
+    });
+
+    expect(row.admissionId).toBe('adm-2');
+    expect(row.missingDataLabel).toBe('PaO2, PEEP');
+    expect(row.admissionStatusLabel).toBe('Active');
+    expect(row.patientPathwayLabel).toBe('Unknown');
   });
 });

@@ -1,6 +1,6 @@
 import { prisma } from '../../config/prisma.js';
 import { assertAdmissionAccess, assertFacilityRole, resolveFacilityScope, REVIEW_ROLES, WRITE_ROLES } from '../../utils/authorization.js';
-import { conflict, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
+import { badRequest, conflict, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { resolveIdempotency, storeIdempotencyResult } from '../../utils/idempotency.js';
 import { sha256 } from '../../utils/crypto.js';
@@ -876,55 +876,101 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
   return response;
 };
 
-export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payload, auditContext = {}) => {
-  await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
-  const saved = {};
-  const writeStatuses = [];
-
+export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payload = {}, auditContext = {}) => {
+  const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
   const abgRecord = stripNullish(payload.abgTest || {});
-  if (hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS)) {
-    const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
-      includeSource: true,
-      includeClientUpdatedAt: true,
-    });
-    const result = await addAbgTest(userId, admissionId, abgPayload, auditContext);
-    saved.abgTest = result.abgTest;
-    writeStatuses.push(result.syncStatus || 'synced');
-  }
-
   const ventilatorRecord = stripNullish(payload.ventilatorSetting || {});
-  if (hasClinicalValue(ventilatorRecord, VENTILATOR_UPDATE_VALUE_FIELDS)) {
-    const ventilatorPayload = buildStepWriteMetadata(ventilatorRecord, payload, 'ventilator', {
-      includeSource: true,
-      includeClientUpdatedAt: true,
-    });
-    const result = await addVentilatorSetting(userId, admissionId, ventilatorPayload, auditContext);
-    saved.ventilatorSetting = result.ventilatorSetting;
-    writeStatuses.push(result.syncStatus || 'synced');
+
+  if (
+    !hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS) &&
+    !hasClinicalValue(ventilatorRecord, VENTILATOR_UPDATE_VALUE_FIELDS)
+  ) {
+    throw badRequest('At least one ABG or ventilator setting value is required', [
+      {
+        path: 'body',
+        message: 'Enter at least one ABG result or ventilator setting before saving.',
+      },
+    ]);
   }
 
-  const refreshed = await getAdmissionById(userId, admissionId);
-  const syncStatus = writeStatuses.length > 0 && writeStatuses.every((status) => status === 'duplicate') ? 'duplicate' : 'synced';
-  const response = buildThreeStepAdmissionResponse('abg_ventilator_update', refreshed, {
-    facilityId: refreshed.facilityId,
-    saved,
-    syncStatus,
-  });
+  return prisma.$transaction(async (tx) => {
+    const idem = await resolveIdempotency({
+      tx,
+      userId,
+      facilityId: admissionAccess.facilityId,
+      key: payload.idempotencyKey,
+      operation: 'admission.abgVentilatorUpdate',
+      payload: { admissionId, ...payload },
+    });
+    if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
 
-  if (syncStatus !== 'duplicate') {
+    const reviewedWrite = await assertNoReviewedOverwrite(tx, admissionId, userId, {
+      allowClinicianOverride: true,
+      overrideReason: getOverrideReason(payload),
+    });
+
+    const saved = {};
+    if (hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS)) {
+      const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
+        includeSource: true,
+        includeClientUpdatedAt: true,
+      });
+      saved.abgTest = await createAbgTestRecord({ tx, userId, admissionId, payload: abgPayload });
+    }
+
+    if (hasClinicalValue(ventilatorRecord, VENTILATOR_UPDATE_VALUE_FIELDS)) {
+      const ventilatorPayload = buildStepWriteMetadata(ventilatorRecord, payload, 'ventilator', {
+        includeSource: true,
+        includeClientUpdatedAt: true,
+      });
+      saved.ventilatorSetting = await createVentilatorSettingRecord({ tx, userId, admissionId, payload: ventilatorPayload });
+    }
+
+    const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
+    const referenceRanges = await resolveDecisionSupportReferenceRanges(admissionAccess.facilityId, { tx });
+    const responseJson = buildThreeStepAdmissionResponse(
+      'abg_ventilator_update',
+      { ...refreshed, clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }) },
+      {
+        facilityId: refreshed.facilityId,
+        saved,
+        reviewState: {
+          admissionReviewStatus: reviewedWrite.reviewStatus,
+          overrideApplied: reviewedWrite.overrideApplied,
+          overrideReasonRequired: false,
+        },
+        syncStatus: 'synced',
+      },
+      { referenceRanges },
+    );
+
+    await storeIdempotencyResult({
+      tx,
+      userId,
+      facilityId: admissionAccess.facilityId,
+      key: payload.idempotencyKey,
+      operation: 'admission.abgVentilatorUpdate',
+      requestHash: idem.requestHash,
+      responseJson,
+      entityType: 'Admission',
+      entityId: admissionId,
+      clientRecordId: payload.clientRecordId,
+    });
+
     await writeAudit({
+      tx,
       ...auditContext,
       userId,
       facilityId: refreshed.facilityId,
       action: 'ADMISSION_ABG_VENTILATOR_UPDATE',
       entityType: 'Admission',
       entityId: admissionId,
-      afterJson: response,
-      reason: getOverrideReason(payload),
+      afterJson: responseJson,
+      reason: reviewedWrite.overrideReason,
     });
-  }
 
-  return response;
+    return responseJson;
+  });
 };
 
 export const saveAdmissionReviewStep = async (userId, admissionId, payload, auditContext = {}) => {
@@ -1241,6 +1287,94 @@ export const addClinicalSnapshot = (userId, admissionId, payload, auditContext =
   }),
 });
 
+const createAbgTestRecord = async ({ tx, userId, admissionId, payload }) => {
+  const admission = await tx.admission.findUnique({ where: { id: admissionId }, include: { patient: true } });
+  const latest = await tx.abgTest.findFirst({
+    where: { admissionId },
+    orderBy: { version: 'desc' },
+    select: {
+      id: true,
+      version: true,
+      collectedAt: true,
+      clientRecordId: true,
+      clientUpdatedAt: true,
+      createdAt: true,
+    },
+  });
+  assertNoStaleClientAppend({
+    entityType: 'AbgTest',
+    admission,
+    payload,
+    latest,
+    timestampField: 'collectedAt',
+  });
+  const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
+  const abgInterpretation = interpretAbg(payload, admission.patient, { referenceRanges });
+  return tx.abgTest.create({
+    data: stripUndefined({
+      admissionId,
+      ...withoutIdempotency(payload),
+      version: (latest?.version || 0) + 1,
+      enteredByUserId: userId,
+      validationStatus: abgInterpretation.flags.some((flag) => flag.code === 'IMPOSSIBLE_VALUE') ? 'impossible' : 'valid_or_suspicious',
+      clinicalFlagsJson: abgInterpretation.flags,
+      calculationSummaryJson: { pfRatio: abgInterpretation.pfRatio, sfRatio: abgInterpretation.sfRatio },
+    }),
+  });
+};
+
+const createVentilatorSettingRecord = async ({ tx, userId, admissionId, payload }) => {
+  const admission = await tx.admission.findUnique({
+    where: { id: admissionId },
+    include: {
+      patient: true,
+      abgTests: { orderBy: { collectedAt: 'desc' }, take: 1 },
+      clinicalSnapshots: latestOnly,
+    },
+  });
+  const latest = await tx.ventilatorSetting.findFirst({
+    where: { admissionId },
+    orderBy: { version: 'desc' },
+    select: {
+      id: true,
+      version: true,
+      measuredAt: true,
+      clientRecordId: true,
+      clientUpdatedAt: true,
+      createdAt: true,
+    },
+  });
+  assertNoStaleClientAppend({
+    entityType: 'VentilatorSetting',
+    admission,
+    payload,
+    latest,
+    timestampField: 'measuredAt',
+  });
+  const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
+  const summary = calculateVentilationSummary({
+    patient: admission.patient,
+    ventilator: payload,
+    latestAbg: admission.abgTests[0] || null,
+    latestSnapshot: admission.clinicalSnapshots[0] || null,
+    referenceRanges,
+  });
+  return tx.ventilatorSetting.create({
+    data: stripUndefined({
+      admissionId,
+      ...withoutIdempotency(payload),
+      version: (latest?.version || 0) + 1,
+      minuteVolumeLMin: summary.minuteVentilation.value,
+      vtMlPerKgReferenceWeight: summary.vtPerKg.value,
+      drivingPressure: summary.drivingPressure.value,
+      enteredByUserId: userId,
+      validationStatus: summary.flags.some((flag) => flag.code === 'IMPOSSIBLE_VALUE') ? 'impossible' : 'valid_or_suspicious',
+      clinicalFlagsJson: summary.flags,
+      calculationSummaryJson: summary,
+    }),
+  });
+};
+
 export const addAbgTest = (userId, admissionId, payload, auditContext = {}) => createAppendOnlyRecord({
   userId,
   admissionId,
@@ -1249,41 +1383,7 @@ export const addAbgTest = (userId, admissionId, payload, auditContext = {}) => c
   entityType: 'AbgTest',
   auditAction: 'ABG_TEST_CREATE_VERSION',
   auditContext,
-  createRecord: async (tx) => {
-    const admission = await tx.admission.findUnique({ where: { id: admissionId }, include: { patient: true } });
-    const latest = await tx.abgTest.findFirst({
-      where: { admissionId },
-      orderBy: { version: 'desc' },
-      select: {
-        id: true,
-        version: true,
-        collectedAt: true,
-        clientRecordId: true,
-        clientUpdatedAt: true,
-        createdAt: true,
-      },
-    });
-    assertNoStaleClientAppend({
-      entityType: 'AbgTest',
-      admission,
-      payload,
-      latest,
-      timestampField: 'collectedAt',
-    });
-    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
-    const abgInterpretation = interpretAbg(payload, admission.patient, { referenceRanges });
-    return tx.abgTest.create({
-      data: stripUndefined({
-        admissionId,
-        ...withoutIdempotency(payload),
-        version: (latest?.version || 0) + 1,
-        enteredByUserId: userId,
-        validationStatus: abgInterpretation.flags.some((flag) => flag.code === 'IMPOSSIBLE_VALUE') ? 'impossible' : 'valid_or_suspicious',
-        clinicalFlagsJson: abgInterpretation.flags,
-        calculationSummaryJson: { pfRatio: abgInterpretation.pfRatio, sfRatio: abgInterpretation.sfRatio },
-      }),
-    });
-  },
+  createRecord: (tx) => createAbgTestRecord({ tx, userId, admissionId, payload }),
 });
 
 export const addVentilatorSetting = (userId, admissionId, payload, auditContext = {}) => createAppendOnlyRecord({
@@ -1294,57 +1394,7 @@ export const addVentilatorSetting = (userId, admissionId, payload, auditContext 
   entityType: 'VentilatorSetting',
   auditAction: 'VENTILATOR_SETTING_CREATE_VERSION',
   auditContext,
-  createRecord: async (tx) => {
-    const admission = await tx.admission.findUnique({
-      where: { id: admissionId },
-      include: {
-        patient: true,
-        abgTests: { orderBy: { collectedAt: 'desc' }, take: 1 },
-        clinicalSnapshots: latestOnly,
-      },
-    });
-    const latest = await tx.ventilatorSetting.findFirst({
-      where: { admissionId },
-      orderBy: { version: 'desc' },
-      select: {
-        id: true,
-        version: true,
-        measuredAt: true,
-        clientRecordId: true,
-        clientUpdatedAt: true,
-        createdAt: true,
-      },
-    });
-    assertNoStaleClientAppend({
-      entityType: 'VentilatorSetting',
-      admission,
-      payload,
-      latest,
-      timestampField: 'measuredAt',
-    });
-    const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
-    const summary = calculateVentilationSummary({
-      patient: admission.patient,
-      ventilator: payload,
-      latestAbg: admission.abgTests[0] || null,
-      latestSnapshot: admission.clinicalSnapshots[0] || null,
-      referenceRanges,
-    });
-    return tx.ventilatorSetting.create({
-      data: stripUndefined({
-        admissionId,
-        ...withoutIdempotency(payload),
-        version: (latest?.version || 0) + 1,
-        minuteVolumeLMin: summary.minuteVentilation.value,
-        vtMlPerKgReferenceWeight: summary.vtPerKg.value,
-        drivingPressure: summary.drivingPressure.value,
-        enteredByUserId: userId,
-        validationStatus: summary.flags.some((flag) => flag.code === 'IMPOSSIBLE_VALUE') ? 'impossible' : 'valid_or_suspicious',
-        clinicalFlagsJson: summary.flags,
-        calculationSummaryJson: summary,
-      }),
-    });
-  },
+  createRecord: (tx) => createVentilatorSettingRecord({ tx, userId, admissionId, payload }),
 });
 
 export const addAirwayDevice = (userId, admissionId, payload, auditContext = {}) => createAppendOnlyRecord({

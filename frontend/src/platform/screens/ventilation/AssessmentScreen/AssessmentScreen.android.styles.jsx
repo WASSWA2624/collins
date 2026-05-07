@@ -128,6 +128,26 @@ const StyledActionsRow = styled(View).withConfig({
   width: 100%;
 `;
 
+const StyledLoadingPane = styled(View).withConfig({
+  displayName: 'StyledLoadingPane',
+  componentId: 'StyledLoadingPane',
+})`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: ${({ theme }) => theme.spacing.xl}px;
+`;
+
+const StyledLoadingText = styled(Text).withConfig({
+  displayName: 'StyledLoadingText',
+  componentId: 'StyledLoadingText',
+})`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+  text-align: center;
+`;
+
 const StyledMissingTests = styled(View).withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
@@ -206,6 +226,8 @@ export {
   StyledContainer,
   StyledContentWrap,
   StyledFieldGroup,
+  StyledLoadingPane,
+  StyledLoadingText,
   StyledMissingTests,
   StyledModelRow,
   StyledRecommendationSource,

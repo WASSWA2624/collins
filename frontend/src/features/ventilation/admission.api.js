@@ -80,6 +80,7 @@ const savePatientReasonStepApi = async (payload) =>
       url: endpoints.ADMISSIONS.THREE_STEP_PATIENT_REASON,
       method: 'POST',
       body: payload,
+      facilityId: payload?.facilityId,
     },
     createLocalAdmissionPayload({
       step: 'patient_reason',
@@ -95,6 +96,7 @@ const saveOxygenAbgVentilatorStepApi = async (admissionId, payload) =>
       url: endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR(admissionId),
       method: 'POST',
       body: withoutLocalOnlyFields(payload),
+      facilityId: payload?.facilityId,
     },
     createLocalAdmissionPayload({
       step: 'oxygen_abg_ventilator',
@@ -110,6 +112,7 @@ const saveAdmissionReviewStepApi = async (admissionId, payload) =>
       url: endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW(admissionId),
       method: 'POST',
       body: withoutLocalOnlyFields(payload),
+      facilityId: payload?.facilityId,
     },
     {
       ...createLocalAdmissionPayload({

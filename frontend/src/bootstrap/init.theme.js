@@ -9,6 +9,7 @@ import { async } from '@services/storage';
 import { logger } from '@logging';
 
 const SIDEBAR_COLLAPSED_STORAGE_KEY = 'sidebar_collapsed';
+const THEME_PREFERENCES = ['system', 'light', 'dark', 'high-contrast'];
 
 export async function initTheme() {
   try {
@@ -17,7 +18,7 @@ export async function initTheme() {
 
     try {
       const persistedTheme = await async.getItem('theme_preference');
-      if (persistedTheme && ['light', 'dark', 'high-contrast'].includes(persistedTheme)) {
+      if (persistedTheme && THEME_PREFERENCES.includes(persistedTheme)) {
         savedTheme = persistedTheme;
       }
     } catch (error) {

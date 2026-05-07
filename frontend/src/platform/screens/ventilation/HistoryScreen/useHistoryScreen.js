@@ -3,6 +3,7 @@
  * Shared logic for Tracking screen.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'expo-router';
 import { useVentilationSession } from '@hooks';
 import {
   getTrackingAdmissionUseCase,
@@ -11,12 +12,15 @@ import {
 
 const normalizeErrorCode = (error, fallback = 'TRACKING_LOAD_FAILED') => {
   if (typeof error === 'string' && error.trim()) return error.trim();
-  if (typeof error?.code === 'string' && error.code.trim()) return error.code.trim();
-  if (typeof error?.errorCode === 'string' && error.errorCode.trim()) return error.errorCode.trim();
+  if (typeof error?.code === 'string' && error.code.trim())
+    return error.code.trim();
+  if (typeof error?.errorCode === 'string' && error.errorCode.trim())
+    return error.errorCode.trim();
   return fallback;
 };
 
 export default function useHistoryScreen() {
+  const router = useRouter();
   const {
     sessionId,
     inputs,
@@ -62,7 +66,9 @@ export default function useHistoryScreen() {
       const tracking = await getTrackingAdmissionUseCase(admissionId);
       setSelectedTracking(tracking);
     } catch (error) {
-      setDetailErrorCode(normalizeErrorCode(error, 'TRACKING_DETAIL_LOAD_FAILED'));
+      setDetailErrorCode(
+        normalizeErrorCode(error, 'TRACKING_DETAIL_LOAD_FAILED')
+      );
     } finally {
       setIsDetailLoading(false);
     }
@@ -74,16 +80,39 @@ export default function useHistoryScreen() {
     setDetailErrorCode(null);
   }, []);
 
+  const handleOpenAdmit = useCallback(() => {
+    router.push('/admit');
+  }, [router]);
+
+  const handleUpdateTracking = useCallback(
+    (row) => {
+      const admissionId = row?.admissionId || row?.id || selectedAdmissionId;
+      const path = admissionId
+        ? `/abg-ventilator-updates?admissionId=${encodeURIComponent(admissionId)}`
+        : '/abg-ventilator-updates';
+      router.push(path);
+    },
+    [router, selectedAdmissionId]
+  );
+
   const localDraft = useMemo(() => {
     if (!sessionId || (!inputs && !recommendationSummary)) return null;
     return {
       sessionId,
       hasInputs: Boolean(inputs),
       hasRecommendation: Boolean(recommendationSummary),
-      hasMonitoring: Array.isArray(monitoringTimeSeries) && monitoringTimeSeries.length > 0,
-      assessmentCurrentStep: typeof assessmentCurrentStep === 'number' ? assessmentCurrentStep : 0,
+      hasMonitoring:
+        Array.isArray(monitoringTimeSeries) && monitoringTimeSeries.length > 0,
+      assessmentCurrentStep:
+        typeof assessmentCurrentStep === 'number' ? assessmentCurrentStep : 0,
     };
-  }, [assessmentCurrentStep, inputs, monitoringTimeSeries, recommendationSummary, sessionId]);
+  }, [
+    assessmentCurrentStep,
+    inputs,
+    monitoringTimeSeries,
+    recommendationSummary,
+    sessionId,
+  ]);
 
   const activeFacility = rows[0]
     ? {
@@ -106,6 +135,8 @@ export default function useHistoryScreen() {
     isDetailLoading,
     detailErrorCode,
     handleRefresh: loadTracking,
+    handleOpenAdmit,
+    handleUpdateTracking,
     handleViewDetails,
     handleCloseDetails,
   };

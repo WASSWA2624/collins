@@ -17,6 +17,7 @@ import {
 } from '@platform/components';
 import { useAuth, useI18n } from '@hooks';
 import { getUgandaHospitalById, searchUgandaHospitals } from '@features/facilities/ugandaHospitals';
+import { BANNER_VARIANTS } from '@utils/shellBanners';
 import FacilitySearchSelect from './FacilitySearchSelect';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -110,6 +111,7 @@ const RegisterScreen = () => {
   }, [clearError]);
 
   const handleSubmit = useCallback(async () => {
+    if (isLoading) return;
     if (trimmedName.length < 2) {
       setLocalError('NAME_REQUIRED');
       return;
@@ -138,7 +140,7 @@ const RegisterScreen = () => {
       password,
       ...facilityPayload,
     });
-  }, [password, register, selectedFacility, trimmedEmail, trimmedName]);
+  }, [isLoading, password, register, selectedFacility, trimmedEmail, trimmedName]);
 
   const handleSignIn = useCallback(() => {
     router.push('/login');
@@ -150,7 +152,7 @@ const RegisterScreen = () => {
 
   const status = authMessage ? (
     <SystemBanner
-      variant="info"
+      variant={BANNER_VARIANTS.ERROR}
       title={t('auth.register.errorTitle')}
       message={authMessage}
       testID="register-error-banner"
@@ -163,7 +165,7 @@ const RegisterScreen = () => {
       status={status}
       actions={
         <Button
-          text={t('auth.register.submit')}
+          text={isLoading ? t('auth.register.submitting') : t('auth.register.submit')}
           onPress={handleSubmit}
           onClick={handleSubmit}
           disabled={!canSubmit}
@@ -192,7 +194,7 @@ const RegisterScreen = () => {
       testID="register-screen"
       accessibilityLabel={t('auth.register.accessibilityLabel')}
     >
-      <Stack spacing="md" style={{ width: '100%' }}>
+      <Stack spacing="md" align="stretch" style={{ width: '100%' }}>
         <AuthBrand
           name={t('auth.brand.name')}
           logoLabel={t('auth.brand.logoLabel')}

@@ -51,6 +51,10 @@ export default {
     },
   },
   status: {
+    success: {
+      background: '#E8F5E9',
+      text: '#1B5E20',
+    },
     error: {
       background: '#FFEBEE',
       text: '#C62828',

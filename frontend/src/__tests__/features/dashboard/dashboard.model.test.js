@@ -170,4 +170,25 @@ describe('dashboard model', () => {
     expect(dashboard.modelGovernance.liveClinicalPredictionEnabled).toBe(false);
     expect(dashboard.auditSummary.total).toBe(4);
   });
+
+  it('defaults missing nullable aggregate sections without rejecting the dashboard', () => {
+    const dashboard = normalizeDashboard(DASHBOARD_TYPES.GOVERNANCE, {
+      dashboard: DASHBOARD_TYPES.GOVERNANCE,
+      scope,
+      window: windowRange,
+      datasetReadiness: null,
+      referenceGovernance: null,
+      modelGovernance: null,
+      auditSummary: null,
+      overrides: null,
+      syncConflicts: null,
+      privacy: 'Aggregate counts only.',
+    });
+
+    expect(dashboard.datasetReadiness.total).toBe(0);
+    expect(dashboard.referenceGovernance.verificationBacklog).toBe(0);
+    expect(dashboard.modelGovernance.liveClinicalPredictionEnabled).toBe(false);
+    expect(dashboard.auditSummary.byAction).toEqual({});
+    expect(dashboard.syncConflicts.trend).toEqual([]);
+  });
 });

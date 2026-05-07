@@ -50,7 +50,10 @@ const hasServerClinicalSafetyAcknowledgement = (user) => {
     hasServerCompletedOnboarding(user)
   );
 };
-const selectTheme = createSelector([selectUI], (ui) => ui?.theme ?? 'light');
+const THEME_PREFERENCES = new Set(['system', 'light', 'dark', 'high-contrast']);
+const selectTheme = createSelector([selectUI], (ui) =>
+  THEME_PREFERENCES.has(ui?.theme) ? ui.theme : 'light'
+);
 const selectLocale = createSelector([selectUI], (ui) => ui?.locale ?? 'en');
 const selectDensity = createSelector([selectUI], (ui) => ui?.density ?? 'comfortable');
 const selectIsLoading = createSelector([selectUI], (ui) => ui?.isLoading ?? false);

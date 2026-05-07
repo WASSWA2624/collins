@@ -4,11 +4,14 @@
  * Per theme-design.mdc: iOS HIG, card patterns, theme tokens.
  */
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
-const StyledContainer = styled(View).withConfig({
+const StyledContainer = styled(ScrollView).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
+}).attrs({
+  contentInsetAdjustmentBehavior: 'automatic',
+  keyboardShouldPersistTaps: 'handled',
 })`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background.primary};

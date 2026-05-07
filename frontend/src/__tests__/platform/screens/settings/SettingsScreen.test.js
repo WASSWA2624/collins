@@ -60,6 +60,9 @@ jest.mock('@features/settings', () => ({
       allowDeidentifiedAnalytics: true,
       allowDeidentifiedTrainingDatasetContribution: false,
     },
+    displayPreferences: {
+      themePreference: 'light',
+    },
   }),
   loadFacilitySettingsUseCase: jest.fn().mockResolvedValue({
     facility: { id: 'facility-1', name: 'Mulago ICU' },
@@ -153,6 +156,7 @@ describe('SettingsScreen', () => {
     useSelector.mockImplementation((selector) => {
       const mockState = {
         ui: {
+          theme: 'light',
           density: 'comfortable',
           footerVisible: true,
         },

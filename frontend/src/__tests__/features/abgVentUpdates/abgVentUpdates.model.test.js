@@ -5,6 +5,7 @@ const {
   getAbgVentHistory,
   getAbgVentMissingData,
   toAdvisoryMessage,
+  validateAbgVentUpdateDraft,
 } = require('@features/abgVentUpdates');
 
 describe('abgVentUpdates.model', () => {
@@ -60,8 +61,36 @@ describe('abgVentUpdates.model', () => {
 
   it('exposes standardized ventilator mode options for select entry', () => {
     expect(VENTILATOR_MODE_OPTIONS.map((option) => option.value)).toEqual(
-      expect.arrayContaining(['AC/VC', 'AC/PC', 'SIMV', 'PSV', 'CPAP', 'BiPAP/NIV'])
+      expect.arrayContaining([
+        'AC/VC',
+        'AC/PC',
+        'SIMV',
+        'PSV',
+        'CPAP',
+        'BiPAP/NIV',
+      ])
     );
+  });
+
+  it('validates numeric tracking fields before submit', () => {
+    const admission = { id: 'admission-1', status: 'ACTIVE' };
+    const invalid = validateAbgVentUpdateDraft({
+      admissionId: 'admission-1',
+      admission,
+      abg: { ph: '8.2', pao2: 'abc' },
+      ventilator: { peep: '8' },
+    });
+    const valid = validateAbgVentUpdateDraft({
+      admissionId: 'admission-1',
+      admission,
+      abg: { ph: '7.32' },
+      ventilator: { peep: '8', fio2: '0.5' },
+    });
+
+    expect(invalid.isValid).toBe(false);
+    expect(invalid.fieldErrors.abg.ph).toContain('between 6.8 to 7.8');
+    expect(invalid.fieldErrors.abg.pao2).toContain('valid number');
+    expect(valid.isValid).toBe(true);
   });
 
   it('keeps history append-only and sorts newest events first', () => {
@@ -75,7 +104,11 @@ describe('abgVentUpdates.model', () => {
       ],
     });
 
-    expect(history.map((event) => event.id)).toEqual(['abg-2', 'vent-1', 'abg-1']);
+    expect(history.map((event) => event.id)).toEqual([
+      'abg-2',
+      'vent-1',
+      'abg-1',
+    ]);
   });
 
   it('shows missing data and sanitizes exact setting orders from advisory flags', () => {
@@ -86,8 +119,15 @@ describe('abgVentUpdates.model', () => {
       },
     };
 
-    expect(getAbgVentMissingData(admission).map((item) => item.label)).toEqual(['PaO2', 'PEEP']);
-    expect(getAbgVentAdvisoryFlags(admission)[0].message).toBe('Review ventilator settings and confirm clinically.');
-    expect(toAdvisoryMessage('Review ABG trend and confirm clinically.')).toBe('Review ABG trend and confirm clinically.');
+    expect(getAbgVentMissingData(admission).map((item) => item.label)).toEqual([
+      'PaO2',
+      'PEEP',
+    ]);
+    expect(getAbgVentAdvisoryFlags(admission)[0].message).toBe(
+      'Review ventilator settings and confirm clinically.'
+    );
+    expect(toAdvisoryMessage('Review ABG trend and confirm clinically.')).toBe(
+      'Review ABG trend and confirm clinically.'
+    );
   });
 });

@@ -11,6 +11,54 @@ import {
   reviewDatasetImport,
 } from '../src/modules/dataset/dataset.service.js';
 
+const validDatasetCapturePreview = {
+  captureMetadata: {
+    schemaVersion: 'clinical_case_v1',
+    entryMode: 'structured_clinician_entry',
+    rawNoteStored: false,
+  },
+  caseContext: {
+    primaryDiagnosis: 'COPD',
+    reasonForVentilation: 'Hypercapnic respiratory failure',
+  },
+  patient: {
+    patientPathway: 'ADULT',
+    ageYears: 52,
+    sexForSizeCalculations: 'MALE',
+  },
+  clinicalSnapshot: {
+    spo2: 93,
+    fio2: 0.4,
+    respiratoryRate: 24,
+  },
+  abgTest: {
+    ph: 7.31,
+    paco2: 50,
+  },
+  ventilatorSetting: {
+    mode: 'VC',
+    tidalVolumeMl: 450,
+    respiratoryRateSet: 20,
+    peep: 8,
+  },
+  targetRanges: {
+    spo2Lower: 88,
+    spo2Upper: 92,
+  },
+  outcome: {
+    outcomeType: 'EXTUBATED',
+    referenceUseCategory: 'POSITIVE_REFERENCE',
+  },
+  provenance: {
+    sourceType: 'CLINICIAN_CHART_ABSTRACTION',
+    sourceName: 'ICU chart review',
+    clinicianValidationStatus: 'VALIDATED_BY_CLINICIAN',
+  },
+  quality: {
+    reviewerConfidence: 'HIGH',
+  },
+};
+
 test('dataset import contract rejects demo and existing training source types', () => {
   const result = createDatasetImportSchema.safeParse({
     body: {
@@ -32,10 +80,10 @@ test('sync queue contract accepts offline dataset capture candidates', () => {
         operation: 'create_dataset_import',
         facilityId: 'facility-1',
         payload: {
-          facilityId: 'facility-1',
-          sourceType: 'clinical_case_capture',
-          structuredPreviewJson: { patient: { ageYears: 54 } },
-        },
+    facilityId: 'facility-1',
+    sourceType: 'clinical_case_capture',
+    structuredPreviewJson: validDatasetCapturePreview,
+  },
         idempotencyKey: 'dataset-capture-key-1',
         clientRecordId: 'capture-1',
       }],
@@ -103,8 +151,8 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
     facilityId: 'facility-1',
     sourceType: 'clinical_case_capture',
     structuredPreviewJson: {
-      patient: { ageYears: 52, hospitalNumber: 'H-123' },
-      clinicalSnapshot: { spo2: 93 },
+      ...validDatasetCapturePreview,
+      patient: { ...validDatasetCapturePreview.patient, hospitalNumber: 'H-123' },
       rawNote: 'Patient name and hospital number should never persist.',
     },
     idempotencyKey: 'dataset-capture-key-1',
@@ -117,10 +165,61 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.patient.ageYears, 52);
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.patient.hospitalNumber, undefined);
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.rawNote, undefined);
+  assert.equal(createdDatasetCase.governanceJson.outcomeReview.outcomeSentiment, 'positive');
+  assert.equal(createdDatasetCase.structuredPreviewJson.captureMetadata.outcomeReview.referenceUseCategory, 'POSITIVE_REFERENCE');
   assert.equal(idempotencyRecord.operation, 'dataset.capture.create');
   assert.equal(idempotencyRecord.clientRecordId, 'capture-draft-1');
   assert.equal(idempotencyRecord.entityType, 'DatasetCase');
   assert.equal(idempotencyRecord.entityId, 'dataset-1');
+});
+
+test('dataset capture rejects poor outcomes marked as positive references before persistence', async (t) => {
+  const originals = {
+    facilityMembership: prisma.facilityMembership,
+    $transaction: prisma.$transaction,
+  };
+  t.after(() => {
+    prisma.facilityMembership = originals.facilityMembership;
+    prisma.$transaction = originals.$transaction;
+  });
+
+  let transactionCalled = false;
+  prisma.facilityMembership = {
+    findFirst: async ({ where }) => (where.role.in.includes(MEMBERSHIP_ROLES.CLINICIAN)
+      ? {
+          id: 'membership-1',
+          userId: 'clinician-1',
+          facilityId: 'facility-1',
+          role: MEMBERSHIP_ROLES.CLINICIAN,
+          status: 'APPROVED',
+        }
+      : null),
+    count: async () => 0,
+  };
+  prisma.$transaction = async () => {
+    transactionCalled = true;
+  };
+
+  await assert.rejects(
+    () => createDatasetImport({
+      facilityId: 'facility-1',
+      sourceType: 'clinical_case_capture',
+      structuredPreviewJson: {
+        ...validDatasetCapturePreview,
+        outcome: {
+          outcomeType: 'DECEASED',
+          referenceUseCategory: 'POSITIVE_REFERENCE',
+        },
+      },
+      idempotencyKey: 'dataset-capture-key-2',
+      clientRecordId: 'capture-draft-2',
+    }, 'clinician-1'),
+    {
+      status: 400,
+      message: 'Dataset capture validation failed',
+    },
+  );
+  assert.equal(transactionCalled, false);
 });
 
 test('normal clinicians cannot approve dataset candidates', async (t) => {

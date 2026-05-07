@@ -20,6 +20,7 @@ const HISTORY_TEST_IDS = Object.freeze({
   review: 'tracking-review',
   resume: 'history-resume',
   viewDetails: 'history-view-details',
+  updateValues: 'tracking-update-values',
   detailPanel: 'tracking-detail-panel',
   detailClose: 'tracking-detail-close',
   detailTimeline: 'tracking-detail-timeline',

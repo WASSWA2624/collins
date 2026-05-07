@@ -48,7 +48,7 @@ describe('auth.usecase', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     loginApi.mockResolvedValue({ data: { user: { id: '1' }, tokens: { accessToken: 'a', refreshToken: 'b' } } });
-    registerApi.mockResolvedValue({ data: { user: { id: '2' } } });
+    registerApi.mockResolvedValue({ data: { user: { id: '2' }, tokens: { accessToken: 'c', refreshToken: 'd' } } });
     logoutApi.mockResolvedValue({ data: {} });
     refreshApi.mockResolvedValue({ data: { tokens: { accessToken: 'a', refreshToken: 'b' } } });
     getCurrentUserApi.mockResolvedValue({ data: { user: { id: '3' } } });

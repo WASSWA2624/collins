@@ -6,8 +6,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getDeviceLocale } from '@i18n';
 
+const THEME_PREFERENCES = new Set(['system', 'light', 'dark', 'high-contrast']);
+const normalizeThemePreference = (value) => (THEME_PREFERENCES.has(value) ? value : 'light');
+
 const initialState = {
-  theme: 'light', // 'light', 'dark', 'high-contrast'
+  theme: 'light', // 'system', 'light', 'dark', 'high-contrast'
   locale: getDeviceLocale(),
   density: 'comfortable', // 'compact', 'comfortable'
   isLoading: false,
@@ -38,7 +41,7 @@ const uiSlice = createSlice({
   initialState,
   reducers: {
     setTheme: (state, action) => {
-      state.theme = action.payload;
+      state.theme = normalizeThemePreference(action.payload);
     },
     setLocale: (state, action) => {
       state.locale = action.payload;

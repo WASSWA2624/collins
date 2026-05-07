@@ -103,32 +103,48 @@ const createRefreshSession = async (tx, userId) => {
   return { refreshToken, sessionId: session.id, expiresAt };
 };
 
+const resolveSettingsFacilityId = ({ requestedFacilityId, memberships, userSettings }) => {
+  const savedActiveFacilityId = userSettings?.activeFacilityId || null;
+  const savedFacilityIsAllowed =
+    savedActiveFacilityId &&
+    memberships.some((membership) => membership.facilityId === savedActiveFacilityId);
+
+  return requestedFacilityId || (savedFacilityIsAllowed ? savedActiveFacilityId : null);
+};
+
 const buildAuthPayload = async (user, { tx = prisma, requestedFacilityId = null } = {}) => {
-  const memberships = await tx.facilityMembership.findMany({
-    where: { userId: user.id, status: 'APPROVED' },
-    select: {
-      id: true,
-      facilityId: true,
-      role: true,
-      status: true,
-      facility: {
-        select: {
-          id: true,
-          name: true,
-          registryCode: true,
-          district: true,
-          region: true,
-          verificationStatus: true,
+  const [memberships, onboardingState, userSettings] = await Promise.all([
+    tx.facilityMembership.findMany({
+      where: { userId: user.id, status: 'APPROVED' },
+      select: {
+        id: true,
+        facilityId: true,
+        role: true,
+        status: true,
+        facility: {
+          select: {
+            id: true,
+            name: true,
+            registryCode: true,
+            district: true,
+            region: true,
+            verificationStatus: true,
+          },
         },
       },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-  const onboardingState = await tx.onboardingState.findUnique({
-    where: { userId: user.id },
-    select: authOnboardingStateSelect,
-  });
-  const context = buildAuthContext({ user, memberships, requestedFacilityId });
+      orderBy: { createdAt: 'desc' },
+    }),
+    tx.onboardingState.findUnique({
+      where: { userId: user.id },
+      select: authOnboardingStateSelect,
+    }),
+    tx.userSettings.findUnique({
+      where: { userId: user.id },
+      select: { activeFacilityId: true },
+    }),
+  ]);
+  const resolvedFacilityId = resolveSettingsFacilityId({ requestedFacilityId, memberships, userSettings });
+  const context = buildAuthContext({ user, memberships, requestedFacilityId: resolvedFacilityId });
   const { refreshToken, sessionId, expiresAt } = await createRefreshSession(tx, user.id);
   const token = signAccessToken(context, sessionId);
   const accessTokenExpiresAt = getTokenExpiresAt(token);
@@ -411,11 +427,18 @@ export const getCurrentUser = async (userId, requestedFacilityId = null) => {
   if (!userId) return null;
   const user = await prisma.user.findUnique({ where: { id: userId }, select: publicUserSelect });
   if (!user) return null;
-  const memberships = await getApprovedMemberships(userId);
-  const onboardingState = await prisma.onboardingState.findUnique({
-    where: { userId },
-    select: authOnboardingStateSelect,
-  });
-  const context = buildAuthContext({ user, memberships, requestedFacilityId });
+  const [memberships, onboardingState, userSettings] = await Promise.all([
+    getApprovedMemberships(userId),
+    prisma.onboardingState.findUnique({
+      where: { userId },
+      select: authOnboardingStateSelect,
+    }),
+    prisma.userSettings.findUnique({
+      where: { userId },
+      select: { activeFacilityId: true },
+    }),
+  ]);
+  const resolvedFacilityId = resolveSettingsFacilityId({ requestedFacilityId, memberships, userSettings });
+  const context = buildAuthContext({ user, memberships, requestedFacilityId: resolvedFacilityId });
   return { ...context.user, onboardingState };
 };

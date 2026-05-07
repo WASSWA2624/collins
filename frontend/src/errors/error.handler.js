@@ -67,6 +67,14 @@ const extractErrorCode = (message) => {
   if (messageLower.includes('invalid credential') || messageLower.includes('invalid email or password')) {
     return 'INVALID_CREDENTIALS';
   }
+  if (
+    messageLower.includes('user with this email already exists') ||
+    messageLower.includes('email already exists') ||
+    messageLower.includes('email is already registered') ||
+    messageLower.includes('same unique value')
+  ) {
+    return 'USER_EXISTS';
+  }
   if (messageLower.includes('validation failed')) {
     return 'VALIDATION_ERROR';
   }

@@ -3,29 +3,40 @@
  * File: HistoryScreen.ios.styles.jsx
  */
 import styled from 'styled-components/native';
-import { Text as NativeText, View } from 'react-native';
+import { ScrollView, Text as NativeText, View } from 'react-native';
 
 const statusBackground = (theme, level) => {
-  if (level === 'red') return theme.colors.status?.error?.background ?? '#FFEBEE';
-  if (level === 'yellow') return theme.colors.status?.warning?.background ?? '#FFF3CD';
-  if (level === 'green') return theme.colors.status?.success?.background ?? '#E8F5E9';
+  if (level === 'red')
+    return theme.colors.status?.error?.background ?? '#FFEBEE';
+  if (level === 'yellow')
+    return theme.colors.status?.warning?.background ?? '#FFF3CD';
+  if (level === 'green')
+    return theme.colors.status?.success?.background ?? '#E8F5E9';
   return theme.colors.background.secondary;
 };
 
 const statusBorder = (theme, level) => {
   if (level === 'red') return theme.colors.status?.error?.text ?? '#C62828';
-  if (level === 'yellow') return theme.colors.status?.warning?.text ?? '#856404';
+  if (level === 'yellow')
+    return theme.colors.status?.warning?.text ?? '#856404';
   if (level === 'green') return theme.colors.status?.success?.text ?? '#1B5E20';
   return theme.colors.background.tertiary;
 };
 
-const StyledContainer = styled(View).withConfig({
+const StyledContainer = styled(ScrollView).withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
 })`
   flex: 1;
-  padding: ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
+`;
+
+const StyledScreenContent = styled(View).withConfig({
+  displayName: 'StyledScreenContent',
+  componentId: 'StyledScreenContent',
+})`
+  flex-grow: 1;
+  padding: ${({ theme }) => theme.spacing.lg}px;
 `;
 
 const StyledHeader = styled(View).withConfig({
@@ -65,9 +76,11 @@ const StyledBanner = styled(View).withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  background-color: ${({ theme }) =>
+    theme.colors.status?.warning?.background ?? '#FFF3CD'};
   border-left-width: 4px;
-  border-left-color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
+  border-left-color: ${({ theme }) =>
+    theme.colors.status?.warning?.text ?? '#856404'};
 `;
 
 const StyledErrorBanner = styled(View).withConfig({
@@ -76,9 +89,11 @@ const StyledErrorBanner = styled(View).withConfig({
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#FFEBEE'};
+  background-color: ${({ theme }) =>
+    theme.colors.status?.error?.background ?? '#FFEBEE'};
   border-left-width: 4px;
-  border-left-color: ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
+  border-left-color: ${({ theme }) =>
+    theme.colors.status?.error?.text ?? '#C62828'};
 `;
 
 const StyledEmpty = styled(View).withConfig({
@@ -86,9 +101,22 @@ const StyledEmpty = styled(View).withConfig({
   componentId: 'StyledEmpty',
 })`
   padding: ${({ theme }) => theme.spacing.xl}px;
+  min-height: 220px;
   align-items: center;
+  justify-content: center;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledEmptyActions = styled(View).withConfig({
+  displayName: 'StyledEmptyActions',
+  componentId: 'StyledEmptyActions',
+})`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledList = styled(View).withConfig({
@@ -102,7 +130,8 @@ const StyledItem = styled(View).withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px
+    ${({ theme }) => theme.spacing.lg}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-width: 1px;
@@ -211,6 +240,7 @@ export {
   StyledContainer,
   StyledDetailPanel,
   StyledEmpty,
+  StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,
@@ -223,6 +253,7 @@ export {
   StyledList,
   StyledStatusGroup,
   StyledStatusPill,
+  StyledScreenContent,
   StyledSummaryBar,
   StyledTimeline,
   StyledTimelineItem,

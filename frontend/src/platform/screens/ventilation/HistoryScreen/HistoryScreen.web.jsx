@@ -12,6 +12,7 @@ import {
   StyledContainer,
   StyledDetailPanel,
   StyledEmpty,
+  StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,
@@ -31,7 +32,9 @@ import {
 import { HISTORY_TEST_IDS } from './types';
 
 const getPatientLabel = (row, t) =>
-  row.appAdmissionCode || row.appPatientCode || t('ventilation.tracking.patient.unknown');
+  row.appAdmissionCode ||
+  row.appPatientCode ||
+  t('ventilation.tracking.patient.unknown');
 
 const renderDetailPanel = ({
   t,
@@ -40,17 +43,23 @@ const renderDetailPanel = ({
   isDetailLoading,
   detailErrorCode,
   handleCloseDetails,
+  handleUpdateTracking,
 }) => {
   if (!selectedAdmissionId) return null;
   const row = selectedTracking?.row;
   const timeline = selectedTracking?.timeline || [];
 
   return (
-    <StyledDetailPanel data-testid={HISTORY_TEST_IDS.detailPanel} testID={HISTORY_TEST_IDS.detailPanel}>
+    <StyledDetailPanel
+      data-testid={HISTORY_TEST_IDS.detailPanel}
+      testID={HISTORY_TEST_IDS.detailPanel}
+    >
       <StyledItemRow>
         <StyledItemMain>
           <Text variant="label">
-            {row ? getPatientLabel(row, t) : t('ventilation.tracking.detail.title')}
+            {row
+              ? getPatientLabel(row, t)
+              : t('ventilation.tracking.detail.title')}
           </Text>
           <Text variant="caption" color="text.secondary">
             {row?.bedNumber
@@ -67,40 +76,78 @@ const renderDetailPanel = ({
         >
           {t('common.close')}
         </Button>
+        <Button
+          variant="outline"
+          onPress={() => handleUpdateTracking(row)}
+          aria-label={t('ventilation.tracking.actions.updateValuesHint')}
+          data-testid={HISTORY_TEST_IDS.updateValues}
+          testID={HISTORY_TEST_IDS.updateValues}
+        >
+          {t('ventilation.tracking.actions.updateValues')}
+        </Button>
       </StyledItemRow>
       {isDetailLoading ? (
-        <Text variant="body">{t('ventilation.tracking.states.loadingDetail')}</Text>
+        <Text variant="body">
+          {t('ventilation.tracking.states.loadingDetail')}
+        </Text>
       ) : detailErrorCode ? (
-        <Text variant="body" color="status.error.text">{t('ventilation.tracking.states.detailError')}</Text>
+        <Text variant="body" color="status.error.text">
+          {t('ventilation.tracking.states.detailError')}
+        </Text>
       ) : (
         <>
           <StyledStatusGroup>
-            <StyledStatusPill $level={row?.risk?.level} data-testid={HISTORY_TEST_IDS.risk} testID={HISTORY_TEST_IDS.risk}>
+            <StyledStatusPill
+              $level={row?.risk?.level}
+              data-testid={HISTORY_TEST_IDS.risk}
+              testID={HISTORY_TEST_IDS.risk}
+            >
               <Text variant="caption">{row?.risk?.label}</Text>
             </StyledStatusPill>
-            <StyledStatusPill data-testid={HISTORY_TEST_IDS.review} testID={HISTORY_TEST_IDS.review}>
+            <StyledStatusPill
+              data-testid={HISTORY_TEST_IDS.review}
+              testID={HISTORY_TEST_IDS.review}
+            >
               <Text variant="caption">{row?.reviewLabel}</Text>
             </StyledStatusPill>
-            <StyledStatusPill data-testid={HISTORY_TEST_IDS.sync} testID={HISTORY_TEST_IDS.sync}>
+            <StyledStatusPill
+              data-testid={HISTORY_TEST_IDS.sync}
+              testID={HISTORY_TEST_IDS.sync}
+            >
               <Text variant="caption">{row?.syncLabel}</Text>
             </StyledStatusPill>
           </StyledStatusGroup>
           <Text variant="body">{row?.risk?.prompt}</Text>
-          <Text variant="caption" color="text.secondary" data-testid={HISTORY_TEST_IDS.missingData} testID={HISTORY_TEST_IDS.missingData}>
-            {t('ventilation.tracking.patient.missingData', { fields: row?.missingDataLabel })}
+          <Text
+            variant="caption"
+            color="text.secondary"
+            data-testid={HISTORY_TEST_IDS.missingData}
+            testID={HISTORY_TEST_IDS.missingData}
+          >
+            {t('ventilation.tracking.patient.missingData', {
+              fields: row?.missingDataLabel,
+            })}
           </Text>
-          <StyledTimeline data-testid={HISTORY_TEST_IDS.detailTimeline} testID={HISTORY_TEST_IDS.detailTimeline}>
+          <StyledTimeline
+            data-testid={HISTORY_TEST_IDS.detailTimeline}
+            testID={HISTORY_TEST_IDS.detailTimeline}
+          >
             {timeline.length > 0 ? (
               timeline.slice(0, 6).map((entry) => (
-                <StyledTimelineItem key={`${entry.entityType}-${entry.entityId}-${entry.occurredAt}`}>
+                <StyledTimelineItem
+                  key={`${entry.entityType}-${entry.entityId}-${entry.occurredAt}`}
+                >
                   <Text variant="caption">
-                    {entry.eventType || entry.entityType} | {formatDateTime(entry.occurredAt)}
+                    {entry.eventType || entry.entityType} |{' '}
+                    {formatDateTime(entry.occurredAt)}
                   </Text>
                 </StyledTimelineItem>
               ))
             ) : (
               <StyledTimelineItem>
-                <Text variant="caption">{t('ventilation.tracking.detail.noTimeline')}</Text>
+                <Text variant="caption">
+                  {t('ventilation.tracking.detail.noTimeline')}
+                </Text>
               </StyledTimelineItem>
             )}
           </StyledTimeline>
@@ -124,6 +171,8 @@ const HistoryScreenWeb = () => {
     isDetailLoading,
     detailErrorCode,
     handleRefresh,
+    handleOpenAdmit,
+    handleUpdateTracking,
     handleViewDetails,
     handleCloseDetails,
   } = useHistoryScreen();
@@ -150,7 +199,9 @@ const HistoryScreenWeb = () => {
       <StyledHeader>
         <div>
           <Text variant="h1">{t('ventilation.tracking.title')}</Text>
-          <Text variant="body" color="text.secondary">{t('ventilation.tracking.subtitle')}</Text>
+          <Text variant="body" color="text.secondary">
+            {t('ventilation.tracking.subtitle')}
+          </Text>
         </div>
         <StyledHeaderActions>
           <Button
@@ -165,9 +216,13 @@ const HistoryScreenWeb = () => {
         </StyledHeaderActions>
       </StyledHeader>
 
-      <StyledSummaryBar data-testid={HISTORY_TEST_IDS.facility} testID={HISTORY_TEST_IDS.facility}>
+      <StyledSummaryBar
+        data-testid={HISTORY_TEST_IDS.facility}
+        testID={HISTORY_TEST_IDS.facility}
+      >
         <Text variant="label">
-          {activeFacility?.name || t('ventilation.tracking.activeFacility.none')}
+          {activeFacility?.name ||
+            t('ventilation.tracking.activeFacility.none')}
         </Text>
         <Text variant="caption" color="text.secondary">
           {t('ventilation.tracking.activePatients', { count: rows.length })}
@@ -175,20 +230,46 @@ const HistoryScreenWeb = () => {
       </StyledSummaryBar>
 
       {localDraft && (
-        <StyledBanner data-testid={HISTORY_TEST_IDS.draftBanner} testID={HISTORY_TEST_IDS.draftBanner}>
-          <Text variant="body" color="status.warning.text">{t('ventilation.tracking.localDraft')}</Text>
+        <StyledBanner
+          data-testid={HISTORY_TEST_IDS.draftBanner}
+          testID={HISTORY_TEST_IDS.draftBanner}
+        >
+          <Text variant="body" color="status.warning.text">
+            {t('ventilation.tracking.localDraft')}
+          </Text>
         </StyledBanner>
       )}
 
       {historyErrorCode && (
-        <StyledErrorBanner data-testid={HISTORY_TEST_IDS.errorBanner} testID={HISTORY_TEST_IDS.errorBanner}>
-          <Text variant="body" color="status.error.text">{t('ventilation.tracking.states.error')}</Text>
+        <StyledErrorBanner
+          data-testid={HISTORY_TEST_IDS.errorBanner}
+          testID={HISTORY_TEST_IDS.errorBanner}
+        >
+          <Text variant="body" color="status.error.text">
+            {t('ventilation.tracking.states.error')}
+          </Text>
         </StyledErrorBanner>
       )}
 
       {isEmpty && !isHistoryLoading ? (
-        <StyledEmpty data-testid={HISTORY_TEST_IDS.empty} testID={HISTORY_TEST_IDS.empty}>
-          <Text variant="body">{t('ventilation.tracking.empty')}</Text>
+        <StyledEmpty
+          data-testid={HISTORY_TEST_IDS.empty}
+          testID={HISTORY_TEST_IDS.empty}
+        >
+          <Text variant="label">{t('ventilation.tracking.empty')}</Text>
+          <Text variant="body" color="text.secondary">
+            {t('ventilation.tracking.emptyHint')}
+          </Text>
+          <StyledEmptyActions>
+            <Button
+              variant="primary"
+              onPress={handleOpenAdmit}
+              data-testid={HISTORY_TEST_IDS.resume}
+              testID={HISTORY_TEST_IDS.resume}
+            >
+              {t('ventilation.tracking.actions.admitFirst')}
+            </Button>
+          </StyledEmptyActions>
         </StyledEmpty>
       ) : (
         <StyledList
@@ -209,32 +290,52 @@ const HistoryScreenWeb = () => {
                   <Text variant="label">{getPatientLabel(row, t)}</Text>
                   <StyledItemMeta>
                     <Text variant="caption">{row.admissionStatusLabel}</Text>
-                    <StyledItemMetaLine aria-hidden="true">|</StyledItemMetaLine>
+                    <StyledItemMetaLine aria-hidden="true">
+                      |
+                    </StyledItemMetaLine>
                     <Text variant="caption">{row.patientPathwayLabel}</Text>
-                    <StyledItemMetaLine aria-hidden="true">|</StyledItemMetaLine>
+                    <StyledItemMetaLine aria-hidden="true">
+                      |
+                    </StyledItemMetaLine>
                     <Text variant="caption">
                       {row.bedNumber
-                        ? t('ventilation.tracking.patient.bed', { bed: row.bedNumber })
+                        ? t('ventilation.tracking.patient.bed', {
+                            bed: row.bedNumber,
+                          })
                         : t('ventilation.tracking.patient.bedMissing')}
                     </Text>
                     {row.admittedAtLabel ? (
                       <>
-                        <StyledItemMetaLine aria-hidden="true">|</StyledItemMetaLine>
+                        <StyledItemMetaLine aria-hidden="true">
+                          |
+                        </StyledItemMetaLine>
                         <Text variant="caption">
-                          {t('ventilation.tracking.patient.admitted', { dateTime: row.admittedAtLabel })}
+                          {t('ventilation.tracking.patient.admitted', {
+                            dateTime: row.admittedAtLabel,
+                          })}
                         </Text>
                       </>
                     ) : null}
                   </StyledItemMeta>
                 </StyledItemMain>
                 <StyledStatusGroup>
-                  <StyledStatusPill $level={row.risk.level} data-testid={HISTORY_TEST_IDS.risk} testID={HISTORY_TEST_IDS.risk}>
+                  <StyledStatusPill
+                    $level={row.risk.level}
+                    data-testid={HISTORY_TEST_IDS.risk}
+                    testID={HISTORY_TEST_IDS.risk}
+                  >
                     <Text variant="caption">{row.risk.label}</Text>
                   </StyledStatusPill>
-                  <StyledStatusPill data-testid={HISTORY_TEST_IDS.review} testID={HISTORY_TEST_IDS.review}>
+                  <StyledStatusPill
+                    data-testid={HISTORY_TEST_IDS.review}
+                    testID={HISTORY_TEST_IDS.review}
+                  >
                     <Text variant="caption">{row.reviewLabel}</Text>
                   </StyledStatusPill>
-                  <StyledStatusPill data-testid={HISTORY_TEST_IDS.sync} testID={HISTORY_TEST_IDS.sync}>
+                  <StyledStatusPill
+                    data-testid={HISTORY_TEST_IDS.sync}
+                    testID={HISTORY_TEST_IDS.sync}
+                  >
                     <Text variant="caption">{row.syncLabel}</Text>
                   </StyledStatusPill>
                 </StyledStatusGroup>
@@ -242,17 +343,37 @@ const HistoryScreenWeb = () => {
                   <Button
                     variant="outline"
                     onPress={() => handleViewDetails(row)}
-                    aria-label={t('ventilation.tracking.actions.viewDetailsHint')}
+                    aria-label={t(
+                      'ventilation.tracking.actions.viewDetailsHint'
+                    )}
                     data-testid={HISTORY_TEST_IDS.viewDetails}
                     testID={HISTORY_TEST_IDS.viewDetails}
                   >
                     {t('ventilation.tracking.actions.viewDetails')}
                   </Button>
+                  <Button
+                    variant="outline"
+                    onPress={() => handleUpdateTracking(row)}
+                    aria-label={t(
+                      'ventilation.tracking.actions.updateValuesHint'
+                    )}
+                    data-testid={HISTORY_TEST_IDS.updateValues}
+                    testID={HISTORY_TEST_IDS.updateValues}
+                  >
+                    {t('ventilation.tracking.actions.updateValues')}
+                  </Button>
                 </StyledItemActions>
               </StyledItemRow>
               <Text variant="body">{row.risk.prompt}</Text>
-              <Text variant="caption" color="text.secondary" data-testid={HISTORY_TEST_IDS.missingData} testID={HISTORY_TEST_IDS.missingData}>
-                {t('ventilation.tracking.patient.missingData', { fields: row.missingDataLabel })}
+              <Text
+                variant="caption"
+                color="text.secondary"
+                data-testid={HISTORY_TEST_IDS.missingData}
+                testID={HISTORY_TEST_IDS.missingData}
+              >
+                {t('ventilation.tracking.patient.missingData', {
+                  fields: row.missingDataLabel,
+                })}
               </Text>
             </StyledItem>
           ))}
@@ -266,6 +387,7 @@ const HistoryScreenWeb = () => {
         isDetailLoading,
         detailErrorCode,
         handleCloseDetails,
+        handleUpdateTracking,
       })}
     </StyledContainer>
   );

@@ -79,6 +79,9 @@ const userSettingsFixture = {
     visibleRoles: ['FACILITY_ADMIN'],
     showFacilitySwitcher: true,
   },
+  displayPreferences: {
+    themePreference: 'dark',
+  },
   offlineSyncPreferences: {
     offlineModeEnabled: true,
     autoSyncEnabled: true,
@@ -114,6 +117,7 @@ describe('useSettingsScreen', () => {
     useDispatch.mockReturnValue(mockDispatch);
     const state = {
       ui: {
+        theme: 'light',
         density: 'comfortable',
         footerVisible: true,
       },
@@ -150,7 +154,7 @@ describe('useSettingsScreen', () => {
 
     expect(result.current.accountDraft.name).toBe('Ada Clinician');
     expect(result.current.activeFacilityValue).toBe('facility-1');
-    expect(result.current.facilityOptions[1]).toEqual({
+    expect(result.current.facilityOptions[0]).toEqual({
       label: 'Mulago ICU',
       value: 'facility-1',
     });
@@ -175,5 +179,55 @@ describe('useSettingsScreen', () => {
       },
       reason: 'Account settings updated by user',
     });
+  });
+
+  it('scopes manage access to the selected facility roles', async () => {
+    loadMySettingsUseCase.mockResolvedValue({
+      ...userSettingsFixture,
+      activeFacilityId: 'facility-2',
+      memberships: [
+        ...userSettingsFixture.memberships,
+        {
+          id: 'membership-2',
+          facilityId: 'facility-2',
+          role: 'CLINICIAN',
+          status: 'APPROVED',
+          facility: { id: 'facility-2', name: 'Kiruddu ICU' },
+        },
+      ],
+      roleVisibility: {
+        activeRole: 'CLINICIAN',
+        visibleRoles: ['FACILITY_ADMIN', 'CLINICIAN'],
+        showFacilitySwitcher: true,
+      },
+    });
+    loadFacilitySettingsUseCase.mockResolvedValue({
+      facility: { id: 'facility-2', name: 'Kiruddu ICU' },
+      modelVisibility: {
+        liveClinicalPredictionEnabled: false,
+        clinicianVisibleModelVersionIds: [],
+        showShadowModelOutputsToClinicians: false,
+      },
+    });
+
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    expect(result.current.activeFacilityRoles).toEqual(['CLINICIAN']);
+    expect(result.current.canManageActiveFacility).toBe(false);
+  });
+
+  it('validates required profile fields before saving', async () => {
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    await act(async () => {
+      result.current.setAccountField('name', ' ');
+    });
+    await act(async () => {
+      await result.current.saveAccountSettings();
+    });
+
+    expect(updateMySettingsUseCase).not.toHaveBeenCalled();
+    expect(result.current.errorMessageKey).toBe('settings.account.validation.profileInvalid');
+    expect(result.current.accountErrors.name).toBe('settings.account.validation.nameRequired');
   });
 });

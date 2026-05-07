@@ -20,6 +20,38 @@ import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
 
 const TOTAL_STEPS = 3;
 const MISSING_UNKNOWN = 'not_available';
+const DATE_FIELDS = [
+  { field: 'measuredAt', label: 'Oxygen measured at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'abgCollectedAt', label: 'ABG collected at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
+];
+const NUMERIC_RULES = [
+  { field: 'ageYears', label: 'Age', min: 0, max: 130, steps: [STEPS.PATIENT_REASON] },
+  { field: 'actualWeightKg', label: 'Weight', min: 0.2, max: 400, steps: [STEPS.PATIENT_REASON] },
+  { field: 'heightOrLengthCm', label: 'Height', min: 20, max: 260, steps: [STEPS.PATIENT_REASON] },
+  { field: 'bmi', label: 'BMI', min: 5, max: 80, steps: [STEPS.PATIENT_REASON] },
+  { field: 'spo2', label: 'SpO2', min: 40, max: 100, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'fio2', label: 'FiO2', minExclusive: 0, max: 1, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'respiratoryRate', label: 'Respiratory rate', min: 0, max: 180, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'heartRate', label: 'Heart rate', min: 0, max: 320, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'ph', label: 'pH', min: 6.8, max: 7.8, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'pao2', label: 'PaO2', min: 20, max: 600, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'paco2', label: 'PaCO2', min: 10, max: 150, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'hco3', label: 'HCO3', min: 0, max: 80, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'baseExcess', label: 'Base excess', min: -40, max: 40, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'lactate', label: 'Lactate', min: 0, max: 40, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'fio2AtSample', label: 'FiO2 at ABG sample', minExclusive: 0, max: 1, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'spo2AtSample', label: 'SpO2 at ABG sample', min: 40, max: 100, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
+  { field: 'tidalVolumeMl', label: 'Tidal volume', min: 1, max: 3000, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'respiratoryRateSet', label: 'Set respiratory rate', min: 0, max: 120, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'respiratoryRateMeasured', label: 'Measured respiratory rate', min: 0, max: 180, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'ventilatorFio2', label: 'Ventilator FiO2', minExclusive: 0, max: 1, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'peep', label: 'PEEP', min: 0, max: 30, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'pressureSupport', label: 'Pressure support', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'inspiratoryPressure', label: 'Inspiratory pressure', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'peakPressure', label: 'Peak pressure', min: 0, max: 100, steps: [STEPS.SAVE_REVIEW] },
+  { field: 'plateauPressure', label: 'Plateau pressure', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
+];
 
 const nowIso = () => new Date().toISOString();
 const isFiniteNumber = (value) => typeof value === 'number' && Number.isFinite(value);
@@ -42,6 +74,29 @@ const dateTimeOrUndefined = (value) => {
   const parsed = new Date(text);
   return Number.isNaN(parsed.getTime()) ? text : parsed.toISOString();
 };
+const isValidDateTimeValue = (value) => {
+  const text = cleanText(value);
+  if (!text) return true;
+  return !Number.isNaN(new Date(text).getTime());
+};
+const isWithinRule = (value, rule) => {
+  if (!isFiniteNumber(value)) return true;
+  if (rule.min != null && value < rule.min) return false;
+  if (rule.minExclusive != null && value <= rule.minExclusive) return false;
+  if (rule.max != null && value > rule.max) return false;
+  return true;
+};
+const rangeMessage = (rule) => {
+  if (rule.minExclusive != null && rule.max != null) {
+    return `${rule.label} must be greater than ${rule.minExclusive} and no more than ${rule.max}.`;
+  }
+  if (rule.min != null && rule.max != null) {
+    return `${rule.label} must be between ${rule.min} and ${rule.max}.`;
+  }
+  if (rule.min != null) return `${rule.label} must be at least ${rule.min}.`;
+  if (rule.max != null) return `${rule.label} must be no more than ${rule.max}.`;
+  return `${rule.label} has an invalid value.`;
+};
 const roundTo = (value, precision = 1) => {
   if (!isFiniteNumber(value)) return null;
   const factor = 10 ** precision;
@@ -60,6 +115,14 @@ const calculateWeightFromBmi = (bmi, heightCm) => {
 const calculateHeightFromBmi = (weightKg, bmi) => {
   if (!isFiniteNumber(weightKg) || !isFiniteNumber(bmi) || weightKg <= 0 || bmi <= 0) return null;
   return roundTo(Math.sqrt(weightKg / bmi) * 100, 1);
+};
+
+export const parseAdmissionNumberInput = (value) => {
+  const text = String(value ?? '').trim();
+  if (!text) return null;
+  if (!/^-?(?:\d+(?:\.\d+)?|\.\d+)$/.test(text)) return null;
+  const parsed = Number(text);
+  return Number.isFinite(parsed) ? parsed : null;
 };
 
 const defaultAdmissionInputs = (clientRecordId) => ({
@@ -209,6 +272,62 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
     permittedMissingFields: permitted,
     warnings,
     blockers,
+  };
+};
+
+const addValidationError = (fieldErrors, messages, field, message) => {
+  if (!fieldErrors[field]) fieldErrors[field] = message;
+  if (!messages.includes(message)) messages.push(message);
+};
+
+const buildValidationFromInputs = (inputs, step, readiness) => {
+  const fieldErrors = {};
+  const messages = [];
+
+  if (step === STEPS.PATIENT_REASON && !cleanText(inputs.patientPathway)) {
+    addValidationError(fieldErrors, messages, 'patientPathway', 'Select a patient pathway before continuing.');
+  }
+
+  NUMERIC_RULES
+    .filter((rule) => rule.steps.includes(step))
+    .forEach((rule) => {
+      if (!isWithinRule(inputs[rule.field], rule)) {
+        addValidationError(fieldErrors, messages, rule.field, rangeMessage(rule));
+      }
+    });
+
+  DATE_FIELDS
+    .filter((rule) => rule.steps.includes(step))
+    .forEach((rule) => {
+      if (!isValidDateTimeValue(inputs[rule.field])) {
+        addValidationError(fieldErrors, messages, rule.field, `${rule.label} must be a valid date and time.`);
+      }
+    });
+
+  if (step === STEPS.SAVE_REVIEW) {
+    if (inputs.clinicianConfirmed !== true) {
+      addValidationError(
+        fieldErrors,
+        messages,
+        'clinicianConfirmed',
+        'Confirm the admission record is ready for review before saving.'
+      );
+    }
+
+    if ((readiness?.blockers || []).length > 0 && cleanText(inputs.overrideReason).length < 8) {
+      addValidationError(
+        fieldErrors,
+        messages,
+        'overrideReason',
+        'Add a brief override reason before saving with correction blockers.'
+      );
+    }
+  }
+
+  return {
+    fieldErrors,
+    messages,
+    hasBlockingErrors: messages.length > 0,
   };
 };
 
@@ -421,6 +540,7 @@ export default function useAssessmentScreen() {
   const [clientRecordId] = useState(() => inputs?.clientRecordId || createAdmissionClientRecordId());
   const [summaryExpanded, setSummaryExpanded] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isGeneratingRecommendation, setIsGeneratingRecommendation] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
   const [saveErrorCode, setSaveErrorCode] = useState(null);
   const [recommendationErrorCode, setRecommendationErrorCode] = useState(null);
@@ -470,8 +590,16 @@ export default function useAssessmentScreen() {
     [mergedInputs, serverResponse]
   );
 
+  const validation = useMemo(
+    () => buildValidationFromInputs(mergedInputs, currentStep, readiness),
+    [currentStep, mergedInputs, readiness]
+  );
+
   const canProceedFromStep = useCallback(
     (step) => {
+      const stepValidation = buildValidationFromInputs(mergedInputs, step, readiness);
+      if (stepValidation.hasBlockingErrors) return false;
+
       switch (step) {
         case STEPS.PATIENT_REASON:
           return Boolean(cleanText(mergedInputs.patientPathway));
@@ -521,6 +649,7 @@ export default function useAssessmentScreen() {
 
   const generateDatasetRecommendation = useCallback(
     async (backendSummary = null) => {
+      setIsGeneratingRecommendation(true);
       try {
         const recommendation = await getVentilationRecommendationUseCase({
           input: buildRecommendationInput(mergedInputs),
@@ -545,9 +674,11 @@ export default function useAssessmentScreen() {
         return summaryWithSource;
       } catch (error) {
         setRecommendationSummary(null);
-        setRecommendationErrorCode(error?.code || error?.message || 'ADMISSION_RECOMMENDATION_FAILED');
+        setRecommendationErrorCode(error?.code || 'ADMISSION_RECOMMENDATION_FAILED');
         await persistDraft();
         return null;
+      } finally {
+        setIsGeneratingRecommendation(false);
       }
     },
     [admissionId, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
@@ -620,14 +751,19 @@ export default function useAssessmentScreen() {
     setSaveErrorCode(null);
     try {
       let response = null;
+      let advanced = false;
       if (currentStep === STEPS.PATIENT_REASON) {
         response = await savePatientReasonStep();
       }
       if (currentStep === STEPS.OXYGEN_ABG_VENTILATOR) {
         response = await saveOxygenAbgVentilatorStep();
+        if (currentStep < TOTAL_STEPS - 1) {
+          await advanceToStep(nextStep);
+          advanced = true;
+        }
         await generateDatasetRecommendation(response?.clinicalSummary || null);
       }
-      if (currentStep < TOTAL_STEPS - 1) {
+      if (!advanced && currentStep < TOTAL_STEPS - 1) {
         await advanceToStep(nextStep);
       }
     } catch (error) {
@@ -635,9 +771,11 @@ export default function useAssessmentScreen() {
       setSyncStatus(ADMISSION_SYNC_STATUS.NEEDS_SYNC);
       await persistCurrentDraft({ syncStatus: ADMISSION_SYNC_STATUS.NEEDS_SYNC });
       if (currentStep === STEPS.OXYGEN_ABG_VENTILATOR) {
+        if (currentStep < TOTAL_STEPS - 1) {
+          await advanceToStep(nextStep);
+        }
         await generateDatasetRecommendation(serverResponse?.clinicalSummary || null);
-      }
-      if (currentStep < TOTAL_STEPS - 1) {
+      } else if (currentStep < TOTAL_STEPS - 1) {
         await advanceToStep(nextStep);
       }
     } finally {
@@ -667,7 +805,10 @@ export default function useAssessmentScreen() {
   }, [currentStep, router, setAssessmentStep]);
 
   const saveAdmission = useCallback(async () => {
-    if (!canProceedFromStep(STEPS.SAVE_REVIEW)) return;
+    if (!canProceedFromStep(STEPS.SAVE_REVIEW)) {
+      setSaveErrorCode('ADMISSION_VALIDATION_FAILED');
+      return;
+    }
     setIsSaving(true);
     setSaveErrorCode(null);
     try {
@@ -680,6 +821,18 @@ export default function useAssessmentScreen() {
       setIsSaving(false);
     }
   }, [canProceedFromStep, router, saveReviewStep, saveSuggestedVentilatorSettingsStep]);
+
+  const toggleClinicianConfirmed = useCallback(
+    (checked) => {
+      const nextChecked =
+        checked === true ||
+        checked?.target?.checked === true ||
+        checked?.nativeEvent?.value === true ||
+        false;
+      updateInput({ clinicianConfirmed: nextChecked });
+    },
+    [updateInput]
+  );
 
   const togglePermittedMissingField = useCallback(
     (field, checked) => {
@@ -743,6 +896,11 @@ export default function useAssessmentScreen() {
     [recommendationSummary]
   );
 
+  const retryLoadAdmissionForm = useCallback(async () => {
+    clearError();
+    await hydrate();
+  }, [clearError, hydrate]);
+
   return {
     currentStep,
     setCurrentStep: setAssessmentStep,
@@ -751,6 +909,7 @@ export default function useAssessmentScreen() {
     mergedInputs,
     updateInput,
     updateBodyMetric,
+    toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,
     setSummaryExpanded,
@@ -762,16 +921,21 @@ export default function useAssessmentScreen() {
     recommendationMissingInputs,
     recommendationConfidence,
     recommendationErrorCode,
+    validation,
     canProceedFromStep,
     goNext,
     goBack,
     goBackOrExit,
     saveAdmission,
     isSaving,
-    isGenerating: isSaving,
+    isGenerating: isSaving || isGeneratingRecommendation,
+    isGeneratingRecommendation,
     isHydrating,
-    errorCode: saveErrorCode || recommendationErrorCode || errorCode,
+    errorCode: saveErrorCode || errorCode,
+    saveErrorCode,
+    loadErrorCode: errorCode,
     clearError,
+    retryLoadAdmissionForm,
     sessionId,
     admissionId,
     syncStatus,

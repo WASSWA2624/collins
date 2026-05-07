@@ -43,6 +43,10 @@ const DEFAULT_ROLE_VISIBILITY = Object.freeze({
   showFacilitySwitcher: true,
 });
 
+const DEFAULT_DISPLAY_PREFERENCES = Object.freeze({
+  themePreference: 'light',
+});
+
 const DEFAULT_OFFLINE_SYNC_PREFERENCES = Object.freeze({
   offlineModeEnabled: true,
   syncOnWifiOnly: false,
@@ -113,6 +117,7 @@ const normalizeUserSettings = (settings) => {
     activeFacilityId: source.activeFacilityId ?? null,
     memberships,
     roleVisibility: mergeDefaults(DEFAULT_ROLE_VISIBILITY, source.roleVisibility),
+    displayPreferences: mergeDefaults(DEFAULT_DISPLAY_PREFERENCES, source.displayPreferences),
     offlineSyncPreferences: mergeDefaults(
       DEFAULT_OFFLINE_SYNC_PREFERENCES,
       source.offlineSyncPreferences,
@@ -158,6 +163,7 @@ export {
   FACILITY_ADMIN_ROLES,
   GOVERNANCE_ROLES,
   ROLE_LABELS,
+  DEFAULT_DISPLAY_PREFERENCES,
   DEFAULT_OFFLINE_SYNC_PREFERENCES,
   DEFAULT_USER_PRIVACY_CONTROLS,
   normalizeUserSettings,

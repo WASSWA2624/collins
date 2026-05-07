@@ -51,6 +51,29 @@ const clearStoredSession = async () => {
 
 const normalizeSessionError = (error) => (error?.code ? error : handleError(error));
 
+const requireStoredAuthSession = async (data) => {
+  const { user, tokens } = normalizeAuthResponse(data);
+
+  if (!user?.id || !tokens?.accessToken || !tokens?.refreshToken) {
+    throw {
+      code: 'BACKEND_INVALID_RESPONSE',
+      message: 'Invalid auth response',
+      status: 502,
+    };
+  }
+
+  const didStoreTokens = await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
+  if (!didStoreTokens) {
+    throw {
+      code: 'SESSION_STORAGE_FAILED',
+      message: 'Unable to save auth session',
+      status: 500,
+    };
+  }
+
+  return user;
+};
+
 const refreshStoredTokens = async (payload = {}) => {
   const refreshToken = await tokenManager.getRefreshToken();
   if (!refreshToken) {
@@ -88,50 +111,9 @@ const identifyUseCase = async (payload) =>
 const loginUseCase = async (payload) =>
   execute(async () => {
     const parsed = parseCredentials(payload);
-    try {
-      const response = await loginApi(parsed);
-      const data = unwrap(response);
-      if (!data) {
-        throw {
-          code: 'BACKEND_INVALID_RESPONSE',
-          message: 'Invalid login response',
-          status: response?.status || 502,
-        };
-      }
-
-      if (data.requires_facility_selection) {
-        return {
-          requiresFacilitySelection: true,
-          facilities: data.facilities || [],
-          tenantId: data.tenant_id,
-          identifier: payload.email || payload.phone,
-          password: payload.password,
-        };
-      }
-
-      const { user, tokens } = normalizeAuthResponse(data);
-      if (tokens?.accessToken && tokens?.refreshToken) {
-        await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
-      }
-      return user;
-    } catch (apiError) {
-      const isDevelopment = process.env.NODE_ENV === 'development' || __DEV__;
-      const isNetworkError = apiError?.code === 'NETWORK_ERROR' || apiError?.status >= 500;
-      if (isDevelopment && isNetworkError) {
-        const testUser = {
-          id: 'test-user-' + Date.now(),
-          email: parsed.email || 'test@hospital.com',
-          phone: parsed.phone || '+1234567890',
-          role: 'SUPER_ADMIN',
-          status: 'ACTIVE',
-          first_name: 'Test',
-          last_name: 'User',
-        };
-        await tokenManager.setTokens('test-token-' + Date.now(), 'test-token-' + Date.now());
-        return testUser;
-      }
-      throw apiError;
-    }
+    const response = await loginApi(parsed);
+    const data = unwrap(response);
+    return requireStoredAuthSession(data);
   });
 
 const registerUseCase = async (payload) =>
@@ -139,11 +121,7 @@ const registerUseCase = async (payload) =>
     const parsed = parseAuthPayload(payload);
     const response = await registerApi(parsed);
     const data = unwrap(response);
-    const { user, tokens } = normalizeAuthResponse(data);
-    if (tokens?.accessToken && tokens?.refreshToken) {
-      await tokenManager.setTokens(tokens.accessToken, tokens.refreshToken);
-    }
-    return user;
+    return requireStoredAuthSession(data);
   });
 
 const logoutUseCase = async () =>

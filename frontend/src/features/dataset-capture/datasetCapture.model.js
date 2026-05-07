@@ -21,6 +21,39 @@ const DATASET_TRAINING_APPROVAL_ROLES = Object.freeze([
   'research_governance_officer',
 ]);
 
+const DATASET_OUTCOME_REFERENCE_CATEGORIES = Object.freeze({
+  POSITIVE_REFERENCE: {
+    value: 'POSITIVE_REFERENCE',
+    sentiment: 'positive',
+    recommendationUse: 'eligible_positive_reference_after_review',
+    excludeFromRecommendations: false,
+  },
+  NEGATIVE_OR_HARMFUL: {
+    value: 'NEGATIVE_OR_HARMFUL',
+    sentiment: 'negative',
+    recommendationUse: 'negative_or_harmful_reference_after_review',
+    excludeFromRecommendations: false,
+  },
+  NEUTRAL_REVIEW_ONLY: {
+    value: 'NEUTRAL_REVIEW_ONLY',
+    sentiment: 'neutral',
+    recommendationUse: 'review_only_context',
+    excludeFromRecommendations: true,
+  },
+  EXCLUDE_FROM_RECOMMENDATION: {
+    value: 'EXCLUDE_FROM_RECOMMENDATION',
+    sentiment: 'excluded',
+    recommendationUse: 'excluded_from_recommendation_logic',
+    excludeFromRecommendations: true,
+  },
+  OUTCOME_PENDING: {
+    value: 'OUTCOME_PENDING',
+    sentiment: 'pending',
+    recommendationUse: 'pending_outcome_review',
+    excludeFromRecommendations: true,
+  },
+});
+
 const option = (label, value) => ({ label, value });
 
 const YES_NO_UNKNOWN_OPTIONS = Object.freeze([
@@ -28,6 +61,12 @@ const YES_NO_UNKNOWN_OPTIONS = Object.freeze([
   option('Yes', 'YES'),
   option('No', 'NO'),
 ]);
+
+const DEFAULT_DATASET_CAPTURE_FIELD_VALUES = Object.freeze({
+  'provenance.sourceType': 'CLINICIAN_CHART_ABSTRACTION',
+  'provenance.clinicianValidationStatus': 'PENDING_CLINICIAN_VALIDATION',
+  'quality.reviewerConfidence': 'NEEDS_REVIEW',
+});
 
 const DATASET_CAPTURE_SECTION_DEFINITIONS = Object.freeze([
   {
@@ -87,7 +126,7 @@ const DATASET_CAPTURE_SECTION_DEFINITIONS = Object.freeze([
   },
   {
     id: 'quality',
-    title: 'Quality review',
+    title: 'Validity review',
     description: 'Structured uncertainty and readiness flags for reviewer triage.',
   },
 ]);
@@ -491,6 +530,21 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
       option('Outcome pending', 'OUTCOME_PENDING'),
     ],
   },
+  {
+    path: 'outcome.referenceUseCategory',
+    label: 'Recommendation reference category',
+    section: 'Outcome labels',
+    sectionId: 'outcome',
+    type: 'select',
+    required: true,
+    options: [
+      option('Positive reference case', 'POSITIVE_REFERENCE'),
+      option('Negative or harmful outcome case', 'NEGATIVE_OR_HARMFUL'),
+      option('Neutral, reviewer context only', 'NEUTRAL_REVIEW_ONLY'),
+      option('Exclude from recommendation logic', 'EXCLUDE_FROM_RECOMMENDATION'),
+      option('Outcome pending', 'OUTCOME_PENDING'),
+    ],
+  },
   { path: 'outcome.outcomeDate', label: 'Outcome date', section: 'Outcome labels', sectionId: 'outcome', type: 'text' },
   { path: 'outcome.ventilatorDays', label: 'Ventilator days', section: 'Outcome labels', sectionId: 'outcome', type: 'number' },
   { path: 'outcome.icuLengthOfStayDays', label: 'ICU length of stay days', section: 'Outcome labels', sectionId: 'outcome', type: 'number' },
@@ -678,6 +732,90 @@ const NUMERIC_FIELD_PATHS = new Set(
     .map((field) => field.path)
 );
 
+const FIELD_DEFINITION_BY_PATH = Object.freeze(Object.fromEntries(
+  DATASET_CAPTURE_FIELD_DEFINITIONS.map((field) => [field.path, field])
+));
+
+const DATE_FIELD_PATHS = new Set([
+  'outcome.outcomeDate',
+  'provenance.sourceAccessedAt',
+]);
+
+const DATE_TIME_FIELD_PATHS = new Set([
+  'clinicalSnapshot.measuredAt',
+  'abgTest.collectedAt',
+  'ventilatorSetting.measuredAt',
+]);
+
+const FIELD_NUMERIC_RULES = Object.freeze({
+  'patient.ageYears': { min: 0, max: 130, integer: true, message: 'Please enter a valid age in years.' },
+  'patient.ageMonths': { min: 0, max: 11, integer: true, message: 'Please enter a valid age in months.' },
+  'patient.actualWeightKg': { min: 0.3, max: 300, message: 'Please enter a valid weight in kg.' },
+  'patient.heightOrLengthCm': { min: 20, max: 250, message: 'Please enter a valid height or length in cm.' },
+  'patient.referenceWeightKg': { min: 0.3, max: 300, message: 'Please enter a valid reference weight in kg.' },
+  'clinicalSnapshot.spo2': { min: 0, max: 100, message: 'Please enter a valid SpO2 percentage.' },
+  'clinicalSnapshot.fio2': { min: 0.21, max: 1, message: 'Please enter FiO2 as a fraction from 0.21 to 1.0.' },
+  'clinicalSnapshot.respiratoryRate': { min: 1, max: 100, message: 'Please enter a valid respiratory rate.' },
+  'clinicalSnapshot.heartRate': { min: 0, max: 250, message: 'Please enter a valid heart rate.' },
+  'clinicalSnapshot.systolicBp': { min: 0, max: 300, message: 'Please enter a valid systolic BP.' },
+  'clinicalSnapshot.diastolicBp': { min: 0, max: 200, message: 'Please enter a valid diastolic BP.' },
+  'clinicalSnapshot.meanArterialPressure': { min: 0, max: 250, message: 'Please enter a valid mean arterial pressure.' },
+  'clinicalSnapshot.temperatureC': { min: 20, max: 45, message: 'Please enter a valid temperature in Celsius.' },
+  'clinicalSnapshot.gcs': { min: 3, max: 15, integer: true, message: 'Please enter a valid GCS score.' },
+  'clinicalSnapshot.rass': { min: -5, max: 4, integer: true, message: 'Please enter a valid RASS score.' },
+  'abgTest.ph': { min: 6.8, max: 7.8, message: 'Please enter a valid pH value.' },
+  'abgTest.pao2': { min: 0, max: 700, message: 'Please enter a valid PaO2 value.' },
+  'abgTest.paco2': { min: 0, max: 250, message: 'Please enter a valid PaCO2 value.' },
+  'abgTest.hco3': { min: 0, max: 80, message: 'Please enter a valid HCO3 value.' },
+  'abgTest.baseExcess': { min: -40, max: 40, message: 'Please enter a valid base excess value.' },
+  'abgTest.lactate': { min: 0, max: 30, message: 'Please enter a valid lactate value.' },
+  'abgTest.fio2AtSample': { min: 0.21, max: 1, message: 'Please enter FiO2 at sample as a fraction from 0.21 to 1.0.' },
+  'abgTest.spo2AtSample': { min: 0, max: 100, message: 'Please enter a valid SpO2 at sample percentage.' },
+  'ventilatorSetting.tidalVolumeMl': { min: 0, max: 3000, message: 'Please enter a valid tidal volume.' },
+  'ventilatorSetting.vtMlPerKgReferenceWeight': { min: 1, max: 20, message: 'Please enter a valid VT mL/kg reference weight.' },
+  'ventilatorSetting.respiratoryRateSet': { min: 0, max: 100, message: 'Please enter a valid set respiratory rate.' },
+  'ventilatorSetting.respiratoryRateMeasured': { min: 0, max: 100, message: 'Please enter a valid measured respiratory rate.' },
+  'ventilatorSetting.fio2': { min: 0.21, max: 1, message: 'Please enter ventilator FiO2 as a fraction from 0.21 to 1.0.' },
+  'ventilatorSetting.peep': { min: 0, max: 50, message: 'Please enter a valid PEEP value.' },
+  'ventilatorSetting.pressureSupport': { min: 0, max: 80, message: 'Please enter a valid pressure support value.' },
+  'ventilatorSetting.inspiratoryPressure': { min: 0, max: 80, message: 'Please enter a valid inspiratory pressure.' },
+  'ventilatorSetting.peakPressure': { min: 0, max: 100, message: 'Please enter a valid peak pressure.' },
+  'ventilatorSetting.plateauPressure': { min: 0, max: 80, message: 'Please enter a valid plateau pressure.' },
+  'ventilatorSetting.drivingPressure': { min: 0, max: 80, message: 'Please enter a valid driving pressure.' },
+  'ventilatorSetting.minuteVolumeLMin': { min: 0, max: 50, message: 'Please enter a valid minute volume.' },
+  'ventilatorSetting.autoPeep': { min: 0, max: 50, message: 'Please enter a valid auto-PEEP value.' },
+  'ventilatorSetting.leakPercent': { min: 0, max: 100, message: 'Please enter a valid leak percentage.' },
+  'targetRanges.spo2Lower': { min: 0, max: 100, message: 'Please enter a valid lower SpO2 target.' },
+  'targetRanges.spo2Upper': { min: 0, max: 100, message: 'Please enter a valid upper SpO2 target.' },
+  'targetRanges.pao2Lower': { min: 0, max: 700, message: 'Please enter a valid lower PaO2 target.' },
+  'targetRanges.pao2Upper': { min: 0, max: 700, message: 'Please enter a valid upper PaO2 target.' },
+  'targetRanges.paco2Lower': { min: 0, max: 250, message: 'Please enter a valid lower PaCO2 target.' },
+  'targetRanges.paco2Upper': { min: 0, max: 250, message: 'Please enter a valid upper PaCO2 target.' },
+  'targetRanges.phLower': { min: 6.8, max: 7.8, message: 'Please enter a valid lower pH target.' },
+  'targetRanges.phUpper': { min: 6.8, max: 7.8, message: 'Please enter a valid upper pH target.' },
+  'targetRanges.vtMlPerKgLower': { min: 1, max: 20, message: 'Please enter a valid lower VT mL/kg target.' },
+  'targetRanges.vtMlPerKgUpper': { min: 1, max: 20, message: 'Please enter a valid upper VT mL/kg target.' },
+  'targetRanges.plateauPressureMax': { min: 0, max: 80, message: 'Please enter a valid plateau pressure maximum.' },
+  'targetRanges.drivingPressureMax': { min: 0, max: 80, message: 'Please enter a valid driving pressure maximum.' },
+  'targetRanges.peepLower': { min: 0, max: 50, message: 'Please enter a valid lower PEEP target.' },
+  'targetRanges.peepUpper': { min: 0, max: 50, message: 'Please enter a valid upper PEEP target.' },
+  'airwaySupport.internalDiameterMm': { min: 2, max: 12, message: 'Please enter a valid internal diameter.' },
+  'airwaySupport.depthCm': { min: 1, max: 40, message: 'Please enter a valid tube depth.' },
+  'airwaySupport.cuffPressureCmH2O': { min: 0, max: 80, message: 'Please enter a valid cuff pressure.' },
+  'outcome.ventilatorDays': { min: 0, max: 365, message: 'Please enter valid ventilator days.' },
+  'outcome.icuLengthOfStayDays': { min: 0, max: 365, message: 'Please enter a valid ICU length of stay.' },
+  'outcome.hospitalLengthOfStayDays': { min: 0, max: 1000, message: 'Please enter a valid hospital length of stay.' },
+});
+
+const RANGE_FIELD_PAIRS = Object.freeze([
+  ['targetRanges.spo2Lower', 'targetRanges.spo2Upper', 'SpO2 lower target must be less than or equal to the upper target.'],
+  ['targetRanges.pao2Lower', 'targetRanges.pao2Upper', 'PaO2 lower target must be less than or equal to the upper target.'],
+  ['targetRanges.paco2Lower', 'targetRanges.paco2Upper', 'PaCO2 lower target must be less than or equal to the upper target.'],
+  ['targetRanges.phLower', 'targetRanges.phUpper', 'pH lower target must be less than or equal to the upper target.'],
+  ['targetRanges.vtMlPerKgLower', 'targetRanges.vtMlPerKgUpper', 'VT mL/kg lower target must be less than or equal to the upper target.'],
+  ['targetRanges.peepLower', 'targetRanges.peepUpper', 'PEEP lower target must be less than or equal to the upper target.'],
+]);
+
 const createEmptyDatasetCapturePreview = () => {
   const preview = {
     captureMetadata: {
@@ -690,9 +828,9 @@ const createEmptyDatasetCapturePreview = () => {
   DATASET_CAPTURE_FIELD_DEFINITIONS.forEach((field) => {
     setByPath(preview, field.path, null);
   });
-  preview.provenance.sourceType = 'CLINICIAN_CHART_ABSTRACTION';
-  preview.provenance.clinicianValidationStatus = 'PENDING_CLINICIAN_VALIDATION';
-  preview.quality.reviewerConfidence = 'NEEDS_REVIEW';
+  Object.entries(DEFAULT_DATASET_CAPTURE_FIELD_VALUES).forEach(([path, value]) => {
+    setByPath(preview, path, value);
+  });
 
   return preview;
 };
@@ -772,6 +910,143 @@ const normalizeEditableValue = (path, value) => {
   return Number.isFinite(number) ? number : null;
 };
 
+const isBlankValue = (value) => value === null || value === undefined || String(value).trim() === '';
+
+const isValidDateString = (value) => {
+  const text = String(value || '').trim();
+  if (!text) return true;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+    const parsed = new Date(`${text}T00:00:00.000Z`);
+    return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === text;
+  }
+  const parsed = new Date(text);
+  return !Number.isNaN(parsed.getTime());
+};
+
+const isValidDateTimeString = (value) => {
+  const text = String(value || '').trim();
+  if (!text) return true;
+  return !Number.isNaN(new Date(text).getTime());
+};
+
+const createValidationDetail = (field, message, category = 'invalid') => ({
+  path: field.path,
+  label: field.label,
+  section: field.section,
+  sectionId: field.sectionId,
+  message,
+  category,
+});
+
+const validateDatasetCaptureFieldValues = (fieldValues = {}, options = {}) => {
+  const sectionId = options?.sectionId;
+  const fields = sectionId
+    ? DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => field.sectionId === sectionId)
+    : DATASET_CAPTURE_FIELD_DEFINITIONS;
+  const fieldPathSet = new Set(fields.map((field) => field.path));
+  const details = [];
+
+  fields.forEach((field) => {
+    const rawValue = fieldValues[field.path];
+    const blank = isBlankValue(rawValue);
+
+    if (field.required && blank) {
+      details.push(createValidationDetail(field, 'This field is required before continuing.', 'required'));
+      return;
+    }
+
+    if (blank) return;
+
+    if (field.type === 'select') {
+      const allowedValues = new Set((field.options || []).map((item) => item.value));
+      if (allowedValues.size > 0 && !allowedValues.has(String(rawValue))) {
+        details.push(createValidationDetail(field, 'Please choose a valid option.'));
+      }
+      return;
+    }
+
+    if (field.type === 'number') {
+      const numberValue = Number(rawValue);
+      const rule = FIELD_NUMERIC_RULES[field.path];
+      if (!Number.isFinite(numberValue)) {
+        details.push(createValidationDetail(field, rule?.message || `Please enter a valid ${field.label}.`));
+        return;
+      }
+      if (rule?.integer && !Number.isInteger(numberValue)) {
+        details.push(createValidationDetail(field, rule.message));
+        return;
+      }
+      if ((Number.isFinite(rule?.min) && numberValue < rule.min) || (Number.isFinite(rule?.max) && numberValue > rule.max)) {
+        details.push(createValidationDetail(field, rule.message));
+      }
+      return;
+    }
+
+    if (DATE_FIELD_PATHS.has(field.path) && !isValidDateString(rawValue)) {
+      details.push(createValidationDetail(field, 'Please enter a valid date.'));
+      return;
+    }
+
+    if (DATE_TIME_FIELD_PATHS.has(field.path) && !isValidDateTimeString(rawValue)) {
+      details.push(createValidationDetail(field, 'Please enter a valid date/time.'));
+    }
+  });
+
+  RANGE_FIELD_PAIRS.forEach(([lowerPath, upperPath, message]) => {
+    if (!fieldPathSet.has(lowerPath) && !fieldPathSet.has(upperPath)) return;
+    const lowerRaw = fieldValues[lowerPath];
+    const upperRaw = fieldValues[upperPath];
+    if (isBlankValue(lowerRaw) || isBlankValue(upperRaw)) return;
+    const lower = Number(lowerRaw);
+    const upper = Number(upperRaw);
+    if (!Number.isFinite(lower) || !Number.isFinite(upper) || lower <= upper) return;
+    const field = FIELD_DEFINITION_BY_PATH[upperPath] || FIELD_DEFINITION_BY_PATH[lowerPath];
+    details.push(createValidationDetail(field, message));
+  });
+
+  const outcomeType = String(fieldValues['outcome.outcomeType'] || '');
+  const referenceUseCategory = String(fieldValues['outcome.referenceUseCategory'] || '');
+  const poorOutcomeSignals = new Set(['DECEASED']);
+  const worseningSignals = [
+    fieldValues['outcome.reintubationWithin48h'] === 'YES',
+    fieldValues['outcome.responseAt1Hour'] === 'WORSE',
+    fieldValues['outcome.responseAt6Hours'] === 'WORSE',
+    fieldValues['outcome.responseAt24Hours'] === 'WORSE',
+  ];
+
+  if (fieldPathSet.has('outcome.referenceUseCategory') && referenceUseCategory === 'POSITIVE_REFERENCE') {
+    if (poorOutcomeSignals.has(outcomeType) || worseningSignals.some(Boolean)) {
+      details.push(createValidationDetail(
+        FIELD_DEFINITION_BY_PATH['outcome.referenceUseCategory'],
+        'Poor, unsafe, or worsening outcomes cannot be marked as positive reference cases without correction.'
+      ));
+    }
+  }
+
+  if (
+    fieldPathSet.has('outcome.referenceUseCategory') &&
+    outcomeType === 'OUTCOME_PENDING' &&
+    !['OUTCOME_PENDING', 'NEUTRAL_REVIEW_ONLY', 'EXCLUDE_FROM_RECOMMENDATION'].includes(referenceUseCategory)
+  ) {
+    details.push(createValidationDetail(
+      FIELD_DEFINITION_BY_PATH['outcome.referenceUseCategory'],
+      'Outcome-pending records must be marked pending, review only, or excluded from recommendation logic.'
+    ));
+  }
+
+  const fieldErrors = details.reduce((acc, detail) => {
+    if (!acc[detail.path]) acc[detail.path] = detail.message;
+    return acc;
+  }, {});
+
+  return {
+    valid: details.length === 0,
+    fieldErrors,
+    errorDetails: details,
+    invalidFields: details.map((detail) => detail.path),
+  };
+};
+
 const flattenDatasetPreview = (preview) => Object.fromEntries(
   DATASET_CAPTURE_FIELD_DEFINITIONS.map((field) => {
     const value = getByPath(preview, field.path);
@@ -816,19 +1091,37 @@ const getMissingDatasetFields = (preview) =>
 const hasAnyDatasetCaptureValue = (fieldValues = {}) =>
   DATASET_CAPTURE_FIELD_DEFINITIONS.some((field) => {
     const value = fieldValues[field.path];
-    return value !== null && value !== undefined && String(value).trim() !== '';
+    const defaultValue = DEFAULT_DATASET_CAPTURE_FIELD_VALUES[field.path];
+    return (
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== '' &&
+      (defaultValue === undefined || String(value) !== String(defaultValue))
+    );
   });
 
 const getDatasetCaptureCompleteness = (fieldValues = {}) => {
-  const preview = hydrateDatasetPreview(fieldValues);
-  const missingFieldDetails = getMissingDatasetFieldDetails(preview);
+  const validation = validateDatasetCaptureFieldValues(fieldValues);
+  const missingFieldDetails = validation.errorDetails.filter((field) => field.category === 'required');
   const missingFields = missingFieldDetails.map((field) => field.path);
   const requiredTotal = DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => field.required).length;
-  const requiredComplete = requiredTotal - missingFields.length;
+  const requiredIncompleteFields = new Set(
+    validation.errorDetails
+      .filter((field) => FIELD_DEFINITION_BY_PATH[field.path]?.required)
+      .map((field) => field.path)
+  );
+  const requiredComplete = requiredTotal - requiredIncompleteFields.size;
   const enteredTotal = DATASET_CAPTURE_FIELD_DEFINITIONS.filter((field) => {
     const value = fieldValues[field.path];
-    return value !== null && value !== undefined && String(value).trim() !== '';
+    const defaultValue = DEFAULT_DATASET_CAPTURE_FIELD_VALUES[field.path];
+    return (
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== '' &&
+      (defaultValue === undefined || String(value) !== String(defaultValue))
+    );
   }).length;
+  const invalidFieldDetails = validation.errorDetails.filter((field) => field.category !== 'required');
 
   return {
     enteredTotal,
@@ -837,6 +1130,11 @@ const getDatasetCaptureCompleteness = (fieldValues = {}) => {
     requiredTotal,
     missingFields,
     missingFieldDetails,
+    invalidFields: invalidFieldDetails.map((field) => field.path),
+    invalidFieldDetails,
+    validationErrorDetails: validation.errorDetails,
+    fieldErrors: validation.fieldErrors,
+    isValid: validation.valid,
   };
 };
 
@@ -946,6 +1244,20 @@ const createDatasetCaptureClientRecordId = (prefix = 'dataset-capture') => {
   return `${prefix}-${timestamp}-${suffix}`;
 };
 
+const buildDatasetOutcomeReview = (preview = {}) => {
+  const selectedCategory = preview?.outcome?.referenceUseCategory || 'OUTCOME_PENDING';
+  const profile = DATASET_OUTCOME_REFERENCE_CATEGORIES[selectedCategory] || DATASET_OUTCOME_REFERENCE_CATEGORIES.OUTCOME_PENDING;
+
+  return {
+    referenceUseCategory: profile.value,
+    outcomeSentiment: profile.sentiment,
+    recommendationUse: profile.recommendationUse,
+    excludeFromRecommendations: profile.excludeFromRecommendations,
+    clinicianAssigned: true,
+    requiresHumanReview: true,
+  };
+};
+
 const buildDatasetCaptureSubmission = ({
   facilityId,
   fieldValues,
@@ -967,7 +1279,9 @@ const buildDatasetCaptureSubmission = ({
     submittedAt: timestamp,
     sourceType: provenance.sourceType || 'CLINICIAN_CHART_ABSTRACTION',
     clinicianValidationStatus: provenance.clinicianValidationStatus || 'PENDING_CLINICIAN_VALIDATION',
+    outcomeReview: buildDatasetOutcomeReview(structuredPreviewJson),
   };
+  const outcomeReview = buildDatasetOutcomeReview(structuredPreviewJson);
 
   return {
     facilityId,
@@ -980,6 +1294,7 @@ const buildDatasetCaptureSubmission = ({
       externalModelServicesUsed: false,
       pendingHumanReview: true,
       clinicianValidationStatus: provenance.clinicianValidationStatus || 'PENDING_CLINICIAN_VALIDATION',
+      outcomeReview,
       sourceProvenance: {
         sourceType: provenance.sourceType || 'CLINICIAN_CHART_ABSTRACTION',
         sourceName: provenance.sourceName || null,
@@ -1025,7 +1340,10 @@ export {
   DATASET_CAPTURE_SCHEMA_VERSION,
   DATASET_CAPTURE_SECTION_DEFINITIONS,
   DATASET_CAPTURE_SOURCE_TYPE,
+  DATASET_OUTCOME_REFERENCE_CATEGORIES,
   DATASET_TRAINING_APPROVAL_ROLES,
+  DEFAULT_DATASET_CAPTURE_FIELD_VALUES,
+  buildDatasetOutcomeReview,
   buildDatasetCaptureSubmission,
   canApproveTrainingDataset,
   canCaptureDatasetCandidate,
@@ -1041,4 +1359,5 @@ export {
   hydrateDatasetPreview,
   parseDatasetCaptureNote,
   resolveDatasetCaptureFacilityId,
+  validateDatasetCaptureFieldValues,
 };

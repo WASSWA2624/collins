@@ -23,6 +23,13 @@ const DASHBOARD_LABELS = Object.freeze({
 });
 
 const EMPTY_ROWS = Object.freeze([]);
+const CONNECTION_ERROR_CODES = new Set([
+  'BACKEND_HOST_UNREACHABLE',
+  'BACKEND_UNAVAILABLE',
+  'NETWORK_ERROR',
+  'REQUEST_TIMEOUT',
+  'SECURE_CONNECTION_FAILED',
+]);
 
 const numberOrZero = (value) => (Number.isFinite(Number(value)) ? Number(value) : 0);
 
@@ -199,12 +206,26 @@ const getVisibleTypes = (capabilities) => [
 const getDashboardErrorTitle = (type) =>
   `Unable to load ${(DASHBOARD_LABELS[type] || 'dashboard').toLowerCase()} dashboard`;
 
-const getDashboardErrorMessage = (error) =>
-  error?.safeMessage || error?.message || 'Unable to load dashboard';
+const getDashboardErrorMessage = (error) => {
+  const code = String(error?.code || '').toUpperCase();
+  if (CONNECTION_ERROR_CODES.has(code)) {
+    return 'Unable to load dashboard data. Please check your connection and try again.';
+  }
+  if (code === 'FORBIDDEN') {
+    return 'Dashboard access requires an approved facility role.';
+  }
+  if (code === 'UNAUTHORIZED' || code === 'SESSION_EXPIRED') {
+    return 'Your session has expired. Please sign in again to load dashboard data.';
+  }
+  return 'Something went wrong while loading the dashboard. Please try again.';
+};
 
 export default function useDashboardScreen() {
-  const { user, roles } = useAuth();
-  const activeFacility = useMemo(() => getActiveFacilityContext(user), [user]);
+  const { activeFacility: selectedActiveFacility, user, roles } = useAuth();
+  const activeFacility = useMemo(
+    () => selectedActiveFacility || getActiveFacilityContext(user),
+    [selectedActiveFacility, user],
+  );
   const roleKeys = useMemo(() => {
     const authRoles = Array.isArray(roles) ? roles : [];
     const facilityRoles = Array.isArray(activeFacility?.roles) ? activeFacility.roles : [];
@@ -233,13 +254,13 @@ export default function useDashboardScreen() {
       ...(facilityId && !isPlatformAdmin ? { facilityId } : {}),
     };
   }, [activeFacility?.facilityId, activeFacility?.id, isPlatformAdmin]);
+  const requiresFacilityScope = visibleTypes.length > 0 && !isPlatformAdmin && !dashboardParams.facilityId;
 
   const loadDashboard = useCallback(async () => {
     const requestId = requestIdRef.current + 1;
     requestIdRef.current = requestId;
 
-    if (!visibleTypes.includes(activeType)) {
-      setDashboard(null);
+    if (!visibleTypes.includes(activeType) || requiresFacilityScope) {
       setErrorMessage(null);
       setIsLoading(false);
       return;
@@ -247,40 +268,44 @@ export default function useDashboardScreen() {
 
     setIsLoading(true);
     setErrorMessage(null);
-    setDashboard(null);
     try {
       const data = await loadDashboardUseCase(activeType, dashboardParams);
       if (requestIdRef.current === requestId) setDashboard(data);
     } catch (error) {
       if (requestIdRef.current === requestId) {
-        setDashboard(null);
         setErrorMessage(getDashboardErrorMessage(error));
       }
     } finally {
       if (requestIdRef.current === requestId) setIsLoading(false);
     }
-  }, [activeType, dashboardParams, visibleTypes]);
+  }, [activeType, dashboardParams, requiresFacilityScope, visibleTypes]);
 
   useEffect(() => {
     void loadDashboard();
   }, [loadDashboard]);
 
-  const metrics = useMemo(() => getMetricsForDashboard(activeType, dashboard), [activeType, dashboard]);
-  const sections = useMemo(() => getSectionsForDashboard(activeType, dashboard), [activeType, dashboard]);
+  const canDisplayDashboard = visibleTypes.includes(activeType) && !requiresFacilityScope;
+  const activeDashboard = canDisplayDashboard && dashboard?.dashboard === activeType ? dashboard : null;
+  const metrics = useMemo(() => getMetricsForDashboard(activeType, activeDashboard), [activeType, activeDashboard]);
+  const sections = useMemo(() => getSectionsForDashboard(activeType, activeDashboard), [activeType, activeDashboard]);
   const tabs = useMemo(() => visibleTypes.map((type) => ({
     id: type,
     label: DASHBOARD_LABELS[type],
   })), [visibleTypes]);
-  const scopeLabel = dashboard?.scope?.facility?.name || (
-    dashboard?.scope?.scope === 'platform' || isPlatformAdmin
+  const scopeLabel = activeDashboard?.scope?.facility?.name || (
+    activeDashboard?.scope?.scope === 'platform' || isPlatformAdmin
       ? 'Platform scope'
       : activeFacility?.name || 'No active facility'
   );
+  const emptyMessage = requiresFacilityScope
+    ? 'Select an active facility to view dashboard data.'
+    : 'No dashboard data is available yet.';
 
   return {
     activeFacility,
     activeType,
-    dashboard,
+    dashboard: activeDashboard,
+    emptyMessage,
     errorTitle: errorMessage ? getDashboardErrorTitle(activeType) : null,
     errorMessage,
     isLoading,

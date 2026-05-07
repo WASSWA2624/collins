@@ -14,6 +14,10 @@ const roleVisibilitySettings = z.object({
   showFacilitySwitcher: z.boolean().optional(),
 }).strict();
 
+const displayPreferences = z.object({
+  themePreference: z.enum(['system', 'light', 'dark', 'high-contrast']).optional(),
+}).strict();
+
 const offlineSyncPreferences = z.object({
   offlineModeEnabled: z.boolean().optional(),
   syncOnWifiOnly: z.boolean().optional(),
@@ -74,6 +78,7 @@ export const userSettingsSchema = z.object({
     account: accountSettings.optional(),
     activeFacilityId: z.string().trim().min(1).nullable().optional(),
     roleVisibility: roleVisibilitySettings.optional(),
+    displayPreferences: displayPreferences.optional(),
     offlineSyncPreferences: offlineSyncPreferences.optional(),
     privacyControls: userPrivacyControls.optional(),
     reason: z.string().trim().max(1000).optional(),
@@ -82,6 +87,7 @@ export const userSettingsSchema = z.object({
       'account',
       'activeFacilityId',
       'roleVisibility',
+      'displayPreferences',
       'offlineSyncPreferences',
       'privacyControls',
     ]),

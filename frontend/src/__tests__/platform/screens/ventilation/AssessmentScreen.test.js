@@ -87,7 +87,10 @@ jest.mock('@features/ventilation', () => ({
 const AssessmentScreenAndroid = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.android').default;
 const AssessmentScreenIOS = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.ios').default;
 const AssessmentScreenWeb = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.web').default;
-const { updateBodyMetricInputs } = require('@platform/screens/ventilation/AssessmentScreen/useAssessmentScreen');
+const {
+  parseAdmissionNumberInput,
+  updateBodyMetricInputs,
+} = require('@platform/screens/ventilation/AssessmentScreen/useAssessmentScreen');
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 const useVentilationSession = require('@hooks/useVentilationSession');
@@ -304,6 +307,69 @@ describe('AssessmentScreen', () => {
       expect(getByTestId('assessment-suggested-tidal-volume')).toBeTruthy();
     });
 
+    it('updates clinician confirmation when the final checkbox is pressed', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 2,
+        inputs: {
+          clientRecordId: 'admission-test-client',
+          patientPathway: 'ADULT',
+          clinicianConfirmed: false,
+        },
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      const checkbox = getByTestId('assessment-clinician-confirmed');
+      fireEvent.press(checkbox);
+      fireEvent(checkbox, 'change', { target: { checked: true } });
+
+      expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+        clinicianConfirmed: true,
+      }));
+    });
+
+    it('blocks step navigation for impossible clinical values as the user enters them', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+        inputs: {
+          clientRecordId: 'admission-test-client',
+          patientPathway: 'ADULT',
+          spo2: 140,
+        },
+      });
+
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      const nextBtn = getByTestId('assessment-next');
+
+      expect(getByText('SpO2 must be between 40 and 100.')).toBeTruthy();
+      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeTruthy();
+    });
+
+    it('continues to review when dataset recommendation generation fails', async () => {
+      getVentilationRecommendationUseCase.mockRejectedValueOnce({ code: 'ADMISSION_RECOMMENDATION_FAILED' });
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+        inputs: {
+          admissionId: 'admission-1',
+          clientRecordId: 'admission-test-client',
+          patientPathway: 'ADULT',
+          spo2: 88,
+        },
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setRecommendationSummary).toHaveBeenCalledWith(null);
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
+      });
+    });
+
     it('saves suggested ventilator settings before completing admit review', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
@@ -376,6 +442,12 @@ describe('AssessmentScreen', () => {
   });
 
   describe('Body metrics', () => {
+    it('parses only complete numeric input', () => {
+      expect(parseAdmissionNumberInput('0.5')).toBe(0.5);
+      expect(parseAdmissionNumberInput('12abc')).toBeNull();
+      expect(parseAdmissionNumberInput('')).toBeNull();
+    });
+
     it('calculates BMI from weight and height', () => {
       const first = updateBodyMetricInputs({}, 'actualWeightKg', 70);
       const second = updateBodyMetricInputs(first, 'heightOrLengthCm', 175);

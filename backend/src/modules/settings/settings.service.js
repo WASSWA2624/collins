@@ -50,6 +50,10 @@ const DEFAULT_ROLE_VISIBILITY = Object.freeze({
   showFacilitySwitcher: true,
 });
 
+const DEFAULT_DISPLAY_PREFERENCES = Object.freeze({
+  themePreference: 'light',
+});
+
 const DEFAULT_OFFLINE_SYNC_PREFERENCES = Object.freeze({
   offlineModeEnabled: true,
   syncOnWifiOnly: false,
@@ -201,6 +205,7 @@ const buildUserSettingsPayload = async (userId, tx = prisma) => {
     activeFacilityId,
     memberships,
     roleVisibility: normalizeRoleVisibility(settings, memberships, activeFacilityId),
+    displayPreferences: mergeSettings(DEFAULT_DISPLAY_PREFERENCES, settings?.displayPreferencesJson),
     offlineSyncPreferences: mergeSettings(
       DEFAULT_OFFLINE_SYNC_PREFERENCES,
       settings?.offlineSyncPreferencesJson,
@@ -214,6 +219,7 @@ const updatedUserSections = (payload) => [
   payload.account ? 'account' : null,
   payload.activeFacilityId !== undefined ? 'active_facility' : null,
   payload.roleVisibility ? 'role_visibility' : null,
+  payload.displayPreferences ? 'display_preferences' : null,
   payload.offlineSyncPreferences ? 'offline_sync_preferences' : null,
   payload.privacyControls ? 'privacy_controls' : null,
 ].filter(Boolean);
@@ -239,6 +245,9 @@ export const updateUserSettings = async (userId, payload, auditContext = {}) => 
   const nextRoleVisibility = payload.roleVisibility
     ? mergeSettings(DEFAULT_ROLE_VISIBILITY, existingSettings?.roleVisibilityJson, payload.roleVisibility)
     : undefined;
+  const nextDisplayPreferences = payload.displayPreferences
+    ? mergeSettings(DEFAULT_DISPLAY_PREFERENCES, existingSettings?.displayPreferencesJson, payload.displayPreferences)
+    : undefined;
   const nextOfflineSyncPreferences = payload.offlineSyncPreferences
     ? mergeSettings(
       DEFAULT_OFFLINE_SYNC_PREFERENCES,
@@ -258,6 +267,7 @@ export const updateUserSettings = async (userId, payload, auditContext = {}) => 
   const settingsData = stripUndefined({
     activeFacilityId: payload.activeFacilityId !== undefined ? payload.activeFacilityId : undefined,
     roleVisibilityJson: nextRoleVisibility,
+    displayPreferencesJson: nextDisplayPreferences,
     offlineSyncPreferencesJson: nextOfflineSyncPreferences,
     privacyControlsJson: nextPrivacyControls,
   });
@@ -291,6 +301,7 @@ export const updateUserSettings = async (userId, payload, auditContext = {}) => 
         activeFacilityId: nextActiveFacilityId,
         account: accountData || undefined,
         roleVisibility: nextRoleVisibility,
+        displayPreferences: nextDisplayPreferences,
         offlineSyncPreferences: nextOfflineSyncPreferences,
         privacyControls: nextPrivacyControls,
       },

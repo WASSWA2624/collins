@@ -240,6 +240,14 @@ describe('auth entry screens', () => {
     });
   });
 
+  it('shows a disabled sign-in loading state', () => {
+    mockAuthState = createAuthState({ isLoading: true });
+    const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
+
+    expect(getByText('Signing in...')).toBeTruthy();
+    expect(getByTestId('login-submit').props.accessibilityState.disabled).toBe(true);
+  });
+
   it('shows backend route failures as red sign-in errors', () => {
     mockAuthState = createAuthState({ errorCode: 'BACKEND_ENDPOINT_NOT_FOUND' });
     const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
@@ -248,12 +256,12 @@ describe('auth entry screens', () => {
     expect(getByTestId('login-error-banner').props.variant).toBe('error');
   });
 
-  it('shows network sign-in failures as warning errors', () => {
+  it('shows network sign-in failures as red connection errors', () => {
     mockAuthState = createAuthState({ errorCode: 'NETWORK_ERROR' });
     const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
 
-    expect(getByText('Network connection failed')).toBeTruthy();
-    expect(getByTestId('login-error-banner').props.variant).toBe('warning');
+    expect(getByText('We could not connect to the server. Please check your internet connection and try again.')).toBeTruthy();
+    expect(getByTestId('login-error-banner').props.variant).toBe('error');
   });
 
   it('renders a branded registration entry with sign-in navigation', () => {
@@ -296,6 +304,14 @@ describe('auth entry screens', () => {
         password: 'long-pass',
       });
     });
+  });
+
+  it('shows a disabled registration loading state', () => {
+    mockAuthState = createAuthState({ isLoading: true });
+    const { getByTestId, getByText } = renderWithTheme(<RegisterScreen />);
+
+    expect(getByText('Creating account...')).toBeTruthy();
+    expect(getByTestId('register-submit').props.accessibilityState.disabled).toBe(true);
   });
 
   it('submits an optional facility affiliation as a pending clinician request', async () => {

@@ -29,12 +29,68 @@ const GOVERNANCE_ROLES = Object.freeze([
   MEMBERSHIP_ROLES.MODEL_GOVERNANCE_OFFICER,
 ]);
 
-const numberWithDefault = z.number().catch(0);
-const statusCountsSchema = z.record(z.string(), z.number()).catch({});
+const numberWithDefault = z.coerce.number().catch(0);
+const statusCountsSchema = z.record(z.string(), numberWithDefault).catch({});
 const trendSchema = z.array(z.object({
   date: z.string().min(1),
   count: numberWithDefault,
 }).passthrough()).catch([]);
+
+const reviewBacklogDefault = Object.freeze({
+  admissions: {},
+  abgTests: {},
+  ventilatorSettings: {},
+  datasetCases: {},
+});
+
+const syncConflictsDefault = Object.freeze({
+  total: 0,
+  byStatus: {},
+  byOperation: {},
+  trend: [],
+});
+
+const datasetReadinessDefault = Object.freeze({
+  total: 0,
+  statusCounts: {},
+  approvedForTraining: 0,
+  exportEligible: 0,
+  missingGovernance: 0,
+  byDatasetVersion: {},
+});
+
+const overrideSummaryDefault = Object.freeze({
+  auditedOverrides: 0,
+  correctionRequests: 0,
+  exclusions: 0,
+  reviewApprovals: 0,
+  auditedOverrideTrend: [],
+});
+
+const referenceGovernanceDefault = Object.freeze({
+  verificationBacklog: 0,
+  activeVersions: 0,
+  retiredVersions: 0,
+  byGovernanceStatus: {},
+  auditSummary: {},
+  auditTrend: [],
+});
+
+const modelGovernanceDefault = Object.freeze({
+  byApprovalStatus: {},
+  shadowOutputs: 0,
+  outputsInWindow: 0,
+  modelsMissingReadinessMetadata: 0,
+  outputTrend: [],
+  liveClinicalPredictionEnabled: false,
+});
+
+const auditSummaryDefault = Object.freeze({
+  total: 0,
+  byAction: {},
+  byEntityType: {},
+  trend: [],
+});
 
 const facilitySchema = z.object({
   id: z.string().min(1),
@@ -59,24 +115,14 @@ const reviewBacklogSchema = z.object({
   abgTests: statusCountsSchema,
   ventilatorSettings: statusCountsSchema,
   datasetCases: statusCountsSchema,
-}).passthrough().catch({
-  admissions: {},
-  abgTests: {},
-  ventilatorSettings: {},
-  datasetCases: {},
-});
+}).passthrough().catch(reviewBacklogDefault);
 
 const syncConflictsSchema = z.object({
   total: numberWithDefault,
   byStatus: statusCountsSchema,
   byOperation: statusCountsSchema,
   trend: trendSchema,
-}).passthrough().catch({
-  total: 0,
-  byStatus: {},
-  byOperation: {},
-  trend: [],
-});
+}).passthrough().catch(syncConflictsDefault);
 
 const datasetReadinessSchema = z.object({
   total: numberWithDefault,
@@ -86,7 +132,7 @@ const datasetReadinessSchema = z.object({
   missingGovernance: numberWithDefault,
   byDatasetVersion: statusCountsSchema,
   exportRule: z.string().optional(),
-}).passthrough();
+}).passthrough().catch(datasetReadinessDefault);
 
 const overrideSummarySchema = z.object({
   auditedOverrides: numberWithDefault,
@@ -95,7 +141,7 @@ const overrideSummarySchema = z.object({
   reviewApprovals: numberWithDefault,
   auditedOverrideTrend: trendSchema,
   source: z.string().optional(),
-}).passthrough();
+}).passthrough().catch(overrideSummaryDefault);
 
 const referenceGovernanceSchema = z.object({
   verificationBacklog: numberWithDefault,
@@ -105,7 +151,7 @@ const referenceGovernanceSchema = z.object({
   auditSummary: statusCountsSchema,
   auditTrend: trendSchema,
   safetyStatement: z.string().optional(),
-}).passthrough();
+}).passthrough().catch(referenceGovernanceDefault);
 
 const modelGovernanceSchema = z.object({
   byApprovalStatus: statusCountsSchema,
@@ -116,34 +162,60 @@ const modelGovernanceSchema = z.object({
   liveClinicalPredictionEnabled: z.boolean().catch(false),
   driftMetricSource: z.string().optional(),
   safetyStatement: z.string().optional(),
-}).passthrough();
+}).passthrough().catch(modelGovernanceDefault);
 
 const auditSummarySchema = z.object({
   total: numberWithDefault,
   byAction: statusCountsSchema,
   byEntityType: statusCountsSchema,
   trend: trendSchema,
-}).passthrough();
+}).passthrough().catch(auditSummaryDefault);
+
+const clinicalWorkloadSchema = z.object({
+  counts: z.object({
+    activeAdmissions: numberWithDefault,
+    newAdmissions: numberWithDefault,
+    pendingDailyReviews: numberWithDefault,
+    recentAbgTests: numberWithDefault,
+    recentVentilatorUpdates: numberWithDefault,
+  }).passthrough().catch({
+    activeAdmissions: 0,
+    newAdmissions: 0,
+    pendingDailyReviews: 0,
+    recentAbgTests: 0,
+    recentVentilatorUpdates: 0,
+  }),
+  reviewBacklog: reviewBacklogSchema,
+  trends: z.object({
+    admissions: trendSchema,
+    abgTests: trendSchema,
+    ventilatorSettings: trendSchema,
+  }).passthrough().catch({
+    admissions: [],
+    abgTests: [],
+    ventilatorSettings: [],
+  }),
+}).passthrough().catch({
+  counts: {
+    activeAdmissions: 0,
+    newAdmissions: 0,
+    pendingDailyReviews: 0,
+    recentAbgTests: 0,
+    recentVentilatorUpdates: 0,
+  },
+  reviewBacklog: reviewBacklogDefault,
+  trends: {
+    admissions: [],
+    abgTests: [],
+    ventilatorSettings: [],
+  },
+});
 
 const clinicalDashboardSchema = z.object({
   dashboard: z.literal(DASHBOARD_TYPES.CLINICAL),
   scope: scopeSchema,
   window: windowSchema,
-  workload: z.object({
-    counts: z.object({
-      activeAdmissions: numberWithDefault,
-      newAdmissions: numberWithDefault,
-      pendingDailyReviews: numberWithDefault,
-      recentAbgTests: numberWithDefault,
-      recentVentilatorUpdates: numberWithDefault,
-    }).passthrough(),
-    reviewBacklog: reviewBacklogSchema,
-    trends: z.object({
-      admissions: trendSchema,
-      abgTests: trendSchema,
-      ventilatorSettings: trendSchema,
-    }).passthrough(),
-  }).passthrough(),
+  workload: clinicalWorkloadSchema,
   syncConflicts: syncConflictsSchema,
   visibility: z.object({
     modelGovernanceIncluded: z.boolean().catch(false),

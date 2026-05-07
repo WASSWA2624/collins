@@ -41,7 +41,12 @@ const StyledHeaderRow = styled.div.withConfig({
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.md}px;
+
+  > *:first-child {
+    min-width: 0;
+  }
 `;
 
 const StyledTabs = styled.div.withConfig({
@@ -51,8 +56,10 @@ const StyledTabs = styled.div.withConfig({
   display: inline-flex;
   flex-wrap: wrap;
   width: fit-content;
+  max-width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  box-sizing: border-box;
 `;
 
 const StyledTab = styled.button.withConfig({
@@ -66,9 +73,15 @@ const StyledTab = styled.button.withConfig({
   background-color: ${({ theme, $active }) => ($active ? theme.colors.primary : 'transparent')};
   color: ${({ theme, $active }) => ($active ? theme.colors.text.inverse : theme.colors.text.primary)};
   cursor: pointer;
+  overflow-wrap: anywhere;
 
   &:last-child {
     border-right: 0;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.65;
   }
 
   &:focus-visible {
@@ -87,6 +100,12 @@ const StyledRefreshButton = styled.button.withConfig({
   background-color: transparent;
   color: ${({ theme }) => theme.colors.text.primary};
   cursor: pointer;
+  flex-shrink: 0;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.65;
+  }
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
@@ -99,7 +118,7 @@ const StyledMetricGrid = styled.div.withConfig({
   componentId: 'DashboardWebStyledMetricGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
   gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -121,7 +140,7 @@ const StyledSections = styled.div.withConfig({
   componentId: 'DashboardWebStyledSections',
 })`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: ${({ theme }) => theme.spacing.xl}px;
   margin-top: ${({ theme }) => theme.spacing.xl}px;
 `;
@@ -164,11 +183,22 @@ const StyledRow = styled.div.withConfig({
 })`
   min-height: 40px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+
+  > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  > *:last-child {
+    flex-shrink: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
 `;
 
 export {

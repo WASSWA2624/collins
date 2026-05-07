@@ -11,16 +11,17 @@ import {
   Switch,
   Text,
   TextField,
-  ThemeControls,
 } from '@platform/components';
 import { useI18n } from '@hooks';
 import useSettingsScreen from './useSettingsScreen';
 
 const boolTextKey = (value) => (value ? 'common.on' : 'common.off');
+const fullWidthStyle = { width: '100%' };
+const rowLabelStyle = { flex: 1, minWidth: 0 };
 
 const SettingsRow = ({ label, value, testID }) => (
-  <Stack direction="horizontal" spacing="sm" align="center" justify="space-between" wrap testID={testID}>
-    <Text variant="body">{label}</Text>
+  <Stack direction="horizontal" spacing="sm" align="center" justify="space-between" wrap testID={testID} style={fullWidthStyle}>
+    <Text variant="body" style={rowLabelStyle}>{label}</Text>
     <Text variant="label">{value}</Text>
   </Stack>
 );
@@ -33,8 +34,8 @@ const SwitchRow = ({
   disabled = false,
   testID,
 }) => (
-  <Stack direction="horizontal" spacing="md" align="center" justify="space-between" wrap>
-    <Stack spacing="xs">
+  <Stack direction="horizontal" spacing="md" align="center" justify="space-between" wrap style={fullWidthStyle}>
+    <Stack spacing="xs" style={rowLabelStyle}>
       <Text variant="body">{label}</Text>
       {hint ? <Text variant="caption" color="text.secondary">{hint}</Text> : null}
     </Stack>
@@ -65,26 +66,32 @@ const SettingsScreenContent = ({ platform, styles }) => {
     isLoading,
     isSaving,
     errorCode,
+    errorMessageKey,
     statusMessageKey,
     refreshSettings,
     userSettings,
     facilitySettings,
     accountDraft,
+    accountErrors,
     setAccountField,
     saveAccountSettings,
     facilityOptions,
+    hasAssignedFacilities,
     activeFacilityValue,
     setActiveFacility,
     activeRole,
     roleOptions,
     setActiveRole,
-    approvedRoles,
-    activeFacilityRoles,
+    approvedRoleLabels,
+    activeFacilityRoleLabels,
     canManageActiveFacility,
     canSeeGovernance,
     isOnline,
     isSyncing,
     networkQuality,
+    theme,
+    themeOptions,
+    setThemePreference,
     density,
     densityOptions,
     setDensity,
@@ -124,6 +131,7 @@ const SettingsScreenContent = ({ platform, styles }) => {
   const governance = facilitySettings?.governanceSettings || {};
   const modelVisibility = facilitySettings?.modelVisibility || {};
   const activeFacilityName = facilitySettings?.facility?.name || t('settings.account.noActiveFacility');
+  const canRetryStatus = errorMessageKey === 'settings.status.loadError';
 
   return (
     <StyledContainer {...rootProps}>
@@ -138,18 +146,20 @@ const SettingsScreenContent = ({ platform, styles }) => {
             </Text>
           ) : null}
           {statusMessageKey ? (
-            <Text variant="caption" testID={testIds.statusMessage}>
+            <Text variant="caption" color="success" testID={testIds.statusMessage}>
               {t(statusMessageKey)}
             </Text>
           ) : null}
-          {errorCode ? (
+          {errorMessageKey ? (
             <Stack spacing="sm">
-              <Text variant="caption" testID={testIds.statusMessage}>
-                {t('settings.status.localOnly', { code: errorCode })}
+              <Text variant="caption" color="error" testID={testIds.statusMessage}>
+                {t(errorMessageKey, { code: errorCode })}
               </Text>
-              <Button variant="outline" onPress={refreshSettings} disabled={isLoading}>
-                {t('common.retry')}
-              </Button>
+              {canRetryStatus ? (
+                <Button variant="outline" onPress={refreshSettings} disabled={isLoading}>
+                  {t('common.retry')}
+                </Button>
+              ) : null}
             </Stack>
           ) : null}
         </StyledHeader>
@@ -165,6 +175,10 @@ const SettingsScreenContent = ({ platform, styles }) => {
             label={t('settings.account.name')}
             value={accountDraft.name}
             onChangeText={(value) => setAccountField('name', value)}
+            required
+            maxLength={160}
+            validationState={accountErrors.name ? 'error' : undefined}
+            errorMessage={accountErrors.name}
             disabled={!userSettings || isSaving}
             testID={testIds.accountNameInput}
           />
@@ -172,6 +186,10 @@ const SettingsScreenContent = ({ platform, styles }) => {
             label={t('settings.account.phone')}
             value={accountDraft.phone}
             onChangeText={(value) => setAccountField('phone', value)}
+            type="tel"
+            maxLength={40}
+            validationState={accountErrors.phone ? 'error' : undefined}
+            errorMessage={accountErrors.phone}
             disabled={!userSettings || isSaving}
             testID={testIds.accountPhoneInput}
           />
@@ -189,7 +207,12 @@ const SettingsScreenContent = ({ platform, styles }) => {
             options={facilityOptions}
             value={activeFacilityValue}
             onValueChange={setActiveFacility}
-            disabled={!userSettings || isSaving}
+            disabled={!userSettings || !hasAssignedFacilities || isSaving}
+            helperText={
+              hasAssignedFacilities
+                ? t('settings.account.activeFacilityHelper')
+                : t('settings.account.noAssignedFacility')
+            }
             testID={testIds.activeFacilitySelector}
           />
           <Select
@@ -198,11 +221,19 @@ const SettingsScreenContent = ({ platform, styles }) => {
             value={activeRole}
             onValueChange={setActiveRole}
             disabled={!userSettings || isSaving || roleOptions.length === 0}
+            helperText={
+              roleOptions.length > 0
+                ? t('settings.account.activeRoleHelper')
+                : t('settings.account.noActiveRole')
+            }
             testID={testIds.activeRoleSelector}
           />
           <SettingsRow
             label={t('settings.account.approvedRoles')}
-            value={(activeFacilityRoles.length ? activeFacilityRoles : approvedRoles).join(', ') || t('settings.account.none')}
+            value={
+              (activeFacilityRoleLabels.length ? activeFacilityRoleLabels : approvedRoleLabels).join(', ') ||
+              t('settings.account.none')
+            }
           />
         </Section>
 
@@ -215,7 +246,16 @@ const SettingsScreenContent = ({ platform, styles }) => {
         >
           <Stack spacing="sm">
             <Text variant="label" testID={testIds.themeLabel}>{t('settings.theme.label')}</Text>
-            <ThemeControls testID={testIds.themeSelector} />
+            <Select
+              label={t('settings.theme.label')}
+              options={themeOptions}
+              value={theme}
+              onValueChange={setThemePreference}
+              disabled={isSaving}
+              accessibilityLabel={t('settings.theme.accessibilityLabel')}
+              accessibilityHint={t('settings.theme.hint')}
+              testID={testIds.themeSelector}
+            />
           </Stack>
           <Stack spacing="sm" {...testProps(testIds.densitySection)}>
             <Text variant="label" testID={testIds.densityLabel}>{t('settings.density.label')}</Text>

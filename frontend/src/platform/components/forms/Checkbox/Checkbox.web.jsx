@@ -65,8 +65,16 @@ const CheckboxWeb = ({
     onChange(nextChecked, value);
   };
 
+  const handleLabelClick = (event) => {
+    if (disabled || !onChange) return;
+    if (event?.target?.tagName === 'INPUT') return;
+    event?.preventDefault?.();
+    onChange(!checked, value);
+  };
+
   return (
     <StyledCheckbox
+      onClick={handleLabelClick}
       disabled={disabled}
       className={className}
       style={style}

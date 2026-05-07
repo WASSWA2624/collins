@@ -5,15 +5,19 @@
 import styled from 'styled-components';
 
 const statusBackground = (theme, level) => {
-  if (level === 'red') return theme.colors.status?.error?.background ?? '#FFEBEE';
-  if (level === 'yellow') return theme.colors.status?.warning?.background ?? '#FFF3CD';
-  if (level === 'green') return theme.colors.status?.success?.background ?? '#E8F5E9';
+  if (level === 'red')
+    return theme.colors.status?.error?.background ?? '#FFEBEE';
+  if (level === 'yellow')
+    return theme.colors.status?.warning?.background ?? '#FFF3CD';
+  if (level === 'green')
+    return theme.colors.status?.success?.background ?? '#E8F5E9';
   return theme.colors.background.secondary;
 };
 
 const statusBorder = (theme, level) => {
   if (level === 'red') return theme.colors.status?.error?.text ?? '#C62828';
-  if (level === 'yellow') return theme.colors.status?.warning?.text ?? '#856404';
+  if (level === 'yellow')
+    return theme.colors.status?.warning?.text ?? '#856404';
   if (level === 'green') return theme.colors.status?.success?.text ?? '#1B5E20';
   return theme.colors.background.tertiary;
 };
@@ -25,7 +29,8 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.xl}px
+    ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
@@ -42,7 +47,8 @@ const StyledHeader = styled.header.withConfig({
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.md}px;
 
-  @media (max-width: ${({ theme }) => (theme.breakpoints?.tablet ?? 768) - 1}px) {
+  @media (max-width: ${({ theme }) =>
+      (theme.breakpoints?.tablet ?? 768) - 1}px) {
     flex-direction: column;
   }
 `;
@@ -75,10 +81,12 @@ const StyledBanner = styled.div.withConfig({
   componentId: 'StyledBanner',
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFF3CD'};
+  background-color: ${({ theme }) =>
+    theme.colors.status?.warning?.background ?? '#FFF3CD'};
   color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
   border-radius: 0;
-  border-left: 4px solid ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
+  border-left: 4px solid
+    ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
 `;
 
 const StyledErrorBanner = styled.div.withConfig({
@@ -86,10 +94,12 @@ const StyledErrorBanner = styled.div.withConfig({
   componentId: 'StyledErrorBanner',
 })`
   padding: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.status?.error?.background ?? '#FFEBEE'};
+  background-color: ${({ theme }) =>
+    theme.colors.status?.error?.background ?? '#FFEBEE'};
   color: ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
   border-radius: 0;
-  border-left: 4px solid ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
+  border-left: 4px solid
+    ${({ theme }) => theme.colors.status?.error?.text ?? '#C62828'};
 `;
 
 const StyledEmpty = styled.div.withConfig({
@@ -97,8 +107,24 @@ const StyledEmpty = styled.div.withConfig({
   componentId: 'StyledEmpty',
 })`
   padding: ${({ theme }) => theme.spacing.xl}px;
+  min-height: 220px;
   text-align: center;
   border: 1px dashed ${({ theme }) => theme.colors.background.tertiary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledEmptyActions = styled.div.withConfig({
+  displayName: 'StyledEmptyActions',
+  componentId: 'StyledEmptyActions',
+})`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledList = styled.ul.withConfig({
@@ -117,7 +143,8 @@ const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px
+    ${({ theme }) => theme.spacing.lg}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: 0;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
@@ -129,8 +156,10 @@ const StyledItem = styled.li.withConfig({
     border-color: ${({ theme }) => theme.colors.text.tertiary};
   }
 
-  @media (max-width: ${({ theme }) => (theme.breakpoints?.tablet ?? 768) - 1}px) {
-    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  @media (max-width: ${({ theme }) =>
+      (theme.breakpoints?.tablet ?? 768) - 1}px) {
+    padding: ${({ theme }) => theme.spacing.sm}px
+      ${({ theme }) => theme.spacing.md}px;
   }
 `;
 
@@ -253,6 +282,7 @@ export {
   StyledContainer,
   StyledDetailPanel,
   StyledEmpty,
+  StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,

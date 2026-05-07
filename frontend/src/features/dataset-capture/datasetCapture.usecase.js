@@ -9,6 +9,7 @@ import { createDatasetImportApi, parseDatasetNoteApi } from './datasetCapture.ap
 import {
   buildDatasetCaptureSubmission,
   parseDatasetCaptureNote,
+  validateDatasetCaptureFieldValues,
 } from './datasetCapture.model';
 
 const unwrap = (res) => res?.data?.data ?? res?.data ?? null;
@@ -44,6 +45,14 @@ const parseDatasetCaptureNoteUseCase = async ({ noteText, facilityId } = {}) =>
 
 const submitDatasetCaptureCandidateUseCase = async (payload) =>
   execute(async () => {
+    const validation = validateDatasetCaptureFieldValues(payload?.fieldValues || {});
+    if (!validation.valid) {
+      const error = new Error('Dataset capture validation failed');
+      error.code = 'DATASET_CAPTURE_VALIDATION_FAILED';
+      error.validation = validation;
+      throw error;
+    }
+
     const submission = buildDatasetCaptureSubmission(payload);
     const request = {
       url: endpoints.DATASET_IMPORTS.CREATE,

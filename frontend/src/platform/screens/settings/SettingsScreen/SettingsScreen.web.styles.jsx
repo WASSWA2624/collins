@@ -12,12 +12,16 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: min-content;
-  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   justify-content: center;
   align-items: flex-start;
   box-sizing: border-box;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const StyledContent = styled.div.withConfig({
@@ -46,7 +50,7 @@ const StyledSection = styled.section.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  padding: ${({ theme }) => theme.spacing.xl}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:focus-within {

@@ -21,9 +21,11 @@ jest.mock('@hooks', () => ({
           if (value === undefined) return key;
         }
         if (typeof value === 'string' && params) {
-          return Object.entries(params).reduce((text, [paramKey, paramValue]) => (
-            text.replace(`{{${paramKey}}}`, String(paramValue))
-          ), value);
+          return Object.entries(params).reduce(
+            (text, [paramKey, paramValue]) =>
+              text.replace(`{{${paramKey}}}`, String(paramValue)),
+            value
+          );
         }
         return value || key;
       },
@@ -39,16 +41,20 @@ jest.mock('@features/tracking', () => ({
   getTrackingAdmissionUseCase: jest.fn(),
 }));
 
-const HistoryScreenWeb = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.web').default;
-const HistoryScreenAndroid = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.android').default;
-const HistoryScreenIOS = require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.ios').default;
+const HistoryScreenWeb =
+  require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.web').default;
+const HistoryScreenAndroid =
+  require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.android').default;
+const HistoryScreenIOS =
+  require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.ios').default;
 const { useVentilationSession } = require('@hooks');
 const {
   getTrackingAdmissionUseCase,
   listTrackingAdmissionsUseCase,
 } = require('@features/tracking');
 
-const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
+const lightTheme =
+  require('@theme/light.theme').default || require('@theme/light.theme');
 
 const HISTORY_TEST_IDS = {
   screen: 'history-screen',
@@ -126,19 +132,33 @@ describe('Tracking screen compatibility route', () => {
   });
 
   it('web: shows empty tracking state when no active admissions are returned', async () => {
-    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getByTestId, getByText } = renderWithProviders(
+      <HistoryScreenWeb />
+    );
 
-    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined());
-    expect(getByText('No active admitted patients for this facility.')).toBeDefined();
-    expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({ status: 'ACTIVE' });
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.empty)).toBeDefined()
+    );
+    expect(
+      getByText('No admitted patients are available for tracking yet.')
+    ).toBeDefined();
+    expect(getByText('Admit a patient first to begin tracking.')).toBeDefined();
+    expect(getByText('Admit patient')).toBeDefined();
+    expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({
+      status: 'ACTIVE',
+    });
   });
 
   it('web: renders backend-confirmed active patient, review, sync, conflict, and missing-data status', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getAllByText, getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getAllByText, getByTestId, getByText } = renderWithProviders(
+      <HistoryScreenWeb />
+    );
 
-    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined());
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
+    );
     expect(getByText('City ICU')).toBeDefined();
     expect(getByText('COL-A-1')).toBeDefined();
     expect(getByText('Bed ICU-2')).toBeDefined();
@@ -158,20 +178,30 @@ describe('Tracking screen compatibility route', () => {
 
     const { getByTestId } = renderWithProviders(<HistoryScreenWeb />);
 
-    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.draftBanner)).toBeDefined());
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.draftBanner)).toBeDefined()
+    );
   });
 
   it('web: loads backend detail and append-only timeline on details press', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getByTestId, getByText } = renderWithProviders(<HistoryScreenWeb />);
+    const { getByTestId, getByText } = renderWithProviders(
+      <HistoryScreenWeb />
+    );
 
-    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined());
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
+    );
     fireEvent.press(getByTestId(HISTORY_TEST_IDS.viewDetails));
 
-    await waitFor(() => expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined());
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined()
+    );
     expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1');
-    expect(getByText('admission_created | 2026-05-01T08:00:00.000Z')).toBeDefined();
+    expect(
+      getByText('admission_created | 2026-05-01T08:00:00.000Z')
+    ).toBeDefined();
   });
 
   it('android and ios render the tracking screen', async () => {

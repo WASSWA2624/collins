@@ -44,10 +44,10 @@ const DatasetCaptureScreenAndroid = () => {
     capture,
   } = useDatasetCaptureScreen();
 
-  const getFieldState = (path) => (capture.missingFields.includes(path) ? 'missing' : 'default');
+  const getFieldState = (path) => (capture.fieldErrors?.[path] ? 'missing' : 'default');
   const getHelperText = (field) => (
-    capture.missingFields.includes(field.path)
-      ? t('ventilation.datasetCapture.fields.required')
+    capture.fieldErrors?.[field.path]
+      ? capture.fieldErrors[field.path]
       : field.placeholder || (field.required ? t('ventilation.datasetCapture.fields.required') : t('ventilation.datasetCapture.fields.optional'))
   );
 
@@ -87,20 +87,27 @@ const DatasetCaptureScreenAndroid = () => {
             value={value}
             onChangeText={(nextValue) => capture.onFieldChange(field.path, nextValue)}
             type={field.type === 'number' ? 'number' : 'text'}
+            keyboardType={field.type === 'number' ? 'decimal-pad' : undefined}
           />
         )}
       </Shell>
     );
   };
 
-  const missingReadinessItems = capture.missingFieldDetails?.length
-    ? capture.missingFieldDetails
+  const readinessItems = capture.validationErrorDetails?.length
+    ? capture.validationErrorDetails
     : capture.missingFields.map((field) => ({ path: field, label: field, section: '' }));
-  const statusKey = capture.submitMessage
-    ? `ventilation.datasetCapture.status.${capture.submitMessage}`
-    : capture.submitDisabled
+  const getStatusKey = () => {
+    if (capture.draftStatus === 'loading') return 'ventilation.datasetCapture.status.loadingDraft';
+    if (capture.submitMessage) return `ventilation.datasetCapture.status.${capture.submitMessage}`;
+    if (capture.draftStatus === 'saving') return 'ventilation.datasetCapture.status.savingDraft';
+    if (capture.draftStatus === 'saved') return 'ventilation.datasetCapture.status.draftSaved';
+    if (capture.draftStatus === 'error') return 'ventilation.datasetCapture.status.draftError';
+    return capture.submitDisabled
       ? 'ventilation.datasetCapture.status.needsInput'
       : 'ventilation.datasetCapture.status.ready';
+  };
+  const statusKey = getStatusKey();
 
   return (
     <StyledContainer accessibilityLabel={t('ventilation.datasetCapture.accessibilityLabel')} testID={testIds.screen}>
@@ -224,11 +231,11 @@ const DatasetCaptureScreenAndroid = () => {
             <Stack spacing="sm">
               <Text accessibilityRole="header" variant="h3">{t('ventilation.datasetCapture.missing.title')}</Text>
               <StyledNotice testID={testIds.missingList}>
-                {missingReadinessItems.length > 0 ? (
+                {readinessItems.length > 0 ? (
                   <StyledMissingList>
-                    {missingReadinessItems.map((field) => (
+                    {readinessItems.map((field) => (
                       <Text key={field.path} variant="caption">
-                        {field.section ? `- ${field.section}: ${field.label}` : `- ${field.label}`}
+                        {field.section ? `- ${field.section}: ${field.label} - ${field.message || ''}` : `- ${field.label}`}
                       </Text>
                     ))}
                   </StyledMissingList>

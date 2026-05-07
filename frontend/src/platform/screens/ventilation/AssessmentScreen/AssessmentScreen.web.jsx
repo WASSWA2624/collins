@@ -6,6 +6,7 @@ import React from 'react';
 import {
   Button,
   Checkbox,
+  LoadingSpinner,
   ProgressBar,
   Select,
   Text,
@@ -13,7 +14,7 @@ import {
   TextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
-import useAssessmentScreen from './useAssessmentScreen';
+import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
 import {
   StyledActionsRow,
   StyledContainer,
@@ -22,6 +23,9 @@ import {
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
+  StyledLoadingMessage,
+  StyledLoadingPane,
+  StyledLoadingTitle,
   StyledMissingTests,
   StyledMissingTestsHint,
   StyledMissingTestsTitle,
@@ -56,10 +60,7 @@ const mapOptions = (options, t, keyPrefix) =>
     label: t(`${keyPrefix}.${option.labelKey}`),
   }));
 
-const parseNum = (value) => {
-  const parsed = parseFloat(value);
-  return Number.isFinite(parsed) ? parsed : null;
-};
+const parseNum = parseAdmissionNumberInput;
 
 const formatValue = (value, unit) => {
   if (value == null || value === '') return null;
@@ -74,6 +75,7 @@ const AssessmentScreenWeb = () => {
     mergedInputs,
     updateInput,
     updateBodyMetric,
+    toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,
     setSummaryExpanded,
@@ -83,6 +85,8 @@ const AssessmentScreenWeb = () => {
     recommendationMissingInputs,
     recommendationConfidence,
     recommendationErrorCode,
+    isGeneratingRecommendation,
+    validation,
     canProceedFromStep,
     goNext,
     goBackOrExit,
@@ -90,6 +94,8 @@ const AssessmentScreenWeb = () => {
     isSaving,
     isHydrating,
     errorCode,
+    loadErrorCode,
+    retryLoadAdmissionForm,
     testIds,
     stepKey,
     totalSteps,
@@ -118,6 +124,43 @@ const AssessmentScreenWeb = () => {
     t,
     'ventilation.assessment.saveReview.ventilatorModeOptions'
   );
+  const getFieldErrorProps = (field) => {
+    const message = validation?.fieldErrors?.[field];
+    return message ? { validationState: 'error', errorMessage: message } : {};
+  };
+  const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
+  const translatedErrorMessage = errorTranslationKey ? t(errorTranslationKey) : null;
+  const errorMessage =
+    translatedErrorMessage && translatedErrorMessage !== errorTranslationKey
+      ? translatedErrorMessage
+      : errorCode
+      ? t('errors.codes.UNKNOWN_ERROR')
+      : null;
+
+  const renderValidationMessages = () => {
+    if (!validation?.messages?.length) return null;
+    return (
+      <StyledMissingTests data-testid="assessment-validation" role="alert">
+        <StyledMissingTestsTitle>{t('ventilation.assessment.validation.title')}</StyledMissingTestsTitle>
+        {validation.messages.map((message) => (
+          <StyledMissingTestsHint key={message}>{message}</StyledMissingTestsHint>
+        ))}
+      </StyledMissingTests>
+    );
+  };
+
+  const renderLoadError = () => {
+    if (!loadErrorCode) return null;
+    return (
+      <StyledMissingTests data-testid="assessment-load-error" role="alert">
+        <StyledMissingTestsTitle>{t('ventilation.assessment.states.errorTitle')}</StyledMissingTestsTitle>
+        <StyledMissingTestsHint>{t('ventilation.assessment.states.error')}</StyledMissingTestsHint>
+        <Button variant="outline" onPress={retryLoadAdmissionForm}>
+          {t('ventilation.assessment.states.retryLoad')}
+        </Button>
+      </StyledMissingTests>
+    );
+  };
 
   const renderSummary = () => {
     const rows = [
@@ -184,6 +227,7 @@ const AssessmentScreenWeb = () => {
   const renderPatientReasonStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
+      {renderValidationMessages()}
       <StyledFieldGrid>
         <Select
           label={t('ventilation.assessment.patientReason.pathway')}
@@ -191,6 +235,7 @@ const AssessmentScreenWeb = () => {
           options={pathwayOptions}
           value={mergedInputs.patientPathway}
           onValueChange={(value) => updateInput({ patientPathway: value })}
+          {...getFieldErrorProps('patientPathway')}
           required
           testID="assessment-patient-pathway"
         />
@@ -206,6 +251,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
           onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
+          {...getFieldErrorProps('ageYears')}
           testID="assessment-age"
         />
         <TextField
@@ -213,6 +259,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
           onChangeText={(value) => updateBodyMetric('actualWeightKg', parseNum(value))}
+          {...getFieldErrorProps('actualWeightKg')}
           testID="assessment-weight"
         />
         <TextField
@@ -220,6 +267,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.heightOrLengthCm != null ? String(mergedInputs.heightOrLengthCm) : ''}
           onChangeText={(value) => updateBodyMetric('heightOrLengthCm', parseNum(value))}
+          {...getFieldErrorProps('heightOrLengthCm')}
           testID="assessment-height"
         />
         <TextField
@@ -227,6 +275,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.bmi != null ? String(mergedInputs.bmi) : ''}
           onChangeText={(value) => updateBodyMetric('bmi', parseNum(value))}
+          {...getFieldErrorProps('bmi')}
           testID="assessment-bmi"
         />
         <StyledFieldGridFull>
@@ -246,6 +295,7 @@ const AssessmentScreenWeb = () => {
   const renderOxygenAbgVentilatorStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
+      {renderValidationMessages()}
       <StyledFieldGrid>
         <Select
           label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')}
@@ -263,6 +313,7 @@ const AssessmentScreenWeb = () => {
           helperText={t('ventilation.assessment.oxygenAbgVentilator.timeHint')}
           value={mergedInputs.measuredAt}
           onChangeText={(value) => updateInput({ measuredAt: value })}
+          {...getFieldErrorProps('measuredAt')}
           testID="assessment-measured-at"
         />
         <TextField
@@ -270,6 +321,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''}
           onChangeText={(value) => updateInput({ spo2: parseNum(value) })}
+          {...getFieldErrorProps('spo2')}
           testID="assessment-spo2"
         />
         <TextField
@@ -277,6 +329,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.fio2 != null ? String(mergedInputs.fio2) : ''}
           onChangeText={(value) => updateInput({ fio2: parseNum(value) })}
+          {...getFieldErrorProps('fio2')}
           testID="assessment-fio2"
         />
         <TextField
@@ -284,6 +337,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''}
           onChangeText={(value) => updateInput({ respiratoryRate: parseNum(value) })}
+          {...getFieldErrorProps('respiratoryRate')}
           testID="assessment-respiratory-rate"
         />
         <TextField
@@ -291,6 +345,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''}
           onChangeText={(value) => updateInput({ heartRate: parseNum(value) })}
+          {...getFieldErrorProps('heartRate')}
           testID="assessment-heart-rate"
         />
         <TextField
@@ -298,6 +353,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''}
           onChangeText={(value) => updateInput({ ph: parseNum(value) })}
+          {...getFieldErrorProps('ph')}
           testID="assessment-ph"
         />
         <TextField
@@ -305,6 +361,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''}
           onChangeText={(value) => updateInput({ pao2: parseNum(value) })}
+          {...getFieldErrorProps('pao2')}
           testID="assessment-pao2"
         />
         <TextField
@@ -312,6 +369,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''}
           onChangeText={(value) => updateInput({ paco2: parseNum(value) })}
+          {...getFieldErrorProps('paco2')}
           testID="assessment-paco2"
         />
         <TextField
@@ -319,6 +377,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.hco3 != null ? String(mergedInputs.hco3) : ''}
           onChangeText={(value) => updateInput({ hco3: parseNum(value) })}
+          {...getFieldErrorProps('hco3')}
           testID="assessment-hco3"
         />
         <TextField
@@ -326,6 +385,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.baseExcess != null ? String(mergedInputs.baseExcess) : ''}
           onChangeText={(value) => updateInput({ baseExcess: parseNum(value) })}
+          {...getFieldErrorProps('baseExcess')}
           testID="assessment-base-excess"
         />
         <TextField
@@ -333,6 +393,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.lactate != null ? String(mergedInputs.lactate) : ''}
           onChangeText={(value) => updateInput({ lactate: parseNum(value) })}
+          {...getFieldErrorProps('lactate')}
           testID="assessment-lactate"
         />
         <TextField
@@ -340,6 +401,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.fio2AtSample != null ? String(mergedInputs.fio2AtSample) : ''}
           onChangeText={(value) => updateInput({ fio2AtSample: parseNum(value) })}
+          {...getFieldErrorProps('fio2AtSample')}
           testID="assessment-fio2-at-sample"
         />
         <TextField
@@ -347,6 +409,7 @@ const AssessmentScreenWeb = () => {
           type="number"
           value={mergedInputs.spo2AtSample != null ? String(mergedInputs.spo2AtSample) : ''}
           onChangeText={(value) => updateInput({ spo2AtSample: parseNum(value) })}
+          {...getFieldErrorProps('spo2AtSample')}
           testID="assessment-spo2-at-sample"
         />
         <StyledFieldGridFull>
@@ -384,7 +447,18 @@ const AssessmentScreenWeb = () => {
         <StyledMissingTestsTitle>
           {t('ventilation.assessment.saveReview.recommendationTitle')}
         </StyledMissingTestsTitle>
-        {hasRecommendation ? (
+        {isGeneratingRecommendation ? (
+          <>
+            <LoadingSpinner
+              size="large"
+              accessibilityLabel={t('ventilation.assessment.saveReview.recommendationGenerating')}
+              testID="assessment-recommendation-loading"
+            />
+            <StyledMissingTestsHint>
+              {t('ventilation.assessment.saveReview.recommendationGenerating')}
+            </StyledMissingTestsHint>
+          </>
+        ) : hasRecommendation ? (
           <>
             <StyledMissingTestsHint>
               {t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}
@@ -406,6 +480,7 @@ const AssessmentScreenWeb = () => {
                 type="number"
                 value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''}
                 onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
+                {...getFieldErrorProps('tidalVolumeMl')}
                 testID="assessment-suggested-tidal-volume"
               />
               <TextField
@@ -413,6 +488,7 @@ const AssessmentScreenWeb = () => {
                 type="number"
                 value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''}
                 onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })}
+                {...getFieldErrorProps('respiratoryRateSet')}
                 testID="assessment-suggested-respiratory-rate-set"
               />
               <TextField
@@ -420,6 +496,7 @@ const AssessmentScreenWeb = () => {
                 type="number"
                 value={suggestedVentilatorInputs.ventilatorFio2 != null ? String(suggestedVentilatorInputs.ventilatorFio2) : ''}
                 onChangeText={(value) => updateInput({ ventilatorFio2: parseNum(value) })}
+                {...getFieldErrorProps('ventilatorFio2')}
                 testID="assessment-suggested-ventilator-fio2"
               />
               <TextField
@@ -427,6 +504,7 @@ const AssessmentScreenWeb = () => {
                 type="number"
                 value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''}
                 onChangeText={(value) => updateInput({ peep: parseNum(value) })}
+                {...getFieldErrorProps('peep')}
                 testID="assessment-suggested-peep"
               />
               <TextField
@@ -440,7 +518,7 @@ const AssessmentScreenWeb = () => {
         ) : (
           <StyledMissingTestsHint>
             {recommendationErrorCode
-              ? t('ventilation.assessment.saveReview.recommendationNeedsClinicalInputs')
+              ? t('ventilation.assessment.saveReview.recommendationError')
               : t('ventilation.assessment.saveReview.recommendationEmpty')}
           </StyledMissingTestsHint>
         )}
@@ -473,7 +551,7 @@ const AssessmentScreenWeb = () => {
           {blocker.message}
         </StyledMissingTestsHint>
       ))}
-      {errorCode ? <StyledMissingTestsHint>{t('ventilation.assessment.states.error')}</StyledMissingTestsHint> : null}
+      {errorMessage ? <StyledMissingTestsHint>{errorMessage}</StyledMissingTestsHint> : null}
     </StyledMissingTests>
   );
 
@@ -482,9 +560,10 @@ const AssessmentScreenWeb = () => {
       <StyledStepDescription>{t('ventilation.assessment.saveReview.description')}</StyledStepDescription>
       {renderRecommendation()}
       {renderReadiness()}
+      {renderValidationMessages()}
       <Checkbox
         checked={mergedInputs.clinicianConfirmed}
-        onChange={(checked) => updateInput({ clinicianConfirmed: checked })}
+        onChange={toggleClinicianConfirmed}
         label={t('ventilation.assessment.saveReview.clinicianConfirmed')}
         testID="assessment-clinician-confirmed"
       />
@@ -493,6 +572,7 @@ const AssessmentScreenWeb = () => {
           label={t('ventilation.assessment.saveReview.overrideReason')}
           value={mergedInputs.overrideReason}
           onChangeText={(value) => updateInput({ overrideReason: value })}
+          {...getFieldErrorProps('overrideReason')}
           minHeight={76}
           required
           testID="assessment-override-reason"
@@ -524,13 +604,22 @@ const AssessmentScreenWeb = () => {
   if (isHydrating) {
     return (
       <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen}>
-        <Text>{t('ventilation.assessment.states.loading')}</Text>
+        <StyledLoadingPane aria-live="polite">
+          <LoadingSpinner
+            size="large"
+            accessibilityLabel={t('ventilation.assessment.states.loading')}
+            testID="assessment-loading-spinner"
+          />
+          <StyledLoadingTitle>{t('ventilation.assessment.title')}</StyledLoadingTitle>
+          <StyledLoadingMessage>{t('ventilation.assessment.states.loading')}</StyledLoadingMessage>
+        </StyledLoadingPane>
       </StyledContainer>
     );
   }
 
   return (
     <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen} role="main">
+      {renderLoadError()}
       <StyledProgressSection>
         <ProgressBar
           value={progressPercent}
