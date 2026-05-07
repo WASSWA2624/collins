@@ -41,10 +41,14 @@ if (!generateEnv.DATABASE_URL) {
   console.log('DATABASE_URL is not set; using a generate-only placeholder for Prisma Client.');
 }
 
-const result = spawnSync('npx', ['prisma', 'generate'], {
+const prismaExecutable = process.platform === 'win32'
+  ? path.join(projectRoot, 'node_modules', '.bin', 'prisma.cmd')
+  : path.join(projectRoot, 'node_modules', '.bin', 'prisma');
+
+const result = spawnSync(prismaExecutable, ['generate'], {
   cwd: projectRoot,
   env: generateEnv,
-  shell: process.platform === 'win32',
+  shell: false,
   stdio: 'inherit',
 });
 
