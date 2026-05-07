@@ -8,12 +8,13 @@ Use Node.js 20 or newer. The `package.json` `engines` field documents this basel
 
 ```bash
 npm install
-cp .env.example .env
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:seed
 npm run dev
 ```
+
+Configure `.env` before starting the backend. The file contains production and development blocks; keep one block uncommented and comment the other.
 
 Local development admin login:
 

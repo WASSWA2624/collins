@@ -148,10 +148,10 @@ model User {
   name         String
   email        String     @unique
   phone        String?
-  passwordHash String
+  passwordHash String     @map("password_hash")
   status       UserStatus @default(ACTIVE)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
 
   onboardingState             OnboardingState?
   facilityMemberships         FacilityMembership[]     @relation("FacilityMembershipUser")
@@ -175,59 +175,63 @@ model User {
   syncEvents                  SyncEvent[]              @relation("SyncEventUser")
   auditLogs                   AuditLog[]               @relation("AuditLogUser")
   settings                    UserSettings?
+
+  @@map("user")
 }
 
 model RefreshSession {
   id        String    @id @default(cuid())
-  userId    String
-  tokenHash String    @unique
-  expiresAt DateTime
-  revokedAt DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  userId    String    @map("user_id")
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id])
 
   @@index([userId, revokedAt])
   @@index([expiresAt])
+  @@map("refresh_session")
 }
 
 model OnboardingState {
   id                                   String           @id @default(cuid())
-  userId                               String           @unique
+  userId                               String           @unique @map("user_id")
   status                               OnboardingStatus @default(NOT_STARTED)
-  currentStep                          OnboardingStep   @default(WELCOME)
-  completedStepsJson                   Json?
-  selectedFacilityId                   String?
-  requestedRole                        MembershipRole?
-  clinicalSafetyAcknowledgedAt         DateTime?
-  clinicalSafetyAcknowledgementVersion String?
-  clinicalSafetyStatementHash          String?
-  completedAt                          DateTime?
-  createdAt                            DateTime         @default(now())
-  updatedAt                            DateTime         @updatedAt
+  currentStep                          OnboardingStep   @default(WELCOME) @map("current_step")
+  completedStepsJson                   Json?            @map("completed_steps_json")
+  selectedFacilityId                   String?          @map("selected_facility_id")
+  requestedRole                        MembershipRole?  @map("requested_role")
+  clinicalSafetyAcknowledgedAt         DateTime?        @map("clinical_safety_acknowledged_at")
+  clinicalSafetyAcknowledgementVersion String?          @map("clinical_safety_acknowledgement_version")
+  clinicalSafetyStatementHash          String?          @map("clinical_safety_statement_hash")
+  completedAt                          DateTime?        @map("completed_at")
+  createdAt                            DateTime         @default(now()) @map("created_at")
+  updatedAt                            DateTime         @updatedAt @map("updated_at")
 
   user             User      @relation(fields: [userId], references: [id])
   selectedFacility Facility? @relation(fields: [selectedFacilityId], references: [id])
 
   @@index([selectedFacilityId, status])
   @@index([status, currentStep])
+  @@map("onboarding_state")
 }
 
 model Facility {
   id                    String                     @id @default(cuid())
-  registryCode          String?                    @unique
+  registryCode          String?                    @unique @map("registry_code")
   name                  String
   district              String?
   region                String?
   type                  String?
   ownership             String?
-  verificationStatus    FacilityVerificationStatus @default(PENDING)
-  oxygenProfileJson     Json?
-  ventilatorProfileJson Json?
-  abgAvailability       String?
-  createdAt             DateTime                   @default(now())
-  updatedAt             DateTime                   @updatedAt
+  verificationStatus    FacilityVerificationStatus @default(PENDING) @map("verification_status")
+  oxygenProfileJson     Json?                      @map("oxygen_profile_json")
+  ventilatorProfileJson Json?                      @map("ventilator_profile_json")
+  abgAvailability       String?                    @map("abg_availability")
+  createdAt             DateTime                   @default(now()) @map("created_at")
+  updatedAt             DateTime                   @updatedAt @map("updated_at")
 
   memberships          FacilityMembership[]
   onboardingSelections OnboardingState[]
@@ -241,47 +245,52 @@ model Facility {
   auditLogs            AuditLog[]
   settings             FacilitySettings?
   activeUserSettings   UserSettings[]       @relation("ActiveFacilityUserSettings")
+
+  @@map("facility")
 }
 
 model UserSettings {
   id                         String   @id @default(cuid())
-  userId                     String   @unique
-  activeFacilityId           String?
-  roleVisibilityJson         Json?
-  offlineSyncPreferencesJson Json?
-  privacyControlsJson        Json?
-  createdAt                  DateTime @default(now())
-  updatedAt                  DateTime @updatedAt
+  userId                     String   @unique @map("user_id")
+  activeFacilityId           String?  @map("active_facility_id")
+  roleVisibilityJson         Json?    @map("role_visibility_json")
+  offlineSyncPreferencesJson Json?    @map("offline_sync_preferences_json")
+  privacyControlsJson        Json?    @map("privacy_controls_json")
+  createdAt                  DateTime @default(now()) @map("created_at")
+  updatedAt                  DateTime @updatedAt @map("updated_at")
 
   user           User      @relation(fields: [userId], references: [id])
   activeFacility Facility? @relation("ActiveFacilityUserSettings", fields: [activeFacilityId], references: [id])
 
   @@index([activeFacilityId])
+  @@map("user_settings")
 }
 
 model FacilitySettings {
   id                     String   @id @default(cuid())
-  facilityId             String   @unique
-  referenceSettingsJson  Json?
-  workflowSettingsJson   Json?
-  privacyControlsJson    Json?
-  governanceSettingsJson Json?
-  modelVisibilityJson    Json?
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
+  facilityId             String   @unique @map("facility_id")
+  referenceSettingsJson  Json?    @map("reference_settings_json")
+  workflowSettingsJson   Json?    @map("workflow_settings_json")
+  privacyControlsJson    Json?    @map("privacy_controls_json")
+  governanceSettingsJson Json?    @map("governance_settings_json")
+  modelVisibilityJson    Json?    @map("model_visibility_json")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
 
   facility Facility @relation(fields: [facilityId], references: [id])
+
+  @@map("facility_settings")
 }
 
 model FacilityMembership {
   id               String           @id @default(cuid())
-  userId           String
-  facilityId       String
+  userId           String           @map("user_id")
+  facilityId       String           @map("facility_id")
   role             MembershipRole
   status           MembershipStatus @default(PENDING)
-  approvedByUserId String?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  approvedByUserId String?          @map("approved_by_user_id")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
 
   user       User     @relation("FacilityMembershipUser", fields: [userId], references: [id])
   facility   Facility @relation(fields: [facilityId], references: [id])
@@ -290,29 +299,30 @@ model FacilityMembership {
   @@unique([userId, facilityId, role])
   @@index([facilityId, status])
   @@index([userId, status])
+  @@map("facility_membership")
 }
 
 model Patient {
   id                     String                 @id @default(cuid())
-  facilityId             String
-  appPatientCode         String
-  optionalName           String?
-  hospitalNumber         String?
-  patientPathway         PatientPathway
-  dateOfBirth            DateTime?
-  ageYears               Int?
-  ageMonths              Int?
-  estimatedAge           Boolean                @default(false)
-  gestationalAgeWeeks    Float?
-  correctedAgeWeeks      Float?
-  sexForSizeCalculations SexForSizeCalculations @default(UNKNOWN)
-  actualWeightKg         Float?
-  heightOrLengthCm       Float?
-  referenceWeightKg      Float?
-  referenceWeightMethod  String?
-  pathwayDetailsJson     Json?
-  createdAt              DateTime               @default(now())
-  updatedAt              DateTime               @updatedAt
+  facilityId             String                 @map("facility_id")
+  appPatientCode         String                 @map("app_patient_code")
+  optionalName           String?                @map("optional_name")
+  hospitalNumber         String?                @map("hospital_number")
+  patientPathway         PatientPathway         @map("patient_pathway")
+  dateOfBirth            DateTime?              @map("date_of_birth")
+  ageYears               Int?                   @map("age_years")
+  ageMonths              Int?                   @map("age_months")
+  estimatedAge           Boolean                @default(false) @map("estimated_age")
+  gestationalAgeWeeks    Float?                 @map("gestational_age_weeks")
+  correctedAgeWeeks      Float?                 @map("corrected_age_weeks")
+  sexForSizeCalculations SexForSizeCalculations @default(UNKNOWN) @map("sex_for_size_calculations")
+  actualWeightKg         Float?                 @map("actual_weight_kg")
+  heightOrLengthCm       Float?                 @map("height_or_length_cm")
+  referenceWeightKg      Float?                 @map("reference_weight_kg")
+  referenceWeightMethod  String?                @map("reference_weight_method")
+  pathwayDetailsJson     Json?                  @map("pathway_details_json")
+  createdAt              DateTime               @default(now()) @map("created_at")
+  updatedAt              DateTime               @updatedAt @map("updated_at")
 
   facility   Facility    @relation(fields: [facilityId], references: [id])
   admissions Admission[]
@@ -320,26 +330,27 @@ model Patient {
   @@unique([facilityId, appPatientCode])
   @@index([facilityId, hospitalNumber])
   @@index([facilityId, patientPathway])
+  @@map("patient")
 }
 
 model Admission {
   id                   String          @id @default(cuid())
-  patientId            String
-  facilityId           String
-  appAdmissionCode     String
-  bedNumber            String?
-  admittedAt           DateTime        @default(now())
-  admissionSource      String?
-  reasonForVentilation String?
+  patientId            String          @map("patient_id")
+  facilityId           String          @map("facility_id")
+  appAdmissionCode     String          @map("app_admission_code")
+  bedNumber            String?         @map("bed_number")
+  admittedAt           DateTime        @default(now()) @map("admitted_at")
+  admissionSource      String?         @map("admission_source")
+  reasonForVentilation String?         @map("reason_for_ventilation")
   status               AdmissionStatus @default(ACTIVE)
-  createdByUserId      String?
-  reviewStatus         ReviewStatus    @default(PENDING)
-  clientRecordId       String?
-  deviceId             String?
-  clientCreatedAt      DateTime?
-  clientUpdatedAt      DateTime?
-  createdAt            DateTime        @default(now())
-  updatedAt            DateTime        @updatedAt
+  createdByUserId      String?         @map("created_by_user_id")
+  reviewStatus         ReviewStatus    @default(PENDING) @map("review_status")
+  clientRecordId       String?         @map("client_record_id")
+  deviceId             String?         @map("device_id")
+  clientCreatedAt      DateTime?       @map("client_created_at")
+  clientUpdatedAt      DateTime?       @map("client_updated_at")
+  createdAt            DateTime        @default(now()) @map("created_at")
+  updatedAt            DateTime        @updatedAt @map("updated_at")
 
   patient   Patient  @relation(fields: [patientId], references: [id])
   facility  Facility @relation(fields: [facilityId], references: [id])
@@ -359,66 +370,68 @@ model Admission {
   @@index([facilityId, status])
   @@index([patientId])
   @@index([clientRecordId])
+  @@map("admission")
 }
 
 model ClinicalSnapshot {
   id                   String    @id @default(cuid())
-  admissionId          String
-  measuredAt           DateTime  @default(now())
-  oxygenSupportType    String?
-  heartRate            Float?
-  respiratoryRate      Float?
-  systolicBp           Float?
-  diastolicBp          Float?
-  meanArterialPressure Float?
-  temperatureC         Float?
+  admissionId          String    @map("admission_id")
+  measuredAt           DateTime  @default(now()) @map("measured_at")
+  oxygenSupportType    String?   @map("oxygen_support_type")
+  heartRate            Float?    @map("heart_rate")
+  respiratoryRate      Float?    @map("respiratory_rate")
+  systolicBp           Float?    @map("systolic_bp")
+  diastolicBp          Float?    @map("diastolic_bp")
+  meanArterialPressure Float?    @map("mean_arterial_pressure")
+  temperatureC         Float?    @map("temperature_c")
   spo2                 Float?
   fio2                 Float?
   gcs                  Float?
   avpu                 String?
   rass                 Float?
-  mainCondition        String?
-  comorbiditiesJson    Json?
-  validationStatus     String?
+  mainCondition        String?   @map("main_condition")
+  comorbiditiesJson    Json?     @map("comorbidities_json")
+  validationStatus     String?   @map("validation_status")
   source               String?
-  enteredByUserId      String?
-  clientRecordId       String?
-  deviceId             String?
-  clientCreatedAt      DateTime?
-  createdAt            DateTime  @default(now())
+  enteredByUserId      String?   @map("entered_by_user_id")
+  clientRecordId       String?   @map("client_record_id")
+  deviceId             String?   @map("device_id")
+  clientCreatedAt      DateTime? @map("client_created_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("ClinicalSnapshotEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
   @@index([clientRecordId])
+  @@map("clinical_snapshot")
 }
 
 model AbgTest {
   id                     String       @id @default(cuid())
-  admissionId            String
+  admissionId            String       @map("admission_id")
   version                Int          @default(1)
-  collectedAt            DateTime     @default(now())
+  collectedAt            DateTime     @default(now()) @map("collected_at")
   ph                     Float?
   pao2                   Float?
   paco2                  Float?
   hco3                   Float?
-  baseExcess             Float?
+  baseExcess             Float?       @map("base_excess")
   lactate                Float?
-  fio2AtSample           Float?
-  spo2AtSample           Float?
+  fio2AtSample           Float?       @map("fio2_at_sample")
+  spo2AtSample           Float?       @map("spo2_at_sample")
   source                 String?
-  validationStatus       String?
-  clinicalFlagsJson      Json?
-  calculationSummaryJson Json?
-  enteredByUserId        String?
-  reviewedByUserId       String?
-  reviewStatus           ReviewStatus @default(PENDING)
-  clientRecordId         String?
-  deviceId               String?
-  clientCreatedAt        DateTime?
-  clientUpdatedAt        DateTime?
-  createdAt              DateTime     @default(now())
+  validationStatus       String?      @map("validation_status")
+  clinicalFlagsJson      Json?        @map("clinical_flags_json")
+  calculationSummaryJson Json?        @map("calculation_summary_json")
+  enteredByUserId        String?      @map("entered_by_user_id")
+  reviewedByUserId       String?      @map("reviewed_by_user_id")
+  reviewStatus           ReviewStatus @default(PENDING) @map("review_status")
+  clientRecordId         String?      @map("client_record_id")
+  deviceId               String?      @map("device_id")
+  clientCreatedAt        DateTime?    @map("client_created_at")
+  clientUpdatedAt        DateTime?    @map("client_updated_at")
+  createdAt              DateTime     @default(now()) @map("created_at")
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   enteredBy  User?     @relation("AbgTestEnteredBy", fields: [enteredByUserId], references: [id])
@@ -428,38 +441,39 @@ model AbgTest {
   @@index([admissionId, collectedAt])
   @@index([reviewStatus])
   @@index([clientRecordId])
+  @@map("abg_test")
 }
 
 model VentilatorSetting {
   id                       String       @id @default(cuid())
-  admissionId              String
+  admissionId              String       @map("admission_id")
   version                  Int          @default(1)
-  measuredAt               DateTime     @default(now())
+  measuredAt               DateTime     @default(now()) @map("measured_at")
   mode                     String?
-  tidalVolumeMl            Float?
-  respiratoryRateSet       Float?
-  respiratoryRateMeasured  Float?
+  tidalVolumeMl            Float?       @map("tidal_volume_ml")
+  respiratoryRateSet       Float?       @map("respiratory_rate_set")
+  respiratoryRateMeasured  Float?       @map("respiratory_rate_measured")
   fio2                     Float?
   peep                     Float?
-  pressureSupport          Float?
-  inspiratoryPressure      Float?
-  peakPressure             Float?
-  plateauPressure          Float?
-  ieRatio                  String?
-  minuteVolumeLMin         Float?
-  vtMlPerKgReferenceWeight Float?
-  drivingPressure          Float?
+  pressureSupport          Float?       @map("pressure_support")
+  inspiratoryPressure      Float?       @map("inspiratory_pressure")
+  peakPressure             Float?       @map("peak_pressure")
+  plateauPressure          Float?       @map("plateau_pressure")
+  ieRatio                  String?      @map("ie_ratio")
+  minuteVolumeLMin         Float?       @map("minute_volume_l_min")
+  vtMlPerKgReferenceWeight Float?       @map("vt_ml_per_kg_reference_weight")
+  drivingPressure          Float?       @map("driving_pressure")
   source                   String?
-  validationStatus         String?
-  clinicalFlagsJson        Json?
-  calculationSummaryJson   Json?
-  enteredByUserId          String?
-  reviewStatus             ReviewStatus @default(PENDING)
-  clientRecordId           String?
-  deviceId                 String?
-  clientCreatedAt          DateTime?
-  clientUpdatedAt          DateTime?
-  createdAt                DateTime     @default(now())
+  validationStatus         String?      @map("validation_status")
+  clinicalFlagsJson        Json?        @map("clinical_flags_json")
+  calculationSummaryJson   Json?        @map("calculation_summary_json")
+  enteredByUserId          String?      @map("entered_by_user_id")
+  reviewStatus             ReviewStatus @default(PENDING) @map("review_status")
+  clientRecordId           String?      @map("client_record_id")
+  deviceId                 String?      @map("device_id")
+  clientCreatedAt          DateTime?    @map("client_created_at")
+  clientUpdatedAt          DateTime?    @map("client_updated_at")
+  createdAt                DateTime     @default(now()) @map("created_at")
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("VentilatorSettingEnteredBy", fields: [enteredByUserId], references: [id])
@@ -468,157 +482,163 @@ model VentilatorSetting {
   @@index([admissionId, measuredAt])
   @@index([reviewStatus])
   @@index([clientRecordId])
+  @@map("ventilator_setting")
 }
 
 model AirwayDevice {
   id                 String    @id @default(cuid())
-  admissionId        String
-  measuredAt         DateTime  @default(now())
-  airwayRoute        String?
-  tubeType           String?
-  internalDiameterMm Float?
-  depthCm            Float?
-  cuffPressureCmH2O  Float?
-  tubeSecured        Boolean?
+  admissionId        String    @map("admission_id")
+  measuredAt         DateTime  @default(now()) @map("measured_at")
+  airwayRoute        String?   @map("airway_route")
+  tubeType           String?   @map("tube_type")
+  internalDiameterMm Float?    @map("internal_diameter_mm")
+  depthCm            Float?    @map("depth_cm")
+  cuffPressureCmH2O  Float?    @map("cuff_pressure_cm_h2o")
+  tubeSecured        Boolean?  @map("tube_secured")
   notes              String?   @db.Text
-  validationStatus   String?
-  clinicalFlagsJson  Json?
-  enteredByUserId    String?
-  clientRecordId     String?
-  deviceId           String?
-  clientCreatedAt    DateTime?
-  createdAt          DateTime  @default(now())
+  validationStatus   String?   @map("validation_status")
+  clinicalFlagsJson  Json?     @map("clinical_flags_json")
+  enteredByUserId    String?   @map("entered_by_user_id")
+  clientRecordId     String?   @map("client_record_id")
+  deviceId           String?   @map("device_id")
+  clientCreatedAt    DateTime? @map("client_created_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("AirwayDeviceEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
   @@index([clientRecordId])
+  @@map("airway_device")
 }
 
 model HumidificationDecision {
   id                      String    @id @default(cuid())
-  admissionId             String
-  measuredAt              DateTime  @default(now())
+  admissionId             String    @map("admission_id")
+  measuredAt              DateTime  @default(now()) @map("measured_at")
   method                  String?
-  thickSecretions         Boolean?
-  highMinuteVentilation   Boolean?
+  thickSecretions         Boolean?  @map("thick_secretions")
+  highMinuteVentilation   Boolean?  @map("high_minute_ventilation")
   hypothermia             Boolean?
-  airwayBleeding          Boolean?
-  expectedLongVentilation Boolean?
-  suggestedOption         String?
-  confirmedOption         String?
-  clinicalFlagsJson       Json?
-  confirmedByUserId       String?
-  clientRecordId          String?
-  deviceId                String?
-  clientCreatedAt         DateTime?
-  createdAt               DateTime  @default(now())
+  airwayBleeding          Boolean?  @map("airway_bleeding")
+  expectedLongVentilation Boolean?  @map("expected_long_ventilation")
+  suggestedOption         String?   @map("suggested_option")
+  confirmedOption         String?   @map("confirmed_option")
+  clinicalFlagsJson       Json?     @map("clinical_flags_json")
+  confirmedByUserId       String?   @map("confirmed_by_user_id")
+  clientRecordId          String?   @map("client_record_id")
+  deviceId                String?   @map("device_id")
+  clientCreatedAt         DateTime? @map("client_created_at")
+  createdAt               DateTime  @default(now()) @map("created_at")
 
   admission   Admission @relation(fields: [admissionId], references: [id])
   confirmedBy User?     @relation("HumidificationConfirmedBy", fields: [confirmedByUserId], references: [id])
 
   @@index([admissionId, measuredAt])
   @@index([clientRecordId])
+  @@map("humidification_decision")
 }
 
 model DailyVentilationReview {
   id                   String    @id @default(cuid())
-  admissionId          String
-  reviewDate           DateTime  @default(now())
-  oxygenationStable    Boolean?
-  hemodynamicsStable   Boolean?
-  sedationLightEnough  Boolean?
-  secretionsManageable Boolean?
-  sbtStatus            String?
-  sbtFailureReason     String?
-  proneStatus          String?
-  vapBundleJson        Json?
-  clinicalFlagsJson    Json?
-  reviewedByUserId     String?
-  clientRecordId       String?
-  deviceId             String?
-  clientCreatedAt      DateTime?
-  createdAt            DateTime  @default(now())
+  admissionId          String    @map("admission_id")
+  reviewDate           DateTime  @default(now()) @map("review_date")
+  oxygenationStable    Boolean?  @map("oxygenation_stable")
+  hemodynamicsStable   Boolean?  @map("hemodynamics_stable")
+  sedationLightEnough  Boolean?  @map("sedation_light_enough")
+  secretionsManageable Boolean?  @map("secretions_manageable")
+  sbtStatus            String?   @map("sbt_status")
+  sbtFailureReason     String?   @map("sbt_failure_reason")
+  proneStatus          String?   @map("prone_status")
+  vapBundleJson        Json?     @map("vap_bundle_json")
+  clinicalFlagsJson    Json?     @map("clinical_flags_json")
+  reviewedByUserId     String?   @map("reviewed_by_user_id")
+  clientRecordId       String?   @map("client_record_id")
+  deviceId             String?   @map("device_id")
+  clientCreatedAt      DateTime? @map("client_created_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
 
   admission  Admission @relation(fields: [admissionId], references: [id])
   reviewedBy User?     @relation("DailyReviewReviewer", fields: [reviewedByUserId], references: [id])
 
   @@index([admissionId, reviewDate])
   @@index([clientRecordId])
+  @@map("daily_ventilation_review")
 }
 
 model Outcome {
   id                       String      @id @default(cuid())
-  admissionId              String
-  outcomeType              OutcomeType
-  outcomeDate              DateTime?
-  ventilatorDays           Float?
-  icuLengthOfStayDays      Float?
-  hospitalLengthOfStayDays Float?
-  reintubationWithin48h    Boolean?
+  admissionId              String      @map("admission_id")
+  outcomeType              OutcomeType @map("outcome_type")
+  outcomeDate              DateTime?   @map("outcome_date")
+  ventilatorDays           Float?      @map("ventilator_days")
+  icuLengthOfStayDays      Float?      @map("icu_length_of_stay_days")
+  hospitalLengthOfStayDays Float?      @map("hospital_length_of_stay_days")
+  reintubationWithin48h    Boolean?    @map("reintubation_within_48h")
   tracheostomy             Boolean?
-  vapSuspected             Boolean?
+  vapSuspected             Boolean?    @map("vap_suspected")
   notes                    String?     @db.Text
-  enteredByUserId          String?
-  clientRecordId           String?
-  deviceId                 String?
-  clientCreatedAt          DateTime?
-  createdAt                DateTime    @default(now())
+  enteredByUserId          String?     @map("entered_by_user_id")
+  clientRecordId           String?     @map("client_record_id")
+  deviceId                 String?     @map("device_id")
+  clientCreatedAt          DateTime?   @map("client_created_at")
+  createdAt                DateTime    @default(now()) @map("created_at")
 
   admission Admission @relation(fields: [admissionId], references: [id])
   enteredBy User?     @relation("OutcomeEnteredBy", fields: [enteredByUserId], references: [id])
 
   @@index([admissionId, outcomeDate])
   @@index([clientRecordId])
+  @@map("outcome")
 }
 
 model ReviewAction {
   id                  String   @id @default(cuid())
-  facilityId          String?
-  reviewerUserId      String?
-  entityType          String
-  entityId            String
+  facilityId          String?  @map("facility_id")
+  reviewerUserId      String?  @map("reviewer_user_id")
+  entityType          String   @map("entity_type")
+  entityId            String   @map("entity_id")
   action              String
-  statusBefore        String?
-  statusAfter         String?
-  validationStatus    String?
-  triagePriority      String?
-  overrideReason      String?  @db.Text
-  correctionJson      Json?
-  returnedToClinician Boolean  @default(false)
+  statusBefore        String?  @map("status_before")
+  statusAfter         String?  @map("status_after")
+  validationStatus    String?  @map("validation_status")
+  triagePriority      String?  @map("triage_priority")
+  overrideReason      String?  @map("override_reason") @db.Text
+  correctionJson      Json?    @map("correction_json")
+  returnedToClinician Boolean  @default(false) @map("returned_to_clinician")
   comment             String?  @db.Text
-  beforeJson          Json?
-  afterJson           Json?
-  createdAt           DateTime @default(now())
+  beforeJson          Json?    @map("before_json")
+  afterJson           Json?    @map("after_json")
+  createdAt           DateTime @default(now()) @map("created_at")
 
   facility Facility? @relation(fields: [facilityId], references: [id])
   reviewer User?     @relation("ReviewActionReviewer", fields: [reviewerUserId], references: [id])
 
   @@index([facilityId, entityType, entityId])
   @@index([reviewerUserId, createdAt])
+  @@map("review_action")
 }
 
 model DatasetCase {
   id                      String              @id @default(cuid())
-  facilityId              String
-  sourceAdmissionId       String?
-  sourceType              String
-  sourcePayloadJson       Json?
-  structuredPreviewJson   Json?
-  deidentifiedPayloadJson Json
-  deidentificationStatus  String?
-  reviewStatus            DatasetReviewStatus @default(SUBMITTED)
-  approvedForTraining     Boolean             @default(false)
-  approvedByUserId        String?
-  reviewedByUserId        String?
-  reviewedAt              DateTime?
-  ethicsApprovalId        String?
-  governanceJson          Json?
-  datasetVersion          String?
-  exclusionReason         String?             @db.Text
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
+  facilityId              String              @map("facility_id")
+  sourceAdmissionId       String?             @map("source_admission_id")
+  sourceType              String              @map("source_type")
+  sourcePayloadJson       Json?               @map("source_payload_json")
+  structuredPreviewJson   Json?               @map("structured_preview_json")
+  deidentifiedPayloadJson Json                @map("deidentified_payload_json")
+  deidentificationStatus  String?             @map("deidentification_status")
+  reviewStatus            DatasetReviewStatus @default(SUBMITTED) @map("review_status")
+  approvedForTraining     Boolean             @default(false) @map("approved_for_training")
+  approvedByUserId        String?             @map("approved_by_user_id")
+  reviewedByUserId        String?             @map("reviewed_by_user_id")
+  reviewedAt              DateTime?           @map("reviewed_at")
+  ethicsApprovalId        String?             @map("ethics_approval_id")
+  governanceJson          Json?               @map("governance_json")
+  datasetVersion          String?             @map("dataset_version")
+  exclusionReason         String?             @map("exclusion_reason") @db.Text
+  createdAt               DateTime            @default(now()) @map("created_at")
+  updatedAt               DateTime            @updatedAt @map("updated_at")
 
   facility        Facility   @relation(fields: [facilityId], references: [id])
   sourceAdmission Admission? @relation(fields: [sourceAdmissionId], references: [id])
@@ -628,35 +648,36 @@ model DatasetCase {
   @@index([facilityId, reviewStatus])
   @@index([approvedForTraining, datasetVersion])
   @@index([sourceAdmissionId])
+  @@map("dataset_case")
 }
 
 model ReferenceRule {
   id                 String                          @id @default(cuid())
-  facilityId         String?
+  facilityId         String?                         @map("facility_id")
   name               String
   version            String
-  clinicalCondition  String?
+  clinicalCondition  String?                         @map("clinical_condition")
   scenario           String?
-  patientPathway     PatientPathway?
+  patientPathway     PatientPathway?                 @map("patient_pathway")
   population         String?
   scope              ReferenceScope                  @default(GLOBAL)
-  parameterName      String?
-  lowerBound         Float?
-  upperBound         Float?
+  parameterName      String?                         @map("parameter_name")
+  lowerBound         Float?                          @map("lower_bound")
+  upperBound         Float?                          @map("upper_bound")
   unit               String?
-  sourceCitation     String?                         @db.Text
-  ruleJson           Json
-  activeFrom         DateTime?
-  activeTo           DateTime?
-  approvedByUserId   String?
-  verifiedByUserId   String?
-  verifiedAt         DateTime?
-  verificationStatus ReferenceRuleVerificationStatus @default(PENDING_REVIEW)
-  reviewNotes        String?                         @db.Text
-  auditTrailJson     Json?
-  governanceStatus   String?
-  createdAt          DateTime                        @default(now())
-  updatedAt          DateTime                        @updatedAt
+  sourceCitation     String?                         @map("source_citation") @db.Text
+  ruleJson           Json                            @map("rule_json")
+  activeFrom         DateTime?                       @map("active_from")
+  activeTo           DateTime?                       @map("active_to")
+  approvedByUserId   String?                         @map("approved_by_user_id")
+  verifiedByUserId   String?                         @map("verified_by_user_id")
+  verifiedAt         DateTime?                       @map("verified_at")
+  verificationStatus ReferenceRuleVerificationStatus @default(PENDING_REVIEW) @map("verification_status")
+  reviewNotes        String?                         @map("review_notes") @db.Text
+  auditTrailJson     Json?                           @map("audit_trail_json")
+  governanceStatus   String?                         @map("governance_status")
+  createdAt          DateTime                        @default(now()) @map("created_at")
+  updatedAt          DateTime                        @updatedAt @map("updated_at")
 
   facility   Facility? @relation(fields: [facilityId], references: [id])
   approvedBy User?     @relation("ReferenceRuleApprovedBy", fields: [approvedByUserId], references: [id])
@@ -667,39 +688,41 @@ model ReferenceRule {
   @@index([parameterName, patientPathway, population])
   @@index([facilityId, verificationStatus])
   @@index([verificationStatus, activeFrom, activeTo])
+  @@map("reference_rule")
 }
 
 model ModelVersion {
   id                     String              @id @default(cuid())
-  modelName              String
+  modelName              String              @map("model_name")
   version                String
-  trainingDatasetVersion String?
-  intendedUse            String?             @db.Text
-  contraindicatedUse     String?             @db.Text
-  performanceSummaryJson Json?
-  calibrationSummaryJson Json?
-  biasAssessmentJson     Json?
-  approvalStatus         ModelApprovalStatus @default(DRAFT)
-  activatedAt            DateTime?
-  retiredAt              DateTime?
-  createdAt              DateTime            @default(now())
-  updatedAt              DateTime            @updatedAt
+  trainingDatasetVersion String?             @map("training_dataset_version")
+  intendedUse            String?             @map("intended_use") @db.Text
+  contraindicatedUse     String?             @map("contraindicated_use") @db.Text
+  performanceSummaryJson Json?               @map("performance_summary_json")
+  calibrationSummaryJson Json?               @map("calibration_summary_json")
+  biasAssessmentJson     Json?               @map("bias_assessment_json")
+  approvalStatus         ModelApprovalStatus @default(DRAFT) @map("approval_status")
+  activatedAt            DateTime?           @map("activated_at")
+  retiredAt              DateTime?           @map("retired_at")
+  createdAt              DateTime            @default(now()) @map("created_at")
+  updatedAt              DateTime            @updatedAt @map("updated_at")
 
   outputs ModelOutput[]
 
   @@unique([modelName, version])
   @@index([approvalStatus])
+  @@map("model_version")
 }
 
 model ModelOutput {
   id                  String   @id @default(cuid())
-  modelVersionId      String
-  facilityId          String?
-  sourceAdmissionId   String?
-  inputSummaryJson    Json
-  outputJson          Json
-  visibleToClinicians Boolean  @default(false)
-  createdAt           DateTime @default(now())
+  modelVersionId      String   @map("model_version_id")
+  facilityId          String?  @map("facility_id")
+  sourceAdmissionId   String?  @map("source_admission_id")
+  inputSummaryJson    Json     @map("input_summary_json")
+  outputJson          Json     @map("output_json")
+  visibleToClinicians Boolean  @default(false) @map("visible_to_clinicians")
+  createdAt           DateTime @default(now()) @map("created_at")
 
   modelVersion    ModelVersion @relation(fields: [modelVersionId], references: [id])
   sourceAdmission Admission?   @relation(fields: [sourceAdmissionId], references: [id])
@@ -707,22 +730,23 @@ model ModelOutput {
   @@index([modelVersionId, createdAt])
   @@index([facilityId, createdAt])
   @@index([sourceAdmissionId])
+  @@map("model_output")
 }
 
 model IdempotencyRecord {
   id             String     @id @default(cuid())
-  userId         String?
-  facilityId     String?
+  userId         String?    @map("user_id")
+  facilityId     String?    @map("facility_id")
   key            String
   operation      String
-  requestHash    String
-  responseJson   Json?
+  requestHash    String     @map("request_hash")
+  responseJson   Json?      @map("response_json")
   status         SyncStatus @default(SYNCED)
-  entityType     String?
-  entityId       String?
-  clientRecordId String?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  entityType     String?    @map("entity_type")
+  entityId       String?    @map("entity_id")
+  clientRecordId String?    @map("client_record_id")
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
 
   user     User?     @relation("IdempotencyUser", fields: [userId], references: [id])
   facility Facility? @relation(fields: [facilityId], references: [id])
@@ -730,29 +754,30 @@ model IdempotencyRecord {
   @@unique([userId, key])
   @@index([facilityId, operation])
   @@index([clientRecordId])
+  @@map("idempotency_record")
 }
 
 model SyncEvent {
   id                  String     @id @default(cuid())
-  userId              String?
-  facilityId          String?
+  userId              String?    @map("user_id")
+  facilityId          String?    @map("facility_id")
   operation           String
-  entityType          String?
-  entityId            String?
-  clientRecordId      String?
-  idempotencyKey      String?
+  entityType          String?    @map("entity_type")
+  entityId            String?    @map("entity_id")
+  clientRecordId      String?    @map("client_record_id")
+  idempotencyKey      String?    @map("idempotency_key")
   status              SyncStatus @default(WAITING_TO_SYNC)
-  requestPayloadJson  Json?
-  responsePayloadJson Json?
-  conflictPayloadJson Json?
-  errorMessage        String?    @db.Text
-  clientCreatedAt     DateTime?
-  clientUpdatedAt     DateTime?
-  deviceId            String?
-  receivedAt          DateTime   @default(now())
-  resolvedAt          DateTime?
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
+  requestPayloadJson  Json?      @map("request_payload_json")
+  responsePayloadJson Json?      @map("response_payload_json")
+  conflictPayloadJson Json?      @map("conflict_payload_json")
+  errorMessage        String?    @map("error_message") @db.Text
+  clientCreatedAt     DateTime?  @map("client_created_at")
+  clientUpdatedAt     DateTime?  @map("client_updated_at")
+  deviceId            String?    @map("device_id")
+  receivedAt          DateTime   @default(now()) @map("received_at")
+  resolvedAt          DateTime?  @map("resolved_at")
+  createdAt           DateTime   @default(now()) @map("created_at")
+  updatedAt           DateTime   @updatedAt @map("updated_at")
 
   user     User?     @relation("SyncEventUser", fields: [userId], references: [id])
   facility Facility? @relation(fields: [facilityId], references: [id])
@@ -760,21 +785,22 @@ model SyncEvent {
   @@index([facilityId, status])
   @@index([clientRecordId])
   @@index([idempotencyKey])
+  @@map("sync_event")
 }
 
 model AuditLog {
   id         String   @id @default(cuid())
-  userId     String?
-  facilityId String?
+  userId     String?  @map("user_id")
+  facilityId String?  @map("facility_id")
   action     String
-  entityType String
-  entityId   String?
-  beforeJson Json?
-  afterJson  Json?
+  entityType String   @map("entity_type")
+  entityId   String?  @map("entity_id")
+  beforeJson Json?    @map("before_json")
+  afterJson  Json?    @map("after_json")
   reason     String?  @db.Text
-  requestId  String?
-  ipHash     String?
-  createdAt  DateTime @default(now())
+  requestId  String?  @map("request_id")
+  ipHash     String?  @map("ip_hash")
+  createdAt  DateTime @default(now()) @map("created_at")
 
   user     User?     @relation("AuditLogUser", fields: [userId], references: [id])
   facility Facility? @relation(fields: [facilityId], references: [id])
@@ -782,4 +808,5 @@ model AuditLog {
   @@index([facilityId, entityType, entityId])
   @@index([userId, createdAt])
   @@index([action, createdAt])
+  @@map("audit_log")
 }

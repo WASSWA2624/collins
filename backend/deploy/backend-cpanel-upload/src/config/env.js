@@ -78,7 +78,7 @@ export const createEnv = (source = process.env) => {
   }
 
   if (!databaseUrl) {
-    errors.push('DATABASE_URL is required for Prisma. Copy .env.example to .env and set a MySQL connection string.');
+    errors.push('DATABASE_URL is required for Prisma. Set DATABASE_URL in .env to a MySQL connection string.');
   }
 
   if (nodeEnv === 'production' && !jwtSecret) {

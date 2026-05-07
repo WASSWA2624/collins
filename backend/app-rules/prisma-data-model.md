@@ -3,6 +3,7 @@
 ## Schema principles
 
 - Keep `prisma/schema.prisma` aligned with `../../app-write-up.md`.
+- Keep physical database table, column, index, and foreign-key names in lowercase snake case. Use Prisma `@@map` and `@map` when the JavaScript-facing model or field name stays PascalCase/camelCase.
 - Use CUID string IDs for portability.
 - Use explicit `createdAt`, `updatedAt`, `measuredAt`, `collectedAt`, `reviewDate`, or `outcomeDate` fields as appropriate.
 - Use enums for stable status, role, pathway, review, and model approval fields.

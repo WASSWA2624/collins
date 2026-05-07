@@ -28,9 +28,10 @@ The product vision and clinical requirements are documented at:
 
 ```bash
 npm install
-cp .env.example .env
 npm run start
 ```
+
+Configure `.env` before starting Expo. The file contains production and development blocks; keep one block uncommented and comment the other.
 
 ## Common scripts
 
