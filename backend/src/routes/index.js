@@ -32,6 +32,6 @@ apiRouter.use('/sync', syncRouter);
 apiRouter.use('/dashboards', dashboardsRouter);
 apiRouter.use('/training-help', trainingHelpRouter);
 apiRouter.use('/settings', settingsRouter);
-apiRouter.use('/', datasetRouter);
 apiRouter.use('/', referencesRouter);
+apiRouter.use('/', datasetRouter);
 apiRouter.use('/admin', adminRouter);
