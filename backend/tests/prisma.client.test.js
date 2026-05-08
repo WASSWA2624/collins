@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
 
-const { createMariaDbAdapterConfig, prisma } = await import('../src/config/prisma.js');
+const {
+  createMariaDbAdapterConfig,
+  createMariaDbConnectionConfigs,
+  prisma,
+} = await import('../src/config/prisma.js');
 
 test('normalizes Prisma mysql URLs for the MariaDB runtime adapter', () => {
   assert.deepEqual(
@@ -14,9 +18,41 @@ test('normalizes Prisma mysql URLs for the MariaDB runtime adapter', () => {
       database: 'collins_test',
       connectionLimit: 5,
       connectTimeout: 10000,
-      host: 'localhost',
+      acquireTimeout: 10000,
+      host: '127.0.0.1',
       port: 3307,
     },
+  );
+});
+
+test('uses explicit production database host overrides for shared hosting', () => {
+  assert.deepEqual(
+    createMariaDbAdapterConfig('mysql://db_user:p%40ssword@localhost:3307/collins_test', {
+      host: '127.0.0.1',
+      port: 3306,
+      connectionLimit: 1,
+      connectTimeoutMs: 15000,
+      acquireTimeoutMs: 15000,
+    }),
+    {
+      user: 'db_user',
+      password: 'p@ssword',
+      database: 'collins_test',
+      connectionLimit: 1,
+      connectTimeout: 15000,
+      acquireTimeout: 15000,
+      host: '127.0.0.1',
+      port: 3306,
+    },
+  );
+});
+
+test('builds local TCP fallback candidates without duplicating hosts', () => {
+  assert.deepEqual(
+    createMariaDbConnectionConfigs('mysql://db_user:p%40ssword@localhost:3306/collins_test')
+      .map((config) => config.host)
+      .filter(Boolean),
+    ['127.0.0.1', 'localhost'],
   );
 });
 
@@ -33,6 +69,7 @@ test('supports explicit MySQL socket paths for shared hosting', () => {
       database: 'collins_test',
       connectionLimit: 3,
       connectTimeout: 15000,
+      acquireTimeout: 15000,
       socketPath: '/var/lib/mysql/mysql.sock',
     },
   );

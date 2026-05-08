@@ -28,6 +28,9 @@ test('loads safe development defaults while requiring only backend configuration
   assert.equal(config.databaseUseTextProtocol, true);
   assert.equal(config.databaseConnectionLimit, 5);
   assert.equal(config.databaseConnectTimeoutMs, 10000);
+  assert.equal(config.databaseAcquireTimeoutMs, 10000);
+  assert.equal(config.databaseHost, undefined);
+  assert.equal(config.databasePort, undefined);
   assert.equal(config.databaseSocketPath, undefined);
   assert.deepEqual(config.corsOrigins, [
     'http://localhost:8081',
@@ -72,21 +75,28 @@ test('production trusts one reverse proxy by default', () => {
   });
 
   assert.equal(config.trustProxy, 1);
+  assert.equal(config.databaseConnectionLimit, 1);
 });
 
 test('allows shared-hosting database transport overrides', () => {
   const config = createEnv({
     DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
     DATABASE_SOCKET_PATH: '/var/lib/mysql/mysql.sock',
+    DATABASE_HOST: '127.0.0.1',
+    DATABASE_PORT: '3306',
     DATABASE_USE_TEXT_PROTOCOL: 'false',
     DATABASE_CONNECTION_LIMIT: '2',
     DATABASE_CONNECT_TIMEOUT_MS: '15000',
+    DATABASE_ACQUIRE_TIMEOUT_MS: '15000',
   });
 
   assert.equal(config.databaseSocketPath, '/var/lib/mysql/mysql.sock');
+  assert.equal(config.databaseHost, '127.0.0.1');
+  assert.equal(config.databasePort, 3306);
   assert.equal(config.databaseUseTextProtocol, false);
   assert.equal(config.databaseConnectionLimit, 2);
   assert.equal(config.databaseConnectTimeoutMs, 15000);
+  assert.equal(config.databaseAcquireTimeoutMs, 15000);
 });
 
 test('validates reverse proxy trust settings', () => {

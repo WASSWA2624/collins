@@ -99,10 +99,13 @@ Before starting the app, edit `.env.production` on cPanel:
 NODE_ENV=production
 HOST=0.0.0.0
 PORT=<cPanel assigned port or 3000>
-DATABASE_URL=mysql://<database_user>:<database_password>@localhost:3306/<database_name>
+DATABASE_URL=mysql://<database_user>:<database_password>@127.0.0.1:3306/<database_name>
+DATABASE_HOST=127.0.0.1
+DATABASE_PORT=3306
 DATABASE_USE_TEXT_PROTOCOL=true
-DATABASE_CONNECTION_LIMIT=5
+DATABASE_CONNECTION_LIMIT=1
 DATABASE_CONNECT_TIMEOUT_MS=10000
+DATABASE_ACQUIRE_TIMEOUT_MS=10000
 # DATABASE_SOCKET_PATH=/var/lib/mysql/mysql.sock
 JWT_SECRET=<strong unique production secret>
 CORS_ORIGIN=https://your-domain.com,https://www.your-domain.com
@@ -141,7 +144,7 @@ Node.js version: 20.x
 
 DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
 
-If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config defaults to Prisma's text protocol for better shared-hosting compatibility and auto-detects common local MySQL socket paths for `localhost`. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
+If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config uses Prisma's text protocol, one database connection, and `127.0.0.1` by default for better shared-hosting compatibility. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
 
 If `/ready` connects but login fails because tables are missing, run `npm run db:migrate:deploy` from `/home/zelahco/collins-backend`, restart the Node.js app, then test `/ready` and login again.
 

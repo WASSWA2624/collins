@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import mariadb from 'mariadb';
+import * as mariadb from 'mariadb';
 import { env } from '../src/config/env.js';
 import { createMariaDbAdapterConfig } from '../src/config/database.js';
 
@@ -83,9 +83,12 @@ const main = async () => {
 
   const connectionConfig = {
     ...createMariaDbAdapterConfig(env.databaseUrl, {
+      host: env.databaseHost,
+      port: env.databasePort,
       socketPath: env.databaseSocketPath,
       connectionLimit: 1,
       connectTimeoutMs: env.databaseConnectTimeoutMs,
+      acquireTimeoutMs: env.databaseAcquireTimeoutMs,
     }),
     multipleStatements: true,
   };

@@ -1,5 +1,8 @@
-import { prisma } from '../../config/prisma.js';
 import { env } from '../../config/env.js';
+import {
+  checkMariaDbConnection,
+  sanitizeMariaDbConnectionConfig,
+} from '../../config/database.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { errorResponse, successResponse } from '../../utils/apiResponse.js';
 
@@ -11,23 +14,34 @@ const buildHealthData = (database) => ({
   timestamp: new Date().toISOString(),
 });
 
-const getDatabaseErrorSummary = (error) => ({
+const getDatabaseErrorSummary = (error, attemptedConfigs = []) => ({
   name: error?.name,
   code: error?.code,
   errno: error?.errno,
   sqlState: error?.sqlState,
   fatal: error?.fatal,
   message: error?.message,
+  attemptedConfigs: attemptedConfigs.map(sanitizeMariaDbConnectionConfig),
 });
 
 const checkDatabase = async () => {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
+  const result = await checkMariaDbConnection(env.databaseUrl, {
+    host: env.databaseHost,
+    port: env.databasePort,
+    socketPath: env.databaseSocketPath,
+    connectTimeoutMs: env.databaseConnectTimeoutMs,
+    acquireTimeoutMs: env.databaseAcquireTimeoutMs,
+  });
+
+  if (result.status === 'connected') {
     return 'connected';
-  } catch (error) {
-    console.error('Database readiness check failed', getDatabaseErrorSummary(error));
-    return 'unavailable';
   }
+
+  console.error(
+    'Database readiness check failed',
+    getDatabaseErrorSummary(result.error, result.attemptedConfigs),
+  );
+  return 'unavailable';
 };
 
 export const getHealth = asyncHandler(async (req, res) => {

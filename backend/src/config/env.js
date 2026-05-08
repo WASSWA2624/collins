@@ -119,7 +119,14 @@ export const createEnv = (source = process.env) => {
   const requestLogging = getBooleanEnv(source, 'REQUEST_LOGGING', true, errors);
   const trustProxy = getTrustProxyEnv(source, nodeEnv, errors);
   const databaseUseTextProtocol = getBooleanEnv(source, 'DATABASE_USE_TEXT_PROTOCOL', true, errors);
-  const databaseConnectionLimit = getIntegerEnv(source, 'DATABASE_CONNECTION_LIMIT', 5, { min: 1, max: 50 }, errors);
+  const defaultDatabaseConnectionLimit = nodeEnv === 'production' ? 1 : 5;
+  const databaseConnectionLimit = getIntegerEnv(
+    source,
+    'DATABASE_CONNECTION_LIMIT',
+    defaultDatabaseConnectionLimit,
+    { min: 1, max: 50 },
+    errors,
+  );
   const databaseConnectTimeoutMs = getIntegerEnv(
     source,
     'DATABASE_CONNECT_TIMEOUT_MS',
@@ -127,6 +134,14 @@ export const createEnv = (source = process.env) => {
     { min: 1000, max: 60000 },
     errors,
   );
+  const databaseAcquireTimeoutMs = getIntegerEnv(
+    source,
+    'DATABASE_ACQUIRE_TIMEOUT_MS',
+    databaseConnectTimeoutMs,
+    { min: 1000, max: 60000 },
+    errors,
+  );
+  const databasePort = getIntegerEnv(source, 'DATABASE_PORT', undefined, { min: 1, max: 65535 }, errors);
   const host = getEnv(source, 'HOST', DEFAULT_HOST);
 
   if (errors.length > 0) {
@@ -139,10 +154,13 @@ export const createEnv = (source = process.env) => {
     port,
     apiVersion,
     databaseUrl,
+    databaseHost: getEnv(source, 'DATABASE_HOST'),
+    databasePort,
     databaseSocketPath: getEnv(source, 'DATABASE_SOCKET_PATH', getEnv(source, 'DATABASE_SOCKET')),
     databaseUseTextProtocol,
     databaseConnectionLimit,
     databaseConnectTimeoutMs,
+    databaseAcquireTimeoutMs,
     jwtSecret,
     jwtExpiresIn: getEnv(source, 'JWT_EXPIRES_IN', '1d'),
     bcryptSaltRounds,
