@@ -34,6 +34,7 @@ Backend env variables:
 | `JWT_EXPIRES_IN` | Shorter local expiry | Production expiry | JWT token lifetime. |
 | `CORS_ORIGIN` | Local Expo/web origins | Production web origins | Comma-separated allowed browser origins. |
 | `BCRYPT_SALT_ROUNDS` | `12` | `12` | Password hash work factor. |
+| `TRUST_PROXY` | `false` | `1` | Number of reverse proxies in front of Express. DirectAdmin/LiteSpeed should use `1`. |
 | `REQUEST_LOGGING` | `true` | `true` | Enables request logging. |
 
 Local development admin login:
@@ -97,6 +98,7 @@ PORT=<cPanel assigned port or 3000>
 DATABASE_URL=mysql://<database_user>:<database_password>@localhost:3306/<database_name>
 JWT_SECRET=<strong unique production secret>
 CORS_ORIGIN=https://your-domain.com,https://www.your-domain.com
+TRUST_PROXY=1
 ```
 
 Run these commands from the backend application directory after upload:
