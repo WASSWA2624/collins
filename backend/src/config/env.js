@@ -56,6 +56,23 @@ const getBooleanEnv = (source, key, fallback, errors) => {
   return fallback;
 };
 
+const getTrustProxyEnv = (source, nodeEnv, errors) => {
+  const value = getEnv(source, 'TRUST_PROXY');
+  if (value === undefined) return nodeEnv === 'production' ? 1 : false;
+
+  const normalized = value.toLowerCase();
+  if (['true', '1'].includes(normalized)) return 1;
+  if (['false', '0'].includes(normalized)) return false;
+
+  const numericValue = Number(value);
+  if (Number.isInteger(numericValue) && numericValue >= 0 && numericValue <= 5) {
+    return numericValue === 0 ? false : numericValue;
+  }
+
+  errors.push('TRUST_PROXY must be false, true, or an integer between 0 and 5.');
+  return nodeEnv === 'production' ? 1 : false;
+};
+
 const parseCorsOrigins = (value) => String(value || '')
   .split(',')
   .map((item) => item.trim())
@@ -100,6 +117,7 @@ export const createEnv = (source = process.env) => {
   const port = getIntegerEnv(source, 'PORT', 3000, { min: 1, max: 65535 }, errors);
   const bcryptSaltRounds = getIntegerEnv(source, 'BCRYPT_SALT_ROUNDS', 12, { min: 4, max: 31 }, errors);
   const requestLogging = getBooleanEnv(source, 'REQUEST_LOGGING', true, errors);
+  const trustProxy = getTrustProxyEnv(source, nodeEnv, errors);
   const host = getEnv(source, 'HOST', DEFAULT_HOST);
 
   if (errors.length > 0) {
@@ -117,6 +135,7 @@ export const createEnv = (source = process.env) => {
     bcryptSaltRounds,
     corsOrigins,
     requestLogging,
+    trustProxy,
   });
 };
 

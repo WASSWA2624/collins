@@ -42,6 +42,7 @@ export const createApp = () => {
   const app = express();
 
   app.disable('x-powered-by');
+  app.set('trust proxy', env.trustProxy);
   app.use((req, res, next) => {
     req.id = req.headers['x-request-id'] || crypto.randomUUID();
     res.setHeader('x-request-id', req.id);

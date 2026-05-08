@@ -61,8 +61,8 @@ export const resolveEnvironmentName = ({
   normalizeEnvironment(source.COLLINS_ENV)
   || normalizeEnvironment(source.APP_ENV)
   || getEnvironmentFromArgs(argv)
-  || normalizeEnvironment(source.NODE_ENV)
   || getEnvironmentFromLifecycle(source.npm_lifecycle_event)
+  || normalizeEnvironment(source.NODE_ENV)
   || fallback
 );
 
@@ -78,7 +78,15 @@ export const loadEnvironmentFile = ({
   const filePath = path.join(projectRoot || process.cwd(), fileName);
 
   dotenv.config({ path: filePath, quiet: true });
-  source.NODE_ENV ||= environment;
+
+  const lifecycleEnvironment = getEnvironmentFromLifecycle(source.npm_lifecycle_event);
+  const npmForcedProduction = source.NODE_ENV === 'production'
+    && lifecycleEnvironment === environment
+    && environment !== 'production';
+
+  if (!source.NODE_ENV || npmForcedProduction) {
+    source.NODE_ENV = environment;
+  }
 
   return { environment, fileName, filePath };
 };

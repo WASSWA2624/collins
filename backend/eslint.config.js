@@ -1,6 +1,9 @@
 import js from '@eslint/js';
 
 export default [
+  {
+    ignores: ['src/generated/**'],
+  },
   js.configs.recommended,
   {
     languageOptions: {

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
 
-const { Prisma } = await import('@prisma/client');
+const { Prisma } = await import('../src/config/prismaClient.js');
 const {
   buildDashboardWindow,
   buildMissingModelReadinessWhere,

@@ -7,7 +7,7 @@ Express + Prisma backend foundation for the AI Vent ventilation admission, track
 Use Node.js 20 or newer. The `package.json` `engines` field documents this baseline without adding a hard runtime gate.
 
 ```bash
-npm install
+npm install --include=dev
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:seed
@@ -76,7 +76,7 @@ Training/help content:
 GET /api/v1/training-help
 ```
 
-`npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Production hosting should run `npm run prisma:generate:production` after dependency installation and before restart if the host starts the configured startup file directly instead of running `npm start`. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
+`npm run dev`, `npm test`, and deployment packaging run Prisma Client generation before the app is shipped. Production startup uses the generated client committed into the deployment zip, so shared hosting does not need to run Prisma CLI. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
 
 ## cPanel deployment
 
@@ -103,13 +103,10 @@ Run these commands from the backend application directory after upload:
 
 ```bash
 npm install
-npm run prisma:generate:production
-npm run prisma:migrate:deploy
-npm run prisma:seed
 npm start
 ```
 
-Only run `npm run prisma:seed` when the target database should receive the default administrator, clinician, facility, and reference-rule seed data. For an already populated production database, run migrations without seeding.
+The shared-hosting deployment package already contains `src/generated/prisma`, and `.npmrc` omits dev dependencies and install scripts. Do not run `npm run prisma:generate:production` on a quota-limited hosting account. Run Prisma migration/seed commands only from a development machine or CI environment where dev dependencies are installed, then point production at the updated database.
 
 Deployment health checks:
 
@@ -118,6 +115,24 @@ GET /
 GET /api/v1/health
 GET /ready
 ```
+
+## DirectAdmin deployment
+
+The DirectAdmin Node.js screen can use:
+
+```txt
+Application root: collins-backend
+Application URL: zelah.co.ug/
+Application startup file: src/server.js
+Application mode: Production
+Node.js version: 20.x
+```
+
+DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
+
+Before replacing an older upload, remove any stale app-root `node_modules` and `tmp` directories so startup can create a clean link and temp directory.
+
+The project `.npmrc` makes DirectAdmin's plain `npm install` production-only by omitting dev dependencies, install scripts, audit, funding checks, and npm log files. This keeps ESLint, Nodemon, and Prisma CLI off the hosting account and avoids generating Prisma Client during install or startup. If the host still reports `Unknown system error -122`, the account disk or inode quota is already full and files must be deleted before npm can create runtime dependencies.
 
 Database setup for a clean local MySQL database:
 

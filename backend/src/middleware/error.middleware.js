@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../config/prismaClient.js';
 import { ZodError } from 'zod';
 import { errorResponse } from '../utils/apiResponse.js';
 import { isProduction } from '../config/env.js';

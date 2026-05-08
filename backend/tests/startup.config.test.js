@@ -7,9 +7,11 @@ import { fileURLToPath } from 'node:url';
 process.env.DATABASE_URL ||= 'mysql://root:password@localhost:3306/collins_test';
 
 const { createEnv, EnvValidationError, DEVELOPMENT_JWT_SECRET } = await import('../src/config/env.js');
+const { resolveEnvironmentName } = await import('../src/config/envFile.js');
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packageJson = JSON.parse(readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const nodemonConfig = JSON.parse(readFileSync(path.join(projectRoot, 'nodemon.json'), 'utf8'));
+const npmConfig = readFileSync(path.join(projectRoot, '.npmrc'), 'utf8');
 
 test('loads safe development defaults while requiring only backend configuration', () => {
   const config = createEnv({
@@ -20,6 +22,7 @@ test('loads safe development defaults while requiring only backend configuration
   assert.equal(config.host, '0.0.0.0');
   assert.equal(config.port, 3000);
   assert.equal(config.apiVersion, 'v1');
+  assert.equal(config.trustProxy, false);
   assert.equal(config.jwtSecret, DEVELOPMENT_JWT_SECRET);
   assert.equal(config.requestLogging, true);
   assert.deepEqual(config.corsOrigins, [
@@ -57,6 +60,49 @@ test('requires an explicit JWT secret in production', () => {
   );
 });
 
+test('production trusts one reverse proxy by default', () => {
+  const config = createEnv({
+    NODE_ENV: 'production',
+    DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+    JWT_SECRET: 'production-secret-with-enough-length',
+  });
+
+  assert.equal(config.trustProxy, 1);
+});
+
+test('validates reverse proxy trust settings', () => {
+  assert.equal(createEnv({
+    DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+    TRUST_PROXY: '2',
+  }).trustProxy, 2);
+
+  assert.equal(createEnv({
+    DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+    TRUST_PROXY: 'false',
+  }).trustProxy, false);
+
+  assert.throws(
+    () => createEnv({
+      DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+      TRUST_PROXY: 'not-valid',
+    }),
+    (error) => error instanceof EnvValidationError
+      && error.errors.includes('TRUST_PROXY must be false, true, or an integer between 0 and 5.'),
+  );
+});
+
+test('npm lifecycle environment overrides npm omit dev NODE_ENV', () => {
+  assert.equal(resolveEnvironmentName({
+    source: { NODE_ENV: 'production', npm_lifecycle_event: 'test' },
+    argv: [],
+  }), 'development');
+
+  assert.equal(resolveEnvironmentName({
+    source: { NODE_ENV: 'production', npm_lifecycle_event: 'start' },
+    argv: [],
+  }), 'production');
+});
+
 test('validates startup scalar settings', () => {
   assert.throws(
     () => createEnv({
@@ -76,19 +122,26 @@ test('pins supported Node runtime for backend startup', () => {
   assert.equal(packageJson.engines.node, '>=20.0.0');
 });
 
-test('runs Prisma generation before backend startup and tests', () => {
-  assert.equal(packageJson.scripts.predev, 'node scripts/prisma-generate-if-needed.mjs --env=development');
-  assert.equal(packageJson.scripts.prestart, 'node scripts/prisma-generate-if-needed.mjs --env=production');
-  assert.equal(packageJson.scripts.pretest, 'node scripts/prisma-generate-if-needed.mjs --env=development');
+test('keeps Prisma generation off production install and startup paths', () => {
+  assert.equal(packageJson.scripts.predev, undefined);
+  assert.equal(packageJson.scripts.pretest, undefined);
   assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs --env=development');
   assert.equal(packageJson.scripts['prisma:generate:production'], 'node scripts/prisma-generate-if-needed.mjs --env=production');
+  assert.equal(packageJson.scripts.prestart, undefined);
   assert.equal(packageJson.scripts.postinstall, undefined);
-  assert.equal(packageJson.scripts.dev, 'nodemon --config nodemon.json');
+  assert.equal(packageJson.scripts.dev, 'node scripts/prisma-generate-if-needed.mjs --env=development && nodemon --config nodemon.json');
   assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
   assert.equal(packageJson.scripts['start:cpanel'], 'node cpanel-start.cjs');
+  assert.equal(packageJson.scripts.test, 'node scripts/prisma-generate-if-needed.mjs --env=development && node --test');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'cpanel-start.cjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
+  assert.equal(existsSync(path.join(projectRoot, 'src', 'generated', 'prisma', 'index.js')), true);
+  assert.ok(npmConfig.includes('omit=dev'));
+  assert.ok(npmConfig.includes('ignore-scripts=true'));
+  assert.ok(npmConfig.includes('legacy-peer-deps=true'));
+  assert.equal(packageJson.dependencies.prisma, undefined);
+  assert.equal(packageJson.devDependencies.prisma, '7.8.0');
 });
 
 test('dev watcher is scoped to backend source and config files', () => {

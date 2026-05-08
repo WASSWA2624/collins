@@ -1,7 +1,7 @@
 import { URL } from 'node:url';
-import { PrismaClient } from '@prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { env } from './env.js';
+import { PrismaClient } from './prismaClient.js';
 
 const SUPPORTED_DATABASE_PROTOCOLS = new Set(['mysql:', 'mariadb:']);
 

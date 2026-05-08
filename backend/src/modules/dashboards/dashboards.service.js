@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../config/prismaClient.js';
 import { prisma } from '../../config/prisma.js';
 import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import {
