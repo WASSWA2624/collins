@@ -43,7 +43,7 @@ Frontend env variables:
 | Variable | Development | Production | Purpose |
 | --- | --- | --- | --- |
 | `NODE_ENV` | `development` | `production` | Selects runtime behavior and logging mode. |
-| `EXPO_PUBLIC_API_BASE_URL` | Blank for Expo/LAN auto-discovery | Production API URL | Public backend base URL bundled into the client. |
+| `EXPO_PUBLIC_API_BASE_URL` | Blank for Expo/LAN auto-discovery | `https://api.zelah.co.ug` | Public backend base URL bundled into the client. |
 | `EXPO_PUBLIC_API_PORT` | `3000` | `3000` | API port used by development host auto-discovery. |
 | `EXPO_PUBLIC_API_VERSION` | `v1` | `v1` | API namespace used by endpoint construction. |
 | `EXPO_PUBLIC_APP_ENVIRONMENT` | `development` | `production` | Public environment label shown in app metadata. |

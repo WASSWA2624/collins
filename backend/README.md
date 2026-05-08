@@ -124,7 +124,7 @@ The DirectAdmin Node.js screen can use:
 
 ```txt
 Application root: collins-backend
-Application URL: zelah.co.ug/
+Application URL: api.zelah.co.ug/
 Application startup file: src/server.js
 Application mode: Production
 Node.js version: 20.x
