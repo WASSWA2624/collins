@@ -30,6 +30,10 @@ Backend env variables:
 | `PORT` | `3000` | `3000` | Backend HTTP port. |
 | `API_VERSION` | `v1` | `v1` | API namespace used under `/api/{version}`. |
 | `DATABASE_URL` | Local MySQL database | Production MySQL database | Prisma connection string. |
+| `DATABASE_USE_TEXT_PROTOCOL` | `true` | `true` | Uses MariaDB text protocol for better shared-hosting compatibility. |
+| `DATABASE_CONNECTION_LIMIT` | `5` | `5` | MariaDB pool size. |
+| `DATABASE_CONNECT_TIMEOUT_MS` | `10000` | `10000` | MariaDB connection timeout. |
+| `DATABASE_SOCKET_PATH` | Optional | Optional | Explicit local MySQL socket path when the host requires socket connections. |
 | `JWT_SECRET` | Local-only secret | Strong production secret | JWT signing secret. |
 | `JWT_EXPIRES_IN` | Shorter local expiry | Production expiry | JWT token lifetime. |
 | `CORS_ORIGIN` | Local Expo/web origins | Production web origins | Comma-separated allowed browser origins. |
@@ -96,6 +100,10 @@ NODE_ENV=production
 HOST=0.0.0.0
 PORT=<cPanel assigned port or 3000>
 DATABASE_URL=mysql://<database_user>:<database_password>@localhost:3306/<database_name>
+DATABASE_USE_TEXT_PROTOCOL=true
+DATABASE_CONNECTION_LIMIT=5
+DATABASE_CONNECT_TIMEOUT_MS=10000
+# DATABASE_SOCKET_PATH=/var/lib/mysql/mysql.sock
 JWT_SECRET=<strong unique production secret>
 CORS_ORIGIN=https://your-domain.com,https://www.your-domain.com
 TRUST_PROXY=1
@@ -131,6 +139,8 @@ Node.js version: 20.x
 ```
 
 DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
+
+If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config defaults to Prisma's text protocol for better shared-hosting compatibility and auto-detects common local MySQL socket paths for `localhost`. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
 
 Before replacing an older upload, remove any stale app-root `node_modules` and `tmp` directories so startup can create a clean link and temp directory.
 

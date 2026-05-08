@@ -25,6 +25,10 @@ test('loads safe development defaults while requiring only backend configuration
   assert.equal(config.trustProxy, false);
   assert.equal(config.jwtSecret, DEVELOPMENT_JWT_SECRET);
   assert.equal(config.requestLogging, true);
+  assert.equal(config.databaseUseTextProtocol, true);
+  assert.equal(config.databaseConnectionLimit, 5);
+  assert.equal(config.databaseConnectTimeoutMs, 10000);
+  assert.equal(config.databaseSocketPath, undefined);
   assert.deepEqual(config.corsOrigins, [
     'http://localhost:8081',
     'http://localhost:19006',
@@ -68,6 +72,21 @@ test('production trusts one reverse proxy by default', () => {
   });
 
   assert.equal(config.trustProxy, 1);
+});
+
+test('allows shared-hosting database transport overrides', () => {
+  const config = createEnv({
+    DATABASE_URL: 'mysql://root:password@localhost:3306/collins',
+    DATABASE_SOCKET_PATH: '/var/lib/mysql/mysql.sock',
+    DATABASE_USE_TEXT_PROTOCOL: 'false',
+    DATABASE_CONNECTION_LIMIT: '2',
+    DATABASE_CONNECT_TIMEOUT_MS: '15000',
+  });
+
+  assert.equal(config.databaseSocketPath, '/var/lib/mysql/mysql.sock');
+  assert.equal(config.databaseUseTextProtocol, false);
+  assert.equal(config.databaseConnectionLimit, 2);
+  assert.equal(config.databaseConnectTimeoutMs, 15000);
 });
 
 test('validates reverse proxy trust settings', () => {

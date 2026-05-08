@@ -11,11 +11,21 @@ const buildHealthData = (database) => ({
   timestamp: new Date().toISOString(),
 });
 
+const getDatabaseErrorSummary = (error) => ({
+  name: error?.name,
+  code: error?.code,
+  errno: error?.errno,
+  sqlState: error?.sqlState,
+  fatal: error?.fatal,
+  message: error?.message,
+});
+
 const checkDatabase = async () => {
   try {
     await prisma.$queryRaw`SELECT 1`;
     return 'connected';
-  } catch {
+  } catch (error) {
+    console.error('Database readiness check failed', getDatabaseErrorSummary(error));
     return 'unavailable';
   }
 };

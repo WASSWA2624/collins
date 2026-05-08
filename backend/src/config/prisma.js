@@ -1,11 +1,30 @@
+import { existsSync } from 'node:fs';
 import { URL } from 'node:url';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { env } from './env.js';
 import { PrismaClient } from './prismaClient.js';
 
 const SUPPORTED_DATABASE_PROTOCOLS = new Set(['mysql:', 'mariadb:']);
+const LOCAL_DATABASE_HOSTS = new Set(['localhost', '127.0.0.1', '::1', '[::1]']);
+const LOCAL_SOCKET_PATHS = [
+  '/var/lib/mysql/mysql.sock',
+  '/var/run/mysqld/mysqld.sock',
+  '/run/mysqld/mysqld.sock',
+  '/tmp/mysql.sock',
+];
 
-export const createMariaDbAdapterConfig = (databaseUrl) => {
+const getUrlSocketPath = (url) => (
+  url.searchParams.get('socketPath')
+  || url.searchParams.get('socket')
+  || undefined
+);
+
+const findLocalSocketPath = (hostname) => {
+  if (!LOCAL_DATABASE_HOSTS.has(hostname)) return undefined;
+  return LOCAL_SOCKET_PATHS.find((socketPath) => existsSync(socketPath));
+};
+
+export const createMariaDbAdapterConfig = (databaseUrl, options = {}) => {
   const url = new URL(databaseUrl);
 
   if (!SUPPORTED_DATABASE_PROTOCOLS.has(url.protocol)) {
@@ -22,17 +41,38 @@ export const createMariaDbAdapterConfig = (databaseUrl) => {
     throw new Error('DATABASE_URL must include a database name.');
   }
 
-  return {
-    host: url.hostname,
-    port,
+  const socketPath = options.socketPath || getUrlSocketPath(url) || findLocalSocketPath(url.hostname);
+  const config = {
     user: decodeURIComponent(url.username),
     password: decodeURIComponent(url.password),
     database,
-    connectionLimit: 5,
+    connectionLimit: options.connectionLimit ?? 5,
+    connectTimeout: options.connectTimeoutMs ?? 10000,
+  };
+
+  if (socketPath) {
+    return {
+      ...config,
+      socketPath,
+    };
+  }
+
+  return {
+    ...config,
+    host: url.hostname,
+    port,
   };
 };
 
 const log = env.nodeEnv === 'test' ? [] : (env.nodeEnv === 'development' ? ['warn', 'error'] : ['error']);
-const adapter = new PrismaMariaDb(createMariaDbAdapterConfig(env.databaseUrl));
+const adapterConfig = createMariaDbAdapterConfig(env.databaseUrl, {
+  socketPath: env.databaseSocketPath,
+  connectionLimit: env.databaseConnectionLimit,
+  connectTimeoutMs: env.databaseConnectTimeoutMs,
+});
+const adapter = new PrismaMariaDb(adapterConfig, {
+  database: adapterConfig.database,
+  useTextProtocol: env.databaseUseTextProtocol,
+});
 
 export const prisma = new PrismaClient({ adapter, log });

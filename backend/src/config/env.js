@@ -118,6 +118,15 @@ export const createEnv = (source = process.env) => {
   const bcryptSaltRounds = getIntegerEnv(source, 'BCRYPT_SALT_ROUNDS', 12, { min: 4, max: 31 }, errors);
   const requestLogging = getBooleanEnv(source, 'REQUEST_LOGGING', true, errors);
   const trustProxy = getTrustProxyEnv(source, nodeEnv, errors);
+  const databaseUseTextProtocol = getBooleanEnv(source, 'DATABASE_USE_TEXT_PROTOCOL', true, errors);
+  const databaseConnectionLimit = getIntegerEnv(source, 'DATABASE_CONNECTION_LIMIT', 5, { min: 1, max: 50 }, errors);
+  const databaseConnectTimeoutMs = getIntegerEnv(
+    source,
+    'DATABASE_CONNECT_TIMEOUT_MS',
+    10000,
+    { min: 1000, max: 60000 },
+    errors,
+  );
   const host = getEnv(source, 'HOST', DEFAULT_HOST);
 
   if (errors.length > 0) {
@@ -130,6 +139,10 @@ export const createEnv = (source = process.env) => {
     port,
     apiVersion,
     databaseUrl,
+    databaseSocketPath: getEnv(source, 'DATABASE_SOCKET_PATH', getEnv(source, 'DATABASE_SOCKET')),
+    databaseUseTextProtocol,
+    databaseConnectionLimit,
+    databaseConnectTimeoutMs,
     jwtSecret,
     jwtExpiresIn: getEnv(source, 'JWT_EXPIRES_IN', '1d'),
     bcryptSaltRounds,
