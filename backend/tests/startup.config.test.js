@@ -85,7 +85,9 @@ test('runs Prisma generation before backend startup and tests', () => {
   assert.equal(packageJson.scripts.postinstall, undefined);
   assert.equal(packageJson.scripts.dev, 'nodemon --config nodemon.json');
   assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
+  assert.equal(packageJson.scripts['start:cpanel'], 'node cpanel-start.cjs');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
+  assert.equal(existsSync(path.join(projectRoot, 'cpanel-start.cjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
 });
 

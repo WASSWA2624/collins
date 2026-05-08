@@ -48,8 +48,12 @@ const prismaExecutable = process.platform === 'win32'
 const result = spawnSync(prismaExecutable, ['generate'], {
   cwd: projectRoot,
   env: generateEnv,
-  shell: false,
+  shell: process.platform === 'win32',
   stdio: 'inherit',
 });
+
+if (result.error) {
+  console.error(result.error);
+}
 
 process.exit(result.status ?? 1);

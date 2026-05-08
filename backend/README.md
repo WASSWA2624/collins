@@ -78,6 +78,47 @@ GET /api/v1/training-help
 
 `npm run dev`, `npm start`, and `npm test` run Prisma Client generation first. Production hosting should run `npm run prisma:generate:production` after dependency installation and before restart if the host starts the configured startup file directly instead of running `npm start`. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
 
+## cPanel deployment
+
+Use the backend folder as the Node.js application root and Node.js 20 or newer.
+
+Recommended cPanel startup file:
+
+```txt
+cpanel-start.cjs
+```
+
+Before starting the app, edit `.env.production` on cPanel:
+
+```txt
+NODE_ENV=production
+HOST=0.0.0.0
+PORT=<cPanel assigned port or 3000>
+DATABASE_URL=mysql://<database_user>:<database_password>@localhost:3306/<database_name>
+JWT_SECRET=<strong unique production secret>
+CORS_ORIGIN=https://your-domain.com,https://www.your-domain.com
+```
+
+Run these commands from the backend application directory after upload:
+
+```bash
+npm install
+npm run prisma:generate:production
+npm run prisma:migrate:deploy
+npm run prisma:seed
+npm start
+```
+
+Only run `npm run prisma:seed` when the target database should receive the default administrator, clinician, facility, and reference-rule seed data. For an already populated production database, run migrations without seeding.
+
+Deployment health checks:
+
+```txt
+GET /
+GET /api/v1/health
+GET /ready
+```
+
 Database setup for a clean local MySQL database:
 
 ```bash
