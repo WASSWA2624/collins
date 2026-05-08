@@ -102,6 +102,40 @@ describe('AuthGuard', () => {
 });
 
 describe('PublicAuthGuard', () => {
+  it('keeps public auth routes visible while auth requests are loading', () => {
+    const { getByTestId, queryByTestId } = renderWithStore(
+      {
+        hasRestoredSession: true,
+        isLoading: true,
+        isAuthenticated: false,
+        requiresActiveFacility: false,
+      },
+      <PublicAuthGuard>
+        <Text testID="children">Login</Text>
+      </PublicAuthGuard>
+    );
+
+    expect(getByTestId('children').props.children).toBe('Login');
+    expect(queryByTestId('redirect')).toBeNull();
+  });
+
+  it('keeps public auth routes visible while session restoration is pending', () => {
+    const { getByTestId, queryByTestId } = renderWithStore(
+      {
+        hasRestoredSession: false,
+        isLoading: true,
+        isAuthenticated: false,
+        requiresActiveFacility: false,
+      },
+      <PublicAuthGuard>
+        <Text testID="children">Login</Text>
+      </PublicAuthGuard>
+    );
+
+    expect(getByTestId('children').props.children).toBe('Login');
+    expect(queryByTestId('redirect')).toBeNull();
+  });
+
   it('redirects authenticated public-route users to home', () => {
     const { getByTestId } = renderWithStore(
       {

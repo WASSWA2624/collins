@@ -151,8 +151,10 @@ test('keeps Prisma generation off production install and startup paths', () => {
   assert.equal(packageJson.scripts.dev, 'node scripts/prisma-generate-if-needed.mjs --env=development && nodemon --config nodemon.json');
   assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
   assert.equal(packageJson.scripts['start:cpanel'], 'node cpanel-start.cjs');
+  assert.equal(packageJson.scripts['db:migrate:deploy'], 'node scripts/deploy-migrations.mjs --env=production');
   assert.equal(packageJson.scripts.test, 'node scripts/prisma-generate-if-needed.mjs --env=development && node --test');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
+  assert.equal(existsSync(path.join(projectRoot, 'scripts', 'deploy-migrations.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'cpanel-start.cjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'prisma', 'schema.prisma')), true);
   assert.equal(existsSync(path.join(projectRoot, 'src', 'generated', 'prisma', 'index.js')), true);

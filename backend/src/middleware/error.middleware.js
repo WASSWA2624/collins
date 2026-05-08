@@ -3,10 +3,51 @@ import { ZodError } from 'zod';
 import { errorResponse } from '../utils/apiResponse.js';
 import { isProduction } from '../config/env.js';
 
+const DATABASE_UNAVAILABLE_CODES = new Set([
+  'P1000',
+  'P1001',
+  'P1002',
+  'P1008',
+  'P1017',
+  'ER_ACCESS_DENIED_ERROR',
+  'ER_BAD_DB_ERROR',
+  'ECONNREFUSED',
+  'ENOTFOUND',
+  'ETIMEDOUT',
+]);
+
+const DATABASE_UNAVAILABLE_PATTERNS = [
+  'access denied for user',
+  'connect econnrefused',
+  'connect etimedout',
+  'database server',
+  'failed to retrieve a connection from pool',
+  'getaddrinfo enotfound',
+  'pool timeout',
+  'unknown database',
+];
+
 const normalizeZodErrors = (error) => error.issues.map((issue) => ({
   path: issue.path.join('.'),
   message: issue.message,
 }));
+
+const isDatabaseUnavailableError = (error) => {
+  const code = String(error?.code || '').trim();
+  if (DATABASE_UNAVAILABLE_CODES.has(code)) return true;
+
+  const name = String(error?.name || '').toLowerCase();
+  if (name.includes('prismaclientinitializationerror')) return true;
+
+  const message = String(error?.message || '').toLowerCase();
+  return DATABASE_UNAVAILABLE_PATTERNS.some((pattern) => message.includes(pattern));
+};
+
+const getDatabaseErrorMeta = (error) => ({
+  code: error?.code,
+  name: error?.name,
+  meta: error?.meta,
+});
 
 export const errorMiddleware = (error, _req, res, _next) => {
   if (error instanceof ZodError) {
@@ -14,6 +55,15 @@ export const errorMiddleware = (error, _req, res, _next) => {
       status: 400,
       message: 'Validation failed',
       errors: normalizeZodErrors(error),
+    });
+  }
+
+  if (isDatabaseUnavailableError(error)) {
+    console.error('Database request failed', getDatabaseErrorMeta(error));
+    return errorResponse(res, {
+      status: 503,
+      message: 'Database connection is unavailable',
+      errors: [{ code: error?.code || 'DATABASE_UNAVAILABLE' }],
     });
   }
 

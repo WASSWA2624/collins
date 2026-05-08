@@ -248,6 +248,16 @@ describe('auth entry screens', () => {
     expect(getByTestId('login-submit').props.accessibilityState.disabled).toBe(true);
   });
 
+  it('keeps the sign-in screen visible while session restore is pending', () => {
+    mockAuthState = createAuthState({ hasRestoredSession: false, isLoading: true });
+    const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);
+
+    expect(getByTestId('login-screen')).toBeTruthy();
+    expect(getByText('Checking whether you are already signed in.')).toBeTruthy();
+    expect(getByText('Checking session...')).toBeTruthy();
+    expect(getByTestId('login-submit').props.accessibilityState.disabled).toBe(true);
+  });
+
   it('shows backend route failures as red sign-in errors', () => {
     mockAuthState = createAuthState({ errorCode: 'BACKEND_ENDPOINT_NOT_FOUND' });
     const { getByTestId, getByText } = renderWithTheme(<LoginScreen />);

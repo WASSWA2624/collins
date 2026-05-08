@@ -47,18 +47,16 @@ export function AuthGuard({ children }) {
 
 export function usePublicAuthGuard() {
   const hasRestoredSession = useSelector(selectAuthHasRestoredSession);
-  const isLoading = useSelector(selectAuthLoading);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const requiresActiveFacility = useSelector(selectRequiresActiveFacility);
-  const isReady = hasRestoredSession && !isLoading;
 
   let redirectTo = null;
-  if (isReady && isAuthenticated) {
+  if (hasRestoredSession && isAuthenticated) {
     redirectTo = requiresActiveFacility ? FACILITY_PATH : HOME_PATH;
   }
 
   return {
-    isReady,
+    isReady: true,
     redirectTo,
   };
 }
@@ -69,4 +67,3 @@ export function PublicAuthGuard({ children }) {
   if (redirectTo) return <Redirect href={redirectTo} />;
   return children;
 }
-

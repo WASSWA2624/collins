@@ -60,9 +60,15 @@ const LoginScreen = () => {
   const [localError, setLocalError] = useState(null);
 
   const trimmedEmail = email.trim();
-  const canSubmit = EMAIL_PATTERN.test(trimmedEmail) && password.length > 0 && !isLoading;
+  const isRestoringSession = !hasRestoredSession;
+  const canSubmit = EMAIL_PATTERN.test(trimmedEmail) && password.length > 0 && !isLoading && !isRestoringSession;
   const sessionMessage = getErrorMessage(t, sessionErrorCode);
   const authMessage = getErrorMessage(t, errorCode);
+  const submitText = isRestoringSession
+    ? t('auth.session.checking')
+    : isLoading
+      ? t('auth.login.submitting')
+      : t('auth.login.submit');
 
   const emailError = useMemo(() => {
     if (!localError || localError !== 'INVALID_EMAIL') return null;
@@ -87,7 +93,7 @@ const LoginScreen = () => {
   }, [clearError]);
 
   const handleSubmit = useCallback(async () => {
-    if (isLoading) return;
+    if (isLoading || isRestoringSession) return;
     if (!EMAIL_PATTERN.test(trimmedEmail)) {
       setLocalError('INVALID_EMAIL');
       return;
@@ -98,7 +104,7 @@ const LoginScreen = () => {
     }
 
     await login({ email: trimmedEmail, password });
-  }, [isLoading, login, password, trimmedEmail]);
+  }, [isLoading, isRestoringSession, login, password, trimmedEmail]);
 
   const handleRetryRestore = useCallback(() => {
     clearError();
@@ -109,12 +115,19 @@ const LoginScreen = () => {
     router.push('/register');
   }, [router]);
 
-  if (!hasRestoredSession) return null;
   if (isAuthenticated && requiresActiveFacility) return <Redirect href="/select-facility" />;
   if (isAuthenticated) return <Redirect href="/" />;
 
-  const status = sessionMessage || authMessage ? (
+  const status = isRestoringSession || sessionMessage || authMessage ? (
     <Stack spacing="sm">
+      {isRestoringSession ? (
+        <SystemBanner
+          variant={BANNER_VARIANTS.INFO}
+          title={t('auth.session.noticeTitle')}
+          message={t('auth.session.restoring')}
+          testID="login-session-restore-banner"
+        />
+      ) : null}
       {sessionMessage ? (
         <SystemBanner
           variant={getBannerVariant(sessionErrorCode)}
@@ -141,7 +154,7 @@ const LoginScreen = () => {
       size="sm"
       actions={
         <Button
-          text={isLoading ? t('auth.login.submitting') : t('auth.login.submit')}
+          text={submitText}
           onPress={handleSubmit}
           onClick={handleSubmit}
           disabled={!canSubmit}
@@ -190,7 +203,7 @@ const LoginScreen = () => {
           autoCapitalize="none"
           autoCorrect={false}
           required
-          disabled={isLoading}
+          disabled={isLoading || isRestoringSession}
           errorMessage={emailError}
           testID="login-email"
         />
@@ -201,7 +214,7 @@ const LoginScreen = () => {
           onChangeText={handlePasswordChange}
           autoComplete="current-password"
           required
-          disabled={isLoading}
+          disabled={isLoading || isRestoringSession}
           errorMessage={passwordError}
           showStrengthIndicator={false}
           testID="login-password"

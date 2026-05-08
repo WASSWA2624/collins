@@ -113,10 +113,11 @@ Run these commands from the backend application directory after upload:
 
 ```bash
 npm install
+npm run db:migrate:deploy
 npm start
 ```
 
-The shared-hosting deployment package already contains `src/generated/prisma`, and `.npmrc` omits dev dependencies and install scripts. Do not run `npm run prisma:generate:production` on a quota-limited hosting account. Run Prisma migration/seed commands only from a development machine or CI environment where dev dependencies are installed, then point production at the updated database.
+The shared-hosting deployment package already contains `src/generated/prisma`, and `.npmrc` omits dev dependencies and install scripts. Do not run `npm run prisma:generate:production` on a quota-limited hosting account. `npm run db:migrate:deploy` uses the installed MariaDB runtime package to create or update production tables without Prisma CLI.
 
 Deployment health checks:
 
@@ -141,6 +142,8 @@ Node.js version: 20.x
 DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
 
 If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config defaults to Prisma's text protocol for better shared-hosting compatibility and auto-detects common local MySQL socket paths for `localhost`. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
+
+If `/ready` connects but login fails because tables are missing, run `npm run db:migrate:deploy` from `/home/zelahco/collins-backend`, restart the Node.js app, then test `/ready` and login again.
 
 Before replacing an older upload, remove any stale app-root `node_modules` and `tmp` directories so startup can create a clean link and temp directory.
 

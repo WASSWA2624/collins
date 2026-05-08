@@ -11,6 +11,7 @@
     "dev": "node scripts/prisma-generate-if-needed.mjs --env=development && nodemon --config nodemon.json",
     "start": "node src/server.js --env=production",
     "start:cpanel": "node cpanel-start.cjs",
+    "db:migrate:deploy": "node scripts/deploy-migrations.mjs --env=production",
     "prisma:generate": "node scripts/prisma-generate-if-needed.mjs --env=development",
     "prisma:generate:production": "node scripts/prisma-generate-if-needed.mjs --env=production",
     "prisma:generate:force": "prisma generate",
