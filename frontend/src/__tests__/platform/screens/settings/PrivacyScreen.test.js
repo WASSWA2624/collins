@@ -10,6 +10,7 @@ const { useI18n } = require('@hooks');
 jest.mock('@hooks', () => ({ useI18n: jest.fn() }));
 
 jest.mock('@platform/components', () => {
+  const React = require('react');
   const RN = require('react-native');
   return {
     Text: ({ children, testID }) => React.createElement(RN.Text, { testID }, children),

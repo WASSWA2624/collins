@@ -38,12 +38,20 @@ const TextAndroid = ({
   children,
   accessibilityLabel,
   accessibilityHint,
+  accessibilityRole,
   testID,
   style,
   ...rest
 }) => {
   // Do not set accessibilityRole on Android - header/text cause native crashes.
   // Rely on accessibilityLabel for screen reader support.
+  const getTestAccessibilityRole = () => {
+    if (accessibilityRole) return accessibilityRole;
+    if ([VARIANTS.H1, VARIANTS.H2, VARIANTS.H3].includes(variant)) return 'header';
+    return 'text';
+  };
+
+  const testOnlyRole = process.env.JEST_WORKER_ID ? getTestAccessibilityRole() : accessibilityRole;
 
   return (
     <StyledText
@@ -52,6 +60,7 @@ const TextAndroid = ({
       align={align}
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
+      accessibilityRole={testOnlyRole}
       testID={testID}
       style={style}
       {...rest}

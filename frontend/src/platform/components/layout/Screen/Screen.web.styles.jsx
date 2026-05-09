@@ -46,7 +46,15 @@ const StyledContent = styled.div.withConfig({
   width: 100%;
 `;
 
-export { StyledRoot, StyledContent };
+const StyledScroll = styled.div.withConfig({
+  displayName: 'StyledScroll',
+  componentId: 'StyledScroll',
+})`
+  min-height: 100%;
+  width: 100%;
+`;
+
+export { StyledRoot, StyledContent, StyledScroll };
 
 
 

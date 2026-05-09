@@ -38,6 +38,7 @@ const TooltipAndroid = ({
     <StyledTooltip
       position={position}
       accessibilityLabel={defaultAccessibilityLabel}
+      accessibilityRole="tooltip"
       testID={testID}
       style={style}
       {...rest}

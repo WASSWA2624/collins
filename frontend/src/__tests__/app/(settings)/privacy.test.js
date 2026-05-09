@@ -39,7 +39,7 @@ describe('app/(settings)/privacy.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should render PrivacyScreen', () => {
-    const PrivacyRoute = require('../../../../app/(settings)/privacy').default;
+    const PrivacyRoute = require('../../../app/(settings)/privacy').default;
     const { getByTestId } = renderWithProviders(<PrivacyRoute />);
     expect(getByTestId('privacy-screen')).toBeDefined();
   });

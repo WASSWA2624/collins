@@ -44,6 +44,7 @@ const EmptyStateAndroid = ({
     <StyledEmptyState
       size={emptyState.size}
       accessibilityLabel={defaultAccessibilityLabel}
+      accessibilityRole="status"
       testID={testID}
       style={style}
       {...rest}

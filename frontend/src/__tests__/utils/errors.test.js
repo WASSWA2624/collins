@@ -3,6 +3,9 @@
  * File: errors.test.js
  */
 import { normalizeError, handleError, ErrorBoundary, FallbackUI } from '@errors';
+import en from '@i18n/locales/en.json';
+
+const SAFE_MESSAGES = en.errors.codes;
 
 describe('Error Handling Layer', () => {
   beforeEach(() => {
@@ -24,10 +27,10 @@ describe('Error Handling Layer', () => {
       const result = normalizeError(null);
       expect(result).toMatchObject({
         code: 'UNKNOWN_ERROR',
-        message: 'An unknown error occurred',
+        message: SAFE_MESSAGES.UNKNOWN_ERROR,
         severity: 'error',
       });
-      expect(result.safeMessage).toBe('An unknown error occurred');
+      expect(result.safeMessage).toBe(SAFE_MESSAGES.UNKNOWN_ERROR);
     });
 
     it('should normalize network errors', () => {
@@ -38,18 +41,18 @@ describe('Error Handling Layer', () => {
       const result = normalizeError(networkError);
       expect(result).toMatchObject({
         code: 'NETWORK_ERROR',
-        message: 'Network connection failed',
+        message: SAFE_MESSAGES.NETWORK_ERROR,
         severity: 'warning',
       });
-      expect(result.safeMessage).toBe('Network connection failed');
+      expect(result.safeMessage).toBe(SAFE_MESSAGES.NETWORK_ERROR);
     });
 
-    it('should normalize network errors by message', () => {
+    it('should normalize timeout network errors by message', () => {
       const networkError = {
         message: 'network connection timeout',
       };
       const result = normalizeError(networkError);
-      expect(result.code).toBe('NETWORK_ERROR');
+      expect(result.code).toBe('REQUEST_TIMEOUT');
       expect(result.severity).toBe('warning');
     });
 
@@ -80,10 +83,10 @@ describe('Error Handling Layer', () => {
       const result = normalizeError(error);
       expect(result).toMatchObject({
         code: 'SERVER_ERROR',
-        message: 'Server error occurred',
+        message: SAFE_MESSAGES.SERVER_ERROR,
         severity: 'error',
       });
-      expect(result.safeMessage).toBe('Server error occurred');
+      expect(result.safeMessage).toBe(SAFE_MESSAGES.SERVER_ERROR);
     });
 
     it('should handle statusCode instead of status', () => {
@@ -104,7 +107,7 @@ describe('Error Handling Layer', () => {
         message: 'Custom error message',
         severity: 'warning',
       });
-      expect(result.safeMessage).toBe('An unknown error occurred');
+      expect(result.safeMessage).toBe(SAFE_MESSAGES.UNKNOWN_ERROR);
     });
 
     it('should default to UNKNOWN_ERROR for unrecognized errors', () => {

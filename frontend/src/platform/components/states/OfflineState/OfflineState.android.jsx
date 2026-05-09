@@ -38,6 +38,7 @@ const OfflineStateAndroid = ({
     <StyledOfflineState
       size={offlineState.size}
       accessibilityLabel={accessibilityLabel || (typeof title === 'string' ? title : undefined)}
+      accessibilityRole="status"
       testID={testID}
       style={style}
       {...rest}

@@ -39,7 +39,7 @@ describe('app/(settings)/about.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should render AboutScreen', () => {
-    const AboutRoute = require('../../../../app/(settings)/about').default;
+    const AboutRoute = require('../../../app/(settings)/about').default;
     const { getByTestId } = renderWithProviders(<AboutRoute />);
     expect(getByTestId('about-screen')).toBeDefined();
   });

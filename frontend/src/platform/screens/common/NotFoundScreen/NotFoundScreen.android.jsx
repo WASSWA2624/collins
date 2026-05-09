@@ -15,6 +15,7 @@ import { useI18n } from '@hooks';
 // 4. Styles (relative import - platform-specific)
 import {
   StyledNotFoundContainer,
+  StyledContentWrap,
   StyledContent,
   StyledMessageSection,
   StyledMessageWrapper,

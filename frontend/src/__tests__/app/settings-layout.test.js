@@ -23,6 +23,7 @@ jest.mock('expo-router', () => {
   const { Text } = require('react-native');
   return {
     Slot: () => React.createElement(Text, null, 'MOCK_SLOT_CHILD'),
+    useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
   };
 });
 

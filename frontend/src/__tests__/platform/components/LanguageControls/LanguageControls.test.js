@@ -18,8 +18,9 @@ jest.mock('@hooks', () => ({
   }),
 }));
 
-jest.mock('@platform/components', () => ({
-  Select: jest.fn(() => null),
+jest.mock('@platform/components/forms/Select', () => ({
+  __esModule: true,
+  default: jest.fn(() => null),
 }));
 
 jest.mock('@platform/components/navigation/LanguageControls/useLanguageControls', () => ({
@@ -31,7 +32,7 @@ jest.mock('@platform/components/navigation/LanguageControls/useLanguageControls'
   }),
 }));
 
-const getMockSelect = () => require('@platform/components').Select;
+const getMockSelect = () => require('@platform/components/forms/Select').default;
 
 describe('LanguageControls Component', () => {
   beforeEach(() => {

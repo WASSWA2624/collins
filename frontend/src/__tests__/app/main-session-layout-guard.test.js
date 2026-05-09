@@ -15,6 +15,7 @@ import SessionLayout from '@app/(main)/session/_layout';
 const mockReplace = jest.fn();
 jest.mock('expo-router', () => {
   const R = require('react');
+  const { Text } = require('react-native');
   return {
     Slot: () => R.createElement(Text, { testID: 'session-slot' }, 'MOCK_SLOT_CHILD'),
     useRouter: () => ({ replace: mockReplace }),

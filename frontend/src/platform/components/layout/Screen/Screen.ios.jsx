@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { RefreshControl } from 'react-native';
 import { StyledContent, StyledRoot, StyledSafeArea, StyledScroll } from './Screen.ios.styles';
 import useScreen from './useScreen';
 import { BACKGROUNDS, PADDING } from './types';
@@ -30,6 +31,8 @@ const ScreenIOS = ({
   accessibilityLabel,
   accessibilityHint,
   testID,
+  onRefresh,
+  refreshing = false,
   ...rest
 }) => {
   const resolved = useScreen({
@@ -55,6 +58,11 @@ const ScreenIOS = ({
     <StyledScroll
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ flexGrow: 1 }}
+      refreshControl={
+        onRefresh
+          ? <RefreshControl refreshing={Boolean(refreshing)} onRefresh={onRefresh} />
+          : undefined
+      }
       testID={testID ? `${testID}-scroll` : undefined}
     >
       {body}

@@ -5,7 +5,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-const renderHookResult = (useHook) => {
+const renderHookResult = (useHook, options = {}) => {
+  const { wrapper: Wrapper } = options;
   let result;
   const TestComponent = ({ onResult }) => {
     const hookResult = useHook();
@@ -15,7 +16,8 @@ const renderHookResult = (useHook) => {
     return null;
   };
 
-  render(<TestComponent onResult={(value) => (result = value)} />);
+  const element = <TestComponent onResult={(value) => (result = value)} />;
+  render(Wrapper ? <Wrapper>{element}</Wrapper> : element);
   return result;
 };
 

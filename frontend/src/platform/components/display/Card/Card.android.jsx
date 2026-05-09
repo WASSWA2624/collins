@@ -44,6 +44,7 @@ const CardAndroid = ({
       variant={variant}
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
+      accessibilityRole="article"
       testID={testID}
       style={style}
       {...rest}

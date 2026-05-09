@@ -25,6 +25,7 @@ const AuthLayoutIOS = ({
   return (
     <StyledContainer
       {...(accessibilityLabel && { accessibilityLabel })}
+      accessibilityRole="main"
       {...(testID && { testID })}
     >
       <StyledKeyboardAvoidingView behavior="padding">
