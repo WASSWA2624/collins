@@ -10,6 +10,7 @@ const StyledContentWrap = styled(View).withConfig({
   componentId: 'StyledContentWrap',
 })`
   flex: 1;
+  min-width: 0;
 `;
 
 const StyledContainer = styled(View).withConfig({
@@ -18,6 +19,7 @@ const StyledContainer = styled(View).withConfig({
 })`
   flex: 1;
   width: 100%;
+  min-width: 0;
   padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
@@ -27,6 +29,7 @@ const StyledWizardPane = styled(View).withConfig({
   componentId: 'StyledWizardPane',
 })`
   flex: 1;
+  min-width: 0;
 `;
 
 const StyledSummaryPane = styled(View).withConfig({
@@ -34,6 +37,7 @@ const StyledSummaryPane = styled(View).withConfig({
   componentId: 'StyledSummaryPane',
 })`
   width: 100%;
+  min-width: 0;
   margin-top: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
@@ -148,6 +152,7 @@ const StyledSummaryRow = styled(View).withConfig({
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
   padding-top: ${({ theme }) => theme.spacing.xs}px;
   padding-bottom: ${({ theme }) => theme.spacing.xs}px;
   border-bottom-width: 1px;
@@ -159,6 +164,7 @@ const StyledSummaryLabelWrap = styled(View).withConfig({
   componentId: 'StyledSummaryLabelWrap',
 })`
   flex: 1;
+  min-width: 0;
   padding-right: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -166,6 +172,8 @@ const StyledSummaryValueWrap = styled(View).withConfig({
   displayName: 'StyledSummaryValueWrap',
   componentId: 'StyledSummaryValueWrap',
 })`
+  flex: 1;
+  min-width: 0;
   align-items: flex-end;
 `;
 
@@ -177,6 +185,7 @@ const StyledActionsRow = styled(View).withConfig({
   justify-content: space-between;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  flex-wrap: wrap;
   width: 100%;
 `;
 
@@ -259,21 +268,24 @@ const StyledChoiceGrid = styled(View).withConfig({
   flex-direction: row;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.xs}px;
+  width: 100%;
+  min-width: 0;
 `;
 
 const StyledChoiceOption = styled(Pressable).withConfig({
   displayName: 'StyledChoiceOption',
   componentId: 'StyledChoiceOption',
 })`
-  flex-basis: ${({ compact }) => (compact ? '31%' : '48%')};
-  min-width: ${({ compact }) => (compact ? 96 : 140)}px;
-  max-width: 100%;
-  min-height: ${({ compact }) => (compact ? 48 : 68)}px;
+  flex-basis: ${({ compact }) => (compact ? 112 : 128)}px;
+  min-width: 112px;
+  max-width: ${({ compact }) => (compact ? 148 : 180)}px;
+  min-height: ${({ compact }) => (compact ? 44 : 56)}px;
   flex-grow: 1;
+  flex-shrink: 1;
   flex-direction: row;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  padding: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
   border-width: 1px;
   border-left-width: 3px;
   border-color: ${({ selected, theme }) =>
@@ -288,8 +300,8 @@ const StyledChoiceIcon = styled(View).withConfig({
   displayName: 'StyledChoiceIcon',
   componentId: 'StyledChoiceIcon',
 })`
-  width: 38px;
-  height: 32px;
+  width: ${({ compact }) => (compact ? 26 : 34)}px;
+  height: ${({ compact }) => (compact ? 24 : 28)}px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;

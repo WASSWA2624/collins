@@ -326,7 +326,7 @@ const AssessmentScreenIOS = () => {
                 accessibilityState={{ selected }}
                 testID={`assessment-sex-${option.value.toLowerCase()}`}
               >
-                <StyledChoiceIcon selected={selected}>
+                <StyledChoiceIcon selected={selected} compact>
                   <Text variant="caption">{option.icon}</Text>
                 </StyledChoiceIcon>
                 <StyledChoiceText>

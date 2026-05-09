@@ -41,11 +41,18 @@ const StyledContainer = styled.main.withConfig({
     margin: 0 auto;
     padding: ${({ theme }) => theme.spacing.xl}px;
     gap: ${({ theme }) => theme.spacing.xl}px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 372px);
+    grid-template-areas:
+      'progress progress'
+      'wizard summary';
+    align-items: start;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
     max-width: 1560px;
     padding: ${({ theme }) => theme.spacing.xxl}px;
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 420px);
   }
 `;
 
@@ -62,6 +69,10 @@ const StyledProgressSection = styled.div.withConfig({
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-basis: 100%;
     width: 100%;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    grid-area: progress;
   }
 `;
 
@@ -82,7 +93,10 @@ const StyledWizardPane = styled.section.withConfig({
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    flex: 1 1 min(840px, calc(100% - 396px));
+    grid-area: wizard;
+    width: 100%;
+    min-width: 0;
+    flex: initial;
     max-width: none;
     order: 1;
   }
@@ -241,16 +255,18 @@ const StyledSummaryWrap = styled.div.withConfig({
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    flex: 0 0 372px;
-    width: 372px;
+    grid-area: summary;
+    width: 100%;
+    max-width: 372px;
+    justify-self: stretch;
+    flex: initial;
     order: 2;
     position: sticky;
     top: ${({ theme }) => theme.spacing.lg}px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
-    flex-basis: 420px;
-    width: 420px;
+    max-width: 420px;
   }
 `;
 
@@ -411,19 +427,19 @@ const StyledChoiceGrid = styled.div.withConfig({
   componentId: 'StyledChoiceGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 148px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 124px), 1fr));
   gap: ${({ theme }) => theme.spacing.xs}px;
   min-width: 0;
 
   &[data-density='compact'] {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 112px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 86px), 1fr));
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
 
     &[data-density='compact'] {
-      grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
     }
   }
 
@@ -436,7 +452,7 @@ const StyledChoiceGrid = styled.div.withConfig({
   }
 
   @media (max-width: 360px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     &[data-density='compact'] {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -450,14 +466,14 @@ const StyledChoiceOption = styled.button.withConfig({
 })`
   min-width: 0;
   width: 100%;
-  min-height: 64px;
+  min-height: 56px;
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
+  grid-template-columns: 34px minmax(0, 1fr);
   grid-template-areas:
     'icon label'
     'icon meta';
   align-items: center;
-  gap: 0 ${({ theme }) => theme.spacing.sm}px;
+  gap: 1px ${({ theme }) => theme.spacing.xs}px;
   padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-left-width: 3px;
@@ -470,8 +486,10 @@ const StyledChoiceOption = styled.button.withConfig({
   box-sizing: border-box;
 
   &[data-density='compact'] {
-    min-height: 48px;
-    grid-template-columns: 34px minmax(0, 1fr);
+    min-height: 44px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    grid-template-areas: 'icon label';
+    padding: 6px ${({ theme }) => theme.spacing.sm}px;
   }
 
   &:hover {
@@ -495,8 +513,8 @@ const StyledChoiceIcon = styled.span.withConfig({
   componentId: 'StyledChoiceIcon',
 })`
   grid-area: icon;
-  width: 34px;
-  height: 30px;
+  width: 32px;
+  height: 26px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -508,6 +526,11 @@ const StyledChoiceIcon = styled.span.withConfig({
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   line-height: 1;
+
+  ${StyledChoiceOption}[data-density='compact'] & {
+    width: 24px;
+    height: 22px;
+  }
 `;
 
 const StyledChoiceText = styled.span.withConfig({
