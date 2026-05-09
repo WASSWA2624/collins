@@ -15,6 +15,7 @@ import {
   StyledLabel,
   StyledRequired,
   StyledTrigger,
+  StyledTriggerContent,
   StyledTriggerText,
   StyledChevron,
   StyledOverlay,
@@ -22,16 +23,41 @@ import {
   StyledOptionList,
   StyledSearchInput,
   StyledOption,
+  StyledOptionContent,
+  StyledOptionIcon,
+  StyledOptionIconText,
   StyledOptionText,
+  StyledSelectedMark,
   StyledNoResultsText,
   StyledHelperText,
 } from './Select.ios.styles';
+import {
+  getOptionIcon,
+  optionExactlyMatchesQuery,
+  optionMatchesQuery,
+} from './selectOption.utils';
+
+const renderOptionIcon = (icon) => {
+  if (!icon) return null;
+
+  return (
+    <StyledOptionIcon>
+      {React.isValidElement(icon) ? (
+        icon
+      ) : (
+        <StyledOptionIconText>{String(icon)}</StyledOptionIconText>
+      )}
+    </StyledOptionIcon>
+  );
+};
 
 /**
  * @typedef {Object} SelectOption
  * @property {string} label
  * @property {string|number} value
  * @property {boolean} [disabled]
+ * @property {React.ReactNode} [icon]
+ * @property {string|string[]} [searchText]
  */
 
 /**
@@ -89,26 +115,13 @@ const SelectIOS = ({
       .trim()
       .toLowerCase();
     if (!searchable || !query) return rows;
-    return rows.filter(({ option }) =>
-      [option.label, option.value].some((entry) =>
-        String(entry || '')
-          .toLowerCase()
-          .includes(query)
-      )
-    );
+    return rows.filter(({ option }) => optionMatchesQuery(option, query));
   }, [options, searchable, searchQuery]);
   const normalizedSearchQuery = String(searchQuery || '').trim();
   const exactSearchMatch = React.useMemo(() => {
     if (!normalizedSearchQuery) return false;
     const query = normalizedSearchQuery.toLowerCase();
-    return options.some((option) =>
-      [option.label, option.value].some(
-        (entry) =>
-          String(entry || '')
-            .trim()
-            .toLowerCase() === query
-      )
-    );
+    return options.some((option) => optionExactlyMatchesQuery(option, query));
   }, [normalizedSearchQuery, options]);
   const canUseCustomValue =
     allowCustomValue &&
@@ -146,6 +159,7 @@ const SelectIOS = ({
       ? String(value)
       : defaultPlaceholder;
   const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
+  const selectedOptionIcon = getOptionIcon(selectedOption);
 
   React.useEffect(() => {
     if (!open) setSearchQuery('');
@@ -174,13 +188,17 @@ const SelectIOS = ({
         accessibilityState={{ disabled }}
         testID={testID}
       >
-        <StyledTriggerText
-          disabled={disabled}
-          isPlaceholder={isPlaceholderValue}
-          $compact={compact}
-        >
-          {displayValue}
-        </StyledTriggerText>
+        <StyledTriggerContent>
+          {renderOptionIcon(selectedOptionIcon)}
+          <StyledTriggerText
+            disabled={disabled}
+            isPlaceholder={isPlaceholderValue}
+            $compact={compact}
+            numberOfLines={1}
+          >
+            {displayValue}
+          </StyledTriggerText>
+        </StyledTriggerContent>
         <StyledChevron aria-hidden>{'\u25BE'}</StyledChevron>
       </StyledTrigger>
 
@@ -219,24 +237,35 @@ const SelectIOS = ({
                 </StyledNoResultsText>
               ) : null}
               {visibleOptions.length > 0
-                ? visibleOptions.map(({ option: opt, index }) => (
-                    <StyledOption
-                      key={`${String(opt.value)}-${index}`}
-                      disabled={!!opt.disabled}
-                      selected={value === opt.value}
-                      onPress={() => {
-                        if (opt.disabled) return;
-                        handleSelect(opt.value);
-                      }}
-                      accessibilityRole="button"
-                      accessibilityLabel={opt.label}
-                      testID={testID ? `${testID}-option-${index}` : undefined}
-                    >
-                      <StyledOptionText selected={value === opt.value}>
-                        {opt.label}
-                      </StyledOptionText>
-                    </StyledOption>
-                  ))
+                ? visibleOptions.map(({ option: opt, index }) => {
+                    const selected = value === opt.value;
+                    const optionIcon = getOptionIcon(opt);
+
+                    return (
+                      <StyledOption
+                        key={`${String(opt.value)}-${index}`}
+                        disabled={!!opt.disabled}
+                        selected={selected}
+                        onPress={() => {
+                          if (opt.disabled) return;
+                          handleSelect(opt.value);
+                        }}
+                        accessibilityRole="button"
+                        accessibilityLabel={opt.label}
+                        testID={testID ? `${testID}-option-${index}` : undefined}
+                      >
+                        <StyledOptionContent>
+                          {renderOptionIcon(optionIcon)}
+                          <StyledOptionText selected={selected} numberOfLines={1}>
+                            {opt.label}
+                          </StyledOptionText>
+                        </StyledOptionContent>
+                        <StyledSelectedMark selected={selected}>
+                          {selected ? '\u2713' : ''}
+                        </StyledSelectedMark>
+                      </StyledOption>
+                    );
+                  })
                 : null}
               {canUseCustomValue ? (
                 <StyledOption
@@ -247,9 +276,17 @@ const SelectIOS = ({
                   accessibilityLabel={customValueLabel}
                   testID={testID ? `${testID}-custom-option` : undefined}
                 >
-                  <StyledOptionText selected={value === normalizedSearchQuery}>
-                    {customValueLabel}
-                  </StyledOptionText>
+                  <StyledOptionContent>
+                    <StyledOptionText
+                      selected={value === normalizedSearchQuery}
+                      numberOfLines={1}
+                    >
+                      {customValueLabel}
+                    </StyledOptionText>
+                  </StyledOptionContent>
+                  <StyledSelectedMark selected={value === normalizedSearchQuery}>
+                    {value === normalizedSearchQuery ? '\u2713' : ''}
+                  </StyledSelectedMark>
                 </StyledOption>
               ) : null}
             </StyledOptionList>

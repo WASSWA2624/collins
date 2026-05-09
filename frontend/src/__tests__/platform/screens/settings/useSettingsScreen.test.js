@@ -84,7 +84,10 @@ const userSettingsFixture = {
   },
   offlineSyncPreferences: {
     offlineModeEnabled: true,
+    syncOnWifiOnly: false,
     autoSyncEnabled: true,
+    backgroundSyncEnabled: true,
+    retryFailedSyncAutomatically: true,
     conflictResolutionMode: 'manual_review',
     syncIntervalMinutes: 15,
     purgeSyncedDraftsAfterDays: 30,
@@ -229,5 +232,78 @@ describe('useSettingsScreen', () => {
     expect(updateMySettingsUseCase).not.toHaveBeenCalled();
     expect(result.current.errorMessageKey).toBe('settings.account.validation.profileInvalid');
     expect(result.current.accountErrors.name).toBe('settings.account.validation.nameRequired');
+  });
+
+  it('saves offline and sync preference changes through the settings use case', async () => {
+    const nextSettings = {
+      ...userSettingsFixture,
+      offlineSyncPreferences: {
+        ...userSettingsFixture.offlineSyncPreferences,
+        syncOnWifiOnly: true,
+      },
+    };
+    updateMySettingsUseCase.mockResolvedValueOnce(nextSettings);
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    await act(async () => {
+      await result.current.updateOfflineSyncPreference('syncOnWifiOnly', true);
+    });
+
+    expect(updateMySettingsUseCase).toHaveBeenCalledWith({
+      offlineSyncPreferences: { syncOnWifiOnly: true },
+      reason: 'Offline and sync preferences changed from settings',
+    });
+    expect(result.current.userSettings.offlineSyncPreferences.syncOnWifiOnly).toBe(true);
+    expect(result.current.statusMessageKey).toBe('settings.status.saved');
+    expect(result.current.errorMessageKey).toBeNull();
+  });
+
+  it('keeps offline and sync controls in a saving state while the update is pending', async () => {
+    let resolveUpdate;
+    updateMySettingsUseCase.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveUpdate = resolve;
+      })
+    );
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    let updatePromise;
+    await act(async () => {
+      updatePromise = result.current.updateOfflineSyncPreference('autoSyncEnabled', false);
+      await Promise.resolve();
+    });
+
+    expect(result.current.isSaving).toBe(true);
+
+    await act(async () => {
+      resolveUpdate({
+        ...userSettingsFixture,
+        offlineSyncPreferences: {
+          ...userSettingsFixture.offlineSyncPreferences,
+          autoSyncEnabled: false,
+        },
+      });
+      await updatePromise;
+    });
+
+    expect(result.current.isSaving).toBe(false);
+    expect(result.current.userSettings.offlineSyncPreferences.autoSyncEnabled).toBe(false);
+  });
+
+  it('reports offline and sync save failures without changing backend contract', async () => {
+    updateMySettingsUseCase.mockRejectedValueOnce({ code: 'SYNC_SAVE_FAILED' });
+    const { result } = await renderHook(() => useSettingsScreen());
+
+    await act(async () => {
+      await result.current.updateOfflineSyncPreference('offlineModeEnabled', false);
+    });
+
+    expect(updateMySettingsUseCase).toHaveBeenCalledWith({
+      offlineSyncPreferences: { offlineModeEnabled: false },
+      reason: 'Offline and sync preferences changed from settings',
+    });
+    expect(result.current.errorCode).toBe('SYNC_SAVE_FAILED');
+    expect(result.current.errorMessageKey).toBe('settings.status.saveError');
+    expect(result.current.statusMessageKey).toBeNull();
   });
 });

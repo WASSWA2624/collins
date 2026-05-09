@@ -80,6 +80,18 @@ describe('Select Component', () => {
       expect(getByText('Two')).toBeTruthy();
     });
 
+    it('should render selected option icon when provided', () => {
+      const { getByText } = renderWithProviders(
+        <SelectAndroid
+          options={[{ label: 'English', value: 'en', icon: 'EN' }]}
+          value="en"
+          onValueChange={() => {}}
+        />
+      );
+      expect(getByText('EN')).toBeTruthy();
+      expect(getByText('English')).toBeTruthy();
+    });
+
     it('should render with null value', () => {
       const { getByText } = renderWithProviders(
         <SelectAndroid options={options} value={null} onValueChange={() => {}} />
@@ -156,6 +168,26 @@ describe('Select Component', () => {
 
       expect(getByText('Two')).toBeTruthy();
       expect(queryByText('One')).toBeFalsy();
+    });
+
+    it('should filter options by searchable metadata', () => {
+      const { getByTestId, getByText, queryByText } = renderWithProviders(
+        <SelectAndroid
+          testID="select"
+          options={[
+            { label: 'English', value: 'en', searchText: ['United Kingdom'] },
+            { label: 'French', value: 'fr' },
+          ]}
+          value={undefined}
+          onValueChange={() => {}}
+        />
+      );
+
+      fireEvent.press(getByTestId('select'));
+      fireEvent.changeText(getByTestId('select-search'), 'kingdom');
+
+      expect(getByText('English')).toBeTruthy();
+      expect(queryByText('French')).toBeFalsy();
     });
 
     it('should allow a typed custom value when enabled', () => {
@@ -454,6 +486,24 @@ describe('Select Component', () => {
         fireEvent.press(getByTestId('android-select'));
         fireEvent.press(getByTestId('android-select-option-0'));
         expect(onValueChange).toHaveBeenCalledWith('one');
+      });
+    });
+
+    describe('iOS variant', () => {
+      it('should render iOS select with selected option icon', () => {
+        // eslint-disable-next-line import/no-unresolved
+        const SelectIOS = require('@platform/components/forms/Select/Select.ios').default;
+
+        const { getByText } = renderWithProviders(
+          <SelectIOS
+            options={[{ label: 'French', value: 'fr', icon: 'FR' }]}
+            value="fr"
+            onValueChange={() => {}}
+          />
+        );
+
+        expect(getByText('FR')).toBeTruthy();
+        expect(getByText('French')).toBeTruthy();
       });
     });
 

@@ -18,18 +18,27 @@ import {
   StyledLabel,
   StyledRequired,
   StyledTrigger,
+  StyledTriggerContent,
   StyledTriggerText,
   StyledChevron,
   StyledMenu,
   StyledSearchInput,
   StyledOption,
+  StyledOptionContent,
+  StyledOptionIcon,
   StyledOptionText,
+  StyledSelectedMark,
   StyledNoResultsText,
   StyledHelperText,
 } from './Select.web.styles';
 
 // 5. Component-specific hook (relative import)
 import useSelect from './useSelect';
+import {
+  getOptionIcon,
+  optionExactlyMatchesQuery,
+  optionMatchesQuery,
+} from './selectOption.utils';
 
 // 6. Types and constants (relative import)
 import { VALIDATION_STATES } from './types';
@@ -39,6 +48,8 @@ import { VALIDATION_STATES } from './types';
  * @property {string} label
  * @property {string|number} value
  * @property {boolean} [disabled]
+ * @property {React.ReactNode} [icon]
+ * @property {string|string[]} [searchText]
  */
 
 /**
@@ -123,26 +134,13 @@ const SelectWeb = ({
       .trim()
       .toLowerCase();
     if (!searchable || !query) return rows;
-    return rows.filter(({ option }) =>
-      [option.label, option.value].some((entry) =>
-        String(entry || '')
-          .toLowerCase()
-          .includes(query)
-      )
-    );
+    return rows.filter(({ option }) => optionMatchesQuery(option, query));
   }, [options, searchable, searchQuery]);
   const normalizedSearchQuery = String(searchQuery || '').trim();
   const exactSearchMatch = React.useMemo(() => {
     if (!normalizedSearchQuery) return false;
     const query = normalizedSearchQuery.toLowerCase();
-    return options.some((option) =>
-      [option.label, option.value].some(
-        (entry) =>
-          String(entry || '')
-            .trim()
-            .toLowerCase() === query
-      )
-    );
+    return options.some((option) => optionExactlyMatchesQuery(option, query));
   }, [normalizedSearchQuery, options]);
   const canUseCustomValue =
     allowCustomValue &&
@@ -161,6 +159,7 @@ const SelectWeb = ({
       ? String(value)
       : defaultPlaceholder;
   const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
+  const selectedOptionIcon = getOptionIcon(selectedOption);
 
   // Close on outside click
   useEffect(() => {
@@ -359,12 +358,19 @@ const SelectWeb = ({
         aria-required={required}
         data-testid={testID}
       >
-        <StyledTriggerText
-          disabled={disabled}
-          $isPlaceholder={isPlaceholderValue}
-        >
-          {displayValue}
-        </StyledTriggerText>
+        <StyledTriggerContent>
+          {selectedOptionIcon ? (
+            <StyledOptionIcon aria-hidden="true">
+              {selectedOptionIcon}
+            </StyledOptionIcon>
+          ) : null}
+          <StyledTriggerText
+            disabled={disabled}
+            $isPlaceholder={isPlaceholderValue}
+          >
+            {displayValue}
+          </StyledTriggerText>
+        </StyledTriggerContent>
         <StyledChevron aria-hidden="true">{'\u25BE'}</StyledChevron>
       </StyledTrigger>
 
@@ -393,26 +399,43 @@ const SelectWeb = ({
             <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
           ) : null}
           {visibleOptions.length > 0
-            ? visibleOptions.map(({ option: opt, index }, visibleIndex) => (
-                <StyledOption
-                  key={`${String(opt.value)}-${index}`}
-                  disabled={!!opt.disabled}
-                  onClick={() => {
-                    if (opt.disabled) return;
-                    handleSelect(opt.value);
-                  }}
-                  onFocus={() => setFocusedIndex(index)}
-                  role="option"
-                  aria-selected={value === opt.value}
-                  aria-disabled={opt.disabled}
-                  aria-label={opt.label}
-                  tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
-                  data-option-index={index}
-                  data-testid={testID ? `${testID}-option-${index}` : undefined}
-                >
-                  <StyledOptionText>{opt.label}</StyledOptionText>
-                </StyledOption>
-              ))
+            ? visibleOptions.map(({ option: opt, index }, visibleIndex) => {
+                const selected = value === opt.value;
+                const optionIcon = getOptionIcon(opt);
+
+                return (
+                  <StyledOption
+                    key={`${String(opt.value)}-${index}`}
+                    disabled={!!opt.disabled}
+                    onClick={() => {
+                      if (opt.disabled) return;
+                      handleSelect(opt.value);
+                    }}
+                    onFocus={() => setFocusedIndex(index)}
+                    role="option"
+                    aria-selected={selected}
+                    aria-disabled={opt.disabled}
+                    aria-label={opt.label}
+                    tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
+                    data-option-index={index}
+                    data-testid={testID ? `${testID}-option-${index}` : undefined}
+                  >
+                    <StyledOptionContent>
+                      {optionIcon ? (
+                        <StyledOptionIcon aria-hidden="true">
+                          {optionIcon}
+                        </StyledOptionIcon>
+                      ) : null}
+                      <StyledOptionText $selected={selected}>
+                        {opt.label}
+                      </StyledOptionText>
+                    </StyledOptionContent>
+                    <StyledSelectedMark aria-hidden="true">
+                      {selected ? '\u2713' : ''}
+                    </StyledSelectedMark>
+                  </StyledOption>
+                );
+              })
             : null}
           {canUseCustomValue ? (
             <StyledOption
@@ -423,7 +446,14 @@ const SelectWeb = ({
               tabIndex={visibleOptions.length === 0 ? 0 : -1}
               data-testid={testID ? `${testID}-custom-option` : undefined}
             >
-              <StyledOptionText>{customValueLabel}</StyledOptionText>
+              <StyledOptionContent>
+                <StyledOptionText $selected={value === normalizedSearchQuery}>
+                  {customValueLabel}
+                </StyledOptionText>
+              </StyledOptionContent>
+              <StyledSelectedMark aria-hidden="true">
+                {value === normalizedSearchQuery ? '\u2713' : ''}
+              </StyledSelectedMark>
             </StyledOption>
           ) : null}
         </StyledMenu>

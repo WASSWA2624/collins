@@ -3,14 +3,20 @@
  * Language selection logic with persistence
  * File: useLanguageControls.js
  */
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createI18n } from '@i18n';
 import { useI18n } from '@hooks';
 import { selectLocale } from '@store/selectors';
 import { actions } from '@store/slices/ui.slice';
 import { async as asyncStorage } from '@services/storage';
-import { LOCALE_LABEL_KEYS, LOCALE_STORAGE_KEY } from './types';
+import {
+  DEFAULT_LOCALE_FLAG_COUNTRY_CODE,
+  LOCALE_FLAG_COUNTRY_CODES,
+  LOCALE_LABEL_KEYS,
+  LOCALE_STORAGE_KEY,
+} from './types';
+import LocaleFlagIcon from './LocaleFlagIcon';
 
 const getDefaultLocale = (supportedLocales) => supportedLocales?.[0] || 'en';
 
@@ -23,7 +29,15 @@ const buildOptions = (supportedLocales, t) => {
   if (!Array.isArray(supportedLocales)) return [];
   return supportedLocales.map((value) => {
     const labelKey = LOCALE_LABEL_KEYS[value] || `settings.language.options.${value}`;
-    return { value, label: t(labelKey) };
+    const label = t(labelKey);
+    const countryCode =
+      LOCALE_FLAG_COUNTRY_CODES[value] || DEFAULT_LOCALE_FLAG_COUNTRY_CODE;
+    return {
+      value,
+      label,
+      icon: <LocaleFlagIcon countryCode={countryCode} />,
+      searchText: [value, label, countryCode],
+    };
   });
 };
 

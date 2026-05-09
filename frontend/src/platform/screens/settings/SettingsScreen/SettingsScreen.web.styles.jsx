@@ -33,16 +33,9 @@ const StyledContent = styled.div.withConfig({
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: ${({ theme }) => theme.spacing.md}px;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  container-type: inline-size;
 `;
 
 const StyledHeader = styled.header.withConfig({
@@ -74,7 +67,7 @@ const StyledSection = styled.section.withConfig({
     border-color: ${({ theme }) => theme.colors.primary};
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+  @container (min-width: 700px) {
     grid-column: ${({ $span }) => {
       if ($span === 'full') return '1 / -1';
       if ($span === 'wide') return 'span 2';

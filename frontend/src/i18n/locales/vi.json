@@ -1,9 +1,9 @@
 {
   "common": {
     "save": "Lưu",
-    "cancel": "Hủy",
+    "cancel": "Hủy bỏ",
     "delete": "Xóa",
-    "edit": "Sửa",
+    "edit": "Chỉnh sửa",
     "search": "Tìm kiếm",
     "submit": "Gửi",
     "loading": "Đang tải…",
@@ -12,38 +12,38 @@
     "next": "Tiếp theo",
     "continue": "Tiếp tục",
     "close": "Đóng",
-    "closeSidebarHint": "Closes sidebar menu",
-    "select": "Chọn",
+    "closeSidebarHint": "Đóng menu thanh bên",
+    "select": "chọn",
     "selectPlaceholder": "Chọn…",
-    "closeSelect": "Đóng Chọn",
-    "remove": "Gỡ bỏ",
-    "goToHome": "Đi tới Trang chủ",
-    "viewNotifications": "Xem notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
+    "closeSelect": "Đóng chọn",
+    "remove": "Xóa",
+    "goToHome": "Về nhà",
+    "viewNotifications": "Xem thông báo",
+    "userMenu": "Trình đơn người dùng",
+    "toggleMenu": "Chuyển đổi menu",
     "searchPlaceholder": "Tìm kiếm…",
     "noResults": "Không có kết quả",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Tìm kiếm icon",
-    "clearSearch": "Xóa Tìm kiếm",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed đến load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
+    "useCustomValue": "Sử dụng \"{{value}}\"",
+    "searchIcon": "Biểu tượng tìm kiếm",
+    "clearSearch": "Xóa tìm kiếm",
+    "on": "Bật",
+    "off": "Tắt",
+    "switch": "Chuyển đổi",
+    "imageLoadError": "Không thể tải hình ảnh",
+    "imageDefaultAlt": "Hình ảnh",
+    "progress": "Tiến độ: {{value}}%",
     "requiredLabel": "bắt buộc",
-    "clearAll": "Xóa all",
-    "filters": "Filters",
-    "clearAllFilters": "Xóa all filters",
-    "loadingPlaceholder": "Đang tải placeholder",
-    "radio": "Radio",
-    "emptyState": "Trống state",
+    "clearAll": "Xóa tất cả",
+    "filters": "Bộ lọc",
+    "clearAllFilters": "Xóa tất cả bộ lọc",
+    "loadingPlaceholder": "Đang tải phần giữ chỗ",
+    "radio": "Đài phát thanh",
+    "emptyState": "Trạng thái trống",
     "message": "Tin nhắn",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "sliderValue": "Thanh trượt: {{value}}",
+    "dropdownMenu": "Trình đơn thả xuống",
+    "tooltip": "Chú giải công cụ",
+    "action": "hành động"
   },
   "greeting": {
     "hello": "Xin chào, {{name}}"
@@ -55,77 +55,77 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "Hỗ trợ quyết định thông gió",
+      "logoLabel": "AI Vent biểu tượng"
     },
     "logout": "Đăng xuất",
     "password": "Mật khẩu",
-    "passwordHide": "Ẩn Mật khẩu",
-    "passwordShow": "Hiển thị Mật khẩu",
-    "enterPassword": "Nhập Mật khẩu",
+    "passwordHide": "Ẩn mật khẩu",
+    "passwordShow": "Hiển thị mật khẩu",
+    "enterPassword": "Nhập mật khẩu",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "Y?u",
+      "fair": "Trung b?nh",
+      "good": "T?t",
+      "strong": "M?nh",
+      "veryStrong": "R?t m?nh"
     },
     "login": {
       "title": "Đăng nhập",
-      "accessibilityLabel": "Đăng nhập screen",
-      "emailLabel": "Email",
+      "accessibilityLabel": "Màn hình đăng nhập",
+      "emailLabel": "Th? ?i?n t?",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Mật khẩu",
-      "passwordPlaceholder": "Nhập Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
       "submit": "Đăng nhập",
-      "submitting": "Signing in...",
-      "createPrompt": "Không có Tài khoản yet?",
+      "submitting": "Đang đăng nhập...",
+      "createPrompt": "Chưa có tài khoản?",
       "createAccount": "Tạo tài khoản",
-      "createAccountHint": "Mở Tài khoản registration",
-      "errorTitle": "Sign-in issue"
+      "createAccountHint": "Mở đăng ký tài khoản",
+      "errorTitle": "Vấn đề đăng nhập"
     },
     "register": {
       "title": "Tạo tài khoản",
-      "description": "Create an AI Vent Tài khoản đến request Cơ sở access.",
-      "accessibilityLabel": "Tạo tài khoản screen",
-      "nameLabel": "Họ và tên",
-      "namePlaceholder": "Clinician Tên",
-      "emailLabel": "Email",
+      "description": "Tạo tài khoản AI Vent để yêu cầu quyền truy cập cơ sở.",
+      "accessibilityLabel": "Màn hình tạo tài khoản",
+      "nameLabel": "Tên đầy đủ",
+      "namePlaceholder": "Tên bác sĩ lâm sàng",
+      "emailLabel": "Th? ?i?n t?",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Mật khẩu",
-      "passwordPlaceholder": "Create Mật khẩu",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Cơ sở hoặc hospital (Tùy chọn)",
-      "facilitySearchPlaceholder": "Tìm kiếm Uganda hospitals",
-      "facilitySearchHint": "Filters hospital Danh sách by Tên, district, region, hoặc ownership",
-      "facilitySelectLabel": "Chọn Cơ sở",
-      "facilitySelectPlaceholder": "Choose a matching Cơ sở",
-      "facilitySelectHelper": "Leave blank if you are not attached đến a Cơ sở.",
-      "facilitySelectHint": "Choose Cơ sở đến request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested cho Xem xét.",
-      "facilityOptionalHelper": "Tùy chọn. You can create an Tài khoản without selecting a Cơ sở.",
-      "facilityNoResults": "Không có matching Cơ sở found. You can still create an Tài khoản without selecting one",
-      "facilityClear": "Xóa Cơ sở",
+      "passwordPlaceholder": "Tạo mật khẩu",
+      "passwordHelper": "Sử dụng ít nhất 8 ký tự.",
+      "facilitySearchLabel": "Cơ sở hoặc bệnh viện (tùy chọn)",
+      "facilitySearchPlaceholder": "Tìm kiếm bệnh viện ở Uganda",
+      "facilitySearchHint": "Lọc danh sách bệnh viện theo tên, quận, khu vực hoặc quyền sở hữu",
+      "facilitySelectLabel": "Chọn cơ sở",
+      "facilitySelectPlaceholder": "Chọn cơ sở phù hợp",
+      "facilitySelectHelper": "Để trống nếu bạn không gắn bó với một cơ sở.",
+      "facilitySelectHint": "Chọn cơ sở để yêu cầu liên kết bác sĩ lâm sàng",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Thành viên được yêu cầu để xem xét.",
+      "facilityOptionalHelper": "Tùy chọn. Bạn có thể tạo tài khoản mà không cần chọn cơ sở.",
+      "facilityNoResults": "Không tìm thấy cơ sở phù hợp. Bạn vẫn có thể tạo tài khoản mà không cần chọn tài khoản.",
+      "facilityClear": "Cơ sở rõ ràng",
       "submit": "Tạo tài khoản",
-      "submitting": "Creating Tài khoản...",
-      "signInPrompt": "Already have an Tài khoản?",
+      "submitting": "Đang tạo tài khoản...",
+      "signInPrompt": "Đã có tài khoản?",
       "signIn": "Đăng nhập",
-      "signInHint": "Return đến sign in",
-      "errorTitle": "Tài khoản creation issue"
+      "signInHint": "Quay lại để đăng nhập",
+      "errorTitle": "Vấn đề tạo tài khoản"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "Thử lại session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "Thông báo phiên",
+      "retry": "Thử lại phiên",
+      "checking": "Đang kiểm tra phiên...",
+      "restoring": "Kiểm tra xem bạn đã đăng nhập chưa."
     },
     "facility": {
-      "title": "Choose Cơ sở",
-      "description": "Chọn Cơ sở context cho this session.",
-      "accessibilityLabel": "Cơ sở selection screen",
+      "title": "Chọn cơ sở",
+      "description": "Chọn bối cảnh cơ sở cho phiên này.",
+      "accessibilityLabel": "Màn hình lựa chọn cơ sở",
       "selectFacility": "Chọn {{name}}",
-      "empty": "Không có approved facilities are available cho this Tài khoản",
-      "errorTitle": "Cơ sở selection issue"
+      "empty": "Không có cơ sở được phê duyệt có sẵn cho tài khoản này.",
+      "errorTitle": "Vấn đề lựa chọn cơ sở"
     }
   },
   "errors": {
@@ -136,178 +136,178 @@
       "retryHint": "Thử lại"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Đã xảy ra lỗi. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect đến server. Please check your internet connection và try again.",
-      "REQUEST_TIMEOUT": "server took too long đến respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection và try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
-      "UNAUTHORIZED": "Cần xác thực",
-      "FORBIDDEN": "Truy cập bị từ chối",
-      "CONFLICT": "This update conflicts với newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields và try again.",
-      "SERVER_ERROR": "Đã xảy ra lỗi while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect đến server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please Làm mới và try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return đến Theo dõi và try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not Lưu your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment và try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An Lỗi occurred while Đang tải this page",
-      "INVALID_CREDENTIALS": "Invalid email hoặc Mật khẩu. Please check your details và try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please Chọn a tenant.",
-      "ACCOUNT_INACTIVE": "Tài khoản is not active",
-      "ACCOUNT_SUSPENDED": "Tài khoản has been suspended",
-      "ACCOUNT_PENDING": "Tài khoản is Đang chờ verification",
-      "PASSWORD_INCORRECT": "Current Mật khẩu is incorrect",
-      "TOKEN_INVALID": "Invalid hoặc expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid hoặc expired Làm mới token",
-      "SESSION_EXPIRED": "Your session expired. Đăng nhập again đến Tiếp tục.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Tài khoản is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid hoặc expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Trang chủ summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Không thể tải Trang chủ summary",
-      "ADMISSION_SAVE_FAILED": "Không thể lưu admission record. Kiểm tra kết nối rồi thử lại",
-      "ADMISSION_VALIDATION_FAILED": "Some bắt buộc admission details are missing. Please Xem xét highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable đến generate clinical recommendations right now. You can still Xem xét và Lưu admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Không thể tải admission form. Kiểm tra kết nối rồi thử lại",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Không thể lưu local admission draft. Please try again"
+      "UNKNOWN_ERROR": "Đã xảy ra lỗi. Vui lòng thử lại trong thời gian ngắn.",
+      "NETWORK_ERROR": "Chúng tôi không thể kết nối với máy chủ. Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+      "REQUEST_TIMEOUT": "Máy chủ mất quá nhiều thời gian để phản hồi. Vui lòng thử lại.",
+      "BACKEND_HOST_UNREACHABLE": "Chúng tôi không thể kết nối với máy chủ. Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+      "SECURE_CONNECTION_FAILED": "Kết nối an toàn không thành công. Kiểm tra chứng chỉ phụ trợ HTTPS.",
+      "UNAUTHORIZED": "Yêu cầu xác thực",
+      "FORBIDDEN": "Quyền truy cập bị từ chối",
+      "CONFLICT": "Bản cập nhật này xung đột với dữ liệu lâm sàng đã lưu mới hơn",
+      "VALIDATION_ERROR": "Vui lòng kiểm tra các trường được đánh dấu và thử lại.",
+      "SERVER_ERROR": "Đã xảy ra lỗi khi xử lý yêu cầu của bạn. Vui lòng thử lại trong thời gian ngắn.",
+      "BACKEND_UNAVAILABLE": "Chúng tôi không thể kết nối với máy chủ ngay bây giờ. Vui lòng thử lại trong thời gian ngắn.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Không tìm thấy điểm cuối API cuối cùng. Miền có thể truy cập được nhưng tuyến API chưa được triển khai.",
+      "RESOURCE_NOT_FOUND": "Không thể tìm thấy bản ghi được yêu cầu. Vui lòng làm mới và thử lại.",
+      "ADMISSION_NOT_FOUND": "Hồ sơ nhập học không thể được tìm thấy. Vui lòng quay lại theo dõi và thử lại.",
+      "BACKEND_METHOD_NOT_ALLOWED": "Điểm cuối phụ trợ tồn tại nhưng không chấp nhận yêu cầu này.",
+      "BACKEND_INVALID_RESPONSE": "Phần cuối trả về phản hồi đăng nhập không hợp lệ. Nó có thể đang phục vụ trang web thay vì API.",
+      "SESSION_STORAGE_FAILED": "Chúng tôi không thể lưu phiên đăng nhập của bạn. Vui lòng thử lại.",
+      "DATABASE_ERROR": "Yêu cầu cơ sở dữ liệu phụ trợ không thành công",
+      "RATE_LIMITED": "Quá nhiều yêu cầu. Hãy đợi một lát và thử lại.",
+      "PAYLOAD_TOO_LARGE": "Yêu cầu quá lớn",
+      "UNSUPPORTED_MEDIA_TYPE": "Phần cuối đã từ chối định dạng yêu cầu",
+      "ROUTE_ERROR": "Đã xảy ra lỗi khi tải trang này",
+      "INVALID_CREDENTIALS": "Email hoặc mật khẩu không hợp lệ. Vui lòng kiểm tra thông tin chi tiết của bạn và thử lại.",
+      "MULTIPLE_TENANTS": "Đã tìm thấy nhiều người thuê nhà. Vui lòng chọn người thuê nhà.",
+      "ACCOUNT_INACTIVE": "Tài khoản không hoạt động",
+      "ACCOUNT_SUSPENDED": "Tài khoản đã bị đình chỉ",
+      "ACCOUNT_PENDING": "Tài khoản đang chờ xác minh",
+      "PASSWORD_INCORRECT": "Mật khẩu hiện tại không chính xác",
+      "TOKEN_INVALID": "Mã thông báo không hợp lệ hoặc đã hết hạn",
+      "TOKEN_EXPIRED": "Mã thông báo đã hết hạn",
+      "REFRESH_TOKEN_INVALID": "Mã thông báo làm mới không hợp lệ hoặc đã hết hạn",
+      "SESSION_EXPIRED": "Phiên của bạn đã hết hạn. Đăng nhập lại để tiếp tục.",
+      "USER_NOT_FOUND": "Không tìm thấy người dùng",
+      "USER_EXISTS": "Email này đã được đăng ký. Vui lòng đăng nhập thay thế.",
+      "SESSION_NOT_FOUND": "Không tìm thấy phiên",
+      "ALREADY_VERIFIED": "Tài khoản đã được xác minh",
+      "AI_UNAVAILABLE": "AI không có — sử dụng đề xuất địa phương",
+      "AI_TIMEOUT": "AI yêu cầu đã hết thời gian chờ",
+      "AI_UNAUTHORIZED": "AI API khóa không hợp lệ hoặc đã hết hạn",
+      "AI_FORBIDDEN": "AI quyền truy cập bị từ chối",
+      "AI_RATE_LIMIT": "AI đã đạt đến giới hạn tốc độ",
+      "AI_MODEL_UNAVAILABLE": "Không có mẫu AI",
+      "AI_MALFORMED_RESPONSE": "AI phản hồi không hợp lệ",
+      "HOME_SUMMARY_INVALID": "Phản hồi tóm tắt trang chủ không hợp lệ",
+      "HOME_SUMMARY_LOAD_FAILED": "Không thể tải tóm tắt Trang chủ",
+      "ADMISSION_SAVE_FAILED": "Không thể lưu hồ sơ nhập học. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "ADMISSION_VALIDATION_FAILED": "Thiếu một số chi tiết nhập học bắt buộc. Vui lòng xem lại các trường được đánh dấu.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Không thể tạo đề xuất lâm sàng ngay bây giờ. Bạn vẫn có thể xem lại và lưu việc nhập học.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Không thể tải mẫu đơn nhập học. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Không thể lưu dự thảo tuyển sinh địa phương. Vui lòng thử lại."
     }
   },
   "forms": {
     "validation": {
       "required": "Trường này là bắt buộc",
-      "invalidEmail": "Invalid email format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "invalidEmail": "Định dạng email không hợp lệ",
+      "minLength": "Độ dài tối thiểu là {{min}} ký tự",
+      "invalidUrl": "Định dạng URL không hợp lệ",
+      "invalidUuid": "Định dạng ID không hợp lệ",
+      "maxLength": "Độ dài tối đa là {{max}} ký tự",
+      "invalidValue": "Giá trị không hợp lệ"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type đến Tìm kiếm",
-      "cartWithItems": "Cart với {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "Tiêu đề điều hướng chính",
+      "searchHint": "Nhập để tìm kiếm",
+      "cartWithItems": "Giỏ hàng có {{count}} mặt hàng",
+      "cartWithItems_zero": "Giỏ hàng",
       "signIn": "Đăng nhập",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "Hồ sơ",
+      "orders": "Đơn đặt hàng",
       "settings": "Cài đặt",
       "logout": "Đăng xuất",
       "accountMenu": {
-        "accessibilityLabel": "Mở Tài khoản menu cho {{name}}",
+        "accessibilityLabel": "Mở menu tài khoản cho {{name}}",
         "fallbackName": "Tài khoản",
-        "accountType": "Tài khoản type"
+        "accountType": "Loại tài khoản"
       },
-      "hideHeader": "Ẩn header",
-      "showHeader": "Hiển thị header",
-      "showMore": "Hiển thị more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "Ẩn tiêu đề",
+      "showHeader": "Hiển thị tiêu đề",
+      "showMore": "Hiển thị thêm",
+      "customize": "Tùy chỉnh",
+      "overflowMenuLabel": "Thêm hành động tiêu đề",
+      "customizationMenuLabel": "Tùy chỉnh tiêu đề",
       "actions": {
-        "notifications": "Không cótifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "Thông báo",
+        "network": "Trạng thái mạng",
+        "database": "Trạng thái cơ sở dữ liệu",
+        "fullscreen": "Chuyển đổi toàn màn hình"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "Điều hướng chính",
+      "label": "Điều hướng",
+      "resize": "Thay đổi kích thước điều hướng"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "Toàn màn hình",
+      "exit": "Thoát toàn màn hình"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "Điều hướng dưới cùng"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (Điện thoại)",
+      "title": "Chân trang chung",
+      "copyright": "© {{year}} {{appName}}. Mọi quyền được bảo lưu.",
+      "supportEmail": "Hỗ trợ (email)",
+      "supportPhone": "Hỗ trợ (điện thoại)",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "Bệnh nhân services ready"
+        "title": "Trạng thái đơn đăng ký",
+        "auth": "Đã bật đăng nhập an toàn",
+        "main": "Tất cả các hệ thống hoạt động",
+        "patient": "Dịch vụ bệnh nhân đã sẵn sàng"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} · v{{version}} (bản dựng: {{build}})",
       "legal": {
-        "title": "Legal và support",
-        "terms": "Terms",
+        "title": "Pháp lý và hỗ trợ",
+        "terms": "Điều khoản",
         "privacy": "Quyền riêng tư",
-        "support": "Support"
+        "support": "Hỗ trợ"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "Trạng thái mạng",
       "status": {
-        "online": "Trực tuyến",
+        "online": "trực tuyến",
         "offline": "Ngoại tuyến",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "unstable": "Không ổn định",
+        "syncing": "Đang đồng bộ hóa"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "Cơ sở dữ liệu",
+        "connected": "Đã kết nối cơ sở dữ liệu",
+        "disconnected": "Cơ sở dữ liệu bị ngắt kết nối"
       }
     },
     "notifications": {
-      "label": "Không cótifications",
-      "menuLabel": "Không cótifications menu",
-      "empty": "Không có new notifications",
-      "viewAll": "Xem all notifications",
+      "label": "Thông báo",
+      "menuLabel": "Trình đơn thông báo",
+      "empty": "Không có thông báo mới",
+      "viewAll": "Xem tất cả thông báo",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "Cuộc hẹn sắp tới",
+          "meta": "Hôm nay lúc 3 giờ chiều"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "Kết quả phòng thí nghiệm đã sẵn sàng",
+          "meta": "Đã có kết quả mới"
         },
         "messages": {
-          "title": "New Tin nhắn",
-          "meta": "You have unread messages"
+          "title": "Tin nhắn mới",
+          "meta": "Bạn có tin nhắn chưa đọc"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "Bệnh nhân navigation",
+    "bottomNavigation": "Điều hướng dưới cùng",
+    "mainNavigation": "Điều hướng chính",
+    "patientNavigation": "Điều hướng bệnh nhân",
     "items": {
       "main": {
         "home": "Trang chủ",
-        "admit": "Tiếp nhận",
-        "assessment": "Tiếp nhận",
-        "abg-ventilator-updates": "Update ABG & Máy thở Cài đặt",
+        "admit": "thừa nhận",
+        "assessment": "thừa nhận",
+        "abg-ventilator-updates": "Cập nhật ABG & Cài đặt máy thở",
         "history": "Theo dõi",
-        "dataset-capture": "Thu thập bộ dữ liệu",
+        "dataset-capture": "Thu thập tập dữ liệu",
         "review-queue": "Hàng đợi xem xét",
-        "dashboard": "Bảng điều khiển",
+        "dashboard": "Trang tổng quan",
         "user-management": "Quản lý người dùng",
-        "onboarding": "Getting started",
+        "onboarding": "Bắt đầu",
         "settings": "Cài đặt",
         "settings-about": "Giới thiệu",
         "settings-data-sources": "Nguồn dữ liệu",
@@ -317,341 +317,342 @@
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "Điều hướng đường dẫn",
+      "label": "vụn bánh mì"
     },
-    "skipToMainContent": "Skip đến main content"
+    "skipToMainContent": "Chuyển đến nội dung chính"
   },
   "facilityContext": {
     "activeFacility": "Cơ sở đang hoạt động",
-    "noFacility": "Không có active Cơ sở",
+    "noFacility": "Không có cơ sở hoạt động",
     "role": "Vai trò",
-    "noRole": "Không có active Vai trò",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "Chọn active Cơ sở",
-    "accessibilityLabel": "Cơ sở đang hoạt động {{facility}}, sync status {{status}}",
+    "noRole": "Không có vai trò tích cực",
+    "syncStatus": "Trạng thái đồng bộ hóa",
+    "facilitySelectLabel": "Chọn cơ sở đang hoạt động",
+    "accessibilityLabel": "Cơ sở đang hoạt động {{facility}}, trạng thái đồng bộ hóa {{status}}",
     "status": {
-      "online": "Trực tuyến",
+      "online": "trực tuyến",
       "offline": "Ngoại tuyến",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "syncing": "Đang đồng bộ hóa",
+      "unstable": "Không ổn định"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "Hệ thống status updates",
+      "surfaceLabel": "Cập nhật trạng thái hệ thống",
       "offline": {
-        "title": "You are Ngoại tuyến",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Ngoại tuyến status notification"
+        "title": "Bạn đang ngoại tuyến",
+        "message": "Một số tính năng có thể không khả dụng cho đến khi kết nối được khôi phục.",
+        "accessibilityLabel": "Thông báo trạng thái ngoại tuyến"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays hoặc limited functionality.",
-        "accessibilityLabel": "Thấp network quality notification"
+        "title": "Mạng không ổn định",
+        "message": "Bạn có thể gặp phải sự chậm trễ hoặc chức năng bị hạn chế.",
+        "accessibilityLabel": "Thông báo chất lượng mạng thấp"
       },
       "online": {
-        "title": "Quay lại Trực tuyến",
-        "message": "Connection restored.",
-        "accessibilityLabel": "Trực tuyến status notification"
+        "title": "Trở lại trực tuyến",
+        "message": "Đã khôi phục kết nối.",
+        "accessibilityLabel": "Thông báo trạng thái trực tuyến"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "Bảo trì theo lịch trình",
+        "message": "Một số dịch vụ có thể tạm thời không khả dụng.",
+        "accessibilityLabel": "Thông báo bảo trì"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "Đang làm việc…",
+      "message": "Vui lòng đợi trong khi chúng tôi hoàn thành yêu cầu."
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "Thông báo toàn cầu"
     }
   },
   "settings": {
     "title": "Cài đặt",
     "screen": {
-      "label": "Cài đặt screen"
+      "label": "Màn hình cài đặt"
     },
     "status": {
-      "loading": "Đang tải Cài đặt...",
-      "saved": "Cài đặt saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Không thể lưu your profile. Kiểm tra kết nối rồi thử lại",
-      "facilitySaved": "Cơ sở đang hoạt động updated successfully.",
-      "facilitySaveError": "Không thể lưu active Cơ sở. Kiểm tra kết nối rồi thử lại",
-      "roleSaved": "Active Vai trò updated successfully.",
-      "themeSaved": "Giao diện updated successfully.",
-      "themeLocalSaved": "Giao diện updated on this device.",
-      "themeSaveError": "Không thể lưu your Giao diện preference. Kiểm tra kết nối rồi thử lại",
-      "saveError": "Không thể lưu Cài đặt. Kiểm tra kết nối rồi thử lại",
-      "loadError": "Không thể tải Cài đặt. Kiểm tra kết nối rồi thử lại",
-      "localOnly": "Server Cài đặt are unavailable ({{code}}). Local display controls remain available."
+      "loading": "Đang tải cài đặt...",
+      "saving": "?ang l?u c?i ??t...",
+      "saved": "Đã lưu cài đặt.",
+      "profileSaved": "Hồ sơ được cập nhật thành công.",
+      "profileSaveError": "Không thể lưu hồ sơ của bạn. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "facilitySaved": "Cơ sở đang hoạt động được cập nhật thành công.",
+      "facilitySaveError": "Không thể lưu cơ sở đang hoạt động. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "roleSaved": "Vai trò hoạt động đã được cập nhật thành công.",
+      "themeSaved": "Chủ đề được cập nhật thành công.",
+      "themeLocalSaved": "Chủ đề được cập nhật trên thiết bị này.",
+      "themeSaveError": "Không thể lưu tùy chọn chủ đề của bạn. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "saveError": "Không thể lưu cài đặt. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "loadError": "Không thể tải cài đặt. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "localOnly": "Cài đặt máy chủ không khả dụng ({{code}}). Điều khiển hiển thị cục bộ vẫn có sẵn."
     },
     "account": {
-      "title": "Tài khoản và Cơ sở",
+      "title": "Tài khoản và cơ sở vật chất",
       "name": "Tên",
       "phone": "Điện thoại",
-      "saveProfile": "Lưu profile",
+      "saveProfile": "Lưu hồ sơ",
       "activeFacility": "Cơ sở đang hoạt động",
-      "activeRole": "Active Vai trò",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "Không có active Cơ sở",
-      "activeFacilityHelper": "Chọn Cơ sở context cho clinical work.",
-      "noAssignedFacility": "Không có Cơ sở has been assigned đến your Tài khoản yet",
-      "activeRoleHelper": "Vai trò cho selected active Cơ sở.",
-      "noActiveRole": "Không có Vai trò is available cho selected Cơ sở",
-      "none": "Không cóne",
+      "activeRole": "Vai trò tích cực",
+      "approvedRoles": "Vai trò được phê duyệt",
+      "noActiveFacility": "Không có cơ sở hoạt động",
+      "activeFacilityHelper": "Chọn bối cảnh cơ sở cho công việc lâm sàng.",
+      "noAssignedFacility": "Chưa có cơ sở nào được chỉ định cho tài khoản của bạn.",
+      "activeRoleHelper": "Vai trò cho cơ sở đang hoạt động đã chọn.",
+      "noActiveRole": "Không có vai trò nào cho cơ sở đã chọn.",
+      "none": "không có",
       "validation": {
-        "nameRequired": "Nhập your full Tên.",
-        "nameTooLong": "Tên must be 160 characters hoặc fewer.",
-        "phoneTooLong": "Điện thoại number must be 40 characters hoặc fewer.",
-        "profileInvalid": "Xem xét highlighted profile fields before saving."
+        "nameRequired": "Nhập tên đầy đủ của bạn.",
+        "nameTooLong": "Tên phải có 160 ký tự trở xuống.",
+        "phoneTooLong": "Số điện thoại phải có 40 ký tự trở xuống.",
+        "profileInvalid": "Xem lại các trường hồ sơ được đánh dấu trước khi lưu."
       }
     },
     "accessibility": {
-      "title": "Appearance và accessibility"
+      "title": "Ngoại hình và khả năng tiếp cận"
     },
     "theme": {
-      "label": "Giao diện",
-      "accessibilityLabel": "Giao diện selector",
-      "hint": "Thay đổi application Giao diện",
+      "label": "chủ đề",
+      "accessibilityLabel": "Bộ chọn chủ đề",
+      "hint": "Thay đổi chủ đề ứng dụng",
       "options": {
         "system": "Hệ thống",
-        "light": "Sáng",
+        "light": "Ánh sáng",
         "dark": "Tối",
-        "highContrast": "Tương phản cao"
+        "highContrast": "Độ tương phản cao"
       }
     },
     "language": {
       "label": "Ngôn ngữ",
-      "accessibilityLabel": "Ngôn ngữ selector",
-      "hint": "Thay đổi application Ngôn ngữ",
+      "accessibilityLabel": "Bộ chọn ngôn ngữ",
+      "hint": "Thay đổi ngôn ngữ ứng dụng",
       "options": {
-        "en": "Tiếng anh",
-        "ar": "Tiếng ả rập",
-        "de": "Tiếng đức",
-        "es": "Tiếng tây ban nha",
-        "fa": "Tiếng ba tư",
-        "fr": "Tiếng pháp",
-        "hi": "Tiếng hindi",
-        "id": "Tiếng indonesia",
-        "it": "Tiếng italy",
-        "ja": "Tiếng nhật",
-        "ko": "Tiếng hàn",
-        "ms": "Tiếng mã lai",
-        "nl": "Tiếng hà lan",
-        "pl": "Tiếng ba lan",
-        "pt": "Tiếng bồ đào nha",
-        "ru": "Tiếng nga",
-        "sw": "Tiếng swahili",
-        "ta": "Tiếng tamil",
-        "th": "Tiếng thái",
-        "tr": "Tiếng thổ nhĩ kỳ",
-        "uk": "Tiếng ukraina",
-        "vi": "Tiếng việt",
-        "zh": "Tiếng trung"
+        "en": "Tiếng Anh",
+        "ar": "tiếng Ả Rập",
+        "de": "tiếng Đức",
+        "es": "tiếng Tây Ban Nha",
+        "fa": "tiếng Ba Tư",
+        "fr": "người Pháp",
+        "hi": "Tiếng Hindi",
+        "id": "tiếng Indonesia",
+        "it": "người Ý",
+        "ja": "tiếng Nhật",
+        "ko": "Tiếng Hàn",
+        "ms": "Mã Lai",
+        "nl": "tiếng Hà Lan",
+        "pl": "tiếng Ba Lan",
+        "pt": "tiếng Bồ Đào Nha",
+        "ru": "tiếng Nga",
+        "sw": "tiếng Swahili",
+        "ta": "Tiếng Tamil",
+        "th": "tiếng Thái",
+        "tr": "tiếng Thổ Nhĩ Kỳ",
+        "uk": "tiếng Ukraina",
+        "vi": "Tiếng Việt",
+        "zh": "Tiếng Trung"
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "Thay đổi spacing và layout density",
+      "label": "Mật độ",
+      "accessibilityLabel": "Bộ chọn chế độ mật độ",
+      "hint": "Thay đổi khoảng cách và mật độ bố cục",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "Nhỏ gọn",
+        "comfortable": "Thoải mái"
       }
     },
     "footerVisible": {
-      "label": "Hiển thị footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Hiển thị hoặc Ẩn footer at bottom of layout (desktop only)"
+      "label": "Hiển thị chân trang",
+      "accessibilityLabel": "Chuyển đổi chế độ hiển thị chân trang",
+      "hint": "Hiển thị hoặc ẩn chân trang ở cuối bố cục (chỉ dành cho máy tính để bàn)"
     },
     "sync": {
-      "title": "Ngoại tuyến và sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
-      "unknownQuality": "Không rõ",
-      "offlineModeEnabled": "Allow Ngoại tuyến mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Thử lại failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge Đã đồng bộ drafts after",
-      "conflictResolutionMode": "Xung đột resolution",
-      "manualReview": "Manual Xem xét",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "title": "Ngoại tuyến và đồng bộ hóa",
+      "network": "Mạng",
+      "status": "Trạng thái đồng bộ hóa",
+      "quality": "Chất lượng mạng",
+      "idle": "Nhàn rỗi",
+      "unknownQuality": "Không xác định",
+      "offlineModeEnabled": "Cho phép chế độ ngoại tuyến",
+      "syncOnWifiOnly": "Chỉ đồng bộ hóa trên Wi-Fi",
+      "autoSyncEnabled": "Tự động đồng bộ hóa",
+      "backgroundSyncEnabled": "Đồng bộ hóa nền",
+      "retryFailedSyncAutomatically": "Tự động thử lại đồng bộ hóa không thành công",
+      "syncIntervalMinutes": "Khoảng thời gian đồng bộ hóa",
+      "purgeSyncedDraftsAfterDays": "Xóa các bản nháp đã đồng bộ hóa sau",
+      "conflictResolutionMode": "giải quyết xung đột",
+      "manualReview": "Xem xét thủ công",
+      "intervalOption": "{{value}} phút",
+      "purgeOption": "{{value}} ngày"
     },
     "privacyControls": {
-      "title": "Quyền riêng tư và logging",
-      "hidePatientIdentifiersInLists": "Ẩn Bệnh nhân identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock cho identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "Quyền riêng tư và ghi nhật ký",
+      "hidePatientIdentifiersInLists": "Ẩn số nhận dạng bệnh nhân trong danh sách",
+      "requireUnlockForIdentifiers": "Yêu cầu mở khóa cho số nhận dạng",
+      "shareUsageDiagnostics": "Chia sẻ chẩn đoán sử dụng",
+      "allowDeidentifiedAnalytics": "Cho phép phân tích không xác định",
+      "allowDeidentifiedTrainingDatasetContribution": "Cho phép đóng góp tập dữ liệu đào tạo không xác định"
     },
     "governance": {
-      "title": "Governance và clinical workflow",
+      "title": "Quản trị và quy trình làm việc lâm sàng",
       "activeFacility": "Cơ sở đang hoạt động",
-      "manageAccess": "Can manage Cơ sở Cài đặt",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "manageAccess": "Có thể quản lý cài đặt cơ sở",
+      "visibility": "Tầm nhìn quản trị",
+      "defaultReferenceRuleScope": "Phạm vi tham chiếu mặc định",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "Cơ sở verified rules"
+        "global": "Quy tắc được xác minh toàn cầu",
+        "facility": "Quy tắc xác minh cơ sở"
       },
-      "showReferenceVersionToClinicians": "Hiển thị reference version đến clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require Lý do cho clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer cho Nghiêm trọng flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit Lý do",
-      "exportPatientIdentifiers": "Export Bệnh nhân identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require Xem xét",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Hiển thị shadow model outputs đến clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden từ Bình thường clinical workflows."
+      "showReferenceVersionToClinicians": "Hiển thị phiên bản tham khảo cho bác sĩ lâm sàng",
+      "requireVerifiedReferenceRules": "Yêu cầu quy tắc tham chiếu được xác minh",
+      "activeReferenceRules": "Quy tắc tham chiếu đang hoạt động",
+      "requireReasonForClinicalOverride": "Yêu cầu lý do ghi đè lâm sàng",
+      "requireSecondReviewerForCriticalFlags": "Yêu cầu người đánh giá thứ hai đối với các cờ quan trọng",
+      "lockReviewedClinicalRecords": "Khóa hồ sơ lâm sàng được xem xét",
+      "allowDeidentifiedExports": "Cho phép xuất khẩu không được xác định",
+      "requireExportAuditReason": "Yêu cầu lý do kiểm tra xuất khẩu",
+      "exportPatientIdentifiers": "Xuất số nhận dạng bệnh nhân",
+      "allowRawNotesInExports": "Cho phép ghi chú thô trong xuất khẩu",
+      "datasetExportsRequireEthicsApproval": "Xuất tập dữ liệu yêu cầu phê duyệt đạo đức",
+      "datasetExportsRequireReview": "Xuất tập dữ liệu cần được xem xét",
+      "allowUnreviewedDatasetExports": "Cho phép xuất tập dữ liệu chưa được xem xét",
+      "modelVisibility": "Khả năng hiển thị mô hình",
+      "liveClinicalPredictionEnabled": "Đã bật tính năng dự đoán lâm sàng trực tiếp",
+      "clinicianVisibleModelVersionIds": "Phiên bản mô hình có thể nhìn thấy được của bác sĩ lâm sàng",
+      "showShadowModelOutputsToClinicians": "Hiển thị kết quả đầu ra của mô hình bóng cho bác sĩ lâm sàng",
+      "modelVisibilityLocked": "Đầu ra của mô hình dự đoán trực tiếp vẫn bị ẩn khỏi quy trình làm việc lâm sàng thông thường."
     },
     "sidebar": {
-      "resize": "Resize Cài đặt sidebar",
-      "menu": "Cài đặt menu",
-      "menuOpen": "Mở Cài đặt menu",
-      "menuClose": "Đóng Cài đặt menu",
+      "resize": "Thay đổi kích thước thanh bên cài đặt",
+      "menu": "Trình đơn cài đặt",
+      "menuOpen": "Mở menu cài đặt",
+      "menuClose": "Đóng menu cài đặt",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "chung",
+        "organization": "Tổ chức",
+        "usersAndAccess": "Người dùng và quyền truy cập",
+        "security": "Bảo mật"
       }
     },
     "disclaimer": {
       "title": "Tuyên bố miễn trừ trách nhiệm",
       "screen": {
-        "label": "Tuyên bố miễn trừ trách nhiệm screen"
+        "label": "Màn hình từ chối trách nhiệm"
       },
-      "prototypeFraming": "This app is a prototype cho reference và training. It is not intended cho direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read và understood Tuyên bố miễn trừ trách nhiệm",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "Ứng dụng này là một nguyên mẫu để tham khảo và đào tạo. Nó không dành cho sử dụng lâm sàng trực tiếp.",
+      "datasetNotice": "Thông báo về tập dữ liệu",
+      "acknowledge": "tôi thừa nhận",
+      "acknowledgeHint": "Xác nhận rằng bạn đã đọc và hiểu tuyên bố từ chối trách nhiệm",
+      "decline": "tôi không đồng ý",
+      "declineHint": "Thoát khỏi ứng dụng mà không xác nhận",
       "states": {
         "loading": "Đang tải…",
-        "error": "Không thể tải Tuyên bố miễn trừ trách nhiệm"
+        "error": "Không thể tải tuyên bố từ chối trách nhiệm"
       }
     },
     "dataSources": {
       "title": "Nguồn dữ liệu",
       "screen": {
-        "label": "Nguồn dữ liệu screen"
+        "label": "Màn hình nguồn dữ liệu"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "Phiên bản tập dữ liệu",
+      "schemaVersion": "Phiên bản lược đồ",
+      "lastUpdated": "Cập nhật lần cuối",
+      "totalCases": "Tổng số trường hợp",
+      "citations": "Trích dẫn",
       "doi": "DOI",
       "states": {
         "loading": "Đang tải…",
-        "error": "Không thể tải data sources",
-        "empty": "Không có sources available"
+        "error": "Không thể tải nguồn dữ liệu",
+        "empty": "Không có nguồn nào"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted cho reviewer approval only. Raw pasted notes are not stored in approved datasets hoặc sent đến external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write Vai trò.",
-        "offlineNotice": "Ngoại tuyến submissions are Trong hàng đợi với structured fields only và sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then Xem xét structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "Cơ sở scope ready",
-        "facilityMissing": "Chọn hoặc sign in đến one active Cơ sở before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured Xem xét payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "Không cóne",
+        "title": "Thu thập tập dữ liệu",
+        "governanceNotice": "Các ứng cử viên bị bắt chỉ được gửi để người đánh giá phê duyệt. Ghi chú đã dán thô không được lưu trữ trong bộ dữ liệu đã được phê duyệt hoặc gửi đến các dịch vụ mô hình bên ngoài.",
+        "roleBlocked": "Việc thu thập ứng viên tập dữ liệu yêu cầu vai trò ghi lâm sàng đã được phê duyệt.",
+        "offlineNotice": "Các bài gửi ngoại tuyến chỉ được xếp hàng đợi với các trường có cấu trúc và đồng bộ hóa khi kết nối trở lại.",
+        "noteLabel": "Dán ghi chú ICU",
+        "notePlaceholder": "Dán ghi chú đầu giường đã được xác định, sau đó xem lại các trường có cấu trúc trước khi gửi.",
+        "parse": "Phân tích bản xem trước",
+        "facilityReady": "Phạm vi cơ sở đã sẵn sàng",
+        "facilityMissing": "Chọn hoặc đăng nhập vào một cơ sở đang hoạt động trước khi gửi.",
+        "noteRequired": "Dán ghi chú trước khi tạo bản xem trước.",
+        "identifierWarning": "Đã phát hiện thấy văn bản giống mã định danh. Nó không được bao gồm trong tải trọng đánh giá có cấu trúc.",
+        "previewTitle": "Xem trước ứng viên có cấu trúc",
+        "missingFields": "Thiếu giá trị",
+        "uncertainFields": "Điểm nổi bật về sự không chắc chắn",
+        "none": "không có",
         "submitForReview": "Gửi để xem xét",
-        "trainingApprovalAvailable": "Training approval controls remain in governed Xem xét workflows.",
+        "trainingApprovalAvailable": "Các biện pháp kiểm soát phê duyệt đào tạo vẫn nằm trong quy trình đánh giá được quản lý.",
         "status": {
-          "ready": "Ready cho Xem xét submission",
-          "submitted": "Submitted cho reviewer approval",
-          "queued": "Trong hàng đợi cho sync",
-          "error": "Submission failed"
+          "ready": "Sẵn sàng để gửi đánh giá",
+          "submitted": "Đã gửi để người đánh giá phê duyệt",
+          "queued": "Xếp hàng đợi để đồng bộ hóa",
+          "error": "Gửi không thành công"
         }
       }
     },
     "privacy": {
       "title": "Quyền riêng tư",
       "screen": {
-        "label": "Quyền riêng tư screen"
+        "label": "Màn hình riêng tư"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences và session data are stored only on this device. Không cóthing is sent đến external servers.",
-      "optionalAI": "If Trực tuyến AI features are enabled, those requests may be sent đến configured services."
+      "localStorage": "Dữ liệu được lưu trữ cục bộ",
+      "localStorageDescription": "Tùy chọn và dữ liệu phiên chỉ được lưu trữ trên thiết bị này. Không có gì được gửi đến các máy chủ bên ngoài.",
+      "optionalAI": "Nếu tính năng AI trực tuyến được bật, những yêu cầu đó có thể được gửi đến các dịch vụ đã định cấu hình."
     },
     "about": {
       "title": "Giới thiệu",
       "screen": {
-        "label": "Giới thiệu screen"
+        "label": "Về màn hình"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype cho reference và training. Không cót cho clinical use."
+      "version": "Phiên bản",
+      "prototypeScope": "Đây là nguyên mẫu để tham khảo và đào tạo. Không dùng cho lâm sàng."
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "Bắt đầu",
+      "accessibilityLabel": "Màn hình giới thiệu",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support và advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, hoặc determine Máy thở Cài đặt.",
-        "secondary": "Confirm all decisions against Bệnh nhân, your Cơ sở workflow, và local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Bắt buộc before continuing đến clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device và will be Đã đồng bộ when backend authentication is available."
+        "title": "An toàn lâm sàng",
+        "body": "AI Vent chỉ cung cấp hỗ trợ tài liệu và lời nhắc về an toàn tư vấn. Nó không thay thế phán đoán lâm sàng, đưa ra lệnh điều trị hoặc xác định cài đặt máy thở.",
+        "secondary": "Xác nhận tất cả các quyết định đối với bệnh nhân, quy trình làm việc tại cơ sở của bạn và quy trình lâm sàng tại địa phương.",
+        "accessibilityLabel": "Thông báo an toàn lâm sàng",
+        "acknowledgeLabel": "Tôi hiểu đây chỉ là hỗ trợ quyết định tư vấn",
+        "acknowledgeHint": "Cần thiết trước khi tiếp tục quy trình công việc lâm sàng",
+        "syncDeferred": "Xác nhận an toàn được lưu trên thiết bị này và sẽ được đồng bộ hóa khi có xác thực phụ trợ."
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "Xem xét safety note before using AI Vent. app can highlight missing data và uncertainty, but a qualified clinician remains responsible cho Bệnh nhân care decisions."
+          "title": "Sử dụng như hỗ trợ tư vấn",
+          "body": "Xem lại lưu ý an toàn trước khi sử dụng AI Vent. Ứng dụng có thể làm nổi bật dữ liệu bị thiếu và sự không chắc chắn, nhưng bác sĩ lâm sàng có trình độ vẫn chịu trách nhiệm về các quyết định chăm sóc bệnh nhân."
         },
         "facilityWorkflow": {
-          "title": "Stay in Cơ sở context",
-          "body": "Use active Cơ sở và Vai trò shown by your session. Keep records within correct Cơ sở workflow và follow local escalation, Xem xét, và approval procedures."
+          "title": "Ở trong bối cảnh cơ sở",
+          "body": "Sử dụng tiện ích và vai trò đang hoạt động được hiển thị trong phiên của bạn. Lưu giữ hồ sơ theo quy trình làm việc chính xác của cơ sở và tuân theo các thủ tục chuyển cấp, đánh giá và phê duyệt tại địa phương."
         },
         "inputs": {
-          "title": "Nhậping inputs",
-          "body": "Use Tiếp nhận đến Nhập available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Tùy chọn ABG values improve confidence when available, but missing Tùy chọn data should be reviewed as uncertainty rather than treated as a Lưu blocker."
+          "title": "Nhập đầu vào",
+          "body": "Sử dụng Admit để nhập các thông số lâm sàng có sẵn (SpO2, PaO2, PaCO2, pH, nhịp thở, v.v.). Các giá trị ABG tùy chọn sẽ cải thiện độ tin cậy khi có sẵn, nhưng dữ liệu tùy chọn bị thiếu sẽ được xem xét dưới dạng không chắc chắn thay vì được coi là công cụ chặn lưu."
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations Hiển thị advisory Máy thở setting references với a confidence tier. Match quality reflects how well dataset cases align với your inputs. Use matched cases as reference only và verify against clinical judgment."
+          "title": "Giải thích các khuyến nghị",
+          "body": "Các khuyến nghị hiển thị các tham chiếu cài đặt máy thở tư vấn với mức độ tin cậy. Chất lượng so khớp phản ánh mức độ phù hợp của các trường hợp tập dữ liệu với thông tin đầu vào của bạn. Chỉ sử dụng các trường hợp trùng khớp làm tài liệu tham khảo và xác minh dựa trên đánh giá lâm sàng."
         },
         "monitoring": {
-          "title": "Theo dõi và alerts",
-          "body": "After reviewing a Khuyến nghị, use Theo dõi đến log vitals và labs over time. Alerts highlight values outside set thresholds và should be assessed according đến local protocol."
+          "title": "Giám sát và cảnh báo",
+          "body": "Sau khi xem xét đề xuất, hãy sử dụng tính năng Giám sát để ghi lại các chỉ số quan trọng và phòng thí nghiệm theo thời gian. Cảnh báo nêu bật các giá trị nằm ngoài ngưỡng đã đặt và phải được đánh giá theo giao thức cục bộ."
         },
         "offline": {
-          "title": "Ngoại tuyến behavior",
-          "body": "Core workflow (Tiếp nhận, advisory summaries, Theo dõi) works Ngoại tuyến. Data is saved locally. Tùy chọn AI features require connectivity. When Quay lại Trực tuyến, Tiếp tục as Bình thường."
+          "title": "Hành vi ngoại tuyến",
+          "body": "Quy trình làm việc cốt lõi (Tiếp nhận, tóm tắt tư vấn, giám sát) hoạt động ngoại tuyến. Dữ liệu được lưu cục bộ. Các tính năng AI tùy chọn yêu cầu kết nối. Khi trực tuyến trở lại, hãy tiếp tục như bình thường."
         }
       },
       "actions": {
-        "done": "Done",
+        "done": "Xong",
         "next": "Tiếp theo",
         "back": "Quay lại"
       },
@@ -660,98 +661,98 @@
       }
     },
     "help": {
-      "title": "Trợ giúp & reference",
-      "accessibilityLabel": "Trợ giúp screen",
-      "searchPlaceholder": "Tìm kiếm glossary hoặc guides…",
+      "title": "Trợ giúp & tham khảo",
+      "accessibilityLabel": "Màn hình trợ giúp",
+      "searchPlaceholder": "Tìm kiếm từ điển hoặc hướng dẫn…",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What đến do Tiếp theo"
+        "glossary": "Thuật ngữ",
+        "troubleshooting": "Khắc phục sự cố",
+        "guides": "Phải làm gì tiếp theo"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume và oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory đến expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Thể tích khí lưu thông (mL). Volume delivered per breath.",
-        "respiratoryRate": "Nhịp thở (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, và pH, tied đến a sample time.",
-        "referenceStatus": "Governance và verification state cho a reference range. Only active approved hoặc verified ranges are eligible cho active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need Xem xét before dataset hoặc training use.",
-        "reviewQueue": "A work queue cho Xem xét decisions, corrections, exclusions, và audit reasons.",
-        "syncState": "Current Ngoại tuyến, Trực tuyến, hoặc syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden từ Bình thường clinical workflows."
+        "PEEP": "Áp lực dương cuối thì thở ra (cmH₂O). Duy trì thể tích phổi và oxy hóa.",
+        "FiO2": "Tỷ lệ oxy hít vào (0–1). Tỷ lệ oxy trong khí hít vào.",
+        "IERatio": "Tỷ lệ I:E. Tỷ lệ thời gian hít vào và thở ra (ví dụ: 1:2).",
+        "tidalVolume": "Thể tích thủy triều (mL). Khối lượng cung cấp mỗi hơi thở.",
+        "respiratoryRate": "Tần số hô hấp (nhịp thở/phút).",
+        "SpO2": "Độ bão hòa oxy bằng phương pháp đo độ bão hòa oxy trong mạch (%).",
+        "PaO2": "Áp suất riêng phần của oxy động mạch (mmHg).",
+        "PaCO2": "Áp suất riêng phần của carbon dioxide động mạch (mmHg).",
+        "pH": "Động mạch pH (không có đơn vị).",
+        "ABG": "Các giá trị khí máu động mạch như PaO2, PaCO2 và pH, gắn liền với thời gian lấy mẫu.",
+        "referenceStatus": "Trạng thái quản trị và xác minh cho một phạm vi tham chiếu. Chỉ các phạm vi hoạt động được phê duyệt hoặc xác minh mới đủ điều kiện để hiển thị hỗ trợ quyết định hoạt động.",
+        "datasetCapture": "Các hồ sơ đã loại bỏ danh tính của ứng viên cần được xem xét trước khi sử dụng tập dữ liệu hoặc chương trình đào tạo.",
+        "reviewQueue": "Hàng đợi công việc để xem xét các quyết định, sửa chữa, loại trừ và lý do kiểm tra.",
+        "syncState": "Trạng thái ngoại tuyến, trực tuyến hoặc đồng bộ hóa hiện tại. Hồ sơ lâm sàng có thể vẫn cần đồng bộ hóa sau này.",
+        "shadowMode": "Chế độ đánh giá mô hình được quản lý trong đó kết quả đầu ra vẫn được ẩn khỏi quy trình làm việc lâm sàng thông thường."
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; Nhập SpO₂ và Khác vitals when available. cho better matching, Thêm PaO₂, PaCO₂, và pH when you have them."
+          "title": "Thiếu giá trị ABG",
+          "body": "Đề xuất hoạt động mà không cần ABG; nhập SpO₂ và các chỉ số quan trọng khác khi có sẵn. Để kết hợp tốt hơn, hãy thêm PaO₂, PaCO₂ và pH khi bạn có chúng."
         },
         "offline": {
-          "title": "Using app Ngoại tuyến",
-          "body": "Tiếp nhận, advisory summaries, và Theo dõi work Ngoại tuyến. Data is stored locally. Tùy chọn AI suggestions require internet. Sync is not bắt buộc cho core workflow."
+          "title": "Sử dụng ứng dụng ngoại tuyến",
+          "body": "Thừa nhận, tóm tắt tư vấn và giám sát hoạt động ngoại tuyến. Dữ liệu được lưu trữ cục bộ. Đề xuất AI tùy chọn yêu cầu có internet. Đồng bộ hóa là không cần thiết cho quy trình làm việc cốt lõi."
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, Đang chờ, retired, rejected, và unverified ranges are not eligible cho active decision-support display. Xem xét source, version, scope, và verification status."
+          "title": "Phạm vi tham chiếu không hoạt động",
+          "body": "Các phạm vi dự thảo, đang chờ xử lý, đã ngừng hoạt động, bị từ chối và chưa được xác minh không đủ điều kiện để hiển thị hỗ trợ quyết định hiện hoạt. Xem lại nguồn, phiên bản, phạm vi và trạng thái xác minh."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness Trợ giúp is restricted",
-          "body": "Predictive model readiness và shadow-mode details are visible only đến approved governance roles. Không córmal clinical workflows do not expose model internals."
+          "title": "Trợ giúp sẵn sàng cho mô hình bị hạn chế",
+          "body": "Chi tiết về mức độ sẵn sàng của mô hình dự đoán và chế độ ẩn chỉ hiển thị đối với các vai trò quản trị đã được phê duyệt. Quy trình làm việc lâm sàng thông thường không bộc lộ nội bộ của mô hình."
         },
         "needsReview": {
-          "title": "Record needs Xem xét",
-          "body": "Use Xem xét queue đến check submitted data, request correction, Phê duyệt eligible records, hoặc Loại trừ records với an audit Lý do."
+          "title": "Hồ sơ cần xem xét",
+          "body": "Sử dụng hàng đợi đánh giá để kiểm tra dữ liệu đã gửi, yêu cầu chỉnh sửa, phê duyệt hồ sơ đủ điều kiện hoặc loại trừ hồ sơ vì lý do kiểm tra."
         }
       },
       "guides": {
-        "home": "Xem xét Cơ sở context, sync state, active admissions, red flags, và records needing Xem xét before opening a Bệnh nhân workflow.",
-        "admit": "Capture Bệnh nhân pathway và available clinical values. Mark unavailable data clearly và Xem xét backend-confirmed calculations after Lưu.",
-        "tracking": "Use Theo dõi đến scan recent ventilation status và Xem xét needs. Read trend flags với source data và local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture cho de-identified candidate records. Human Xem xét is bắt buộc before approved training-data use.",
-        "reviewQueue": "Use Xem xét queue đến Phê duyệt, request correction, hoặc Loại trừ records while preserving audit trail.",
-        "dashboard": "Use dashboards cho aggregate quality, Xem xét, reference, và governance status. Avoid Bệnh nhân identifiers in governance summaries.",
-        "settings": "Use Cài đặt cho Tài khoản, Cơ sở, accessibility, Quyền riêng tư, sync, và reference visibility preferences where authorized.",
-        "hypoxemia": "Xem xét FiO₂ và PEEP; consider recruitment; check cho shunt hoặc V/Q mismatch.",
-        "hypercapnia": "Xem xét minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation và perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols và clinical judgment."
+        "home": "Xem lại bối cảnh cơ sở, trạng thái đồng bộ hóa, hoạt động tiếp nhận, cờ đỏ và hồ sơ cần xem xét trước khi mở quy trình làm việc của bệnh nhân.",
+        "admit": "Nắm bắt lộ trình bệnh nhân và các giá trị lâm sàng sẵn có. Đánh dấu dữ liệu không có sẵn một cách rõ ràng và xem lại các phép tính được xác nhận phụ trợ sau khi lưu.",
+        "tracking": "Sử dụng tính năng theo dõi để quét trạng thái thông gió gần đây và xem xét nhu cầu. Đọc cờ xu hướng với dữ liệu nguồn và bối cảnh giao thức cục bộ.",
+        "abgVentUpdate": "Thêm kết quả ABG mới và cài đặt máy thở dưới dạng bản ghi được đóng dấu thời gian để vẫn có sẵn các giá trị trước đó để xem xét.",
+        "datasetCapture": "Sử dụng tính năng thu thập dữ liệu cho các hồ sơ ứng viên đã được xác định. Cần phải có sự đánh giá của con người trước khi sử dụng dữ liệu đào tạo được phê duyệt.",
+        "reviewQueue": "Sử dụng hàng đợi đánh giá để phê duyệt, yêu cầu chỉnh sửa hoặc loại trừ các bản ghi trong khi vẫn lưu giữ dấu vết kiểm tra.",
+        "dashboard": "Sử dụng trang tổng quan để biết chất lượng tổng hợp, đánh giá, tham chiếu và trạng thái quản trị. Tránh nhận dạng bệnh nhân trong bản tóm tắt quản trị.",
+        "settings": "Sử dụng cài đặt cho các tùy chọn tài khoản, cơ sở, khả năng truy cập, quyền riêng tư, đồng bộ hóa và khả năng hiển thị tham chiếu khi được phép.",
+        "hypoxemia": "Xem lại FiO₂ và PEEP; xem xét tuyển dụng; kiểm tra shunt hoặc V/Q không khớp.",
+        "hypercapnia": "Xem lại thông khí phút (tốc độ × thể tích khí lưu thông); xem xét mức tăng CO2 cho phép trên mỗi giao thức.",
+        "acidosis": "Giải quyết vấn đề thông khí và tưới máu; đúng nguyên nhân cơ bản cho mỗi giao thức.",
+        "general": "Chỉ sử dụng các khuyến nghị làm hỗ trợ quyết định. Xác nhận dựa trên các giao thức địa phương và đánh giá lâm sàng."
       },
       "states": {
         "loading": "Đang tải…",
         "empty": "Không có kết quả",
-        "error": "Không thể tải Trợ giúp"
+        "error": "Không thể tải trợ giúp"
       }
     },
     "ai": {
-      "label": "Hỗ trợ quyết định AI",
-      "sectionLabel": "Tùy chọn AI Khuyến nghị (Trực tuyến)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use Trực tuyến AI cho complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": "AI hỗ trợ quyết định",
+      "sectionLabel": "Đề xuất AI tùy chọn (trực tuyến)",
+      "enableLabel": "Bật đề xuất AI",
+      "enableHint": "Chỉ sử dụng trực tuyến AI cho những trường hợp phức tạp; đề xuất địa phương luôn có sẵn",
+      "providerLabel": "nhà cung cấp",
+      "providerHint": "AI nhà cung cấp (ví dụ: OpenAI); Khóa API dành cho mỗi nhà cung cấp",
       "providers": {
         "openai": "OpenAI",
-        "anthropic": "Anthropic",
-        "google": "Google (Gemini)",
+        "anthropic": "nhân loại",
+        "google": "Google (Song Tử)",
         "groq": "Groq",
         "mistral": "Mistral AI",
-        "deepseek": "DeepSeek",
-        "cohere": "Cohere",
+        "deepseek": "tìm kiếm sâu",
+        "cohere": "mạch lạc",
         "xai": "xAI (Grok)"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Nhập key (stored securely)",
-      "apiKeySave": "Lưu key",
-      "apiKeyClear": "Xóa key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "Không cót set",
-      "modelLabel": "Model",
-      "modelHint": "Model used cho AI suggestions",
+      "apiKeyLabel": "Phím API",
+      "apiKeyPlaceholder": "Nhập khóa (được lưu trữ an toàn)",
+      "apiKeySave": "Lưu khóa",
+      "apiKeyClear": "Xóa phím",
+      "keyConfigured": "Đặt",
+      "keyNotConfigured": "Chưa đặt",
+      "modelLabel": "người mẫu",
+      "modelHint": "Mô hình được sử dụng cho đề xuất AI",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -761,20 +762,20 @@
         "claude-sonnet-4": "Claude Sonnet 4",
         "claude-3-5-sonnet": "Claude 3.5 Sonnet",
         "claude-3-5-haiku": "Claude 3.5 Haiku",
-        "claude-3-opus": "Claude 3 Opus",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
-        "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
-        "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
+        "claude-3-opus": "Tác phẩm của Claude 3",
+        "gemini-1.5-pro": "Song Tử 1.5 Pro",
+        "gemini-1.5-flash": "Song Tử 1.5 Flash",
+        "gemini-1.0-pro": "Song Tử 1.0 Pro",
+        "llama-3.3-70b": "Lạc đà 3.3 70B",
+        "llama-3.1-8b": "Lạc đà 3.1 8B",
+        "mixtral-8x7b": "Hỗn hợp 8x7B",
+        "mistral-large": "Mistral Lớn",
+        "mistral-medium": "Mistral vừa",
+        "mistral-small": "Mistral Nhỏ",
+        "deepseek-chat": "Trò chuyện DeepSeek",
+        "deepseek-reasoner": "Trình lý luận DeepSeek",
+        "command-r-plus": "Lệnh R+",
+        "command-r": "Lệnh R",
         "grok-3": "Grok 3",
         "grok-3-mini": "Grok 3 Mini"
       }
@@ -784,83 +785,83 @@
     "loading": "Đang tải",
     "offline": "Ngoại tuyến",
     "error": "Lỗi",
-    "empty": "Trống",
+    "empty": "trống",
     "list": "Danh sách",
     "emptyState": {
-      "title": "Không có items",
-      "message": "There are Không có items đến display"
+      "title": "Không có mục nào",
+      "message": "Không có mục nào để hiển thị"
     },
     "errorState": {
       "title": "Lỗi",
-      "message": "An Lỗi occurred"
+      "message": "Đã xảy ra lỗi"
     }
   },
   "home": {
     "title": "Trang chủ",
     "welcome": {
-      "title": "Quy trình lâm sàng",
-      "message": "Cơ sở đang hoạt động, sync status, drafts, và Xem xét work are shown here.",
-      "logoLabel": "App logo"
+      "title": "Quy trình làm việc lâm sàng",
+      "message": "Cơ sở đang hoạt động, trạng thái đồng bộ hóa, bản nháp và công việc đánh giá được hiển thị ở đây.",
+      "logoLabel": "Biểu tượng ứng dụng"
     },
     "notices": {
-      "title": "Trang chủ notices"
+      "title": "Trang chủ thông báo"
     },
     "facilities": {
-      "title": "Chọn Cơ sở",
+      "title": "Chọn cơ sở",
       "select": "Chọn {{name}}"
     },
     "status": {
-      "title": "Operational status",
+      "title": "Tình trạng hoạt động",
       "facility": {
-        "label": "Cơ sở",
-        "empty": "Không cót selected"
+        "label": "Cơ sở vật chất",
+        "empty": "Không được chọn"
       },
       "network": {
-        "label": "Network",
+        "label": "Mạng",
         "values": {
-          "online": "Trực tuyến",
+          "online": "trực tuyến",
           "offline": "Ngoại tuyến",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "syncing": "Đang đồng bộ hóa",
+          "unstable": "Không ổn định"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "Tuyển sinh tích cực",
+        "detail": "{{count}} bệnh nhân đang hoạt động"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting đến sync"
+        "label": "Bản nháp",
+        "detail": "{{count}} đang chờ đồng bộ hóa"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "Đồng bộ hóa sự chú ý",
+        "detail": "{{count}} xung đột"
       },
       "reviewNeeds": {
-        "label": "Xem xét queue",
-        "detail": "{{count}} corrections requested"
+        "label": "Hàng đợi xem xét",
+        "detail": "{{count}} đã yêu cầu chỉnh sửa"
       }
     },
     "actions": {
-      "title": "Workflow actions",
+      "title": "Hành động của quy trình làm việc",
       "accessibilityLabel": "Mở {{name}}",
       "admit": {
-        "title": "Tiếp nhận"
+        "title": "thừa nhận"
       },
       "tracking": {
         "title": "Theo dõi"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Máy thở Cài đặt"
+        "title": "Cập nhật ABG & Cài đặt máy thở"
       },
       "datasetCapture": {
-        "title": "Thu thập bộ dữ liệu"
+        "title": "Thu thập tập dữ liệu"
       },
       "reviewQueue": {
         "title": "Hàng đợi xem xét"
       },
       "dashboard": {
-        "title": "Bảng điều khiển"
+        "title": "Trang tổng quan"
       },
       "settings": {
         "title": "Cài đặt"
@@ -869,134 +870,134 @@
         "open": "Mở"
       },
       "disabled": {
-        "facilityRequired": "Chọn Cơ sở",
-        "roleRestricted": "Vai trò restricted",
-        "workflowPending": "Route Đang chờ"
+        "facilityRequired": "Chọn cơ sở",
+        "roleRestricted": "Bị hạn chế vai trò",
+        "workflowPending": "Tuyến đường đang chờ xử lý"
       }
     }
   },
   "reviewQueue": {
     "title": "Hàng đợi xem xét",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, và sync conflicts.",
-    "accessibilityLabel": "Xác thực Xem xét queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion Lý do, hoặc override Lý do",
+    "subtitle": "Xác thực các bản ghi đã gửi, chỉnh sửa, loại trừ, phạm vi tham chiếu, mức độ sẵn sàng của tập dữ liệu và xung đột đồng bộ hóa.",
+    "accessibilityLabel": "Hàng đợi xem xét xác thực",
+    "commentPlaceholder": "Ghi chú của người đánh giá, yêu cầu chỉnh sửa, lý do loại trừ hoặc lý do ghi đè",
     "forbidden": {
-      "title": "Xem xét access bắt buộc",
-      "message": "An approved reviewer hoặc governance Vai trò is bắt buộc cho this queue."
+      "title": "Yêu cầu quyền truy cập xem xét",
+      "message": "Cần có người đánh giá hoặc vai trò quản trị được phê duyệt cho hàng đợi này."
     },
     "filters": {
-      "all": "All"
+      "all": "Tất cả"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "Nhập học",
       "abg-test": "ABG",
       "ventilator-setting": "Máy thở",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync Xung đột"
+      "dataset-case": "Tập dữ liệu",
+      "reference-rule": "Phạm vi tham chiếu",
+      "sync-conflict": "Xung đột đồng bộ hóa"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "Tóm tắt hàng đợi",
+      "total": "Tổng cộng",
+      "urgent": "Khẩn cấp",
+      "corrections": "Sửa chữa",
+      "conflicts": "Xung đột",
+      "datasetReady": "Tập dữ liệu đã sẵn sàng"
     },
     "fields": {
-      "type": "Type",
-      "status": "Status",
-      "priority": "Priority",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "priority": "Ưu tiên",
       "validation": "Xác thực",
-      "missingData": "Dữ liệu thiếu",
-      "uncertainty": "Uncertainty",
+      "missingData": "Thiếu dữ liệu",
+      "uncertainty": "Sự không chắc chắn",
       "conflict": "Xung đột",
-      "datasetReadiness": "Dataset readiness"
+      "datasetReadiness": "Sự sẵn sàng của tập dữ liệu"
     },
     "dataset": {
-      "datasetApproved": "Approved cho dataset Xem xét boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Không cót approved cho dataset use."
+      "datasetApproved": "Chỉ được phê duyệt cho ranh giới xem xét dữ liệu; xuất khẩu đào tạo vẫn cần có sự phê duyệt của cơ quan quản lý",
+      "notDatasetApproved": "Không được chấp thuận để sử dụng tập dữ liệu."
     },
     "actions": {
       "refresh": "Làm mới",
       "approve": "Phê duyệt",
       "requestCorrection": "Yêu cầu chỉnh sửa",
       "exclude": "Loại trừ",
-      "defer": "Hoãn"
+      "defer": "Trì hoãn"
     },
     "states": {
-      "loading": "Đang tải Xem xét queue...",
-      "error": "Không thể tải hoặc Lưu Xem xét queue",
-      "empty": "Không có records need Xem xét"
+      "loading": "Đang tải hàng đợi đánh giá...",
+      "error": "Không thể tải hoặc lưu hàng đánh giá.",
+      "empty": "Không có hồ sơ cần xem xét."
     }
   },
   "ventilation": {
     "datasetCapture": {
       "title": "Thu thập dữ liệu lâm sàng",
-      "subtitle": "Nhập de-identified clinical, ABG, Máy thở, target-range, treatment, và outcome data cho reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "subtitle": "Nhập dữ liệu lâm sàng, ABG, máy thở, phạm vi mục tiêu, điều trị và kết quả đã được xác định lại cho các tập dữ liệu mô hình đã được người đánh giá phê duyệt.",
+      "accessibilityLabel": "Màn hình thu thập dữ liệu lâm sàng",
       "notices": {
-        "roleBlocked": "This Tài khoản does not have permission đến Gửi clinical dataset candidates.",
-        "offline": "Ngoại tuyến mode is active. Structured captures will queue locally và sync when connectivity returns."
+        "roleBlocked": "Tài khoản này không có quyền gửi ứng viên tập dữ liệu lâm sàng.",
+        "offline": "Chế độ ngoại tuyến đang hoạt động. Ảnh chụp có cấu trúc sẽ xếp hàng cục bộ và đồng bộ hóa khi kết nối trở lại."
       },
       "summary": {
-        "facility": "Cơ sở",
-        "facilityReady": "Cơ sở scope ready",
-        "facilityMissing": "Chọn an active Cơ sở before submitting.",
-        "required": "Bắt buộc fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Nhậped fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "Trực tuyến submission",
-        "offline": "Trong hàng đợi Ngoại tuyến"
+        "facility": "Cơ sở vật chất",
+        "facilityReady": "Phạm vi cơ sở đã sẵn sàng",
+        "facilityMissing": "Chọn một cơ sở đang hoạt động trước khi gửi.",
+        "required": "Các trường bắt buộc",
+        "requiredProgress": "{{complete}}/{{total}} hoàn thành",
+        "entered": "Các trường đã nhập",
+        "enteredProgress": "{{entered}}/{{total}} đã nhập",
+        "sync": "Đồng bộ hóa",
+        "online": "nộp trực tuyến",
+        "offline": "Xếp hàng ngoại tuyến"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "Các bước thu thập dữ liệu",
+        "stepCounter": "Bước {{current}} của {{total}}",
+        "stepLabel": "Bước {{step}}"
       },
       "fields": {
-        "required": "Bắt buộc cho Xem xét submission",
+        "required": "Cần thiết để gửi đánh giá",
         "optional": "Tùy chọn"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All bắt buộc fields are complete."
+        "title": "sẵn sàng nộp hồ sơ",
+        "none": "Tất cả các trường bắt buộc đã hoàn tất."
       },
       "actions": {
         "submit": "Gửi để xem xét",
         "next": "Tiếp theo",
-        "previous": "Previous",
-        "reset": "Xóa form"
+        "previous": "trước đó",
+        "reset": "Xóa biểu mẫu"
       },
       "status": {
-        "loadingDraft": "Đang tải saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "Không thể lưu local draft. Please keep this screen Mở và try again",
-        "needsInput": "Complete bắt buộc fields và Cơ sở scope before submitting.",
-        "ready": "Ready đến Gửi cho reviewer approval.",
-        "stepInvalid": "Please Xem xét highlighted values before continuing.",
-        "reviewInvalid": "Please Xem xét highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted cho reviewer approval.",
-        "queued": "Submission is Trong hàng đợi. Your draft is still saved locally until backend Lưu succeeds.",
-        "error": "Không thể lưu dataset. Your draft is still saved locally. Kiểm tra kết nối rồi thử lại"
+        "loadingDraft": "Đang tải bản nháp tập dữ liệu đã lưu...",
+        "savingDraft": "Đang lưu bản nháp tập dữ liệu...",
+        "draftSaved": "Bản nháp tập dữ liệu được lưu cục bộ.",
+        "draftError": "Không thể lưu bản nháp cục bộ. Vui lòng giữ màn hình này mở và thử lại.",
+        "needsInput": "Hoàn thành các trường bắt buộc và phạm vi cơ sở trước khi gửi.",
+        "ready": "Sẵn sàng gửi để người đánh giá phê duyệt.",
+        "stepInvalid": "Vui lòng xem lại các giá trị được đánh dấu trước khi tiếp tục.",
+        "reviewInvalid": "Vui lòng xem lại các giá trị được đánh dấu trước khi lưu.",
+        "submitting": "Đang gửi tập dữ liệu...",
+        "submitted": "Đã gửi để người xem xét phê duyệt.",
+        "queued": "Đệ trình được xếp hàng đợi. Bản nháp của bạn vẫn được lưu cục bộ cho đến khi quá trình lưu phụ trợ thành công.",
+        "error": "Không thể lưu tập dữ liệu. Bản nháp của bạn vẫn được lưu cục bộ. Vui lòng kiểm tra kết nối của bạn và thử lại."
       }
     },
     "assessment": {
-      "title": "Tiếp nhận Bệnh nhân",
-      "accessibilityLabel": "Tiếp nhận Bệnh nhân wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "Tiếp nhận bệnh nhân",
+      "accessibilityLabel": "Màn hình thuật sĩ tiếp nhận bệnh nhân",
+      "stepIndicator": "Bước {{current}} của {{total}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact Tiếp nhận summary",
+        "title": "Tóm tắt phiên",
+        "accessibilityLabel": "Tóm tắt thừa nhận nhỏ gọn",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Cơ sở",
-        "pathway": "Pathway",
+        "facility": "Cơ sở vật chất",
+        "pathway": "Con đường",
         "reason": "Lý do",
-        "condition": "Tình trạng",
+        "condition": "tình trạng",
         "spo2": "SpO₂",
         "fio2": "FiO2",
         "respiratoryRate": "Nhịp thở",
@@ -1005,96 +1006,96 @@
         "paco2": "PaCO₂",
         "ph": "pH",
         "age": "Tuổi",
-        "weight": "Cân nặng",
+        "weight": "cân nặng",
         "height": "Chiều cao",
         "gender": "Giới tính",
-        "comorbidities": "Comorbidities",
+        "comorbidities": "Bệnh đi kèm",
         "bloodPressure": "Huyết áp",
-        "ventilatorMode": "Chế độ máy thở",
+        "ventilatorMode": "Chế độ thông gió",
         "peep": "PEEP",
-        "tidalVolume": "Thể tích khí lưu thông",
-        "syncStatus": "Sync",
-        "empty": "Không có data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "tidalVolume": "Lượng thủy triều",
+        "syncStatus": "Đồng bộ hóa",
+        "empty": "Chưa có dữ liệu",
+        "expand": "Mở rộng tóm tắt",
+        "collapse": "Thu gọn tóm tắt"
       },
       "steps": {
         "patientProfile": "Hồ sơ bệnh nhân",
-        "clinicalParams": "Clinical parameters",
-        "observations": "Tùy chọn observations",
-        "timeSeries": "Tùy chọn time series",
-        "review": "Xem xét",
-        "patientReason": "Bệnh nhân & Lý do",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Lưu & Xem xét"
+        "clinicalParams": "Thông số lâm sàng",
+        "observations": "quan sát tùy chọn",
+        "timeSeries": "Chuỗi thời gian tùy chọn",
+        "review": "Xem lại",
+        "patientReason": "Bệnh nhân & lý do",
+        "oxygenAbgVentilator": "Oxy & ABG",
+        "saveReview": "Lưu và xem lại"
       },
       "patientReason": {
-        "description": "Capture Bệnh nhân pathway, Tuổi, body metrics, và Lý do cho support.",
+        "description": "Nắm bắt lộ trình bệnh nhân, độ tuổi, số liệu cơ thể và lý do cần hỗ trợ.",
         "facilityId": "Cơ sở ID",
-        "facilityIdPlaceholder": "Nhập Cơ sở ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed hoặc ward location",
-        "pathway": "Bệnh nhân pathway",
-        "pathwayPlaceholder": "Chọn pathway",
-        "sexForSize": "Sex cho size calculations",
-        "ageYears": "Tuổi (years)",
-        "weightKg": "Cân nặng (kg)",
+        "facilityIdPlaceholder": "Nhập cơ sở ID",
+        "bedNumber": "Giường",
+        "bedNumberPlaceholder": "Vị trí giường hoặc phòng ICU",
+        "pathway": "Con đường bệnh nhân",
+        "pathwayPlaceholder": "Chọn lộ trình",
+        "sexForSize": "Giới tính để tính kích thước",
+        "ageYears": "Tuổi (năm)",
+        "weightKg": "Trọng lượng (kg)",
         "heightCm": "Chiều cao (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Lý do cho support",
-        "reasonForSupportPlaceholder": "Brief admission Lý do",
-        "reasonForSupportSearchPlaceholder": "Tìm kiếm hoặc type Lý do",
-        "permittedMissing": "Permitted missing values",
+        "reasonForSupport": "Lý do hỗ trợ",
+        "reasonForSupportPlaceholder": "Lý do nhập học ngắn gọn",
+        "reasonForSupportSearchPlaceholder": "Tìm kiếm hoặc nhập lý do",
+        "permittedMissing": "Giá trị thiếu được phép",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
-          "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
-          "unknown": "Không rõ",
+          "neonate": "trẻ sơ sinh",
+          "infant": "trẻ sơ sinh",
+          "child": "đứa trẻ",
+          "adolescent": "thanh thiếu niên",
+          "adult": "Người lớn",
+          "obstetric": "Sản khoa/sau sinh",
+          "burns": "Bỏng",
+          "trauma": "chấn thương",
+          "periOperative": "chu phẫu",
+          "medical": "Y tế",
+          "surgical": "Phẫu thuật",
+          "unknown": "Không xác định",
           "other": "Khác"
         },
         "sex": {
           "male": "Nam",
           "female": "Nữ",
-          "unknown": "Không rõ"
+          "unknown": "Không xác định"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS hoặc severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis với respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD hoặc asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn hoặc inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "Suy hô hấp thiếu oxy cấp tính",
+          "acuteHypercapnicRespiratoryFailure": "Suy hô hấp tăng CO2 cấp tính",
+          "ardsOrSeverePneumonia": "ARDS hoặc viêm phổi nặng",
+          "sepsisWithRespiratoryFailure": "Nhiễm trùng huyết kèm theo suy hô hấp",
+          "postOperativeVentilatorySupport": "Hỗ trợ thở máy sau phẫu thuật",
+          "traumaRelatedRespiratoryFailure": "Suy hô hấp liên quan đến chấn thương",
+          "airwayProtection": "Bảo vệ đường thở",
+          "neuromuscularWeakness": "Suy nhược thần kinh cơ",
+          "copdOrAsthmaExacerbation": "COPD hoặc cơn hen suyễn trầm trọng hơn",
+          "neonatalRespiratoryDistress": "Suy hô hấp sơ sinh",
+          "burnOrInhalationInjury": "Chấn thương do bỏng hoặc hít phải"
         },
         "permittedMissingFields": {
-          "weight": "Cân nặng hoặc reference Cân nặng unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "Thể tích khí lưu thông unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "Trọng lượng hoặc trọng lượng tham chiếu không có sẵn",
+          "spo2": "SpO2 không có sẵn",
+          "fio2": "FiO2 không có sẵn",
+          "pao2": "PaO2 không có",
+          "tidalVolume": "Lượng thủy triều không có sẵn",
+          "peep": "PEEP không có sẵn"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, và uncertain values. Máy thở Cài đặt are suggested on Tiếp theo step từ dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Chọn oxygen support",
-        "oxygenSupportHint": "Choose support Bệnh nhân is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Chọn date và time",
-        "timeHint": "Use local date và time cho observation.",
+        "description": "Ghi lại hỗ trợ oxy hiện tại, thời gian quan sát, oxy hóa, các dấu hiệu sinh tồn, giá trị ABG có sẵn và các giá trị không chắc chắn. Cài đặt máy thở được đề xuất ở bước tiếp theo từ bộ dữ liệu.",
+        "oxygenSupportType": "Loại hỗ trợ oxy",
+        "oxygenSupportPlaceholder": "Chọn hỗ trợ oxy",
+        "oxygenSupportHint": "Chọn sự hỗ trợ mà bệnh nhân sẽ nhận được khi đo các giá trị này.",
+        "measuredAt": "Lượng oxy đo được ở",
+        "timePlaceholder": "Chọn ngày và giờ",
+        "timeHint": "Sử dụng ngày và giờ địa phương để quan sát.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
         "respiratoryRate": "Nhịp thở",
@@ -1103,552 +1104,552 @@
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
         "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "Máy thở type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields với commas.",
-        "uncertaintyReason": "Uncertainty Lý do",
+        "baseExcess": "Cơ sở dư thừa",
+        "lactate": "Lactat (mmol/L)",
+        "fio2AtSample": "FiO2 tại mẫu ABG",
+        "spo2AtSample": "SpO2 tại mẫu ABG",
+        "deviceId": "Thiết bị ID",
+        "ventilatorType": "Loại máy thở",
+        "uncertaintyFields": "Các trường không chắc chắn",
+        "uncertaintyFieldsPlaceholder": "ví dụ: FiO2, PaO2",
+        "uncertaintyHint": "Phân tách nhiều trường bằng dấu phẩy.",
+        "uncertaintyReason": "Lý do không chắc chắn",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "Không cón-rebreather mask",
-          "highFlowNasalCannula": "Cao-flow nasal cannula",
+          "roomAir": "Không khí trong phòng",
+          "nasalCannula": "Ống thông mũi",
+          "faceMask": "Mặt nạ",
+          "nonRebreatherMask": "Mặt nạ không thở lại",
+          "highFlowNasalCannula": "Ống thông mũi dòng chảy cao",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "invasiveVentilation": "Thông khí xâm lấn",
           "other": "Khác"
         }
       },
       "saveReview": {
-        "description": "Xem xét và Sửa dataset-suggested Máy thở Cài đặt, backend readiness, clinician confirmation, override Lý do when needed, Xem xét status, và sync state.",
-        "readiness": "Lưu readiness",
-        "recommendationTitle": "Dataset Khuyến nghị",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested Máy thở Cài đặt",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Chọn mode",
-        "ventilatorMode": "Chế độ máy thở",
-        "tidalVolumeMl": "Thể tích khí lưu thông (mL)",
+        "description": "Xem lại và chỉnh sửa cài đặt máy thở do tập dữ liệu đề xuất, mức độ sẵn sàng phụ trợ, xác nhận của bác sĩ lâm sàng, lý do ghi đè khi cần, trạng thái xem lại và trạng thái đồng bộ hóa.",
+        "readiness": "Lưu sẵn sàng",
+        "recommendationTitle": "Đề xuất tập dữ liệu",
+        "recommendationConfidence": "Sự tự tin: {{confidence}}",
+        "suggestedSettingsTitle": "Cài đặt máy thở được đề xuất",
+        "suggestedSettingsHint": "Được điền sẵn từ tập dữ liệu bằng cách sử dụng dữ liệu sinh học của bệnh nhân cũng như các giá trị oxy và ABG hiện tại. Chỉ chỉnh sửa khi quyết định đầu giường khác nhau.",
+        "modePlaceholder": "Chọn chế độ",
+        "ventilatorMode": "Chế độ thông gió",
+        "tidalVolumeMl": "Thể tích thủy triều (mL)",
         "ventilatorFio2": "Máy thở FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "respiratoryRateSet": "Đặt nhịp thở",
+        "ieRatio": "I:E tỷ lệ",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
+          "acv": "Thông khí kiểm soát hỗ trợ (ACV)",
+          "simv": "Thông khí bắt buộc ngắt quãng đồng bộ (SIMV)",
+          "psv": "Thông khí hỗ trợ áp lực (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
           "other": "Khác"
         },
-        "recommendationEmpty": "Nhập clinical values và tap Tiếp theo đến generate a dataset Khuyến nghị.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable đến generate clinical recommendations right now. You can still Xem xét và Lưu admission.",
-        "recommendationNeedsClinicalInputs": "Khuyến nghị needs clinical Lý do, SpO2, respiratory rate, và heart rate.",
-        "ready": "Ready đến Lưu",
-        "needsCorrection": "Correction hoặc override bắt buộc",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready cho Lưu Xem xét.",
-        "overrideReason": "Override Lý do",
-        "reviewNote": "Xem xét note"
+        "recommendationEmpty": "Nhập các giá trị lâm sàng và nhấn Tiếp theo để tạo đề xuất tập dữ liệu.",
+        "recommendationGenerating": "Xây dựng các khuyến nghị lâm sàng...",
+        "recommendationError": "Không thể tạo đề xuất lâm sàng ngay bây giờ. Bạn vẫn có thể xem lại và lưu việc nhập học.",
+        "recommendationNeedsClinicalInputs": "Khuyến cáo cần có lý do lâm sàng, SpO2, nhịp thở và nhịp tim.",
+        "ready": "Sẵn sàng để lưu",
+        "needsCorrection": "Cần sửa hoặc ghi đè",
+        "syncStatus": "Trạng thái đồng bộ hóa: {{status}}",
+        "clinicianConfirmed": "Bác sĩ lâm sàng xác nhận hồ sơ nhập viện này đã sẵn sàng để lưu xem xét.",
+        "overrideReason": "Ghi đè lý do",
+        "reviewNote": "Xem lại ghi chú"
       },
       "validation": {
-        "title": "Xem xét these fields"
+        "title": "Xem lại các trường này"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "Hen suyễn",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
-        "sepsis": "Sepsis",
-        "trauma": "Trauma",
+        "heartFailure": "Suy tim",
+        "pneumonia": "Viêm phổi",
+        "sepsis": "Nhiễm trùng huyết",
+        "trauma": "chấn thương",
         "other": "Khác"
       },
       "patientProfile": {
-        "condition": "Tình trạng",
-        "conditionPlaceholder": "Chọn Tình trạng",
-        "conditionHint": "Primary respiratory Tình trạng (bắt buộc)",
-        "age": "Tuổi (years)",
-        "agePlaceholder": "Nhập Tuổi",
-        "ageHint": "Bệnh nhân Tuổi in years",
-        "weight": "Cân nặng (kg)",
-        "weightPlaceholder": "Nhập Cân nặng",
-        "weightHint": "Patient weight in kg",
+        "condition": "tình trạng",
+        "conditionPlaceholder": "Chọn điều kiện",
+        "conditionHint": "Tình trạng hô hấp nguyên phát (bắt buộc)",
+        "age": "Tuổi (năm)",
+        "agePlaceholder": "Nhập tuổi",
+        "ageHint": "Tuổi bệnh nhân theo năm",
+        "weight": "Trọng lượng (kg)",
+        "weightPlaceholder": "Nhập trọng lượng",
+        "weightHint": "Cân nặng của bệnh nhân trong kg",
         "height": "Chiều cao (cm)",
-        "heightPlaceholder": "Nhập Chiều cao",
-        "heightHint": "Patient height in cm",
+        "heightPlaceholder": "Nhập chiều cao",
+        "heightHint": "Chiều cao của bệnh nhân trong cm",
         "gender": "Giới tính",
-        "genderPlaceholder": "Chọn Giới tính",
-        "genderHint": "Bệnh nhân Giới tính",
+        "genderPlaceholder": "Chọn giới tính",
+        "genderHint": "Giới tính bệnh nhân",
         "genderMale": "Nam",
         "genderFemale": "Nữ",
         "genderOther": "Khác",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated Danh sách"
+        "comorbidities": "Bệnh đi kèm",
+        "comorbiditiesPlaceholder": "ví dụ: tăng huyết áp, tiểu đường",
+        "comorbiditiesHint": "Danh sách được phân tách bằng dấu phẩy"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Không córmal range: 95–100%",
-        "pao2": "PaO₂ (Tùy chọn)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Không córmal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (Tùy chọn)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Không córmal range: 35–45 mmHg",
-        "ph": "pH (Tùy chọn)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "Không córmal range: 7.35–7.45",
+        "spo2Placeholder": "Nhập SpO₂",
+        "spo2Hint": "Độ bão hòa oxy (%)",
+        "spo2NormalRange": "Phạm vi bình thường: 95–100%",
+        "pao2": "PaO₂ (tùy chọn)",
+        "pao2Placeholder": "Nhập PaO₂",
+        "pao2Hint": "Oxy động mạch (mmHg)",
+        "pao2NormalRange": "Phạm vi bình thường: 80–100 mmHg",
+        "paco2": "PaCO₂ (tùy chọn)",
+        "paco2Placeholder": "Nhập PaCO₂",
+        "paco2Hint": "CO₂ động mạch (mmHg)",
+        "paco2NormalRange": "Phạm vi bình thường: 35–45 mmHg",
+        "ph": "pH (tùy chọn)",
+        "phPlaceholder": "Nhập pH",
+        "phHint": "Động mạch pH",
+        "phNormalRange": "Phạm vi bình thường: 7,35–7,45",
         "respiratoryRate": "Nhịp thở",
         "respiratoryRatePlaceholder": "Nhập RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Không córmal range: 12–20 breaths/min",
+        "respiratoryRateHint": "Hơi thở mỗi phút",
+        "respiratoryRateNormalRange": "Phạm vi bình thường: 12–20 nhịp thở/phút",
         "heartRate": "Nhịp tim",
         "heartRatePlaceholder": "Nhập HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Không córmal range: 60–100 bpm",
-        "bloodPressure": "Huyết áp (Tùy chọn)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Không córmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Không córmal range: {{range}}"
+        "heartRateHint": "Nhịp đập mỗi phút",
+        "heartRateNormalRange": "Phạm vi bình thường: 60–100 bpm",
+        "bloodPressure": "Huyết áp (tùy chọn)",
+        "bloodPressurePlaceholder": "ví dụ: 120/80",
+        "bloodPressureHint": "Tâm thu/tâm trương mmHg",
+        "bloodPressureNormalRange": "Phạm vi bình thường: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Phạm vi bình thường: {{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single Tên–value pair. Tùy chọn; you can skip this step.",
-        "add": "Thêm observation",
+        "title": "quan sát bổ sung",
+        "description": "Ghi lại bất kỳ dữ liệu lâm sàng bổ sung nào không được đề cập ở trên (ví dụ: xét nghiệm, chẩn đoán hình ảnh, thuốc, điểm số bệnh đi kèm). Mỗi quan sát là một cặp tên-giá trị. Không bắt buộc; bạn có thể bỏ qua bước này.",
+        "add": "Thêm quan sát",
         "name": "Tên",
-        "value": "Value",
-        "unit": "Unit",
+        "value": "Giá trị",
+        "unit": "Đơn vị",
         "optional": "Tùy chọn"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs hoặc Khác metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used cho trend analysis và Theo dõi after you start session. Tùy chọn; you can Thêm points later on Theo dõi screen.",
-        "add": "Thêm time series point",
+        "title": "Chuỗi thời gian (dấu hiệu sinh tồn theo thời gian)",
+        "description": "Theo dõi các dấu hiệu quan trọng hoặc số liệu khác tại nhiều thời điểm (ví dụ: SpO₂, RR, HR lúc 0h, 1h, 2h). Được sử dụng để phân tích và theo dõi xu hướng sau khi bạn bắt đầu phiên giao dịch. Không bắt buộc; bạn có thể thêm điểm sau trên màn hình giám sát.",
+        "add": "Thêm điểm chuỗi thời gian",
         "name": "Tên",
-        "value": "Value",
+        "value": "Giá trị",
         "optional": "Tùy chọn"
       },
       "recommendationSource": {
-        "label": "Khuyến nghị source",
-        "local": "Local",
-        "localDescription": "Built-in rules. Ngoại tuyến, Không có API key.",
+        "label": "Nguồn đề xuất",
+        "local": "Địa phương",
+        "localDescription": "Quy tắc tích hợp. Ngoại tuyến, không có khóa API.",
         "onlineAi": "Trực tuyến AI",
-        "onlineAiDescription": "Internet bắt buộc; uses built-in when unavailable.",
-        "modelLabel": "Model",
-        "modelHint": "Chọn AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "onlineAiDescription": "Yêu cầu có Internet; sử dụng tích hợp khi không có sẵn.",
+        "modelLabel": "người mẫu",
+        "modelHint": "Chọn mẫu AI (được sử dụng mặc định nếu không được đặt)",
+        "providerLabel": "nhà cung cấp",
+        "gpt4oMini": "GPT-4o mini (mặc định)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons cho Khuyến nghị",
-        "hints": "AI hints"
+        "title": "AI lý do đề xuất",
+        "hints": "AI gợi ý"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "Đề xuất xét nghiệm bổ sung",
+        "abgPanel": "Bảng điều khiển ABG sẽ cải thiện độ tin cậy",
+        "abgHint": "Cân nhắc đặt khí máu động mạch nếu có"
       },
       "actions": {
         "back": "Quay lại",
         "next": "Tiếp theo",
-        "generate": "Generate Khuyến nghị",
-        "generateHint": "Create Khuyến nghị từ current inputs",
-        "saveAdmission": "Lưu admission"
+        "generate": "Tạo đề xuất",
+        "generateHint": "Tạo đề xuất từ đầu vào hiện tại",
+        "saveAdmission": "Lưu nhập học"
       },
       "states": {
-        "loading": "Đang tải Tiếp nhận form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "Không thể tải admission form. Kiểm tra kết nối rồi thử lại",
+        "loading": "Đang tải biểu mẫu thừa nhận...",
+        "errorTitle": "Không có mẫu đơn nhập học",
+        "error": "Không thể tải mẫu đơn nhập học. Vui lòng kiểm tra kết nối của bạn và thử lại.",
         "retryLoad": "Thử lại",
-        "offline": "Tiếp nhận works Ngoại tuyến",
-        "empty": "Nhập Bệnh nhân data đến begin"
+        "offline": "Thừa nhận hoạt động ngoại tuyến",
+        "empty": "Nhập dữ liệu bệnh nhân để bắt đầu"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Máy thở Cài đặt",
-      "subtitle": "Chọn an active admission, Nhập latest ABG result và/hoặc Máy thở Cài đặt, then Lưu them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Ngoại tuyến mode: this update will stay Trong hàng đợi until connectivity returns.",
+      "title": "Cập nhật ABG & Cài đặt máy thở",
+      "subtitle": "Chọn một lần nhập viện đang hoạt động, nhập kết quả ABG mới nhất và/hoặc cài đặt máy thở, sau đó lưu chúng dưới dạng bản ghi có dấu thời gian mới.",
+      "accessibilityLabel": "Cập nhật ABG và màn hình cài đặt máy thở",
+      "offline": "Chế độ ngoại tuyến: bản cập nhật này sẽ được xếp hàng đợi cho đến khi kết nối trở lại.",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New Máy thở Cài đặt",
-        "missing": "Dữ liệu thiếu",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "admission": "Nhập học tích cực",
+        "latest": "Giá trị mới nhất",
+        "abg": "Kết quả ABG mới",
+        "ventilator": "Cài đặt máy thở mới",
+        "missing": "Thiếu dữ liệu",
+        "advisory": "Kiểm tra tư vấn",
+        "history": "Lịch sử"
       },
       "admission": {
-        "label": "Chọn active admission",
-        "empty": "Không có admitted patients are available cho Theo dõi yet"
+        "label": "Chọn nhập học tích cực",
+        "empty": "Chưa có bệnh nhân nào được nhập viện để theo dõi."
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest Máy thở"
+        "abg": "Mới nhất ABG",
+        "ventilator": "Máy thở mới nhất"
       },
       "ventilator": {
-        "modePlaceholder": "Chọn Máy thở mode",
-        "modeSearchPlaceholder": "Tìm kiếm Máy thở modes"
+        "modePlaceholder": "Chọn chế độ máy thở",
+        "modeSearchPlaceholder": "Tìm kiếm chế độ máy thở"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "Chưa có ABG hoặc lịch sử máy thở.",
         "abg": "ABG",
         "ventilator": "Máy thở",
-        "version": "Version {{version}} - {{dateTime}}"
+        "version": "Phiên bản {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "Bản ghi được lưu gần đây nhất: {{dateTime}}"
       },
       "actions": {
-        "save": "Lưu new values",
-        "saving": "Validating & saving"
+        "save": "Lưu giá trị mới",
+        "saving": "Xác thực và lưu"
       }
     },
     "recommendation": {
-      "title": "Cài đặt được khuyến nghị",
-      "accessibilityLabel": "Khuyến nghị screen",
+      "title": "Cài đặt được đề xuất",
+      "accessibilityLabel": "Màn hình đề xuất",
       "responseSource": {
-        "title": "Response source",
-        "online": "Trực tuyến",
+        "title": "Nguồn phản hồi",
+        "online": "trực tuyến",
         "offline": "Ngoại tuyến"
       },
       "sections": {
-        "settings": "Recommended Cài đặt",
-        "confidence": "Confidence & why",
-        "monitoring": "Theo dõi points",
-        "risks": "Risks và complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "Cài đặt được đề xuất",
+        "confidence": "Sự tự tin & tại sao",
+        "monitoring": "Điểm quan trắc",
+        "risks": "Rủi ro và biến chứng",
+        "matchedCases": "Các trường hợp trùng khớp",
+        "evidence": "Bằng chứng & xuất xứ",
+        "warning": "Thông báo về tập dữ liệu",
+        "decisionSupport": "Kiểm tra hỗ trợ quyết định"
       },
       "settings": {
-        "mode": "Mode",
-        "tidalVolume": "Thể tích khí lưu thông",
+        "mode": "Chế độ",
+        "tidalVolume": "Lượng thủy triều",
         "respiratoryRate": "Nhịp thở",
         "fio2": "FiO₂",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "I:E tỷ lệ"
       },
       "confidence": {
         "high": "Cao",
         "medium": "Trung bình",
         "low": "Thấp",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "missingInputs": "Thiếu đầu vào có thể cải thiện sự tự tin"
       },
       "decisionSupport": {
-        "pending": "Đang chờ",
-        "referenceWeight": "Reference Cân nặng",
+        "pending": "Đang chờ xử lý",
+        "referenceWeight": "Trọng lượng tham khảo",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "Xem xét status",
-        "syncStatus": "Sync status",
-        "missingData": "Dữ liệu thiếu",
+        "pfRatio": "P/F tỷ lệ",
+        "sfRatio": "S/F tỷ lệ",
+        "drivingPressure": "Áp lực lái xe",
+        "reviewStatus": "Xem lại trạng thái",
+        "syncStatus": "Trạng thái đồng bộ hóa",
+        "missingData": "Thiếu dữ liệu",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "Bản xem trước chưa được xác nhận",
+          "backend_verified": "Đã xác minh phần phụ trợ",
+          "missing_verified_records": "Thiếu hồ sơ đã được xác minh",
+          "development_fallback_unconfirmed": "Dự phòng phát triển"
         },
         "review": {
-          "pending_clinician_review": "Đang chờ clinician Xem xét",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "Đang chờ bác sĩ lâm sàng xem xét",
+          "backend_confirmed": "Đã xác nhận phần phụ trợ"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Đang chờ backend confirmation",
-          "synced": "Đã đồng bộ",
-          "queued": "Trong hàng đợi",
-          "duplicate": "Duplicate"
+          "local_preview_pending_backend_confirmation": "Đang chờ xác nhận phụ trợ",
+          "synced": "Đã đồng bộ hóa",
+          "queued": "Đã xếp hàng",
+          "duplicate": "trùng lặp"
         }
       },
       "aiReasons": {
-        "title": "AI reasons cho Khuyến nghị",
-        "hints": "AI hint codes"
+        "title": "AI lý do đề xuất",
+        "hints": "AI mã gợi ý"
       },
       "actions": {
-        "startMonitoring": "Start Theo dõi",
-        "startMonitoringHint": "Begin Theo dõi vital signs và time series",
-        "backToAssessment": "Quay lại đến Tiếp nhận",
-        "startNewAssessment": "Start new Tiếp nhận",
-        "editAssessmentTitle": "Sửa Tiếp nhận record",
-        "editAssessmentHint": "Mở Tiếp nhận form với current session data pre-filled",
-        "requestAiRecommendation": "Request AI Khuyến nghị",
-        "requestAiHint": "Get Tùy chọn AI hints cho this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental và not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Trực tuyến AI wasn't used. This Khuyến nghị is từ local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Gỡ bỏ identifiers before export"
+        "startMonitoring": "Bắt đầu theo dõi",
+        "startMonitoringHint": "Bắt đầu theo dõi các dấu hiệu sinh tồn và chuỗi thời gian",
+        "backToAssessment": "Quay lại thừa nhận",
+        "startNewAssessment": "Bắt đầu thừa nhận mới",
+        "editAssessmentTitle": "Chỉnh sửa hồ sơ thừa nhận",
+        "editAssessmentHint": "Mở biểu mẫu thừa nhận với dữ liệu phiên hiện tại được điền sẵn",
+        "requestAiRecommendation": "Yêu cầu đề xuất AI",
+        "requestAiHint": "Nhận gợi ý AI tùy chọn cho trường hợp này (yêu cầu kết nối)",
+        "connectivityRequired": "Yêu cầu kết nối internet",
+        "supplementalDisclaimer": "AI đầu ra là bổ sung và không được xác nhận về mặt lâm sàng",
+        "aiUnavailableFallback": "AI không có — sử dụng đề xuất địa phương",
+        "fallbackMessage": "Trực tuyến AI không được sử dụng. Khuyến nghị này là từ tập dữ liệu địa phương.",
+        "exportSummary": "Xuất tóm tắt",
+        "exportSummaryHint": "Tải xuống bản tóm tắt phiên dưới dạng văn bản",
+        "anonymizeBeforeExport": "Xóa số nhận dạng trước khi xuất"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local Khuyến nghị.",
-        "notComplex": "This case did not need Trực tuyến AI.",
-        "offline": "You are Ngoại tuyến.",
-        "noApiKey": "AI API key is not set.",
-        "error": "Trực tuyến AI failed. Using local dataset instead."
+        "userChoseLocal": "Bạn đã chọn đề xuất địa phương.",
+        "notComplex": "Trường hợp này không cần trực tuyến AI.",
+        "offline": "Bạn đang ngoại tuyến.",
+        "noApiKey": "Khóa AI API chưa được đặt.",
+        "error": "Trực tuyến AI không thành công. Thay vào đó, hãy sử dụng tập dữ liệu cục bộ."
       },
-      "fallbackBanner": "AI could not be reached. Hiển thịing Khuyến nghị từ local guide.",
+      "fallbackBanner": "AI không thể liên lạc được. Hiển thị đề xuất từ ​​hướng dẫn viên địa phương.",
       "states": {
-        "loading": "Đang tải Khuyến nghị…",
-        "error": "Không thể tải Khuyến nghị",
-        "empty": "Không có Khuyến nghị available. Complete Tiếp nhận first"
+        "loading": "Đang tải đề xuất…",
+        "error": "Không thể tải đề xuất",
+        "empty": "Không có khuyến nghị có sẵn. Hoàn thành Thừa nhận đầu tiên."
       },
       "intendedUse": {
-        "warningLabel": "Không cót clinically validated",
-        "validationLabel": "Xác thực requirement"
+        "warningLabel": "Không được xác nhận lâm sàng",
+        "validationLabel": "Yêu cầu xác thực"
       },
       "provenance": {
-        "reviewStatus": "Evidence Xem xét status",
-        "sourceUrl": "Mở source",
+        "reviewStatus": "Tình trạng xem xét bằng chứng",
+        "sourceUrl": "Nguồn mở",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Đang chờ clinician Xác thực",
-        "validated": "Validated"
+        "unvalidated": "Không được xác nhận (nguyên mẫu)",
+        "pendingClinicianValidation": "Đang chờ xác nhận của bác sĩ lâm sàng",
+        "validated": "Đã xác thực"
       }
     },
     "monitoring": {
-      "title": "Theo dõi",
-      "accessibilityLabel": "Theo dõi screen",
-      "decisionSupportOnly": "cho decision support only. Không cót a substitute cho clinical judgment.",
+      "title": "Giám sát",
+      "accessibilityLabel": "Màn hình giám sát",
+      "decisionSupportOnly": "Chỉ dành cho hỗ trợ quyết định. Không thể thay thế cho phán đoán lâm sàng.",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "Nhập nhanh",
+        "trend": "Xu hướng",
+        "alerts": "Cảnh báo"
       },
       "quickEntry": {
-        "addPoint": "Thêm point",
-        "addPointHint": "Thêm vitals hoặc labs data point",
-        "namePlaceholder": "Tên (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "Thêm điểm",
+        "addPointHint": "Thêm điểm dữ liệu quan trọng hoặc phòng thí nghiệm",
+        "namePlaceholder": "Tên (ví dụ: SpO₂, RR)",
+        "valuePlaceholder": "Giá trị",
+        "unitPlaceholder": "Đơn vị"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
-        "directionUnknown": "Không rõ"
+        "insufficientData": "Dữ liệu không đầy đủ",
+        "directionUp": "Đang có xu hướng tăng",
+        "directionDown": "Có xu hướng giảm",
+        "directionFlat": "Ổn định",
+        "directionUnknown": "Không xác định"
       },
       "alerts": {
         "severityNormal": "Bình thường",
         "severityWarning": "Cảnh báo",
-        "severityCritical": "Nghiêm trọng",
-        "severityUnknown": "Không rõ",
-        "why": "Why",
-        "whyCriticalLow": "Value below Nghiêm trọng Thấp threshold",
-        "whyWarningLow": "Value below Cảnh báo Thấp threshold",
-        "whyCriticalHigh": "Value above Nghiêm trọng cao threshold",
-        "whyWarningHigh": "Value above Cảnh báo cao threshold",
-        "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Tiếp tục Theo dõi",
-        "suggestedActionWarning": "Xem xét và consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value và re-Nhập if needed",
-        "empty": "Không có alerts"
+        "severityCritical": "Quan trọng",
+        "severityUnknown": "Không xác định",
+        "why": "tại sao",
+        "whyCriticalLow": "Giá trị dưới ngưỡng thấp tới hạn",
+        "whyWarningLow": "Giá trị dưới ngưỡng cảnh báo thấp",
+        "whyCriticalHigh": "Giá trị trên ngưỡng cao tới hạn",
+        "whyWarningHigh": "Giá trị trên ngưỡng cao cảnh báo",
+        "suggestedAction": "Hành động được đề xuất",
+        "suggestedActionNormal": "Tiếp tục theo dõi",
+        "suggestedActionWarning": "Xem xét và cân nhắc can thiệp",
+        "suggestedActionCritical": "Địa chỉ ngay lập tức",
+        "suggestedActionUnknown": "Xác minh giá trị và nhập lại nếu cần",
+        "empty": "Không có cảnh báo"
       },
       "actions": {
-        "backToRecommendation": "Quay lại đến Khuyến nghị"
+        "backToRecommendation": "Quay lại đề xuất"
       },
       "states": {
         "loading": "Đang tải…",
-        "error": "Không thể tải Theo dõi",
-        "empty": "Thêm vitals hoặc labs points đến see trends và alerts.",
-        "offline": "You are Ngoại tuyến. Data is saved locally."
+        "error": "Không thể tải giám sát",
+        "empty": "Thêm điểm quan trọng hoặc điểm phòng thí nghiệm để xem xu hướng và cảnh báo.",
+        "offline": "Bạn đang ngoại tuyến. Dữ liệu được lưu cục bộ."
       }
     },
     "tracking": {
       "title": "Theo dõi",
-      "subtitle": "Active admitted patients và backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical Theo dõi screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "Không có admitted patients are available cho Theo dõi yet",
-      "emptyHint": "Tiếp nhận a Bệnh nhân first đến begin Theo dõi.",
-      "admittedBanner": "Admission saved. This Bệnh nhân is admitted và available cho Theo dõi.",
-      "localDraft": "Draft data exists on this device. Backend Xem xét, sync, và Xung đột status appears after Lưu hoặc sync.",
+      "subtitle": "Bệnh nhân được nhập viện tích cực và tình trạng lâm sàng được xác nhận phụ trợ.",
+      "accessibilityLabel": "Màn hình theo dõi lâm sàng",
+      "activePatients": "{{count}} bệnh nhân đang hoạt động",
+      "empty": "Chưa có bệnh nhân nào được nhập viện để theo dõi.",
+      "emptyHint": "Tiếp nhận bệnh nhân trước để bắt đầu theo dõi.",
+      "admittedBanner": "Đã lưu tuyển sinh. Bệnh nhân này được nhập viện và sẵn sàng để theo dõi.",
+      "localDraft": "Dữ liệu nháp tồn tại trên thiết bị này. Trạng thái xem xét, đồng bộ hóa và xung đột phụ trợ xuất hiện sau khi lưu hoặc đồng bộ hóa.",
       "search": {
-        "placeholder": "Tìm kiếm by Bệnh nhân code, ID, Tên, hoặc hospital number",
-        "accessibilityLabel": "Tìm kiếm Theo dõi patients",
-        "empty": "Không có matching patients found",
-        "emptyHint": "Try a Bệnh nhân code, Bệnh nhân ID, Tên, hospital number, bed, hoặc pathway."
+        "placeholder": "Tìm kiếm theo mã bệnh nhân, ID, tên hoặc số bệnh viện",
+        "accessibilityLabel": "Tìm kiếm theo dõi bệnh nhân",
+        "empty": "Không tìm thấy bệnh nhân phù hợp.",
+        "emptyHint": "Hãy thử mã bệnh nhân, bệnh nhân ID, tên, số bệnh viện, giường hoặc đường đi."
       },
       "activeFacility": {
-        "none": "Không có active Cơ sở selected"
+        "none": "Không có cơ sở hoạt động nào được chọn"
       },
       "actions": {
         "refresh": "Làm mới",
-        "refreshHint": "Reload active Theo dõi records",
-        "admitFirst": "Tiếp nhận Bệnh nhân",
-        "viewDetails": "Details",
-        "viewDetailsHint": "Xem Theo dõi detail và timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Đóng Theo dõi detail"
+        "refreshHint": "Tải lại hồ sơ theo dõi đang hoạt động",
+        "admitFirst": "Tiếp nhận bệnh nhân",
+        "viewDetails": "Chi tiết",
+        "viewDetailsHint": "Xem chi tiết theo dõi và dòng thời gian",
+        "updateValues": "Cập nhật giá trị",
+        "updateValuesHint": "Mở ABG và biểu mẫu cập nhật máy thở cho bệnh nhân này",
+        "closeDetailsHint": "Đóng chi tiết theo dõi"
       },
       "patient": {
-        "unknown": "Bệnh nhân not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
-        "missingData": "Dữ liệu thiếu: {{fields}}"
+        "unknown": "Bệnh nhân không được dán nhãn",
+        "bed": "Giường {{bed}}",
+        "bedMissing": "Giường không được ghi lại",
+        "admitted": "Đã thừa nhận {{dateTime}}",
+        "missingData": "Thiếu dữ liệu: {{fields}}"
       },
       "detail": {
-        "title": "Theo dõi detail",
-        "noTimeline": "Không có timeline entries returned"
+        "title": "Theo dõi chi tiết",
+        "noTimeline": "Không có mục dòng thời gian nào được trả lại."
       },
       "states": {
-        "loading": "Đang tải patients cho Theo dõi...",
-        "loadingDetail": "Đang tải Theo dõi detail...",
-        "error": "Không thể tải patients cho Theo dõi. Kiểm tra kết nối rồi thử lại",
-        "detailError": "Không thể tải Theo dõi details cho this Bệnh nhân. Please try again"
+        "loading": "Đang tải bệnh nhân để theo dõi...",
+        "loadingDetail": "Đang tải chi tiết theo dõi...",
+        "error": "Không thể tải bệnh nhân để theo dõi. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+        "detailError": "Không thể tải chi tiết theo dõi cho bệnh nhân này. Vui lòng thử lại."
       }
     },
     "history": {
       "title": "Theo dõi",
-      "accessibilityLabel": "Clinical Theo dõi screen",
-      "empty": "Không có active admitted patients cho this Cơ sở",
-      "corruptRecovery": "Session history was reset due đến a storage issue. You can start new sessions.",
+      "accessibilityLabel": "Màn hình theo dõi lâm sàng",
+      "empty": "Không có bệnh nhân nào được nhận vào cơ sở này.",
+      "corruptRecovery": "Lịch sử phiên đã được đặt lại do vấn đề về bộ nhớ. Bạn có thể bắt đầu phiên mới.",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "Tiếp tục this session",
-        "viewDetails": "Xem details",
-        "viewDetailsHint": "Xem session summary",
+        "resume": "Tiếp tục",
+        "resumeHint": "Tiếp tục phiên này",
+        "viewDetails": "Xem chi tiết",
+        "viewDetailsHint": "Xem tóm tắt phiên",
         "delete": "Xóa",
-        "deleteHint": "Gỡ bỏ từ history"
+        "deleteHint": "Xóa khỏi lịch sử"
       },
       "deleteConfirm": {
-        "title": "Xóa session?",
-        "message": "This session will be removed từ history. This cannot be undone.",
+        "title": "Xóa phiên?",
+        "message": "Phiên này sẽ bị xóa khỏi lịch sử. Điều này không thể hoàn tác được.",
         "confirm": "Xóa",
-        "cancel": "Hủy"
+        "cancel": "Hủy bỏ"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Tình trạng: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "condition": "Điều kiện: {{condition}}",
+        "tier": "Cấp độ: {{tier}}",
+        "summary": "Tóm tắt"
       },
       "states": {
-        "loading": "Đang tải history…",
-        "error": "Không thể tải session history"
+        "loading": "Đang tải lịch sử…",
+        "error": "Không thể tải lịch sử phiên"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
+      "title": "Chi tiết trường hợp",
+      "accessibilityLabel": "Màn hình chi tiết trường hợp",
+      "summary": "Tóm tắt trường hợp",
       "patientProfile": "Hồ sơ bệnh nhân",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Máy thở Cài đặt",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "Xem xét status",
-      "intendedUseWarning": "This is a dataset case cho reference only. Không cót cho direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "Không có case selected",
+      "clinicalParameters": "Thông số lâm sàng",
+      "ventilatorSettings": "Cài đặt máy thở",
+      "outcomes": "Kết quả",
+      "evidence": "Bằng chứng",
+      "reviewStatus": "Xem lại trạng thái",
+      "intendedUseWarning": "Đây là trường hợp dữ liệu chỉ mang tính chất tham khảo. Không dùng trực tiếp trên lâm sàng.",
+      "datasetCaseFraming": "Trường hợp tập dữ liệu (chỉ để tham khảo)",
+      "prototypeFraming": "Nguyên mẫu - chưa được xác nhận lâm sàng",
+      "notFound": "Trường hợp không được tìm thấy trong tập dữ liệu.",
+      "missingCaseId": "Không có trường hợp nào được chọn.",
       "states": {
-        "loading": "Đang tải case…"
+        "loading": "Đang tải trường hợp…"
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Đang chờ clinician Xác thực",
-        "validated": "Validated"
+        "unvalidated": "Không được xác nhận (nguyên mẫu)",
+        "pending_clinician_validation": "Đang chờ xác nhận của bác sĩ lâm sàng",
+        "validated": "Đã xác thực"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, và reference.",
-      "accessibilityLabel": "Training Trang chủ screen",
-      "searchPlaceholder": "Tìm kiếm topics…",
-      "searchHint": "Tìm kiếm training content",
-      "topicsSection": "Topics",
-      "searchResults": "Tìm kiếm results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "Xem all topics",
-      "browseAllHint": "Xem all training topics",
+      "title": "đào tạo",
+      "subtitle": "Các giao thức, danh sách kiểm tra và tài liệu tham khảo.",
+      "accessibilityLabel": "Màn hình chính đào tạo",
+      "searchPlaceholder": "Tìm kiếm chủ đề…",
+      "searchHint": "Tìm kiếm nội dung đào tạo",
+      "topicsSection": "chủ đề",
+      "searchResults": "Kết quả tìm kiếm",
+      "popularTopics": "Chủ đề phổ biến",
+      "quickChecklists": "Danh sách kiểm tra nhanh",
+      "browseAll": "Xem tất cả chủ đề",
+      "browseAllHint": "Xem tất cả chủ đề đào tạo",
       "viewTopic": "Xem",
       "states": {
-        "loading": "Đang tải training…",
-        "error": "Không thể tải training content",
-        "offline": "Content is available Ngoại tuyến",
-        "empty": "Không có training content available"
+        "loading": "Đang tải chương trình đào tạo…",
+        "error": "Không thể tải nội dung đào tạo",
+        "offline": "Nội dung có sẵn ngoại tuyến",
+        "empty": "Không có nội dung đào tạo"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic Danh sách screen",
-      "searchPlaceholder": "Tìm kiếm hoặc filter…",
-      "searchHint": "Tìm kiếm topics",
-      "empty": "Không có topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "Mở topic",
+      "title": "chủ đề",
+      "accessibilityLabel": "Màn hình danh sách chủ đề",
+      "searchPlaceholder": "Tìm kiếm hoặc lọc…",
+      "searchHint": "Tìm kiếm chủ đề",
+      "empty": "Không tìm thấy chủ đề nào.",
+      "filterByType": "Lọc theo loại",
+      "typeProtocol": "Giao thức",
+      "typeChecklist": "Danh sách kiểm tra",
+      "typeGlossary": "Thuật ngữ",
+      "typeFaq": "Câu hỏi thường gặp",
+      "openTopicHint": "Mở chủ đề",
       "states": {
-        "loading": "Đang tải topics…",
-        "error": "Không thể tải topics",
-        "offline": "Content is available Ngoại tuyến"
+        "loading": "Đang tải chủ đề…",
+        "error": "Không thể tải chủ đề",
+        "offline": "Nội dung có sẵn ngoại tuyến"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "Quay lại đến topics",
-      "backToTopicsHint": "Return đến topic Danh sách",
+      "title": "chủ đề",
+      "accessibilityLabel": "Màn hình chi tiết chủ đề",
+      "section": "Phần",
+      "expand": "Mở rộng phần",
+      "collapse": "Thu gọn phần",
+      "checklistItem": "Mục",
+      "notFound": "Chủ đề không được tìm thấy.",
+      "backToTopics": "Quay lại chủ đề",
+      "backToTopicsHint": "Quay lại danh sách chủ đề",
       "states": {
-        "loading": "Đang tải topic…",
-        "error": "Không thể tải topic"
+        "loading": "Đang tải chủ đề…",
+        "error": "Không thể tải chủ đề"
       }
     }
   },
   "notFound": {
-    "title": "Page Không cót Found",
-    "message": "page you're looking cho doesn't exist hoặc has been moved.",
-    "back": "Go Quay lại",
-    "backHint": "Return đến previous page",
-    "goHome": "Đi tới Trang chủ",
-    "goHomeHint": "Navigate Quay lại đến Trang chủ page"
+    "title": "Không tìm thấy trang",
+    "message": "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
+    "back": "Quay lại",
+    "backHint": "Quay lại trang trước",
+    "goHome": "Về Nhà",
+    "goHomeHint": "Điều hướng trở lại trang chủ"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "Đã xảy ra lỗi không mong muốn. Please try again hoặc return đến Trang chủ page.",
+    "title": "Đã xảy ra lỗi",
+    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại hoặc quay lại trang chủ.",
     "retry": "Thử lại",
-    "retryHint": "Try action again",
-    "goHome": "Đi tới Trang chủ",
-    "goHomeHint": "Navigate Quay lại đến Trang chủ page"
+    "retryHint": "Hãy thử lại hành động",
+    "goHome": "Về Nhà",
+    "goHomeHint": "Điều hướng trở lại trang chủ"
   },
   "errorState": {
     "defaultTitle": "Đã xảy ra lỗi"

@@ -195,6 +195,11 @@ const SettingsScreenContent = ({ platform, styles }) => {
               {t('settings.status.loading')}
             </Text>
           ) : null}
+          {!isLoading && isSaving ? (
+            <Text variant="caption" testID={testIds.statusMessage}>
+              {t('settings.status.saving')}
+            </Text>
+          ) : null}
           {statusMessageKey ? (
             <Text
               variant="caption"

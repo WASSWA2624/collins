@@ -3,50 +3,50 @@
     "save": "Сохранить",
     "cancel": "Отмена",
     "delete": "Удалить",
-    "edit": "Изменить",
+    "edit": "Редактировать",
     "search": "Поиск",
     "submit": "Отправить",
     "loading": "Загрузка…",
-    "retry": "Повторить",
+    "retry": "Повторить попытку",
     "back": "Назад",
     "next": "Далее",
     "continue": "Продолжить",
     "close": "Закрыть",
-    "closeSidebarHint": "Closes sidebar menu",
+    "closeSidebarHint": "Закрывает боковое меню",
     "select": "Выбрать",
     "selectPlaceholder": "Выберите…",
-    "closeSelect": "Закрыть Выбрать",
+    "closeSelect": "Закрыть выбор",
     "remove": "Удалить",
-    "goToHome": "Перейти к Главная",
-    "viewNotifications": "Просмотр notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Поиск:…",
+    "goToHome": "Иди домой",
+    "viewNotifications": "Просмотр уведомлений",
+    "userMenu": "Меню пользователя",
+    "toggleMenu": "Переключить меню",
+    "searchPlaceholder": "Искать…",
     "noResults": "Нет результатов",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Поиск: icon",
-    "clearSearch": "Очистить Поиск",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed к load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
-    "requiredLabel": "обязательно",
-    "clearAll": "Очистить all",
-    "filters": "Filters",
-    "clearAllFilters": "Очистить all filters",
-    "loadingPlaceholder": "Загрузка placeholder",
-    "radio": "Radio",
-    "emptyState": "Пусто state",
+    "useCustomValue": "Используйте «{{value}}»",
+    "searchIcon": "Значок поиска",
+    "clearSearch": "Очистить поиск",
+    "on": "Вкл.",
+    "off": "Выкл.",
+    "switch": "Переключатель",
+    "imageLoadError": "Не удалось загрузить изображение",
+    "imageDefaultAlt": "Изображение",
+    "progress": "Прогресс: {{value}}%",
+    "requiredLabel": "требуется",
+    "clearAll": "Очистить все",
+    "filters": "Фильтры",
+    "clearAllFilters": "Очистить все фильтры",
+    "loadingPlaceholder": "Загрузка заполнителя",
+    "radio": "Радио",
+    "emptyState": "Пустое состояние",
     "message": "Сообщение",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "sliderValue": "Слайдер: {{value}}",
+    "dropdownMenu": "Выпадающее меню",
+    "tooltip": "Подсказка",
+    "action": "Действие"
   },
   "greeting": {
-    "hello": "Здравствуйте, {{name}}"
+    "hello": "Привет, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -55,261 +55,261 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "Поддержка принятия решений по вентиляции",
+      "logoLabel": "Логотип AI Vent"
     },
-    "logout": "Выйти",
+    "logout": "Выход из системы",
     "password": "Пароль",
-    "passwordHide": "Скрыть Пароль",
-    "passwordShow": "Показать Пароль",
-    "enterPassword": "Введите Пароль",
+    "passwordHide": "Скрыть пароль",
+    "passwordShow": "Показать пароль",
+    "enterPassword": "Введите пароль",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "??????",
+      "fair": "???????",
+      "good": "???????",
+      "strong": "???????",
+      "veryStrong": "????? ???????"
     },
     "login": {
       "title": "Войти",
-      "accessibilityLabel": "Войти screen",
-      "emailLabel": "Эл. почта",
+      "accessibilityLabel": "Экран входа в систему",
+      "emailLabel": "электронная почта",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введите Пароль",
+      "passwordPlaceholder": "Введите пароль",
       "submit": "Войти",
-      "submitting": "Signing in...",
-      "createPrompt": "Нет Учетная запись yet?",
+      "submitting": "Вход в систему...",
+      "createPrompt": "Еще нет аккаунта?",
       "createAccount": "Создать учетную запись",
-      "createAccountHint": "Открыть Учетная запись registration",
-      "errorTitle": "Sign-in issue"
+      "createAccountHint": "Открыть регистрацию счета",
+      "errorTitle": "Проблема со входом"
     },
     "register": {
       "title": "Создать учетную запись",
-      "description": "Create an AI Vent Учетная запись к request Учреждение access.",
-      "accessibilityLabel": "Создать учетную запись screen",
+      "description": "Создайте учетную запись AI Vent, чтобы запросить доступ к объекту.",
+      "accessibilityLabel": "Экран создания учетной записи",
       "nameLabel": "Полное имя",
-      "namePlaceholder": "Clinician Имя",
-      "emailLabel": "Эл. почта",
+      "namePlaceholder": "Имя врача",
+      "emailLabel": "электронная почта",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Create Пароль",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Учреждение или hospital (Необязательно)",
-      "facilitySearchPlaceholder": "Поиск: Uganda hospitals",
-      "facilitySearchHint": "Filters hospital Список by Имя, district, region, или ownership",
-      "facilitySelectLabel": "Выберите Учреждение",
-      "facilitySelectPlaceholder": "Choose a matching Учреждение",
-      "facilitySelectHelper": "Leave blank if you are not attached к a Учреждение.",
-      "facilitySelectHint": "Choose Учреждение к request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested для Проверка.",
-      "facilityOptionalHelper": "Необязательно. You can create an Учетная запись without selecting a Учреждение.",
-      "facilityNoResults": "Нет matching Учреждение found. You can still create an Учетная запись without selecting one",
-      "facilityClear": "Очистить Учреждение",
+      "passwordPlaceholder": "Создать пароль",
+      "passwordHelper": "Используйте не менее 8 символов.",
+      "facilitySearchLabel": "Учреждение или больница (по желанию)",
+      "facilitySearchPlaceholder": "Найти больницы в Уганде",
+      "facilitySearchHint": "Фильтрует список больниц по названию, району, региону или собственности.",
+      "facilitySelectLabel": "Выберите объект",
+      "facilitySelectPlaceholder": "Выберите подходящее учреждение",
+      "facilitySelectHelper": "Оставьте пустым, если вы не прикреплены к учреждению.",
+      "facilitySelectHint": "Выберите учреждение, чтобы запросить присоединение врача",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Членство запрошено на рассмотрение.",
+      "facilityOptionalHelper": "Необязательно. Вы можете создать учетную запись, не выбирая объект.",
+      "facilityNoResults": "Подходящего объекта не найдено. Вы по-прежнему можете создать учетную запись, не выбирая ее.",
+      "facilityClear": "Очистить объект",
       "submit": "Создать учетную запись",
-      "submitting": "Creating Учетная запись...",
-      "signInPrompt": "Already have an Учетная запись?",
+      "submitting": "Создание учетной записи...",
+      "signInPrompt": "У вас уже есть аккаунт?",
       "signIn": "Войти",
-      "signInHint": "Return к sign in",
-      "errorTitle": "Учетная запись creation issue"
+      "signInHint": "Вернуться, чтобы войти",
+      "errorTitle": "Проблема с созданием аккаунта"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "Повторить session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "Уведомление о сессии",
+      "retry": "Повторить сеанс",
+      "checking": "Проверка сеанса...",
+      "restoring": "Проверяем, вошли ли вы уже в систему."
     },
     "facility": {
-      "title": "Choose Учреждение",
-      "description": "Выберите Учреждение context для this session.",
-      "accessibilityLabel": "Учреждение selection screen",
-      "selectFacility": "Выберите {{name}}",
-      "empty": "Нет approved facilities are available для this Учетная запись",
-      "errorTitle": "Учреждение selection issue"
+      "title": "Выберите объект",
+      "description": "Выберите контекст объекта для этого сеанса.",
+      "accessibilityLabel": "Экран выбора объекта",
+      "selectFacility": "Выберите {{name}}.",
+      "empty": "Для этого аккаунта нет утвержденных объектов.",
+      "errorTitle": "Проблема с выбором объекта"
     }
   },
   "errors": {
     "fallback": {
       "title": "Что-то пошло не так",
       "message": "Произошла непредвиденная ошибка",
-      "retry": "Повторить",
-      "retryHint": "Повторите попытку"
+      "retry": "Повторить попытку",
+      "retryHint": "Попробуйте еще раз"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Что-то пошло не так. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect к server. Please check your internet connection и try again.",
-      "REQUEST_TIMEOUT": "server took too long к respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection и try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNKNOWN_ERROR": "Что-то пошло не так. Пожалуйста, повторите попытку в ближайшее время.",
+      "NETWORK_ERROR": "Нам не удалось подключиться к серверу. Пожалуйста, проверьте подключение к Интернету и повторите попытку.",
+      "REQUEST_TIMEOUT": "Сервер отвечал слишком долго. Пожалуйста, попробуйте еще раз.",
+      "BACKEND_HOST_UNREACHABLE": "Мы не смогли связаться с сервером. Пожалуйста, проверьте подключение к Интернету и повторите попытку.",
+      "SECURE_CONNECTION_FAILED": "Безопасное соединение не удалось. Проверьте серверный сертификат HTTPS.",
       "UNAUTHORIZED": "Требуется аутентификация",
       "FORBIDDEN": "Доступ запрещен",
-      "CONFLICT": "This update conflicts с newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields и try again.",
-      "SERVER_ERROR": "Что-то пошло не так while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect к server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please Обновить и try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return к Отслеживание и try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not Сохранить your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment и try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An Ошибка occurred while Загрузка this page",
-      "INVALID_CREDENTIALS": "Invalid Эл. почта или Пароль. Please check your details и try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please Выбрать a tenant.",
-      "ACCOUNT_INACTIVE": "Учетная запись is not active",
-      "ACCOUNT_SUSPENDED": "Учетная запись has been suspended",
-      "ACCOUNT_PENDING": "Учетная запись is Ожидание verification",
-      "PASSWORD_INCORRECT": "Current Пароль is incorrect",
-      "TOKEN_INVALID": "Invalid или expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid или expired Обновить token",
-      "SESSION_EXPIRED": "Your session expired. Войти again к Продолжить.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This Эл. почта is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Учетная запись is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid или expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Главная summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Не удалось загрузить Главная summary",
-      "ADMISSION_SAVE_FAILED": "Не удалось сохранить admission record. Проверьте подключение и повторите попытку",
-      "ADMISSION_VALIDATION_FAILED": "Some обязательно admission details are missing. Please Проверка highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable к generate clinical recommendations right now. You can still Проверка и Сохранить admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Не удалось загрузить admission form. Проверьте подключение и повторите попытку",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Не удалось сохранить local admission draft. Please try again"
+      "CONFLICT": "Это обновление конфликтует с новыми сохраненными клиническими данными.",
+      "VALIDATION_ERROR": "Пожалуйста, проверьте выделенные поля и повторите попытку.",
+      "SERVER_ERROR": "Что-то пошло не так при обработке вашего запроса. Пожалуйста, повторите попытку в ближайшее время.",
+      "BACKEND_UNAVAILABLE": "Мы не смогли подключиться к серверу прямо сейчас. Пожалуйста, повторите попытку в ближайшее время.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Конечная точка серверной части API не найдена. Домен доступен, но маршрут API не развернут.",
+      "RESOURCE_NOT_FOUND": "Запрошенная запись не найдена. Пожалуйста, обновите и повторите попытку.",
+      "ADMISSION_NOT_FOUND": "Запись о приеме найти не удалось. Пожалуйста, вернитесь к отслеживанию и повторите попытку.",
+      "BACKEND_METHOD_NOT_ALLOWED": "Внутренняя конечная точка существует, но не принимает этот запрос.",
+      "BACKEND_INVALID_RESPONSE": "Серверная часть вернула недопустимый ответ на вход. Возможно, он обслуживает веб-сайт вместо API.",
+      "SESSION_STORAGE_FAILED": "Нам не удалось сохранить ваш сеанс входа в систему. Пожалуйста, попробуйте еще раз.",
+      "DATABASE_ERROR": "Запрос к серверной базе данных не выполнен.",
+      "RATE_LIMITED": "Слишком много запросов. Подождите немного и повторите попытку.",
+      "PAYLOAD_TOO_LARGE": "Запрос слишком велик",
+      "UNSUPPORTED_MEDIA_TYPE": "Серверная часть отклонила формат запроса",
+      "ROUTE_ERROR": "Произошла ошибка при загрузке этой страницы",
+      "INVALID_CREDENTIALS": "Неверный адрес электронной почты или пароль. Пожалуйста, проверьте свои данные и повторите попытку.",
+      "MULTIPLE_TENANTS": "Найдено несколько арендаторов. Пожалуйста, выберите арендатора.",
+      "ACCOUNT_INACTIVE": "Аккаунт не активен",
+      "ACCOUNT_SUSPENDED": "Аккаунт заблокирован",
+      "ACCOUNT_PENDING": "Аккаунт ожидает подтверждения",
+      "PASSWORD_INCORRECT": "Текущий пароль неверен",
+      "TOKEN_INVALID": "Недействительный или просроченный токен",
+      "TOKEN_EXPIRED": "Срок действия токена истек",
+      "REFRESH_TOKEN_INVALID": "Неверный или просроченный токен обновления.",
+      "SESSION_EXPIRED": "Срок действия вашей сессии истек. Войдите еще раз, чтобы продолжить.",
+      "USER_NOT_FOUND": "Пользователь не найден",
+      "USER_EXISTS": "Этот адрес электронной почты уже зарегистрирован. Пожалуйста, войдите в систему.",
+      "SESSION_NOT_FOUND": "Сессия не найдена",
+      "ALREADY_VERIFIED": "Аккаунт уже подтвержден",
+      "AI_UNAVAILABLE": "AI недоступен — используйте местные рекомендации",
+      "AI_TIMEOUT": "Время ожидания запроса AI истекло",
+      "AI_UNAUTHORIZED": "AI API ключ недействителен или срок его действия истек",
+      "AI_FORBIDDEN": "AI доступ запрещен",
+      "AI_RATE_LIMIT": "Достигнут предел скорости AI",
+      "AI_MODEL_UNAVAILABLE": "Модель AI недоступна",
+      "AI_MALFORMED_RESPONSE": "AI ответ недействителен",
+      "HOME_SUMMARY_INVALID": "Неверный ответ на сводку главной страницы.",
+      "HOME_SUMMARY_LOAD_FAILED": "Не удалось загрузить сводку главной страницы.",
+      "ADMISSION_SAVE_FAILED": "Не удалось сохранить запись о приеме. Пожалуйста, проверьте подключение и повторите попытку.",
+      "ADMISSION_VALIDATION_FAILED": "Отсутствуют некоторые необходимые реквизиты для поступления. Пожалуйста, просмотрите выделенные поля.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Сейчас невозможно дать клинические рекомендации. Вы все равно можете просмотреть и сохранить прием.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Не удалось загрузить форму приема. Пожалуйста, проверьте подключение и повторите попытку.",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Не удалось сохранить проект местного поступления. Пожалуйста, попробуйте еще раз."
     }
   },
   "forms": {
     "validation": {
-      "required": "Это поле обязательно",
-      "invalidEmail": "Invalid Эл. почта format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "required": "Это поле обязательно для заполнения",
+      "invalidEmail": "Неверный формат электронной почты",
+      "minLength": "Минимальная длина — {{min}} символов.",
+      "invalidUrl": "Неверный формат URL.",
+      "invalidUuid": "Неверный формат ID.",
+      "maxLength": "Максимальная длина — {{max}} символов.",
+      "invalidValue": "Недопустимое значение"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type к Поиск",
-      "cartWithItems": "Cart с {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "Главный заголовок навигации",
+      "searchHint": "Введите для поиска",
+      "cartWithItems": "Корзина с товарами {{count}}",
+      "cartWithItems_zero": "Корзина",
       "signIn": "Войти",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "Профиль",
+      "orders": "Заказы",
       "settings": "Настройки",
-      "logout": "Выйти",
+      "logout": "Выход из системы",
       "accountMenu": {
-        "accessibilityLabel": "Открыть Учетная запись menu для {{name}}",
-        "fallbackName": "Учетная запись",
-        "accountType": "Учетная запись type"
+        "accessibilityLabel": "Открыть меню аккаунта для {{name}}",
+        "fallbackName": "Аккаунт",
+        "accountType": "Тип аккаунта"
       },
-      "hideHeader": "Скрыть header",
-      "showHeader": "Показать header",
-      "showMore": "Показать more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "Скрыть заголовок",
+      "showHeader": "Показать заголовок",
+      "showMore": "Показать больше",
+      "customize": "Настроить",
+      "overflowMenuLabel": "Дополнительные действия над заголовком",
+      "customizationMenuLabel": "Настройка заголовка",
       "actions": {
-        "notifications": "Нетtifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "Уведомления",
+        "network": "Статус сети",
+        "database": "Статус базы данных",
+        "fullscreen": "Полноэкранный переключатель"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "Основная навигация",
+      "label": "Навигация",
+      "resize": "Изменение размера навигации"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "Полный экран",
+      "exit": "Выйти из полноэкранного режима"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "Нижняя навигация"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (Эл. почта)",
-      "supportPhone": "Support (Телефон)",
+      "title": "Глобальный нижний колонтитул",
+      "copyright": "© {{year}} {{appName}}. Все права защищены.",
+      "supportEmail": "Поддержка (электронная почта)",
+      "supportPhone": "Поддержка (телефон)",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "Пациент services ready"
+        "title": "Статус заявки",
+        "auth": "Безопасный вход включен",
+        "main": "Все системы в рабочем состоянии",
+        "patient": "Обслуживание пациентов готово"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} · v{{version}} (сборка: {{build}})",
       "legal": {
-        "title": "Legal и support",
-        "terms": "Terms",
+        "title": "Юридическая поддержка и поддержка",
+        "terms": "Условия",
         "privacy": "Конфиденциальность",
-        "support": "Support"
+        "support": "Поддержка"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "Статус сети",
       "status": {
         "online": "Онлайн",
         "offline": "Офлайн",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "unstable": "Нестабильный",
+        "syncing": "Синхронизация"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "База данных",
+        "connected": "База данных подключена",
+        "disconnected": "База данных отключена"
       }
     },
     "notifications": {
-      "label": "Нетtifications",
-      "menuLabel": "Нетtifications menu",
-      "empty": "Нет new notifications",
-      "viewAll": "Просмотр all notifications",
+      "label": "Уведомления",
+      "menuLabel": "Меню уведомлений",
+      "empty": "Нет новых уведомлений",
+      "viewAll": "Просмотреть все уведомления",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "Предстоящая встреча",
+          "meta": "Сегодня в 15:00"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "Результаты лабораторных исследований готовы",
+          "meta": "Доступны новые результаты"
         },
         "messages": {
-          "title": "New Сообщение",
-          "meta": "You have unread messages"
+          "title": "Новое сообщение",
+          "meta": "У вас есть непрочитанные сообщения"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "Пациент navigation",
+    "bottomNavigation": "Нижняя навигация",
+    "mainNavigation": "Основная навигация",
+    "patientNavigation": "Навигация по пациенту",
     "items": {
       "main": {
         "home": "Главная",
-        "admit": "Принять",
-        "assessment": "Принять",
-        "abg-ventilator-updates": "Update ABG & Аппарат ИВЛ Настройки",
+        "admit": "Признаться",
+        "assessment": "Признаться",
+        "abg-ventilator-updates": "Обновите ABG и настройки аппарата искусственной вентиляции легких.",
         "history": "Отслеживание",
-        "dataset-capture": "Сбор набора данных",
-        "review-queue": "Очередь проверки",
+        "dataset-capture": "Захват набора данных",
+        "review-queue": "Обзор очереди",
         "dashboard": "Панель управления",
         "user-management": "Управление пользователями",
-        "onboarding": "Getting started",
+        "onboarding": "Начало работы",
         "settings": "Настройки",
-        "settings-about": "О программе",
+        "settings-about": "О",
         "settings-data-sources": "Источники данных",
         "settings-disclaimer": "Отказ от ответственности",
         "settings-help": "Помощь",
@@ -317,341 +317,342 @@
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "Хлебная навигация",
+      "label": "Панировочные сухари"
     },
-    "skipToMainContent": "Skip к main content"
+    "skipToMainContent": "Перейти к основному содержанию"
   },
   "facilityContext": {
-    "activeFacility": "Активное учреждение",
-    "noFacility": "Нет active Учреждение",
+    "activeFacility": "Активный объект",
+    "noFacility": "Нет действующего объекта",
     "role": "Роль",
-    "noRole": "Нет active Роль",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "Выберите active Учреждение",
-    "accessibilityLabel": "Активное учреждение {{facility}}, sync status {{status}}",
+    "noRole": "Нет активной роли",
+    "syncStatus": "Статус синхронизации",
+    "facilitySelectLabel": "Выберите активный объект",
+    "accessibilityLabel": "Активный объект {{facility}}, статус синхронизации {{status}}",
     "status": {
       "online": "Онлайн",
       "offline": "Офлайн",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "syncing": "Синхронизация",
+      "unstable": "Нестабильный"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "Система status updates",
+      "surfaceLabel": "Обновления статуса системы",
       "offline": {
-        "title": "You are Офлайн",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Офлайн status notification"
+        "title": "Вы оффлайн",
+        "message": "Некоторые функции могут быть недоступны до восстановления подключения.",
+        "accessibilityLabel": "Уведомление о статусе оффлайн"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays или limited functionality.",
-        "accessibilityLabel": "Низкий network quality notification"
+        "title": "Сеть нестабильна",
+        "message": "Вы можете столкнуться с задержками или ограниченной функциональностью.",
+        "accessibilityLabel": "Уведомление о низком качестве сети"
       },
       "online": {
-        "title": "Назад Онлайн",
-        "message": "Connection restored.",
-        "accessibilityLabel": "Онлайн status notification"
+        "title": "Вернуться в онлайн",
+        "message": "Соединение восстановлено.",
+        "accessibilityLabel": "Уведомление о статусе онлайн"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "Плановое обслуживание",
+        "message": "Некоторые услуги могут быть временно недоступны.",
+        "accessibilityLabel": "Уведомление о техническом обслуживании"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "Работаю…",
+      "message": "Пожалуйста, подождите, пока мы завершим запрос."
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "Глобальные уведомления"
     }
   },
   "settings": {
     "title": "Настройки",
     "screen": {
-      "label": "Настройки screen"
+      "label": "Экран настроек"
     },
     "status": {
-      "loading": "Загрузка Настройки...",
-      "saved": "Настройки saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Не удалось сохранить your profile. Проверьте подключение и повторите попытку",
-      "facilitySaved": "Активное учреждение updated successfully.",
-      "facilitySaveError": "Не удалось сохранить active Учреждение. Проверьте подключение и повторите попытку",
-      "roleSaved": "Active Роль updated successfully.",
-      "themeSaved": "Тема updated successfully.",
-      "themeLocalSaved": "Тема updated on this device.",
-      "themeSaveError": "Не удалось сохранить your Тема preference. Проверьте подключение и повторите попытку",
-      "saveError": "Не удалось сохранить Настройки. Проверьте подключение и повторите попытку",
-      "loadError": "Не удалось загрузить Настройки. Проверьте подключение и повторите попытку",
-      "localOnly": "Server Настройки are unavailable ({{code}}). Local display controls remain available."
+      "loading": "Загрузка настроек...",
+      "saving": "?????????? ????????...",
+      "saved": "Настройки сохранены.",
+      "profileSaved": "Профиль успешно обновлен.",
+      "profileSaveError": "Не удалось сохранить профиль. Пожалуйста, проверьте подключение и повторите попытку.",
+      "facilitySaved": "Активный объект успешно обновлен.",
+      "facilitySaveError": "Не удалось сохранить активный объект. Пожалуйста, проверьте подключение и повторите попытку.",
+      "roleSaved": "Активная роль успешно обновлена.",
+      "themeSaved": "Тема успешно обновлена.",
+      "themeLocalSaved": "Тема обновлена на этом устройстве.",
+      "themeSaveError": "Не удалось сохранить настройки темы. Пожалуйста, проверьте подключение и повторите попытку.",
+      "saveError": "Невозможно сохранить настройки. Пожалуйста, проверьте подключение и повторите попытку.",
+      "loadError": "Не удалось загрузить настройки. Пожалуйста, проверьте подключение и повторите попытку.",
+      "localOnly": "Настройки сервера недоступны ({{code}}). Элементы управления локальным дисплеем остаются доступными."
     },
     "account": {
-      "title": "Учетная запись и Учреждение",
+      "title": "Счет и объект",
       "name": "Имя",
       "phone": "Телефон",
-      "saveProfile": "Сохранить profile",
-      "activeFacility": "Активное учреждение",
-      "activeRole": "Active Роль",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "Нет active Учреждение",
-      "activeFacilityHelper": "Выберите Учреждение context для clinical work.",
-      "noAssignedFacility": "Нет Учреждение has been assigned к your Учетная запись yet",
-      "activeRoleHelper": "Роль для selected active Учреждение.",
-      "noActiveRole": "Нет Роль is available для selected Учреждение",
-      "none": "Нетne",
+      "saveProfile": "Сохранить профиль",
+      "activeFacility": "Активный объект",
+      "activeRole": "Активная роль",
+      "approvedRoles": "Утвержденные роли",
+      "noActiveFacility": "Нет действующего объекта",
+      "activeFacilityHelper": "Выберите контекст учреждения для клинической работы.",
+      "noAssignedFacility": "Вашему аккаунту еще не присвоено ни одного объекта.",
+      "activeRoleHelper": "Роль для выбранного активного объекта.",
+      "noActiveRole": "Для выбранного объекта роль недоступна.",
+      "none": "Нет",
       "validation": {
-        "nameRequired": "Введите your full Имя.",
-        "nameTooLong": "Имя must be 160 characters или fewer.",
-        "phoneTooLong": "Телефон number must be 40 characters или fewer.",
-        "profileInvalid": "Проверка highlighted profile fields before saving."
+        "nameRequired": "Введите свое полное имя.",
+        "nameTooLong": "Имя должно содержать не более 160 символов.",
+        "phoneTooLong": "Номер телефона должен содержать не более 40 символов.",
+        "profileInvalid": "Перед сохранением просмотрите выделенные поля профиля."
       }
     },
     "accessibility": {
-      "title": "Appearance и accessibility"
+      "title": "Внешний вид и доступность"
     },
     "theme": {
       "label": "Тема",
-      "accessibilityLabel": "Тема selector",
-      "hint": "Изменить application Тема",
+      "accessibilityLabel": "Выбор темы",
+      "hint": "Изменить тему приложения",
       "options": {
         "system": "Система",
-        "light": "Светлая",
-        "dark": "Темная",
-        "highContrast": "Высокий контраст"
+        "light": "Свет",
+        "dark": "Темный",
+        "highContrast": "Высокая контрастность"
       }
     },
     "language": {
       "label": "Язык",
-      "accessibilityLabel": "Язык selector",
-      "hint": "Изменить application Язык",
+      "accessibilityLabel": "Выбор языка",
+      "hint": "Изменить язык приложения",
       "options": {
-        "en": "Английский",
-        "ar": "Арабский",
-        "de": "Немецкий",
-        "es": "Испанский",
-        "fa": "Персидский",
-        "fr": "Французский",
+        "en": "английский",
+        "ar": "арабский",
+        "de": "немецкий",
+        "es": "испанский",
+        "fa": "персидский",
+        "fr": "французский",
         "hi": "Хинди",
-        "id": "Индонезийский",
-        "it": "Итальянский",
-        "ja": "Японский",
+        "id": "индонезийский",
+        "it": "итальянский",
+        "ja": "японский",
         "ko": "Корейский",
-        "ms": "Малайский",
-        "nl": "Нидерландский",
+        "ms": "малайский",
+        "nl": "голландский",
         "pl": "Польский",
-        "pt": "Португальский",
-        "ru": "Русский",
+        "pt": "португальский",
+        "ru": "русский",
         "sw": "Суахили",
-        "ta": "Тамильский",
-        "th": "Тайский",
-        "tr": "Турецкий",
+        "ta": "тамильский",
+        "th": "тайский",
+        "tr": "турецкий",
         "uk": "Украинский",
-        "vi": "Вьетнамский",
-        "zh": "Китайский"
+        "vi": "вьетнамский",
+        "zh": "китайский"
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "Изменить spacing и layout density",
+      "label": "Плотность",
+      "accessibilityLabel": "Переключатель режима плотности",
+      "hint": "Изменение интервала и плотности макета",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "Компактный",
+        "comfortable": "Удобный"
       }
     },
     "footerVisible": {
-      "label": "Показать footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Показать или Скрыть footer at bottom of layout (desktop only)"
+      "label": "Показать нижний колонтитул",
+      "accessibilityLabel": "Переключить видимость нижнего колонтитула",
+      "hint": "Показать или скрыть нижний колонтитул внизу макета (только для настольных компьютеров)"
     },
     "sync": {
-      "title": "Офлайн и sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
+      "title": "Оффлайн и синхронизация",
+      "network": "Сеть",
+      "status": "Статус синхронизации",
+      "quality": "Качество сети",
+      "idle": "Простой",
       "unknownQuality": "Неизвестно",
-      "offlineModeEnabled": "Allow Офлайн mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Повторить failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge Синхронизировано drafts after",
-      "conflictResolutionMode": "Конфликт resolution",
-      "manualReview": "Manual Проверка",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "offlineModeEnabled": "Разрешить автономный режим",
+      "syncOnWifiOnly": "Синхронизировать только на Wi-Fi",
+      "autoSyncEnabled": "Автосинхронизация",
+      "backgroundSyncEnabled": "Фоновая синхронизация",
+      "retryFailedSyncAutomatically": "Автоматически повторить неудачную синхронизацию",
+      "syncIntervalMinutes": "Интервал синхронизации",
+      "purgeSyncedDraftsAfterDays": "Удалить синхронизированные черновики после",
+      "conflictResolutionMode": "Разрешение конфликтов",
+      "manualReview": "Ручная проверка",
+      "intervalOption": "{{value}} минут",
+      "purgeOption": "{{value}} дней"
     },
     "privacyControls": {
-      "title": "Конфиденциальность и logging",
-      "hidePatientIdentifiersInLists": "Скрыть Пациент identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock для identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "Конфиденциальность и регистрация",
+      "hidePatientIdentifiersInLists": "Скрыть идентификаторы пациентов в списках",
+      "requireUnlockForIdentifiers": "Требовать разблокировку для идентификаторов",
+      "shareUsageDiagnostics": "Диагностика использования общего доступа",
+      "allowDeidentifiedAnalytics": "Разрешить обезличенную аналитику",
+      "allowDeidentifiedTrainingDatasetContribution": "Разрешить использование обезличенного набора обучающих данных"
     },
     "governance": {
-      "title": "Governance и clinical workflow",
-      "activeFacility": "Активное учреждение",
-      "manageAccess": "Can manage Учреждение Настройки",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "title": "Управление и клинический рабочий процесс",
+      "activeFacility": "Активный объект",
+      "manageAccess": "Может управлять настройками объекта",
+      "visibility": "Видимость управления",
+      "defaultReferenceRuleScope": "Область ссылки по умолчанию",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "Учреждение verified rules"
+        "global": "Глобальные проверенные правила",
+        "facility": "Правила, проверенные объектом"
       },
-      "showReferenceVersionToClinicians": "Показать reference version к clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require Причина для clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer для Критично flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit Причина",
-      "exportPatientIdentifiers": "Export Пациент identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require Проверка",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Показать shadow model outputs к clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden из Норма clinical workflows."
+      "showReferenceVersionToClinicians": "Показать справочную версию врачам",
+      "requireVerifiedReferenceRules": "Требовать проверенных ссылочных правил",
+      "activeReferenceRules": "Активные ссылочные правила",
+      "requireReasonForClinicalOverride": "Требовать причину клинического отклонения",
+      "requireSecondReviewerForCriticalFlags": "Требовать второго рецензента для критических флагов",
+      "lockReviewedClinicalRecords": "Лок просмотрел клинические записи",
+      "allowDeidentifiedExports": "Разрешить обезличенный экспорт",
+      "requireExportAuditReason": "Требовать причину экспортного аудита",
+      "exportPatientIdentifiers": "Экспорт идентификаторов пациентов",
+      "allowRawNotesInExports": "Разрешить необработанные заметки при экспорте",
+      "datasetExportsRequireEthicsApproval": "Для экспорта набора данных требуется одобрение этики.",
+      "datasetExportsRequireReview": "Экспорт набора данных требует проверки.",
+      "allowUnreviewedDatasetExports": "Разрешить непроверенный экспорт набора данных",
+      "modelVisibility": "Видимость модели",
+      "liveClinicalPredictionEnabled": "Включено клиническое прогнозирование в режиме реального времени",
+      "clinicianVisibleModelVersionIds": "Версии моделей, доступные для просмотра врачом",
+      "showShadowModelOutputsToClinicians": "Покажите результаты теневой модели врачам",
+      "modelVisibilityLocked": "Результаты прогнозной модели в реальном времени остаются скрытыми от обычных клинических рабочих процессов."
     },
     "sidebar": {
-      "resize": "Resize Настройки sidebar",
-      "menu": "Настройки menu",
-      "menuOpen": "Открыть Настройки menu",
-      "menuClose": "Закрыть Настройки menu",
+      "resize": "Изменение размера боковой панели настроек",
+      "menu": "Меню настроек",
+      "menuOpen": "Открыть меню настроек",
+      "menuClose": "Закрыть меню настроек",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "Общий",
+        "organization": "Организация",
+        "usersAndAccess": "Пользователи и доступ",
+        "security": "Безопасность"
       }
     },
     "disclaimer": {
       "title": "Отказ от ответственности",
       "screen": {
-        "label": "Отказ от ответственности screen"
+        "label": "Экран отказа от ответственности"
       },
-      "prototypeFraming": "This app is a prototype для reference и training. It is not intended для direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read и understood Отказ от ответственности",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "Это приложение представляет собой прототип для справки и обучения. Он не предназначен для прямого клинического использования.",
+      "datasetNotice": "Уведомление о наборе данных",
+      "acknowledge": "Я признаю",
+      "acknowledgeHint": "Подтвердите, что вы прочитали и поняли заявление об отказе от ответственности",
+      "decline": "Я не согласен",
+      "declineHint": "Выйдите из приложения без подтверждения",
       "states": {
         "loading": "Загрузка…",
-        "error": "Не удалось загрузить Отказ от ответственности"
+        "error": "Не удалось загрузить заявление об отказе от ответственности"
       }
     },
     "dataSources": {
       "title": "Источники данных",
       "screen": {
-        "label": "Источники данных screen"
+        "label": "Экран источников данных"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "Версия набора данных",
+      "schemaVersion": "Версия схемы",
+      "lastUpdated": "Последнее обновление",
+      "totalCases": "Всего случаев",
+      "citations": "Цитаты",
       "doi": "DOI",
       "states": {
         "loading": "Загрузка…",
-        "error": "Не удалось загрузить data sources",
-        "empty": "Нет sources available"
+        "error": "Невозможно загрузить источники данных",
+        "empty": "Нет доступных источников"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted для reviewer approval only. Raw pasted notes are not stored in approved datasets или sent к external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write Роль.",
-        "offlineNotice": "Офлайн submissions are В очереди с structured fields only и sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then Проверка structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "Учреждение scope ready",
-        "facilityMissing": "Выберите или sign in к one active Учреждение before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured Проверка payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "Нетne",
-        "submitForReview": "Отправить на проверку",
-        "trainingApprovalAvailable": "Training approval controls remain in governed Проверка workflows.",
+        "title": "Сбор набора данных",
+        "governanceNotice": "Отобранные кандидаты передаются только на утверждение рецензента. Необработанные вставленные заметки не сохраняются в утвержденных наборах данных и не отправляются во внешние службы моделей.",
+        "roleBlocked": "Для сбора кандидатов в наборы данных требуется утвержденная роль клинической записи.",
+        "offlineNotice": "Офлайн-отправки ставятся в очередь только со структурированными полями и синхронизируются при восстановлении подключения.",
+        "noteLabel": "Вставить заметку об отделении интенсивной терапии",
+        "notePlaceholder": "Вставьте обезличенную прикроватную заметку, а затем просмотрите структурированные поля перед отправкой.",
+        "parse": "Предварительный анализ",
+        "facilityReady": "Объем объекта готов",
+        "facilityMissing": "Перед отправкой выберите или войдите в один активный объект.",
+        "noteRequired": "Вставьте заметку перед созданием предварительного просмотра.",
+        "identifierWarning": "Обнаружен текст, похожий на идентификатор. Он не включен в полезную нагрузку структурированного обзора.",
+        "previewTitle": "Структурированный предварительный просмотр кандидатов",
+        "missingFields": "Отсутствующие значения",
+        "uncertainFields": "Основные моменты неопределенности",
+        "none": "Нет",
+        "submitForReview": "Отправить на рассмотрение",
+        "trainingApprovalAvailable": "Элементы управления утверждением обучения остаются в рабочих процессах управляемой проверки.",
         "status": {
-          "ready": "Ready для Проверка submission",
-          "submitted": "Submitted для reviewer approval",
-          "queued": "В очереди для sync",
-          "error": "Submission failed"
+          "ready": "Готов к отправке на рассмотрение",
+          "submitted": "Отправлено на утверждение рецензента",
+          "queued": "В очереди на синхронизацию",
+          "error": "Отправка не удалась"
         }
       }
     },
     "privacy": {
       "title": "Конфиденциальность",
       "screen": {
-        "label": "Конфиденциальность screen"
+        "label": "Экран конфиденциальности"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences и session data are stored only on this device. Нетthing is sent к external servers.",
-      "optionalAI": "If Онлайн AI features are enabled, those requests may be sent к configured services."
+      "localStorage": "Данные хранятся локально",
+      "localStorageDescription": "Настройки и данные сеанса хранятся только на этом устройстве. На внешние серверы ничего не отправляется.",
+      "optionalAI": "Если онлайн-функции AI включены, эти запросы могут быть отправлены в настроенные службы."
     },
     "about": {
-      "title": "О программе",
+      "title": "О",
       "screen": {
-        "label": "О программе screen"
+        "label": "Об экране"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype для reference и training. Нетt для clinical use."
+      "version": "Версия",
+      "prototypeScope": "Это прототип для справки и обучения. Не для клинического использования."
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "Начало работы",
+      "accessibilityLabel": "Экран адаптации",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support и advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, или determine Аппарат ИВЛ Настройки.",
-        "secondary": "Confirm all decisions against Пациент, your Учреждение workflow, и local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Обязательно before continuing к clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device и will be Синхронизировано when backend authentication is available."
+        "title": "Клиническая безопасность",
+        "body": "AI Vent предоставляет только поддержку документации и рекомендации по безопасности. Оно не заменяет клиническое заключение, не выдает назначения на лечение и не определяет настройки аппарата искусственной вентиляции легких.",
+        "secondary": "Подтвердите все решения в отношении пациента, рабочего процесса вашего учреждения и местного клинического протокола.",
+        "accessibilityLabel": "Уведомление о клинической безопасности",
+        "acknowledgeLabel": "Я понимаю, что это только консультативная поддержка при принятии решений.",
+        "acknowledgeHint": "Требуется перед продолжением клинических рабочих процессов.",
+        "syncDeferred": "Подтверждение безопасности сохраняется на этом устройстве и будет синхронизировано, когда будет доступна серверная аутентификация."
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "Проверка safety note before using AI Vent. app can highlight missing data и uncertainty, but a qualified clinician remains responsible для Пациент care decisions."
+          "title": "Использовать в качестве консультативной поддержки",
+          "body": "Перед использованием AI Vent прочтите примечания по безопасности. Приложение может выявить недостающие данные и неопределенность, но квалифицированный врач остается ответственным за решения по уходу за пациентом."
         },
         "facilityWorkflow": {
-          "title": "Stay in Учреждение context",
-          "body": "Use active Учреждение и Роль shown by your session. Keep records within correct Учреждение workflow и follow local escalation, Проверка, и approval procedures."
+          "title": "Оставайтесь в контексте объекта",
+          "body": "Используйте активные возможности и роль, показанные вашим сеансом. Ведите записи в рамках правильного рабочего процесса предприятия и следуйте местным процедурам эскалации, проверки и утверждения."
         },
         "inputs": {
-          "title": "Введитеing inputs",
-          "body": "Use Принять к Введите available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Необязательно ABG values improve confidence when available, but missing Необязательно data should be reviewed as uncertainty rather than treated as a Сохранить blocker."
+          "title": "Ввод входных данных",
+          "body": "Используйте «Допуск», чтобы ввести доступные клинические параметры (SpO2, PaO2, PaCO2, pH, частоту дыхания и т. д.). Дополнительные значения ABG повышают достоверность, если они доступны, но отсутствие дополнительных данных следует рассматривать как неопределенность, а не рассматривать как блокировку сохранения."
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations Показать advisory Аппарат ИВЛ setting references с a confidence tier. Match quality reflects how well dataset cases align с your inputs. Use matched cases as reference only и verify against clinical judgment."
+          "title": "Интерпретация рекомендаций",
+          "body": "В рекомендациях показаны рекомендации по настройке вентилятора с уровнем достоверности. Качество соответствия отражает, насколько хорошо случаи набора данных соответствуют вашим входным данным. Используйте совпадающие случаи только как справочные и сверяйте их с клиническими оценками."
         },
         "monitoring": {
-          "title": "Мониторинг и alerts",
-          "body": "After reviewing a Рекомендация, use Мониторинг к log vitals и labs over time. Alerts highlight values outside set thresholds и should be assessed according к local protocol."
+          "title": "Мониторинг и оповещения",
+          "body": "Изучив рекомендацию, используйте мониторинг для регистрации жизненно важных показателей и лабораторных показателей с течением времени. В оповещениях указываются значения, выходящие за установленные пороговые значения, и их следует оценивать в соответствии с местным протоколом."
         },
         "offline": {
-          "title": "Офлайн behavior",
-          "body": "Core workflow (Принять, advisory summaries, Мониторинг) works Офлайн. Data is saved locally. Необязательно AI features require connectivity. When Назад Онлайн, Продолжить as Норма."
+          "title": "Офлайн-поведение",
+          "body": "Основной рабочий процесс (признак, консультативные сводки, мониторинг) работает в автономном режиме. Данные сохраняются локально. Дополнительные функции AI требуют подключения. Вернувшись в Интернет, продолжайте как обычно."
         }
       },
       "actions": {
-        "done": "Done",
+        "done": "Готово",
         "next": "Далее",
         "back": "Назад"
       },
@@ -660,123 +661,123 @@
       }
     },
     "help": {
-      "title": "Помощь & reference",
-      "accessibilityLabel": "Помощь screen",
-      "searchPlaceholder": "Поиск: glossary или guides…",
+      "title": "Помощь и ссылки",
+      "accessibilityLabel": "Экран справки",
+      "searchPlaceholder": "Поиск в глоссарии или руководствах…",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What к do Далее"
+        "glossary": "Глоссарий",
+        "troubleshooting": "Устранение неполадок",
+        "guides": "Что делать дальше"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume и oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory к expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Дыхательный объем (mL). Volume delivered per breath.",
-        "respiratoryRate": "Частота дыхания (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, и pH, tied к a sample time.",
-        "referenceStatus": "Governance и verification state для a reference range. Only active approved или verified ranges are eligible для active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need Проверка before dataset или training use.",
-        "reviewQueue": "A work queue для Проверка decisions, corrections, exclusions, и audit reasons.",
-        "syncState": "Current Офлайн, Онлайн, или syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden из Норма clinical workflows."
+        "PEEP": "Положительное давление в конце выдоха (смH₂O). Поддерживает объем легких и оксигенацию.",
+        "FiO2": "Доля вдыхаемого кислорода (0–1). Процент кислорода во вдыхаемом газе.",
+        "IERatio": "I:E соотношение. Соотношение времени вдоха и выдоха (например, 1:2).",
+        "tidalVolume": "Дыхательный объем (мл). Объем, доставляемый за один вдох.",
+        "respiratoryRate": "Частота дыхания (вдох/мин).",
+        "SpO2": "Сатурация кислорода по данным пульсоксиметрии (%).",
+        "PaO2": "Парциальное давление артериального кислорода (mmHg).",
+        "PaCO2": "Парциальное давление артериального углекислого газа (mmHg).",
+        "pH": "Артериальная pH (безразмерная).",
+        "ABG": "Значения газов артериальной крови, такие как PaO2, PaCO2 и pH, привязанные к времени выборки.",
+        "referenceStatus": "Состояние управления и проверки для эталонного диапазона. Только активные утвержденные или проверенные диапазоны могут отображаться для активной поддержки принятия решений.",
+        "datasetCapture": "Обезличенные записи кандидатов, которые необходимо просмотреть перед использованием набора данных или обучения.",
+        "reviewQueue": "Рабочая очередь для принятия решений по проверке, исправлений, исключений и причин аудита.",
+        "syncState": "Текущее состояние оффлайн, онлайн или синхронизации. Клинические записи могут потребовать более поздней синхронизации.",
+        "shadowMode": "Режим управляемой модели оценки, при котором результаты остаются скрытыми от обычных клинических рабочих процессов."
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; Введите SpO₂ и Другое vitals when available. для better matching, Добавить PaO₂, PaCO₂, и pH when you have them."
+          "title": "Отсутствуют значения ABG.",
+          "body": "Рекомендации работают без ABG; введите SpO₂ и другие жизненно важные показатели, если они доступны. Для лучшего соответствия добавьте PaO₂, PaCO₂ и pH, если они у вас есть."
         },
         "offline": {
-          "title": "Using app Офлайн",
-          "body": "Принять, advisory summaries, и Мониторинг work Офлайн. Data is stored locally. Необязательно AI suggestions require internet. Sync is not обязательно для core workflow."
+          "title": "Использование приложения в автономном режиме",
+          "body": "Прием, консультативные сводки и мониторинг работают в автономном режиме. Данные хранятся локально. Дополнительные предложения AI требуют подключения к Интернету. Синхронизация не требуется для основного рабочего процесса."
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, Ожидание, retired, rejected, и unverified ranges are not eligible для active decision-support display. Проверка source, version, scope, и verification status."
+          "title": "Контрольный диапазон не активен",
+          "body": "Диапазоны черновиков, ожидающих рассмотрения, устаревших, отклоненных и непроверенных не подлежат активному отображению для поддержки принятия решений. Просмотрите источник, версию, область действия и статус проверки."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness Помощь is restricted",
-          "body": "Predictive model readiness и shadow-mode details are visible only к approved governance roles. Нетrmal clinical workflows do not expose model internals."
+          "title": "Помощь по готовности модели ограничена",
+          "body": "Готовность прогнозируемой модели и сведения о теневом режиме видны только утвержденным ролям управления. Обычные клинические рабочие процессы не раскрывают внутренние компоненты модели."
         },
         "needsReview": {
-          "title": "Record needs Проверка",
-          "body": "Use Проверка queue к check submitted data, request correction, Одобрить eligible records, или Исключить records с an audit Причина."
+          "title": "Запись требует проверки",
+          "body": "Используйте очередь проверки, чтобы проверить отправленные данные, запросить исправление, утвердить соответствующие записи или исключить записи по причине аудита."
         }
       },
       "guides": {
-        "home": "Проверка Учреждение context, sync state, active admissions, red flags, и records needing Проверка before opening a Пациент workflow.",
-        "admit": "Capture Пациент pathway и available clinical values. Mark unavailable data clearly и Проверка backend-confirmed calculations after Сохранить.",
-        "tracking": "Use Отслеживание к scan recent ventilation status и Проверка needs. Read trend flags с source data и local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture для de-identified candidate records. Human Проверка is обязательно before approved training-data use.",
-        "reviewQueue": "Use Проверка queue к Одобрить, request correction, или Исключить records while preserving audit trail.",
-        "dashboard": "Use dashboards для aggregate quality, Проверка, reference, и governance status. Avoid Пациент identifiers in governance summaries.",
-        "settings": "Use Настройки для Учетная запись, Учреждение, accessibility, Конфиденциальность, sync, и reference visibility preferences where authorized.",
-        "hypoxemia": "Проверка FiO₂ и PEEP; consider recruitment; check для shunt или V/Q mismatch.",
-        "hypercapnia": "Проверка minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation и perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols и clinical judgment."
+        "home": "Прежде чем открывать рабочий процесс пациента, просмотрите контекст учреждения, состояние синхронизации, активные поступления, красные флажки и записи, требующие проверки.",
+        "admit": "Зафиксируйте путь пациента и доступные клинические значения. Четко отмечайте недоступные данные и просматривайте расчеты, подтвержденные серверной частью, после сохранения.",
+        "tracking": "Используйте отслеживание для сканирования последнего состояния вентиляции и анализа потребностей. Считайте флаги трендов с исходными данными и контекстом локального протокола.",
+        "abgVentUpdate": "Добавляйте новые результаты ABG и настройки вентилятора в виде записей с отметкой времени, чтобы более ранние значения оставались доступными для просмотра.",
+        "datasetCapture": "Используйте сбор набора данных для обезличенных записей кандидатов. Перед одобрением использования данных обучения требуется проверка человеком.",
+        "reviewQueue": "Используйте очередь проверки, чтобы утверждать, запрашивать исправления или исключать записи, сохраняя при этом контрольный журнал.",
+        "dashboard": "Используйте информационные панели для совокупного качества, проверки, справки и статуса управления. Избегайте использования идентификаторов пациентов в сводках управления.",
+        "settings": "Используйте настройки учетной записи, объекта, доступности, конфиденциальности, синхронизации и видимости ссылки, если это разрешено.",
+        "hypoxemia": "Просмотрите FiO₂ и PEEP; рассмотреть вопрос о наборе персонала; проверьте шунт или несоответствие V/Q.",
+        "hypercapnia": "Проверьте минутную вентиляцию (частота × дыхательный объем); рассмотрите допустимую гиперкапнию в соответствии с протоколом.",
+        "acidosis": "Адресная вентиляция и перфузия; устраните основную причину согласно протоколу.",
+        "general": "Используйте рекомендации только в качестве поддержки принятия решений. Проверьте соответствие местным протоколам и клиническим заключениям."
       },
       "states": {
         "loading": "Загрузка…",
         "empty": "Нет результатов",
-        "error": "Не удалось загрузить Помощь"
+        "error": "Не удалось загрузить справку"
       }
     },
     "ai": {
-      "label": "Поддержка решений ИИ",
-      "sectionLabel": "Необязательно AI Рекомендация (Онлайн)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use Онлайн AI для complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": "AI поддержка принятия решений",
+      "sectionLabel": "Дополнительная рекомендация AI (онлайн)",
+      "enableLabel": "Включить рекомендации AI",
+      "enableHint": "Используйте онлайн-код AI только в сложных случаях; местные рекомендации всегда доступны",
+      "providerLabel": "Поставщик",
+      "providerHint": "поставщик AI (например, OpenAI); Ключ API предназначен для каждого провайдера",
       "providers": {
-        "openai": "OpenAI",
-        "anthropic": "Anthropic",
-        "google": "Google (Gemini)",
-        "groq": "Groq",
-        "mistral": "Mistral AI",
-        "deepseek": "DeepSeek",
-        "cohere": "Cohere",
-        "xai": "xAI (Grok)"
+        "openai": "ОпенАИ",
+        "anthropic": "антропный",
+        "google": "Гугл (Близнецы)",
+        "groq": "Грок",
+        "mistral": "Мистраль AI",
+        "deepseek": "ДипСик",
+        "cohere": "Согласовать",
+        "xai": "xAI (Грок)"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Введите key (stored securely)",
-      "apiKeySave": "Сохранить key",
-      "apiKeyClear": "Очистить key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "Нетt set",
-      "modelLabel": "Model",
-      "modelHint": "Model used для AI suggestions",
+      "apiKeyLabel": "Ключ API",
+      "apiKeyPlaceholder": "Введите ключ (безопасно хранится)",
+      "apiKeySave": "Сохранить ключ",
+      "apiKeyClear": "Очистить ключ",
+      "keyConfigured": "Установить",
+      "keyNotConfigured": "Не установлено",
+      "modelLabel": "Модель",
+      "modelHint": "Модель, используемая для предложений AI",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
         "gpt-4-turbo": "GPT-4 Turbo",
-        "gpt-4": "GPT-4",
-        "gpt-3.5-turbo": "GPT-3.5 Turbo",
-        "claude-sonnet-4": "Claude Sonnet 4",
-        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
-        "claude-3-5-haiku": "Claude 3.5 Haiku",
-        "claude-3-opus": "Claude 3 Opus",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
-        "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
-        "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
-        "grok-3": "Grok 3",
-        "grok-3-mini": "Grok 3 Mini"
+        "gpt-4": "ГПТ-4",
+        "gpt-3.5-turbo": "ГПТ-3.5 Турбо",
+        "claude-sonnet-4": "Клод Сонет 4",
+        "claude-3-5-sonnet": "Клод 3.5 Сонет",
+        "claude-3-5-haiku": "Клод 3.5 Хайку",
+        "claude-3-opus": "Клод 3 Опус",
+        "gemini-1.5-pro": "Близнецы 1.5 Про",
+        "gemini-1.5-flash": "Близнецы 1.5 Флэш",
+        "gemini-1.0-pro": "Близнецы 1.0 Про",
+        "llama-3.3-70b": "Лама 3.3 70Б",
+        "llama-3.1-8b": "Лама 3.1 8Б",
+        "mixtral-8x7b": "Микстрал 8х7Б",
+        "mistral-large": "Мистраль Большой",
+        "mistral-medium": "Мистраль Медиум",
+        "mistral-small": "Мистраль Малый",
+        "deepseek-chat": "DeepSeek Чат",
+        "deepseek-reasoner": "DeepSeek Ризонер",
+        "command-r-plus": "Команда Р+",
+        "command-r": "Команда Р",
+        "grok-3": "Грок 3",
+        "grok-3-mini": "Грок 3 Мини"
       }
     }
   },
@@ -784,80 +785,80 @@
     "loading": "Загрузка",
     "offline": "Офлайн",
     "error": "Ошибка",
-    "empty": "Пусто",
+    "empty": "Пустой",
     "list": "Список",
     "emptyState": {
-      "title": "Нет items",
-      "message": "There are Нет items к display"
+      "title": "Нет товаров",
+      "message": "Нет элементов для отображения"
     },
     "errorState": {
       "title": "Ошибка",
-      "message": "An Ошибка occurred"
+      "message": "Произошла ошибка"
     }
   },
   "home": {
     "title": "Главная",
     "welcome": {
-      "title": "Клинический процесс",
-      "message": "Активное учреждение, sync status, drafts, и Проверка work are shown here.",
-      "logoLabel": "App logo"
+      "title": "Клинический рабочий процесс",
+      "message": "Здесь показаны активный объект, статус синхронизации, черновики и работа по проверке.",
+      "logoLabel": "Логотип приложения"
     },
     "notices": {
-      "title": "Главная notices"
+      "title": "Домашние уведомления"
     },
     "facilities": {
-      "title": "Выберите Учреждение",
-      "select": "Выберите {{name}}"
+      "title": "Выберите объект",
+      "select": "Выберите {{name}}."
     },
     "status": {
-      "title": "Operational status",
+      "title": "Рабочий статус",
       "facility": {
-        "label": "Учреждение",
-        "empty": "Нетt selected"
+        "label": "Объект",
+        "empty": "Не выбрано"
       },
       "network": {
-        "label": "Network",
+        "label": "Сеть",
         "values": {
           "online": "Онлайн",
           "offline": "Офлайн",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "syncing": "Синхронизация",
+          "unstable": "Нестабильный"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "Активный прием",
+        "detail": "{{count}} активные пациенты"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting к sync"
+        "label": "Черновики",
+        "detail": "{{count}} ожидает синхронизации"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "Синхронизировать внимание",
+        "detail": "{{count}} конфликты"
       },
       "reviewNeeds": {
-        "label": "Проверка queue",
-        "detail": "{{count}} corrections requested"
+        "label": "Очередь проверки",
+        "detail": "{{count}} запрошены исправления"
       }
     },
     "actions": {
-      "title": "Workflow actions",
+      "title": "Действия рабочего процесса",
       "accessibilityLabel": "Открыть {{name}}",
       "admit": {
-        "title": "Принять"
+        "title": "Признаться"
       },
       "tracking": {
         "title": "Отслеживание"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Аппарат ИВЛ Настройки"
+        "title": "Обновите ABG и настройки аппарата искусственной вентиляции легких."
       },
       "datasetCapture": {
-        "title": "Сбор набора данных"
+        "title": "Захват набора данных"
       },
       "reviewQueue": {
-        "title": "Очередь проверки"
+        "title": "Обзор очереди"
       },
       "dashboard": {
         "title": "Панель управления"
@@ -869,194 +870,194 @@
         "open": "Открыть"
       },
       "disabled": {
-        "facilityRequired": "Выберите Учреждение",
-        "roleRestricted": "Роль restricted",
-        "workflowPending": "Route Ожидание"
+        "facilityRequired": "Выберите объект",
+        "roleRestricted": "Роль ограничена",
+        "workflowPending": "Маршрут в ожидании"
       }
     }
   },
   "reviewQueue": {
-    "title": "Очередь проверки",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, и sync conflicts.",
-    "accessibilityLabel": "Проверка Проверка queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion Причина, или override Причина",
+    "title": "Обзор очереди",
+    "subtitle": "Проверка отправленных записей, исправлений, исключений, контрольных диапазонов, готовности набора данных и конфликтов синхронизации.",
+    "accessibilityLabel": "Очередь проверки на проверку",
+    "commentPlaceholder": "Примечание рецензента, запрос на исправление, причина исключения или причина переопределения",
     "forbidden": {
-      "title": "Проверка access обязательно",
-      "message": "An approved reviewer или governance Роль is обязательно для this queue."
+      "title": "Требуется доступ для просмотра",
+      "message": "Для этой очереди требуется утвержденный рецензент или роль управления."
     },
     "filters": {
-      "all": "All"
+      "all": "Все"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "Вход",
       "abg-test": "ABG",
-      "ventilator-setting": "Аппарат ИВЛ",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync Конфликт"
+      "ventilator-setting": "Вентилятор",
+      "dataset-case": "Набор данных",
+      "reference-rule": "Референтный диапазон",
+      "sync-conflict": "Конфликт синхронизации"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "Сводка очереди",
+      "total": "Итого",
+      "urgent": "Срочно",
+      "corrections": "Исправления",
+      "conflicts": "Конфликты",
+      "datasetReady": "Набор данных готов"
     },
     "fields": {
-      "type": "Type",
-      "status": "Status",
-      "priority": "Priority",
-      "validation": "Проверка",
+      "type": "Тип",
+      "status": "Статус",
+      "priority": "Приоритет",
+      "validation": "Валидация",
       "missingData": "Отсутствующие данные",
-      "uncertainty": "Uncertainty",
+      "uncertainty": "Неопределенность",
       "conflict": "Конфликт",
-      "datasetReadiness": "Dataset readiness"
+      "datasetReadiness": "Готовность набора данных"
     },
     "dataset": {
-      "datasetApproved": "Approved для dataset Проверка boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Нетt approved для dataset use."
+      "datasetApproved": "Утверждено только для границ проверки набора данных; Экспорт обучения по-прежнему требует одобрения руководства.",
+      "notDatasetApproved": "Не одобрено для использования набора данных."
     },
     "actions": {
       "refresh": "Обновить",
-      "approve": "Одобрить",
+      "approve": "Утвердить",
       "requestCorrection": "Запросить исправление",
       "exclude": "Исключить",
       "defer": "Отложить"
     },
     "states": {
-      "loading": "Загрузка Проверка queue...",
-      "error": "Не удалось загрузить или Сохранить Проверка queue",
-      "empty": "Нет records need Проверка"
+      "loading": "Загрузка очереди проверки...",
+      "error": "Невозможно загрузить или сохранить очередь проверки.",
+      "empty": "Никакие записи не требуют проверки."
     }
   },
   "ventilation": {
     "datasetCapture": {
       "title": "Сбор клинических данных",
-      "subtitle": "Введите de-identified clinical, ABG, Аппарат ИВЛ, target-range, treatment, и outcome data для reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "subtitle": "Введите обезличенные клинические данные, ABG, данные о вентиляторе, целевом диапазоне, лечении и результатах для одобренных рецензентом наборов модельных данных.",
+      "accessibilityLabel": "Экран сбора клинических данных",
       "notices": {
-        "roleBlocked": "This Учетная запись does not have permission к Отправить clinical dataset candidates.",
-        "offline": "Офлайн mode is active. Structured captures will queue locally и sync when connectivity returns."
+        "roleBlocked": "У этого аккаунта нет разрешения на отправку кандидатов в наборы клинических данных.",
+        "offline": "Автономный режим активен. Структурированные захваты будут помещаться в очередь локально и синхронизироваться, когда соединение восстановится."
       },
       "summary": {
-        "facility": "Учреждение",
-        "facilityReady": "Учреждение scope ready",
-        "facilityMissing": "Выберите an active Учреждение before submitting.",
-        "required": "Обязательно fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Введитеed fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "Онлайн submission",
-        "offline": "В очереди Офлайн"
+        "facility": "Объект",
+        "facilityReady": "Объем объекта готов",
+        "facilityMissing": "Перед отправкой выберите активный объект.",
+        "required": "Обязательные поля",
+        "requiredProgress": "{{complete}}/{{total}} завершено",
+        "entered": "Введенные поля",
+        "enteredProgress": "{{entered}}/{{total}} введено",
+        "sync": "Синхронизировать",
+        "online": "Онлайн-подача",
+        "offline": "В очереди офлайн"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "Этапы сбора набора данных",
+        "stepCounter": "Шаг {{current}} из {{total}}",
+        "stepLabel": "Шаг {{step}}"
       },
       "fields": {
-        "required": "Обязательно для Проверка submission",
+        "required": "Требуется для отправки отзыва",
         "optional": "Необязательно"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All обязательно fields are complete."
+        "title": "Готовность подачи",
+        "none": "Все обязательные поля заполнены."
       },
       "actions": {
-        "submit": "Отправить на проверку",
+        "submit": "Отправить на рассмотрение",
         "next": "Далее",
-        "previous": "Previous",
-        "reset": "Очистить form"
+        "previous": "Предыдущий",
+        "reset": "Очистить форму"
       },
       "status": {
-        "loadingDraft": "Загрузка saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "Не удалось сохранить local draft. Please keep this screen Открыть и try again",
-        "needsInput": "Complete обязательно fields и Учреждение scope before submitting.",
-        "ready": "Ready к Отправить для reviewer approval.",
-        "stepInvalid": "Please Проверка highlighted values before continuing.",
-        "reviewInvalid": "Please Проверка highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted для reviewer approval.",
-        "queued": "Submission is В очереди. Your draft is still saved locally until backend Сохранить succeeds.",
-        "error": "Не удалось сохранить dataset. Your draft is still saved locally. Проверьте подключение и повторите попытку"
+        "loadingDraft": "Загрузка сохраненного черновика набора данных...",
+        "savingDraft": "Сохранение черновика набора данных...",
+        "draftSaved": "Черновик набора данных сохранен локально.",
+        "draftError": "Не удалось сохранить локальный черновик. Пожалуйста, оставьте этот экран открытым и повторите попытку.",
+        "needsInput": "Перед отправкой заполните обязательные поля и укажите объем объекта.",
+        "ready": "Готов отправить на одобрение рецензента.",
+        "stepInvalid": "Прежде чем продолжить, просмотрите выделенные значения.",
+        "reviewInvalid": "Перед сохранением просмотрите выделенные значения.",
+        "submitting": "Отправка набора данных...",
+        "submitted": "Отправлено на утверждение рецензента.",
+        "queued": "Отправка поставлена в очередь. Ваш черновик по-прежнему сохраняется локально до тех пор, пока серверная часть не сохранит его.",
+        "error": "Не удалось сохранить набор данных. Ваш черновик по-прежнему сохраняется локально. Пожалуйста, проверьте подключение и повторите попытку."
       }
     },
     "assessment": {
-      "title": "Принять Пациент",
-      "accessibilityLabel": "Принять Пациент wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "Прием пациента",
+      "accessibilityLabel": "Экран мастера приема пациентов",
+      "stepIndicator": "Шаг {{current}} из {{total}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact Принять summary",
+        "title": "Итоги сессии",
+        "accessibilityLabel": "Компактное резюме приема",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Учреждение",
-        "pathway": "Pathway",
+        "facility": "Объект",
+        "pathway": "Путь",
         "reason": "Причина",
         "condition": "Состояние",
         "spo2": "SpO₂",
-        "fio2": "FiO2",
+        "fio2": "ФиО2",
         "respiratoryRate": "Частота дыхания",
         "heartRate": "Частота сердечных сокращений",
-        "pao2": "PaO₂",
-        "paco2": "PaCO₂",
+        "pao2": "ПаО₂",
+        "paco2": "ПаСО₂",
         "ph": "pH",
         "age": "Возраст",
         "weight": "Вес",
-        "height": "Рост",
+        "height": "Высота",
         "gender": "Пол",
-        "comorbidities": "Comorbidities",
+        "comorbidities": "Сопутствующие заболевания",
         "bloodPressure": "Артериальное давление",
         "ventilatorMode": "Режим ИВЛ",
         "peep": "PEEP",
         "tidalVolume": "Дыхательный объем",
-        "syncStatus": "Sync",
-        "empty": "Нет data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "syncStatus": "Синхронизировать",
+        "empty": "Данных пока нет",
+        "expand": "Развернуть сводку",
+        "collapse": "Свернуть сводку"
       },
       "steps": {
         "patientProfile": "Профиль пациента",
-        "clinicalParams": "Clinical parameters",
-        "observations": "Необязательно observations",
-        "timeSeries": "Необязательно time series",
-        "review": "Проверка",
-        "patientReason": "Пациент & Причина",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Сохранить & Проверка"
+        "clinicalParams": "Клинические параметры",
+        "observations": "Дополнительные наблюдения",
+        "timeSeries": "Необязательный временной ряд",
+        "review": "Обзор",
+        "patientReason": "Пациент и причина",
+        "oxygenAbgVentilator": "Кислород и ABG",
+        "saveReview": "Сохранить и просмотреть"
       },
       "patientReason": {
-        "description": "Capture Пациент pathway, Возраст, body metrics, и Причина для support.",
-        "facilityId": "Учреждение ID",
-        "facilityIdPlaceholder": "Введите Учреждение ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed или ward location",
-        "pathway": "Пациент pathway",
-        "pathwayPlaceholder": "Выберите pathway",
-        "sexForSize": "Sex для size calculations",
-        "ageYears": "Возраст (years)",
+        "description": "Зафиксируйте путь пациента, возраст, показатели тела и причину поддержки.",
+        "facilityId": "Объект ID",
+        "facilityIdPlaceholder": "Введите объект ID",
+        "bedNumber": "Кровать",
+        "bedNumberPlaceholder": "Расположение койки или палаты интенсивной терапии",
+        "pathway": "Путь пациента",
+        "pathwayPlaceholder": "Выберите путь",
+        "sexForSize": "Пол для расчета размеров",
+        "ageYears": "Возраст (лет)",
         "weightKg": "Вес (kg)",
-        "heightCm": "Рост (cm)",
-        "bmi": "BMI",
-        "reasonForSupport": "Причина для support",
-        "reasonForSupportPlaceholder": "Brief admission Причина",
-        "reasonForSupportSearchPlaceholder": "Поиск: или type Причина",
-        "permittedMissing": "Permitted missing values",
+        "heightCm": "Высота (cm)",
+        "bmi": "ИМТ",
+        "reasonForSupport": "Причина поддержки",
+        "reasonForSupportPlaceholder": "Краткая причина поступления",
+        "reasonForSupportSearchPlaceholder": "Найдите или введите причину",
+        "permittedMissing": "Разрешенные пропущенные значения",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
-          "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
+          "neonate": "Новорожденный",
+          "infant": "Младенец",
+          "child": "Ребенок",
+          "adolescent": "Подросток",
+          "adult": "Взрослый",
+          "obstetric": "Акушерский/послеродовой",
+          "burns": "Бернс",
+          "trauma": "Травма",
+          "periOperative": "Периоперационный",
+          "medical": "Медицинский",
+          "surgical": "Хирургический",
           "unknown": "Неизвестно",
           "other": "Другое"
         },
@@ -1066,589 +1067,589 @@
           "unknown": "Неизвестно"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS или severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis с respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD или asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn или inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "Острая гипоксическая дыхательная недостаточность",
+          "acuteHypercapnicRespiratoryFailure": "Острая гиперкапническая дыхательная недостаточность",
+          "ardsOrSeverePneumonia": "ARDS или тяжелая пневмония",
+          "sepsisWithRespiratoryFailure": "Сепсис с дыхательной недостаточностью",
+          "postOperativeVentilatorySupport": "Послеоперационная респираторная поддержка",
+          "traumaRelatedRespiratoryFailure": "Дыхательная недостаточность, связанная с травмой",
+          "airwayProtection": "Защита дыхательных путей",
+          "neuromuscularWeakness": "Нервно-мышечная слабость",
+          "copdOrAsthmaExacerbation": "COPD или обострение астмы",
+          "neonatalRespiratoryDistress": "Неонатальный респираторный дистресс",
+          "burnOrInhalationInjury": "Ожог или ингаляционная травма"
         },
         "permittedMissingFields": {
-          "weight": "Вес или reference Вес unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "Дыхательный объем unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "Вес или эталонный вес недоступен.",
+          "spo2": "SpO2 недоступен",
+          "fio2": "FiO2 недоступен",
+          "pao2": "PaO2 недоступен",
+          "tidalVolume": "Дыхательный объем недоступен.",
+          "peep": "PEEP недоступен"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, и uncertain values. Аппарат ИВЛ Настройки are suggested on Далее step из dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Выберите oxygen support",
-        "oxygenSupportHint": "Choose support Пациент is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Выберите date и time",
-        "timeHint": "Use local date и time для observation.",
+        "description": "Запишите текущую кислородную поддержку, время наблюдения, оксигенацию, показатели жизнедеятельности, доступные значения ABG и неопределенные значения. Настройки вентилятора предлагаются на следующем этапе набора данных.",
+        "oxygenSupportType": "Тип поддержки кислорода",
+        "oxygenSupportPlaceholder": "Выберите кислородную поддержку",
+        "oxygenSupportHint": "Выберите поддержку, которую получает пациент при измерении этих значений.",
+        "measuredAt": "Кислород измерен при",
+        "timePlaceholder": "Выберите дату и время",
+        "timeHint": "Используйте местную дату и время для наблюдения.",
         "spo2": "SpO2 (%)",
-        "fio2": "FiO2 (0-1)",
+        "fio2": "ФиО2 (0-1)",
         "respiratoryRate": "Частота дыхания",
         "heartRate": "Частота сердечных сокращений",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
-        "paco2": "PaCO2 (mmHg)",
-        "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "Аппарат ИВЛ type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields с commas.",
-        "uncertaintyReason": "Uncertainty Причина",
+        "paco2": "ПаСО2 (mmHg)",
+        "hco3": "HCO3 (ммоль/л)",
+        "baseExcess": "Базовое превышение",
+        "lactate": "Лактат (ммоль/л)",
+        "fio2AtSample": "FiO2 в образце ABG",
+        "spo2AtSample": "SpO2 в образце ABG",
+        "deviceId": "Устройство ID",
+        "ventilatorType": "Тип вентилятора",
+        "uncertaintyFields": "Неопределенные поля",
+        "uncertaintyFieldsPlaceholder": "например ФиО2, ПаО2",
+        "uncertaintyHint": "Разделяйте несколько полей запятыми.",
+        "uncertaintyReason": "Причина неопределенности",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "Нетn-rebreather mask",
-          "highFlowNasalCannula": "Высокий-flow nasal cannula",
-          "cpap": "CPAP",
-          "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "roomAir": "Комнатный воздух",
+          "nasalCannula": "Носовая канюля",
+          "faceMask": "Маска для лица",
+          "nonRebreatherMask": "Маска без ребризера",
+          "highFlowNasalCannula": "Назальная канюля с высоким потоком",
+          "cpap": "СИПАП",
+          "nivBipap": "НИВ/БиПАП",
+          "invasiveVentilation": "Инвазивная вентиляция",
           "other": "Другое"
         }
       },
       "saveReview": {
-        "description": "Проверка и Изменить dataset-suggested Аппарат ИВЛ Настройки, backend readiness, clinician confirmation, override Причина when needed, Проверка status, и sync state.",
-        "readiness": "Сохранить readiness",
-        "recommendationTitle": "Dataset Рекомендация",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested Аппарат ИВЛ Настройки",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Выберите mode",
+        "description": "Просмотрите и отредактируйте предложенные набором данных настройки вентилятора, готовность серверной части, подтверждение врача, при необходимости переопределите причину, просмотрите статус и состояние синхронизации.",
+        "readiness": "Сохранить готовность",
+        "recommendationTitle": "Рекомендация по набору данных",
+        "recommendationConfidence": "Уверенность: {{confidence}}",
+        "suggestedSettingsTitle": "Рекомендуемые настройки вентилятора",
+        "suggestedSettingsHint": "Предварительно заполняется из набора данных с использованием биоданных пациента и текущих значений кислорода и ABG. Редактируйте только в том случае, если решение врача отличается.",
+        "modePlaceholder": "Выберите режим",
         "ventilatorMode": "Режим ИВЛ",
-        "tidalVolumeMl": "Дыхательный объем (mL)",
-        "ventilatorFio2": "Аппарат ИВЛ FiO2 (0-1)",
-        "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "tidalVolumeMl": "Дыхательный объем (мл)",
+        "ventilatorFio2": "Вентилятор FiO2 (0-1)",
+        "peep": "PEEP (смH2O)",
+        "respiratoryRateSet": "Установить частоту дыхания",
+        "ieRatio": "I:E соотношение",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
-          "cpap": "CPAP",
-          "bipap": "BiPAP",
+          "acv": "Вспомогательная вентиляция (ACV)",
+          "simv": "Синхронизированная перемежающаяся принудительная вентиляция (SIMV)",
+          "psv": "Вентиляция с поддержкой давлением (PSV)",
+          "cpap": "СИПАП",
+          "bipap": "БиПАП",
           "other": "Другое"
         },
-        "recommendationEmpty": "Введите clinical values и tap Далее к generate a dataset Рекомендация.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable к generate clinical recommendations right now. You can still Проверка и Сохранить admission.",
-        "recommendationNeedsClinicalInputs": "Рекомендация needs clinical Причина, SpO2, respiratory rate, и heart rate.",
-        "ready": "Ready к Сохранить",
-        "needsCorrection": "Correction или override обязательно",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready для Сохранить Проверка.",
-        "overrideReason": "Override Причина",
-        "reviewNote": "Проверка note"
+        "recommendationEmpty": "Введите клинические значения и нажмите «Далее», чтобы сгенерировать рекомендации по набору данных.",
+        "recommendationGenerating": "Составление клинических рекомендаций...",
+        "recommendationError": "Сейчас невозможно дать клинические рекомендации. Вы все равно можете просмотреть и сохранить прием.",
+        "recommendationNeedsClinicalInputs": "Для рекомендации необходимо клиническое обоснование, SpO2, частота дыхания и пульса.",
+        "ready": "Готов сохранить",
+        "needsCorrection": "Требуется исправление или переопределение",
+        "syncStatus": "Статус синхронизации: {{status}}",
+        "clinicianConfirmed": "Врач подтверждает, что запись о госпитализации готова к сохранению.",
+        "overrideReason": "Причина переопределения",
+        "reviewNote": "Обзор примечания"
       },
       "validation": {
-        "title": "Проверка these fields"
+        "title": "Просмотрите эти поля"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "Астма",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
-        "sepsis": "Sepsis",
-        "trauma": "Trauma",
+        "heartFailure": "Сердечная недостаточность",
+        "pneumonia": "Пневмония",
+        "sepsis": "Сепсис",
+        "trauma": "Травма",
         "other": "Другое"
       },
       "patientProfile": {
         "condition": "Состояние",
-        "conditionPlaceholder": "Выберите Состояние",
-        "conditionHint": "Primary respiratory Состояние (обязательно)",
-        "age": "Возраст (years)",
-        "agePlaceholder": "Введите Возраст",
-        "ageHint": "Пациент Возраст in years",
+        "conditionPlaceholder": "Выберите условие",
+        "conditionHint": "Первичное респираторное заболевание (обязательно)",
+        "age": "Возраст (лет)",
+        "agePlaceholder": "Введите возраст",
+        "ageHint": "Возраст пациента в годах",
         "weight": "Вес (kg)",
-        "weightPlaceholder": "Введите Вес",
-        "weightHint": "Patient weight in kg",
-        "height": "Рост (cm)",
-        "heightPlaceholder": "Введите Рост",
-        "heightHint": "Patient height in cm",
+        "weightPlaceholder": "Введите вес",
+        "weightHint": "Вес пациента в kg",
+        "height": "Высота (cm)",
+        "heightPlaceholder": "Введите высоту",
+        "heightHint": "Рост пациента в cm",
         "gender": "Пол",
-        "genderPlaceholder": "Выберите Пол",
-        "genderHint": "Пациент Пол",
+        "genderPlaceholder": "Выберите пол",
+        "genderHint": "Пол пациента",
         "genderMale": "Мужской",
         "genderFemale": "Женский",
         "genderOther": "Другое",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated Список"
+        "comorbidities": "Сопутствующие заболевания",
+        "comorbiditiesPlaceholder": "например гипертония, диабет",
+        "comorbiditiesHint": "Список, разделенный запятыми"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Нетrmal range: 95–100%",
-        "pao2": "PaO₂ (Необязательно)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Нетrmal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (Необязательно)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Нетrmal range: 35–45 mmHg",
-        "ph": "pH (Необязательно)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "Нетrmal range: 7.35–7.45",
+        "spo2Placeholder": "Введите SpO₂",
+        "spo2Hint": "Насыщение кислородом (%)",
+        "spo2NormalRange": "Нормальный диапазон: 95–100 %",
+        "pao2": "PaO₂ (опционально)",
+        "pao2Placeholder": "Введите PaO₂",
+        "pao2Hint": "Артериальный кислород (mmHg)",
+        "pao2NormalRange": "Нормальный диапазон: 80–100 mmHg",
+        "paco2": "PaCO₂ (опционально)",
+        "paco2Placeholder": "Введите PaCO₂",
+        "paco2Hint": "Артериальный CO₂ (mmHg)",
+        "paco2NormalRange": "Нормальный диапазон: 35–45 mmHg",
+        "ph": "pH (необязательно)",
+        "phPlaceholder": "Введите pH",
+        "phHint": "Артериальная pH",
+        "phNormalRange": "Нормальный диапазон: 7,35–7,45.",
         "respiratoryRate": "Частота дыхания",
         "respiratoryRatePlaceholder": "Введите RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Нетrmal range: 12–20 breaths/min",
+        "respiratoryRateHint": "Дыханий в минуту",
+        "respiratoryRateNormalRange": "Нормальный диапазон: 12–20 вдохов/мин.",
         "heartRate": "Частота сердечных сокращений",
         "heartRatePlaceholder": "Введите HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Нетrmal range: 60–100 bpm",
-        "bloodPressure": "Артериальное давление (Необязательно)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Нетrmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Нетrmal range: {{range}}"
+        "heartRateHint": "Ударов в минуту",
+        "heartRateNormalRange": "Нормальный диапазон: 60–100 bpm",
+        "bloodPressure": "Артериальное давление (необязательно)",
+        "bloodPressurePlaceholder": "например 120/80",
+        "bloodPressureHint": "Систолическое/диастолическое mmHg",
+        "bloodPressureNormalRange": "Нормальный диапазон: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Нормальный диапазон: {{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single Имя–value pair. Необязательно; you can skip this step.",
-        "add": "Добавить observation",
+        "title": "Дополнительные наблюдения",
+        "description": "Запишите любые дополнительные клинические данные, не упомянутые выше (например, результаты лабораторных исследований, визуализации, принимаемые лекарства, оценки сопутствующих заболеваний). Каждое наблюдение представляет собой одну пару имя-значение. Необязательный; вы можете пропустить этот шаг.",
+        "add": "Добавить наблюдение",
         "name": "Имя",
-        "value": "Value",
-        "unit": "Unit",
+        "value": "Значение",
+        "unit": "Единица",
         "optional": "Необязательно"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs или Другое metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used для trend analysis и Мониторинг after you start session. Необязательно; you can Добавить points later on Мониторинг screen.",
-        "add": "Добавить time series point",
+        "title": "Временной ряд (жизненно важные признаки с течением времени)",
+        "description": "Отслеживайте показатели жизнедеятельности или другие показатели в различные моменты времени (например, SpO₂, RR, HR в 0 часов, 1 час, 2 часа). Используется для анализа тенденций и мониторинга после начала сеанса. Необязательный; вы можете добавить точки позже на экране мониторинга.",
+        "add": "Добавить точку временного ряда",
         "name": "Имя",
-        "value": "Value",
+        "value": "Значение",
         "optional": "Необязательно"
       },
       "recommendationSource": {
-        "label": "Рекомендация source",
-        "local": "Local",
-        "localDescription": "Built-in rules. Офлайн, Нет API key.",
+        "label": "Источник рекомендаций",
+        "local": "Местный",
+        "localDescription": "Встроенные правила. Не в сети, нет ключа API.",
         "onlineAi": "Онлайн AI",
-        "onlineAiDescription": "Internet обязательно; uses built-in when unavailable.",
-        "modelLabel": "Model",
-        "modelHint": "Выберите AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "onlineAiDescription": "Требуется Интернет; использует встроенный, когда он недоступен.",
+        "modelLabel": "Модель",
+        "modelHint": "Выберите модель AI (используется по умолчанию, если не установлено)",
+        "providerLabel": "Поставщик",
+        "gpt4oMini": "GPT-4o mini (по умолчанию)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons для Рекомендация",
-        "hints": "AI hints"
+        "title": "AI причины рекомендации",
+        "hints": "AI подсказки"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "Предложены дополнительные тесты",
+        "abgPanel": "Панель ABG повысит доверие",
+        "abgHint": "Рассмотрите возможность заказа газа артериальной крови, если таковой имеется."
       },
       "actions": {
         "back": "Назад",
         "next": "Далее",
-        "generate": "Generate Рекомендация",
-        "generateHint": "Create Рекомендация из current inputs",
-        "saveAdmission": "Сохранить admission"
+        "generate": "Создать рекомендацию",
+        "generateHint": "Создать рекомендацию на основе текущих данных",
+        "saveAdmission": "Сохранить вход"
       },
       "states": {
-        "loading": "Загрузка Принять form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "Не удалось загрузить admission form. Проверьте подключение и повторите попытку",
-        "retryLoad": "Повторите попытку",
-        "offline": "Принять works Офлайн",
-        "empty": "Введите Пациент data к begin"
+        "loading": "Загрузка формы допуска...",
+        "errorTitle": "Форма приема недоступна",
+        "error": "Не удалось загрузить форму приема. Пожалуйста, проверьте подключение и повторите попытку.",
+        "retryLoad": "Попробуйте еще раз",
+        "offline": "Признать работает офлайн",
+        "empty": "Введите данные пациента, чтобы начать"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Аппарат ИВЛ Настройки",
-      "subtitle": "Выберите an active admission, Введите latest ABG result и/или Аппарат ИВЛ Настройки, then Сохранить them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Офлайн mode: this update will stay В очереди until connectivity returns.",
+      "title": "Обновите ABG и настройки аппарата искусственной вентиляции легких.",
+      "subtitle": "Выберите активную госпитализацию, введите последний результат ABG и/или настройки вентилятора, затем сохраните их как новые записи с отметкой времени.",
+      "accessibilityLabel": "Обновите ABG и экран настроек аппарата ИВЛ.",
+      "offline": "Автономный режим: это обновление будет оставаться в очереди до тех пор, пока не восстановится соединение.",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New Аппарат ИВЛ Настройки",
+        "admission": "Активный вход",
+        "latest": "Последние значения",
+        "abg": "Новый результат ABG",
+        "ventilator": "Новые настройки аппарата ИВЛ",
         "missing": "Отсутствующие данные",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "advisory": "Консультативные проверки",
+        "history": "История"
       },
       "admission": {
-        "label": "Выберите active admission",
-        "empty": "Нет admitted patients are available для Отслеживание yet"
+        "label": "Выберите активный вход",
+        "empty": "Поступивших пациентов пока нет для отслеживания."
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest Аппарат ИВЛ"
+        "abg": "Последний ABG",
+        "ventilator": "Последний аппарат ИВЛ"
       },
       "ventilator": {
-        "modePlaceholder": "Выберите Аппарат ИВЛ mode",
-        "modeSearchPlaceholder": "Поиск: Аппарат ИВЛ modes"
+        "modePlaceholder": "Выбор режима ИВЛ",
+        "modeSearchPlaceholder": "Поиск режимов ИВЛ"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "ABG или истории ИВЛ пока нет.",
         "abg": "ABG",
-        "ventilator": "Аппарат ИВЛ",
-        "version": "Version {{version}} - {{dateTime}}"
+        "ventilator": "Вентилятор",
+        "version": "Версия {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "Последняя сохраненная запись: {{dateTime}}."
       },
       "actions": {
-        "save": "Сохранить new values",
-        "saving": "Validating & saving"
+        "save": "Сохранить новые значения",
+        "saving": "Проверка и сохранение"
       }
     },
     "recommendation": {
       "title": "Рекомендуемые настройки",
-      "accessibilityLabel": "Рекомендация screen",
+      "accessibilityLabel": "Экран рекомендаций",
       "responseSource": {
-        "title": "Response source",
+        "title": "Источник ответа",
         "online": "Онлайн",
         "offline": "Офлайн"
       },
       "sections": {
-        "settings": "Recommended Настройки",
-        "confidence": "Confidence & why",
-        "monitoring": "Мониторинг points",
-        "risks": "Risks и complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "Рекомендуемые настройки",
+        "confidence": "Уверенность и почему",
+        "monitoring": "Точки мониторинга",
+        "risks": "Риски и осложнения",
+        "matchedCases": "Совпадающие случаи",
+        "evidence": "Доказательства и происхождение",
+        "warning": "Уведомление о наборе данных",
+        "decisionSupport": "Проверки поддержки принятия решений"
       },
       "settings": {
-        "mode": "Mode",
+        "mode": "Режим",
         "tidalVolume": "Дыхательный объем",
         "respiratoryRate": "Частота дыхания",
-        "fio2": "FiO₂",
+        "fio2": "ФиО₂",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "I:E соотношение"
       },
       "confidence": {
         "high": "Высокий",
         "medium": "Средний",
         "low": "Низкий",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "missingInputs": "Отсутствующие данные, которые могли бы повысить уверенность"
       },
       "decisionSupport": {
-        "pending": "Ожидание",
-        "referenceWeight": "Reference Вес",
+        "pending": "Ожидается",
+        "referenceWeight": "Эталонный вес",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "Проверка status",
-        "syncStatus": "Sync status",
+        "pfRatio": "P/F соотношение",
+        "sfRatio": "S/F соотношение",
+        "drivingPressure": "Приводное давление",
+        "reviewStatus": "Статус проверки",
+        "syncStatus": "Статус синхронизации",
         "missingData": "Отсутствующие данные",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "Неподтвержденный предварительный просмотр",
+          "backend_verified": "Серверная часть проверена",
+          "missing_verified_records": "Отсутствуют проверенные записи",
+          "development_fallback_unconfirmed": "Резервный вариант разработки"
         },
         "review": {
-          "pending_clinician_review": "Ожидание clinician Проверка",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "Ожидается рассмотрение врачом",
+          "backend_confirmed": "Серверная часть подтверждена"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Ожидание backend confirmation",
+          "local_preview_pending_backend_confirmation": "Ожидается подтверждение серверной части",
           "synced": "Синхронизировано",
           "queued": "В очереди",
-          "duplicate": "Duplicate"
+          "duplicate": "Дублировать"
         }
       },
       "aiReasons": {
-        "title": "AI reasons для Рекомендация",
-        "hints": "AI hint codes"
+        "title": "AI причины рекомендации",
+        "hints": "AI коды подсказок"
       },
       "actions": {
-        "startMonitoring": "Start Мониторинг",
-        "startMonitoringHint": "Begin Отслеживание vital signs и time series",
-        "backToAssessment": "Назад к Принять",
-        "startNewAssessment": "Start new Принять",
-        "editAssessmentTitle": "Изменить Принять record",
-        "editAssessmentHint": "Открыть Принять form с current session data pre-filled",
-        "requestAiRecommendation": "Request AI Рекомендация",
-        "requestAiHint": "Get Необязательно AI hints для this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental и not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Онлайн AI wasn't used. This Рекомендация is из local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Удалить identifiers before export"
+        "startMonitoring": "Начать мониторинг",
+        "startMonitoringHint": "Начните отслеживать жизненно важные показатели и временные ряды",
+        "backToAssessment": "Вернуться к признанию",
+        "startNewAssessment": "Начать новое признание",
+        "editAssessmentTitle": "Редактировать запись допуска",
+        "editAssessmentHint": "Открыть форму допуска с предварительно заполненными данными текущего сеанса",
+        "requestAiRecommendation": "Запросить рекомендацию AI",
+        "requestAiHint": "Получите дополнительные подсказки AI для этого случая (требуется подключение)",
+        "connectivityRequired": "Требуется подключение к Интернету",
+        "supplementalDisclaimer": "Вывод AI является дополнительным и не подтвержден клинически.",
+        "aiUnavailableFallback": "AI недоступен — используйте местные рекомендации",
+        "fallbackMessage": "Онлайн AI не использовался. Эта рекомендация взята из местного набора данных.",
+        "exportSummary": "Сводка экспорта",
+        "exportSummaryHint": "Скачать резюме сеанса в виде текста",
+        "anonymizeBeforeExport": "Удалить идентификаторы перед экспортом"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local Рекомендация.",
-        "notComplex": "This case did not need Онлайн AI.",
-        "offline": "You are Офлайн.",
-        "noApiKey": "AI API key is not set.",
-        "error": "Онлайн AI failed. Using local dataset instead."
+        "userChoseLocal": "Вы выбрали местную рекомендацию.",
+        "notComplex": "В этом случае не требовался онлайн AI.",
+        "offline": "Вы не в сети.",
+        "noApiKey": "AI Ключ API не установлен.",
+        "error": "Ошибка подключения к сети AI. Вместо этого используйте локальный набор данных."
       },
-      "fallbackBanner": "AI could not be reached. Показатьing Рекомендация из local guide.",
+      "fallbackBanner": "AI не удалось связаться. Показываю рекомендации местного гида.",
       "states": {
-        "loading": "Загрузка Рекомендация…",
-        "error": "Не удалось загрузить Рекомендация",
-        "empty": "Нет Рекомендация available. Complete Принять first"
+        "loading": "Загрузка рекомендации…",
+        "error": "Не удалось загрузить рекомендацию.",
+        "empty": "Нет доступных рекомендаций. Завершите сначала признать."
       },
       "intendedUse": {
-        "warningLabel": "Нетt clinically validated",
-        "validationLabel": "Проверка requirement"
+        "warningLabel": "Не подтверждено клинически",
+        "validationLabel": "Требование валидации"
       },
       "provenance": {
-        "reviewStatus": "Evidence Проверка status",
-        "sourceUrl": "Открыть source",
+        "reviewStatus": "Статус рассмотрения доказательств",
+        "sourceUrl": "Открытый исходный код",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Ожидание clinician Проверка",
-        "validated": "Validated"
+        "unvalidated": "Непроверенный (прототип)",
+        "pendingClinicianValidation": "Ожидается одобрение врача",
+        "validated": "проверено"
       }
     },
     "monitoring": {
       "title": "Мониторинг",
-      "accessibilityLabel": "Мониторинг screen",
-      "decisionSupportOnly": "для decision support only. Нетt a substitute для clinical judgment.",
+      "accessibilityLabel": "Экран мониторинга",
+      "decisionSupportOnly": "Только для поддержки принятия решений. Не заменяет клиническую оценку.",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "Быстрый вход",
+        "trend": "Тренд",
+        "alerts": "Оповещения"
       },
       "quickEntry": {
-        "addPoint": "Добавить point",
-        "addPointHint": "Добавить vitals или labs data point",
-        "namePlaceholder": "Имя (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "Добавить точку",
+        "addPointHint": "Добавьте данные жизненно важных показателей или лабораторий",
+        "namePlaceholder": "Имя (например, SpO₂, RR)",
+        "valuePlaceholder": "Значение",
+        "unitPlaceholder": "Единица"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
+        "insufficientData": "Недостаточно данных",
+        "directionUp": "Тенденция вверх",
+        "directionDown": "Тенденция вниз",
+        "directionFlat": "Стабильный",
         "directionUnknown": "Неизвестно"
       },
       "alerts": {
-        "severityNormal": "Норма",
+        "severityNormal": "Нормальный",
         "severityWarning": "Предупреждение",
-        "severityCritical": "Критично",
+        "severityCritical": "Критический",
         "severityUnknown": "Неизвестно",
-        "why": "Why",
-        "whyCriticalLow": "Value below Критично Низкий threshold",
-        "whyWarningLow": "Value below Предупреждение Низкий threshold",
-        "whyCriticalHigh": "Value above Критично Высокий threshold",
-        "whyWarningHigh": "Value above Предупреждение Высокий threshold",
-        "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Продолжить Мониторинг",
-        "suggestedActionWarning": "Проверка и consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value и re-Введите if needed",
-        "empty": "Нет alerts"
+        "why": "Почему",
+        "whyCriticalLow": "Значение ниже критического нижнего порога",
+        "whyWarningLow": "Значение ниже нижнего порога предупреждения",
+        "whyCriticalHigh": "Значение выше критического верхнего порога",
+        "whyWarningHigh": "Значение выше верхнего порога предупреждения",
+        "suggestedAction": "Предлагаемое действие",
+        "suggestedActionNormal": "Продолжить мониторинг",
+        "suggestedActionWarning": "Рассмотреть и рассмотреть возможность вмешательства",
+        "suggestedActionCritical": "Адрес немедленно",
+        "suggestedActionUnknown": "Проверьте значение и введите повторно, если необходимо.",
+        "empty": "Нет оповещений"
       },
       "actions": {
-        "backToRecommendation": "Назад к Рекомендация"
+        "backToRecommendation": "Вернуться к рекомендации"
       },
       "states": {
         "loading": "Загрузка…",
-        "error": "Не удалось загрузить Мониторинг",
-        "empty": "Добавить vitals или labs points к see trends и alerts.",
-        "offline": "You are Офлайн. Data is saved locally."
+        "error": "Невозможно загрузить мониторинг.",
+        "empty": "Добавьте показатели жизненно важных показателей или лабораторных показателей, чтобы видеть тенденции и оповещения.",
+        "offline": "Вы не в сети. Данные сохраняются локально."
       }
     },
     "tracking": {
       "title": "Отслеживание",
-      "subtitle": "Active admitted patients и backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical Отслеживание screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "Нет admitted patients are available для Отслеживание yet",
-      "emptyHint": "Принять a Пациент first к begin Отслеживание.",
-      "admittedBanner": "Admission saved. This Пациент is admitted и available для Отслеживание.",
-      "localDraft": "Draft data exists on this device. Backend Проверка, sync, и Конфликт status appears after Сохранить или sync.",
+      "subtitle": "Активные госпитализированные пациенты и подтвержденный клинический статус.",
+      "accessibilityLabel": "Экран клинического отслеживания",
+      "activePatients": "{{count}} активные пациенты",
+      "empty": "Поступивших пациентов пока нет для отслеживания.",
+      "emptyHint": "Сначала госпитализируйте пациента, чтобы начать наблюдение.",
+      "admittedBanner": "Вход сохранен. Этот пациент госпитализирован и доступен для отслеживания.",
+      "localDraft": "На этом устройстве существуют черновики данных. Серверная проверка, синхронизация и статус конфликта отображаются после сохранения или синхронизации.",
       "search": {
-        "placeholder": "Поиск: by Пациент code, ID, Имя, или hospital number",
-        "accessibilityLabel": "Поиск: Отслеживание patients",
-        "empty": "Нет matching patients found",
-        "emptyHint": "Try a Пациент code, Пациент ID, Имя, hospital number, bed, или pathway."
+        "placeholder": "Поиск по коду пациента, ID, имени или номеру больницы.",
+        "accessibilityLabel": "Поиск пациентов для отслеживания",
+        "empty": "Подходящих пациентов не обнаружено.",
+        "emptyHint": "Попробуйте ввести код пациента, пациента ID, имя, номер больницы, койку или маршрут."
       },
       "activeFacility": {
-        "none": "Нет active Учреждение selected"
+        "none": "Активный объект не выбран"
       },
       "actions": {
         "refresh": "Обновить",
-        "refreshHint": "Reload active Отслеживание records",
-        "admitFirst": "Принять Пациент",
-        "viewDetails": "Details",
-        "viewDetailsHint": "Просмотр Отслеживание detail и timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Закрыть Отслеживание detail"
+        "refreshHint": "Перезагрузить активные записи отслеживания",
+        "admitFirst": "Прием пациента",
+        "viewDetails": "Подробности",
+        "viewDetailsHint": "Просмотр подробностей и графика отслеживания",
+        "updateValues": "Обновить значения",
+        "updateValuesHint": "Откройте ABG и форму обновления аппарата ИВЛ для этого пациента.",
+        "closeDetailsHint": "Закрыть детали отслеживания"
       },
       "patient": {
-        "unknown": "Пациент not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
-        "missingData": "Отсутствующие данные: {{fields}}"
+        "unknown": "Пациент не помечен",
+        "bed": "Кровать {{bed}}",
+        "bedMissing": "Кровать не записана",
+        "admitted": "Принято {{dateTime}}",
+        "missingData": "Отсутствуют данные: {{fields}}."
       },
       "detail": {
-        "title": "Отслеживание detail",
-        "noTimeline": "Нет timeline entries returned"
+        "title": "Детали отслеживания",
+        "noTimeline": "Записи временной шкалы не возвращены."
       },
       "states": {
-        "loading": "Загрузка patients для Отслеживание...",
-        "loadingDetail": "Загрузка Отслеживание detail...",
-        "error": "Не удалось загрузить patients для Отслеживание. Проверьте подключение и повторите попытку",
-        "detailError": "Не удалось загрузить Отслеживание details для this Пациент. Please try again"
+        "loading": "Загрузка пациентов для отслеживания...",
+        "loadingDetail": "Загрузка сведений об отслеживании...",
+        "error": "Невозможно загрузить пациентов для отслеживания. Пожалуйста, проверьте подключение и повторите попытку.",
+        "detailError": "Невозможно загрузить данные отслеживания для этого пациента. Пожалуйста, попробуйте еще раз."
       }
     },
     "history": {
       "title": "Отслеживание",
-      "accessibilityLabel": "Clinical Отслеживание screen",
-      "empty": "Нет active admitted patients для this Учреждение",
-      "corruptRecovery": "Session history was reset due к a storage issue. You can start new sessions.",
+      "accessibilityLabel": "Экран клинического отслеживания",
+      "empty": "В этом учреждении нет активных госпитализированных пациентов.",
+      "corruptRecovery": "История сеансов была сброшена из-за проблемы с хранилищем. Вы можете начать новые сеансы.",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "Продолжить this session",
-        "viewDetails": "Просмотр details",
-        "viewDetailsHint": "Просмотр session summary",
+        "resume": "Резюме",
+        "resumeHint": "Продолжить этот сеанс",
+        "viewDetails": "Посмотреть детали",
+        "viewDetailsHint": "Посмотреть сводку сеанса",
         "delete": "Удалить",
-        "deleteHint": "Удалить из history"
+        "deleteHint": "Удалить из истории"
       },
       "deleteConfirm": {
-        "title": "Удалить session?",
-        "message": "This session will be removed из history. This cannot be undone.",
+        "title": "Удалить сеанс?",
+        "message": "Этот сеанс будет удален из истории. Это невозможно отменить.",
         "confirm": "Удалить",
         "cancel": "Отмена"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Состояние: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "condition": "Условие: {{condition}}",
+        "tier": "Уровень: {{tier}}",
+        "summary": "Резюме"
       },
       "states": {
-        "loading": "Загрузка history…",
-        "error": "Не удалось загрузить session history"
+        "loading": "Загрузка истории…",
+        "error": "Невозможно загрузить историю сеансов"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
+      "title": "Подробности дела",
+      "accessibilityLabel": "Экран сведений о деле",
+      "summary": "Краткое описание дела",
       "patientProfile": "Профиль пациента",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Аппарат ИВЛ Настройки",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "Проверка status",
-      "intendedUseWarning": "This is a dataset case для reference only. Нетt для direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "Нет case selected",
+      "clinicalParameters": "Клинические параметры",
+      "ventilatorSettings": "Настройки вентилятора",
+      "outcomes": "Результаты",
+      "evidence": "Доказательства",
+      "reviewStatus": "Статус проверки",
+      "intendedUseWarning": "Это случай набора данных только для справки. Не для прямого клинического использования.",
+      "datasetCaseFraming": "Случай с набором данных (только для справки)",
+      "prototypeFraming": "Прототип — не подтвержден клинически",
+      "notFound": "Случай не найден в наборе данных.",
+      "missingCaseId": "Случай не выбран.",
       "states": {
-        "loading": "Загрузка case…"
+        "loading": "Загрузка чемодана…"
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Ожидание clinician Проверка",
-        "validated": "Validated"
+        "unvalidated": "Непроверенный (прототип)",
+        "pending_clinician_validation": "Ожидается одобрение врача",
+        "validated": "проверено"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, и reference.",
-      "accessibilityLabel": "Training Главная screen",
-      "searchPlaceholder": "Поиск: topics…",
-      "searchHint": "Поиск: training content",
-      "topicsSection": "Topics",
-      "searchResults": "Поиск: results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "Просмотр all topics",
-      "browseAllHint": "Просмотр all training topics",
-      "viewTopic": "Просмотр",
+      "title": "Обучение",
+      "subtitle": "Протоколы, контрольные списки и ссылки.",
+      "accessibilityLabel": "Главный экран тренировки",
+      "searchPlaceholder": "Поиск тем…",
+      "searchHint": "Поиск обучающего контента",
+      "topicsSection": "Темы",
+      "searchResults": "Результаты поиска",
+      "popularTopics": "Популярные темы",
+      "quickChecklists": "Быстрые контрольные списки",
+      "browseAll": "Посмотреть все темы",
+      "browseAllHint": "Посмотреть все темы обучения",
+      "viewTopic": "Посмотреть",
       "states": {
-        "loading": "Загрузка training…",
-        "error": "Не удалось загрузить training content",
-        "offline": "Content is available Офлайн",
-        "empty": "Нет training content available"
+        "loading": "Загрузка обучения…",
+        "error": "Невозможно загрузить обучающий контент",
+        "offline": "Контент доступен оффлайн",
+        "empty": "Нет доступных обучающих материалов"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic Список screen",
-      "searchPlaceholder": "Поиск: или filter…",
-      "searchHint": "Поиск: topics",
-      "empty": "Нет topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "Открыть topic",
+      "title": "Темы",
+      "accessibilityLabel": "Экран списка тем",
+      "searchPlaceholder": "Искать или фильтровать…",
+      "searchHint": "Поиск тем",
+      "empty": "Темы не найдены.",
+      "filterByType": "Фильтровать по типу",
+      "typeProtocol": "Протокол",
+      "typeChecklist": "Контрольный список",
+      "typeGlossary": "Глоссарий",
+      "typeFaq": "Часто задаваемые вопросы",
+      "openTopicHint": "Открыть тему",
       "states": {
-        "loading": "Загрузка topics…",
-        "error": "Не удалось загрузить topics",
-        "offline": "Content is available Офлайн"
+        "loading": "Загрузка тем…",
+        "error": "Не могу загрузить темы",
+        "offline": "Контент доступен оффлайн"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "Назад к topics",
-      "backToTopicsHint": "Return к topic Список",
+      "title": "Тема",
+      "accessibilityLabel": "Экран сведений о теме",
+      "section": "Раздел",
+      "expand": "Развернуть раздел",
+      "collapse": "Свернуть раздел",
+      "checklistItem": "Товар",
+      "notFound": "Тема не найдена.",
+      "backToTopics": "Вернуться к темам",
+      "backToTopicsHint": "Вернуться к списку тем",
       "states": {
-        "loading": "Загрузка topic…",
-        "error": "Не удалось загрузить topic"
+        "loading": "Загрузка темы…",
+        "error": "Невозможно загрузить тему"
       }
     }
   },
   "notFound": {
-    "title": "Page Нетt Found",
-    "message": "page you're looking для doesn't exist или has been moved.",
-    "back": "Go Назад",
-    "backHint": "Return к previous page",
-    "goHome": "Перейти к Главная",
-    "goHomeHint": "Navigate Назад к Главная page"
+    "title": "Страница не найдена",
+    "message": "Страница, которую вы ищете, не существует или была перемещена.",
+    "back": "Вернуться назад",
+    "backHint": "Вернуться на предыдущую страницу",
+    "goHome": "Перейти домой",
+    "goHomeHint": "Вернитесь на домашнюю страницу"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "Произошла непредвиденная ошибка. Please try again или return к Главная page.",
-    "retry": "Повторить",
-    "retryHint": "Try action again",
-    "goHome": "Перейти к Главная",
-    "goHomeHint": "Navigate Назад к Главная page"
+    "title": "Что-то пошло не так",
+    "message": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте еще раз или вернитесь на главную страницу.",
+    "retry": "Повторить попытку",
+    "retryHint": "Попробуйте выполнить действие еще раз",
+    "goHome": "Перейти домой",
+    "goHomeHint": "Вернитесь на домашнюю страницу"
   },
   "errorState": {
     "defaultTitle": "Что-то пошло не так"

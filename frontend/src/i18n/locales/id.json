@@ -1,49 +1,49 @@
 {
   "common": {
     "save": "Simpan",
-    "cancel": "Batal",
+    "cancel": "Batalkan",
     "delete": "Hapus",
-    "edit": "Edit",
+    "edit": "Sunting",
     "search": "Cari",
     "submit": "Kirim",
     "loading": "Memuat…",
     "retry": "Coba lagi",
     "back": "Kembali",
-    "next": "Berikutnya",
+    "next": "Selanjutnya",
     "continue": "Lanjutkan",
     "close": "Tutup",
-    "closeSidebarHint": "Closes sidebar menu",
+    "closeSidebarHint": "Menutup menu bilah sisi",
     "select": "Pilih",
     "selectPlaceholder": "Pilih…",
     "closeSelect": "Tutup pilih",
     "remove": "Hapus",
-    "goToHome": "Buka beranda",
-    "viewNotifications": "Lihat notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
+    "goToHome": "Pergi ke rumah",
+    "viewNotifications": "Lihat notifikasi",
+    "userMenu": "Menu pengguna",
+    "toggleMenu": "Alihkan menu",
     "searchPlaceholder": "Cari…",
     "noResults": "Tidak ada hasil",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Cari icon",
-    "clearSearch": "Bersihkan cari",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed ke load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
-    "requiredLabel": "wajib",
-    "clearAll": "Bersihkan all",
-    "filters": "Filters",
-    "clearAllFilters": "Bersihkan all filters",
-    "loadingPlaceholder": "Memuat placeholder",
+    "useCustomValue": "Gunakan \"{{value}}\"",
+    "searchIcon": "Ikon pencarian",
+    "clearSearch": "Hapus pencarian",
+    "on": "Aktif",
+    "off": "Mati",
+    "switch": "Beralih",
+    "imageLoadError": "Gagal memuat gambar",
+    "imageDefaultAlt": "Gambar",
+    "progress": "Kemajuan: {{value}}%",
+    "requiredLabel": "diperlukan",
+    "clearAll": "Hapus semuanya",
+    "filters": "Filter",
+    "clearAllFilters": "Hapus semua filter",
+    "loadingPlaceholder": "Memuat pengganti",
     "radio": "Radio",
-    "emptyState": "Kosong state",
+    "emptyState": "Keadaan kosong",
     "message": "Pesan",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "sliderValue": "Penggeser: {{value}}",
+    "dropdownMenu": "Menu tarik-turun",
+    "tooltip": "Keterangan alat",
+    "action": "Tindakan"
   },
   "greeting": {
     "hello": "Halo, {{name}}"
@@ -55,8 +55,8 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "Dukungan keputusan ventilasi",
+      "logoLabel": "logo AI Vent"
     },
     "logout": "Keluar",
     "password": "Kata sandi",
@@ -64,250 +64,250 @@
     "passwordShow": "Tampilkan kata sandi",
     "enterPassword": "Masukkan kata sandi",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "Lemah",
+      "fair": "Cukup",
+      "good": "Baik",
+      "strong": "Kuat",
+      "veryStrong": "Sangat kuat"
     },
     "login": {
       "title": "Masuk",
-      "accessibilityLabel": "Masuk screen",
-      "emailLabel": "Email",
+      "accessibilityLabel": "Layar masuk",
+      "emailLabel": "Surel",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Kata sandi",
       "passwordPlaceholder": "Masukkan kata sandi",
       "submit": "Masuk",
-      "submitting": "Signing in...",
-      "createPrompt": "Tidak ada akun yet?",
+      "submitting": "Masuk...",
+      "createPrompt": "Belum punya akun?",
       "createAccount": "Buat akun",
-      "createAccountHint": "Buka akun registration",
-      "errorTitle": "Sign-in issue"
+      "createAccountHint": "Buka pendaftaran akun",
+      "errorTitle": "Masalah masuk"
     },
     "register": {
       "title": "Buat akun",
-      "description": "Create an AI Vent akun ke request fasilitas access.",
-      "accessibilityLabel": "Buat akun screen",
+      "description": "Buat akun AI Vent untuk meminta akses fasilitas.",
+      "accessibilityLabel": "Layar buat akun",
       "nameLabel": "Nama lengkap",
-      "namePlaceholder": "Clinician nama",
-      "emailLabel": "Email",
+      "namePlaceholder": "Nama dokter",
+      "emailLabel": "Surel",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "Kata sandi",
-      "passwordPlaceholder": "Create kata sandi",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Fasilitas atau hospital (opsional)",
-      "facilitySearchPlaceholder": "Cari Uganda hospitals",
-      "facilitySearchHint": "Filters hospital daftar by nama, district, region, atau ownership",
+      "passwordPlaceholder": "Buat kata sandi",
+      "passwordHelper": "Gunakan minimal 8 karakter.",
+      "facilitySearchLabel": "Fasilitas atau rumah sakit (opsional)",
+      "facilitySearchPlaceholder": "Cari rumah sakit di Uganda",
+      "facilitySearchHint": "Menyaring daftar rumah sakit berdasarkan nama, distrik, wilayah, atau kepemilikan",
       "facilitySelectLabel": "Pilih fasilitas",
-      "facilitySelectPlaceholder": "Choose a matching fasilitas",
-      "facilitySelectHelper": "Leave blank if you are not attached ke a fasilitas.",
-      "facilitySelectHint": "Choose fasilitas ke request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested untuk tinjau.",
-      "facilityOptionalHelper": "Opsional. You can create an akun without selecting a fasilitas.",
-      "facilityNoResults": "Tidak ada matching fasilitas found. You can still create an akun without selecting one",
-      "facilityClear": "Bersihkan fasilitas",
+      "facilitySelectPlaceholder": "Pilih fasilitas yang cocok",
+      "facilitySelectHelper": "Biarkan kosong jika Anda tidak terikat pada suatu fasilitas.",
+      "facilitySelectHint": "Pilih fasilitas untuk meminta afiliasi dokter",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Keanggotaan diminta untuk ditinjau.",
+      "facilityOptionalHelper": "Opsional. Anda dapat membuat akun tanpa memilih fasilitas.",
+      "facilityNoResults": "Tidak ditemukan fasilitas yang cocok. Anda masih dapat membuat akun tanpa memilihnya.",
+      "facilityClear": "Fasilitas yang jelas",
       "submit": "Buat akun",
-      "submitting": "Creating akun...",
-      "signInPrompt": "Already have an akun?",
+      "submitting": "Membuat akun...",
+      "signInPrompt": "Sudah punya akun?",
       "signIn": "Masuk",
-      "signInHint": "Return ke sign in",
-      "errorTitle": "Akun creation issue"
+      "signInHint": "Kembali untuk masuk",
+      "errorTitle": "Masalah pembuatan akun"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "Coba lagi session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "Pemberitahuan sesi",
+      "retry": "Coba lagi sesi",
+      "checking": "Sesi pengecekan...",
+      "restoring": "Memeriksa apakah Anda sudah masuk."
     },
     "facility": {
-      "title": "Choose fasilitas",
-      "description": "Pilih fasilitas context untuk this session.",
-      "accessibilityLabel": "Fasilitas selection screen",
+      "title": "Pilih fasilitas",
+      "description": "Pilih konteks fasilitas untuk sesi ini.",
+      "accessibilityLabel": "Layar pemilihan fasilitas",
       "selectFacility": "Pilih {{name}}",
-      "empty": "Tidak ada approved facilities are available untuk this akun",
-      "errorTitle": "Fasilitas selection issue"
+      "empty": "Tidak ada fasilitas yang disetujui tersedia untuk akun ini.",
+      "errorTitle": "Masalah pemilihan fasilitas"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Terjadi kesalahan",
-      "message": "Terjadi kesalahan tak terduga",
+      "title": "Ada yang tidak beres",
+      "message": "Terjadi kesalahan yang tidak terduga",
       "retry": "Coba lagi",
       "retryHint": "Coba lagi"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Terjadi kesalahan. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect ke server. Please check your internet connection dan try again.",
-      "REQUEST_TIMEOUT": "server took too long ke respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection dan try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
-      "UNAUTHORIZED": "Autentikasi diperlukan",
+      "UNKNOWN_ERROR": "Ada yang tidak beres. Silakan coba lagi sebentar lagi.",
+      "NETWORK_ERROR": "Kami tidak dapat terhubung ke server. Silakan periksa koneksi internet Anda dan coba lagi.",
+      "REQUEST_TIMEOUT": "Server membutuhkan waktu terlalu lama untuk merespons. Silakan coba lagi.",
+      "BACKEND_HOST_UNREACHABLE": "Kami tidak dapat menjangkau server. Silakan periksa koneksi internet Anda dan coba lagi.",
+      "SECURE_CONNECTION_FAILED": "Koneksi aman gagal. Periksa sertifikat HTTPS backend.",
+      "UNAUTHORIZED": "Diperlukan otentikasi",
       "FORBIDDEN": "Akses ditolak",
-      "CONFLICT": "This update conflicts dengan newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields dan try again.",
-      "SERVER_ERROR": "Terjadi kesalahan while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect ke server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please segarkan dan try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return ke pelacakan dan try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not simpan your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment dan try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An kesalahan occurred while memuat this page",
-      "INVALID_CREDENTIALS": "Invalid email atau kata sandi. Please check your details dan try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please pilih a tenant.",
-      "ACCOUNT_INACTIVE": "Akun is not active",
-      "ACCOUNT_SUSPENDED": "Akun has been suspended",
-      "ACCOUNT_PENDING": "Akun is tertunda verification",
-      "PASSWORD_INCORRECT": "Current kata sandi is incorrect",
-      "TOKEN_INVALID": "Invalid atau expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid atau expired segarkan token",
-      "SESSION_EXPIRED": "Your session expired. Masuk again ke lanjutkan.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Akun is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid atau expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Beranda summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Tidak dapat memuat Beranda summary",
-      "ADMISSION_SAVE_FAILED": "Tidak dapat menyimpan admission record. Periksa koneksi Anda dan coba lagi",
-      "ADMISSION_VALIDATION_FAILED": "Some wajib admission details are missing. Please tinjau highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable ke generate clinical recommendations right now. You can still tinjau dan simpan admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Tidak dapat memuat admission form. Periksa koneksi Anda dan coba lagi",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Tidak dapat menyimpan local admission draft. Please try again"
+      "CONFLICT": "Pembaruan ini bertentangan dengan data klinis tersimpan yang lebih baru",
+      "VALIDATION_ERROR": "Silakan periksa bidang yang disorot dan coba lagi.",
+      "SERVER_ERROR": "Terjadi error saat memproses permintaan Anda. Silakan coba lagi sebentar lagi.",
+      "BACKEND_UNAVAILABLE": "Kami tidak dapat terhubung ke server saat ini. Silakan coba lagi sebentar lagi.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Titik akhir API backend tidak ditemukan. Domain dapat dijangkau, tetapi rute API tidak diterapkan.",
+      "RESOURCE_NOT_FOUND": "Catatan yang diminta tidak dapat ditemukan. Silakan segarkan dan coba lagi.",
+      "ADMISSION_NOT_FOUND": "Catatan penerimaan tidak dapat ditemukan. Silakan kembali ke pelacakan dan coba lagi.",
+      "BACKEND_METHOD_NOT_ALLOWED": "Titik akhir backend ada tetapi tidak menerima permintaan ini.",
+      "BACKEND_INVALID_RESPONSE": "Backend mengembalikan respons masuk yang tidak valid. Ini mungkin melayani situs web dan bukan API.",
+      "SESSION_STORAGE_FAILED": "Kami tidak dapat menyimpan sesi masuk Anda. Silakan coba lagi.",
+      "DATABASE_ERROR": "Permintaan basis data backend gagal",
+      "RATE_LIMITED": "Terlalu banyak permintaan. Tunggu sebentar dan coba lagi.",
+      "PAYLOAD_TOO_LARGE": "Permintaannya terlalu besar",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend menolak format permintaan",
+      "ROUTE_ERROR": "Terjadi kesalahan saat memuat halaman ini",
+      "INVALID_CREDENTIALS": "Email atau kata sandi tidak valid. Silakan periksa detail Anda dan coba lagi.",
+      "MULTIPLE_TENANTS": "Beberapa penyewa ditemukan. Silakan pilih penyewa.",
+      "ACCOUNT_INACTIVE": "Akun tidak aktif",
+      "ACCOUNT_SUSPENDED": "Akun telah ditangguhkan",
+      "ACCOUNT_PENDING": "Akun sedang menunggu verifikasi",
+      "PASSWORD_INCORRECT": "Kata sandi saat ini salah",
+      "TOKEN_INVALID": "Token tidak valid atau kedaluwarsa",
+      "TOKEN_EXPIRED": "Token telah kedaluwarsa",
+      "REFRESH_TOKEN_INVALID": "Token penyegaran tidak valid atau kedaluwarsa",
+      "SESSION_EXPIRED": "Sesi Anda telah berakhir. Masuk lagi untuk melanjutkan.",
+      "USER_NOT_FOUND": "Pengguna tidak ditemukan",
+      "USER_EXISTS": "Email ini sudah terdaftar. Silakan masuk saja.",
+      "SESSION_NOT_FOUND": "Sesi tidak ditemukan",
+      "ALREADY_VERIFIED": "Akun sudah diverifikasi",
+      "AI_UNAVAILABLE": "AI tidak tersedia — menggunakan rekomendasi lokal",
+      "AI_TIMEOUT": "AI waktu permintaan habis",
+      "AI_UNAUTHORIZED": "Kunci AI API tidak valid atau kedaluwarsa",
+      "AI_FORBIDDEN": "AI akses ditolak",
+      "AI_RATE_LIMIT": "Batas kecepatan AI tercapai",
+      "AI_MODEL_UNAVAILABLE": "Model AI tidak tersedia",
+      "AI_MALFORMED_RESPONSE": "AI respons tidak valid",
+      "HOME_SUMMARY_INVALID": "Respons ringkasan beranda tidak valid",
+      "HOME_SUMMARY_LOAD_FAILED": "Tidak dapat memuat ringkasan Beranda",
+      "ADMISSION_SAVE_FAILED": "Tidak dapat menyimpan catatan penerimaan. Silakan periksa koneksi Anda dan coba lagi.",
+      "ADMISSION_VALIDATION_FAILED": "Beberapa rincian penerimaan yang diperlukan tidak ada. Harap tinjau bidang yang disorot.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Tidak dapat menghasilkan rekomendasi klinis saat ini. Anda masih dapat meninjau dan menyimpan tiket masuk.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Tidak dapat memuat formulir penerimaan. Silakan periksa koneksi Anda dan coba lagi.",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Tidak dapat menyimpan draf penerimaan lokal. Silakan coba lagi."
     }
   },
   "forms": {
     "validation": {
       "required": "Bidang ini wajib diisi",
-      "invalidEmail": "Invalid email format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "invalidEmail": "Format email tidak valid",
+      "minLength": "Panjang minimum adalah {{min}} karakter",
+      "invalidUrl": "Format URL tidak valid",
+      "invalidUuid": "Format ID tidak valid",
+      "maxLength": "Panjang maksimum adalah {{max}} karakter",
+      "invalidValue": "Nilai tidak valid"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type ke cari",
-      "cartWithItems": "Cart dengan {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "Tajuk navigasi utama",
+      "searchHint": "Ketik untuk mencari",
+      "cartWithItems": "Keranjang dengan item {{count}}",
+      "cartWithItems_zero": "Gerobak",
       "signIn": "Masuk",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "Profil",
+      "orders": "Pesanan",
       "settings": "Pengaturan",
       "logout": "Keluar",
       "accountMenu": {
-        "accessibilityLabel": "Buka akun menu untuk {{name}}",
+        "accessibilityLabel": "Buka menu akun untuk {{name}}",
         "fallbackName": "Akun",
-        "accountType": "Akun type"
+        "accountType": "Jenis akun"
       },
-      "hideHeader": "Sembunyikan header",
-      "showHeader": "Tampilkan header",
-      "showMore": "Tampilkan more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "Sembunyikan tajuk",
+      "showHeader": "Tampilkan tajuk",
+      "showMore": "Tampilkan lebih banyak",
+      "customize": "Sesuaikan",
+      "overflowMenuLabel": "Tindakan tajuk lainnya",
+      "customizationMenuLabel": "Kustomisasi tajuk",
       "actions": {
-        "notifications": "Tidak adatifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "Pemberitahuan",
+        "network": "Status jaringan",
+        "database": "Status basis data",
+        "fullscreen": "Beralih layar penuh"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "Navigasi utama",
+      "label": "Navigasi",
+      "resize": "Ubah ukuran navigasi"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "Layar penuh",
+      "exit": "Keluar dari layar penuh"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "Navigasi bawah"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (telepon)",
+      "title": "Catatan kaki global",
+      "copyright": "© {{year}} {{appName}}. Semua hak dilindungi undang-undang.",
+      "supportEmail": "Dukungan (email)",
+      "supportPhone": "Dukungan (telepon)",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "Pasien services ready"
+        "title": "Status aplikasi",
+        "auth": "Masuk aman diaktifkan",
+        "main": "Semua sistem beroperasi",
+        "patient": "Layanan pasien siap"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} · v{{version}} (bangunan: {{build}})",
       "legal": {
-        "title": "Legal dan support",
-        "terms": "Terms",
+        "title": "Hukum dan dukungan",
+        "terms": "Ketentuan",
         "privacy": "Privasi",
-        "support": "Support"
+        "support": "Dukungan"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "Status jaringan",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "online": "Daring",
+        "offline": "Luring",
+        "unstable": "Tidak stabil",
+        "syncing": "Sinkronisasi"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "Basis data",
+        "connected": "Basis data terhubung",
+        "disconnected": "Basis data terputus"
       }
     },
     "notifications": {
-      "label": "Tidak adatifications",
-      "menuLabel": "Tidak adatifications menu",
-      "empty": "Tidak ada new notifications",
-      "viewAll": "Lihat all notifications",
+      "label": "Pemberitahuan",
+      "menuLabel": "Menu notifikasi",
+      "empty": "Tidak ada notifikasi baru",
+      "viewAll": "Lihat semua notifikasi",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "Janji temu yang akan datang",
+          "meta": "Hari ini jam 15.00"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "Hasil laboratorium sudah siap",
+          "meta": "Hasil baru tersedia"
         },
         "messages": {
-          "title": "New pesan",
-          "meta": "You have unread messages"
+          "title": "Pesan baru",
+          "meta": "Anda memiliki pesan yang belum dibaca"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "Pasien navigation",
+    "bottomNavigation": "Navigasi bawah",
+    "mainNavigation": "Navigasi utama",
+    "patientNavigation": "Navigasi pasien",
     "items": {
       "main": {
-        "home": "Beranda",
-        "admit": "Rawat masuk",
-        "assessment": "Rawat masuk",
-        "abg-ventilator-updates": "Update ABG & Ventilator Pengaturan",
+        "home": "Rumah",
+        "admit": "Akui",
+        "assessment": "Akui",
+        "abg-ventilator-updates": "Perbarui ABG & Pengaturan Ventilator",
         "history": "Pelacakan",
-        "dataset-capture": "Pengambilan dataset",
-        "review-queue": "Antrean tinjauan",
+        "dataset-capture": "Pengambilan Kumpulan Data",
+        "review-queue": "Tinjau Antrean",
         "dashboard": "Dasbor",
-        "user-management": "Manajemen pengguna",
-        "onboarding": "Getting started",
+        "user-management": "Manajemen Pengguna",
+        "onboarding": "Memulai",
         "settings": "Pengaturan",
         "settings-about": "Tentang",
         "settings-data-sources": "Sumber data",
@@ -317,236 +317,237 @@
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "Navigasi remah roti",
+      "label": "remah roti"
     },
-    "skipToMainContent": "Skip ke main content"
+    "skipToMainContent": "Lompat ke konten utama"
   },
   "facilityContext": {
     "activeFacility": "Fasilitas aktif",
-    "noFacility": "Tidak ada active fasilitas",
+    "noFacility": "Tidak ada fasilitas aktif",
     "role": "Peran",
-    "noRole": "Tidak ada active peran",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "Pilih active fasilitas",
-    "accessibilityLabel": "Fasilitas aktif {{facility}}, sync status {{status}}",
+    "noRole": "Tidak ada peran aktif",
+    "syncStatus": "Status sinkronisasi",
+    "facilitySelectLabel": "Pilih fasilitas aktif",
+    "accessibilityLabel": "Fasilitas aktif {{facility}}, status sinkronisasi {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "online": "Daring",
+      "offline": "Luring",
+      "syncing": "Sinkronisasi",
+      "unstable": "Tidak stabil"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "Sistem status updates",
+      "surfaceLabel": "Pembaruan status sistem",
       "offline": {
-        "title": "You are offline",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "title": "Anda sedang luring",
+        "message": "Beberapa fitur mungkin tidak tersedia hingga konektivitas dipulihkan.",
+        "accessibilityLabel": "Pemberitahuan status offline"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays atau limited functionality.",
-        "accessibilityLabel": "Rendah network quality notification"
+        "title": "Jaringan tidak stabil",
+        "message": "Anda mungkin mengalami penundaan atau fungsionalitas terbatas.",
+        "accessibilityLabel": "Pemberitahuan kualitas jaringan rendah"
       },
       "online": {
-        "title": "Kembali online",
-        "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "title": "Kembali daring",
+        "message": "Koneksi dipulihkan.",
+        "accessibilityLabel": "Pemberitahuan status daring"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "Pemeliharaan terjadwal",
+        "message": "Beberapa layanan mungkin tidak tersedia untuk sementara.",
+        "accessibilityLabel": "Pemberitahuan pemeliharaan"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "Bekerja…",
+      "message": "Harap tunggu sementara kami menyelesaikan permintaan."
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "Pemberitahuan global"
     }
   },
   "settings": {
     "title": "Pengaturan",
     "screen": {
-      "label": "Pengaturan screen"
+      "label": "Layar pengaturan"
     },
     "status": {
-      "loading": "Memuat pengaturan...",
-      "saved": "Pengaturan saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Tidak dapat menyimpan your profile. Periksa koneksi Anda dan coba lagi",
-      "facilitySaved": "Fasilitas aktif updated successfully.",
-      "facilitySaveError": "Tidak dapat menyimpan active fasilitas. Periksa koneksi Anda dan coba lagi",
-      "roleSaved": "Active peran updated successfully.",
-      "themeSaved": "Tema updated successfully.",
-      "themeLocalSaved": "Tema updated on this device.",
-      "themeSaveError": "Tidak dapat menyimpan your tema preference. Periksa koneksi Anda dan coba lagi",
-      "saveError": "Tidak dapat menyimpan pengaturan. Periksa koneksi Anda dan coba lagi",
-      "loadError": "Tidak dapat memuat pengaturan. Periksa koneksi Anda dan coba lagi",
-      "localOnly": "Server pengaturan are unavailable ({{code}}). Local display controls remain available."
+      "loading": "Memuat setelan...",
+      "saving": "Menyimpan pengaturan...",
+      "saved": "Pengaturan disimpan.",
+      "profileSaved": "Profil berhasil diperbarui.",
+      "profileSaveError": "Tidak dapat menyimpan profil Anda. Silakan periksa koneksi Anda dan coba lagi.",
+      "facilitySaved": "Fasilitas aktif berhasil diperbarui.",
+      "facilitySaveError": "Tidak dapat menyimpan fasilitas aktif. Silakan periksa koneksi Anda dan coba lagi.",
+      "roleSaved": "Peran aktif berhasil diperbarui.",
+      "themeSaved": "Tema berhasil diperbarui.",
+      "themeLocalSaved": "Tema diperbarui pada perangkat ini.",
+      "themeSaveError": "Tidak dapat menyimpan preferensi tema Anda. Silakan periksa koneksi Anda dan coba lagi.",
+      "saveError": "Tidak dapat menyimpan pengaturan. Silakan periksa koneksi Anda dan coba lagi.",
+      "loadError": "Tidak dapat memuat pengaturan. Silakan periksa koneksi Anda dan coba lagi.",
+      "localOnly": "Pengaturan server tidak tersedia ({{code}}). Kontrol tampilan lokal tetap tersedia."
     },
     "account": {
-      "title": "Akun dan fasilitas",
+      "title": "Rekening dan fasilitas",
       "name": "Nama",
       "phone": "Telepon",
-      "saveProfile": "Simpan profile",
+      "saveProfile": "Simpan profil",
       "activeFacility": "Fasilitas aktif",
-      "activeRole": "Active peran",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "Tidak ada active fasilitas",
-      "activeFacilityHelper": "Pilih fasilitas context untuk clinical work.",
-      "noAssignedFacility": "Tidak ada fasilitas has been assigned ke your akun yet",
-      "activeRoleHelper": "Peran untuk selected active fasilitas.",
-      "noActiveRole": "Tidak ada peran is available untuk selected fasilitas",
-      "none": "Tidak adane",
+      "activeRole": "Peran aktif",
+      "approvedRoles": "Peran yang disetujui",
+      "noActiveFacility": "Tidak ada fasilitas aktif",
+      "activeFacilityHelper": "Pilih konteks fasilitas untuk pekerjaan klinis.",
+      "noAssignedFacility": "Belum ada fasilitas yang diberikan ke akun Anda.",
+      "activeRoleHelper": "Peran untuk fasilitas aktif yang dipilih.",
+      "noActiveRole": "Tidak ada peran yang tersedia untuk fasilitas yang dipilih.",
+      "none": "Tidak ada",
       "validation": {
-        "nameRequired": "Masukkan your full nama.",
-        "nameTooLong": "Nama must be 160 characters atau fewer.",
-        "phoneTooLong": "Telepon number must be 40 characters atau fewer.",
-        "profileInvalid": "Tinjau highlighted profile fields before saving."
+        "nameRequired": "Masukkan nama lengkap Anda.",
+        "nameTooLong": "Nama harus terdiri dari 160 karakter atau kurang.",
+        "phoneTooLong": "Nomor telepon harus terdiri dari 40 karakter atau kurang.",
+        "profileInvalid": "Tinjau bidang profil yang disorot sebelum menyimpan."
       }
     },
     "accessibility": {
-      "title": "Appearance dan accessibility"
+      "title": "Penampilan dan aksesibilitas"
     },
     "theme": {
       "label": "Tema",
-      "accessibilityLabel": "Tema selector",
-      "hint": "Ubah application tema",
+      "accessibilityLabel": "Pemilih tema",
+      "hint": "Ubah tema aplikasi",
       "options": {
         "system": "Sistem",
-        "light": "Terang",
+        "light": "Ringan",
         "dark": "Gelap",
         "highContrast": "Kontras tinggi"
       }
     },
     "language": {
       "label": "Bahasa",
-      "accessibilityLabel": "Bahasa selector",
-      "hint": "Ubah application bahasa",
+      "accessibilityLabel": "Pemilih bahasa",
+      "hint": "Ubah bahasa aplikasi",
       "options": {
-        "en": "Inggris",
+        "en": "bahasa Inggris",
         "ar": "Arab",
         "de": "Jerman",
         "es": "Spanyol",
         "fa": "Persia",
-        "fr": "Prancis",
-        "hi": "Hindi",
-        "id": "Indonesia",
+        "fr": "Perancis",
+        "hi": "bahasa Hindi",
+        "id": "bahasa Indonesia",
         "it": "Italia",
         "ja": "Jepang",
         "ko": "Korea",
         "ms": "Melayu",
         "nl": "Belanda",
-        "pl": "Polski",
+        "pl": "Polandia",
         "pt": "Portugis",
         "ru": "Rusia",
         "sw": "Swahili",
         "ta": "Tamil",
-        "th": "Thai",
+        "th": "Thailand",
         "tr": "Turki",
         "uk": "Ukraina",
         "vi": "Vietnam",
-        "zh": "Tionghoa"
+        "zh": "Cina"
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "Ubah spacing dan layout density",
+      "label": "Kepadatan",
+      "accessibilityLabel": "Pemilih mode kepadatan",
+      "hint": "Ubah jarak dan kepadatan tata letak",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "Kompak",
+        "comfortable": "Nyaman"
       }
     },
     "footerVisible": {
-      "label": "Tampilkan footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Tampilkan atau sembunyikan footer at bottom of layout (desktop only)"
+      "label": "Tampilkan catatan kaki",
+      "accessibilityLabel": "Alihkan visibilitas footer",
+      "hint": "Menampilkan atau menyembunyikan footer di bagian bawah tata letak (khusus desktop)"
     },
     "sync": {
-      "title": "Offline dan sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
+      "title": "Offline dan sinkronisasi",
+      "network": "Jaringan",
+      "status": "Status sinkronisasi",
+      "quality": "Kualitas jaringan",
+      "idle": "Menganggur",
       "unknownQuality": "Tidak diketahui",
-      "offlineModeEnabled": "Allow offline mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Coba lagi failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge tersinkron drafts after",
-      "conflictResolutionMode": "Konflik resolution",
-      "manualReview": "Manual tinjau",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "offlineModeEnabled": "Izinkan mode offline",
+      "syncOnWifiOnly": "Sinkronisasi hanya di Wi-Fi",
+      "autoSyncEnabled": "Sinkronisasi otomatis",
+      "backgroundSyncEnabled": "Sinkronisasi latar belakang",
+      "retryFailedSyncAutomatically": "Coba lagi sinkronisasi yang gagal secara otomatis",
+      "syncIntervalMinutes": "Interval sinkronisasi",
+      "purgeSyncedDraftsAfterDays": "Bersihkan draf yang disinkronkan setelahnya",
+      "conflictResolutionMode": "Resolusi konflik",
+      "manualReview": "Tinjauan manual",
+      "intervalOption": "{{value}} menit",
+      "purgeOption": "{{value}} hari"
     },
     "privacyControls": {
-      "title": "Privasi dan logging",
-      "hidePatientIdentifiersInLists": "Sembunyikan pasien identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock untuk identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "Privasi dan pencatatan",
+      "hidePatientIdentifiersInLists": "Sembunyikan pengidentifikasi pasien dalam daftar",
+      "requireUnlockForIdentifiers": "Memerlukan buka kunci untuk pengidentifikasi",
+      "shareUsageDiagnostics": "Bagikan diagnostik penggunaan",
+      "allowDeidentifiedAnalytics": "Izinkan analisis yang tidak teridentifikasi",
+      "allowDeidentifiedTrainingDatasetContribution": "Izinkan kontribusi set data pelatihan yang tidak teridentifikasi"
     },
     "governance": {
-      "title": "Governance dan clinical workflow",
+      "title": "Tata kelola dan alur kerja klinis",
       "activeFacility": "Fasilitas aktif",
-      "manageAccess": "Can manage fasilitas pengaturan",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "manageAccess": "Dapat mengelola pengaturan fasilitas",
+      "visibility": "Visibilitas tata kelola",
+      "defaultReferenceRuleScope": "Cakupan referensi default",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "Fasilitas verified rules"
+        "global": "Aturan terverifikasi global",
+        "facility": "Aturan yang diverifikasi fasilitas"
       },
-      "showReferenceVersionToClinicians": "Tampilkan reference version ke clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require alasan untuk clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer untuk kritis flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit alasan",
-      "exportPatientIdentifiers": "Export pasien identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require tinjau",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Tampilkan shadow model outputs ke clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden dari normal clinical workflows."
+      "showReferenceVersionToClinicians": "Tunjukkan versi referensi kepada dokter",
+      "requireVerifiedReferenceRules": "Memerlukan aturan referensi yang terverifikasi",
+      "activeReferenceRules": "Aturan referensi aktif",
+      "requireReasonForClinicalOverride": "Memerlukan alasan untuk penggantian klinis",
+      "requireSecondReviewerForCriticalFlags": "Memerlukan peninjau kedua untuk tanda kritis",
+      "lockReviewedClinicalRecords": "Lock meninjau catatan klinis",
+      "allowDeidentifiedExports": "Izinkan ekspor yang tidak teridentifikasi",
+      "requireExportAuditReason": "Memerlukan alasan audit ekspor",
+      "exportPatientIdentifiers": "Ekspor pengenal pasien",
+      "allowRawNotesInExports": "Izinkan catatan mentah dalam ekspor",
+      "datasetExportsRequireEthicsApproval": "Ekspor set data memerlukan persetujuan etika",
+      "datasetExportsRequireReview": "Ekspor set data memerlukan peninjauan",
+      "allowUnreviewedDatasetExports": "Izinkan ekspor set data yang belum ditinjau",
+      "modelVisibility": "Visibilitas model",
+      "liveClinicalPredictionEnabled": "Prediksi klinis langsung diaktifkan",
+      "clinicianVisibleModelVersionIds": "Versi model yang terlihat oleh dokter",
+      "showShadowModelOutputsToClinicians": "Tunjukkan keluaran model bayangan kepada dokter",
+      "modelVisibilityLocked": "Keluaran model prediktif langsung tetap tersembunyi dari alur kerja klinis normal."
     },
     "sidebar": {
-      "resize": "Resize pengaturan sidebar",
-      "menu": "Pengaturan menu",
-      "menuOpen": "Buka pengaturan menu",
-      "menuClose": "Tutup pengaturan menu",
+      "resize": "Ubah ukuran bilah sisi pengaturan",
+      "menu": "Menu pengaturan",
+      "menuOpen": "Buka menu pengaturan",
+      "menuClose": "Tutup menu pengaturan",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "Umum",
+        "organization": "Organisasi",
+        "usersAndAccess": "Pengguna & akses",
+        "security": "Keamanan"
       }
     },
     "disclaimer": {
       "title": "Penafian",
       "screen": {
-        "label": "Penafian screen"
+        "label": "Layar penafian"
       },
-      "prototypeFraming": "This app is a prototype untuk reference dan training. It is not intended untuk direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read dan understood penafian",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "Aplikasi ini adalah prototipe untuk referensi dan pelatihan. Ini tidak dimaksudkan untuk penggunaan klinis langsung.",
+      "datasetNotice": "Pemberitahuan kumpulan data",
+      "acknowledge": "saya akui",
+      "acknowledgeHint": "Konfirmasikan bahwa Anda telah membaca dan memahami penafian tersebut",
+      "decline": "Saya tidak setuju",
+      "declineHint": "Keluar dari aplikasi tanpa menyadarinya",
       "states": {
         "loading": "Memuat…",
         "error": "Tidak dapat memuat penafian"
@@ -555,104 +556,104 @@
     "dataSources": {
       "title": "Sumber data",
       "screen": {
-        "label": "Sumber data screen"
+        "label": "Layar sumber data"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "Versi kumpulan data",
+      "schemaVersion": "Versi skema",
+      "lastUpdated": "Terakhir diperbarui",
+      "totalCases": "Jumlah kasus",
+      "citations": "Kutipan",
       "doi": "DOI",
       "states": {
         "loading": "Memuat…",
-        "error": "Tidak dapat memuat data sources",
-        "empty": "Tidak ada sources available"
+        "error": "Tidak dapat memuat sumber data",
+        "empty": "Tidak ada sumber yang tersedia"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted untuk reviewer approval only. Raw pasted notes are not stored in approved datasets atau sent ke external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write peran.",
-        "offlineNotice": "Offline submissions are dalam antrean dengan structured fields only dan sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then tinjau structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "Fasilitas scope ready",
-        "facilityMissing": "Pilih atau sign in ke one active fasilitas before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured tinjau payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "Tidak adane",
+        "title": "Pengambilan kumpulan data",
+        "governanceNotice": "Kandidat yang ditangkap diserahkan untuk persetujuan reviewer saja. Catatan mentah yang ditempel tidak disimpan dalam kumpulan data yang disetujui atau dikirim ke layanan model eksternal.",
+        "roleBlocked": "Pengambilan kandidat kumpulan data memerlukan peran penulisan klinis yang disetujui.",
+        "offlineNotice": "Pengiriman offline dimasukkan ke dalam antrean hanya dengan kolom terstruktur dan disinkronkan saat konektivitas kembali.",
+        "noteLabel": "Tempel catatan ICU",
+        "notePlaceholder": "Tempelkan catatan samping tempat tidur yang tidak teridentifikasi, lalu tinjau bidang terstruktur sebelum mengirimkannya.",
+        "parse": "Parsing pratinjau",
+        "facilityReady": "Cakupan fasilitas sudah siap",
+        "facilityMissing": "Pilih atau masuk ke satu fasilitas aktif sebelum mengirimkan.",
+        "noteRequired": "Tempelkan catatan sebelum membuat pratinjau.",
+        "identifierWarning": "Teks seperti pengenal terdeteksi. Hal ini tidak termasuk dalam muatan tinjauan terstruktur.",
+        "previewTitle": "Pratinjau kandidat terstruktur",
+        "missingFields": "Nilai-nilai yang hilang",
+        "uncertainFields": "Sorotan ketidakpastian",
+        "none": "Tidak ada",
         "submitForReview": "Kirim untuk ditinjau",
-        "trainingApprovalAvailable": "Training approval controls remain in governed tinjau workflows.",
+        "trainingApprovalAvailable": "Kontrol persetujuan pelatihan tetap berada dalam alur kerja tinjauan yang diatur.",
         "status": {
-          "ready": "Ready untuk tinjau submission",
-          "submitted": "Submitted untuk reviewer approval",
-          "queued": "Dalam antrean untuk sync",
-          "error": "Submission failed"
+          "ready": "Siap untuk penyerahan ulasan",
+          "submitted": "Dikirim untuk persetujuan pengulas",
+          "queued": "Mengantri untuk sinkronisasi",
+          "error": "Pengiriman gagal"
         }
       }
     },
     "privacy": {
       "title": "Privasi",
       "screen": {
-        "label": "Privasi screen"
+        "label": "Layar privasi"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences dan session data are stored only on this device. Tidak adathing is sent ke external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent ke configured services."
+      "localStorage": "Data disimpan secara lokal",
+      "localStorageDescription": "Preferensi dan data sesi hanya disimpan di perangkat ini. Tidak ada yang dikirim ke server eksternal.",
+      "optionalAI": "Jika fitur AI online diaktifkan, permintaan tersebut dapat dikirim ke layanan yang dikonfigurasi."
     },
     "about": {
       "title": "Tentang",
       "screen": {
-        "label": "Tentang screen"
+        "label": "Tentang layar"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype untuk reference dan training. Tidak adat untuk clinical use."
+      "version": "Versi",
+      "prototypeScope": "Ini adalah prototipe untuk referensi dan pelatihan. Bukan untuk penggunaan klinis."
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "Memulai",
+      "accessibilityLabel": "Layar orientasi",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support dan advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, atau determine ventilator pengaturan.",
-        "secondary": "Confirm all decisions against pasien, your fasilitas workflow, dan local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Wajib before continuing ke clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device dan will be tersinkron when backend authentication is available."
+        "title": "Keamanan klinis",
+        "body": "AI Vent hanya menyediakan dukungan dokumentasi dan petunjuk keselamatan saja. Hal ini tidak menggantikan penilaian klinis, mengeluarkan perintah pengobatan, atau menentukan pengaturan ventilator.",
+        "secondary": "Konfirmasikan semua keputusan terhadap pasien, alur kerja fasilitas Anda, dan protokol klinis lokal.",
+        "accessibilityLabel": "Pemberitahuan keamanan klinis",
+        "acknowledgeLabel": "Saya memahami bahwa ini hanyalah dukungan keputusan berupa nasihat",
+        "acknowledgeHint": "Diperlukan sebelum melanjutkan ke alur kerja klinis",
+        "syncDeferred": "Pengakuan keamanan disimpan di perangkat ini dan akan disinkronkan ketika autentikasi backend tersedia."
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "Tinjau safety note before using AI Vent. app can highlight missing data dan uncertainty, but a qualified clinician remains responsible untuk pasien care decisions."
+          "title": "Gunakan sebagai dukungan penasehat",
+          "body": "Tinjau catatan keselamatan sebelum menggunakan AI Vent. Aplikasi ini dapat menyoroti data yang hilang dan ketidakpastian, namun dokter yang berkualifikasi tetap bertanggung jawab atas keputusan perawatan pasien."
         },
         "facilityWorkflow": {
-          "title": "Stay in fasilitas context",
-          "body": "Use active fasilitas dan peran shown by your session. Keep records within correct fasilitas workflow dan follow local escalation, tinjau, dan approval procedures."
+          "title": "Tetap dalam konteks fasilitas",
+          "body": "Gunakan fasilitas dan peran aktif yang ditunjukkan oleh sesi Anda. Simpan catatan dalam alur kerja fasilitas yang benar dan ikuti prosedur eskalasi, peninjauan, dan persetujuan setempat."
         },
         "inputs": {
-          "title": "Masukkaning inputs",
-          "body": "Use Rawat masuk ke masukkan available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Opsional ABG values improve confidence when available, but missing opsional data should be reviewed as uncertainty rather than treated as a simpan blocker."
+          "title": "Memasukkan input",
+          "body": "Gunakan Akui untuk memasukkan parameter klinis yang tersedia (SpO2, PaO2, PaCO2, pH, laju pernapasan, dll.). Nilai opsional ABG meningkatkan kepercayaan ketika tersedia, namun data opsional yang hilang harus ditinjau sebagai ketidakpastian dan bukan diperlakukan sebagai penghalang penyimpanan."
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations tampilkan advisory ventilator setting references dengan a confidence tier. Match quality reflects how well dataset cases align dengan your inputs. Use matched cases as reference only dan verify against clinical judgment."
+          "title": "Menafsirkan rekomendasi",
+          "body": "Rekomendasi menunjukkan referensi pengaturan ventilator penasehat dengan tingkat kepercayaan. Kualitas kecocokan mencerminkan seberapa selaras kasus kumpulan data dengan masukan Anda. Gunakan kasus yang cocok sebagai referensi saja dan verifikasi berdasarkan penilaian klinis."
         },
         "monitoring": {
-          "title": "Pemantauan dan alerts",
-          "body": "After reviewing a rekomendasi, use Pemantauan ke log vitals dan labs over time. Alerts highlight values outside set thresholds dan should be assessed according ke local protocol."
+          "title": "Pemantauan dan peringatan",
+          "body": "Setelah meninjau rekomendasi, gunakan Pemantauan untuk mencatat data vital dan laboratorium dari waktu ke waktu. Peringatan menyoroti nilai di luar ambang batas yang ditetapkan dan harus dinilai berdasarkan protokol lokal."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Rawat masuk, advisory summaries, pemantauan) works offline. Data is saved locally. Opsional AI features require connectivity. When kembali online, lanjutkan as normal."
+          "title": "Perilaku offline",
+          "body": "Alur kerja inti (Akui, ringkasan nasihat, pemantauan) bekerja secara offline. Data disimpan secara lokal. Fitur AI opsional memerlukan konektivitas. Saat kembali online, lanjutkan seperti biasa."
         }
       },
       "actions": {
-        "done": "Done",
-        "next": "Berikutnya",
+        "done": "Selesai",
+        "next": "Selanjutnya",
         "back": "Kembali"
       },
       "states": {
@@ -660,66 +661,66 @@
       }
     },
     "help": {
-      "title": "Bantuan & reference",
-      "accessibilityLabel": "Bantuan screen",
-      "searchPlaceholder": "Cari glossary atau guides…",
+      "title": "Bantuan & referensi",
+      "accessibilityLabel": "Layar bantuan",
+      "searchPlaceholder": "Cari glosarium atau panduan…",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What ke do berikutnya"
+        "glossary": "Glosarium",
+        "troubleshooting": "Pemecahan masalah",
+        "guides": "Apa yang harus dilakukan selanjutnya"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume dan oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory ke expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Volume tidal (mL). Volume delivered per breath.",
-        "respiratoryRate": "Laju napas (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, dan pH, tied ke a sample time.",
-        "referenceStatus": "Governance dan verification state untuk a reference range. Only active approved atau verified ranges are eligible untuk active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need tinjau before dataset atau training use.",
-        "reviewQueue": "A work queue untuk tinjau decisions, corrections, exclusions, dan audit reasons.",
-        "syncState": "Current offline, online, atau syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden dari normal clinical workflows."
+        "PEEP": "Tekanan ekspirasi akhir positif (cmH₂O). Mempertahankan volume paru-paru dan oksigenasi.",
+        "FiO2": "Fraksi oksigen inspirasi (0–1). Persentase oksigen dalam gas inspirasi.",
+        "IERatio": "rasio I:E. Rasio inspirasi terhadap waktu ekspirasi (misalnya 1:2).",
+        "tidalVolume": "Volume pasang surut (mL). Volume yang diberikan per napas.",
+        "respiratoryRate": "Kecepatan pernapasan (nafas/menit).",
+        "SpO2": "Saturasi oksigen dengan oksimetri nadi (%).",
+        "PaO2": "Tekanan parsial oksigen arteri (mmHg).",
+        "PaCO2": "Tekanan parsial karbon dioksida arteri (mmHg).",
+        "pH": "Arteri pH (tanpa unit).",
+        "ABG": "Nilai gas darah arteri seperti PaO2, PaCO2, dan pH, terikat pada waktu sampel.",
+        "referenceStatus": "Tata kelola dan status verifikasi untuk rentang referensi. Hanya rentang aktif yang disetujui atau terverifikasi yang memenuhi syarat untuk tampilan dukungan keputusan aktif.",
+        "datasetCapture": "Catatan kandidat yang tidak teridentifikasi perlu ditinjau sebelum kumpulan data atau penggunaan pelatihan.",
+        "reviewQueue": "Antrian kerja untuk keputusan peninjauan, koreksi, pengecualian, dan alasan audit.",
+        "syncState": "Status offline, online, atau sinkronisasi saat ini. Catatan klinis mungkin masih memerlukan sinkronisasi nanti.",
+        "shadowMode": "Mode evaluasi model yang diatur di mana keluaran tetap tersembunyi dari alur kerja klinis normal."
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; masukkan SpO₂ dan lainnya vitals when available. untuk better matching, tambah PaO₂, PaCO₂, dan pH when you have them."
+          "title": "Nilai ABG tidak ada",
+          "body": "Rekomendasi berfungsi tanpa ABG; masukkan SpO₂ dan tanda vital lainnya bila tersedia. Untuk pencocokan yang lebih baik, tambahkan PaO₂, PaCO₂, dan pH jika Anda memilikinya."
         },
         "offline": {
-          "title": "Using app offline",
-          "body": "Rawat masuk, advisory summaries, dan pemantauan work offline. Data is stored locally. Opsional AI suggestions require internet. Sync is not wajib untuk core workflow."
+          "title": "Menggunakan aplikasi secara offline",
+          "body": "Akui, ringkasan nasihat, dan pemantauan bekerja secara offline. Data disimpan secara lokal. Saran opsional AI memerlukan internet. Sinkronisasi tidak diperlukan untuk alur kerja inti."
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, tertunda, retired, rejected, dan unverified ranges are not eligible untuk active decision-support display. Tinjau source, version, scope, dan verification status."
+          "title": "Rentang referensi tidak aktif",
+          "body": "Rentang draf, tertunda, dihentikan, ditolak, dan belum diverifikasi tidak memenuhi syarat untuk tampilan dukungan keputusan aktif. Tinjau sumber, versi, cakupan, dan status verifikasi."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness bantuan is restricted",
-          "body": "Predictive model readiness dan shadow-mode details are visible only ke approved governance roles. Tidak adarmal clinical workflows do not expose model internals."
+          "title": "Bantuan kesiapan model dibatasi",
+          "body": "Kesiapan model prediktif dan detail mode bayangan hanya dapat dilihat oleh peran tata kelola yang disetujui. Alur kerja klinis normal tidak mengekspos internal model."
         },
         "needsReview": {
-          "title": "Record needs tinjau",
-          "body": "Use tinjau queue ke check submitted data, request correction, setujui eligible records, atau kecualikan records dengan an audit alasan."
+          "title": "Catatan perlu ditinjau",
+          "body": "Gunakan antrean peninjauan untuk memeriksa data yang dikirimkan, meminta koreksi, menyetujui catatan yang memenuhi syarat, atau mengecualikan catatan dengan alasan audit."
         }
       },
       "guides": {
-        "home": "Tinjau fasilitas context, sync state, active admissions, red flags, dan records needing tinjau before opening a pasien workflow.",
-        "admit": "Capture pasien pathway dan available clinical values. Mark unavailable data clearly dan tinjau backend-confirmed calculations after simpan.",
-        "tracking": "Use pelacakan ke scan recent ventilation status dan tinjau needs. Read trend flags dengan source data dan local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture untuk de-identified candidate records. Human tinjau is wajib before approved training-data use.",
-        "reviewQueue": "Use tinjau queue ke setujui, request correction, atau kecualikan records while preserving audit trail.",
-        "dashboard": "Use dashboards untuk aggregate quality, tinjau, reference, dan governance status. Avoid pasien identifiers in governance summaries.",
-        "settings": "Use pengaturan untuk akun, fasilitas, accessibility, privasi, sync, dan reference visibility preferences where authorized.",
-        "hypoxemia": "Tinjau FiO₂ dan PEEP; consider recruitment; check untuk shunt atau V/Q mismatch.",
-        "hypercapnia": "Tinjau minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation dan perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols dan clinical judgment."
+        "home": "Tinjau konteks fasilitas, status sinkronisasi, penerimaan aktif, tanda bahaya, dan catatan yang perlu ditinjau sebelum membuka alur kerja pasien.",
+        "admit": "Tangkap jalur pasien dan nilai klinis yang tersedia. Tandai data yang tidak tersedia dengan jelas dan tinjau perhitungan yang dikonfirmasi di backend setelah disimpan.",
+        "tracking": "Gunakan pelacakan untuk memindai status ventilasi terkini dan meninjau kebutuhan. Baca tanda tren dengan data sumber dan konteks protokol lokal.",
+        "abgVentUpdate": "Tambahkan hasil ABG baru dan pengaturan ventilator sebagai catatan waktu sehingga nilai sebelumnya tetap tersedia untuk ditinjau.",
+        "datasetCapture": "Gunakan pengambilan himpunan data untuk catatan kandidat yang tidak teridentifikasi. Peninjauan manusia diperlukan sebelum penggunaan data pelatihan disetujui.",
+        "reviewQueue": "Gunakan antrean peninjauan untuk menyetujui, meminta koreksi, atau mengecualikan rekaman sambil mempertahankan jejak audit.",
+        "dashboard": "Gunakan dasbor untuk kualitas agregat, tinjauan, referensi, dan status tata kelola. Hindari pengidentifikasi pasien dalam ringkasan tata kelola.",
+        "settings": "Gunakan pengaturan untuk akun, fasilitas, aksesibilitas, privasi, sinkronisasi, dan preferensi visibilitas referensi jika diizinkan.",
+        "hypoxemia": "Tinjau FiO₂ dan PEEP; mempertimbangkan perekrutan; periksa ketidakcocokan shunt atau V/Q.",
+        "hypercapnia": "Tinjau ventilasi menit (laju × volume tidal); pertimbangkan hiperkapnia permisif per protokol.",
+        "acidosis": "Mengatasi ventilasi dan perfusi; memperbaiki penyebab mendasar per protokol.",
+        "general": "Gunakan rekomendasi sebagai pendukung keputusan saja. Validasi terhadap protokol lokal dan penilaian klinis."
       },
       "states": {
         "loading": "Memuat…",
@@ -728,53 +729,53 @@
       }
     },
     "ai": {
-      "label": "Dukungan keputusan AI",
-      "sectionLabel": "Opsional AI rekomendasi (online)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI untuk complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": "AI pendukung keputusan",
+      "sectionLabel": "Rekomendasi AI opsional (online)",
+      "enableLabel": "Aktifkan rekomendasi AI",
+      "enableHint": "Gunakan AI online hanya untuk kasus yang kompleks; rekomendasi lokal selalu tersedia",
+      "providerLabel": "Penyedia",
+      "providerHint": "penyedia AI (misalnya OpenAI); Kunci API adalah per penyedia",
       "providers": {
         "openai": "OpenAI",
-        "anthropic": "Anthropic",
+        "anthropic": "Antropis",
         "google": "Google (Gemini)",
-        "groq": "Groq",
+        "groq": "Bagus",
         "mistral": "Mistral AI",
-        "deepseek": "DeepSeek",
-        "cohere": "Cohere",
+        "deepseek": "Pencarian Mendalam",
+        "cohere": "menyatu",
         "xai": "xAI (Grok)"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Masukkan key (stored securely)",
-      "apiKeySave": "Simpan key",
-      "apiKeyClear": "Bersihkan key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "Tidak adat set",
+      "apiKeyLabel": "Kunci API",
+      "apiKeyPlaceholder": "Masukkan kunci (disimpan dengan aman)",
+      "apiKeySave": "Simpan kunci",
+      "apiKeyClear": "Hapus kunci",
+      "keyConfigured": "Tetapkan",
+      "keyNotConfigured": "Tidak disetel",
       "modelLabel": "Model",
-      "modelHint": "Model used untuk AI suggestions",
+      "modelHint": "Model yang digunakan untuk saran AI",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
         "gpt-4-turbo": "GPT-4 Turbo",
         "gpt-4": "GPT-4",
         "gpt-3.5-turbo": "GPT-3.5 Turbo",
-        "claude-sonnet-4": "Claude Sonnet 4",
-        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-sonnet-4": "Claude Soneta 4",
+        "claude-3-5-sonnet": "Claude 3.5 Soneta",
         "claude-3-5-haiku": "Claude 3.5 Haiku",
-        "claude-3-opus": "Claude 3 Opus",
+        "claude-3-opus": "Karya Claude 3",
         "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
+        "gemini-1.5-flash": "Gemini 1.5 Kilat",
         "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
-        "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
+        "llama-3.3-70b": "Lama 3.3 70B",
+        "llama-3.1-8b": "Lama 3.1 8B",
+        "mixtral-8x7b": "Campuran 8x7B",
+        "mistral-large": "Mistral Besar",
+        "mistral-medium": "Media Mistral",
+        "mistral-small": "Mistral Kecil",
+        "deepseek-chat": "Obrolan DeepSeek",
+        "deepseek-reasoner": "Alasan DeepSeek",
+        "command-r-plus": "Perintah R+",
+        "command-r": "Perintah R",
         "grok-3": "Grok 3",
         "grok-3-mini": "Grok 3 Mini"
       }
@@ -782,82 +783,82 @@
   },
   "listScaffold": {
     "loading": "Memuat",
-    "offline": "Offline",
+    "offline": "Luring",
     "error": "Kesalahan",
     "empty": "Kosong",
     "list": "Daftar",
     "emptyState": {
-      "title": "Tidak ada items",
-      "message": "There are tidak ada items ke display"
+      "title": "Tidak ada item",
+      "message": "Tidak ada item untuk ditampilkan"
     },
     "errorState": {
       "title": "Kesalahan",
-      "message": "An kesalahan occurred"
+      "message": "Terjadi kesalahan"
     }
   },
   "home": {
-    "title": "Beranda",
+    "title": "Rumah",
     "welcome": {
       "title": "Alur kerja klinis",
-      "message": "Fasilitas aktif, sync status, drafts, dan tinjau work are shown here.",
-      "logoLabel": "App logo"
+      "message": "Fasilitas aktif, status sinkronisasi, draf, dan pekerjaan tinjauan ditampilkan di sini.",
+      "logoLabel": "Logo aplikasi"
     },
     "notices": {
-      "title": "Beranda notices"
+      "title": "Pemberitahuan rumah"
     },
     "facilities": {
       "title": "Pilih fasilitas",
       "select": "Pilih {{name}}"
     },
     "status": {
-      "title": "Operational status",
+      "title": "Status operasional",
       "facility": {
         "label": "Fasilitas",
-        "empty": "Tidak adat selected"
+        "empty": "Tidak dipilih"
       },
       "network": {
-        "label": "Network",
+        "label": "Jaringan",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "online": "Daring",
+          "offline": "Luring",
+          "syncing": "Sinkronisasi",
+          "unstable": "Tidak stabil"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "Penerimaan aktif",
+        "detail": "{{count}} pasien aktif"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting ke sync"
+        "label": "Draf",
+        "detail": "{{count}} menunggu untuk disinkronkan"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "Sinkronkan perhatian",
+        "detail": "{{count}} konflik"
       },
       "reviewNeeds": {
-        "label": "Tinjau queue",
-        "detail": "{{count}} corrections requested"
+        "label": "Tinjau antrian",
+        "detail": "{{count}} koreksi diminta"
       }
     },
     "actions": {
-      "title": "Workflow actions",
+      "title": "Tindakan alur kerja",
       "accessibilityLabel": "Buka {{name}}",
       "admit": {
-        "title": "Rawat masuk"
+        "title": "Akui"
       },
       "tracking": {
         "title": "Pelacakan"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Pengaturan"
+        "title": "Perbarui ABG & Pengaturan Ventilator"
       },
       "datasetCapture": {
-        "title": "Pengambilan dataset"
+        "title": "Pengambilan Kumpulan Data"
       },
       "reviewQueue": {
-        "title": "Antrean tinjauan"
+        "title": "Tinjau Antrean"
       },
       "dashboard": {
         "title": "Dasbor"
@@ -870,193 +871,193 @@
       },
       "disabled": {
         "facilityRequired": "Pilih fasilitas",
-        "roleRestricted": "Peran restricted",
-        "workflowPending": "Route tertunda"
+        "roleRestricted": "Peran dibatasi",
+        "workflowPending": "Rute tertunda"
       }
     }
   },
   "reviewQueue": {
-    "title": "Antrean tinjauan",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, dan sync conflicts.",
-    "accessibilityLabel": "Validasi tinjau queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion alasan, atau override alasan",
+    "title": "Tinjau Antrean",
+    "subtitle": "Validasi catatan yang dikirimkan, koreksi, pengecualian, rentang referensi, kesiapan kumpulan data, dan konflik sinkronisasi.",
+    "accessibilityLabel": "Antrean tinjauan validasi",
+    "commentPlaceholder": "Catatan peninjau, permintaan koreksi, alasan pengecualian, atau alasan penggantian",
     "forbidden": {
-      "title": "Tinjau access wajib",
-      "message": "An approved reviewer atau governance peran is wajib untuk this queue."
+      "title": "Diperlukan akses tinjauan",
+      "message": "Peran peninjau atau tata kelola yang disetujui diperlukan untuk antrean ini."
     },
     "filters": {
-      "all": "All"
+      "all": "Semua"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "Penerimaan",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync konflik"
+      "ventilator-setting": "ventilasi",
+      "dataset-case": "Kumpulan data",
+      "reference-rule": "Rentang referensi",
+      "sync-conflict": "Konflik sinkronisasi"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "Ringkasan antrian",
+      "total": "Jumlah",
+      "urgent": "Mendesak",
+      "corrections": "Koreksi",
+      "conflicts": "Konflik",
+      "datasetReady": "Kumpulan data sudah siap"
     },
     "fields": {
-      "type": "Type",
+      "type": "Ketik",
       "status": "Status",
-      "priority": "Priority",
+      "priority": "Prioritas",
       "validation": "Validasi",
-      "missingData": "Data hilang",
-      "uncertainty": "Uncertainty",
+      "missingData": "Data tidak ada",
+      "uncertainty": "Ketidakpastian",
       "conflict": "Konflik",
-      "datasetReadiness": "Dataset readiness"
+      "datasetReadiness": "Kesiapan kumpulan data"
     },
     "dataset": {
-      "datasetApproved": "Approved untuk dataset tinjau boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Tidak adat approved untuk dataset use."
+      "datasetApproved": "Disetujui hanya untuk batas peninjauan kumpulan data; ekspor pelatihan masih memerlukan persetujuan tata kelola.",
+      "notDatasetApproved": "Tidak disetujui untuk penggunaan kumpulan data."
     },
     "actions": {
       "refresh": "Segarkan",
-      "approve": "Setujui",
+      "approve": "Menyetujui",
       "requestCorrection": "Minta koreksi",
       "exclude": "Kecualikan",
       "defer": "Tunda"
     },
     "states": {
-      "loading": "Memuat tinjau queue...",
-      "error": "Tidak dapat memuat atau simpan tinjau queue",
-      "empty": "Tidak ada records need tinjau"
+      "loading": "Memuat antrean tinjauan...",
+      "error": "Tidak dapat memuat atau menyimpan antrean tinjauan.",
+      "empty": "Tidak ada catatan yang perlu ditinjau."
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Pengambilan data klinis",
-      "subtitle": "Masukkan de-identified clinical, ABG, ventilator, target-range, treatment, dan outcome data untuk reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "title": "Pengambilan Data Klinis",
+      "subtitle": "Masukkan data klinis, ABG, ventilator, kisaran target, pengobatan, dan hasil yang tidak teridentifikasi untuk kumpulan data model yang disetujui pengulas.",
+      "accessibilityLabel": "Layar pengambilan data klinis",
       "notices": {
-        "roleBlocked": "This akun does not have permission ke kirim clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally dan sync when connectivity returns."
+        "roleBlocked": "Akun ini tidak memiliki izin untuk mengirimkan kandidat dataset klinis.",
+        "offline": "Mode offline aktif. Pengambilan terstruktur akan diantri secara lokal dan disinkronkan saat konektivitas kembali."
       },
       "summary": {
         "facility": "Fasilitas",
-        "facilityReady": "Fasilitas scope ready",
-        "facilityMissing": "Pilih an active fasilitas before submitting.",
-        "required": "Wajib fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Masukkaned fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Dalam antrean offline"
+        "facilityReady": "Cakupan fasilitas sudah siap",
+        "facilityMissing": "Pilih fasilitas yang aktif sebelum mengirimkan.",
+        "required": "Bidang yang wajib diisi",
+        "requiredProgress": "{{complete}}/{{total}} selesai",
+        "entered": "Bidang yang dimasukkan",
+        "enteredProgress": "{{entered}}/{{total}} dimasukkan",
+        "sync": "Sinkronisasi",
+        "online": "Pengiriman daring",
+        "offline": "Mengantri secara offline"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "Langkah-langkah pengambilan kumpulan data",
+        "stepCounter": "Langkah {{current}} dari {{total}}",
+        "stepLabel": "Langkah {{step}}"
       },
       "fields": {
-        "required": "Wajib untuk tinjau submission",
+        "required": "Diperlukan untuk penyerahan ulasan",
         "optional": "Opsional"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All wajib fields are complete."
+        "title": "Kesiapan penyerahan",
+        "none": "Semua bidang yang diperlukan sudah lengkap."
       },
       "actions": {
         "submit": "Kirim untuk ditinjau",
-        "next": "Berikutnya",
-        "previous": "Previous",
-        "reset": "Bersihkan form"
+        "next": "Selanjutnya",
+        "previous": "Sebelumnya",
+        "reset": "Bentuk yang jelas"
       },
       "status": {
-        "loadingDraft": "Memuat saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "Tidak dapat menyimpan local draft. Please keep this screen buka dan try again",
-        "needsInput": "Complete wajib fields dan fasilitas scope before submitting.",
-        "ready": "Ready ke kirim untuk reviewer approval.",
-        "stepInvalid": "Please tinjau highlighted values before continuing.",
-        "reviewInvalid": "Please tinjau highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted untuk reviewer approval.",
-        "queued": "Submission is dalam antrean. Your draft is still saved locally until backend simpan succeeds.",
-        "error": "Tidak dapat menyimpan dataset. Your draft is still saved locally. Periksa koneksi Anda dan coba lagi"
+        "loadingDraft": "Memuat draf kumpulan data yang disimpan...",
+        "savingDraft": "Menyimpan draf set data...",
+        "draftSaved": "Draf kumpulan data disimpan secara lokal.",
+        "draftError": "Tidak dapat menyimpan draf lokal. Harap biarkan layar ini tetap terbuka dan coba lagi.",
+        "needsInput": "Lengkapi bidang yang diperlukan dan cakupan fasilitas sebelum mengirimkan.",
+        "ready": "Siap untuk diserahkan untuk persetujuan reviewer.",
+        "stepInvalid": "Harap tinjau nilai yang disorot sebelum melanjutkan.",
+        "reviewInvalid": "Harap tinjau nilai yang disorot sebelum menyimpan.",
+        "submitting": "Mengirimkan kumpulan data...",
+        "submitted": "Dikirim untuk persetujuan pengulas.",
+        "queued": "Penyerahan diantri. Draf Anda masih disimpan secara lokal hingga penyimpanan backend berhasil.",
+        "error": "Tidak dapat menyimpan kumpulan data. Draf Anda masih disimpan secara lokal. Silakan periksa koneksi Anda dan coba lagi."
       }
     },
     "assessment": {
-      "title": "Rawat masuk pasien",
-      "accessibilityLabel": "Rawat masuk pasien wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "Akui sabar",
+      "accessibilityLabel": "Akui layar wizard pasien",
+      "stepIndicator": "Langkah {{current}} dari {{total}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact rawat masuk summary",
+        "title": "Ringkasan sesi",
+        "accessibilityLabel": "Ringkasan penerimaan yang ringkas",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Fasilitas",
-        "pathway": "Pathway",
+        "pathway": "Jalur",
         "reason": "Alasan",
         "condition": "Kondisi",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Laju napas",
-        "heartRate": "Denyut jantung",
+        "respiratoryRate": "Tingkat pernapasan",
+        "heartRate": "Detak jantung",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
         "age": "Usia",
         "weight": "Berat",
-        "height": "Tinggi badan",
-        "gender": "Jenis kelamin",
-        "comorbidities": "Comorbidities",
+        "height": "Tinggi",
+        "gender": "Jenis Kelamin",
+        "comorbidities": "Penyakit penyerta",
         "bloodPressure": "Tekanan darah",
-        "ventilatorMode": "Mode ventilator",
+        "ventilatorMode": "Modus ventilasi",
         "peep": "PEEP",
-        "tidalVolume": "Volume tidal",
-        "syncStatus": "Sync",
-        "empty": "Tidak ada data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "tidalVolume": "Volume pasang surut",
+        "syncStatus": "Sinkronisasi",
+        "empty": "Belum ada datanya",
+        "expand": "Perluas ringkasan",
+        "collapse": "Ciutkan ringkasan"
       },
       "steps": {
         "patientProfile": "Profil pasien",
-        "clinicalParams": "Clinical parameters",
-        "observations": "Opsional observations",
-        "timeSeries": "Opsional time series",
-        "review": "Tinjau",
-        "patientReason": "Pasien & alasan",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Simpan & tinjau"
+        "clinicalParams": "Parameter klinis",
+        "observations": "Pengamatan opsional",
+        "timeSeries": "Deret waktu opsional",
+        "review": "Ulasan",
+        "patientReason": "Sabar & alasan",
+        "oxygenAbgVentilator": "Oksigen & ABG",
+        "saveReview": "Simpan & ulas"
       },
       "patientReason": {
-        "description": "Capture pasien pathway, usia, body metrics, dan alasan untuk support.",
+        "description": "Catat jalur pasien, usia, metrik tubuh, dan alasan dukungan.",
         "facilityId": "Fasilitas ID",
-        "facilityIdPlaceholder": "Masukkan fasilitas ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed atau ward location",
-        "pathway": "Pasien pathway",
-        "pathwayPlaceholder": "Pilih pathway",
-        "sexForSize": "Sex untuk size calculations",
-        "ageYears": "Usia (years)",
+        "facilityIdPlaceholder": "Masuk ke fasilitas ID",
+        "bedNumber": "Tempat tidur",
+        "bedNumberPlaceholder": "Lokasi tempat tidur ICU atau bangsal",
+        "pathway": "Jalur pasien",
+        "pathwayPlaceholder": "Pilih jalur",
+        "sexForSize": "Seks untuk perhitungan ukuran",
+        "ageYears": "Usia (tahun)",
         "weightKg": "Berat (kg)",
-        "heightCm": "Tinggi badan (cm)",
+        "heightCm": "Tinggi (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Alasan untuk support",
-        "reasonForSupportPlaceholder": "Brief admission alasan",
-        "reasonForSupportSearchPlaceholder": "Cari atau type alasan",
-        "permittedMissing": "Permitted missing values",
+        "reasonForSupport": "Alasan dukungan",
+        "reasonForSupportPlaceholder": "Alasan penerimaan singkat",
+        "reasonForSupportSearchPlaceholder": "Cari atau ketik alasan",
+        "permittedMissing": "Nilai yang hilang diizinkan",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
+          "neonate": "Neonatus",
+          "infant": "Bayi",
+          "child": "Anak",
+          "adolescent": "Remaja",
+          "adult": "Dewasa",
+          "obstetric": "Kebidanan/pasca melahirkan",
+          "burns": "Terbakar",
           "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
+          "periOperative": "Peri-operatif",
+          "medical": "Medis",
+          "surgical": "Bedah",
           "unknown": "Tidak diketahui",
           "other": "Lainnya"
         },
@@ -1066,107 +1067,107 @@
           "unknown": "Tidak diketahui"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS atau severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis dengan respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD atau asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn atau inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "Gagal napas hipoksemia akut",
+          "acuteHypercapnicRespiratoryFailure": "Gagal napas hiperkapnia akut",
+          "ardsOrSeverePneumonia": "ARDS atau pneumonia berat",
+          "sepsisWithRespiratoryFailure": "Sepsis dengan gagal napas",
+          "postOperativeVentilatorySupport": "Dukungan ventilasi pasca operasi",
+          "traumaRelatedRespiratoryFailure": "Gagal napas terkait trauma",
+          "airwayProtection": "Perlindungan jalan napas",
+          "neuromuscularWeakness": "Kelemahan neuromuskular",
+          "copdOrAsthmaExacerbation": "COPD atau eksaserbasi asma",
+          "neonatalRespiratoryDistress": "Distres pernapasan neonatus",
+          "burnOrInhalationInjury": "Cedera akibat luka bakar atau inhalasi"
         },
         "permittedMissingFields": {
-          "weight": "Berat atau reference berat unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "Volume tidal unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "Berat atau berat referensi tidak tersedia",
+          "spo2": "SpO2 tidak tersedia",
+          "fio2": "FiO2 tidak tersedia",
+          "pao2": "PaO2 tidak tersedia",
+          "tidalVolume": "Volume pasang surut tidak tersedia",
+          "peep": "PEEP tidak tersedia"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, dan uncertain values. Ventilator pengaturan are suggested on berikutnya step dari dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Pilih oxygen support",
-        "oxygenSupportHint": "Choose support pasien is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Pilih date dan time",
-        "timeHint": "Use local date dan time untuk observation.",
+        "description": "Catat dukungan oksigen saat ini, waktu observasi, oksigenasi, tanda-tanda vital, nilai ABG yang tersedia, dan nilai yang tidak pasti. Pengaturan ventilator disarankan pada langkah berikutnya dari kumpulan data.",
+        "oxygenSupportType": "Jenis dukungan oksigen",
+        "oxygenSupportPlaceholder": "Pilih dukungan oksigen",
+        "oxygenSupportHint": "Pilih dukungan yang diterima pasien saat nilai-nilai ini diukur.",
+        "measuredAt": "Oksigen diukur pada",
+        "timePlaceholder": "Pilih tanggal dan waktu",
+        "timeHint": "Gunakan tanggal dan waktu setempat untuk observasi.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Laju napas",
-        "heartRate": "Denyut jantung",
+        "respiratoryRate": "Tingkat pernapasan",
+        "heartRate": "Detak jantung",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
         "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields dengan commas.",
-        "uncertaintyReason": "Uncertainty alasan",
+        "baseExcess": "Kelebihan dasar",
+        "lactate": "Laktat (mmol/L)",
+        "fio2AtSample": "FiO2 pada sampel ABG",
+        "spo2AtSample": "SpO2 pada sampel ABG",
+        "deviceId": "Perangkat ID",
+        "ventilatorType": "Tipe ventilasi",
+        "uncertaintyFields": "Bidang yang tidak pasti",
+        "uncertaintyFieldsPlaceholder": "misalnya FiO2, PaO2",
+        "uncertaintyHint": "Pisahkan beberapa bidang dengan koma.",
+        "uncertaintyReason": "Alasan ketidakpastian",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "Tidak adan-rebreather mask",
-          "highFlowNasalCannula": "Tinggi-flow nasal cannula",
+          "roomAir": "Udara ruangan",
+          "nasalCannula": "kanula hidung",
+          "faceMask": "Masker wajah",
+          "nonRebreatherMask": "Masker non-pernapasan ulang",
+          "highFlowNasalCannula": "Kanula hidung aliran tinggi",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "invasiveVentilation": "Ventilasi invasif",
           "other": "Lainnya"
         }
       },
       "saveReview": {
-        "description": "Tinjau dan edit dataset-suggested ventilator pengaturan, backend readiness, clinician confirmation, override alasan when needed, tinjau status, dan sync state.",
-        "readiness": "Simpan readiness",
-        "recommendationTitle": "Dataset rekomendasi",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator pengaturan",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Pilih mode",
-        "ventilatorMode": "Mode ventilator",
-        "tidalVolumeMl": "Volume tidal (mL)",
+        "description": "Tinjau dan edit pengaturan ventilator yang disarankan kumpulan data, kesiapan backend, konfirmasi dokter, alasan penggantian bila diperlukan, status peninjauan, dan status sinkronisasi.",
+        "readiness": "Simpan kesiapan",
+        "recommendationTitle": "Rekomendasi kumpulan data",
+        "recommendationConfidence": "Keyakinan: {{confidence}}",
+        "suggestedSettingsTitle": "Pengaturan ventilator yang disarankan",
+        "suggestedSettingsHint": "Diisi sebelumnya dari kumpulan data menggunakan biodata pasien dan nilai oksigen dan ABG saat ini. Edit hanya jika keputusan di samping tempat tidur berbeda.",
+        "modePlaceholder": "Pilih modus",
+        "ventilatorMode": "Modus ventilasi",
+        "tidalVolumeMl": "Volume pasang surut (mL)",
         "ventilatorFio2": "Ventilator FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "respiratoryRateSet": "Atur laju pernapasan",
+        "ieRatio": "rasio I:E",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
+          "acv": "Ventilasi bantuan-kontrol (ACV)",
+          "simv": "Ventilasi wajib intermiten tersinkronisasi (SIMV)",
+          "psv": "Ventilasi pendukung tekanan (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
           "other": "Lainnya"
         },
-        "recommendationEmpty": "Masukkan clinical values dan tap Berikutnya ke generate a dataset rekomendasi.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable ke generate clinical recommendations right now. You can still tinjau dan simpan admission.",
-        "recommendationNeedsClinicalInputs": "Rekomendasi needs clinical alasan, SpO2, respiratory rate, dan heart rate.",
-        "ready": "Ready ke simpan",
-        "needsCorrection": "Correction atau override wajib",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready untuk simpan tinjau.",
-        "overrideReason": "Override alasan",
-        "reviewNote": "Tinjau note"
+        "recommendationEmpty": "Masukkan nilai klinis dan ketuk Berikutnya untuk menghasilkan rekomendasi kumpulan data.",
+        "recommendationGenerating": "Menghasilkan rekomendasi klinis...",
+        "recommendationError": "Tidak dapat menghasilkan rekomendasi klinis saat ini. Anda masih dapat meninjau dan menyimpan tiket masuk.",
+        "recommendationNeedsClinicalInputs": "Rekomendasi memerlukan alasan klinis, SpO2, laju pernapasan, dan detak jantung.",
+        "ready": "Siap untuk menabung",
+        "needsCorrection": "Diperlukan koreksi atau penggantian",
+        "syncStatus": "Status sinkronisasi: {{status}}",
+        "clinicianConfirmed": "Dokter mengonfirmasi bahwa catatan penerimaan ini siap untuk disimpan dan ditinjau.",
+        "overrideReason": "Ganti alasan",
+        "reviewNote": "Catatan ulasan"
       },
       "validation": {
-        "title": "Tinjau these fields"
+        "title": "Tinjau bidang ini"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "Asma",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
+        "heartFailure": "Gagal jantung",
+        "pneumonia": "radang paru-paru",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
         "other": "Lainnya"
@@ -1174,299 +1175,299 @@
       "patientProfile": {
         "condition": "Kondisi",
         "conditionPlaceholder": "Pilih kondisi",
-        "conditionHint": "Primary respiratory kondisi (wajib)",
-        "age": "Usia (years)",
+        "conditionHint": "Kondisi pernapasan primer (wajib)",
+        "age": "Usia (tahun)",
         "agePlaceholder": "Masukkan usia",
-        "ageHint": "Pasien usia in years",
+        "ageHint": "Usia pasien dalam tahun",
         "weight": "Berat (kg)",
-        "weightPlaceholder": "Masukkan berat",
-        "weightHint": "Patient weight in kg",
-        "height": "Tinggi badan (cm)",
+        "weightPlaceholder": "Masukkan berat badan",
+        "weightHint": "Berat badan pasien di kg",
+        "height": "Tinggi (cm)",
         "heightPlaceholder": "Masukkan tinggi badan",
-        "heightHint": "Patient height in cm",
-        "gender": "Jenis kelamin",
+        "heightHint": "Tinggi pasien di cm",
+        "gender": "Jenis Kelamin",
         "genderPlaceholder": "Pilih jenis kelamin",
-        "genderHint": "Pasien jenis kelamin",
+        "genderHint": "jenis kelamin pasien",
         "genderMale": "Laki-laki",
         "genderFemale": "Perempuan",
         "genderOther": "Lainnya",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated daftar"
+        "comorbidities": "Penyakit penyerta",
+        "comorbiditiesPlaceholder": "misalnya hipertensi, diabetes",
+        "comorbiditiesHint": "Daftar yang dipisahkan koma"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Tidak adarmal range: 95–100%",
+        "spo2Placeholder": "Masukkan SpO₂",
+        "spo2Hint": "Saturasi oksigen (%)",
+        "spo2NormalRange": "Kisaran normal: 95–100%",
         "pao2": "PaO₂ (opsional)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Tidak adarmal range: 80–100 mmHg",
+        "pao2Placeholder": "Masukkan PaO₂",
+        "pao2Hint": "Oksigen arteri (mmHg)",
+        "pao2NormalRange": "Kisaran normal: 80–100 mmHg",
         "paco2": "PaCO₂ (opsional)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Tidak adarmal range: 35–45 mmHg",
+        "paco2Placeholder": "Masukkan PaCO₂",
+        "paco2Hint": "Arteri CO₂ (mmHg)",
+        "paco2NormalRange": "Kisaran normal: 35–45 mmHg",
         "ph": "pH (opsional)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "Tidak adarmal range: 7.35–7.45",
-        "respiratoryRate": "Laju napas",
+        "phPlaceholder": "Masukkan pH",
+        "phHint": "Arteri pH",
+        "phNormalRange": "Kisaran normal: 7,35–7,45",
+        "respiratoryRate": "Tingkat pernapasan",
         "respiratoryRatePlaceholder": "Masukkan RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Tidak adarmal range: 12–20 breaths/min",
-        "heartRate": "Denyut jantung",
+        "respiratoryRateHint": "Nafas per menit",
+        "respiratoryRateNormalRange": "Kisaran normal: 12–20 napas/menit",
+        "heartRate": "Detak jantung",
         "heartRatePlaceholder": "Masukkan HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Tidak adarmal range: 60–100 bpm",
+        "heartRateHint": "Denyut per menit",
+        "heartRateNormalRange": "Kisaran normal: 60–100 bpm",
         "bloodPressure": "Tekanan darah (opsional)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Tidak adarmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Tidak adarmal range: {{range}}"
+        "bloodPressurePlaceholder": "misalnya 120/80",
+        "bloodPressureHint": "Sistolik/diastolik mmHg",
+        "bloodPressureNormalRange": "Kisaran normal: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Kisaran normal: {{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single nama–value pair. Opsional; you can skip this step.",
-        "add": "Tambah observation",
+        "title": "Pengamatan tambahan",
+        "description": "Catat data klinis tambahan apa pun yang tidak tercakup di atas (misalnya laboratorium, pencitraan, obat-obatan, skor komorbiditas). Setiap pengamatan adalah satu pasangan nama-nilai. Opsional; Anda dapat melewati langkah ini.",
+        "add": "Tambahkan observasi",
         "name": "Nama",
-        "value": "Value",
-        "unit": "Unit",
+        "value": "Nilai",
+        "unit": "Satuan",
         "optional": "Opsional"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs atau lainnya metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used untuk trend analysis dan pemantauan after you start session. Opsional; you can tambah points later on pemantauan screen.",
-        "add": "Tambah time series point",
+        "title": "Rangkaian waktu (tanda-tanda vital dari waktu ke waktu)",
+        "description": "Lacak tanda-tanda vital atau metrik lainnya pada beberapa titik waktu (misalnya SpO₂, RR, HR pada 0 jam, 1 jam, 2 jam). Digunakan untuk analisis tren dan pemantauan setelah Anda memulai sesi. Opsional; Anda dapat menambahkan poin nanti di layar pemantauan.",
+        "add": "Tambahkan titik deret waktu",
         "name": "Nama",
-        "value": "Value",
+        "value": "Nilai",
         "optional": "Opsional"
       },
       "recommendationSource": {
-        "label": "Rekomendasi source",
-        "local": "Local",
-        "localDescription": "Built-in rules. Offline, tidak ada API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet wajib; uses built-in when unavailable.",
+        "label": "Sumber rekomendasi",
+        "local": "Lokal",
+        "localDescription": "Aturan bawaan. Offline, tanpa kunci API.",
+        "onlineAi": "Daring AI",
+        "onlineAiDescription": "Diperlukan internet; menggunakan bawaan saat tidak tersedia.",
         "modelLabel": "Model",
-        "modelHint": "Pilih AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "modelHint": "Pilih model AI (default digunakan jika tidak disetel)",
+        "providerLabel": "Penyedia",
+        "gpt4oMini": "GPT-4o mini (standar)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons untuk rekomendasi",
-        "hints": "AI hints"
+        "title": "AI alasan rekomendasi",
+        "hints": "AI petunjuk"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "Tes tambahan disarankan",
+        "abgPanel": "Panel ABG akan meningkatkan kepercayaan diri",
+        "abgHint": "Pertimbangkan untuk memesan gas darah arteri jika tersedia"
       },
       "actions": {
         "back": "Kembali",
-        "next": "Berikutnya",
-        "generate": "Generate rekomendasi",
-        "generateHint": "Create rekomendasi dari current inputs",
-        "saveAdmission": "Simpan admission"
+        "next": "Selanjutnya",
+        "generate": "Hasilkan rekomendasi",
+        "generateHint": "Buat rekomendasi dari masukan saat ini",
+        "saveAdmission": "Simpan tiket masuk"
       },
       "states": {
-        "loading": "Memuat rawat masuk form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "Tidak dapat memuat admission form. Periksa koneksi Anda dan coba lagi",
+        "loading": "Memuat formulir penerimaan...",
+        "errorTitle": "Formulir penerimaan tidak tersedia",
+        "error": "Tidak dapat memuat formulir penerimaan. Silakan periksa koneksi Anda dan coba lagi.",
         "retryLoad": "Coba lagi",
-        "offline": "Rawat masuk works offline",
-        "empty": "Masukkan pasien data ke begin"
+        "offline": "Akui bekerja offline",
+        "empty": "Masukkan data pasien untuk memulai"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Pengaturan",
-      "subtitle": "Pilih an active admission, masukkan latest ABG result dan/atau ventilator pengaturan, then simpan them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay dalam antrean until connectivity returns.",
+      "title": "Perbarui ABG & Pengaturan Ventilator",
+      "subtitle": "Pilih penerimaan aktif, masukkan hasil ABG terbaru dan/atau pengaturan ventilator, lalu simpan sebagai catatan waktu baru.",
+      "accessibilityLabel": "Perbarui ABG dan layar pengaturan ventilator",
+      "offline": "Mode offline: pembaruan ini akan tetap dalam antrean hingga konektivitas kembali.",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New ventilator pengaturan",
-        "missing": "Data hilang",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "admission": "Penerimaan aktif",
+        "latest": "Nilai-nilai terbaru",
+        "abg": "Hasil ABG baru",
+        "ventilator": "Pengaturan ventilator baru",
+        "missing": "Data tidak ada",
+        "advisory": "Pemeriksaan penasehat",
+        "history": "Sejarah"
       },
       "admission": {
-        "label": "Pilih active admission",
-        "empty": "Tidak ada admitted patients are available untuk pelacakan yet"
+        "label": "Pilih penerimaan aktif",
+        "empty": "Belum ada pasien yang diterima untuk dilacak."
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "abg": "ABG terbaru",
+        "ventilator": "ventilator terbaru"
       },
       "ventilator": {
-        "modePlaceholder": "Pilih ventilator mode",
-        "modeSearchPlaceholder": "Cari ventilator modes"
+        "modePlaceholder": "Pilih mode ventilator",
+        "modeSearchPlaceholder": "Cari mode ventilator"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "Belum ada ABG atau riwayat ventilator.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
-        "version": "Version {{version}} - {{dateTime}}"
+        "ventilator": "ventilasi",
+        "version": "Versi {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "Rekor tersimpan terbaru: {{dateTime}}"
       },
       "actions": {
-        "save": "Simpan new values",
-        "saving": "Validating & saving"
+        "save": "Simpan nilai-nilai baru",
+        "saving": "Memvalidasi & menyimpan"
       }
     },
     "recommendation": {
-      "title": "Pengaturan yang disarankan",
-      "accessibilityLabel": "Rekomendasi screen",
+      "title": "Pengaturan yang Direkomendasikan",
+      "accessibilityLabel": "Layar rekomendasi",
       "responseSource": {
-        "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "title": "Sumber respons",
+        "online": "Daring",
+        "offline": "Luring"
       },
       "sections": {
-        "settings": "Recommended pengaturan",
-        "confidence": "Confidence & why",
-        "monitoring": "Pemantauan points",
-        "risks": "Risks dan complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "Pengaturan yang direkomendasikan",
+        "confidence": "Keyakinan & alasannya",
+        "monitoring": "Poin pemantauan",
+        "risks": "Risiko dan komplikasi",
+        "matchedCases": "Kasus yang cocok",
+        "evidence": "Bukti & asal",
+        "warning": "Pemberitahuan kumpulan data",
+        "decisionSupport": "Pemeriksaan pendukung keputusan"
       },
       "settings": {
-        "mode": "Mode",
-        "tidalVolume": "Volume tidal",
-        "respiratoryRate": "Laju napas",
+        "mode": "Modus",
+        "tidalVolume": "Volume pasang surut",
+        "respiratoryRate": "Tingkat pernapasan",
         "fio2": "FiO₂",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "rasio I:E"
       },
       "confidence": {
         "high": "Tinggi",
         "medium": "Sedang",
         "low": "Rendah",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "missingInputs": "Hilangnya masukan yang dapat meningkatkan kepercayaan diri"
       },
       "decisionSupport": {
         "pending": "Tertunda",
-        "referenceWeight": "Reference berat",
+        "referenceWeight": "Berat referensi",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "Tinjau status",
-        "syncStatus": "Sync status",
-        "missingData": "Data hilang",
+        "pfRatio": "rasio P/F",
+        "sfRatio": "rasio S/F",
+        "drivingPressure": "Tekanan mengemudi",
+        "reviewStatus": "Status tinjauan",
+        "syncStatus": "Status sinkronisasi",
+        "missingData": "Data tidak ada",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "Pratinjau belum dikonfirmasi",
+          "backend_verified": "Bagian belakang terverifikasi",
+          "missing_verified_records": "Catatan terverifikasi tidak ada",
+          "development_fallback_unconfirmed": "Kemunduran pengembangan"
         },
         "review": {
-          "pending_clinician_review": "Tertunda clinician tinjau",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "Menunggu tinjauan dokter",
+          "backend_confirmed": "Bagian belakang dikonfirmasi"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Tertunda backend confirmation",
-          "synced": "Tersinkron",
-          "queued": "Dalam antrean",
-          "duplicate": "Duplicate"
+          "local_preview_pending_backend_confirmation": "Menunggu konfirmasi backend",
+          "synced": "Disinkronkan",
+          "queued": "Mengantri",
+          "duplicate": "Duplikat"
         }
       },
       "aiReasons": {
-        "title": "AI reasons untuk rekomendasi",
-        "hints": "AI hint codes"
+        "title": "AI alasan rekomendasi",
+        "hints": "AI kode petunjuk"
       },
       "actions": {
-        "startMonitoring": "Start pemantauan",
-        "startMonitoringHint": "Begin pelacakan vital signs dan time series",
-        "backToAssessment": "Kembali ke Rawat masuk",
-        "startNewAssessment": "Start new rawat masuk",
-        "editAssessmentTitle": "Edit rawat masuk record",
-        "editAssessmentHint": "Buka rawat masuk form dengan current session data pre-filled",
-        "requestAiRecommendation": "Request AI rekomendasi",
-        "requestAiHint": "Get opsional AI hints untuk this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental dan not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This rekomendasi is dari local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Hapus identifiers before export"
+        "startMonitoring": "Mulai memantau",
+        "startMonitoringHint": "Mulailah melacak tanda-tanda vital dan rangkaian waktu",
+        "backToAssessment": "Kembali ke Mengakui",
+        "startNewAssessment": "Mulai pengakuan baru",
+        "editAssessmentTitle": "Edit catatan penerimaan",
+        "editAssessmentHint": "Buka formulir penerimaan dengan data sesi saat ini yang sudah diisi sebelumnya",
+        "requestAiRecommendation": "Minta rekomendasi AI",
+        "requestAiHint": "Dapatkan petunjuk AI opsional untuk kasus ini (memerlukan konektivitas)",
+        "connectivityRequired": "Membutuhkan koneksi internet",
+        "supplementalDisclaimer": "Keluaran AI bersifat tambahan dan tidak tervalidasi secara klinis",
+        "aiUnavailableFallback": "AI tidak tersedia — menggunakan rekomendasi lokal",
+        "fallbackMessage": "AI online tidak digunakan. Rekomendasi ini berasal dari kumpulan data lokal.",
+        "exportSummary": "Ekspor ringkasan",
+        "exportSummaryHint": "Unduh ringkasan sesi sebagai teks",
+        "anonymizeBeforeExport": "Hapus pengidentifikasi sebelum mengekspor"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local rekomendasi.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
-        "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "userChoseLocal": "Anda memilih rekomendasi lokal.",
+        "notComplex": "Kasus ini tidak memerlukan AI online.",
+        "offline": "Anda sedang luring.",
+        "noApiKey": "Kunci AI API tidak disetel.",
+        "error": "Daring AI gagal. Sebagai gantinya, gunakan kumpulan data lokal."
       },
-      "fallbackBanner": "AI could not be reached. Tampilkaning rekomendasi dari local guide.",
+      "fallbackBanner": "AI tidak dapat dihubungi. Menampilkan rekomendasi dari pemandu lokal.",
       "states": {
         "loading": "Memuat rekomendasi…",
         "error": "Tidak dapat memuat rekomendasi",
-        "empty": "Tidak ada rekomendasi available. Complete Rawat masuk first"
+        "empty": "Tidak ada rekomendasi yang tersedia. Selesaikan Akui terlebih dahulu."
       },
       "intendedUse": {
-        "warningLabel": "Tidak adat clinically validated",
-        "validationLabel": "Validasi requirement"
+        "warningLabel": "Tidak tervalidasi secara klinis",
+        "validationLabel": "Persyaratan validasi"
       },
       "provenance": {
-        "reviewStatus": "Evidence tinjau status",
-        "sourceUrl": "Buka source",
+        "reviewStatus": "Status peninjauan bukti",
+        "sourceUrl": "Sumber terbuka",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Tertunda clinician validasi",
-        "validated": "Validated"
+        "unvalidated": "Tidak divalidasi (prototipe)",
+        "pendingClinicianValidation": "Menunggu validasi dokter",
+        "validated": "Divalidasi"
       }
     },
     "monitoring": {
       "title": "Pemantauan",
-      "accessibilityLabel": "Pemantauan screen",
-      "decisionSupportOnly": "untuk decision support only. Tidak adat a substitute untuk clinical judgment.",
+      "accessibilityLabel": "Layar pemantauan",
+      "decisionSupportOnly": "Hanya untuk pendukung keputusan. Bukan pengganti penilaian klinis.",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "Entri cepat",
+        "trend": "Tren",
+        "alerts": "Peringatan"
       },
       "quickEntry": {
-        "addPoint": "Tambah point",
-        "addPointHint": "Tambah vitals atau labs data point",
-        "namePlaceholder": "Nama (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "Tambahkan poin",
+        "addPointHint": "Tambahkan titik data vital atau laboratorium",
+        "namePlaceholder": "Nama (misalnya SpO₂, RR)",
+        "valuePlaceholder": "Nilai",
+        "unitPlaceholder": "Satuan"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
+        "insufficientData": "Data tidak mencukupi",
+        "directionUp": "Sedang tren",
+        "directionDown": "Tren turun",
+        "directionFlat": "Stabil",
         "directionUnknown": "Tidak diketahui"
       },
       "alerts": {
-        "severityNormal": "Normal",
+        "severityNormal": "Biasa",
         "severityWarning": "Peringatan",
         "severityCritical": "Kritis",
         "severityUnknown": "Tidak diketahui",
-        "why": "Why",
-        "whyCriticalLow": "Value below kritis rendah threshold",
-        "whyWarningLow": "Value below peringatan rendah threshold",
-        "whyCriticalHigh": "Value above kritis tinggi threshold",
-        "whyWarningHigh": "Value above peringatan tinggi threshold",
-        "suggestedAction": "Suggested action",
+        "why": "Mengapa",
+        "whyCriticalLow": "Nilai di bawah ambang batas rendah kritis",
+        "whyWarningLow": "Nilai di bawah ambang batas peringatan rendah",
+        "whyCriticalHigh": "Nilai di atas ambang batas tinggi kritis",
+        "whyWarningHigh": "Nilai di atas ambang batas peringatan tinggi",
+        "suggestedAction": "Tindakan yang disarankan",
         "suggestedActionNormal": "Lanjutkan pemantauan",
-        "suggestedActionWarning": "Tinjau dan consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value dan re-masukkan if needed",
-        "empty": "Tidak ada alerts"
+        "suggestedActionWarning": "Tinjau dan pertimbangkan intervensi",
+        "suggestedActionCritical": "Alamat segera",
+        "suggestedActionUnknown": "Verifikasi nilai dan masukkan kembali jika perlu",
+        "empty": "Tidak ada peringatan"
       },
       "actions": {
         "backToRecommendation": "Kembali ke rekomendasi"
@@ -1474,183 +1475,183 @@
       "states": {
         "loading": "Memuat…",
         "error": "Tidak dapat memuat pemantauan",
-        "empty": "Tambah vitals atau labs points ke see trends dan alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "empty": "Tambahkan titik vital atau laboratorium untuk melihat tren dan peringatan.",
+        "offline": "Anda sedang luring. Data disimpan secara lokal."
       }
     },
     "tracking": {
       "title": "Pelacakan",
-      "subtitle": "Active admitted patients dan backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical pelacakan screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "Tidak ada admitted patients are available untuk pelacakan yet",
-      "emptyHint": "Rawat masuk a pasien first ke begin pelacakan.",
-      "admittedBanner": "Admission saved. This pasien is admitted dan available untuk pelacakan.",
-      "localDraft": "Draft data exists on this device. Backend tinjau, sync, dan konflik status appears after simpan atau sync.",
+      "subtitle": "Pasien yang masuk aktif dan status klinis yang dikonfirmasi di backend.",
+      "accessibilityLabel": "Layar pelacakan klinis",
+      "activePatients": "{{count}} pasien aktif",
+      "empty": "Belum ada pasien yang diterima untuk dilacak.",
+      "emptyHint": "Terima pasien terlebih dahulu untuk memulai pelacakan.",
+      "admittedBanner": "Penerimaan disimpan. Pasien ini dirawat dan tersedia untuk pelacakan.",
+      "localDraft": "Data draf ada di perangkat ini. Tinjauan backend, sinkronisasi, dan status konflik muncul setelah penyimpanan atau sinkronisasi.",
       "search": {
-        "placeholder": "Cari by pasien code, ID, nama, atau hospital number",
-        "accessibilityLabel": "Cari pelacakan patients",
-        "empty": "Tidak ada matching patients found",
-        "emptyHint": "Try a pasien code, pasien ID, nama, hospital number, bed, atau pathway."
+        "placeholder": "Cari berdasarkan kode pasien, ID, nama, atau nomor rumah sakit",
+        "accessibilityLabel": "Cari pelacakan pasien",
+        "empty": "Tidak ditemukan pasien yang cocok.",
+        "emptyHint": "Coba kode pasien, pasien ID, nama, nomor rumah sakit, tempat tidur, atau jalur."
       },
       "activeFacility": {
-        "none": "Tidak ada active fasilitas selected"
+        "none": "Tidak ada fasilitas aktif yang dipilih"
       },
       "actions": {
         "refresh": "Segarkan",
-        "refreshHint": "Reload active pelacakan records",
-        "admitFirst": "Rawat masuk pasien",
-        "viewDetails": "Details",
-        "viewDetailsHint": "Lihat pelacakan detail dan timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Tutup pelacakan detail"
+        "refreshHint": "Muat ulang catatan pelacakan aktif",
+        "admitFirst": "Akui sabar",
+        "viewDetails": "Detail",
+        "viewDetailsHint": "Lihat detail pelacakan dan garis waktu",
+        "updateValues": "Perbarui nilai",
+        "updateValuesHint": "Buka ABG dan formulir pembaruan ventilator untuk pasien ini",
+        "closeDetailsHint": "Tutup detail pelacakan"
       },
       "patient": {
-        "unknown": "Pasien not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
-        "missingData": "Data hilang: {{fields}}"
+        "unknown": "Pasien tidak diberi label",
+        "bed": "Tempat tidur {{bed}}",
+        "bedMissing": "Tempat tidur tidak dicatat",
+        "admitted": "Diakui {{dateTime}}",
+        "missingData": "Data yang hilang: {{fields}}"
       },
       "detail": {
-        "title": "Pelacakan detail",
-        "noTimeline": "Tidak ada timeline entries returned"
+        "title": "Detil pelacakan",
+        "noTimeline": "Tidak ada entri garis waktu yang dikembalikan."
       },
       "states": {
-        "loading": "Memuat patients untuk pelacakan...",
-        "loadingDetail": "Memuat pelacakan detail...",
-        "error": "Tidak dapat memuat patients untuk pelacakan. Periksa koneksi Anda dan coba lagi",
-        "detailError": "Tidak dapat memuat pelacakan details untuk this pasien. Please try again"
+        "loading": "Memuat pasien untuk dilacak...",
+        "loadingDetail": "Memuat detail pelacakan...",
+        "error": "Tidak dapat memuat pasien untuk pelacakan. Silakan periksa koneksi Anda dan coba lagi.",
+        "detailError": "Tidak dapat memuat detail pelacakan untuk pasien ini. Silakan coba lagi."
       }
     },
     "history": {
       "title": "Pelacakan",
-      "accessibilityLabel": "Clinical pelacakan screen",
-      "empty": "Tidak ada active admitted patients untuk this fasilitas",
-      "corruptRecovery": "Session history was reset due ke a storage issue. You can start new sessions.",
+      "accessibilityLabel": "Layar pelacakan klinis",
+      "empty": "Tidak ada pasien aktif yang dirawat di fasilitas ini.",
+      "corruptRecovery": "Riwayat sesi disetel ulang karena masalah penyimpanan. Anda dapat memulai sesi baru.",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "Lanjutkan this session",
-        "viewDetails": "Lihat details",
-        "viewDetailsHint": "Lihat session summary",
+        "resume": "Lanjutkan",
+        "resumeHint": "Lanjutkan sesi ini",
+        "viewDetails": "Lihat detailnya",
+        "viewDetailsHint": "Lihat ringkasan sesi",
         "delete": "Hapus",
-        "deleteHint": "Hapus dari history"
+        "deleteHint": "Hapus dari riwayat"
       },
       "deleteConfirm": {
-        "title": "Hapus session?",
-        "message": "This session will be removed dari history. This cannot be undone.",
+        "title": "Hapus sesi?",
+        "message": "Sesi ini akan dihapus dari riwayat. Hal ini tidak dapat dibatalkan.",
         "confirm": "Hapus",
-        "cancel": "Batal"
+        "cancel": "Batalkan"
       },
       "session": {
         "dateTime": "{{dateTime}}",
         "condition": "Kondisi: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "tier": "Tingkat: {{tier}}",
+        "summary": "Ringkasan"
       },
       "states": {
-        "loading": "Memuat history…",
-        "error": "Tidak dapat memuat session history"
+        "loading": "Memuat riwayat…",
+        "error": "Tidak dapat memuat riwayat sesi"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
+      "title": "Detil kasus",
+      "accessibilityLabel": "Layar detail kasus",
+      "summary": "Ringkasan kasus",
       "patientProfile": "Profil pasien",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator pengaturan",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "Tinjau status",
-      "intendedUseWarning": "This is a dataset case untuk reference only. Tidak adat untuk direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "Tidak ada case selected",
+      "clinicalParameters": "Parameter klinis",
+      "ventilatorSettings": "Pengaturan ventilasi",
+      "outcomes": "Hasil",
+      "evidence": "Bukti",
+      "reviewStatus": "Status tinjauan",
+      "intendedUseWarning": "Ini adalah kasus kumpulan data untuk referensi saja. Bukan untuk penggunaan klinis langsung.",
+      "datasetCaseFraming": "Kasus kumpulan data (hanya referensi)",
+      "prototypeFraming": "Prototipe — tidak tervalidasi secara klinis",
+      "notFound": "Kasus tidak ditemukan dalam kumpulan data.",
+      "missingCaseId": "Tidak ada kasus yang dipilih.",
       "states": {
-        "loading": "Memuat case…"
+        "loading": "Memuat kotak…"
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Tertunda clinician validasi",
-        "validated": "Validated"
+        "unvalidated": "Tidak divalidasi (prototipe)",
+        "pending_clinician_validation": "Menunggu validasi dokter",
+        "validated": "Divalidasi"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, dan reference.",
-      "accessibilityLabel": "Training beranda screen",
-      "searchPlaceholder": "Cari topics…",
-      "searchHint": "Cari training content",
-      "topicsSection": "Topics",
-      "searchResults": "Cari results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "Lihat all topics",
-      "browseAllHint": "Lihat all training topics",
+      "title": "Pelatihan",
+      "subtitle": "Protokol, daftar periksa, dan referensi.",
+      "accessibilityLabel": "Layar beranda pelatihan",
+      "searchPlaceholder": "Cari topik…",
+      "searchHint": "Cari konten pelatihan",
+      "topicsSection": "Topik",
+      "searchResults": "Hasil pencarian",
+      "popularTopics": "Topik populer",
+      "quickChecklists": "Daftar periksa cepat",
+      "browseAll": "Lihat semua topik",
+      "browseAllHint": "Lihat semua topik pelatihan",
       "viewTopic": "Lihat",
       "states": {
-        "loading": "Memuat training…",
-        "error": "Tidak dapat memuat training content",
-        "offline": "Content is available offline",
-        "empty": "Tidak ada training content available"
+        "loading": "Memuat pelatihan…",
+        "error": "Tidak dapat memuat konten pelatihan",
+        "offline": "Konten tersedia secara offline",
+        "empty": "Tidak ada konten pelatihan yang tersedia"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic daftar screen",
+      "title": "Topik",
+      "accessibilityLabel": "Layar daftar topik",
       "searchPlaceholder": "Cari atau filter…",
-      "searchHint": "Cari topics",
-      "empty": "Tidak ada topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "Buka topic",
+      "searchHint": "Cari topik",
+      "empty": "Tidak ada topik yang ditemukan.",
+      "filterByType": "Saring berdasarkan jenis",
+      "typeProtocol": "Protokol",
+      "typeChecklist": "Daftar periksa",
+      "typeGlossary": "Glosarium",
+      "typeFaq": "Pertanyaan Umum",
+      "openTopicHint": "Buka topik",
       "states": {
-        "loading": "Memuat topics…",
-        "error": "Tidak dapat memuat topics",
-        "offline": "Content is available offline"
+        "loading": "Memuat topik…",
+        "error": "Tidak dapat memuat topik",
+        "offline": "Konten tersedia secara offline"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "Kembali ke topics",
-      "backToTopicsHint": "Return ke topic daftar",
+      "title": "Topik",
+      "accessibilityLabel": "Layar detail topik",
+      "section": "Bagian",
+      "expand": "Perluas bagian",
+      "collapse": "Ciutkan bagian",
+      "checklistItem": "Barang",
+      "notFound": "Topik tidak ditemukan.",
+      "backToTopics": "Kembali ke topik",
+      "backToTopicsHint": "Kembali ke daftar topik",
       "states": {
-        "loading": "Memuat topic…",
-        "error": "Tidak dapat memuat topic"
+        "loading": "Memuat topik…",
+        "error": "Tidak dapat memuat topik"
       }
     }
   },
   "notFound": {
-    "title": "Page Tidak adat Found",
-    "message": "page you're looking untuk doesn't exist atau has been moved.",
-    "back": "Go Kembali",
-    "backHint": "Return ke previous page",
-    "goHome": "Buka Beranda",
-    "goHomeHint": "Navigate kembali ke beranda page"
+    "title": "Halaman Tidak Ditemukan",
+    "message": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "back": "Kembali",
+    "backHint": "Kembali ke halaman sebelumnya",
+    "goHome": "Pergi ke Rumah",
+    "goHomeHint": "Arahkan kembali ke halaman beranda"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "Terjadi kesalahan tak terduga. Please try again atau return ke beranda page.",
+    "title": "Ada yang Salah",
+    "message": "Terjadi kesalahan yang tidak terduga. Silakan coba lagi atau kembali ke halaman beranda.",
     "retry": "Coba lagi",
-    "retryHint": "Try action again",
-    "goHome": "Buka Beranda",
-    "goHomeHint": "Navigate kembali ke beranda page"
+    "retryHint": "Coba aksinya lagi",
+    "goHome": "Pergi ke Rumah",
+    "goHomeHint": "Arahkan kembali ke halaman beranda"
   },
   "errorState": {
-    "defaultTitle": "Terjadi kesalahan"
+    "defaultTitle": "Ada yang tidak beres"
   }
 }

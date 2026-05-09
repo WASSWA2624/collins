@@ -83,12 +83,19 @@ const StyledTrigger = styled.button.withConfig({
       if ($isFocused) return theme.colors.primary;
       return theme.colors.background.tertiary;
     }};
-  border-radius: ${({ $compact, theme }) => ($compact ? 0 : theme.radius.md)}px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-radius: 0;
+  background-color: ${({ disabled, theme }) =>
+    disabled ? theme.colors.background.secondary : theme.colors.background.primary};
   padding: ${({ $compact, theme }) =>
     $compact ? theme.spacing.sm : theme.spacing.md}px;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   text-align: left;
+  box-sizing: border-box;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+
+  &:hover:not(:disabled) {
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
@@ -96,8 +103,20 @@ const StyledTrigger = styled.button.withConfig({
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.72;
   }
+`;
+
+const StyledTriggerContent = styled.span.withConfig({
+  displayName: 'StyledTriggerContent',
+  componentId: 'StyledTriggerContent',
+})`
+  min-width: 0;
+  flex: 1;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledTriggerText = styled.span.withConfig({
@@ -114,6 +133,10 @@ const StyledTriggerText = styled.span.withConfig({
     return theme.colors.text.primary;
   }};
   display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const StyledChevron = styled.span.withConfig({
@@ -139,12 +162,13 @@ const StyledMenu = styled.div.withConfig({
   border-width: 1px;
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-radius: 0;
   z-index: 10000;
   overflow: hidden;
   max-height: min(50vh, 240px);
   overflow-y: auto;
   overscroll-behavior: contain;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
 `;
 
 const StyledSearchInput = styled.input.withConfig({
@@ -156,12 +180,17 @@ const StyledSearchInput = styled.input.withConfig({
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   padding: ${({ theme }) => theme.spacing.sm}px
     ${({ theme }) => theme.spacing.md}px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.tertiary};
+  }
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
@@ -174,7 +203,9 @@ const StyledOption = styled.button.withConfig({
   componentId: 'StyledOption',
 })`
   width: 100%;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  min-height: 40px;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -182,6 +213,11 @@ const StyledOption = styled.button.withConfig({
   border-left: 3px solid transparent;
   box-sizing: border-box;
   text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 
   &:hover {
     ${({ disabled, theme }) =>
@@ -194,11 +230,6 @@ const StyledOption = styled.button.withConfig({
     border-left-color: ${({ theme }) => theme.colors.primary};
   }
 
-  &[aria-selected='true'] span {
-    color: ${({ theme }) => theme.colors.primary};
-    font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  }
-
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
     outline-offset: -2px;
@@ -209,14 +240,63 @@ const StyledOption = styled.button.withConfig({
   }
 `;
 
+const StyledOptionContent = styled.span.withConfig({
+  displayName: 'StyledOptionContent',
+  componentId: 'StyledOptionContent',
+})`
+  min-width: 0;
+  flex: 1;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledOptionIcon = styled.span.withConfig({
+  displayName: 'StyledOptionIcon',
+  componentId: 'StyledOptionIcon',
+})`
+  width: 22px;
+  flex: 0 0 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  line-height: 1;
+`;
+
 const StyledOptionText = styled.span.withConfig({
   displayName: 'StyledOptionText',
   componentId: 'StyledOptionText',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
+  min-width: 0;
+  flex: 1;
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  color: ${({ $selected, theme }) =>
+    $selected ? theme.colors.primary : theme.colors.text.primary};
+  font-weight: ${({ $selected, theme }) =>
+    $selected
+      ? theme.typography.fontWeight.semibold
+      : theme.typography.fontWeight.normal};
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const StyledSelectedMark = styled.span.withConfig({
+  displayName: 'StyledSelectedMark',
+  componentId: 'StyledSelectedMark',
+})`
+  width: 18px;
+  flex: 0 0 18px;
+  color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  text-align: right;
 `;
 
 const StyledHelperText = styled.span.withConfig({
@@ -252,12 +332,16 @@ export {
   StyledLabel,
   StyledRequired,
   StyledTrigger,
+  StyledTriggerContent,
   StyledTriggerText,
   StyledChevron,
   StyledMenu,
   StyledSearchInput,
   StyledOption,
+  StyledOptionContent,
+  StyledOptionIcon,
   StyledOptionText,
+  StyledSelectedMark,
   StyledNoResultsText,
   StyledHelperText,
 };

@@ -12,7 +12,41 @@ const LOCALE_LABEL_KEYS = Object.fromEntries(
   SUPPORTED_LOCALE_CODES.map((code) => [code, `settings.language.options.${code}`])
 );
 
+const DEFAULT_LOCALE_FLAG_COUNTRY_CODE = 'WORLD';
+
+const LOCALE_FLAG_COUNTRY_CODES = {
+  en: 'GB',
+  ar: 'SA',
+  de: 'DE',
+  es: 'ES',
+  fa: 'IR',
+  fr: 'FR',
+  hi: 'IN',
+  id: 'ID',
+  it: 'IT',
+  ja: 'JP',
+  ko: 'KR',
+  ms: 'MY',
+  nl: 'NL',
+  pl: 'PL',
+  pt: 'PT',
+  ru: 'RU',
+  sw: 'TZ',
+  ta: 'IN',
+  th: 'TH',
+  tr: 'TR',
+  uk: 'UA',
+  vi: 'VN',
+  zh: 'CN',
+};
+
 const LOCALE_VALUES = SUPPORTED_LOCALE_CODES;
 const LOCALE_STORAGE_KEY = 'user_locale';
 
-export { LOCALE_LABEL_KEYS, LOCALE_VALUES, LOCALE_STORAGE_KEY };
+export {
+  DEFAULT_LOCALE_FLAG_COUNTRY_CODE,
+  LOCALE_FLAG_COUNTRY_CODES,
+  LOCALE_LABEL_KEYS,
+  LOCALE_VALUES,
+  LOCALE_STORAGE_KEY,
+};

@@ -5,45 +5,45 @@
     "delete": "削除",
     "edit": "編集",
     "search": "検索",
-    "submit": "送信",
+    "submit": "送信する",
     "loading": "読み込み中…",
     "retry": "再試行",
     "back": "戻る",
     "next": "次へ",
-    "continue": "続行",
+    "continue": "続ける",
     "close": "閉じる",
-    "closeSidebarHint": "Closes sidebar menu",
+    "closeSidebarHint": "サイドバーメニューを閉じます",
     "select": "選択",
-    "selectPlaceholder": "選択:…",
-    "closeSelect": "閉じる 選択",
+    "selectPlaceholder": "選択してください…",
+    "closeSelect": "選択を閉じる",
     "remove": "削除",
-    "goToHome": "移動: ホーム",
-    "viewNotifications": "表示 notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "検索:…",
-    "noResults": "結果なし",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "検索: icon",
-    "clearSearch": "クリア 検索",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed へ load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
+    "goToHome": "家に帰る",
+    "viewNotifications": "通知を表示する",
+    "userMenu": "ユーザーメニュー",
+    "toggleMenu": "メニューの切り替え",
+    "searchPlaceholder": "検索…",
+    "noResults": "結果はありません",
+    "useCustomValue": "「{{value}}」を使用してください",
+    "searchIcon": "検索アイコン",
+    "clearSearch": "検索をクリア",
+    "on": "オン",
+    "off": "オフ",
+    "switch": "スイッチ",
+    "imageLoadError": "画像のロードに失敗しました",
+    "imageDefaultAlt": "画像",
+    "progress": "進捗状況: {{value}}%",
     "requiredLabel": "必須",
-    "clearAll": "クリア all",
-    "filters": "Filters",
-    "clearAllFilters": "クリア all filters",
-    "loadingPlaceholder": "読み込み中 placeholder",
-    "radio": "Radio",
-    "emptyState": "空 state",
+    "clearAll": "すべてクリア",
+    "filters": "フィルター",
+    "clearAllFilters": "すべてのフィルターをクリア",
+    "loadingPlaceholder": "プレースホルダを読み込んでいます",
+    "radio": "ラジオ",
+    "emptyState": "空の状態",
     "message": "メッセージ",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "sliderValue": "スライダー: {{value}}",
+    "dropdownMenu": "ドロップダウンメニュー",
+    "tooltip": "ツールチップ",
+    "action": "アクション"
   },
   "greeting": {
     "hello": "こんにちは、{{name}}"
@@ -55,261 +55,261 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "換気意思決定のサポート",
+      "logoLabel": "AI Vent ロゴ"
     },
     "logout": "ログアウト",
     "password": "パスワード",
-    "passwordHide": "非表示 パスワード",
-    "passwordShow": "表示 パスワード",
-    "enterPassword": "入力: パスワード",
+    "passwordHide": "パスワードを隠す",
+    "passwordShow": "パスワードを表示",
+    "enterPassword": "パスワードを入力してください",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "??",
+      "fair": "??",
+      "good": "??",
+      "strong": "??",
+      "veryStrong": "?????"
     },
     "login": {
       "title": "サインイン",
-      "accessibilityLabel": "サインイン screen",
-      "emailLabel": "メール",
+      "accessibilityLabel": "サインイン画面",
+      "emailLabel": "電子メール",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "パスワード",
-      "passwordPlaceholder": "入力: パスワード",
+      "passwordPlaceholder": "パスワードを入力してください",
       "submit": "サインイン",
-      "submitting": "Signing in...",
-      "createPrompt": "なし: アカウント yet?",
-      "createAccount": "アカウントを作成",
-      "createAccountHint": "開く アカウント registration",
-      "errorTitle": "Sign-in issue"
+      "submitting": "サインイン中...",
+      "createPrompt": "まだアカウントをお持ちですか?",
+      "createAccount": "アカウントを作成する",
+      "createAccountHint": "オープンアカウント登録",
+      "errorTitle": "サインインの問題"
     },
     "register": {
-      "title": "アカウントを作成",
-      "description": "Create an AI Vent アカウント へ request 施設 access.",
-      "accessibilityLabel": "アカウントを作成 screen",
-      "nameLabel": "氏名",
-      "namePlaceholder": "Clinician 名前",
-      "emailLabel": "メール",
+      "title": "アカウントを作成する",
+      "description": "AI Vent アカウントを作成して、施設へのアクセスをリクエストします。",
+      "accessibilityLabel": "アカウント作成画面",
+      "nameLabel": "フルネーム",
+      "namePlaceholder": "臨床医の名前",
+      "emailLabel": "電子メール",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "パスワード",
-      "passwordPlaceholder": "Create パスワード",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "施設 または hospital (任意)",
-      "facilitySearchPlaceholder": "検索: Uganda hospitals",
-      "facilitySearchHint": "Filters hospital リスト by 名前, district, region, または ownership",
-      "facilitySelectLabel": "選択: 施設",
-      "facilitySelectPlaceholder": "Choose a matching 施設",
-      "facilitySelectHelper": "Leave blank if you are not attached へ a 施設.",
-      "facilitySelectHint": "Choose 施設 へ request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested 用 レビュー.",
-      "facilityOptionalHelper": "任意. You can create an アカウント without selecting a 施設.",
-      "facilityNoResults": "なし: matching 施設 found. You can still create an アカウント without selecting one",
-      "facilityClear": "クリア 施設",
-      "submit": "アカウントを作成",
-      "submitting": "Creating アカウント...",
-      "signInPrompt": "Already have an アカウント?",
+      "passwordPlaceholder": "パスワードの作成",
+      "passwordHelper": "少なくとも 8 文字を使用してください。",
+      "facilitySearchLabel": "施設または病院（任意）",
+      "facilitySearchPlaceholder": "ウガンダの病院を検索",
+      "facilitySearchHint": "病院リストを名前、地区、地域、または所有者でフィルタリングします。",
+      "facilitySelectLabel": "施設を選択",
+      "facilitySelectPlaceholder": "マッチングする施設を選ぶ",
+      "facilitySelectHelper": "施設に所属していない場合は空白のままにしてください。",
+      "facilitySelectHint": "臨床医の所属をリクエストする施設を選択してください",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}。メンバーシップは審査のために要求されます。",
+      "facilityOptionalHelper": "オプション。施設を選択せず​​にアカウントを作成することもできます。",
+      "facilityNoResults": "該当する施設が見つかりませんでした。アカウントを選択しなくてもアカウントを作成できます。",
+      "facilityClear": "きれいな施設",
+      "submit": "アカウントを作成する",
+      "submitting": "アカウントを作成しています...",
+      "signInPrompt": "すでにアカウントをお持ちですか?",
       "signIn": "サインイン",
-      "signInHint": "Return へ sign in",
-      "errorTitle": "アカウント creation issue"
+      "signInHint": "サインインに戻る",
+      "errorTitle": "アカウント作成の問題"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "再試行 session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "セッションのお知らせ",
+      "retry": "セッションの再試行",
+      "checking": "セッションを確認中...",
+      "restoring": "すでにサインインしているかどうかを確認しています。"
     },
     "facility": {
-      "title": "Choose 施設",
-      "description": "選択: 施設 context 用 this session.",
-      "accessibilityLabel": "施設 selection screen",
-      "selectFacility": "選択: {{name}}",
-      "empty": "なし: approved facilities are available 用 this アカウント",
-      "errorTitle": "施設 selection issue"
+      "title": "施設を選ぶ",
+      "description": "このセッションのファシリティコンテキストを選択します。",
+      "accessibilityLabel": "施設選択画面",
+      "selectFacility": "{{name}} を選択します",
+      "empty": "このアカウントでは利用できる承認された施設がありません。",
+      "errorTitle": "施設選定問題"
     }
   },
   "errors": {
     "fallback": {
-      "title": "問題が発生しました",
+      "title": "何か問題が発生しました",
       "message": "予期しないエラーが発生しました",
       "retry": "再試行",
-      "retryHint": "もう一度お試しください"
+      "retryHint": "もう一度試してください"
     },
     "codes": {
-      "UNKNOWN_ERROR": "問題が発生しました. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect へ server. Please check your internet connection と try again.",
-      "REQUEST_TIMEOUT": "server took too long へ respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection と try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNKNOWN_ERROR": "何か問題が発生しました。しばらくしてからもう一度お試しください。",
+      "NETWORK_ERROR": "サーバーに接続できませんでした。インターネット接続を確認して、もう一度試してください。",
+      "REQUEST_TIMEOUT": "サーバーの応答に時間がかかりすぎました。もう一度試してください。",
+      "BACKEND_HOST_UNREACHABLE": "サーバーに到達できませんでした。インターネット接続を確認して、もう一度試してください。",
+      "SECURE_CONNECTION_FAILED": "安全な接続に失敗しました。バックエンドの HTTPS 証明書を確認してください。",
       "UNAUTHORIZED": "認証が必要です",
-      "FORBIDDEN": "アクセス拒否",
-      "CONFLICT": "This update conflicts 付き newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields と try again.",
-      "SERVER_ERROR": "問題が発生しました while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect へ server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please 更新 と try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return へ 追跡 と try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not 保存 your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment と try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An エラー occurred while 読み込み中 this page",
-      "INVALID_CREDENTIALS": "Invalid メール または パスワード. Please check your details と try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please 選択 a tenant.",
-      "ACCOUNT_INACTIVE": "アカウント is not active",
-      "ACCOUNT_SUSPENDED": "アカウント has been suspended",
-      "ACCOUNT_PENDING": "アカウント is 保留中 verification",
-      "PASSWORD_INCORRECT": "Current パスワード is incorrect",
-      "TOKEN_INVALID": "Invalid または expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid または expired 更新 token",
-      "SESSION_EXPIRED": "Your session expired. サインイン again へ 続行.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This メール is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "アカウント is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid または expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "ホーム summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "読み込めません: ホーム summary",
-      "ADMISSION_SAVE_FAILED": "保存できません: admission record. 接続を確認してもう一度お試しください",
-      "ADMISSION_VALIDATION_FAILED": "Some 必須 admission details are missing. Please レビュー highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable へ generate clinical recommendations right now. You can still レビュー と 保存 admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "読み込めません: admission form. 接続を確認してもう一度お試しください",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "保存できません: local admission draft. Please try again"
+      "FORBIDDEN": "アクセスが拒否されました",
+      "CONFLICT": "この更新は、新しく保存された臨床データと競合します",
+      "VALIDATION_ERROR": "強調表示されたフィールドを確認して、再試行してください。",
+      "SERVER_ERROR": "リクエストの処理中に問題が発生しました。しばらくしてからもう一度お試しください。",
+      "BACKEND_UNAVAILABLE": "現在サーバーに接続できませんでした。しばらくしてからもう一度お試しください。",
+      "BACKEND_ENDPOINT_NOT_FOUND": "バックエンド API エンドポイントが見つかりませんでした。ドメインには到達可能ですが、API ルートがデプロイされていません。",
+      "RESOURCE_NOT_FOUND": "要求されたレコードが見つかりませんでした。更新してもう一度お試しください。",
+      "ADMISSION_NOT_FOUND": "入院記録は見つかりませんでした。追跡に戻って再試行してください。",
+      "BACKEND_METHOD_NOT_ALLOWED": "バックエンド エンドポイントは存在しますが、このリクエストを受け入れません。",
+      "BACKEND_INVALID_RESPONSE": "バックエンドが無効なサインイン応答を返しました。 API の代わりに Web サイトを提供している可能性があります。",
+      "SESSION_STORAGE_FAILED": "サインイン セッションを保存できませんでした。もう一度試してください。",
+      "DATABASE_ERROR": "バックエンドデータベースリクエストが失敗しました",
+      "RATE_LIMITED": "リクエストが多すぎます。しばらく待ってからもう一度試してください。",
+      "PAYLOAD_TOO_LARGE": "リクエストが大きすぎます",
+      "UNSUPPORTED_MEDIA_TYPE": "バックエンドがリクエスト形式を拒否しました",
+      "ROUTE_ERROR": "このページの読み込み中にエラーが発生しました",
+      "INVALID_CREDENTIALS": "メールアドレスまたはパスワードが無効です。詳細を確認して、もう一度お試しください。",
+      "MULTIPLE_TENANTS": "複数のテナントが見つかりました。テナントを選択してください。",
+      "ACCOUNT_INACTIVE": "アカウントはアクティブではありません",
+      "ACCOUNT_SUSPENDED": "アカウントが停止されました",
+      "ACCOUNT_PENDING": "アカウントは検証待ちです",
+      "PASSWORD_INCORRECT": "現在のパスワードが間違っています",
+      "TOKEN_INVALID": "無効または期限切れのトークン",
+      "TOKEN_EXPIRED": "トークンの有効期限が切れています",
+      "REFRESH_TOKEN_INVALID": "無効または期限切れのリフレッシュ トークン",
+      "SESSION_EXPIRED": "セッションの有効期限が切れました。続行するには、再度サインインしてください。",
+      "USER_NOT_FOUND": "ユーザーが見つかりません",
+      "USER_EXISTS": "このメールアドレスはすでに登録されています。代わりにサインインしてください。",
+      "SESSION_NOT_FOUND": "セッションが見つかりません",
+      "ALREADY_VERIFIED": "アカウントはすでに認証されています",
+      "AI_UNAVAILABLE": "AI は利用できません — ローカルの推奨事項を使用しています",
+      "AI_TIMEOUT": "AI リクエストがタイムアウトしました",
+      "AI_UNAUTHORIZED": "AI API キーが無効か期限切れです",
+      "AI_FORBIDDEN": "AI アクセスが拒否されました",
+      "AI_RATE_LIMIT": "AI レート制限に達しました",
+      "AI_MODEL_UNAVAILABLE": "AI モデルは利用できません",
+      "AI_MALFORMED_RESPONSE": "AI 応答が無効です",
+      "HOME_SUMMARY_INVALID": "ホームサマリー応答が無効です",
+      "HOME_SUMMARY_LOAD_FAILED": "ホームの概要を読み込めません",
+      "ADMISSION_SAVE_FAILED": "入場記録を保存できません。接続を確認して、もう一度試してください。",
+      "ADMISSION_VALIDATION_FAILED": "必要な入学手続きの詳細が一部欠落しています。強調表示されたフィールドを確認してください。",
+      "ADMISSION_RECOMMENDATION_FAILED": "現在、臨床上の推奨事項を生成できません。入場料を確認して保存することもできます。",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "入学フォームを読み込めません。接続を確認して、もう一度試してください。",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "ローカルの入場ドラフトを保存できません。もう一度試してください。"
     }
   },
   "forms": {
     "validation": {
-      "required": "この項目は必須です",
-      "invalidEmail": "Invalid メール format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "required": "このフィールドは必須です",
+      "invalidEmail": "無効な電子メール形式",
+      "minLength": "最小長は {{min}} 文字です",
+      "invalidUrl": "無効な URL 形式です",
+      "invalidUuid": "無効な ID 形式です",
+      "maxLength": "最大長は {{max}} 文字です",
+      "invalidValue": "無効な値"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type へ 検索",
-      "cartWithItems": "Cart 付き {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "メインナビゲーションヘッダー",
+      "searchHint": "入力して検索します",
+      "cartWithItems": "{{count}} アイテムが入ったカート",
+      "cartWithItems_zero": "カート",
       "signIn": "サインイン",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "プロフィール",
+      "orders": "注文",
       "settings": "設定",
       "logout": "ログアウト",
       "accountMenu": {
-        "accessibilityLabel": "開く アカウント menu 用 {{name}}",
+        "accessibilityLabel": "{{name}} のアカウント メニューを開く",
         "fallbackName": "アカウント",
-        "accountType": "アカウント type"
+        "accountType": "アカウントの種類"
       },
-      "hideHeader": "非表示 header",
-      "showHeader": "表示 header",
-      "showMore": "表示 more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "ヘッダーを非表示にする",
+      "showHeader": "ヘッダーを表示",
+      "showMore": "もっと見る",
+      "customize": "カスタマイズ",
+      "overflowMenuLabel": "その他のヘッダーアクション",
+      "customizationMenuLabel": "ヘッダーのカスタマイズ",
       "actions": {
-        "notifications": "なし:tifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "通知",
+        "network": "ネットワークステータス",
+        "database": "データベースのステータス",
+        "fullscreen": "全画面切り替え"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "メインナビゲーション",
+      "label": "ナビゲーション",
+      "resize": "ナビゲーションのサイズ変更"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "全画面表示",
+      "exit": "全画面表示を終了する"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "下部ナビゲーション"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (メール)",
-      "supportPhone": "Support (電話)",
+      "title": "グローバルフッター",
+      "copyright": "© {{year}} {{appName}}.無断転載を禁じます。",
+      "supportEmail": "サポート（メール）",
+      "supportPhone": "サポート（電話）",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "患者 services ready"
+        "title": "申請状況",
+        "auth": "安全なサインインが有効になっています",
+        "main": "すべてのシステムが稼働中",
+        "patient": "患者サービスの準備完了"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} · v{{version}} (ビルド: {{build}})",
       "legal": {
-        "title": "Legal と support",
-        "terms": "Terms",
+        "title": "法務とサポート",
+        "terms": "規約",
         "privacy": "プライバシー",
-        "support": "Support"
+        "support": "サポート"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "ネットワークステータス",
       "status": {
         "online": "オンライン",
         "offline": "オフライン",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "unstable": "不安定",
+        "syncing": "同期中"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "データベース",
+        "connected": "データベースが接続されました",
+        "disconnected": "データベースが切断されました"
       }
     },
     "notifications": {
-      "label": "なし:tifications",
-      "menuLabel": "なし:tifications menu",
-      "empty": "なし: new notifications",
-      "viewAll": "表示 all notifications",
+      "label": "通知",
+      "menuLabel": "通知メニュー",
+      "empty": "新しい通知はありません",
+      "viewAll": "すべての通知を表示",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "今後の予定",
+          "meta": "今日の午後 3 時"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "検査結果の準備完了",
+          "meta": "新しい結果が利用可能"
         },
         "messages": {
-          "title": "New メッセージ",
-          "meta": "You have unread messages"
+          "title": "新しいメッセージ",
+          "meta": "未読のメッセージがあります"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "患者 navigation",
+    "bottomNavigation": "下部ナビゲーション",
+    "mainNavigation": "メインナビゲーション",
+    "patientNavigation": "患者ナビゲーション",
     "items": {
       "main": {
         "home": "ホーム",
-        "admit": "入院登録",
-        "assessment": "入院登録",
-        "abg-ventilator-updates": "Update ABG & 人工呼吸器 設定",
+        "admit": "認める",
+        "assessment": "認める",
+        "abg-ventilator-updates": "ABG と人工呼吸器の設定を更新する",
         "history": "追跡",
-        "dataset-capture": "データセット取得",
+        "dataset-capture": "データセットのキャプチャ",
         "review-queue": "レビューキュー",
         "dashboard": "ダッシュボード",
         "user-management": "ユーザー管理",
-        "onboarding": "Getting started",
+        "onboarding": "はじめに",
         "settings": "設定",
-        "settings-about": "概要",
+        "settings-about": "について",
         "settings-data-sources": "データソース",
         "settings-disclaimer": "免責事項",
         "settings-help": "ヘルプ",
@@ -317,117 +317,118 @@
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "ブレッドクラムナビゲーション",
+      "label": "ブレッドクラム"
     },
-    "skipToMainContent": "Skip へ main content"
+    "skipToMainContent": "メインコンテンツにスキップ"
   },
   "facilityContext": {
     "activeFacility": "アクティブな施設",
-    "noFacility": "なし: active 施設",
+    "noFacility": "アクティブな施設はありません",
     "role": "役割",
-    "noRole": "なし: active 役割",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "選択: active 施設",
-    "accessibilityLabel": "アクティブな施設 {{facility}}, sync status {{status}}",
+    "noRole": "アクティブな役割はありません",
+    "syncStatus": "同期ステータス",
+    "facilitySelectLabel": "アクティブな施設を選択してください",
+    "accessibilityLabel": "アクティブな施設 {{facility}}、同期ステータス {{status}}",
     "status": {
       "online": "オンライン",
       "offline": "オフライン",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "syncing": "同期中",
+      "unstable": "不安定"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "システム status updates",
+      "surfaceLabel": "システムステータスの更新",
       "offline": {
-        "title": "You are オフライン",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "オフライン status notification"
+        "title": "あなたはオフラインです",
+        "message": "接続が回復するまで、一部の機能が利用できない場合があります。",
+        "accessibilityLabel": "オフラインステータス通知"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays または limited functionality.",
-        "accessibilityLabel": "低 network quality notification"
+        "title": "ネットワークが不安定です",
+        "message": "遅延や機能の制限が発生する場合があります。",
+        "accessibilityLabel": "ネットワーク品質の低下に関する通知"
       },
       "online": {
-        "title": "戻る オンライン",
-        "message": "Connection restored.",
-        "accessibilityLabel": "オンライン status notification"
+        "title": "オンラインに戻る",
+        "message": "接続が回復しました。",
+        "accessibilityLabel": "オンラインステータス通知"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "定期メンテナンス",
+        "message": "一部のサービスが一時的にご利用いただけなくなる場合がございます。",
+        "accessibilityLabel": "メンテナンスのお知らせ"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "働いています…",
+      "message": "リクエストが完了するまでお待ちください。"
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "グローバル通知"
     }
   },
   "settings": {
     "title": "設定",
     "screen": {
-      "label": "設定 screen"
+      "label": "設定画面"
     },
     "status": {
-      "loading": "読み込み中 設定...",
-      "saved": "設定 saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "保存できません: your profile. 接続を確認してもう一度お試しください",
-      "facilitySaved": "アクティブな施設 updated successfully.",
-      "facilitySaveError": "保存できません: active 施設. 接続を確認してもう一度お試しください",
-      "roleSaved": "Active 役割 updated successfully.",
-      "themeSaved": "テーマ updated successfully.",
-      "themeLocalSaved": "テーマ updated on this device.",
-      "themeSaveError": "保存できません: your テーマ preference. 接続を確認してもう一度お試しください",
-      "saveError": "保存できません: 設定. 接続を確認してもう一度お試しください",
-      "loadError": "読み込めません: 設定. 接続を確認してもう一度お試しください",
-      "localOnly": "Server 設定 are unavailable ({{code}}). Local display controls remain available."
+      "loading": "設定を読み込んでいます...",
+      "saving": "??????????...",
+      "saved": "設定が保存されました。",
+      "profileSaved": "プロファイルが正常に更新されました。",
+      "profileSaveError": "プロフィールを保存できません。接続を確認して、もう一度試してください。",
+      "facilitySaved": "アクティブな施設が正常に更新されました。",
+      "facilitySaveError": "アクティブな施設を保存できません。接続を確認して、もう一度試してください。",
+      "roleSaved": "アクティブな役割が正常に更新されました。",
+      "themeSaved": "テーマが正常に更新されました。",
+      "themeLocalSaved": "このデバイスでテーマが更新されました。",
+      "themeSaveError": "テーマ設定を保存できません。接続を確認して、もう一度試してください。",
+      "saveError": "設定を保存できません。接続を確認して、もう一度試してください。",
+      "loadError": "設定をロードできません。接続を確認して、もう一度試してください。",
+      "localOnly": "サーバー設定は使用できません ({{code}})。ローカル表示コントロールは引き続き利用可能です。"
     },
     "account": {
-      "title": "アカウント と 施設",
+      "title": "アカウントと施設",
       "name": "名前",
       "phone": "電話",
-      "saveProfile": "保存 profile",
+      "saveProfile": "プロファイルの保存",
       "activeFacility": "アクティブな施設",
-      "activeRole": "Active 役割",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "なし: active 施設",
-      "activeFacilityHelper": "選択: 施設 context 用 clinical work.",
-      "noAssignedFacility": "なし: 施設 has been assigned へ your アカウント yet",
-      "activeRoleHelper": "役割 用 selected active 施設.",
-      "noActiveRole": "なし: 役割 is available 用 selected 施設",
-      "none": "なし:ne",
+      "activeRole": "アクティブな役割",
+      "approvedRoles": "承認された役割",
+      "noActiveFacility": "アクティブな施設はありません",
+      "activeFacilityHelper": "臨床業務のための施設の状況を選択します。",
+      "noAssignedFacility": "あなたのアカウントにはまだ施設が割り当てられていません。",
+      "activeRoleHelper": "選択したアクティブな施設の役割。",
+      "noActiveRole": "選択した施設には役割がありません。",
+      "none": "なし",
       "validation": {
-        "nameRequired": "入力: your full 名前.",
-        "nameTooLong": "名前 must be 160 characters または fewer.",
-        "phoneTooLong": "電話 number must be 40 characters または fewer.",
-        "profileInvalid": "レビュー highlighted profile fields before saving."
+        "nameRequired": "フルネームを入力してください。",
+        "nameTooLong": "名前は 160 文字以下にする必要があります。",
+        "phoneTooLong": "電話番号は 40 文字以内である必要があります。",
+        "profileInvalid": "保存する前に、強調表示されたプロファイル フィールドを確認してください。"
       }
     },
     "accessibility": {
-      "title": "Appearance と accessibility"
+      "title": "外観とアクセスのしやすさ"
     },
     "theme": {
       "label": "テーマ",
-      "accessibilityLabel": "テーマ selector",
-      "hint": "変更 application テーマ",
+      "accessibilityLabel": "テーマセレクター",
+      "hint": "アプリケーションのテーマを変更する",
       "options": {
         "system": "システム",
         "light": "ライト",
-        "dark": "ダーク",
-        "highContrast": "高コントラスト"
+        "dark": "暗い",
+        "highContrast": "ハイコントラスト"
       }
     },
     "language": {
       "label": "言語",
-      "accessibilityLabel": "言語 selector",
-      "hint": "変更 application 言語",
+      "accessibilityLabel": "言語セレクター",
+      "hint": "アプリケーション言語を変更する",
       "options": {
         "en": "英語",
         "ar": "アラビア語",
@@ -439,7 +440,7 @@
         "id": "インドネシア語",
         "it": "イタリア語",
         "ja": "日本語",
-        "ko": "韓国語",
+        "ko": "韓国人",
         "ms": "マレー語",
         "nl": "オランダ語",
         "pl": "ポーランド語",
@@ -455,203 +456,203 @@
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "変更 spacing と layout density",
+      "label": "密度",
+      "accessibilityLabel": "濃度モードセレクター",
+      "hint": "間隔とレイアウト密度を変更する",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "コンパクト",
+        "comfortable": "快適"
       }
     },
     "footerVisible": {
-      "label": "表示 footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "表示 または 非表示 footer at bottom of layout (desktop only)"
+      "label": "フッターを表示",
+      "accessibilityLabel": "フッターの表示/非表示を切り替えます",
+      "hint": "レイアウトの下部にあるフッターを表示または非表示にします (デスクトップのみ)"
     },
     "sync": {
-      "title": "オフライン と sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
+      "title": "オフラインと同期",
+      "network": "ネットワーク",
+      "status": "同期ステータス",
+      "quality": "ネットワーク品質",
+      "idle": "アイドル状態",
       "unknownQuality": "不明",
-      "offlineModeEnabled": "Allow オフライン mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "再試行 failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge 同期済み drafts after",
-      "conflictResolutionMode": "競合 resolution",
-      "manualReview": "Manual レビュー",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "offlineModeEnabled": "オフラインモードを許可する",
+      "syncOnWifiOnly": "Wi-Fi のみで同期する",
+      "autoSyncEnabled": "自動同期",
+      "backgroundSyncEnabled": "バックグラウンド同期",
+      "retryFailedSyncAutomatically": "失敗した同期を自動的に再試行する",
+      "syncIntervalMinutes": "同期間隔",
+      "purgeSyncedDraftsAfterDays": "同期された下書きを次の時間にパージします",
+      "conflictResolutionMode": "紛争の解決",
+      "manualReview": "手動レビュー",
+      "intervalOption": "{{value}}分",
+      "purgeOption": "{{value}} 日"
     },
     "privacyControls": {
-      "title": "プライバシー と logging",
-      "hidePatientIdentifiersInLists": "非表示 患者 identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock 用 identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "プライバシーとロギング",
+      "hidePatientIdentifiersInLists": "リスト内の患者 ID を非表示にする",
+      "requireUnlockForIdentifiers": "識別子のロック解除が必要",
+      "shareUsageDiagnostics": "共有使用状況診断",
+      "allowDeidentifiedAnalytics": "匿名化された分析を許可する",
+      "allowDeidentifiedTrainingDatasetContribution": "匿名化されたトレーニング データセットの提供を許可する"
     },
     "governance": {
-      "title": "Governance と clinical workflow",
+      "title": "ガバナンスと臨床ワークフロー",
       "activeFacility": "アクティブな施設",
-      "manageAccess": "Can manage 施設 設定",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "manageAccess": "施設の設定を管理できる",
+      "visibility": "ガバナンスの可視性",
+      "defaultReferenceRuleScope": "デフォルトの参照範囲",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "施設 verified rules"
+        "global": "グローバルに検証されたルール",
+        "facility": "施設検証済みルール"
       },
-      "showReferenceVersionToClinicians": "表示 reference version へ clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require 理由 用 clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer 用 重大 flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit 理由",
-      "exportPatientIdentifiers": "Export 患者 identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require レビュー",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "表示 shadow model outputs へ clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden から 正常 clinical workflows."
+      "showReferenceVersionToClinicians": "参考バージョンを臨床医に見せる",
+      "requireVerifiedReferenceRules": "検証済みの参照ルールが必要",
+      "activeReferenceRules": "アクティブな参照ルール",
+      "requireReasonForClinicalOverride": "臨床的オーバーライドには理由が必要です",
+      "requireSecondReviewerForCriticalFlags": "重要なフラグには 2 人目のレビュー担当者が必要",
+      "lockReviewedClinicalRecords": "レビューされた臨床記録をロックする",
+      "allowDeidentifiedExports": "匿名化されたエクスポートを許可する",
+      "requireExportAuditReason": "輸出監査の理由が必要です",
+      "exportPatientIdentifiers": "患者識別子のエクスポート",
+      "allowRawNotesInExports": "エクスポート時に生のメモを許可する",
+      "datasetExportsRequireEthicsApproval": "データセットのエクスポートには倫理の承認が必要です",
+      "datasetExportsRequireReview": "データセットのエクスポートにはレビューが必要です",
+      "allowUnreviewedDatasetExports": "未レビューのデータセットのエクスポートを許可する",
+      "modelVisibility": "モデルの可視性",
+      "liveClinicalPredictionEnabled": "ライブ臨床予測が可能",
+      "clinicianVisibleModelVersionIds": "臨床医に見えるモデルのバージョン",
+      "showShadowModelOutputsToClinicians": "シャドウ モデルの出力を臨床医に表示する",
+      "modelVisibilityLocked": "ライブ予測モデルの出力は、通常の臨床ワークフローからは隠されたままになります。"
     },
     "sidebar": {
-      "resize": "Resize 設定 sidebar",
-      "menu": "設定 menu",
-      "menuOpen": "開く 設定 menu",
-      "menuClose": "閉じる 設定 menu",
+      "resize": "サイズ変更設定サイドバー",
+      "menu": "設定メニュー",
+      "menuOpen": "設定メニューを開く",
+      "menuClose": "設定メニューを閉じる",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "一般",
+        "organization": "組織",
+        "usersAndAccess": "ユーザーとアクセス",
+        "security": "セキュリティ"
       }
     },
     "disclaimer": {
       "title": "免責事項",
       "screen": {
-        "label": "免責事項 screen"
+        "label": "免責事項画面"
       },
-      "prototypeFraming": "This app is a prototype 用 reference と training. It is not intended 用 direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read と understood 免責事項",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "このアプリは参照およびトレーニング用のプロトタイプです。直接の臨床使用を目的としたものではありません。",
+      "datasetNotice": "データセットに関する通知",
+      "acknowledge": "了承します",
+      "acknowledgeHint": "免責事項を読んで理解したことを確認してください",
+      "decline": "私は同意しません",
+      "declineHint": "確認せずにアプリを終了する",
       "states": {
         "loading": "読み込み中…",
-        "error": "読み込めません: 免責事項"
+        "error": "免責事項を読み込めません"
       }
     },
     "dataSources": {
       "title": "データソース",
       "screen": {
-        "label": "データソース screen"
+        "label": "データソース画面"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "データセットのバージョン",
+      "schemaVersion": "スキーマのバージョン",
+      "lastUpdated": "最終更新日",
+      "totalCases": "総症例数",
+      "citations": "引用",
       "doi": "DOI",
       "states": {
         "loading": "読み込み中…",
-        "error": "読み込めません: data sources",
-        "empty": "なし: sources available"
+        "error": "データソースをロードできません",
+        "empty": "利用可能なソースがありません"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted 用 reviewer approval only. Raw pasted notes are not stored in approved datasets または sent へ external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write 役割.",
-        "offlineNotice": "オフライン submissions are キュー登録済み 付き structured fields only と sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then レビュー structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "施設 scope ready",
-        "facilityMissing": "選択: または sign in へ one active 施設 before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured レビュー payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "なし:ne",
-        "submitForReview": "レビューに送信",
-        "trainingApprovalAvailable": "Training approval controls remain in governed レビュー workflows.",
+        "title": "データセットのキャプチャ",
+        "governanceNotice": "捕捉された候補者は、レビュー担当者の承認のためにのみ送信されます。貼り付けられた生のメモは、承認されたデータセットに保存されず、外部モデル サービスに送信されません。",
+        "roleBlocked": "データセット候補のキャプチャには、承認された臨床書き込みロールが必要です。",
+        "offlineNotice": "オフライン送信は構造化フィールドのみでキューに入れられ、接続が戻ったときに同期されます。",
+        "noteLabel": "ICUメモを貼り付けてください",
+        "notePlaceholder": "匿名化されたベッドサイドメモを貼り付け、送信する前に構造化フィールドを確認します。",
+        "parse": "プレビューを解析する",
+        "facilityReady": "施設範囲の準備完了",
+        "facilityMissing": "送信する前に、アクティブな施設を 1 つ選択するか、サインインします。",
+        "noteRequired": "プレビューを作成する前にメモを貼り付けます。",
+        "identifierWarning": "識別子のようなテキストが検出されました。構造化レビュー ペイロードには含まれません。",
+        "previewTitle": "構造化された候補プレビュー",
+        "missingFields": "欠損値",
+        "uncertainFields": "不確実性のハイライト",
+        "none": "なし",
+        "submitForReview": "レビューのために送信する",
+        "trainingApprovalAvailable": "トレーニングの承認コントロールは、管理されたレビュー ワークフローに残ります。",
         "status": {
-          "ready": "Ready 用 レビュー submission",
-          "submitted": "Submitted 用 reviewer approval",
-          "queued": "キュー登録済み 用 sync",
-          "error": "Submission failed"
+          "ready": "レビュー送信の準備ができました",
+          "submitted": "査読者の承認のために送信されました",
+          "queued": "同期のためにキューに入れられました",
+          "error": "送信に失敗しました"
         }
       }
     },
     "privacy": {
       "title": "プライバシー",
       "screen": {
-        "label": "プライバシー screen"
+        "label": "プライバシー画面"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences と session data are stored only on this device. なし:thing is sent へ external servers.",
-      "optionalAI": "If オンライン AI features are enabled, those requests may be sent へ configured services."
+      "localStorage": "ローカルに保存されたデータ",
+      "localStorageDescription": "環境設定とセッション データはこのデバイスにのみ保存されます。外部サーバーには何も送信されません。",
+      "optionalAI": "オンライン AI 機能が有効になっている場合、それらのリクエストは構成されたサービスに送信される可能性があります。"
     },
     "about": {
-      "title": "概要",
+      "title": "について",
       "screen": {
-        "label": "概要 screen"
+        "label": "画面について"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype 用 reference と training. なし:t 用 clinical use."
+      "version": "バージョン",
+      "prototypeScope": "これは参照およびトレーニング用のプロトタイプです。臨床用途ではありません。"
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "はじめに",
+      "accessibilityLabel": "オンボーディング画面",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support と advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, または determine 人工呼吸器 設定.",
-        "secondary": "Confirm all decisions against 患者, your 施設 workflow, と local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "必須 before continuing へ clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device と will be 同期済み when backend authentication is available."
+        "title": "臨床安全性",
+        "body": "AI Vent は、ドキュメントのサポートと安全性に関する勧告のみを提供します。臨床的判断に代わるものではなく、治療命令を出したり、人工呼吸器の設定を決定したりするものでもありません。",
+        "secondary": "患者、施設のワークフロー、および地域の臨床プロトコルに照らしてすべての決定を確認します。",
+        "accessibilityLabel": "臨床安全性に関する通知",
+        "acknowledgeLabel": "これはアドバイスによる意思決定のサポートのみであることを理解しています",
+        "acknowledgeHint": "臨床ワークフローを続行する前に必要",
+        "syncDeferred": "安全確認はこのデバイスに保存され、バックエンド認証が利用可能になると同期されます。"
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "レビュー safety note before using AI Vent. app can highlight missing data と uncertainty, but a qualified clinician remains responsible 用 患者 care decisions."
+          "title": "アドバイザリーサポートとして利用する",
+          "body": "AI Vent を使用する前に、安全上の注意を確認してください。このアプリは欠落しているデータや不確実性を強調することができますが、資格のある臨床医が依然として患者ケアの決定に責任を負います。"
         },
         "facilityWorkflow": {
-          "title": "Stay in 施設 context",
-          "body": "Use active 施設 と 役割 shown by your session. Keep records within correct 施設 workflow と follow local escalation, レビュー, と approval procedures."
+          "title": "施設の状況に留まる",
+          "body": "セッションで表示されたアクティブな機能とロールを使用します。施設の正しいワークフロー内で記録を保管し、ローカルのエスカレーション、レビュー、承認の手順に従います。"
         },
         "inputs": {
-          "title": "入力:ing inputs",
-          "body": "Use 入院登録 へ 入力: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). 任意 ABG values improve confidence when available, but missing 任意 data should be reviewed as uncertainty rather than treated as a 保存 blocker."
+          "title": "入力の入力",
+          "body": "[承認] を使用して、利用可能な臨床パラメータ (SpO2、PaO2、PaCO2、pH、呼吸数など) を入力します。オプションの ABG 値が利用可能な場合は信頼性が向上しますが、オプションのデータが欠落している場合は、保存の阻害要因として扱うのではなく、不確実性として検討する必要があります。"
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations 表示 advisory 人工呼吸器 setting references 付き a confidence tier. Match quality reflects how well dataset cases align 付き your inputs. Use matched cases as reference only と verify against clinical judgment."
+          "title": "推奨事項の解釈",
+          "body": "推奨事項には、信頼度段階を伴う人工呼吸器設定の参考値が示されています。一致の品質は、データセットのケースが入力とどの程度一致しているかを反映します。一致した症例は参考としてのみ使用し、臨床判断に照らして検証してください。"
         },
         "monitoring": {
-          "title": "モニタリング と alerts",
-          "body": "After reviewing a 推奨, use モニタリング へ log vitals と labs over time. Alerts highlight values outside set thresholds と should be assessed according へ local protocol."
+          "title": "監視とアラート",
+          "body": "推奨事項を確認した後、モニタリングを使用してバイタルとラボを経時的に記録します。アラートは、設定されたしきい値を超えた値を強調表示するため、ローカル プロトコルに従って評価する必要があります。"
         },
         "offline": {
-          "title": "オフライン behavior",
-          "body": "Core workflow (入院登録, advisory summaries, モニタリング) works オフライン. Data is saved locally. 任意 AI features require connectivity. When 戻る オンライン, 続行 as 正常."
+          "title": "オフライン動作",
+          "body": "コア ワークフロー (承認、勧告の概要、モニタリング) はオフラインで機能します。データはローカルに保存されます。オプションの AI 機能には接続が必要です。オンラインに戻ったら、通常どおり続行します。"
         }
       },
       "actions": {
-        "done": "Done",
+        "done": "完了",
         "next": "次へ",
         "back": "戻る"
       },
@@ -660,123 +661,123 @@
       }
     },
     "help": {
-      "title": "ヘルプ & reference",
-      "accessibilityLabel": "ヘルプ screen",
-      "searchPlaceholder": "検索: glossary または guides…",
+      "title": "ヘルプとリファレンス",
+      "accessibilityLabel": "ヘルプ画面",
+      "searchPlaceholder": "用語集やガイドを検索…",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What へ do 次へ"
+        "glossary": "用語集",
+        "troubleshooting": "トラブルシューティング",
+        "guides": "次に何をすべきか"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume と oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory へ expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "一回換気量 (mL). Volume delivered per breath.",
-        "respiratoryRate": "呼吸数 (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, と pH, tied へ a sample time.",
-        "referenceStatus": "Governance と verification state 用 a reference range. Only active approved または verified ranges are eligible 用 active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need レビュー before dataset または training use.",
-        "reviewQueue": "A work queue 用 レビュー decisions, corrections, exclusions, と audit reasons.",
-        "syncState": "Current オフライン, オンライン, または syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden から 正常 clinical workflows."
+        "PEEP": "呼気終末陽圧 (cmH₂O)。肺の容積と酸素化を維持します。",
+        "FiO2": "吸入された酸素の割合 (0 ～ 1)。吸気ガス中の酸素の割合。",
+        "IERatio": "I:E 比率。吸気時間と呼気時間の比率 (例: 1:2)。",
+        "tidalVolume": "一回換気量 (mL)。呼吸ごとに送達される量。",
+        "respiratoryRate": "呼吸数（呼吸数/分）。",
+        "SpO2": "パルスオキシメトリーによる酸素飽和度 (%)。",
+        "PaO2": "動脈血酸素分圧 (mmHg)。",
+        "PaCO2": "動脈二酸化炭素分圧 (mmHg)。",
+        "pH": "動脈 pH (単位なし)。",
+        "ABG": "サンプル時間に関連付けられた、PaO2、PaCO2、pH などの動脈血ガス値。",
+        "referenceStatus": "参照範囲のガバナンスと検証の状態。アクティブな承認または検証された範囲のみが、アクティブな意思決定支援表示の対象となります。",
+        "datasetCapture": "データセットまたはトレーニングの使用前にレビューが必要な匿名化されたレコードの候補。",
+        "reviewQueue": "レビューの決定、修正、除外、監査理由のための作業キュー。",
+        "syncState": "現在のオフライン、オンライン、または同期状態。臨床記録は後で同期する必要がある場合があります。",
+        "shadowMode": "出力が通常の臨床ワークフローから隠蔽されたままになる、管理されたモデル評価モード。"
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; 入力: SpO₂ と その他 vitals when available. 用 better matching, 追加 PaO₂, PaCO₂, と pH when you have them."
+          "title": "ABG 値がありません",
+          "body": "レコメンデーションは ABG なしでも機能します。可能な場合は、SpO₂ およびその他のバイタル値を入力します。より適切に一致させるには、PaO₂、PaCO₂、および pH がある場合は追加します。"
         },
         "offline": {
-          "title": "Using app オフライン",
-          "body": "入院登録, advisory summaries, と モニタリング work オフライン. Data is stored locally. 任意 AI suggestions require internet. Sync is not 必須 用 core workflow."
+          "title": "アプリをオフラインで使用する",
+          "body": "承認、勧告の概要、監視はオフラインで行われます。データはローカルに保存されます。オプションの AI 提案にはインターネットが必要です。コア ワークフローには同期は必要ありません。"
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, 保留中, retired, rejected, と unverified ranges are not eligible 用 active decision-support display. レビュー source, version, scope, と verification status."
+          "title": "基準範囲がアクティブではありません",
+          "body": "ドラフト、保留中、廃止、拒否、および未検証の範囲は、アクティブな意思決定支援表示の対象にはなりません。ソース、バージョン、範囲、検証ステータスを確認します。"
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness ヘルプ is restricted",
-          "body": "Predictive model readiness と shadow-mode details are visible only へ approved governance roles. なし:rmal clinical workflows do not expose model internals."
+          "title": "モデル準備ヘルプは制限されています",
+          "body": "予測モデルの準備状況とシャドウ モードの詳細は、承認されたガバナンス ロールにのみ表示されます。通常の臨床ワークフローでは、モデルの内部は公開されません。"
         },
         "needsReview": {
-          "title": "Record needs レビュー",
-          "body": "Use レビュー queue へ check submitted data, request correction, 承認 eligible records, または 除外 records 付き an audit 理由."
+          "title": "記録の見直しが必要",
+          "body": "レビュー キューを使用して、送信されたデータの確認、修正の要求、適格なレコードの承認、または監査理由によるレコードの除外を行います。"
         }
       },
       "guides": {
-        "home": "レビュー 施設 context, sync state, active admissions, red flags, と records needing レビュー before opening a 患者 workflow.",
-        "admit": "Capture 患者 pathway と available clinical values. Mark unavailable data clearly と レビュー backend-confirmed calculations after 保存.",
-        "tracking": "Use 追跡 へ scan recent ventilation status と レビュー needs. Read trend flags 付き source data と local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture 用 de-identified candidate records. Human レビュー is 必須 before approved training-data use.",
-        "reviewQueue": "Use レビュー queue へ 承認, request correction, または 除外 records while preserving audit trail.",
-        "dashboard": "Use dashboards 用 aggregate quality, レビュー, reference, と governance status. Avoid 患者 identifiers in governance summaries.",
-        "settings": "Use 設定 用 アカウント, 施設, accessibility, プライバシー, sync, と reference visibility preferences where authorized.",
-        "hypoxemia": "レビュー FiO₂ と PEEP; consider recruitment; check 用 shunt または V/Q mismatch.",
-        "hypercapnia": "レビュー minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation と perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols と clinical judgment."
+        "home": "患者ワークフローを開く前に、施設のコンテキスト、同期状態、アクティブな入院、危険信号、確認が必要な記録を確認します。",
+        "admit": "患者の経路と利用可能な臨床価値を把握します。使用できないデータを明確にマークし、保存後にバックエンドで確認された計算を確認します。",
+        "tracking": "追跡を使用して、最近の換気ステータスをスキャンし、ニーズを確認します。ソース データとローカル プロトコル コンテキストを使用してトレンド フラグを読み取ります。",
+        "abgVentUpdate": "新しい ABG 結果と人工呼吸器設定をタイムスタンプ付きレコードとして追加して、以前の値を確認できるようにします。",
+        "datasetCapture": "匿名化された候補レコードにはデータセット キャプチャを使用します。トレーニング データの使用が承認される前に、人間によるレビューが必要です。",
+        "reviewQueue": "レビューキューを使用して、監査証跡を保存しながらレコードを承認、修正要求、または除外します。",
+        "dashboard": "ダッシュボードを使用して、総合的な品質、レビュー、参照、ガバナンスのステータスを確認します。ガバナンスの概要では患者の識別情報を避けてください。",
+        "settings": "許可されている場合は、アカウント、施設、アクセシビリティ、プライバシー、同期、および参照の表示設定の設定を使用します。",
+        "hypoxemia": "FiO₂ と PEEP を確認します。採用を検討する。シャントまたは V/Q の不一致がないか確認してください。",
+        "hypercapnia": "分時換気量（換気量×一回換気量）を確認します。プロトコールごとに許容的な高炭酸ガス血症を考慮してください。",
+        "acidosis": "換気と灌流に対処します。プロトコルごとに根本​​的な原因を修正します。",
+        "general": "推奨事項は意思決定のサポートとしてのみ使用してください。現地のプロトコルおよび臨床判断に照らして検証します。"
       },
       "states": {
         "loading": "読み込み中…",
-        "empty": "結果なし",
-        "error": "読み込めません: ヘルプ"
+        "empty": "結果はありません",
+        "error": "ヘルプを読み込めません"
       }
     },
     "ai": {
-      "label": "AI意思決定支援",
-      "sectionLabel": "任意 AI 推奨 (オンライン)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use オンライン AI 用 complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": "AI 意思決定サポート",
+      "sectionLabel": "オプションの AI 推奨事項 (オンライン)",
+      "enableLabel": "AI 推奨事項を有効にする",
+      "enableHint": "オンライン AI は複雑な場合にのみ使用してください。地元のおすすめ情報がいつでも入手可能",
+      "providerLabel": "プロバイダー",
+      "providerHint": "AI プロバイダー (例: OpenAI); API キーはプロバイダーごとにあります",
       "providers": {
         "openai": "OpenAI",
-        "anthropic": "Anthropic",
-        "google": "Google (Gemini)",
-        "groq": "Groq",
-        "mistral": "Mistral AI",
-        "deepseek": "DeepSeek",
-        "cohere": "Cohere",
-        "xai": "xAI (Grok)"
+        "anthropic": "人間的",
+        "google": "グーグル（双子座）",
+        "groq": "グロク",
+        "mistral": "ミストラル AI",
+        "deepseek": "ディープシーク",
+        "cohere": "コヒア",
+        "xai": "xAI (グロク)"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "入力: key (stored securely)",
-      "apiKeySave": "保存 key",
-      "apiKeyClear": "クリア key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "なし:t set",
-      "modelLabel": "Model",
-      "modelHint": "Model used 用 AI suggestions",
+      "apiKeyLabel": "API キー",
+      "apiKeyPlaceholder": "Enter キー (安全に保管)",
+      "apiKeySave": "キーを保存",
+      "apiKeyClear": "クリアキー",
+      "keyConfigured": "セット",
+      "keyNotConfigured": "未設定",
+      "modelLabel": "モデル",
+      "modelHint": "AI の提案に使用されるモデル",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
         "gpt-4-turbo": "GPT-4 Turbo",
         "gpt-4": "GPT-4",
-        "gpt-3.5-turbo": "GPT-3.5 Turbo",
-        "claude-sonnet-4": "Claude Sonnet 4",
-        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
-        "claude-3-5-haiku": "Claude 3.5 Haiku",
-        "claude-3-opus": "Claude 3 Opus",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
-        "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
-        "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
-        "grok-3": "Grok 3",
-        "grok-3-mini": "Grok 3 Mini"
+        "gpt-3.5-turbo": "GPT-3.5ターボ",
+        "claude-sonnet-4": "クロード・ソネット 4",
+        "claude-3-5-sonnet": "クロード 3.5 ソネット",
+        "claude-3-5-haiku": "クロード 3.5 俳句",
+        "claude-3-opus": "クロード 3 オーパス",
+        "gemini-1.5-pro": "ジェミニ 1.5 プロ",
+        "gemini-1.5-flash": "ジェミニ 1.5 フラッシュ",
+        "gemini-1.0-pro": "ジェミニ 1.0 プロ",
+        "llama-3.3-70b": "ラマ 3.3 70B",
+        "llama-3.1-8b": "ラマ 3.1 8B",
+        "mixtral-8x7b": "ミストラル 8x7B",
+        "mistral-large": "ミストラル・ラージ",
+        "mistral-medium": "ミストラル ミディアム",
+        "mistral-small": "ミストラル スモール",
+        "deepseek-chat": "ディープシークチャット",
+        "deepseek-reasoner": "ディープシーク推論者",
+        "command-r-plus": "コマンドR+",
+        "command-r": "コマンドR",
+        "grok-3": "グロク3",
+        "grok-3-mini": "グロク 3 ミニ"
       }
     }
   },
@@ -784,77 +785,77 @@
     "loading": "読み込み中",
     "offline": "オフライン",
     "error": "エラー",
-    "empty": "空",
+    "empty": "空の",
     "list": "リスト",
     "emptyState": {
-      "title": "なし: items",
-      "message": "There are なし: items へ display"
+      "title": "アイテムがありません",
+      "message": "表示する項目はありません"
     },
     "errorState": {
       "title": "エラー",
-      "message": "An エラー occurred"
+      "message": "エラーが発生しました"
     }
   },
   "home": {
     "title": "ホーム",
     "welcome": {
       "title": "臨床ワークフロー",
-      "message": "アクティブな施設, sync status, drafts, と レビュー work are shown here.",
-      "logoLabel": "App logo"
+      "message": "アクティブな施設、同期ステータス、ドラフト、レビュー作業がここに表示されます。",
+      "logoLabel": "アプリのロゴ"
     },
     "notices": {
-      "title": "ホーム notices"
+      "title": "ホーム通知"
     },
     "facilities": {
-      "title": "選択: 施設",
-      "select": "選択: {{name}}"
+      "title": "施設を選択",
+      "select": "{{name}} を選択します"
     },
     "status": {
-      "title": "Operational status",
+      "title": "稼働状況",
       "facility": {
         "label": "施設",
-        "empty": "なし:t selected"
+        "empty": "未選択"
       },
       "network": {
-        "label": "Network",
+        "label": "ネットワーク",
         "values": {
           "online": "オンライン",
           "offline": "オフライン",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "syncing": "同期中",
+          "unstable": "不安定"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "積極的な入学",
+        "detail": "{{count}} のアクティブな患者"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting へ sync"
+        "label": "下書き",
+        "detail": "{{count}} 同期を待機しています"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "同期の注意",
+        "detail": "{{count}} の競合"
       },
       "reviewNeeds": {
-        "label": "レビュー queue",
-        "detail": "{{count}} corrections requested"
+        "label": "レビューキュー",
+        "detail": "{{count}} 修正が要求されました"
       }
     },
     "actions": {
-      "title": "Workflow actions",
-      "accessibilityLabel": "開く {{name}}",
+      "title": "ワークフローアクション",
+      "accessibilityLabel": "{{name}} を開く",
       "admit": {
-        "title": "入院登録"
+        "title": "認める"
       },
       "tracking": {
         "title": "追跡"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & 人工呼吸器 設定"
+        "title": "ABG と人工呼吸器の設定を更新する"
       },
       "datasetCapture": {
-        "title": "データセット取得"
+        "title": "データセットのキャプチャ"
       },
       "reviewQueue": {
         "title": "レビューキュー"
@@ -869,194 +870,194 @@
         "open": "開く"
       },
       "disabled": {
-        "facilityRequired": "選択: 施設",
-        "roleRestricted": "役割 restricted",
-        "workflowPending": "Route 保留中"
+        "facilityRequired": "施設を選択",
+        "roleRestricted": "役割が制限されている",
+        "workflowPending": "ルート保留中"
       }
     }
   },
   "reviewQueue": {
     "title": "レビューキュー",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, と sync conflicts.",
-    "accessibilityLabel": "検証 レビュー queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion 理由, または override 理由",
+    "subtitle": "送信されたレコード、修正、除外、参照範囲、データセットの準備状況、同期の競合を検証します。",
+    "accessibilityLabel": "検証レビューキュー",
+    "commentPlaceholder": "査読者のメモ、修正要求、除外理由、または上書き理由",
     "forbidden": {
-      "title": "レビュー access 必須",
-      "message": "An approved reviewer または governance 役割 is 必須 用 this queue."
+      "title": "レビューアクセスが必要です",
+      "message": "このキューには、承認されたレビュー担当者またはガバナンスの役割が必要です。"
     },
     "filters": {
-      "all": "All"
+      "all": "すべて"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "入場料",
       "abg-test": "ABG",
       "ventilator-setting": "人工呼吸器",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync 競合"
+      "dataset-case": "データセット",
+      "reference-rule": "基準範囲",
+      "sync-conflict": "同期の競合"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "キューの概要",
+      "total": "合計",
+      "urgent": "緊急",
+      "corrections": "訂正",
+      "conflicts": "紛争",
+      "datasetReady": "データセットの準備完了"
     },
     "fields": {
-      "type": "Type",
-      "status": "Status",
-      "priority": "Priority",
+      "type": "種類",
+      "status": "ステータス",
+      "priority": "優先順位",
       "validation": "検証",
-      "missingData": "不足データ",
-      "uncertainty": "Uncertainty",
-      "conflict": "競合",
-      "datasetReadiness": "Dataset readiness"
+      "missingData": "データが欠落しています",
+      "uncertainty": "不確実性",
+      "conflict": "紛争",
+      "datasetReadiness": "データセットの準備状況"
     },
     "dataset": {
-      "datasetApproved": "Approved 用 dataset レビュー boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "なし:t approved 用 dataset use."
+      "datasetApproved": "データセットのレビュー境界についてのみ承認されています。トレーニングのエクスポートには依然としてガバナンスの承認が必要です。",
+      "notDatasetApproved": "データセットの使用は承認されていません。"
     },
     "actions": {
-      "refresh": "更新",
-      "approve": "承認",
-      "requestCorrection": "修正を依頼",
-      "exclude": "除外",
+      "refresh": "リフレッシュ",
+      "approve": "承認する",
+      "requestCorrection": "修正依頼",
+      "exclude": "除外する",
       "defer": "延期"
     },
     "states": {
-      "loading": "読み込み中 レビュー queue...",
-      "error": "読み込めません: または 保存 レビュー queue",
-      "empty": "なし: records need レビュー"
+      "loading": "レビューキューを読み込み中...",
+      "error": "レビューキューをロードまたは保存できません。",
+      "empty": "レビューの必要な記録はありません。"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "臨床データ取得",
-      "subtitle": "入力: de-identified clinical, ABG, 人工呼吸器, target-range, treatment, と outcome data 用 reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "title": "臨床データの収集",
+      "subtitle": "匿名化された臨床データ、ABG、人工呼吸器、ターゲット範囲、治療、および結果データをレビュー担当者が承認したモデル データセットに入力します。",
+      "accessibilityLabel": "臨床データ取得画面",
       "notices": {
-        "roleBlocked": "This アカウント does not have permission へ 送信 clinical dataset candidates.",
-        "offline": "オフライン mode is active. Structured captures will queue locally と sync when connectivity returns."
+        "roleBlocked": "このアカウントには、臨床データセット候補を送信する権限がありません。",
+        "offline": "オフラインモードがアクティブです。構造化キャプチャはローカルでキューに入れられ、接続が回復すると同期されます。"
       },
       "summary": {
         "facility": "施設",
-        "facilityReady": "施設 scope ready",
-        "facilityMissing": "選択: an active 施設 before submitting.",
-        "required": "必須 fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "入力:ed fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "オンライン submission",
-        "offline": "キュー登録済み オフライン"
+        "facilityReady": "施設範囲の準備完了",
+        "facilityMissing": "送信する前にアクティブな施設を選択してください。",
+        "required": "必須フィールド",
+        "requiredProgress": "{{complete}}/{{total}} 完了",
+        "entered": "入力フィールド",
+        "enteredProgress": "{{entered}}/{{total}} が入力されました",
+        "sync": "同期",
+        "online": "オンライン提出",
+        "offline": "オフラインでキューに入れられました"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "データセットのキャプチャ手順",
+        "stepCounter": "ステップ {{current}}/{{total}}",
+        "stepLabel": "ステップ {{step}}"
       },
       "fields": {
-        "required": "必須 用 レビュー submission",
-        "optional": "任意"
+        "required": "レビュー投稿に必須",
+        "optional": "オプション"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All 必須 fields are complete."
+        "title": "提出の準備",
+        "none": "すべての必須フィールドが入力されています。"
       },
       "actions": {
-        "submit": "レビューに送信",
+        "submit": "レビューのために送信する",
         "next": "次へ",
-        "previous": "Previous",
-        "reset": "クリア form"
+        "previous": "前へ",
+        "reset": "クリアなフォルム"
       },
       "status": {
-        "loadingDraft": "読み込み中 saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "保存できません: local draft. Please keep this screen 開く と try again",
-        "needsInput": "Complete 必須 fields と 施設 scope before submitting.",
-        "ready": "Ready へ 送信 用 reviewer approval.",
-        "stepInvalid": "Please レビュー highlighted values before continuing.",
-        "reviewInvalid": "Please レビュー highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted 用 reviewer approval.",
-        "queued": "Submission is キュー登録済み. Your draft is still saved locally until backend 保存 succeeds.",
-        "error": "保存できません: dataset. Your draft is still saved locally. 接続を確認してもう一度お試しください"
+        "loadingDraft": "保存されたデータセットのドラフトをロードしています...",
+        "savingDraft": "データセットのドラフトを保存しています...",
+        "draftSaved": "データセットのドラフトはローカルに保存されました。",
+        "draftError": "ローカルドラフトを保存できません。この画面を開いたままにして、もう一度試してください。",
+        "needsInput": "送信する前に、必須フィールドと施設の範囲を記入してください。",
+        "ready": "査読者の承認のために送信する準備ができました。",
+        "stepInvalid": "続行する前に、強調表示された値を確認してください。",
+        "reviewInvalid": "保存する前に、強調表示された値を確認してください。",
+        "submitting": "データセットを送信しています...",
+        "submitted": "査読者の承認のために送信されました。",
+        "queued": "送信はキューに入れられています。バックエンドの保存が成功するまで、下書きは引き続きローカルに保存されます。",
+        "error": "データセットを保存できません。下書きはまだローカルに保存されています。接続を確認して、もう一度試してください。"
       }
     },
     "assessment": {
-      "title": "入院登録 患者",
-      "accessibilityLabel": "入院登録 患者 wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "患者を受け入れる",
+      "accessibilityLabel": "患者の承認ウィザード画面",
+      "stepIndicator": "ステップ {{current}}/{{total}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact 入院登録 summary",
+        "title": "セッションの概要",
+        "accessibilityLabel": "コンパクトな入学許可の概要",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "施設",
-        "pathway": "Pathway",
+        "pathway": "経路",
         "reason": "理由",
         "condition": "状態",
         "spo2": "SpO₂",
         "fio2": "FiO2",
         "respiratoryRate": "呼吸数",
         "heartRate": "心拍数",
-        "pao2": "PaO₂",
-        "paco2": "PaCO₂",
+        "pao2": "パオ₂",
+        "paco2": "パコ₂",
         "ph": "pH",
         "age": "年齢",
-        "weight": "体重",
-        "height": "身長",
+        "weight": "重量",
+        "height": "高さ",
         "gender": "性別",
-        "comorbidities": "Comorbidities",
+        "comorbidities": "併存疾患",
         "bloodPressure": "血圧",
         "ventilatorMode": "人工呼吸器モード",
         "peep": "PEEP",
         "tidalVolume": "一回換気量",
-        "syncStatus": "Sync",
-        "empty": "なし: data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "syncStatus": "同期",
+        "empty": "まだデータがありません",
+        "expand": "概要を展開する",
+        "collapse": "概要を折りたたむ"
       },
       "steps": {
         "patientProfile": "患者プロフィール",
-        "clinicalParams": "Clinical parameters",
-        "observations": "任意 observations",
-        "timeSeries": "任意 time series",
+        "clinicalParams": "臨床パラメータ",
+        "observations": "オプションの観察",
+        "timeSeries": "オプションの時系列",
         "review": "レビュー",
-        "patientReason": "患者 & 理由",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "保存 & レビュー"
+        "patientReason": "患者と理由",
+        "oxygenAbgVentilator": "酸素と ABG",
+        "saveReview": "保存してレビューする"
       },
       "patientReason": {
-        "description": "Capture 患者 pathway, 年齢, body metrics, と 理由 用 support.",
+        "description": "患者の経路、年齢、身体指標、サポートの理由を把握します。",
         "facilityId": "施設 ID",
-        "facilityIdPlaceholder": "入力: 施設 ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed または ward location",
-        "pathway": "患者 pathway",
-        "pathwayPlaceholder": "選択: pathway",
-        "sexForSize": "Sex 用 size calculations",
-        "ageYears": "年齢 (years)",
-        "weightKg": "体重 (kg)",
+        "facilityIdPlaceholder": "施設IDに入る",
+        "bedNumber": "ベッド",
+        "bedNumberPlaceholder": "ICU のベッドまたは病棟の場所",
+        "pathway": "患者の経路",
+        "pathwayPlaceholder": "経路の選択",
+        "sexForSize": "サイズ計算のための性別",
+        "ageYears": "年齢（歳）",
+        "weightKg": "重量 (kg)",
         "heightCm": "身長 (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "理由 用 support",
-        "reasonForSupportPlaceholder": "Brief admission 理由",
-        "reasonForSupportSearchPlaceholder": "検索: または type 理由",
-        "permittedMissing": "Permitted missing values",
+        "reasonForSupport": "支持の理由",
+        "reasonForSupportPlaceholder": "簡単な入学理由",
+        "reasonForSupportSearchPlaceholder": "理由を検索または入力します",
+        "permittedMissing": "許容される欠損値",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
-          "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
+          "neonate": "新生児",
+          "infant": "幼児",
+          "child": "子供",
+          "adolescent": "思春期",
+          "adult": "大人",
+          "obstetric": "産科・産後",
+          "burns": "やけど",
+          "trauma": "トラウマ",
+          "periOperative": "周術期",
+          "medical": "医療",
+          "surgical": "外科的",
           "unknown": "不明",
           "other": "その他"
         },
@@ -1066,35 +1067,35 @@
           "unknown": "不明"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS または severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis 付き respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD または asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn または inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "急性低酸素性呼吸不全",
+          "acuteHypercapnicRespiratoryFailure": "急性高炭酸ガス性呼吸不全",
+          "ardsOrSeverePneumonia": "ARDS または重度の肺炎",
+          "sepsisWithRespiratoryFailure": "呼吸不全を伴う敗血症",
+          "postOperativeVentilatorySupport": "術後の換気サポート",
+          "traumaRelatedRespiratoryFailure": "外傷に関連した呼吸不全",
+          "airwayProtection": "気道保護",
+          "neuromuscularWeakness": "神経筋の衰弱",
+          "copdOrAsthmaExacerbation": "COPD または喘息の悪化",
+          "neonatalRespiratoryDistress": "新生児の呼吸困難",
+          "burnOrInhalationInjury": "火傷または吸入傷害"
         },
         "permittedMissingFields": {
-          "weight": "体重 または reference 体重 unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "一回換気量 unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "重量または基準重量は利用できません",
+          "spo2": "SpO2が利用できない",
+          "fio2": "FiO2 は利用できません",
+          "pao2": "PaO2が利用できない",
+          "tidalVolume": "一回換気量が利用できません",
+          "peep": "PEEP は利用できません"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, と uncertain values. 人工呼吸器 設定 are suggested on 次へ step から dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "選択: oxygen support",
-        "oxygenSupportHint": "Choose support 患者 is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "選択: date と time",
-        "timeHint": "Use local date と time 用 observation.",
+        "description": "現在の酸素サポート、観察時間、酸素化、バイタルサイン、利用可能な ABG 値、および不確実な値を記録します。人工呼吸器の設定は、データセットの次のステップで提案されます。",
+        "oxygenSupportType": "酸素サポートタイプ",
+        "oxygenSupportPlaceholder": "酸素サポートを選択してください",
+        "oxygenSupportHint": "これらの値が測定されたときに患者が受けているサポートを選択してください。",
+        "measuredAt": "酸素測定時間",
+        "timePlaceholder": "日付と時刻を選択してください",
+        "timeHint": "観測には現地の日付と時刻を使用します。",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
         "respiratoryRate": "呼吸数",
@@ -1103,554 +1104,554 @@
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
         "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "人工呼吸器 type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields 付き commas.",
-        "uncertaintyReason": "Uncertainty 理由",
+        "baseExcess": "塩基過剰",
+        "lactate": "乳酸塩(mmol/L)",
+        "fio2AtSample": "ABG サンプルでの FiO2",
+        "spo2AtSample": "ABG サンプルでの SpO2",
+        "deviceId": "デバイス ID",
+        "ventilatorType": "換気装置の種類",
+        "uncertaintyFields": "不確実なフィールド",
+        "uncertaintyFieldsPlaceholder": "例: FiO2、PaO2",
+        "uncertaintyHint": "複数のフィールドはカンマで区切ります。",
+        "uncertaintyReason": "不確実性の理由",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "なし:n-rebreather mask",
-          "highFlowNasalCannula": "高-flow nasal cannula",
+          "roomAir": "室内空気",
+          "nasalCannula": "鼻カニューレ",
+          "faceMask": "フェイスマスク",
+          "nonRebreatherMask": "ノンリブリーザーマスク",
+          "highFlowNasalCannula": "高流量鼻カニューレ",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "invasiveVentilation": "侵襲的換気",
           "other": "その他"
         }
       },
       "saveReview": {
-        "description": "レビュー と 編集 dataset-suggested 人工呼吸器 設定, backend readiness, clinician confirmation, override 理由 when needed, レビュー status, と sync state.",
-        "readiness": "保存 readiness",
-        "recommendationTitle": "Dataset 推奨",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested 人工呼吸器 設定",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "選択: mode",
+        "description": "データセットが推奨する人工呼吸器設定、バックエンドの準備状況、臨床医の確認、必要に応じて理由をオーバーライドする、ステータスのレビュー、同期状態を確認および編集します。",
+        "readiness": "準備を保存する",
+        "recommendationTitle": "データセットの推奨事項",
+        "recommendationConfidence": "自信: {{confidence}}",
+        "suggestedSettingsTitle": "推奨される人工呼吸器の設定",
+        "suggestedSettingsHint": "患者の生体データと現在の酸素値と ABG 値を使用して、データセットから事前に入力されます。ベッドサイドでの決定が異なる場合にのみ編集してください。",
+        "modePlaceholder": "モード選択",
         "ventilatorMode": "人工呼吸器モード",
         "tidalVolumeMl": "一回換気量 (mL)",
         "ventilatorFio2": "人工呼吸器 FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "respiratoryRateSet": "呼吸数を設定する",
+        "ieRatio": "I:E 比率",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
+          "acv": "補助制御換気 (ACV)",
+          "simv": "同期間欠強制換気 (SIMV)",
+          "psv": "圧補助換気 (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
           "other": "その他"
         },
-        "recommendationEmpty": "入力: clinical values と tap 次へ へ generate a dataset 推奨.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable へ generate clinical recommendations right now. You can still レビュー と 保存 admission.",
-        "recommendationNeedsClinicalInputs": "推奨 needs clinical 理由, SpO2, respiratory rate, と heart rate.",
-        "ready": "Ready へ 保存",
-        "needsCorrection": "Correction または override 必須",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready 用 保存 レビュー.",
-        "overrideReason": "Override 理由",
-        "reviewNote": "レビュー note"
+        "recommendationEmpty": "臨床値を入力し、「次へ」をタップしてデータセットの推奨事項を生成します。",
+        "recommendationGenerating": "臨床上の推奨事項を生成しています...",
+        "recommendationError": "現在、臨床上の推奨事項を生成できません。入場料を確認して保存することもできます。",
+        "recommendationNeedsClinicalInputs": "推奨には臨床的理由、SpO2、呼吸数、心拍数が必要です。",
+        "ready": "保存する準備ができました",
+        "needsCorrection": "修正または上書きが必要です",
+        "syncStatus": "同期ステータス: {{status}}",
+        "clinicianConfirmed": "臨床医は、この入院記録が保存レビューの準備ができていることを確認します。",
+        "overrideReason": "オーバーライドの理由",
+        "reviewNote": "レビューメモ"
       },
       "validation": {
-        "title": "レビュー these fields"
+        "title": "これらのフィールドを確認してください"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "喘息",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
-        "sepsis": "Sepsis",
-        "trauma": "Trauma",
+        "heartFailure": "心不全",
+        "pneumonia": "肺炎",
+        "sepsis": "敗血症",
+        "trauma": "トラウマ",
         "other": "その他"
       },
       "patientProfile": {
         "condition": "状態",
-        "conditionPlaceholder": "選択: 状態",
-        "conditionHint": "Primary respiratory 状態 (必須)",
-        "age": "年齢 (years)",
-        "agePlaceholder": "入力: 年齢",
-        "ageHint": "患者 年齢 in years",
-        "weight": "体重 (kg)",
-        "weightPlaceholder": "入力: 体重",
-        "weightHint": "Patient weight in kg",
+        "conditionPlaceholder": "条件を選択してください",
+        "conditionHint": "一次呼吸状態 (必須)",
+        "age": "年齢（歳）",
+        "agePlaceholder": "年齢を入力してください",
+        "ageHint": "患者の年齢（年）",
+        "weight": "重量 (kg)",
+        "weightPlaceholder": "体重を入力してください",
+        "weightHint": "kg の患者の体重",
         "height": "身長 (cm)",
-        "heightPlaceholder": "入力: 身長",
-        "heightHint": "Patient height in cm",
+        "heightPlaceholder": "高さを入力してください",
+        "heightHint": "cm の患者の身長",
         "gender": "性別",
-        "genderPlaceholder": "選択: 性別",
-        "genderHint": "患者 性別",
+        "genderPlaceholder": "性別を選択してください",
+        "genderHint": "患者の性別",
         "genderMale": "男性",
         "genderFemale": "女性",
         "genderOther": "その他",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated リスト"
+        "comorbidities": "併存疾患",
+        "comorbiditiesPlaceholder": "例:高血圧、糖尿病",
+        "comorbiditiesHint": "カンマ区切りリスト"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "なし:rmal range: 95–100%",
-        "pao2": "PaO₂ (任意)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "なし:rmal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (任意)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "なし:rmal range: 35–45 mmHg",
-        "ph": "pH (任意)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "なし:rmal range: 7.35–7.45",
+        "spo2Placeholder": "SpO₂を入力してください",
+        "spo2Hint": "酸素飽和度(%)",
+        "spo2NormalRange": "正常範囲: 95 ～ 100%",
+        "pao2": "PaO₂ (オプション)",
+        "pao2Placeholder": "PaO₂を入力してください",
+        "pao2Hint": "動脈血酸素 (mmHg)",
+        "pao2NormalRange": "正常範囲: 80 ～ 100 mmHg",
+        "paco2": "PaCO₂ (オプション)",
+        "paco2Placeholder": "PaCO₂を入力してください",
+        "paco2Hint": "動脈血 CO₂ (mmHg)",
+        "paco2NormalRange": "正常範囲: 35 ～ 45 mmHg",
+        "ph": "pH (オプション)",
+        "phPlaceholder": "pH と入力してください",
+        "phHint": "動脈 pH",
+        "phNormalRange": "正常範囲: 7.35 ～ 7.45",
         "respiratoryRate": "呼吸数",
-        "respiratoryRatePlaceholder": "入力: RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "なし:rmal range: 12–20 breaths/min",
+        "respiratoryRatePlaceholder": "RR と入力してください",
+        "respiratoryRateHint": "1分あたりの呼吸数",
+        "respiratoryRateNormalRange": "正常範囲: 12 ～ 20 呼吸/分",
         "heartRate": "心拍数",
-        "heartRatePlaceholder": "入力: HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "なし:rmal range: 60–100 bpm",
-        "bloodPressure": "血圧 (任意)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "なし:rmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "なし:rmal range: {{range}}"
+        "heartRatePlaceholder": "HR と入力してください",
+        "heartRateHint": "1 分あたりのビート数",
+        "heartRateNormalRange": "正常範囲: 60 ～ 100 bpm",
+        "bloodPressure": "血圧（オプション）",
+        "bloodPressurePlaceholder": "例: 120/80",
+        "bloodPressureHint": "収縮期/拡張期 mmHg",
+        "bloodPressureNormalRange": "正常範囲: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "正常範囲: {{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single 名前–value pair. 任意; you can skip this step.",
-        "add": "追加 observation",
+        "title": "追加の所見",
+        "description": "上記でカバーされていない追加の臨床データ (検査、画像、投薬、併存疾患スコアなど) を記録します。各観測値は単一の名前と値のペアです。オプション。このステップは省略できます。",
+        "add": "観察を追加する",
         "name": "名前",
-        "value": "Value",
-        "unit": "Unit",
-        "optional": "任意"
+        "value": "値",
+        "unit": "単位",
+        "optional": "オプション"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs または その他 metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used 用 trend analysis と モニタリング after you start session. 任意; you can 追加 points later on モニタリング screen.",
-        "add": "追加 time series point",
+        "title": "時系列 (経時的なバイタルサイン)",
+        "description": "バイタルサインやその他の指標を複数の時点で追跡します (例: 0 時間、1 時間、2 時間の SpO₂、RR、HR)。セッション開始後の傾向分析とモニタリングに使用されます。オプション。後からモニタリング画面でポイントを追加することもできます。",
+        "add": "時系列ポイントを追加",
         "name": "名前",
-        "value": "Value",
-        "optional": "任意"
+        "value": "値",
+        "optional": "オプション"
       },
       "recommendationSource": {
-        "label": "推奨 source",
-        "local": "Local",
-        "localDescription": "Built-in rules. オフライン, なし: API key.",
+        "label": "推薦元",
+        "local": "ローカル",
+        "localDescription": "組み込みルール。オフライン、API キーはありません。",
         "onlineAi": "オンライン AI",
-        "onlineAiDescription": "Internet 必須; uses built-in when unavailable.",
-        "modelLabel": "Model",
-        "modelHint": "選択: AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "onlineAiDescription": "インターネットが必要です。利用できない場合は組み込みを使用します。",
+        "modelLabel": "モデル",
+        "modelHint": "AI モデルを選択します (設定されていない場合はデフォルトが使用されます)",
+        "providerLabel": "プロバイダー",
+        "gpt4oMini": "GPT-4o mini (デフォルト)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons 用 推奨",
-        "hints": "AI hints"
+        "title": "AI 推奨理由",
+        "hints": "AI ヒント"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "追加のテストが提案されました",
+        "abgPanel": "ABG パネルは信頼性を向上させます",
+        "abgHint": "可能であれば動脈血ガスの注文を検討してください"
       },
       "actions": {
         "back": "戻る",
         "next": "次へ",
-        "generate": "Generate 推奨",
-        "generateHint": "Create 推奨 から current inputs",
-        "saveAdmission": "保存 admission"
+        "generate": "推奨事項の生成",
+        "generateHint": "現在の入力から推奨事項を作成する",
+        "saveAdmission": "入場料を節約する"
       },
       "states": {
-        "loading": "読み込み中 入院登録 form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "読み込めません: admission form. 接続を確認してもう一度お試しください",
-        "retryLoad": "もう一度お試しください",
-        "offline": "入院登録 works オフライン",
-        "empty": "入力: 患者 data へ begin"
+        "loading": "承認フォームを読み込んでいます...",
+        "errorTitle": "入学フォームは利用できません",
+        "error": "入学フォームを読み込めません。接続を確認して、もう一度試してください。",
+        "retryLoad": "もう一度試してください",
+        "offline": "オフラインでの作業を許可する",
+        "empty": "開始するには患者データを入力してください"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & 人工呼吸器 設定",
-      "subtitle": "選択: an active admission, 入力: latest ABG result と/または 人工呼吸器 設定, then 保存 them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "オフライン mode: this update will stay キュー登録済み until connectivity returns.",
+      "title": "ABG と人工呼吸器の設定を更新する",
+      "subtitle": "アクティブな入院を選択し、最新の ABG 結果および/または人工呼吸器設定を入力し、新しいタイムスタンプ付きレコードとして保存します。",
+      "accessibilityLabel": "ABG と人工呼吸器の設定画面を更新",
+      "offline": "オフライン モード: この更新は、接続が回復するまでキューに入れられたままになります。",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New 人工呼吸器 設定",
-        "missing": "不足データ",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "admission": "積極的な入学",
+        "latest": "最新の値",
+        "abg": "新しい ABG の結果",
+        "ventilator": "新しい人工呼吸器の設定",
+        "missing": "データが欠落しています",
+        "advisory": "アドバイザリーチェック",
+        "history": "歴史"
       },
       "admission": {
-        "label": "選択: active admission",
-        "empty": "なし: admitted patients are available 用 追跡 yet"
+        "label": "アクティブアドミッションを選択してください",
+        "empty": "まだ追跡可能な入院患者はいません。"
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest 人工呼吸器"
+        "abg": "最新のABG",
+        "ventilator": "最新の人工呼吸器"
       },
       "ventilator": {
-        "modePlaceholder": "選択: 人工呼吸器 mode",
-        "modeSearchPlaceholder": "検索: 人工呼吸器 modes"
+        "modePlaceholder": "人工呼吸器モードを選択します",
+        "modeSearchPlaceholder": "人工呼吸器モードを検索する"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "ABG や人工呼吸器の使用歴はまだありません。",
         "abg": "ABG",
         "ventilator": "人工呼吸器",
-        "version": "Version {{version}} - {{dateTime}}"
+        "version": "バージョン {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "最新の保存レコード: {{dateTime}}"
       },
       "actions": {
-        "save": "保存 new values",
-        "saving": "Validating & saving"
+        "save": "新しい値を保存する",
+        "saving": "検証と保存"
       }
     },
     "recommendation": {
       "title": "推奨設定",
-      "accessibilityLabel": "推奨 screen",
+      "accessibilityLabel": "おすすめ画面",
       "responseSource": {
-        "title": "Response source",
+        "title": "応答元",
         "online": "オンライン",
         "offline": "オフライン"
       },
       "sections": {
-        "settings": "Recommended 設定",
-        "confidence": "Confidence & why",
-        "monitoring": "モニタリング points",
-        "risks": "Risks と complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "推奨設定",
+        "confidence": "自信とその理由",
+        "monitoring": "監視ポイント",
+        "risks": "リスクと合併症",
+        "matchedCases": "一致したケース",
+        "evidence": "証拠と出所",
+        "warning": "データセットに関する通知",
+        "decisionSupport": "意思決定支援チェック"
       },
       "settings": {
-        "mode": "Mode",
+        "mode": "モード",
         "tidalVolume": "一回換気量",
         "respiratoryRate": "呼吸数",
-        "fio2": "FiO₂",
+        "fio2": "フィオ₂",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "I:E 比率"
       },
       "confidence": {
         "high": "高",
         "medium": "中",
-        "low": "低",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "low": "低い",
+        "missingInputs": "自信を高める可能性のある入力が不足している"
       },
       "decisionSupport": {
         "pending": "保留中",
-        "referenceWeight": "Reference 体重",
+        "referenceWeight": "基準重量",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "レビュー status",
-        "syncStatus": "Sync status",
-        "missingData": "不足データ",
+        "pfRatio": "P/F 比率",
+        "sfRatio": "S/F 比率",
+        "drivingPressure": "駆動圧力",
+        "reviewStatus": "レビュー状況",
+        "syncStatus": "同期ステータス",
+        "missingData": "データが欠落しています",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "未確認プレビュー",
+          "backend_verified": "バックエンドの検証済み",
+          "missing_verified_records": "検証済みのレコードが欠落している",
+          "development_fallback_unconfirmed": "開発フォールバック"
         },
         "review": {
-          "pending_clinician_review": "保留中 clinician レビュー",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "臨床医による審査待ち",
+          "backend_confirmed": "バックエンドが確認されました"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "保留中 backend confirmation",
+          "local_preview_pending_backend_confirmation": "バックエンドの確認待ち",
           "synced": "同期済み",
-          "queued": "キュー登録済み",
-          "duplicate": "Duplicate"
+          "queued": "キューに入れられました",
+          "duplicate": "重複"
         }
       },
       "aiReasons": {
-        "title": "AI reasons 用 推奨",
-        "hints": "AI hint codes"
+        "title": "AI 推奨理由",
+        "hints": "AI ヒント コード"
       },
       "actions": {
-        "startMonitoring": "Start モニタリング",
-        "startMonitoringHint": "Begin 追跡 vital signs と time series",
-        "backToAssessment": "戻る へ 入院登録",
-        "startNewAssessment": "Start new 入院登録",
-        "editAssessmentTitle": "編集 入院登録 record",
-        "editAssessmentHint": "開く 入院登録 form 付き current session data pre-filled",
-        "requestAiRecommendation": "Request AI 推奨",
-        "requestAiHint": "Get 任意 AI hints 用 this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental と not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "オンライン AI wasn't used. This 推奨 is から local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "削除 identifiers before export"
+        "startMonitoring": "監視を開始する",
+        "startMonitoringHint": "バイタルサインと時系列の追跡を開始する",
+        "backToAssessment": "承認に戻る",
+        "startNewAssessment": "新規入学を開始する",
+        "editAssessmentTitle": "許可記録を編集する",
+        "editAssessmentHint": "現在のセッション データが事前に入力された承認フォームを開く",
+        "requestAiRecommendation": "AI の推奨事項をリクエストする",
+        "requestAiHint": "この場合のオプションの AI ヒントを取得します (接続が必要です)",
+        "connectivityRequired": "インターネット接続が必要です",
+        "supplementalDisclaimer": "AI 出力は補足的なものであり、臨床的に検証されていません",
+        "aiUnavailableFallback": "AI は利用できません — ローカルの推奨事項を使用しています",
+        "fallbackMessage": "オンライン AI は使用されませんでした。この推奨事項はローカル データセットからのものです。",
+        "exportSummary": "エクスポートの概要",
+        "exportSummaryHint": "セッションの概要をテキストとしてダウンロードする",
+        "anonymizeBeforeExport": "エクスポート前に識別子を削除する"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local 推奨.",
-        "notComplex": "This case did not need オンライン AI.",
-        "offline": "You are オフライン.",
-        "noApiKey": "AI API key is not set.",
-        "error": "オンライン AI failed. Using local dataset instead."
+        "userChoseLocal": "地元のおすすめを選択しました。",
+        "notComplex": "このケースでは、オンラインの AI は必要ありませんでした。",
+        "offline": "あなたはオフラインです。",
+        "noApiKey": "AI API キーが設定されていません。",
+        "error": "オンライン AI が失敗しました。代わりにローカル データセットを使用します。"
       },
-      "fallbackBanner": "AI could not be reached. 表示ing 推奨 から local guide.",
+      "fallbackBanner": "AI に到達できませんでした。地元ガイドからのおすすめを表示します。",
       "states": {
-        "loading": "読み込み中 推奨…",
-        "error": "読み込めません: 推奨",
-        "empty": "なし: 推奨 available. Complete 入院登録 first"
+        "loading": "推奨事項を読み込んでいます…",
+        "error": "推奨事項を読み込めません",
+        "empty": "推奨事項はありません。最初に「承認」を完了してください。"
       },
       "intendedUse": {
-        "warningLabel": "なし:t clinically validated",
-        "validationLabel": "検証 requirement"
+        "warningLabel": "臨床的に検証されていない",
+        "validationLabel": "検証要件"
       },
       "provenance": {
-        "reviewStatus": "Evidence レビュー status",
-        "sourceUrl": "開く source",
+        "reviewStatus": "証拠審査状況",
+        "sourceUrl": "オープンソース",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "保留中 clinician 検証",
-        "validated": "Validated"
+        "unvalidated": "未検証（プロトタイプ）",
+        "pendingClinicianValidation": "臨床医による検証待ち",
+        "validated": "検証済み"
       }
     },
     "monitoring": {
       "title": "モニタリング",
-      "accessibilityLabel": "モニタリング screen",
-      "decisionSupportOnly": "用 decision support only. なし:t a substitute 用 clinical judgment.",
+      "accessibilityLabel": "モニタリング画面",
+      "decisionSupportOnly": "意思決定サポートのみ。臨床判断に代わるものではありません。",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "クイックエントリー",
+        "trend": "トレンド",
+        "alerts": "アラート"
       },
       "quickEntry": {
-        "addPoint": "追加 point",
-        "addPointHint": "追加 vitals または labs data point",
-        "namePlaceholder": "名前 (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "ポイントを追加",
+        "addPointHint": "バイタルまたは検査データポイントを追加する",
+        "namePlaceholder": "名前 (例: SpO₂、RR)",
+        "valuePlaceholder": "値",
+        "unitPlaceholder": "単位"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
+        "insufficientData": "データが不十分です",
+        "directionUp": "上昇傾向",
+        "directionDown": "下降傾向",
+        "directionFlat": "安定した",
         "directionUnknown": "不明"
       },
       "alerts": {
-        "severityNormal": "正常",
+        "severityNormal": "ノーマル",
         "severityWarning": "警告",
-        "severityCritical": "重大",
+        "severityCritical": "クリティカル",
         "severityUnknown": "不明",
-        "why": "Why",
-        "whyCriticalLow": "Value below 重大 低 threshold",
-        "whyWarningLow": "Value below 警告 低 threshold",
-        "whyCriticalHigh": "Value above 重大 高 threshold",
-        "whyWarningHigh": "Value above 警告 高 threshold",
-        "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "続行 モニタリング",
-        "suggestedActionWarning": "レビュー と consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value と re-入力: if needed",
-        "empty": "なし: alerts"
+        "why": "なぜ",
+        "whyCriticalLow": "重大な下限しきい値を下回る値",
+        "whyWarningLow": "警告の下限しきい値を下回る値",
+        "whyCriticalHigh": "重要な上限しきい値を超える値",
+        "whyWarningHigh": "警告上限しきい値を超える値",
+        "suggestedAction": "推奨されるアクション",
+        "suggestedActionNormal": "モニタリングを継続する",
+        "suggestedActionWarning": "介入を見直して検討する",
+        "suggestedActionCritical": "すぐに住所を指定してください",
+        "suggestedActionUnknown": "値を確認し、必要に応じて再入力します",
+        "empty": "アラートはありません"
       },
       "actions": {
-        "backToRecommendation": "戻る へ 推奨"
+        "backToRecommendation": "おすすめに戻る"
       },
       "states": {
         "loading": "読み込み中…",
-        "error": "読み込めません: モニタリング",
-        "empty": "追加 vitals または labs points へ see trends と alerts.",
-        "offline": "You are オフライン. Data is saved locally."
+        "error": "モニタリングをロードできません",
+        "empty": "バイタル ポイントまたはラボ ポイントを追加して、傾向とアラートを確認します。",
+        "offline": "あなたはオフラインです。データはローカルに保存されます。"
       }
     },
     "tracking": {
       "title": "追跡",
-      "subtitle": "Active admitted patients と backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical 追跡 screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "なし: admitted patients are available 用 追跡 yet",
-      "emptyHint": "入院登録 a 患者 first へ begin 追跡.",
-      "admittedBanner": "Admission saved. This 患者 is admitted と available 用 追跡.",
-      "localDraft": "Draft data exists on this device. Backend レビュー, sync, と 競合 status appears after 保存 または sync.",
+      "subtitle": "アクティブな入院患者とバックエンドで確認された臨床状態。",
+      "accessibilityLabel": "臨床追跡画面",
+      "activePatients": "{{count}} のアクティブな患者",
+      "empty": "まだ追跡可能な入院患者はいません。",
+      "emptyHint": "まず患者に追跡を開始してもらいます。",
+      "admittedBanner": "入場料が保存されました。この患者は入院しており、追跡可能です。",
+      "localDraft": "このデバイスには下書きデータが存在します。バックエンドのレビュー、同期、競合ステータスは、保存または同期後に表示されます。",
       "search": {
-        "placeholder": "検索: by 患者 code, ID, 名前, または hospital number",
-        "accessibilityLabel": "検索: 追跡 patients",
-        "empty": "なし: matching patients found",
-        "emptyHint": "Try a 患者 code, 患者 ID, 名前, hospital number, bed, または pathway."
+        "placeholder": "患者コード、ID、名前、または病院番号で検索します",
+        "accessibilityLabel": "患者追跡の検索",
+        "empty": "一致する患者は見つかりませんでした。",
+        "emptyHint": "患者コード、患者 ID、名前、病院番号、ベッド、または経路を試してください。"
       },
       "activeFacility": {
-        "none": "なし: active 施設 selected"
+        "none": "アクティブな施設が選択されていません"
       },
       "actions": {
-        "refresh": "更新",
-        "refreshHint": "Reload active 追跡 records",
-        "admitFirst": "入院登録 患者",
-        "viewDetails": "Details",
-        "viewDetailsHint": "表示 追跡 detail と timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "閉じる 追跡 detail"
+        "refresh": "リフレッシュ",
+        "refreshHint": "アクティブな追跡レコードをリロードします",
+        "admitFirst": "患者を受け入れる",
+        "viewDetails": "詳細",
+        "viewDetailsHint": "追跡の詳細とタイムラインを表示する",
+        "updateValues": "値を更新する",
+        "updateValuesHint": "ABG を開き、この患者の人工呼吸器更新フォームを開きます",
+        "closeDetailsHint": "追跡の詳細を閉じる"
       },
       "patient": {
-        "unknown": "患者 not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
-        "missingData": "不足データ: {{fields}}"
+        "unknown": "患者にラベルが貼られていない",
+        "bed": "ベッド {{bed}}",
+        "bedMissing": "ベッドは記録されていません",
+        "admitted": "{{dateTime}} を承認しました",
+        "missingData": "データがありません: {{fields}}"
       },
       "detail": {
-        "title": "追跡 detail",
-        "noTimeline": "なし: timeline entries returned"
+        "title": "追跡の詳細",
+        "noTimeline": "タイムライン エントリは返されませんでした。"
       },
       "states": {
-        "loading": "読み込み中 patients 用 追跡...",
-        "loadingDetail": "読み込み中 追跡 detail...",
-        "error": "読み込めません: patients 用 追跡. 接続を確認してもう一度お試しください",
-        "detailError": "読み込めません: 追跡 details 用 this 患者. Please try again"
+        "loading": "追跡のために患者をロードしています...",
+        "loadingDetail": "追跡の詳細を読み込んでいます...",
+        "error": "追跡のために患者をロードできません。接続を確認して、もう一度試してください。",
+        "detailError": "この患者の追跡詳細をロードできません。もう一度試してください。"
       }
     },
     "history": {
       "title": "追跡",
-      "accessibilityLabel": "Clinical 追跡 screen",
-      "empty": "なし: active admitted patients 用 this 施設",
-      "corruptRecovery": "Session history was reset due へ a storage issue. You can start new sessions.",
+      "accessibilityLabel": "臨床追跡画面",
+      "empty": "この施設にはアクティブな入院患者はいません。",
+      "corruptRecovery": "ストレージの問題により、セッション履歴がリセットされました。新しいセッションを開始できます。",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "続行 this session",
-        "viewDetails": "表示 details",
-        "viewDetailsHint": "表示 session summary",
+        "resume": "再開",
+        "resumeHint": "このセッションを続ける",
+        "viewDetails": "詳細を見る",
+        "viewDetailsHint": "セッションの概要を表示する",
         "delete": "削除",
-        "deleteHint": "削除 から history"
+        "deleteHint": "履歴から削除"
       },
       "deleteConfirm": {
-        "title": "削除 session?",
-        "message": "This session will be removed から history. This cannot be undone.",
+        "title": "セッションを削除しますか?",
+        "message": "このセッションは履歴から削除されます。これを元に戻すことはできません。",
         "confirm": "削除",
         "cancel": "キャンセル"
       },
       "session": {
         "dateTime": "{{dateTime}}",
         "condition": "状態: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "tier": "階層: {{tier}}",
+        "summary": "概要"
       },
       "states": {
-        "loading": "読み込み中 history…",
-        "error": "読み込めません: session history"
+        "loading": "履歴を読み込み中…",
+        "error": "セッション履歴をロードできません"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
+      "title": "事件の詳細",
+      "accessibilityLabel": "案件詳細画面",
+      "summary": "事件の概要",
       "patientProfile": "患者プロフィール",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "人工呼吸器 設定",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "レビュー status",
-      "intendedUseWarning": "This is a dataset case 用 reference only. なし:t 用 direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "なし: case selected",
+      "clinicalParameters": "臨床パラメータ",
+      "ventilatorSettings": "人工呼吸器の設定",
+      "outcomes": "結果",
+      "evidence": "証拠",
+      "reviewStatus": "レビュー状況",
+      "intendedUseWarning": "これは参考用のデータセットのケースです。直接の臨床使用を目的としたものではありません。",
+      "datasetCaseFraming": "データセットのケース（参考のみ）",
+      "prototypeFraming": "プロトタイプ – 臨床的に検証されていない",
+      "notFound": "データセット内にケースが見つかりません。",
+      "missingCaseId": "ケースが選択されていません。",
       "states": {
-        "loading": "読み込み中 case…"
+        "loading": "ケースを読み込み中…"
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "保留中 clinician 検証",
-        "validated": "Validated"
+        "unvalidated": "未検証（プロトタイプ）",
+        "pending_clinician_validation": "臨床医による検証待ち",
+        "validated": "検証済み"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, と reference.",
-      "accessibilityLabel": "Training ホーム screen",
-      "searchPlaceholder": "検索: topics…",
-      "searchHint": "検索: training content",
-      "topicsSection": "Topics",
-      "searchResults": "検索: results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "表示 all topics",
-      "browseAllHint": "表示 all training topics",
-      "viewTopic": "表示",
+      "title": "トレーニング",
+      "subtitle": "プロトコル、チェックリスト、リファレンス。",
+      "accessibilityLabel": "トレーニングホーム画面",
+      "searchPlaceholder": "トピックを検索…",
+      "searchHint": "トレーニングコンテンツを検索する",
+      "topicsSection": "トピックス",
+      "searchResults": "検索結果",
+      "popularTopics": "人気のトピック",
+      "quickChecklists": "クイックチェックリスト",
+      "browseAll": "すべてのトピックを表示",
+      "browseAllHint": "すべてのトレーニング トピックを表示",
+      "viewTopic": "見る",
       "states": {
-        "loading": "読み込み中 training…",
-        "error": "読み込めません: training content",
-        "offline": "Content is available オフライン",
-        "empty": "なし: training content available"
+        "loading": "トレーニングを読み込み中…",
+        "error": "トレーニング コンテンツを読み込めません",
+        "offline": "コンテンツはオフラインでも利用可能",
+        "empty": "利用可能なトレーニング コンテンツはありません"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic リスト screen",
-      "searchPlaceholder": "検索: または filter…",
-      "searchHint": "検索: topics",
-      "empty": "なし: topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "開く topic",
+      "title": "トピックス",
+      "accessibilityLabel": "トピック一覧画面",
+      "searchPlaceholder": "検索またはフィルター…",
+      "searchHint": "トピックの検索",
+      "empty": "トピックが見つかりませんでした。",
+      "filterByType": "タイプでフィルタリングする",
+      "typeProtocol": "プロトコル",
+      "typeChecklist": "チェックリスト",
+      "typeGlossary": "用語集",
+      "typeFaq": "よくある質問",
+      "openTopicHint": "オープントピック",
       "states": {
-        "loading": "読み込み中 topics…",
-        "error": "読み込めません: topics",
-        "offline": "Content is available オフライン"
+        "loading": "トピックを読み込んでいます…",
+        "error": "トピックを読み込めません",
+        "offline": "コンテンツはオフラインでも利用可能"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "戻る へ topics",
-      "backToTopicsHint": "Return へ topic リスト",
+      "title": "トピック",
+      "accessibilityLabel": "トピック詳細画面",
+      "section": "セクション",
+      "expand": "セクションを展開する",
+      "collapse": "セクションを折りたたむ",
+      "checklistItem": "アイテム",
+      "notFound": "トピックが見つかりません。",
+      "backToTopics": "トピックに戻る",
+      "backToTopicsHint": "トピックリストに戻る",
       "states": {
-        "loading": "読み込み中 topic…",
-        "error": "読み込めません: topic"
+        "loading": "トピックを読み込み中…",
+        "error": "トピックを読み込めません"
       }
     }
   },
   "notFound": {
-    "title": "Page なし:t Found",
-    "message": "page you're looking 用 doesn't exist または has been moved.",
-    "back": "Go 戻る",
-    "backHint": "Return へ previous page",
-    "goHome": "移動: ホーム",
-    "goHomeHint": "Navigate 戻る へ ホーム page"
+    "title": "ページが見つかりません",
+    "message": "お探しのページは存在しないか、移動されました。",
+    "back": "戻る",
+    "backHint": "前のページに戻る",
+    "goHome": "ホームへ行く",
+    "goHomeHint": "ホームページに戻る"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "予期しないエラーが発生しました. Please try again または return へ ホーム page.",
+    "title": "何か問題が発生しました",
+    "message": "予期しないエラーが発生しました。もう一度試すか、ホームページに戻ってください。",
     "retry": "再試行",
-    "retryHint": "Try action again",
-    "goHome": "移動: ホーム",
-    "goHomeHint": "Navigate 戻る へ ホーム page"
+    "retryHint": "アクションをもう一度試してください",
+    "goHome": "ホームへ行く",
+    "goHomeHint": "ホームページに戻る"
   },
   "errorState": {
-    "defaultTitle": "問題が発生しました"
+    "defaultTitle": "何か問題が発生しました"
   }
 }

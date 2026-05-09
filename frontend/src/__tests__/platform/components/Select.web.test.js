@@ -67,6 +67,20 @@ describe('Select Component - Web', () => {
       expect(getByText('One')).toBeTruthy();
     });
 
+    it('should render selected option icon on Web', () => {
+      const { getByText } = renderWebWithProviders(
+        <SelectWeb
+          testID="web-select"
+          options={[{ label: 'English', value: 'en', icon: 'EN' }]}
+          value="en"
+          onValueChange={() => {}}
+        />
+      );
+
+      expect(getByText('EN')).toBeTruthy();
+      expect(getByText('English')).toBeTruthy();
+    });
+
     it('should select option when clicking with mouse on Web', () => {
       const onValueChange = jest.fn();
       const { getByTestId, getByText, queryByText } = renderWebWithProviders(
@@ -93,6 +107,26 @@ describe('Select Component - Web', () => {
 
       expect(getByText('Two')).toBeTruthy();
       expect(queryByText('One')).toBeFalsy();
+    });
+
+    it('should filter options by searchable metadata on Web', () => {
+      const { getByTestId, getByText, queryByText } = renderWebWithProviders(
+        <SelectWeb
+          testID="web-select"
+          options={[
+            { label: 'English', value: 'en', searchText: ['United Kingdom'] },
+            { label: 'French', value: 'fr' },
+          ]}
+          value={undefined}
+          onValueChange={() => {}}
+        />
+      );
+
+      fireEvent.click(getByTestId('web-select'));
+      fireEvent.change(getByTestId('web-select-search'), { target: { value: 'kingdom' } });
+
+      expect(getByText('English')).toBeTruthy();
+      expect(queryByText('French')).toBeFalsy();
     });
 
     it('should allow a typed custom value when enabled on Web', () => {

@@ -6,44 +6,44 @@
     "edit": "编辑",
     "search": "搜索",
     "submit": "提交",
-    "loading": "正在加载…",
+    "loading": "加载中...",
     "retry": "重试",
     "back": "返回",
     "next": "下一步",
     "continue": "继续",
     "close": "关闭",
-    "closeSidebarHint": "Closes sidebar menu",
+    "closeSidebarHint": "关闭侧边栏菜单",
     "select": "选择",
     "selectPlaceholder": "选择…",
-    "closeSelect": "关闭 选择",
-    "remove": "移除",
-    "goToHome": "前往 首页",
-    "viewNotifications": "查看 notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "搜索…",
-    "noResults": "无结果",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "搜索 icon",
-    "clearSearch": "清除 搜索",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed 到 load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
+    "closeSelect": "关闭选择",
+    "remove": "删除",
+    "goToHome": "回家吧",
+    "viewNotifications": "查看通知",
+    "userMenu": "用户菜单",
+    "toggleMenu": "切换菜单",
+    "searchPlaceholder": "搜索...",
+    "noResults": "没有结果",
+    "useCustomValue": "使用“{{value}}”",
+    "searchIcon": "搜索图标",
+    "clearSearch": "清除搜索",
+    "on": "开",
+    "off": "关闭",
+    "switch": "开关",
+    "imageLoadError": "加载图像失败",
+    "imageDefaultAlt": "图片",
+    "progress": "进度：{{value}}%",
     "requiredLabel": "必填",
-    "clearAll": "清除 all",
-    "filters": "Filters",
-    "clearAllFilters": "清除 all filters",
-    "loadingPlaceholder": "加载中 placeholder",
-    "radio": "Radio",
-    "emptyState": "空 state",
-    "message": "消息",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "clearAll": "全部清除",
+    "filters": "过滤器",
+    "clearAllFilters": "清除所有过滤器",
+    "loadingPlaceholder": "正在加载占位符",
+    "radio": "收音机",
+    "emptyState": "空状态",
+    "message": "留言",
+    "sliderValue": "滑块：{{value}}",
+    "dropdownMenu": "下拉菜单",
+    "tooltip": "工具提示",
+    "action": "行动"
   },
   "greeting": {
     "hello": "你好，{{name}}"
@@ -55,77 +55,77 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "通气决策支持",
+      "logoLabel": "AI Vent 标志"
     },
-    "logout": "退出登录",
+    "logout": "退出",
     "password": "密码",
-    "passwordHide": "隐藏 密码",
-    "passwordShow": "显示 密码",
-    "enterPassword": "输入 密码",
+    "passwordHide": "隐藏密码",
+    "passwordShow": "显示密码",
+    "enterPassword": "输入密码",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "?",
+      "fair": "??",
+      "good": "??",
+      "strong": "?",
+      "veryStrong": "??"
     },
     "login": {
       "title": "登录",
-      "accessibilityLabel": "登录 screen",
+      "accessibilityLabel": "登录屏幕",
       "emailLabel": "电子邮件",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "密码",
-      "passwordPlaceholder": "输入 密码",
+      "passwordPlaceholder": "输入密码",
       "submit": "登录",
-      "submitting": "Signing in...",
-      "createPrompt": "无 账户 yet?",
-      "createAccount": "创建账户",
-      "createAccountHint": "打开 账户 registration",
-      "errorTitle": "Sign-in issue"
+      "submitting": "正在登录...",
+      "createPrompt": "还没有帐户？",
+      "createAccount": "创建帐户",
+      "createAccountHint": "开设账户注册",
+      "errorTitle": "登录问题"
     },
     "register": {
-      "title": "创建账户",
-      "description": "Create an AI Vent 账户 到 request 机构 access.",
-      "accessibilityLabel": "创建账户 screen",
+      "title": "创建帐户",
+      "description": "创建 AI Vent 帐户以请求设施访问权限。",
+      "accessibilityLabel": "创建帐户屏幕",
       "nameLabel": "全名",
-      "namePlaceholder": "Clinician 姓名",
+      "namePlaceholder": "临床医生姓名",
       "emailLabel": "电子邮件",
       "emailPlaceholder": "name@example.com",
       "passwordLabel": "密码",
-      "passwordPlaceholder": "Create 密码",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "机构 或 hospital (可选)",
-      "facilitySearchPlaceholder": "搜索 Uganda hospitals",
-      "facilitySearchHint": "Filters hospital 列表 by 姓名, district, region, 或 ownership",
-      "facilitySelectLabel": "选择 机构",
-      "facilitySelectPlaceholder": "Choose a matching 机构",
-      "facilitySelectHelper": "Leave blank if you are not attached 到 a 机构.",
-      "facilitySelectHint": "Choose 机构 到 request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested 用于 审核.",
-      "facilityOptionalHelper": "可选. You can create an 账户 without selecting a 机构.",
-      "facilityNoResults": "无 matching 机构 found. You can still create an 账户 without selecting one",
-      "facilityClear": "清除 机构",
-      "submit": "创建账户",
-      "submitting": "Creating 账户...",
-      "signInPrompt": "Already have an 账户?",
+      "passwordPlaceholder": "创建密码",
+      "passwordHelper": "至少使用 8 个字符。",
+      "facilitySearchLabel": "设施或医院（可选）",
+      "facilitySearchPlaceholder": "搜索乌干达医院",
+      "facilitySearchHint": "按名称、地区、地区或所有权过滤医院列表",
+      "facilitySelectLabel": "选择设施",
+      "facilitySelectPlaceholder": "选择配套设施",
+      "facilitySelectHelper": "如果您未附属于某个设施，请留空。",
+      "facilitySelectHint": "选择请求临床医生加入的机构",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}。要求会员资格进行审查。",
+      "facilityOptionalHelper": "可选。您无需选择设施即可创建帐户。",
+      "facilityNoResults": "未找到匹配的设施。您仍然可以创建帐户而无需选择帐户。",
+      "facilityClear": "清除设施",
+      "submit": "创建帐户",
+      "submitting": "正在创建帐户...",
+      "signInPrompt": "已经有帐户？",
       "signIn": "登录",
-      "signInHint": "Return 到 sign in",
-      "errorTitle": "账户 creation issue"
+      "signInHint": "返回登录",
+      "errorTitle": "帐户创建问题"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "重试 session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "会议通知",
+      "retry": "重试会话",
+      "checking": "检查会话...",
+      "restoring": "检查您是否已经登录。"
     },
     "facility": {
-      "title": "Choose 机构",
-      "description": "选择 机构 context 用于 this session.",
-      "accessibilityLabel": "机构 selection screen",
-      "selectFacility": "选择 {{name}}",
-      "empty": "无 approved facilities are available 用于 this 账户",
-      "errorTitle": "机构 selection issue"
+      "title": "选择设施",
+      "description": "选择此会话的设施上下文。",
+      "accessibilityLabel": "设施选择画面",
+      "selectFacility": "选择{{name}}",
+      "empty": "此帐户没有可用的批准设施。",
+      "errorTitle": "设施选择问题"
     }
   },
   "errors": {
@@ -133,301 +133,302 @@
       "title": "出了点问题",
       "message": "发生意外错误",
       "retry": "重试",
-      "retryHint": "重试"
+      "retryHint": "再试一次"
     },
     "codes": {
-      "UNKNOWN_ERROR": "出了点问题. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect 到 server. Please check your internet connection 和 try again.",
-      "REQUEST_TIMEOUT": "server took too long 到 respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection 和 try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNKNOWN_ERROR": "出了点问题。请稍后重试。",
+      "NETWORK_ERROR": "我们无法连接到服务器。请检查您的互联网连接，然后重试。",
+      "REQUEST_TIMEOUT": "服务器响应时间太长。请再试一次。",
+      "BACKEND_HOST_UNREACHABLE": "我们无法连接到服务器。请检查您的互联网连接，然后重试。",
+      "SECURE_CONNECTION_FAILED": "安全连接失败。检查后端 HTTPS 证书。",
       "UNAUTHORIZED": "需要身份验证",
       "FORBIDDEN": "访问被拒绝",
-      "CONFLICT": "This update conflicts 带 newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields 和 try again.",
-      "SERVER_ERROR": "出了点问题 while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect 到 server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please 刷新 和 try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return 到 跟踪 和 try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not 保存 your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment 和 try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An 错误 occurred while 加载中 this page",
-      "INVALID_CREDENTIALS": "Invalid 电子邮件 或 密码. Please check your details 和 try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please 选择 a tenant.",
-      "ACCOUNT_INACTIVE": "账户 is not active",
-      "ACCOUNT_SUSPENDED": "账户 has been suspended",
-      "ACCOUNT_PENDING": "账户 is 待处理 verification",
-      "PASSWORD_INCORRECT": "Current 密码 is incorrect",
-      "TOKEN_INVALID": "Invalid 或 expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid 或 expired 刷新 token",
-      "SESSION_EXPIRED": "Your session expired. 登录 again 到 继续.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This 电子邮件 is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "账户 is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid 或 expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "首页 summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "无法加载 首页 summary",
-      "ADMISSION_SAVE_FAILED": "无法保存 admission record. 请检查连接后重试",
-      "ADMISSION_VALIDATION_FAILED": "Some 必填 admission details are missing. Please 审核 highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable 到 generate clinical recommendations right now. You can still 审核 和 保存 admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "无法加载 admission form. 请检查连接后重试",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "无法保存 local admission draft. Please try again"
+      "CONFLICT": "此更新与较新保存的临床数据冲突",
+      "VALIDATION_ERROR": "请检查突出显示的字段并重试。",
+      "SERVER_ERROR": "处理您的请求时出现问题。请稍后重试。",
+      "BACKEND_UNAVAILABLE": "我们现在无法连接到服务器。请稍后重试。",
+      "BACKEND_ENDPOINT_NOT_FOUND": "未找到后端 API 端点。域可达，但 API 路由未部署。",
+      "RESOURCE_NOT_FOUND": "找不到所请求的记录。请刷新并重试。",
+      "ADMISSION_NOT_FOUND": "找不到录取记录。请返回跟踪并重试。",
+      "BACKEND_METHOD_NOT_ALLOWED": "后端端点存在但不接受此请求。",
+      "BACKEND_INVALID_RESPONSE": "后端返回无效的登录响应。它可能正在为网站提供服务，而不是 API。",
+      "SESSION_STORAGE_FAILED": "我们无法保存您的登录会话。请再试一次。",
+      "DATABASE_ERROR": "后端数据库请求失败",
+      "RATE_LIMITED": "请求太多。稍等片刻，然后重试。",
+      "PAYLOAD_TOO_LARGE": "请求太大",
+      "UNSUPPORTED_MEDIA_TYPE": "后端拒绝请求格式",
+      "ROUTE_ERROR": "加载此页面时发生错误",
+      "INVALID_CREDENTIALS": "电子邮件或密码无效。请检查您的详细信息，然后重试。",
+      "MULTIPLE_TENANTS": "发现多个租户。请选择一个租户。",
+      "ACCOUNT_INACTIVE": "帐户未激活",
+      "ACCOUNT_SUSPENDED": "帐户已被暂停",
+      "ACCOUNT_PENDING": "帐户正在等待验证",
+      "PASSWORD_INCORRECT": "当前密码不正确",
+      "TOKEN_INVALID": "令牌无效或过期",
+      "TOKEN_EXPIRED": "令牌已过期",
+      "REFRESH_TOKEN_INVALID": "刷新令牌无效或过期",
+      "SESSION_EXPIRED": "您的会话已过期。重新登录以继续。",
+      "USER_NOT_FOUND": "未找到用户",
+      "USER_EXISTS": "该电子邮件已被注册。请改为登录。",
+      "SESSION_NOT_FOUND": "未找到会话",
+      "ALREADY_VERIFIED": "帐户已验证",
+      "AI_UNAVAILABLE": " 不可用 — 使用本地建议",
+      "AI_TIMEOUT": " 请求超时",
+      "AI_UNAUTHORIZED": "AI API 密钥无效或已过期",
+      "AI_FORBIDDEN": " 访问被拒绝",
+      "AI_RATE_LIMIT": "达到  速率限制",
+      "AI_MODEL_UNAVAILABLE": " 型号不可用",
+      "AI_MALFORMED_RESPONSE": " 响应无效",
+      "HOME_SUMMARY_INVALID": "首页摘要回复无效",
+      "HOME_SUMMARY_LOAD_FAILED": "无法加载主页摘要",
+      "ADMISSION_SAVE_FAILED": "无法保存录取记录。请检查您的连接并重试。",
+      "ADMISSION_VALIDATION_FAILED": "缺少一些必需的入学详细信息。请检查突出显示的字段。",
+      "ADMISSION_RECOMMENDATION_FAILED": "目前无法生成临床建议。您仍然可以查看并保存录取通知书。",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "无法加载入学申请表。请检查您的连接并重试。",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "无法保存本地录取草稿。请再试一次。"
     }
   },
   "forms": {
     "validation": {
-      "required": "此字段为必填项",
-      "invalidEmail": "Invalid 电子邮件 format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "required": "该字段为必填项",
+      "invalidEmail": "电子邮件格式无效",
+      "minLength": "最小长度为 {{min}} 个字符",
+      "invalidUrl": "URL 格式无效",
+      "invalidUuid": "ID 格式无效",
+      "maxLength": "最大长度为 {{max}} 个字符",
+      "invalidValue": "无效值"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type 到 搜索",
-      "cartWithItems": "Cart 带 {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "主导航标题",
+      "searchHint": "输入搜索",
+      "cartWithItems": "装有 {{count}} 商品的购物车",
+      "cartWithItems_zero": "购物车",
       "signIn": "登录",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "公司简介",
+      "orders": "订单",
       "settings": "设置",
-      "logout": "退出登录",
+      "logout": "退出",
       "accountMenu": {
-        "accessibilityLabel": "打开 账户 menu 用于 {{name}}",
+        "accessibilityLabel": "打开 {{name}} 的帐户菜单",
         "fallbackName": "账户",
-        "accountType": "账户 type"
+        "accountType": "账户类型"
       },
-      "hideHeader": "隐藏 header",
-      "showHeader": "显示 header",
-      "showMore": "显示 more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "隐藏标题",
+      "showHeader": "显示标题",
+      "showMore": "显示更多",
+      "customize": "定制",
+      "overflowMenuLabel": "更多标题操作",
+      "customizationMenuLabel": "标头定制",
       "actions": {
-        "notifications": "无tifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "通知",
+        "network": "网络状态",
+        "database": "数据库状态",
+        "fullscreen": "全屏切换"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "主导航",
+      "label": "导航",
+      "resize": "调整导航大小"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "全屏",
+      "exit": "退出全屏"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "底部导航"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (电子邮件)",
-      "supportPhone": "Support (电话)",
+      "title": "全局页脚",
+      "copyright": "© {{year}} {{appName}}。版权所有。",
+      "supportEmail": "支持（电子邮件）",
+      "supportPhone": "支持（电话）",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "患者 services ready"
+        "title": "申请状态",
+        "auth": "已启用安全登录",
+        "main": "所有系统均可运行",
+        "patient": "患者服务准备就绪"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} · v{{version}}（版本：{{build}}）",
       "legal": {
-        "title": "Legal 和 support",
-        "terms": "Terms",
+        "title": "法律和支持",
+        "terms": "条款",
         "privacy": "隐私",
-        "support": "Support"
+        "support": "支持"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "网络状态",
       "status": {
         "online": "在线",
         "offline": "离线",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "unstable": "不稳定",
+        "syncing": "正在同步"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "数据库",
+        "connected": "数据库已连接",
+        "disconnected": "数据库已断开连接"
       }
     },
     "notifications": {
-      "label": "无tifications",
-      "menuLabel": "无tifications menu",
-      "empty": "无 new notifications",
-      "viewAll": "查看 all notifications",
+      "label": "通知",
+      "menuLabel": "通知菜单",
+      "empty": "没有新通知",
+      "viewAll": "查看所有通知",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "即将到来的约会",
+          "meta": "今天下午 3:00"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "实验室结果已准备好",
+          "meta": "新结果可用"
         },
         "messages": {
-          "title": "New 消息",
-          "meta": "You have unread messages"
+          "title": "新消息",
+          "meta": "您有未读消息"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "患者 navigation",
+    "bottomNavigation": "底部导航",
+    "mainNavigation": "主导航",
+    "patientNavigation": "患者导航",
     "items": {
       "main": {
         "home": "首页",
-        "admit": "收治",
-        "assessment": "收治",
-        "abg-ventilator-updates": "Update ABG & 呼吸机 设置",
-        "history": "跟踪",
-        "dataset-capture": "数据集采集",
+        "admit": "承认",
+        "assessment": "承认",
+        "abg-ventilator-updates": "更新 ABG 和呼吸机设置",
+        "history": "追踪",
+        "dataset-capture": "数据集捕获",
         "review-queue": "审核队列",
         "dashboard": "仪表板",
         "user-management": "用户管理",
-        "onboarding": "Getting started",
+        "onboarding": "开始使用",
         "settings": "设置",
         "settings-about": "关于",
-        "settings-data-sources": "数据源",
+        "settings-data-sources": "数据来源",
         "settings-disclaimer": "免责声明",
         "settings-help": "帮助",
         "settings-privacy": "隐私"
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "面包屑导航",
+      "label": "面包屑"
     },
-    "skipToMainContent": "Skip 到 main content"
+    "skipToMainContent": "跳至主要内容"
   },
   "facilityContext": {
-    "activeFacility": "当前机构",
-    "noFacility": "无 active 机构",
+    "activeFacility": "活跃设施",
+    "noFacility": "无活动设施",
     "role": "角色",
-    "noRole": "无 active 角色",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "选择 active 机构",
-    "accessibilityLabel": "当前机构 {{facility}}, sync status {{status}}",
+    "noRole": "无主动角色",
+    "syncStatus": "同步状态",
+    "facilitySelectLabel": "选择活跃设施",
+    "accessibilityLabel": "活动设施 {{facility}}，同步状态 {{status}}",
     "status": {
       "online": "在线",
       "offline": "离线",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "syncing": "正在同步",
+      "unstable": "不稳定"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "系统 status updates",
+      "surfaceLabel": "系统状态更新",
       "offline": {
-        "title": "You are 离线",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "离线 status notification"
+        "title": "您离线",
+        "message": "在连接恢复之前，某些功能可能不可用。",
+        "accessibilityLabel": "离线状态通知"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays 或 limited functionality.",
-        "accessibilityLabel": "低 network quality notification"
+        "title": "网络不稳定",
+        "message": "您可能会遇到延迟或功能受限的情况。",
+        "accessibilityLabel": "网络质量低通知"
       },
       "online": {
-        "title": "返回 在线",
-        "message": "Connection restored.",
-        "accessibilityLabel": "在线 status notification"
+        "title": "重新上线",
+        "message": "连接已恢复。",
+        "accessibilityLabel": "在线状态通知"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "定期维护",
+        "message": "某些服务可能暂时不可用。",
+        "accessibilityLabel": "维护通知"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "工作…",
+      "message": "我们正在完成请求，请稍候。"
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "全球通知"
     }
   },
   "settings": {
     "title": "设置",
     "screen": {
-      "label": "设置 screen"
+      "label": "设置屏幕"
     },
     "status": {
-      "loading": "加载中 设置...",
-      "saved": "设置 saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "无法保存 your profile. 请检查连接后重试",
-      "facilitySaved": "当前机构 updated successfully.",
-      "facilitySaveError": "无法保存 active 机构. 请检查连接后重试",
-      "roleSaved": "Active 角色 updated successfully.",
-      "themeSaved": "主题 updated successfully.",
-      "themeLocalSaved": "主题 updated on this device.",
-      "themeSaveError": "无法保存 your 主题 preference. 请检查连接后重试",
-      "saveError": "无法保存 设置. 请检查连接后重试",
-      "loadError": "无法加载 设置. 请检查连接后重试",
-      "localOnly": "Server 设置 are unavailable ({{code}}). Local display controls remain available."
+      "loading": "正在加载设置...",
+      "saving": "??????...",
+      "saved": "设置已保存。",
+      "profileSaved": "个人资料更新成功。",
+      "profileSaveError": "无法保存您的个人资料。请检查您的连接并重试。",
+      "facilitySaved": "活动设施更新成功。",
+      "facilitySaveError": "无法保存活动设施。请检查您的连接并重试。",
+      "roleSaved": "活动角色已成功更新。",
+      "themeSaved": "主题更新成功。",
+      "themeLocalSaved": "此设备上的主题已更新。",
+      "themeSaveError": "无法保存您的主题首选项。请检查您的连接并重试。",
+      "saveError": "无法保存设置。请检查您的连接并重试。",
+      "loadError": "无法加载设置。请检查您的连接并重试。",
+      "localOnly": "服务器设置不可用 ({{code}})。本地显示控件仍然可用。"
     },
     "account": {
-      "title": "账户 和 机构",
-      "name": "姓名",
+      "title": "账户和设施",
+      "name": "名称",
       "phone": "电话",
-      "saveProfile": "保存 profile",
-      "activeFacility": "当前机构",
-      "activeRole": "Active 角色",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "无 active 机构",
-      "activeFacilityHelper": "选择 机构 context 用于 clinical work.",
-      "noAssignedFacility": "无 机构 has been assigned 到 your 账户 yet",
-      "activeRoleHelper": "角色 用于 selected active 机构.",
-      "noActiveRole": "无 角色 is available 用于 selected 机构",
-      "none": "无ne",
+      "saveProfile": "保存个人资料",
+      "activeFacility": "活跃设施",
+      "activeRole": "积极作用",
+      "approvedRoles": "批准的角色",
+      "noActiveFacility": "无活动设施",
+      "activeFacilityHelper": "选择临床工作的设施环境。",
+      "noAssignedFacility": "尚未向您的帐户分配任何便利。",
+      "activeRoleHelper": "所选活动设施的角色。",
+      "noActiveRole": "所选设施没有可用的角色。",
+      "none": "无",
       "validation": {
-        "nameRequired": "输入 your full 姓名.",
-        "nameTooLong": "姓名 must be 160 characters 或 fewer.",
-        "phoneTooLong": "电话 number must be 40 characters 或 fewer.",
-        "profileInvalid": "审核 highlighted profile fields before saving."
+        "nameRequired": "输入您的全名。",
+        "nameTooLong": "名称不得超过 160 个字符。",
+        "phoneTooLong": "电话号码不得超过 40 个字符。",
+        "profileInvalid": "保存前查看突出显示的配置文件字段。"
       }
     },
     "accessibility": {
-      "title": "Appearance 和 accessibility"
+      "title": "外观和可达性"
     },
     "theme": {
       "label": "主题",
-      "accessibilityLabel": "主题 selector",
-      "hint": "更改 application 主题",
+      "accessibilityLabel": "主题选择器",
+      "hint": "更改应用程序主题",
       "options": {
         "system": "系统",
-        "light": "浅色",
-        "dark": "深色",
+        "light": "光",
+        "dark": "黑暗",
         "highContrast": "高对比度"
       }
     },
     "language": {
       "label": "语言",
-      "accessibilityLabel": "语言 selector",
-      "hint": "更改 application 语言",
+      "accessibilityLabel": "语言选择器",
+      "hint": "更改应用程序语言",
       "options": {
         "en": "英语",
         "ar": "阿拉伯语",
@@ -455,328 +456,328 @@
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "更改 spacing 和 layout density",
+      "label": "密度",
+      "accessibilityLabel": "密度模式选择器",
+      "hint": "更改间距和布局密度",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "紧凑型",
+        "comfortable": "舒适"
       }
     },
     "footerVisible": {
-      "label": "显示 footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "显示 或 隐藏 footer at bottom of layout (desktop only)"
+      "label": "显示页脚",
+      "accessibilityLabel": "切换页脚可见性",
+      "hint": "显示或隐藏布局底部的页脚（仅限桌面）"
     },
     "sync": {
-      "title": "离线 和 sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
+      "title": "离线和同步",
+      "network": "网络",
+      "status": "同步状态",
+      "quality": "网络质量",
+      "idle": "空闲",
       "unknownQuality": "未知",
-      "offlineModeEnabled": "Allow 离线 mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "重试 failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge 已同步 drafts after",
-      "conflictResolutionMode": "冲突 resolution",
-      "manualReview": "Manual 审核",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "offlineModeEnabled": "允许离线模式",
+      "syncOnWifiOnly": "仅在 Wi-Fi 上同步",
+      "autoSyncEnabled": "自动同步",
+      "backgroundSyncEnabled": "后台同步",
+      "retryFailedSyncAutomatically": "自动重试同步失败",
+      "syncIntervalMinutes": "同步间隔",
+      "purgeSyncedDraftsAfterDays": "之后清除同步草稿",
+      "conflictResolutionMode": "冲突解决",
+      "manualReview": "人工审核",
+      "intervalOption": "{{value}} 分钟",
+      "purgeOption": "{{value}} 天"
     },
     "privacyControls": {
-      "title": "隐私 和 logging",
-      "hidePatientIdentifiersInLists": "隐藏 患者 identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock 用于 identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "隐私和日志记录",
+      "hidePatientIdentifiersInLists": "在列表中隐藏患者标识符",
+      "requireUnlockForIdentifiers": "需要解锁标识符",
+      "shareUsageDiagnostics": "共享使用诊断",
+      "allowDeidentifiedAnalytics": "允许去识别化分析",
+      "allowDeidentifiedTrainingDatasetContribution": "允许去识别化的训练数据集贡献"
     },
     "governance": {
-      "title": "Governance 和 clinical workflow",
-      "activeFacility": "当前机构",
-      "manageAccess": "Can manage 机构 设置",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "title": "治理和临床工作流程",
+      "activeFacility": "活跃设施",
+      "manageAccess": "可以管理设施设置",
+      "visibility": "治理可见性",
+      "defaultReferenceRuleScope": "默认参考范围",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "机构 verified rules"
+        "global": "全局验证规则",
+        "facility": "设施验证规则"
       },
-      "showReferenceVersionToClinicians": "显示 reference version 到 clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require 原因 用于 clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer 用于 严重 flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit 原因",
-      "exportPatientIdentifiers": "Export 患者 identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require 审核",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "显示 shadow model outputs 到 clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden 从 正常 clinical workflows."
+      "showReferenceVersionToClinicians": "向临床医生显示参考版本",
+      "requireVerifiedReferenceRules": "需要经过验证的参考规则",
+      "activeReferenceRules": "主动参考规则",
+      "requireReasonForClinicalOverride": "需要临床推翻的理由",
+      "requireSecondReviewerForCriticalFlags": "需要第二位审阅者来处理关键标志",
+      "lockReviewedClinicalRecords": "锁定审查的临床记录",
+      "allowDeidentifiedExports": "允许去识别化出口",
+      "requireExportAuditReason": "需要出口审核原因",
+      "exportPatientIdentifiers": "导出患者标识符",
+      "allowRawNotesInExports": "允许导出原始票据",
+      "datasetExportsRequireEthicsApproval": "数据集导出需要伦理批准",
+      "datasetExportsRequireReview": "数据集导出需要审核",
+      "allowUnreviewedDatasetExports": "允许导出未经审核的数据集",
+      "modelVisibility": "模型可见性",
+      "liveClinicalPredictionEnabled": "启用实时临床预测",
+      "clinicianVisibleModelVersionIds": "临床医生可见的模型版本",
+      "showShadowModelOutputsToClinicians": "向临床医生显示影子模型输出",
+      "modelVisibilityLocked": "实时预测模型输出仍然隐藏在正常的临床工作流程中。"
     },
     "sidebar": {
-      "resize": "Resize 设置 sidebar",
-      "menu": "设置 menu",
-      "menuOpen": "打开 设置 menu",
-      "menuClose": "关闭 设置 menu",
+      "resize": "调整设置侧边栏的大小",
+      "menu": "设置菜单",
+      "menuOpen": "打开设置菜单",
+      "menuClose": "关闭设置菜单",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "一般",
+        "organization": "组织机构",
+        "usersAndAccess": "用户和访问",
+        "security": "安全性"
       }
     },
     "disclaimer": {
       "title": "免责声明",
       "screen": {
-        "label": "免责声明 screen"
+        "label": "免责声明屏幕"
       },
-      "prototypeFraming": "This app is a prototype 用于 reference 和 training. It is not intended 用于 direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read 和 understood 免责声明",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "该应用程序是供参考和培训的原型。它不适合直接临床使用。",
+      "datasetNotice": "数据集通知",
+      "acknowledge": "我承认",
+      "acknowledgeHint": "确认您已阅读并理解免责声明",
+      "decline": "我不同意",
+      "declineHint": "退出应用程序而不确认",
       "states": {
-        "loading": "正在加载…",
-        "error": "无法加载 免责声明"
+        "loading": "加载中...",
+        "error": "无法加载免责声明"
       }
     },
     "dataSources": {
-      "title": "数据源",
+      "title": "数据来源",
       "screen": {
-        "label": "数据源 screen"
+        "label": "数据源屏幕"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "数据集版本",
+      "schemaVersion": "架构版本",
+      "lastUpdated": "最后更新",
+      "totalCases": "病例总数",
+      "citations": "引文",
       "doi": "DOI",
       "states": {
-        "loading": "正在加载…",
-        "error": "无法加载 data sources",
-        "empty": "无 sources available"
+        "loading": "加载中...",
+        "error": "无法加载数据源",
+        "empty": "无可用来源"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted 用于 reviewer approval only. Raw pasted notes are not stored in approved datasets 或 sent 到 external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write 角色.",
-        "offlineNotice": "离线 submissions are 已排队 带 structured fields only 和 sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then 审核 structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "机构 scope ready",
-        "facilityMissing": "选择 或 sign in 到 one active 机构 before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured 审核 payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "无ne",
+        "title": "数据集捕获",
+        "governanceNotice": "捕获的候选人仅提交给审阅者批准。原始粘贴的注释不会存储在批准的数据集中或发送到外部模型服务。",
+        "roleBlocked": "数据集候选捕获需要经过批准的临床写入角色。",
+        "offlineNotice": "离线提交仅与结构化字段一起排队，并在连接恢复时同步。",
+        "noteLabel": "粘贴 ICU 笔记",
+        "notePlaceholder": "粘贴去识别化的床边注释，然后在提交之前检查结构化字段。",
+        "parse": "解析预览",
+        "facilityReady": "设施范围已准备就绪",
+        "facilityMissing": "提交前选择或登录一个活动设施。",
+        "noteRequired": "创建预览之前粘贴注释。",
+        "identifierWarning": "检测到类似标识符的文本。它不包含在结构化审核有效负载中。",
+        "previewTitle": "结构化候选人预览",
+        "missingFields": "缺失值",
+        "uncertainFields": "不确定性凸显",
+        "none": "无",
         "submitForReview": "提交审核",
-        "trainingApprovalAvailable": "Training approval controls remain in governed 审核 workflows.",
+        "trainingApprovalAvailable": "培训审批控制仍保留在受监管的审核工作流程中。",
         "status": {
-          "ready": "Ready 用于 审核 submission",
-          "submitted": "Submitted 用于 reviewer approval",
-          "queued": "已排队 用于 sync",
-          "error": "Submission failed"
+          "ready": "准备提交审核",
+          "submitted": "已提交审稿人批准",
+          "queued": "排队等待同步",
+          "error": "提交失败"
         }
       }
     },
     "privacy": {
       "title": "隐私",
       "screen": {
-        "label": "隐私 screen"
+        "label": "隐私屏幕"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences 和 session data are stored only on this device. 无thing is sent 到 external servers.",
-      "optionalAI": "If 在线 AI features are enabled, those requests may be sent 到 configured services."
+      "localStorage": "数据存储在本地",
+      "localStorageDescription": "首选项和会话数据仅存储在此设备上。没有任何内容发送到外部服务器。",
+      "optionalAI": "如果启用了在线 AI 功能，这些请求可能会发送到已配置的服务。"
     },
     "about": {
       "title": "关于",
       "screen": {
-        "label": "关于 screen"
+        "label": "关于屏幕"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype 用于 reference 和 training. 无t 用于 clinical use."
+      "version": "版本",
+      "prototypeScope": "这是一个供参考和培训的原型。不适合临床使用。"
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "开始使用",
+      "accessibilityLabel": "入职屏幕",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support 和 advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, 或 determine 呼吸机 设置.",
-        "secondary": "Confirm all decisions against 患者, your 机构 workflow, 和 local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "必填 before continuing 到 clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device 和 will be 已同步 when backend authentication is available."
+        "title": "临床安全性",
+        "body": "AI Vent 仅提供文档支持和咨询安全提示。它不会取代临床判断、发布治疗指令或确定呼吸机设置。",
+        "secondary": "确认针对患者、您的机构工作流程和当地临床方案的所有决定。",
+        "accessibilityLabel": "临床安全须知",
+        "acknowledgeLabel": "我了解这只是咨询决策支持",
+        "acknowledgeHint": "继续临床工作流程之前需要",
+        "syncDeferred": "安全确认保存在此设备上，并将在后端身份验证可用时同步。"
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "审核 safety note before using AI Vent. app can highlight missing data 和 uncertainty, but a qualified clinician remains responsible 用于 患者 care decisions."
+          "title": "用作咨询支持",
+          "body": "使用 AI Vent 之前请查看安全注意事项。该应用程序可以突出显示缺失的数据和不确定性，但合格的临床医生仍然对患者护理决策负责。"
         },
         "facilityWorkflow": {
-          "title": "Stay in 机构 context",
-          "body": "Use active 机构 和 角色 shown by your session. Keep records within correct 机构 workflow 和 follow local escalation, 审核, 和 approval procedures."
+          "title": "留在设施环境中",
+          "body": "使用您的会话中显示的活动设施和角色。将记录保存在正确的设施工作流程中，并遵循当地的升级、审查和批准程序。"
         },
         "inputs": {
-          "title": "输入ing inputs",
-          "body": "Use 收治 到 输入 available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). 可选 ABG values improve confidence when available, but missing 可选 data should be reviewed as uncertainty rather than treated as a 保存 blocker."
+          "title": "输入内容",
+          "body": "使用承认输入可用的临床参数（SpO2、PaO2、PaCO2、pH、呼吸频率等）。可选的 ABG 值在可用时可提高置信度，但缺失的可选数据应视为不确定性，而不是视为保存阻止程序。"
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations 显示 advisory 呼吸机 setting references 带 a confidence tier. Match quality reflects how well dataset cases align 带 your inputs. Use matched cases as reference only 和 verify against clinical judgment."
+          "title": "口译建议",
+          "body": "建议显示带有置信等级的咨询呼吸机设置参考。匹配质量反映了数据集案例与您的输入的匹配程度。仅以匹配病例作为参考，并根据临床判断进行验证。"
         },
         "monitoring": {
-          "title": "监测 和 alerts",
-          "body": "After reviewing a 建议, use 监测 到 log vitals 和 labs over time. Alerts highlight values outside set thresholds 和 should be assessed according 到 local protocol."
+          "title": "监控和警报",
+          "body": "查看建议后，使用监控来记录一段时间内的生命体征和实验室情况。警报突出显示超出设定阈值的值，应根据当地协议进行评估。"
         },
         "offline": {
-          "title": "离线 behavior",
-          "body": "Core workflow (收治, advisory summaries, 监测) works 离线. Data is saved locally. 可选 AI features require connectivity. When 返回 在线, 继续 as 正常."
+          "title": "线下行为",
+          "body": "核心工作流程（承认、咨询摘要、监控）离线工作。数据保存在本地。可选的  功能需要连接。重新上线后，继续正常操作。"
         }
       },
       "actions": {
-        "done": "Done",
+        "done": "完成",
         "next": "下一步",
         "back": "返回"
       },
       "states": {
-        "loading": "正在加载…"
+        "loading": "加载中..."
       }
     },
     "help": {
-      "title": "帮助 & reference",
-      "accessibilityLabel": "帮助 screen",
-      "searchPlaceholder": "搜索 glossary 或 guides…",
+      "title": "帮助和参考",
+      "accessibilityLabel": "帮助屏幕",
+      "searchPlaceholder": "搜索术语表或指南...",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What 到 do 下一步"
+        "glossary": "词汇表",
+        "troubleshooting": "故障排除",
+        "guides": "接下来做什么"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume 和 oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory 到 expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "潮气量 (mL). Volume delivered per breath.",
-        "respiratoryRate": "呼吸频率 (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, 和 pH, tied 到 a sample time.",
-        "referenceStatus": "Governance 和 verification state 用于 a reference range. Only active approved 或 verified ranges are eligible 用于 active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need 审核 before dataset 或 training use.",
-        "reviewQueue": "A work queue 用于 审核 decisions, corrections, exclusions, 和 audit reasons.",
-        "syncState": "Current 离线, 在线, 或 syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden 从 正常 clinical workflows."
+        "PEEP": "呼气末正压 (cmH2O)。维持肺容量和氧合。",
+        "FiO2": "吸入氧分数 (0–1)。吸入气体中氧气的百分比。",
+        "IERatio": "I:E 比率。吸气与呼气时间比（例如 1:2）。",
+        "tidalVolume": "潮气量（毫升）。每次呼吸输送的量。",
+        "respiratoryRate": "呼吸频率（呼吸/分钟）。",
+        "SpO2": "脉搏血氧饱和度 (%)。",
+        "PaO2": "动脉氧分压 (mmHg)。",
+        "PaCO2": "动脉二氧化碳分压 (mmHg)。",
+        "pH": "动脉 pH（无单位）。",
+        "ABG": "动脉血气值，例如 PaO2、PaCO2 和 pH，与采样时间相关。",
+        "referenceStatus": "参考范围的治理和验证状态。只有主动批准或验证的范围才有资格进行主动决策支持显示。",
+        "datasetCapture": "在数据集或训练使用之前需要审查的候选人去识别化记录。",
+        "reviewQueue": "用于审核决策、更正、排除和审核原因的工作队列。",
+        "syncState": "当前离线、在线或同步状态。临床记录可能仍需要稍后同步。",
+        "shadowMode": "受控模型评估模式，其中输出对正常临床工作流程保持隐藏。"
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; 输入 SpO₂ 和 其他 vitals when available. 用于 better matching, 添加 PaO₂, PaCO₂, 和 pH when you have them."
+          "title": "缺少 ABG 值",
+          "body": "建议在没有 ABG 的情况下起作用；输入 SpO2 和其他生命体征（如果有）。为了更好地匹配，请在有 PaO2、PaCO2 和 pH 时添加它们。"
         },
         "offline": {
-          "title": "Using app 离线",
-          "body": "收治, advisory summaries, 和 监测 work 离线. Data is stored locally. 可选 AI suggestions require internet. Sync is not 必填 用于 core workflow."
+          "title": "离线使用该应用程序",
+          "body": "承认、咨询总结和监控离线工作。数据存储在本地。可选的 AI 建议需要互联网。核心工作流程不需要同步。"
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, 待处理, retired, rejected, 和 unverified ranges are not eligible 用于 active decision-support display. 审核 source, version, scope, 和 verification status."
+          "title": "参考范围未激活",
+          "body": "草稿、待定、退役、拒绝和未经验证的范围不符合主动决策支持显示的条件。查看来源、版本、范围和验证状态。"
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness 帮助 is restricted",
-          "body": "Predictive model readiness 和 shadow-mode details are visible only 到 approved governance roles. 无rmal clinical workflows do not expose model internals."
+          "title": "模型准备帮助受到限制",
+          "body": "预测模型准备情况和影子模式详细信息仅对批准的治理角色可见。正常的临床工作流程不会暴露模型内部结构。"
         },
         "needsReview": {
-          "title": "Record needs 审核",
-          "body": "Use 审核 queue 到 check submitted data, request correction, 批准 eligible records, 或 排除 records 带 an audit 原因."
+          "title": "记录需求审核",
+          "body": "使用审核队列检查提交的数据、请求更正、批准符合条件的记录或排除具有审核原因的记录。"
         }
       },
       "guides": {
-        "home": "审核 机构 context, sync state, active admissions, red flags, 和 records needing 审核 before opening a 患者 workflow.",
-        "admit": "Capture 患者 pathway 和 available clinical values. Mark unavailable data clearly 和 审核 backend-confirmed calculations after 保存.",
-        "tracking": "Use 跟踪 到 scan recent ventilation status 和 审核 needs. Read trend flags 带 source data 和 local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture 用于 de-identified candidate records. Human 审核 is 必填 before approved training-data use.",
-        "reviewQueue": "Use 审核 queue 到 批准, request correction, 或 排除 records while preserving audit trail.",
-        "dashboard": "Use dashboards 用于 aggregate quality, 审核, reference, 和 governance status. Avoid 患者 identifiers in governance summaries.",
-        "settings": "Use 设置 用于 账户, 机构, accessibility, 隐私, sync, 和 reference visibility preferences where authorized.",
-        "hypoxemia": "审核 FiO₂ 和 PEEP; consider recruitment; check 用于 shunt 或 V/Q mismatch.",
-        "hypercapnia": "审核 minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation 和 perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols 和 clinical judgment."
+        "home": "在打开患者工作流程之前，查看设施环境、同步状态、有效入院、危险信号和需要查看的记录。",
+        "admit": "捕获患者途径和可用的临床价值。清楚标记不可用的数据，并在保存后查看后端确认的计算。",
+        "tracking": "使用跟踪扫描最近的通气状态并审查需求。读取带有源数据和本地协议上下文的趋势标志。",
+        "abgVentUpdate": "添加新的 ABG 结果和呼吸机设置作为带时间戳的记录，以便保留较早的值以供审核。",
+        "datasetCapture": "使用数据集捕获来获取去识别化的候选记录。在批准使用培训数据之前需要进行人工审查。",
+        "reviewQueue": "使用审核队列来批准、请求更正或排除记录，同时保留审核跟踪。",
+        "dashboard": "使用仪表板来了解总体质量、审查、参考和治理状态。避免在治理摘要中出现患者标识符。",
+        "settings": "在授权的情况下使用帐户、设施、可访问性、隐私、同步和参考可见性首选项的设置。",
+        "hypoxemia": "查看 FiO2 和 PEEP；考虑招聘；检查是否有分流或 V/Q 不匹配。",
+        "hypercapnia": "回顾每分钟通气量（频率×潮气量）；根据方案考虑允许性高碳酸血症。",
+        "acidosis": "解决通气和灌注问题；根据协议纠正根本原因。",
+        "general": "仅将建议用作决策支持。根据当地协议和临床判断进行验证。"
       },
       "states": {
-        "loading": "正在加载…",
-        "empty": "无结果",
-        "error": "无法加载 帮助"
+        "loading": "加载中...",
+        "empty": "没有结果",
+        "error": "无法加载帮助"
       }
     },
     "ai": {
-      "label": "AI 决策支持",
-      "sectionLabel": "可选 AI 建议 (在线)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use 在线 AI 用于 complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": " 决策支持",
+      "sectionLabel": "可选 AI 推荐（在线）",
+      "enableLabel": "启用  建议",
+      "enableHint": "仅针对复杂情况使用在线 ；随时提供本地推荐",
+      "providerLabel": "提供者",
+      "providerHint": "AI 提供商（例如 OpenAI）； API 密钥针对每个提供商",
       "providers": {
-        "openai": "OpenAI",
-        "anthropic": "Anthropic",
-        "google": "Google (Gemini)",
-        "groq": "Groq",
-        "mistral": "Mistral AI",
-        "deepseek": "DeepSeek",
-        "cohere": "Cohere",
-        "xai": "xAI (Grok)"
+        "openai": "开放人工智能",
+        "anthropic": "人择",
+        "google": "谷歌（双子座）",
+        "groq": "格罗克",
+        "mistral": "米斯特拉尔AI",
+        "deepseek": "深度搜索",
+        "cohere": "连贯",
+        "xai": "xAI（格洛克）"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "输入 key (stored securely)",
-      "apiKeySave": "保存 key",
-      "apiKeyClear": "清除 key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "无t set",
-      "modelLabel": "Model",
-      "modelHint": "Model used 用于 AI suggestions",
+      "apiKeyLabel": "API 键",
+      "apiKeyPlaceholder": "输入密钥（安全存储）",
+      "apiKeySave": "保存密钥",
+      "apiKeyClear": "清除键",
+      "keyConfigured": "套装",
+      "keyNotConfigured": "未设置",
+      "modelLabel": "型号",
+      "modelHint": "用于  建议的模型",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
         "gpt-4-turbo": "GPT-4 Turbo",
         "gpt-4": "GPT-4",
-        "gpt-3.5-turbo": "GPT-3.5 Turbo",
-        "claude-sonnet-4": "Claude Sonnet 4",
-        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
-        "claude-3-5-haiku": "Claude 3.5 Haiku",
-        "claude-3-opus": "Claude 3 Opus",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
-        "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
-        "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
-        "grok-3": "Grok 3",
-        "grok-3-mini": "Grok 3 Mini"
+        "gpt-3.5-turbo": "GPT-3.5涡轮",
+        "claude-sonnet-4": "克劳德十四行诗 4",
+        "claude-3-5-sonnet": "克劳德 3.5 十四行诗",
+        "claude-3-5-haiku": "克劳德 3.5 俳句",
+        "claude-3-opus": "克劳德 3 作品",
+        "gemini-1.5-pro": "双子座1.5专业版",
+        "gemini-1.5-flash": "双子座1.5闪存",
+        "gemini-1.0-pro": "双子座1.0专业版",
+        "llama-3.3-70b": "美洲驼3.3 70B",
+        "llama-3.1-8b": "羊驼3.1 8B",
+        "mixtral-8x7b": "混合 8x7B",
+        "mistral-large": "米斯特拉尔大号",
+        "mistral-medium": "米斯特拉尔介质",
+        "mistral-small": "小米斯特拉尔",
+        "deepseek-chat": "深度搜索聊天",
+        "deepseek-reasoner": "DeepSeek 推理机",
+        "command-r-plus": "命令 R+",
+        "command-r": "命令R",
+        "grok-3": "格洛克3",
+        "grok-3-mini": "格洛克 3 迷你"
       }
     }
   },
@@ -787,74 +788,74 @@
     "empty": "空",
     "list": "列表",
     "emptyState": {
-      "title": "无 items",
-      "message": "There are 无 items 到 display"
+      "title": "没有商品",
+      "message": "没有可显示的项目"
     },
     "errorState": {
       "title": "错误",
-      "message": "An 错误 occurred"
+      "message": "发生错误"
     }
   },
   "home": {
     "title": "首页",
     "welcome": {
       "title": "临床工作流程",
-      "message": "当前机构, sync status, drafts, 和 审核 work are shown here.",
-      "logoLabel": "App logo"
+      "message": "此处显示活动设施、同步状态、草稿和审核工作。",
+      "logoLabel": "应用程序徽标"
     },
     "notices": {
-      "title": "首页 notices"
+      "title": "首页通知"
     },
     "facilities": {
-      "title": "选择 机构",
-      "select": "选择 {{name}}"
+      "title": "选择设施",
+      "select": "选择{{name}}"
     },
     "status": {
-      "title": "Operational status",
+      "title": "运营状况",
       "facility": {
-        "label": "机构",
-        "empty": "无t selected"
+        "label": "设施",
+        "empty": "未选择"
       },
       "network": {
-        "label": "Network",
+        "label": "网络",
         "values": {
           "online": "在线",
           "offline": "离线",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "syncing": "正在同步",
+          "unstable": "不稳定"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "积极招生",
+        "detail": "{{count}} 活跃患者"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting 到 sync"
+        "label": "草稿",
+        "detail": "{{count}} 等待同步"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "同步注意力",
+        "detail": "{{count}} 冲突"
       },
       "reviewNeeds": {
-        "label": "审核 queue",
-        "detail": "{{count}} corrections requested"
+        "label": "审核队列",
+        "detail": "{{count}} 请求更正"
       }
     },
     "actions": {
-      "title": "Workflow actions",
-      "accessibilityLabel": "打开 {{name}}",
+      "title": "工作流程操作",
+      "accessibilityLabel": "打开{{name}}",
       "admit": {
-        "title": "收治"
+        "title": "承认"
       },
       "tracking": {
-        "title": "跟踪"
+        "title": "追踪"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & 呼吸机 设置"
+        "title": "更新 ABG 和呼吸机设置"
       },
       "datasetCapture": {
-        "title": "数据集采集"
+        "title": "数据集捕获"
       },
       "reviewQueue": {
         "title": "审核队列"
@@ -869,194 +870,194 @@
         "open": "打开"
       },
       "disabled": {
-        "facilityRequired": "选择 机构",
-        "roleRestricted": "角色 restricted",
-        "workflowPending": "Route 待处理"
+        "facilityRequired": "选择设施",
+        "roleRestricted": "角色受限",
+        "workflowPending": "路线待定"
       }
     }
   },
   "reviewQueue": {
     "title": "审核队列",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, 和 sync conflicts.",
-    "accessibilityLabel": "验证 审核 queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion 原因, 或 override 原因",
+    "subtitle": "验证提交的记录、更正、排除、参考范围、数据集准备情况和同步冲突。",
+    "accessibilityLabel": "验证审核队列",
+    "commentPlaceholder": "审稿人注释、更正请求、排除原因或覆盖原因",
     "forbidden": {
-      "title": "审核 access 必填",
-      "message": "An approved reviewer 或 governance 角色 is 必填 用于 this queue."
+      "title": "需要审核访问权限",
+      "message": "此队列需要经过批准的审阅者或治理角色。"
     },
     "filters": {
-      "all": "All"
+      "all": "全部"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "入场",
       "abg-test": "ABG",
       "ventilator-setting": "呼吸机",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync 冲突"
+      "dataset-case": "数据集",
+      "reference-rule": "参考范围",
+      "sync-conflict": "同步冲突"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "队列汇总",
+      "total": "总计",
+      "urgent": "紧急",
+      "corrections": "更正",
+      "conflicts": "冲突",
+      "datasetReady": "数据集准备就绪"
     },
     "fields": {
-      "type": "Type",
-      "status": "Status",
-      "priority": "Priority",
+      "type": "类型",
+      "status": "状态",
+      "priority": "优先级",
       "validation": "验证",
       "missingData": "缺失数据",
-      "uncertainty": "Uncertainty",
+      "uncertainty": "不确定性",
       "conflict": "冲突",
-      "datasetReadiness": "Dataset readiness"
+      "datasetReadiness": "数据集准备情况"
     },
     "dataset": {
-      "datasetApproved": "Approved 用于 dataset 审核 boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "无t approved 用于 dataset use."
+      "datasetApproved": "仅批准用于数据集审查边界；培训出口仍需要政府批准。",
+      "notDatasetApproved": "未获批准用于数据集使用。"
     },
     "actions": {
       "refresh": "刷新",
       "approve": "批准",
       "requestCorrection": "请求更正",
       "exclude": "排除",
-      "defer": "延期"
+      "defer": "推迟"
     },
     "states": {
-      "loading": "加载中 审核 queue...",
-      "error": "无法加载 或 保存 审核 queue",
-      "empty": "无 records need 审核"
+      "loading": "正在加载审核队列...",
+      "error": "无法加载或保存审阅队列。",
+      "empty": "没有记录需要审查。"
     }
   },
   "ventilation": {
     "datasetCapture": {
       "title": "临床数据采集",
-      "subtitle": "输入 de-identified clinical, ABG, 呼吸机, target-range, treatment, 和 outcome data 用于 reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "subtitle": "输入审阅者批准的模型数据集的去识别化临床、ABG、呼吸机、目标范围、治疗和结果数据。",
+      "accessibilityLabel": "临床数据采集屏幕",
       "notices": {
-        "roleBlocked": "This 账户 does not have permission 到 提交 clinical dataset candidates.",
-        "offline": "离线 mode is active. Structured captures will queue locally 和 sync when connectivity returns."
+        "roleBlocked": "该帐户无权提交候选临床数据集。",
+        "offline": "离线模式已激活。结构化捕获将在本地排队并在连接恢复时同步。"
       },
       "summary": {
-        "facility": "机构",
-        "facilityReady": "机构 scope ready",
-        "facilityMissing": "选择 an active 机构 before submitting.",
-        "required": "必填 fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "输入ed fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "在线 submission",
-        "offline": "已排队 离线"
+        "facility": "设施",
+        "facilityReady": "设施范围已准备就绪",
+        "facilityMissing": "提交前选择一个活跃的设施。",
+        "required": "必填字段",
+        "requiredProgress": "{{complete}}/{{total}} 完成",
+        "entered": "输入的字段",
+        "enteredProgress": "输入{{entered}}/{{total}}",
+        "sync": "同步",
+        "online": "网上提交",
+        "offline": "离线排队"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "数据集捕获步骤",
+        "stepCounter": "{{total}} 的步骤 {{current}}",
+        "stepLabel": "步骤 {{step}}"
       },
       "fields": {
-        "required": "必填 用于 审核 submission",
+        "required": "需要提交审核",
         "optional": "可选"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All 必填 fields are complete."
+        "title": "提交准备",
+        "none": "所有必填字段均已填写。"
       },
       "actions": {
         "submit": "提交审核",
         "next": "下一步",
-        "previous": "Previous",
-        "reset": "清除 form"
+        "previous": "上一页",
+        "reset": "清晰的表格"
       },
       "status": {
-        "loadingDraft": "加载中 saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "无法保存 local draft. Please keep this screen 打开 和 try again",
-        "needsInput": "Complete 必填 fields 和 机构 scope before submitting.",
-        "ready": "Ready 到 提交 用于 reviewer approval.",
-        "stepInvalid": "Please 审核 highlighted values before continuing.",
-        "reviewInvalid": "Please 审核 highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted 用于 reviewer approval.",
-        "queued": "Submission is 已排队. Your draft is still saved locally until backend 保存 succeeds.",
-        "error": "无法保存 dataset. Your draft is still saved locally. 请检查连接后重试"
+        "loadingDraft": "正在加载保存的数据集草稿...",
+        "savingDraft": "正在保存数据集草稿...",
+        "draftSaved": "数据集草稿保存在本地。",
+        "draftError": "无法保存本地草稿。请保持此屏幕打开并重试。",
+        "needsInput": "提交前请填写必填字段和设施范围。",
+        "ready": "准备提交供审稿人批准。",
+        "stepInvalid": "请先查看突出显示的值，然后再继续。",
+        "reviewInvalid": "请在保存前检查突出显示的值。",
+        "submitting": "正在提交数据集...",
+        "submitted": "已提交审稿人批准。",
+        "queued": "提交已排队。您的草稿仍保存在本地，直到后端保存成功。",
+        "error": "无法保存数据集。您的草稿仍保存在本地。请检查您的连接并重试。"
       }
     },
     "assessment": {
-      "title": "收治 患者",
-      "accessibilityLabel": "收治 患者 wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "收治病人",
+      "accessibilityLabel": "接纳患者向导屏幕",
+      "stepIndicator": "{{total}} 的步骤 {{current}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact 收治 summary",
-        "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "机构",
-        "pathway": "Pathway",
+        "title": "会议总结",
+        "accessibilityLabel": "紧凑的录取摘要",
+        "vitalsFormat": "SpO2：{{spo2}} | RR：{{rr}} | HR：{{hr}}",
+        "facility": "设施",
+        "pathway": "途径",
         "reason": "原因",
-        "condition": "状况",
-        "spo2": "SpO₂",
-        "fio2": "FiO2",
+        "condition": "条件",
+        "spo2": "血氧饱和度",
+        "fio2": "氧气浓度",
         "respiratoryRate": "呼吸频率",
         "heartRate": "心率",
-        "pao2": "PaO₂",
-        "paco2": "PaCO₂",
+        "pao2": "氧分压",
+        "paco2": "二氧化碳分压",
         "ph": "pH",
         "age": "年龄",
-        "weight": "体重",
+        "weight": "重量",
         "height": "身高",
         "gender": "性别",
-        "comorbidities": "Comorbidities",
+        "comorbidities": "合并症",
         "bloodPressure": "血压",
         "ventilatorMode": "呼吸机模式",
         "peep": "PEEP",
         "tidalVolume": "潮气量",
-        "syncStatus": "Sync",
-        "empty": "无 data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "syncStatus": "同步",
+        "empty": "还没有数据",
+        "expand": "展开摘要",
+        "collapse": "折叠总结"
       },
       "steps": {
-        "patientProfile": "患者资料",
-        "clinicalParams": "Clinical parameters",
-        "observations": "可选 observations",
-        "timeSeries": "可选 time series",
-        "review": "审核",
-        "patientReason": "患者 & 原因",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "保存 & 审核"
+        "patientProfile": "患者概况",
+        "clinicalParams": "临床参数",
+        "observations": "可选观察",
+        "timeSeries": "可选时间序列",
+        "review": "评论",
+        "patientReason": "耐心与理性",
+        "oxygenAbgVentilator": "氧气和 ABG",
+        "saveReview": "保存并查看"
       },
       "patientReason": {
-        "description": "Capture 患者 pathway, 年龄, body metrics, 和 原因 用于 support.",
-        "facilityId": "机构 ID",
-        "facilityIdPlaceholder": "输入 机构 ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed 或 ward location",
-        "pathway": "患者 pathway",
-        "pathwayPlaceholder": "选择 pathway",
-        "sexForSize": "Sex 用于 size calculations",
-        "ageYears": "年龄 (years)",
-        "weightKg": "体重 (kg)",
+        "description": "捕获患者路径、年龄、身体指标和支持原因。",
+        "facilityId": "设施ID",
+        "facilityIdPlaceholder": "输入设施 ID",
+        "bedNumber": "床",
+        "bedNumberPlaceholder": "ICU床位或病房位置",
+        "pathway": "患者途径",
+        "pathwayPlaceholder": "选择途径",
+        "sexForSize": "性别尺寸计算",
+        "ageYears": "年龄（岁）",
+        "weightKg": "重量 (kg)",
         "heightCm": "身高 (cm)",
-        "bmi": "BMI",
-        "reasonForSupport": "原因 用于 support",
-        "reasonForSupportPlaceholder": "Brief admission 原因",
-        "reasonForSupportSearchPlaceholder": "搜索 或 type 原因",
-        "permittedMissing": "Permitted missing values",
+        "bmi": "体重指数",
+        "reasonForSupport": "支持理由",
+        "reasonForSupportPlaceholder": "简要录取理由",
+        "reasonForSupportSearchPlaceholder": "搜索或输入原因",
+        "permittedMissing": "允许的缺失值",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
-          "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
+          "neonate": "新生儿",
+          "infant": "婴儿",
+          "child": "儿童",
+          "adolescent": "青春期",
+          "adult": "成人",
+          "obstetric": "产科/产后",
+          "burns": "伯恩斯",
+          "trauma": "外伤",
+          "periOperative": "围手术期",
+          "medical": "医疗",
+          "surgical": "外科",
           "unknown": "未知",
           "other": "其他"
         },
@@ -1066,589 +1067,589 @@
           "unknown": "未知"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS 或 severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis 带 respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD 或 asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn 或 inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "急性低氧性呼吸衰竭",
+          "acuteHypercapnicRespiratoryFailure": "急性高碳酸血症性呼吸衰竭",
+          "ardsOrSeverePneumonia": "ARDS 或严重肺炎",
+          "sepsisWithRespiratoryFailure": "脓毒症伴呼吸衰竭",
+          "postOperativeVentilatorySupport": "术后通气支持",
+          "traumaRelatedRespiratoryFailure": "创伤相关的呼吸衰竭",
+          "airwayProtection": "气道保护",
+          "neuromuscularWeakness": "神经肌肉无力",
+          "copdOrAsthmaExacerbation": "COPD 或哮喘恶化",
+          "neonatalRespiratoryDistress": "新生儿呼吸窘迫",
+          "burnOrInhalationInjury": "烧伤或吸入伤"
         },
         "permittedMissingFields": {
-          "weight": "体重 或 reference 体重 unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "潮气量 unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "重量或参考重量不可用",
+          "spo2": "SpO2 不可用",
+          "fio2": "FiO2 不可用",
+          "pao2": "PaO2 不可用",
+          "tidalVolume": "潮气量不可用",
+          "peep": "PEEP 不可用"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, 和 uncertain values. 呼吸机 设置 are suggested on 下一步 step 从 dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "选择 oxygen support",
-        "oxygenSupportHint": "Choose support 患者 is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "选择 date 和 time",
-        "timeHint": "Use local date 和 time 用于 observation.",
-        "spo2": "SpO2 (%)",
-        "fio2": "FiO2 (0-1)",
+        "description": "记录当前的氧气支持、观察时间、氧合、生命体征、可用的 ABG 值和不确定值。下一步将根据数据集建议呼吸机设置。",
+        "oxygenSupportType": "供氧型",
+        "oxygenSupportPlaceholder": "选择氧气支持",
+        "oxygenSupportHint": "选择测量这些值时患者正在接受的支持。",
+        "measuredAt": "氧气测量值",
+        "timePlaceholder": "选择日期和时间",
+        "timeHint": "使用当地日期和时间进行观察。",
+        "spo2": "血氧饱和度 (%)",
+        "fio2": "氧气浓度 (0-1)",
         "respiratoryRate": "呼吸频率",
         "heartRate": "心率",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
-        "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "呼吸机 type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields 带 commas.",
-        "uncertaintyReason": "Uncertainty 原因",
+        "hco3": "HCO3 (毫摩尔/升)",
+        "baseExcess": "碱过剩",
+        "lactate": "乳酸（毫摩尔/升）",
+        "fio2AtSample": "ABG 样本的 FiO2",
+        "spo2AtSample": "ABG 样本的 SpO2",
+        "deviceId": "设备 ID",
+        "ventilatorType": "呼吸机类型",
+        "uncertaintyFields": "不确定领域",
+        "uncertaintyFieldsPlaceholder": "例如氧分压、氧分压",
+        "uncertaintyHint": "用逗号分隔多个字段。",
+        "uncertaintyReason": "不确定性原因",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "无n-rebreather mask",
-          "highFlowNasalCannula": "高-flow nasal cannula",
-          "cpap": "CPAP",
-          "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "roomAir": "室内空气",
+          "nasalCannula": "鼻插管",
+          "faceMask": "面膜",
+          "nonRebreatherMask": "非循环呼吸面罩",
+          "highFlowNasalCannula": "高流量鼻插管",
+          "cpap": "持续正压通气",
+          "nivBipap": "无创通气/双水平通气",
+          "invasiveVentilation": "有创通气",
           "other": "其他"
         }
       },
       "saveReview": {
-        "description": "审核 和 编辑 dataset-suggested 呼吸机 设置, backend readiness, clinician confirmation, override 原因 when needed, 审核 status, 和 sync state.",
-        "readiness": "保存 readiness",
-        "recommendationTitle": "Dataset 建议",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested 呼吸机 设置",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "选择 mode",
+        "description": "查看和编辑数据集建议的呼吸机设置、后端准备情况、临床医生确认、需要时覆盖原因、查看状态和同步状态。",
+        "readiness": "保存准备状态",
+        "recommendationTitle": "数据集推荐",
+        "recommendationConfidence": "信心：{{confidence}}",
+        "suggestedSettingsTitle": "建议的呼吸机设置",
+        "suggestedSettingsHint": "使用患者生物数据以及当前的氧气和 ABG 值从数据集中预填充。仅当床边决定不同时才进行编辑。",
+        "modePlaceholder": "选择模式",
         "ventilatorMode": "呼吸机模式",
-        "tidalVolumeMl": "潮气量 (mL)",
+        "tidalVolumeMl": "潮气量（毫升）",
         "ventilatorFio2": "呼吸机 FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "respiratoryRateSet": "设置呼吸频率",
+        "ieRatio": "I:E 比率",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
-          "cpap": "CPAP",
-          "bipap": "BiPAP",
+          "acv": "辅助控制通气 (ACV)",
+          "simv": "同步间歇指令通气 (SIMV)",
+          "psv": "压力支持通气 (PSV)",
+          "cpap": "持续正压通气",
+          "bipap": "双肺正压",
           "other": "其他"
         },
-        "recommendationEmpty": "输入 clinical values 和 tap 下一步 到 generate a dataset 建议.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable 到 generate clinical recommendations right now. You can still 审核 和 保存 admission.",
-        "recommendationNeedsClinicalInputs": "建议 needs clinical 原因, SpO2, respiratory rate, 和 heart rate.",
-        "ready": "Ready 到 保存",
-        "needsCorrection": "Correction 或 override 必填",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready 用于 保存 审核.",
-        "overrideReason": "Override 原因",
-        "reviewNote": "审核 note"
+        "recommendationEmpty": "输入临床值并点击下一步以生成数据集推荐。",
+        "recommendationGenerating": "生成临床建议...",
+        "recommendationError": "目前无法生成临床建议。您仍然可以查看并保存录取通知书。",
+        "recommendationNeedsClinicalInputs": "建议需要临床原因、SpO2、呼吸频率和心率。",
+        "ready": "准备保存",
+        "needsCorrection": "需要更正或覆盖",
+        "syncStatus": "同步状态：{{status}}",
+        "clinicianConfirmed": "临床医生确认此入院记录已准备好保存审核。",
+        "overrideReason": "覆盖原因",
+        "reviewNote": "复习笔记"
       },
       "validation": {
-        "title": "审核 these fields"
+        "title": "查看这些字段"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "哮喘",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
-        "sepsis": "Sepsis",
-        "trauma": "Trauma",
+        "heartFailure": "心力衰竭",
+        "pneumonia": "肺炎",
+        "sepsis": "败血症",
+        "trauma": "外伤",
         "other": "其他"
       },
       "patientProfile": {
-        "condition": "状况",
-        "conditionPlaceholder": "选择 状况",
-        "conditionHint": "Primary respiratory 状况 (必填)",
-        "age": "年龄 (years)",
-        "agePlaceholder": "输入 年龄",
-        "ageHint": "患者 年龄 in years",
-        "weight": "体重 (kg)",
-        "weightPlaceholder": "输入 体重",
-        "weightHint": "Patient weight in kg",
+        "condition": "条件",
+        "conditionPlaceholder": "选择条件",
+        "conditionHint": "主要呼吸系统疾病（必填）",
+        "age": "年龄（岁）",
+        "agePlaceholder": "输入年龄",
+        "ageHint": "患者年龄（岁）",
+        "weight": "重量 (kg)",
+        "weightPlaceholder": "输入体重",
+        "weightHint": "患者体重（以 kg 为单位）",
         "height": "身高 (cm)",
-        "heightPlaceholder": "输入 身高",
-        "heightHint": "Patient height in cm",
+        "heightPlaceholder": "输入高度",
+        "heightHint": "患者身高 cm",
         "gender": "性别",
-        "genderPlaceholder": "选择 性别",
-        "genderHint": "患者 性别",
+        "genderPlaceholder": "选择性别",
+        "genderHint": "患者性别",
         "genderMale": "男",
         "genderFemale": "女",
         "genderOther": "其他",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated 列表"
+        "comorbidities": "合并症",
+        "comorbiditiesPlaceholder": "例如高血压、糖尿病",
+        "comorbiditiesHint": "以逗号分隔的列表"
       },
       "clinicalParams": {
-        "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "无rmal range: 95–100%",
-        "pao2": "PaO₂ (可选)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "无rmal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (可选)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "无rmal range: 35–45 mmHg",
-        "ph": "pH (可选)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "无rmal range: 7.35–7.45",
+        "spo2": "血氧饱和度",
+        "spo2Placeholder": "输入 SpO2",
+        "spo2Hint": "氧饱和度(%)",
+        "spo2NormalRange": "正常范围：95–100%",
+        "pao2": "PaO2（可选）",
+        "pao2Placeholder": "输入 PaO2",
+        "pao2Hint": "动脉氧 (mmHg)",
+        "pao2NormalRange": "正常范围：80–100 mmHg",
+        "paco2": "PaCO2（可选）",
+        "paco2Placeholder": "输入 PaCO2",
+        "paco2Hint": "动脉二氧化碳 (mmHg)",
+        "paco2NormalRange": "正常范围：35–45 mmHg",
+        "ph": "pH（可选）",
+        "phPlaceholder": "输入pH",
+        "phHint": "动脉 pH",
+        "phNormalRange": "正常范围：7.35–7.45",
         "respiratoryRate": "呼吸频率",
-        "respiratoryRatePlaceholder": "输入 RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "无rmal range: 12–20 breaths/min",
+        "respiratoryRatePlaceholder": "输入RR",
+        "respiratoryRateHint": "每分钟呼吸次数",
+        "respiratoryRateNormalRange": "正常范围：12-20 次呼吸/分钟",
         "heartRate": "心率",
-        "heartRatePlaceholder": "输入 HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "无rmal range: 60–100 bpm",
-        "bloodPressure": "血压 (可选)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "无rmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "无rmal range: {{range}}"
+        "heartRatePlaceholder": "输入HR",
+        "heartRateHint": "每分钟节拍数",
+        "heartRateNormalRange": "正常范围：60–100 bpm",
+        "bloodPressure": "血压（可选）",
+        "bloodPressurePlaceholder": "例如120/80",
+        "bloodPressureHint": "收缩压/舒张压 mmHg",
+        "bloodPressureNormalRange": "正常范围：90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "正常范围：{{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single 姓名–value pair. 可选; you can skip this step.",
-        "add": "添加 observation",
-        "name": "姓名",
-        "value": "Value",
-        "unit": "Unit",
+        "title": "额外的观察结果",
+        "description": "记录上面未涵盖的任何额外临床数据（例如实验室、影像、药物、合并症评分）。每个观察都是一个名称-值对。选修的;您可以跳过此步骤。",
+        "add": "添加观察",
+        "name": "名称",
+        "value": "价值",
+        "unit": "单位",
         "optional": "可选"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs 或 其他 metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used 用于 trend analysis 和 监测 after you start session. 可选; you can 添加 points later on 监测 screen.",
-        "add": "添加 time series point",
-        "name": "姓名",
-        "value": "Value",
+        "title": "时间序列（随时间变化的生命体征）",
+        "description": "跟踪多个时间点的生命体征或其他指标（例如 0 小时、1 小时、2 小时的 SpO2、RR、HR）。用于启动会话后的趋势分析和监控。选修的;您可以稍后在监控屏幕上添加点。",
+        "add": "添加时间序列点",
+        "name": "名称",
+        "value": "价值",
         "optional": "可选"
       },
       "recommendationSource": {
-        "label": "建议 source",
-        "local": "Local",
-        "localDescription": "Built-in rules. 离线, 无 API key.",
-        "onlineAi": "在线 AI",
-        "onlineAiDescription": "Internet 必填; uses built-in when unavailable.",
-        "modelLabel": "Model",
-        "modelHint": "选择 AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "label": "推荐来源",
+        "local": "本地",
+        "localDescription": "内置规则。离线，没有 API 密钥。",
+        "onlineAi": "在线AI",
+        "onlineAiDescription": "需要互联网；当不可用时使用内置。",
+        "modelLabel": "型号",
+        "modelHint": "选择型号（如果未设置则使用默认值）",
+        "providerLabel": "提供者",
+        "gpt4oMini": "GPT-4o mini（默认）",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons 用于 建议",
-        "hints": "AI hints"
+        "title": "AI 推荐理由",
+        "hints": "AI 提示"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "建议进行额外测试",
+        "abgPanel": "ABG 小组将提高信心",
+        "abgHint": "如果有的话，考虑进行动脉血气分析"
       },
       "actions": {
         "back": "返回",
         "next": "下一步",
-        "generate": "Generate 建议",
-        "generateHint": "Create 建议 从 current inputs",
-        "saveAdmission": "保存 admission"
+        "generate": "生成推荐",
+        "generateHint": "根据当前输入创建推荐",
+        "saveAdmission": "保存门票"
       },
       "states": {
-        "loading": "加载中 收治 form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "无法加载 admission form. 请检查连接后重试",
-        "retryLoad": "重试",
-        "offline": "收治 works 离线",
-        "empty": "输入 患者 data 到 begin"
+        "loading": "正在加载录取表格...",
+        "errorTitle": "无法获取入学表格",
+        "error": "无法加载入学申请表。请检查您的连接并重试。",
+        "retryLoad": "再试一次",
+        "offline": "承认离线工作",
+        "empty": "输入患者数据以开始"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & 呼吸机 设置",
-      "subtitle": "选择 an active admission, 输入 latest ABG result 和/或 呼吸机 设置, then 保存 them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "离线 mode: this update will stay 已排队 until connectivity returns.",
+      "title": "更新 ABG 和呼吸机设置",
+      "subtitle": "选择有效入院，输入最新的 ABG 结果和/或呼吸机设置，然后将其保存为新的带时间戳的记录。",
+      "accessibilityLabel": "更新 ABG 和呼吸机设置屏幕",
+      "offline": "离线模式：此更新将保持排队状态，直到连接恢复。",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New 呼吸机 设置",
+        "admission": "主动入场",
+        "latest": "最新值",
+        "abg": "新的 ABG 结果",
+        "ventilator": "新的呼吸机设置",
         "missing": "缺失数据",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "advisory": "咨询检查",
+        "history": "历史"
       },
       "admission": {
-        "label": "选择 active admission",
-        "empty": "无 admitted patients are available 用于 跟踪 yet"
+        "label": "选择主动入场",
+        "empty": "目前尚无入院患者可供追踪。"
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest 呼吸机"
+        "abg": "最新ABG",
+        "ventilator": "最新呼吸机"
       },
       "ventilator": {
-        "modePlaceholder": "选择 呼吸机 mode",
-        "modeSearchPlaceholder": "搜索 呼吸机 modes"
+        "modePlaceholder": "选择呼吸机模式",
+        "modeSearchPlaceholder": "搜索呼吸机模式"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "尚无 ABG 或呼吸机使用史。",
         "abg": "ABG",
         "ventilator": "呼吸机",
-        "version": "Version {{version}} - {{dateTime}}"
+        "version": "版本 {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "最新保存记录：{{dateTime}}"
       },
       "actions": {
-        "save": "保存 new values",
-        "saving": "Validating & saving"
+        "save": "保存新值",
+        "saving": "验证并保存"
       }
     },
     "recommendation": {
       "title": "推荐设置",
-      "accessibilityLabel": "建议 screen",
+      "accessibilityLabel": "推荐画面",
       "responseSource": {
-        "title": "Response source",
+        "title": "响应来源",
         "online": "在线",
         "offline": "离线"
       },
       "sections": {
-        "settings": "Recommended 设置",
-        "confidence": "Confidence & why",
-        "monitoring": "监测 points",
-        "risks": "Risks 和 complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "推荐设置",
+        "confidence": "信心及原因",
+        "monitoring": "监测点",
+        "risks": "风险和并发症",
+        "matchedCases": "配套案例",
+        "evidence": "证据和出处",
+        "warning": "数据集通知",
+        "decisionSupport": "决策支持检查"
       },
       "settings": {
-        "mode": "Mode",
+        "mode": "模式",
         "tidalVolume": "潮气量",
         "respiratoryRate": "呼吸频率",
-        "fio2": "FiO₂",
+        "fio2": "氧浓度",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "I:E 比率"
       },
       "confidence": {
         "high": "高",
-        "medium": "中",
+        "medium": "中等",
         "low": "低",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "missingInputs": "缺少可以提高信心的投入"
       },
       "decisionSupport": {
-        "pending": "待处理",
-        "referenceWeight": "Reference 体重",
+        "pending": "待定",
+        "referenceWeight": "参考重量",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "审核 status",
-        "syncStatus": "Sync status",
+        "pfRatio": "P/F 比率",
+        "sfRatio": "S/F 比率",
+        "drivingPressure": "驱动压力",
+        "reviewStatus": "审核状态",
+        "syncStatus": "同步状态",
         "missingData": "缺失数据",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "未经确认的预览",
+          "backend_verified": "后端已验证",
+          "missing_verified_records": "缺少经过验证的记录",
+          "development_fallback_unconfirmed": "发展后备"
         },
         "review": {
-          "pending_clinician_review": "待处理 clinician 审核",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "等待临床医生审查",
+          "backend_confirmed": "后端已确认"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "待处理 backend confirmation",
+          "local_preview_pending_backend_confirmation": "等待后端确认",
           "synced": "已同步",
-          "queued": "已排队",
-          "duplicate": "Duplicate"
+          "queued": "排队",
+          "duplicate": "重复"
         }
       },
       "aiReasons": {
-        "title": "AI reasons 用于 建议",
-        "hints": "AI hint codes"
+        "title": "AI 推荐理由",
+        "hints": " 提示代码"
       },
       "actions": {
-        "startMonitoring": "Start 监测",
-        "startMonitoringHint": "Begin 跟踪 vital signs 和 time series",
-        "backToAssessment": "返回 到 收治",
-        "startNewAssessment": "Start new 收治",
-        "editAssessmentTitle": "编辑 收治 record",
-        "editAssessmentHint": "打开 收治 form 带 current session data pre-filled",
-        "requestAiRecommendation": "Request AI 建议",
-        "requestAiHint": "Get 可选 AI hints 用于 this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental 和 not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "在线 AI wasn't used. This 建议 is 从 local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "移除 identifiers before export"
+        "startMonitoring": "开始监控",
+        "startMonitoringHint": "开始跟踪生命体征和时间序列",
+        "backToAssessment": "返回承认",
+        "startNewAssessment": "开始新的承认",
+        "editAssessmentTitle": "编辑录取记录",
+        "editAssessmentHint": "打开已预先填写当前会话数据的准入表格",
+        "requestAiRecommendation": "请求  推荐",
+        "requestAiHint": "获取此案例的可选 AI 提示（需要连接）",
+        "connectivityRequired": "需要互联网连接",
+        "supplementalDisclaimer": "AI 输出是补充性的，未经临床验证",
+        "aiUnavailableFallback": " 不可用 — 使用本地建议",
+        "fallbackMessage": "未使用在线。此建议来自本地数据集。",
+        "exportSummary": "出口汇总",
+        "exportSummaryHint": "以文本形式下载会议摘要",
+        "anonymizeBeforeExport": "导出前删除标识符"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local 建议.",
-        "notComplex": "This case did not need 在线 AI.",
-        "offline": "You are 离线.",
-        "noApiKey": "AI API key is not set.",
-        "error": "在线 AI failed. Using local dataset instead."
+        "userChoseLocal": "您选择了本地推荐。",
+        "notComplex": "本案例不需要在线AI。",
+        "offline": "您已离线。",
+        "noApiKey": "AI API 键未设置。",
+        "error": "在线  失败。使用本地数据集代替。"
       },
-      "fallbackBanner": "AI could not be reached. 显示ing 建议 从 local guide.",
+      "fallbackBanner": "无法访问 AI。显示当地导游的推荐。",
       "states": {
-        "loading": "加载中 建议…",
-        "error": "无法加载 建议",
-        "empty": "无 建议 available. Complete 收治 first"
+        "loading": "正在加载推荐...",
+        "error": "无法加载推荐",
+        "empty": "没有可用的推荐。首先完成承认。"
       },
       "intendedUse": {
-        "warningLabel": "无t clinically validated",
-        "validationLabel": "验证 requirement"
+        "warningLabel": "未经临床验证",
+        "validationLabel": "验证要求"
       },
       "provenance": {
-        "reviewStatus": "Evidence 审核 status",
-        "sourceUrl": "打开 source",
+        "reviewStatus": "证据审查状态",
+        "sourceUrl": "开源",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "待处理 clinician 验证",
-        "validated": "Validated"
+        "unvalidated": "未经验证（原型）",
+        "pendingClinicianValidation": "等待临床医生验证",
+        "validated": "已验证"
       }
     },
     "monitoring": {
-      "title": "监测",
-      "accessibilityLabel": "监测 screen",
-      "decisionSupportOnly": "用于 decision support only. 无t a substitute 用于 clinical judgment.",
+      "title": "监控",
+      "accessibilityLabel": "监控屏",
+      "decisionSupportOnly": "仅用于决策支持。不能替代临床判断。",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "快速进入",
+        "trend": "趋势",
+        "alerts": "警报"
       },
       "quickEntry": {
-        "addPoint": "添加 point",
-        "addPointHint": "添加 vitals 或 labs data point",
-        "namePlaceholder": "姓名 (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "添加点",
+        "addPointHint": "添加生命体征或实验室数据点",
+        "namePlaceholder": "姓名（例如 SpO2、RR）",
+        "valuePlaceholder": "价值",
+        "unitPlaceholder": "单位"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
+        "insufficientData": "数据不足",
+        "directionUp": "趋势上升",
+        "directionDown": "趋势下降",
+        "directionFlat": "稳定",
         "directionUnknown": "未知"
       },
       "alerts": {
         "severityNormal": "正常",
         "severityWarning": "警告",
-        "severityCritical": "严重",
+        "severityCritical": "关键",
         "severityUnknown": "未知",
-        "why": "Why",
-        "whyCriticalLow": "Value below 严重 低 threshold",
-        "whyWarningLow": "Value below 警告 低 threshold",
-        "whyCriticalHigh": "Value above 严重 高 threshold",
-        "whyWarningHigh": "Value above 警告 高 threshold",
-        "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "继续 监测",
-        "suggestedActionWarning": "审核 和 consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value 和 re-输入 if needed",
-        "empty": "无 alerts"
+        "why": "为什么",
+        "whyCriticalLow": "值低于临界低阈值",
+        "whyWarningLow": "值低于警告下限",
+        "whyCriticalHigh": "值高于临界高阈值",
+        "whyWarningHigh": "值高于警告高阈值",
+        "suggestedAction": "建议采取的行动",
+        "suggestedActionNormal": "继续监控",
+        "suggestedActionWarning": "审查并考虑干预",
+        "suggestedActionCritical": "立即地址",
+        "suggestedActionUnknown": "验证值并根据需要重新输入",
+        "empty": "无警报"
       },
       "actions": {
-        "backToRecommendation": "返回 到 建议"
+        "backToRecommendation": "返回推荐"
       },
       "states": {
-        "loading": "正在加载…",
-        "error": "无法加载 监测",
-        "empty": "添加 vitals 或 labs points 到 see trends 和 alerts.",
-        "offline": "You are 离线. Data is saved locally."
+        "loading": "加载中...",
+        "error": "无法加载监控",
+        "empty": "添加生命体征或实验室点以查看趋势和警报。",
+        "offline": "您已离线。数据保存在本地。"
       }
     },
     "tracking": {
-      "title": "跟踪",
-      "subtitle": "Active admitted patients 和 backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical 跟踪 screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "无 admitted patients are available 用于 跟踪 yet",
-      "emptyHint": "收治 a 患者 first 到 begin 跟踪.",
-      "admittedBanner": "Admission saved. This 患者 is admitted 和 available 用于 跟踪.",
-      "localDraft": "Draft data exists on this device. Backend 审核, sync, 和 冲突 status appears after 保存 或 sync.",
+      "title": "追踪",
+      "subtitle": "活跃入院患者和后端确认的临床状态。",
+      "accessibilityLabel": "临床追踪屏幕",
+      "activePatients": "{{count}} 活跃患者",
+      "empty": "目前尚无入院患者可供追踪。",
+      "emptyHint": "首先接纳患者以开始追踪。",
+      "admittedBanner": "入场费已保存。该患者已入院并可供追踪。",
+      "localDraft": "该设备上存在草稿数据。保存或同步后会显示后端审核、同步和冲突状态。",
       "search": {
-        "placeholder": "搜索 by 患者 code, ID, 姓名, 或 hospital number",
-        "accessibilityLabel": "搜索 跟踪 patients",
-        "empty": "无 matching patients found",
-        "emptyHint": "Try a 患者 code, 患者 ID, 姓名, hospital number, bed, 或 pathway."
+        "placeholder": "按患者代码、ID、姓名或医院编号搜索",
+        "accessibilityLabel": "搜索追踪患者",
+        "empty": "未找到匹配的患者。",
+        "emptyHint": "尝试输入患者代码、患者 ID、姓名、医院编号、床位或路径。"
       },
       "activeFacility": {
-        "none": "无 active 机构 selected"
+        "none": "未选择活动设施"
       },
       "actions": {
         "refresh": "刷新",
-        "refreshHint": "Reload active 跟踪 records",
-        "admitFirst": "收治 患者",
-        "viewDetails": "Details",
-        "viewDetailsHint": "查看 跟踪 detail 和 timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "关闭 跟踪 detail"
+        "refreshHint": "重新加载活动跟踪记录",
+        "admitFirst": "收治病人",
+        "viewDetails": "详情",
+        "viewDetailsHint": "查看跟踪详细信息和时间表",
+        "updateValues": "更新值",
+        "updateValuesHint": "打开该患者的 ABG 和呼吸机更新表",
+        "closeDetailsHint": "关闭跟踪详细信息"
       },
       "patient": {
-        "unknown": "患者 not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
-        "missingData": "缺失数据: {{fields}}"
+        "unknown": "患者未贴标签",
+        "bed": "床{{bed}}",
+        "bedMissing": "床位未记录",
+        "admitted": "承认{{dateTime}}",
+        "missingData": "缺失数据：{{fields}}"
       },
       "detail": {
-        "title": "跟踪 detail",
-        "noTimeline": "无 timeline entries returned"
+        "title": "追踪详情",
+        "noTimeline": "没有返回时间线条目。"
       },
       "states": {
-        "loading": "加载中 patients 用于 跟踪...",
-        "loadingDetail": "加载中 跟踪 detail...",
-        "error": "无法加载 patients 用于 跟踪. 请检查连接后重试",
-        "detailError": "无法加载 跟踪 details 用于 this 患者. Please try again"
+        "loading": "正在加载患者以进行跟踪...",
+        "loadingDetail": "正在加载跟踪详细信息...",
+        "error": "无法加载患者进行跟踪。请检查您的连接并重试。",
+        "detailError": "无法加载该患者的追踪详细信息。请再试一次。"
       }
     },
     "history": {
-      "title": "跟踪",
-      "accessibilityLabel": "Clinical 跟踪 screen",
-      "empty": "无 active admitted patients 用于 this 机构",
-      "corruptRecovery": "Session history was reset due 到 a storage issue. You can start new sessions.",
+      "title": "追踪",
+      "accessibilityLabel": "临床追踪屏幕",
+      "empty": "该设施没有活跃的入院患者。",
+      "corruptRecovery": "由于存储问题，会话历史记录已重置。您可以开始新的会话。",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "继续 this session",
-        "viewDetails": "查看 details",
-        "viewDetailsHint": "查看 session summary",
+        "resume": "简历",
+        "resumeHint": "继续本次会议",
+        "viewDetails": "查看详情",
+        "viewDetailsHint": "查看会议摘要",
         "delete": "删除",
-        "deleteHint": "移除 从 history"
+        "deleteHint": "从历史记录中删除"
       },
       "deleteConfirm": {
-        "title": "删除 session?",
-        "message": "This session will be removed 从 history. This cannot be undone.",
+        "title": "删除会话？",
+        "message": "该会话将从历史记录中删除。此操作无法撤消。",
         "confirm": "删除",
         "cancel": "取消"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "状况: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "condition": "条件：{{condition}}",
+        "tier": "等级：{{tier}}",
+        "summary": "总结"
       },
       "states": {
-        "loading": "加载中 history…",
-        "error": "无法加载 session history"
+        "loading": "加载历史记录...",
+        "error": "无法加载会话历史记录"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
-      "patientProfile": "患者资料",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "呼吸机 设置",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "审核 status",
-      "intendedUseWarning": "This is a dataset case 用于 reference only. 无t 用于 direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "无 case selected",
+      "title": "案例详情",
+      "accessibilityLabel": "案例详情屏幕",
+      "summary": "案例总结",
+      "patientProfile": "患者概况",
+      "clinicalParameters": "临床参数",
+      "ventilatorSettings": "呼吸机设置",
+      "outcomes": "结果",
+      "evidence": "证据",
+      "reviewStatus": "审核状态",
+      "intendedUseWarning": "这是一个数据集案例，仅供参考。不适合直接临床使用。",
+      "datasetCaseFraming": "数据集案例（仅供参考）",
+      "prototypeFraming": "原型——未经临床验证",
+      "notFound": "在数据集中找不到案例。",
+      "missingCaseId": "没有选择案例。",
       "states": {
-        "loading": "加载中 case…"
+        "loading": "加载案例..."
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "待处理 clinician 验证",
-        "validated": "Validated"
+        "unvalidated": "未经验证（原型）",
+        "pending_clinician_validation": "等待临床医生验证",
+        "validated": "已验证"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, 和 reference.",
-      "accessibilityLabel": "Training 首页 screen",
-      "searchPlaceholder": "搜索 topics…",
-      "searchHint": "搜索 training content",
-      "topicsSection": "Topics",
-      "searchResults": "搜索 results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "查看 all topics",
-      "browseAllHint": "查看 all training topics",
+      "title": "培训",
+      "subtitle": "协议、清单和参考。",
+      "accessibilityLabel": "培训主屏幕",
+      "searchPlaceholder": "搜索主题...",
+      "searchHint": "搜索培训内容",
+      "topicsSection": "主题",
+      "searchResults": "搜索结果",
+      "popularTopics": "热门话题",
+      "quickChecklists": "快速清单",
+      "browseAll": "查看所有主题",
+      "browseAllHint": "查看所有培训主题",
       "viewTopic": "查看",
       "states": {
-        "loading": "加载中 training…",
-        "error": "无法加载 training content",
-        "offline": "Content is available 离线",
-        "empty": "无 training content available"
+        "loading": "正在加载训练...",
+        "error": "无法加载培训内容",
+        "offline": "内容可离线使用",
+        "empty": "没有可用的培训内容"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic 列表 screen",
-      "searchPlaceholder": "搜索 或 filter…",
-      "searchHint": "搜索 topics",
-      "empty": "无 topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "打开 topic",
+      "title": "主题",
+      "accessibilityLabel": "主题列表屏幕",
+      "searchPlaceholder": "搜索或过滤...",
+      "searchHint": "搜索主题",
+      "empty": "没有找到主题。",
+      "filterByType": "按类型过滤",
+      "typeProtocol": "协议",
+      "typeChecklist": "清单",
+      "typeGlossary": "词汇表",
+      "typeFaq": "常见问题解答",
+      "openTopicHint": "开放主题",
       "states": {
-        "loading": "加载中 topics…",
-        "error": "无法加载 topics",
-        "offline": "Content is available 离线"
+        "loading": "正在加载主题...",
+        "error": "无法加载主题",
+        "offline": "内容可离线使用"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "返回 到 topics",
-      "backToTopicsHint": "Return 到 topic 列表",
+      "title": "主题",
+      "accessibilityLabel": "主题详情屏幕",
+      "section": "部分",
+      "expand": "展开部分",
+      "collapse": "折叠部分",
+      "checklistItem": "项目",
+      "notFound": "未找到主题。",
+      "backToTopics": "返回主题",
+      "backToTopicsHint": "返回主题列表",
       "states": {
-        "loading": "加载中 topic…",
-        "error": "无法加载 topic"
+        "loading": "正在加载主题...",
+        "error": "无法加载主题"
       }
     }
   },
   "notFound": {
-    "title": "Page 无t Found",
-    "message": "page you're looking 用于 doesn't exist 或 has been moved.",
-    "back": "Go 返回",
-    "backHint": "Return 到 previous page",
-    "goHome": "前往 首页",
-    "goHomeHint": "Navigate 返回 到 首页 page"
+    "title": "找不到页面",
+    "message": "您要查找的页面不存在或已被移动。",
+    "back": "返回",
+    "backHint": "返回上一页",
+    "goHome": "回到首页",
+    "goHomeHint": "导航回到主页"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "发生意外错误. Please try again 或 return 到 首页 page.",
+    "title": "出了点问题",
+    "message": "发生意外错误。请重试或返回主页。",
     "retry": "重试",
-    "retryHint": "Try action again",
-    "goHome": "前往 首页",
-    "goHomeHint": "Navigate 返回 到 首页 page"
+    "retryHint": "再次尝试该动作",
+    "goHome": "回到首页",
+    "goHomeHint": "导航回到主页"
   },
   "errorState": {
     "defaultTitle": "出了点问题"

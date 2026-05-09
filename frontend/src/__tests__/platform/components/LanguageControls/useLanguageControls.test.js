@@ -87,6 +87,15 @@ describe('useLanguageControls', () => {
     expect(result.current.locale).toBe('en');
     expect(result.current.options).toHaveLength(2);
     expect(result.current.options[0].value).toBe('en');
+    expect(result.current.options[0]).toMatchObject({
+      label: 'settings.language.options.en',
+      searchText: ['en', 'settings.language.options.en', 'GB'],
+    });
+    expect(result.current.options[0].icon.props.countryCode).toBe('GB');
+    expect(result.current.options[1]).toMatchObject({
+      value: 'fr',
+    });
+    expect(result.current.options[1].icon.props.countryCode).toBe('FR');
   });
 
   it('falls back to default when stored locale is unsupported', () => {

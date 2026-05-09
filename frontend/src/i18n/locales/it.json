@@ -12,38 +12,38 @@
     "next": "Avanti",
     "continue": "Continua",
     "close": "Chiudi",
-    "closeSidebarHint": "Closes sidebar menu",
+    "closeSidebarHint": "Chiude il menu della barra laterale",
     "select": "Seleziona",
     "selectPlaceholder": "Seleziona…",
     "closeSelect": "Chiudi seleziona",
     "remove": "Rimuovi",
-    "goToHome": "Vai a home",
-    "viewNotifications": "Visualizza notifications",
-    "userMenu": "User menu",
-    "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Cerca…",
+    "goToHome": "Vai a casa",
+    "viewNotifications": "Visualizza le notifiche",
+    "userMenu": "Menù utente",
+    "toggleMenu": "Cambia menu",
+    "searchPlaceholder": "Cerca...",
     "noResults": "Nessun risultato",
-    "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Cerca icon",
-    "clearSearch": "Cancella cerca",
-    "on": "On",
-    "off": "Off",
-    "switch": "Switch",
-    "imageLoadError": "Failed a load image",
-    "imageDefaultAlt": "Image",
-    "progress": "Progress: {{value}}%",
-    "requiredLabel": "obbligatorio",
-    "clearAll": "Cancella all",
-    "filters": "Filters",
-    "clearAllFilters": "Cancella all filters",
-    "loadingPlaceholder": "Caricamento placeholder",
+    "useCustomValue": "Utilizza \"{{value}}\"",
+    "searchIcon": "Icona di ricerca",
+    "clearSearch": "Cancella ricerca",
+    "on": "Su",
+    "off": "Spento",
+    "switch": "Cambia",
+    "imageLoadError": "Impossibile caricare l'immagine",
+    "imageDefaultAlt": "Immagine",
+    "progress": "Avanzamento: {{value}}%",
+    "requiredLabel": "richiesto",
+    "clearAll": "Cancella tutto",
+    "filters": "Filtri",
+    "clearAllFilters": "Cancella tutti i filtri",
+    "loadingPlaceholder": "Caricamento segnaposto",
     "radio": "Radio",
-    "emptyState": "Vuoto state",
+    "emptyState": "Stato vuoto",
     "message": "Messaggio",
-    "sliderValue": "Slider: {{value}}",
-    "dropdownMenu": "Dropdown menu",
-    "tooltip": "Tooltip",
-    "action": "Action"
+    "sliderValue": "Dispositivo di scorrimento: {{value}}",
+    "dropdownMenu": "Menù a tendina",
+    "tooltip": "Descrizione comando",
+    "action": "Azione"
   },
   "greeting": {
     "hello": "Ciao, {{name}}"
@@ -55,77 +55,77 @@
   "auth": {
     "brand": {
       "name": "AI Vent",
-      "subtitle": "Ventilation decision support",
-      "logoLabel": "AI Vent logo"
+      "subtitle": "Supporto decisionale sulla ventilazione",
+      "logoLabel": "Logo AI Vent"
     },
     "logout": "Esci",
-    "password": "Password",
-    "passwordHide": "Nascondi password",
+    "password": "Parola d'ordine",
+    "passwordHide": "Nascondi la password",
     "passwordShow": "Mostra password",
-    "enterPassword": "Inserisci password",
+    "enterPassword": "Inserisci la password",
     "passwordStrength": {
-      "weak": "Weak",
-      "fair": "Fair",
-      "good": "Good",
-      "strong": "Strong",
-      "veryStrong": "Very strong"
+      "weak": "Debole",
+      "fair": "Discreta",
+      "good": "Buona",
+      "strong": "Forte",
+      "veryStrong": "Molto forte"
     },
     "login": {
       "title": "Accedi",
-      "accessibilityLabel": "Accedi screen",
-      "emailLabel": "Email",
+      "accessibilityLabel": "Schermata di accesso",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Inserisci password",
+      "passwordLabel": "Parola d'ordine",
+      "passwordPlaceholder": "Inserisci la password",
       "submit": "Accedi",
-      "submitting": "Signing in...",
-      "createPrompt": "Nessun account yet?",
-      "createAccount": "Crea account",
-      "createAccountHint": "Apri account registration",
-      "errorTitle": "Sign-in issue"
+      "submitting": "Accesso...",
+      "createPrompt": "Non hai ancora un account?",
+      "createAccount": "Crea un account",
+      "createAccountHint": "Apertura della registrazione del conto",
+      "errorTitle": "Problema di accesso"
     },
     "register": {
-      "title": "Crea account",
-      "description": "Create an AI Vent account a request struttura access.",
-      "accessibilityLabel": "Crea account screen",
+      "title": "Crea un account",
+      "description": "Crea un account AI Vent per richiedere l'accesso alla struttura.",
+      "accessibilityLabel": "Schermata Crea account",
       "nameLabel": "Nome completo",
-      "namePlaceholder": "Clinician nome",
-      "emailLabel": "Email",
+      "namePlaceholder": "Nome del medico",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
-      "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Struttura o hospital (opzionale)",
-      "facilitySearchPlaceholder": "Cerca Uganda hospitals",
-      "facilitySearchHint": "Filters hospital elenco by nome, district, region, o ownership",
+      "passwordLabel": "Parola d'ordine",
+      "passwordPlaceholder": "Crea password",
+      "passwordHelper": "Utilizza almeno 8 caratteri.",
+      "facilitySearchLabel": "Struttura o ospedale (facoltativo)",
+      "facilitySearchPlaceholder": "Cerca gli ospedali dell'Uganda",
+      "facilitySearchHint": "Filtra l'elenco degli ospedali per nome, distretto, regione o proprietà",
       "facilitySelectLabel": "Seleziona struttura",
-      "facilitySelectPlaceholder": "Choose a matching struttura",
-      "facilitySelectHelper": "Leave blank if you are not attached a a struttura.",
-      "facilitySelectHint": "Choose struttura a request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested per rivedi.",
-      "facilityOptionalHelper": "Opzionale. You can create an account without selecting a struttura.",
-      "facilityNoResults": "Nessun matching struttura found. You can still create an account without selecting one",
-      "facilityClear": "Cancella struttura",
-      "submit": "Crea account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
+      "facilitySelectPlaceholder": "Scegli una struttura corrispondente",
+      "facilitySelectHelper": "Lascia vuoto se non sei legato ad una struttura.",
+      "facilitySelectHint": "Scegli la struttura per richiedere l'affiliazione del medico",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Si richiede l'adesione per la revisione.",
+      "facilityOptionalHelper": "Facoltativo. Puoi creare un account senza selezionare una struttura.",
+      "facilityNoResults": "Nessuna struttura corrispondente trovata. Puoi comunque creare un account senza selezionarne uno.",
+      "facilityClear": "Struttura chiara",
+      "submit": "Crea un account",
+      "submitting": "Creazione dell'account...",
+      "signInPrompt": "Hai già un account?",
       "signIn": "Accedi",
-      "signInHint": "Return a sign in",
-      "errorTitle": "Account creation issue"
+      "signInHint": "Torna per accedere",
+      "errorTitle": "Problema di creazione dell'account"
     },
     "session": {
-      "noticeTitle": "Session notice",
-      "retry": "Riprova session",
-      "checking": "Checking session...",
-      "restoring": "Checking whether you are already signed in."
+      "noticeTitle": "Avviso di sessione",
+      "retry": "Riprovare la sessione",
+      "checking": "Controllo sessione...",
+      "restoring": "Verifica se hai già effettuato l'accesso."
     },
     "facility": {
-      "title": "Choose struttura",
-      "description": "Seleziona struttura context per this session.",
-      "accessibilityLabel": "Struttura selection screen",
+      "title": "Scegli struttura",
+      "description": "Seleziona il contesto della struttura per questa sessione.",
+      "accessibilityLabel": "Schermata di selezione della struttura",
       "selectFacility": "Seleziona {{name}}",
-      "empty": "Nessun approved facilities are available per this account",
-      "errorTitle": "Struttura selection issue"
+      "empty": "Per questo account non sono disponibili strutture approvate.",
+      "errorTitle": "Problema di selezione della struttura"
     }
   },
   "errors": {
@@ -136,522 +136,523 @@
       "retryHint": "Riprova"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Qualcosa è andato storto. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect a server. Please check your internet connection e try again.",
-      "REQUEST_TIMEOUT": "server took too long a respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection e try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNKNOWN_ERROR": "Qualcosa è andato storto. Per favore riprova a breve.",
+      "NETWORK_ERROR": "Non è stato possibile connettersi al server. Controlla la connessione Internet e riprova.",
+      "REQUEST_TIMEOUT": "Il server ha impiegato troppo tempo per rispondere. Per favore riprova.",
+      "BACKEND_HOST_UNREACHABLE": "Non siamo riusciti a raggiungere il server. Controlla la connessione Internet e riprova.",
+      "SECURE_CONNECTION_FAILED": "Connessione protetta non riuscita. Controlla il certificato HTTPS del backend.",
       "UNAUTHORIZED": "Autenticazione richiesta",
       "FORBIDDEN": "Accesso negato",
-      "CONFLICT": "This update conflicts con newer saved clinical data",
-      "VALIDATION_ERROR": "Please check highlighted fields e try again.",
-      "SERVER_ERROR": "Qualcosa è andato storto while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect a server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "requested record could not be found. Please aggiorna e try again.",
-      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return a tracciamento e try again.",
-      "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
-      "SESSION_STORAGE_FAILED": "We could not salva your sign-in session. Please try again.",
-      "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment e try again.",
-      "PAYLOAD_TOO_LARGE": "request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
-      "ROUTE_ERROR": "An errore occurred while caricamento this page",
-      "INVALID_CREDENTIALS": "Invalid email o password. Please check your details e try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please seleziona a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is in sospeso verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid o expired token",
-      "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid o expired aggiorna token",
-      "SESSION_EXPIRED": "Your session expired. Accedi again a continua.",
-      "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
-      "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
-      "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
-      "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid o expired",
-      "AI_FORBIDDEN": "AI access denied",
-      "AI_RATE_LIMIT": "AI rate limit reached",
-      "AI_MODEL_UNAVAILABLE": "AI model unavailable",
-      "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Impossibile caricare Home summary",
-      "ADMISSION_SAVE_FAILED": "Impossibile salvare admission record. Controlla la connessione e riprova",
-      "ADMISSION_VALIDATION_FAILED": "Some obbligatorio admission details are missing. Please rivedi highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable a generate clinical recommendations right now. You can still rivedi e salva admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Impossibile caricare admission form. Controlla la connessione e riprova",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Impossibile salvare local admission draft. Please try again"
+      "CONFLICT": "Questo aggiornamento è in conflitto con i dati clinici salvati più recenti",
+      "VALIDATION_ERROR": "Controlla i campi evidenziati e riprova.",
+      "SERVER_ERROR": "Qualcosa è andato storto durante l'elaborazione della tua richiesta. Per favore riprova a breve.",
+      "BACKEND_UNAVAILABLE": "Impossibile connettersi al server in questo momento. Per favore riprova a breve.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "L'endpoint API backend non è stato trovato. Il dominio è raggiungibile, ma la route API non è distribuita.",
+      "RESOURCE_NOT_FOUND": "Impossibile trovare il record richiesto. Aggiorna e riprova.",
+      "ADMISSION_NOT_FOUND": "Non è stato possibile trovare il documento di ammissione. Torna al monitoraggio e riprova.",
+      "BACKEND_METHOD_NOT_ALLOWED": "L'endpoint back-end esiste ma non accetta questa richiesta.",
+      "BACKEND_INVALID_RESPONSE": "Il backend ha restituito una risposta di accesso non valida. Potrebbe servire il sito web anziché API.",
+      "SESSION_STORAGE_FAILED": "Non è stato possibile salvare la sessione di accesso. Per favore riprova.",
+      "DATABASE_ERROR": "Richiesta del database backend non riuscita",
+      "RATE_LIMITED": "Troppe richieste. Aspetta un attimo e riprova.",
+      "PAYLOAD_TOO_LARGE": "La richiesta è troppo grande",
+      "UNSUPPORTED_MEDIA_TYPE": "Il backend ha rifiutato il formato della richiesta",
+      "ROUTE_ERROR": "Si è verificato un errore durante il caricamento di questa pagina",
+      "INVALID_CREDENTIALS": "E-mail o password non valide. Controlla i tuoi dati e riprova.",
+      "MULTIPLE_TENANTS": "Trovati più inquilini. Seleziona un inquilino.",
+      "ACCOUNT_INACTIVE": "Il conto non è attivo",
+      "ACCOUNT_SUSPENDED": "L'account è stato sospeso",
+      "ACCOUNT_PENDING": "L'account è in attesa di verifica",
+      "PASSWORD_INCORRECT": "La password attuale non è corretta",
+      "TOKEN_INVALID": "Token non valido o scaduto",
+      "TOKEN_EXPIRED": "Il token è scaduto",
+      "REFRESH_TOKEN_INVALID": "Token di aggiornamento non valido o scaduto",
+      "SESSION_EXPIRED": "La tua sessione è scaduta. Accedi nuovamente per continuare.",
+      "USER_NOT_FOUND": "Utente non trovato",
+      "USER_EXISTS": "Questa email è già registrata. Per favore accedi invece.",
+      "SESSION_NOT_FOUND": "Sessione non trovata",
+      "ALREADY_VERIFIED": "L'account è già verificato",
+      "AI_UNAVAILABLE": "AI non disponibile: utilizzo dei consigli locali",
+      "AI_TIMEOUT": "Richiesta AI scaduta",
+      "AI_UNAUTHORIZED": "AI Chiave API non valida o scaduta",
+      "AI_FORBIDDEN": "AI accesso negato",
+      "AI_RATE_LIMIT": "Limite di frequenza AI raggiunto",
+      "AI_MODEL_UNAVAILABLE": "AI modello non disponibile",
+      "AI_MALFORMED_RESPONSE": "AI risposta non valida",
+      "HOME_SUMMARY_INVALID": "La risposta al riepilogo della casa non è valida",
+      "HOME_SUMMARY_LOAD_FAILED": "Impossibile caricare il riepilogo della casa",
+      "ADMISSION_SAVE_FAILED": "Impossibile salvare il record di ammissione. Controlla la connessione e riprova.",
+      "ADMISSION_VALIDATION_FAILED": "Mancano alcuni dettagli di ammissione richiesti. Si prega di rivedere i campi evidenziati.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Impossibile generare raccomandazioni cliniche al momento. Puoi ancora rivedere e salvare l'ammissione.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Impossibile caricare il modulo di ammissione. Controlla la connessione e riprova.",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Impossibile salvare la bozza di ammissione locale. Per favore riprova."
     }
   },
   "forms": {
     "validation": {
       "required": "Questo campo è obbligatorio",
-      "invalidEmail": "Invalid email format",
-      "minLength": "Minimum length is {{min}} characters",
-      "invalidUrl": "Invalid URL format",
-      "invalidUuid": "Invalid ID format",
-      "maxLength": "Maximum length is {{max}} characters",
-      "invalidValue": "Invalid value"
+      "invalidEmail": "Formato email non valido",
+      "minLength": "La lunghezza minima è di {{min}} caratteri",
+      "invalidUrl": "Formato URL non valido",
+      "invalidUuid": "Formato ID non valido",
+      "maxLength": "La lunghezza massima è di {{max}} caratteri",
+      "invalidValue": "Valore non valido"
     }
   },
   "navigation": {
     "header": {
-      "title": "Main navigation header",
-      "searchHint": "Type a cerca",
-      "cartWithItems": "Cart con {{count}} items",
-      "cartWithItems_zero": "Cart",
+      "title": "Intestazione di navigazione principale",
+      "searchHint": "Digita per cercare",
+      "cartWithItems": "Carrello con articoli {{count}}",
+      "cartWithItems_zero": "Carrello",
       "signIn": "Accedi",
-      "profile": "Profile",
-      "orders": "Orders",
+      "profile": "Profilo",
+      "orders": "Ordini",
       "settings": "Impostazioni",
       "logout": "Esci",
       "accountMenu": {
-        "accessibilityLabel": "Apri account menu per {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "Apri il menu dell'account per {{name}}",
+        "fallbackName": "Conto",
+        "accountType": "Tipo di conto"
       },
-      "hideHeader": "Nascondi header",
-      "showHeader": "Mostra header",
-      "showMore": "Mostra more",
-      "customize": "Customize",
-      "overflowMenuLabel": "More header actions",
-      "customizationMenuLabel": "Header customization",
+      "hideHeader": "Nascondi intestazione",
+      "showHeader": "Mostra intestazione",
+      "showMore": "Mostra di più",
+      "customize": "Personalizza",
+      "overflowMenuLabel": "Altre azioni sull'intestazione",
+      "customizationMenuLabel": "Personalizzazione dell'intestazione",
       "actions": {
-        "notifications": "Nessuntifications",
-        "network": "Network status",
-        "database": "Database status",
-        "fullscreen": "Full screen toggle"
+        "notifications": "Notifiche",
+        "network": "Stato della rete",
+        "database": "Stato della banca dati",
+        "fullscreen": "Attiva/disattiva schermo intero"
       }
     },
     "sidebar": {
-      "title": "Main navigation",
-      "label": "Navigation",
-      "resize": "Resize navigation"
+      "title": "Navigazione principale",
+      "label": "Navigazione",
+      "resize": "Ridimensiona la navigazione"
     },
     "fullscreen": {
-      "enter": "Full screen",
-      "exit": "Exit full screen"
+      "enter": "Schermo intero",
+      "exit": "Esci dallo schermo intero"
     },
     "tabBar": {
-      "title": "Bottom navigation"
+      "title": "Navigazione in basso"
     },
     "footer": {
-      "title": "Global footer",
-      "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (telefono)",
+      "title": "Piè di pagina globale",
+      "copyright": "© {{year}} {{appName}}. Tutti i diritti riservati.",
+      "supportEmail": "Supporto (e-mail)",
+      "supportPhone": "Supporto (telefono)",
       "status": {
-        "title": "Application status",
-        "auth": "Secure sign-in enabled",
-        "main": "All systems operational",
-        "patient": "Paziente services ready"
+        "title": "Stato della domanda",
+        "auth": "Accesso sicuro abilitato",
+        "main": "Tutti i sistemi operativi",
+        "patient": "Servizi ai pazienti pronti"
       },
-      "environment": "{{env}} · v{{version}} (build: {{build}})",
+      "environment": "{{env}} ? v{{version}} (compilazione: {{build}})",
       "legal": {
-        "title": "Legal e support",
-        "terms": "Terms",
+        "title": "Legale e supporto",
+        "terms": "Termini",
         "privacy": "Privacy",
-        "support": "Support"
+        "support": "Supporto"
       }
     },
     "network": {
-      "label": "Network status",
+      "label": "Stato della rete",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
-        "unstable": "Unstable",
-        "syncing": "Syncing"
+        "online": "In linea",
+        "offline": "Non in linea",
+        "unstable": "Instabile",
+        "syncing": "Sincronizzazione"
       },
       "database": {
-        "label": "Database",
-        "connected": "Database connected",
-        "disconnected": "Database disconnected"
+        "label": "Banca dati",
+        "connected": "Database connesso",
+        "disconnected": "Database disconnesso"
       }
     },
     "notifications": {
-      "label": "Nessuntifications",
-      "menuLabel": "Nessuntifications menu",
-      "empty": "Nessun new notifications",
-      "viewAll": "Visualizza all notifications",
+      "label": "Notifiche",
+      "menuLabel": "Menù notifiche",
+      "empty": "Nessuna nuova notifica",
+      "viewAll": "Visualizza tutte le notifiche",
       "items": {
         "appointments": {
-          "title": "Upcoming appointment",
-          "meta": "Today at 3:00 PM"
+          "title": "Prossimo appuntamento",
+          "meta": "Oggi alle 15:00"
         },
         "labResults": {
-          "title": "Lab results ready",
-          "meta": "New results available"
+          "title": "Risultati di laboratorio pronti",
+          "meta": "Nuovi risultati disponibili"
         },
         "messages": {
-          "title": "New messaggio",
-          "meta": "You have unread messages"
+          "title": "Nuovo messaggio",
+          "meta": "Hai messaggi non letti"
         }
       }
     },
-    "bottomNavigation": "Bottom navigation",
-    "mainNavigation": "Main navigation",
-    "patientNavigation": "Paziente navigation",
+    "bottomNavigation": "Navigazione in basso",
+    "mainNavigation": "Navigazione principale",
+    "patientNavigation": "Navigazione del paziente",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Ammetti",
-        "assessment": "Ammetti",
-        "abg-ventilator-updates": "Update ABG & Ventilatore Impostazioni",
-        "history": "Tracciamento",
-        "dataset-capture": "Acquisizione dataset",
+        "home": "Casa",
+        "admit": "Ammettilo",
+        "assessment": "Ammettilo",
+        "abg-ventilator-updates": "Aggiorna ABG e le impostazioni del ventilatore",
+        "history": "Monitoraggio",
+        "dataset-capture": "Acquisizione del set di dati",
         "review-queue": "Coda di revisione",
-        "dashboard": "Dashboard",
+        "dashboard": "Cruscotto",
         "user-management": "Gestione utenti",
-        "onboarding": "Getting started",
+        "onboarding": "Iniziare",
         "settings": "Impostazioni",
-        "settings-about": "Informazioni",
-        "settings-data-sources": "Origini dati",
-        "settings-disclaimer": "Disclaimer",
+        "settings-about": "Circa",
+        "settings-data-sources": "Origini dei dati",
+        "settings-disclaimer": "Dichiarazione di non responsabilità",
         "settings-help": "Aiuto",
         "settings-privacy": "Privacy"
       }
     },
     "breadcrumbs": {
-      "title": "Breadcrumb navigation",
-      "label": "Breadcrumbs"
+      "title": "Navigazione breadcrumb",
+      "label": "Pangrattato"
     },
-    "skipToMainContent": "Skip a main content"
+    "skipToMainContent": "Passa al contenuto principale"
   },
   "facilityContext": {
     "activeFacility": "Struttura attiva",
-    "noFacility": "Nessun active struttura",
+    "noFacility": "Nessuna struttura attiva",
     "role": "Ruolo",
-    "noRole": "Nessun active ruolo",
-    "syncStatus": "Sync status",
-    "facilitySelectLabel": "Seleziona active struttura",
-    "accessibilityLabel": "Struttura attiva {{facility}}, sync status {{status}}",
+    "noRole": "Nessun ruolo attivo",
+    "syncStatus": "Stato della sincronizzazione",
+    "facilitySelectLabel": "Seleziona struttura attiva",
+    "accessibilityLabel": "Struttura attiva {{facility}}, stato di sincronizzazione {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
-      "syncing": "Syncing",
-      "unstable": "Unstable"
+      "online": "In linea",
+      "offline": "Non in linea",
+      "syncing": "Sincronizzazione",
+      "unstable": "Instabile"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "Sistema status updates",
+      "surfaceLabel": "Aggiornamenti sullo stato del sistema",
       "offline": {
-        "title": "You are offline",
-        "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "title": "Sei offline",
+        "message": "Alcune funzionalità potrebbero non essere disponibili fino al ripristino della connettività.",
+        "accessibilityLabel": "Notifica dello stato offline"
       },
       "lowQuality": {
-        "title": "Network is unstable",
-        "message": "You may experience delays o limited functionality.",
-        "accessibilityLabel": "Basso network quality notification"
+        "title": "La rete è instabile",
+        "message": "Potrebbero verificarsi ritardi o funzionalità limitate.",
+        "accessibilityLabel": "Notifica di bassa qualità della rete"
       },
       "online": {
-        "title": "Indietro online",
-        "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "title": "Di nuovo in linea",
+        "message": "Connessione ripristinata.",
+        "accessibilityLabel": "Notifica dello stato in linea"
       },
       "maintenance": {
-        "title": "Scheduled maintenance",
-        "message": "Some services may be temporarily unavailable.",
-        "accessibilityLabel": "Maintenance notification"
+        "title": "Manutenzione programmata",
+        "message": "Alcuni servizi potrebbero essere temporaneamente non disponibili.",
+        "accessibilityLabel": "Notifica di manutenzione"
       }
     },
     "loadingOverlay": {
-      "title": "Working…",
-      "message": "Please wait while we finish request."
+      "title": "Lavorando…",
+      "message": "Ti preghiamo di attendere mentre terminiamo la richiesta."
     },
     "notices": {
-      "surfaceLabel": "Global notifications"
+      "surfaceLabel": "Notifiche globali"
     }
   },
   "settings": {
     "title": "Impostazioni",
     "screen": {
-      "label": "Impostazioni screen"
+      "label": "Schermata Impostazioni"
     },
     "status": {
       "loading": "Caricamento impostazioni...",
-      "saved": "Impostazioni saved.",
-      "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Impossibile salvare your profile. Controlla la connessione e riprova",
-      "facilitySaved": "Struttura attiva updated successfully.",
-      "facilitySaveError": "Impossibile salvare active struttura. Controlla la connessione e riprova",
-      "roleSaved": "Active ruolo updated successfully.",
-      "themeSaved": "Tema updated successfully.",
-      "themeLocalSaved": "Tema updated on this device.",
-      "themeSaveError": "Impossibile salvare your tema preference. Controlla la connessione e riprova",
-      "saveError": "Impossibile salvare impostazioni. Controlla la connessione e riprova",
-      "loadError": "Impossibile caricare impostazioni. Controlla la connessione e riprova",
-      "localOnly": "Server impostazioni are unavailable ({{code}}). Local display controls remain available."
+      "saving": "Salvataggio impostazioni...",
+      "saved": "Impostazioni salvate.",
+      "profileSaved": "Profilo aggiornato con successo.",
+      "profileSaveError": "Impossibile salvare il tuo profilo. Controlla la connessione e riprova.",
+      "facilitySaved": "Struttura attiva aggiornata con successo.",
+      "facilitySaveError": "Impossibile salvare la struttura attiva. Controlla la connessione e riprova.",
+      "roleSaved": "Ruolo attivo aggiornato correttamente.",
+      "themeSaved": "Tema aggiornato con successo.",
+      "themeLocalSaved": "Tema aggiornato su questo dispositivo.",
+      "themeSaveError": "Impossibile salvare la preferenza del tema. Controlla la connessione e riprova.",
+      "saveError": "Impossibile salvare le impostazioni. Controlla la connessione e riprova.",
+      "loadError": "Impossibile caricare le impostazioni. Controlla la connessione e riprova.",
+      "localOnly": "Le impostazioni del server non sono disponibili ({{code}}). I controlli del display locale rimangono disponibili."
     },
     "account": {
-      "title": "Account e struttura",
+      "title": "Conto e struttura",
       "name": "Nome",
       "phone": "Telefono",
-      "saveProfile": "Salva profile",
+      "saveProfile": "Salva profilo",
       "activeFacility": "Struttura attiva",
-      "activeRole": "Active ruolo",
-      "approvedRoles": "Approved roles",
-      "noActiveFacility": "Nessun active struttura",
-      "activeFacilityHelper": "Seleziona struttura context per clinical work.",
-      "noAssignedFacility": "Nessun struttura has been assigned a your account yet",
-      "activeRoleHelper": "Ruolo per selected active struttura.",
-      "noActiveRole": "Nessun ruolo is available per selected struttura",
-      "none": "Nessunne",
+      "activeRole": "Ruolo attivo",
+      "approvedRoles": "Ruoli approvati",
+      "noActiveFacility": "Nessuna struttura attiva",
+      "activeFacilityHelper": "Selezionare il contesto della struttura per il lavoro clinico.",
+      "noAssignedFacility": "Nessuna struttura è stata ancora assegnata al tuo account.",
+      "activeRoleHelper": "Ruolo per la struttura attiva selezionata.",
+      "noActiveRole": "Nessun ruolo disponibile per la struttura selezionata.",
+      "none": "Nessuno",
       "validation": {
-        "nameRequired": "Inserisci your full nome.",
-        "nameTooLong": "Nome must be 160 characters o fewer.",
-        "phoneTooLong": "Telefono number must be 40 characters o fewer.",
-        "profileInvalid": "Rivedi highlighted profile fields before saving."
+        "nameRequired": "Inserisci il tuo nome completo.",
+        "nameTooLong": "Il nome deve contenere massimo 160 caratteri.",
+        "phoneTooLong": "Il numero di telefono deve contenere massimo 40 caratteri.",
+        "profileInvalid": "Rivedi i campi del profilo evidenziati prima di salvare."
       }
     },
     "accessibility": {
-      "title": "Appearance e accessibility"
+      "title": "Aspetto e accessibilità"
     },
     "theme": {
       "label": "Tema",
-      "accessibilityLabel": "Tema selector",
-      "hint": "Cambia application tema",
+      "accessibilityLabel": "Selettore del tema",
+      "hint": "Cambia il tema dell'applicazione",
       "options": {
         "system": "Sistema",
-        "light": "Chiaro",
-        "dark": "Scuro",
-        "highContrast": "Alto contrasto"
+        "light": "Luce",
+        "dark": "Buio",
+        "highContrast": "Contrasto elevato"
       }
     },
     "language": {
       "label": "Lingua",
-      "accessibilityLabel": "Lingua selector",
-      "hint": "Cambia application lingua",
+      "accessibilityLabel": "Selettore della lingua",
+      "hint": "Cambia la lingua dell'applicazione",
       "options": {
         "en": "Inglese",
         "ar": "Arabo",
-        "de": "Tedesco",
-        "es": "Spagnolo",
+        "de": "tedesco",
+        "es": "spagnolo",
         "fa": "Persiano",
-        "fr": "Francese",
+        "fr": "francese",
         "hi": "Hindi",
         "id": "Indonesiano",
-        "it": "Italiano",
-        "ja": "Giapponese",
+        "it": "italiano",
+        "ja": "giapponese",
         "ko": "Coreano",
         "ms": "Malese",
-        "nl": "Olandese",
+        "nl": "olandese",
         "pl": "Polacco",
-        "pt": "Portoghese",
+        "pt": "portoghese",
         "ru": "Russo",
         "sw": "Swahili",
         "ta": "Tamil",
-        "th": "Thailandese",
+        "th": "tailandese",
         "tr": "Turco",
-        "uk": "Ucraino",
+        "uk": "ucraino",
         "vi": "Vietnamita",
         "zh": "Cinese"
       }
     },
     "density": {
-      "label": "Density",
-      "accessibilityLabel": "Density mode selector",
-      "hint": "Cambia spacing e layout density",
+      "label": "Densità",
+      "accessibilityLabel": "Selettore della modalità densità",
+      "hint": "Modificare la spaziatura e la densità del layout",
       "options": {
-        "compact": "Compact",
-        "comfortable": "Comfortable"
+        "compact": "Compatto",
+        "comfortable": "Confortevole"
       }
     },
     "footerVisible": {
-      "label": "Mostra footer",
-      "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Mostra o nascondi footer at bottom of layout (desktop only)"
+      "label": "Mostra piè di pagina",
+      "accessibilityLabel": "Attiva/disattiva la visibilità del piè di pagina",
+      "hint": "Mostra o nascondi il piè di pagina nella parte inferiore del layout (solo desktop)"
     },
     "sync": {
-      "title": "Offline e sync",
-      "network": "Network",
-      "status": "Sync status",
-      "quality": "Network quality",
-      "idle": "Idle",
+      "title": "Offline e sincronizzato",
+      "network": "Rete",
+      "status": "Stato della sincronizzazione",
+      "quality": "Qualità della rete",
+      "idle": "Inattivo",
       "unknownQuality": "Sconosciuto",
-      "offlineModeEnabled": "Allow offline mode",
-      "syncOnWifiOnly": "Sync on Wi-Fi only",
-      "autoSyncEnabled": "Auto-sync",
-      "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Riprova failed sync automatically",
-      "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge sincronizzato drafts after",
-      "conflictResolutionMode": "Conflitto resolution",
-      "manualReview": "Manual rivedi",
-      "intervalOption": "{{value}} minutes",
-      "purgeOption": "{{value}} days"
+      "offlineModeEnabled": "Consenti la modalità offline",
+      "syncOnWifiOnly": "Sincronizza solo su Wi-Fi",
+      "autoSyncEnabled": "Sincronizzazione automatica",
+      "backgroundSyncEnabled": "Sincronizzazione in background",
+      "retryFailedSyncAutomatically": "Riprovare automaticamente la sincronizzazione non riuscita",
+      "syncIntervalMinutes": "Intervallo di sincronizzazione",
+      "purgeSyncedDraftsAfterDays": "Elimina le bozze sincronizzate dopo",
+      "conflictResolutionMode": "Risoluzione dei conflitti",
+      "manualReview": "Revisione manuale",
+      "intervalOption": "{{value}} minuti",
+      "purgeOption": "{{value}} giorni"
     },
     "privacyControls": {
-      "title": "Privacy e logging",
-      "hidePatientIdentifiersInLists": "Nascondi paziente identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock per identifiers",
-      "shareUsageDiagnostics": "Share usage diagnostics",
-      "allowDeidentifiedAnalytics": "Allow de-identified analytics",
-      "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
+      "title": "Privacy e registrazione",
+      "hidePatientIdentifiersInLists": "Nascondi gli identificatori dei pazienti negli elenchi",
+      "requireUnlockForIdentifiers": "Richiedi lo sblocco per gli identificatori",
+      "shareUsageDiagnostics": "Condividi la diagnostica sull'utilizzo",
+      "allowDeidentifiedAnalytics": "Consenti analisi deidentificate",
+      "allowDeidentifiedTrainingDatasetContribution": "Consenti il contributo del set di dati di addestramento non identificato"
     },
     "governance": {
-      "title": "Governance e clinical workflow",
+      "title": "Governance e flusso di lavoro clinico",
       "activeFacility": "Struttura attiva",
-      "manageAccess": "Can manage struttura impostazioni",
-      "visibility": "Governance visibility",
-      "defaultReferenceRuleScope": "Default reference scope",
+      "manageAccess": "Può gestire le impostazioni della struttura",
+      "visibility": "Visibilità della governance",
+      "defaultReferenceRuleScope": "Ambito di riferimento predefinito",
       "referenceScope": {
-        "global": "Global verified rules",
-        "facility": "Struttura verified rules"
+        "global": "Regole verificate globali",
+        "facility": "Regole verificate dalla struttura"
       },
-      "showReferenceVersionToClinicians": "Mostra reference version a clinicians",
-      "requireVerifiedReferenceRules": "Require verified reference rules",
-      "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require motivo per clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer per critico flags",
-      "lockReviewedClinicalRecords": "Lock reviewed clinical records",
-      "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit motivo",
-      "exportPatientIdentifiers": "Export paziente identifiers",
-      "allowRawNotesInExports": "Allow raw notes in exports",
-      "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require rivedi",
-      "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
-      "modelVisibility": "Model visibility",
-      "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
-      "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Mostra shadow model outputs a clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden da normale clinical workflows."
+      "showReferenceVersionToClinicians": "Mostra la versione di riferimento ai medici",
+      "requireVerifiedReferenceRules": "Richiedi regole di riferimento verificate",
+      "activeReferenceRules": "Regole di riferimento attive",
+      "requireReasonForClinicalOverride": "Richiedere un motivo per l'override clinico",
+      "requireSecondReviewerForCriticalFlags": "Richiede un secondo revisore per i flag critici",
+      "lockReviewedClinicalRecords": "Bloccare le cartelle cliniche esaminate",
+      "allowDeidentifiedExports": "Consenti esportazioni anonimizzate",
+      "requireExportAuditReason": "Richiedi il motivo del controllo dell'esportazione",
+      "exportPatientIdentifiers": "Esporta gli identificatori dei pazienti",
+      "allowRawNotesInExports": "Consenti note grezze nelle esportazioni",
+      "datasetExportsRequireEthicsApproval": "Le esportazioni di set di dati richiedono l'approvazione etica",
+      "datasetExportsRequireReview": "Le esportazioni di set di dati richiedono una revisione",
+      "allowUnreviewedDatasetExports": "Consenti esportazioni di set di dati non revisionati",
+      "modelVisibility": "Visibilità del modello",
+      "liveClinicalPredictionEnabled": "Previsione clinica in tempo reale abilitata",
+      "clinicianVisibleModelVersionIds": "Versioni del modello visibili al medico",
+      "showShadowModelOutputsToClinicians": "Mostra i risultati del modello ombra ai medici",
+      "modelVisibilityLocked": "L'output del modello predittivo in tempo reale rimane nascosto dai normali flussi di lavoro clinici."
     },
     "sidebar": {
-      "resize": "Resize impostazioni sidebar",
-      "menu": "Impostazioni menu",
-      "menuOpen": "Apri impostazioni menu",
-      "menuClose": "Chiudi impostazioni menu",
+      "resize": "Ridimensiona la barra laterale delle impostazioni",
+      "menu": "Menù Impostazioni",
+      "menuOpen": "Apri il menu delle impostazioni",
+      "menuClose": "Chiudi il menu delle impostazioni",
       "groups": {
-        "general": "General",
-        "organization": "Organization",
-        "usersAndAccess": "Users & access",
-        "security": "Security"
+        "general": "Generale",
+        "organization": "Organizzazione",
+        "usersAndAccess": "Utenti e accesso",
+        "security": "Sicurezza"
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "Dichiarazione di non responsabilità",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "Schermata di esclusione della responsabilità"
       },
-      "prototypeFraming": "This app is a prototype per reference e training. It is not intended per direct clinical use.",
-      "datasetNotice": "Dataset notice",
-      "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read e understood disclaimer",
-      "decline": "I disagree",
-      "declineHint": "Exit app without acknowledging",
+      "prototypeFraming": "Questa app è un prototipo per riferimento e formazione. Non è destinato all'uso clinico diretto.",
+      "datasetNotice": "Avviso sul set di dati",
+      "acknowledge": "Lo riconosco",
+      "acknowledgeHint": "Conferma di aver letto e compreso il disclaimer",
+      "decline": "Non sono d'accordo",
+      "declineHint": "Esci dall'app senza confermare",
       "states": {
         "loading": "Caricamento…",
-        "error": "Impossibile caricare disclaimer"
+        "error": "Impossibile caricare la dichiarazione di non responsabilità"
       }
     },
     "dataSources": {
-      "title": "Origini dati",
+      "title": "Origini dei dati",
       "screen": {
-        "label": "Origini dati screen"
+        "label": "Schermata origini dati"
       },
-      "datasetVersion": "Dataset version",
-      "schemaVersion": "Schema version",
-      "lastUpdated": "Last updated",
-      "totalCases": "Total cases",
-      "citations": "Citations",
+      "datasetVersion": "Versione del set di dati",
+      "schemaVersion": "Versione dello schema",
+      "lastUpdated": "Ultimo aggiornamento",
+      "totalCases": "Casi totali",
+      "citations": "Citazioni",
       "doi": "DOI",
       "states": {
         "loading": "Caricamento…",
-        "error": "Impossibile caricare data sources",
-        "empty": "Nessun sources available"
+        "error": "Impossibile caricare le origini dati",
+        "empty": "Nessuna fonte disponibile"
       },
       "capture": {
-        "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted per reviewer approval only. Raw pasted notes are not stored in approved datasets o sent a external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write ruolo.",
-        "offlineNotice": "Offline submissions are in coda con structured fields only e sync when connectivity returns.",
-        "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then rivedi structured fields before submitting.",
-        "parse": "Parse preview",
-        "facilityReady": "Struttura scope ready",
-        "facilityMissing": "Seleziona o sign in a one active struttura before submitting.",
-        "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in structured rivedi payload.",
-        "previewTitle": "Structured candidate preview",
-        "missingFields": "Missing values",
-        "uncertainFields": "Uncertainty highlights",
-        "none": "Nessunne",
-        "submitForReview": "Invia per revisione",
-        "trainingApprovalAvailable": "Training approval controls remain in governed rivedi workflows.",
+        "title": "Acquisizione di set di dati",
+        "governanceNotice": "I candidati catturati vengono inviati solo per l'approvazione del revisore. Le note grezze incollate non vengono archiviate in set di dati approvati o inviate a servizi modello esterni.",
+        "roleBlocked": "L'acquisizione del candidato set di dati richiede un ruolo di scrittura clinica approvato.",
+        "offlineNotice": "Gli invii offline vengono accodati solo con campi strutturati e sincronizzati quando viene ripristinata la connettività.",
+        "noteLabel": "Incolla la nota dell'ICU",
+        "notePlaceholder": "Incolla una nota sul comodino non identificata, quindi rivedi i campi strutturati prima di inviare.",
+        "parse": "Anteprima di analisi",
+        "facilityReady": "Ambito della struttura pronto",
+        "facilityMissing": "Seleziona o accedi a una struttura attiva prima di inviare.",
+        "noteRequired": "Incolla una nota prima di creare un'anteprima.",
+        "identifierWarning": "È stato rilevato testo simile a un identificatore. Non è incluso nel payload della revisione strutturata.",
+        "previewTitle": "Anteprima strutturata del candidato",
+        "missingFields": "Valori mancanti",
+        "uncertainFields": "Evidenzia l’incertezza",
+        "none": "Nessuno",
+        "submitForReview": "Invia per la revisione",
+        "trainingApprovalAvailable": "I controlli di approvazione della formazione rimangono nei flussi di lavoro di revisione regolamentati.",
         "status": {
-          "ready": "Ready per rivedi submission",
-          "submitted": "Submitted per reviewer approval",
-          "queued": "In coda per sync",
-          "error": "Submission failed"
+          "ready": "Pronto per l'invio della recensione",
+          "submitted": "Inviato per l'approvazione del revisore",
+          "queued": "In coda per la sincronizzazione",
+          "error": "Invio non riuscito"
         }
       }
     },
     "privacy": {
       "title": "Privacy",
       "screen": {
-        "label": "Privacy screen"
+        "label": "Schermata di privacy"
       },
-      "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences e session data are stored only on this device. Nessunthing is sent a external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent a configured services."
+      "localStorage": "Dati archiviati localmente",
+      "localStorageDescription": "Le preferenze e i dati della sessione vengono memorizzati solo su questo dispositivo. Niente viene inviato ai server esterni.",
+      "optionalAI": "Se le funzionalità online AI sono abilitate, tali richieste potrebbero essere inviate ai servizi configurati."
     },
     "about": {
-      "title": "Informazioni",
+      "title": "Circa",
       "screen": {
-        "label": "Informazioni screen"
+        "label": "Informazioni sullo schermo"
       },
       "appName": "AI Vent",
-      "version": "Version",
-      "prototypeScope": "This is a prototype per reference e training. Nessunt per clinical use."
+      "version": "Versione",
+      "prototypeScope": "Questo è un prototipo per riferimento e formazione. Non per uso clinico."
     },
     "onboarding": {
-      "title": "Getting started",
-      "accessibilityLabel": "Onboarding screen",
+      "title": "Iniziare",
+      "accessibilityLabel": "Schermata di onboarding",
       "safety": {
-        "title": "Clinical safety",
-        "body": "AI Vent provides documentation support e advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, o determine ventilatore impostazioni.",
-        "secondary": "Confirm all decisions against paziente, your struttura workflow, e local clinical protocol.",
-        "accessibilityLabel": "Clinical safety notice",
-        "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Obbligatorio before continuing a clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device e will be sincronizzato when backend authentication is available."
+        "title": "Sicurezza clinica",
+        "body": "AI Vent fornisce solo supporto per la documentazione e richieste di consulenza sulla sicurezza. Non sostituisce il giudizio clinico, non emette ordini di trattamento o determina le impostazioni del ventilatore.",
+        "secondary": "Conferma tutte le decisioni nei confronti del paziente, del flusso di lavoro della tua struttura e del protocollo clinico locale.",
+        "accessibilityLabel": "Avviso sulla sicurezza clinica",
+        "acknowledgeLabel": "Capisco che si tratta solo di supporto decisionale consultivo",
+        "acknowledgeHint": "Necessario prima di continuare con i flussi di lavoro clinici",
+        "syncDeferred": "Il riconoscimento di sicurezza viene salvato su questo dispositivo e verrà sincronizzato quando sarà disponibile l'autenticazione backend."
       },
       "steps": {
         "clinicalSafety": {
-          "title": "Use as advisory support",
-          "body": "Rivedi safety note before using AI Vent. app can highlight missing data e uncertainty, but a qualified clinician remains responsible per paziente care decisions."
+          "title": "Utilizzare come supporto consultivo",
+          "body": "Rivedi la nota sulla sicurezza prima di utilizzare AI Vent. L'app può evidenziare dati mancanti e incertezze, ma un medico qualificato rimane responsabile delle decisioni sulla cura del paziente."
         },
         "facilityWorkflow": {
-          "title": "Stay in struttura context",
-          "body": "Use active struttura e ruolo shown by your session. Keep records within correct struttura workflow e follow local escalation, rivedi, e approval procedures."
+          "title": "Rimani nel contesto della struttura",
+          "body": "Utilizza la struttura attiva e il ruolo mostrato dalla tua sessione. Conserva i registri nel flusso di lavoro corretto della struttura e segui le procedure locali di escalation, revisione e approvazione."
         },
         "inputs": {
-          "title": "Inserisciing inputs",
-          "body": "Use Ammetti a inserisci available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Opzionale ABG values improve confidence when available, but missing opzionale data should be reviewed as uncertainty rather than treated as a salva blocker."
+          "title": "Immissione degli input",
+          "body": "Utilizzare Ammetti per inserire i parametri clinici disponibili (SpO2, PaO2, PaCO2, pH, frequenza respiratoria, ecc.). I valori facoltativi ABG migliorano la sicurezza quando disponibili, ma i dati facoltativi mancanti dovrebbero essere considerati come incertezza anziché trattati come un blocco del salvataggio."
         },
         "recommendations": {
-          "title": "Interpreting recommendations",
-          "body": "Recommendations mostra advisory ventilatore setting references con a confidence tier. Match quality reflects how well dataset cases align con your inputs. Use matched cases as reference only e verify against clinical judgment."
+          "title": "Suggerimenti per l'interpretazione",
+          "body": "Le raccomandazioni mostrano i riferimenti di impostazione del ventilatore consultivo con un livello di confidenza. La qualità della corrispondenza riflette il grado di allineamento dei casi del set di dati con i tuoi input. Utilizzare i casi corrispondenti solo come riferimento e verificarli rispetto al giudizio clinico."
         },
         "monitoring": {
-          "title": "Monitoraggio e alerts",
-          "body": "After reviewing a raccomandazione, use Monitoraggio a log vitals e labs over time. Alerts highlight values outside set thresholds e should be assessed according a local protocol."
+          "title": "Monitoraggio e avvisi",
+          "body": "Dopo aver esaminato un consiglio, utilizzare Monitoraggio per registrare parametri vitali e laboratori nel tempo. Gli avvisi evidenziano valori al di fuori delle soglie stabilite e devono essere valutati secondo il protocollo locale."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Ammetti, advisory summaries, monitoraggio) works offline. Data is saved locally. Opzionale AI features require connectivity. When indietro online, continua as normale."
+          "title": "Comportamento offline",
+          "body": "Il flusso di lavoro principale (ammissione, riepiloghi consultivi, monitoraggio) funziona offline. I dati vengono salvati localmente. Le funzionalità AI opzionali richiedono la connettività. Quando torni online, continua normalmente."
         }
       },
       "actions": {
-        "done": "Done",
+        "done": "Fatto",
         "next": "Avanti",
         "back": "Indietro"
       },
@@ -660,121 +661,121 @@
       }
     },
     "help": {
-      "title": "Aiuto & reference",
-      "accessibilityLabel": "Aiuto screen",
-      "searchPlaceholder": "Cerca glossary o guides…",
+      "title": "Aiuto e riferimento",
+      "accessibilityLabel": "Schermata di aiuto",
+      "searchPlaceholder": "Cerca glossario o guide…",
       "sections": {
-        "glossary": "Glossary",
-        "troubleshooting": "Troubleshooting",
-        "guides": "What a do avanti"
+        "glossary": "Glossario",
+        "troubleshooting": "Risoluzione dei problemi",
+        "guides": "Cosa fare dopo"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume e oxygenation.",
-        "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory a expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Volume corrente (mL). Volume delivered per breath.",
-        "respiratoryRate": "Frequenza respiratoria (breaths/min).",
-        "SpO2": "Oxygen saturation by pulse oximetry (%).",
-        "PaO2": "Partial pressure of arterial oxygen (mmHg).",
-        "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
-        "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, e pH, tied a a sample time.",
-        "referenceStatus": "Governance e verification state per a reference range. Only active approved o verified ranges are eligible per active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need rivedi before dataset o training use.",
-        "reviewQueue": "A work queue per rivedi decisions, corrections, exclusions, e audit reasons.",
-        "syncState": "Current offline, online, o syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden da normale clinical workflows."
+        "PEEP": "Pressione positiva di fine espirazione (cmH₂O). Mantiene il volume polmonare e l'ossigenazione.",
+        "FiO2": "Frazione di ossigeno inspirato (0–1). Percentuale di ossigeno nel gas inspirato.",
+        "IERatio": "rapporto I:E. Rapporto tra tempo inspiratorio ed espiratorio (ad esempio 1:2).",
+        "tidalVolume": "Volume corrente (mL). Volume erogato per respiro.",
+        "respiratoryRate": "Frequenza respiratoria (respiri/min).",
+        "SpO2": "Saturazione di ossigeno mediante pulsossimetria (%).",
+        "PaO2": "Pressione parziale dell'ossigeno arterioso (mmHg).",
+        "PaCO2": "Pressione parziale dell'anidride carbonica arteriosa (mmHg).",
+        "pH": "Arterioso pH (senza unità).",
+        "ABG": "Valori dei gas nel sangue arterioso come PaO2, PaCO2 e pH, legati a un tempo di campionamento.",
+        "referenceStatus": "Stato di governance e verifica per un intervallo di riferimento. Solo gli intervalli attivi approvati o verificati sono idonei per la visualizzazione di supporto decisionale attivo.",
+        "datasetCapture": "Record anonimizzati dei candidati che necessitano di revisione prima dell'utilizzo del set di dati o della formazione.",
+        "reviewQueue": "Una coda di lavoro per decisioni di revisione, correzioni, esclusioni e motivi di audit.",
+        "syncState": "Stato attuale offline, online o di sincronizzazione. Potrebbe essere ancora necessaria una sincronizzazione successiva delle cartelle cliniche.",
+        "shadowMode": "Modalità di valutazione del modello governato in cui i risultati rimangono nascosti dai normali flussi di lavoro clinici."
       },
       "troubleshooting": {
         "missingABG": {
-          "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; inserisci SpO₂ e altro vitals when available. per better matching, aggiungi PaO₂, PaCO₂, e pH when you have them."
+          "title": "Valori ABG mancanti",
+          "body": "I consigli funzionano senza ABG; inserisci SpO₂ e altri parametri vitali quando disponibili. Per una migliore corrispondenza, aggiungi PaO₂, PaCO₂ e pH quando li hai."
         },
         "offline": {
-          "title": "Using app offline",
-          "body": "Ammetti, advisory summaries, e monitoraggio work offline. Data is stored locally. Opzionale AI suggestions require internet. Sync is not obbligatorio per core workflow."
+          "title": "Utilizzo dell'app offline",
+          "body": "Ammissione, riepiloghi consultivi e monitoraggio del lavoro offline. I dati vengono archiviati localmente. I suggerimenti AI facoltativi richiedono Internet. La sincronizzazione non è necessaria per il flusso di lavoro principale."
         },
         "unverifiedReference": {
-          "title": "Reference range is not active",
-          "body": "Draft, in sospeso, retired, rejected, e unverified ranges are not eligible per active decision-support display. Rivedi source, version, scope, e verification status."
+          "title": "L'intervallo di riferimento non è attivo",
+          "body": "Gli intervalli bozza, in sospeso, ritirati, rifiutati e non verificati non sono idonei per la visualizzazione del supporto decisionale attivo. Esamina l'origine, la versione, l'ambito e lo stato di verifica."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness aiuto is restricted",
-          "body": "Predictive model readiness e shadow-mode details are visible only a approved governance roles. Nessunrmal clinical workflows do not expose model internals."
+          "title": "L'aiuto per la preparazione del modello è limitato",
+          "body": "La disponibilità del modello predittivo e i dettagli della modalità shadow sono visibili solo ai ruoli di governance approvati. I normali flussi di lavoro clinici non espongono le parti interne del modello."
         },
         "needsReview": {
-          "title": "Record needs rivedi",
-          "body": "Use rivedi queue a check submitted data, request correction, approva eligible records, o escludi records con an audit motivo."
+          "title": "Il record necessita di revisione",
+          "body": "Utilizza la coda di revisione per controllare i dati inviati, richiedere correzioni, approvare record idonei o escludere record con un motivo di controllo."
         }
       },
       "guides": {
-        "home": "Rivedi struttura context, sync state, active admissions, red flags, e records needing rivedi before opening a paziente workflow.",
-        "admit": "Capture paziente pathway e available clinical values. Mark unavailable data clearly e rivedi backend-confirmed calculations after salva.",
-        "tracking": "Use tracciamento a scan recent ventilation status e rivedi needs. Read trend flags con source data e local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture per de-identified candidate records. Human rivedi is obbligatorio before approved training-data use.",
-        "reviewQueue": "Use rivedi queue a approva, request correction, o escludi records while preserving audit trail.",
-        "dashboard": "Use dashboards per aggregate quality, rivedi, reference, e governance status. Avoid paziente identifiers in governance summaries.",
-        "settings": "Use impostazioni per account, struttura, accessibility, privacy, sync, e reference visibility preferences where authorized.",
-        "hypoxemia": "Rivedi FiO₂ e PEEP; consider recruitment; check per shunt o V/Q mismatch.",
-        "hypercapnia": "Rivedi minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation e perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols e clinical judgment."
+        "home": "Esamina il contesto della struttura, lo stato di sincronizzazione, i ricoveri attivi, i segnali d'allarme e i record che necessitano di revisione prima di aprire un flusso di lavoro del paziente.",
+        "admit": "Cattura il percorso del paziente e i valori clinici disponibili. Contrassegna chiaramente i dati non disponibili e rivedi i calcoli confermati dal backend dopo il salvataggio.",
+        "tracking": "Utilizza il monitoraggio per scansionare lo stato recente della ventilazione e rivedere le esigenze. Leggi i flag di tendenza con i dati di origine e il contesto del protocollo locale.",
+        "abgVentUpdate": "Aggiungi nuovi risultati ABG e impostazioni del ventilatore come record con timestamp in modo che i valori precedenti rimangano disponibili per la revisione.",
+        "datasetCapture": "Utilizza l'acquisizione di set di dati per record di candidati anonimizzati. È necessaria la revisione umana prima dell'uso approvato dei dati di addestramento.",
+        "reviewQueue": "Utilizza la coda di revisione per approvare, richiedere correzioni o escludere record preservando la traccia di controllo.",
+        "dashboard": "Utilizza dashboard per la qualità aggregata, la revisione, i riferimenti e lo stato di governance. Evitare gli identificatori dei pazienti nei riepiloghi sulla governance.",
+        "settings": "Utilizza le impostazioni per account, struttura, accessibilità, privacy, sincronizzazione e preferenze di visibilità dei riferimenti, ove autorizzato.",
+        "hypoxemia": "Rivedere FiO₂ e PEEP; prendere in considerazione il reclutamento; verificare la presenza di shunt o di mancata corrispondenza V/Q.",
+        "hypercapnia": "Revisionare la ventilazione minuto (frequenza x volume corrente); considerare l'ipercapnia permissiva secondo il protocollo.",
+        "acidosis": "Affrontare la ventilazione e la perfusione; correggere la causa sottostante in base al protocollo.",
+        "general": "Utilizzare le raccomandazioni solo come supporto decisionale. Convalidare rispetto ai protocolli locali e al giudizio clinico."
       },
       "states": {
         "loading": "Caricamento…",
         "empty": "Nessun risultato",
-        "error": "Impossibile caricare aiuto"
+        "error": "Impossibile caricare la guida"
       }
     },
     "ai": {
-      "label": "Supporto decisionale IA",
-      "sectionLabel": "Opzionale AI raccomandazione (online)",
-      "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI per complex cases only; local recommendations always available",
-      "providerLabel": "Provider",
-      "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
+      "label": "AI supporto decisionale",
+      "sectionLabel": "Consiglio AI facoltativo (online)",
+      "enableLabel": "Abilita i consigli AI",
+      "enableHint": "Utilizzare online AI solo per casi complessi; raccomandazioni locali sempre disponibili",
+      "providerLabel": "Fornitore",
+      "providerHint": "AI provider (es. OpenAI); La chiave API è per provider",
       "providers": {
         "openai": "OpenAI",
-        "anthropic": "Anthropic",
-        "google": "Google (Gemini)",
+        "anthropic": "Antropico",
+        "google": "Google (Gemelli)",
         "groq": "Groq",
-        "mistral": "Mistral AI",
+        "mistral": "Maestrale AI",
         "deepseek": "DeepSeek",
-        "cohere": "Cohere",
+        "cohere": "Coerente",
         "xai": "xAI (Grok)"
       },
-      "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Inserisci key (stored securely)",
-      "apiKeySave": "Salva key",
-      "apiKeyClear": "Cancella key",
-      "keyConfigured": "Set",
-      "keyNotConfigured": "Nessunt set",
-      "modelLabel": "Model",
-      "modelHint": "Model used per AI suggestions",
+      "apiKeyLabel": "Tasto API",
+      "apiKeyPlaceholder": "Inserisci la chiave (conservata in modo sicuro)",
+      "apiKeySave": "Salva chiave",
+      "apiKeyClear": "Tasto Cancella",
+      "keyConfigured": "Impostato",
+      "keyNotConfigured": "Non impostato",
+      "modelLabel": "Modello",
+      "modelHint": "Modello utilizzato per i suggerimenti AI",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
         "gpt-4-turbo": "GPT-4 Turbo",
         "gpt-4": "GPT-4",
         "gpt-3.5-turbo": "GPT-3.5 Turbo",
-        "claude-sonnet-4": "Claude Sonnet 4",
-        "claude-3-5-sonnet": "Claude 3.5 Sonnet",
+        "claude-sonnet-4": "Claude Sonetto 4",
+        "claude-3-5-sonnet": "Claude 3.5 Sonetto",
         "claude-3-5-haiku": "Claude 3.5 Haiku",
         "claude-3-opus": "Claude 3 Opus",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "gemini-1.5-flash": "Gemini 1.5 Flash",
-        "gemini-1.0-pro": "Gemini 1.0 Pro",
-        "llama-3.3-70b": "Llama 3.3 70B",
-        "llama-3.1-8b": "Llama 3.1 8B",
+        "gemini-1.5-pro": "Gemelli 1.5 Pro",
+        "gemini-1.5-flash": "Gemelli 1.5 Flash",
+        "gemini-1.0-pro": "Gemelli 1.0 Pro",
+        "llama-3.3-70b": "Lama 3.3 70B",
+        "llama-3.1-8b": "Lama 3.1 8B",
         "mixtral-8x7b": "Mixtral 8x7B",
-        "mistral-large": "Mistral Large",
-        "mistral-medium": "Mistral Medium",
-        "mistral-small": "Mistral Small",
-        "deepseek-chat": "DeepSeek Chat",
-        "deepseek-reasoner": "DeepSeek Reasoner",
-        "command-r-plus": "Command R+",
-        "command-r": "Command R",
+        "mistral-large": "Mistral Grande",
+        "mistral-medium": "Maestrale medio",
+        "mistral-small": "Mistral Piccolo",
+        "deepseek-chat": "Chat di DeepSeek",
+        "deepseek-reasoner": "Ragionatore di DeepSeek",
+        "command-r-plus": "Comando R+",
+        "command-r": "Comando R",
         "grok-3": "Grok 3",
         "grok-3-mini": "Grok 3 Mini"
       }
@@ -782,219 +783,219 @@
   },
   "listScaffold": {
     "loading": "Caricamento",
-    "offline": "Offline",
+    "offline": "Non in linea",
     "error": "Errore",
     "empty": "Vuoto",
     "list": "Elenco",
     "emptyState": {
-      "title": "Nessun items",
-      "message": "There are nessun items a display"
+      "title": "Nessun articolo",
+      "message": "Non ci sono elementi da visualizzare"
     },
     "errorState": {
       "title": "Errore",
-      "message": "An errore occurred"
+      "message": "Si è verificato un errore"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "Casa",
     "welcome": {
-      "title": "Flusso clinico",
-      "message": "Struttura attiva, sync status, drafts, e rivedi work are shown here.",
-      "logoLabel": "App logo"
+      "title": "Flusso di lavoro clinico",
+      "message": "Qui vengono visualizzati la struttura attiva, lo stato di sincronizzazione, le bozze e il lavoro di revisione.",
+      "logoLabel": "Logo dell'app"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "Avvisi domestici"
     },
     "facilities": {
       "title": "Seleziona struttura",
       "select": "Seleziona {{name}}"
     },
     "status": {
-      "title": "Operational status",
+      "title": "Stato operativo",
       "facility": {
         "label": "Struttura",
-        "empty": "Nessunt selected"
+        "empty": "Non selezionato"
       },
       "network": {
-        "label": "Network",
+        "label": "Rete",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
-          "syncing": "Syncing",
-          "unstable": "Unstable"
+          "online": "In linea",
+          "offline": "Non in linea",
+          "syncing": "Sincronizzazione",
+          "unstable": "Instabile"
         }
       },
       "activeAdmissions": {
-        "label": "Active admissions",
-        "detail": "{{count}} active patients"
+        "label": "Ammissioni attive",
+        "detail": "{{count}} pazienti attivi"
       },
       "drafts": {
-        "label": "Drafts",
-        "detail": "{{count}} waiting a sync"
+        "label": "Bozze",
+        "detail": "{{count}} in attesa di sincronizzazione"
       },
       "syncAttention": {
-        "label": "Sync attention",
-        "detail": "{{count}} conflicts"
+        "label": "Sincronizza l'attenzione",
+        "detail": "{{count}} conflitti"
       },
       "reviewNeeds": {
-        "label": "Rivedi queue",
-        "detail": "{{count}} corrections requested"
+        "label": "Coda di revisione",
+        "detail": "{{count}} correzioni richieste"
       }
     },
     "actions": {
-      "title": "Workflow actions",
+      "title": "Azioni del flusso di lavoro",
       "accessibilityLabel": "Apri {{name}}",
       "admit": {
-        "title": "Ammetti"
+        "title": "Ammettilo"
       },
       "tracking": {
-        "title": "Tracciamento"
+        "title": "Monitoraggio"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilatore Impostazioni"
+        "title": "Aggiorna ABG e le impostazioni del ventilatore"
       },
       "datasetCapture": {
-        "title": "Acquisizione dataset"
+        "title": "Acquisizione del set di dati"
       },
       "reviewQueue": {
         "title": "Coda di revisione"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "Cruscotto"
       },
       "settings": {
         "title": "Impostazioni"
       },
       "meta": {
-        "open": "Apri"
+        "open": "Aperto"
       },
       "disabled": {
         "facilityRequired": "Seleziona struttura",
-        "roleRestricted": "Ruolo restricted",
-        "workflowPending": "Route in sospeso"
+        "roleRestricted": "Ruolo limitato",
+        "workflowPending": "Itinerario in sospeso"
       }
     }
   },
   "reviewQueue": {
     "title": "Coda di revisione",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, e sync conflicts.",
-    "accessibilityLabel": "Validazione rivedi queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion motivo, o override motivo",
+    "subtitle": "Convalida i record inviati, le correzioni, le esclusioni, gli intervalli di riferimento, la disponibilità dei set di dati e i conflitti di sincronizzazione.",
+    "accessibilityLabel": "Coda di revisione della convalida",
+    "commentPlaceholder": "Nota del revisore, richiesta di correzione, motivo di esclusione o motivo di sostituzione",
     "forbidden": {
-      "title": "Rivedi access obbligatorio",
-      "message": "An approved reviewer o governance ruolo is obbligatorio per this queue."
+      "title": "È richiesto l'accesso alla revisione",
+      "message": "Per questa coda è richiesto un revisore approvato o un ruolo di governance."
     },
     "filters": {
-      "all": "All"
+      "all": "Tutto"
     },
     "entityTypes": {
-      "admission": "Admission",
+      "admission": "Ammissione",
       "abg-test": "ABG",
       "ventilator-setting": "Ventilatore",
-      "dataset-case": "Dataset",
-      "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflitto"
+      "dataset-case": "Set di dati",
+      "reference-rule": "Intervallo di riferimento",
+      "sync-conflict": "Conflitto di sincronizzazione"
     },
     "summary": {
-      "title": "Queue summary",
-      "total": "Total",
-      "urgent": "Urgent",
-      "corrections": "Corrections",
-      "conflicts": "Conflicts",
-      "datasetReady": "Dataset ready"
+      "title": "Riepilogo della coda",
+      "total": "Totale",
+      "urgent": "Urgente",
+      "corrections": "Correzioni",
+      "conflicts": "Conflitti",
+      "datasetReady": "Set di dati pronto"
     },
     "fields": {
-      "type": "Type",
-      "status": "Status",
-      "priority": "Priority",
+      "type": "Digitare",
+      "status": "Stato",
+      "priority": "Priorità",
       "validation": "Validazione",
       "missingData": "Dati mancanti",
-      "uncertainty": "Uncertainty",
+      "uncertainty": "Incertezza",
       "conflict": "Conflitto",
-      "datasetReadiness": "Dataset readiness"
+      "datasetReadiness": "Disponibilità del set di dati"
     },
     "dataset": {
-      "datasetApproved": "Approved per dataset rivedi boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Nessunt approved per dataset use."
+      "datasetApproved": "Approvato solo per il limite di revisione del set di dati; l’esportazione della formazione richiede ancora l’approvazione della governance.",
+      "notDatasetApproved": "Non approvato per l'uso del set di dati."
     },
     "actions": {
       "refresh": "Aggiorna",
-      "approve": "Approva",
-      "requestCorrection": "Richiedi correzione",
+      "approve": "Approvare",
+      "requestCorrection": "Richiedi la correzione",
       "exclude": "Escludi",
-      "defer": "Rinvia"
+      "defer": "Differire"
     },
     "states": {
-      "loading": "Caricamento rivedi queue...",
-      "error": "Impossibile caricare o salva rivedi queue",
-      "empty": "Nessun records need rivedi"
+      "loading": "Caricamento coda di revisione...",
+      "error": "Impossibile caricare o salvare la coda di revisione.",
+      "empty": "Nessun record necessita di revisione."
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Acquisizione dati clinici",
-      "subtitle": "Inserisci de-identified clinical, ABG, ventilatore, target-range, treatment, e outcome data per reviewer-approved model datasets.",
-      "accessibilityLabel": "Clinical data capture screen",
+      "title": "Acquisizione di dati clinici",
+      "subtitle": "Inserisci dati clinici anonimi, ABG, ventilatore, intervallo target, trattamento ed esiti per i set di dati del modello approvati dal revisore.",
+      "accessibilityLabel": "Schermata di acquisizione dei dati clinici",
       "notices": {
-        "roleBlocked": "This account does not have permission a invia clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally e sync when connectivity returns."
+        "roleBlocked": "Questo account non dispone dell'autorizzazione per inviare candidati a set di dati clinici.",
+        "offline": "La modalità offline è attiva. Le acquisizioni strutturate verranno accodate localmente e sincronizzate al ripristino della connettività."
       },
       "summary": {
         "facility": "Struttura",
-        "facilityReady": "Struttura scope ready",
-        "facilityMissing": "Seleziona an active struttura before submitting.",
-        "required": "Obbligatorio fields",
-        "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Inseriscied fields",
-        "enteredProgress": "{{entered}}/{{total}} entered",
-        "sync": "Sync",
-        "online": "Online submission",
+        "facilityReady": "Ambito della struttura pronto",
+        "facilityMissing": "Seleziona una struttura attiva prima di inviare.",
+        "required": "Campi obbligatori",
+        "requiredProgress": "{{complete}}/{{total}} completato",
+        "entered": "Campi inseriti",
+        "enteredProgress": "{{entered}}/{{total}} inserito",
+        "sync": "Sincronizzazione",
+        "online": "Invio on-line",
         "offline": "In coda offline"
       },
       "progress": {
-        "label": "Dataset capture steps",
-        "stepCounter": "Step {{current}} of {{total}}",
-        "stepLabel": "Step {{step}}"
+        "label": "Passaggi di acquisizione del set di dati",
+        "stepCounter": "Passaggio {{current}} di {{total}}",
+        "stepLabel": "Passaggio {{step}}"
       },
       "fields": {
-        "required": "Obbligatorio per rivedi submission",
-        "optional": "Opzionale"
+        "required": "Obbligatorio per l'invio della recensione",
+        "optional": "Facoltativo"
       },
       "missing": {
-        "title": "Submission readiness",
-        "none": "All obbligatorio fields are complete."
+        "title": "Prontezza per la presentazione",
+        "none": "Tutti i campi obbligatori sono completi."
       },
       "actions": {
-        "submit": "Invia per revisione",
+        "submit": "Invia per la revisione",
         "next": "Avanti",
-        "previous": "Previous",
-        "reset": "Cancella form"
+        "previous": "Precedente",
+        "reset": "Forma chiara"
       },
       "status": {
-        "loadingDraft": "Caricamento saved dataset draft...",
-        "savingDraft": "Saving dataset draft...",
-        "draftSaved": "Dataset draft saved locally.",
-        "draftError": "Impossibile salvare local draft. Please keep this screen apri e try again",
-        "needsInput": "Complete obbligatorio fields e struttura scope before submitting.",
-        "ready": "Ready a invia per reviewer approval.",
-        "stepInvalid": "Please rivedi highlighted values before continuing.",
-        "reviewInvalid": "Please rivedi highlighted values before saving.",
-        "submitting": "Submitting dataset...",
-        "submitted": "Submitted per reviewer approval.",
-        "queued": "Submission is in coda. Your draft is still saved locally until backend salva succeeds.",
-        "error": "Impossibile salvare dataset. Your draft is still saved locally. Controlla la connessione e riprova"
+        "loadingDraft": "Caricamento della bozza del set di dati salvato...",
+        "savingDraft": "Salvataggio della bozza del set di dati...",
+        "draftSaved": "Bozza del set di dati salvata localmente.",
+        "draftError": "Impossibile salvare la bozza locale. Tieni aperta questa schermata e riprova.",
+        "needsInput": "Completa i campi obbligatori e l'ambito della struttura prima dell'invio.",
+        "ready": "Pronto per l'invio per l'approvazione del revisore.",
+        "stepInvalid": "Si prega di rivedere i valori evidenziati prima di continuare.",
+        "reviewInvalid": "Si prega di rivedere i valori evidenziati prima di salvare.",
+        "submitting": "Invio del set di dati...",
+        "submitted": "Inviato per l'approvazione del revisore.",
+        "queued": "L'invio è in coda. La tua bozza verrà comunque salvata localmente finché il salvataggio nel backend non avrà esito positivo.",
+        "error": "Impossibile salvare il set di dati. La tua bozza è ancora salvata localmente. Controlla la connessione e riprova."
       }
     },
     "assessment": {
-      "title": "Ammetti paziente",
-      "accessibilityLabel": "Ammetti paziente wizard screen",
-      "stepIndicator": "Step {{current}} of {{total}}",
+      "title": "Ricoverare il paziente",
+      "accessibilityLabel": "Schermata della procedura guidata per l'ammissione del paziente",
+      "stepIndicator": "Passaggio {{current}} di {{total}}",
       "summary": {
-        "title": "Session summary",
-        "accessibilityLabel": "Compact ammetti summary",
+        "title": "Riepilogo della sessione",
+        "accessibilityLabel": "Riepilogo compatto dell'ammissione",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Struttura",
-        "pathway": "Pathway",
+        "pathway": "Percorso",
         "reason": "Motivo",
         "condition": "Condizione",
         "spo2": "SpO₂",
@@ -1008,55 +1009,55 @@
         "weight": "Peso",
         "height": "Altezza",
         "gender": "Genere",
-        "comorbidities": "Comorbidities",
+        "comorbidities": "Comorbilità",
         "bloodPressure": "Pressione sanguigna",
         "ventilatorMode": "Modalità ventilatore",
         "peep": "PEEP",
         "tidalVolume": "Volume corrente",
-        "syncStatus": "Sync",
-        "empty": "Nessun data yet",
-        "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "syncStatus": "Sincronizzazione",
+        "empty": "Nessun dato ancora",
+        "expand": "Espandi riepilogo",
+        "collapse": "Comprimi riepilogo"
       },
       "steps": {
-        "patientProfile": "Profilo paziente",
-        "clinicalParams": "Clinical parameters",
-        "observations": "Opzionale observations",
-        "timeSeries": "Opzionale time series",
-        "review": "Rivedi",
-        "patientReason": "Paziente & motivo",
-        "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Salva & rivedi"
+        "patientProfile": "Profilo del paziente",
+        "clinicalParams": "Parametri clinici",
+        "observations": "Osservazioni facoltative",
+        "timeSeries": "Serie temporali facoltative",
+        "review": "Recensione",
+        "patientReason": "Paziente e ragione",
+        "oxygenAbgVentilator": "Ossigeno e ABG",
+        "saveReview": "Salva e rivedi"
       },
       "patientReason": {
-        "description": "Capture paziente pathway, Età, body metrics, e motivo per support.",
+        "description": "Cattura il percorso del paziente, l'età, i parametri corporei e il motivo del supporto.",
         "facilityId": "Struttura ID",
-        "facilityIdPlaceholder": "Inserisci struttura ID",
-        "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed o ward location",
-        "pathway": "Paziente pathway",
-        "pathwayPlaceholder": "Seleziona pathway",
-        "sexForSize": "Sex per size calculations",
-        "ageYears": "Età (years)",
+        "facilityIdPlaceholder": "Inserisci la struttura ID",
+        "bedNumber": "Letto",
+        "bedNumberPlaceholder": "Posizione del letto o del reparto di terapia intensiva",
+        "pathway": "Percorso del paziente",
+        "pathwayPlaceholder": "Seleziona il percorso",
+        "sexForSize": "Sesso per il calcolo delle dimensioni",
+        "ageYears": "Età (anni)",
         "weightKg": "Peso (kg)",
         "heightCm": "Altezza (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Motivo per support",
-        "reasonForSupportPlaceholder": "Brief admission motivo",
-        "reasonForSupportSearchPlaceholder": "Cerca o type motivo",
-        "permittedMissing": "Permitted missing values",
+        "reasonForSupport": "Motivo del sostegno",
+        "reasonForSupportPlaceholder": "Breve motivo di ammissione",
+        "reasonForSupportSearchPlaceholder": "Cerca o digita il motivo",
+        "permittedMissing": "Valori mancanti consentiti",
         "pathways": {
-          "neonate": "Neonate",
-          "infant": "Infant",
-          "child": "Child",
-          "adolescent": "Adolescent",
-          "adult": "Adult",
-          "obstetric": "Obstetric/post-partum",
-          "burns": "Burns",
+          "neonate": "Neonato",
+          "infant": "Infante",
+          "child": "Bambino",
+          "adolescent": "Adolescente",
+          "adult": "Adulto",
+          "obstetric": "Ostetrico/post-partum",
+          "burns": "Brucia",
           "trauma": "Trauma",
-          "periOperative": "Peri-operative",
-          "medical": "Medical",
-          "surgical": "Surgical",
+          "periOperative": "Perioperatorio",
+          "medical": "Medico",
+          "surgical": "Chirurgico",
           "unknown": "Sconosciuto",
           "other": "Altro"
         },
@@ -1066,35 +1067,35 @@
           "unknown": "Sconosciuto"
         },
         "reasonOptions": {
-          "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
-          "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS o severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis con respiratory failure",
-          "postOperativeVentilatorySupport": "Post-operative ventilatory support",
-          "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
-          "airwayProtection": "Airway protection",
-          "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD o asthma exacerbation",
-          "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn o inhalation injury"
+          "acuteHypoxemicRespiratoryFailure": "Insufficienza respiratoria ipossiemica acuta",
+          "acuteHypercapnicRespiratoryFailure": "Insufficienza respiratoria ipercapnica acuta",
+          "ardsOrSeverePneumonia": "ARDS o polmonite grave",
+          "sepsisWithRespiratoryFailure": "Sepsi con insufficienza respiratoria",
+          "postOperativeVentilatorySupport": "Supporto ventilatorio postoperatorio",
+          "traumaRelatedRespiratoryFailure": "Insufficienza respiratoria correlata al trauma",
+          "airwayProtection": "Protezione delle vie aeree",
+          "neuromuscularWeakness": "Debolezza neuromuscolare",
+          "copdOrAsthmaExacerbation": "COPD o esacerbazione dell'asma",
+          "neonatalRespiratoryDistress": "Distress respiratorio neonatale",
+          "burnOrInhalationInjury": "Ustioni o lesioni da inalazione"
         },
         "permittedMissingFields": {
-          "weight": "Peso o reference peso unavailable",
-          "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
-          "tidalVolume": "Volume corrente unavailable",
-          "peep": "PEEP unavailable"
+          "weight": "Peso o peso di riferimento non disponibile",
+          "spo2": "SpO2 non disponibile",
+          "fio2": "FiO2 non disponibile",
+          "pao2": "PaO2 non disponibile",
+          "tidalVolume": "Volume corrente non disponibile",
+          "peep": "PEEP non disponibile"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, e uncertain values. Ventilatore impostazioni are suggested on avanti step da dataset.",
-        "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Seleziona oxygen support",
-        "oxygenSupportHint": "Choose support paziente is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Seleziona date e time",
-        "timeHint": "Use local date e time per observation.",
+        "description": "Registrare il supporto di ossigeno corrente, il tempo di osservazione, l'ossigenazione, i segni vitali, i valori ABG disponibili e i valori incerti. Le impostazioni del ventilatore vengono suggerite nel passaggio successivo del set di dati.",
+        "oxygenSupportType": "Tipo di supporto dell'ossigeno",
+        "oxygenSupportPlaceholder": "Selezionare il supporto dell'ossigeno",
+        "oxygenSupportHint": "Scegliere il supporto che il paziente riceve quando vengono misurati questi valori.",
+        "measuredAt": "Ossigeno misurato a",
+        "timePlaceholder": "Seleziona data e ora",
+        "timeHint": "Utilizzare la data e l'ora locali per l'osservazione.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
         "respiratoryRate": "Frequenza respiratoria",
@@ -1102,553 +1103,553 @@
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
-        "hco3": "HCO3 (mmol/L)",
-        "baseExcess": "Base excess",
-        "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
-        "spo2AtSample": "SpO2 at ABG sample",
-        "deviceId": "Device ID",
-        "ventilatorType": "Ventilatore type",
-        "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields con commas.",
-        "uncertaintyReason": "Uncertainty motivo",
+        "hco3": "HCO3 (mmol/l)",
+        "baseExcess": "Eccesso di base",
+        "lactate": "Lattato (mmol/L)",
+        "fio2AtSample": "FiO2 al campione ABG",
+        "spo2AtSample": "SpO2 al campione ABG",
+        "deviceId": "Dispositivo ID",
+        "ventilatorType": "Tipo di ventilatore",
+        "uncertaintyFields": "Campi incerti",
+        "uncertaintyFieldsPlaceholder": "ad es. FiO2, PaO2",
+        "uncertaintyHint": "Separa più campi con virgole.",
+        "uncertaintyReason": "Motivo di incertezza",
         "oxygenSupportOptions": {
-          "roomAir": "Room air",
-          "nasalCannula": "Nasal cannula",
-          "faceMask": "Face mask",
-          "nonRebreatherMask": "Nessunn-rebreather mask",
-          "highFlowNasalCannula": "Alto-flow nasal cannula",
+          "roomAir": "Aria della stanza",
+          "nasalCannula": "Cannula nasale",
+          "faceMask": "Maschera per il viso",
+          "nonRebreatherMask": "Maschera non rebrether",
+          "highFlowNasalCannula": "Cannula nasale ad alto flusso",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
-          "invasiveVentilation": "Invasive ventilation",
+          "invasiveVentilation": "Ventilazione invasiva",
           "other": "Altro"
         }
       },
       "saveReview": {
-        "description": "Rivedi e modifica dataset-suggested ventilatore impostazioni, backend readiness, clinician confirmation, override motivo when needed, rivedi status, e sync state.",
-        "readiness": "Salva readiness",
-        "recommendationTitle": "Dataset raccomandazione",
-        "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilatore impostazioni",
-        "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Seleziona mode",
+        "description": "Esaminare e modificare le impostazioni del ventilatore suggerite dal set di dati, la disponibilità del backend, la conferma del medico, sovrascrivere il motivo quando necessario, rivedere lo stato e lo stato di sincronizzazione.",
+        "readiness": "Salva la prontezza",
+        "recommendationTitle": "Raccomandazione sul set di dati",
+        "recommendationConfidence": "Fiducia: {{confidence}}",
+        "suggestedSettingsTitle": "Impostazioni suggerite del ventilatore",
+        "suggestedSettingsHint": "Precompilato dal set di dati utilizzando i dati anagrafici del paziente e i valori attuali di ossigeno e ABG. Modifica solo quando la decisione sul posto letto è diversa.",
+        "modePlaceholder": "Seleziona la modalità",
         "ventilatorMode": "Modalità ventilatore",
         "tidalVolumeMl": "Volume corrente (mL)",
-        "ventilatorFio2": "Ventilatore FiO2 (0-1)",
+        "ventilatorFio2": "FiO2 del ventilatore (0-1)",
         "peep": "PEEP (cmH2O)",
-        "respiratoryRateSet": "Set respiratory rate",
-        "ieRatio": "I:E ratio",
+        "respiratoryRateSet": "Imposta la frequenza respiratoria",
+        "ieRatio": "rapporto I:E",
         "ventilatorModeOptions": {
-          "acv": "Assist-control ventilation (ACV)",
-          "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
-          "psv": "Pressure support ventilation (PSV)",
+          "acv": "Ventilazione assistita (ACV)",
+          "simv": "Ventilazione obbligatoria intermittente sincronizzata (SIMV)",
+          "psv": "Ventilazione con supporto di pressione (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
           "other": "Altro"
         },
-        "recommendationEmpty": "Inserisci clinical values e tap Avanti a generate a dataset raccomandazione.",
-        "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable a generate clinical recommendations right now. You can still rivedi e salva admission.",
-        "recommendationNeedsClinicalInputs": "Raccomandazione needs clinical motivo, SpO2, respiratory rate, e heart rate.",
-        "ready": "Ready a salva",
-        "needsCorrection": "Correction o override obbligatorio",
-        "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready per salva rivedi.",
-        "overrideReason": "Override motivo",
-        "reviewNote": "Rivedi note"
+        "recommendationEmpty": "Immettere i valori clinici e toccare Avanti per generare una raccomandazione sul set di dati.",
+        "recommendationGenerating": "Generazione di raccomandazioni cliniche...",
+        "recommendationError": "Impossibile generare raccomandazioni cliniche al momento. Puoi ancora rivedere e salvare l'ammissione.",
+        "recommendationNeedsClinicalInputs": "La raccomandazione richiede motivo clinico, SpO2, frequenza respiratoria e frequenza cardiaca.",
+        "ready": "Pronto per salvare",
+        "needsCorrection": "È necessaria una correzione o un override",
+        "syncStatus": "Stato della sincronizzazione: {{status}}",
+        "clinicianConfirmed": "Il medico conferma che questo record di ammissione è pronto per il salvataggio della revisione.",
+        "overrideReason": "Ignora motivo",
+        "reviewNote": "Nota di revisione"
       },
       "validation": {
-        "title": "Rivedi these fields"
+        "title": "Esamina questi campi"
       },
       "conditions": {
         "ARDS": "ARDS",
-        "asthma": "Asthma",
+        "asthma": "Asma",
         "COPD": "COPD",
-        "heartFailure": "Heart failure",
-        "pneumonia": "Pneumonia",
-        "sepsis": "Sepsis",
+        "heartFailure": "Insufficienza cardiaca",
+        "pneumonia": "Polmonite",
+        "sepsis": "Sepsi",
         "trauma": "Trauma",
         "other": "Altro"
       },
       "patientProfile": {
         "condition": "Condizione",
         "conditionPlaceholder": "Seleziona condizione",
-        "conditionHint": "Primary respiratory condizione (obbligatorio)",
-        "age": "Età (years)",
-        "agePlaceholder": "Inserisci Età",
-        "ageHint": "Paziente Età in years",
+        "conditionHint": "Condizione respiratoria primaria (richiesto)",
+        "age": "Età (anni)",
+        "agePlaceholder": "Inserisci l'età",
+        "ageHint": "Età del paziente in anni",
         "weight": "Peso (kg)",
-        "weightPlaceholder": "Inserisci peso",
-        "weightHint": "Patient weight in kg",
+        "weightPlaceholder": "Inserisci il peso",
+        "weightHint": "Peso del paziente in kg",
         "height": "Altezza (cm)",
-        "heightPlaceholder": "Inserisci altezza",
-        "heightHint": "Patient height in cm",
+        "heightPlaceholder": "Inserisci l'altezza",
+        "heightHint": "Altezza del paziente in cm",
         "gender": "Genere",
-        "genderPlaceholder": "Seleziona genere",
-        "genderHint": "Paziente genere",
+        "genderPlaceholder": "Seleziona il sesso",
+        "genderHint": "Sesso del paziente",
         "genderMale": "Maschio",
         "genderFemale": "Femmina",
         "genderOther": "Altro",
-        "comorbidities": "Comorbidities",
-        "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated elenco"
+        "comorbidities": "Comorbilità",
+        "comorbiditiesPlaceholder": "ad es. ipertensione, diabete",
+        "comorbiditiesHint": "Elenco separato da virgole"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
-        "spo2Placeholder": "Enter SpO₂",
-        "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Nessunrmal range: 95–100%",
+        "spo2Placeholder": "Immettere SpO₂",
+        "spo2Hint": "Saturazione di ossigeno (%)",
+        "spo2NormalRange": "Intervallo normale: 95–100%",
         "pao2": "PaO₂ (opzionale)",
-        "pao2Placeholder": "Enter PaO₂",
-        "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Nessunrmal range: 80–100 mmHg",
+        "pao2Placeholder": "Immettere PaO₂",
+        "pao2Hint": "Ossigeno arterioso (mmHg)",
+        "pao2NormalRange": "Intervallo normale: 80–100 mmHg",
         "paco2": "PaCO₂ (opzionale)",
-        "paco2Placeholder": "Enter PaCO₂",
-        "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Nessunrmal range: 35–45 mmHg",
-        "ph": "pH (opzionale)",
-        "phPlaceholder": "Enter pH",
-        "phHint": "Arterial pH",
-        "phNormalRange": "Nessunrmal range: 7.35–7.45",
+        "paco2Placeholder": "Inserisci PaCO₂",
+        "paco2Hint": "CO₂ arteriosa (mmHg)",
+        "paco2NormalRange": "Intervallo normale: 35–45 mmHg",
+        "ph": "pH (facoltativo)",
+        "phPlaceholder": "Inserisci pH",
+        "phHint": "Arterioso pH",
+        "phNormalRange": "Intervallo normale: 7,35–7,45",
         "respiratoryRate": "Frequenza respiratoria",
         "respiratoryRatePlaceholder": "Inserisci RR",
-        "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Nessunrmal range: 12–20 breaths/min",
+        "respiratoryRateHint": "Respiri al minuto",
+        "respiratoryRateNormalRange": "Intervallo normale: 12–20 respiri/min",
         "heartRate": "Frequenza cardiaca",
         "heartRatePlaceholder": "Inserisci HR",
-        "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Nessunrmal range: 60–100 bpm",
-        "bloodPressure": "Pressione sanguigna (opzionale)",
-        "bloodPressurePlaceholder": "e.g. 120/80",
-        "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Nessunrmal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Nessunrmal range: {{range}}"
+        "heartRateHint": "Battiti al minuto",
+        "heartRateNormalRange": "Intervallo normale: 60–100 bpm",
+        "bloodPressure": "Pressione sanguigna (facoltativo)",
+        "bloodPressurePlaceholder": "ad es. 120/80",
+        "bloodPressureHint": "Sistolica/diastolica mmHg",
+        "bloodPressureNormalRange": "Intervallo normale: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Intervallo normale: {{range}}"
       },
       "observations": {
-        "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single nome–value pair. Opzionale; you can skip this step.",
-        "add": "Aggiungi observation",
+        "title": "Ulteriori osservazioni",
+        "description": "Registrare eventuali dati clinici aggiuntivi non trattati sopra (ad esempio laboratori, imaging, farmaci, punteggi di comorbidità). Ogni osservazione è una singola coppia nome-valore. Opzionale; puoi saltare questo passaggio.",
+        "add": "Aggiungi osservazione",
         "name": "Nome",
-        "value": "Value",
-        "unit": "Unit",
-        "optional": "Opzionale"
+        "value": "Valore",
+        "unit": "Unità",
+        "optional": "Facoltativo"
       },
       "timeSeries": {
-        "title": "Time series (vital signs over time)",
-        "description": "Track vital signs o altro metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used per trend analysis e monitoraggio after you start session. Opzionale; you can aggiungi points later on monitoraggio screen.",
-        "add": "Aggiungi time series point",
+        "title": "Serie temporali (segni vitali nel tempo)",
+        "description": "Monitora i segni vitali o altre metriche in più punti temporali (ad esempio SpO₂, RR, HR a 0 ore, 1 ora, 2 ore). Utilizzato per l'analisi e il monitoraggio delle tendenze dopo l'avvio della sessione. Opzionale; è possibile aggiungere punti successivamente nella schermata di monitoraggio.",
+        "add": "Aggiungi punto della serie temporale",
         "name": "Nome",
-        "value": "Value",
-        "optional": "Opzionale"
+        "value": "Valore",
+        "optional": "Facoltativo"
       },
       "recommendationSource": {
-        "label": "Raccomandazione source",
-        "local": "Local",
-        "localDescription": "Built-in rules. Offline, nessun API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet obbligatorio; uses built-in when unavailable.",
-        "modelLabel": "Model",
-        "modelHint": "Seleziona AI model (default used if not set)",
-        "providerLabel": "Provider",
-        "gpt4oMini": "GPT-4o mini (default)",
+        "label": "Fonte della raccomandazione",
+        "local": "Locale",
+        "localDescription": "Regole integrate. Offline, nessuna chiave API.",
+        "onlineAi": "In linea AI",
+        "onlineAiDescription": "Internet richiesto; utilizza built-in quando non disponibile.",
+        "modelLabel": "Modello",
+        "modelHint": "Seleziona il modello AI (utilizzato di default se non impostato)",
+        "providerLabel": "Fornitore",
+        "gpt4oMini": "GPT-4o mini (predefinito)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons per raccomandazione",
-        "hints": "AI hints"
+        "title": "AI motivi del consiglio",
+        "hints": "AI suggerimenti"
       },
       "missingTests": {
-        "title": "Additional tests suggested",
-        "abgPanel": "ABG panel would improve confidence",
-        "abgHint": "Consider ordering arterial blood gas if available"
+        "title": "Si suggeriscono ulteriori test",
+        "abgPanel": "Il pannello ABG migliorerebbe la fiducia",
+        "abgHint": "Considerare la possibilità di ordinare un'emogasanalisi arteriosa, se disponibile"
       },
       "actions": {
         "back": "Indietro",
         "next": "Avanti",
-        "generate": "Generate raccomandazione",
-        "generateHint": "Create raccomandazione da current inputs",
-        "saveAdmission": "Salva admission"
+        "generate": "Genera raccomandazione",
+        "generateHint": "Crea consigli dagli input attuali",
+        "saveAdmission": "Salva l'ammissione"
       },
       "states": {
-        "loading": "Caricamento ammetti form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "Impossibile caricare admission form. Controlla la connessione e riprova",
+        "loading": "Caricamento modulo di ammissione...",
+        "errorTitle": "Modulo di ammissione non disponibile",
+        "error": "Impossibile caricare il modulo di ammissione. Controlla la connessione e riprova.",
         "retryLoad": "Riprova",
-        "offline": "Ammetti works offline",
-        "empty": "Inserisci paziente data a begin"
+        "offline": "Ammettere funziona offline",
+        "empty": "Inserisci i dati del paziente per iniziare"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilatore Impostazioni",
-      "subtitle": "Seleziona an active admission, inserisci latest ABG result e/o ventilatore impostazioni, then salva them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay in coda until connectivity returns.",
+      "title": "Aggiorna ABG e le impostazioni del ventilatore",
+      "subtitle": "Selezionare un ricovero attivo, inserire l'ultimo risultato ABG e/o le impostazioni del ventilatore, quindi salvarli come nuovi record con timestamp.",
+      "accessibilityLabel": "Aggiorna ABG e la schermata delle impostazioni del ventilatore",
+      "offline": "Modalità offline: questo aggiornamento rimarrà in coda fino al ripristino della connettività.",
       "sections": {
-        "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New ventilatore impostazioni",
+        "admission": "Ammissione attiva",
+        "latest": "Ultimi valori",
+        "abg": "Nuovo risultato ABG",
+        "ventilator": "Nuove impostazioni del ventilatore",
         "missing": "Dati mancanti",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "advisory": "Controlli consultivi",
+        "history": "Storia"
       },
       "admission": {
-        "label": "Seleziona active admission",
-        "empty": "Nessun admitted patients are available per tracciamento yet"
+        "label": "Seleziona l'ingresso attivo",
+        "empty": "Nessun paziente ricoverato è ancora disponibile per il monitoraggio."
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest ventilatore"
+        "abg": "Ultimi ABG",
+        "ventilator": "Ultimo ventilatore"
       },
       "ventilator": {
-        "modePlaceholder": "Seleziona ventilatore mode",
-        "modeSearchPlaceholder": "Cerca ventilatore modes"
+        "modePlaceholder": "Selezionare la modalità ventilatore",
+        "modeSearchPlaceholder": "Cerca le modalità del ventilatore"
       },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "Ancora nessuna ABG o cronologia del ventilatore.",
         "abg": "ABG",
         "ventilator": "Ventilatore",
-        "version": "Version {{version}} - {{dateTime}}"
+        "version": "Versione {{version}} - {{dateTime}}"
       },
       "conflict": {
-        "serverRecord": "Latest saved record: {{dateTime}}"
+        "serverRecord": "Ultimo record salvato: {{dateTime}}"
       },
       "actions": {
-        "save": "Salva new values",
-        "saving": "Validating & saving"
+        "save": "Salva nuovi valori",
+        "saving": "Convalida e salvataggio"
       }
     },
     "recommendation": {
       "title": "Impostazioni consigliate",
-      "accessibilityLabel": "Raccomandazione screen",
+      "accessibilityLabel": "Schermata dei suggerimenti",
       "responseSource": {
-        "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "title": "Fonte della risposta",
+        "online": "In linea",
+        "offline": "Non in linea"
       },
       "sections": {
-        "settings": "Recommended impostazioni",
-        "confidence": "Confidence & why",
-        "monitoring": "Monitoraggio points",
-        "risks": "Risks e complications",
-        "matchedCases": "Matched cases",
-        "evidence": "Evidence & provenance",
-        "warning": "Dataset notice",
-        "decisionSupport": "Decision-support checks"
+        "settings": "Impostazioni consigliate",
+        "confidence": "Fiducia e perché",
+        "monitoring": "Punti di monitoraggio",
+        "risks": "Rischi e complicazioni",
+        "matchedCases": "Casi abbinati",
+        "evidence": "Prove e provenienza",
+        "warning": "Avviso sul set di dati",
+        "decisionSupport": "Verifiche a supporto delle decisioni"
       },
       "settings": {
-        "mode": "Mode",
+        "mode": "Modalità",
         "tidalVolume": "Volume corrente",
         "respiratoryRate": "Frequenza respiratoria",
         "fio2": "FiO₂",
         "peep": "PEEP",
-        "ieRatio": "I:E ratio"
+        "ieRatio": "rapporto I:E"
       },
       "confidence": {
         "high": "Alto",
         "medium": "Medio",
         "low": "Basso",
-        "missingInputs": "Missing inputs that could improve confidence"
+        "missingInputs": "Mancano input che potrebbero migliorare la fiducia"
       },
       "decisionSupport": {
         "pending": "In sospeso",
-        "referenceWeight": "Reference peso",
+        "referenceWeight": "Peso di riferimento",
         "vtPerKg": "VT/kg",
-        "pfRatio": "P/F ratio",
-        "sfRatio": "S/F ratio",
-        "drivingPressure": "Driving pressure",
-        "reviewStatus": "Rivedi status",
-        "syncStatus": "Sync status",
+        "pfRatio": "rapporto P/F",
+        "sfRatio": "rapporto S/F",
+        "drivingPressure": "Pressione di guida",
+        "reviewStatus": "Controlla lo stato",
+        "syncStatus": "Stato della sincronizzazione",
         "missingData": "Dati mancanti",
         "referenceStatus": {
-          "frontend_preview_unconfirmed": "Unconfirmed preview",
-          "backend_verified": "Backend verified",
-          "missing_verified_records": "Missing verified records",
-          "development_fallback_unconfirmed": "Development fallback"
+          "frontend_preview_unconfirmed": "Anteprima non confermata",
+          "backend_verified": "Backend verificato",
+          "missing_verified_records": "Record verificati mancanti",
+          "development_fallback_unconfirmed": "Ripiego dello sviluppo"
         },
         "review": {
-          "pending_clinician_review": "In sospeso clinician rivedi",
-          "backend_confirmed": "Backend confirmed"
+          "pending_clinician_review": "In attesa di revisione clinica",
+          "backend_confirmed": "Backend confermato"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "In sospeso backend confirmation",
+          "local_preview_pending_backend_confirmation": "In attesa di conferma del backend",
           "synced": "Sincronizzato",
           "queued": "In coda",
-          "duplicate": "Duplicate"
+          "duplicate": "Duplicato"
         }
       },
       "aiReasons": {
-        "title": "AI reasons per raccomandazione",
-        "hints": "AI hint codes"
+        "title": "AI motivi del consiglio",
+        "hints": "AI codici suggerimento"
       },
       "actions": {
-        "startMonitoring": "Start monitoraggio",
-        "startMonitoringHint": "Begin tracciamento vital signs e time series",
-        "backToAssessment": "Indietro a Ammetti",
-        "startNewAssessment": "Start new ammetti",
-        "editAssessmentTitle": "Modifica ammetti record",
-        "editAssessmentHint": "Apri ammetti form con current session data pre-filled",
-        "requestAiRecommendation": "Request AI raccomandazione",
-        "requestAiHint": "Get opzionale AI hints per this case (requires connectivity)",
-        "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental e not clinically validated",
-        "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This raccomandazione is da local dataset.",
-        "exportSummary": "Export summary",
-        "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Rimuovi identifiers before export"
+        "startMonitoring": "Inizia il monitoraggio",
+        "startMonitoringHint": "Inizia a monitorare i segni vitali e le serie temporali",
+        "backToAssessment": "Torniamo ad Ammettere",
+        "startNewAssessment": "Inizia una nuova ammissione",
+        "editAssessmentTitle": "Modifica il record di ammissione",
+        "editAssessmentHint": "Apri il modulo di ammissione con i dati della sessione corrente precompilati",
+        "requestAiRecommendation": "Richiedi il consiglio AI",
+        "requestAiHint": "Ottieni suggerimenti AI facoltativi per questo caso (richiede connettività)",
+        "connectivityRequired": "Richiede una connessione Internet",
+        "supplementalDisclaimer": "L'output AI è supplementare e non validato clinicamente",
+        "aiUnavailableFallback": "AI non disponibile: utilizzo dei consigli locali",
+        "fallbackMessage": "Online AI non è stato utilizzato. Questa raccomandazione proviene dal set di dati locale.",
+        "exportSummary": "Riepilogo dell'esportazione",
+        "exportSummaryHint": "Scarica il riepilogo della sessione come testo",
+        "anonymizeBeforeExport": "Rimuovi gli identificatori prima dell'esportazione"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local raccomandazione.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
-        "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "userChoseLocal": "Hai scelto la raccomandazione locale.",
+        "notComplex": "Questo caso non necessitava di AI online.",
+        "offline": "Sei offline.",
+        "noApiKey": "La chiave AI API non è impostata.",
+        "error": "Online AI non riuscito. Utilizzando invece il set di dati locale."
       },
-      "fallbackBanner": "AI could not be reached. Mostraing raccomandazione da local guide.",
+      "fallbackBanner": "Impossibile raggiungere AI. Mostra la raccomandazione della guida locale.",
       "states": {
-        "loading": "Caricamento raccomandazione…",
-        "error": "Impossibile caricare raccomandazione",
-        "empty": "Nessun raccomandazione available. Complete Ammetti first"
+        "loading": "Caricamento consiglio…",
+        "error": "Impossibile caricare il consiglio",
+        "empty": "Nessuna raccomandazione disponibile. Completa prima Ammetti."
       },
       "intendedUse": {
-        "warningLabel": "Nessunt clinically validated",
-        "validationLabel": "Validazione requirement"
+        "warningLabel": "Non validato clinicamente",
+        "validationLabel": "Requisito di convalida"
       },
       "provenance": {
-        "reviewStatus": "Evidence rivedi status",
-        "sourceUrl": "Apri source",
+        "reviewStatus": "Stato di revisione delle prove",
+        "sourceUrl": "Fonte aperta",
         "doi": "DOI"
       },
       "reviewStatus": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "In sospeso clinician validazione",
-        "validated": "Validated"
+        "unvalidated": "Non convalidato (prototipo)",
+        "pendingClinicianValidation": "In attesa di convalida clinica",
+        "validated": "Convalidato"
       }
     },
     "monitoring": {
       "title": "Monitoraggio",
-      "accessibilityLabel": "Monitoraggio screen",
-      "decisionSupportOnly": "per decision support only. Nessunt a substitute per clinical judgment.",
+      "accessibilityLabel": "Schermata di monitoraggio",
+      "decisionSupportOnly": "Solo per supporto decisionale. Non sostituisce il giudizio clinico.",
       "sections": {
-        "quickEntry": "Quick entry",
-        "trend": "Trend",
-        "alerts": "Alerts"
+        "quickEntry": "Ingresso rapido",
+        "trend": "Tendenza",
+        "alerts": "Avvisi"
       },
       "quickEntry": {
-        "addPoint": "Aggiungi point",
-        "addPointHint": "Aggiungi vitals o labs data point",
-        "namePlaceholder": "Nome (e.g. SpO₂, RR)",
-        "valuePlaceholder": "Value",
-        "unitPlaceholder": "Unit"
+        "addPoint": "Aggiungi punto",
+        "addPointHint": "Aggiungi punti dati vitali o di laboratorio",
+        "namePlaceholder": "Nome (ad es. SpO₂, RR)",
+        "valuePlaceholder": "Valore",
+        "unitPlaceholder": "Unità"
       },
       "trend": {
-        "insufficientData": "Insufficient data",
-        "directionUp": "Trending up",
-        "directionDown": "Trending down",
-        "directionFlat": "Stable",
+        "insufficientData": "Dati insufficienti",
+        "directionUp": "Tendenza in alto",
+        "directionDown": "Tendenza al ribasso",
+        "directionFlat": "Stabile",
         "directionUnknown": "Sconosciuto"
       },
       "alerts": {
         "severityNormal": "Normale",
-        "severityWarning": "Avviso",
+        "severityWarning": "Avvertimento",
         "severityCritical": "Critico",
         "severityUnknown": "Sconosciuto",
-        "why": "Why",
-        "whyCriticalLow": "Value below critico basso threshold",
-        "whyWarningLow": "Value below avviso basso threshold",
-        "whyCriticalHigh": "Value above critico alto threshold",
-        "whyWarningHigh": "Value above avviso alto threshold",
-        "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continua monitoraggio",
-        "suggestedActionWarning": "Rivedi e consider intervention",
-        "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value e re-inserisci if needed",
-        "empty": "Nessun alerts"
+        "why": "Perché",
+        "whyCriticalLow": "Valore inferiore alla soglia minima critica",
+        "whyWarningLow": "Valore inferiore alla soglia di avviso basso",
+        "whyCriticalHigh": "Valore superiore alla soglia critica alta",
+        "whyWarningHigh": "Valore superiore alla soglia di avviso alta",
+        "suggestedAction": "Azione suggerita",
+        "suggestedActionNormal": "Continua il monitoraggio",
+        "suggestedActionWarning": "Rivedere e considerare l'intervento",
+        "suggestedActionCritical": "Indirizzo immediatamente",
+        "suggestedActionUnknown": "Verificare il valore e reinserirlo se necessario",
+        "empty": "Nessun avviso"
       },
       "actions": {
-        "backToRecommendation": "Indietro a raccomandazione"
+        "backToRecommendation": "Torniamo alla raccomandazione"
       },
       "states": {
         "loading": "Caricamento…",
-        "error": "Impossibile caricare monitoraggio",
-        "empty": "Aggiungi vitals o labs points a see trends e alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "error": "Impossibile caricare il monitoraggio",
+        "empty": "Aggiungi punti vitali o di laboratorio per visualizzare tendenze e avvisi.",
+        "offline": "Sei offline. I dati vengono salvati localmente."
       }
     },
     "tracking": {
-      "title": "Tracciamento",
-      "subtitle": "Active admitted patients e backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracciamento screen",
-      "activePatients": "{{count}} active patients",
-      "empty": "Nessun admitted patients are available per tracciamento yet",
-      "emptyHint": "Ammetti a paziente first a begin tracciamento.",
-      "admittedBanner": "Admission saved. This paziente is admitted e available per tracciamento.",
-      "localDraft": "Draft data exists on this device. Backend rivedi, sync, e conflitto status appears after salva o sync.",
+      "title": "Monitoraggio",
+      "subtitle": "Pazienti ammessi attivi e stato clinico confermato dal backend.",
+      "accessibilityLabel": "Schermata di monitoraggio clinico",
+      "activePatients": "{{count}} pazienti attivi",
+      "empty": "Nessun paziente ricoverato è ancora disponibile per il monitoraggio.",
+      "emptyHint": "Ricoverare prima un paziente per iniziare il monitoraggio.",
+      "admittedBanner": "Ingresso salvato. Questo paziente è ricoverato e disponibile per il monitoraggio.",
+      "localDraft": "Su questo dispositivo sono presenti dati bozza. La revisione del backend, la sincronizzazione e lo stato dei conflitti vengono visualizzati dopo il salvataggio o la sincronizzazione.",
       "search": {
-        "placeholder": "Cerca by paziente code, ID, nome, o hospital number",
-        "accessibilityLabel": "Cerca tracciamento patients",
-        "empty": "Nessun matching patients found",
-        "emptyHint": "Try a paziente code, paziente ID, nome, hospital number, bed, o pathway."
+        "placeholder": "Cerca per codice paziente, ID, nome o numero ospedale",
+        "accessibilityLabel": "Cerca nel monitoraggio dei pazienti",
+        "empty": "Nessun paziente corrispondente trovato.",
+        "emptyHint": "Prova un codice paziente, paziente ID, nome, numero dell'ospedale, letto o percorso."
       },
       "activeFacility": {
-        "none": "Nessun active struttura selected"
+        "none": "Nessuna struttura attiva selezionata"
       },
       "actions": {
         "refresh": "Aggiorna",
-        "refreshHint": "Reload active tracciamento records",
-        "admitFirst": "Ammetti paziente",
-        "viewDetails": "Details",
-        "viewDetailsHint": "Visualizza tracciamento detail e timeline",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Chiudi tracciamento detail"
+        "refreshHint": "Ricarica i record di tracciabilità attivi",
+        "admitFirst": "Ricoverare il paziente",
+        "viewDetails": "Dettagli",
+        "viewDetailsHint": "Visualizza i dettagli e la sequenza temporale del monitoraggio",
+        "updateValues": "Aggiorna valori",
+        "updateValuesHint": "Apri ABG e il modulo di aggiornamento del ventilatore per questo paziente",
+        "closeDetailsHint": "Chiudi i dettagli del monitoraggio"
       },
       "patient": {
-        "unknown": "Paziente not labelled",
-        "bed": "Bed {{bed}}",
-        "bedMissing": "Bed not recorded",
-        "admitted": "Admitted {{dateTime}}",
+        "unknown": "Paziente non etichettato",
+        "bed": "Letto {{bed}}",
+        "bedMissing": "Letto non registrato",
+        "admitted": "Ammesso {{dateTime}}",
         "missingData": "Dati mancanti: {{fields}}"
       },
       "detail": {
-        "title": "Tracciamento detail",
-        "noTimeline": "Nessun timeline entries returned"
+        "title": "Dettagli di monitoraggio",
+        "noTimeline": "Nessuna voce della sequenza temporale restituita."
       },
       "states": {
-        "loading": "Caricamento patients per tracciamento...",
-        "loadingDetail": "Caricamento tracciamento detail...",
-        "error": "Impossibile caricare patients per tracciamento. Controlla la connessione e riprova",
-        "detailError": "Impossibile caricare tracciamento details per this paziente. Please try again"
+        "loading": "Caricamento dei pazienti per il monitoraggio...",
+        "loadingDetail": "Caricamento dei dettagli di monitoraggio...",
+        "error": "Impossibile caricare i pazienti per il monitoraggio. Controlla la connessione e riprova.",
+        "detailError": "Impossibile caricare i dettagli di tracciamento per questo paziente. Per favore riprova."
       }
     },
     "history": {
-      "title": "Tracciamento",
-      "accessibilityLabel": "Clinical tracciamento screen",
-      "empty": "Nessun active admitted patients per this struttura",
-      "corruptRecovery": "Session history was reset due a a storage issue. You can start new sessions.",
+      "title": "Monitoraggio",
+      "accessibilityLabel": "Schermata di monitoraggio clinico",
+      "empty": "Nessun paziente ricoverato attivo per questa struttura.",
+      "corruptRecovery": "La cronologia delle sessioni è stata reimpostata a causa di un problema di archiviazione. Puoi iniziare nuove sessioni.",
       "actions": {
-        "resume": "Resume",
-        "resumeHint": "Continua this session",
-        "viewDetails": "Visualizza details",
-        "viewDetailsHint": "Visualizza session summary",
+        "resume": "Riprendi",
+        "resumeHint": "Continua questa sessione",
+        "viewDetails": "Visualizza i dettagli",
+        "viewDetailsHint": "Visualizza il riepilogo della sessione",
         "delete": "Elimina",
-        "deleteHint": "Rimuovi da history"
+        "deleteHint": "Rimuovi dalla cronologia"
       },
       "deleteConfirm": {
-        "title": "Elimina session?",
-        "message": "This session will be removed da history. This cannot be undone.",
+        "title": "Eliminare la sessione?",
+        "message": "Questa sessione verrà rimossa dalla cronologia. Questa operazione non può essere annullata.",
         "confirm": "Elimina",
         "cancel": "Annulla"
       },
       "session": {
         "dateTime": "{{dateTime}}",
         "condition": "Condizione: {{condition}}",
-        "tier": "Tier: {{tier}}",
-        "summary": "Summary"
+        "tier": "Livello: {{tier}}",
+        "summary": "Sommario"
       },
       "states": {
-        "loading": "Caricamento history…",
-        "error": "Impossibile caricare session history"
+        "loading": "Caricamento cronologia…",
+        "error": "Impossibile caricare la cronologia delle sessioni"
       }
     },
     "caseDetail": {
-      "title": "Case detail",
-      "accessibilityLabel": "Case detail screen",
-      "summary": "Case summary",
-      "patientProfile": "Profilo paziente",
-      "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilatore impostazioni",
-      "outcomes": "Outcomes",
-      "evidence": "Evidence",
-      "reviewStatus": "Rivedi status",
-      "intendedUseWarning": "This is a dataset case per reference only. Nessunt per direct clinical use.",
-      "datasetCaseFraming": "Dataset case (reference only)",
-      "prototypeFraming": "Prototype — not clinically validated",
-      "notFound": "Case not found in dataset.",
-      "missingCaseId": "Nessun case selected",
+      "title": "Particolare del caso",
+      "accessibilityLabel": "Schermata dei dettagli del caso",
+      "summary": "Riepilogo del caso",
+      "patientProfile": "Profilo del paziente",
+      "clinicalParameters": "Parametri clinici",
+      "ventilatorSettings": "Impostazioni del ventilatore",
+      "outcomes": "Risultati",
+      "evidence": "Prove",
+      "reviewStatus": "Controlla lo stato",
+      "intendedUseWarning": "Questo è un caso di set di dati solo come riferimento. Non per uso clinico diretto.",
+      "datasetCaseFraming": "Caso del set di dati (solo per riferimento)",
+      "prototypeFraming": "Prototipo: non validato clinicamente",
+      "notFound": "Caso non trovato nel set di dati.",
+      "missingCaseId": "Nessun caso selezionato.",
       "states": {
-        "loading": "Caricamento case…"
+        "loading": "Caricamento caso..."
       },
       "review": {
-        "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "In sospeso clinician validazione",
-        "validated": "Validated"
+        "unvalidated": "Non convalidato (prototipo)",
+        "pending_clinician_validation": "In attesa di convalida clinica",
+        "validated": "Convalidato"
       }
     }
   },
   "training": {
     "home": {
-      "title": "Training",
-      "subtitle": "Protocols, checklists, e reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Cerca topics…",
-      "searchHint": "Cerca training content",
-      "topicsSection": "Topics",
-      "searchResults": "Cerca results",
-      "popularTopics": "Popular topics",
-      "quickChecklists": "Quick checklists",
-      "browseAll": "Visualizza all topics",
-      "browseAllHint": "Visualizza all training topics",
+      "title": "Formazione",
+      "subtitle": "Protocolli, liste di controllo e riferimenti.",
+      "accessibilityLabel": "Schermata iniziale dell'allenamento",
+      "searchPlaceholder": "Cerca argomenti...",
+      "searchHint": "Cerca contenuti di formazione",
+      "topicsSection": "Argomenti",
+      "searchResults": "Risultati della ricerca",
+      "popularTopics": "Argomenti popolari",
+      "quickChecklists": "Liste di controllo rapide",
+      "browseAll": "Visualizza tutti gli argomenti",
+      "browseAllHint": "Visualizza tutti gli argomenti di formazione",
       "viewTopic": "Visualizza",
       "states": {
-        "loading": "Caricamento training…",
-        "error": "Impossibile caricare training content",
-        "offline": "Content is available offline",
-        "empty": "Nessun training content available"
+        "loading": "Caricamento formazione…",
+        "error": "Impossibile caricare il contenuto della formazione",
+        "offline": "Il contenuto è disponibile offline",
+        "empty": "Nessun contenuto di formazione disponibile"
       }
     },
     "topics": {
-      "title": "Topics",
-      "accessibilityLabel": "Topic elenco screen",
-      "searchPlaceholder": "Cerca o filter…",
-      "searchHint": "Cerca topics",
-      "empty": "Nessun topics found",
-      "filterByType": "Filter by type",
-      "typeProtocol": "Protocol",
-      "typeChecklist": "Checklist",
-      "typeGlossary": "Glossary",
-      "typeFaq": "FAQ",
-      "openTopicHint": "Apri topic",
+      "title": "Argomenti",
+      "accessibilityLabel": "Schermata con l'elenco degli argomenti",
+      "searchPlaceholder": "Cerca o filtra...",
+      "searchHint": "Cerca argomenti",
+      "empty": "Nessun argomento trovato.",
+      "filterByType": "Filtra per tipo",
+      "typeProtocol": "Protocollo",
+      "typeChecklist": "Lista di controllo",
+      "typeGlossary": "Glossario",
+      "typeFaq": "Domande frequenti",
+      "openTopicHint": "Apri argomento",
       "states": {
-        "loading": "Caricamento topics…",
-        "error": "Impossibile caricare topics",
-        "offline": "Content is available offline"
+        "loading": "Caricamento argomenti...",
+        "error": "Impossibile caricare gli argomenti",
+        "offline": "Il contenuto è disponibile offline"
       }
     },
     "topicDetail": {
-      "title": "Topic",
-      "accessibilityLabel": "Topic detail screen",
-      "section": "Section",
-      "expand": "Expand section",
-      "collapse": "Collapse section",
-      "checklistItem": "Item",
-      "notFound": "Topic not found.",
-      "backToTopics": "Indietro a topics",
-      "backToTopicsHint": "Return a topic elenco",
+      "title": "Argomento",
+      "accessibilityLabel": "Schermata dei dettagli dell'argomento",
+      "section": "Sezione",
+      "expand": "Espandi sezione",
+      "collapse": "Comprimi sezione",
+      "checklistItem": "Articolo",
+      "notFound": "Argomento non trovato.",
+      "backToTopics": "Ritorno agli argomenti",
+      "backToTopicsHint": "Ritorna all'elenco degli argomenti",
       "states": {
-        "loading": "Caricamento topic…",
-        "error": "Impossibile caricare topic"
+        "loading": "Caricamento argomento...",
+        "error": "Impossibile caricare l'argomento"
       }
     }
   },
   "notFound": {
-    "title": "Page Nessunt Found",
-    "message": "page you're looking per doesn't exist o has been moved.",
-    "back": "Go Indietro",
-    "backHint": "Return a previous page",
-    "goHome": "Vai a Home",
-    "goHomeHint": "Navigate indietro a home page"
+    "title": "Pagina non trovata",
+    "message": "La pagina che stai cercando non esiste o è stata spostata.",
+    "back": "Torna indietro",
+    "backHint": "Ritorna alla pagina precedente",
+    "goHome": "Vai a casa",
+    "goHomeHint": "Torna alla home page"
   },
   "error": {
-    "title": "Something Went Wrong",
-    "message": "Si è verificato un errore imprevisto. Please try again o return a home page.",
+    "title": "Qualcosa è andato storto",
+    "message": "Si è verificato un errore imprevisto. Riprova o torna alla home page.",
     "retry": "Riprova",
-    "retryHint": "Try action again",
-    "goHome": "Vai a Home",
-    "goHomeHint": "Navigate indietro a home page"
+    "retryHint": "Riprovare l'azione",
+    "goHome": "Vai a casa",
+    "goHomeHint": "Torna alla home page"
   },
   "errorState": {
     "defaultTitle": "Qualcosa è andato storto"

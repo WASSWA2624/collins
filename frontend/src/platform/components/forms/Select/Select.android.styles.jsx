@@ -75,10 +75,22 @@ const StyledTrigger = styled.Pressable.withConfig({
     if (isFocused) return theme.colors.primary;
     return theme.colors.background.tertiary;
   }};
-  border-radius: ${({ $compact, theme }) => ($compact ? 0 : theme.radius.md)}px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-radius: 0;
+  background-color: ${({ disabled, theme }) =>
+    disabled ? theme.colors.background.secondary : theme.colors.background.primary};
   padding: ${({ $compact, theme }) =>
     $compact ? theme.spacing.sm : theme.spacing.md}px;
+`;
+
+const StyledTriggerContent = styled.View.withConfig({
+  displayName: 'StyledTriggerContent',
+  componentId: 'StyledTriggerContent',
+})`
+  min-width: 0;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledTriggerText = styled.Text.withConfig({
@@ -124,7 +136,7 @@ const StyledSheet = styled.View.withConfig({
   max-width: 520px;
   max-height: 80%;
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-radius: ${({ theme }) => theme.radius.lg}px;
+  border-radius: 0;
   overflow: hidden;
 `;
 
@@ -142,9 +154,10 @@ const StyledSearchInput = styled.TextInput.withConfig({
   min-height: 44px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   padding-horizontal: ${({ theme }) => theme.spacing.md}px;
   padding-vertical: ${({ theme }) => theme.spacing.sm}px;
 `;
@@ -154,7 +167,13 @@ const StyledOption = styled.Pressable.withConfig({
   componentId: 'StyledOption',
   shouldForwardProp: (prop) => prop !== 'selected',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
+  min-height: 42px;
+  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
+  padding-vertical: ${({ theme }) => theme.spacing.sm}px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.sm}px;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   background-color: ${({ selected, theme }) =>
     selected
@@ -165,19 +184,65 @@ const StyledOption = styled.Pressable.withConfig({
     selected ? theme.colors.primary : 'transparent'};
 `;
 
+const StyledOptionContent = styled.View.withConfig({
+  displayName: 'StyledOptionContent',
+  componentId: 'StyledOptionContent',
+})`
+  min-width: 0;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledOptionIcon = styled.View.withConfig({
+  displayName: 'StyledOptionIcon',
+  componentId: 'StyledOptionIcon',
+})`
+  width: 22px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledOptionIconText = styled.Text.withConfig({
+  displayName: 'StyledOptionIconText',
+  componentId: 'StyledOptionIconText',
+})`
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  line-height: ${({ theme }) => theme.typography.fontSize.md}px;
+  text-align: center;
+`;
+
 const StyledOptionText = styled.Text.withConfig({
   displayName: 'StyledOptionText',
   componentId: 'StyledOptionText',
   shouldForwardProp: (prop) => prop !== 'selected',
 })`
+  min-width: 0;
+  flex: 1;
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ selected, theme }) =>
     selected ? theme.colors.primary : theme.colors.text.primary};
   font-weight: ${({ selected, theme }) =>
     selected
       ? theme.typography.fontWeight.semibold
       : theme.typography.fontWeight.normal};
+`;
+
+const StyledSelectedMark = styled.Text.withConfig({
+  displayName: 'StyledSelectedMark',
+  componentId: 'StyledSelectedMark',
+  shouldForwardProp: (prop) => prop !== 'selected',
+})`
+  width: 18px;
+  text-align: right;
+  color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary : 'transparent'};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regular};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
 `;
 
 const StyledHelperText = styled.Text.withConfig({
@@ -210,6 +275,7 @@ export {
   StyledLabel,
   StyledRequired,
   StyledTrigger,
+  StyledTriggerContent,
   StyledTriggerText,
   StyledChevron,
   StyledOverlay,
@@ -217,7 +283,11 @@ export {
   StyledOptionList,
   StyledSearchInput,
   StyledOption,
+  StyledOptionContent,
+  StyledOptionIcon,
+  StyledOptionIconText,
   StyledOptionText,
+  StyledSelectedMark,
   StyledNoResultsText,
   StyledHelperText,
 };
