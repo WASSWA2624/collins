@@ -53,9 +53,11 @@ const MainRouteLayoutAndroid = () => {
 
   const handleItemPress = useCallback(
     (item) => {
-      closeSidebar();
       const href = item?.href ?? item?.path ?? null;
-      if (href) router.push(href);
+      if (href) {
+        router.push(href);
+      }
+      closeSidebar();
     },
     [closeSidebar, router]
   );

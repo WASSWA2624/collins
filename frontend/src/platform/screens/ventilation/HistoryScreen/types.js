@@ -12,6 +12,8 @@ const HISTORY_TEST_IDS = Object.freeze({
   corruptBanner: 'history-corrupt-banner',
   errorBanner: 'history-error-banner',
   item: 'history-item',
+  search: 'tracking-search',
+  searchEmpty: 'tracking-search-empty',
   refresh: 'tracking-refresh',
   facility: 'tracking-facility',
   status: 'tracking-status',

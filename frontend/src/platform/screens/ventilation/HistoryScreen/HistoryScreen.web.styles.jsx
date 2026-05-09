@@ -64,6 +64,14 @@ const StyledHeaderActions = styled.div.withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledSearchWrap = styled.section.withConfig({
+  displayName: 'StyledSearchWrap',
+  componentId: 'StyledSearchWrap',
+})`
+  width: 100%;
+  max-width: 560px;
+`;
+
 const StyledSummaryBar = styled.section.withConfig({
   displayName: 'StyledSummaryBar',
   componentId: 'StyledSummaryBar',
@@ -296,6 +304,7 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
   StyledSummaryBar,

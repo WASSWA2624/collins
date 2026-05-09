@@ -61,6 +61,13 @@ const StyledHeaderActions = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledSearchWrap = styled(View).withConfig({
+  displayName: 'StyledSearchWrap',
+  componentId: 'StyledSearchWrap',
+})`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
 const StyledSummaryBar = styled(View).withConfig({
   displayName: 'StyledSummaryBar',
   componentId: 'StyledSummaryBar',
@@ -253,6 +260,7 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
   StyledScreenContent,

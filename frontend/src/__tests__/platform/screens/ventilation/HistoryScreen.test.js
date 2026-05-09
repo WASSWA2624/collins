@@ -40,10 +40,18 @@ jest.mock('@hooks', () => ({
       locale: 'en',
     };
   },
+  useDebounce: (value) => value,
   useVentilationSession: jest.fn(),
 }));
 
 jest.mock('@features/tracking', () => ({
+  filterTrackingRows: (rows, query) => {
+    const normalized = String(query || '').trim().toLowerCase();
+    if (!normalized) return rows;
+    return rows.filter((row) =>
+      JSON.stringify(row).toLowerCase().includes(normalized)
+    );
+  },
   formatDateTime: jest.fn((value) => String(value || '')),
   listTrackingAdmissionsUseCase: jest.fn(),
   getTrackingAdmissionUseCase: jest.fn(),
@@ -71,6 +79,8 @@ const HISTORY_TEST_IDS = {
   draftBanner: 'tracking-draft-banner',
   admittedBanner: 'tracking-admitted-banner',
   list: 'history-list',
+  search: 'tracking-search',
+  searchEmpty: 'tracking-search-empty',
   viewDetails: 'history-view-details',
   detailPanel: 'tracking-detail-panel',
 };
@@ -79,6 +89,8 @@ const trackingRow = {
   admissionId: 'adm-1',
   appAdmissionCode: 'COL-A-1',
   appPatientCode: 'COL-P-1',
+  optionalName: 'Jane Doe',
+  hospitalNumber: 'HN-7788',
   facilityId: 'facility-1',
   facilityName: 'City ICU',
   bedNumber: 'ICU-2',
@@ -157,6 +169,7 @@ describe('Tracking screen compatibility route', () => {
     expect(getByText('Admit patient')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({
       status: 'ACTIVE',
+      limit: 100,
     });
   });
 

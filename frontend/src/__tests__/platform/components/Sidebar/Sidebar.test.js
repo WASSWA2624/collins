@@ -158,6 +158,20 @@ describe('Sidebar Component', () => {
       expect(mockPush).toHaveBeenCalledWith('/');
     });
 
+    it('should navigate to path items and close the mobile drawer', () => {
+      const onClose = jest.fn();
+      const { getByTestId } = renderWithProviders(
+        <Sidebar
+          items={[{ id: 'tracking', label: 'Tracking', path: '/tracking' }]}
+          onClose={onClose}
+          testID="sidebar"
+        />
+      );
+      fireEvent.press(getByTestId('sidebar-item-tracking'));
+      expect(mockPush).toHaveBeenCalledWith('/tracking');
+      expect(onClose).toHaveBeenCalled();
+    });
+
     it('should toggle section when item with children is pressed', () => {
       const itemsWithChildren = [
         {

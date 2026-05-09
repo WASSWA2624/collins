@@ -30,6 +30,7 @@ const SidebarWeb = ({
   items = SIDE_MENU_ITEMS,
   itemsI18nPrefix = 'navigation.items.main',
   collapsed = false,
+  onItemPress,
   onClose,
   isItemVisible,
   accessibilityLabel,
@@ -90,6 +91,11 @@ const SidebarWeb = ({
               item={{ ...item, href, label, path: href }}
               collapsed={collapsed}
               active={active}
+              onClick={
+                onItemPress
+                  ? () => onItemPress({ ...item, href, label, path: href })
+                  : undefined
+              }
               onClose={onClose}
             />
           );

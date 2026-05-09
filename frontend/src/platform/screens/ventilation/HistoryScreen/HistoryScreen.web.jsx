@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { Button, Text } from '@platform/components';
+import SearchBar from '@platform/patterns/SearchBar/SearchBar.web';
 import { useI18n } from '@hooks';
 import { formatDateTime } from '@features/tracking';
 import useHistoryScreen from './useHistoryScreen';
@@ -23,6 +24,7 @@ import {
   StyledItemMetaLine,
   StyledItemRow,
   StyledList,
+  StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
   StyledSummaryBar,
@@ -163,15 +165,19 @@ const HistoryScreenWeb = () => {
     rows,
     activeFacility,
     isEmpty,
+    isSearchEmpty,
     isHistoryLoading,
     historyErrorCode,
     localDraft,
+    searchQuery,
+    visibleRows,
     showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
     isDetailLoading,
     detailErrorCode,
     handleRefresh,
+    handleSearchQueryChange,
     handleOpenAdmit,
     handleUpdateTracking,
     handleViewDetails,
@@ -217,6 +223,17 @@ const HistoryScreenWeb = () => {
         </StyledHeaderActions>
       </StyledHeader>
 
+      <StyledSearchWrap>
+        <SearchBar
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          placeholder={t('ventilation.tracking.search.placeholder')}
+          accessibilityLabel={t('ventilation.tracking.search.accessibilityLabel')}
+          testID={HISTORY_TEST_IDS.search}
+          debounceMs={150}
+        />
+      </StyledSearchWrap>
+
       <StyledSummaryBar
         data-testid={HISTORY_TEST_IDS.facility}
         testID={HISTORY_TEST_IDS.facility}
@@ -226,7 +243,7 @@ const HistoryScreenWeb = () => {
             t('ventilation.tracking.activeFacility.none')}
         </Text>
         <Text variant="caption" color="text.secondary">
-          {t('ventilation.tracking.activePatients', { count: rows.length })}
+          {t('ventilation.tracking.activePatients', { count: visibleRows })}
         </Text>
       </StyledSummaryBar>
 
@@ -283,6 +300,16 @@ const HistoryScreenWeb = () => {
               {t('ventilation.tracking.actions.admitFirst')}
             </Button>
           </StyledEmptyActions>
+        </StyledEmpty>
+      ) : isSearchEmpty ? (
+        <StyledEmpty
+          data-testid={HISTORY_TEST_IDS.searchEmpty}
+          testID={HISTORY_TEST_IDS.searchEmpty}
+        >
+          <Text variant="label">{t('ventilation.tracking.search.empty')}</Text>
+          <Text variant="body" color="text.secondary">
+            {t('ventilation.tracking.search.emptyHint')}
+          </Text>
         </StyledEmpty>
       ) : (
         <StyledList

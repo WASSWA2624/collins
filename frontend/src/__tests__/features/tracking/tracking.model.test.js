@@ -3,6 +3,8 @@
  * File: tracking.model.test.js
  */
 import {
+  filterTrackingRows,
+  matchesTrackingSearch,
   normalizeTrackingItem,
   normalizeTrackingList,
 } from '@features/tracking';
@@ -19,6 +21,8 @@ const activeAdmission = {
   patient: {
     id: 'patient-1',
     appPatientCode: 'COL-P-1',
+    optionalName: 'Jane Doe',
+    hospitalNumber: 'HN-7788',
     patientPathway: 'ADULT',
   },
   currentStatus: {
@@ -77,5 +81,26 @@ describe('tracking.model', () => {
     expect(row.missingDataLabel).toBe('PaO2, PEEP');
     expect(row.admissionStatusLabel).toBe('Active');
     expect(row.patientPathwayLabel).toBe('Unknown');
+  });
+
+  it('builds searchable tracking rows from patient demographics and identifiers', () => {
+    const row = normalizeTrackingItem(activeAdmission);
+    const otherRow = normalizeTrackingItem({
+      ...activeAdmission,
+      admissionId: 'adm-2',
+      patientId: 'patient-2',
+      appAdmissionCode: 'COL-A-2',
+      patient: {
+        id: 'patient-2',
+        appPatientCode: 'COL-P-2',
+        optionalName: 'Sam Patient',
+        hospitalNumber: 'HN-9900',
+      },
+    });
+
+    expect(matchesTrackingSearch(row, 'jane')).toBe(true);
+    expect(matchesTrackingSearch(row, 'HN-7788')).toBe(true);
+    expect(matchesTrackingSearch(row, 'patient-1')).toBe(true);
+    expect(filterTrackingRows([row, otherRow], 'COL-P-2')).toEqual([otherRow]);
   });
 });

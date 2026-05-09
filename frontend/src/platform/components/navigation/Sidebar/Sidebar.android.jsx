@@ -72,11 +72,14 @@ const SidebarAndroid = ({
 
     if (onItemPress) {
       onItemPress(item);
+      onClose?.();
       return;
     }
 
     const href = resolveHref(item);
     if (href) router.push(href);
+    else if (typeof item?.onPress === 'function') item.onPress(item);
+    onClose?.();
   };
 
   const renderItem = (item) => {

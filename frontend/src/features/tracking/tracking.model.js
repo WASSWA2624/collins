@@ -44,6 +44,85 @@ const formatDateTime = (value) => {
 
 const toArray = (value) => (Array.isArray(value) ? value : []);
 
+const normalizeSearchText = (value) =>
+  String(value ?? '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+
+const addSearchValue = (values, value, depth = 0, seen = new Set()) => {
+  if (value === null || value === undefined || depth > 4) return;
+  if (value instanceof Date) {
+    values.push(formatDateTime(value), value.toISOString());
+    return;
+  }
+  if (['string', 'number', 'boolean'].includes(typeof value)) {
+    values.push(String(value));
+    return;
+  }
+  if (typeof value !== 'object' || seen.has(value)) return;
+  seen.add(value);
+
+  if (Array.isArray(value)) {
+    value.forEach((item) => addSearchValue(values, item, depth + 1, seen));
+    return;
+  }
+
+  Object.values(value).forEach((item) =>
+    addSearchValue(values, item, depth + 1, seen)
+  );
+};
+
+const buildTrackingSearchText = ({
+  item,
+  patient,
+  facility,
+  currentStatus,
+  admissionStatus,
+  patientPathway,
+  missingData,
+  risk,
+}) => {
+  const values = [
+    item.admissionId,
+    item.id,
+    item.patientId,
+    item.appAdmissionCode,
+    item.bedNumber,
+    admissionStatus,
+    patientPathway,
+    facility.id,
+    facility.name,
+    risk.label,
+    risk.prompt,
+    ...toStringList(missingData),
+  ];
+
+  addSearchValue(values, patient);
+  addSearchValue(values, currentStatus?.patient);
+
+  return values.map(normalizeSearchText).filter(Boolean).join(' ');
+};
+
+const getSearchTokens = (query) =>
+  normalizeSearchText(query).split(/\s+/).filter(Boolean);
+
+const matchesTrackingSearch = (row, query) => {
+  const tokens = getSearchTokens(query);
+  if (tokens.length === 0) return true;
+  let searchText = row?.searchText;
+  if (!searchText) {
+    const values = [];
+    addSearchValue(values, row);
+    searchText = values.map(normalizeSearchText).filter(Boolean).join(' ');
+  }
+  return tokens.every((token) => searchText.includes(token));
+};
+
+const filterTrackingRows = (rows = [], query = '') =>
+  toArray(rows).filter((row) => matchesTrackingSearch(row, query));
+
 const toStringList = (value) =>
   (Array.isArray(value) ? value : value ? [value] : [])
     .map((item) =>
@@ -151,6 +230,16 @@ const normalizeTrackingItem = (item = {}) => {
     item.status || currentStatus.admissionStatus || 'ACTIVE';
   const patientPathway =
     patient.patientPathway || item.patient?.patientPathway || 'UNKNOWN';
+  const searchText = buildTrackingSearchText({
+    item,
+    patient: item.patient || patient,
+    facility,
+    currentStatus,
+    admissionStatus,
+    patientPathway,
+    missingData,
+    risk,
+  });
 
   return {
     id: item.admissionId || item.id,
@@ -187,6 +276,7 @@ const normalizeTrackingItem = (item = {}) => {
     currentStatus,
     reviewState: item.reviewState || {},
     syncState: item.syncState || {},
+    searchText,
     raw: item,
   };
 };
@@ -215,8 +305,11 @@ export {
   ADMISSION_STATUS_LABELS,
   REVIEW_STATUS_LABELS,
   SYNC_STATUS_LABELS,
+  filterTrackingRows,
   formatDateTime,
+  matchesTrackingSearch,
   normalizeTrackingDetail,
   normalizeTrackingItem,
   normalizeTrackingList,
+  normalizeSearchText,
 };

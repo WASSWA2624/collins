@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useVentilationSession } from '@hooks';
 import {
+  filterTrackingRows,
   getTrackingAdmissionUseCase,
   listTrackingAdmissionsUseCase,
 } from '@features/tracking';
@@ -38,6 +39,7 @@ export default function useHistoryScreen() {
   const [detailErrorCode, setDetailErrorCode] = useState(null);
   const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [autoOpenedAdmissionId, setAutoOpenedAdmissionId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const admittedAdmissionId = useMemo(() => {
     const value = searchParams?.admissionId;
@@ -79,7 +81,10 @@ export default function useHistoryScreen() {
     setIsTrackingLoading(true);
     setTrackingErrorCode(null);
     try {
-      const result = await listTrackingAdmissionsUseCase({ status: 'ACTIVE' });
+      const result = await listTrackingAdmissionsUseCase({
+        status: 'ACTIVE',
+        limit: 100,
+      });
       setRows(result?.items ?? []);
     } catch (error) {
       setRows([]);
@@ -132,6 +137,12 @@ export default function useHistoryScreen() {
     setDetailErrorCode(null);
   }, []);
 
+  const handleSearchQueryChange = useCallback((value) => {
+    const nextValue =
+      typeof value === 'string' ? value : value?.target?.value ?? '';
+    setSearchQuery(nextValue);
+  }, []);
+
   const handleOpenAdmit = useCallback(() => {
     router.push('/admit');
   }, [router]);
@@ -172,12 +183,24 @@ export default function useHistoryScreen() {
         name: rows[0].facilityName,
       }
     : null;
+  const filteredRows = useMemo(
+    () => filterTrackingRows(rows, searchQuery),
+    [rows, searchQuery]
+  );
+  const isSearchActive = searchQuery.trim().length > 0;
 
   return {
-    list: rows,
-    rows,
+    list: filteredRows,
+    rows: filteredRows,
+    allRows: rows,
     activeFacility,
     isEmpty: rows.length === 0,
+    isSearchActive,
+    isSearchEmpty:
+      rows.length > 0 && filteredRows.length === 0 && isSearchActive,
+    searchQuery,
+    totalRows: rows.length,
+    visibleRows: filteredRows.length,
     isHistoryLoading: isTrackingLoading,
     historyErrorCode: trackingErrorCode,
     isCorrupt: false,
@@ -189,6 +212,7 @@ export default function useHistoryScreen() {
     isDetailLoading,
     detailErrorCode,
     handleRefresh,
+    handleSearchQueryChange,
     handleOpenAdmit,
     handleUpdateTracking,
     handleViewDetails,
