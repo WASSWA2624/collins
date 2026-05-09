@@ -277,15 +277,15 @@ const StyledChoiceOption = styled(Pressable).withConfig({
   componentId: 'StyledChoiceOption',
 })`
   flex-basis: ${({ compact }) => (compact ? 112 : 128)}px;
-  min-width: 112px;
-  max-width: ${({ compact }) => (compact ? 148 : 180)}px;
-  min-height: ${({ compact }) => (compact ? 44 : 56)}px;
+  min-width: ${({ compact }) => (compact ? 104 : 118)}px;
+  max-width: ${({ compact }) => (compact ? 150 : 174)}px;
+  min-height: ${({ compact }) => (compact ? 40 : 50)}px;
   flex-grow: 1;
   flex-shrink: 1;
-  flex-direction: row;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs}px;
-  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6px ${({ theme }) => theme.spacing.sm}px;
   border-width: 1px;
   border-left-width: 3px;
   border-color: ${({ selected, theme }) =>
@@ -296,26 +296,12 @@ const StyledChoiceOption = styled(Pressable).withConfig({
     selected ? theme.colors.background.secondary : theme.colors.background.primary};
 `;
 
-const StyledChoiceIcon = styled(View).withConfig({
-  displayName: 'StyledChoiceIcon',
-  componentId: 'StyledChoiceIcon',
-})`
-  width: ${({ compact }) => (compact ? 26 : 34)}px;
-  height: ${({ compact }) => (compact ? 24 : 28)}px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-width: 1px;
-  border-color: ${({ selected, theme }) =>
-    selected ? theme.colors.primary : theme.colors.background.tertiary};
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-`;
-
 const StyledChoiceText = styled(View).withConfig({
   displayName: 'StyledChoiceText',
   componentId: 'StyledChoiceText',
 })`
-  flex: 1;
+  flex-grow: 0;
+  width: 100%;
   min-width: 0;
   flex-shrink: 1;
 `;
@@ -385,7 +371,6 @@ export {
   StyledChoiceGrid,
   StyledChoiceHeader,
   StyledChoiceHint,
-  StyledChoiceIcon,
   StyledChoiceMeta,
   StyledChoiceOption,
   StyledChoiceSection,

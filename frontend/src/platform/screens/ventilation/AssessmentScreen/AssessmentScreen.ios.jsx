@@ -21,7 +21,6 @@ import {
   StyledChoiceGrid,
   StyledChoiceHeader,
   StyledChoiceHint,
-  StyledChoiceIcon,
   StyledChoiceMeta,
   StyledChoiceOption,
   StyledChoiceSection,
@@ -296,9 +295,6 @@ const AssessmentScreenIOS = () => {
                 accessibilityState={{ selected }}
                 testID={`assessment-age-group-${option.value.toLowerCase()}`}
               >
-                <StyledChoiceIcon selected={selected}>
-                  <Text variant="caption">{option.icon}</Text>
-                </StyledChoiceIcon>
                 <StyledChoiceText>
                   <Text variant="label">{option.label}</Text>
                   <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
@@ -326,9 +322,6 @@ const AssessmentScreenIOS = () => {
                 accessibilityState={{ selected }}
                 testID={`assessment-sex-${option.value.toLowerCase()}`}
               >
-                <StyledChoiceIcon selected={selected} compact>
-                  <Text variant="caption">{option.icon}</Text>
-                </StyledChoiceIcon>
                 <StyledChoiceText>
                   <Text variant="label">{option.label}</Text>
                 </StyledChoiceText>

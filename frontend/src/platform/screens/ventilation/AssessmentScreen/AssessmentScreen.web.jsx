@@ -20,7 +20,6 @@ import {
   StyledChoiceGrid,
   StyledChoiceHeader,
   StyledChoiceHint,
-  StyledChoiceIcon,
   StyledChoiceLabel,
   StyledChoiceMeta,
   StyledChoiceOption,
@@ -364,7 +363,6 @@ const AssessmentScreenWeb = () => {
                 onClick={() => updateInput({ patientPathway: option.value })}
                 data-testid={`assessment-age-group-${option.value.toLowerCase()}`}
               >
-                <StyledChoiceIcon>{option.icon}</StyledChoiceIcon>
                 <StyledChoiceText>{option.label}</StyledChoiceText>
                 <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
               </StyledChoiceOption>
@@ -390,7 +388,6 @@ const AssessmentScreenWeb = () => {
                 onClick={() => updateInput({ sexForSizeCalculations: option.value })}
                 data-testid={`assessment-sex-${option.value.toLowerCase()}`}
               >
-                <StyledChoiceIcon>{option.icon}</StyledChoiceIcon>
                 <StyledChoiceText>{option.label}</StyledChoiceText>
               </StyledChoiceOption>
             );

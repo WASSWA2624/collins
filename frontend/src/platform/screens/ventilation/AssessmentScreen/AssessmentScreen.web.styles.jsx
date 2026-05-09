@@ -224,6 +224,7 @@ const StyledWizardCard = styled.div.withConfig({
   border-radius: 0;
   padding: ${({ theme }) => theme.spacing.md}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow-x: hidden;
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
@@ -258,7 +259,7 @@ const StyledSummaryWrap = styled.div.withConfig({
     grid-area: summary;
     width: 100%;
     max-width: 372px;
-    justify-self: stretch;
+    justify-self: end;
     flex: initial;
     order: 2;
     position: sticky;
@@ -357,7 +358,7 @@ const StyledFieldGrid = styled.div.withConfig({
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   }
 `;
 
@@ -427,35 +428,43 @@ const StyledChoiceGrid = styled.div.withConfig({
   componentId: 'StyledChoiceGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 124px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 132px), 1fr));
   gap: ${({ theme }) => theme.spacing.xs}px;
   min-width: 0;
 
   &[data-density='compact'] {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 86px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
 
     &[data-density='compact'] {
-      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
     }
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
 
     &[data-density='compact'] {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 420px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     &[data-density='compact'] {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 320px) {
+    grid-template-columns: 1fr;
+
+    &[data-density='compact'] {
+      grid-template-columns: 1fr;
     }
   }
 `;
@@ -466,15 +475,15 @@ const StyledChoiceOption = styled.button.withConfig({
 })`
   min-width: 0;
   width: 100%;
-  min-height: 56px;
+  min-height: 50px;
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    'icon label'
-    'icon meta';
+    'label'
+    'meta';
   align-items: center;
-  gap: 1px ${({ theme }) => theme.spacing.xs}px;
-  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
+  gap: 2px;
+  padding: 7px ${({ theme }) => theme.spacing.sm}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-left-width: 3px;
   border-left-color: transparent;
@@ -486,9 +495,8 @@ const StyledChoiceOption = styled.button.withConfig({
   box-sizing: border-box;
 
   &[data-density='compact'] {
-    min-height: 44px;
-    grid-template-columns: 24px minmax(0, 1fr);
-    grid-template-areas: 'icon label';
+    min-height: 40px;
+    grid-template-areas: 'label';
     padding: 6px ${({ theme }) => theme.spacing.sm}px;
   }
 
@@ -505,31 +513,6 @@ const StyledChoiceOption = styled.button.withConfig({
     border-color: ${({ theme }) => theme.colors.primary};
     border-left-color: ${({ theme }) => theme.colors.primary};
     background-color: ${({ theme }) => theme.colors.background.secondary};
-  }
-`;
-
-const StyledChoiceIcon = styled.span.withConfig({
-  displayName: 'StyledChoiceIcon',
-  componentId: 'StyledChoiceIcon',
-})`
-  grid-area: icon;
-  width: 32px;
-  height: 26px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  color: ${({ theme }) => theme.colors.text.primary};
-  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  line-height: 1;
-
-  ${StyledChoiceOption}[data-density='compact'] & {
-    width: 24px;
-    height: 22px;
   }
 `;
 
@@ -985,7 +968,6 @@ export {
   StyledChoiceGrid,
   StyledChoiceHeader,
   StyledChoiceHint,
-  StyledChoiceIcon,
   StyledChoiceLabel,
   StyledChoiceMeta,
   StyledChoiceOption,
