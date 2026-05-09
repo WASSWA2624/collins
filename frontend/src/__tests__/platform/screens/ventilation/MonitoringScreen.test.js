@@ -28,24 +28,13 @@ jest.mock('@hooks', () => {
       },
       locale: 'en',
     }),
-    useVentilationSession: jest.fn(),
-    useNetwork: jest.fn(),
   };
 });
 
 const MonitoringScreenAndroid = require('@platform/screens/ventilation/MonitoringScreen/MonitoringScreen.android').default;
 const MonitoringScreenWeb = require('@platform/screens/ventilation/MonitoringScreen/MonitoringScreen.web').default;
-const { useVentilationSession, useNetwork } = require('@hooks');
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
-
-const defaultSessionMock = {
-  recommendationSummary: { monitoringPoints: ['SpO2', 'RR'] },
-  isHydrating: false,
-  errorCode: null,
-};
-
-const defaultNetworkMock = { isOffline: false };
 
 const createMockStore = (initialState = {}) =>
   configureStore({
@@ -68,8 +57,6 @@ const renderWithProviders = (component, store = createMockStore()) =>
 describe('MonitoringScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    useVentilationSession.mockReturnValue(defaultSessionMock);
-    useNetwork.mockReturnValue(defaultNetworkMock);
   });
 
   describe('Rendering', () => {
@@ -92,19 +79,19 @@ describe('MonitoringScreen', () => {
 
   describe('Sparse and out-of-order points', () => {
     it('should show insufficient data trend after one point', () => {
-      const { getByTestId, getByPlaceholderText, getByText } = renderWithProviders(<MonitoringScreenAndroid />);
-      fireEvent.changeText(getByPlaceholderText('Name (e.g. SpO₂, RR)'), 'SpO2');
-      fireEvent.changeText(getByPlaceholderText('Value'), '95');
+      const { getByTestId, getByLabelText, getByText } = renderWithProviders(<MonitoringScreenAndroid />);
+      fireEvent.changeText(getByLabelText('Name (e.g. SpO₂, RR)'), 'SpO2');
+      fireEvent.changeText(getByLabelText('Value'), '95');
       fireEvent.press(getByTestId('monitoring-add-point'));
       expect(getByText(/Insufficient data/)).toBeTruthy();
     });
 
     it('should show trend direction after two points', () => {
-      const { getByTestId, getByPlaceholderText, getByText } = renderWithProviders(<MonitoringScreenAndroid />);
-      fireEvent.changeText(getByPlaceholderText('Name (e.g. SpO₂, RR)'), 'RR');
-      fireEvent.changeText(getByPlaceholderText('Value'), '18');
+      const { getByTestId, getByLabelText, getByText } = renderWithProviders(<MonitoringScreenAndroid />);
+      fireEvent.changeText(getByLabelText('Name (e.g. SpO₂, RR)'), 'RR');
+      fireEvent.changeText(getByLabelText('Value'), '18');
       fireEvent.press(getByTestId('monitoring-add-point'));
-      fireEvent.changeText(getByPlaceholderText('Value'), '22');
+      fireEvent.changeText(getByLabelText('Value'), '22');
       fireEvent.press(getByTestId('monitoring-add-point'));
       expect(getByText(/Trending up|Stable|Insufficient data/)).toBeTruthy();
     });
@@ -112,18 +99,18 @@ describe('MonitoringScreen', () => {
 
   describe('Alert severity branches', () => {
     it('should show critical severity and suggested action for SpO2 below critical low', () => {
-      const { getByTestId, getByText, getByPlaceholderText } = renderWithProviders(<MonitoringScreenAndroid />);
-      fireEvent.changeText(getByPlaceholderText('Name (e.g. SpO₂, RR)'), 'SpO2');
-      fireEvent.changeText(getByPlaceholderText('Value'), '85');
+      const { getByTestId, getByText, getByLabelText } = renderWithProviders(<MonitoringScreenAndroid />);
+      fireEvent.changeText(getByLabelText('Name (e.g. SpO₂, RR)'), 'SpO2');
+      fireEvent.changeText(getByLabelText('Value'), '85');
       fireEvent.press(getByTestId('monitoring-add-point'));
       expect(getByText('Critical')).toBeTruthy();
       expect(getByText(/Address immediately/)).toBeTruthy();
     });
 
     it('should show warning severity for SpO2 in warning range', () => {
-      const { getByTestId, getByText, getByPlaceholderText } = renderWithProviders(<MonitoringScreenAndroid />);
-      fireEvent.changeText(getByPlaceholderText('Name (e.g. SpO₂, RR)'), 'SpO2');
-      fireEvent.changeText(getByPlaceholderText('Value'), '90');
+      const { getByTestId, getByText, getByLabelText } = renderWithProviders(<MonitoringScreenAndroid />);
+      fireEvent.changeText(getByLabelText('Name (e.g. SpO₂, RR)'), 'SpO2');
+      fireEvent.changeText(getByLabelText('Value'), '90');
       fireEvent.press(getByTestId('monitoring-add-point'));
       expect(getByText('Warning')).toBeTruthy();
       expect(getByText(/Review and consider intervention/)).toBeTruthy();
@@ -132,14 +119,13 @@ describe('MonitoringScreen', () => {
 
   describe('Offline banner', () => {
     it('should show offline banner when isOffline is true', () => {
-      useNetwork.mockReturnValue({ isOffline: true });
-      const { getByTestId, getByText } = renderWithProviders(<MonitoringScreenAndroid />);
+      const store = createMockStore({ network: { isOnline: false } });
+      const { getByTestId, getByText } = renderWithProviders(<MonitoringScreenAndroid />, store);
       expect(getByTestId('monitoring-offline-banner')).toBeTruthy();
       expect(getByText(/You are offline/)).toBeTruthy();
     });
 
     it('should not show offline banner when online', () => {
-      useNetwork.mockReturnValue({ isOffline: false });
       const { queryByTestId } = renderWithProviders(<MonitoringScreenAndroid />);
       expect(queryByTestId('monitoring-offline-banner')).toBeNull();
     });
@@ -147,25 +133,42 @@ describe('MonitoringScreen', () => {
 
   describe('Keyboard navigation (web)', () => {
     it('should submit quick entry on Enter key', () => {
-      const { getByTestId, getByPlaceholderText, getByText } = renderWithProviders(<MonitoringScreenWeb />);
-      fireEvent.changeText(getByPlaceholderText('Name (e.g. SpO₂, RR)'), 'SpO2');
-      fireEvent.changeText(getByPlaceholderText('Value'), '95');
+      const { getByTestId, getByLabelText, getByText } = renderWithProviders(<MonitoringScreenWeb />);
+      fireEvent.changeText(getByLabelText('Name (e.g. SpO₂, RR)'), 'SpO2');
+      fireEvent.changeText(getByLabelText('Value'), '95');
       const form = getByTestId('monitoring-quick-entry-form');
-      fireEvent.keyDown(form, { key: 'Enter' });
+      fireEvent(form, 'keyDown', { key: 'Enter', preventDefault: jest.fn(), target: { tagName: 'INPUT' } });
       expect(getByText(/Insufficient data/)).toBeTruthy();
     });
   });
 
   describe('Loading and error', () => {
     it('should show loading when hydrating', () => {
-      useVentilationSession.mockReturnValue({ ...defaultSessionMock, isHydrating: true });
-      const { getByText } = renderWithProviders(<MonitoringScreenAndroid />);
+      const store = createMockStore({
+        ventilation: {
+          currentSessionId: 'session-1',
+          currentInputs: {},
+          lastRecommendationSummary: { monitoringPoints: ['SpO2', 'RR'] },
+          monitoringTimeSeries: [],
+          isHydrating: true,
+        },
+      });
+      const { getByText } = renderWithProviders(<MonitoringScreenAndroid />, store);
       expect(getByText(/Loading/)).toBeTruthy();
     });
 
     it('should show error and back button when errorCode set', () => {
-      useVentilationSession.mockReturnValue({ ...defaultSessionMock, errorCode: 'ERR' });
-      const { getByText } = renderWithProviders(<MonitoringScreenAndroid />);
+      const store = createMockStore({
+        ventilation: {
+          currentSessionId: 'session-1',
+          currentInputs: {},
+          lastRecommendationSummary: { monitoringPoints: ['SpO2', 'RR'] },
+          monitoringTimeSeries: [],
+          isHydrating: false,
+          errorCode: 'ERR',
+        },
+      });
+      const { getByText } = renderWithProviders(<MonitoringScreenAndroid />, store);
       expect(getByText(/Unable to load monitoring/)).toBeTruthy();
       expect(getByText(/Back to recommendation/)).toBeTruthy();
     });

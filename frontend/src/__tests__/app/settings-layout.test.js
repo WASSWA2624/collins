@@ -18,6 +18,14 @@ jest.mock('@navigation/guards', () => ({
   OnboardingGuard: ({ children }) => children,
 }));
 
+jest.mock('@platform/layouts', () => {
+  const React = require('react');
+  const { Slot } = require('expo-router');
+  return {
+    MainRouteLayout: () => React.createElement(Slot),
+  };
+});
+
 jest.mock('expo-router', () => {
   const React = require('react');
   const { Text } = require('react-native');

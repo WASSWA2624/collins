@@ -4,10 +4,9 @@
  */
 import { authenticateBiometric, isBiometricEnrolled, isBiometricSupported } from '@security';
 
-const mockHandleError = jest.fn((error) => error);
-
 jest.mock('@errors', () => ({
-  handleError: mockHandleError,
+  __esModule: true,
+  handleError: jest.fn((error) => error),
 }));
 
 jest.mock('expo-local-authentication', () => ({
@@ -17,6 +16,7 @@ jest.mock('expo-local-authentication', () => ({
 }));
 
 const LocalAuthentication = require('expo-local-authentication');
+const { handleError: mockHandleError } = require('@errors');
 
 describe('biometric security helpers', () => {
   beforeEach(() => {

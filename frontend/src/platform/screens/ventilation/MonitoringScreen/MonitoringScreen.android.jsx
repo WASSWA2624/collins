@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import {
   Button,
-  List,
   Text,
   TextField,
 } from '@platform/components';
@@ -154,29 +153,24 @@ const MonitoringScreenAndroid = () => {
           {alerts.length === 0 ? (
             <Text variant="caption">{t('ventilation.monitoring.alerts.empty')}</Text>
           ) : (
-            <List
-              data={alerts}
-              renderItem={({ item }) => (
-                <StyledAlertItem>
-                  <Text variant="label">
-                    {item.seriesName}: {item.value} {item.unit}
-                  </Text>
+            alerts.map((item) => (
+              <StyledAlertItem key={item.id}>
+                <Text variant="label">
+                  {item.seriesName}: {item.value} {item.unit}
+                </Text>
+                <Text variant="caption">
+                  {t(`ventilation.monitoring.alerts.severity${item.severity.charAt(0).toUpperCase() + item.severity.slice(1)}`)}
+                </Text>
+                {item.whyKey && (
                   <Text variant="caption">
-                    {t(`ventilation.monitoring.alerts.severity${item.severity.charAt(0).toUpperCase() + item.severity.slice(1)}`)}
+                    {t('ventilation.monitoring.alerts.why')}: {t(`ventilation.monitoring.alerts.${item.whyKey}`)}
                   </Text>
-                  {item.whyKey && (
-                    <Text variant="caption">
-                      {t('ventilation.monitoring.alerts.why')}: {t(`ventilation.monitoring.alerts.${item.whyKey}`)}
-                    </Text>
-                  )}
-                  <Text variant="caption">
-                    {t('ventilation.monitoring.alerts.suggestedAction')}: {t(`ventilation.monitoring.alerts.${item.suggestedActionKey}`)}
-                  </Text>
-                </StyledAlertItem>
-              )}
-              testID={MONITORING_TEST_IDS.alerts}
-              accessibilityLabel={t('ventilation.monitoring.sections.alerts')}
-            />
+                )}
+                <Text variant="caption">
+                  {t('ventilation.monitoring.alerts.suggestedAction')}: {t(`ventilation.monitoring.alerts.${item.suggestedActionKey}`)}
+                </Text>
+              </StyledAlertItem>
+            ))
           )}
         </StyledSection>
 
@@ -185,19 +179,14 @@ const MonitoringScreenAndroid = () => {
             <StyledSectionHeader>
               <Text variant="label">{t('ventilation.monitoring.sections.trend')}</Text>
             </StyledSectionHeader>
-            <List
-              data={pointsForHistory}
-              renderItem={({ item }) => (
-                <StyledTrendItem>
-                  <Text variant="body">
-                    {item.seriesName} {item.value} {item.unit}
-                  </Text>
-                  <Text variant="caption">{new Date(item.timestamp).toLocaleString()}</Text>
-                </StyledTrendItem>
-              )}
-              testID={MONITORING_TEST_IDS.pointsHistory}
-              accessibilityLabel={t('ventilation.monitoring.sections.trend')}
-            />
+            {pointsForHistory.map((item) => (
+              <StyledTrendItem key={item.id}>
+                <Text variant="body">
+                  {item.seriesName} {item.value} {item.unit}
+                </Text>
+                <Text variant="caption">{new Date(item.timestamp).toLocaleString()}</Text>
+              </StyledTrendItem>
+            ))}
           </StyledSection>
         )}
 

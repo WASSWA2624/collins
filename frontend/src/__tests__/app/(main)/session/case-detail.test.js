@@ -3,7 +3,7 @@
  * Tests: param parsing, missing caseId path, not-found-in-dataset path
  */
 const React = require('react');
-const { render, screen } = require('@testing-library/react-native');
+const { render } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
@@ -16,12 +16,13 @@ jest.mock('expo-router', () => ({
 
 jest.mock('@platform/screens', () => {
   const React = require('react');
+  const { Text, View } = require('react-native');
   return {
     CaseDetailScreen: (props) =>
-      React.createElement('div', {
-        'data-testid': 'case-detail-screen',
+      React.createElement(View, {
+        testID: 'case-detail-screen',
         'data-case-id': props.caseId ?? '',
-      }, 'CaseDetailScreen'),
+      }, React.createElement(Text, null, 'CaseDetailScreen')),
   };
 });
 
@@ -53,8 +54,8 @@ describe('app/(main)/session/case/[case-id].jsx', () => {
   it('passes case-id param to CaseDetailScreen (param parsing)', () => {
     mockUseLocalSearchParams.mockReturnValue({ 'case-id': 'CASE_001' });
     const CaseDetailRoute = require('../../../../app/(main)/session/case/[case-id]').default;
-    renderWithProviders(<CaseDetailRoute />);
-    const el = screen.getByTestId('case-detail-screen');
+    const { getByTestId } = renderWithProviders(<CaseDetailRoute />);
+    const el = getByTestId('case-detail-screen');
     expect(el).toBeDefined();
     expect(el.props['data-case-id']).toBe('CASE_001');
   });
@@ -62,8 +63,8 @@ describe('app/(main)/session/case/[case-id].jsx', () => {
   it('passes undefined caseId when case-id is missing (missing caseId path)', () => {
     mockUseLocalSearchParams.mockReturnValue({});
     const CaseDetailRoute = require('../../../../app/(main)/session/case/[case-id]').default;
-    renderWithProviders(<CaseDetailRoute />);
-    const el = screen.getByTestId('case-detail-screen');
+    const { getByTestId } = renderWithProviders(<CaseDetailRoute />);
+    const el = getByTestId('case-detail-screen');
     expect(el).toBeDefined();
     expect(el.props['data-case-id']).toBe('');
   });
@@ -71,8 +72,8 @@ describe('app/(main)/session/case/[case-id].jsx', () => {
   it('renders CaseDetailScreen for not-found-in-dataset path (screen handles notFound)', () => {
     mockUseLocalSearchParams.mockReturnValue({ 'case-id': 'NON_EXISTENT_CASE_ID' });
     const CaseDetailRoute = require('../../../../app/(main)/session/case/[case-id]').default;
-    renderWithProviders(<CaseDetailRoute />);
-    const el = screen.getByTestId('case-detail-screen');
+    const { getByTestId } = renderWithProviders(<CaseDetailRoute />);
+    const el = getByTestId('case-detail-screen');
     expect(el).toBeDefined();
     expect(el.props['data-case-id']).toBe('NON_EXISTENT_CASE_ID');
   });

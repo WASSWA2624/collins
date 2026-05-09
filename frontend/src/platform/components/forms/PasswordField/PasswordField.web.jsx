@@ -91,7 +91,12 @@ const PasswordFieldWeb = ({
   const toggleIcon = showPassword ? '👁️‍🗨️' : '👁️';
 
   return (
-    <StyledContainer style={style} className={className} data-testid={testID}>
+    <StyledContainer
+      style={style}
+      className={className}
+      data-testid={testID ? `${testID}-container` : undefined}
+      testID={testID ? `${testID}-container` : undefined}
+    >
       <TextField
         label={defaultLabel}
         placeholder={defaultPlaceholder}

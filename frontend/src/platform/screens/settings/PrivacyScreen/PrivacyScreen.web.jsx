@@ -13,9 +13,13 @@ const PrivacyScreenWeb = () => {
   const { testIds } = usePrivacyScreen();
 
   return (
-    <StyledContainer aria-label={t('settings.privacy.screen.label')} data-testid={testIds.screen}>
-      <StyledContent data-testid={testIds.content}>
-        <Text as="h1" variant="h1" data-testid={testIds.title}>
+    <StyledContainer
+      aria-label={t('settings.privacy.screen.label')}
+      data-testid={testIds.screen}
+      testID={testIds.screen}
+    >
+      <StyledContent data-testid={testIds.content} testID={testIds.content}>
+        <Text as="h1" variant="h1" data-testid={testIds.title} testID={testIds.title}>
           {t('settings.privacy.title')}
         </Text>
         <Stack spacing="lg">

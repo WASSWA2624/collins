@@ -83,7 +83,7 @@ const PasswordFieldAndroid = ({
   const toggleIcon = showPassword ? '👁️‍🗨️' : '👁️';
 
   return (
-    <StyledContainer style={style} testID={testID}>
+    <StyledContainer style={style} testID={testID ? `${testID}-container` : undefined}>
       <TextField
         label={defaultLabel}
         placeholder={defaultPlaceholder}

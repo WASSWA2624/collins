@@ -15,9 +15,13 @@ const AboutScreenWeb = () => {
   const { testIds } = useAboutScreen();
 
   return (
-    <StyledContainer aria-label={t('settings.about.screen.label')} data-testid={testIds.screen}>
-      <StyledContent data-testid={testIds.content}>
-        <Text as="h1" variant="h1" data-testid={testIds.title}>
+    <StyledContainer
+      aria-label={t('settings.about.screen.label')}
+      data-testid={testIds.screen}
+      testID={testIds.screen}
+    >
+      <StyledContent data-testid={testIds.content} testID={testIds.content}>
+        <Text as="h1" variant="h1" data-testid={testIds.title} testID={testIds.title}>
           {t('settings.about.title')}
         </Text>
         <Stack spacing="lg">

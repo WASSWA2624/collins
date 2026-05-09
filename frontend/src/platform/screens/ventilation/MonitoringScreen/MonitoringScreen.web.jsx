@@ -84,21 +84,35 @@ const MonitoringScreenWeb = () => {
   }
 
   return (
-    <StyledContainer aria-label={t('ventilation.monitoring.accessibilityLabel')} data-testid={MONITORING_TEST_IDS.screen}>
-      <StyledDecisionSupportBanner data-testid={MONITORING_TEST_IDS.decisionSupportBanner} role="status" aria-live="polite">
+    <StyledContainer
+      aria-label={t('ventilation.monitoring.accessibilityLabel')}
+      data-testid={MONITORING_TEST_IDS.screen}
+      testID={MONITORING_TEST_IDS.screen}
+    >
+      <StyledDecisionSupportBanner
+        data-testid={MONITORING_TEST_IDS.decisionSupportBanner}
+        testID={MONITORING_TEST_IDS.decisionSupportBanner}
+        role="status"
+        aria-live="polite"
+      >
         <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.decisionSupportOnly')}</Text>
       </StyledDecisionSupportBanner>
       {isOffline && (
-        <StyledOfflineBanner data-testid={MONITORING_TEST_IDS.offlineBanner} role="status">
+        <StyledOfflineBanner data-testid={MONITORING_TEST_IDS.offlineBanner} testID={MONITORING_TEST_IDS.offlineBanner} role="status">
           <Text variant="caption" color="status.warning.text">{t('ventilation.monitoring.states.offline')}</Text>
         </StyledOfflineBanner>
       )}
 
-      <StyledSection data-testid={MONITORING_TEST_IDS.quickEntry}>
+      <StyledSection data-testid={MONITORING_TEST_IDS.quickEntry} testID={MONITORING_TEST_IDS.quickEntry}>
         <StyledSectionHeader>
           <Text variant="label">{t('ventilation.monitoring.sections.quickEntry')}</Text>
         </StyledSectionHeader>
-        <StyledQuickEntryRow onKeyDown={handleKeyDown} role="form" data-testid="monitoring-quick-entry-form">
+        <StyledQuickEntryRow
+          onKeyDown={handleKeyDown}
+          role="form"
+          data-testid="monitoring-quick-entry-form"
+          testID="monitoring-quick-entry-form"
+        >
           <TextField
             label={t('ventilation.monitoring.quickEntry.namePlaceholder')}
             value={quickName}
@@ -132,7 +146,7 @@ const MonitoringScreenWeb = () => {
         </StyledQuickEntryRow>
       </StyledSection>
 
-      <StyledSection data-testid={MONITORING_TEST_IDS.trend}>
+      <StyledSection data-testid={MONITORING_TEST_IDS.trend} testID={MONITORING_TEST_IDS.trend}>
         <StyledSectionHeader>
           <Text variant="label">{t('ventilation.monitoring.sections.trend')}</Text>
         </StyledSectionHeader>
@@ -153,7 +167,7 @@ const MonitoringScreenWeb = () => {
         )}
       </StyledSection>
 
-      <StyledSection data-testid={MONITORING_TEST_IDS.alerts}>
+      <StyledSection data-testid={MONITORING_TEST_IDS.alerts} testID={MONITORING_TEST_IDS.alerts}>
         <StyledSectionHeader>
           <Text variant="label">{t('ventilation.monitoring.sections.alerts')}</Text>
         </StyledSectionHeader>
@@ -186,7 +200,7 @@ const MonitoringScreenWeb = () => {
       </StyledSection>
 
       {pointsForHistory.length > 0 && (
-        <StyledSection data-testid={MONITORING_TEST_IDS.pointsHistory}>
+        <StyledSection data-testid={MONITORING_TEST_IDS.pointsHistory} testID={MONITORING_TEST_IDS.pointsHistory}>
           <StyledSectionHeader>
             <Text variant="label">{t('ventilation.monitoring.sections.trend')}</Text>
           </StyledSectionHeader>
