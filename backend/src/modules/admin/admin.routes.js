@@ -20,6 +20,7 @@ import {
   requestReferenceUpdate,
   retire,
   retireReference,
+  syncUserFacilities,
   updateUserStatus,
   updateUserMembership,
   updateReference,
@@ -40,6 +41,7 @@ import {
   modelShadowOutputSchema,
   referenceLifecycleSchema,
   referenceListSchema,
+  syncManagedUserFacilitiesSchema,
   updateManagedUserStatusSchema,
   updateManagedUserMembershipSchema,
   updateReferenceSchema,
@@ -55,6 +57,7 @@ adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema
 adminRouter.get('/users', validateRequest(adminUserListSchema), users);
 adminRouter.post('/users', validateRequest(createManagedUserSchema), createUser);
 adminRouter.patch('/users/:id', validateRequest(updateManagedUserStatusSchema), updateUserStatus);
+adminRouter.put('/users/:id/facilities', validateRequest(syncManagedUserFacilitiesSchema), syncUserFacilities);
 adminRouter.post('/users/:id/facility-memberships', validateRequest(assignManagedUserMembershipsSchema), assignUserMemberships);
 adminRouter.patch('/users/:id/facility-memberships/:membershipId', validateRequest(updateManagedUserMembershipSchema), updateUserMembership);
 adminRouter.get('/audit-logs', validateRequest(auditLogSchema), auditLogs);

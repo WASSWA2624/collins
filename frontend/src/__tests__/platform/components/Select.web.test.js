@@ -67,6 +67,20 @@ describe('Select Component - Web', () => {
       expect(getByText('One')).toBeTruthy();
     });
 
+    it('should portal the dropdown above clipped parent containers on Web', () => {
+      const { getByTestId } = renderWebWithProviders(
+        <div style={{ overflow: 'hidden', position: 'relative', zIndex: 1 }}>
+          <SelectWeb testID="web-select" options={options} value={undefined} onValueChange={() => {}} />
+        </div>
+      );
+
+      fireEvent.click(getByTestId('web-select'));
+      const menu = getByTestId('web-select-menu');
+
+      expect(menu.parentElement).toBe(document.body);
+      expect(menu.getAttribute('role')).toBe('listbox');
+    });
+
     it('should render selected option icon on Web', () => {
       const { getByText } = renderWebWithProviders(
         <SelectWeb

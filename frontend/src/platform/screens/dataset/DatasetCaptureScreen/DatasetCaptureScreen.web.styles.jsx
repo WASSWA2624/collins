@@ -107,8 +107,10 @@ const StyledStepItem = styled.button.withConfig({
   gap: ${({ theme }) => theme.spacing.xs}px;
   align-content: start;
   padding: ${({ theme }) => theme.spacing.sm}px;
-  border: 1px solid ${({ $active, $complete, theme }) => {
+  border: 1px solid ${({ $active, $complete, $status, theme }) => {
     if ($active) return theme.colors.primary;
+    if ($status === 'invalid') return theme.colors.error;
+    if ($status === 'missing') return theme.colors.warning;
     if ($complete) return theme.colors.success;
     return theme.colors.background.tertiary;
   }};
@@ -120,6 +122,7 @@ const StyledStepItem = styled.button.withConfig({
   text-align: left;
   cursor: pointer;
   box-sizing: border-box;
+  overflow-wrap: anywhere;
 
   &:disabled {
     cursor: default;

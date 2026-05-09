@@ -18,6 +18,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:seed": "node prisma/seed.mjs",
+    "facilities:cleanup": "node scripts/cleanup-facility-data.mjs",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",
     "test": "node scripts/prisma-generate-if-needed.mjs && node --test"

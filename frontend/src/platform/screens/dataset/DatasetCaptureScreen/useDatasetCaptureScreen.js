@@ -35,6 +35,15 @@ const getFieldEntered = (fieldValues, path) => {
   );
 };
 
+const hasStepValidationIssues = (step) =>
+  Boolean(step?.missingFieldDetails?.length || step?.invalidFieldDetails?.length);
+
+const buildAttemptedStepMap = (steps = []) =>
+  steps.reduce((acc, step) => {
+    if (step?.id) acc[step.id] = true;
+    return acc;
+  }, {});
+
 const buildSectionProgress = (sections, fieldValues, activeStepIndex) =>
   sections.map((section, index) => {
     const requiredFields = section.fields.filter((field) => field.required);
@@ -52,6 +61,15 @@ const buildSectionProgress = (sections, fieldValues, activeStepIndex) =>
     const complete = requiredFields.length > 0
       ? validation.errorDetails.length === 0
       : enteredTotal > 0 && invalidFieldDetails.length === 0;
+    const status = invalidFieldDetails.length > 0
+      ? 'invalid'
+      : missingFieldDetails.length > 0
+        ? 'missing'
+        : complete
+          ? 'complete'
+          : enteredTotal > 0
+            ? 'inProgress'
+            : 'notStarted';
 
     return {
       id: section.id,
@@ -67,6 +85,8 @@ const buildSectionProgress = (sections, fieldValues, activeStepIndex) =>
       invalidFieldDetails,
       complete,
       active: index === activeStepIndex,
+      issueCount: missingFieldDetails.length + invalidFieldDetails.length,
+      status,
     };
   });
 
@@ -81,6 +101,10 @@ export default function useDatasetCaptureScreen() {
   const [submitStatus, setSubmitStatus] = useState('idle');
   const [submitMessage, setSubmitMessage] = useState('');
   const [lastSubmittedCaseId, setLastSubmittedCaseId] = useState(null);
+  const [touchedFields, setTouchedFields] = useState({});
+  const [attemptedStepIds, setAttemptedStepIds] = useState({});
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [navigationIssue, setNavigationIssue] = useState(null);
   const draftLoadedRef = useRef(false);
   const skipNextDraftSaveRef = useRef(false);
   const submittingRef = useRef(false);
@@ -105,6 +129,19 @@ export default function useDatasetCaptureScreen() {
     [activeStepIndex, fieldValues, sections]
   );
   const activeStep = sectionProgress[activeStepIndex] || null;
+  const visibleFieldErrors = useMemo(() => {
+    const visible = {};
+    sections.forEach((section) => {
+      section.fields.forEach((field) => {
+        const message = completeness.fieldErrors[field.path];
+        if (!message) return;
+        if (submitAttempted || attemptedStepIds[section.id] || touchedFields[field.path]) {
+          visible[field.path] = message;
+        }
+      });
+    });
+    return visible;
+  }, [attemptedStepIds, completeness.fieldErrors, sections, submitAttempted, touchedFields]);
   const progressPercent = sections.length > 0
     ? Math.round(((activeStepIndex + 1) / sections.length) * 100)
     : 0;
@@ -179,30 +216,64 @@ export default function useDatasetCaptureScreen() {
       setDraftIdentity(createDatasetCaptureDraftIdentity());
     }
     setSubmitMessage('');
+    setNavigationIssue(null);
     setSubmitStatus('idle');
     setLastSubmittedCaseId(null);
+    setTouchedFields((current) => ({ ...current, [path]: true }));
     setFieldValues((current) => ({ ...current, [path]: value }));
   }, [submitStatus]);
 
   const handleGoToStep = useCallback((index) => {
-    setActiveStepIndex((current) => {
-      const next = Number(index);
-      if (!Number.isInteger(next)) return current;
-      if (next < 0 || next >= sections.length) return current;
-      return next;
-    });
-  }, [sections.length]);
+    const next = Number(index);
+    if (!Number.isInteger(next)) return;
+    if (next < 0 || next >= sections.length) return;
+
+    if (next > activeStepIndex) {
+      const priorStepsWithIssues = sectionProgress
+        .slice(0, next)
+        .filter(hasStepValidationIssues);
+
+      if (priorStepsWithIssues.length > 0) {
+        const firstIssueStep = priorStepsWithIssues[0];
+        setAttemptedStepIds((current) => ({
+          ...current,
+          ...buildAttemptedStepMap(priorStepsWithIssues),
+        }));
+        setNavigationIssue({
+          stepNumber: firstIssueStep.stepNumber,
+          title: firstIssueStep.title,
+          issueCount: firstIssueStep.issueCount,
+        });
+        setSubmitMessage('stepMissing');
+      } else {
+        setNavigationIssue(null);
+        setSubmitMessage('');
+      }
+    } else {
+      setNavigationIssue(null);
+      setSubmitMessage('');
+    }
+
+    setActiveStepIndex(next);
+  }, [activeStepIndex, sectionProgress, sections.length]);
 
   const handleNextStep = useCallback(() => {
     if (!activeStepValidation.valid) {
       setSubmitStatus('idle');
       setSubmitMessage('stepInvalid');
+      setAttemptedStepIds((current) => ({ ...current, [activeSection?.id]: true }));
+      setNavigationIssue({
+        stepNumber: activeStepIndex + 1,
+        title: activeSection?.title || '',
+        issueCount: activeStepValidation.errorDetails.length,
+      });
       return;
     }
     setLastCompletedStepIndex((current) => Math.max(current, activeStepIndex));
     setActiveStepIndex((current) => Math.min(current + 1, Math.max(sections.length - 1, 0)));
     setSubmitMessage('');
-  }, [activeStepIndex, activeStepValidation.valid, sections.length]);
+    setNavigationIssue(null);
+  }, [activeSection?.id, activeSection?.title, activeStepIndex, activeStepValidation.errorDetails.length, activeStepValidation.valid, sections.length]);
 
   const handlePreviousStep = useCallback(() => {
     setActiveStepIndex((current) => Math.max(current - 1, 0));
@@ -218,18 +289,39 @@ export default function useDatasetCaptureScreen() {
     setSubmitStatus('idle');
     setSubmitMessage('');
     setLastSubmittedCaseId(null);
+    setTouchedFields({});
+    setAttemptedStepIds({});
+    setSubmitAttempted(false);
+    setNavigationIssue(null);
   }, [draftScope]);
 
   const handleSubmitForReview = useCallback(async () => {
     if (submittingRef.current || submitStatus === 'queued') return;
-    if (!captureAllowed || !facilityId || !hasEnteredValues || !completeness.isValid) {
+    if (!captureAllowed || !facilityId || !hasEnteredValues) {
       setSubmitStatus('idle');
       setSubmitMessage('reviewInvalid');
+      return;
+    }
+    setSubmitAttempted(true);
+    if (!completeness.isValid) {
+      const firstIssueStep = sectionProgress.find(hasStepValidationIssues);
+      setAttemptedStepIds(buildAttemptedStepMap(sectionProgress));
+      setSubmitStatus('idle');
+      setSubmitMessage('reviewInvalid');
+      if (firstIssueStep) {
+        setActiveStepIndex(firstIssueStep.stepNumber - 1);
+        setNavigationIssue({
+          stepNumber: firstIssueStep.stepNumber,
+          title: firstIssueStep.title,
+          issueCount: firstIssueStep.issueCount,
+        });
+      }
       return;
     }
     submittingRef.current = true;
     setSubmitStatus('loading');
     setSubmitMessage('submitting');
+    setNavigationIssue(null);
     setLastSubmittedCaseId(null);
 
     const submittedAt = new Date().toISOString();
@@ -251,6 +343,9 @@ export default function useDatasetCaptureScreen() {
         setLastCompletedStepIndex(0);
         setDraftIdentity(createDatasetCaptureDraftIdentity());
         setDraftStatus('ready');
+        setTouchedFields({});
+        setAttemptedStepIds({});
+        setSubmitAttempted(false);
       }
     } catch {
       setSubmitStatus('error');
@@ -267,6 +362,7 @@ export default function useDatasetCaptureScreen() {
     facilityId,
     fieldValues,
     hasEnteredValues,
+    sectionProgress,
     submitStatus,
   ]);
 
@@ -274,7 +370,6 @@ export default function useDatasetCaptureScreen() {
     !captureAllowed ||
     !facilityId ||
     !hasEnteredValues ||
-    !completeness.isValid ||
     submitStatus === 'loading' ||
     submitStatus === 'queued';
 
@@ -294,14 +389,17 @@ export default function useDatasetCaptureScreen() {
         completeness,
         draftStatus,
         facilityId,
-        fieldErrors: completeness.fieldErrors,
+        fieldErrors: visibleFieldErrors,
         fieldValues,
         hasEnteredValues,
         isOffline,
         lastSubmittedCaseId,
         missingFields: completeness.missingFields,
         missingFieldDetails: completeness.missingFieldDetails,
+        navigationIssue,
+        submitAttempted,
         validationErrorDetails: completeness.validationErrorDetails,
+        validationFieldErrors: completeness.fieldErrors,
         submitDisabled,
         submitMessage,
         submitStatus,
@@ -331,12 +429,15 @@ export default function useDatasetCaptureScreen() {
       hasEnteredValues,
       isOffline,
       lastSubmittedCaseId,
+      navigationIssue,
       progressPercent,
       sectionProgress,
       sections,
       submitDisabled,
+      submitAttempted,
       submitMessage,
       submitStatus,
+      visibleFieldErrors,
     ]
   );
 }

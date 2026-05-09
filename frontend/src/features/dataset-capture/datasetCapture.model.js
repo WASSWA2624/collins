@@ -62,6 +62,47 @@ const YES_NO_UNKNOWN_OPTIONS = Object.freeze([
   option('No', 'NO'),
 ]);
 
+const ventilationReasonOption = (label, searchText = []) => Object.freeze({
+  label,
+  value: label,
+  searchText,
+});
+
+const DATASET_VENTILATION_REASON_OPTIONS = Object.freeze([
+  ventilationReasonOption('Acute hypoxemic respiratory failure', ['hypoxia', 'hypoxaemia', 'low oxygen']),
+  ventilationReasonOption('Acute hypercapnic respiratory failure', ['hypercapnia', 'high co2', 'carbon dioxide retention']),
+  ventilationReasonOption('Mixed hypoxemic and hypercapnic respiratory failure', ['mixed respiratory failure']),
+  ventilationReasonOption('ARDS requiring ventilatory support', ['acute respiratory distress syndrome']),
+  ventilationReasonOption('Pneumonia-related respiratory failure', ['pneumonia', 'lower respiratory infection']),
+  ventilationReasonOption('COPD exacerbation with ventilatory failure', ['copd', 'chronic obstructive pulmonary disease']),
+  ventilationReasonOption('Asthma exacerbation with ventilatory failure', ['asthma', 'status asthmaticus']),
+  ventilationReasonOption('Sepsis or shock with respiratory failure', ['sepsis', 'shock']),
+  ventilationReasonOption('Airway protection', ['reduced consciousness', 'aspiration risk']),
+  ventilationReasonOption('Post-operative ventilatory support', ['postoperative', 'post op', 'perioperative']),
+  ventilationReasonOption('Neuromuscular weakness', ['myasthenia', 'guillain-barre', 'weakness']),
+  ventilationReasonOption('Trauma or burns ventilatory support', ['trauma', 'burns']),
+  ventilationReasonOption('Cardiac arrest or post-resuscitation support', ['cardiac arrest', 'resuscitation']),
+  ventilationReasonOption('Weaning or extubation readiness assessment', ['weaning', 'sbt', 'spontaneous breathing trial']),
+  ventilationReasonOption('Other specified clinical reason', ['other']),
+  ventilationReasonOption('Unknown reason', ['unknown', 'not documented']),
+]);
+
+const VENTILATION_REASON_CANONICAL_LOOKUP = Object.freeze(
+  DATASET_VENTILATION_REASON_OPTIONS.reduce((acc, item) => {
+    acc[item.value.toLowerCase()] = item.value;
+    acc[item.label.toLowerCase()] = item.value;
+    (item.searchText || []).forEach((alias) => {
+      acc[String(alias).toLowerCase()] = item.value;
+    });
+    return acc;
+  }, {
+    'hypoxemic respiratory failure': 'Acute hypoxemic respiratory failure',
+    'hypoxaemic respiratory failure': 'Acute hypoxemic respiratory failure',
+    'hypercapnic respiratory failure': 'Acute hypercapnic respiratory failure',
+    'respiratory failure': 'Other specified clinical reason',
+  })
+);
+
 const DEFAULT_DATASET_CAPTURE_FIELD_VALUES = Object.freeze({
   'provenance.sourceType': 'CLINICIAN_CHART_ABSTRACTION',
   'provenance.clinicianValidationStatus': 'PENDING_CLINICIAN_VALIDATION',
@@ -158,9 +199,14 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
     label: 'Reason for ventilation',
     section: 'Case context',
     sectionId: 'caseContext',
-    type: 'text',
+    type: 'select',
     required: true,
-    placeholder: 'e.g. hypercapnic respiratory failure',
+    searchable: true,
+    allowCustomValue: true,
+    placeholder: 'Search or add a controlled reason',
+    searchPlaceholder: 'Search ventilation reasons',
+    helperText: 'Use a standard reason where possible. If none fits, add a short de-identified custom reason.',
+    options: DATASET_VENTILATION_REASON_OPTIONS,
   },
   {
     path: 'caseContext.ventilationIndication',
@@ -903,6 +949,7 @@ const normalizeEditableValue = (path, value) => {
   if (value === null || value === undefined) return null;
   if (!NUMERIC_FIELD_PATHS.has(path)) {
     const text = String(value).trim();
+    if (path === 'caseContext.reasonForVentilation') return normalizeVentilationReasonValue(text);
     return text || null;
   }
   if (String(value).trim() === '') return null;
@@ -927,6 +974,13 @@ const isValidDateTimeString = (value) => {
   const text = String(value || '').trim();
   if (!text) return true;
   return !Number.isNaN(new Date(text).getTime());
+};
+
+const normalizeVentilationReasonValue = (value) => {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return null;
+  const lower = text.toLowerCase();
+  return VENTILATION_REASON_CANONICAL_LOOKUP[lower] || text;
 };
 
 const createValidationDetail = (field, message, category = 'invalid') => ({
@@ -959,7 +1013,15 @@ const validateDatasetCaptureFieldValues = (fieldValues = {}, options = {}) => {
 
     if (field.type === 'select') {
       const allowedValues = new Set((field.options || []).map((item) => item.value));
-      if (allowedValues.size > 0 && !allowedValues.has(String(rawValue))) {
+      const normalizedValue = normalizeEditableValue(field.path, rawValue);
+      if (field.allowCustomValue && !allowedValues.has(String(normalizedValue))) {
+        const text = String(normalizedValue || '').trim();
+        if (text.length < 3 || text.length > 160) {
+          details.push(createValidationDetail(field, 'Enter a clear de-identified reason between 3 and 160 characters.'));
+        }
+        return;
+      }
+      if (allowedValues.size > 0 && !allowedValues.has(String(normalizedValue))) {
         details.push(createValidationDetail(field, 'Please choose a valid option.'));
       }
       return;
@@ -1173,9 +1235,9 @@ const parseDatasetCaptureNote = (noteText) => {
   const preview = createEmptyDatasetCapturePreview();
   preview.caseContext.primaryDiagnosis = normalizeDiagnosis(text);
   preview.caseContext.reasonForVentilation = /\bhypercap/i.test(text)
-    ? 'Hypercapnic respiratory failure'
+    ? normalizeVentilationReasonValue('Acute hypercapnic respiratory failure')
     : /\bhypox/i.test(text)
-      ? 'Hypoxemic respiratory failure'
+      ? normalizeVentilationReasonValue('Acute hypoxemic respiratory failure')
       : null;
   preview.caseContext.ventilationIndication = /\bhypercap/i.test(text)
     ? 'HYPERCAPNIA'
@@ -1340,6 +1402,7 @@ export {
   DATASET_CAPTURE_SCHEMA_VERSION,
   DATASET_CAPTURE_SECTION_DEFINITIONS,
   DATASET_CAPTURE_SOURCE_TYPE,
+  DATASET_VENTILATION_REASON_OPTIONS,
   DATASET_OUTCOME_REFERENCE_CATEGORIES,
   DATASET_TRAINING_APPROVAL_ROLES,
   DEFAULT_DATASET_CAPTURE_FIELD_VALUES,

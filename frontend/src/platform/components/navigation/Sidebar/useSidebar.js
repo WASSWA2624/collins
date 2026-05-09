@@ -28,8 +28,9 @@ const useSidebar = ({
   const activePathname = pathname || currentPathname;
 
   const isItemActive = (item) => {
-    if (!item.href) return false;
-    return activePathname === item.href || activePathname.startsWith(item.href + '/');
+    const href = item?.href ?? item?.path ?? null;
+    if (!href) return false;
+    return activePathname === href || activePathname.startsWith(href + '/');
   };
 
   const defaultIsItemVisible = (item) => {
@@ -53,8 +54,9 @@ const useSidebar = ({
       onItemPress(item);
       return;
     }
-    if (item?.href) {
-      router.push(item.href);
+    const href = item?.href ?? item?.path ?? null;
+    if (href) {
+      router.push(href);
       return;
     }
     if (item?.onPress) {

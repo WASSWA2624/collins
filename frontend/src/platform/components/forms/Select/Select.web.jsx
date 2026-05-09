@@ -4,7 +4,8 @@
  * File: Select.web.jsx
  */
 // 1. External dependencies
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 // 2. Platform components (from barrel file) - N/A for Select
 
@@ -123,10 +124,12 @@ const SelectWeb = ({
   const displayHelperText = finalErrorMessage || helperText;
 
   const rootRef = useRef(null);
+  const triggerRef = useRef(null);
   const menuRef = useRef(null);
   const searchRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = React.useState(-1);
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [menuPosition, setMenuPosition] = React.useState(null);
 
   const visibleOptions = React.useMemo(() => {
     const rows = options.map((option, index) => ({ option, index }));
@@ -160,13 +163,59 @@ const SelectWeb = ({
       : defaultPlaceholder;
   const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
   const selectedOptionIcon = getOptionIcon(selectedOption);
+  const canPortalMenu =
+    typeof document !== 'undefined' &&
+    Boolean(document.body) &&
+    typeof window !== 'undefined';
+
+  const updateMenuPosition = useCallback(() => {
+    if (!canPortalMenu || !triggerRef.current) return;
+
+    const gap = 4;
+    const minHeight = 120;
+    const maxPreferredHeight = 280;
+    const viewportWidth =
+      window.innerWidth || document.documentElement.clientWidth || 0;
+    const viewportHeight =
+      window.innerHeight || document.documentElement.clientHeight || 0;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const availableBelow = viewportHeight - rect.bottom - gap;
+    const availableAbove = rect.top - gap;
+    const placeAbove =
+      availableBelow < minHeight && availableAbove > availableBelow;
+    const availableHeight = Math.max(
+      minHeight,
+      placeAbove ? availableAbove : availableBelow
+    );
+    const maxHeight = Math.min(maxPreferredHeight, availableHeight);
+    const left = Math.max(
+      gap,
+      Math.min(rect.left, viewportWidth - rect.width - gap)
+    );
+    const width = Math.max(
+      160,
+      Math.min(rect.width, viewportWidth - left - gap)
+    );
+    const top = placeAbove
+      ? Math.max(gap, rect.top - maxHeight - gap)
+      : Math.min(rect.bottom + gap, viewportHeight - maxHeight - gap);
+
+    setMenuPosition({
+      left,
+      maxHeight,
+      top: Math.max(gap, top),
+      width,
+    });
+  }, [canPortalMenu]);
 
   // Close on outside click
   useEffect(() => {
     if (!open) return;
 
     const handleClickOutside = (event) => {
-      if (rootRef.current && !rootRef.current.contains(event.target)) {
+      const insideTrigger = rootRef.current?.contains(event.target);
+      const insideMenu = menuRef.current?.contains(event.target);
+      if (!insideTrigger && !insideMenu) {
         closeSelect();
       }
     };
@@ -174,6 +223,19 @@ const SelectWeb = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [closeSelect, open]);
+
+  useLayoutEffect(() => {
+    if (!open || !canPortalMenu) return;
+
+    updateMenuPosition();
+    window.addEventListener('resize', updateMenuPosition);
+    window.addEventListener('scroll', updateMenuPosition, true);
+
+    return () => {
+      window.removeEventListener('resize', updateMenuPosition);
+      window.removeEventListener('scroll', updateMenuPosition, true);
+    };
+  }, [canPortalMenu, open, updateMenuPosition]);
 
   // Reset focused index when menu opens/closes
   useEffect(() => {
@@ -323,6 +385,93 @@ const SelectWeb = ({
     }
   };
 
+  const menu = open ? (
+    <StyledMenu
+      ref={menuRef}
+      role="listbox"
+      onKeyDown={handleMenuKeyDown}
+      data-testid={testID ? `${testID}-menu` : undefined}
+      $portal={canPortalMenu}
+      $position={menuPosition}
+    >
+      {searchable ? (
+        <StyledSearchInput
+          ref={searchRef}
+          value={searchQuery}
+          onChange={(event) => {
+            setSearchQuery(event.target.value);
+            setFocusedIndex(-1);
+          }}
+          onKeyDown={handleSearchKeyDown}
+          placeholder={finalSearchPlaceholder}
+          aria-label={finalSearchPlaceholder}
+          data-testid={testID ? `${testID}-search` : undefined}
+        />
+      ) : null}
+      {visibleOptions.length === 0 && !canUseCustomValue ? (
+        <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
+      ) : null}
+      {visibleOptions.length > 0
+        ? visibleOptions.map(({ option: opt, index }, visibleIndex) => {
+            const selected = value === opt.value;
+            const optionIcon = getOptionIcon(opt);
+
+            return (
+              <StyledOption
+                key={`${String(opt.value)}-${index}`}
+                disabled={!!opt.disabled}
+                onClick={() => {
+                  if (opt.disabled) return;
+                  handleSelect(opt.value);
+                }}
+                onFocus={() => setFocusedIndex(index)}
+                role="option"
+                aria-selected={selected}
+                aria-disabled={opt.disabled}
+                aria-label={opt.label}
+                tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
+                data-option-index={index}
+                data-testid={testID ? `${testID}-option-${index}` : undefined}
+              >
+                <StyledOptionContent>
+                  {optionIcon ? (
+                    <StyledOptionIcon aria-hidden="true">
+                      {optionIcon}
+                    </StyledOptionIcon>
+                  ) : null}
+                  <StyledOptionText $selected={selected}>
+                    {opt.label}
+                  </StyledOptionText>
+                </StyledOptionContent>
+                <StyledSelectedMark aria-hidden="true">
+                  {selected ? '\u2713' : ''}
+                </StyledSelectedMark>
+              </StyledOption>
+            );
+          })
+        : null}
+      {canUseCustomValue ? (
+        <StyledOption
+          key="custom-value"
+          onClick={() => handleSelect(normalizedSearchQuery)}
+          role="option"
+          aria-selected={value === normalizedSearchQuery}
+          tabIndex={visibleOptions.length === 0 ? 0 : -1}
+          data-testid={testID ? `${testID}-custom-option` : undefined}
+        >
+          <StyledOptionContent>
+            <StyledOptionText $selected={value === normalizedSearchQuery}>
+              {customValueLabel}
+            </StyledOptionText>
+          </StyledOptionContent>
+          <StyledSelectedMark aria-hidden="true">
+            {value === normalizedSearchQuery ? '\u2713' : ''}
+          </StyledSelectedMark>
+        </StyledOption>
+      ) : null}
+    </StyledMenu>
+  ) : null;
+
   return (
     <StyledContainer
       ref={rootRef}
@@ -339,6 +488,7 @@ const SelectWeb = ({
       ) : null}
 
       <StyledTrigger
+        ref={triggerRef}
         onClick={disabled ? undefined : toggleSelect}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -374,90 +524,7 @@ const SelectWeb = ({
         <StyledChevron aria-hidden="true">{'\u25BE'}</StyledChevron>
       </StyledTrigger>
 
-      {open ? (
-        <StyledMenu
-          ref={menuRef}
-          role="listbox"
-          onKeyDown={handleMenuKeyDown}
-          data-testid={testID ? `${testID}-menu` : undefined}
-        >
-          {searchable ? (
-            <StyledSearchInput
-              ref={searchRef}
-              value={searchQuery}
-              onChange={(event) => {
-                setSearchQuery(event.target.value);
-                setFocusedIndex(-1);
-              }}
-              onKeyDown={handleSearchKeyDown}
-              placeholder={finalSearchPlaceholder}
-              aria-label={finalSearchPlaceholder}
-              data-testid={testID ? `${testID}-search` : undefined}
-            />
-          ) : null}
-          {visibleOptions.length === 0 && !canUseCustomValue ? (
-            <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
-          ) : null}
-          {visibleOptions.length > 0
-            ? visibleOptions.map(({ option: opt, index }, visibleIndex) => {
-                const selected = value === opt.value;
-                const optionIcon = getOptionIcon(opt);
-
-                return (
-                  <StyledOption
-                    key={`${String(opt.value)}-${index}`}
-                    disabled={!!opt.disabled}
-                    onClick={() => {
-                      if (opt.disabled) return;
-                      handleSelect(opt.value);
-                    }}
-                    onFocus={() => setFocusedIndex(index)}
-                    role="option"
-                    aria-selected={selected}
-                    aria-disabled={opt.disabled}
-                    aria-label={opt.label}
-                    tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
-                    data-option-index={index}
-                    data-testid={testID ? `${testID}-option-${index}` : undefined}
-                  >
-                    <StyledOptionContent>
-                      {optionIcon ? (
-                        <StyledOptionIcon aria-hidden="true">
-                          {optionIcon}
-                        </StyledOptionIcon>
-                      ) : null}
-                      <StyledOptionText $selected={selected}>
-                        {opt.label}
-                      </StyledOptionText>
-                    </StyledOptionContent>
-                    <StyledSelectedMark aria-hidden="true">
-                      {selected ? '\u2713' : ''}
-                    </StyledSelectedMark>
-                  </StyledOption>
-                );
-              })
-            : null}
-          {canUseCustomValue ? (
-            <StyledOption
-              key="custom-value"
-              onClick={() => handleSelect(normalizedSearchQuery)}
-              role="option"
-              aria-selected={value === normalizedSearchQuery}
-              tabIndex={visibleOptions.length === 0 ? 0 : -1}
-              data-testid={testID ? `${testID}-custom-option` : undefined}
-            >
-              <StyledOptionContent>
-                <StyledOptionText $selected={value === normalizedSearchQuery}>
-                  {customValueLabel}
-                </StyledOptionText>
-              </StyledOptionContent>
-              <StyledSelectedMark aria-hidden="true">
-                {value === normalizedSearchQuery ? '\u2713' : ''}
-              </StyledSelectedMark>
-            </StyledOption>
-          ) : null}
-        </StyledMenu>
-      ) : null}
+      {canPortalMenu && menu ? createPortal(menu, document.body) : menu}
 
       {displayHelperText ? (
         <StyledHelperText

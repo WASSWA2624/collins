@@ -54,6 +54,7 @@ const CLINICAL_VALIDATE_ROLES = Object.freeze([
 
 const USER_STATUS_VALUES = Object.freeze(['ACTIVE', 'INVITED', 'SUSPENDED', 'DEACTIVATED']);
 const MEMBERSHIP_STATUS_VALUES = Object.freeze(['PENDING', 'APPROVED', 'REJECTED', 'SUSPENDED']);
+const unique = (values = []) => [...new Set(values.filter(Boolean))];
 
 const managedUserSelect = {
   id: true,
@@ -516,6 +517,172 @@ export const assignManagedUserMemberships = async (targetUserId, payload, adminU
   });
 };
 
+export const syncManagedUserFacilities = async (targetUserId, payload, adminUserId, auditContext = {}) => {
+  const facilityIds = unique(payload.facilityIds || []);
+  const managedFacilityIds = await getManagedFacilityIds(adminUserId);
+
+  for (const facilityId of facilityIds) {
+    await assertCanManageMembership(adminUserId, { facilityId, role: payload.role });
+  }
+
+  return prisma.$transaction(async (tx) => {
+    const targetUser = await tx.user.findUnique({
+      where: { id: targetUserId },
+      select: { id: true, email: true, name: true },
+    });
+    if (!targetUser) throw notFound('User not found');
+
+    if (facilityIds.length > 0) {
+      const facilities = await tx.facility.findMany({
+        where: { id: { in: facilityIds } },
+        select: { id: true },
+      });
+      if (facilities.length !== facilityIds.length) throw notFound('Facility not found');
+    }
+
+    const scopedWhere = {
+      userId: targetUserId,
+      ...(managedFacilityIds ? { facilityId: { in: managedFacilityIds } } : {}),
+    };
+    const existingMemberships = await tx.facilityMembership.findMany({ where: scopedWhere });
+    const selectedFacilityIds = new Set(facilityIds);
+    const membershipsToRemove = existingMemberships.filter(
+      (membership) => !selectedFacilityIds.has(membership.facilityId)
+    );
+
+    for (const membership of membershipsToRemove) {
+      await assertCanManageMembership(adminUserId, {
+        facilityId: membership.facilityId,
+        role: membership.role,
+      });
+    }
+
+    if (targetUserId === adminUserId) {
+      const removesOwnPlatformRole = membershipsToRemove
+        .some((membership) => membership.role === MEMBERSHIP_ROLES.PLATFORM_ADMIN);
+      const keepsOwnPlatformRole =
+        payload.role === MEMBERSHIP_ROLES.PLATFORM_ADMIN ||
+        existingMemberships.some((membership) =>
+          membership.role === MEMBERSHIP_ROLES.PLATFORM_ADMIN &&
+          selectedFacilityIds.has(membership.facilityId));
+
+      if (removesOwnPlatformRole && !keepsOwnPlatformRole) {
+        throw badRequest('Administrators cannot remove their own platform access');
+      }
+    }
+
+    if (membershipsToRemove.length > 0) {
+      await tx.facilityMembership.deleteMany({
+        where: { id: { in: membershipsToRemove.map((membership) => membership.id) } },
+      });
+
+      for (const membership of membershipsToRemove) {
+        await writeAudit({
+          tx,
+          ...auditContext,
+          userId: adminUserId,
+          facilityId: membership.facilityId,
+          action: 'ADMIN_USER_MEMBERSHIP_DELETE',
+          entityType: 'FacilityMembership',
+          entityId: membership.id,
+          beforeJson: {
+            targetUserId,
+            role: membership.role,
+            status: membership.status,
+            approvedByUserId: membership.approvedByUserId,
+          },
+          reason: payload.reason,
+        });
+      }
+    }
+
+    const savedMemberships = [];
+    for (const facilityId of facilityIds) {
+      const before = await tx.facilityMembership.findUnique({
+        where: {
+          userId_facilityId_role: {
+            userId: targetUserId,
+            facilityId,
+            role: payload.role,
+          },
+        },
+      });
+      const membership = await tx.facilityMembership.upsert({
+        where: {
+          userId_facilityId_role: {
+            userId: targetUserId,
+            facilityId,
+            role: payload.role,
+          },
+        },
+        update: {
+          status: payload.status,
+          approvedByUserId: payload.status === 'APPROVED' ? adminUserId : null,
+        },
+        create: {
+          userId: targetUserId,
+          facilityId,
+          role: payload.role,
+          status: payload.status,
+          approvedByUserId: payload.status === 'APPROVED' ? adminUserId : null,
+        },
+      });
+      savedMemberships.push(membership);
+
+      await writeAudit({
+        tx,
+        ...auditContext,
+        userId: adminUserId,
+        facilityId,
+        action: before ? 'ADMIN_USER_MEMBERSHIP_UPDATE' : 'ADMIN_USER_MEMBERSHIP_CREATE',
+        entityType: 'FacilityMembership',
+        entityId: membership.id,
+        beforeJson: before ? { role: before.role, status: before.status, approvedByUserId: before.approvedByUserId } : null,
+        afterJson: {
+          targetUserId,
+          role: membership.role,
+          status: membership.status,
+          approvedByUserId: membership.approvedByUserId,
+        },
+        reason: payload.reason,
+      });
+    }
+
+    const removedFacilityIds = new Set(membershipsToRemove.map((membership) => membership.facilityId));
+    const nextSelectedFacilityId = facilityIds[0] || null;
+    if (removedFacilityIds.size > 0) {
+      const [settings, onboardingState] = await Promise.all([
+        tx.userSettings.findUnique({ where: { userId: targetUserId }, select: { activeFacilityId: true } }),
+        tx.onboardingState.findUnique({ where: { userId: targetUserId }, select: { selectedFacilityId: true } }),
+      ]);
+
+      if (settings?.activeFacilityId && removedFacilityIds.has(settings.activeFacilityId)) {
+        await tx.userSettings.update({
+          where: { userId: targetUserId },
+          data: { activeFacilityId: nextSelectedFacilityId },
+        });
+      }
+
+      if (onboardingState?.selectedFacilityId && removedFacilityIds.has(onboardingState.selectedFacilityId)) {
+        await tx.onboardingState.update({
+          where: { userId: targetUserId },
+          data: {
+            selectedFacilityId: nextSelectedFacilityId,
+            requestedRole: nextSelectedFacilityId ? payload.role : null,
+          },
+        });
+      }
+    }
+
+    const user = await tx.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
+    return {
+      user: serializeManagedUserForScope(user, managedFacilityIds),
+      memberships: savedMemberships,
+      removedMembershipIds: membershipsToRemove.map((membership) => membership.id),
+    };
+  });
+};
+
 export const updateManagedUserMembership = async (targetUserId, membershipId, payload, adminUserId, auditContext = {}) => {
   const existing = await prisma.facilityMembership.findFirst({
     where: { id: membershipId, userId: targetUserId },
@@ -527,6 +694,19 @@ export const updateManagedUserMembership = async (targetUserId, membershipId, pa
     facilityId: existing.facilityId,
     role: payload.role || existing.role,
   });
+
+  if (payload.role && payload.role !== existing.role) {
+    const duplicate = await prisma.facilityMembership.findUnique({
+      where: {
+        userId_facilityId_role: {
+          userId: targetUserId,
+          facilityId: existing.facilityId,
+          role: payload.role,
+        },
+      },
+    });
+    if (duplicate) throw conflict('User already has this role for the facility');
+  }
 
   return prisma.$transaction(async (tx) => {
     const updated = await tx.facilityMembership.update({

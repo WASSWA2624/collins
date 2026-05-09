@@ -201,29 +201,7 @@ const resolveRegistrationFacility = async (tx, {
   });
   if (existing) return existing;
 
-  const facility = await tx.facility.create({
-    data: {
-      name: facilityName,
-      ...(facilityDistrict ? { district: facilityDistrict } : {}),
-      ...(facilityRegion ? { region: facilityRegion } : {}),
-      ...(facilityType ? { type: facilityType } : { type: 'Hospital' }),
-      ...(facilityOwnership ? { ownership: facilityOwnership } : {}),
-    },
-    select: registrationFacilitySelect,
-  });
-
-  await writeAudit({
-    tx,
-    ...auditContext,
-    userId,
-    facilityId: facility.id,
-    action: 'FACILITY_CREATE_FROM_REGISTRATION',
-    entityType: 'Facility',
-    entityId: facility.id,
-    afterJson: facility,
-  });
-
-  return facility;
+  throw notFound('Facility not found');
 };
 
 const getRegistrationMembershipApproval = (role, userId) => {

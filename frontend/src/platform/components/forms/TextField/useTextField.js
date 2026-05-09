@@ -147,8 +147,7 @@ const useTextField = ({
         setErrorMessage('');
       }
 
-      // Debounced validation and onChange
-      debounceTimerRef.current = setTimeout(() => {
+      const commitChange = () => {
         validateValue(formattedValue);
         if (onChangeText) {
           onChangeText(formattedValue);
@@ -156,7 +155,15 @@ const useTextField = ({
         if (onChange) {
           onChange({ target: { value: formattedValue } });
         }
-      }, debounceMs);
+      };
+
+      if (debounceMs <= 0) {
+        commitChange();
+        return;
+      }
+
+      // Debounced validation and onChange
+      debounceTimerRef.current = setTimeout(commitChange, debounceMs);
     },
     [onChangeText, onChange, type, required, debounceMs, autoFormat, validateValue]
   );

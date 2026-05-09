@@ -162,6 +162,10 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
   assert.equal(result.reviewStatus, 'SUBMITTED');
   assert.equal(result.syncStatus, 'synced');
   assert.equal(createdDatasetCase.deidentificationStatus, 'deidentified_server_side');
+  assert.equal(
+    createdDatasetCase.structuredPreviewJson.caseContext.reasonForVentilation,
+    'Acute hypercapnic respiratory failure',
+  );
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.patient.ageYears, 52);
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.patient.hospitalNumber, undefined);
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.rawNote, undefined);

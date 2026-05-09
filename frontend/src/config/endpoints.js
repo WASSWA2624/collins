@@ -121,6 +121,7 @@ export const endpoints = {
     FACILITIES: `${baseUrl}/admin/facilities`,
     USERS: `${baseUrl}/admin/users`,
     USER: (id) => `${baseUrl}/admin/users/${id}`,
+    USER_FACILITIES: (id) => `${baseUrl}/admin/users/${id}/facilities`,
     USER_MEMBERSHIPS: (id) => `${baseUrl}/admin/users/${id}/facility-memberships`,
     USER_MEMBERSHIP: (id, membershipId) => `${baseUrl}/admin/users/${id}/facility-memberships/${membershipId}`,
     AUDIT_LOGS: `${baseUrl}/admin/audit-logs`,

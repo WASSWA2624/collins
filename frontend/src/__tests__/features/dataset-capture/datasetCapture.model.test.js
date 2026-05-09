@@ -6,6 +6,8 @@ const {
   buildDatasetCaptureSubmission,
   canApproveTrainingDataset,
   canCaptureDatasetCandidate,
+  DATASET_CAPTURE_FIELD_DEFINITIONS,
+  DATASET_VENTILATION_REASON_OPTIONS,
   getDatasetCaptureCompleteness,
   getDatasetCaptureSections,
   parseDatasetCaptureNote,
@@ -110,6 +112,27 @@ describe('datasetCapture.model', () => {
     expect(result.fieldErrors['abgTest.ph']).toBe('Please enter a valid pH value.');
     expect(result.fieldErrors['targetRanges.spo2Upper']).toMatch(/lower target/);
     expect(result.fieldErrors['outcome.referenceUseCategory']).toMatch(/cannot be marked as positive/);
+  });
+
+  it('uses a searchable controlled ventilation reason list with safe custom values', () => {
+    const reasonField = DATASET_CAPTURE_FIELD_DEFINITIONS.find(
+      (field) => field.path === 'caseContext.reasonForVentilation'
+    );
+    const customResult = validateDatasetCaptureFieldValues({
+      'caseContext.reasonForVentilation': 'Acute airway edema after anaphylaxis',
+    }, { sectionId: 'caseContext' });
+    const invalidCustomResult = validateDatasetCaptureFieldValues({
+      'caseContext.reasonForVentilation': 'x',
+    }, { sectionId: 'caseContext' });
+
+    expect(reasonField.type).toBe('select');
+    expect(reasonField.searchable).toBe(true);
+    expect(reasonField.allowCustomValue).toBe(true);
+    expect(DATASET_VENTILATION_REASON_OPTIONS.map((item) => item.value))
+      .toContain('Acute hypercapnic respiratory failure');
+    expect(customResult.fieldErrors['caseContext.reasonForVentilation']).toBeUndefined();
+    expect(invalidCustomResult.fieldErrors['caseContext.reasonForVentilation'])
+      .toMatch(/de-identified reason/);
   });
 
   it('separates capture roles from training approval roles', () => {

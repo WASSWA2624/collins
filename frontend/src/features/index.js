@@ -18,4 +18,5 @@ export * from './settings';
 export * from './review';
 export * from './tracking';
 export * from './dataset-capture';
+export * from './facilities';
 export * from './user-management';

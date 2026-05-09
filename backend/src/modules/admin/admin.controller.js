@@ -22,6 +22,7 @@ import {
   requestReferenceCorrection,
   retireReferenceRule,
   retireModel,
+  syncManagedUserFacilities,
   updateManagedUserStatus,
   updateReferenceRule,
   updateManagedUserMembership,
@@ -67,6 +68,16 @@ export const assignUserMemberships = asyncHandler(async (req, res) => {
     buildAuditContext(req),
   );
   return successResponse(res, { message: 'User access updated', data });
+});
+
+export const syncUserFacilities = asyncHandler(async (req, res) => {
+  const data = await syncManagedUserFacilities(
+    req.validated.params.id,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req),
+  );
+  return successResponse(res, { message: 'User facilities updated', data });
 });
 
 export const updateUserStatus = asyncHandler(async (req, res) => {

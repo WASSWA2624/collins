@@ -43,19 +43,35 @@ const DatasetCaptureScreenWeb = () => {
   } = useDatasetCaptureScreen();
 
   const getFieldState = (path) => (capture.fieldErrors?.[path] ? 'missing' : 'default');
-  const getHelperText = (field) => (
-    capture.fieldErrors?.[field.path]
-      ? capture.fieldErrors[field.path]
-      : field.placeholder || (field.required ? t('ventilation.datasetCapture.fields.required') : t('ventilation.datasetCapture.fields.optional'))
+  const getFieldLabel = (field) => (
+    field.required
+      ? field.label
+      : `${field.label} (${t('ventilation.datasetCapture.fields.optional')})`
   );
+  const getHelperText = (field) => {
+    if (capture.fieldErrors?.[field.path]) return capture.fieldErrors[field.path];
+    const requirement = field.required
+      ? t('ventilation.datasetCapture.fields.required')
+      : t('ventilation.datasetCapture.fields.optional');
+    const guidance = field.helperText || field.placeholder;
+    return guidance ? `${requirement}. ${guidance}` : requirement;
+  };
+  const getStepStatusText = (step) => {
+    if (step.invalidFields.length > 0) return 'Validation issue';
+    if (step.missingFields.length > 0) return 'Missing required';
+    if (step.complete) return 'Complete';
+    if (step.enteredTotal > 0) return 'In progress';
+    return 'Not started';
+  };
 
   const renderField = (field) => {
     const value = capture.fieldValues[field.path] ?? '';
     const state = getFieldState(field.path);
     const Shell = field.type === 'textarea' ? StyledWideFieldShell : StyledFieldShell;
     const commonProps = {
-      label: field.label,
+      label: getFieldLabel(field),
       helperText: getHelperText(field),
+      required: Boolean(field.required),
       validationState: state === 'missing' ? 'error' : undefined,
       testID: `${testIds.fieldInput}-${field.path}`,
     };
@@ -68,6 +84,9 @@ const DatasetCaptureScreenWeb = () => {
             placeholder={t('common.selectPlaceholder')}
             options={field.options || []}
             value={value || undefined}
+            searchable={field.searchable !== false}
+            searchPlaceholder={field.searchPlaceholder}
+            allowCustomValue={Boolean(field.allowCustomValue)}
             onValueChange={(nextValue) => capture.onFieldChange(field.path, nextValue)}
           />
         ) : field.type === 'textarea' ? (
@@ -75,6 +94,7 @@ const DatasetCaptureScreenWeb = () => {
             {...commonProps}
             value={value}
             onChangeText={(nextValue) => capture.onFieldChange(field.path, nextValue)}
+            debounceMs={0}
             minHeight={96}
             maxLength={1000}
           />
@@ -86,6 +106,7 @@ const DatasetCaptureScreenWeb = () => {
             onChangeText={(nextValue) => capture.onFieldChange(field.path, nextValue)}
             type={field.type === 'number' ? 'number' : 'text'}
             inputMode={field.type === 'number' ? 'decimal' : undefined}
+            debounceMs={0}
           />
         )}
       </Shell>
@@ -97,6 +118,7 @@ const DatasetCaptureScreenWeb = () => {
     : capture.missingFields.map((field) => ({ path: field, label: field, section: '' }));
   const getStatusKey = () => {
     if (capture.draftStatus === 'loading') return 'ventilation.datasetCapture.status.loadingDraft';
+    if (capture.submitMessage === 'stepMissing') return 'ventilation.datasetCapture.status.stepInvalid';
     if (capture.submitMessage) return `ventilation.datasetCapture.status.${capture.submitMessage}`;
     if (capture.draftStatus === 'saving') return 'ventilation.datasetCapture.status.savingDraft';
     if (capture.draftStatus === 'saved') return 'ventilation.datasetCapture.status.draftSaved';
@@ -145,6 +167,7 @@ const DatasetCaptureScreenWeb = () => {
                 type="button"
                 $active={step.active}
                 $complete={step.complete}
+                $status={step.status}
                 aria-current={step.active ? 'step' : undefined}
                 onClick={() => capture.onGoToStep(index)}
                 data-testid={`${testIds.stepItem}-${step.id}`}
@@ -159,6 +182,7 @@ const DatasetCaptureScreenWeb = () => {
                     ? `${step.requiredComplete}/${step.requiredTotal}`
                     : `${step.enteredTotal}/${step.totalFields}`}
                 </Text>
+                <Text variant="caption">{getStepStatusText(step)}</Text>
               </StyledStepItem>
             ))}
           </StyledStepList>
@@ -209,6 +233,13 @@ const DatasetCaptureScreenWeb = () => {
         {capture.isOffline ? (
           <StyledNotice data-testid={testIds.offlineNotice} testID={testIds.offlineNotice}>
             <Text variant="body">{t('ventilation.datasetCapture.notices.offline')}</Text>
+          </StyledNotice>
+        ) : null}
+        {capture.navigationIssue ? (
+          <StyledNotice>
+            <Text variant="body">
+              {`Step ${capture.navigationIssue.stepNumber} has missing required fields: ${capture.navigationIssue.title}`}
+            </Text>
           </StyledNotice>
         ) : null}
 
@@ -280,13 +311,13 @@ const DatasetCaptureScreenWeb = () => {
                 testID={testIds.nextButton}
               />
             ) : (
-            <Button
-              text={t('ventilation.datasetCapture.actions.submit')}
-              onPress={capture.onSubmitForReview}
-              disabled={capture.submitDisabled}
-              loading={capture.submitStatus === 'loading'}
-              testID={testIds.submitButton}
-            />
+              <Button
+                text={t('ventilation.datasetCapture.actions.submit')}
+                onPress={capture.onSubmitForReview}
+                disabled={capture.submitDisabled}
+                loading={capture.submitStatus === 'loading'}
+                testID={testIds.submitButton}
+              />
             )}
           </StyledActionGroup>
         </StyledActionBar>

@@ -117,6 +117,17 @@ export const assignManagedUserMembershipsSchema = z.object({
   query: z.object({}).optional(),
 });
 
+export const syncManagedUserFacilitiesSchema = z.object({
+  body: z.object({
+    facilityIds: z.array(z.string().min(1)).max(100).default([]),
+    role: membershipRole,
+    status: membershipStatus.optional().default('APPROVED'),
+    reason: z.string().trim().max(1000).optional(),
+  }),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
 export const updateManagedUserMembershipSchema = z.object({
   body: z.object({
     role: membershipRole.optional(),

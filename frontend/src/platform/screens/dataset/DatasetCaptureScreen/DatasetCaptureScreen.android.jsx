@@ -2,6 +2,7 @@
  * DatasetCaptureScreen Component - Android
  */
 import React from 'react';
+import { useWindowDimensions } from 'react-native';
 import { Button, Select, Stack, Text, TextArea, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
@@ -32,6 +33,8 @@ import useDatasetCaptureScreen from './useDatasetCaptureScreen';
 
 const DatasetCaptureScreenAndroid = () => {
   const { t } = useI18n();
+  const { width } = useWindowDimensions();
+  const fieldColumns = width >= 760 ? 2 : 1;
   const {
     activeSection,
     activeStepIndex,
@@ -45,31 +48,50 @@ const DatasetCaptureScreenAndroid = () => {
   } = useDatasetCaptureScreen();
 
   const getFieldState = (path) => (capture.fieldErrors?.[path] ? 'missing' : 'default');
-  const getHelperText = (field) => (
-    capture.fieldErrors?.[field.path]
-      ? capture.fieldErrors[field.path]
-      : field.placeholder || (field.required ? t('ventilation.datasetCapture.fields.required') : t('ventilation.datasetCapture.fields.optional'))
+  const getFieldLabel = (field) => (
+    field.required
+      ? field.label
+      : `${field.label} (${t('ventilation.datasetCapture.fields.optional')})`
   );
+  const getHelperText = (field) => {
+    if (capture.fieldErrors?.[field.path]) return capture.fieldErrors[field.path];
+    const requirement = field.required
+      ? t('ventilation.datasetCapture.fields.required')
+      : t('ventilation.datasetCapture.fields.optional');
+    const guidance = field.helperText || field.placeholder;
+    return guidance ? `${requirement}. ${guidance}` : requirement;
+  };
+  const getStepStatusText = (step) => {
+    if (step.invalidFields.length > 0) return 'Validation issue';
+    if (step.missingFields.length > 0) return 'Missing required';
+    if (step.complete) return 'Complete';
+    if (step.enteredTotal > 0) return 'In progress';
+    return 'Not started';
+  };
 
   const renderField = (field) => {
     const value = capture.fieldValues[field.path] ?? '';
     const state = getFieldState(field.path);
     const Shell = field.type === 'textarea' ? StyledWideFieldShell : StyledFieldShell;
     const commonProps = {
-      label: field.label,
+      label: getFieldLabel(field),
       helperText: getHelperText(field),
+      required: Boolean(field.required),
       validationState: state === 'missing' ? 'error' : undefined,
       testID: `${testIds.fieldInput}-${field.path}`,
     };
 
     return (
-      <Shell key={field.path} state={state}>
+      <Shell key={field.path} state={state} columns={field.type === 'textarea' ? 1 : fieldColumns}>
         {field.type === 'select' ? (
           <Select
             {...commonProps}
             placeholder={t('common.selectPlaceholder')}
             options={field.options || []}
             value={value || undefined}
+            searchable={field.searchable !== false}
+            searchPlaceholder={field.searchPlaceholder}
+            allowCustomValue={Boolean(field.allowCustomValue)}
             onValueChange={(nextValue) => capture.onFieldChange(field.path, nextValue)}
           />
         ) : field.type === 'textarea' ? (
@@ -77,6 +99,7 @@ const DatasetCaptureScreenAndroid = () => {
             {...commonProps}
             value={value}
             onChangeText={(nextValue) => capture.onFieldChange(field.path, nextValue)}
+            debounceMs={0}
             minHeight={96}
             maxLength={1000}
           />
@@ -88,6 +111,7 @@ const DatasetCaptureScreenAndroid = () => {
             onChangeText={(nextValue) => capture.onFieldChange(field.path, nextValue)}
             type={field.type === 'number' ? 'number' : 'text'}
             keyboardType={field.type === 'number' ? 'decimal-pad' : undefined}
+            debounceMs={0}
           />
         )}
       </Shell>
@@ -99,6 +123,7 @@ const DatasetCaptureScreenAndroid = () => {
     : capture.missingFields.map((field) => ({ path: field, label: field, section: '' }));
   const getStatusKey = () => {
     if (capture.draftStatus === 'loading') return 'ventilation.datasetCapture.status.loadingDraft';
+    if (capture.submitMessage === 'stepMissing') return 'ventilation.datasetCapture.status.stepInvalid';
     if (capture.submitMessage) return `ventilation.datasetCapture.status.${capture.submitMessage}`;
     if (capture.draftStatus === 'saving') return 'ventilation.datasetCapture.status.savingDraft';
     if (capture.draftStatus === 'saved') return 'ventilation.datasetCapture.status.draftSaved';
@@ -143,6 +168,7 @@ const DatasetCaptureScreenAndroid = () => {
                     key={step.id}
                     active={step.active}
                     complete={step.complete}
+                    status={step.status}
                     onPress={() => capture.onGoToStep(index)}
                     accessibilityRole="button"
                     accessibilityState={{ selected: step.active }}
@@ -157,6 +183,7 @@ const DatasetCaptureScreenAndroid = () => {
                         ? `${step.requiredComplete}/${step.requiredTotal}`
                         : `${step.enteredTotal}/${step.totalFields}`}
                     </Text>
+                    <Text variant="caption">{getStepStatusText(step)}</Text>
                   </StyledStepItem>
                 ))}
               </StyledStepList>
@@ -208,6 +235,13 @@ const DatasetCaptureScreenAndroid = () => {
           {capture.isOffline ? (
             <StyledNotice testID={testIds.offlineNotice}>
               <Text variant="body">{t('ventilation.datasetCapture.notices.offline')}</Text>
+            </StyledNotice>
+          ) : null}
+          {capture.navigationIssue ? (
+            <StyledNotice>
+              <Text variant="body">
+                {`Step ${capture.navigationIssue.stepNumber} has missing required fields: ${capture.navigationIssue.title}`}
+              </Text>
             </StyledNotice>
           ) : null}
 

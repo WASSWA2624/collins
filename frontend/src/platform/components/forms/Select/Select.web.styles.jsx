@@ -152,23 +152,31 @@ const StyledChevron = styled.span.withConfig({
 const StyledMenu = styled.div.withConfig({
   displayName: 'StyledMenu',
   componentId: 'StyledMenu',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  position: ${({ $portal }) => ($portal ? 'fixed' : 'absolute')};
+  top: ${({ $portal, $position }) =>
+    $portal ? `${$position?.top || 0}px` : '100%'};
+  left: ${({ $portal, $position }) =>
+    $portal ? `${$position?.left || 0}px` : '0'};
+  right: ${({ $portal }) => ($portal ? 'auto' : '0')};
+  width: ${({ $portal, $position }) =>
+    $portal ? `${$position?.width || 0}px` : 'auto'};
+  margin-top: ${({ $portal, theme }) =>
+    $portal ? 0 : theme.spacing.xs}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-width: 1px;
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  z-index: 10000;
+  z-index: 2147483000;
   overflow: hidden;
-  max-height: min(50vh, 240px);
+  max-height: ${({ $portal, $position }) =>
+    $portal ? `${$position?.maxHeight || 280}px` : 'min(50vh, 240px)'};
   overflow-y: auto;
   overscroll-behavior: contain;
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.22);
+  box-sizing: border-box;
 `;
 
 const StyledSearchInput = styled.input.withConfig({

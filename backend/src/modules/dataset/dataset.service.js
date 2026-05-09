@@ -14,6 +14,35 @@ const toJson = (value) => JSON.parse(JSON.stringify(value));
 const DATASET_CAPTURE_OPERATION = 'dataset.capture.create';
 const DATASET_CAPTURE_ROLES = Object.freeze([...new Set([...WRITE_ROLES, ...REVIEW_ROLES])]);
 const DATASET_CAPTURE_SOURCE_TYPE = 'clinical_case_capture';
+const DATASET_VENTILATION_REASON_OPTIONS = Object.freeze([
+  'Acute hypoxemic respiratory failure',
+  'Acute hypercapnic respiratory failure',
+  'Mixed hypoxemic and hypercapnic respiratory failure',
+  'ARDS requiring ventilatory support',
+  'Pneumonia-related respiratory failure',
+  'COPD exacerbation with ventilatory failure',
+  'Asthma exacerbation with ventilatory failure',
+  'Sepsis or shock with respiratory failure',
+  'Airway protection',
+  'Post-operative ventilatory support',
+  'Neuromuscular weakness',
+  'Trauma or burns ventilatory support',
+  'Cardiac arrest or post-resuscitation support',
+  'Weaning or extubation readiness assessment',
+  'Other specified clinical reason',
+  'Unknown reason',
+]);
+const DATASET_VENTILATION_REASON_LOOKUP = Object.freeze(
+  DATASET_VENTILATION_REASON_OPTIONS.reduce((acc, label) => {
+    acc[label.toLowerCase()] = label;
+    return acc;
+  }, {
+    'hypoxemic respiratory failure': 'Acute hypoxemic respiratory failure',
+    'hypoxaemic respiratory failure': 'Acute hypoxemic respiratory failure',
+    'hypercapnic respiratory failure': 'Acute hypercapnic respiratory failure',
+    'respiratory failure': 'Other specified clinical reason',
+  })
+);
 
 const DATASET_OUTCOME_REFERENCE_CATEGORIES = Object.freeze({
   POSITIVE_REFERENCE: {
@@ -246,6 +275,12 @@ const normalizeVentilatorMode = (text) => {
   return text.match(/\bmode\s*[:=]?\s*([A-Za-z0-9 /+-]{2,20})/i)?.[1]?.trim()?.toUpperCase();
 };
 
+const normalizeVentilationReasonValue = (value) => {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return undefined;
+  return DATASET_VENTILATION_REASON_LOOKUP[text.toLowerCase()] || text;
+};
+
 const normalizePatientPathway = (text) => {
   if (/\b(neonate|newborn)\b/i.test(text)) return 'NEONATE';
   if (/\b(child|paediatric|pediatric)\b/i.test(text)) return 'CHILD';
@@ -338,6 +373,17 @@ const validateDatasetCaptureStructuredPreview = (structuredPreviewJson = {}) => 
     }
   });
 
+  const ventilationReason = getPath(structuredPreviewJson, 'caseContext.reasonForVentilation');
+  if (!isBlankValue(ventilationReason)) {
+    const text = String(ventilationReason).trim();
+    if (text.length < 3 || text.length > 160) {
+      errors.push({
+        path: 'structuredPreviewJson.caseContext.reasonForVentilation',
+        message: 'Enter a clear de-identified reason between 3 and 160 characters.',
+      });
+    }
+  }
+
   const referenceUseCategory = getPath(structuredPreviewJson, 'outcome.referenceUseCategory');
   if (!isBlankValue(referenceUseCategory) && !DATASET_OUTCOME_REFERENCE_CATEGORIES[referenceUseCategory]) {
     errors.push({
@@ -388,9 +434,13 @@ const buildDatasetOutcomeReview = (structuredPreviewJson = {}) => {
 
 const normalizeDatasetCapturePayload = (payload) => {
   if (payload.sourceType !== DATASET_CAPTURE_SOURCE_TYPE) return payload;
-  validateDatasetCaptureStructuredPreview(payload.structuredPreviewJson);
 
   const structuredPreviewJson = toJson(payload.structuredPreviewJson);
+  const reasonForVentilation = normalizeVentilationReasonValue(getPath(structuredPreviewJson, 'caseContext.reasonForVentilation'));
+  if (reasonForVentilation) {
+    setPath(structuredPreviewJson, 'caseContext.reasonForVentilation', reasonForVentilation);
+  }
+  validateDatasetCaptureStructuredPreview(structuredPreviewJson);
   const outcomeReview = buildDatasetOutcomeReview(structuredPreviewJson);
   setPath(structuredPreviewJson, 'captureMetadata.outcomeReview', outcomeReview);
 
@@ -448,9 +498,9 @@ export const parseIcuNote = async ({ noteText, facilityId }, userId, auditContex
     caseContext: {
       primaryDiagnosis: normalizeDiagnosis(text),
       reasonForVentilation: /\bhypercap/i.test(text)
-        ? 'Hypercapnic respiratory failure'
+        ? 'Acute hypercapnic respiratory failure'
         : /\bhypox/i.test(text)
-          ? 'Hypoxemic respiratory failure'
+          ? 'Acute hypoxemic respiratory failure'
           : undefined,
       ventilationIndication: /\bhypercap/i.test(text)
         ? 'HYPERCAPNIA'

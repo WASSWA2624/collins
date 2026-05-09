@@ -4,8 +4,6 @@ import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { MEMBERSHIP_ROLES } from '../src/constants/roles.js';
 import { env } from '../src/config/env.js';
 import {
-  DEVELOPMENT_REFERENCE_SEED_EMAIL,
-  DEVELOPMENT_REFERENCE_SEED_USER_ID,
   buildSeedReferenceRuleRows,
 } from '../src/modules/references/referenceSeed.js';
 import {
@@ -13,17 +11,20 @@ import {
   CLINICAL_SAFETY_STATEMENT_HASH,
   ONBOARDING_STEPS,
 } from '../src/modules/onboarding/onboarding.constants.js';
+import {
+  CORE_ADMIN_EMAIL,
+  CORE_CLINICIAN_EMAIL,
+  getCoreAdminFacility,
+  seedUgandaFacilities,
+} from './facilitySeed.mjs';
 
 const adapter = new PrismaMariaDb(env.databaseUrl);
 const prisma = new PrismaClient({ adapter });
 
 const DEVELOPMENT_ADMIN_USER_ID = 'development-platform-admin-user';
-const DEVELOPMENT_ADMIN_EMAIL = 'admin@admin.com';
 const DEVELOPMENT_ADMIN_PASSWORD = 'Admin';
-const DEVELOPMENT_ADMIN_FACILITY_ID = 'development-admin-facility';
 const DEVELOPMENT_ADMIN_ONBOARDED_AT = new Date('2026-05-06T00:00:00.000Z');
 const DEVELOPMENT_CLINICIAN_USER_ID = 'development-clinician-user';
-const DEVELOPMENT_CLINICIAN_EMAIL = 'clinician@clinician.com';
 const DEVELOPMENT_CLINICIAN_PASSWORD = 'Clinician';
 
 const upsertDevelopmentUser = async ({
@@ -37,7 +38,6 @@ const upsertDevelopmentUser = async ({
     where: { email },
     update: {
       name,
-      passwordHash,
       status: 'ACTIVE',
     },
     create: {
@@ -110,34 +110,17 @@ const setActiveFacility = ({ userId, facilityId }) => prisma.userSettings.upsert
 });
 
 const main = async () => {
+  const facilitySeedSummary = await seedUgandaFacilities(prisma);
+  const adminFacility = await getCoreAdminFacility(prisma);
+  if (!adminFacility) {
+    throw new Error('Core admin facility was not seeded.');
+  }
+
   const adminUser = await upsertDevelopmentUser({
     id: DEVELOPMENT_ADMIN_USER_ID,
-    name: 'Development Platform Admin',
-    email: DEVELOPMENT_ADMIN_EMAIL,
+    name: 'Platform Admin',
+    email: CORE_ADMIN_EMAIL,
     password: DEVELOPMENT_ADMIN_PASSWORD,
-  });
-
-  const adminFacility = await prisma.facility.upsert({
-    where: { id: DEVELOPMENT_ADMIN_FACILITY_ID },
-    update: {
-      registryCode: 'COLLINS-DEV-ADMIN',
-      name: 'Collins Development Admin Facility',
-      district: 'Development',
-      region: 'Development',
-      type: 'Development',
-      ownership: 'Development',
-      verificationStatus: 'VERIFIED',
-    },
-    create: {
-      id: DEVELOPMENT_ADMIN_FACILITY_ID,
-      registryCode: 'COLLINS-DEV-ADMIN',
-      name: 'Collins Development Admin Facility',
-      district: 'Development',
-      region: 'Development',
-      type: 'Development',
-      ownership: 'Development',
-      verificationStatus: 'VERIFIED',
-    },
   });
 
   await approveFacilityMembership({
@@ -160,8 +143,8 @@ const main = async () => {
 
   const clinicianUser = await upsertDevelopmentUser({
     id: DEVELOPMENT_CLINICIAN_USER_ID,
-    name: 'Development Clinician',
-    email: DEVELOPMENT_CLINICIAN_EMAIL,
+    name: 'Clinician User',
+    email: CORE_CLINICIAN_EMAIL,
     password: DEVELOPMENT_CLINICIAN_PASSWORD,
   });
 
@@ -183,23 +166,7 @@ const main = async () => {
     facilityId: adminFacility.id,
   });
 
-  const passwordHash = await bcrypt.hash('disabled-development-reference-seed-user', 12);
-  const seedUser = await prisma.user.upsert({
-    where: { email: DEVELOPMENT_REFERENCE_SEED_EMAIL },
-    update: {
-      name: 'Development Reference Seed',
-      status: 'DEACTIVATED',
-    },
-    create: {
-      id: DEVELOPMENT_REFERENCE_SEED_USER_ID,
-      name: 'Development Reference Seed',
-      email: DEVELOPMENT_REFERENCE_SEED_EMAIL,
-      passwordHash,
-      status: 'DEACTIVATED',
-    },
-  });
-
-  const rules = buildSeedReferenceRuleRows(undefined, { seedUserId: seedUser.id });
+  const rules = buildSeedReferenceRuleRows(undefined, { seedUserId: adminUser.id });
   for (const rule of rules) {
     await prisma.referenceRule.upsert({
       where: {
@@ -213,8 +180,9 @@ const main = async () => {
     });
   }
 
-  console.log(`Seeded development admin user ${DEVELOPMENT_ADMIN_EMAIL}.`);
-  console.log(`Seeded development clinician user ${DEVELOPMENT_CLINICIAN_EMAIL}.`);
+  console.log(`Seeded ${facilitySeedSummary.total} Uganda facilities (${facilitySeedSummary.created} created, ${facilitySeedSummary.updated} updated).`);
+  console.log(`Seeded core admin user ${CORE_ADMIN_EMAIL}.`);
+  console.log(`Seeded core clinician user ${CORE_CLINICIAN_EMAIL}.`);
   console.log(`Seeded ${rules.length} verified development reference rules.`);
 };
 

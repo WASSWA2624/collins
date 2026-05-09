@@ -14,7 +14,7 @@ export const facilitySearchSchema = z.object({
     region: z.string().trim().max(120).optional(),
     verificationStatus: z.enum(['PENDING', 'VERIFIED', 'REJECTED', 'SUSPENDED']).optional(),
     page: z.coerce.number().int().positive().default(1),
-    limit: z.coerce.number().int().positive().max(100).default(20),
+    limit: z.coerce.number().int().positive().max(500).default(20),
   }),
 });
 

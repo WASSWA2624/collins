@@ -23,6 +23,9 @@ const StyledContent = styled(View).withConfig({
   displayName: 'StyledDatasetCaptureContent',
   componentId: 'StyledDatasetCaptureContent',
 })`
+  width: 100%;
+  max-width: 960px;
+  align-self: center;
   padding: ${({ theme }) => theme.spacing.lg}px;
 `;
 
@@ -94,14 +97,16 @@ const StyledStepItem = styled(Pressable).withConfig({
   displayName: 'StyledDatasetCaptureStepItem',
   componentId: 'StyledDatasetCaptureStepItem',
 })`
-  min-height: 64px;
-  width: 156px;
+  min-height: 76px;
+  width: 176px;
   gap: ${({ theme }) => theme.spacing.xs}px;
   padding: ${({ theme }) => theme.spacing.sm}px;
   border-width: 1px;
   border-left-width: 3px;
-  border-color: ${({ active, complete, theme }) => {
+  border-color: ${({ active, complete, status, theme }) => {
     if (active) return theme.colors.primary;
+    if (status === 'invalid') return theme.colors.error;
+    if (status === 'missing') return theme.colors.warning;
     if (complete) return theme.colors.success;
     return theme.colors.background.tertiary ?? theme.colors.background.secondary;
   }};
@@ -157,6 +162,8 @@ const StyledFieldGrid = styled(View).withConfig({
   displayName: 'StyledDatasetCaptureFieldGrid',
   componentId: 'StyledDatasetCaptureFieldGrid',
 })`
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -164,12 +171,19 @@ const StyledFieldShell = styled(View).withConfig({
   displayName: 'StyledDatasetCaptureFieldShell',
   componentId: 'StyledDatasetCaptureFieldShell',
 })`
+  width: ${({ columns }) => (columns > 1 ? '48%' : '100%')};
+  min-width: 0;
   border-left-width: ${({ state }) => (state === 'missing' ? 3 : 0)}px;
   border-left-color: ${({ theme }) => theme.colors.error};
   padding-left: ${({ state, theme }) => (state === 'missing' ? theme.spacing.sm : 0)}px;
 `;
 
-const StyledWideFieldShell = StyledFieldShell;
+const StyledWideFieldShell = styled(StyledFieldShell).withConfig({
+  displayName: 'StyledDatasetCaptureWideFieldShell',
+  componentId: 'StyledDatasetCaptureWideFieldShell',
+})`
+  width: 100%;
+`;
 
 const StyledMissingList = styled(View).withConfig({
   displayName: 'StyledDatasetCaptureMissingList',
