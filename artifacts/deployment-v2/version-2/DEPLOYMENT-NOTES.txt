@@ -3,6 +3,7 @@ Collins Version 2 deployment package
 Folders:
 - backend-v2/: cPanel/DirectAdmin Node.js application root.
 - frontend-v2/: static Expo web export for the public web root.
+- android-apk-v2/: signed Android release APK and Gradle output metadata.
 
 Backend deployment:
 1. Upload the contents of backend-v2/ to the Node.js app root, for example /home/zelahco/collins-backend.
@@ -17,6 +18,11 @@ Frontend deployment:
 1. Upload the contents of frontend-v2/ to the web document root.
 2. Keep .htaccess with the upload so client-side routes resolve to index.html.
 3. The frontend build is configured for https://api.zelah.co.ug/api/v1 through the production env file.
+
+Android APK:
+1. Install android-apk-v2/collins-api-zelah-release-v2.apk on Android devices.
+2. The APK is a signed release build for com.collins.android.
+3. The embedded bundle was built with the production env file.
 
 Notes:
 - Version 1 artifacts in the artifacts folder were not modified.
