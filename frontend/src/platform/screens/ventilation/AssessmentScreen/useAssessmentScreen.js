@@ -764,6 +764,19 @@ export default function useAssessmentScreen() {
     () => filterVisibleValidation(rawValidation, touchedFields, attemptedSteps),
     [attemptedSteps, rawValidation, touchedFields]
   );
+  const admissionRecordId = useMemo(() => {
+    const hydratedAdmissionId = cleanText(mergedInputs.admissionId);
+    const hydratedClientRecordId = cleanText(mergedInputs.clientRecordId);
+    const stateAdmissionId = cleanText(admissionId);
+    const initialClientRecordId = cleanText(clientRecordId);
+
+    if (hydratedAdmissionId) return hydratedAdmissionId;
+    if (stateAdmissionId && (stateAdmissionId !== initialClientRecordId || !hydratedClientRecordId)) {
+      return stateAdmissionId;
+    }
+    return hydratedClientRecordId || stateAdmissionId;
+  }, [admissionId, clientRecordId, mergedInputs.admissionId, mergedInputs.clientRecordId]);
+
   const stepValidationStates = useMemo(
     () => STEP_KEYS.map((key, step) => {
       const exactValidation = buildValidationFromInputs(mergedInputs, step, readiness, {
@@ -831,10 +844,11 @@ export default function useAssessmentScreen() {
       response.admission?.id ||
       response.admissionId ||
       response.admission?.clientRecordId ||
+      mergedInputs.admissionId ||
       admissionId ||
       mergedInputs.clientRecordId;
     if (nextAdmissionId) setAdmissionId(nextAdmissionId);
-  }, [admissionId, mergedInputs.clientRecordId]);
+  }, [admissionId, mergedInputs.admissionId, mergedInputs.clientRecordId]);
 
   const generateDatasetRecommendation = useCallback(
     async (backendSummary = null) => {
@@ -851,7 +865,7 @@ export default function useAssessmentScreen() {
           ? {
               ...recommendation,
               responseSource: 'offline',
-              admissionId,
+              admissionId: admissionRecordId,
               syncStatus,
             }
           : null;
@@ -870,7 +884,7 @@ export default function useAssessmentScreen() {
         setIsGeneratingRecommendation(false);
       }
     },
-    [admissionId, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
+    [admissionRecordId, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
   );
 
   const savePatientReasonStep = useCallback(async () => {
@@ -888,14 +902,14 @@ export default function useAssessmentScreen() {
     const payload = buildOxygenAbgVentilatorPayload(mergedInputs, {
       includeVentilator: false,
     });
-    const response = await saveOxygenAbgVentilatorStepApi(admissionId || mergedInputs.clientRecordId, payload);
+    const response = await saveOxygenAbgVentilatorStepApi(admissionRecordId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionId || mergedInputs.clientRecordId,
+      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
       syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
     });
     return response;
-  }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft]);
+  }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft]);
 
   const saveSuggestedVentilatorSettingsStep = useCallback(async () => {
     const fallbackPatch = buildSuggestedVentilatorInputPatch(
@@ -913,25 +927,25 @@ export default function useAssessmentScreen() {
       includeFlowContext: false,
       idempotencyKeySuffix: 'suggested-ventilator-settings',
     });
-    const response = await saveOxygenAbgVentilatorStepApi(admissionId || mergedInputs.clientRecordId, payload);
+    const response = await saveOxygenAbgVentilatorStepApi(admissionRecordId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionId || mergedInputs.clientRecordId,
+      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
       syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
     });
     return response;
-  }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft, recommendationSummary]);
+  }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft, recommendationSummary]);
 
   const saveReviewStep = useCallback(async () => {
     const payload = buildSaveReviewPayload(mergedInputs);
-    const response = await saveAdmissionReviewStepApi(admissionId || mergedInputs.clientRecordId, payload);
+    const response = await saveAdmissionReviewStepApi(admissionRecordId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionId || mergedInputs.clientRecordId,
+      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
       syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
     });
     return response;
-  }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft]);
+  }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft]);
 
   const goNext = useCallback(async () => {
     markStepAttempted(currentStep);
@@ -1006,7 +1020,7 @@ export default function useAssessmentScreen() {
       const trackingAdmissionId =
         reviewResponse?.admission?.id ||
         reviewResponse?.admissionId ||
-        admissionId ||
+        admissionRecordId ||
         mergedInputs.admissionId ||
         mergedInputs.clientRecordId;
       const trackingPath = trackingAdmissionId
@@ -1021,7 +1035,7 @@ export default function useAssessmentScreen() {
       setIsSaving(false);
     }
   }, [
-    admissionId,
+    admissionRecordId,
     canProceedFromStep,
     clearDraft,
     markStepAttempted,
@@ -1150,7 +1164,7 @@ export default function useAssessmentScreen() {
     clearError,
     retryLoadAdmissionForm,
     sessionId,
-    admissionId,
+    admissionId: admissionRecordId || admissionId,
     syncStatus,
     togglePermittedMissingField,
     missingValueSentinel: MISSING_UNKNOWN,

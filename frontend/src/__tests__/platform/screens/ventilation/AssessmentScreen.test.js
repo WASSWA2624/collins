@@ -3,7 +3,7 @@
  * File: AssessmentScreen.test.js
  */
 const React = require('react');
-const { render, fireEvent, waitFor } = require('@testing-library/react-native');
+const { act, render, fireEvent, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 const { Provider } = require('react-redux');
 const { configureStore } = require('@reduxjs/toolkit');
@@ -201,7 +201,7 @@ describe('AssessmentScreen', () => {
 
   describe('Progress indicator', () => {
     it('should show the admission stepper', () => {
-      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-progress')).toBeTruthy();
     });
   });
@@ -236,7 +236,7 @@ describe('AssessmentScreen', () => {
         ...defaultSessionMock,
         inputs: completePatientInputs,
       });
-      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
@@ -352,6 +352,52 @@ describe('AssessmentScreen', () => {
           ieRatio: '1:2',
         }));
         expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
+      });
+    });
+
+    it('uses the hydrated admission id for dependent admission steps', async () => {
+      const store = createMockStore();
+      let sessionState = {
+        ...defaultSessionMock,
+        sessionId: null,
+        assessmentCurrentStep: 1,
+        inputs: null,
+      };
+      useVentilationSession.mockImplementation(() => sessionState);
+
+      const { getByTestId, rerender } = renderWithProviders(<AssessmentScreenAndroid />, store);
+
+      sessionState = {
+        ...sessionState,
+        sessionId: 'hydrated-session',
+        inputs: {
+          ...completeClinicalInputs,
+          clientRecordId: 'hydrated-client-record',
+          admissionId: 'hydrated-admission',
+        },
+      };
+
+      await act(async () => {
+        rerender(
+          <Provider store={store}>
+            <ThemeProvider theme={lightTheme}>
+              <AssessmentScreenAndroid />
+            </ThemeProvider>
+          </Provider>
+        );
+      });
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith(
+          'hydrated-admission',
+          expect.objectContaining({
+            clientRecordId: 'hydrated-client-record',
+            oxygen: expect.any(Object),
+            abg: expect.any(Object),
+          })
+        );
       });
     });
 
