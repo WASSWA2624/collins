@@ -1,5 +1,22 @@
 const asArray = (value) => (Array.isArray(value) ? value : []);
 const asText = (value) => String(value || '').trim();
+const asCount = (value) => Number(value || 0);
+
+const normalizeFacilityCounts = (facility = {}) => {
+  const source = facility._count || facility.counts || {};
+  return {
+    memberships: asCount(source.memberships),
+    onboardingSelections: asCount(source.onboardingSelections),
+    patients: asCount(source.patients),
+    admissions: asCount(source.admissions),
+    datasetCases: asCount(source.datasetCases),
+    referenceRules: asCount(source.referenceRules),
+    reviewActions: asCount(source.reviewActions),
+    idempotencyRecords: asCount(source.idempotencyRecords),
+    syncEvents: asCount(source.syncEvents),
+    activeUserSettings: asCount(source.activeUserSettings),
+  };
+};
 
 const normalizeFacility = (facility = {}) => ({
   id: asText(facility.id || facility.facilityId),
@@ -10,19 +27,40 @@ const normalizeFacility = (facility = {}) => ({
   type: facility.type || null,
   ownership: facility.ownership || null,
   verificationStatus: facility.verificationStatus || null,
+  abgAvailability: facility.abgAvailability || null,
+  oxygenProfileJson: facility.oxygenProfileJson || null,
+  ventilatorProfileJson: facility.ventilatorProfileJson || null,
+  counts: normalizeFacilityCounts(facility),
+  createdAt: facility.createdAt || null,
+  updatedAt: facility.updatedAt || null,
 });
 
-const normalizeFacilitiesResponse = (response = {}) => ({
-  facilities: asArray(response.items || response.data).map(normalizeFacility),
-  meta: {
-    total: Number(response.meta?.total || 0),
-    page: Number(response.meta?.page || 1),
-    limit: Number(response.meta?.limit || 20),
-    hasNextPage: response.meta?.hasNextPage === true,
-  },
-});
+const normalizeFacilitiesResponse = (response = {}) => {
+  const facilities = asArray(response.items || response.data).map(normalizeFacility);
+  return {
+    facilities,
+    meta: {
+      total: Number(response.meta?.total || facilities.length),
+      page: Number(response.meta?.page || 1),
+      limit: Number(response.meta?.limit || 20),
+      hasNextPage: response.meta?.hasNextPage === true,
+    },
+  };
+};
+
+const normalizeAdminFacilitiesResponse = (response = {}) =>
+  normalizeFacilitiesResponse({
+    data: response.data || response.items || response.facilities || [],
+    meta: response.meta || {},
+  });
+
+const normalizeFacilityResponse = (response = {}) =>
+  normalizeFacility(response.facility || response.data?.facility || response.data || response);
 
 export {
+  normalizeAdminFacilitiesResponse,
   normalizeFacilitiesResponse,
   normalizeFacility,
+  normalizeFacilityCounts,
+  normalizeFacilityResponse,
 };

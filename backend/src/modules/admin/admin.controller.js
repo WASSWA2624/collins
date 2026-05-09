@@ -3,6 +3,11 @@ import { successResponse } from '../../utils/apiResponse.js';
 import { buildAuditContext } from '../../utils/audit.js';
 import { verifyFacility } from '../facilities/facilities.controller.js';
 import {
+  createAdminFacility,
+  deleteFacility,
+  updateFacilityDetails,
+} from '../facilities/facilities.service.js';
+import {
   activateModelShadowMode,
   assignManagedUserMemberships,
   createManagedUser,
@@ -39,6 +44,34 @@ export const dashboard = asyncHandler(async (req, res) => {
 export const facilities = asyncHandler(async (req, res) => {
   const data = await listAdminFacilities(req.user?.sub);
   return successResponse(res, { message: 'Admin facilities loaded', data });
+});
+
+export const createFacilityRecord = asyncHandler(async (req, res) => {
+  const facility = await createAdminFacility(
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req)
+  );
+  return successResponse(res, { status: 201, message: 'Facility created', data: { facility } });
+});
+
+export const updateFacilityRecord = asyncHandler(async (req, res) => {
+  const facility = await updateFacilityDetails(
+    req.validated.params.id,
+    req.validated.body,
+    req.user?.sub,
+    buildAuditContext(req)
+  );
+  return successResponse(res, { message: 'Facility updated', data: { facility } });
+});
+
+export const deleteFacilityRecord = asyncHandler(async (req, res) => {
+  const facility = await deleteFacility(
+    req.validated.params.id,
+    req.user?.sub,
+    buildAuditContext(req)
+  );
+  return successResponse(res, { message: 'Facility deleted', data: { facility } });
 });
 
 export const users = asyncHandler(async (req, res) => {

@@ -15,6 +15,7 @@ jest.mock('@platform/screens', () => {
     AssessmentScreen: makeScreen('admit-screen', 'Admit'),
     DashboardScreen: makeScreen('dashboard-screen', 'Dashboard'),
     DatasetCaptureScreen: makeScreen('dataset-capture-screen', 'Dataset Capture'),
+    FacilityManagementScreen: makeScreen('facility-management-screen', 'Facility Management'),
     HistoryScreen: makeScreen('tracking-screen', 'Tracking'),
     UserManagementScreen: makeScreen('user-management-screen', 'User Management'),
   };
@@ -29,6 +30,7 @@ describe('home workflow route aliases', () => {
     ['dataset-capture', 'dataset-capture-screen'],
     ['dashboard', 'dashboard-screen'],
     ['user-management', 'user-management-screen'],
+    ['facility-management', 'facility-management-screen'],
   ])('renders %s route', (route, testID) => {
     const RouteComponent = require(`../../../app/(main)/${route}`).default;
     const { getByTestId } = render(<RouteComponent />);

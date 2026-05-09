@@ -291,7 +291,20 @@ export const listAdminFacilities = async (userId) => {
   await assertPlatformRole(userId);
   return prisma.facility.findMany({
     include: {
-      _count: { select: { admissions: true, memberships: true, datasetCases: true } },
+      _count: {
+        select: {
+          memberships: true,
+          onboardingSelections: true,
+          patients: true,
+          admissions: true,
+          datasetCases: true,
+          referenceRules: true,
+          reviewActions: true,
+          idempotencyRecords: true,
+          syncEvents: true,
+          activeUserSettings: true,
+        },
+      },
     },
     orderBy: { createdAt: 'desc' },
   });

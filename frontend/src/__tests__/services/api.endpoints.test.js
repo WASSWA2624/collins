@@ -32,4 +32,10 @@ describe('services/api/endpoints', () => {
       '/admin/users/user-1/facility-memberships/membership-1'
     );
   });
+
+  it('defines administrator facility-management endpoints', () => {
+    expect(endpoints.ADMIN.FACILITIES).toContain('/admin/facilities');
+    expect(endpoints.ADMIN.FACILITY('facility-1')).toContain('/admin/facilities/facility-1');
+    expect(endpoints.ADMIN.VERIFY_FACILITY('facility-1')).toContain('/admin/facilities/facility-1/verify');
+  });
 });

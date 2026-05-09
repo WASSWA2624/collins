@@ -3,6 +3,7 @@ import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import { assertFacilityRole, assertPlatformRole, FACILITY_ADMIN_ROLES, READ_ROLES } from '../../utils/authorization.js';
 import { conflict, notFound } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
+import { stripUndefined } from '../../utils/object.js';
 
 const publicFacilitySelect = {
   id: true,
@@ -33,6 +34,70 @@ const facilitySelect = {
   updatedAt: true,
 };
 
+const facilityDependencyLabels = Object.freeze({
+  memberships: 'facility memberships',
+  onboardingSelections: 'onboarding selections',
+  patients: 'patients',
+  admissions: 'admissions',
+  datasetCases: 'dataset cases',
+  referenceRules: 'reference rules',
+  reviewActions: 'review actions',
+  idempotencyRecords: 'idempotency records',
+  syncEvents: 'sync events',
+  activeUserSettings: 'active user settings',
+});
+
+const cleanNullableText = (value) => {
+  if (value === undefined) return undefined;
+  if (value === null) return null;
+  const trimmed = String(value).trim();
+  return trimmed || null;
+};
+
+const cleanFacilityPayload = (payload = {}) => stripUndefined({
+  registryCode: cleanNullableText(payload.registryCode),
+  name: payload.name === undefined ? undefined : String(payload.name).trim(),
+  district: cleanNullableText(payload.district),
+  region: cleanNullableText(payload.region),
+  type: cleanNullableText(payload.type),
+  ownership: cleanNullableText(payload.ownership),
+  verificationStatus: payload.verificationStatus,
+  oxygenProfileJson: payload.oxygenProfileJson,
+  ventilatorProfileJson: payload.ventilatorProfileJson,
+  abgAvailability: cleanNullableText(payload.abgAvailability),
+});
+
+const assertFacilityUnique = async (tx, payload, excludeId = null) => {
+  if (payload.registryCode) {
+    const existingRegistry = await tx.facility.findUnique({
+      where: { registryCode: payload.registryCode },
+      select: { id: true },
+    });
+    if (existingRegistry && existingRegistry.id !== excludeId) {
+      throw conflict('A facility with this registry code already exists');
+    }
+  }
+
+  if (payload.name) {
+    const existingName = await tx.facility.findFirst({
+      where: {
+        name: payload.name,
+        district: payload.district || null,
+        ...(excludeId ? { id: { not: excludeId } } : {}),
+      },
+      select: { id: true },
+    });
+    if (existingName) throw conflict('A facility with this name and district already exists');
+  }
+};
+
+const getEffectiveFacilityValue = (data, before, key) =>
+  (Object.prototype.hasOwnProperty.call(data, key) ? data[key] : before[key]);
+
+const getBlockingFacilityDependencies = (counts = {}) => Object.entries(facilityDependencyLabels)
+  .filter(([key]) => Number(counts[key] || 0) > 0)
+  .map(([key, label]) => ({ key, label, count: counts[key] }));
+
 export const searchFacilities = async ({ q, district, region, verificationStatus, page, limit }) => {
   const where = {
     ...(verificationStatus ? { verificationStatus } : {}),
@@ -62,7 +127,13 @@ export const searchFacilities = async ({ q, district, region, verificationStatus
   return { items, total, page, limit };
 };
 
-export const createFacility = async (data, userId, auditContext = {}) => prisma.$transaction(async (tx) => {
+export const createFacility = async (payload, userId, auditContext = {}) => prisma.$transaction(async (tx) => {
+  const data = cleanFacilityPayload({
+    ...payload,
+    verificationStatus: 'PENDING',
+  });
+  await assertFacilityUnique(tx, data);
+
   const facility = await tx.facility.create({ data, select: facilitySelect });
 
   if (userId) {
@@ -114,6 +185,30 @@ export const createFacility = async (data, userId, auditContext = {}) => prisma.
   return facility;
 });
 
+export const createAdminFacility = async (payload, userId, auditContext = {}) => {
+  await assertPlatformRole(userId);
+  return prisma.$transaction(async (tx) => {
+    const data = cleanFacilityPayload({
+      verificationStatus: 'VERIFIED',
+      ...payload,
+    });
+    await assertFacilityUnique(tx, data);
+
+    const facility = await tx.facility.create({ data, select: facilitySelect });
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId: facility.id,
+      action: 'ADMIN_FACILITY_CREATE',
+      entityType: 'Facility',
+      entityId: facility.id,
+      afterJson: facility,
+    });
+    return facility;
+  });
+};
+
 export const getFacilityById = async (id, userId) => {
   await assertFacilityRole(userId, id, READ_ROLES);
   const facility = await prisma.facility.findUnique({ where: { id }, select: facilitySelect });
@@ -139,6 +234,92 @@ export const updateEquipmentProfile = async (id, data, userId, auditContext = {}
       beforeJson: before,
       afterJson: facility,
     });
+    return facility;
+  });
+};
+
+export const updateFacilityDetails = async (id, payload, userId, auditContext = {}) => {
+  await assertPlatformRole(userId);
+  return prisma.$transaction(async (tx) => {
+    const before = await tx.facility.findUnique({ where: { id }, select: facilitySelect });
+    if (!before) throw notFound('Facility not found');
+
+    const data = cleanFacilityPayload(payload);
+    await assertFacilityUnique(tx, {
+      name: getEffectiveFacilityValue(data, before, 'name'),
+      district: getEffectiveFacilityValue(data, before, 'district'),
+      registryCode: getEffectiveFacilityValue(data, before, 'registryCode'),
+    }, id);
+
+    const facility = await tx.facility.update({
+      where: { id },
+      data,
+      select: facilitySelect,
+    });
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      facilityId: id,
+      action: 'ADMIN_FACILITY_UPDATE',
+      entityType: 'Facility',
+      entityId: id,
+      beforeJson: before,
+      afterJson: facility,
+      reason: payload.reason,
+    });
+    return facility;
+  });
+};
+
+export const deleteFacility = async (id, userId, auditContext = {}) => {
+  await assertPlatformRole(userId);
+  return prisma.$transaction(async (tx) => {
+    const facility = await tx.facility.findUnique({
+      where: { id },
+      select: {
+        ...facilitySelect,
+        _count: {
+          select: {
+            memberships: true,
+            onboardingSelections: true,
+            patients: true,
+            admissions: true,
+            datasetCases: true,
+            referenceRules: true,
+            reviewActions: true,
+            idempotencyRecords: true,
+            syncEvents: true,
+            activeUserSettings: true,
+          },
+        },
+      },
+    });
+    if (!facility) throw notFound('Facility not found');
+
+    const blockingDependencies = getBlockingFacilityDependencies(facility._count);
+    if (blockingDependencies.length > 0) {
+      throw conflict(
+        'Facility cannot be deleted while it is linked to users or operational data',
+        blockingDependencies,
+        { dependencies: blockingDependencies }
+      );
+    }
+
+    await tx.facilitySettings.deleteMany({ where: { facilityId: id } });
+    await tx.auditLog.updateMany({ where: { facilityId: id }, data: { facilityId: null } });
+    await tx.facility.delete({ where: { id } });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId,
+      action: 'ADMIN_FACILITY_DELETE',
+      entityType: 'Facility',
+      entityId: id,
+      beforeJson: facility,
+    });
+
     return facility;
   });
 };

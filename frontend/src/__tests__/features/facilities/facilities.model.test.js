@@ -14,6 +14,7 @@ describe('facility API model', () => {
       type: 'National referral hospital',
       ownership: 'Government',
       verificationStatus: 'VERIFIED',
+      _count: { memberships: 2, admissions: 1 },
     })).toEqual({
       id: 'facility-1',
       registryCode: 'ug-hospital-002',
@@ -23,6 +24,23 @@ describe('facility API model', () => {
       type: 'National referral hospital',
       ownership: 'Government',
       verificationStatus: 'VERIFIED',
+      abgAvailability: null,
+      oxygenProfileJson: null,
+      ventilatorProfileJson: null,
+      counts: {
+        activeUserSettings: 0,
+        admissions: 1,
+        datasetCases: 0,
+        idempotencyRecords: 0,
+        memberships: 2,
+        onboardingSelections: 0,
+        patients: 0,
+        referenceRules: 0,
+        reviewActions: 0,
+        syncEvents: 0,
+      },
+      createdAt: null,
+      updatedAt: null,
     });
   });
 

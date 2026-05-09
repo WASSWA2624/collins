@@ -15,12 +15,12 @@ const closeServer = (server) => new Promise((resolve, reject) => {
   server.close((error) => (error ? reject(error) : resolve()));
 });
 
-const getJson = async (path) => {
+const requestJson = async (path, init = {}) => {
   const server = await startServer(createApp());
 
   try {
     const { port } = server.address();
-    const response = await fetch(`http://127.0.0.1:${port}${path}`);
+    const response = await fetch(`http://127.0.0.1:${port}${path}`, init);
     return {
       status: response.status,
       body: await response.json(),
@@ -29,6 +29,8 @@ const getJson = async (path) => {
     await closeServer(server);
   }
 };
+
+const getJson = (path) => requestJson(path);
 
 test('clinical dashboard route is registered and requires authentication', async () => {
   const { status, body } = await getJson('/api/v1/dashboards/clinical');
@@ -57,6 +59,26 @@ test('phase 16 governance monitoring routes are registered and require authentic
 
   for (const path of paths) {
     const { status, body } = await getJson(path);
+
+    assert.equal(status, 401);
+    assert.equal(body.success, false);
+    assert.equal(body.message, 'Authentication required');
+  }
+});
+
+test('admin facility mutation routes are registered and require authentication', async () => {
+  const requests = [
+    ['POST', '/api/v1/admin/facilities'],
+    ['PATCH', '/api/v1/admin/facilities/facility-1'],
+    ['DELETE', '/api/v1/admin/facilities/facility-1'],
+  ];
+
+  for (const [method, path] of requests) {
+    const { status, body } = await requestJson(path, {
+      method,
+      headers: { 'content-type': 'application/json' },
+      body: method === 'DELETE' ? undefined : JSON.stringify({ name: 'Mulago National Referral Hospital' }),
+    });
 
     assert.equal(status, 401);
     assert.equal(body.success, false);

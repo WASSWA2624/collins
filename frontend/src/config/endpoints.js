@@ -119,6 +119,7 @@ export const endpoints = {
   ADMIN: {
     DASHBOARD: `${baseUrl}/admin/dashboard`,
     FACILITIES: `${baseUrl}/admin/facilities`,
+    FACILITY: (id) => `${baseUrl}/admin/facilities/${id}`,
     USERS: `${baseUrl}/admin/users`,
     USER: (id) => `${baseUrl}/admin/users/${id}`,
     USER_FACILITIES: (id) => `${baseUrl}/admin/users/${id}/facilities`,

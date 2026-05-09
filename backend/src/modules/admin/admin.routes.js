@@ -5,10 +5,12 @@ import {
   activateShadowMode,
   assignUserMemberships,
   auditLogs,
+  createFacilityRecord,
   createUser,
   createReference,
   dashboard,
   datasetQuality,
+  deleteFacilityRecord,
   modelCard,
   modelCards,
   modelDriftMonitoring,
@@ -21,6 +23,7 @@ import {
   retire,
   retireReference,
   syncUserFacilities,
+  updateFacilityRecord,
   updateUserStatus,
   updateUserMembership,
   updateReference,
@@ -46,14 +49,22 @@ import {
   updateManagedUserMembershipSchema,
   updateReferenceSchema,
 } from './admin.validators.js';
-import { verifyFacilitySchema } from '../facilities/facilities.validators.js';
+import {
+  createAdminFacilitySchema,
+  facilityIdSchema,
+  updateFacilitySchema,
+  verifyFacilitySchema,
+} from '../facilities/facilities.validators.js';
 
 export const adminRouter = Router();
 
 adminRouter.use(requireAuth);
 adminRouter.get('/dashboard', validateRequest(dashboardSchema), dashboard);
 adminRouter.get('/facilities', facilities);
+adminRouter.post('/facilities', validateRequest(createAdminFacilitySchema), createFacilityRecord);
 adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema), verifyFacility);
+adminRouter.patch('/facilities/:id', validateRequest(updateFacilitySchema), updateFacilityRecord);
+adminRouter.delete('/facilities/:id', validateRequest(facilityIdSchema), deleteFacilityRecord);
 adminRouter.get('/users', validateRequest(adminUserListSchema), users);
 adminRouter.post('/users', validateRequest(createManagedUserSchema), createUser);
 adminRouter.patch('/users/:id', validateRequest(updateManagedUserStatusSchema), updateUserStatus);

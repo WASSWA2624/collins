@@ -4,6 +4,21 @@ import { REQUESTABLE_MEMBERSHIP_ROLE_VALUES } from '../../constants/roles.js';
 const idParam = z.object({ id: z.string().min(1) });
 const jsonObject = z.record(z.string(), z.unknown());
 const requestableMembershipRole = z.enum(REQUESTABLE_MEMBERSHIP_ROLE_VALUES);
+const facilityVerificationStatus = z.enum(['PENDING', 'VERIFIED', 'REJECTED', 'SUSPENDED']);
+
+const facilityDetailsSchema = {
+  registryCode: z.string().trim().max(80).nullable().optional(),
+  name: z.string().trim().min(2).max(200),
+  district: z.string().trim().max(120).nullable().optional(),
+  region: z.string().trim().max(120).nullable().optional(),
+  type: z.string().trim().max(120).nullable().optional(),
+  ownership: z.string().trim().max(120).nullable().optional(),
+};
+
+const adminFacilityDetailsSchema = {
+  ...facilityDetailsSchema,
+  verificationStatus: facilityVerificationStatus.optional(),
+};
 
 export const facilitySearchSchema = z.object({
   body: z.object({}).optional(),
@@ -20,17 +35,43 @@ export const facilitySearchSchema = z.object({
 
 export const createFacilitySchema = z.object({
   body: z.object({
-    registryCode: z.string().trim().max(80).optional(),
-    name: z.string().trim().min(2).max(200),
-    district: z.string().trim().max(120).optional(),
-    region: z.string().trim().max(120).optional(),
-    type: z.string().trim().max(120).optional(),
-    ownership: z.string().trim().max(120).optional(),
+    ...facilityDetailsSchema,
     abgAvailability: z.string().trim().max(120).optional(),
     oxygenProfileJson: jsonObject.optional(),
     ventilatorProfileJson: jsonObject.optional(),
   }),
   params: z.object({}).optional(),
+  query: z.object({}).optional(),
+});
+
+export const createAdminFacilitySchema = z.object({
+  body: z.object({
+    ...adminFacilityDetailsSchema,
+    abgAvailability: z.string().trim().max(120).nullable().optional(),
+    oxygenProfileJson: jsonObject.nullable().optional(),
+    ventilatorProfileJson: jsonObject.nullable().optional(),
+  }),
+  params: z.object({}).optional(),
+  query: z.object({}).optional(),
+});
+
+export const updateFacilitySchema = z.object({
+  body: z.object({
+    ...adminFacilityDetailsSchema,
+    name: adminFacilityDetailsSchema.name.optional(),
+    abgAvailability: z.string().trim().max(120).nullable().optional(),
+    oxygenProfileJson: jsonObject.nullable().optional(),
+    ventilatorProfileJson: jsonObject.nullable().optional(),
+  }).superRefine((value, ctx) => {
+    if (Object.keys(value).length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: [],
+        message: 'At least one facility field is required.',
+      });
+    }
+  }),
+  params: idParam,
   query: z.object({}).optional(),
 });
 
