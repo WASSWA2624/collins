@@ -41,6 +41,7 @@ const SwitchWeb = ({
   name,
   ...rest
 }) => {
+  const reactId = React.useId();
   const { computedAccessibilityLabel, handleToggle } = useSwitch({
     value,
     onValueChange,
@@ -49,7 +50,6 @@ const SwitchWeb = ({
     accessibilityLabel,
   });
 
-  const reactId = typeof React.useId === 'function' ? React.useId() : undefined;
   const inputId =
     id ||
     (typeof testID === 'string' && testID.length > 0 ? `switch-${testID}` : undefined) ||

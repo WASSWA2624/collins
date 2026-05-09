@@ -44,16 +44,15 @@ const FilterBarWeb = ({
 }) => {
   const { t } = useI18n();
   const defaultAccessibilityLabel = t('common.filters');
-
-  if (!filters || filters.length === 0) {
-    return null;
-  }
-
-  const { activeFilters, hasActiveFilters } = useFilterBar({
+  const { hasActiveFilters, handleClearAll, handleFilterPress } = useFilterBar({
     filters,
     onFilterPress,
     onClearAll,
   });
+
+  if (!filters || filters.length === 0) {
+    return null;
+  }
 
   return (
     <StyledContainer
@@ -70,7 +69,7 @@ const FilterBarWeb = ({
           variant={filter.active ? 'primary' : 'outline'}
           removable={filter.active && filter.onRemove}
           onRemove={filter.onRemove}
-          onPress={onFilterPress ? () => onFilterPress(filter) : undefined}
+          onPress={onFilterPress ? () => handleFilterPress(filter) : undefined}
           accessibilityLabel={filter.label}
           testID={testID ? `${testID}-filter-${filter.id}` : undefined}
         >
@@ -80,7 +79,7 @@ const FilterBarWeb = ({
       {showClearAll && hasActiveFilters && onClearAll && (
         <Chip
           variant="text"
-          onPress={onClearAll}
+          onPress={handleClearAll}
           accessibilityLabel={t('common.clearAllFilters')}
           testID={testID ? `${testID}-clear-all` : undefined}
         >

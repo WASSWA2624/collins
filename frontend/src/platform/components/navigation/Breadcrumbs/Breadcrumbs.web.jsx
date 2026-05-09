@@ -55,8 +55,6 @@ const BreadcrumbsWeb = ({
   const { width } = useWindowDimensions();
   const isMobile = width < breakpoints.tablet;
 
-  if (!items || items.length === 0) return null;
-
   // Truncate breadcrumbs on mobile or when too many items
   const displayItems = useMemo(() => {
     if (items.length <= maxItems && !isMobile) {
@@ -77,6 +75,8 @@ const BreadcrumbsWeb = ({
       ...lastTwo,
     ];
   }, [items, maxItems, isMobile]);
+
+  if (!items || items.length === 0) return null;
 
   const handleItemPress = (item, index) => {
     if (onItemPress) {

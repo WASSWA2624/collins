@@ -49,6 +49,12 @@ const registrationFacilitySelect = {
   verificationStatus: true,
 };
 
+const cleanRegistrationFacilityText = (value) => {
+  if (value === undefined || value === null) return null;
+  const trimmed = String(value).trim();
+  return trimmed || null;
+};
+
 const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
   where: { userId, status: 'APPROVED' },
   select: {
@@ -201,7 +207,30 @@ const resolveRegistrationFacility = async (tx, {
   });
   if (existing) return existing;
 
-  throw notFound('Facility not found');
+  const facility = await tx.facility.create({
+    data: {
+      name: facilityName,
+      district: cleanRegistrationFacilityText(facilityDistrict),
+      region: cleanRegistrationFacilityText(facilityRegion),
+      type: cleanRegistrationFacilityText(facilityType),
+      ownership: cleanRegistrationFacilityText(facilityOwnership),
+      verificationStatus: 'PENDING',
+    },
+    select: registrationFacilitySelect,
+  });
+
+  await writeAudit({
+    tx,
+    ...auditContext,
+    userId,
+    facilityId: facility.id,
+    action: 'FACILITY_CREATE_FROM_REGISTRATION',
+    entityType: 'Facility',
+    entityId: facility.id,
+    afterJson: facility,
+  });
+
+  return facility;
 };
 
 const getRegistrationMembershipApproval = (role, userId) => {

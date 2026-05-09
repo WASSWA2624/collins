@@ -59,6 +59,8 @@ module.exports = defineConfig([
         test: 'readonly',
         expect: 'readonly',
         jest: 'readonly',
+        __dirname: 'readonly',
+        Buffer: 'readonly',
         beforeAll: 'readonly',
         beforeEach: 'readonly',
         afterAll: 'readonly',
@@ -68,6 +70,16 @@ module.exports = defineConfig([
     rules: {
       // Test files commonly use anonymous mock components.
       'react/display-name': 'off',
+      // Some tests intentionally build arrays of unmounted JSX fixtures.
+      'react/jsx-key': 'off',
+    },
+  },
+
+  {
+    files: ['src/features/index.js', 'src/platform/index.js'],
+    rules: {
+      // Root barrels intentionally aggregate modules that may expose same-named helpers.
+      'import/export': 'off',
     },
   },
 

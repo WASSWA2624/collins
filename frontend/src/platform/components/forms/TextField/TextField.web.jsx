@@ -83,7 +83,7 @@ const TextFieldWeb = ({
   id,
   ...rest
 }) => {
-  const reactId = typeof React.useId === 'function' ? React.useId() : undefined;
+  const reactId = React.useId();
   const inputId =
     id ||
     (typeof testID === 'string' && testID.length > 0 ? `textfield-${testID}` : undefined) ||

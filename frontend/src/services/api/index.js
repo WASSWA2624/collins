@@ -4,5 +4,5 @@
  */
 export { apiClient } from './client';
 export * from './crud';
-export * from './endpoints';
+export { endpoints } from './endpoints';
 
