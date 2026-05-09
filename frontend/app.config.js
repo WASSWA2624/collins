@@ -35,7 +35,13 @@ const getEnvironmentFromLifecycle = (lifecycleEvent) => {
   const event = String(lifecycleEvent || "").toLowerCase();
   if (!event) return null;
 
-  if (event.includes("eas") || event.includes("apk") || event.includes("build")) {
+  if (
+    event.includes("eas")
+    || event.includes("apk")
+    || event.includes("build")
+    || event.includes("export")
+    || event.includes("release")
+  ) {
     return "production";
   }
 
@@ -77,24 +83,69 @@ const resolveEnvironmentName = () => (
   normalizeEnvironment(process.env.COLLINS_ENV)
   || normalizeEnvironment(process.env.APP_ENV)
   || getEnvironmentFromArgs(process.argv)
+  || getEnvironmentFromLifecycle(process.env.npm_lifecycle_event)
   || normalizeEnvironment(process.env.EXPO_PUBLIC_APP_ENVIRONMENT)
   || normalizeEnvironment(process.env.NODE_ENV)
-  || getEnvironmentFromLifecycle(process.env.npm_lifecycle_event)
   || "development"
 );
 
+const readEnvironmentFile = (environment) => {
+  const envFile = path.resolve(process.cwd(), `.env.${environment}`);
+  return {
+    envFile,
+    values: existsSync(envFile) ? parseEnvFile(readFileSync(envFile, "utf8")) : {},
+  };
+};
+
+const wasLoadedFromAnotherManagedEnvFile = ({
+  currentValue,
+  environment,
+  key,
+  managedValuesByEnvironment,
+  nextValue,
+}) => {
+  if (currentValue === undefined || currentValue === nextValue) return false;
+
+  return Object.entries(managedValuesByEnvironment).some(
+    ([candidateEnvironment, values]) =>
+      candidateEnvironment !== environment && values[key] === currentValue
+  );
+};
+
 const loadEnvironmentFile = () => {
   const environment = resolveEnvironmentName();
-  const envFile = path.resolve(process.cwd(), `.env.${environment}`);
+  const lifecycleEnvironment = getEnvironmentFromLifecycle(process.env.npm_lifecycle_event);
+  const managedValuesByEnvironment = Object.fromEntries(
+    [...SUPPORTED_ENVIRONMENTS].map((candidateEnvironment) => [
+      candidateEnvironment,
+      readEnvironmentFile(candidateEnvironment).values,
+    ])
+  );
+  const { envFile, values } = readEnvironmentFile(environment);
 
-  if (existsSync(envFile)) {
-    const parsedEnv = parseEnvFile(readFileSync(envFile, "utf8"));
-    for (const [key, value] of Object.entries(parsedEnv)) {
-      process.env[key] ??= value;
+  for (const [key, value] of Object.entries(values)) {
+    if (
+      process.env[key] === undefined
+      || wasLoadedFromAnotherManagedEnvFile({
+        currentValue: process.env[key],
+        environment,
+        key,
+        managedValuesByEnvironment,
+        nextValue: value,
+      })
+    ) {
+      process.env[key] = value;
     }
   }
 
-  process.env.NODE_ENV ??= environment;
+  const npmForcedProduction = process.env.NODE_ENV === "production"
+    && lifecycleEnvironment === environment
+    && environment !== "production";
+
+  if (!process.env.NODE_ENV || npmForcedProduction) {
+    process.env.NODE_ENV = environment;
+  }
+
   process.env.EXPO_PUBLIC_APP_ENVIRONMENT ??= environment;
 
   return { environment, envFile };
@@ -121,7 +172,7 @@ export default {
       bundleIdentifier: "com.collins.ios",
     },
     android: {
-      versionCode: 4,
+      versionCode: 1,
       adaptiveIcon: {
         foregroundImage: "./public/logos/logo-light.png",
         backgroundColor: "#ffffff",

@@ -1,6 +1,6 @@
 {
   "name": "collins-backend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Express + Prisma backend foundation for the AI Vent ventilation decision-support app.",
   "type": "module",
   "main": "src/server.js",
@@ -8,11 +8,11 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "node scripts/prisma-generate-if-needed.mjs --env=development && nodemon --config nodemon.json",
-    "start": "node src/server.js --env=production",
+    "dev": "node scripts/prisma-generate-if-needed.mjs && nodemon --config nodemon.json",
+    "start": "node src/server.js",
     "start:cpanel": "node cpanel-start.cjs",
-    "db:migrate:deploy": "node scripts/deploy-migrations.mjs --env=production",
-    "prisma:generate": "node scripts/prisma-generate-if-needed.mjs --env=development",
+    "db:migrate:deploy": "node scripts/deploy-migrations.mjs",
+    "prisma:generate": "node scripts/prisma-generate-if-needed.mjs",
     "prisma:generate:production": "node scripts/prisma-generate-if-needed.mjs --env=production",
     "prisma:generate:force": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -20,7 +20,7 @@
     "prisma:seed": "node prisma/seed.mjs",
     "prisma:studio": "prisma studio",
     "lint": "eslint src --ext .js",
-    "test": "node scripts/prisma-generate-if-needed.mjs --env=development && node --test"
+    "test": "node scripts/prisma-generate-if-needed.mjs && node --test"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "7.8.0",

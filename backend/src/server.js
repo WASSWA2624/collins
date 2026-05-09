@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { loadEnvironmentFile } from './config/envFile.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -16,8 +17,7 @@ const localTempPath = path.join(projectRoot, 'tmp');
 const PLACEHOLDER_TEXT = '@prisma/client did not initialize yet';
 const REQUIRED_RUNTIME_PACKAGES = ['express', '@prisma/client', '@prisma/adapter-mariadb', 'mariadb'];
 
-process.env.COLLINS_ENV ||= 'production';
-process.env.NODE_ENV ||= 'production';
+loadEnvironmentFile({ projectRoot });
 
 const canResolvePackage = (packageName) => {
   try {
@@ -109,7 +109,7 @@ const ensurePrismaClient = () => {
 
   mkdirSync(localTempPath, { recursive: true });
 
-  const result = spawnSync(process.execPath, [prismaGenerateScriptPath, '--env=production'], {
+  const result = spawnSync(process.execPath, [prismaGenerateScriptPath], {
     cwd: projectRoot,
     env: {
       ...process.env,

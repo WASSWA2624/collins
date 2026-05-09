@@ -82,7 +82,7 @@ Training/help content:
 GET /api/v1/training-help
 ```
 
-`npm run dev`, `npm test`, and deployment packaging run Prisma Client generation before the app is shipped. Production startup uses the generated client committed into the deployment zip, so shared hosting does not need to run Prisma CLI. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
+`npm run dev`, `npm test`, and deployment packaging run Prisma Client generation before the app is shipped. These commands select `.env.development` automatically, while `npm start`, cPanel startup, and `npm run db:migrate:deploy` select `.env.production` automatically. Production startup uses the generated client committed into the deployment zip, so shared hosting does not need to run Prisma CLI. Generation does not require a live MySQL connection, but runtime startup requires `DATABASE_URL` in the selected `.env.development` or `.env.production` file. The backend starts independently from the frontend, Expo, and clinical dataset assets.
 
 ## cPanel deployment
 

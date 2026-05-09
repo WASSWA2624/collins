@@ -12,6 +12,7 @@ const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const packageJson = JSON.parse(readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const nodemonConfig = JSON.parse(readFileSync(path.join(projectRoot, 'nodemon.json'), 'utf8'));
 const npmConfig = readFileSync(path.join(projectRoot, '.npmrc'), 'utf8');
+const serverSource = readFileSync(path.join(projectRoot, 'src', 'server.js'), 'utf8');
 
 test('loads safe development defaults while requiring only backend configuration', () => {
   const config = createEnv({
@@ -151,21 +152,22 @@ test('validates startup scalar settings', () => {
 });
 
 test('pins supported Node runtime for backend startup', () => {
+  assert.equal(packageJson.version, '1.0.0');
   assert.equal(packageJson.engines.node, '>=20.0.0');
 });
 
 test('keeps Prisma generation off production install and startup paths', () => {
   assert.equal(packageJson.scripts.predev, undefined);
   assert.equal(packageJson.scripts.pretest, undefined);
-  assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs --env=development');
+  assert.equal(packageJson.scripts['prisma:generate'], 'node scripts/prisma-generate-if-needed.mjs');
   assert.equal(packageJson.scripts['prisma:generate:production'], 'node scripts/prisma-generate-if-needed.mjs --env=production');
   assert.equal(packageJson.scripts.prestart, undefined);
   assert.equal(packageJson.scripts.postinstall, undefined);
-  assert.equal(packageJson.scripts.dev, 'node scripts/prisma-generate-if-needed.mjs --env=development && nodemon --config nodemon.json');
-  assert.equal(packageJson.scripts.start, 'node src/server.js --env=production');
+  assert.equal(packageJson.scripts.dev, 'node scripts/prisma-generate-if-needed.mjs && nodemon --config nodemon.json');
+  assert.equal(packageJson.scripts.start, 'node src/server.js');
   assert.equal(packageJson.scripts['start:cpanel'], 'node cpanel-start.cjs');
-  assert.equal(packageJson.scripts['db:migrate:deploy'], 'node scripts/deploy-migrations.mjs --env=production');
-  assert.equal(packageJson.scripts.test, 'node scripts/prisma-generate-if-needed.mjs --env=development && node --test');
+  assert.equal(packageJson.scripts['db:migrate:deploy'], 'node scripts/deploy-migrations.mjs');
+  assert.equal(packageJson.scripts.test, 'node scripts/prisma-generate-if-needed.mjs && node --test');
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'prisma-generate-if-needed.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'scripts', 'deploy-migrations.mjs')), true);
   assert.equal(existsSync(path.join(projectRoot, 'cpanel-start.cjs')), true);
@@ -176,6 +178,8 @@ test('keeps Prisma generation off production install and startup paths', () => {
   assert.ok(npmConfig.includes('legacy-peer-deps=true'));
   assert.equal(packageJson.dependencies.prisma, undefined);
   assert.equal(packageJson.devDependencies.prisma, '7.8.0');
+  assert.ok(serverSource.includes('loadEnvironmentFile({ projectRoot })'));
+  assert.equal(serverSource.includes("COLLINS_ENV ||= 'production'"), false);
 });
 
 test('dev watcher is scoped to backend source and config files', () => {
@@ -183,5 +187,5 @@ test('dev watcher is scoped to backend source and config files', () => {
   assert.ok(nodemonConfig.ignore.includes('node_modules/**'));
   assert.ok(nodemonConfig.ignore.includes('prisma/migrations/**'));
   assert.ok(nodemonConfig.ignore.includes('tests/**'));
-  assert.equal(nodemonConfig.exec, 'node src/server.js --env=development');
+  assert.equal(nodemonConfig.exec, 'node src/server.js');
 });
