@@ -147,6 +147,17 @@ Node.js version: 20.x
 
 DirectAdmin/LiteSpeed loads the configured startup file with CommonJS `require(...)`, so use `cpanel-start.cjs` instead of `src/server.js`. The wrapper sets production mode, then starts the ES module backend safely. DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
 
+After extracting the backend zip, confirm that these files exist directly under the application root:
+
+```txt
+/home/zelahco/collins-backend/DEPLOYMENT-CHECK.txt
+/home/zelahco/collins-backend/cpanel-start.cjs
+/home/zelahco/collins-backend/package.json
+/home/zelahco/collins-backend/src/server.js
+```
+
+If they are inside a nested folder such as `/home/zelahco/collins-backend/collins-backend/src/server.js` or `/home/zelahco/collins-backend/backend/src/server.js`, move the nested folder contents up into `/home/zelahco/collins-backend`, then restart the Node.js app.
+
 If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config uses Prisma's text protocol, one database connection, and `127.0.0.1` by default for better shared-hosting compatibility. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
 
 For temporary diagnosis, keep `DATABASE_DIAGNOSTICS_ENABLED=true`, restart the app, then open `/ready?debug=true`. The response and `tmp/backend-diagnostics.log` include sanitized MariaDB error details such as `ER_ACCESS_DENIED_ERROR`, `ECONNREFUSED`, `ETIMEDOUT`, or `ER_BAD_DB_ERROR` without printing the database password. Set `DATABASE_DIAGNOSTICS_ENABLED=false` after the connection is fixed.
