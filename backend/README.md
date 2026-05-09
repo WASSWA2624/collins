@@ -140,12 +140,12 @@ The DirectAdmin Node.js screen can use:
 ```txt
 Application root: collins-backend
 Application URL: api.zelah.co.ug/
-Application startup file: src/server.js
+Application startup file: cpanel-start.cjs
 Application mode: Production
 Node.js version: 20.x
 ```
 
-DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
+DirectAdmin/LiteSpeed loads the configured startup file with CommonJS `require(...)`, so use `cpanel-start.cjs` instead of `src/server.js`. The wrapper sets production mode, then starts the ES module backend safely. DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
 
 If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config uses Prisma's text protocol, one database connection, and `127.0.0.1` by default for better shared-hosting compatibility. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
 
