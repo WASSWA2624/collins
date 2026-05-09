@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "search": "Ara",
+    "submit": "Gönder",
+    "loading": "Yükleniyor…",
+    "retry": "Tekrar dene",
+    "back": "Geri",
+    "next": "Sonraki",
+    "continue": "Devam et",
+    "close": "Kapat",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "Seç",
+    "selectPlaceholder": "Seç:…",
+    "closeSelect": "Kapat Seç",
+    "remove": "Kaldır",
+    "goToHome": "Git: ana sayfa",
+    "viewNotifications": "Görüntüle notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "Ara:…",
+    "noResults": "Sonuç yok",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "Ara: icon",
+    "clearSearch": "Temizle ara",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed için load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "gerekli",
+    "clearAll": "Temizle all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "Temizle all filters",
+    "loadingPlaceholder": "Yükleniyor placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "Boş state",
+    "message": "Mesaj",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "Merhaba, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "Çıkış yap",
+    "password": "Parola",
+    "passwordHide": "Gizle parola",
+    "passwordShow": "Göster parola",
+    "enterPassword": "Gir: parola",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "Oturum aç",
+      "accessibilityLabel": "Oturum aç screen",
+      "emailLabel": "E-posta",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Gir: parola",
+      "submit": "Oturum aç",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "Yok: hesap yet?",
+      "createAccount": "Hesap oluştur",
+      "createAccountHint": "Aç hesap registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "Hesap oluştur",
+      "description": "Create an AI Vent hesap için request tesis access.",
+      "accessibilityLabel": "Hesap oluştur screen",
+      "nameLabel": "Tam ad",
+      "namePlaceholder": "Clinician ad",
+      "emailLabel": "E-posta",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Create parola",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "Tesis veya hospital (İsteğe bağlı)",
+      "facilitySearchPlaceholder": "Ara: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital liste by ad, district, region, veya ownership",
+      "facilitySelectLabel": "Seç: tesis",
+      "facilitySelectPlaceholder": "Choose a matching tesis",
+      "facilitySelectHelper": "Leave blank if you are not attached için a tesis.",
+      "facilitySelectHint": "Choose tesis için request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested için İncele.",
+      "facilityOptionalHelper": "İsteğe bağlı. You can create an hesap without selecting a tesis.",
+      "facilityNoResults": "Yok: matching tesis found. You can still create an hesap without selecting one",
+      "facilityClear": "Temizle tesis",
+      "submit": "Hesap oluştur",
+      "submitting": "Creating hesap...",
+      "signInPrompt": "Already have an hesap?",
+      "signIn": "Oturum aç",
+      "signInHint": "Return için sign in",
+      "errorTitle": "Hesap creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "Tekrar dene session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose tesis",
+      "description": "Seç: tesis context için this session.",
+      "accessibilityLabel": "Tesis selection screen",
+      "selectFacility": "Seç: {{name}}",
+      "empty": "Yok: approved facilities are available için this hesap",
+      "errorTitle": "Tesis selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "Bir şeyler ters gitti",
+      "message": "Beklenmeyen bir hata oluştu",
+      "retry": "Tekrar dene",
+      "retryHint": "Tekrar deneyin"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "Bir şeyler ters gitti. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect için server. Please check your internet connection ve try again.",
+      "REQUEST_TIMEOUT": "server took too long için respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection ve try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "Kimlik doğrulama gerekli",
+      "FORBIDDEN": "Erişim reddedildi",
+      "CONFLICT": "This update conflicts ile newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields ve try again.",
+      "SERVER_ERROR": "Bir şeyler ters gitti while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect için server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please yenile ve try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return için takip ve try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not kaydet your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment ve try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An hata occurred while Yükleniyor this page",
+      "INVALID_CREDENTIALS": "Invalid e-posta veya parola. Please check your details ve try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please Seç a tenant.",
+      "ACCOUNT_INACTIVE": "Hesap is not active",
+      "ACCOUNT_SUSPENDED": "Hesap has been suspended",
+      "ACCOUNT_PENDING": "Hesap is beklemede verification",
+      "PASSWORD_INCORRECT": "Current parola is incorrect",
+      "TOKEN_INVALID": "Invalid veya expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid veya expired yenile token",
+      "SESSION_EXPIRED": "Your session expired. Oturum aç again için devam et.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This e-posta is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "Hesap is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid veya expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "Ana sayfa summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "Yüklenemiyor: Ana sayfa summary",
+      "ADMISSION_SAVE_FAILED": "Kaydedilemiyor: admission record. Bağlantınızı kontrol edip tekrar deneyin",
+      "ADMISSION_VALIDATION_FAILED": "Some gerekli admission details are missing. Please İncele highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable için generate clinical recommendations right now. You can still İncele ve kaydet admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Yüklenemiyor: admission form. Bağlantınızı kontrol edip tekrar deneyin",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Kaydedilemiyor: local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "Bu alan zorunludur",
+      "invalidEmail": "Invalid e-posta format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type için ara",
+      "cartWithItems": "Cart ile {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "Oturum aç",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "Ayarlar",
+      "logout": "Çıkış yap",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "Aç hesap menu için {{name}}",
+        "fallbackName": "Hesap",
+        "accountType": "Hesap type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "Gizle header",
+      "showHeader": "Göster header",
+      "showMore": "Göster more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "Yok:tifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (e-posta)",
+      "supportPhone": "Support (telefon)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "Hasta services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal ve support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "Gizlilik",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "Çevrimiçi",
+        "offline": "Çevrimdışı",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "Yok:tifications",
+      "menuLabel": "Yok:tifications menu",
+      "empty": "Yok: new notifications",
+      "viewAll": "Görüntüle all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New mesaj",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "Hasta navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "Ana sayfa",
+        "admit": "Kabul et",
+        "assessment": "Kabul et",
+        "abg-ventilator-updates": "Update ABG & Ventilatör Ayarlar",
+        "history": "Takip",
+        "dataset-capture": "Veri kümesi yakalama",
+        "review-queue": "İnceleme kuyruğu",
+        "dashboard": "Kontrol paneli",
+        "user-management": "Kullanıcı yönetimi",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "Ayarlar",
+        "settings-about": "Hakkında",
+        "settings-data-sources": "Veri kaynakları",
+        "settings-disclaimer": "Sorumluluk reddi",
+        "settings-help": "Yardım",
+        "settings-privacy": "Gizlilik"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip için main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "Aktif tesis",
+    "noFacility": "Yok: active tesis",
+    "role": "Rol",
+    "noRole": "Yok: active rol",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "Seç: active tesis",
+    "accessibilityLabel": "Aktif tesis {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "Çevrimiçi",
+      "offline": "Çevrimdışı",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "Sistem status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are Çevrimdışı",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "Çevrimdışı status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays veya limited functionality.",
+        "accessibilityLabel": "Düşük network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "Geri Çevrimiçi",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "Çevrimiçi status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "Ayarlar",
     "screen": {
-      "label": "Settings screen"
+      "label": "Ayarlar screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "Yükleniyor ayarlar...",
+      "saved": "Ayarlar saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "Kaydedilemiyor: your profile. Bağlantınızı kontrol edip tekrar deneyin",
+      "facilitySaved": "Aktif tesis updated successfully.",
+      "facilitySaveError": "Kaydedilemiyor: active tesis. Bağlantınızı kontrol edip tekrar deneyin",
+      "roleSaved": "Active rol updated successfully.",
+      "themeSaved": "Tema updated successfully.",
+      "themeLocalSaved": "Tema updated on this device.",
+      "themeSaveError": "Kaydedilemiyor: your tema preference. Bağlantınızı kontrol edip tekrar deneyin",
+      "saveError": "Kaydedilemiyor: ayarlar. Bağlantınızı kontrol edip tekrar deneyin",
+      "loadError": "Yüklenemiyor: ayarlar. Bağlantınızı kontrol edip tekrar deneyin",
+      "localOnly": "Server ayarlar are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "Hesap ve tesis",
+      "name": "Ad",
+      "phone": "Telefon",
+      "saveProfile": "Kaydet profile",
+      "activeFacility": "Aktif tesis",
+      "activeRole": "Active rol",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "Yok: active tesis",
+      "activeFacilityHelper": "Seç: tesis context için clinical work.",
+      "noAssignedFacility": "Yok: tesis has been assigned için your hesap yet",
+      "activeRoleHelper": "Rol için selected active tesis.",
+      "noActiveRole": "Yok: rol is available için selected tesis",
+      "none": "Yok:ne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "Gir: your full ad.",
+        "nameTooLong": "Ad must be 160 characters veya fewer.",
+        "phoneTooLong": "Telefon number must be 40 characters veya fewer.",
+        "profileInvalid": "İncele highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance ve accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "Tema",
+      "accessibilityLabel": "Tema selector",
+      "hint": "Değiştir application tema",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "Sistem",
+        "light": "Açık",
+        "dark": "Koyu",
+        "highContrast": "Yüksek kontrast"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "Dil",
+      "accessibilityLabel": "Dil selector",
+      "hint": "Değiştir application dil",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "İngilizce",
+        "ar": "Arapça",
+        "de": "Almanca",
+        "es": "İspanyolca",
+        "fa": "Farsça",
+        "fr": "Fransızca",
+        "hi": "Hintçe",
+        "id": "Endonezce",
+        "it": "İtalyanca",
+        "ja": "Japonca",
+        "ko": "Korece",
+        "ms": "Malayca",
+        "nl": "Felemenkçe",
+        "pl": "Lehçe",
+        "pt": "Portekizce",
+        "ru": "Rusça",
+        "sw": "Svahili dili",
+        "ta": "Tamilce",
+        "th": "Tayca",
+        "tr": "Türkçe",
+        "uk": "Ukraynaca",
+        "vi": "Vietnamca",
+        "zh": "Çince"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "Değiştir spacing ve layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "Göster footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "Göster veya gizle footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "Çevrimdışı ve sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "Bilinmiyor",
+      "offlineModeEnabled": "Allow Çevrimdışı mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "Tekrar dene failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge senkronize edildi drafts after",
+      "conflictResolutionMode": "Çakışma resolution",
+      "manualReview": "Manual İncele",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "Gizlilik ve logging",
+      "hidePatientIdentifiersInLists": "Gizle hasta identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock için identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance ve clinical workflow",
+      "activeFacility": "Aktif tesis",
+      "manageAccess": "Can manage tesis ayarlar",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "Tesis verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "Göster reference version için clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require neden için clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer için kritik flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit neden",
+      "exportPatientIdentifiers": "Export hasta identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require İncele",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "Göster shadow model outputs için clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden den normal clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize ayarlar sidebar",
+      "menu": "Ayarlar menu",
+      "menuOpen": "Aç ayarlar menu",
+      "menuClose": "Kapat ayarlar menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "Sorumluluk reddi",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "Sorumluluk reddi screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype için reference ve training. It is not intended için direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read ve understood sorumluluk reddi",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "Yükleniyor…",
+        "error": "Yüklenemiyor: sorumluluk reddi"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "Veri kaynakları",
       "screen": {
-        "label": "Data sources screen"
+        "label": "Veri kaynakları screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "Yükleniyor…",
+        "error": "Yüklenemiyor: data sources",
+        "empty": "Yok: sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted için reviewer approval only. Raw pasted notes are not stored in approved datasets veya sent için external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write rol.",
+        "offlineNotice": "Çevrimdışı submissions are kuyrukta ile structured fields only ve sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then İncele structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "Tesis scope ready",
+        "facilityMissing": "Seç: veya sign in için one active tesis before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured İncele payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "Yok:ne",
+        "submitForReview": "İncelemeye gönder",
+        "trainingApprovalAvailable": "Training approval controls remain in governed İncele workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready için İncele submission",
+          "submitted": "Submitted için reviewer approval",
+          "queued": "Kuyrukta için sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "Gizlilik",
       "screen": {
-        "label": "Privacy screen"
+        "label": "Gizlilik screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences ve session data are stored only on this device. Yok:thing is sent için external servers.",
+      "optionalAI": "If Çevrimiçi AI features are enabled, those requests may be sent için configured services."
     },
     "about": {
-      "title": "About",
+      "title": "Hakkında",
       "screen": {
-        "label": "About screen"
+        "label": "Hakkında screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype için reference ve training. Yok:t için clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support ve advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, veya determine Ventilatör ayarlar.",
+        "secondary": "Confirm all decisions against hasta, your tesis workflow, ve local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "Gerekli before continuing için clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device ve will be senkronize edildi when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "İncele safety note before using AI Vent. app can highlight missing data ve uncertainty, but a qualified clinician remains responsible için hasta care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in tesis context",
+          "body": "Use active tesis ve rol shown by your session. Keep records within correct tesis workflow ve follow local escalation, İncele, ve approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "Gir:ing inputs",
+          "body": "Use Kabul et için gir: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). İsteğe bağlı ABG values improve confidence when available, but missing İsteğe bağlı data should be reviewed as uncertainty rather than treated as a kaydet blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations Göster advisory Ventilatör setting references ile a confidence tier. Match quality reflects how well dataset cases align ile your inputs. Use matched cases as reference only ve verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "İzleme ve alerts",
+          "body": "After reviewing a Öneri, use İzleme için log vitals ve labs over time. Alerts highlight values outside set thresholds ve should be assessed according için local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "Çevrimdışı behavior",
+          "body": "Core workflow (Kabul et, advisory summaries, İzleme) works Çevrimdışı. Data is saved locally. İsteğe bağlı AI features require connectivity. When geri Çevrimiçi, devam et as normal."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "Sonraki",
+        "back": "Geri"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "Yükleniyor…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "Yardım & reference",
+      "accessibilityLabel": "Yardım screen",
+      "searchPlaceholder": "Ara: glossary veya guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What için do sonraki"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume ve oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory için expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "Tidal hacim (mL). Volume delivered per breath.",
+        "respiratoryRate": "Solunum hızı (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, ve pH, tied için a sample time.",
+        "referenceStatus": "Governance ve verification state için a reference range. Only active approved veya verified ranges are eligible için active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need İncele before dataset veya training use.",
+        "reviewQueue": "A work queue için İncele decisions, corrections, exclusions, ve audit reasons.",
+        "syncState": "Current Çevrimdışı, Çevrimiçi, veya syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden den normal clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; gir: SpO₂ ve Diğer vitals when available. için better matching, ekle PaO₂, PaCO₂, ve pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app Çevrimdışı",
+          "body": "Kabul et, advisory summaries, ve İzleme work Çevrimdışı. Data is stored locally. İsteğe bağlı AI suggestions require internet. Sync is not gerekli için core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, beklemede, retired, rejected, ve unverified ranges are not eligible için active decision-support display. İncele source, version, scope, ve verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness Yardım is restricted",
+          "body": "Predictive model readiness ve shadow-mode details are visible only için approved governance roles. Yok:rmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs İncele",
+          "body": "Use İncele queue için check submitted data, request correction, onayla eligible records, veya Hariç tut records ile an audit neden."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "İncele tesis context, sync state, active admissions, red flags, ve records needing İncele before opening a hasta workflow.",
+        "admit": "Capture hasta pathway ve available clinical values. Mark unavailable data clearly ve İncele backend-confirmed calculations after kaydet.",
+        "tracking": "Use takip için scan recent ventilation status ve İncele needs. Read trend flags ile source data ve local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture için de-identified candidate records. Human İncele is gerekli before approved training-data use.",
+        "reviewQueue": "Use İncele queue için onayla, request correction, veya Hariç tut records while preserving audit trail.",
+        "dashboard": "Use dashboards için aggregate quality, İncele, reference, ve governance status. Avoid hasta identifiers in governance summaries.",
+        "settings": "Use ayarlar için hesap, tesis, accessibility, gizlilik, sync, ve reference visibility preferences where authorized.",
+        "hypoxemia": "İncele FiO₂ ve PEEP; consider recruitment; check için shunt veya V/Q mismatch.",
+        "hypercapnia": "İncele minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation ve perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols ve clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "Yükleniyor…",
+        "empty": "Sonuç yok",
+        "error": "Yüklenemiyor: Yardım"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "AI karar desteği",
+      "sectionLabel": "İsteğe bağlı AI Öneri (Çevrimiçi)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use Çevrimiçi AI için complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "Gir: key (stored securely)",
+      "apiKeySave": "Kaydet key",
+      "apiKeyClear": "Temizle key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "Yok:t set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used için AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "Yükleniyor",
+    "offline": "Çevrimdışı",
+    "error": "Hata",
+    "empty": "Boş",
+    "list": "Liste",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "Yok: items",
+      "message": "There are yok: items için display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "Hata",
+      "message": "An hata occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "Ana sayfa",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "Klinik iş akışı",
+      "message": "Aktif tesis, sync status, drafts, ve İncele work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "Ana sayfa notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "Seç: tesis",
+      "select": "Seç: {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "Tesis",
+        "empty": "Yok:t selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "Çevrimiçi",
+          "offline": "Çevrimdışı",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting için sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "İncele queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "Aç {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "Kabul et"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "Takip"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & Ventilatör Ayarlar"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "Veri kümesi yakalama"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "İnceleme kuyruğu"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "Kontrol paneli"
       },
       "settings": {
-        "title": "Settings"
+        "title": "Ayarlar"
       },
       "meta": {
-        "open": "Open"
+        "open": "Aç"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "Seç: tesis",
+        "roleRestricted": "Rol restricted",
+        "workflowPending": "Route beklemede"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "İnceleme kuyruğu",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, ve sync conflicts.",
+    "accessibilityLabel": "Doğrulama İncele queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion neden, veya override neden",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "İncele access gerekli",
+      "message": "An approved reviewer veya governance rol is gerekli için this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "Ventilatör",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync Çakışma"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "Doğrulama",
+      "missingData": "Eksik veri",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "Çakışma",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved için dataset İncele boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "Yok:t approved için dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "Yenile",
+      "approve": "Onayla",
+      "requestCorrection": "Düzeltme iste",
+      "exclude": "Hariç tut",
+      "defer": "Ertele"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "Yükleniyor İncele queue...",
+      "error": "Yüklenemiyor: veya kaydet İncele queue",
+      "empty": "Yok: records need İncele"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "Klinik veri yakalama",
+      "subtitle": "Gir: de-identified clinical, ABG, Ventilatör, target-range, treatment, ve outcome data için reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This hesap does not have permission için Gönder clinical dataset candidates.",
+        "offline": "Çevrimdışı mode is active. Structured captures will queue locally ve sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "Tesis",
+        "facilityReady": "Tesis scope ready",
+        "facilityMissing": "Seç: an active tesis before submitting.",
+        "required": "Gerekli fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "Gir:ed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "Çevrimiçi submission",
+        "offline": "Kuyrukta Çevrimdışı"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "Gerekli için İncele submission",
+        "optional": "İsteğe bağlı"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All gerekli fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "İncelemeye gönder",
+        "next": "Sonraki",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "Temizle form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "Yükleniyor saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "Kaydedilemiyor: local draft. Please keep this screen Aç ve try again",
+        "needsInput": "Complete gerekli fields ve tesis scope before submitting.",
+        "ready": "Ready için Gönder için reviewer approval.",
+        "stepInvalid": "Please İncele highlighted values before continuing.",
+        "reviewInvalid": "Please İncele highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted için reviewer approval.",
+        "queued": "Submission is kuyrukta. Your draft is still saved locally until backend kaydet succeeds.",
+        "error": "Kaydedilemiyor: dataset. Your draft is still saved locally. Bağlantınızı kontrol edip tekrar deneyin"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "Kabul et hasta",
+      "accessibilityLabel": "Kabul et hasta wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact kabul et summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "Tesis",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "Neden",
+        "condition": "Durum",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "Solunum hızı",
+        "heartRate": "Kalp hızı",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "Yaş",
+        "weight": "Kilo",
+        "height": "Boy",
+        "gender": "Cinsiyet",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "Kan basıncı",
+        "ventilatorMode": "Ventilatör modu",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "Tidal hacim",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "Yok: data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "Hasta profili",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "İsteğe bağlı observations",
+        "timeSeries": "İsteğe bağlı time series",
+        "review": "İncele",
+        "patientReason": "Hasta & neden",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "Kaydet & İncele"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture hasta pathway, Yaş, body metrics, ve neden için support.",
+        "facilityId": "Tesis ID",
+        "facilityIdPlaceholder": "Gir: tesis ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed veya ward location",
+        "pathway": "Hasta pathway",
+        "pathwayPlaceholder": "Seç: pathway",
+        "sexForSize": "Sex için size calculations",
+        "ageYears": "Yaş (years)",
+        "weightKg": "Kilo (kg)",
+        "heightCm": "Boy (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "Neden için support",
+        "reasonForSupportPlaceholder": "Brief admission neden",
+        "reasonForSupportSearchPlaceholder": "Ara: veya type neden",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "Bilinmiyor",
+          "other": "Diğer"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "Erkek",
+          "female": "Kadın",
+          "unknown": "Bilinmiyor"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS veya severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis ile respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD veya asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn veya inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "Kilo veya reference kilo unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "Tidal hacim unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, ve uncertain values. Ventilatör ayarlar are suggested on sonraki step den dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "Seç: oxygen support",
+        "oxygenSupportHint": "Choose support hasta is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "Seç: date ve time",
+        "timeHint": "Use local date ve time için observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "Solunum hızı",
+        "heartRate": "Kalp hızı",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "Ventilatör type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields ile commas.",
+        "uncertaintyReason": "Uncertainty neden",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "Yok:n-rebreather mask",
+          "highFlowNasalCannula": "Yüksek-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "Diğer"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "İncele ve Düzenle dataset-suggested Ventilatör ayarlar, backend readiness, clinician confirmation, override neden when needed, İncele status, ve sync state.",
+        "readiness": "Kaydet readiness",
+        "recommendationTitle": "Dataset Öneri",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested Ventilatör ayarlar",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "Seç: mode",
+        "ventilatorMode": "Ventilatör modu",
+        "tidalVolumeMl": "Tidal hacim (mL)",
+        "ventilatorFio2": "Ventilatör FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "Diğer"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "Gir: clinical values ve tap Sonraki için generate a dataset Öneri.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable için generate clinical recommendations right now. You can still İncele ve kaydet admission.",
+        "recommendationNeedsClinicalInputs": "Öneri needs clinical neden, SpO2, respiratory rate, ve heart rate.",
+        "ready": "Ready için kaydet",
+        "needsCorrection": "Correction veya override gerekli",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready için kaydet İncele.",
+        "overrideReason": "Override neden",
+        "reviewNote": "İncele note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "İncele these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "Diğer"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "Durum",
+        "conditionPlaceholder": "Seç: durum",
+        "conditionHint": "Primary respiratory durum (gerekli)",
+        "age": "Yaş (years)",
+        "agePlaceholder": "Gir: Yaş",
+        "ageHint": "Hasta Yaş in years",
+        "weight": "Kilo (kg)",
+        "weightPlaceholder": "Gir: kilo",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "Boy (cm)",
+        "heightPlaceholder": "Gir: boy",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "Cinsiyet",
+        "genderPlaceholder": "Seç: cinsiyet",
+        "genderHint": "Hasta cinsiyet",
+        "genderMale": "Erkek",
+        "genderFemale": "Kadın",
+        "genderOther": "Diğer",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated liste"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "Yok:rmal range: 95–100%",
+        "pao2": "PaO₂ (İsteğe bağlı)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "Yok:rmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (İsteğe bağlı)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "Yok:rmal range: 35–45 mmHg",
+        "ph": "pH (İsteğe bağlı)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "Yok:rmal range: 7.35–7.45",
+        "respiratoryRate": "Solunum hızı",
+        "respiratoryRatePlaceholder": "Gir: RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "Yok:rmal range: 12–20 breaths/min",
+        "heartRate": "Kalp hızı",
+        "heartRatePlaceholder": "Gir: HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "Yok:rmal range: 60–100 bpm",
+        "bloodPressure": "Kan basıncı (İsteğe bağlı)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "Yok:rmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Yok:rmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single ad–value pair. İsteğe bağlı; you can skip this step.",
+        "add": "Ekle observation",
+        "name": "Ad",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "İsteğe bağlı"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs veya Diğer metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used için trend analysis ve İzleme after you start session. İsteğe bağlı; you can ekle points later on İzleme screen.",
+        "add": "Ekle time series point",
+        "name": "Ad",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "İsteğe bağlı"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "Öneri source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. Çevrimdışı, yok: API key.",
+        "onlineAi": "Çevrimiçi AI",
+        "onlineAiDescription": "Internet gerekli; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "Seç: AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons için Öneri",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "Geri",
+        "next": "Sonraki",
+        "generate": "Generate Öneri",
+        "generateHint": "Create Öneri den current inputs",
+        "saveAdmission": "Kaydet admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "Yükleniyor kabul et form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "Yüklenemiyor: admission form. Bağlantınızı kontrol edip tekrar deneyin",
+        "retryLoad": "Tekrar deneyin",
+        "offline": "Kabul et works Çevrimdışı",
+        "empty": "Gir: hasta data için begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & Ventilatör Ayarlar",
+      "subtitle": "Seç: an active admission, gir: latest ABG result ve/veya Ventilatör ayarlar, then kaydet them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "Çevrimdışı mode: this update will stay kuyrukta until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New Ventilatör ayarlar",
+        "missing": "Eksik veri",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "Seç: active admission",
+        "empty": "Yok: admitted patients are available için takip yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest Ventilatör"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "Seç: Ventilatör mode",
+        "modeSearchPlaceholder": "Ara: Ventilatör modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "Ventilatör",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "Kaydet new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "Önerilen ayarlar",
+      "accessibilityLabel": "Öneri screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "Çevrimiçi",
+        "offline": "Çevrimdışı"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended ayarlar",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "İzleme points",
+        "risks": "Risks ve complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "Tidal hacim",
+        "respiratoryRate": "Solunum hızı",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "Yüksek",
+        "medium": "Orta",
+        "low": "Düşük",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "Beklemede",
+        "referenceWeight": "Reference kilo",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "İncele status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "Eksik veri",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "Beklemede clinician İncele",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "Beklemede backend confirmation",
+          "synced": "Senkronize edildi",
+          "queued": "Kuyrukta",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons için Öneri",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start İzleme",
+        "startMonitoringHint": "Begin takip vital signs ve time series",
+        "backToAssessment": "Geri için Kabul et",
+        "startNewAssessment": "Start new kabul et",
+        "editAssessmentTitle": "Düzenle kabul et record",
+        "editAssessmentHint": "Aç kabul et form ile current session data pre-filled",
+        "requestAiRecommendation": "Request AI Öneri",
+        "requestAiHint": "Get İsteğe bağlı AI hints için this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental ve not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "Çevrimiçi AI wasn't used. This Öneri is den local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "Kaldır identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local Öneri.",
+        "notComplex": "This case did not need Çevrimiçi AI.",
+        "offline": "You are Çevrimdışı.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "Çevrimiçi AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. Göstering Öneri den local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "Yükleniyor Öneri…",
+        "error": "Yüklenemiyor: Öneri",
+        "empty": "Yok: Öneri available. Complete Kabul et first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "Yok:t clinically validated",
+        "validationLabel": "Doğrulama requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence İncele status",
+        "sourceUrl": "Aç source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "Beklemede clinician Doğrulama",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "İzleme",
+      "accessibilityLabel": "İzleme screen",
+      "decisionSupportOnly": "için decision support only. Yok:t a substitute için clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "Ekle point",
+        "addPointHint": "Ekle vitals veya labs data point",
+        "namePlaceholder": "Ad (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "Bilinmiyor"
       },
       "alerts": {
         "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityWarning": "Uyarı",
+        "severityCritical": "Kritik",
+        "severityUnknown": "Bilinmiyor",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below kritik Düşük threshold",
+        "whyWarningLow": "Value below Uyarı Düşük threshold",
+        "whyCriticalHigh": "Value above kritik Yüksek threshold",
+        "whyWarningHigh": "Value above Uyarı Yüksek threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "Devam et İzleme",
+        "suggestedActionWarning": "İncele ve consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value ve re-gir: if needed",
+        "empty": "Yok: alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "Geri için Öneri"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "Yükleniyor…",
+        "error": "Yüklenemiyor: İzleme",
+        "empty": "Ekle vitals veya labs points için see trends ve alerts.",
+        "offline": "You are Çevrimdışı. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "Takip",
+      "subtitle": "Active admitted patients ve backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical takip screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "Yok: admitted patients are available için takip yet",
+      "emptyHint": "Kabul et a hasta first için begin takip.",
+      "admittedBanner": "Admission saved. This hasta is admitted ve available için takip.",
+      "localDraft": "Draft data exists on this device. Backend İncele, sync, ve Çakışma status appears after kaydet veya sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "Ara: by hasta code, ID, ad, veya hospital number",
+        "accessibilityLabel": "Ara: takip patients",
+        "empty": "Yok: matching patients found",
+        "emptyHint": "Try a hasta code, hasta ID, ad, hospital number, bed, veya pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "Yok: active tesis selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "Yenile",
+        "refreshHint": "Reload active takip records",
+        "admitFirst": "Kabul et hasta",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "Görüntüle takip detail ve timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "Kapat takip detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "Hasta not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "Eksik veri: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "Takip detail",
+        "noTimeline": "Yok: timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "Yükleniyor patients için takip...",
+        "loadingDetail": "Yükleniyor takip detail...",
+        "error": "Yüklenemiyor: patients için takip. Bağlantınızı kontrol edip tekrar deneyin",
+        "detailError": "Yüklenemiyor: takip details için this hasta. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "Takip",
+      "accessibilityLabel": "Clinical takip screen",
+      "empty": "Yok: active admitted patients için this tesis",
+      "corruptRecovery": "Session history was reset due için a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "Devam et this session",
+        "viewDetails": "Görüntüle details",
+        "viewDetailsHint": "Görüntüle session summary",
+        "delete": "Sil",
+        "deleteHint": "Kaldır den history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "Sil session?",
+        "message": "This session will be removed den history. This cannot be undone.",
+        "confirm": "Sil",
+        "cancel": "İptal"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "Durum: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "Yükleniyor history…",
+        "error": "Yüklenemiyor: session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "Hasta profili",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "Ventilatör ayarlar",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "İncele status",
+      "intendedUseWarning": "This is a dataset case için reference only. Yok:t için direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "Yok: case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "Yükleniyor case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "Beklemede clinician Doğrulama",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, ve reference.",
+      "accessibilityLabel": "Training ana sayfa screen",
+      "searchPlaceholder": "Ara: topics…",
+      "searchHint": "Ara: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "Ara: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "Görüntüle all topics",
+      "browseAllHint": "Görüntüle all training topics",
+      "viewTopic": "Görüntüle",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "Yükleniyor training…",
+        "error": "Yüklenemiyor: training content",
+        "offline": "Content is available Çevrimdışı",
+        "empty": "Yok: training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic liste screen",
+      "searchPlaceholder": "Ara: veya filter…",
+      "searchHint": "Ara: topics",
+      "empty": "Yok: topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "Aç topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "Yükleniyor topics…",
+        "error": "Yüklenemiyor: topics",
+        "offline": "Content is available Çevrimdışı"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "Geri için topics",
+      "backToTopicsHint": "Return için topic liste",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "Yükleniyor topic…",
+        "error": "Yüklenemiyor: topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page Yok:t Found",
+    "message": "page you're looking için doesn't exist veya has been moved.",
+    "back": "Go Geri",
+    "backHint": "Return için previous page",
+    "goHome": "Git: Ana sayfa",
+    "goHomeHint": "Navigate geri için ana sayfa page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "Beklenmeyen bir hata oluştu. Please try again veya return için ana sayfa page.",
+    "retry": "Tekrar dene",
+    "retryHint": "Try action again",
+    "goHome": "Git: Ana sayfa",
+    "goHomeHint": "Navigate geri için ana sayfa page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "Bir şeyler ters gitti"
   }
 }

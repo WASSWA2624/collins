@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "சேமி",
+    "cancel": "ரத்துசெய்",
+    "delete": "நீக்கு",
+    "edit": "திருத்து",
+    "search": "தேடு",
+    "submit": "சமர்ப்பி",
+    "loading": "ஏற்றுகிறது…",
+    "retry": "மீண்டும் முயற்சி",
+    "back": "பின்",
+    "next": "அடுத்து",
+    "continue": "தொடரவும்",
+    "close": "மூடு",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "தேர்ந்தெடு",
+    "selectPlaceholder": "தேர்ந்தெடு:…",
+    "closeSelect": "மூடு தேர்ந்தெடு",
+    "remove": "அகற்று",
+    "goToHome": "செல்: முகப்பு",
+    "viewNotifications": "காண்க notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "தேடு:…",
+    "noResults": "முடிவுகள் இல்லை",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "தேடு: icon",
+    "clearSearch": "அழி தேடு",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed க்கு load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "தேவை",
+    "clearAll": "அழி all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "அழி all filters",
+    "loadingPlaceholder": "ஏற்றுகிறது placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "காலி state",
+    "message": "செய்தி",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "வணக்கம், {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "வெளியேறு",
+    "password": "கடவுச்சொல்",
+    "passwordHide": "மறை கடவுச்சொல்",
+    "passwordShow": "காட்டு கடவுச்சொல்",
+    "enterPassword": "உள்ளிடு: கடவுச்சொல்",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "உள்நுழை",
+      "accessibilityLabel": "உள்நுழை screen",
+      "emailLabel": "மின்னஞ்சல்",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "கடவுச்சொல்",
+      "passwordPlaceholder": "உள்ளிடு: கடவுச்சொல்",
+      "submit": "உள்நுழை",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "இல்லை: கணக்கு yet?",
+      "createAccount": "கணக்கு உருவாக்கு",
+      "createAccountHint": "திற கணக்கு registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "கணக்கு உருவாக்கு",
+      "description": "Create an AI Vent கணக்கு க்கு request வசதி access.",
+      "accessibilityLabel": "கணக்கு உருவாக்கு screen",
+      "nameLabel": "முழுப்பெயர்",
+      "namePlaceholder": "Clinician பெயர்",
+      "emailLabel": "மின்னஞ்சல்",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "கடவுச்சொல்",
+      "passwordPlaceholder": "Create கடவுச்சொல்",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "வசதி அல்லது hospital (விருப்பம்)",
+      "facilitySearchPlaceholder": "தேடு: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital பட்டியல் by பெயர், district, region, அல்லது ownership",
+      "facilitySelectLabel": "தேர்ந்தெடு: வசதி",
+      "facilitySelectPlaceholder": "Choose a matching வசதி",
+      "facilitySelectHelper": "Leave blank if you are not attached க்கு a வசதி.",
+      "facilitySelectHint": "Choose வசதி க்கு request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested க்கு மதிப்பாய்வு.",
+      "facilityOptionalHelper": "விருப்பம். You can create an கணக்கு without selecting a வசதி.",
+      "facilityNoResults": "இல்லை: matching வசதி found. You can still create an கணக்கு without selecting one",
+      "facilityClear": "அழி வசதி",
+      "submit": "கணக்கு உருவாக்கு",
+      "submitting": "Creating கணக்கு...",
+      "signInPrompt": "Already have an கணக்கு?",
+      "signIn": "உள்நுழை",
+      "signInHint": "Return க்கு sign in",
+      "errorTitle": "கணக்கு creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "மீண்டும் முயற்சி session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose வசதி",
+      "description": "தேர்ந்தெடு: வசதி context க்கு this session.",
+      "accessibilityLabel": "வசதி selection screen",
+      "selectFacility": "தேர்ந்தெடு: {{name}}",
+      "empty": "இல்லை: approved facilities are available க்கு this கணக்கு",
+      "errorTitle": "வசதி selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "ஏதோ தவறு ஏற்பட்டது",
+      "message": "எதிர்பாராத பிழை ஏற்பட்டது",
+      "retry": "மீண்டும் முயற்சி",
+      "retryHint": "மீண்டும் முயற்சிக்கவும்"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "ஏதோ தவறு ஏற்பட்டது. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect க்கு server. Please check your internet connection மற்றும் try again.",
+      "REQUEST_TIMEOUT": "server took too long க்கு respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection மற்றும் try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "அங்கீகாரம் தேவை",
+      "FORBIDDEN": "அணுகல் மறுக்கப்பட்டது",
+      "CONFLICT": "This update conflicts உடன் newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields மற்றும் try again.",
+      "SERVER_ERROR": "ஏதோ தவறு ஏற்பட்டது while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect க்கு server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please புதுப்பி மற்றும் try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return க்கு கண்காணித்தல் மற்றும் try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not சேமி your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment மற்றும் try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An பிழை occurred while ஏற்றுகிறது this page",
+      "INVALID_CREDENTIALS": "Invalid மின்னஞ்சல் அல்லது கடவுச்சொல். Please check your details மற்றும் try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please தேர்ந்தெடு a tenant.",
+      "ACCOUNT_INACTIVE": "கணக்கு is not active",
+      "ACCOUNT_SUSPENDED": "கணக்கு has been suspended",
+      "ACCOUNT_PENDING": "கணக்கு is நிலுவையில் verification",
+      "PASSWORD_INCORRECT": "Current கடவுச்சொல் is incorrect",
+      "TOKEN_INVALID": "Invalid அல்லது expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid அல்லது expired புதுப்பி token",
+      "SESSION_EXPIRED": "Your session expired. உள்நுழை again க்கு தொடரவும்.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This மின்னஞ்சல் is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "கணக்கு is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid அல்லது expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "முகப்பு summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "ஏற்ற முடியவில்லை: முகப்பு summary",
+      "ADMISSION_SAVE_FAILED": "சேமிக்க முடியவில்லை: admission record. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "ADMISSION_VALIDATION_FAILED": "Some தேவை admission details are missing. Please மதிப்பாய்வு highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable க்கு generate clinical recommendations right now. You can still மதிப்பாய்வு மற்றும் சேமி admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "ஏற்ற முடியவில்லை: admission form. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "சேமிக்க முடியவில்லை: local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "இந்த புலம் தேவை",
+      "invalidEmail": "Invalid மின்னஞ்சல் format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type க்கு தேடு",
+      "cartWithItems": "Cart உடன் {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "உள்நுழை",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "அமைப்புகள்",
+      "logout": "வெளியேறு",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "திற கணக்கு menu க்கு {{name}}",
+        "fallbackName": "கணக்கு",
+        "accountType": "கணக்கு type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "மறை header",
+      "showHeader": "காட்டு header",
+      "showMore": "காட்டு more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "இல்லை:tifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (மின்னஞ்சல்)",
+      "supportPhone": "Support (தொலைபேசி)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "நோயாளி services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal மற்றும் support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "தனியுரிமை",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "ஆன்லைன்",
+        "offline": "இணையமின்றி",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "இல்லை:tifications",
+      "menuLabel": "இல்லை:tifications menu",
+      "empty": "இல்லை: new notifications",
+      "viewAll": "காண்க all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New செய்தி",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "நோயாளி navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "முகப்பு",
+        "admit": "அனுமதி",
+        "assessment": "அனுமதி",
+        "abg-ventilator-updates": "Update ABG & வென்டிலேட்டர் அமைப்புகள்",
+        "history": "கண்காணித்தல்",
+        "dataset-capture": "தரவுத்தொகுப்பு பதிவு",
+        "review-queue": "மதிப்பாய்வு வரிசை",
+        "dashboard": "டாஷ்போர்டு",
+        "user-management": "பயனர் மேலாண்மை",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "அமைப்புகள்",
+        "settings-about": "பற்றி",
+        "settings-data-sources": "தரவு மூலங்கள்",
+        "settings-disclaimer": "பொறுப்புத் துறப்பு",
+        "settings-help": "உதவி",
+        "settings-privacy": "தனியுரிமை"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip க்கு main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "செயலில் உள்ள வசதி",
+    "noFacility": "இல்லை: active வசதி",
+    "role": "பங்கு",
+    "noRole": "இல்லை: active பங்கு",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "தேர்ந்தெடு: active வசதி",
+    "accessibilityLabel": "செயலில் உள்ள வசதி {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "ஆன்லைன்",
+      "offline": "இணையமின்றி",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "கணினி status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are இணையமின்றி",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "இணையமின்றி status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays அல்லது limited functionality.",
+        "accessibilityLabel": "குறைவு network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "பின் ஆன்லைன்",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "ஆன்லைன் status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "அமைப்புகள்",
     "screen": {
-      "label": "Settings screen"
+      "label": "அமைப்புகள் screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "ஏற்றுகிறது அமைப்புகள்...",
+      "saved": "அமைப்புகள் saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "சேமிக்க முடியவில்லை: your profile. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "facilitySaved": "செயலில் உள்ள வசதி updated successfully.",
+      "facilitySaveError": "சேமிக்க முடியவில்லை: active வசதி. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "roleSaved": "Active பங்கு updated successfully.",
+      "themeSaved": "தீம் updated successfully.",
+      "themeLocalSaved": "தீம் updated on this device.",
+      "themeSaveError": "சேமிக்க முடியவில்லை: your தீம் preference. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "saveError": "சேமிக்க முடியவில்லை: அமைப்புகள். உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "loadError": "ஏற்ற முடியவில்லை: அமைப்புகள். உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+      "localOnly": "Server அமைப்புகள் are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "கணக்கு மற்றும் வசதி",
+      "name": "பெயர்",
+      "phone": "தொலைபேசி",
+      "saveProfile": "சேமி profile",
+      "activeFacility": "செயலில் உள்ள வசதி",
+      "activeRole": "Active பங்கு",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "இல்லை: active வசதி",
+      "activeFacilityHelper": "தேர்ந்தெடு: வசதி context க்கு clinical work.",
+      "noAssignedFacility": "இல்லை: வசதி has been assigned க்கு your கணக்கு yet",
+      "activeRoleHelper": "பங்கு க்கு selected active வசதி.",
+      "noActiveRole": "இல்லை: பங்கு is available க்கு selected வசதி",
+      "none": "இல்லை:ne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "உள்ளிடு: your full பெயர்.",
+        "nameTooLong": "பெயர் must be 160 characters அல்லது fewer.",
+        "phoneTooLong": "தொலைபேசி number must be 40 characters அல்லது fewer.",
+        "profileInvalid": "மதிப்பாய்வு highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance மற்றும் accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "தீம்",
+      "accessibilityLabel": "தீம் selector",
+      "hint": "மாற்று application தீம்",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "கணினி",
+        "light": "ஒளி",
+        "dark": "இருள்",
+        "highContrast": "அதிக மாறுபாடு"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "மொழி",
+      "accessibilityLabel": "மொழி selector",
+      "hint": "மாற்று application மொழி",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "ஆங்கிலம்",
+        "ar": "அரபிக்",
+        "de": "ஜெர்மன்",
+        "es": "ஸ்பானிஷ்",
+        "fa": "பெர்ஷியன்",
+        "fr": "பிரெஞ்சு",
+        "hi": "இந்தி",
+        "id": "இந்தோனேஷியன்",
+        "it": "இத்தாலியன்",
+        "ja": "ஜப்பானியம்",
+        "ko": "கொரியன்",
+        "ms": "மலாய்",
+        "nl": "டச்சு",
+        "pl": "போலிஷ்",
+        "pt": "போர்ச்சுகீஸ்",
+        "ru": "ரஷியன்",
+        "sw": "ஸ்வாஹிலி",
+        "ta": "தமிழ்",
+        "th": "தாய்",
+        "tr": "துருக்கிஷ்",
+        "uk": "உக்ரைனியன்",
+        "vi": "வியட்நாமீஸ்",
+        "zh": "சீனம்"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "மாற்று spacing மற்றும் layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "காட்டு footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "காட்டு அல்லது மறை footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "இணையமின்றி மற்றும் sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "தெரியவில்லை",
+      "offlineModeEnabled": "Allow இணையமின்றி mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "மீண்டும் முயற்சி failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge ஒத்திசைக்கப்பட்டது drafts after",
+      "conflictResolutionMode": "முரண்பாடு resolution",
+      "manualReview": "Manual மதிப்பாய்வு",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "தனியுரிமை மற்றும் logging",
+      "hidePatientIdentifiersInLists": "மறை நோயாளி identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock க்கு identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance மற்றும் clinical workflow",
+      "activeFacility": "செயலில் உள்ள வசதி",
+      "manageAccess": "Can manage வசதி அமைப்புகள்",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "வசதி verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "காட்டு reference version க்கு clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require காரணம் க்கு clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer க்கு மிக முக்கியம் flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit காரணம்",
+      "exportPatientIdentifiers": "Export நோயாளி identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require மதிப்பாய்வு",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "காட்டு shadow model outputs க்கு clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden இருந்து இயல்பு clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize அமைப்புகள் sidebar",
+      "menu": "அமைப்புகள் menu",
+      "menuOpen": "திற அமைப்புகள் menu",
+      "menuClose": "மூடு அமைப்புகள் menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "பொறுப்புத் துறப்பு",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "பொறுப்புத் துறப்பு screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype க்கு reference மற்றும் training. It is not intended க்கு direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read மற்றும் understood பொறுப்புத் துறப்பு",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "ஏற்றுகிறது…",
+        "error": "ஏற்ற முடியவில்லை: பொறுப்புத் துறப்பு"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "தரவு மூலங்கள்",
       "screen": {
-        "label": "Data sources screen"
+        "label": "தரவு மூலங்கள் screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "ஏற்றுகிறது…",
+        "error": "ஏற்ற முடியவில்லை: data sources",
+        "empty": "இல்லை: sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted க்கு reviewer approval only. Raw pasted notes are not stored in approved datasets அல்லது sent க்கு external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write பங்கு.",
+        "offlineNotice": "இணையமின்றி submissions are வரிசையில் உடன் structured fields only மற்றும் sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then மதிப்பாய்வு structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "வசதி scope ready",
+        "facilityMissing": "தேர்ந்தெடு: அல்லது sign in க்கு one active வசதி before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured மதிப்பாய்வு payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "இல்லை:ne",
+        "submitForReview": "மதிப்பாய்வுக்கு சமர்ப்பி",
+        "trainingApprovalAvailable": "Training approval controls remain in governed மதிப்பாய்வு workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready க்கு மதிப்பாய்வு submission",
+          "submitted": "Submitted க்கு reviewer approval",
+          "queued": "வரிசையில் க்கு sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "தனியுரிமை",
       "screen": {
-        "label": "Privacy screen"
+        "label": "தனியுரிமை screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences மற்றும் session data are stored only on this device. இல்லை:thing is sent க்கு external servers.",
+      "optionalAI": "If ஆன்லைன் AI features are enabled, those requests may be sent க்கு configured services."
     },
     "about": {
-      "title": "About",
+      "title": "பற்றி",
       "screen": {
-        "label": "About screen"
+        "label": "பற்றி screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype க்கு reference மற்றும் training. இல்லை:t க்கு clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support மற்றும் advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, அல்லது determine வென்டிலேட்டர் அமைப்புகள்.",
+        "secondary": "Confirm all decisions against நோயாளி, your வசதி workflow, மற்றும் local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "தேவை before continuing க்கு clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device மற்றும் will be ஒத்திசைக்கப்பட்டது when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "மதிப்பாய்வு safety note before using AI Vent. app can highlight missing data மற்றும் uncertainty, but a qualified clinician remains responsible க்கு நோயாளி care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in வசதி context",
+          "body": "Use active வசதி மற்றும் பங்கு shown by your session. Keep records within correct வசதி workflow மற்றும் follow local escalation, மதிப்பாய்வு, மற்றும் approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "உள்ளிடு:ing inputs",
+          "body": "Use அனுமதி க்கு உள்ளிடு: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). விருப்பம் ABG values improve confidence when available, but missing விருப்பம் data should be reviewed as uncertainty rather than treated as a சேமி blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations காட்டு advisory வென்டிலேட்டர் setting references உடன் a confidence tier. Match quality reflects how well dataset cases align உடன் your inputs. Use matched cases as reference only மற்றும் verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "கண்காணிப்பு மற்றும் alerts",
+          "body": "After reviewing a பரிந்துரை, use கண்காணிப்பு க்கு log vitals மற்றும் labs over time. Alerts highlight values outside set thresholds மற்றும் should be assessed according க்கு local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "இணையமின்றி behavior",
+          "body": "Core workflow (அனுமதி, advisory summaries, கண்காணிப்பு) works இணையமின்றி. Data is saved locally. விருப்பம் AI features require connectivity. When பின் ஆன்லைன், தொடரவும் as இயல்பு."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "அடுத்து",
+        "back": "பின்"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "ஏற்றுகிறது…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "உதவி & reference",
+      "accessibilityLabel": "உதவி screen",
+      "searchPlaceholder": "தேடு: glossary அல்லது guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What க்கு do அடுத்து"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume மற்றும் oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory க்கு expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "டைடல் அளவு (mL). Volume delivered per breath.",
+        "respiratoryRate": "சுவாச வீதம் (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, மற்றும் pH, tied க்கு a sample time.",
+        "referenceStatus": "Governance மற்றும் verification state க்கு a reference range. Only active approved அல்லது verified ranges are eligible க்கு active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need மதிப்பாய்வு before dataset அல்லது training use.",
+        "reviewQueue": "A work queue க்கு மதிப்பாய்வு decisions, corrections, exclusions, மற்றும் audit reasons.",
+        "syncState": "Current இணையமின்றி, ஆன்லைன், அல்லது syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden இருந்து இயல்பு clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; உள்ளிடு: SpO₂ மற்றும் மற்றவை vitals when available. க்கு better matching, சேர் PaO₂, PaCO₂, மற்றும் pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app இணையமின்றி",
+          "body": "அனுமதி, advisory summaries, மற்றும் கண்காணிப்பு work இணையமின்றி. Data is stored locally. விருப்பம் AI suggestions require internet. Sync is not தேவை க்கு core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, நிலுவையில், retired, rejected, மற்றும் unverified ranges are not eligible க்கு active decision-support display. மதிப்பாய்வு source, version, scope, மற்றும் verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness உதவி is restricted",
+          "body": "Predictive model readiness மற்றும் shadow-mode details are visible only க்கு approved governance roles. இல்லை:rmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs மதிப்பாய்வு",
+          "body": "Use மதிப்பாய்வு queue க்கு check submitted data, request correction, ஒப்புதல் eligible records, அல்லது விலக்கு records உடன் an audit காரணம்."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "மதிப்பாய்வு வசதி context, sync state, active admissions, red flags, மற்றும் records needing மதிப்பாய்வு before opening a நோயாளி workflow.",
+        "admit": "Capture நோயாளி pathway மற்றும் available clinical values. Mark unavailable data clearly மற்றும் மதிப்பாய்வு backend-confirmed calculations after சேமி.",
+        "tracking": "Use கண்காணித்தல் க்கு scan recent ventilation status மற்றும் மதிப்பாய்வு needs. Read trend flags உடன் source data மற்றும் local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture க்கு de-identified candidate records. Human மதிப்பாய்வு is தேவை before approved training-data use.",
+        "reviewQueue": "Use மதிப்பாய்வு queue க்கு ஒப்புதல், request correction, அல்லது விலக்கு records while preserving audit trail.",
+        "dashboard": "Use dashboards க்கு aggregate quality, மதிப்பாய்வு, reference, மற்றும் governance status. Avoid நோயாளி identifiers in governance summaries.",
+        "settings": "Use அமைப்புகள் க்கு கணக்கு, வசதி, accessibility, தனியுரிமை, sync, மற்றும் reference visibility preferences where authorized.",
+        "hypoxemia": "மதிப்பாய்வு FiO₂ மற்றும் PEEP; consider recruitment; check க்கு shunt அல்லது V/Q mismatch.",
+        "hypercapnia": "மதிப்பாய்வு minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation மற்றும் perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols மற்றும் clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "ஏற்றுகிறது…",
+        "empty": "முடிவுகள் இல்லை",
+        "error": "ஏற்ற முடியவில்லை: உதவி"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "AI முடிவு ஆதரவு",
+      "sectionLabel": "விருப்பம் AI பரிந்துரை (ஆன்லைன்)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use ஆன்லைன் AI க்கு complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "உள்ளிடு: key (stored securely)",
+      "apiKeySave": "சேமி key",
+      "apiKeyClear": "அழி key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "இல்லை:t set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used க்கு AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "ஏற்றுகிறது",
+    "offline": "இணையமின்றி",
+    "error": "பிழை",
+    "empty": "காலி",
+    "list": "பட்டியல்",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "இல்லை: items",
+      "message": "There are இல்லை: items க்கு display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "பிழை",
+      "message": "An பிழை occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "முகப்பு",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "மருத்துவ பணிச்சுழல்",
+      "message": "செயலில் உள்ள வசதி, sync status, drafts, மற்றும் மதிப்பாய்வு work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "முகப்பு notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "தேர்ந்தெடு: வசதி",
+      "select": "தேர்ந்தெடு: {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "வசதி",
+        "empty": "இல்லை:t selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "ஆன்லைன்",
+          "offline": "இணையமின்றி",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting க்கு sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "மதிப்பாய்வு queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "திற {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "அனுமதி"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "கண்காணித்தல்"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & வென்டிலேட்டர் அமைப்புகள்"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "தரவுத்தொகுப்பு பதிவு"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "மதிப்பாய்வு வரிசை"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "டாஷ்போர்டு"
       },
       "settings": {
-        "title": "Settings"
+        "title": "அமைப்புகள்"
       },
       "meta": {
-        "open": "Open"
+        "open": "திற"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "தேர்ந்தெடு: வசதி",
+        "roleRestricted": "பங்கு restricted",
+        "workflowPending": "Route நிலுவையில்"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "மதிப்பாய்வு வரிசை",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, மற்றும் sync conflicts.",
+    "accessibilityLabel": "சரிபார்ப்பு மதிப்பாய்வு queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion காரணம், அல்லது override காரணம்",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "மதிப்பாய்வு access தேவை",
+      "message": "An approved reviewer அல்லது governance பங்கு is தேவை க்கு this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "வென்டிலேட்டர்",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync முரண்பாடு"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "சரிபார்ப்பு",
+      "missingData": "இல்லாத தரவு",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "முரண்பாடு",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved க்கு dataset மதிப்பாய்வு boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "இல்லை:t approved க்கு dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "புதுப்பி",
+      "approve": "ஒப்புதல்",
+      "requestCorrection": "திருத்தம் கோரு",
+      "exclude": "விலக்கு",
+      "defer": "ஒத்திவை"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "ஏற்றுகிறது மதிப்பாய்வு queue...",
+      "error": "ஏற்ற முடியவில்லை: அல்லது சேமி மதிப்பாய்வு queue",
+      "empty": "இல்லை: records need மதிப்பாய்வு"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "மருத்துவ தரவு பதிவு",
+      "subtitle": "உள்ளிடு: de-identified clinical, ABG, வென்டிலேட்டர், target-range, treatment, மற்றும் outcome data க்கு reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This கணக்கு does not have permission க்கு சமர்ப்பி clinical dataset candidates.",
+        "offline": "இணையமின்றி mode is active. Structured captures will queue locally மற்றும் sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "வசதி",
+        "facilityReady": "வசதி scope ready",
+        "facilityMissing": "தேர்ந்தெடு: an active வசதி before submitting.",
+        "required": "தேவை fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "உள்ளிடு:ed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "ஆன்லைன் submission",
+        "offline": "வரிசையில் இணையமின்றி"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "தேவை க்கு மதிப்பாய்வு submission",
+        "optional": "விருப்பம்"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All தேவை fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "மதிப்பாய்வுக்கு சமர்ப்பி",
+        "next": "அடுத்து",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "அழி form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "ஏற்றுகிறது saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "சேமிக்க முடியவில்லை: local draft. Please keep this screen திற மற்றும் try again",
+        "needsInput": "Complete தேவை fields மற்றும் வசதி scope before submitting.",
+        "ready": "Ready க்கு சமர்ப்பி க்கு reviewer approval.",
+        "stepInvalid": "Please மதிப்பாய்வு highlighted values before continuing.",
+        "reviewInvalid": "Please மதிப்பாய்வு highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted க்கு reviewer approval.",
+        "queued": "Submission is வரிசையில். Your draft is still saved locally until backend சேமி succeeds.",
+        "error": "சேமிக்க முடியவில்லை: dataset. Your draft is still saved locally. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "அனுமதி நோயாளி",
+      "accessibilityLabel": "அனுமதி நோயாளி wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact அனுமதி summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "வசதி",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "காரணம்",
+        "condition": "நிலை",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "சுவாச வீதம்",
+        "heartRate": "இதயத் துடிப்பு",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "வயது",
+        "weight": "எடை",
+        "height": "உயரம்",
+        "gender": "பாலினம்",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "இரத்த அழுத்தம்",
+        "ventilatorMode": "வென்டிலேட்டர் முறை",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "டைடல் அளவு",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "இல்லை: data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "நோயாளர் சுயவிவரம்",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "விருப்பம் observations",
+        "timeSeries": "விருப்பம் time series",
+        "review": "மதிப்பாய்வு",
+        "patientReason": "நோயாளி & காரணம்",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "சேமி & மதிப்பாய்வு"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture நோயாளி pathway, வயது, body metrics, மற்றும் காரணம் க்கு support.",
+        "facilityId": "வசதி ID",
+        "facilityIdPlaceholder": "உள்ளிடு: வசதி ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed அல்லது ward location",
+        "pathway": "நோயாளி pathway",
+        "pathwayPlaceholder": "தேர்ந்தெடு: pathway",
+        "sexForSize": "Sex க்கு size calculations",
+        "ageYears": "வயது (years)",
+        "weightKg": "எடை (kg)",
+        "heightCm": "உயரம் (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "காரணம் க்கு support",
+        "reasonForSupportPlaceholder": "Brief admission காரணம்",
+        "reasonForSupportSearchPlaceholder": "தேடு: அல்லது type காரணம்",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "தெரியவில்லை",
+          "other": "மற்றவை"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "ஆண்",
+          "female": "பெண்",
+          "unknown": "தெரியவில்லை"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS அல்லது severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis உடன் respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD அல்லது asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn அல்லது inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "எடை அல்லது reference எடை unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "டைடல் அளவு unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, மற்றும் uncertain values. வென்டிலேட்டர் அமைப்புகள் are suggested on அடுத்து step இருந்து dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "தேர்ந்தெடு: oxygen support",
+        "oxygenSupportHint": "Choose support நோயாளி is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "தேர்ந்தெடு: date மற்றும் time",
+        "timeHint": "Use local date மற்றும் time க்கு observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "சுவாச வீதம்",
+        "heartRate": "இதயத் துடிப்பு",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "வென்டிலேட்டர் type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields உடன் commas.",
+        "uncertaintyReason": "Uncertainty காரணம்",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "இல்லை:n-rebreather mask",
+          "highFlowNasalCannula": "அதிகம்-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "மற்றவை"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "மதிப்பாய்வு மற்றும் திருத்து dataset-suggested வென்டிலேட்டர் அமைப்புகள், backend readiness, clinician confirmation, override காரணம் when needed, மதிப்பாய்வு status, மற்றும் sync state.",
+        "readiness": "சேமி readiness",
+        "recommendationTitle": "Dataset பரிந்துரை",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested வென்டிலேட்டர் அமைப்புகள்",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "தேர்ந்தெடு: mode",
+        "ventilatorMode": "வென்டிலேட்டர் முறை",
+        "tidalVolumeMl": "டைடல் அளவு (mL)",
+        "ventilatorFio2": "வென்டிலேட்டர் FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "மற்றவை"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "உள்ளிடு: clinical values மற்றும் tap அடுத்து க்கு generate a dataset பரிந்துரை.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable க்கு generate clinical recommendations right now. You can still மதிப்பாய்வு மற்றும் சேமி admission.",
+        "recommendationNeedsClinicalInputs": "பரிந்துரை needs clinical காரணம், SpO2, respiratory rate, மற்றும் heart rate.",
+        "ready": "Ready க்கு சேமி",
+        "needsCorrection": "Correction அல்லது override தேவை",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready க்கு சேமி மதிப்பாய்வு.",
+        "overrideReason": "Override காரணம்",
+        "reviewNote": "மதிப்பாய்வு note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "மதிப்பாய்வு these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "மற்றவை"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "நிலை",
+        "conditionPlaceholder": "தேர்ந்தெடு: நிலை",
+        "conditionHint": "Primary respiratory நிலை (தேவை)",
+        "age": "வயது (years)",
+        "agePlaceholder": "உள்ளிடு: வயது",
+        "ageHint": "நோயாளி வயது in years",
+        "weight": "எடை (kg)",
+        "weightPlaceholder": "உள்ளிடு: எடை",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "உயரம் (cm)",
+        "heightPlaceholder": "உள்ளிடு: உயரம்",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "பாலினம்",
+        "genderPlaceholder": "தேர்ந்தெடு: பாலினம்",
+        "genderHint": "நோயாளி பாலினம்",
+        "genderMale": "ஆண்",
+        "genderFemale": "பெண்",
+        "genderOther": "மற்றவை",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated பட்டியல்"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "இல்லை:rmal range: 95–100%",
+        "pao2": "PaO₂ (விருப்பம்)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "இல்லை:rmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (விருப்பம்)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "இல்லை:rmal range: 35–45 mmHg",
+        "ph": "pH (விருப்பம்)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "இல்லை:rmal range: 7.35–7.45",
+        "respiratoryRate": "சுவாச வீதம்",
+        "respiratoryRatePlaceholder": "உள்ளிடு: RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "இல்லை:rmal range: 12–20 breaths/min",
+        "heartRate": "இதயத் துடிப்பு",
+        "heartRatePlaceholder": "உள்ளிடு: HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "இல்லை:rmal range: 60–100 bpm",
+        "bloodPressure": "இரத்த அழுத்தம் (விருப்பம்)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "இல்லை:rmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "இல்லை:rmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single பெயர்–value pair. விருப்பம்; you can skip this step.",
+        "add": "சேர் observation",
+        "name": "பெயர்",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "விருப்பம்"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs அல்லது மற்றவை metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used க்கு trend analysis மற்றும் கண்காணிப்பு after you start session. விருப்பம்; you can சேர் points later on கண்காணிப்பு screen.",
+        "add": "சேர் time series point",
+        "name": "பெயர்",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "விருப்பம்"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "பரிந்துரை source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. இணையமின்றி, இல்லை: API key.",
+        "onlineAi": "ஆன்லைன் AI",
+        "onlineAiDescription": "Internet தேவை; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "தேர்ந்தெடு: AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons க்கு பரிந்துரை",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "பின்",
+        "next": "அடுத்து",
+        "generate": "Generate பரிந்துரை",
+        "generateHint": "Create பரிந்துரை இருந்து current inputs",
+        "saveAdmission": "சேமி admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "ஏற்றுகிறது அனுமதி form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "ஏற்ற முடியவில்லை: admission form. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+        "retryLoad": "மீண்டும் முயற்சிக்கவும்",
+        "offline": "அனுமதி works இணையமின்றி",
+        "empty": "உள்ளிடு: நோயாளி data க்கு begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & வென்டிலேட்டர் அமைப்புகள்",
+      "subtitle": "தேர்ந்தெடு: an active admission, உள்ளிடு: latest ABG result மற்றும்/அல்லது வென்டிலேட்டர் அமைப்புகள், then சேமி them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "இணையமின்றி mode: this update will stay வரிசையில் until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New வென்டிலேட்டர் அமைப்புகள்",
+        "missing": "இல்லாத தரவு",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "தேர்ந்தெடு: active admission",
+        "empty": "இல்லை: admitted patients are available க்கு கண்காணித்தல் yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest வென்டிலேட்டர்"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "தேர்ந்தெடு: வென்டிலேட்டர் mode",
+        "modeSearchPlaceholder": "தேடு: வென்டிலேட்டர் modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "வென்டிலேட்டர்",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "சேமி new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "பரிந்துரைக்கப்பட்ட அமைப்புகள்",
+      "accessibilityLabel": "பரிந்துரை screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "ஆன்லைன்",
+        "offline": "இணையமின்றி"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended அமைப்புகள்",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "கண்காணிப்பு points",
+        "risks": "Risks மற்றும் complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "டைடல் அளவு",
+        "respiratoryRate": "சுவாச வீதம்",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "அதிகம்",
+        "medium": "நடுத்தரம்",
+        "low": "குறைவு",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "நிலுவையில்",
+        "referenceWeight": "Reference எடை",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "மதிப்பாய்வு status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "இல்லாத தரவு",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "நிலுவையில் clinician மதிப்பாய்வு",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "நிலுவையில் backend confirmation",
+          "synced": "ஒத்திசைக்கப்பட்டது",
+          "queued": "வரிசையில்",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons க்கு பரிந்துரை",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start கண்காணிப்பு",
+        "startMonitoringHint": "Begin கண்காணித்தல் vital signs மற்றும் time series",
+        "backToAssessment": "பின் க்கு அனுமதி",
+        "startNewAssessment": "Start new அனுமதி",
+        "editAssessmentTitle": "திருத்து அனுமதி record",
+        "editAssessmentHint": "திற அனுமதி form உடன் current session data pre-filled",
+        "requestAiRecommendation": "Request AI பரிந்துரை",
+        "requestAiHint": "Get விருப்பம் AI hints க்கு this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental மற்றும் not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "ஆன்லைன் AI wasn't used. This பரிந்துரை is இருந்து local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "அகற்று identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local பரிந்துரை.",
+        "notComplex": "This case did not need ஆன்லைன் AI.",
+        "offline": "You are இணையமின்றி.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "ஆன்லைன் AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. காட்டுing பரிந்துரை இருந்து local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "ஏற்றுகிறது பரிந்துரை…",
+        "error": "ஏற்ற முடியவில்லை: பரிந்துரை",
+        "empty": "இல்லை: பரிந்துரை available. Complete அனுமதி first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "இல்லை:t clinically validated",
+        "validationLabel": "சரிபார்ப்பு requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence மதிப்பாய்வு status",
+        "sourceUrl": "திற source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "நிலுவையில் clinician சரிபார்ப்பு",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "கண்காணிப்பு",
+      "accessibilityLabel": "கண்காணிப்பு screen",
+      "decisionSupportOnly": "க்கு decision support only. இல்லை:t a substitute க்கு clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "சேர் point",
+        "addPointHint": "சேர் vitals அல்லது labs data point",
+        "namePlaceholder": "பெயர் (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "தெரியவில்லை"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "இயல்பு",
+        "severityWarning": "எச்சரிக்கை",
+        "severityCritical": "மிக முக்கியம்",
+        "severityUnknown": "தெரியவில்லை",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below மிக முக்கியம் குறைவு threshold",
+        "whyWarningLow": "Value below எச்சரிக்கை குறைவு threshold",
+        "whyCriticalHigh": "Value above மிக முக்கியம் அதிகம் threshold",
+        "whyWarningHigh": "Value above எச்சரிக்கை அதிகம் threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "தொடரவும் கண்காணிப்பு",
+        "suggestedActionWarning": "மதிப்பாய்வு மற்றும் consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value மற்றும் re-உள்ளிடு: if needed",
+        "empty": "இல்லை: alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "பின் க்கு பரிந்துரை"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "ஏற்றுகிறது…",
+        "error": "ஏற்ற முடியவில்லை: கண்காணிப்பு",
+        "empty": "சேர் vitals அல்லது labs points க்கு see trends மற்றும் alerts.",
+        "offline": "You are இணையமின்றி. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "கண்காணித்தல்",
+      "subtitle": "Active admitted patients மற்றும் backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical கண்காணித்தல் screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "இல்லை: admitted patients are available க்கு கண்காணித்தல் yet",
+      "emptyHint": "அனுமதி a நோயாளி first க்கு begin கண்காணித்தல்.",
+      "admittedBanner": "Admission saved. This நோயாளி is admitted மற்றும் available க்கு கண்காணித்தல்.",
+      "localDraft": "Draft data exists on this device. Backend மதிப்பாய்வு, sync, மற்றும் முரண்பாடு status appears after சேமி அல்லது sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "தேடு: by நோயாளி code, ID, பெயர், அல்லது hospital number",
+        "accessibilityLabel": "தேடு: கண்காணித்தல் patients",
+        "empty": "இல்லை: matching patients found",
+        "emptyHint": "Try a நோயாளி code, நோயாளி ID, பெயர், hospital number, bed, அல்லது pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "இல்லை: active வசதி selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "புதுப்பி",
+        "refreshHint": "Reload active கண்காணித்தல் records",
+        "admitFirst": "அனுமதி நோயாளி",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "காண்க கண்காணித்தல் detail மற்றும் timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "மூடு கண்காணித்தல் detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "நோயாளி not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "இல்லாத தரவு: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "கண்காணித்தல் detail",
+        "noTimeline": "இல்லை: timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "ஏற்றுகிறது patients க்கு கண்காணித்தல்...",
+        "loadingDetail": "ஏற்றுகிறது கண்காணித்தல் detail...",
+        "error": "ஏற்ற முடியவில்லை: patients க்கு கண்காணித்தல். உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்",
+        "detailError": "ஏற்ற முடியவில்லை: கண்காணித்தல் details க்கு this நோயாளி. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "கண்காணித்தல்",
+      "accessibilityLabel": "Clinical கண்காணித்தல் screen",
+      "empty": "இல்லை: active admitted patients க்கு this வசதி",
+      "corruptRecovery": "Session history was reset due க்கு a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "தொடரவும் this session",
+        "viewDetails": "காண்க details",
+        "viewDetailsHint": "காண்க session summary",
+        "delete": "நீக்கு",
+        "deleteHint": "அகற்று இருந்து history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "நீக்கு session?",
+        "message": "This session will be removed இருந்து history. This cannot be undone.",
+        "confirm": "நீக்கு",
+        "cancel": "ரத்துசெய்"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "நிலை: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "ஏற்றுகிறது history…",
+        "error": "ஏற்ற முடியவில்லை: session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "நோயாளர் சுயவிவரம்",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "வென்டிலேட்டர் அமைப்புகள்",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "மதிப்பாய்வு status",
+      "intendedUseWarning": "This is a dataset case க்கு reference only. இல்லை:t க்கு direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "இல்லை: case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "ஏற்றுகிறது case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "நிலுவையில் clinician சரிபார்ப்பு",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, மற்றும் reference.",
+      "accessibilityLabel": "Training முகப்பு screen",
+      "searchPlaceholder": "தேடு: topics…",
+      "searchHint": "தேடு: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "தேடு: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "காண்க all topics",
+      "browseAllHint": "காண்க all training topics",
+      "viewTopic": "காண்க",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "ஏற்றுகிறது training…",
+        "error": "ஏற்ற முடியவில்லை: training content",
+        "offline": "Content is available இணையமின்றி",
+        "empty": "இல்லை: training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic பட்டியல் screen",
+      "searchPlaceholder": "தேடு: அல்லது filter…",
+      "searchHint": "தேடு: topics",
+      "empty": "இல்லை: topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "திற topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "ஏற்றுகிறது topics…",
+        "error": "ஏற்ற முடியவில்லை: topics",
+        "offline": "Content is available இணையமின்றி"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "பின் க்கு topics",
+      "backToTopicsHint": "Return க்கு topic பட்டியல்",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "ஏற்றுகிறது topic…",
+        "error": "ஏற்ற முடியவில்லை: topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page இல்லை:t Found",
+    "message": "page you're looking க்கு doesn't exist அல்லது has been moved.",
+    "back": "Go பின்",
+    "backHint": "Return க்கு previous page",
+    "goHome": "செல்: முகப்பு",
+    "goHomeHint": "Navigate பின் க்கு முகப்பு page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "எதிர்பாராத பிழை ஏற்பட்டது. Please try again அல்லது return க்கு முகப்பு page.",
+    "retry": "மீண்டும் முயற்சி",
+    "retryHint": "Try action again",
+    "goHome": "செல்: முகப்பு",
+    "goHomeHint": "Navigate பின் க்கு முகப்பு page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "ஏதோ தவறு ஏற்பட்டது"
   }
 }

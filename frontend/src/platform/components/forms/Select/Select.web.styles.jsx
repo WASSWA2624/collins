@@ -6,6 +6,18 @@
 
 import styled from 'styled-components';
 
+const colorWithAlpha = (color, alpha) => {
+  if (typeof color !== 'string' || !/^#[0-9a-fA-F]{6}$/.test(color)) {
+    return color;
+  }
+
+  const value = color.slice(1);
+  const red = parseInt(value.slice(0, 2), 16);
+  const green = parseInt(value.slice(2, 4), 16);
+  const blue = parseInt(value.slice(4, 6), 16);
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+};
+
 const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
@@ -13,8 +25,10 @@ const StyledContainer = styled.div.withConfig({
 })`
   position: relative;
   width: ${({ $compact }) => ($compact ? 'auto' : '100%')};
-  margin-bottom: ${({ $compact, theme }) => ($compact ? 0 : theme.spacing.md)}px;
+  margin-bottom: ${({ $compact, theme }) =>
+    $compact ? 0 : theme.spacing.md}px;
   z-index: ${({ $isOpen }) => ($isOpen ? 10000 : 'auto')};
+  box-sizing: border-box;
 `;
 
 const StyledLabelRow = styled.div.withConfig({
@@ -25,7 +39,8 @@ const StyledLabelRow = styled.div.withConfig({
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: ${({ $compact, theme }) => ($compact ? theme.spacing.xs : theme.spacing.xs)}px;
+  margin-bottom: ${({ $compact, theme }) =>
+    $compact ? theme.spacing.xs : theme.spacing.xs}px;
 `;
 
 const StyledLabel = styled.label.withConfig({
@@ -56,20 +71,22 @@ const StyledTrigger = styled.button.withConfig({
   shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   width: 100%;
-  min-height: 44px;
+  min-height: ${({ $compact }) => ($compact ? 40 : 44)}px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid ${({ $validationState, $isFocused, theme }) => {
-    if ($validationState === 'error') return theme.colors.error;
-    if ($validationState === 'success') return theme.colors.success;
-    if ($isFocused) return theme.colors.primary;
-    return theme.colors.background.tertiary;
-  }};
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  border: 1px solid
+    ${({ $validationState, $isFocused, theme }) => {
+      if ($validationState === 'error') return theme.colors.error;
+      if ($validationState === 'success') return theme.colors.success;
+      if ($isFocused) return theme.colors.primary;
+      return theme.colors.background.tertiary;
+    }};
+  border-radius: ${({ $compact, theme }) => ($compact ? 0 : theme.radius.md)}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
-  padding: ${({ $compact, theme }) => ($compact ? theme.spacing.sm : theme.spacing.md)}px;
+  padding: ${({ $compact, theme }) =>
+    $compact ? theme.spacing.sm : theme.spacing.md}px;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   text-align: left;
 
@@ -143,7 +160,8 @@ const StyledSearchInput = styled.input.withConfig({
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
@@ -161,10 +179,24 @@ const StyledOption = styled.button.withConfig({
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: none;
+  border-left: 3px solid transparent;
+  box-sizing: border-box;
   text-align: left;
 
   &:hover {
-    ${({ disabled, theme }) => (disabled ? '' : `background-color: ${theme.colors.background.secondary};`)}
+    ${({ disabled, theme }) =>
+      disabled ? '' : `background-color: ${theme.colors.background.secondary};`}
+  }
+
+  &[aria-selected='true'] {
+    background-color: ${({ theme }) =>
+      colorWithAlpha(theme.colors.primary, 0.1)};
+    border-left-color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &[aria-selected='true'] span {
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   }
 
   &:focus-visible {
@@ -229,6 +261,3 @@ export {
   StyledNoResultsText,
   StyledHelperText,
 };
-
-
-

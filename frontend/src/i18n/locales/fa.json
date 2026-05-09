@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "ذخیره",
+    "cancel": "لغو",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "search": "جستجو",
+    "submit": "ارسال",
+    "loading": "در حال بارگذاری…",
+    "retry": "تلاش دوباره",
+    "back": "بازگشت",
+    "next": "بعدی",
+    "continue": "ادامه",
+    "close": "بستن",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "انتخاب",
+    "selectPlaceholder": "انتخاب کنید:…",
+    "closeSelect": "بستن انتخاب",
+    "remove": "حذف",
+    "goToHome": "برو به خانه",
+    "viewNotifications": "مشاهده notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "جستجو:…",
+    "noResults": "نتیجه‌ای نیست",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "جستجو: icon",
+    "clearSearch": "پاک کردن جستجو",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed به load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "ضروری",
+    "clearAll": "پاک کردن all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "پاک کردن all filters",
+    "loadingPlaceholder": "در حال بارگذاری placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "خالی state",
+    "message": "پیام",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "سلام، {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "خروج",
+    "password": "رمز عبور",
+    "passwordHide": "پنهان کردن رمز عبور",
+    "passwordShow": "نمایش رمز عبور",
+    "enterPassword": "وارد کنید: رمز عبور",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "ورود",
+      "accessibilityLabel": "ورود screen",
+      "emailLabel": "ایمیل",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "رمز عبور",
+      "passwordPlaceholder": "وارد کنید: رمز عبور",
+      "submit": "ورود",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "بدون حساب yet?",
+      "createAccount": "ایجاد حساب",
+      "createAccountHint": "باز کردن حساب registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "ایجاد حساب",
+      "description": "Create an AI Vent حساب به request مرکز access.",
+      "accessibilityLabel": "ایجاد حساب screen",
+      "nameLabel": "نام کامل",
+      "namePlaceholder": "Clinician نام",
+      "emailLabel": "ایمیل",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "رمز عبور",
+      "passwordPlaceholder": "Create رمز عبور",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "مرکز یا hospital (اختیاری)",
+      "facilitySearchPlaceholder": "جستجو: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital فهرست by نام, district, region, یا ownership",
+      "facilitySelectLabel": "انتخاب کنید: مرکز",
+      "facilitySelectPlaceholder": "Choose a matching مرکز",
+      "facilitySelectHelper": "Leave blank if you are not attached به a مرکز.",
+      "facilitySelectHint": "Choose مرکز به request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested برای بازبینی.",
+      "facilityOptionalHelper": "اختیاری. You can create an حساب without selecting a مرکز.",
+      "facilityNoResults": "بدون matching مرکز found. You can still create an حساب without selecting one",
+      "facilityClear": "پاک کردن مرکز",
+      "submit": "ایجاد حساب",
+      "submitting": "Creating حساب...",
+      "signInPrompt": "Already have an حساب?",
+      "signIn": "ورود",
+      "signInHint": "Return به sign in",
+      "errorTitle": "حساب creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "تلاش دوباره session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose مرکز",
+      "description": "انتخاب کنید: مرکز context برای this session.",
+      "accessibilityLabel": "مرکز selection screen",
+      "selectFacility": "انتخاب کنید: {{name}}",
+      "empty": "بدون approved facilities are available برای this حساب",
+      "errorTitle": "مرکز selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "مشکلی پیش آمد",
+      "message": "خطای غیرمنتظره‌ای رخ داد",
+      "retry": "تلاش دوباره",
+      "retryHint": "دوباره تلاش کنید"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "مشکلی پیش آمد. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect به server. Please check your internet connection و try again.",
+      "REQUEST_TIMEOUT": "server took too long به respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection و try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "احراز هویت لازم است",
+      "FORBIDDEN": "دسترسی رد شد",
+      "CONFLICT": "This update conflicts با newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields و try again.",
+      "SERVER_ERROR": "مشکلی پیش آمد while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect به server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please بازآوری و try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return به پیگیری و try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not ذخیره your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment و try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An خطا occurred while در حال بارگذاری this page",
+      "INVALID_CREDENTIALS": "Invalid ایمیل یا رمز عبور. Please check your details و try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please انتخاب a tenant.",
+      "ACCOUNT_INACTIVE": "حساب is not active",
+      "ACCOUNT_SUSPENDED": "حساب has been suspended",
+      "ACCOUNT_PENDING": "حساب is در انتظار verification",
+      "PASSWORD_INCORRECT": "Current رمز عبور is incorrect",
+      "TOKEN_INVALID": "Invalid یا expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid یا expired بازآوری token",
+      "SESSION_EXPIRED": "Your session expired. ورود again به ادامه.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This ایمیل is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "حساب is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid یا expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "خانه summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "بارگذاری نشد: خانه summary",
+      "ADMISSION_SAVE_FAILED": "ذخیره نشد: admission record. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "ADMISSION_VALIDATION_FAILED": "Some ضروری admission details are missing. Please بازبینی highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable به generate clinical recommendations right now. You can still بازبینی و ذخیره admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "بارگذاری نشد: admission form. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "ذخیره نشد: local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "این فیلد ضروری است",
+      "invalidEmail": "Invalid ایمیل format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type به جستجو",
+      "cartWithItems": "Cart با {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "ورود",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "تنظیمات",
+      "logout": "خروج",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "باز کردن حساب menu برای {{name}}",
+        "fallbackName": "حساب",
+        "accountType": "حساب type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "پنهان کردن header",
+      "showHeader": "نمایش header",
+      "showMore": "نمایش more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "بدونtifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (ایمیل)",
+      "supportPhone": "Support (تلفن)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "بیمار services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal و support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "حریم خصوصی",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "آنلاین",
+        "offline": "آفلاین",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "بدونtifications",
+      "menuLabel": "بدونtifications menu",
+      "empty": "بدون new notifications",
+      "viewAll": "مشاهده all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New پیام",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "بیمار navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "خانه",
+        "admit": "پذیرش",
+        "assessment": "پذیرش",
+        "abg-ventilator-updates": "Update ABG & ونتیلاتور تنظیمات",
+        "history": "پیگیری",
+        "dataset-capture": "ثبت مجموعه داده",
+        "review-queue": "صف بازبینی",
+        "dashboard": "داشبورد",
+        "user-management": "مدیریت کاربران",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "تنظیمات",
+        "settings-about": "درباره",
+        "settings-data-sources": "منابع داده",
+        "settings-disclaimer": "سلب مسئولیت",
+        "settings-help": "راهنما",
+        "settings-privacy": "حریم خصوصی"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip به main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "مرکز فعال",
+    "noFacility": "بدون active مرکز",
+    "role": "نقش",
+    "noRole": "بدون active نقش",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "انتخاب کنید: active مرکز",
+    "accessibilityLabel": "مرکز فعال {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "آنلاین",
+      "offline": "آفلاین",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "سیستم status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are آفلاین",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "آفلاین status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays یا limited functionality.",
+        "accessibilityLabel": "پایین network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "بازگشت آنلاین",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "آنلاین status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "تنظیمات",
     "screen": {
-      "label": "Settings screen"
+      "label": "تنظیمات screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "در حال بارگذاری تنظیمات...",
+      "saved": "تنظیمات saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "ذخیره نشد: your profile. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "facilitySaved": "مرکز فعال updated successfully.",
+      "facilitySaveError": "ذخیره نشد: active مرکز. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "roleSaved": "Active نقش updated successfully.",
+      "themeSaved": "پوسته updated successfully.",
+      "themeLocalSaved": "پوسته updated on this device.",
+      "themeSaveError": "ذخیره نشد: your پوسته preference. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "saveError": "ذخیره نشد: تنظیمات. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "loadError": "بارگذاری نشد: تنظیمات. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+      "localOnly": "Server تنظیمات are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "حساب و مرکز",
+      "name": "نام",
+      "phone": "تلفن",
+      "saveProfile": "ذخیره profile",
+      "activeFacility": "مرکز فعال",
+      "activeRole": "Active نقش",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "بدون active مرکز",
+      "activeFacilityHelper": "انتخاب کنید: مرکز context برای clinical work.",
+      "noAssignedFacility": "بدون مرکز has been assigned به your حساب yet",
+      "activeRoleHelper": "نقش برای selected active مرکز.",
+      "noActiveRole": "بدون نقش is available برای selected مرکز",
+      "none": "بدونne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "وارد کنید: your full نام.",
+        "nameTooLong": "نام must be 160 characters یا fewer.",
+        "phoneTooLong": "تلفن number must be 40 characters یا fewer.",
+        "profileInvalid": "بازبینی highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance و accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "پوسته",
+      "accessibilityLabel": "پوسته selector",
+      "hint": "تغییر application پوسته",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "سیستم",
+        "light": "روشن",
+        "dark": "تیره",
+        "highContrast": "کنتراست بالا"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "زبان",
+      "accessibilityLabel": "زبان selector",
+      "hint": "تغییر application زبان",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "انگلیسی",
+        "ar": "عربی",
+        "de": "آلمانی",
+        "es": "اسپانیایی",
+        "fa": "فارسی",
+        "fr": "فرانسوی",
+        "hi": "هندی",
+        "id": "اندونزیایی",
+        "it": "ایتالیایی",
+        "ja": "ژاپنی",
+        "ko": "کره‌ای",
+        "ms": "مالایی",
+        "nl": "هلندی",
+        "pl": "لهستانی",
+        "pt": "پرتغالی",
+        "ru": "روسی",
+        "sw": "سواحیلی",
+        "ta": "تامیلی",
+        "th": "تایلندی",
+        "tr": "ترکی استانبولی",
+        "uk": "اوکراینی",
+        "vi": "ویتنامی",
+        "zh": "چینی"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "تغییر spacing و layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "نمایش footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "نمایش یا پنهان کردن footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "آفلاین و sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "نامشخص",
+      "offlineModeEnabled": "Allow آفلاین mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "تلاش دوباره failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge همگام‌سازی شد drafts after",
+      "conflictResolutionMode": "تعارض resolution",
+      "manualReview": "Manual بازبینی",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "حریم خصوصی و logging",
+      "hidePatientIdentifiersInLists": "پنهان کردن بیمار identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock برای identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance و clinical workflow",
+      "activeFacility": "مرکز فعال",
+      "manageAccess": "Can manage مرکز تنظیمات",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "مرکز verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "نمایش reference version به clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require دلیل برای clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer برای بحرانی flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit دلیل",
+      "exportPatientIdentifiers": "Export بیمار identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require بازبینی",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "نمایش shadow model outputs به clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden از طبیعی clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize تنظیمات sidebar",
+      "menu": "تنظیمات menu",
+      "menuOpen": "باز کردن تنظیمات menu",
+      "menuClose": "بستن تنظیمات menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "سلب مسئولیت",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "سلب مسئولیت screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype برای reference و training. It is not intended برای direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read و understood سلب مسئولیت",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری نشد: سلب مسئولیت"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "منابع داده",
       "screen": {
-        "label": "Data sources screen"
+        "label": "منابع داده screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری نشد: data sources",
+        "empty": "بدون sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted برای reviewer approval only. Raw pasted notes are not stored in approved datasets یا sent به external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write نقش.",
+        "offlineNotice": "آفلاین submissions are در صف با structured fields only و sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then بازبینی structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "مرکز scope ready",
+        "facilityMissing": "انتخاب کنید: یا sign in به one active مرکز before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured بازبینی payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "بدونne",
+        "submitForReview": "ارسال برای بازبینی",
+        "trainingApprovalAvailable": "Training approval controls remain in governed بازبینی workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready برای بازبینی submission",
+          "submitted": "Submitted برای reviewer approval",
+          "queued": "در صف برای sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "حریم خصوصی",
       "screen": {
-        "label": "Privacy screen"
+        "label": "حریم خصوصی screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences و session data are stored only on this device. بدونthing is sent به external servers.",
+      "optionalAI": "If آنلاین AI features are enabled, those requests may be sent به configured services."
     },
     "about": {
-      "title": "About",
+      "title": "درباره",
       "screen": {
-        "label": "About screen"
+        "label": "درباره screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype برای reference و training. بدونt برای clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support و advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, یا determine ونتیلاتور تنظیمات.",
+        "secondary": "Confirm all decisions against بیمار, your مرکز workflow, و local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "ضروری before continuing به clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device و will be همگام‌سازی شد when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "بازبینی safety note before using AI Vent. app can highlight missing data و uncertainty, but a qualified clinician remains responsible برای بیمار care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in مرکز context",
+          "body": "Use active مرکز و نقش shown by your session. Keep records within correct مرکز workflow و follow local escalation, بازبینی, و approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "وارد کنید:ing inputs",
+          "body": "Use پذیرش به وارد کنید: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). اختیاری ABG values improve confidence when available, but missing اختیاری data should be reviewed as uncertainty rather than treated as a ذخیره blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations نمایش advisory ونتیلاتور setting references با a confidence tier. Match quality reflects how well dataset cases align با your inputs. Use matched cases as reference only و verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "پایش و alerts",
+          "body": "After reviewing a توصیه, use پایش به log vitals و labs over time. Alerts highlight values outside set thresholds و should be assessed according به local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "آفلاین behavior",
+          "body": "Core workflow (پذیرش, advisory summaries, پایش) works آفلاین. Data is saved locally. اختیاری AI features require connectivity. When بازگشت آنلاین, ادامه as طبیعی."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "بعدی",
+        "back": "بازگشت"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "در حال بارگذاری…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "راهنما & reference",
+      "accessibilityLabel": "راهنما screen",
+      "searchPlaceholder": "جستجو: glossary یا guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What به do بعدی"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume و oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory به expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "حجم جاری (mL). Volume delivered per breath.",
+        "respiratoryRate": "تعداد تنفس (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, و pH, tied به a sample time.",
+        "referenceStatus": "Governance و verification state برای a reference range. Only active approved یا verified ranges are eligible برای active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need بازبینی before dataset یا training use.",
+        "reviewQueue": "A work queue برای بازبینی decisions, corrections, exclusions, و audit reasons.",
+        "syncState": "Current آفلاین, آنلاین, یا syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden از طبیعی clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; وارد کنید: SpO₂ و سایر vitals when available. برای better matching, افزودن PaO₂, PaCO₂, و pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app آفلاین",
+          "body": "پذیرش, advisory summaries, و پایش work آفلاین. Data is stored locally. اختیاری AI suggestions require internet. Sync is not ضروری برای core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, در انتظار, retired, rejected, و unverified ranges are not eligible برای active decision-support display. بازبینی source, version, scope, و verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness راهنما is restricted",
+          "body": "Predictive model readiness و shadow-mode details are visible only به approved governance roles. بدونrmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs بازبینی",
+          "body": "Use بازبینی queue به check submitted data, request correction, تأیید eligible records, یا حذف از فهرست records با an audit دلیل."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "بازبینی مرکز context, sync state, active admissions, red flags, و records needing بازبینی before opening a بیمار workflow.",
+        "admit": "Capture بیمار pathway و available clinical values. Mark unavailable data clearly و بازبینی backend-confirmed calculations after ذخیره.",
+        "tracking": "Use پیگیری به scan recent ventilation status و بازبینی needs. Read trend flags با source data و local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture برای de-identified candidate records. Human بازبینی is ضروری before approved training-data use.",
+        "reviewQueue": "Use بازبینی queue به تأیید, request correction, یا حذف از فهرست records while preserving audit trail.",
+        "dashboard": "Use dashboards برای aggregate quality, بازبینی, reference, و governance status. Avoid بیمار identifiers in governance summaries.",
+        "settings": "Use تنظیمات برای حساب, مرکز, accessibility, حریم خصوصی, sync, و reference visibility preferences where authorized.",
+        "hypoxemia": "بازبینی FiO₂ و PEEP; consider recruitment; check برای shunt یا V/Q mismatch.",
+        "hypercapnia": "بازبینی minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation و perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols و clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "در حال بارگذاری…",
+        "empty": "نتیجه‌ای نیست",
+        "error": "بارگذاری نشد: راهنما"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "پشتیبانی تصمیم با هوش مصنوعی",
+      "sectionLabel": "اختیاری AI توصیه (آنلاین)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use آنلاین AI برای complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "وارد کنید: key (stored securely)",
+      "apiKeySave": "ذخیره key",
+      "apiKeyClear": "پاک کردن key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "بدونt set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used برای AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "در حال بارگذاری",
+    "offline": "آفلاین",
+    "error": "خطا",
+    "empty": "خالی",
+    "list": "فهرست",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "بدون items",
+      "message": "There are بدون items به display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "خطا",
+      "message": "An خطا occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "خانه",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "گردش‌کار بالینی",
+      "message": "مرکز فعال, sync status, drafts, و بازبینی work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "خانه notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "انتخاب کنید: مرکز",
+      "select": "انتخاب کنید: {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "مرکز",
+        "empty": "بدونt selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "آنلاین",
+          "offline": "آفلاین",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting به sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "بازبینی queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "باز کردن {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "پذیرش"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "پیگیری"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & ونتیلاتور تنظیمات"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "ثبت مجموعه داده"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "صف بازبینی"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "داشبورد"
       },
       "settings": {
-        "title": "Settings"
+        "title": "تنظیمات"
       },
       "meta": {
-        "open": "Open"
+        "open": "باز کردن"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "انتخاب کنید: مرکز",
+        "roleRestricted": "نقش restricted",
+        "workflowPending": "Route در انتظار"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "صف بازبینی",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, و sync conflicts.",
+    "accessibilityLabel": "اعتبارسنجی بازبینی queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion دلیل, یا override دلیل",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "بازبینی access ضروری",
+      "message": "An approved reviewer یا governance نقش is ضروری برای this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "ونتیلاتور",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync تعارض"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "اعتبارسنجی",
+      "missingData": "داده‌های مفقود",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "تعارض",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved برای dataset بازبینی boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "بدونt approved برای dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "بازآوری",
+      "approve": "تأیید",
+      "requestCorrection": "درخواست اصلاح",
+      "exclude": "حذف از فهرست",
+      "defer": "به تعویق انداختن"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "در حال بارگذاری بازبینی queue...",
+      "error": "بارگذاری نشد: یا ذخیره بازبینی queue",
+      "empty": "بدون records need بازبینی"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "ثبت داده‌های بالینی",
+      "subtitle": "وارد کنید: de-identified clinical, ABG, ونتیلاتور, target-range, treatment, و outcome data برای reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This حساب does not have permission به ارسال clinical dataset candidates.",
+        "offline": "آفلاین mode is active. Structured captures will queue locally و sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "مرکز",
+        "facilityReady": "مرکز scope ready",
+        "facilityMissing": "انتخاب کنید: an active مرکز before submitting.",
+        "required": "ضروری fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "وارد کنید:ed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "آنلاین submission",
+        "offline": "در صف آفلاین"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "ضروری برای بازبینی submission",
+        "optional": "اختیاری"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All ضروری fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "ارسال برای بازبینی",
+        "next": "بعدی",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "پاک کردن form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "در حال بارگذاری saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "ذخیره نشد: local draft. Please keep this screen باز کردن و try again",
+        "needsInput": "Complete ضروری fields و مرکز scope before submitting.",
+        "ready": "Ready به ارسال برای reviewer approval.",
+        "stepInvalid": "Please بازبینی highlighted values before continuing.",
+        "reviewInvalid": "Please بازبینی highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted برای reviewer approval.",
+        "queued": "Submission is در صف. Your draft is still saved locally until backend ذخیره succeeds.",
+        "error": "ذخیره نشد: dataset. Your draft is still saved locally. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "پذیرش بیمار",
+      "accessibilityLabel": "پذیرش بیمار wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact پذیرش summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "مرکز",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "دلیل",
+        "condition": "وضعیت",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "تعداد تنفس",
+        "heartRate": "ضربان قلب",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "سن",
+        "weight": "وزن",
+        "height": "قد",
+        "gender": "جنسیت",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "فشار خون",
+        "ventilatorMode": "حالت ونتیلاتور",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "حجم جاری",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "بدون data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "نمایه بیمار",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "اختیاری observations",
+        "timeSeries": "اختیاری time series",
+        "review": "بازبینی",
+        "patientReason": "بیمار & دلیل",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "ذخیره & بازبینی"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture بیمار pathway, سن, body metrics, و دلیل برای support.",
+        "facilityId": "مرکز ID",
+        "facilityIdPlaceholder": "وارد کنید: مرکز ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed یا ward location",
+        "pathway": "بیمار pathway",
+        "pathwayPlaceholder": "انتخاب کنید: pathway",
+        "sexForSize": "Sex برای size calculations",
+        "ageYears": "سن (years)",
+        "weightKg": "وزن (kg)",
+        "heightCm": "قد (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "دلیل برای support",
+        "reasonForSupportPlaceholder": "Brief admission دلیل",
+        "reasonForSupportSearchPlaceholder": "جستجو: یا type دلیل",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "نامشخص",
+          "other": "سایر"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "مرد",
+          "female": "زن",
+          "unknown": "نامشخص"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS یا severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis با respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD یا asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn یا inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "وزن یا reference وزن unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "حجم جاری unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, و uncertain values. ونتیلاتور تنظیمات are suggested on بعدی step از dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "انتخاب کنید: oxygen support",
+        "oxygenSupportHint": "Choose support بیمار is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "انتخاب کنید: date و time",
+        "timeHint": "Use local date و time برای observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "تعداد تنفس",
+        "heartRate": "ضربان قلب",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "ونتیلاتور type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields با commas.",
+        "uncertaintyReason": "Uncertainty دلیل",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "بدونn-rebreather mask",
+          "highFlowNasalCannula": "بالا-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "سایر"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "بازبینی و ویرایش dataset-suggested ونتیلاتور تنظیمات, backend readiness, clinician confirmation, override دلیل when needed, بازبینی status, و sync state.",
+        "readiness": "ذخیره readiness",
+        "recommendationTitle": "Dataset توصیه",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested ونتیلاتور تنظیمات",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "انتخاب کنید: mode",
+        "ventilatorMode": "حالت ونتیلاتور",
+        "tidalVolumeMl": "حجم جاری (mL)",
+        "ventilatorFio2": "ونتیلاتور FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "سایر"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "وارد کنید: clinical values و tap بعدی به generate a dataset توصیه.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable به generate clinical recommendations right now. You can still بازبینی و ذخیره admission.",
+        "recommendationNeedsClinicalInputs": "توصیه needs clinical دلیل, SpO2, respiratory rate, و heart rate.",
+        "ready": "Ready به ذخیره",
+        "needsCorrection": "Correction یا override ضروری",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready برای ذخیره بازبینی.",
+        "overrideReason": "Override دلیل",
+        "reviewNote": "بازبینی note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "بازبینی these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "سایر"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "وضعیت",
+        "conditionPlaceholder": "انتخاب کنید: وضعیت",
+        "conditionHint": "Primary respiratory وضعیت (ضروری)",
+        "age": "سن (years)",
+        "agePlaceholder": "وارد کنید: سن",
+        "ageHint": "بیمار سن in years",
+        "weight": "وزن (kg)",
+        "weightPlaceholder": "وارد کنید: وزن",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "قد (cm)",
+        "heightPlaceholder": "وارد کنید: قد",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "جنسیت",
+        "genderPlaceholder": "انتخاب کنید: جنسیت",
+        "genderHint": "بیمار جنسیت",
+        "genderMale": "مرد",
+        "genderFemale": "زن",
+        "genderOther": "سایر",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated فهرست"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "بدونrmal range: 95–100%",
+        "pao2": "PaO₂ (اختیاری)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "بدونrmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (اختیاری)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "بدونrmal range: 35–45 mmHg",
+        "ph": "pH (اختیاری)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "بدونrmal range: 7.35–7.45",
+        "respiratoryRate": "تعداد تنفس",
+        "respiratoryRatePlaceholder": "وارد کنید: RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "بدونrmal range: 12–20 breaths/min",
+        "heartRate": "ضربان قلب",
+        "heartRatePlaceholder": "وارد کنید: HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "بدونrmal range: 60–100 bpm",
+        "bloodPressure": "فشار خون (اختیاری)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "بدونrmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "بدونrmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single نام–value pair. اختیاری; you can skip this step.",
+        "add": "افزودن observation",
+        "name": "نام",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "اختیاری"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs یا سایر metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used برای trend analysis و پایش after you start session. اختیاری; you can افزودن points later on پایش screen.",
+        "add": "افزودن time series point",
+        "name": "نام",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "اختیاری"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "توصیه source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. آفلاین, بدون API key.",
+        "onlineAi": "آنلاین AI",
+        "onlineAiDescription": "Internet ضروری; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "انتخاب کنید: AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons برای توصیه",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "بازگشت",
+        "next": "بعدی",
+        "generate": "Generate توصیه",
+        "generateHint": "Create توصیه از current inputs",
+        "saveAdmission": "ذخیره admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "در حال بارگذاری پذیرش form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "بارگذاری نشد: admission form. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+        "retryLoad": "دوباره تلاش کنید",
+        "offline": "پذیرش works آفلاین",
+        "empty": "وارد کنید: بیمار data به begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & ونتیلاتور تنظیمات",
+      "subtitle": "انتخاب کنید: an active admission, وارد کنید: latest ABG result و/یا ونتیلاتور تنظیمات, then ذخیره them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "آفلاین mode: this update will stay در صف until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New ونتیلاتور تنظیمات",
+        "missing": "داده‌های مفقود",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "انتخاب کنید: active admission",
+        "empty": "بدون admitted patients are available برای پیگیری yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest ونتیلاتور"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "انتخاب کنید: ونتیلاتور mode",
+        "modeSearchPlaceholder": "جستجو: ونتیلاتور modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "ونتیلاتور",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "ذخیره new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "تنظیمات پیشنهادی",
+      "accessibilityLabel": "توصیه screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "آنلاین",
+        "offline": "آفلاین"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended تنظیمات",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "پایش points",
+        "risks": "Risks و complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "حجم جاری",
+        "respiratoryRate": "تعداد تنفس",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "بالا",
+        "medium": "متوسط",
+        "low": "پایین",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "در انتظار",
+        "referenceWeight": "Reference وزن",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "بازبینی status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "داده‌های مفقود",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "در انتظار clinician بازبینی",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "در انتظار backend confirmation",
+          "synced": "همگام‌سازی شد",
+          "queued": "در صف",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons برای توصیه",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start پایش",
+        "startMonitoringHint": "Begin پیگیری vital signs و time series",
+        "backToAssessment": "بازگشت به پذیرش",
+        "startNewAssessment": "Start new پذیرش",
+        "editAssessmentTitle": "ویرایش پذیرش record",
+        "editAssessmentHint": "باز کردن پذیرش form با current session data pre-filled",
+        "requestAiRecommendation": "Request AI توصیه",
+        "requestAiHint": "Get اختیاری AI hints برای this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental و not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "آنلاین AI wasn't used. This توصیه is از local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "حذف identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local توصیه.",
+        "notComplex": "This case did not need آنلاین AI.",
+        "offline": "You are آفلاین.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "آنلاین AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. نمایشing توصیه از local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "در حال بارگذاری توصیه…",
+        "error": "بارگذاری نشد: توصیه",
+        "empty": "بدون توصیه available. Complete پذیرش first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "بدونt clinically validated",
+        "validationLabel": "اعتبارسنجی requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence بازبینی status",
+        "sourceUrl": "باز کردن source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "در انتظار clinician اعتبارسنجی",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "پایش",
+      "accessibilityLabel": "پایش screen",
+      "decisionSupportOnly": "برای decision support only. بدونt a substitute برای clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "افزودن point",
+        "addPointHint": "افزودن vitals یا labs data point",
+        "namePlaceholder": "نام (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "نامشخص"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "طبیعی",
+        "severityWarning": "هشدار",
+        "severityCritical": "بحرانی",
+        "severityUnknown": "نامشخص",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below بحرانی پایین threshold",
+        "whyWarningLow": "Value below هشدار پایین threshold",
+        "whyCriticalHigh": "Value above بحرانی بالا threshold",
+        "whyWarningHigh": "Value above هشدار بالا threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "ادامه پایش",
+        "suggestedActionWarning": "بازبینی و consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value و re-وارد کنید: if needed",
+        "empty": "بدون alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "بازگشت به توصیه"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "در حال بارگذاری…",
+        "error": "بارگذاری نشد: پایش",
+        "empty": "افزودن vitals یا labs points به see trends و alerts.",
+        "offline": "You are آفلاین. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "پیگیری",
+      "subtitle": "Active admitted patients و backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical پیگیری screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "بدون admitted patients are available برای پیگیری yet",
+      "emptyHint": "پذیرش a بیمار first به begin پیگیری.",
+      "admittedBanner": "Admission saved. This بیمار is admitted و available برای پیگیری.",
+      "localDraft": "Draft data exists on this device. Backend بازبینی, sync, و تعارض status appears after ذخیره یا sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "جستجو: by بیمار code, ID, نام, یا hospital number",
+        "accessibilityLabel": "جستجو: پیگیری patients",
+        "empty": "بدون matching patients found",
+        "emptyHint": "Try a بیمار code, بیمار ID, نام, hospital number, bed, یا pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "بدون active مرکز selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "بازآوری",
+        "refreshHint": "Reload active پیگیری records",
+        "admitFirst": "پذیرش بیمار",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "مشاهده پیگیری detail و timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "بستن پیگیری detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "بیمار not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "داده‌های مفقود: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "پیگیری detail",
+        "noTimeline": "بدون timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "در حال بارگذاری patients برای پیگیری...",
+        "loadingDetail": "در حال بارگذاری پیگیری detail...",
+        "error": "بارگذاری نشد: patients برای پیگیری. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید",
+        "detailError": "بارگذاری نشد: پیگیری details برای this بیمار. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "پیگیری",
+      "accessibilityLabel": "Clinical پیگیری screen",
+      "empty": "بدون active admitted patients برای this مرکز",
+      "corruptRecovery": "Session history was reset due به a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "ادامه this session",
+        "viewDetails": "مشاهده details",
+        "viewDetailsHint": "مشاهده session summary",
+        "delete": "حذف",
+        "deleteHint": "حذف از history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "حذف session?",
+        "message": "This session will be removed از history. This cannot be undone.",
+        "confirm": "حذف",
+        "cancel": "لغو"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "وضعیت: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "در حال بارگذاری history…",
+        "error": "بارگذاری نشد: session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "نمایه بیمار",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "ونتیلاتور تنظیمات",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "بازبینی status",
+      "intendedUseWarning": "This is a dataset case برای reference only. بدونt برای direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "بدون case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "در حال بارگذاری case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "در انتظار clinician اعتبارسنجی",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, و reference.",
+      "accessibilityLabel": "Training خانه screen",
+      "searchPlaceholder": "جستجو: topics…",
+      "searchHint": "جستجو: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "جستجو: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "مشاهده all topics",
+      "browseAllHint": "مشاهده all training topics",
+      "viewTopic": "مشاهده",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "در حال بارگذاری training…",
+        "error": "بارگذاری نشد: training content",
+        "offline": "Content is available آفلاین",
+        "empty": "بدون training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic فهرست screen",
+      "searchPlaceholder": "جستجو: یا filter…",
+      "searchHint": "جستجو: topics",
+      "empty": "بدون topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "باز کردن topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "در حال بارگذاری topics…",
+        "error": "بارگذاری نشد: topics",
+        "offline": "Content is available آفلاین"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "بازگشت به topics",
+      "backToTopicsHint": "Return به topic فهرست",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "در حال بارگذاری topic…",
+        "error": "بارگذاری نشد: topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page بدونt Found",
+    "message": "page you're looking برای doesn't exist یا has been moved.",
+    "back": "Go بازگشت",
+    "backHint": "Return به previous page",
+    "goHome": "برو به خانه",
+    "goHomeHint": "Navigate بازگشت به خانه page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "خطای غیرمنتظره‌ای رخ داد. Please try again یا return به خانه page.",
+    "retry": "تلاش دوباره",
+    "retryHint": "Try action again",
+    "goHome": "برو به خانه",
+    "goHomeHint": "Navigate بازگشت به خانه page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "مشکلی پیش آمد"
   }
 }

@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "search": "검색",
+    "submit": "제출",
+    "loading": "로딩 중…",
+    "retry": "다시 시도",
+    "back": "뒤로",
+    "next": "다음",
+    "continue": "계속",
+    "close": "닫기",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "선택",
+    "selectPlaceholder": "선택:…",
+    "closeSelect": "닫기 선택",
+    "remove": "제거",
+    "goToHome": "이동: 홈",
+    "viewNotifications": "보기 notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "검색:…",
+    "noResults": "결과 없음",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "검색: icon",
+    "clearSearch": "지우기 검색",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed 로 load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "필수",
+    "clearAll": "지우기 all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "지우기 all filters",
+    "loadingPlaceholder": "로딩 중 placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "비어 있음 state",
+    "message": "메시지",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "안녕하세요, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "로그아웃",
+    "password": "비밀번호",
+    "passwordHide": "숨기기 비밀번호",
+    "passwordShow": "표시 비밀번호",
+    "enterPassword": "입력: 비밀번호",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "로그인",
+      "accessibilityLabel": "로그인 screen",
+      "emailLabel": "이메일",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "입력: 비밀번호",
+      "submit": "로그인",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "없음: 계정 yet?",
+      "createAccount": "계정 만들기",
+      "createAccountHint": "열기 계정 registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "계정 만들기",
+      "description": "Create an AI Vent 계정 로 request 시설 access.",
+      "accessibilityLabel": "계정 만들기 screen",
+      "nameLabel": "전체 이름",
+      "namePlaceholder": "Clinician 이름",
+      "emailLabel": "이메일",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "Create 비밀번호",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "시설 또는 hospital (선택 사항)",
+      "facilitySearchPlaceholder": "검색: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital 목록 by 이름, district, region, 또는 ownership",
+      "facilitySelectLabel": "선택: 시설",
+      "facilitySelectPlaceholder": "Choose a matching 시설",
+      "facilitySelectHelper": "Leave blank if you are not attached 로 a 시설.",
+      "facilitySelectHint": "Choose 시설 로 request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested 용 검토.",
+      "facilityOptionalHelper": "선택 사항. You can create an 계정 without selecting a 시설.",
+      "facilityNoResults": "없음: matching 시설 found. You can still create an 계정 without selecting one",
+      "facilityClear": "지우기 시설",
+      "submit": "계정 만들기",
+      "submitting": "Creating 계정...",
+      "signInPrompt": "Already have an 계정?",
+      "signIn": "로그인",
+      "signInHint": "Return 로 sign in",
+      "errorTitle": "계정 creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "다시 시도 session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose 시설",
+      "description": "선택: 시설 context 용 this session.",
+      "accessibilityLabel": "시설 selection screen",
+      "selectFacility": "선택: {{name}}",
+      "empty": "없음: approved facilities are available 용 this 계정",
+      "errorTitle": "시설 selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "문제가 발생했습니다",
+      "message": "예상치 못한 오류가 발생했습니다",
+      "retry": "다시 시도",
+      "retryHint": "다시 시도하세요"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "문제가 발생했습니다. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect 로 server. Please check your internet connection 및 try again.",
+      "REQUEST_TIMEOUT": "server took too long 로 respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection 및 try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "인증 필요",
+      "FORBIDDEN": "접근 거부됨",
+      "CONFLICT": "This update conflicts 포함 newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields 및 try again.",
+      "SERVER_ERROR": "문제가 발생했습니다 while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect 로 server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please 새로고침 및 try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return 로 추적 및 try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not 저장 your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment 및 try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An 오류 occurred while 로딩 중 this page",
+      "INVALID_CREDENTIALS": "Invalid 이메일 또는 비밀번호. Please check your details 및 try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please 선택 a tenant.",
+      "ACCOUNT_INACTIVE": "계정 is not active",
+      "ACCOUNT_SUSPENDED": "계정 has been suspended",
+      "ACCOUNT_PENDING": "계정 is 대기 중 verification",
+      "PASSWORD_INCORRECT": "Current 비밀번호 is incorrect",
+      "TOKEN_INVALID": "Invalid 또는 expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid 또는 expired 새로고침 token",
+      "SESSION_EXPIRED": "Your session expired. 로그인 again 로 계속.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This 이메일 is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "계정 is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid 또는 expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "홈 summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "불러올 수 없음: 홈 summary",
+      "ADMISSION_SAVE_FAILED": "저장할 수 없음: admission record. 연결을 확인하고 다시 시도하세요",
+      "ADMISSION_VALIDATION_FAILED": "Some 필수 admission details are missing. Please 검토 highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable 로 generate clinical recommendations right now. You can still 검토 및 저장 admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "불러올 수 없음: admission form. 연결을 확인하고 다시 시도하세요",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "저장할 수 없음: local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "이 필드는 필수입니다",
+      "invalidEmail": "Invalid 이메일 format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type 로 검색",
+      "cartWithItems": "Cart 포함 {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "로그인",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "설정",
+      "logout": "로그아웃",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "열기 계정 menu 용 {{name}}",
+        "fallbackName": "계정",
+        "accountType": "계정 type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "숨기기 header",
+      "showHeader": "표시 header",
+      "showMore": "표시 more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "없음:tifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (이메일)",
+      "supportPhone": "Support (전화)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "환자 services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal 및 support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "개인정보",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "온라인",
+        "offline": "오프라인",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "없음:tifications",
+      "menuLabel": "없음:tifications menu",
+      "empty": "없음: new notifications",
+      "viewAll": "보기 all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New 메시지",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "환자 navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "홈",
+        "admit": "입원 등록",
+        "assessment": "입원 등록",
+        "abg-ventilator-updates": "Update ABG & 인공호흡기 설정",
+        "history": "추적",
+        "dataset-capture": "데이터셋 캡처",
+        "review-queue": "검토 대기열",
+        "dashboard": "대시보드",
+        "user-management": "사용자 관리",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "설정",
+        "settings-about": "정보",
+        "settings-data-sources": "데이터 소스",
+        "settings-disclaimer": "면책 조항",
+        "settings-help": "도움말",
+        "settings-privacy": "개인정보"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip 로 main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "활성 시설",
+    "noFacility": "없음: active 시설",
+    "role": "역할",
+    "noRole": "없음: active 역할",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "선택: active 시설",
+    "accessibilityLabel": "활성 시설 {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "온라인",
+      "offline": "오프라인",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "시스템 status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are 오프라인",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "오프라인 status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays 또는 limited functionality.",
+        "accessibilityLabel": "낮음 network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "뒤로 온라인",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "온라인 status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "설정",
     "screen": {
-      "label": "Settings screen"
+      "label": "설정 screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "로딩 중 설정...",
+      "saved": "설정 saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "저장할 수 없음: your profile. 연결을 확인하고 다시 시도하세요",
+      "facilitySaved": "활성 시설 updated successfully.",
+      "facilitySaveError": "저장할 수 없음: active 시설. 연결을 확인하고 다시 시도하세요",
+      "roleSaved": "Active 역할 updated successfully.",
+      "themeSaved": "테마 updated successfully.",
+      "themeLocalSaved": "테마 updated on this device.",
+      "themeSaveError": "저장할 수 없음: your 테마 preference. 연결을 확인하고 다시 시도하세요",
+      "saveError": "저장할 수 없음: 설정. 연결을 확인하고 다시 시도하세요",
+      "loadError": "불러올 수 없음: 설정. 연결을 확인하고 다시 시도하세요",
+      "localOnly": "Server 설정 are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "계정 및 시설",
+      "name": "이름",
+      "phone": "전화",
+      "saveProfile": "저장 profile",
+      "activeFacility": "활성 시설",
+      "activeRole": "Active 역할",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "없음: active 시설",
+      "activeFacilityHelper": "선택: 시설 context 용 clinical work.",
+      "noAssignedFacility": "없음: 시설 has been assigned 로 your 계정 yet",
+      "activeRoleHelper": "역할 용 selected active 시설.",
+      "noActiveRole": "없음: 역할 is available 용 selected 시설",
+      "none": "없음:ne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "입력: your full 이름.",
+        "nameTooLong": "이름 must be 160 characters 또는 fewer.",
+        "phoneTooLong": "전화 number must be 40 characters 또는 fewer.",
+        "profileInvalid": "검토 highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance 및 accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "테마",
+      "accessibilityLabel": "테마 selector",
+      "hint": "변경 application 테마",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "시스템",
+        "light": "라이트",
+        "dark": "다크",
+        "highContrast": "고대비"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "언어",
+      "accessibilityLabel": "언어 selector",
+      "hint": "변경 application 언어",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "영어",
+        "ar": "아랍어",
+        "de": "독일어",
+        "es": "스페인어",
+        "fa": "페르시아어",
+        "fr": "프랑스어",
+        "hi": "힌디어",
+        "id": "인도네시아어",
+        "it": "이탈리아어",
+        "ja": "일본어",
+        "ko": "한국어",
+        "ms": "말레이어",
+        "nl": "네덜란드어",
+        "pl": "폴란드어",
+        "pt": "포르투갈어",
+        "ru": "러시아어",
+        "sw": "스와힐리어",
+        "ta": "타밀어",
+        "th": "태국어",
+        "tr": "튀르키예어",
+        "uk": "우크라이나어",
+        "vi": "베트남어",
+        "zh": "중국어"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "변경 spacing 및 layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "표시 footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "표시 또는 숨기기 footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "오프라인 및 sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "알 수 없음",
+      "offlineModeEnabled": "Allow 오프라인 mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "다시 시도 failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge 동기화됨 drafts after",
+      "conflictResolutionMode": "충돌 resolution",
+      "manualReview": "Manual 검토",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "개인정보 및 logging",
+      "hidePatientIdentifiersInLists": "숨기기 환자 identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock 용 identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance 및 clinical workflow",
+      "activeFacility": "활성 시설",
+      "manageAccess": "Can manage 시설 설정",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "시설 verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "표시 reference version 로 clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require 사유 용 clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer 용 심각 flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit 사유",
+      "exportPatientIdentifiers": "Export 환자 identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require 검토",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "표시 shadow model outputs 로 clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden 에서 정상 clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize 설정 sidebar",
+      "menu": "설정 menu",
+      "menuOpen": "열기 설정 menu",
+      "menuClose": "닫기 설정 menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "면책 조항",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "면책 조항 screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype 용 reference 및 training. It is not intended 용 direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read 및 understood 면책 조항",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "로딩 중…",
+        "error": "불러올 수 없음: 면책 조항"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "데이터 소스",
       "screen": {
-        "label": "Data sources screen"
+        "label": "데이터 소스 screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "로딩 중…",
+        "error": "불러올 수 없음: data sources",
+        "empty": "없음: sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted 용 reviewer approval only. Raw pasted notes are not stored in approved datasets 또는 sent 로 external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write 역할.",
+        "offlineNotice": "오프라인 submissions are 대기열에 있음 포함 structured fields only 및 sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then 검토 structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "시설 scope ready",
+        "facilityMissing": "선택: 또는 sign in 로 one active 시설 before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured 검토 payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "없음:ne",
+        "submitForReview": "검토 제출",
+        "trainingApprovalAvailable": "Training approval controls remain in governed 검토 workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready 용 검토 submission",
+          "submitted": "Submitted 용 reviewer approval",
+          "queued": "대기열에 있음 용 sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "개인정보",
       "screen": {
-        "label": "Privacy screen"
+        "label": "개인정보 screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences 및 session data are stored only on this device. 없음:thing is sent 로 external servers.",
+      "optionalAI": "If 온라인 AI features are enabled, those requests may be sent 로 configured services."
     },
     "about": {
-      "title": "About",
+      "title": "정보",
       "screen": {
-        "label": "About screen"
+        "label": "정보 screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype 용 reference 및 training. 없음:t 용 clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support 및 advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, 또는 determine 인공호흡기 설정.",
+        "secondary": "Confirm all decisions against 환자, your 시설 workflow, 및 local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "필수 before continuing 로 clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device 및 will be 동기화됨 when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "검토 safety note before using AI Vent. app can highlight missing data 및 uncertainty, but a qualified clinician remains responsible 용 환자 care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in 시설 context",
+          "body": "Use active 시설 및 역할 shown by your session. Keep records within correct 시설 workflow 및 follow local escalation, 검토, 및 approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "입력:ing inputs",
+          "body": "Use 입원 등록 로 입력: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). 선택 사항 ABG values improve confidence when available, but missing 선택 사항 data should be reviewed as uncertainty rather than treated as a 저장 blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations 표시 advisory 인공호흡기 setting references 포함 a confidence tier. Match quality reflects how well dataset cases align 포함 your inputs. Use matched cases as reference only 및 verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "모니터링 및 alerts",
+          "body": "After reviewing a 권장 사항, use 모니터링 로 log vitals 및 labs over time. Alerts highlight values outside set thresholds 및 should be assessed according 로 local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "오프라인 behavior",
+          "body": "Core workflow (입원 등록, advisory summaries, 모니터링) works 오프라인. Data is saved locally. 선택 사항 AI features require connectivity. When 뒤로 온라인, 계속 as 정상."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "다음",
+        "back": "뒤로"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "로딩 중…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "도움말 & reference",
+      "accessibilityLabel": "도움말 screen",
+      "searchPlaceholder": "검색: glossary 또는 guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What 로 do 다음"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume 및 oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory 로 expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "일회 호흡량 (mL). Volume delivered per breath.",
+        "respiratoryRate": "호흡수 (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, 및 pH, tied 로 a sample time.",
+        "referenceStatus": "Governance 및 verification state 용 a reference range. Only active approved 또는 verified ranges are eligible 용 active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need 검토 before dataset 또는 training use.",
+        "reviewQueue": "A work queue 용 검토 decisions, corrections, exclusions, 및 audit reasons.",
+        "syncState": "Current 오프라인, 온라인, 또는 syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden 에서 정상 clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; 입력: SpO₂ 및 기타 vitals when available. 용 better matching, 추가 PaO₂, PaCO₂, 및 pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app 오프라인",
+          "body": "입원 등록, advisory summaries, 및 모니터링 work 오프라인. Data is stored locally. 선택 사항 AI suggestions require internet. Sync is not 필수 용 core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, 대기 중, retired, rejected, 및 unverified ranges are not eligible 용 active decision-support display. 검토 source, version, scope, 및 verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness 도움말 is restricted",
+          "body": "Predictive model readiness 및 shadow-mode details are visible only 로 approved governance roles. 없음:rmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs 검토",
+          "body": "Use 검토 queue 로 check submitted data, request correction, 승인 eligible records, 또는 제외 records 포함 an audit 사유."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "검토 시설 context, sync state, active admissions, red flags, 및 records needing 검토 before opening a 환자 workflow.",
+        "admit": "Capture 환자 pathway 및 available clinical values. Mark unavailable data clearly 및 검토 backend-confirmed calculations after 저장.",
+        "tracking": "Use 추적 로 scan recent ventilation status 및 검토 needs. Read trend flags 포함 source data 및 local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture 용 de-identified candidate records. Human 검토 is 필수 before approved training-data use.",
+        "reviewQueue": "Use 검토 queue 로 승인, request correction, 또는 제외 records while preserving audit trail.",
+        "dashboard": "Use dashboards 용 aggregate quality, 검토, reference, 및 governance status. Avoid 환자 identifiers in governance summaries.",
+        "settings": "Use 설정 용 계정, 시설, accessibility, 개인정보, sync, 및 reference visibility preferences where authorized.",
+        "hypoxemia": "검토 FiO₂ 및 PEEP; consider recruitment; check 용 shunt 또는 V/Q mismatch.",
+        "hypercapnia": "검토 minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation 및 perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols 및 clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "로딩 중…",
+        "empty": "결과 없음",
+        "error": "불러올 수 없음: 도움말"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "AI 의사결정 지원",
+      "sectionLabel": "선택 사항 AI 권장 사항 (온라인)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use 온라인 AI 용 complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "입력: key (stored securely)",
+      "apiKeySave": "저장 key",
+      "apiKeyClear": "지우기 key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "없음:t set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used 용 AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "로딩 중",
+    "offline": "오프라인",
+    "error": "오류",
+    "empty": "비어 있음",
+    "list": "목록",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "없음: items",
+      "message": "There are 없음: items 로 display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "오류",
+      "message": "An 오류 occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "홈",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "임상 워크플로",
+      "message": "활성 시설, sync status, drafts, 및 검토 work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "홈 notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "선택: 시설",
+      "select": "선택: {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "시설",
+        "empty": "없음:t selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "온라인",
+          "offline": "오프라인",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting 로 sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "검토 queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "열기 {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "입원 등록"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "추적"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & 인공호흡기 설정"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "데이터셋 캡처"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "검토 대기열"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "대시보드"
       },
       "settings": {
-        "title": "Settings"
+        "title": "설정"
       },
       "meta": {
-        "open": "Open"
+        "open": "열기"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "선택: 시설",
+        "roleRestricted": "역할 restricted",
+        "workflowPending": "Route 대기 중"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "검토 대기열",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, 및 sync conflicts.",
+    "accessibilityLabel": "검증 검토 queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion 사유, 또는 override 사유",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "검토 access 필수",
+      "message": "An approved reviewer 또는 governance 역할 is 필수 용 this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "인공호흡기",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync 충돌"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "검증",
+      "missingData": "누락 데이터",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "충돌",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved 용 dataset 검토 boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "없음:t approved 용 dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "새로고침",
+      "approve": "승인",
+      "requestCorrection": "수정 요청",
+      "exclude": "제외",
+      "defer": "보류"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "로딩 중 검토 queue...",
+      "error": "불러올 수 없음: 또는 저장 검토 queue",
+      "empty": "없음: records need 검토"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "임상 데이터 캡처",
+      "subtitle": "입력: de-identified clinical, ABG, 인공호흡기, target-range, treatment, 및 outcome data 용 reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This 계정 does not have permission 로 제출 clinical dataset candidates.",
+        "offline": "오프라인 mode is active. Structured captures will queue locally 및 sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "시설",
+        "facilityReady": "시설 scope ready",
+        "facilityMissing": "선택: an active 시설 before submitting.",
+        "required": "필수 fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "입력:ed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "온라인 submission",
+        "offline": "대기열에 있음 오프라인"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "필수 용 검토 submission",
+        "optional": "선택 사항"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All 필수 fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "검토 제출",
+        "next": "다음",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "지우기 form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "로딩 중 saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "저장할 수 없음: local draft. Please keep this screen 열기 및 try again",
+        "needsInput": "Complete 필수 fields 및 시설 scope before submitting.",
+        "ready": "Ready 로 제출 용 reviewer approval.",
+        "stepInvalid": "Please 검토 highlighted values before continuing.",
+        "reviewInvalid": "Please 검토 highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted 용 reviewer approval.",
+        "queued": "Submission is 대기열에 있음. Your draft is still saved locally until backend 저장 succeeds.",
+        "error": "저장할 수 없음: dataset. Your draft is still saved locally. 연결을 확인하고 다시 시도하세요"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "입원 등록 환자",
+      "accessibilityLabel": "입원 등록 환자 wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact 입원 등록 summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "시설",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "사유",
+        "condition": "상태",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "호흡수",
+        "heartRate": "심박수",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "나이",
+        "weight": "체중",
+        "height": "키",
+        "gender": "성별",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "혈압",
+        "ventilatorMode": "인공호흡기 모드",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "일회 호흡량",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "없음: data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "환자 프로필",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "선택 사항 observations",
+        "timeSeries": "선택 사항 time series",
+        "review": "검토",
+        "patientReason": "환자 & 사유",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "저장 & 검토"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture 환자 pathway, 나이, body metrics, 및 사유 용 support.",
+        "facilityId": "시설 ID",
+        "facilityIdPlaceholder": "입력: 시설 ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed 또는 ward location",
+        "pathway": "환자 pathway",
+        "pathwayPlaceholder": "선택: pathway",
+        "sexForSize": "Sex 용 size calculations",
+        "ageYears": "나이 (years)",
+        "weightKg": "체중 (kg)",
+        "heightCm": "키 (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "사유 용 support",
+        "reasonForSupportPlaceholder": "Brief admission 사유",
+        "reasonForSupportSearchPlaceholder": "검색: 또는 type 사유",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "알 수 없음",
+          "other": "기타"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "남성",
+          "female": "여성",
+          "unknown": "알 수 없음"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS 또는 severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis 포함 respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD 또는 asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn 또는 inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "체중 또는 reference 체중 unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "일회 호흡량 unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, 및 uncertain values. 인공호흡기 설정 are suggested on 다음 step 에서 dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "선택: oxygen support",
+        "oxygenSupportHint": "Choose support 환자 is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "선택: date 및 time",
+        "timeHint": "Use local date 및 time 용 observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "호흡수",
+        "heartRate": "심박수",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "인공호흡기 type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields 포함 commas.",
+        "uncertaintyReason": "Uncertainty 사유",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "없음:n-rebreather mask",
+          "highFlowNasalCannula": "높음-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "기타"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "검토 및 편집 dataset-suggested 인공호흡기 설정, backend readiness, clinician confirmation, override 사유 when needed, 검토 status, 및 sync state.",
+        "readiness": "저장 readiness",
+        "recommendationTitle": "Dataset 권장 사항",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested 인공호흡기 설정",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "선택: mode",
+        "ventilatorMode": "인공호흡기 모드",
+        "tidalVolumeMl": "일회 호흡량 (mL)",
+        "ventilatorFio2": "인공호흡기 FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "기타"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "입력: clinical values 및 tap 다음 로 generate a dataset 권장 사항.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable 로 generate clinical recommendations right now. You can still 검토 및 저장 admission.",
+        "recommendationNeedsClinicalInputs": "권장 사항 needs clinical 사유, SpO2, respiratory rate, 및 heart rate.",
+        "ready": "Ready 로 저장",
+        "needsCorrection": "Correction 또는 override 필수",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready 용 저장 검토.",
+        "overrideReason": "Override 사유",
+        "reviewNote": "검토 note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "검토 these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "기타"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "상태",
+        "conditionPlaceholder": "선택: 상태",
+        "conditionHint": "Primary respiratory 상태 (필수)",
+        "age": "나이 (years)",
+        "agePlaceholder": "입력: 나이",
+        "ageHint": "환자 나이 in years",
+        "weight": "체중 (kg)",
+        "weightPlaceholder": "입력: 체중",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "키 (cm)",
+        "heightPlaceholder": "입력: 키",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "성별",
+        "genderPlaceholder": "선택: 성별",
+        "genderHint": "환자 성별",
+        "genderMale": "남성",
+        "genderFemale": "여성",
+        "genderOther": "기타",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated 목록"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "없음:rmal range: 95–100%",
+        "pao2": "PaO₂ (선택 사항)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "없음:rmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (선택 사항)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "없음:rmal range: 35–45 mmHg",
+        "ph": "pH (선택 사항)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "없음:rmal range: 7.35–7.45",
+        "respiratoryRate": "호흡수",
+        "respiratoryRatePlaceholder": "입력: RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "없음:rmal range: 12–20 breaths/min",
+        "heartRate": "심박수",
+        "heartRatePlaceholder": "입력: HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "없음:rmal range: 60–100 bpm",
+        "bloodPressure": "혈압 (선택 사항)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "없음:rmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "없음:rmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single 이름–value pair. 선택 사항; you can skip this step.",
+        "add": "추가 observation",
+        "name": "이름",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "선택 사항"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs 또는 기타 metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used 용 trend analysis 및 모니터링 after you start session. 선택 사항; you can 추가 points later on 모니터링 screen.",
+        "add": "추가 time series point",
+        "name": "이름",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "선택 사항"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "권장 사항 source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. 오프라인, 없음: API key.",
+        "onlineAi": "온라인 AI",
+        "onlineAiDescription": "Internet 필수; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "선택: AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons 용 권장 사항",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "뒤로",
+        "next": "다음",
+        "generate": "Generate 권장 사항",
+        "generateHint": "Create 권장 사항 에서 current inputs",
+        "saveAdmission": "저장 admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "로딩 중 입원 등록 form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "불러올 수 없음: admission form. 연결을 확인하고 다시 시도하세요",
+        "retryLoad": "다시 시도하세요",
+        "offline": "입원 등록 works 오프라인",
+        "empty": "입력: 환자 data 로 begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & 인공호흡기 설정",
+      "subtitle": "선택: an active admission, 입력: latest ABG result 및/또는 인공호흡기 설정, then 저장 them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "오프라인 mode: this update will stay 대기열에 있음 until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New 인공호흡기 설정",
+        "missing": "누락 데이터",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "선택: active admission",
+        "empty": "없음: admitted patients are available 용 추적 yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest 인공호흡기"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "선택: 인공호흡기 mode",
+        "modeSearchPlaceholder": "검색: 인공호흡기 modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "인공호흡기",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "저장 new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "권장 설정",
+      "accessibilityLabel": "권장 사항 screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "온라인",
+        "offline": "오프라인"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended 설정",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "모니터링 points",
+        "risks": "Risks 및 complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "일회 호흡량",
+        "respiratoryRate": "호흡수",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "높음",
+        "medium": "중간",
+        "low": "낮음",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "대기 중",
+        "referenceWeight": "Reference 체중",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "검토 status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "누락 데이터",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "대기 중 clinician 검토",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "대기 중 backend confirmation",
+          "synced": "동기화됨",
+          "queued": "대기열에 있음",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons 용 권장 사항",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start 모니터링",
+        "startMonitoringHint": "Begin 추적 vital signs 및 time series",
+        "backToAssessment": "뒤로 로 입원 등록",
+        "startNewAssessment": "Start new 입원 등록",
+        "editAssessmentTitle": "편집 입원 등록 record",
+        "editAssessmentHint": "열기 입원 등록 form 포함 current session data pre-filled",
+        "requestAiRecommendation": "Request AI 권장 사항",
+        "requestAiHint": "Get 선택 사항 AI hints 용 this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental 및 not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "온라인 AI wasn't used. This 권장 사항 is 에서 local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "제거 identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local 권장 사항.",
+        "notComplex": "This case did not need 온라인 AI.",
+        "offline": "You are 오프라인.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "온라인 AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. 표시ing 권장 사항 에서 local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "로딩 중 권장 사항…",
+        "error": "불러올 수 없음: 권장 사항",
+        "empty": "없음: 권장 사항 available. Complete 입원 등록 first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "없음:t clinically validated",
+        "validationLabel": "검증 requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence 검토 status",
+        "sourceUrl": "열기 source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "대기 중 clinician 검증",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "모니터링",
+      "accessibilityLabel": "모니터링 screen",
+      "decisionSupportOnly": "용 decision support only. 없음:t a substitute 용 clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "추가 point",
+        "addPointHint": "추가 vitals 또는 labs data point",
+        "namePlaceholder": "이름 (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "알 수 없음"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "정상",
+        "severityWarning": "경고",
+        "severityCritical": "심각",
+        "severityUnknown": "알 수 없음",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below 심각 낮음 threshold",
+        "whyWarningLow": "Value below 경고 낮음 threshold",
+        "whyCriticalHigh": "Value above 심각 높음 threshold",
+        "whyWarningHigh": "Value above 경고 높음 threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "계속 모니터링",
+        "suggestedActionWarning": "검토 및 consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value 및 re-입력: if needed",
+        "empty": "없음: alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "뒤로 로 권장 사항"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "로딩 중…",
+        "error": "불러올 수 없음: 모니터링",
+        "empty": "추가 vitals 또는 labs points 로 see trends 및 alerts.",
+        "offline": "You are 오프라인. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "추적",
+      "subtitle": "Active admitted patients 및 backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical 추적 screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "없음: admitted patients are available 용 추적 yet",
+      "emptyHint": "입원 등록 a 환자 first 로 begin 추적.",
+      "admittedBanner": "Admission saved. This 환자 is admitted 및 available 용 추적.",
+      "localDraft": "Draft data exists on this device. Backend 검토, sync, 및 충돌 status appears after 저장 또는 sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "검색: by 환자 code, ID, 이름, 또는 hospital number",
+        "accessibilityLabel": "검색: 추적 patients",
+        "empty": "없음: matching patients found",
+        "emptyHint": "Try a 환자 code, 환자 ID, 이름, hospital number, bed, 또는 pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "없음: active 시설 selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "새로고침",
+        "refreshHint": "Reload active 추적 records",
+        "admitFirst": "입원 등록 환자",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "보기 추적 detail 및 timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "닫기 추적 detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "환자 not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "누락 데이터: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "추적 detail",
+        "noTimeline": "없음: timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "로딩 중 patients 용 추적...",
+        "loadingDetail": "로딩 중 추적 detail...",
+        "error": "불러올 수 없음: patients 용 추적. 연결을 확인하고 다시 시도하세요",
+        "detailError": "불러올 수 없음: 추적 details 용 this 환자. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "추적",
+      "accessibilityLabel": "Clinical 추적 screen",
+      "empty": "없음: active admitted patients 용 this 시설",
+      "corruptRecovery": "Session history was reset due 로 a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "계속 this session",
+        "viewDetails": "보기 details",
+        "viewDetailsHint": "보기 session summary",
+        "delete": "삭제",
+        "deleteHint": "제거 에서 history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "삭제 session?",
+        "message": "This session will be removed 에서 history. This cannot be undone.",
+        "confirm": "삭제",
+        "cancel": "취소"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "상태: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "로딩 중 history…",
+        "error": "불러올 수 없음: session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "환자 프로필",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "인공호흡기 설정",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "검토 status",
+      "intendedUseWarning": "This is a dataset case 용 reference only. 없음:t 용 direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "없음: case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "로딩 중 case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "대기 중 clinician 검증",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, 및 reference.",
+      "accessibilityLabel": "Training 홈 screen",
+      "searchPlaceholder": "검색: topics…",
+      "searchHint": "검색: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "검색: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "보기 all topics",
+      "browseAllHint": "보기 all training topics",
+      "viewTopic": "보기",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "로딩 중 training…",
+        "error": "불러올 수 없음: training content",
+        "offline": "Content is available 오프라인",
+        "empty": "없음: training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic 목록 screen",
+      "searchPlaceholder": "검색: 또는 filter…",
+      "searchHint": "검색: topics",
+      "empty": "없음: topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "열기 topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "로딩 중 topics…",
+        "error": "불러올 수 없음: topics",
+        "offline": "Content is available 오프라인"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "뒤로 로 topics",
+      "backToTopicsHint": "Return 로 topic 목록",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "로딩 중 topic…",
+        "error": "불러올 수 없음: topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page 없음:t Found",
+    "message": "page you're looking 용 doesn't exist 또는 has been moved.",
+    "back": "Go 뒤로",
+    "backHint": "Return 로 previous page",
+    "goHome": "이동: 홈",
+    "goHomeHint": "Navigate 뒤로 로 홈 page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "예상치 못한 오류가 발생했습니다. Please try again 또는 return 로 홈 page.",
+    "retry": "다시 시도",
+    "retryHint": "Try action again",
+    "goHome": "이동: 홈",
+    "goHomeHint": "Navigate 뒤로 로 홈 page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "문제가 발생했습니다"
   }
 }

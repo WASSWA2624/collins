@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "delete": "Видалити",
+    "edit": "Редагувати",
+    "search": "Пошук",
+    "submit": "Надіслати",
+    "loading": "Завантаження…",
+    "retry": "Повторити",
+    "back": "Назад",
+    "next": "Далі",
+    "continue": "Продовжити",
+    "close": "Закрити",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "Вибрати",
+    "selectPlaceholder": "Виберіть…",
+    "closeSelect": "Закрити Вибрати",
+    "remove": "Вилучити",
+    "goToHome": "Перейти до Головна",
+    "viewNotifications": "Переглянути notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "Пошук:…",
+    "noResults": "Немає результатів",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "Пошук: icon",
+    "clearSearch": "Очистити Пошук",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed до load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "обов’язково",
+    "clearAll": "Очистити all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "Очистити all filters",
+    "loadingPlaceholder": "Завантаження placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "Порожньо state",
+    "message": "Повідомлення",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "Вітаю, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "Вийти",
+    "password": "Пароль",
+    "passwordHide": "Приховати Пароль",
+    "passwordShow": "Показати Пароль",
+    "enterPassword": "Введіть Пароль",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "Увійти",
+      "accessibilityLabel": "Увійти screen",
+      "emailLabel": "Ел. пошта",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введіть Пароль",
+      "submit": "Увійти",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "Немає Обліковий запис yet?",
+      "createAccount": "Створити обліковий запис",
+      "createAccountHint": "Відкрити Обліковий запис registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "Створити обліковий запис",
+      "description": "Create an AI Vent Обліковий запис до request Заклад access.",
+      "accessibilityLabel": "Створити обліковий запис screen",
+      "nameLabel": "Повне ім’я",
+      "namePlaceholder": "Clinician Ім’я",
+      "emailLabel": "Ел. пошта",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Create Пароль",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "Заклад або hospital (Необов’язково)",
+      "facilitySearchPlaceholder": "Пошук: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital Список by Ім’я, district, region, або ownership",
+      "facilitySelectLabel": "Виберіть Заклад",
+      "facilitySelectPlaceholder": "Choose a matching Заклад",
+      "facilitySelectHelper": "Leave blank if you are not attached до a Заклад.",
+      "facilitySelectHint": "Choose Заклад до request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested для Перегляд.",
+      "facilityOptionalHelper": "Необов’язково. You can create an Обліковий запис without selecting a Заклад.",
+      "facilityNoResults": "Немає matching Заклад found. You can still create an Обліковий запис without selecting one",
+      "facilityClear": "Очистити Заклад",
+      "submit": "Створити обліковий запис",
+      "submitting": "Creating Обліковий запис...",
+      "signInPrompt": "Already have an Обліковий запис?",
+      "signIn": "Увійти",
+      "signInHint": "Return до sign in",
+      "errorTitle": "Обліковий запис creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "Повторити session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose Заклад",
+      "description": "Виберіть Заклад context для this session.",
+      "accessibilityLabel": "Заклад selection screen",
+      "selectFacility": "Виберіть {{name}}",
+      "empty": "Немає approved facilities are available для this Обліковий запис",
+      "errorTitle": "Заклад selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "Щось пішло не так",
+      "message": "Сталася неочікувана помилка",
+      "retry": "Повторити",
+      "retryHint": "Спробуйте ще раз"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "Щось пішло не так. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect до server. Please check your internet connection і try again.",
+      "REQUEST_TIMEOUT": "server took too long до respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection і try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "Потрібна автентифікація",
+      "FORBIDDEN": "Доступ заборонено",
+      "CONFLICT": "This update conflicts з newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields і try again.",
+      "SERVER_ERROR": "Щось пішло не так while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect до server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please Оновити і try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return до Відстеження і try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not Зберегти your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment і try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An Помилка occurred while Завантаження this page",
+      "INVALID_CREDENTIALS": "Invalid Ел. пошта або Пароль. Please check your details і try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please Вибрати a tenant.",
+      "ACCOUNT_INACTIVE": "Обліковий запис is not active",
+      "ACCOUNT_SUSPENDED": "Обліковий запис has been suspended",
+      "ACCOUNT_PENDING": "Обліковий запис is Очікує verification",
+      "PASSWORD_INCORRECT": "Current Пароль is incorrect",
+      "TOKEN_INVALID": "Invalid або expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid або expired Оновити token",
+      "SESSION_EXPIRED": "Your session expired. Увійти again до Продовжити.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This Ел. пошта is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "Обліковий запис is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid або expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "Головна summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "Не вдалося завантажити Головна summary",
+      "ADMISSION_SAVE_FAILED": "Не вдалося зберегти admission record. Перевірте підключення та спробуйте ще раз",
+      "ADMISSION_VALIDATION_FAILED": "Some обов’язково admission details are missing. Please Перегляд highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable до generate clinical recommendations right now. You can still Перегляд і Зберегти admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Не вдалося завантажити admission form. Перевірте підключення та спробуйте ще раз",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Не вдалося зберегти local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "Це поле обов’язкове",
+      "invalidEmail": "Invalid Ел. пошта format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type до Пошук",
+      "cartWithItems": "Cart з {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "Увійти",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "Налаштування",
+      "logout": "Вийти",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "Відкрити Обліковий запис menu для {{name}}",
+        "fallbackName": "Обліковий запис",
+        "accountType": "Обліковий запис type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "Приховати header",
+      "showHeader": "Показати header",
+      "showMore": "Показати more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "Немаєtifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (Ел. пошта)",
+      "supportPhone": "Support (Телефон)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "Пацієнт services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal і support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "Конфіденційність",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "Онлайн",
+        "offline": "Офлайн",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "Немаєtifications",
+      "menuLabel": "Немаєtifications menu",
+      "empty": "Немає new notifications",
+      "viewAll": "Переглянути all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New Повідомлення",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "Пацієнт navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "Головна",
+        "admit": "Госпіталізувати",
+        "assessment": "Госпіталізувати",
+        "abg-ventilator-updates": "Update ABG & Апарат ШВЛ Налаштування",
+        "history": "Відстеження",
+        "dataset-capture": "Збір набору даних",
+        "review-queue": "Черга перегляду",
+        "dashboard": "Панель",
+        "user-management": "Керування користувачами",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "Налаштування",
+        "settings-about": "Про програму",
+        "settings-data-sources": "Джерела даних",
+        "settings-disclaimer": "Відмова від відповідальності",
+        "settings-help": "Допомога",
+        "settings-privacy": "Конфіденційність"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip до main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "Активний заклад",
+    "noFacility": "Немає active Заклад",
+    "role": "Роль",
+    "noRole": "Немає active Роль",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "Виберіть active Заклад",
+    "accessibilityLabel": "Активний заклад {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "Онлайн",
+      "offline": "Офлайн",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "Система status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are Офлайн",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "Офлайн status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays або limited functionality.",
+        "accessibilityLabel": "Низький network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "Назад Онлайн",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "Онлайн status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "Налаштування",
     "screen": {
-      "label": "Settings screen"
+      "label": "Налаштування screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "Завантаження Налаштування...",
+      "saved": "Налаштування saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "Не вдалося зберегти your profile. Перевірте підключення та спробуйте ще раз",
+      "facilitySaved": "Активний заклад updated successfully.",
+      "facilitySaveError": "Не вдалося зберегти active Заклад. Перевірте підключення та спробуйте ще раз",
+      "roleSaved": "Active Роль updated successfully.",
+      "themeSaved": "Тема updated successfully.",
+      "themeLocalSaved": "Тема updated on this device.",
+      "themeSaveError": "Не вдалося зберегти your Тема preference. Перевірте підключення та спробуйте ще раз",
+      "saveError": "Не вдалося зберегти Налаштування. Перевірте підключення та спробуйте ще раз",
+      "loadError": "Не вдалося завантажити Налаштування. Перевірте підключення та спробуйте ще раз",
+      "localOnly": "Server Налаштування are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "Обліковий запис і Заклад",
+      "name": "Ім’я",
+      "phone": "Телефон",
+      "saveProfile": "Зберегти profile",
+      "activeFacility": "Активний заклад",
+      "activeRole": "Active Роль",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "Немає active Заклад",
+      "activeFacilityHelper": "Виберіть Заклад context для clinical work.",
+      "noAssignedFacility": "Немає Заклад has been assigned до your Обліковий запис yet",
+      "activeRoleHelper": "Роль для selected active Заклад.",
+      "noActiveRole": "Немає Роль is available для selected Заклад",
+      "none": "Немаєne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "Введіть your full Ім’я.",
+        "nameTooLong": "Ім’я must be 160 characters або fewer.",
+        "phoneTooLong": "Телефон number must be 40 characters або fewer.",
+        "profileInvalid": "Перегляд highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance і accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "Тема",
+      "accessibilityLabel": "Тема selector",
+      "hint": "Змінити application Тема",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "Система",
+        "light": "Світла",
+        "dark": "Темна",
+        "highContrast": "Високий контраст"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "Мова",
+      "accessibilityLabel": "Мова selector",
+      "hint": "Змінити application Мова",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "Англійська",
+        "ar": "Арабська",
+        "de": "Німецька",
+        "es": "Іспанська",
+        "fa": "Перська",
+        "fr": "Французька",
+        "hi": "Гінді",
+        "id": "Індонезійська",
+        "it": "Італійська",
+        "ja": "Японська",
+        "ko": "Корейська",
+        "ms": "Малайська",
+        "nl": "Нідерландська",
+        "pl": "Польська",
+        "pt": "Португальська",
+        "ru": "Російська",
+        "sw": "Суахілі",
+        "ta": "Тамільська",
+        "th": "Тайська",
+        "tr": "Турецька",
+        "uk": "Українська",
+        "vi": "Вʼєтнамська",
+        "zh": "Китайська"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "Змінити spacing і layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "Показати footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "Показати або Приховати footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "Офлайн і sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "Невідомо",
+      "offlineModeEnabled": "Allow Офлайн mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "Повторити failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge Синхронізовано drafts after",
+      "conflictResolutionMode": "Конфлікт resolution",
+      "manualReview": "Manual Перегляд",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "Конфіденційність і logging",
+      "hidePatientIdentifiersInLists": "Приховати Пацієнт identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock для identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance і clinical workflow",
+      "activeFacility": "Активний заклад",
+      "manageAccess": "Can manage Заклад Налаштування",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "Заклад verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "Показати reference version до clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require Причина для clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer для Критично flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit Причина",
+      "exportPatientIdentifiers": "Export Пацієнт identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require Перегляд",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "Показати shadow model outputs до clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden з Норма clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize Налаштування sidebar",
+      "menu": "Налаштування menu",
+      "menuOpen": "Відкрити Налаштування menu",
+      "menuClose": "Закрити Налаштування menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "Відмова від відповідальності",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "Відмова від відповідальності screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype для reference і training. It is not intended для direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read і understood Відмова від відповідальності",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "Завантаження…",
+        "error": "Не вдалося завантажити Відмова від відповідальності"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "Джерела даних",
       "screen": {
-        "label": "Data sources screen"
+        "label": "Джерела даних screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "Завантаження…",
+        "error": "Не вдалося завантажити data sources",
+        "empty": "Немає sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted для reviewer approval only. Raw pasted notes are not stored in approved datasets або sent до external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write Роль.",
+        "offlineNotice": "Офлайн submissions are У черзі з structured fields only і sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then Перегляд structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "Заклад scope ready",
+        "facilityMissing": "Виберіть або sign in до one active Заклад before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured Перегляд payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "Немаєne",
+        "submitForReview": "Надіслати на перегляд",
+        "trainingApprovalAvailable": "Training approval controls remain in governed Перегляд workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready для Перегляд submission",
+          "submitted": "Submitted для reviewer approval",
+          "queued": "У черзі для sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "Конфіденційність",
       "screen": {
-        "label": "Privacy screen"
+        "label": "Конфіденційність screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences і session data are stored only on this device. Немаєthing is sent до external servers.",
+      "optionalAI": "If Онлайн AI features are enabled, those requests may be sent до configured services."
     },
     "about": {
-      "title": "About",
+      "title": "Про програму",
       "screen": {
-        "label": "About screen"
+        "label": "Про програму screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype для reference і training. Немаєt для clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support і advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, або determine Апарат ШВЛ Налаштування.",
+        "secondary": "Confirm all decisions against Пацієнт, your Заклад workflow, і local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "Обов’язково before continuing до clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device і will be Синхронізовано when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "Перегляд safety note before using AI Vent. app can highlight missing data і uncertainty, but a qualified clinician remains responsible для Пацієнт care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in Заклад context",
+          "body": "Use active Заклад і Роль shown by your session. Keep records within correct Заклад workflow і follow local escalation, Перегляд, і approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "Введітьing inputs",
+          "body": "Use Госпіталізувати до Введіть available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Необов’язково ABG values improve confidence when available, but missing Необов’язково data should be reviewed as uncertainty rather than treated as a Зберегти blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations Показати advisory Апарат ШВЛ setting references з a confidence tier. Match quality reflects how well dataset cases align з your inputs. Use matched cases as reference only і verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "Моніторинг і alerts",
+          "body": "After reviewing a Рекомендація, use Моніторинг до log vitals і labs over time. Alerts highlight values outside set thresholds і should be assessed according до local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "Офлайн behavior",
+          "body": "Core workflow (Госпіталізувати, advisory summaries, Моніторинг) works Офлайн. Data is saved locally. Необов’язково AI features require connectivity. When Назад Онлайн, Продовжити as Норма."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "Далі",
+        "back": "Назад"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "Завантаження…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "Допомога & reference",
+      "accessibilityLabel": "Допомога screen",
+      "searchPlaceholder": "Пошук: glossary або guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What до do Далі"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume і oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory до expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "Дихальний об’єм (mL). Volume delivered per breath.",
+        "respiratoryRate": "Частота дихання (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, і pH, tied до a sample time.",
+        "referenceStatus": "Governance і verification state для a reference range. Only active approved або verified ranges are eligible для active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need Перегляд before dataset або training use.",
+        "reviewQueue": "A work queue для Перегляд decisions, corrections, exclusions, і audit reasons.",
+        "syncState": "Current Офлайн, Онлайн, або syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden з Норма clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; Введіть SpO₂ і Інше vitals when available. для better matching, Додати PaO₂, PaCO₂, і pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app Офлайн",
+          "body": "Госпіталізувати, advisory summaries, і Моніторинг work Офлайн. Data is stored locally. Необов’язково AI suggestions require internet. Sync is not обов’язково для core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, Очікує, retired, rejected, і unverified ranges are not eligible для active decision-support display. Перегляд source, version, scope, і verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness Допомога is restricted",
+          "body": "Predictive model readiness і shadow-mode details are visible only до approved governance roles. Немаєrmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs Перегляд",
+          "body": "Use Перегляд queue до check submitted data, request correction, Схвалити eligible records, або Виключити records з an audit Причина."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "Перегляд Заклад context, sync state, active admissions, red flags, і records needing Перегляд before opening a Пацієнт workflow.",
+        "admit": "Capture Пацієнт pathway і available clinical values. Mark unavailable data clearly і Перегляд backend-confirmed calculations after Зберегти.",
+        "tracking": "Use Відстеження до scan recent ventilation status і Перегляд needs. Read trend flags з source data і local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture для de-identified candidate records. Human Перегляд is обов’язково before approved training-data use.",
+        "reviewQueue": "Use Перегляд queue до Схвалити, request correction, або Виключити records while preserving audit trail.",
+        "dashboard": "Use dashboards для aggregate quality, Перегляд, reference, і governance status. Avoid Пацієнт identifiers in governance summaries.",
+        "settings": "Use Налаштування для Обліковий запис, Заклад, accessibility, Конфіденційність, sync, і reference visibility preferences where authorized.",
+        "hypoxemia": "Перегляд FiO₂ і PEEP; consider recruitment; check для shunt або V/Q mismatch.",
+        "hypercapnia": "Перегляд minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation і perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols і clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "Завантаження…",
+        "empty": "Немає результатів",
+        "error": "Не вдалося завантажити Допомога"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "Підтримка рішень ШІ",
+      "sectionLabel": "Необов’язково AI Рекомендація (Онлайн)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use Онлайн AI для complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "Введіть key (stored securely)",
+      "apiKeySave": "Зберегти key",
+      "apiKeyClear": "Очистити key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "Немаєt set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used для AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "Завантаження",
+    "offline": "Офлайн",
+    "error": "Помилка",
+    "empty": "Порожньо",
+    "list": "Список",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "Немає items",
+      "message": "There are Немає items до display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "Помилка",
+      "message": "An Помилка occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "Головна",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "Клінічний робочий процес",
+      "message": "Активний заклад, sync status, drafts, і Перегляд work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "Головна notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "Виберіть Заклад",
+      "select": "Виберіть {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "Заклад",
+        "empty": "Немаєt selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "Онлайн",
+          "offline": "Офлайн",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting до sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "Перегляд queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "Відкрити {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "Госпіталізувати"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "Відстеження"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & Апарат ШВЛ Налаштування"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "Збір набору даних"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "Черга перегляду"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "Панель"
       },
       "settings": {
-        "title": "Settings"
+        "title": "Налаштування"
       },
       "meta": {
-        "open": "Open"
+        "open": "Відкрити"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "Виберіть Заклад",
+        "roleRestricted": "Роль restricted",
+        "workflowPending": "Route Очікує"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "Черга перегляду",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, і sync conflicts.",
+    "accessibilityLabel": "Валідація Перегляд queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion Причина, або override Причина",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "Перегляд access обов’язково",
+      "message": "An approved reviewer або governance Роль is обов’язково для this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "Апарат ШВЛ",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync Конфлікт"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "Валідація",
+      "missingData": "Відсутні дані",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "Конфлікт",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved для dataset Перегляд boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "Немаєt approved для dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "Оновити",
+      "approve": "Схвалити",
+      "requestCorrection": "Запросити виправлення",
+      "exclude": "Виключити",
+      "defer": "Відкласти"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "Завантаження Перегляд queue...",
+      "error": "Не вдалося завантажити або Зберегти Перегляд queue",
+      "empty": "Немає records need Перегляд"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "Збір клінічних даних",
+      "subtitle": "Введіть de-identified clinical, ABG, Апарат ШВЛ, target-range, treatment, і outcome data для reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This Обліковий запис does not have permission до Надіслати clinical dataset candidates.",
+        "offline": "Офлайн mode is active. Structured captures will queue locally і sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "Заклад",
+        "facilityReady": "Заклад scope ready",
+        "facilityMissing": "Виберіть an active Заклад before submitting.",
+        "required": "Обов’язково fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "Введітьed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "Онлайн submission",
+        "offline": "У черзі Офлайн"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "Обов’язково для Перегляд submission",
+        "optional": "Необов’язково"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All обов’язково fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "Надіслати на перегляд",
+        "next": "Далі",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "Очистити form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "Завантаження saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "Не вдалося зберегти local draft. Please keep this screen Відкрити і try again",
+        "needsInput": "Complete обов’язково fields і Заклад scope before submitting.",
+        "ready": "Ready до Надіслати для reviewer approval.",
+        "stepInvalid": "Please Перегляд highlighted values before continuing.",
+        "reviewInvalid": "Please Перегляд highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted для reviewer approval.",
+        "queued": "Submission is У черзі. Your draft is still saved locally until backend Зберегти succeeds.",
+        "error": "Не вдалося зберегти dataset. Your draft is still saved locally. Перевірте підключення та спробуйте ще раз"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "Госпіталізувати Пацієнт",
+      "accessibilityLabel": "Госпіталізувати Пацієнт wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact Госпіталізувати summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "Заклад",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "Причина",
+        "condition": "Стан",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "Частота дихання",
+        "heartRate": "Частота серцевих скорочень",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "Вік",
+        "weight": "Вага",
+        "height": "Зріст",
+        "gender": "Стать",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "Артеріальний тиск",
+        "ventilatorMode": "Режим ШВЛ",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "Дихальний об’єм",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "Немає data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "Профіль пацієнта",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "Необов’язково observations",
+        "timeSeries": "Необов’язково time series",
+        "review": "Перегляд",
+        "patientReason": "Пацієнт & Причина",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "Зберегти & Перегляд"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture Пацієнт pathway, Вік, body metrics, і Причина для support.",
+        "facilityId": "Заклад ID",
+        "facilityIdPlaceholder": "Введіть Заклад ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed або ward location",
+        "pathway": "Пацієнт pathway",
+        "pathwayPlaceholder": "Виберіть pathway",
+        "sexForSize": "Sex для size calculations",
+        "ageYears": "Вік (years)",
+        "weightKg": "Вага (kg)",
+        "heightCm": "Зріст (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "Причина для support",
+        "reasonForSupportPlaceholder": "Brief admission Причина",
+        "reasonForSupportSearchPlaceholder": "Пошук: або type Причина",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "Невідомо",
+          "other": "Інше"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "Чоловік",
+          "female": "Жінка",
+          "unknown": "Невідомо"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS або severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis з respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD або asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn або inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "Вага або reference Вага unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "Дихальний об’єм unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, і uncertain values. Апарат ШВЛ Налаштування are suggested on Далі step з dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "Виберіть oxygen support",
+        "oxygenSupportHint": "Choose support Пацієнт is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "Виберіть date і time",
+        "timeHint": "Use local date і time для observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "Частота дихання",
+        "heartRate": "Частота серцевих скорочень",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "Апарат ШВЛ type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields з commas.",
+        "uncertaintyReason": "Uncertainty Причина",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "Немаєn-rebreather mask",
+          "highFlowNasalCannula": "Високий-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "Інше"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "Перегляд і Редагувати dataset-suggested Апарат ШВЛ Налаштування, backend readiness, clinician confirmation, override Причина when needed, Перегляд status, і sync state.",
+        "readiness": "Зберегти readiness",
+        "recommendationTitle": "Dataset Рекомендація",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested Апарат ШВЛ Налаштування",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "Виберіть mode",
+        "ventilatorMode": "Режим ШВЛ",
+        "tidalVolumeMl": "Дихальний об’єм (mL)",
+        "ventilatorFio2": "Апарат ШВЛ FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "Інше"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "Введіть clinical values і tap Далі до generate a dataset Рекомендація.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable до generate clinical recommendations right now. You can still Перегляд і Зберегти admission.",
+        "recommendationNeedsClinicalInputs": "Рекомендація needs clinical Причина, SpO2, respiratory rate, і heart rate.",
+        "ready": "Ready до Зберегти",
+        "needsCorrection": "Correction або override обов’язково",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready для Зберегти Перегляд.",
+        "overrideReason": "Override Причина",
+        "reviewNote": "Перегляд note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "Перегляд these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "Інше"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "Стан",
+        "conditionPlaceholder": "Виберіть Стан",
+        "conditionHint": "Primary respiratory Стан (обов’язково)",
+        "age": "Вік (years)",
+        "agePlaceholder": "Введіть Вік",
+        "ageHint": "Пацієнт Вік in years",
+        "weight": "Вага (kg)",
+        "weightPlaceholder": "Введіть Вага",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "Зріст (cm)",
+        "heightPlaceholder": "Введіть Зріст",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "Стать",
+        "genderPlaceholder": "Виберіть Стать",
+        "genderHint": "Пацієнт Стать",
+        "genderMale": "Чоловік",
+        "genderFemale": "Жінка",
+        "genderOther": "Інше",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated Список"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "Немаєrmal range: 95–100%",
+        "pao2": "PaO₂ (Необов’язково)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "Немаєrmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (Необов’язково)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "Немаєrmal range: 35–45 mmHg",
+        "ph": "pH (Необов’язково)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "Немаєrmal range: 7.35–7.45",
+        "respiratoryRate": "Частота дихання",
+        "respiratoryRatePlaceholder": "Введіть RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "Немаєrmal range: 12–20 breaths/min",
+        "heartRate": "Частота серцевих скорочень",
+        "heartRatePlaceholder": "Введіть HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "Немаєrmal range: 60–100 bpm",
+        "bloodPressure": "Артеріальний тиск (Необов’язково)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "Немаєrmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "Немаєrmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single Ім’я–value pair. Необов’язково; you can skip this step.",
+        "add": "Додати observation",
+        "name": "Ім’я",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "Необов’язково"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs або Інше metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used для trend analysis і Моніторинг after you start session. Необов’язково; you can Додати points later on Моніторинг screen.",
+        "add": "Додати time series point",
+        "name": "Ім’я",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "Необов’язково"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "Рекомендація source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. Офлайн, Немає API key.",
+        "onlineAi": "Онлайн AI",
+        "onlineAiDescription": "Internet обов’язково; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "Виберіть AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons для Рекомендація",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "Назад",
+        "next": "Далі",
+        "generate": "Generate Рекомендація",
+        "generateHint": "Create Рекомендація з current inputs",
+        "saveAdmission": "Зберегти admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "Завантаження Госпіталізувати form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "Не вдалося завантажити admission form. Перевірте підключення та спробуйте ще раз",
+        "retryLoad": "Спробуйте ще раз",
+        "offline": "Госпіталізувати works Офлайн",
+        "empty": "Введіть Пацієнт data до begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & Апарат ШВЛ Налаштування",
+      "subtitle": "Виберіть an active admission, Введіть latest ABG result і/або Апарат ШВЛ Налаштування, then Зберегти them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "Офлайн mode: this update will stay У черзі until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New Апарат ШВЛ Налаштування",
+        "missing": "Відсутні дані",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "Виберіть active admission",
+        "empty": "Немає admitted patients are available для Відстеження yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest Апарат ШВЛ"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "Виберіть Апарат ШВЛ mode",
+        "modeSearchPlaceholder": "Пошук: Апарат ШВЛ modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "Апарат ШВЛ",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "Зберегти new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "Рекомендовані налаштування",
+      "accessibilityLabel": "Рекомендація screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "Онлайн",
+        "offline": "Офлайн"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended Налаштування",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "Моніторинг points",
+        "risks": "Risks і complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "Дихальний об’єм",
+        "respiratoryRate": "Частота дихання",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "Високий",
+        "medium": "Середній",
+        "low": "Низький",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "Очікує",
+        "referenceWeight": "Reference Вага",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "Перегляд status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "Відсутні дані",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "Очікує clinician Перегляд",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "Очікує backend confirmation",
+          "synced": "Синхронізовано",
+          "queued": "У черзі",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons для Рекомендація",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start Моніторинг",
+        "startMonitoringHint": "Begin Відстеження vital signs і time series",
+        "backToAssessment": "Назад до Госпіталізувати",
+        "startNewAssessment": "Start new Госпіталізувати",
+        "editAssessmentTitle": "Редагувати Госпіталізувати record",
+        "editAssessmentHint": "Відкрити Госпіталізувати form з current session data pre-filled",
+        "requestAiRecommendation": "Request AI Рекомендація",
+        "requestAiHint": "Get Необов’язково AI hints для this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental і not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "Онлайн AI wasn't used. This Рекомендація is з local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "Вилучити identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local Рекомендація.",
+        "notComplex": "This case did not need Онлайн AI.",
+        "offline": "You are Офлайн.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "Онлайн AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. Показатиing Рекомендація з local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "Завантаження Рекомендація…",
+        "error": "Не вдалося завантажити Рекомендація",
+        "empty": "Немає Рекомендація available. Complete Госпіталізувати first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "Немаєt clinically validated",
+        "validationLabel": "Валідація requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence Перегляд status",
+        "sourceUrl": "Відкрити source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "Очікує clinician Валідація",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "Моніторинг",
+      "accessibilityLabel": "Моніторинг screen",
+      "decisionSupportOnly": "для decision support only. Немаєt a substitute для clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "Додати point",
+        "addPointHint": "Додати vitals або labs data point",
+        "namePlaceholder": "Ім’я (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "Невідомо"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "Норма",
+        "severityWarning": "Попередження",
+        "severityCritical": "Критично",
+        "severityUnknown": "Невідомо",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below Критично Низький threshold",
+        "whyWarningLow": "Value below Попередження Низький threshold",
+        "whyCriticalHigh": "Value above Критично Високий threshold",
+        "whyWarningHigh": "Value above Попередження Високий threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "Продовжити Моніторинг",
+        "suggestedActionWarning": "Перегляд і consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value і re-Введіть if needed",
+        "empty": "Немає alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "Назад до Рекомендація"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "Завантаження…",
+        "error": "Не вдалося завантажити Моніторинг",
+        "empty": "Додати vitals або labs points до see trends і alerts.",
+        "offline": "You are Офлайн. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "Відстеження",
+      "subtitle": "Active admitted patients і backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical Відстеження screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "Немає admitted patients are available для Відстеження yet",
+      "emptyHint": "Госпіталізувати a Пацієнт first до begin Відстеження.",
+      "admittedBanner": "Admission saved. This Пацієнт is admitted і available для Відстеження.",
+      "localDraft": "Draft data exists on this device. Backend Перегляд, sync, і Конфлікт status appears after Зберегти або sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "Пошук: by Пацієнт code, ID, Ім’я, або hospital number",
+        "accessibilityLabel": "Пошук: Відстеження patients",
+        "empty": "Немає matching patients found",
+        "emptyHint": "Try a Пацієнт code, Пацієнт ID, Ім’я, hospital number, bed, або pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "Немає active Заклад selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "Оновити",
+        "refreshHint": "Reload active Відстеження records",
+        "admitFirst": "Госпіталізувати Пацієнт",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "Переглянути Відстеження detail і timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "Закрити Відстеження detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "Пацієнт not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "Відсутні дані: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "Відстеження detail",
+        "noTimeline": "Немає timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "Завантаження patients для Відстеження...",
+        "loadingDetail": "Завантаження Відстеження detail...",
+        "error": "Не вдалося завантажити patients для Відстеження. Перевірте підключення та спробуйте ще раз",
+        "detailError": "Не вдалося завантажити Відстеження details для this Пацієнт. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "Відстеження",
+      "accessibilityLabel": "Clinical Відстеження screen",
+      "empty": "Немає active admitted patients для this Заклад",
+      "corruptRecovery": "Session history was reset due до a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "Продовжити this session",
+        "viewDetails": "Переглянути details",
+        "viewDetailsHint": "Переглянути session summary",
+        "delete": "Видалити",
+        "deleteHint": "Вилучити з history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "Видалити session?",
+        "message": "This session will be removed з history. This cannot be undone.",
+        "confirm": "Видалити",
+        "cancel": "Скасувати"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "Стан: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "Завантаження history…",
+        "error": "Не вдалося завантажити session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "Профіль пацієнта",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "Апарат ШВЛ Налаштування",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "Перегляд status",
+      "intendedUseWarning": "This is a dataset case для reference only. Немаєt для direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "Немає case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "Завантаження case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "Очікує clinician Валідація",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, і reference.",
+      "accessibilityLabel": "Training Головна screen",
+      "searchPlaceholder": "Пошук: topics…",
+      "searchHint": "Пошук: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "Пошук: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "Переглянути all topics",
+      "browseAllHint": "Переглянути all training topics",
+      "viewTopic": "Переглянути",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "Завантаження training…",
+        "error": "Не вдалося завантажити training content",
+        "offline": "Content is available Офлайн",
+        "empty": "Немає training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic Список screen",
+      "searchPlaceholder": "Пошук: або filter…",
+      "searchHint": "Пошук: topics",
+      "empty": "Немає topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "Відкрити topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "Завантаження topics…",
+        "error": "Не вдалося завантажити topics",
+        "offline": "Content is available Офлайн"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "Назад до topics",
+      "backToTopicsHint": "Return до topic Список",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "Завантаження topic…",
+        "error": "Не вдалося завантажити topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page Немаєt Found",
+    "message": "page you're looking для doesn't exist або has been moved.",
+    "back": "Go Назад",
+    "backHint": "Return до previous page",
+    "goHome": "Перейти до Головна",
+    "goHomeHint": "Navigate Назад до Головна page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "Сталася неочікувана помилка. Please try again або return до Головна page.",
+    "retry": "Повторити",
+    "retryHint": "Try action again",
+    "goHome": "Перейти до Головна",
+    "goHomeHint": "Navigate Назад до Головна page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "Щось пішло не так"
   }
 }

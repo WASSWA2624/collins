@@ -88,8 +88,9 @@ const SelectWeb = ({
 }) => {
   const { t } = useI18n();
   const defaultPlaceholder = placeholder || t('common.selectPlaceholder');
-  const finalSearchPlaceholder = searchPlaceholder || t('common.searchPlaceholder');
-  
+  const finalSearchPlaceholder =
+    searchPlaceholder || t('common.searchPlaceholder');
+
   const {
     open,
     isFocused,
@@ -104,7 +105,9 @@ const SelectWeb = ({
     handleSelect,
   } = useSelect({ value, options, onValueChange, required, validate });
 
-  const finalValidationState = validationState || (disabled ? VALIDATION_STATES.DISABLED : internalValidationState);
+  const finalValidationState =
+    validationState ||
+    (disabled ? VALIDATION_STATES.DISABLED : internalValidationState);
   const finalErrorMessage = errorMessage || internalErrorMessage;
   const displayHelperText = finalErrorMessage || helperText;
 
@@ -116,11 +119,16 @@ const SelectWeb = ({
 
   const visibleOptions = React.useMemo(() => {
     const rows = options.map((option, index) => ({ option, index }));
-    const query = String(searchQuery || '').trim().toLowerCase();
+    const query = String(searchQuery || '')
+      .trim()
+      .toLowerCase();
     if (!searchable || !query) return rows;
     return rows.filter(({ option }) =>
-      [option.label, option.value]
-        .some((entry) => String(entry || '').toLowerCase().includes(query))
+      [option.label, option.value].some((entry) =>
+        String(entry || '')
+          .toLowerCase()
+          .includes(query)
+      )
     );
   }, [options, searchable, searchQuery]);
   const normalizedSearchQuery = String(searchQuery || '').trim();
@@ -128,19 +136,30 @@ const SelectWeb = ({
     if (!normalizedSearchQuery) return false;
     const query = normalizedSearchQuery.toLowerCase();
     return options.some((option) =>
-      [option.label, option.value].some((entry) => String(entry || '').trim().toLowerCase() === query)
+      [option.label, option.value].some(
+        (entry) =>
+          String(entry || '')
+            .trim()
+            .toLowerCase() === query
+      )
     );
   }, [normalizedSearchQuery, options]);
-  const canUseCustomValue = allowCustomValue && searchable && normalizedSearchQuery && !exactSearchMatch;
+  const canUseCustomValue =
+    allowCustomValue &&
+    searchable &&
+    normalizedSearchQuery &&
+    !exactSearchMatch;
   const customValueLabel = canUseCustomValue
-    ? String(t('common.useCustomValue', { value: normalizedSearchQuery })).replace('{{value}}', normalizedSearchQuery)
+    ? String(
+        t('common.useCustomValue', { value: normalizedSearchQuery })
+      ).replace('{{value}}', normalizedSearchQuery)
     : '';
   const hasValue = value !== null && value !== undefined && value !== '';
   const displayValue = selectedOption
     ? selectedOption.label
     : allowCustomValue && hasValue
-    ? String(value)
-    : defaultPlaceholder;
+      ? String(value)
+      : defaultPlaceholder;
   const isPlaceholderValue = !selectedOption && !(allowCustomValue && hasValue);
 
   // Close on outside click
@@ -173,7 +192,9 @@ const SelectWeb = ({
       return;
     }
     if (open && menuRef.current) {
-      const firstOption = menuRef.current.querySelector('[role="option"]:not([aria-disabled="true"])');
+      const firstOption = menuRef.current.querySelector(
+        '[role="option"]:not([aria-disabled="true"])'
+      );
       if (firstOption) {
         firstOption.focus();
       }
@@ -199,20 +220,29 @@ const SelectWeb = ({
   const handleMenuKeyDown = (e) => {
     if (disabled) return;
 
-    const enabledOptions = visibleOptions.filter(({ option }) => !option.disabled);
-    const currentIndex = enabledOptions.findIndex(({ index }) => index === focusedIndex);
+    const enabledOptions = visibleOptions.filter(
+      ({ option }) => !option.disabled
+    );
+    const currentIndex = enabledOptions.findIndex(
+      ({ index }) => index === focusedIndex
+    );
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       if (enabledOptions.length === 0) return;
-      const nextIndex = currentIndex < enabledOptions.length - 1 ? currentIndex + 1 : 0;
+      const nextIndex =
+        currentIndex < enabledOptions.length - 1 ? currentIndex + 1 : 0;
       const nextOption = enabledOptions[nextIndex];
       const nextOptionIndex = nextOption.index;
       setFocusedIndex(nextOptionIndex);
       if (menuRef.current) {
         const optionElement = testID
-          ? menuRef.current.querySelector(`[data-testid="${testID}-option-${nextOptionIndex}"]`)
-          : menuRef.current.querySelector(`[data-option-index="${nextOptionIndex}"]`);
+          ? menuRef.current.querySelector(
+              `[data-testid="${testID}-option-${nextOptionIndex}"]`
+            )
+          : menuRef.current.querySelector(
+              `[data-option-index="${nextOptionIndex}"]`
+            );
         if (optionElement) {
           optionElement.focus();
         }
@@ -220,23 +250,29 @@ const SelectWeb = ({
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (enabledOptions.length === 0) return;
-      const prevIndex = currentIndex > 0 ? currentIndex - 1 : enabledOptions.length - 1;
+      const prevIndex =
+        currentIndex > 0 ? currentIndex - 1 : enabledOptions.length - 1;
       const prevOption = enabledOptions[prevIndex];
       const prevOptionIndex = prevOption.index;
       setFocusedIndex(prevOptionIndex);
       if (menuRef.current) {
         const optionElement = testID
-          ? menuRef.current.querySelector(`[data-testid="${testID}-option-${prevOptionIndex}"]`)
-          : menuRef.current.querySelector(`[data-option-index="${prevOptionIndex}"]`);
+          ? menuRef.current.querySelector(
+              `[data-testid="${testID}-option-${prevOptionIndex}"]`
+            )
+          : menuRef.current.querySelector(
+              `[data-option-index="${prevOptionIndex}"]`
+            );
         if (optionElement) {
           optionElement.focus();
         }
       }
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      const selected = currentIndex >= 0 && currentIndex < enabledOptions.length
-        ? enabledOptions[currentIndex]
-        : enabledOptions[0];
+      const selected =
+        currentIndex >= 0 && currentIndex < enabledOptions.length
+          ? enabledOptions[currentIndex]
+          : enabledOptions[0];
       if (selected) handleSelect(selected.option.value);
       if (!selected && canUseCustomValue) handleSelect(normalizedSearchQuery);
     } else if (e.key === 'Escape') {
@@ -257,8 +293,12 @@ const SelectWeb = ({
     setFocusedIndex(firstEnabled.index);
     if (menuRef.current) {
       const optionElement = testID
-        ? menuRef.current.querySelector(`[data-testid="${testID}-option-${firstEnabled.index}"]`)
-        : menuRef.current.querySelector('[role="option"]:not([aria-disabled="true"])');
+        ? menuRef.current.querySelector(
+            `[data-testid="${testID}-option-${firstEnabled.index}"]`
+          )
+        : menuRef.current.querySelector(
+            '[role="option"]:not([aria-disabled="true"])'
+          );
       if (optionElement) optionElement.focus();
     }
   };
@@ -274,7 +314,9 @@ const SelectWeb = ({
         handleSelect(normalizedSearchQuery);
         return;
       }
-      const firstEnabled = visibleOptions.find(({ option }) => !option.disabled);
+      const firstEnabled = visibleOptions.find(
+        ({ option }) => !option.disabled
+      );
       if (firstEnabled) handleSelect(firstEnabled.option.value);
     } else if (event.key === 'Escape') {
       event.preventDefault();
@@ -283,7 +325,13 @@ const SelectWeb = ({
   };
 
   return (
-    <StyledContainer ref={rootRef} style={style} className={className} $compact={compact} $isOpen={open}>
+    <StyledContainer
+      ref={rootRef}
+      style={style}
+      className={className}
+      $compact={compact}
+      $isOpen={open}
+    >
       {label ? (
         <StyledLabelRow $compact={compact}>
           <StyledLabel>{label}</StyledLabel>
@@ -302,17 +350,22 @@ const SelectWeb = ({
         $compact={compact}
         role="combobox"
         aria-label={accessibilityLabel || label || defaultPlaceholder}
-        aria-describedby={displayHelperText ? `${testID || 'select'}-helper` : undefined}
+        aria-describedby={
+          displayHelperText ? `${testID || 'select'}-helper` : undefined
+        }
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-invalid={finalValidationState === 'error'}
         aria-required={required}
         data-testid={testID}
       >
-        <StyledTriggerText disabled={disabled} $isPlaceholder={isPlaceholderValue}>
+        <StyledTriggerText
+          disabled={disabled}
+          $isPlaceholder={isPlaceholderValue}
+        >
           {displayValue}
         </StyledTriggerText>
-        <StyledChevron aria-hidden="true">▾</StyledChevron>
+        <StyledChevron aria-hidden="true">{'\u25BE'}</StyledChevron>
       </StyledTrigger>
 
       {open ? (
@@ -339,28 +392,28 @@ const SelectWeb = ({
           {visibleOptions.length === 0 && !canUseCustomValue ? (
             <StyledNoResultsText>{t('common.noResults')}</StyledNoResultsText>
           ) : null}
-          {visibleOptions.length > 0 ? (
-            visibleOptions.map(({ option: opt, index }, visibleIndex) => (
-              <StyledOption
-                key={`${String(opt.value)}-${index}`}
-                disabled={!!opt.disabled}
-                onClick={() => {
-                  if (opt.disabled) return;
-                  handleSelect(opt.value);
-                }}
-                onFocus={() => setFocusedIndex(index)}
-                role="option"
-                aria-selected={value === opt.value}
-                aria-disabled={opt.disabled}
-                aria-label={opt.label}
-                tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
-                data-option-index={index}
-                data-testid={testID ? `${testID}-option-${index}` : undefined}
-              >
-                <StyledOptionText>{opt.label}</StyledOptionText>
-              </StyledOption>
-            ))
-          ) : null}
+          {visibleOptions.length > 0
+            ? visibleOptions.map(({ option: opt, index }, visibleIndex) => (
+                <StyledOption
+                  key={`${String(opt.value)}-${index}`}
+                  disabled={!!opt.disabled}
+                  onClick={() => {
+                    if (opt.disabled) return;
+                    handleSelect(opt.value);
+                  }}
+                  onFocus={() => setFocusedIndex(index)}
+                  role="option"
+                  aria-selected={value === opt.value}
+                  aria-disabled={opt.disabled}
+                  aria-label={opt.label}
+                  tabIndex={opt.disabled ? -1 : visibleIndex === 0 ? 0 : -1}
+                  data-option-index={index}
+                  data-testid={testID ? `${testID}-option-${index}` : undefined}
+                >
+                  <StyledOptionText>{opt.label}</StyledOptionText>
+                </StyledOption>
+              ))
+            : null}
           {canUseCustomValue ? (
             <StyledOption
               key="custom-value"
@@ -389,5 +442,3 @@ const SelectWeb = ({
 };
 
 export default SelectWeb;
-
-

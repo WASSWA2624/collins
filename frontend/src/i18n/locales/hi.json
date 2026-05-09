@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएँ",
+    "edit": "संपादित करें",
+    "search": "खोजें",
+    "submit": "जमा करें",
+    "loading": "लोड हो रहा है…",
+    "retry": "फिर कोशिश करें",
+    "back": "वापस",
+    "next": "अगला",
+    "continue": "जारी रखें",
+    "close": "बंद करें",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "चुनें",
+    "selectPlaceholder": "चुनें:…",
+    "closeSelect": "बंद करें चुनें",
+    "remove": "हटाएँ",
+    "goToHome": "पर जाएँ होम",
+    "viewNotifications": "देखें notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "खोजें:…",
+    "noResults": "कोई परिणाम नहीं",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "खोजें: icon",
+    "clearSearch": "साफ़ करें खोजें",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed को load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "आवश्यक",
+    "clearAll": "साफ़ करें all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "साफ़ करें all filters",
+    "loadingPlaceholder": "लोड हो रहा है placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "खाली state",
+    "message": "संदेश",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "नमस्ते, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "लॉग आउट",
+    "password": "पासवर्ड",
+    "passwordHide": "छिपाएँ पासवर्ड",
+    "passwordShow": "दिखाएँ पासवर्ड",
+    "enterPassword": "दर्ज करें: पासवर्ड",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "साइन इन करें",
+      "accessibilityLabel": "साइन इन करें screen",
+      "emailLabel": "ईमेल",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "पासवर्ड",
+      "passwordPlaceholder": "दर्ज करें: पासवर्ड",
+      "submit": "साइन इन करें",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "कोई नहीं खाता yet?",
+      "createAccount": "खाता बनाएँ",
+      "createAccountHint": "खोलें खाता registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "खाता बनाएँ",
+      "description": "Create an AI Vent खाता को request सुविधा access.",
+      "accessibilityLabel": "खाता बनाएँ screen",
+      "nameLabel": "पूरा नाम",
+      "namePlaceholder": "Clinician नाम",
+      "emailLabel": "ईमेल",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "पासवर्ड",
+      "passwordPlaceholder": "Create पासवर्ड",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "सुविधा या hospital (वैकल्पिक)",
+      "facilitySearchPlaceholder": "खोजें: Uganda hospitals",
+      "facilitySearchHint": "Filters hospital सूची by नाम, district, region, या ownership",
+      "facilitySelectLabel": "चुनें: सुविधा",
+      "facilitySelectPlaceholder": "Choose a matching सुविधा",
+      "facilitySelectHelper": "Leave blank if you are not attached को a सुविधा.",
+      "facilitySelectHint": "Choose सुविधा को request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested के लिए समीक्षा.",
+      "facilityOptionalHelper": "वैकल्पिक. You can create an खाता without selecting a सुविधा.",
+      "facilityNoResults": "कोई नहीं matching सुविधा found. You can still create an खाता without selecting one",
+      "facilityClear": "साफ़ करें सुविधा",
+      "submit": "खाता बनाएँ",
+      "submitting": "Creating खाता...",
+      "signInPrompt": "Already have an खाता?",
+      "signIn": "साइन इन करें",
+      "signInHint": "Return को sign in",
+      "errorTitle": "खाता creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "फिर कोशिश करें session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose सुविधा",
+      "description": "चुनें: सुविधा context के लिए this session.",
+      "accessibilityLabel": "सुविधा selection screen",
+      "selectFacility": "चुनें: {{name}}",
+      "empty": "कोई नहीं approved facilities are available के लिए this खाता",
+      "errorTitle": "सुविधा selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "कुछ गलत हो गया",
+      "message": "एक अप्रत्याशित त्रुटि हुई",
+      "retry": "फिर कोशिश करें",
+      "retryHint": "फिर प्रयास करें"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "कुछ गलत हो गया. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect को server. Please check your internet connection और try again.",
+      "REQUEST_TIMEOUT": "server took too long को respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection और try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "प्रमाणीकरण आवश्यक है",
+      "FORBIDDEN": "प्रवेश अस्वीकृत",
+      "CONFLICT": "This update conflicts के साथ newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields और try again.",
+      "SERVER_ERROR": "कुछ गलत हो गया while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect को server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please रीफ़्रेश करें और try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return को ट्रैकिंग और try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not सहेजें your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment और try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An त्रुटि occurred while लोड हो रहा है this page",
+      "INVALID_CREDENTIALS": "Invalid ईमेल या पासवर्ड. Please check your details और try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please चुनें a tenant.",
+      "ACCOUNT_INACTIVE": "खाता is not active",
+      "ACCOUNT_SUSPENDED": "खाता has been suspended",
+      "ACCOUNT_PENDING": "खाता is लंबित verification",
+      "PASSWORD_INCORRECT": "Current पासवर्ड is incorrect",
+      "TOKEN_INVALID": "Invalid या expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid या expired रीफ़्रेश करें token",
+      "SESSION_EXPIRED": "Your session expired. साइन इन करें again को जारी रखें.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This ईमेल is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "खाता is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid या expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "होम summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "लोड नहीं किया जा सका: होम summary",
+      "ADMISSION_SAVE_FAILED": "सहेजा नहीं जा सका: admission record. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "ADMISSION_VALIDATION_FAILED": "Some आवश्यक admission details are missing. Please समीक्षा highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable को generate clinical recommendations right now. You can still समीक्षा और सहेजें admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "लोड नहीं किया जा सका: admission form. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "सहेजा नहीं जा सका: local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "यह फ़ील्ड आवश्यक है",
+      "invalidEmail": "Invalid ईमेल format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type को खोजें",
+      "cartWithItems": "Cart के साथ {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "साइन इन करें",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "सेटिंग्स",
+      "logout": "लॉग आउट",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "खोलें खाता menu के लिए {{name}}",
+        "fallbackName": "खाता",
+        "accountType": "खाता type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "छिपाएँ header",
+      "showHeader": "दिखाएँ header",
+      "showMore": "दिखाएँ more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "कोई नहींtifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (ईमेल)",
+      "supportPhone": "Support (फ़ोन)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "रोगी services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal और support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "गोपनीयता",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "ऑनलाइन",
+        "offline": "ऑफ़लाइन",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "कोई नहींtifications",
+      "menuLabel": "कोई नहींtifications menu",
+      "empty": "कोई नहीं new notifications",
+      "viewAll": "देखें all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New संदेश",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "रोगी navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "होम",
+        "admit": "भर्ती करें",
+        "assessment": "भर्ती करें",
+        "abg-ventilator-updates": "Update ABG & वेंटिलेटर सेटिंग्स",
+        "history": "ट्रैकिंग",
+        "dataset-capture": "डेटासेट कैप्चर",
+        "review-queue": "समीक्षा कतार",
+        "dashboard": "डैशबोर्ड",
+        "user-management": "उपयोगकर्ता प्रबंधन",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "सेटिंग्स",
+        "settings-about": "के बारे में",
+        "settings-data-sources": "डेटा स्रोत",
+        "settings-disclaimer": "अस्वीकरण",
+        "settings-help": "सहायता",
+        "settings-privacy": "गोपनीयता"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip को main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "सक्रिय सुविधा",
+    "noFacility": "कोई नहीं active सुविधा",
+    "role": "भूमिका",
+    "noRole": "कोई नहीं active भूमिका",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "चुनें: active सुविधा",
+    "accessibilityLabel": "सक्रिय सुविधा {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "ऑनलाइन",
+      "offline": "ऑफ़लाइन",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "सिस्टम status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are ऑफ़लाइन",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "ऑफ़लाइन status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays या limited functionality.",
+        "accessibilityLabel": "कम network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "वापस ऑनलाइन",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "ऑनलाइन status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "सेटिंग्स",
     "screen": {
-      "label": "Settings screen"
+      "label": "सेटिंग्स screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "लोड हो रहा है सेटिंग्स...",
+      "saved": "सेटिंग्स saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "सहेजा नहीं जा सका: your profile. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "facilitySaved": "सक्रिय सुविधा updated successfully.",
+      "facilitySaveError": "सहेजा नहीं जा सका: active सुविधा. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "roleSaved": "Active भूमिका updated successfully.",
+      "themeSaved": "थीम updated successfully.",
+      "themeLocalSaved": "थीम updated on this device.",
+      "themeSaveError": "सहेजा नहीं जा सका: your थीम preference. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "saveError": "सहेजा नहीं जा सका: सेटिंग्स. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "loadError": "लोड नहीं किया जा सका: सेटिंग्स. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+      "localOnly": "Server सेटिंग्स are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "खाता और सुविधा",
+      "name": "नाम",
+      "phone": "फ़ोन",
+      "saveProfile": "सहेजें profile",
+      "activeFacility": "सक्रिय सुविधा",
+      "activeRole": "Active भूमिका",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "कोई नहीं active सुविधा",
+      "activeFacilityHelper": "चुनें: सुविधा context के लिए clinical work.",
+      "noAssignedFacility": "कोई नहीं सुविधा has been assigned को your खाता yet",
+      "activeRoleHelper": "भूमिका के लिए selected active सुविधा.",
+      "noActiveRole": "कोई नहीं भूमिका is available के लिए selected सुविधा",
+      "none": "कोई नहींne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "दर्ज करें: your full नाम.",
+        "nameTooLong": "नाम must be 160 characters या fewer.",
+        "phoneTooLong": "फ़ोन number must be 40 characters या fewer.",
+        "profileInvalid": "समीक्षा highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance और accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "थीम",
+      "accessibilityLabel": "थीम selector",
+      "hint": "बदलें application थीम",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "सिस्टम",
+        "light": "लाइट",
+        "dark": "डार्क",
+        "highContrast": "उच्च कंट्रास्ट"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "भाषा",
+      "accessibilityLabel": "भाषा selector",
+      "hint": "बदलें application भाषा",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "अंग्रेज़ी",
+        "ar": "अरबी",
+        "de": "जर्मन",
+        "es": "स्पेनिश",
+        "fa": "फ़ारसी",
+        "fr": "फ़्रेंच",
+        "hi": "हिन्दी",
+        "id": "इंडोनेशियाई",
+        "it": "इतालवी",
+        "ja": "जापानी",
+        "ko": "कोरियाई",
+        "ms": "मलय",
+        "nl": "डच",
+        "pl": "पोलिश",
+        "pt": "पुर्तगाली",
+        "ru": "रूसी",
+        "sw": "स्वाहिली",
+        "ta": "तमिल",
+        "th": "थाई",
+        "tr": "तुर्की",
+        "uk": "यूक्रेनियाई",
+        "vi": "वियतनामी",
+        "zh": "चीनी"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "बदलें spacing और layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "दिखाएँ footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "दिखाएँ या छिपाएँ footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "ऑफ़लाइन और sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "अज्ञात",
+      "offlineModeEnabled": "Allow ऑफ़लाइन mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "फिर कोशिश करें failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge सिंक हो गया drafts after",
+      "conflictResolutionMode": "विरोध resolution",
+      "manualReview": "Manual समीक्षा",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "गोपनीयता और logging",
+      "hidePatientIdentifiersInLists": "छिपाएँ रोगी identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock के लिए identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance और clinical workflow",
+      "activeFacility": "सक्रिय सुविधा",
+      "manageAccess": "Can manage सुविधा सेटिंग्स",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "सुविधा verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "दिखाएँ reference version को clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require कारण के लिए clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer के लिए गंभीर flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit कारण",
+      "exportPatientIdentifiers": "Export रोगी identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require समीक्षा",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "दिखाएँ shadow model outputs को clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden से सामान्य clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize सेटिंग्स sidebar",
+      "menu": "सेटिंग्स menu",
+      "menuOpen": "खोलें सेटिंग्स menu",
+      "menuClose": "बंद करें सेटिंग्स menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "अस्वीकरण",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "अस्वीकरण screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype के लिए reference और training. It is not intended के लिए direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read और understood अस्वीकरण",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "लोड हो रहा है…",
+        "error": "लोड नहीं किया जा सका: अस्वीकरण"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "डेटा स्रोत",
       "screen": {
-        "label": "Data sources screen"
+        "label": "डेटा स्रोत screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "लोड हो रहा है…",
+        "error": "लोड नहीं किया जा सका: data sources",
+        "empty": "कोई नहीं sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted के लिए reviewer approval only. Raw pasted notes are not stored in approved datasets या sent को external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write भूमिका.",
+        "offlineNotice": "ऑफ़लाइन submissions are कतार में के साथ structured fields only और sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then समीक्षा structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "सुविधा scope ready",
+        "facilityMissing": "चुनें: या sign in को one active सुविधा before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured समीक्षा payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "कोई नहींne",
+        "submitForReview": "समीक्षा के लिए जमा करें",
+        "trainingApprovalAvailable": "Training approval controls remain in governed समीक्षा workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready के लिए समीक्षा submission",
+          "submitted": "Submitted के लिए reviewer approval",
+          "queued": "कतार में के लिए sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "गोपनीयता",
       "screen": {
-        "label": "Privacy screen"
+        "label": "गोपनीयता screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences और session data are stored only on this device. कोई नहींthing is sent को external servers.",
+      "optionalAI": "If ऑनलाइन AI features are enabled, those requests may be sent को configured services."
     },
     "about": {
-      "title": "About",
+      "title": "के बारे में",
       "screen": {
-        "label": "About screen"
+        "label": "के बारे में screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype के लिए reference और training. कोई नहींt के लिए clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support और advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, या determine वेंटिलेटर सेटिंग्स.",
+        "secondary": "Confirm all decisions against रोगी, your सुविधा workflow, और local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "आवश्यक before continuing को clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device और will be सिंक हो गया when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "समीक्षा safety note before using AI Vent. app can highlight missing data और uncertainty, but a qualified clinician remains responsible के लिए रोगी care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in सुविधा context",
+          "body": "Use active सुविधा और भूमिका shown by your session. Keep records within correct सुविधा workflow और follow local escalation, समीक्षा, और approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "दर्ज करें:ing inputs",
+          "body": "Use भर्ती करें को दर्ज करें: available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). वैकल्पिक ABG values improve confidence when available, but missing वैकल्पिक data should be reviewed as uncertainty rather than treated as a सहेजें blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations दिखाएँ advisory वेंटिलेटर setting references के साथ a confidence tier. Match quality reflects how well dataset cases align के साथ your inputs. Use matched cases as reference only और verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "निगरानी और alerts",
+          "body": "After reviewing a सिफारिश, use निगरानी को log vitals और labs over time. Alerts highlight values outside set thresholds और should be assessed according को local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "ऑफ़लाइन behavior",
+          "body": "Core workflow (भर्ती करें, advisory summaries, निगरानी) works ऑफ़लाइन. Data is saved locally. वैकल्पिक AI features require connectivity. When वापस ऑनलाइन, जारी रखें as सामान्य."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "अगला",
+        "back": "वापस"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "लोड हो रहा है…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "सहायता & reference",
+      "accessibilityLabel": "सहायता screen",
+      "searchPlaceholder": "खोजें: glossary या guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What को do अगला"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume और oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory को expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "टाइडल वॉल्यूम (mL). Volume delivered per breath.",
+        "respiratoryRate": "श्वसन दर (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, और pH, tied को a sample time.",
+        "referenceStatus": "Governance और verification state के लिए a reference range. Only active approved या verified ranges are eligible के लिए active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need समीक्षा before dataset या training use.",
+        "reviewQueue": "A work queue के लिए समीक्षा decisions, corrections, exclusions, और audit reasons.",
+        "syncState": "Current ऑफ़लाइन, ऑनलाइन, या syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden से सामान्य clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; दर्ज करें: SpO₂ और अन्य vitals when available. के लिए better matching, जोड़ें PaO₂, PaCO₂, और pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app ऑफ़लाइन",
+          "body": "भर्ती करें, advisory summaries, और निगरानी work ऑफ़लाइन. Data is stored locally. वैकल्पिक AI suggestions require internet. Sync is not आवश्यक के लिए core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, लंबित, retired, rejected, और unverified ranges are not eligible के लिए active decision-support display. समीक्षा source, version, scope, और verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness सहायता is restricted",
+          "body": "Predictive model readiness और shadow-mode details are visible only को approved governance roles. कोई नहींrmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs समीक्षा",
+          "body": "Use समीक्षा queue को check submitted data, request correction, स्वीकृत करें eligible records, या बाहर करें records के साथ an audit कारण."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "समीक्षा सुविधा context, sync state, active admissions, red flags, और records needing समीक्षा before opening a रोगी workflow.",
+        "admit": "Capture रोगी pathway और available clinical values. Mark unavailable data clearly और समीक्षा backend-confirmed calculations after सहेजें.",
+        "tracking": "Use ट्रैकिंग को scan recent ventilation status और समीक्षा needs. Read trend flags के साथ source data और local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture के लिए de-identified candidate records. Human समीक्षा is आवश्यक before approved training-data use.",
+        "reviewQueue": "Use समीक्षा queue को स्वीकृत करें, request correction, या बाहर करें records while preserving audit trail.",
+        "dashboard": "Use dashboards के लिए aggregate quality, समीक्षा, reference, और governance status. Avoid रोगी identifiers in governance summaries.",
+        "settings": "Use सेटिंग्स के लिए खाता, सुविधा, accessibility, गोपनीयता, sync, और reference visibility preferences where authorized.",
+        "hypoxemia": "समीक्षा FiO₂ और PEEP; consider recruitment; check के लिए shunt या V/Q mismatch.",
+        "hypercapnia": "समीक्षा minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation और perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols और clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "लोड हो रहा है…",
+        "empty": "कोई परिणाम नहीं",
+        "error": "लोड नहीं किया जा सका: सहायता"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "AI निर्णय समर्थन",
+      "sectionLabel": "वैकल्पिक AI सिफारिश (ऑनलाइन)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use ऑनलाइन AI के लिए complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "दर्ज करें: key (stored securely)",
+      "apiKeySave": "सहेजें key",
+      "apiKeyClear": "साफ़ करें key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "कोई नहींt set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used के लिए AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "लोड हो रहा है",
+    "offline": "ऑफ़लाइन",
+    "error": "त्रुटि",
+    "empty": "खाली",
+    "list": "सूची",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "कोई नहीं items",
+      "message": "There are कोई नहीं items को display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "त्रुटि",
+      "message": "An त्रुटि occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "होम",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "क्लिनिकल कार्यप्रवाह",
+      "message": "सक्रिय सुविधा, sync status, drafts, और समीक्षा work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "होम notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "चुनें: सुविधा",
+      "select": "चुनें: {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "सुविधा",
+        "empty": "कोई नहींt selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "ऑनलाइन",
+          "offline": "ऑफ़लाइन",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting को sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "समीक्षा queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "खोलें {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "भर्ती करें"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "ट्रैकिंग"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & वेंटिलेटर सेटिंग्स"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "डेटासेट कैप्चर"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "समीक्षा कतार"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "डैशबोर्ड"
       },
       "settings": {
-        "title": "Settings"
+        "title": "सेटिंग्स"
       },
       "meta": {
-        "open": "Open"
+        "open": "खोलें"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "चुनें: सुविधा",
+        "roleRestricted": "भूमिका restricted",
+        "workflowPending": "Route लंबित"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "समीक्षा कतार",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, और sync conflicts.",
+    "accessibilityLabel": "सत्यापन समीक्षा queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion कारण, या override कारण",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "समीक्षा access आवश्यक",
+      "message": "An approved reviewer या governance भूमिका is आवश्यक के लिए this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "वेंटिलेटर",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync विरोध"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "सत्यापन",
+      "missingData": "अनुपलब्ध डेटा",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "विरोध",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved के लिए dataset समीक्षा boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "कोई नहींt approved के लिए dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "रीफ़्रेश करें",
+      "approve": "स्वीकृत करें",
+      "requestCorrection": "सुधार का अनुरोध करें",
+      "exclude": "बाहर करें",
+      "defer": "स्थगित करें"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "लोड हो रहा है समीक्षा queue...",
+      "error": "लोड नहीं किया जा सका: या सहेजें समीक्षा queue",
+      "empty": "कोई नहीं records need समीक्षा"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "क्लिनिकल डेटा कैप्चर",
+      "subtitle": "दर्ज करें: de-identified clinical, ABG, वेंटिलेटर, target-range, treatment, और outcome data के लिए reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This खाता does not have permission को जमा करें clinical dataset candidates.",
+        "offline": "ऑफ़लाइन mode is active. Structured captures will queue locally और sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "सुविधा",
+        "facilityReady": "सुविधा scope ready",
+        "facilityMissing": "चुनें: an active सुविधा before submitting.",
+        "required": "आवश्यक fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "दर्ज करें:ed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "ऑनलाइन submission",
+        "offline": "कतार में ऑफ़लाइन"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "आवश्यक के लिए समीक्षा submission",
+        "optional": "वैकल्पिक"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All आवश्यक fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "समीक्षा के लिए जमा करें",
+        "next": "अगला",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "साफ़ करें form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "लोड हो रहा है saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "सहेजा नहीं जा सका: local draft. Please keep this screen खोलें और try again",
+        "needsInput": "Complete आवश्यक fields और सुविधा scope before submitting.",
+        "ready": "Ready को जमा करें के लिए reviewer approval.",
+        "stepInvalid": "Please समीक्षा highlighted values before continuing.",
+        "reviewInvalid": "Please समीक्षा highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted के लिए reviewer approval.",
+        "queued": "Submission is कतार में. Your draft is still saved locally until backend सहेजें succeeds.",
+        "error": "सहेजा नहीं जा सका: dataset. Your draft is still saved locally. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "भर्ती करें रोगी",
+      "accessibilityLabel": "भर्ती करें रोगी wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact भर्ती करें summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "सुविधा",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "कारण",
+        "condition": "स्थिति",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "श्वसन दर",
+        "heartRate": "हृदय दर",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "आयु",
+        "weight": "वज़न",
+        "height": "ऊँचाई",
+        "gender": "लिंग",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "रक्तचाप",
+        "ventilatorMode": "वेंटिलेटर मोड",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "टाइडल वॉल्यूम",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "कोई नहीं data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "रोगी प्रोफ़ाइल",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "वैकल्पिक observations",
+        "timeSeries": "वैकल्पिक time series",
+        "review": "समीक्षा",
+        "patientReason": "रोगी & कारण",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "सहेजें & समीक्षा"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture रोगी pathway, आयु, body metrics, और कारण के लिए support.",
+        "facilityId": "सुविधा ID",
+        "facilityIdPlaceholder": "दर्ज करें: सुविधा ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed या ward location",
+        "pathway": "रोगी pathway",
+        "pathwayPlaceholder": "चुनें: pathway",
+        "sexForSize": "Sex के लिए size calculations",
+        "ageYears": "आयु (years)",
+        "weightKg": "वज़न (kg)",
+        "heightCm": "ऊँचाई (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "कारण के लिए support",
+        "reasonForSupportPlaceholder": "Brief admission कारण",
+        "reasonForSupportSearchPlaceholder": "खोजें: या type कारण",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "अज्ञात",
+          "other": "अन्य"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "पुरुष",
+          "female": "महिला",
+          "unknown": "अज्ञात"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS या severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis के साथ respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD या asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn या inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "वज़न या reference वज़न unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "टाइडल वॉल्यूम unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, और uncertain values. वेंटिलेटर सेटिंग्स are suggested on अगला step से dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "चुनें: oxygen support",
+        "oxygenSupportHint": "Choose support रोगी is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "चुनें: date और time",
+        "timeHint": "Use local date और time के लिए observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "श्वसन दर",
+        "heartRate": "हृदय दर",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "वेंटिलेटर type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields के साथ commas.",
+        "uncertaintyReason": "Uncertainty कारण",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "कोई नहींn-rebreather mask",
+          "highFlowNasalCannula": "उच्च-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "अन्य"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "समीक्षा और संपादित करें dataset-suggested वेंटिलेटर सेटिंग्स, backend readiness, clinician confirmation, override कारण when needed, समीक्षा status, और sync state.",
+        "readiness": "सहेजें readiness",
+        "recommendationTitle": "Dataset सिफारिश",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested वेंटिलेटर सेटिंग्स",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "चुनें: mode",
+        "ventilatorMode": "वेंटिलेटर मोड",
+        "tidalVolumeMl": "टाइडल वॉल्यूम (mL)",
+        "ventilatorFio2": "वेंटिलेटर FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "अन्य"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "दर्ज करें: clinical values और tap अगला को generate a dataset सिफारिश.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable को generate clinical recommendations right now. You can still समीक्षा और सहेजें admission.",
+        "recommendationNeedsClinicalInputs": "सिफारिश needs clinical कारण, SpO2, respiratory rate, और heart rate.",
+        "ready": "Ready को सहेजें",
+        "needsCorrection": "Correction या override आवश्यक",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready के लिए सहेजें समीक्षा.",
+        "overrideReason": "Override कारण",
+        "reviewNote": "समीक्षा note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "समीक्षा these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "अन्य"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "स्थिति",
+        "conditionPlaceholder": "चुनें: स्थिति",
+        "conditionHint": "Primary respiratory स्थिति (आवश्यक)",
+        "age": "आयु (years)",
+        "agePlaceholder": "दर्ज करें: आयु",
+        "ageHint": "रोगी आयु in years",
+        "weight": "वज़न (kg)",
+        "weightPlaceholder": "दर्ज करें: वज़न",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "ऊँचाई (cm)",
+        "heightPlaceholder": "दर्ज करें: ऊँचाई",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "लिंग",
+        "genderPlaceholder": "चुनें: लिंग",
+        "genderHint": "रोगी लिंग",
+        "genderMale": "पुरुष",
+        "genderFemale": "महिला",
+        "genderOther": "अन्य",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated सूची"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "कोई नहींrmal range: 95–100%",
+        "pao2": "PaO₂ (वैकल्पिक)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "कोई नहींrmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (वैकल्पिक)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "कोई नहींrmal range: 35–45 mmHg",
+        "ph": "pH (वैकल्पिक)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "कोई नहींrmal range: 7.35–7.45",
+        "respiratoryRate": "श्वसन दर",
+        "respiratoryRatePlaceholder": "दर्ज करें: RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "कोई नहींrmal range: 12–20 breaths/min",
+        "heartRate": "हृदय दर",
+        "heartRatePlaceholder": "दर्ज करें: HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "कोई नहींrmal range: 60–100 bpm",
+        "bloodPressure": "रक्तचाप (वैकल्पिक)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "कोई नहींrmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "कोई नहींrmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single नाम–value pair. वैकल्पिक; you can skip this step.",
+        "add": "जोड़ें observation",
+        "name": "नाम",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "वैकल्पिक"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs या अन्य metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used के लिए trend analysis और निगरानी after you start session. वैकल्पिक; you can जोड़ें points later on निगरानी screen.",
+        "add": "जोड़ें time series point",
+        "name": "नाम",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "वैकल्पिक"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "सिफारिश source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. ऑफ़लाइन, कोई नहीं API key.",
+        "onlineAi": "ऑनलाइन AI",
+        "onlineAiDescription": "Internet आवश्यक; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "चुनें: AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons के लिए सिफारिश",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "वापस",
+        "next": "अगला",
+        "generate": "Generate सिफारिश",
+        "generateHint": "Create सिफारिश से current inputs",
+        "saveAdmission": "सहेजें admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "लोड हो रहा है भर्ती करें form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "लोड नहीं किया जा सका: admission form. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+        "retryLoad": "फिर प्रयास करें",
+        "offline": "भर्ती करें works ऑफ़लाइन",
+        "empty": "दर्ज करें: रोगी data को begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & वेंटिलेटर सेटिंग्स",
+      "subtitle": "चुनें: an active admission, दर्ज करें: latest ABG result और/या वेंटिलेटर सेटिंग्स, then सहेजें them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "ऑफ़लाइन mode: this update will stay कतार में until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New वेंटिलेटर सेटिंग्स",
+        "missing": "अनुपलब्ध डेटा",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "चुनें: active admission",
+        "empty": "कोई नहीं admitted patients are available के लिए ट्रैकिंग yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest वेंटिलेटर"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "चुनें: वेंटिलेटर mode",
+        "modeSearchPlaceholder": "खोजें: वेंटिलेटर modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "वेंटिलेटर",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "सहेजें new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "अनुशंसित सेटिंग्स",
+      "accessibilityLabel": "सिफारिश screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "ऑनलाइन",
+        "offline": "ऑफ़लाइन"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended सेटिंग्स",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "निगरानी points",
+        "risks": "Risks और complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "टाइडल वॉल्यूम",
+        "respiratoryRate": "श्वसन दर",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "उच्च",
+        "medium": "मध्यम",
+        "low": "कम",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "लंबित",
+        "referenceWeight": "Reference वज़न",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "समीक्षा status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "अनुपलब्ध डेटा",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "लंबित clinician समीक्षा",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "लंबित backend confirmation",
+          "synced": "सिंक हो गया",
+          "queued": "कतार में",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons के लिए सिफारिश",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start निगरानी",
+        "startMonitoringHint": "Begin ट्रैकिंग vital signs और time series",
+        "backToAssessment": "वापस को भर्ती करें",
+        "startNewAssessment": "Start new भर्ती करें",
+        "editAssessmentTitle": "संपादित करें भर्ती करें record",
+        "editAssessmentHint": "खोलें भर्ती करें form के साथ current session data pre-filled",
+        "requestAiRecommendation": "Request AI सिफारिश",
+        "requestAiHint": "Get वैकल्पिक AI hints के लिए this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental और not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "ऑनलाइन AI wasn't used. This सिफारिश is से local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "हटाएँ identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local सिफारिश.",
+        "notComplex": "This case did not need ऑनलाइन AI.",
+        "offline": "You are ऑफ़लाइन.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "ऑनलाइन AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. दिखाएँing सिफारिश से local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "लोड हो रहा है सिफारिश…",
+        "error": "लोड नहीं किया जा सका: सिफारिश",
+        "empty": "कोई नहीं सिफारिश available. Complete भर्ती करें first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "कोई नहींt clinically validated",
+        "validationLabel": "सत्यापन requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence समीक्षा status",
+        "sourceUrl": "खोलें source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "लंबित clinician सत्यापन",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "निगरानी",
+      "accessibilityLabel": "निगरानी screen",
+      "decisionSupportOnly": "के लिए decision support only. कोई नहींt a substitute के लिए clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "जोड़ें point",
+        "addPointHint": "जोड़ें vitals या labs data point",
+        "namePlaceholder": "नाम (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "अज्ञात"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "सामान्य",
+        "severityWarning": "चेतावनी",
+        "severityCritical": "गंभीर",
+        "severityUnknown": "अज्ञात",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below गंभीर कम threshold",
+        "whyWarningLow": "Value below चेतावनी कम threshold",
+        "whyCriticalHigh": "Value above गंभीर उच्च threshold",
+        "whyWarningHigh": "Value above चेतावनी उच्च threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "जारी रखें निगरानी",
+        "suggestedActionWarning": "समीक्षा और consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value और re-दर्ज करें: if needed",
+        "empty": "कोई नहीं alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "वापस को सिफारिश"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "लोड हो रहा है…",
+        "error": "लोड नहीं किया जा सका: निगरानी",
+        "empty": "जोड़ें vitals या labs points को see trends और alerts.",
+        "offline": "You are ऑफ़लाइन. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "ट्रैकिंग",
+      "subtitle": "Active admitted patients और backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical ट्रैकिंग screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "कोई नहीं admitted patients are available के लिए ट्रैकिंग yet",
+      "emptyHint": "भर्ती करें a रोगी first को begin ट्रैकिंग.",
+      "admittedBanner": "Admission saved. This रोगी is admitted और available के लिए ट्रैकिंग.",
+      "localDraft": "Draft data exists on this device. Backend समीक्षा, sync, और विरोध status appears after सहेजें या sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "खोजें: by रोगी code, ID, नाम, या hospital number",
+        "accessibilityLabel": "खोजें: ट्रैकिंग patients",
+        "empty": "कोई नहीं matching patients found",
+        "emptyHint": "Try a रोगी code, रोगी ID, नाम, hospital number, bed, या pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "कोई नहीं active सुविधा selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "रीफ़्रेश करें",
+        "refreshHint": "Reload active ट्रैकिंग records",
+        "admitFirst": "भर्ती करें रोगी",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "देखें ट्रैकिंग detail और timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "बंद करें ट्रैकिंग detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "रोगी not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "अनुपलब्ध डेटा: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "ट्रैकिंग detail",
+        "noTimeline": "कोई नहीं timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "लोड हो रहा है patients के लिए ट्रैकिंग...",
+        "loadingDetail": "लोड हो रहा है ट्रैकिंग detail...",
+        "error": "लोड नहीं किया जा सका: patients के लिए ट्रैकिंग. कृपया अपना कनेक्शन जाँचें और फिर प्रयास करें",
+        "detailError": "लोड नहीं किया जा सका: ट्रैकिंग details के लिए this रोगी. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "ट्रैकिंग",
+      "accessibilityLabel": "Clinical ट्रैकिंग screen",
+      "empty": "कोई नहीं active admitted patients के लिए this सुविधा",
+      "corruptRecovery": "Session history was reset due को a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "जारी रखें this session",
+        "viewDetails": "देखें details",
+        "viewDetailsHint": "देखें session summary",
+        "delete": "हटाएँ",
+        "deleteHint": "हटाएँ से history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "हटाएँ session?",
+        "message": "This session will be removed से history. This cannot be undone.",
+        "confirm": "हटाएँ",
+        "cancel": "रद्द करें"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "स्थिति: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "लोड हो रहा है history…",
+        "error": "लोड नहीं किया जा सका: session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "रोगी प्रोफ़ाइल",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "वेंटिलेटर सेटिंग्स",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "समीक्षा status",
+      "intendedUseWarning": "This is a dataset case के लिए reference only. कोई नहींt के लिए direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "कोई नहीं case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "लोड हो रहा है case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "लंबित clinician सत्यापन",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, और reference.",
+      "accessibilityLabel": "Training होम screen",
+      "searchPlaceholder": "खोजें: topics…",
+      "searchHint": "खोजें: training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "खोजें: results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "देखें all topics",
+      "browseAllHint": "देखें all training topics",
+      "viewTopic": "देखें",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "लोड हो रहा है training…",
+        "error": "लोड नहीं किया जा सका: training content",
+        "offline": "Content is available ऑफ़लाइन",
+        "empty": "कोई नहीं training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic सूची screen",
+      "searchPlaceholder": "खोजें: या filter…",
+      "searchHint": "खोजें: topics",
+      "empty": "कोई नहीं topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "खोलें topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "लोड हो रहा है topics…",
+        "error": "लोड नहीं किया जा सका: topics",
+        "offline": "Content is available ऑफ़लाइन"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "वापस को topics",
+      "backToTopicsHint": "Return को topic सूची",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "लोड हो रहा है topic…",
+        "error": "लोड नहीं किया जा सका: topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page कोई नहींt Found",
+    "message": "page you're looking के लिए doesn't exist या has been moved.",
+    "back": "Go वापस",
+    "backHint": "Return को previous page",
+    "goHome": "पर जाएँ होम",
+    "goHomeHint": "Navigate वापस को होम page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "एक अप्रत्याशित त्रुटि हुई. Please try again या return को होम page.",
+    "retry": "फिर कोशिश करें",
+    "retryHint": "Try action again",
+    "goHome": "पर जाएँ होम",
+    "goHomeHint": "Navigate वापस को होम page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "कुछ गलत हो गया"
   }
 }

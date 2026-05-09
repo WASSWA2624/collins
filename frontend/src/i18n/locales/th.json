@@ -1,52 +1,52 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "submit": "Submit",
-    "loading": "Loading…",
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "continue": "Continue",
-    "close": "Close",
-    "closeSidebarHint": "Closes the sidebar menu",
-    "select": "Select",
-    "selectPlaceholder": "Select…",
-    "closeSelect": "Close select",
-    "remove": "Remove",
-    "goToHome": "Go to home",
-    "viewNotifications": "View notifications",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "search": "ค้นหา",
+    "submit": "ส่ง",
+    "loading": "กำลังโหลด…",
+    "retry": "ลองอีกครั้ง",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "continue": "ดำเนินการต่อ",
+    "close": "ปิด",
+    "closeSidebarHint": "Closes sidebar menu",
+    "select": "เลือก",
+    "selectPlaceholder": "เลือก…",
+    "closeSelect": "ปิด เลือก",
+    "remove": "นำออก",
+    "goToHome": "ไปที่ หน้าแรก",
+    "viewNotifications": "ดู notifications",
     "userMenu": "User menu",
     "toggleMenu": "Toggle menu",
-    "searchPlaceholder": "Search…",
-    "noResults": "No results",
+    "searchPlaceholder": "ค้นหา…",
+    "noResults": "ไม่มีผลลัพธ์",
     "useCustomValue": "Use \"{{value}}\"",
-    "searchIcon": "Search icon",
-    "clearSearch": "Clear search",
+    "searchIcon": "ค้นหา icon",
+    "clearSearch": "ล้าง ค้นหา",
     "on": "On",
     "off": "Off",
     "switch": "Switch",
-    "imageLoadError": "Failed to load image",
+    "imageLoadError": "Failed ไปยัง load image",
     "imageDefaultAlt": "Image",
     "progress": "Progress: {{value}}%",
-    "requiredLabel": "required",
-    "clearAll": "Clear all",
+    "requiredLabel": "จำเป็น",
+    "clearAll": "ล้าง all",
     "filters": "Filters",
-    "clearAllFilters": "Clear all filters",
-    "loadingPlaceholder": "Loading placeholder",
+    "clearAllFilters": "ล้าง all filters",
+    "loadingPlaceholder": "กำลังโหลด placeholder",
     "radio": "Radio",
-    "emptyState": "Empty state",
-    "message": "Message",
+    "emptyState": "ว่าง state",
+    "message": "ข้อความ",
     "sliderValue": "Slider: {{value}}",
     "dropdownMenu": "Dropdown menu",
     "tooltip": "Tooltip",
     "action": "Action"
   },
   "greeting": {
-    "hello": "Hello, {{name}}"
+    "hello": "สวัสดี, {{name}}"
   },
   "app": {
     "name": "AI Vent",
@@ -58,11 +58,11 @@
       "subtitle": "Ventilation decision support",
       "logoLabel": "AI Vent logo"
     },
-    "logout": "Logout",
-    "password": "Password",
-    "passwordHide": "Hide password",
-    "passwordShow": "Show password",
-    "enterPassword": "Enter password",
+    "logout": "ออกจากระบบ",
+    "password": "รหัสผ่าน",
+    "passwordHide": "ซ่อน รหัสผ่าน",
+    "passwordShow": "แสดง รหัสผ่าน",
+    "enterPassword": "ป้อน รหัสผ่าน",
     "passwordStrength": {
       "weak": "Weak",
       "fair": "Fair",
@@ -71,127 +71,127 @@
       "veryStrong": "Very strong"
     },
     "login": {
-      "title": "Sign in",
-      "accessibilityLabel": "Sign in screen",
-      "emailLabel": "Email",
+      "title": "ลงชื่อเข้าใช้",
+      "accessibilityLabel": "ลงชื่อเข้าใช้ screen",
+      "emailLabel": "อีเมล",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "submit": "Sign in",
+      "passwordLabel": "รหัสผ่าน",
+      "passwordPlaceholder": "ป้อน รหัสผ่าน",
+      "submit": "ลงชื่อเข้าใช้",
       "submitting": "Signing in...",
-      "createPrompt": "No account yet?",
-      "createAccount": "Create account",
-      "createAccountHint": "Open account registration",
+      "createPrompt": "ไม่มี บัญชี yet?",
+      "createAccount": "สร้างบัญชี",
+      "createAccountHint": "เปิด บัญชี registration",
       "errorTitle": "Sign-in issue"
     },
     "register": {
-      "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
-      "accessibilityLabel": "Create account screen",
-      "nameLabel": "Full name",
-      "namePlaceholder": "Clinician name",
-      "emailLabel": "Email",
+      "title": "สร้างบัญชี",
+      "description": "Create an AI Vent บัญชี ไปยัง request สถานพยาบาล access.",
+      "accessibilityLabel": "สร้างบัญชี screen",
+      "nameLabel": "ชื่อเต็ม",
+      "namePlaceholder": "Clinician ชื่อ",
+      "emailLabel": "อีเมล",
       "emailPlaceholder": "name@example.com",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Create password",
+      "passwordLabel": "รหัสผ่าน",
+      "passwordPlaceholder": "Create รหัสผ่าน",
       "passwordHelper": "Use at least 8 characters.",
-      "facilitySearchLabel": "Facility or hospital (optional)",
-      "facilitySearchPlaceholder": "Search Uganda hospitals",
-      "facilitySearchHint": "Filters the hospital list by name, district, region, or ownership",
-      "facilitySelectLabel": "Select facility",
-      "facilitySelectPlaceholder": "Choose a matching facility",
-      "facilitySelectHelper": "Leave blank if you are not attached to a facility.",
-      "facilitySelectHint": "Choose the facility to request clinician affiliation",
-      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested for review.",
-      "facilityOptionalHelper": "Optional. You can create an account without selecting a facility.",
-      "facilityNoResults": "No matching facility found. You can still create an account without selecting one.",
-      "facilityClear": "Clear facility",
-      "submit": "Create account",
-      "submitting": "Creating account...",
-      "signInPrompt": "Already have an account?",
-      "signIn": "Sign in",
-      "signInHint": "Return to sign in",
-      "errorTitle": "Account creation issue"
+      "facilitySearchLabel": "สถานพยาบาล หรือ hospital (ไม่บังคับ)",
+      "facilitySearchPlaceholder": "ค้นหา Uganda hospitals",
+      "facilitySearchHint": "Filters hospital รายการ by ชื่อ, district, region, หรือ ownership",
+      "facilitySelectLabel": "เลือก สถานพยาบาล",
+      "facilitySelectPlaceholder": "Choose a matching สถานพยาบาล",
+      "facilitySelectHelper": "Leave blank if you are not attached ไปยัง a สถานพยาบาล.",
+      "facilitySelectHint": "Choose สถานพยาบาล ไปยัง request clinician affiliation",
+      "facilitySelectedHelper": "{{district}} - {{ownership}}. Membership is requested สำหรับ ตรวจสอบ.",
+      "facilityOptionalHelper": "ไม่บังคับ. You can create an บัญชี without selecting a สถานพยาบาล.",
+      "facilityNoResults": "ไม่มี matching สถานพยาบาล found. You can still create an บัญชี without selecting one",
+      "facilityClear": "ล้าง สถานพยาบาล",
+      "submit": "สร้างบัญชี",
+      "submitting": "Creating บัญชี...",
+      "signInPrompt": "Already have an บัญชี?",
+      "signIn": "ลงชื่อเข้าใช้",
+      "signInHint": "Return ไปยัง sign in",
+      "errorTitle": "บัญชี creation issue"
     },
     "session": {
       "noticeTitle": "Session notice",
-      "retry": "Retry session",
+      "retry": "ลองอีกครั้ง session",
       "checking": "Checking session...",
       "restoring": "Checking whether you are already signed in."
     },
     "facility": {
-      "title": "Choose facility",
-      "description": "Select the facility context for this session.",
-      "accessibilityLabel": "Facility selection screen",
-      "selectFacility": "Select {{name}}",
-      "empty": "No approved facilities are available for this account.",
-      "errorTitle": "Facility selection issue"
+      "title": "Choose สถานพยาบาล",
+      "description": "เลือก สถานพยาบาล context สำหรับ this session.",
+      "accessibilityLabel": "สถานพยาบาล selection screen",
+      "selectFacility": "เลือก {{name}}",
+      "empty": "ไม่มี approved facilities are available สำหรับ this บัญชี",
+      "errorTitle": "สถานพยาบาล selection issue"
     }
   },
   "errors": {
     "fallback": {
-      "title": "Something went wrong",
-      "message": "An unexpected error occurred",
-      "retry": "Retry",
-      "retryHint": "Try again"
+      "title": "มีบางอย่างผิดพลาด",
+      "message": "เกิดข้อผิดพลาดที่ไม่คาดคิด",
+      "retry": "ลองอีกครั้ง",
+      "retryHint": "ลองอีกครั้ง"
     },
     "codes": {
-      "UNKNOWN_ERROR": "Something went wrong. Please try again shortly.",
-      "NETWORK_ERROR": "We could not connect to the server. Please check your internet connection and try again.",
-      "REQUEST_TIMEOUT": "The server took too long to respond. Please try again.",
-      "BACKEND_HOST_UNREACHABLE": "We could not reach the server. Please check your internet connection and try again.",
-      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check the backend HTTPS certificate.",
-      "UNAUTHORIZED": "Authentication required",
-      "FORBIDDEN": "Access denied",
-      "CONFLICT": "This update conflicts with newer saved clinical data",
-      "VALIDATION_ERROR": "Please check the highlighted fields and try again.",
-      "SERVER_ERROR": "Something went wrong while processing your request. Please try again shortly.",
-      "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
-      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
-      "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "UNKNOWN_ERROR": "มีบางอย่างผิดพลาด. Please try again shortly.",
+      "NETWORK_ERROR": "We could not connect ไปยัง server. Please check your internet connection และ try again.",
+      "REQUEST_TIMEOUT": "server took too long ไปยัง respond. Please try again.",
+      "BACKEND_HOST_UNREACHABLE": "We could not reach server. Please check your internet connection และ try again.",
+      "SECURE_CONNECTION_FAILED": "Secure connection failed. Check backend HTTPS certificate.",
+      "UNAUTHORIZED": "ต้องยืนยันตัวตน",
+      "FORBIDDEN": "ปฏิเสธการเข้าถึง",
+      "CONFLICT": "This update conflicts พร้อม newer saved clinical data",
+      "VALIDATION_ERROR": "Please check highlighted fields และ try again.",
+      "SERVER_ERROR": "มีบางอย่างผิดพลาด while processing your request. Please try again shortly.",
+      "BACKEND_UNAVAILABLE": "We could not connect ไปยัง server right now. Please try again shortly.",
+      "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. domain is reachable, but API route is not deployed.",
+      "RESOURCE_NOT_FOUND": "requested record could not be found. Please รีเฟรช และ try again.",
+      "ADMISSION_NOT_FOUND": "admission record could not be found. Please return ไปยัง การติดตาม และ try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
-      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
-      "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
+      "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving website instead of API.",
+      "SESSION_STORAGE_FAILED": "We could not บันทึก your sign-in session. Please try again.",
       "DATABASE_ERROR": "Backend database request failed",
-      "RATE_LIMITED": "Too many requests. Wait a moment and try again.",
-      "PAYLOAD_TOO_LARGE": "The request is too large",
-      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected the request format",
-      "ROUTE_ERROR": "An error occurred while loading this page",
-      "INVALID_CREDENTIALS": "Invalid email or password. Please check your details and try again.",
-      "MULTIPLE_TENANTS": "Multiple tenants found. Please select a tenant.",
-      "ACCOUNT_INACTIVE": "Account is not active",
-      "ACCOUNT_SUSPENDED": "Account has been suspended",
-      "ACCOUNT_PENDING": "Account is pending verification",
-      "PASSWORD_INCORRECT": "Current password is incorrect",
-      "TOKEN_INVALID": "Invalid or expired token",
+      "RATE_LIMITED": "Too many requests. Wait a moment และ try again.",
+      "PAYLOAD_TOO_LARGE": "request is too large",
+      "UNSUPPORTED_MEDIA_TYPE": "Backend rejected request format",
+      "ROUTE_ERROR": "An ข้อผิดพลาด occurred while กำลังโหลด this page",
+      "INVALID_CREDENTIALS": "Invalid อีเมล หรือ รหัสผ่าน. Please check your details และ try again.",
+      "MULTIPLE_TENANTS": "Multiple tenants found. Please เลือก a tenant.",
+      "ACCOUNT_INACTIVE": "บัญชี is not active",
+      "ACCOUNT_SUSPENDED": "บัญชี has been suspended",
+      "ACCOUNT_PENDING": "บัญชี is รอดำเนินการ verification",
+      "PASSWORD_INCORRECT": "Current รหัสผ่าน is incorrect",
+      "TOKEN_INVALID": "Invalid หรือ expired token",
       "TOKEN_EXPIRED": "Token has expired",
-      "REFRESH_TOKEN_INVALID": "Invalid or expired refresh token",
-      "SESSION_EXPIRED": "Your session expired. Sign in again to continue.",
+      "REFRESH_TOKEN_INVALID": "Invalid หรือ expired รีเฟรช token",
+      "SESSION_EXPIRED": "Your session expired. ลงชื่อเข้าใช้ again ไปยัง ดำเนินการต่อ.",
       "USER_NOT_FOUND": "User not found",
-      "USER_EXISTS": "This email is already registered. Please sign in instead.",
+      "USER_EXISTS": "This อีเมล is already registered. Please sign in instead.",
       "SESSION_NOT_FOUND": "Session not found",
-      "ALREADY_VERIFIED": "Account is already verified",
+      "ALREADY_VERIFIED": "บัญชี is already verified",
       "AI_UNAVAILABLE": "AI unavailable — using local recommendations",
       "AI_TIMEOUT": "AI request timed out",
-      "AI_UNAUTHORIZED": "AI API key invalid or expired",
+      "AI_UNAUTHORIZED": "AI API key invalid หรือ expired",
       "AI_FORBIDDEN": "AI access denied",
       "AI_RATE_LIMIT": "AI rate limit reached",
       "AI_MODEL_UNAVAILABLE": "AI model unavailable",
       "AI_MALFORMED_RESPONSE": "AI response invalid",
-      "HOME_SUMMARY_INVALID": "Home summary response is invalid",
-      "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the admission record. Please check your connection and try again.",
-      "ADMISSION_VALIDATION_FAILED": "Some required admission details are missing. Please review the highlighted fields.",
-      "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the admission form. Please check your connection and try again.",
-      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "Unable to save the local admission draft. Please try again."
+      "HOME_SUMMARY_INVALID": "หน้าแรก summary response is invalid",
+      "HOME_SUMMARY_LOAD_FAILED": "ไม่สามารถโหลด หน้าแรก summary",
+      "ADMISSION_SAVE_FAILED": "ไม่สามารถบันทึก admission record. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "ADMISSION_VALIDATION_FAILED": "Some จำเป็น admission details are missing. Please ตรวจสอบ highlighted fields.",
+      "ADMISSION_RECOMMENDATION_FAILED": "Unable ไปยัง generate clinical recommendations right now. You can still ตรวจสอบ และ บันทึก admission.",
+      "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "ไม่สามารถโหลด admission form. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "VENTILATION_SESSION_DRAFT_SAVE_FAILED": "ไม่สามารถบันทึก local admission draft. Please try again"
     }
   },
   "forms": {
     "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email format",
+      "required": "จำเป็นต้องกรอกช่องนี้",
+      "invalidEmail": "Invalid อีเมล format",
       "minLength": "Minimum length is {{min}} characters",
       "invalidUrl": "Invalid URL format",
       "invalidUuid": "Invalid ID format",
@@ -202,27 +202,27 @@
   "navigation": {
     "header": {
       "title": "Main navigation header",
-      "searchHint": "Type to search",
-      "cartWithItems": "Cart with {{count}} items",
+      "searchHint": "Type ไปยัง ค้นหา",
+      "cartWithItems": "Cart พร้อม {{count}} items",
       "cartWithItems_zero": "Cart",
-      "signIn": "Sign In",
+      "signIn": "ลงชื่อเข้าใช้",
       "profile": "Profile",
       "orders": "Orders",
-      "settings": "Settings",
-      "logout": "Logout",
+      "settings": "การตั้งค่า",
+      "logout": "ออกจากระบบ",
       "accountMenu": {
-        "accessibilityLabel": "Open account menu for {{name}}",
-        "fallbackName": "Account",
-        "accountType": "Account type"
+        "accessibilityLabel": "เปิด บัญชี menu สำหรับ {{name}}",
+        "fallbackName": "บัญชี",
+        "accountType": "บัญชี type"
       },
-      "hideHeader": "Hide header",
-      "showHeader": "Show header",
-      "showMore": "Show more",
+      "hideHeader": "ซ่อน header",
+      "showHeader": "แสดง header",
+      "showMore": "แสดง more",
       "customize": "Customize",
       "overflowMenuLabel": "More header actions",
       "customizationMenuLabel": "Header customization",
       "actions": {
-        "notifications": "Notifications",
+        "notifications": "ไม่มีtifications",
         "network": "Network status",
         "database": "Database status",
         "fullscreen": "Full screen toggle"
@@ -243,27 +243,27 @@
     "footer": {
       "title": "Global footer",
       "copyright": "© {{year}} {{appName}}. All rights reserved.",
-      "supportEmail": "Support (email)",
-      "supportPhone": "Support (phone)",
+      "supportEmail": "Support (อีเมล)",
+      "supportPhone": "Support (โทรศัพท์)",
       "status": {
         "title": "Application status",
         "auth": "Secure sign-in enabled",
         "main": "All systems operational",
-        "patient": "Patient services ready"
+        "patient": "ผู้ป่วย services ready"
       },
       "environment": "{{env}} · v{{version}} (build: {{build}})",
       "legal": {
-        "title": "Legal and support",
+        "title": "Legal และ support",
         "terms": "Terms",
-        "privacy": "Privacy",
+        "privacy": "ความเป็นส่วนตัว",
         "support": "Support"
       }
     },
     "network": {
       "label": "Network status",
       "status": {
-        "online": "Online",
-        "offline": "Offline",
+        "online": "ออนไลน์",
+        "offline": "ออฟไลน์",
         "unstable": "Unstable",
         "syncing": "Syncing"
       },
@@ -274,10 +274,10 @@
       }
     },
     "notifications": {
-      "label": "Notifications",
-      "menuLabel": "Notifications menu",
-      "empty": "No new notifications",
-      "viewAll": "View all notifications",
+      "label": "ไม่มีtifications",
+      "menuLabel": "ไม่มีtifications menu",
+      "empty": "ไม่มี new notifications",
+      "viewAll": "ดู all notifications",
       "items": {
         "appointments": {
           "title": "Upcoming appointment",
@@ -288,72 +288,72 @@
           "meta": "New results available"
         },
         "messages": {
-          "title": "New message",
+          "title": "New ข้อความ",
           "meta": "You have unread messages"
         }
       }
     },
     "bottomNavigation": "Bottom navigation",
     "mainNavigation": "Main navigation",
-    "patientNavigation": "Patient navigation",
+    "patientNavigation": "ผู้ป่วย navigation",
     "items": {
       "main": {
-        "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
-        "history": "Tracking",
-        "dataset-capture": "Dataset Capture",
-        "review-queue": "Review Queue",
-        "dashboard": "Dashboard",
-        "user-management": "User Management",
+        "home": "หน้าแรก",
+        "admit": "รับเข้า",
+        "assessment": "รับเข้า",
+        "abg-ventilator-updates": "Update ABG & เครื่องช่วยหายใจ การตั้งค่า",
+        "history": "การติดตาม",
+        "dataset-capture": "การบันทึกชุดข้อมูล",
+        "review-queue": "คิวตรวจสอบ",
+        "dashboard": "แดชบอร์ด",
+        "user-management": "การจัดการผู้ใช้",
         "onboarding": "Getting started",
-        "settings": "Settings",
-        "settings-about": "About",
-        "settings-data-sources": "Data sources",
-        "settings-disclaimer": "Disclaimer",
-        "settings-help": "Help",
-        "settings-privacy": "Privacy"
+        "settings": "การตั้งค่า",
+        "settings-about": "เกี่ยวกับ",
+        "settings-data-sources": "แหล่งข้อมูล",
+        "settings-disclaimer": "ข้อจำกัดความรับผิดชอบ",
+        "settings-help": "ช่วยเหลือ",
+        "settings-privacy": "ความเป็นส่วนตัว"
       }
     },
     "breadcrumbs": {
       "title": "Breadcrumb navigation",
       "label": "Breadcrumbs"
     },
-    "skipToMainContent": "Skip to main content"
+    "skipToMainContent": "Skip ไปยัง main content"
   },
   "facilityContext": {
-    "activeFacility": "Active facility",
-    "noFacility": "No active facility",
-    "role": "Role",
-    "noRole": "No active role",
+    "activeFacility": "สถานพยาบาลที่ใช้งานอยู่",
+    "noFacility": "ไม่มี active สถานพยาบาล",
+    "role": "บทบาท",
+    "noRole": "ไม่มี active บทบาท",
     "syncStatus": "Sync status",
-    "facilitySelectLabel": "Select active facility",
-    "accessibilityLabel": "Active facility {{facility}}, sync status {{status}}",
+    "facilitySelectLabel": "เลือก active สถานพยาบาล",
+    "accessibilityLabel": "สถานพยาบาลที่ใช้งานอยู่ {{facility}}, sync status {{status}}",
     "status": {
-      "online": "Online",
-      "offline": "Offline",
+      "online": "ออนไลน์",
+      "offline": "ออฟไลน์",
       "syncing": "Syncing",
       "unstable": "Unstable"
     }
   },
   "shell": {
     "banners": {
-      "surfaceLabel": "System status updates",
+      "surfaceLabel": "ระบบ status updates",
       "offline": {
-        "title": "You are offline",
+        "title": "You are ออฟไลน์",
         "message": "Some features may be unavailable until connectivity is restored.",
-        "accessibilityLabel": "Offline status notification"
+        "accessibilityLabel": "ออฟไลน์ status notification"
       },
       "lowQuality": {
         "title": "Network is unstable",
-        "message": "You may experience delays or limited functionality.",
-        "accessibilityLabel": "Low network quality notification"
+        "message": "You may experience delays หรือ limited functionality.",
+        "accessibilityLabel": "ต่ำ network quality notification"
       },
       "online": {
-        "title": "Back online",
+        "title": "กลับ ออนไลน์",
         "message": "Connection restored.",
-        "accessibilityLabel": "Online status notification"
+        "accessibilityLabel": "ออนไลน์ status notification"
       },
       "maintenance": {
         "title": "Scheduled maintenance",
@@ -363,172 +363,172 @@
     },
     "loadingOverlay": {
       "title": "Working…",
-      "message": "Please wait while we finish the request."
+      "message": "Please wait while we finish request."
     },
     "notices": {
       "surfaceLabel": "Global notifications"
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "การตั้งค่า",
     "screen": {
-      "label": "Settings screen"
+      "label": "การตั้งค่า screen"
     },
     "status": {
-      "loading": "Loading settings...",
-      "saved": "Settings saved.",
+      "loading": "กำลังโหลด การตั้งค่า...",
+      "saved": "การตั้งค่า saved.",
       "profileSaved": "Profile updated successfully.",
-      "profileSaveError": "Unable to save your profile. Please check your connection and try again.",
-      "facilitySaved": "Active facility updated successfully.",
-      "facilitySaveError": "Unable to save the active facility. Please check your connection and try again.",
-      "roleSaved": "Active role updated successfully.",
-      "themeSaved": "Theme updated successfully.",
-      "themeLocalSaved": "Theme updated on this device.",
-      "themeSaveError": "Unable to save your theme preference. Please check your connection and try again.",
-      "saveError": "Unable to save settings. Please check your connection and try again.",
-      "loadError": "Unable to load settings. Please check your connection and try again.",
-      "localOnly": "Server settings are unavailable ({{code}}). Local display controls remain available."
+      "profileSaveError": "ไม่สามารถบันทึก your profile. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "facilitySaved": "สถานพยาบาลที่ใช้งานอยู่ updated successfully.",
+      "facilitySaveError": "ไม่สามารถบันทึก active สถานพยาบาล. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "roleSaved": "Active บทบาท updated successfully.",
+      "themeSaved": "ธีม updated successfully.",
+      "themeLocalSaved": "ธีม updated on this device.",
+      "themeSaveError": "ไม่สามารถบันทึก your ธีม preference. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "saveError": "ไม่สามารถบันทึก การตั้งค่า. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "loadError": "ไม่สามารถโหลด การตั้งค่า. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "localOnly": "Server การตั้งค่า are unavailable ({{code}}). Local display controls remain available."
     },
     "account": {
-      "title": "Account and facility",
-      "name": "Name",
-      "phone": "Phone",
-      "saveProfile": "Save profile",
-      "activeFacility": "Active facility",
-      "activeRole": "Active role",
+      "title": "บัญชี และ สถานพยาบาล",
+      "name": "ชื่อ",
+      "phone": "โทรศัพท์",
+      "saveProfile": "บันทึก profile",
+      "activeFacility": "สถานพยาบาลที่ใช้งานอยู่",
+      "activeRole": "Active บทบาท",
       "approvedRoles": "Approved roles",
-      "noActiveFacility": "No active facility",
-      "activeFacilityHelper": "Select the facility context for clinical work.",
-      "noAssignedFacility": "No facility has been assigned to your account yet.",
-      "activeRoleHelper": "Role for the selected active facility.",
-      "noActiveRole": "No role is available for the selected facility.",
-      "none": "None",
+      "noActiveFacility": "ไม่มี active สถานพยาบาล",
+      "activeFacilityHelper": "เลือก สถานพยาบาล context สำหรับ clinical work.",
+      "noAssignedFacility": "ไม่มี สถานพยาบาล has been assigned ไปยัง your บัญชี yet",
+      "activeRoleHelper": "บทบาท สำหรับ selected active สถานพยาบาล.",
+      "noActiveRole": "ไม่มี บทบาท is available สำหรับ selected สถานพยาบาล",
+      "none": "ไม่มีne",
       "validation": {
-        "nameRequired": "Enter your full name.",
-        "nameTooLong": "Name must be 160 characters or fewer.",
-        "phoneTooLong": "Phone number must be 40 characters or fewer.",
-        "profileInvalid": "Review the highlighted profile fields before saving."
+        "nameRequired": "ป้อน your full ชื่อ.",
+        "nameTooLong": "ชื่อ must be 160 characters หรือ fewer.",
+        "phoneTooLong": "โทรศัพท์ number must be 40 characters หรือ fewer.",
+        "profileInvalid": "ตรวจสอบ highlighted profile fields before saving."
       }
     },
     "accessibility": {
-      "title": "Appearance and accessibility"
+      "title": "Appearance และ accessibility"
     },
     "theme": {
-      "label": "Theme",
-      "accessibilityLabel": "Theme selector",
-      "hint": "Change the application theme",
+      "label": "ธีม",
+      "accessibilityLabel": "ธีม selector",
+      "hint": "เปลี่ยน application ธีม",
       "options": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark",
-        "highContrast": "High contrast"
+        "system": "ระบบ",
+        "light": "สว่าง",
+        "dark": "มืด",
+        "highContrast": "คอนทราสต์สูง"
       }
     },
     "language": {
-      "label": "Language",
-      "accessibilityLabel": "Language selector",
-      "hint": "Change the application language",
+      "label": "ภาษา",
+      "accessibilityLabel": "ภาษา selector",
+      "hint": "เปลี่ยน application ภาษา",
       "options": {
-        "en": "English",
-        "ar": "Arabic",
-        "de": "German",
-        "es": "Spanish",
-        "fa": "Persian",
-        "fr": "French",
-        "hi": "Hindi",
-        "id": "Indonesian",
-        "it": "Italian",
-        "ja": "Japanese",
-        "ko": "Korean",
-        "ms": "Malay",
-        "nl": "Dutch",
-        "pl": "Polish",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "sw": "Swahili",
-        "ta": "Tamil",
-        "th": "Thai",
-        "tr": "Turkish",
-        "uk": "Ukrainian",
-        "vi": "Vietnamese",
-        "zh": "Chinese"
+        "en": "อังกฤษ",
+        "ar": "อาหรับ",
+        "de": "เยอรมัน",
+        "es": "สเปน",
+        "fa": "เปอร์เซีย",
+        "fr": "ฝรั่งเศส",
+        "hi": "ฮินดี",
+        "id": "อินโดนีเซีย",
+        "it": "อิตาลี",
+        "ja": "ญี่ปุ่น",
+        "ko": "เกาหลี",
+        "ms": "มาเลย์",
+        "nl": "ดัตช์",
+        "pl": "โปแลนด์",
+        "pt": "โปรตุเกส",
+        "ru": "รัสเซีย",
+        "sw": "สวาฮีลี",
+        "ta": "ทมิฬ",
+        "th": "ไทย",
+        "tr": "ตุรกี",
+        "uk": "ยูเครน",
+        "vi": "เวียดนาม",
+        "zh": "จีน"
       }
     },
     "density": {
       "label": "Density",
       "accessibilityLabel": "Density mode selector",
-      "hint": "Change the spacing and layout density",
+      "hint": "เปลี่ยน spacing และ layout density",
       "options": {
         "compact": "Compact",
         "comfortable": "Comfortable"
       }
     },
     "footerVisible": {
-      "label": "Show footer",
+      "label": "แสดง footer",
       "accessibilityLabel": "Toggle footer visibility",
-      "hint": "Show or hide the footer at the bottom of the layout (desktop only)"
+      "hint": "แสดง หรือ ซ่อน footer at bottom of layout (desktop only)"
     },
     "sync": {
-      "title": "Offline and sync",
+      "title": "ออฟไลน์ และ sync",
       "network": "Network",
       "status": "Sync status",
       "quality": "Network quality",
       "idle": "Idle",
-      "unknownQuality": "Unknown",
-      "offlineModeEnabled": "Allow offline mode",
+      "unknownQuality": "ไม่ทราบ",
+      "offlineModeEnabled": "Allow ออฟไลน์ mode",
       "syncOnWifiOnly": "Sync on Wi-Fi only",
       "autoSyncEnabled": "Auto-sync",
       "backgroundSyncEnabled": "Background sync",
-      "retryFailedSyncAutomatically": "Retry failed sync automatically",
+      "retryFailedSyncAutomatically": "ลองอีกครั้ง failed sync automatically",
       "syncIntervalMinutes": "Sync interval",
-      "purgeSyncedDraftsAfterDays": "Purge synced drafts after",
-      "conflictResolutionMode": "Conflict resolution",
-      "manualReview": "Manual review",
+      "purgeSyncedDraftsAfterDays": "Purge ซิงค์แล้ว drafts after",
+      "conflictResolutionMode": "ความขัดแย้ง resolution",
+      "manualReview": "Manual ตรวจสอบ",
       "intervalOption": "{{value}} minutes",
       "purgeOption": "{{value}} days"
     },
     "privacyControls": {
-      "title": "Privacy and logging",
-      "hidePatientIdentifiersInLists": "Hide patient identifiers in lists",
-      "requireUnlockForIdentifiers": "Require unlock for identifiers",
+      "title": "ความเป็นส่วนตัว และ logging",
+      "hidePatientIdentifiersInLists": "ซ่อน ผู้ป่วย identifiers in lists",
+      "requireUnlockForIdentifiers": "Require unlock สำหรับ identifiers",
       "shareUsageDiagnostics": "Share usage diagnostics",
       "allowDeidentifiedAnalytics": "Allow de-identified analytics",
       "allowDeidentifiedTrainingDatasetContribution": "Allow de-identified training dataset contribution"
     },
     "governance": {
-      "title": "Governance and clinical workflow",
-      "activeFacility": "Active facility",
-      "manageAccess": "Can manage facility settings",
+      "title": "Governance และ clinical workflow",
+      "activeFacility": "สถานพยาบาลที่ใช้งานอยู่",
+      "manageAccess": "Can manage สถานพยาบาล การตั้งค่า",
       "visibility": "Governance visibility",
       "defaultReferenceRuleScope": "Default reference scope",
       "referenceScope": {
         "global": "Global verified rules",
-        "facility": "Facility verified rules"
+        "facility": "สถานพยาบาล verified rules"
       },
-      "showReferenceVersionToClinicians": "Show reference version to clinicians",
+      "showReferenceVersionToClinicians": "แสดง reference version ไปยัง clinicians",
       "requireVerifiedReferenceRules": "Require verified reference rules",
       "activeReferenceRules": "Active reference rules",
-      "requireReasonForClinicalOverride": "Require reason for clinical override",
-      "requireSecondReviewerForCriticalFlags": "Require second reviewer for critical flags",
+      "requireReasonForClinicalOverride": "Require เหตุผล สำหรับ clinical override",
+      "requireSecondReviewerForCriticalFlags": "Require second reviewer สำหรับ วิกฤต flags",
       "lockReviewedClinicalRecords": "Lock reviewed clinical records",
       "allowDeidentifiedExports": "Allow de-identified exports",
-      "requireExportAuditReason": "Require export audit reason",
-      "exportPatientIdentifiers": "Export patient identifiers",
+      "requireExportAuditReason": "Require export audit เหตุผล",
+      "exportPatientIdentifiers": "Export ผู้ป่วย identifiers",
       "allowRawNotesInExports": "Allow raw notes in exports",
       "datasetExportsRequireEthicsApproval": "Dataset exports require ethics approval",
-      "datasetExportsRequireReview": "Dataset exports require review",
+      "datasetExportsRequireReview": "Dataset exports require ตรวจสอบ",
       "allowUnreviewedDatasetExports": "Allow unreviewed dataset exports",
       "modelVisibility": "Model visibility",
       "liveClinicalPredictionEnabled": "Live clinical prediction enabled",
       "clinicianVisibleModelVersionIds": "Clinician-visible model versions",
-      "showShadowModelOutputsToClinicians": "Show shadow model outputs to clinicians",
-      "modelVisibilityLocked": "Live predictive model output remains hidden from normal clinical workflows."
+      "showShadowModelOutputsToClinicians": "แสดง shadow model outputs ไปยัง clinicians",
+      "modelVisibilityLocked": "Live predictive model output remains hidden จาก ปกติ clinical workflows."
     },
     "sidebar": {
-      "resize": "Resize settings sidebar",
-      "menu": "Settings menu",
-      "menuOpen": "Open settings menu",
-      "menuClose": "Close settings menu",
+      "resize": "Resize การตั้งค่า sidebar",
+      "menu": "การตั้งค่า menu",
+      "menuOpen": "เปิด การตั้งค่า menu",
+      "menuClose": "ปิด การตั้งค่า menu",
       "groups": {
         "general": "General",
         "organization": "Organization",
@@ -537,25 +537,25 @@
       }
     },
     "disclaimer": {
-      "title": "Disclaimer",
+      "title": "ข้อจำกัดความรับผิดชอบ",
       "screen": {
-        "label": "Disclaimer screen"
+        "label": "ข้อจำกัดความรับผิดชอบ screen"
       },
-      "prototypeFraming": "This app is a prototype for reference and training. It is not intended for direct clinical use.",
+      "prototypeFraming": "This app is a prototype สำหรับ reference และ training. It is not intended สำหรับ direct clinical use.",
       "datasetNotice": "Dataset notice",
       "acknowledge": "I acknowledge",
-      "acknowledgeHint": "Confirm that you have read and understood the disclaimer",
+      "acknowledgeHint": "Confirm that you have read และ understood ข้อจำกัดความรับผิดชอบ",
       "decline": "I disagree",
-      "declineHint": "Exit the app without acknowledging",
+      "declineHint": "Exit app without acknowledging",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load disclaimer"
+        "loading": "กำลังโหลด…",
+        "error": "ไม่สามารถโหลด ข้อจำกัดความรับผิดชอบ"
       }
     },
     "dataSources": {
-      "title": "Data sources",
+      "title": "แหล่งข้อมูล",
       "screen": {
-        "label": "Data sources screen"
+        "label": "แหล่งข้อมูล screen"
       },
       "datasetVersion": "Dataset version",
       "schemaVersion": "Schema version",
@@ -564,174 +564,174 @@
       "citations": "Citations",
       "doi": "DOI",
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load data sources",
-        "empty": "No sources available"
+        "loading": "กำลังโหลด…",
+        "error": "ไม่สามารถโหลด data sources",
+        "empty": "ไม่มี sources available"
       },
       "capture": {
         "title": "Dataset capture",
-        "governanceNotice": "Captured candidates are submitted for reviewer approval only. Raw pasted notes are not stored in approved datasets or sent to external model services.",
-        "roleBlocked": "Dataset candidate capture requires an approved clinical write role.",
-        "offlineNotice": "Offline submissions are queued with structured fields only and sync when connectivity returns.",
+        "governanceNotice": "Captured candidates are submitted สำหรับ reviewer approval only. Raw pasted notes are not stored in approved datasets หรือ sent ไปยัง external model services.",
+        "roleBlocked": "Dataset candidate capture requires an approved clinical write บทบาท.",
+        "offlineNotice": "ออฟไลน์ submissions are อยู่ในคิว พร้อม structured fields only และ sync when connectivity returns.",
         "noteLabel": "Paste ICU note",
-        "notePlaceholder": "Paste a de-identified bedside note, then review the structured fields before submitting.",
+        "notePlaceholder": "Paste a de-identified bedside note, then ตรวจสอบ structured fields before submitting.",
         "parse": "Parse preview",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select or sign in to one active facility before submitting.",
+        "facilityReady": "สถานพยาบาล scope ready",
+        "facilityMissing": "เลือก หรือ sign in ไปยัง one active สถานพยาบาล before submitting.",
         "noteRequired": "Paste a note before creating a preview.",
-        "identifierWarning": "Identifier-like text was detected. It is not included in the structured review payload.",
+        "identifierWarning": "Identifier-like text was detected. It is not included in structured ตรวจสอบ payload.",
         "previewTitle": "Structured candidate preview",
         "missingFields": "Missing values",
         "uncertainFields": "Uncertainty highlights",
-        "none": "None",
-        "submitForReview": "Submit for review",
-        "trainingApprovalAvailable": "Training approval controls remain in governed review workflows.",
+        "none": "ไม่มีne",
+        "submitForReview": "ส่งเพื่อตรวจสอบ",
+        "trainingApprovalAvailable": "Training approval controls remain in governed ตรวจสอบ workflows.",
         "status": {
-          "ready": "Ready for review submission",
-          "submitted": "Submitted for reviewer approval",
-          "queued": "Queued for sync",
+          "ready": "Ready สำหรับ ตรวจสอบ submission",
+          "submitted": "Submitted สำหรับ reviewer approval",
+          "queued": "อยู่ในคิว สำหรับ sync",
           "error": "Submission failed"
         }
       }
     },
     "privacy": {
-      "title": "Privacy",
+      "title": "ความเป็นส่วนตัว",
       "screen": {
-        "label": "Privacy screen"
+        "label": "ความเป็นส่วนตัว screen"
       },
       "localStorage": "Data stored locally",
-      "localStorageDescription": "Preferences and session data are stored only on this device. Nothing is sent to external servers.",
-      "optionalAI": "If online AI features are enabled, those requests may be sent to configured services."
+      "localStorageDescription": "Preferences และ session data are stored only on this device. ไม่มีthing is sent ไปยัง external servers.",
+      "optionalAI": "If ออนไลน์ AI features are enabled, those requests may be sent ไปยัง configured services."
     },
     "about": {
-      "title": "About",
+      "title": "เกี่ยวกับ",
       "screen": {
-        "label": "About screen"
+        "label": "เกี่ยวกับ screen"
       },
       "appName": "AI Vent",
       "version": "Version",
-      "prototypeScope": "This is a prototype for reference and training. Not for clinical use."
+      "prototypeScope": "This is a prototype สำหรับ reference และ training. ไม่มีt สำหรับ clinical use."
     },
     "onboarding": {
       "title": "Getting started",
       "accessibilityLabel": "Onboarding screen",
       "safety": {
         "title": "Clinical safety",
-        "body": "AI Vent provides documentation support and advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, or determine ventilator settings.",
-        "secondary": "Confirm all decisions against the patient, your facility workflow, and local clinical protocol.",
+        "body": "AI Vent provides documentation support และ advisory safety prompts only. It does not replace clinical judgment, issue treatment orders, หรือ determine เครื่องช่วยหายใจ การตั้งค่า.",
+        "secondary": "Confirm all decisions against ผู้ป่วย, your สถานพยาบาล workflow, และ local clinical protocol.",
         "accessibilityLabel": "Clinical safety notice",
         "acknowledgeLabel": "I understand this is advisory decision support only",
-        "acknowledgeHint": "Required before continuing to clinical workflows",
-        "syncDeferred": "Safety acknowledgement is saved on this device and will be synced when backend authentication is available."
+        "acknowledgeHint": "จำเป็น before continuing ไปยัง clinical workflows",
+        "syncDeferred": "Safety acknowledgement is saved on this device และ will be ซิงค์แล้ว when backend authentication is available."
       },
       "steps": {
         "clinicalSafety": {
           "title": "Use as advisory support",
-          "body": "Review the safety note before using AI Vent. The app can highlight missing data and uncertainty, but a qualified clinician remains responsible for patient care decisions."
+          "body": "ตรวจสอบ safety note before using AI Vent. app can highlight missing data และ uncertainty, but a qualified clinician remains responsible สำหรับ ผู้ป่วย care decisions."
         },
         "facilityWorkflow": {
-          "title": "Stay in facility context",
-          "body": "Use the active facility and role shown by your session. Keep records within the correct facility workflow and follow local escalation, review, and approval procedures."
+          "title": "Stay in สถานพยาบาล context",
+          "body": "Use active สถานพยาบาล และ บทบาท shown by your session. Keep records within correct สถานพยาบาล workflow และ follow local escalation, ตรวจสอบ, และ approval procedures."
         },
         "inputs": {
-          "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "title": "ป้อนing inputs",
+          "body": "Use รับเข้า ไปยัง ป้อน available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). ไม่บังคับ ABG values improve confidence when available, but missing ไม่บังคับ data should be reviewed as uncertainty rather than treated as a บันทึก blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
-          "body": "Recommendations show advisory ventilator setting references with a confidence tier. Match quality reflects how well dataset cases align with your inputs. Use matched cases as reference only and verify against clinical judgment."
+          "body": "Recommendations แสดง advisory เครื่องช่วยหายใจ setting references พร้อม a confidence tier. Match quality reflects how well dataset cases align พร้อม your inputs. Use matched cases as reference only และ verify against clinical judgment."
         },
         "monitoring": {
-          "title": "Monitoring and alerts",
-          "body": "After reviewing a recommendation, use Monitoring to log vitals and labs over time. Alerts highlight values outside set thresholds and should be assessed according to local protocol."
+          "title": "การติดตาม และ alerts",
+          "body": "After reviewing a คำแนะนำ, use การติดตาม ไปยัง log vitals และ labs over time. Alerts highlight values outside set thresholds และ should be assessed according ไปยัง local protocol."
         },
         "offline": {
-          "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "title": "ออฟไลน์ behavior",
+          "body": "Core workflow (รับเข้า, advisory summaries, การติดตาม) works ออฟไลน์. Data is saved locally. ไม่บังคับ AI features require connectivity. When กลับ ออนไลน์, ดำเนินการต่อ as ปกติ."
         }
       },
       "actions": {
         "done": "Done",
-        "next": "Next",
-        "back": "Back"
+        "next": "ถัดไป",
+        "back": "กลับ"
       },
       "states": {
-        "loading": "Loading…"
+        "loading": "กำลังโหลด…"
       }
     },
     "help": {
-      "title": "Help & reference",
-      "accessibilityLabel": "Help screen",
-      "searchPlaceholder": "Search glossary or guides…",
+      "title": "ช่วยเหลือ & reference",
+      "accessibilityLabel": "ช่วยเหลือ screen",
+      "searchPlaceholder": "ค้นหา glossary หรือ guides…",
       "sections": {
         "glossary": "Glossary",
         "troubleshooting": "Troubleshooting",
-        "guides": "What to do next"
+        "guides": "What ไปยัง do ถัดไป"
       },
       "glossary": {
-        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume and oxygenation.",
+        "PEEP": "Positive end-expiratory pressure (cmH₂O). Maintains lung volume และ oxygenation.",
         "FiO2": "Fraction of inspired oxygen (0–1). Percentage of oxygen in inspired gas.",
-        "IERatio": "I:E ratio. Inspiratory to expiratory time ratio (e.g. 1:2).",
-        "tidalVolume": "Tidal volume (mL). Volume delivered per breath.",
-        "respiratoryRate": "Respiratory rate (breaths/min).",
+        "IERatio": "I:E ratio. Inspiratory ไปยัง expiratory time ratio (e.g. 1:2).",
+        "tidalVolume": "ปริมาตรลมหายใจ (mL). Volume delivered per breath.",
+        "respiratoryRate": "อัตราการหายใจ (breaths/min).",
         "SpO2": "Oxygen saturation by pulse oximetry (%).",
         "PaO2": "Partial pressure of arterial oxygen (mmHg).",
         "PaCO2": "Partial pressure of arterial carbon dioxide (mmHg).",
         "pH": "Arterial pH (unitless).",
-        "ABG": "Arterial blood gas values such as PaO2, PaCO2, and pH, tied to a sample time.",
-        "referenceStatus": "Governance and verification state for a reference range. Only active approved or verified ranges are eligible for active decision-support display.",
-        "datasetCapture": "Candidate de-identified records that need review before dataset or training use.",
-        "reviewQueue": "A work queue for review decisions, corrections, exclusions, and audit reasons.",
-        "syncState": "Current offline, online, or syncing state. Clinical records may still need later sync.",
-        "shadowMode": "Governed model evaluation mode where outputs remain hidden from normal clinical workflows."
+        "ABG": "Arterial blood gas values such as PaO2, PaCO2, และ pH, tied ไปยัง a sample time.",
+        "referenceStatus": "Governance และ verification state สำหรับ a reference range. Only active approved หรือ verified ranges are eligible สำหรับ active decision-support display.",
+        "datasetCapture": "Candidate de-identified records that need ตรวจสอบ before dataset หรือ training use.",
+        "reviewQueue": "A work queue สำหรับ ตรวจสอบ decisions, corrections, exclusions, และ audit reasons.",
+        "syncState": "Current ออฟไลน์, ออนไลน์, หรือ syncing state. Clinical records may still need later sync.",
+        "shadowMode": "Governed model evaluation mode where outputs remain hidden จาก ปกติ clinical workflows."
       },
       "troubleshooting": {
         "missingABG": {
           "title": "Missing ABG values",
-          "body": "Recommendations work without ABG; enter SpO₂ and other vitals when available. For better matching, add PaO₂, PaCO₂, and pH when you have them."
+          "body": "Recommendations work without ABG; ป้อน SpO₂ และ อื่นๆ vitals when available. สำหรับ better matching, เพิ่ม PaO₂, PaCO₂, และ pH when you have them."
         },
         "offline": {
-          "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "title": "Using app ออฟไลน์",
+          "body": "รับเข้า, advisory summaries, และ การติดตาม work ออฟไลน์. Data is stored locally. ไม่บังคับ AI suggestions require internet. Sync is not จำเป็น สำหรับ core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
-          "body": "Draft, pending, retired, rejected, and unverified ranges are not eligible for active decision-support display. Review the source, version, scope, and verification status."
+          "body": "Draft, รอดำเนินการ, retired, rejected, และ unverified ranges are not eligible สำหรับ active decision-support display. ตรวจสอบ source, version, scope, และ verification status."
         },
         "roleRestrictedModelHelp": {
-          "title": "Model-readiness help is restricted",
-          "body": "Predictive model readiness and shadow-mode details are visible only to approved governance roles. Normal clinical workflows do not expose model internals."
+          "title": "Model-readiness ช่วยเหลือ is restricted",
+          "body": "Predictive model readiness และ shadow-mode details are visible only ไปยัง approved governance roles. ไม่มีrmal clinical workflows do not expose model internals."
         },
         "needsReview": {
-          "title": "Record needs review",
-          "body": "Use the review queue to check submitted data, request correction, approve eligible records, or exclude records with an audit reason."
+          "title": "Record needs ตรวจสอบ",
+          "body": "Use ตรวจสอบ queue ไปยัง check submitted data, request correction, อนุมัติ eligible records, หรือ ยกเว้น records พร้อม an audit เหตุผล."
         }
       },
       "guides": {
-        "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
-        "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
+        "home": "ตรวจสอบ สถานพยาบาล context, sync state, active admissions, red flags, และ records needing ตรวจสอบ before opening a ผู้ป่วย workflow.",
+        "admit": "Capture ผู้ป่วย pathway และ available clinical values. Mark unavailable data clearly และ ตรวจสอบ backend-confirmed calculations after บันทึก.",
+        "tracking": "Use การติดตาม ไปยัง scan recent ventilation status และ ตรวจสอบ needs. Read trend flags พร้อม source data และ local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
-        "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
-        "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
-        "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
-        "settings": "Use settings for account, facility, accessibility, privacy, sync, and reference visibility preferences where authorized.",
-        "hypoxemia": "Review FiO₂ and PEEP; consider recruitment; check for shunt or V/Q mismatch.",
-        "hypercapnia": "Review minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
-        "acidosis": "Address ventilation and perfusion; correct underlying cause per protocol.",
-        "general": "Use recommendations as decision support only. Validate against local protocols and clinical judgment."
+        "datasetCapture": "Use dataset capture สำหรับ de-identified candidate records. Human ตรวจสอบ is จำเป็น before approved training-data use.",
+        "reviewQueue": "Use ตรวจสอบ queue ไปยัง อนุมัติ, request correction, หรือ ยกเว้น records while preserving audit trail.",
+        "dashboard": "Use dashboards สำหรับ aggregate quality, ตรวจสอบ, reference, และ governance status. Avoid ผู้ป่วย identifiers in governance summaries.",
+        "settings": "Use การตั้งค่า สำหรับ บัญชี, สถานพยาบาล, accessibility, ความเป็นส่วนตัว, sync, และ reference visibility preferences where authorized.",
+        "hypoxemia": "ตรวจสอบ FiO₂ และ PEEP; consider recruitment; check สำหรับ shunt หรือ V/Q mismatch.",
+        "hypercapnia": "ตรวจสอบ minute ventilation (rate × tidal volume); consider permissive hypercapnia per protocol.",
+        "acidosis": "Address ventilation และ perfusion; correct underlying cause per protocol.",
+        "general": "Use recommendations as decision support only. Validate against local protocols และ clinical judgment."
       },
       "states": {
-        "loading": "Loading…",
-        "empty": "No results",
-        "error": "Unable to load help"
+        "loading": "กำลังโหลด…",
+        "empty": "ไม่มีผลลัพธ์",
+        "error": "ไม่สามารถโหลด ช่วยเหลือ"
       }
     },
     "ai": {
-      "label": "AI decision support",
-      "sectionLabel": "Optional AI recommendation (online)",
+      "label": "การสนับสนุนการตัดสินใจด้วย AI",
+      "sectionLabel": "ไม่บังคับ AI คำแนะนำ (ออนไลน์)",
       "enableLabel": "Enable AI recommendations",
-      "enableHint": "Use online AI for complex cases only; local recommendations always available",
+      "enableHint": "Use ออนไลน์ AI สำหรับ complex cases only; local recommendations always available",
       "providerLabel": "Provider",
       "providerHint": "AI provider (e.g. OpenAI); API key is per provider",
       "providers": {
@@ -745,13 +745,13 @@
         "xai": "xAI (Grok)"
       },
       "apiKeyLabel": "API key",
-      "apiKeyPlaceholder": "Enter key (stored securely)",
-      "apiKeySave": "Save key",
-      "apiKeyClear": "Clear key",
+      "apiKeyPlaceholder": "ป้อน key (stored securely)",
+      "apiKeySave": "บันทึก key",
+      "apiKeyClear": "ล้าง key",
       "keyConfigured": "Set",
-      "keyNotConfigured": "Not set",
+      "keyNotConfigured": "ไม่มีt set",
       "modelLabel": "Model",
-      "modelHint": "Model used for AI suggestions",
+      "modelHint": "Model used สำหรับ AI suggestions",
       "models": {
         "gpt-4o-mini": "GPT-4o mini",
         "gpt-4o": "GPT-4o",
@@ -781,45 +781,45 @@
     }
   },
   "listScaffold": {
-    "loading": "Loading",
-    "offline": "Offline",
-    "error": "Error",
-    "empty": "Empty",
-    "list": "List",
+    "loading": "กำลังโหลด",
+    "offline": "ออฟไลน์",
+    "error": "ข้อผิดพลาด",
+    "empty": "ว่าง",
+    "list": "รายการ",
     "emptyState": {
-      "title": "No items",
-      "message": "There are no items to display"
+      "title": "ไม่มี items",
+      "message": "There are ไม่มี items ไปยัง display"
     },
     "errorState": {
-      "title": "Error",
-      "message": "An error occurred"
+      "title": "ข้อผิดพลาด",
+      "message": "An ข้อผิดพลาด occurred"
     }
   },
   "home": {
-    "title": "Home",
+    "title": "หน้าแรก",
     "welcome": {
-      "title": "Clinical workflow",
-      "message": "Active facility, sync status, drafts, and review work are shown here.",
+      "title": "เวิร์กโฟลว์ทางคลินิก",
+      "message": "สถานพยาบาลที่ใช้งานอยู่, sync status, drafts, และ ตรวจสอบ work are shown here.",
       "logoLabel": "App logo"
     },
     "notices": {
-      "title": "Home notices"
+      "title": "หน้าแรก notices"
     },
     "facilities": {
-      "title": "Select facility",
-      "select": "Select {{name}}"
+      "title": "เลือก สถานพยาบาล",
+      "select": "เลือก {{name}}"
     },
     "status": {
       "title": "Operational status",
       "facility": {
-        "label": "Facility",
-        "empty": "Not selected"
+        "label": "สถานพยาบาล",
+        "empty": "ไม่มีt selected"
       },
       "network": {
         "label": "Network",
         "values": {
-          "online": "Online",
-          "offline": "Offline",
+          "online": "ออนไลน์",
+          "offline": "ออฟไลน์",
           "syncing": "Syncing",
           "unstable": "Unstable"
         }
@@ -830,59 +830,59 @@
       },
       "drafts": {
         "label": "Drafts",
-        "detail": "{{count}} waiting to sync"
+        "detail": "{{count}} waiting ไปยัง sync"
       },
       "syncAttention": {
         "label": "Sync attention",
         "detail": "{{count}} conflicts"
       },
       "reviewNeeds": {
-        "label": "Review queue",
+        "label": "ตรวจสอบ queue",
         "detail": "{{count}} corrections requested"
       }
     },
     "actions": {
       "title": "Workflow actions",
-      "accessibilityLabel": "Open {{name}}",
+      "accessibilityLabel": "เปิด {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "รับเข้า"
       },
       "tracking": {
-        "title": "Tracking"
+        "title": "การติดตาม"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Update ABG & เครื่องช่วยหายใจ การตั้งค่า"
       },
       "datasetCapture": {
-        "title": "Dataset Capture"
+        "title": "การบันทึกชุดข้อมูล"
       },
       "reviewQueue": {
-        "title": "Review Queue"
+        "title": "คิวตรวจสอบ"
       },
       "dashboard": {
-        "title": "Dashboard"
+        "title": "แดชบอร์ด"
       },
       "settings": {
-        "title": "Settings"
+        "title": "การตั้งค่า"
       },
       "meta": {
-        "open": "Open"
+        "open": "เปิด"
       },
       "disabled": {
-        "facilityRequired": "Select facility",
-        "roleRestricted": "Role restricted",
-        "workflowPending": "Route pending"
+        "facilityRequired": "เลือก สถานพยาบาล",
+        "roleRestricted": "บทบาท restricted",
+        "workflowPending": "Route รอดำเนินการ"
       }
     }
   },
   "reviewQueue": {
-    "title": "Review Queue",
-    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, and sync conflicts.",
-    "accessibilityLabel": "Validation review queue",
-    "commentPlaceholder": "Reviewer note, correction request, exclusion reason, or override reason",
+    "title": "คิวตรวจสอบ",
+    "subtitle": "Validate submitted records, corrections, exclusions, reference ranges, dataset readiness, และ sync conflicts.",
+    "accessibilityLabel": "การตรวจสอบ ตรวจสอบ queue",
+    "commentPlaceholder": "Reviewer note, correction request, exclusion เหตุผล, หรือ override เหตุผล",
     "forbidden": {
-      "title": "Review access required",
-      "message": "An approved reviewer or governance role is required for this queue."
+      "title": "ตรวจสอบ access จำเป็น",
+      "message": "An approved reviewer หรือ governance บทบาท is จำเป็น สำหรับ this queue."
     },
     "filters": {
       "all": "All"
@@ -890,10 +890,10 @@
     "entityTypes": {
       "admission": "Admission",
       "abg-test": "ABG",
-      "ventilator-setting": "Ventilator",
+      "ventilator-setting": "เครื่องช่วยหายใจ",
       "dataset-case": "Dataset",
       "reference-rule": "Reference range",
-      "sync-conflict": "Sync conflict"
+      "sync-conflict": "Sync ความขัดแย้ง"
     },
     "summary": {
       "title": "Queue summary",
@@ -907,49 +907,49 @@
       "type": "Type",
       "status": "Status",
       "priority": "Priority",
-      "validation": "Validation",
-      "missingData": "Missing data",
+      "validation": "การตรวจสอบ",
+      "missingData": "ข้อมูลที่ขาดหาย",
       "uncertainty": "Uncertainty",
-      "conflict": "Conflict",
+      "conflict": "ความขัดแย้ง",
       "datasetReadiness": "Dataset readiness"
     },
     "dataset": {
-      "datasetApproved": "Approved for dataset review boundary only; training export still requires governance approval.",
-      "notDatasetApproved": "Not approved for dataset use."
+      "datasetApproved": "Approved สำหรับ dataset ตรวจสอบ boundary only; training export still requires governance approval.",
+      "notDatasetApproved": "ไม่มีt approved สำหรับ dataset use."
     },
     "actions": {
-      "refresh": "Refresh",
-      "approve": "Approve",
-      "requestCorrection": "Request correction",
-      "exclude": "Exclude",
-      "defer": "Defer"
+      "refresh": "รีเฟรช",
+      "approve": "อนุมัติ",
+      "requestCorrection": "ขอแก้ไข",
+      "exclude": "ยกเว้น",
+      "defer": "เลื่อน"
     },
     "states": {
-      "loading": "Loading review queue...",
-      "error": "Unable to load or save review queue.",
-      "empty": "No records need review."
+      "loading": "กำลังโหลด ตรวจสอบ queue...",
+      "error": "ไม่สามารถโหลด หรือ บันทึก ตรวจสอบ queue",
+      "empty": "ไม่มี records need ตรวจสอบ"
     }
   },
   "ventilation": {
     "datasetCapture": {
-      "title": "Clinical Data Capture",
-      "subtitle": "Enter de-identified clinical, ABG, ventilator, target-range, treatment, and outcome data for reviewer-approved model datasets.",
+      "title": "การบันทึกข้อมูลทางคลินิก",
+      "subtitle": "ป้อน de-identified clinical, ABG, เครื่องช่วยหายใจ, target-range, treatment, และ outcome data สำหรับ reviewer-approved model datasets.",
       "accessibilityLabel": "Clinical data capture screen",
       "notices": {
-        "roleBlocked": "This account does not have permission to submit clinical dataset candidates.",
-        "offline": "Offline mode is active. Structured captures will queue locally and sync when connectivity returns."
+        "roleBlocked": "This บัญชี does not have permission ไปยัง ส่ง clinical dataset candidates.",
+        "offline": "ออฟไลน์ mode is active. Structured captures will queue locally และ sync when connectivity returns."
       },
       "summary": {
-        "facility": "Facility",
-        "facilityReady": "Facility scope ready",
-        "facilityMissing": "Select an active facility before submitting.",
-        "required": "Required fields",
+        "facility": "สถานพยาบาล",
+        "facilityReady": "สถานพยาบาล scope ready",
+        "facilityMissing": "เลือก an active สถานพยาบาล before submitting.",
+        "required": "จำเป็น fields",
         "requiredProgress": "{{complete}}/{{total}} complete",
-        "entered": "Entered fields",
+        "entered": "ป้อนed fields",
         "enteredProgress": "{{entered}}/{{total}} entered",
         "sync": "Sync",
-        "online": "Online submission",
-        "offline": "Queued offline"
+        "online": "ออนไลน์ submission",
+        "offline": "อยู่ในคิว ออฟไลน์"
       },
       "progress": {
         "label": "Dataset capture steps",
@@ -957,93 +957,93 @@
         "stepLabel": "Step {{step}}"
       },
       "fields": {
-        "required": "Required for review submission",
-        "optional": "Optional"
+        "required": "จำเป็น สำหรับ ตรวจสอบ submission",
+        "optional": "ไม่บังคับ"
       },
       "missing": {
         "title": "Submission readiness",
-        "none": "All required fields are complete."
+        "none": "All จำเป็น fields are complete."
       },
       "actions": {
-        "submit": "Submit for review",
-        "next": "Next",
+        "submit": "ส่งเพื่อตรวจสอบ",
+        "next": "ถัดไป",
         "previous": "Previous",
-        "reset": "Clear form"
+        "reset": "ล้าง form"
       },
-        "status": {
-          "loadingDraft": "Loading saved dataset draft...",
-          "savingDraft": "Saving dataset draft...",
-          "draftSaved": "Dataset draft saved locally.",
-          "draftError": "Unable to save the local draft. Please keep this screen open and try again.",
-          "needsInput": "Complete required fields and facility scope before submitting.",
-          "ready": "Ready to submit for reviewer approval.",
-          "stepInvalid": "Please review the highlighted values before continuing.",
-          "reviewInvalid": "Please review the highlighted values before saving.",
-          "submitting": "Submitting dataset...",
-          "submitted": "Submitted for reviewer approval.",
-          "queued": "Submission is queued. Your draft is still saved locally until the backend save succeeds.",
-          "error": "Unable to save the dataset. Your draft is still saved locally. Please check your connection and try again."
-        }
+      "status": {
+        "loadingDraft": "กำลังโหลด saved dataset draft...",
+        "savingDraft": "Saving dataset draft...",
+        "draftSaved": "Dataset draft saved locally.",
+        "draftError": "ไม่สามารถบันทึก local draft. Please keep this screen เปิด และ try again",
+        "needsInput": "Complete จำเป็น fields และ สถานพยาบาล scope before submitting.",
+        "ready": "Ready ไปยัง ส่ง สำหรับ reviewer approval.",
+        "stepInvalid": "Please ตรวจสอบ highlighted values before continuing.",
+        "reviewInvalid": "Please ตรวจสอบ highlighted values before saving.",
+        "submitting": "Submitting dataset...",
+        "submitted": "Submitted สำหรับ reviewer approval.",
+        "queued": "Submission is อยู่ในคิว. Your draft is still saved locally until backend บันทึก succeeds.",
+        "error": "ไม่สามารถบันทึก dataset. Your draft is still saved locally. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง"
+      }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "รับเข้า ผู้ป่วย",
+      "accessibilityLabel": "รับเข้า ผู้ป่วย wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact รับเข้า summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
-        "facility": "Facility",
+        "facility": "สถานพยาบาล",
         "pathway": "Pathway",
-        "reason": "Reason",
-        "condition": "Condition",
+        "reason": "เหตุผล",
+        "condition": "ภาวะ",
         "spo2": "SpO₂",
         "fio2": "FiO2",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "อัตราการหายใจ",
+        "heartRate": "อัตราการเต้นหัวใจ",
         "pao2": "PaO₂",
         "paco2": "PaCO₂",
         "ph": "pH",
-        "age": "Age",
-        "weight": "Weight",
-        "height": "Height",
-        "gender": "Gender",
+        "age": "อายุ",
+        "weight": "น้ำหนัก",
+        "height": "ส่วนสูง",
+        "gender": "เพศ",
         "comorbidities": "Comorbidities",
-        "bloodPressure": "Blood pressure",
-        "ventilatorMode": "Ventilator mode",
+        "bloodPressure": "ความดันโลหิต",
+        "ventilatorMode": "โหมดเครื่องช่วยหายใจ",
         "peep": "PEEP",
-        "tidalVolume": "Tidal volume",
+        "tidalVolume": "ปริมาตรลมหายใจ",
         "syncStatus": "Sync",
-        "empty": "No data yet",
+        "empty": "ไม่มี data yet",
         "expand": "Expand summary",
         "collapse": "Collapse summary"
       },
       "steps": {
-        "patientProfile": "Patient profile",
+        "patientProfile": "โปรไฟล์ผู้ป่วย",
         "clinicalParams": "Clinical parameters",
-        "observations": "Optional observations",
-        "timeSeries": "Optional time series",
-        "review": "Review",
-        "patientReason": "Patient & reason",
+        "observations": "ไม่บังคับ observations",
+        "timeSeries": "ไม่บังคับ time series",
+        "review": "ตรวจสอบ",
+        "patientReason": "ผู้ป่วย & เหตุผล",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "บันทึก & ตรวจสอบ"
       },
       "patientReason": {
-        "description": "Capture the patient pathway, age, body metrics, and reason for support.",
-        "facilityId": "Facility ID",
-        "facilityIdPlaceholder": "Enter facility ID",
+        "description": "Capture ผู้ป่วย pathway, อายุ, body metrics, และ เหตุผล สำหรับ support.",
+        "facilityId": "สถานพยาบาล ID",
+        "facilityIdPlaceholder": "ป้อน สถานพยาบาล ID",
         "bedNumber": "Bed",
-        "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
-        "sexForSize": "Sex for size calculations",
-        "ageYears": "Age (years)",
-        "weightKg": "Weight (kg)",
-        "heightCm": "Height (cm)",
+        "bedNumberPlaceholder": "ICU bed หรือ ward location",
+        "pathway": "ผู้ป่วย pathway",
+        "pathwayPlaceholder": "เลือก pathway",
+        "sexForSize": "Sex สำหรับ size calculations",
+        "ageYears": "อายุ (years)",
+        "weightKg": "น้ำหนัก (kg)",
+        "heightCm": "ส่วนสูง (cm)",
         "bmi": "BMI",
-        "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
-        "reasonForSupportSearchPlaceholder": "Search or type reason",
+        "reasonForSupport": "เหตุผล สำหรับ support",
+        "reasonForSupportPlaceholder": "Brief admission เหตุผล",
+        "reasonForSupportSearchPlaceholder": "ค้นหา หรือ type เหตุผล",
         "permittedMissing": "Permitted missing values",
         "pathways": {
           "neonate": "Neonate",
@@ -1057,48 +1057,48 @@
           "periOperative": "Peri-operative",
           "medical": "Medical",
           "surgical": "Surgical",
-          "unknown": "Unknown",
-          "other": "Other"
+          "unknown": "ไม่ทราบ",
+          "other": "อื่นๆ"
         },
         "sex": {
-          "male": "Male",
-          "female": "Female",
-          "unknown": "Unknown"
+          "male": "ชาย",
+          "female": "หญิง",
+          "unknown": "ไม่ทราบ"
         },
         "reasonOptions": {
           "acuteHypoxemicRespiratoryFailure": "Acute hypoxemic respiratory failure",
           "acuteHypercapnicRespiratoryFailure": "Acute hypercapnic respiratory failure",
-          "ardsOrSeverePneumonia": "ARDS or severe pneumonia",
-          "sepsisWithRespiratoryFailure": "Sepsis with respiratory failure",
+          "ardsOrSeverePneumonia": "ARDS หรือ severe pneumonia",
+          "sepsisWithRespiratoryFailure": "Sepsis พร้อม respiratory failure",
           "postOperativeVentilatorySupport": "Post-operative ventilatory support",
           "traumaRelatedRespiratoryFailure": "Trauma-related respiratory failure",
           "airwayProtection": "Airway protection",
           "neuromuscularWeakness": "Neuromuscular weakness",
-          "copdOrAsthmaExacerbation": "COPD or asthma exacerbation",
+          "copdOrAsthmaExacerbation": "COPD หรือ asthma exacerbation",
           "neonatalRespiratoryDistress": "Neonatal respiratory distress",
-          "burnOrInhalationInjury": "Burn or inhalation injury"
+          "burnOrInhalationInjury": "Burn หรือ inhalation injury"
         },
         "permittedMissingFields": {
-          "weight": "Weight or reference weight unavailable",
+          "weight": "น้ำหนัก หรือ reference น้ำหนัก unavailable",
           "spo2": "SpO2 unavailable",
           "fio2": "FiO2 unavailable",
           "pao2": "PaO2 unavailable",
-          "tidalVolume": "Tidal volume unavailable",
+          "tidalVolume": "ปริมาตรลมหายใจ unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, และ uncertain values. เครื่องช่วยหายใจ การตั้งค่า are suggested on ถัดไป step จาก dataset.",
         "oxygenSupportType": "Oxygen support type",
-        "oxygenSupportPlaceholder": "Select oxygen support",
-        "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
+        "oxygenSupportPlaceholder": "เลือก oxygen support",
+        "oxygenSupportHint": "Choose support ผู้ป่วย is receiving when these values are measured.",
         "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
+        "timePlaceholder": "เลือก date และ time",
+        "timeHint": "Use local date และ time สำหรับ observation.",
         "spo2": "SpO2 (%)",
         "fio2": "FiO2 (0-1)",
-        "respiratoryRate": "Respiratory rate",
-        "heartRate": "Heart rate",
+        "respiratoryRate": "อัตราการหายใจ",
+        "heartRate": "อัตราการเต้นหัวใจ",
         "ph": "pH",
         "pao2": "PaO2 (mmHg)",
         "paco2": "PaCO2 (mmHg)",
@@ -1108,34 +1108,34 @@
         "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
-        "ventilatorType": "Ventilator type",
+        "ventilatorType": "เครื่องช่วยหายใจ type",
         "uncertaintyFields": "Uncertain fields",
         "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
-        "uncertaintyHint": "Separate multiple fields with commas.",
-        "uncertaintyReason": "Uncertainty reason",
+        "uncertaintyHint": "Separate multiple fields พร้อม commas.",
+        "uncertaintyReason": "Uncertainty เหตุผล",
         "oxygenSupportOptions": {
           "roomAir": "Room air",
           "nasalCannula": "Nasal cannula",
           "faceMask": "Face mask",
-          "nonRebreatherMask": "Non-rebreather mask",
-          "highFlowNasalCannula": "High-flow nasal cannula",
+          "nonRebreatherMask": "ไม่มีn-rebreather mask",
+          "highFlowNasalCannula": "สูง-flow nasal cannula",
           "cpap": "CPAP",
           "nivBipap": "NIV/BiPAP",
           "invasiveVentilation": "Invasive ventilation",
-          "other": "Other"
+          "other": "อื่นๆ"
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
-        "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "description": "ตรวจสอบ และ แก้ไข dataset-suggested เครื่องช่วยหายใจ การตั้งค่า, backend readiness, clinician confirmation, override เหตุผล when needed, ตรวจสอบ status, และ sync state.",
+        "readiness": "บันทึก readiness",
+        "recommendationTitle": "Dataset คำแนะนำ",
         "recommendationConfidence": "Confidence: {{confidence}}",
-        "suggestedSettingsTitle": "Suggested ventilator settings",
+        "suggestedSettingsTitle": "Suggested เครื่องช่วยหายใจ การตั้งค่า",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
-        "modePlaceholder": "Select mode",
-        "ventilatorMode": "Ventilator mode",
-        "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
+        "modePlaceholder": "เลือก mode",
+        "ventilatorMode": "โหมดเครื่องช่วยหายใจ",
+        "tidalVolumeMl": "ปริมาตรลมหายใจ (mL)",
+        "ventilatorFio2": "เครื่องช่วยหายใจ FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1145,21 +1145,21 @@
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
-          "other": "Other"
+          "other": "อื่นๆ"
         },
-        "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
+        "recommendationEmpty": "ป้อน clinical values และ tap ถัดไป ไปยัง generate a dataset คำแนะนำ.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
-        "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
-        "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "recommendationError": "Unable ไปยัง generate clinical recommendations right now. You can still ตรวจสอบ และ บันทึก admission.",
+        "recommendationNeedsClinicalInputs": "คำแนะนำ needs clinical เหตุผล, SpO2, respiratory rate, และ heart rate.",
+        "ready": "Ready ไปยัง บันทึก",
+        "needsCorrection": "Correction หรือ override จำเป็น",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
-        "overrideReason": "Override reason",
-        "reviewNote": "Review note"
+        "clinicianConfirmed": "Clinician confirms this admission record is ready สำหรับ บันทึก ตรวจสอบ.",
+        "overrideReason": "Override เหตุผล",
+        "reviewNote": "ตรวจสอบ note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "ตรวจสอบ these fields"
       },
       "conditions": {
         "ARDS": "ARDS",
@@ -1169,94 +1169,94 @@
         "pneumonia": "Pneumonia",
         "sepsis": "Sepsis",
         "trauma": "Trauma",
-        "other": "Other"
+        "other": "อื่นๆ"
       },
       "patientProfile": {
-        "condition": "Condition",
-        "conditionPlaceholder": "Select condition",
-        "conditionHint": "Primary respiratory condition (required)",
-        "age": "Age (years)",
-        "agePlaceholder": "Enter age",
-        "ageHint": "Patient age in years",
-        "weight": "Weight (kg)",
-        "weightPlaceholder": "Enter weight",
+        "condition": "ภาวะ",
+        "conditionPlaceholder": "เลือก ภาวะ",
+        "conditionHint": "Primary respiratory ภาวะ (จำเป็น)",
+        "age": "อายุ (years)",
+        "agePlaceholder": "ป้อน อายุ",
+        "ageHint": "ผู้ป่วย อายุ in years",
+        "weight": "น้ำหนัก (kg)",
+        "weightPlaceholder": "ป้อน น้ำหนัก",
         "weightHint": "Patient weight in kg",
-        "height": "Height (cm)",
-        "heightPlaceholder": "Enter height",
+        "height": "ส่วนสูง (cm)",
+        "heightPlaceholder": "ป้อน ส่วนสูง",
         "heightHint": "Patient height in cm",
-        "gender": "Gender",
-        "genderPlaceholder": "Select gender",
-        "genderHint": "Patient gender",
-        "genderMale": "Male",
-        "genderFemale": "Female",
-        "genderOther": "Other",
+        "gender": "เพศ",
+        "genderPlaceholder": "เลือก เพศ",
+        "genderHint": "ผู้ป่วย เพศ",
+        "genderMale": "ชาย",
+        "genderFemale": "หญิง",
+        "genderOther": "อื่นๆ",
         "comorbidities": "Comorbidities",
         "comorbiditiesPlaceholder": "e.g. hypertension, diabetes",
-        "comorbiditiesHint": "Comma-separated list"
+        "comorbiditiesHint": "Comma-separated รายการ"
       },
       "clinicalParams": {
         "spo2": "SpO₂",
         "spo2Placeholder": "Enter SpO₂",
         "spo2Hint": "Oxygen saturation (%)",
-        "spo2NormalRange": "Normal range: 95–100%",
-        "pao2": "PaO₂ (optional)",
+        "spo2NormalRange": "ไม่มีrmal range: 95–100%",
+        "pao2": "PaO₂ (ไม่บังคับ)",
         "pao2Placeholder": "Enter PaO₂",
         "pao2Hint": "Arterial oxygen (mmHg)",
-        "pao2NormalRange": "Normal range: 80–100 mmHg",
-        "paco2": "PaCO₂ (optional)",
+        "pao2NormalRange": "ไม่มีrmal range: 80–100 mmHg",
+        "paco2": "PaCO₂ (ไม่บังคับ)",
         "paco2Placeholder": "Enter PaCO₂",
         "paco2Hint": "Arterial CO₂ (mmHg)",
-        "paco2NormalRange": "Normal range: 35–45 mmHg",
-        "ph": "pH (optional)",
+        "paco2NormalRange": "ไม่มีrmal range: 35–45 mmHg",
+        "ph": "pH (ไม่บังคับ)",
         "phPlaceholder": "Enter pH",
         "phHint": "Arterial pH",
-        "phNormalRange": "Normal range: 7.35–7.45",
-        "respiratoryRate": "Respiratory rate",
-        "respiratoryRatePlaceholder": "Enter RR",
+        "phNormalRange": "ไม่มีrmal range: 7.35–7.45",
+        "respiratoryRate": "อัตราการหายใจ",
+        "respiratoryRatePlaceholder": "ป้อน RR",
         "respiratoryRateHint": "Breaths per minute",
-        "respiratoryRateNormalRange": "Normal range: 12–20 breaths/min",
-        "heartRate": "Heart rate",
-        "heartRatePlaceholder": "Enter HR",
+        "respiratoryRateNormalRange": "ไม่มีrmal range: 12–20 breaths/min",
+        "heartRate": "อัตราการเต้นหัวใจ",
+        "heartRatePlaceholder": "ป้อน HR",
         "heartRateHint": "Beats per minute",
-        "heartRateNormalRange": "Normal range: 60–100 bpm",
-        "bloodPressure": "Blood pressure (optional)",
+        "heartRateNormalRange": "ไม่มีrmal range: 60–100 bpm",
+        "bloodPressure": "ความดันโลหิต (ไม่บังคับ)",
         "bloodPressurePlaceholder": "e.g. 120/80",
         "bloodPressureHint": "Systolic/diastolic mmHg",
-        "bloodPressureNormalRange": "Normal range: 90–120 / 60–80 mmHg",
-        "normalRangeTemplate": "Normal range: {{range}}"
+        "bloodPressureNormalRange": "ไม่มีrmal range: 90–120 / 60–80 mmHg",
+        "normalRangeTemplate": "ไม่มีrmal range: {{range}}"
       },
       "observations": {
         "title": "Additional observations",
-        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single name–value pair. Optional; you can skip this step.",
-        "add": "Add observation",
-        "name": "Name",
+        "description": "Record any extra clinical data not covered above (e.g. labs, imaging, medications, comorbidity scores). Each observation is a single ชื่อ–value pair. ไม่บังคับ; you can skip this step.",
+        "add": "เพิ่ม observation",
+        "name": "ชื่อ",
         "value": "Value",
         "unit": "Unit",
-        "optional": "Optional"
+        "optional": "ไม่บังคับ"
       },
       "timeSeries": {
         "title": "Time series (vital signs over time)",
-        "description": "Track vital signs or other metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used for trend analysis and monitoring after you start the session. Optional; you can add points later on the monitoring screen.",
-        "add": "Add time series point",
-        "name": "Name",
+        "description": "Track vital signs หรือ อื่นๆ metrics at multiple time points (e.g. SpO₂, RR, HR at 0h, 1h, 2h). Used สำหรับ trend analysis และ การติดตาม after you start session. ไม่บังคับ; you can เพิ่ม points later on การติดตาม screen.",
+        "add": "เพิ่ม time series point",
+        "name": "ชื่อ",
         "value": "Value",
-        "optional": "Optional"
+        "optional": "ไม่บังคับ"
       },
       "recommendationSource": {
-        "label": "Recommendation source",
+        "label": "คำแนะนำ source",
         "local": "Local",
-        "localDescription": "Built-in rules. Offline, no API key.",
-        "onlineAi": "Online AI",
-        "onlineAiDescription": "Internet required; uses built-in when unavailable.",
+        "localDescription": "Built-in rules. ออฟไลน์, ไม่มี API key.",
+        "onlineAi": "ออนไลน์ AI",
+        "onlineAiDescription": "Internet จำเป็น; uses built-in when unavailable.",
         "modelLabel": "Model",
-        "modelHint": "Select AI model (default used if not set)",
+        "modelHint": "เลือก AI model (default used if not set)",
         "providerLabel": "Provider",
         "gpt4oMini": "GPT-4o mini (default)",
         "gpt4o": "GPT-4o",
         "gpt4Turbo": "GPT-4 Turbo"
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons สำหรับ คำแนะนำ",
         "hints": "AI hints"
       },
       "missingTests": {
@@ -1265,74 +1265,74 @@
         "abgHint": "Consider ordering arterial blood gas if available"
       },
       "actions": {
-        "back": "Back",
-        "next": "Next",
-        "generate": "Generate recommendation",
-        "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "back": "กลับ",
+        "next": "ถัดไป",
+        "generate": "Generate คำแนะนำ",
+        "generateHint": "Create คำแนะนำ จาก current inputs",
+        "saveAdmission": "บันทึก admission"
       },
       "states": {
-        "loading": "Loading admit form...",
+        "loading": "กำลังโหลด รับเข้า form...",
         "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
-        "retryLoad": "Try again",
-        "offline": "Admit works offline",
-        "empty": "Enter patient data to begin"
+        "error": "ไม่สามารถโหลด admission form. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+        "retryLoad": "ลองอีกครั้ง",
+        "offline": "รับเข้า works ออฟไลน์",
+        "empty": "ป้อน ผู้ป่วย data ไปยัง begin"
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
+      "title": "Update ABG & เครื่องช่วยหายใจ การตั้งค่า",
+      "subtitle": "เลือก an active admission, ป้อน latest ABG result และ/หรือ เครื่องช่วยหายใจ การตั้งค่า, then บันทึก them as new time-stamped records.",
       "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "offline": "ออฟไลน์ mode: this update will stay อยู่ในคิว until connectivity returns.",
       "sections": {
         "admission": "Active admission",
         "latest": "Latest values",
         "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
-        "missing": "Missing data",
+        "ventilator": "New เครื่องช่วยหายใจ การตั้งค่า",
+        "missing": "ข้อมูลที่ขาดหาย",
         "advisory": "Advisory checks",
         "history": "History"
       },
       "admission": {
-        "label": "Select active admission",
-        "empty": "No admitted patients are available for tracking yet."
+        "label": "เลือก active admission",
+        "empty": "ไม่มี admitted patients are available สำหรับ การติดตาม yet"
       },
       "latest": {
         "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "ventilator": "Latest เครื่องช่วยหายใจ"
       },
       "ventilator": {
-        "modePlaceholder": "Select ventilator mode",
-        "modeSearchPlaceholder": "Search ventilator modes"
+        "modePlaceholder": "เลือก เครื่องช่วยหายใจ mode",
+        "modeSearchPlaceholder": "ค้นหา เครื่องช่วยหายใจ modes"
       },
       "history": {
         "empty": "No ABG or ventilator history yet.",
         "abg": "ABG",
-        "ventilator": "Ventilator",
+        "ventilator": "เครื่องช่วยหายใจ",
         "version": "Version {{version}} - {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
+        "save": "บันทึก new values",
         "saving": "Validating & saving"
       }
     },
     "recommendation": {
-      "title": "Recommended Settings",
-      "accessibilityLabel": "Recommendation screen",
+      "title": "การตั้งค่าที่แนะนำ",
+      "accessibilityLabel": "คำแนะนำ screen",
       "responseSource": {
         "title": "Response source",
-        "online": "Online",
-        "offline": "Offline"
+        "online": "ออนไลน์",
+        "offline": "ออฟไลน์"
       },
       "sections": {
-        "settings": "Recommended settings",
+        "settings": "Recommended การตั้งค่า",
         "confidence": "Confidence & why",
-        "monitoring": "Monitoring points",
-        "risks": "Risks and complications",
+        "monitoring": "การติดตาม points",
+        "risks": "Risks และ complications",
         "matchedCases": "Matched cases",
         "evidence": "Evidence & provenance",
         "warning": "Dataset notice",
@@ -1340,28 +1340,28 @@
       },
       "settings": {
         "mode": "Mode",
-        "tidalVolume": "Tidal volume",
-        "respiratoryRate": "Respiratory rate",
+        "tidalVolume": "ปริมาตรลมหายใจ",
+        "respiratoryRate": "อัตราการหายใจ",
         "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
       "confidence": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low",
+        "high": "สูง",
+        "medium": "ปานกลาง",
+        "low": "ต่ำ",
         "missingInputs": "Missing inputs that could improve confidence"
       },
       "decisionSupport": {
-        "pending": "Pending",
-        "referenceWeight": "Reference weight",
+        "pending": "รอดำเนินการ",
+        "referenceWeight": "Reference น้ำหนัก",
         "vtPerKg": "VT/kg",
         "pfRatio": "P/F ratio",
         "sfRatio": "S/F ratio",
         "drivingPressure": "Driving pressure",
-        "reviewStatus": "Review status",
+        "reviewStatus": "ตรวจสอบ status",
         "syncStatus": "Sync status",
-        "missingData": "Missing data",
+        "missingData": "ข้อมูลที่ขาดหาย",
         "referenceStatus": {
           "frontend_preview_unconfirmed": "Unconfirmed preview",
           "backend_verified": "Backend verified",
@@ -1369,78 +1369,78 @@
           "development_fallback_unconfirmed": "Development fallback"
         },
         "review": {
-          "pending_clinician_review": "Pending clinician review",
+          "pending_clinician_review": "รอดำเนินการ clinician ตรวจสอบ",
           "backend_confirmed": "Backend confirmed"
         },
         "sync": {
-          "local_preview_pending_backend_confirmation": "Pending backend confirmation",
-          "synced": "Synced",
-          "queued": "Queued",
+          "local_preview_pending_backend_confirmation": "รอดำเนินการ backend confirmation",
+          "synced": "ซิงค์แล้ว",
+          "queued": "อยู่ในคิว",
           "duplicate": "Duplicate"
         }
       },
       "aiReasons": {
-        "title": "AI reasons for recommendation",
+        "title": "AI reasons สำหรับ คำแนะนำ",
         "hints": "AI hint codes"
       },
       "actions": {
-        "startMonitoring": "Start monitoring",
-        "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
-        "requestAiRecommendation": "Request AI recommendation",
-        "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
+        "startMonitoring": "Start การติดตาม",
+        "startMonitoringHint": "Begin การติดตาม vital signs และ time series",
+        "backToAssessment": "กลับ ไปยัง รับเข้า",
+        "startNewAssessment": "Start new รับเข้า",
+        "editAssessmentTitle": "แก้ไข รับเข้า record",
+        "editAssessmentHint": "เปิด รับเข้า form พร้อม current session data pre-filled",
+        "requestAiRecommendation": "Request AI คำแนะนำ",
+        "requestAiHint": "Get ไม่บังคับ AI hints สำหรับ this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
-        "supplementalDisclaimer": "AI output is supplemental and not clinically validated",
+        "supplementalDisclaimer": "AI output is supplemental และ not clinically validated",
         "aiUnavailableFallback": "AI unavailable — using local recommendations",
-        "fallbackMessage": "Online AI wasn't used. This recommendation is from the local dataset.",
+        "fallbackMessage": "ออนไลน์ AI wasn't used. This คำแนะนำ is จาก local dataset.",
         "exportSummary": "Export summary",
         "exportSummaryHint": "Download session summary as text",
-        "anonymizeBeforeExport": "Remove identifiers before export"
+        "anonymizeBeforeExport": "นำออก identifiers before export"
       },
       "fallbackReasons": {
-        "userChoseLocal": "You chose local recommendation.",
-        "notComplex": "This case did not need online AI.",
-        "offline": "You are offline.",
+        "userChoseLocal": "You chose local คำแนะนำ.",
+        "notComplex": "This case did not need ออนไลน์ AI.",
+        "offline": "You are ออฟไลน์.",
         "noApiKey": "AI API key is not set.",
-        "error": "Online AI failed. Using local dataset instead."
+        "error": "ออนไลน์ AI failed. Using local dataset instead."
       },
-      "fallbackBanner": "AI could not be reached. Showing recommendation from local guide.",
+      "fallbackBanner": "AI could not be reached. แสดงing คำแนะนำ จาก local guide.",
       "states": {
-        "loading": "Loading recommendation…",
-        "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "loading": "กำลังโหลด คำแนะนำ…",
+        "error": "ไม่สามารถโหลด คำแนะนำ",
+        "empty": "ไม่มี คำแนะนำ available. Complete รับเข้า first"
       },
       "intendedUse": {
-        "warningLabel": "Not clinically validated",
-        "validationLabel": "Validation requirement"
+        "warningLabel": "ไม่มีt clinically validated",
+        "validationLabel": "การตรวจสอบ requirement"
       },
       "provenance": {
-        "reviewStatus": "Evidence review status",
-        "sourceUrl": "Open source",
+        "reviewStatus": "Evidence ตรวจสอบ status",
+        "sourceUrl": "เปิด source",
         "doi": "DOI"
       },
       "reviewStatus": {
         "unvalidated": "Unvalidated (prototype)",
-        "pendingClinicianValidation": "Pending clinician validation",
+        "pendingClinicianValidation": "รอดำเนินการ clinician การตรวจสอบ",
         "validated": "Validated"
       }
     },
     "monitoring": {
-      "title": "Monitoring",
-      "accessibilityLabel": "Monitoring screen",
-      "decisionSupportOnly": "For decision support only. Not a substitute for clinical judgment.",
+      "title": "การติดตาม",
+      "accessibilityLabel": "การติดตาม screen",
+      "decisionSupportOnly": "สำหรับ decision support only. ไม่มีt a substitute สำหรับ clinical judgment.",
       "sections": {
         "quickEntry": "Quick entry",
         "trend": "Trend",
         "alerts": "Alerts"
       },
       "quickEntry": {
-        "addPoint": "Add point",
-        "addPointHint": "Add vitals or labs data point",
-        "namePlaceholder": "Name (e.g. SpO₂, RR)",
+        "addPoint": "เพิ่ม point",
+        "addPointHint": "เพิ่ม vitals หรือ labs data point",
+        "namePlaceholder": "ชื่อ (e.g. SpO₂, RR)",
         "valuePlaceholder": "Value",
         "unitPlaceholder": "Unit"
       },
@@ -1449,132 +1449,132 @@
         "directionUp": "Trending up",
         "directionDown": "Trending down",
         "directionFlat": "Stable",
-        "directionUnknown": "Unknown"
+        "directionUnknown": "ไม่ทราบ"
       },
       "alerts": {
-        "severityNormal": "Normal",
-        "severityWarning": "Warning",
-        "severityCritical": "Critical",
-        "severityUnknown": "Unknown",
+        "severityNormal": "ปกติ",
+        "severityWarning": "คำเตือน",
+        "severityCritical": "วิกฤต",
+        "severityUnknown": "ไม่ทราบ",
         "why": "Why",
-        "whyCriticalLow": "Value below critical low threshold",
-        "whyWarningLow": "Value below warning low threshold",
-        "whyCriticalHigh": "Value above critical high threshold",
-        "whyWarningHigh": "Value above warning high threshold",
+        "whyCriticalLow": "Value below วิกฤต ต่ำ threshold",
+        "whyWarningLow": "Value below คำเตือน ต่ำ threshold",
+        "whyCriticalHigh": "Value above วิกฤต สูง threshold",
+        "whyWarningHigh": "Value above คำเตือน สูง threshold",
         "suggestedAction": "Suggested action",
-        "suggestedActionNormal": "Continue monitoring",
-        "suggestedActionWarning": "Review and consider intervention",
+        "suggestedActionNormal": "ดำเนินการต่อ การติดตาม",
+        "suggestedActionWarning": "ตรวจสอบ และ consider intervention",
         "suggestedActionCritical": "Address immediately",
-        "suggestedActionUnknown": "Verify value and re-enter if needed",
-        "empty": "No alerts"
+        "suggestedActionUnknown": "Verify value และ re-ป้อน if needed",
+        "empty": "ไม่มี alerts"
       },
       "actions": {
-        "backToRecommendation": "Back to recommendation"
+        "backToRecommendation": "กลับ ไปยัง คำแนะนำ"
       },
       "states": {
-        "loading": "Loading…",
-        "error": "Unable to load monitoring",
-        "empty": "Add vitals or labs points to see trends and alerts.",
-        "offline": "You are offline. Data is saved locally."
+        "loading": "กำลังโหลด…",
+        "error": "ไม่สามารถโหลด การติดตาม",
+        "empty": "เพิ่ม vitals หรือ labs points ไปยัง see trends และ alerts.",
+        "offline": "You are ออฟไลน์. Data is saved locally."
       }
     },
     "tracking": {
-      "title": "Tracking",
-      "subtitle": "Active admitted patients and backend-confirmed clinical status.",
-      "accessibilityLabel": "Clinical tracking screen",
+      "title": "การติดตาม",
+      "subtitle": "Active admitted patients และ backend-confirmed clinical status.",
+      "accessibilityLabel": "Clinical การติดตาม screen",
       "activePatients": "{{count}} active patients",
-      "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
-      "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
-      "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
+      "empty": "ไม่มี admitted patients are available สำหรับ การติดตาม yet",
+      "emptyHint": "รับเข้า a ผู้ป่วย first ไปยัง begin การติดตาม.",
+      "admittedBanner": "Admission saved. This ผู้ป่วย is admitted และ available สำหรับ การติดตาม.",
+      "localDraft": "Draft data exists on this device. Backend ตรวจสอบ, sync, และ ความขัดแย้ง status appears after บันทึก หรือ sync.",
       "search": {
-        "placeholder": "Search by patient code, ID, name, or hospital number",
-        "accessibilityLabel": "Search tracking patients",
-        "empty": "No matching patients found.",
-        "emptyHint": "Try a patient code, patient ID, name, hospital number, bed, or pathway."
+        "placeholder": "ค้นหา by ผู้ป่วย code, ID, ชื่อ, หรือ hospital number",
+        "accessibilityLabel": "ค้นหา การติดตาม patients",
+        "empty": "ไม่มี matching patients found",
+        "emptyHint": "Try a ผู้ป่วย code, ผู้ป่วย ID, ชื่อ, hospital number, bed, หรือ pathway."
       },
       "activeFacility": {
-        "none": "No active facility selected"
+        "none": "ไม่มี active สถานพยาบาล selected"
       },
       "actions": {
-        "refresh": "Refresh",
-        "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "refresh": "รีเฟรช",
+        "refreshHint": "Reload active การติดตาม records",
+        "admitFirst": "รับเข้า ผู้ป่วย",
         "viewDetails": "Details",
-        "viewDetailsHint": "View tracking detail and timeline",
+        "viewDetailsHint": "ดู การติดตาม detail และ timeline",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
-        "closeDetailsHint": "Close tracking detail"
+        "closeDetailsHint": "ปิด การติดตาม detail"
       },
       "patient": {
-        "unknown": "Patient not labelled",
+        "unknown": "ผู้ป่วย not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "ข้อมูลที่ขาดหาย: {{fields}}"
       },
       "detail": {
-        "title": "Tracking detail",
-        "noTimeline": "No timeline entries returned."
+        "title": "การติดตาม detail",
+        "noTimeline": "ไม่มี timeline entries returned"
       },
       "states": {
-        "loading": "Loading patients for tracking...",
-        "loadingDetail": "Loading tracking detail...",
-        "error": "Unable to load patients for tracking. Please check your connection and try again.",
-        "detailError": "Unable to load tracking details for this patient. Please try again."
+        "loading": "กำลังโหลด patients สำหรับ การติดตาม...",
+        "loadingDetail": "กำลังโหลด การติดตาม detail...",
+        "error": "ไม่สามารถโหลด patients สำหรับ การติดตาม. โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+        "detailError": "ไม่สามารถโหลด การติดตาม details สำหรับ this ผู้ป่วย. Please try again"
       }
     },
     "history": {
-      "title": "Tracking",
-      "accessibilityLabel": "Clinical tracking screen",
-      "empty": "No active admitted patients for this facility.",
-      "corruptRecovery": "Session history was reset due to a storage issue. You can start new sessions.",
+      "title": "การติดตาม",
+      "accessibilityLabel": "Clinical การติดตาม screen",
+      "empty": "ไม่มี active admitted patients สำหรับ this สถานพยาบาล",
+      "corruptRecovery": "Session history was reset due ไปยัง a storage issue. You can start new sessions.",
       "actions": {
         "resume": "Resume",
-        "resumeHint": "Continue this session",
-        "viewDetails": "View details",
-        "viewDetailsHint": "View session summary",
-        "delete": "Delete",
-        "deleteHint": "Remove from history"
+        "resumeHint": "ดำเนินการต่อ this session",
+        "viewDetails": "ดู details",
+        "viewDetailsHint": "ดู session summary",
+        "delete": "ลบ",
+        "deleteHint": "นำออก จาก history"
       },
       "deleteConfirm": {
-        "title": "Delete session?",
-        "message": "This session will be removed from history. This cannot be undone.",
-        "confirm": "Delete",
-        "cancel": "Cancel"
+        "title": "ลบ session?",
+        "message": "This session will be removed จาก history. This cannot be undone.",
+        "confirm": "ลบ",
+        "cancel": "ยกเลิก"
       },
       "session": {
         "dateTime": "{{dateTime}}",
-        "condition": "Condition: {{condition}}",
+        "condition": "ภาวะ: {{condition}}",
         "tier": "Tier: {{tier}}",
         "summary": "Summary"
       },
       "states": {
-        "loading": "Loading history…",
-        "error": "Unable to load session history"
+        "loading": "กำลังโหลด history…",
+        "error": "ไม่สามารถโหลด session history"
       }
     },
     "caseDetail": {
       "title": "Case detail",
       "accessibilityLabel": "Case detail screen",
       "summary": "Case summary",
-      "patientProfile": "Patient profile",
+      "patientProfile": "โปรไฟล์ผู้ป่วย",
       "clinicalParameters": "Clinical parameters",
-      "ventilatorSettings": "Ventilator settings",
+      "ventilatorSettings": "เครื่องช่วยหายใจ การตั้งค่า",
       "outcomes": "Outcomes",
       "evidence": "Evidence",
-      "reviewStatus": "Review status",
-      "intendedUseWarning": "This is a dataset case for reference only. Not for direct clinical use.",
+      "reviewStatus": "ตรวจสอบ status",
+      "intendedUseWarning": "This is a dataset case สำหรับ reference only. ไม่มีt สำหรับ direct clinical use.",
       "datasetCaseFraming": "Dataset case (reference only)",
       "prototypeFraming": "Prototype — not clinically validated",
       "notFound": "Case not found in dataset.",
-      "missingCaseId": "No case selected.",
+      "missingCaseId": "ไม่มี case selected",
       "states": {
-        "loading": "Loading case…"
+        "loading": "กำลังโหลด case…"
       },
       "review": {
         "unvalidated": "Unvalidated (prototype)",
-        "pending_clinician_validation": "Pending clinician validation",
+        "pending_clinician_validation": "รอดำเนินการ clinician การตรวจสอบ",
         "validated": "Validated"
       }
     }
@@ -1582,40 +1582,40 @@
   "training": {
     "home": {
       "title": "Training",
-      "subtitle": "Protocols, checklists, and reference.",
-      "accessibilityLabel": "Training home screen",
-      "searchPlaceholder": "Search topics…",
-      "searchHint": "Search training content",
+      "subtitle": "Protocols, checklists, และ reference.",
+      "accessibilityLabel": "Training หน้าแรก screen",
+      "searchPlaceholder": "ค้นหา topics…",
+      "searchHint": "ค้นหา training content",
       "topicsSection": "Topics",
-      "searchResults": "Search results",
+      "searchResults": "ค้นหา results",
       "popularTopics": "Popular topics",
       "quickChecklists": "Quick checklists",
-      "browseAll": "View all topics",
-      "browseAllHint": "View all training topics",
-      "viewTopic": "View",
+      "browseAll": "ดู all topics",
+      "browseAllHint": "ดู all training topics",
+      "viewTopic": "ดู",
       "states": {
-        "loading": "Loading training…",
-        "error": "Unable to load training content",
-        "offline": "Content is available offline",
-        "empty": "No training content available"
+        "loading": "กำลังโหลด training…",
+        "error": "ไม่สามารถโหลด training content",
+        "offline": "Content is available ออฟไลน์",
+        "empty": "ไม่มี training content available"
       }
     },
     "topics": {
       "title": "Topics",
-      "accessibilityLabel": "Topic list screen",
-      "searchPlaceholder": "Search or filter…",
-      "searchHint": "Search topics",
-      "empty": "No topics found.",
+      "accessibilityLabel": "Topic รายการ screen",
+      "searchPlaceholder": "ค้นหา หรือ filter…",
+      "searchHint": "ค้นหา topics",
+      "empty": "ไม่มี topics found",
       "filterByType": "Filter by type",
       "typeProtocol": "Protocol",
       "typeChecklist": "Checklist",
       "typeGlossary": "Glossary",
       "typeFaq": "FAQ",
-      "openTopicHint": "Open topic",
+      "openTopicHint": "เปิด topic",
       "states": {
-        "loading": "Loading topics…",
-        "error": "Unable to load topics",
-        "offline": "Content is available offline"
+        "loading": "กำลังโหลด topics…",
+        "error": "ไม่สามารถโหลด topics",
+        "offline": "Content is available ออฟไลน์"
       }
     },
     "topicDetail": {
@@ -1626,31 +1626,31 @@
       "collapse": "Collapse section",
       "checklistItem": "Item",
       "notFound": "Topic not found.",
-      "backToTopics": "Back to topics",
-      "backToTopicsHint": "Return to topic list",
+      "backToTopics": "กลับ ไปยัง topics",
+      "backToTopicsHint": "Return ไปยัง topic รายการ",
       "states": {
-        "loading": "Loading topic…",
-        "error": "Unable to load topic"
+        "loading": "กำลังโหลด topic…",
+        "error": "ไม่สามารถโหลด topic"
       }
     }
   },
   "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "back": "Go Back",
-    "backHint": "Return to the previous page",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "title": "Page ไม่มีt Found",
+    "message": "page you're looking สำหรับ doesn't exist หรือ has been moved.",
+    "back": "Go กลับ",
+    "backHint": "Return ไปยัง previous page",
+    "goHome": "ไปที่ หน้าแรก",
+    "goHomeHint": "Navigate กลับ ไปยัง หน้าแรก page"
   },
   "error": {
     "title": "Something Went Wrong",
-    "message": "An unexpected error occurred. Please try again or return to the home page.",
-    "retry": "Retry",
-    "retryHint": "Try the action again",
-    "goHome": "Go to Home",
-    "goHomeHint": "Navigate back to the home page"
+    "message": "เกิดข้อผิดพลาดที่ไม่คาดคิด. Please try again หรือ return ไปยัง หน้าแรก page.",
+    "retry": "ลองอีกครั้ง",
+    "retryHint": "Try action again",
+    "goHome": "ไปที่ หน้าแรก",
+    "goHomeHint": "Navigate กลับ ไปยัง หน้าแรก page"
   },
   "errorState": {
-    "defaultTitle": "Something went wrong"
+    "defaultTitle": "มีบางอย่างผิดพลาด"
   }
 }

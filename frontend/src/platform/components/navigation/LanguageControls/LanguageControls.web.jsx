@@ -15,22 +15,37 @@ import { StyledLanguageControls } from './LanguageControls.web.styles';
  * @param {string} [props.className]
  * @param {string} [props.accessibilityLabel]
  * @param {string} [props.accessibilityHint]
+ * @param {Object} [props.style]
+ * @param {boolean} [props.compact]
  */
-const LanguageControlsWeb = ({ testID, className, accessibilityLabel, accessibilityHint }) => {
+const LanguageControlsWeb = ({
+  testID,
+  className,
+  accessibilityLabel,
+  accessibilityHint,
+  style,
+  compact = true,
+}) => {
   const { t } = useI18n();
   const { locale, options, setLocale } = useLanguageControls();
   const label = t('settings.language.label');
-  const resolvedLabel = accessibilityLabel || t('settings.language.accessibilityLabel');
+  const resolvedLabel =
+    accessibilityLabel || t('settings.language.accessibilityLabel');
   const resolvedHint = accessibilityHint || t('settings.language.hint');
 
   return (
-    <StyledLanguageControls data-testid={testID} className={className}>
+    <StyledLanguageControls
+      data-testid={testID}
+      className={className}
+      style={style}
+    >
       <Select
         label={label}
         value={locale}
         options={options}
         onValueChange={setLocale}
-        compact
+        compact={compact}
+        style={style}
         accessibilityLabel={resolvedLabel}
         accessibilityHint={resolvedHint}
         testID={testID ? `${testID}-select` : undefined}
