@@ -241,12 +241,13 @@ describe('EmptyState Component', () => {
         expect(getByText('Android Empty State')).toBeTruthy();
       });
 
-      it('should have accessibilityRole="status" on Android', () => {
+      it('should use a polite live region on Android', () => {
         const { getByTestId } = renderWithTheme(
           <EmptyStateAndroid title="Android Empty State" testID="empty-state-android" />
         );
         const emptyState = getByTestId('empty-state-android');
-        expect(emptyState.props.accessibilityRole).toBe('status');
+        expect(emptyState.props.accessibilityRole).toBeUndefined();
+        expect(emptyState.props.accessibilityLiveRegion).toBe('polite');
       });
 
       it('should use custom accessibility label on Android', () => {

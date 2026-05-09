@@ -338,7 +338,7 @@ describe('AuthLayout Component', () => {
         expect(getByText('Android Content')).toBeTruthy();
       });
 
-      it('should have correct accessibility role on Android', () => {
+      it('should not set unsupported main role on Android', () => {
         // eslint-disable-next-line import/no-unresolved
         const AuthLayoutAndroid = require('@platform/layouts/AuthLayout/AuthLayout.android').default;
         const { getByTestId } = renderWithTheme(
@@ -347,7 +347,7 @@ describe('AuthLayout Component', () => {
           </AuthLayoutAndroid>
         );
         const container = getByTestId('android-auth-layout');
-        expect(container.props.accessibilityRole).toBe('main');
+        expect(container.props.accessibilityRole).toBeUndefined();
       });
 
       it('should handle keyboard on Android', () => {

@@ -71,10 +71,10 @@ describe('Divider Component', () => {
       expect(getByTestId('divider-android')).toBeTruthy();
     });
 
-    it('should have separator accessibility role on Android', () => {
+    it('should not set unsupported separator accessibility role on Android', () => {
       const { getByTestId } = renderWithTheme(<DividerAndroid testID="divider-android" />);
       const divider = getByTestId('divider-android');
-      expect(divider.props.accessibilityRole).toBe('separator');
+      expect(divider.props.accessibilityRole).toBeUndefined();
     });
 
     it('should accept accessibility label on Android', () => {

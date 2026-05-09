@@ -117,14 +117,14 @@ describe('Card Component', () => {
       expect(getByText('Default Card')).toBeTruthy();
     });
 
-    it('should have article accessibility role on Android', () => {
+    it('should not set unsupported article accessibility role on Android', () => {
       const { getByTestId } = renderWithTheme(
         <CardAndroid testID="card-android">
           <Text>Content</Text>
         </CardAndroid>
       );
       const card = getByTestId('card-android');
-      expect(card.props.accessibilityRole).toBe('article');
+      expect(card.props.accessibilityRole).toBeUndefined();
     });
 
     it('should have custom accessibility label on Android', () => {

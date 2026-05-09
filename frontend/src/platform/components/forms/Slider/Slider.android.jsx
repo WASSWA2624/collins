@@ -34,7 +34,7 @@ const SliderAndroid = ({
 
   return (
     <StyledSlider
-      accessibilityRole="slider"
+      accessibilityRole="adjustable"
       accessibilityValue={{ min: minimumValue, max: maximumValue, now: clampedValue }}
       accessibilityLabel={accessibilityLabel || `Slider: ${clampedValue}`}
       accessibilityState={{ disabled }}

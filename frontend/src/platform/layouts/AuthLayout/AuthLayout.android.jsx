@@ -25,7 +25,6 @@ const AuthLayoutAndroid = ({
   return (
     <StyledContainer
       {...(accessibilityLabel && { accessibilityLabel })}
-      accessibilityRole="main"
       {...(testID && { testID })}
     >
       <StyledKeyboardAvoidingView behavior="padding">

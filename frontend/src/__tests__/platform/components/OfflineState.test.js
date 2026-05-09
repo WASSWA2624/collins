@@ -222,12 +222,13 @@ describe('OfflineState Component', () => {
         expect(getByText('Android Offline State')).toBeTruthy();
       });
 
-      it('should have accessibilityRole="status" on Android', () => {
+      it('should use a polite live region on Android', () => {
         const { getByTestId } = renderWithTheme(
           <OfflineStateAndroid title="Android Offline State" testID="offline-state-android" />
         );
         const offlineState = getByTestId('offline-state-android');
-        expect(offlineState.props.accessibilityRole).toBe('status');
+        expect(offlineState.props.accessibilityRole).toBeUndefined();
+        expect(offlineState.props.accessibilityLiveRegion).toBe('polite');
       });
 
       it('should use custom accessibility label on Android', () => {

@@ -61,7 +61,6 @@ const UserMembership = ({
       <Text
         variant="caption"
         style={styles.savedStatus}
-        accessibilityRole="status"
         accessibilityLiveRegion="polite"
         testID={`${testIds.membershipSaved}-${membership.id}`}
       >

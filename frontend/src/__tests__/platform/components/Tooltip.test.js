@@ -297,12 +297,12 @@ describe('Tooltip Component', () => {
         expect(getByLabelText('Default Position')).toBeTruthy();
       });
 
-      it('should have accessibilityRole="tooltip" on Android', () => {
+      it('should not set unsupported tooltip role on Android', () => {
         const { getByLabelText } = renderWithTheme(
           <TooltipAndroid visible text="Android Tooltip" testID="tooltip-android" />
         );
         const tooltip = getByLabelText('Android Tooltip');
-        expect(tooltip.props.accessibilityRole).toBe('tooltip');
+        expect(tooltip.props.accessibilityRole).toBeUndefined();
       });
 
       it('should have accessibilityLabel on Android', () => {
