@@ -21,6 +21,8 @@ const FacilitySearchSelectNative = ({
   helperText,
   selectedHelper,
   noResultsText,
+  loadingText,
+  errorText,
   clearLabel,
   query,
   onQueryChange,
@@ -29,6 +31,7 @@ const FacilitySearchSelectNative = ({
   onClear,
   options = [],
   disabled = false,
+  loading = false,
   accessibilityHint,
   testID = 'facility-search-select',
 }) => {
@@ -41,7 +44,7 @@ const FacilitySearchSelectNative = ({
     return options.slice(0, MAX_VISIBLE_OPTIONS);
   }, [isOpen, options]);
   const hasQuery = normalize(query).length > 0;
-  const showNoResults = isOpen && hasQuery && visibleOptions.length === 0;
+  const showNoResults = isOpen && !loading && hasQuery && visibleOptions.length === 0;
   const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
@@ -110,11 +113,19 @@ const FacilitySearchSelectNative = ({
           testID={`${testID}-input`}
         />
         <StyledChevron>
-          {isOpen ? '▴' : '▾'}
+          {isOpen ? '^' : 'v'}
         </StyledChevron>
       </StyledSelectSurface>
 
-      {isOpen && visibleOptions.length > 0 ? (
+      {isOpen && loading ? (
+        <StyledEmptyState testID={`${testID}-loading`}>
+          <Text variant="caption" color="text.secondary">
+            {loadingText}
+          </Text>
+        </StyledEmptyState>
+      ) : null}
+
+      {isOpen && !loading && visibleOptions.length > 0 ? (
         <StyledOptionsPanel
           accessibilityLabel={label}
           accessibilityRole="list"
@@ -143,6 +154,12 @@ const FacilitySearchSelectNative = ({
             ))}
           </StyledOptionsScroll>
         </StyledOptionsPanel>
+      ) : null}
+
+      {errorText ? (
+        <StyledErrorText testID={`${testID}-error`}>
+          {errorText}
+        </StyledErrorText>
       ) : null}
 
       {showNoResults ? (
@@ -246,6 +263,10 @@ const StyledHelperText = styled.Text`
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+const StyledErrorText = styled(StyledHelperText)`
+  color: ${({ theme }) => theme.colors.status?.error || '#B42318'};
 `;
 
 const StyledClearAction = styled.View`

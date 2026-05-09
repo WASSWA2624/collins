@@ -20,6 +20,8 @@ const FacilitySearchSelectWeb = ({
   helperText,
   selectedHelper,
   noResultsText,
+  loadingText,
+  errorText,
   clearLabel,
   query,
   onQueryChange,
@@ -28,6 +30,7 @@ const FacilitySearchSelectWeb = ({
   onClear,
   options = [],
   disabled = false,
+  loading = false,
   accessibilityHint,
   testID = 'facility-search-select',
 }) => {
@@ -43,7 +46,7 @@ const FacilitySearchSelectWeb = ({
     return options.slice(0, MAX_VISIBLE_OPTIONS);
   }, [isOpen, options]);
   const hasQuery = normalize(query).length > 0;
-  const showNoResults = isOpen && hasQuery && visibleOptions.length === 0;
+  const showNoResults = isOpen && !loading && hasQuery && visibleOptions.length === 0;
   const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
@@ -116,11 +119,19 @@ const FacilitySearchSelectWeb = ({
           data-testid={inputId}
         />
         <StyledChevron aria-hidden="true">
-          {isOpen ? '▴' : '▾'}
+          {isOpen ? '^' : 'v'}
         </StyledChevron>
       </StyledSelectSurface>
 
-      {isOpen && visibleOptions.length > 0 ? (
+      {isOpen && loading ? (
+        <StyledEmptyState data-testid={`${testID}-loading`}>
+          <Text variant="caption" color="text.secondary">
+            {loadingText}
+          </Text>
+        </StyledEmptyState>
+      ) : null}
+
+      {isOpen && !loading && visibleOptions.length > 0 ? (
         <StyledOptionsPanel
           id={listboxId}
           role="listbox"
@@ -148,6 +159,12 @@ const FacilitySearchSelectWeb = ({
             </StyledOption>
           ))}
         </StyledOptionsPanel>
+      ) : null}
+
+      {errorText ? (
+        <StyledErrorText data-testid={`${testID}-error`}>
+          {errorText}
+        </StyledErrorText>
       ) : null}
 
       {showNoResults ? (
@@ -321,6 +338,13 @@ const StyledHelperText = styled.div.withConfig({
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+const StyledErrorText = styled(StyledHelperText).withConfig({
+  displayName: 'StyledErrorText',
+  componentId: 'FacilitySearchSelectError',
+})`
+  color: ${({ theme }) => theme.colors.status?.error || '#B42318'};
 `;
 
 const StyledClearAction = styled.div.withConfig({

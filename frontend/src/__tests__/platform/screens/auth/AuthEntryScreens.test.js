@@ -1,10 +1,37 @@
 const React = require('react');
-const { fireEvent, render, waitFor } = require('@testing-library/react-native');
+const { act, fireEvent, render, waitFor } = require('@testing-library/react-native');
 const { ThemeProvider } = require('styled-components/native');
 
 const translations = require('@i18n/locales/en.json');
 
 const mockPush = jest.fn();
+const mockFacilities = [
+  {
+    id: 'facility-mulago',
+    name: 'Mulago National Referral Hospital',
+    district: 'Kampala',
+    region: 'Central',
+    type: 'National referral hospital',
+    ownership: 'Government',
+  },
+  {
+    id: 'facility-ihk',
+    name: 'International Hospital Kampala',
+    district: 'Kampala',
+    region: 'Central',
+    type: 'Hospital',
+    ownership: 'Private for-profit',
+  },
+];
+const mockSearchFacilitiesUseCase = jest.fn(({ q } = {}) => {
+  const term = String(q || '').toLowerCase();
+  return Promise.resolve({
+    facilities: term
+      ? mockFacilities.filter((facility) => facility.name.toLowerCase().includes(term))
+      : mockFacilities,
+    meta: { total: mockFacilities.length, page: 1, limit: 25, hasNextPage: false },
+  });
+});
 let mockAuthState;
 
 const getTranslation = (key) =>
@@ -32,6 +59,11 @@ jest.mock('expo-router', () => ({
 jest.mock('@hooks', () => ({
   useI18n: () => ({ t: mockT }),
   useAuth: () => mockAuthState,
+  useDebounce: (value) => value,
+}));
+
+jest.mock('@features/facilities', () => ({
+  searchFacilitiesUseCase: (...args) => mockSearchFacilitiesUseCase(...args),
 }));
 
 jest.mock('@platform/components', () => {
@@ -200,6 +232,12 @@ const createAuthState = (overrides = {}) => ({
 });
 
 const renderWithTheme = (node) => render(<ThemeProvider theme={lightTheme}>{node}</ThemeProvider>);
+const flushFacilityLoad = async () => {
+  await act(async () => {
+    await Promise.resolve();
+    await Promise.resolve();
+  });
+};
 
 describe('auth entry screens', () => {
   beforeEach(() => {
@@ -274,8 +312,9 @@ describe('auth entry screens', () => {
     expect(getByTestId('login-error-banner').props.variant).toBe('error');
   });
 
-  it('renders a branded registration entry with sign-in navigation', () => {
+  it('renders a branded registration entry with sign-in navigation', async () => {
     const { getByPlaceholderText, getByTestId, queryByTestId, queryByText } = renderWithTheme(<RegisterScreen />);
+    await flushFacilityLoad();
 
     expect(getByTestId('register-brand-logo')).toBeTruthy();
     expect(getByTestId('register-brand').props.layout).toBe('horizontal');
@@ -292,7 +331,9 @@ describe('auth entry screens', () => {
 
     fireEvent(getByTestId('register-facility-combobox-input'), 'focus');
 
-    expect(getByTestId('register-facility-combobox-options')).toBeTruthy();
+    await waitFor(() => {
+      expect(getByTestId('register-facility-combobox-options')).toBeTruthy();
+    });
 
     fireEvent.press(getByTestId('register-sign-in'));
 
@@ -301,6 +342,7 @@ describe('auth entry screens', () => {
 
   it('submits validated registration details through the auth hook', async () => {
     const { getByPlaceholderText, getByTestId } = renderWithTheme(<RegisterScreen />);
+    await flushFacilityLoad();
 
     fireEvent.changeText(getByTestId('register-name'), ' Nurse User ');
     fireEvent.changeText(getByTestId('register-email'), ' nurse@example.com ');
@@ -316,9 +358,10 @@ describe('auth entry screens', () => {
     });
   });
 
-  it('shows a disabled registration loading state', () => {
+  it('shows a disabled registration loading state', async () => {
     mockAuthState = createAuthState({ isLoading: true });
     const { getByTestId, getByText } = renderWithTheme(<RegisterScreen />);
+    await flushFacilityLoad();
 
     expect(getByText('Creating account...')).toBeTruthy();
     expect(getByTestId('register-submit').props.accessibilityState.disabled).toBe(true);
@@ -326,11 +369,15 @@ describe('auth entry screens', () => {
 
   it('submits an optional facility affiliation as a pending clinician request', async () => {
     const { getByPlaceholderText, getByTestId } = renderWithTheme(<RegisterScreen />);
+    await flushFacilityLoad();
 
     fireEvent.changeText(getByTestId('register-name'), 'Nurse User');
     fireEvent.changeText(getByTestId('register-email'), 'nurse@example.com');
     fireEvent.changeText(getByPlaceholderText('Create password'), 'long-pass');
     fireEvent.changeText(getByTestId('register-facility-combobox-input'), 'Mulago');
+    await waitFor(() => {
+      expect(getByTestId('register-facility-combobox-option-0')).toBeTruthy();
+    });
     fireEvent.press(getByTestId('register-facility-combobox-option-0'));
     fireEvent.press(getByTestId('register-submit'));
 
@@ -339,18 +386,15 @@ describe('auth entry screens', () => {
         name: 'Nurse User',
         email: 'nurse@example.com',
         password: 'long-pass',
-        facilityName: 'Mulago National Referral Hospital',
-        facilityDistrict: 'Kampala',
-        facilityRegion: 'Central',
-        facilityType: 'National referral hospital',
-        facilityOwnership: 'Government',
+        facilityId: 'facility-mulago',
         requestedRole: 'CLINICIAN',
       }));
     });
   });
 
-  it('keeps short registration passwords local and accessible as field help', () => {
+  it('keeps short registration passwords local and accessible as field help', async () => {
     const { getByPlaceholderText, getByTestId, getByText } = renderWithTheme(<RegisterScreen />);
+    await flushFacilityLoad();
 
     fireEvent.changeText(getByTestId('register-name'), 'Nurse User');
     fireEvent.changeText(getByTestId('register-email'), 'nurse@example.com');

@@ -10,7 +10,7 @@ import {
   createManagedUserUseCase,
   listManagedUsersUseCase,
   searchFacilitiesForUserManagementUseCase,
-  assignManagedUserMembershipsUseCase,
+  syncManagedUserFacilitiesUseCase,
   updateManagedUserStatusUseCase,
   updateManagedUserMembershipUseCase,
 } from '@features/user-management';
@@ -302,7 +302,7 @@ export default function useUserManagementScreen() {
       const response = await searchFacilitiesForUserManagementUseCase({
         q: debouncedFacilityQuery || undefined,
         page: 1,
-        limit: 50,
+        limit: 500,
       });
       if (facilitiesRequestRef.current === requestId) setFacilities(response.facilities);
     } catch (error) {
@@ -384,25 +384,24 @@ export default function useUserManagementScreen() {
   }, [newUser, selectedFacilityIds, selectedRole, selectedStatus]);
 
   const handleAssignMembership = useCallback(async () => {
-    if (!selectedUser?.id || selectedFacilityIds.length === 0 || !selectedRole) return;
+    if (!selectedUser?.id || !selectedRole) return;
     setIsSaving(true);
     setSavedMembership(null);
     setSavedUserStatus(null);
     setNotice(null);
     try {
-      let updatedUser = selectedUser;
-      for (const facilityId of selectedFacilityIds) {
-        updatedUser = await assignManagedUserMembershipsUseCase(selectedUser.id, {
-          facilityId,
-          roles: [selectedRole],
-          status: selectedStatus,
-        });
-      }
+      const updatedUser = await syncManagedUserFacilitiesUseCase(selectedUser.id, {
+        facilityIds: selectedFacilityIds,
+        role: selectedRole,
+        status: selectedStatus,
+      });
       setUsers((current) => replaceUser(current, updatedUser));
       setSelectedFacilityIds(getUserFacilityIds(updatedUser));
       setNotice({
         type: 'success',
-        message: `Access updated for ${selectedFacilityIds.length} ${selectedFacilityIds.length === 1 ? 'facility' : 'facilities'}`,
+        message: selectedFacilityIds.length
+          ? `Access updated for ${selectedFacilityIds.length} ${selectedFacilityIds.length === 1 ? 'facility' : 'facilities'}`
+          : 'Facility access removed',
       });
     } catch (error) {
       setNotice({ type: 'error', message: getErrorMessage(error) });

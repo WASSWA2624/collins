@@ -11,6 +11,11 @@ import {
 const args = new Set(process.argv.slice(2));
 const dryRun = !args.has('--apply');
 const keepOnlyCoreUsers = args.has('--keep-only-core-users');
+const shouldSeed = args.has('--seed');
+const verbose = args.has('--verbose');
+const log = (...parts) => {
+  if (verbose) console.error(...parts);
+};
 
 const DUMMY_FACILITY_PATTERN = /\b(codex|test|demo|dummy|development)\b|coin development|collins development/i;
 const DUMMY_USER_PATTERN = /\b(codex|test|demo|dummy|development)\b|recovered deactivated/i;
@@ -223,7 +228,7 @@ const applyCleanup = async ({ dummyFacilityIds, dummyUserIds, coreFacility, admi
       ['ventilatorSetting', 'enteredByUserId'],
       ['airwayDevice', 'enteredByUserId'],
       ['humidificationDecision', 'confirmedByUserId'],
-      ['dailyVentilationReview', 'reviewerUserId'],
+      ['dailyVentilationReview', 'reviewedByUserId'],
       ['outcome', 'enteredByUserId'],
       ['datasetCase', 'approvedByUserId'],
       ['datasetCase', 'reviewedByUserId'],
@@ -297,12 +302,17 @@ const applyCleanup = async ({ dummyFacilityIds, dummyUserIds, coreFacility, admi
 };
 
 const main = async () => {
-  const seedSummary = await seedUgandaFacilities(prisma);
-  const [facilities, users, coreFacility] = await Promise.all([
-    prisma.facility.findMany(),
-    prisma.user.findMany(),
-    getCoreAdminFacility(prisma),
-  ]);
+  log('facility cleanup: starting');
+  const seedSummary = shouldSeed
+    ? await seedUgandaFacilities(prisma)
+    : { skipped: true };
+  log('facility cleanup: seed step complete');
+  const facilities = await prisma.facility.findMany();
+  log('facility cleanup: facilities loaded', facilities.length);
+  const users = await prisma.user.findMany();
+  log('facility cleanup: users loaded', users.length);
+  const coreFacility = await getCoreAdminFacility(prisma);
+  log('facility cleanup: core facility loaded', coreFacility?.name || null);
   const usersToDelete = findUsersToDelete(users);
   const dummyFacilities = facilities.filter(isDummyFacility);
   const adminUser = users.find((user) => String(user.email || '').toLowerCase() === CORE_ADMIN_EMAIL);
@@ -314,10 +324,14 @@ const main = async () => {
     .map((user) => user.email);
 
   const backup = await collectBackup({ dummyFacilityIds, dummyUserIds });
+  log('facility cleanup: backup collected');
   const backupUrl = await writeBackup(backup);
+  log('facility cleanup: backup written', backupUrl.pathname);
 
   if (!dryRun) {
+    log('facility cleanup: applying changes');
     await applyCleanup({ dummyFacilityIds, dummyUserIds, coreFacility, adminUser, clinicianUser });
+    log('facility cleanup: apply complete');
   }
 
   console.log(JSON.stringify({

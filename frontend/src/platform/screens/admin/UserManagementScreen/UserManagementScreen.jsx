@@ -483,7 +483,6 @@ const UserManagementScreen = () => {
     screen.newUser.password.length >= 8;
   const canAssign = Boolean(
     screen.selectedUser?.id &&
-    screen.selectedFacilityIds.length > 0 &&
     screen.selectedRole
   );
   const noUsersTitle = screen.hasUserFilters ? 'No users match this search' : 'No registered users found';

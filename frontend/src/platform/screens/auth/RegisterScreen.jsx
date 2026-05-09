@@ -3,7 +3,7 @@
  * Minimal account creation UI backed by the existing auth registration flow.
  * File: RegisterScreen.jsx
  */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Redirect, useRouter } from 'expo-router';
 import {
   AuthBrand,
@@ -15,8 +15,8 @@ import {
   Text,
   TextField,
 } from '@platform/components';
-import { useAuth, useI18n } from '@hooks';
-import { getUgandaHospitalById, searchUgandaHospitals } from '@features/facilities/ugandaHospitals';
+import { useAuth, useDebounce, useI18n } from '@hooks';
+import { searchFacilitiesUseCase } from '@features/facilities';
 import { BANNER_VARIANTS } from '@utils/shellBanners';
 import FacilitySearchSelect from './FacilitySearchSelect';
 
@@ -44,16 +44,51 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [facilityQuery, setFacilityQuery] = useState('');
-  const [facilityId, setFacilityId] = useState(null);
+  const [selectedFacility, setSelectedFacility] = useState(null);
+  const [facilityOptions, setFacilityOptions] = useState([]);
+  const [facilityError, setFacilityError] = useState(null);
+  const [isLoadingFacilities, setIsLoadingFacilities] = useState(false);
   const [localError, setLocalError] = useState(null);
+  const debouncedFacilityQuery = useDebounce(facilityQuery, 250);
+  const facilitiesRequestRef = useRef(0);
 
   const trimmedName = name.trim();
   const trimmedEmail = email.trim();
   const canSubmit =
     trimmedName.length > 0 && trimmedEmail.length > 0 && password.length > 0 && !isLoading;
   const authMessage = getErrorMessage(t, errorCode);
-  const facilityOptions = useMemo(() => searchUgandaHospitals(facilityQuery, 18), [facilityQuery]);
-  const selectedFacility = useMemo(() => getUgandaHospitalById(facilityId), [facilityId]);
+  const displayedFacilityOptions = useMemo(() => {
+    if (!selectedFacility?.id) return facilityOptions;
+    const exists = facilityOptions.some((facility) => facility.id === selectedFacility.id);
+    return exists ? facilityOptions : [selectedFacility, ...facilityOptions];
+  }, [facilityOptions, selectedFacility]);
+
+  useEffect(() => {
+    const requestId = facilitiesRequestRef.current + 1;
+    facilitiesRequestRef.current = requestId;
+    setIsLoadingFacilities(true);
+    setFacilityError(null);
+
+    searchFacilitiesUseCase({
+      q: debouncedFacilityQuery || undefined,
+      page: 1,
+      limit: 25,
+    })
+      .then((response) => {
+        if (facilitiesRequestRef.current === requestId) {
+          setFacilityOptions(response.facilities);
+        }
+      })
+      .catch((error) => {
+        if (facilitiesRequestRef.current === requestId) {
+          setFacilityOptions([]);
+          setFacilityError(error?.safeMessage || error?.message || t('auth.register.facilityLoadError'));
+        }
+      })
+      .finally(() => {
+        if (facilitiesRequestRef.current === requestId) setIsLoadingFacilities(false);
+      });
+  }, [debouncedFacilityQuery, t]);
 
   const nameError = useMemo(() => {
     if (!localError || localError !== 'NAME_REQUIRED') return null;
@@ -91,13 +126,13 @@ const RegisterScreen = () => {
   const handleFacilityQueryChange = useCallback((value) => {
     setFacilityQuery(value);
     if (selectedFacility && value.trim() !== selectedFacility.name) {
-      setFacilityId(null);
+      setSelectedFacility(null);
     }
     clearError();
   }, [clearError, selectedFacility]);
 
   const handleFacilitySelect = useCallback((facility) => {
-    setFacilityId(facility?.id || null);
+    setSelectedFacility(facility || null);
     if (facility) {
       setFacilityQuery(facility.name);
     }
@@ -105,7 +140,7 @@ const RegisterScreen = () => {
   }, [clearError]);
 
   const handleClearFacility = useCallback(() => {
-    setFacilityId(null);
+    setSelectedFacility(null);
     setFacilityQuery('');
     clearError();
   }, [clearError]);
@@ -125,12 +160,8 @@ const RegisterScreen = () => {
       return;
     }
 
-    const facilityPayload = selectedFacility ? {
-      facilityName: selectedFacility.name,
-      facilityDistrict: selectedFacility.district,
-      facilityRegion: selectedFacility.region,
-      facilityType: selectedFacility.type,
-      facilityOwnership: selectedFacility.ownership,
+    const facilityPayload = selectedFacility?.id ? {
+      facilityId: selectedFacility.id,
       requestedRole: 'CLINICIAN',
     } : {};
 
@@ -253,7 +284,7 @@ const RegisterScreen = () => {
           value={selectedFacility}
           onValueChange={handleFacilitySelect}
           onClear={handleClearFacility}
-          options={facilityOptions}
+          options={displayedFacilityOptions}
           helperText={t('auth.register.facilityOptionalHelper')}
           selectedHelper={selectedFacility
             ? t('auth.register.facilitySelectedHelper', {
@@ -262,8 +293,11 @@ const RegisterScreen = () => {
             })
             : undefined}
           noResultsText={t('auth.register.facilityNoResults')}
+          loadingText={t('auth.register.facilityLoading')}
+          errorText={facilityError}
           clearLabel={t('auth.register.facilityClear')}
           disabled={isLoading}
+          loading={isLoadingFacilities}
           accessibilityHint={t('auth.register.facilitySearchHint')}
           testID="register-facility-combobox"
         />
