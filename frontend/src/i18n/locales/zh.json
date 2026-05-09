@@ -111,7 +111,9 @@
       "signInPrompt": "已经有帐户？",
       "signIn": "登录",
       "signInHint": "返回登录",
-      "errorTitle": "帐户创建问题"
+      "errorTitle": "帐户创建问题",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "会议通知",
@@ -313,7 +315,8 @@
         "settings-data-sources": "数据来源",
         "settings-disclaimer": "免责声明",
         "settings-help": "帮助",
-        "settings-privacy": "隐私"
+        "settings-privacy": "隐私",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "选择设施",
         "roleRestricted": "角色受限",
         "workflowPending": "路线待定"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "同步",
         "empty": "还没有数据",
         "expand": "展开摘要",
-        "collapse": "折叠总结"
+        "collapse": "折叠总结",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "患者概况",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 不可用",
           "tidalVolume": "潮气量不可用",
           "peep": "PEEP 不可用"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "记录当前的氧气支持、观察时间、氧合、生命体征、可用的 ABG 值和不确定值。下一步将根据数据集建议呼吸机设置。",

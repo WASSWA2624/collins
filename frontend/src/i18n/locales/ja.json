@@ -111,7 +111,9 @@
       "signInPrompt": "すでにアカウントをお持ちですか?",
       "signIn": "サインイン",
       "signInHint": "サインインに戻る",
-      "errorTitle": "アカウント作成の問題"
+      "errorTitle": "アカウント作成の問題",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "セッションのお知らせ",
@@ -313,7 +315,8 @@
         "settings-data-sources": "データソース",
         "settings-disclaimer": "免責事項",
         "settings-help": "ヘルプ",
-        "settings-privacy": "プライバシー"
+        "settings-privacy": "プライバシー",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "施設を選択",
         "roleRestricted": "役割が制限されている",
         "workflowPending": "ルート保留中"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "同期",
         "empty": "まだデータがありません",
         "expand": "概要を展開する",
-        "collapse": "概要を折りたたむ"
+        "collapse": "概要を折りたたむ",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "患者プロフィール",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2が利用できない",
           "tidalVolume": "一回換気量が利用できません",
           "peep": "PEEP は利用できません"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "現在の酸素サポート、観察時間、酸素化、バイタルサイン、利用可能な ABG 値、および不確実な値を記録します。人工呼吸器の設定は、データセットの次のステップで提案されます。",

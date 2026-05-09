@@ -111,7 +111,9 @@
       "signInPrompt": "ஏற்கனவே கணக்கு உள்ளதா?",
       "signIn": "உள்நுழைக",
       "signInHint": "உள்நுழைவதற்குத் திரும்பு",
-      "errorTitle": "கணக்கை உருவாக்குவதில் சிக்கல்"
+      "errorTitle": "கணக்கை உருவாக்குவதில் சிக்கல்",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "அமர்வு அறிவிப்பு",
@@ -313,7 +315,8 @@
         "settings-data-sources": "தரவு ஆதாரங்கள்",
         "settings-disclaimer": "மறுப்பு",
         "settings-help": "உதவி",
-        "settings-privacy": "தனியுரிமை"
+        "settings-privacy": "தனியுரிமை",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "வசதியைத் தேர்ந்தெடுக்கவும்",
         "roleRestricted": "பங்கு தடைசெய்யப்பட்டுள்ளது",
         "workflowPending": "பாதை நிலுவையில் உள்ளது"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "ஒத்திசை",
         "empty": "இன்னும் தரவு இல்லை",
         "expand": "சுருக்கத்தை விரிவாக்கு",
-        "collapse": "சுருக்கம்"
+        "collapse": "சுருக்கம்",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "நோயாளியின் சுயவிவரம்",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 கிடைக்கவில்லை",
           "tidalVolume": "அலை அளவு கிடைக்கவில்லை",
           "peep": "PEEP கிடைக்கவில்லை"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "தற்போதைய ஆக்ஸிஜன் ஆதரவு, கண்காணிப்பு நேரம், ஆக்ஸிஜனேற்றம், முக்கிய அறிகுறிகள், கிடைக்கக்கூடிய ABG மதிப்புகள் மற்றும் நிச்சயமற்ற மதிப்புகள் ஆகியவற்றை பதிவு செய்யவும். தரவுத்தொகுப்பில் இருந்து அடுத்த கட்டத்தில் வென்டிலேட்டர் அமைப்புகள் பரிந்துரைக்கப்படுகின்றன.",

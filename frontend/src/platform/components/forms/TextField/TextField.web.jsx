@@ -29,6 +29,8 @@ import useTextField from './useTextField';
 // 6. Types and constants (relative import)
 import { INPUT_TYPES, VALIDATION_STATES } from './types';
 
+const useOptionalId = typeof React.useId === 'function' ? React.useId : () => undefined;
+
 /**
  * TextField component for Web
  * @param {Object} props - TextField props
@@ -83,7 +85,7 @@ const TextFieldWeb = ({
   id,
   ...rest
 }) => {
-  const reactId = React.useId();
+  const reactId = useOptionalId();
   const inputId =
     id ||
     (typeof testID === 'string' && testID.length > 0 ? `textfield-${testID}` : undefined) ||

@@ -111,7 +111,9 @@
       "signInPrompt": "Heeft u al een account?",
       "signIn": "Log in",
       "signInHint": "Keer terug om in te loggen",
-      "errorTitle": "Probleem met het aanmaken van een account"
+      "errorTitle": "Probleem met het aanmaken van een account",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "Sessie aankondiging",
@@ -313,7 +315,8 @@
         "settings-data-sources": "Gegevensbronnen",
         "settings-disclaimer": "Disclaimer",
         "settings-help": "Hulp",
-        "settings-privacy": "Privacy"
+        "settings-privacy": "Privacy",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "Selecteer faciliteit",
         "roleRestricted": "Rol beperkt",
         "workflowPending": "Route in behandeling"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "Synchroniseren",
         "empty": "Nog geen gegevens",
         "expand": "Samenvatting uitvouwen",
-        "collapse": "Samenvatting samenvouwen"
+        "collapse": "Samenvatting samenvouwen",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "Patiëntprofiel",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 niet beschikbaar",
           "tidalVolume": "Teugvolume niet beschikbaar",
           "peep": "PEEP niet beschikbaar"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "Registreer de huidige zuurstofondersteuning, observatietijd, oxygenatie, vitale functies, beschikbare ABG-waarden en onzekere waarden. De ventilatorinstellingen worden voorgesteld in de volgende stap uit de dataset.",

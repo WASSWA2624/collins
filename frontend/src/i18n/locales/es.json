@@ -111,7 +111,9 @@
       "signInPrompt": "¿Ya tienes una cuenta?",
       "signIn": "Iniciar sesión",
       "signInHint": "Volver para iniciar sesión",
-      "errorTitle": "Problema de creación de cuenta"
+      "errorTitle": "Problema de creación de cuenta",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "Aviso de sesión",
@@ -313,7 +315,8 @@
         "settings-data-sources": "Fuentes de datos",
         "settings-disclaimer": "Descargo de responsabilidad",
         "settings-help": "Ayuda",
-        "settings-privacy": "Privacidad"
+        "settings-privacy": "Privacidad",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "Seleccionar instalación",
         "roleRestricted": "Rol restringido",
         "workflowPending": "Ruta pendiente"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "Sincronizar",
         "empty": "Aún no hay datos",
         "expand": "Ampliar resumen",
-        "collapse": "Contraer resumen"
+        "collapse": "Contraer resumen",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "Perfil del paciente",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 no disponible",
           "tidalVolume": "Volumen corriente no disponible",
           "peep": "PEEP no disponible"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "Registre el soporte de oxígeno actual, el tiempo de observación, la oxigenación, los signos vitales, los valores ABG disponibles y los valores inciertos. La configuración del ventilador se sugiere en el siguiente paso del conjunto de datos.",

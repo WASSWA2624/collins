@@ -14,6 +14,8 @@ import {
   StyledSwitchLabel,
 } from './Switch.web.styles';
 
+const useOptionalId = typeof React.useId === 'function' ? React.useId : () => undefined;
+
 /**
  * Switch component for Web
  * @param {Object} props - Switch props
@@ -41,7 +43,7 @@ const SwitchWeb = ({
   name,
   ...rest
 }) => {
-  const reactId = React.useId();
+  const reactId = useOptionalId();
   const { computedAccessibilityLabel, handleToggle } = useSwitch({
     value,
     onValueChange,

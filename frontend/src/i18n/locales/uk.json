@@ -111,7 +111,9 @@
       "signInPrompt": "Вже маєте акаунт?",
       "signIn": "Увійдіть",
       "signInHint": "Повернутися до входу",
-      "errorTitle": "Проблема створення облікового запису"
+      "errorTitle": "Проблема створення облікового запису",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "Повідомлення про сесію",
@@ -313,7 +315,8 @@
         "settings-data-sources": "Джерела даних",
         "settings-disclaimer": "Відмова від відповідальності",
         "settings-help": "Довідка",
-        "settings-privacy": "Конфіденційність"
+        "settings-privacy": "Конфіденційність",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "Виберіть заклад",
         "roleRestricted": "Роль обмежена",
         "workflowPending": "Очікується маршрут"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "Синхронізувати",
         "empty": "Даних ще немає",
         "expand": "Розгорнути резюме",
-        "collapse": "Згорнути резюме"
+        "collapse": "Згорнути резюме",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "Профіль пацієнта",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 недоступний",
           "tidalVolume": "Дихальний об'єм недоступний",
           "peep": "PEEP недоступний"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "Запишіть поточну кисневу підтримку, час спостереження, оксигенацію, життєво важливі показники, доступні значення ABG та невизначені значення. Параметри вентилятора пропонуються на наступному кроці з набору даних.",

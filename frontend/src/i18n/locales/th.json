@@ -111,7 +111,9 @@
       "signInPrompt": "มีบัญชีอยู่แล้ว?",
       "signIn": "เข้าสู่ระบบ",
       "signInHint": "กลับไปลงชื่อเข้าใช้",
-      "errorTitle": "ปัญหาการสร้างบัญชี"
+      "errorTitle": "ปัญหาการสร้างบัญชี",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "ประกาศเซสชั่น",
@@ -313,7 +315,8 @@
         "settings-data-sources": "แหล่งข้อมูล",
         "settings-disclaimer": "ข้อสงวนสิทธิ์",
         "settings-help": "ช่วยด้วย",
-        "settings-privacy": "ความเป็นส่วนตัว"
+        "settings-privacy": "ความเป็นส่วนตัว",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "เลือกสิ่งอำนวยความสะดวก",
         "roleRestricted": "บทบาทถูกจำกัด",
         "workflowPending": "เส้นทางที่รอดำเนินการ"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "ซิงค์",
         "empty": "ยังไม่มีข้อมูล",
         "expand": "ขยายสรุป",
-        "collapse": "ยุบสรุป"
+        "collapse": "ยุบสรุป",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "รายละเอียดผู้ป่วย",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 ไม่พร้อมใช้งาน",
           "tidalVolume": "ปริมาณน้ำขึ้นน้ำลงไม่พร้อมใช้งาน",
           "peep": "PEEP ไม่พร้อมใช้งาน"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "บันทึกการสนับสนุนออกซิเจนในปัจจุบัน เวลาในการสังเกต ปริมาณออกซิเจน สัญญาณชีพ ค่า ABG ที่มีอยู่ และค่าที่ไม่แน่นอน แนะนำให้ใช้การตั้งค่าเครื่องช่วยหายใจในขั้นตอนถัดไปจากชุดข้อมูล",

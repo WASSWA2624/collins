@@ -111,7 +111,9 @@
       "signInPrompt": "Đã có tài khoản?",
       "signIn": "Đăng nhập",
       "signInHint": "Quay lại để đăng nhập",
-      "errorTitle": "Vấn đề tạo tài khoản"
+      "errorTitle": "Vấn đề tạo tài khoản",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "Thông báo phiên",
@@ -313,7 +315,8 @@
         "settings-data-sources": "Nguồn dữ liệu",
         "settings-disclaimer": "Tuyên bố miễn trừ trách nhiệm",
         "settings-help": "Trợ giúp",
-        "settings-privacy": "Quyền riêng tư"
+        "settings-privacy": "Quyền riêng tư",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "Chọn cơ sở",
         "roleRestricted": "Bị hạn chế vai trò",
         "workflowPending": "Tuyến đường đang chờ xử lý"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "Đồng bộ hóa",
         "empty": "Chưa có dữ liệu",
         "expand": "Mở rộng tóm tắt",
-        "collapse": "Thu gọn tóm tắt"
+        "collapse": "Thu gọn tóm tắt",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "Hồ sơ bệnh nhân",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 không có",
           "tidalVolume": "Lượng thủy triều không có sẵn",
           "peep": "PEEP không có sẵn"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "Ghi lại hỗ trợ oxy hiện tại, thời gian quan sát, oxy hóa, các dấu hiệu sinh tồn, giá trị ABG có sẵn và các giá trị không chắc chắn. Cài đặt máy thở được đề xuất ở bước tiếp theo từ bộ dữ liệu.",

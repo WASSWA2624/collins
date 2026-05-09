@@ -111,7 +111,9 @@
       "signInPrompt": "क्या आपके पास पहले से ही एक खाता है?",
       "signIn": "साइन इन करें",
       "signInHint": "साइन इन करने के लिए वापस लौटें",
-      "errorTitle": "खाता निर्माण समस्या"
+      "errorTitle": "खाता निर्माण समस्या",
+      "facilityLoadError": "Unable to load facilities. Try again.",
+      "facilityLoading": "Loading facilities..."
     },
     "session": {
       "noticeTitle": "सत्र सूचना",
@@ -313,7 +315,8 @@
         "settings-data-sources": "डेटा स्रोत",
         "settings-disclaimer": "अस्वीकरण",
         "settings-help": "मदद",
-        "settings-privacy": "गोपनीयता"
+        "settings-privacy": "गोपनीयता",
+        "facility-management": "Facility Management"
       }
     },
     "breadcrumbs": {
@@ -873,6 +876,9 @@
         "facilityRequired": "सुविधा का चयन करें",
         "roleRestricted": "भूमिका प्रतिबंधित",
         "workflowPending": "मार्ग लंबित है"
+      },
+      "userManagement": {
+        "title": "Admin"
       }
     }
   },
@@ -1017,7 +1023,13 @@
         "syncStatus": "सिंक करें",
         "empty": "अभी तक कोई डेटा नहीं",
         "expand": "सारांश का विस्तार करें",
-        "collapse": "सारांश संक्षिप्त करें"
+        "collapse": "सारांश संक्षिप्त करें",
+        "ageGroup": "Age group",
+        "groups": {
+          "oxygen": "Oxygen and ABG",
+          "patient": "Patient",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "रोगी प्रोफ़ाइल",
@@ -1086,7 +1098,18 @@
           "pao2": "PaO2 अनुपलब्ध",
           "tidalVolume": "ज्वारीय मात्रा अनुपलब्ध",
           "peep": "PEEP अनुपलब्ध"
-        }
+        },
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
+        "ageGroupRanges": {
+          "adolescent": "13-17 years",
+          "adult": "18+ years",
+          "child": "1-12 years",
+          "infant": "29 days-12 months",
+          "neonate": "0-28 days"
+        },
+        "ageYearsHint": "Use decimal years for neonates and infants.",
+        "selectedAgeRange": "Suggested range: {{range}}"
       },
       "oxygenAbgVentilator": {
         "description": "वर्तमान ऑक्सीजन समर्थन, अवलोकन समय, ऑक्सीजनेशन, महत्वपूर्ण संकेत, उपलब्ध ABG मान और अनिश्चित मान रिकॉर्ड करें। डेटासेट से अगले चरण पर वेंटीलेटर सेटिंग्स का सुझाव दिया जाता है।",

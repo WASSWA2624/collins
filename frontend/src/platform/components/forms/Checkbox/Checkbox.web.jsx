@@ -14,6 +14,8 @@ import {
   StyledRequiredIndicator,
 } from './Checkbox.web.styles';
 
+const useOptionalId = typeof React.useId === 'function' ? React.useId : () => undefined;
+
 /**
  * Checkbox component for Web
  * @param {Object} props - Checkbox props
@@ -45,7 +47,7 @@ const CheckboxWeb = ({
   name,
   ...rest
 }) => {
-  const reactId = React.useId();
+  const reactId = useOptionalId();
   const inputId =
     id ||
     (typeof testID === 'string' && testID.length > 0 ? `checkbox-${testID}` : undefined) ||
