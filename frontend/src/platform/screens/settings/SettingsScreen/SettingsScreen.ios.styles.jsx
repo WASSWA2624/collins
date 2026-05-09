@@ -40,6 +40,7 @@ const StyledHeader = styled(View).withConfig({
   componentId: 'StyledHeader',
 })`
   width: 100%;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   margin-bottom: ${({ theme }) => theme.spacing.xs}px;
 `;
 

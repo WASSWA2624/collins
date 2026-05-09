@@ -50,6 +50,10 @@ const StyledHeader = styled.header.withConfig({
   componentId: 'StyledHeader',
 })`
   grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   margin-bottom: ${({ theme }) => theme.spacing.xs}px;
 `;
 

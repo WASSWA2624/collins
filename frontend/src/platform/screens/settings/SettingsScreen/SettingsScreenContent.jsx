@@ -216,8 +216,10 @@ const SettingsScreenContent = ({ platform, styles }) => {
               {canRetryStatus ? (
                 <Button
                   variant="outline"
+                  size="small"
                   onPress={refreshSettings}
                   disabled={isLoading}
+                  style={compactActionStyle}
                 >
                   {t('common.retry')}
                 </Button>
