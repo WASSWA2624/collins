@@ -44,9 +44,9 @@ const MainRouteLayoutWeb = () => {
   const { width } = useWindowDimensions();
   const isMobile = width < breakpoints.tablet;
   const { t, isLoading, items, isItemVisible } = useMainRouteLayout();
-  const { sidebarCollapsed, sidebarWidth, collapsedWidth, toggleSidebar, resizerProps } =
+  const { sidebarCollapsed, sidebarWidth, collapsedWidth, toggleSidebar, closeSidebar, resizerProps } =
     useMainRouteLayoutWebShell();
-  const sidebarOnClose = isMobile ? toggleSidebar : undefined;
+  const sidebarOnClose = isMobile ? closeSidebar : undefined;
 
   const overlaySlot = useMemo(
     () => (isLoading ? <LoadingOverlay visible testID="main-loading-overlay" /> : null),
@@ -90,8 +90,8 @@ const MainRouteLayoutWeb = () => {
       sidebarBackdrop={
         !sidebarCollapsed ? (
           <StyledSidebarBackdrop
-            onClick={toggleSidebar}
-            onKeyDown={(e) => e.key === 'Escape' && toggleSidebar()}
+            onClick={isMobile ? closeSidebar : toggleSidebar}
+            onKeyDown={(e) => e.key === 'Escape' && (isMobile ? closeSidebar() : toggleSidebar())}
             role="button"
             tabIndex={0}
             aria-label={t('common.toggleMenu')}

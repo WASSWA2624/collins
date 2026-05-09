@@ -2,18 +2,21 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAuth, useDebounce, useI18n } from '@hooks';
 import { MEMBERSHIP_ROLES } from '@config/accessControl';
 import {
+  MEMBERSHIP_STATUS_OPTIONS,
   ROLE_OPTIONS,
+  USER_STATUS_OPTIONS,
   buildUserManagementSummary,
   canManageUsers,
   createManagedUserUseCase,
   listManagedUsersUseCase,
   searchFacilitiesForUserManagementUseCase,
   assignManagedUserMembershipsUseCase,
+  updateManagedUserStatusUseCase,
   updateManagedUserMembershipUseCase,
 } from '@features/user-management';
 import { USER_MANAGEMENT_TEST_IDS } from './types';
 
-const DEFAULT_ROLE = 'CLINICIAN';
+const DEFAULT_ROLE = MEMBERSHIP_ROLES.CLINICIAN;
 const DEFAULT_STATUS = 'APPROVED';
 
 const emptyNewUser = {
@@ -26,10 +29,21 @@ const emptyNewUser = {
 const getErrorMessage = (error) =>
   error?.safeMessage || error?.message || 'Unable to update user access';
 
+const unique = (values) => [...new Set(values.filter(Boolean))];
+
 const getMembershipSaveMessage = (status) => {
   if (status === 'APPROVED') return 'Approval saved';
   if (status === 'SUSPENDED') return 'Suspension saved';
+  if (status === 'REJECTED') return 'Rejection saved';
   return 'Membership saved';
+};
+
+const getUserStatusMessage = (status) => {
+  if (status === 'ACTIVE') return 'User reactivated';
+  if (status === 'SUSPENDED') return 'User suspended';
+  if (status === 'DEACTIVATED') return 'User deactivated';
+  if (status === 'INVITED') return 'User marked invited';
+  return 'User status updated';
 };
 
 const replaceUser = (users, nextUser) => {
@@ -60,12 +74,55 @@ const matchesFacilityQuery = (facility, query) => {
     .some((value) => String(value || '').toLowerCase().includes(term));
 };
 
+const getAssignedFacilities = (user = {}) => {
+  const byId = new Map();
+  (user.memberships || []).forEach((membership) => {
+    const facility = normalizeMembershipFacility(membership);
+    if (!facility?.id) return;
+    const current = byId.get(facility.id) || {
+      ...facility,
+      roles: [],
+      statuses: [],
+      membershipIds: [],
+    };
+    current.roles = unique([...current.roles, membership.roleLabel || membership.role]);
+    current.statuses = unique([...current.statuses, membership.status]);
+    current.membershipIds = unique([...current.membershipIds, membership.id]);
+    byId.set(facility.id, current);
+  });
+  return [...byId.values()];
+};
+
+const getUserFacilityIds = (user = {}) => getAssignedFacilities(user).map((facility) => facility.id);
+
+const mergeFacilities = (...facilityLists) => {
+  const byId = new Map();
+  facilityLists.flat().filter(Boolean).forEach((facility) => {
+    if (!facility.id) return;
+    byId.set(facility.id, {
+      ...(byId.get(facility.id) || {}),
+      ...facility,
+    });
+  });
+  return [...byId.values()];
+};
+
+const toRoleOption = (role) => ({
+  label: role.label,
+  value: role.value,
+  searchText: [role.label, role.value],
+});
+
 export default function useUserManagementScreen() {
   const { t } = useI18n();
   const auth = useAuth();
+  const authRoleKeys = useMemo(
+    () => auth.roleKeys || auth.roles || [],
+    [auth.roleKeys, auth.roles]
+  );
   const canManage = canManageUsers({
     ...(auth.user || {}),
-    roles: auth.roleKeys || auth.roles,
+    roles: authRoleKeys,
     permissions: auth.permissions,
     memberships: auth.memberships || auth.user?.memberships,
     activeFacility: auth.activeFacility || auth.user?.activeFacility,
@@ -73,13 +130,15 @@ export default function useUserManagementScreen() {
 
   const [userQuery, setUserQuery] = useState('');
   const [facilityQuery, setFacilityQuery] = useState('');
+  const [userRoleFilter, setUserRoleFilter] = useState('');
+  const [userStatusFilter, setUserStatusFilter] = useState('');
   const debouncedUserQuery = useDebounce(userQuery, 250);
   const debouncedFacilityQuery = useDebounce(facilityQuery, 250);
   const [users, setUsers] = useState([]);
   const [facilities, setFacilities] = useState([]);
   const [userMeta, setUserMeta] = useState({});
   const [selectedUserId, setSelectedUserId] = useState('');
-  const [selectedFacilityId, setSelectedFacilityId] = useState('');
+  const [selectedFacilityIds, setSelectedFacilityIds] = useState([]);
   const [selectedRole, setSelectedRole] = useState(DEFAULT_ROLE);
   const [selectedStatus, setSelectedStatus] = useState(DEFAULT_STATUS);
   const [newUser, setNewUser] = useState(emptyNewUser);
@@ -88,22 +147,19 @@ export default function useUserManagementScreen() {
   const [isSaving, setIsSaving] = useState(false);
   const [savingMembership, setSavingMembership] = useState(null);
   const [savedMembership, setSavedMembership] = useState(null);
+  const [savingUserStatus, setSavingUserStatus] = useState(null);
+  const [savedUserStatus, setSavedUserStatus] = useState(null);
   const [notice, setNotice] = useState(null);
   const usersRequestRef = useRef(0);
   const facilitiesRequestRef = useRef(0);
+  const selectedUserRef = useRef('');
 
-  const selectedUser = useMemo(
-    () => users.find((user) => user.id === selectedUserId) || users[0] || null,
-    [selectedUserId, users]
-  );
-  const selectedFacility = useMemo(
-    () => facilities.find((facility) => facility.id === selectedFacilityId) || facilities[0] || null,
-    [facilities, selectedFacilityId]
-  );
   const isPlatformAdmin = useMemo(
-    () => (auth.roleKeys || []).includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN),
-    [auth.roleKeys]
+    () => authRoleKeys.includes(MEMBERSHIP_ROLES.PLATFORM_ADMIN),
+    [authRoleKeys]
   );
+  const canManageAccountStatus = isPlatformAdmin;
+
   const managedLocalFacilities = useMemo(() => {
     const byId = new Map();
     (auth.memberships || auth.user?.memberships || [])
@@ -113,36 +169,91 @@ export default function useUserManagementScreen() {
       .forEach((facility) => byId.set(facility.id, facility));
     return [...byId.values()];
   }, [auth.memberships, auth.user?.memberships]);
+
   const summary = useMemo(() => buildUserManagementSummary(users), [users]);
+  const selectedUser = useMemo(
+    () => users.find((user) => user.id === selectedUserId) || users[0] || null,
+    [selectedUserId, users]
+  );
+  const assignedFacilities = useMemo(() => getAssignedFacilities(selectedUser || {}), [selectedUser]);
+  const facilityOptions = useMemo(
+    () => mergeFacilities(facilities, assignedFacilities),
+    [assignedFacilities, facilities]
+  );
+  const selectedFacilities = useMemo(
+    () => selectedFacilityIds.map((id) => (
+      facilityOptions.find((facility) => facility.id === id) || { id, name: id }
+    )),
+    [facilityOptions, selectedFacilityIds]
+  );
+  const selectedFacilityId = selectedFacilityIds[0] || '';
+  const selectedFacility = selectedFacilities[0] || null;
+
   const userOptions = useMemo(
     () => users.map((user) => ({
       label: `${user.name}${user.email ? ` (${user.email})` : ''}`,
       value: user.id,
+      searchText: [
+        user.name,
+        user.email,
+        user.phone,
+        user.status,
+        ...(user.memberships || []).flatMap((membership) => [
+          membership.roleLabel,
+          membership.role,
+          membership.status,
+          membership.facility?.name,
+          membership.facility?.district,
+          membership.facility?.region,
+        ]),
+      ],
     })),
     [users]
   );
   const roleOptions = useMemo(
     () => ROLE_OPTIONS
       .filter((role) => isPlatformAdmin || role.value !== MEMBERSHIP_ROLES.PLATFORM_ADMIN)
-      .map((role) => ({
-        label: role.label,
-        value: role.value,
-      })),
+      .map(toRoleOption),
     [isPlatformAdmin]
   );
-  const statusOptions = useMemo(() => [
-    { label: 'Approved', value: 'APPROVED' },
-    { label: 'Pending', value: 'PENDING' },
-    { label: 'Suspended', value: 'SUSPENDED' },
-  ], []);
+  const userRoleFilterOptions = useMemo(
+    () => [{ label: 'Any role', value: '' }, ...roleOptions],
+    [roleOptions]
+  );
+  const userStatusOptions = useMemo(
+    () => [{ label: 'Any account status', value: '' }, ...USER_STATUS_OPTIONS],
+    []
+  );
+  const statusOptions = useMemo(() => MEMBERSHIP_STATUS_OPTIONS, []);
+  const hasUserFilters = Boolean(userQuery.trim() || userRoleFilter || userStatusFilter);
 
   useEffect(() => {
-    if (!selectedUserId && users[0]?.id) setSelectedUserId(users[0].id);
+    if (users.length === 0) {
+      setSelectedUserId('');
+      return;
+    }
+    if (!selectedUserId || !users.some((user) => user.id === selectedUserId)) {
+      setSelectedUserId(users[0].id);
+    }
   }, [selectedUserId, users]);
 
   useEffect(() => {
-    if (!selectedFacilityId && facilities[0]?.id) setSelectedFacilityId(facilities[0].id);
-  }, [facilities, selectedFacilityId]);
+    if (!selectedUser?.id) {
+      selectedUserRef.current = '';
+      setSelectedFacilityIds([]);
+      return;
+    }
+
+    if (selectedUserRef.current === selectedUser.id) return;
+    selectedUserRef.current = selectedUser.id;
+    setSelectedFacilityIds(getUserFacilityIds(selectedUser));
+
+    const [firstMembership] = selectedUser.memberships || [];
+    if (firstMembership?.role && roleOptions.some((option) => option.value === firstMembership.role)) {
+      setSelectedRole(firstMembership.role);
+    }
+    if (firstMembership?.status) setSelectedStatus(firstMembership.status);
+  }, [roleOptions, selectedUser]);
 
   useEffect(() => {
     if (!roleOptions.some((option) => option.value === selectedRole)) {
@@ -159,7 +270,8 @@ export default function useUserManagementScreen() {
     try {
       const response = await listManagedUsersUseCase({
         q: debouncedUserQuery || undefined,
-        facilityQ: debouncedFacilityQuery || undefined,
+        role: userRoleFilter || undefined,
+        status: userStatusFilter || undefined,
         page: 1,
         limit: 50,
       });
@@ -174,7 +286,7 @@ export default function useUserManagementScreen() {
     } finally {
       if (usersRequestRef.current === requestId) setIsLoadingUsers(false);
     }
-  }, [canManage, debouncedFacilityQuery, debouncedUserQuery]);
+  }, [canManage, debouncedUserQuery, userRoleFilter, userStatusFilter]);
 
   const loadFacilities = useCallback(async () => {
     if (!canManage) return;
@@ -190,7 +302,7 @@ export default function useUserManagementScreen() {
       const response = await searchFacilitiesForUserManagementUseCase({
         q: debouncedFacilityQuery || undefined,
         page: 1,
-        limit: 20,
+        limit: 50,
       });
       if (facilitiesRequestRef.current === requestId) setFacilities(response.facilities);
     } catch (error) {
@@ -215,18 +327,44 @@ export default function useUserManagementScreen() {
     void loadFacilities();
   }, [loadFacilities, loadUsers]);
 
+  const clearUserFilters = useCallback(() => {
+    setUserQuery('');
+    setUserRoleFilter('');
+    setUserStatusFilter('');
+  }, []);
+
   const updateNewUser = useCallback((field, value) => {
     setNewUser((current) => ({ ...current, [field]: value }));
+  }, []);
+
+  const setSelectedFacilityId = useCallback((facilityId) => {
+    setSelectedFacilityIds(facilityId ? [facilityId] : []);
+  }, []);
+
+  const toggleSelectedFacilityId = useCallback((facilityId) => {
+    if (!facilityId) return;
+    setSelectedFacilityIds((current) => (
+      current.includes(facilityId)
+        ? current.filter((id) => id !== facilityId)
+        : [...current, facilityId]
+    ));
+  }, []);
+
+  const removeSelectedFacilityId = useCallback((facilityId) => {
+    setSelectedFacilityIds((current) => current.filter((id) => id !== facilityId));
   }, []);
 
   const handleCreateUser = useCallback(async () => {
     setIsSaving(true);
     setSavedMembership(null);
+    setSavedUserStatus(null);
     setNotice(null);
     try {
-      const memberships = selectedFacilityId
-        ? [{ facilityId: selectedFacilityId, role: selectedRole, status: selectedStatus }]
-        : [];
+      const memberships = selectedFacilityIds.map((facilityId) => ({
+        facilityId,
+        role: selectedRole,
+        status: selectedStatus,
+      }));
       const created = await createManagedUserUseCase({
         ...newUser,
         email: newUser.email.trim(),
@@ -235,6 +373,7 @@ export default function useUserManagementScreen() {
       });
       setUsers((current) => replaceUser(current, created));
       setSelectedUserId(created.id);
+      setSelectedFacilityIds(getUserFacilityIds(created));
       setNewUser(emptyNewUser);
       setNotice({ type: 'success', message: 'User added' });
     } catch (error) {
@@ -242,35 +381,44 @@ export default function useUserManagementScreen() {
     } finally {
       setIsSaving(false);
     }
-  }, [newUser, selectedFacilityId, selectedRole, selectedStatus]);
+  }, [newUser, selectedFacilityIds, selectedRole, selectedStatus]);
 
   const handleAssignMembership = useCallback(async () => {
-    if (!selectedUser?.id || !selectedFacilityId || !selectedRole) return;
+    if (!selectedUser?.id || selectedFacilityIds.length === 0 || !selectedRole) return;
     setIsSaving(true);
     setSavedMembership(null);
+    setSavedUserStatus(null);
     setNotice(null);
     try {
-      const updated = await assignManagedUserMembershipsUseCase(selectedUser.id, {
-        facilityId: selectedFacilityId,
-        roles: [selectedRole],
-        status: selectedStatus,
+      let updatedUser = selectedUser;
+      for (const facilityId of selectedFacilityIds) {
+        updatedUser = await assignManagedUserMembershipsUseCase(selectedUser.id, {
+          facilityId,
+          roles: [selectedRole],
+          status: selectedStatus,
+        });
+      }
+      setUsers((current) => replaceUser(current, updatedUser));
+      setSelectedFacilityIds(getUserFacilityIds(updatedUser));
+      setNotice({
+        type: 'success',
+        message: `Access updated for ${selectedFacilityIds.length} ${selectedFacilityIds.length === 1 ? 'facility' : 'facilities'}`,
       });
-      setUsers((current) => replaceUser(current, updated));
-      setNotice({ type: 'success', message: 'Access updated' });
     } catch (error) {
       setNotice({ type: 'error', message: getErrorMessage(error) });
     } finally {
       setIsSaving(false);
     }
-  }, [selectedFacilityId, selectedRole, selectedStatus, selectedUser?.id]);
+  }, [selectedFacilityIds, selectedRole, selectedStatus, selectedUser]);
 
   const updateMembershipStatus = useCallback(
     async (userId, membership, status) => {
-      if (!userId || !membership?.id) return;
-      const membershipState = { userId, membershipId: membership.id, status };
+      if (!userId || !membership?.id || membership.status === status) return;
+      const membershipState = { userId, membershipId: membership.id, field: 'status', value: status };
       setIsSaving(true);
       setSavingMembership(membershipState);
       setSavedMembership(null);
+      setSavedUserStatus(null);
       setNotice(null);
       try {
         const updated = await updateManagedUserMembershipUseCase(
@@ -280,6 +428,7 @@ export default function useUserManagementScreen() {
         );
         const message = getMembershipSaveMessage(status);
         setUsers((current) => replaceUser(current, updated));
+        if (selectedUser?.id === userId) setSelectedFacilityIds(getUserFacilityIds(updated));
         setSavedMembership({ ...membershipState, status, message });
         setNotice({ type: 'success', message });
       } catch (error) {
@@ -289,43 +438,119 @@ export default function useUserManagementScreen() {
         setIsSaving(false);
       }
     },
-    []
+    [selectedUser?.id]
+  );
+
+  const updateMembershipRole = useCallback(
+    async (userId, membership, role) => {
+      if (!userId || !membership?.id || !role || membership.role === role) return;
+      const membershipState = { userId, membershipId: membership.id, field: 'role', value: role };
+      setIsSaving(true);
+      setSavingMembership(membershipState);
+      setSavedMembership(null);
+      setSavedUserStatus(null);
+      setNotice(null);
+      try {
+        const updated = await updateManagedUserMembershipUseCase(
+          userId,
+          membership.id,
+          { role }
+        );
+        setUsers((current) => replaceUser(current, updated));
+        if (selectedUser?.id === userId) setSelectedFacilityIds(getUserFacilityIds(updated));
+        setSavedMembership({ ...membershipState, message: 'Role saved' });
+        setNotice({ type: 'success', message: 'Role saved' });
+      } catch (error) {
+        setNotice({ type: 'error', message: getErrorMessage(error) });
+      } finally {
+        setSavingMembership(null);
+        setIsSaving(false);
+      }
+    },
+    [selectedUser?.id]
+  );
+
+  const updateUserStatus = useCallback(
+    async (userId, status) => {
+      if (!canManageAccountStatus || !userId || !status) return;
+      const currentUser = users.find((user) => user.id === userId);
+      if (currentUser?.status === status) return;
+      const statusState = { userId, status };
+      setIsSaving(true);
+      setSavingUserStatus(statusState);
+      setSavedMembership(null);
+      setSavedUserStatus(null);
+      setNotice(null);
+      try {
+        const updated = await updateManagedUserStatusUseCase(userId, { status });
+        const message = getUserStatusMessage(status);
+        setUsers((current) => replaceUser(current, updated));
+        setSavedUserStatus({ ...statusState, message });
+        setNotice({ type: 'success', message });
+      } catch (error) {
+        setNotice({ type: 'error', message: getErrorMessage(error) });
+      } finally {
+        setSavingUserStatus(null);
+        setIsSaving(false);
+      }
+    },
+    [canManageAccountStatus, users]
   );
 
   return {
     t,
     auth,
+    assignedFacilities,
     canManage,
+    canManageAccountStatus,
+    clearUserFilters,
     facilities,
+    facilityOptions,
+    hasUserFilters,
     isLoadingFacilities,
     isLoadingUsers,
     isSaving,
     newUser,
     notice,
+    removeSelectedFacilityId,
     roleOptions,
+    selectedFacilities,
     selectedFacility,
     selectedFacilityId,
+    selectedFacilityIds,
     selectedRole,
     selectedStatus,
     selectedUser,
     selectedUserId,
     savedMembership,
+    savedUserStatus,
     savingMembership,
+    savingUserStatus,
     setFacilityQuery,
     setSelectedFacilityId,
+    setSelectedFacilityIds,
     setSelectedRole,
     setSelectedStatus,
     setSelectedUserId,
     setUserQuery,
+    setUserRoleFilter,
+    setUserStatusFilter,
     statusOptions,
     summary,
     testIds: USER_MANAGEMENT_TEST_IDS,
+    toggleSelectedFacilityId,
+    updateMembershipRole,
     updateMembershipStatus,
     updateNewUser,
+    updateUserStatus,
     userMeta,
     userOptions,
-    users,
     userQuery,
+    userRoleFilter,
+    userRoleFilterOptions,
+    userStatusFilter,
+    userStatusOptions,
+    users,
     facilityQuery,
     handleAssignMembership,
     handleCreateUser,

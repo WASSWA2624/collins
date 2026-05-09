@@ -4,6 +4,7 @@ import {
   createManagedUserApi,
   listManagedUsersApi,
   searchFacilitiesForUserManagementApi,
+  updateManagedUserStatusApi,
   updateManagedUserMembershipApi,
 } from './userManagement.api';
 import {
@@ -43,6 +44,12 @@ const assignManagedUserMembershipsUseCase = async (userId, payload) =>
     return normalizeManagedUser(body?.data?.user || body?.user || {});
   });
 
+const updateManagedUserStatusUseCase = async (userId, payload) =>
+  execute(async () => {
+    const body = unwrap(await updateManagedUserStatusApi(userId, payload));
+    return normalizeManagedUser(body?.data?.user || body?.user || {});
+  });
+
 const updateManagedUserMembershipUseCase = async (userId, membershipId, payload) =>
   execute(async () => {
     const body = unwrap(await updateManagedUserMembershipApi(userId, membershipId, payload));
@@ -63,5 +70,6 @@ export {
   createManagedUserUseCase,
   listManagedUsersUseCase,
   searchFacilitiesForUserManagementUseCase,
+  updateManagedUserStatusUseCase,
   updateManagedUserMembershipUseCase,
 };

@@ -20,6 +20,7 @@ import {
   requestReferenceUpdate,
   retire,
   retireReference,
+  updateUserStatus,
   updateUserMembership,
   updateReference,
   users,
@@ -39,6 +40,7 @@ import {
   modelShadowOutputSchema,
   referenceLifecycleSchema,
   referenceListSchema,
+  updateManagedUserStatusSchema,
   updateManagedUserMembershipSchema,
   updateReferenceSchema,
 } from './admin.validators.js';
@@ -52,6 +54,7 @@ adminRouter.get('/facilities', facilities);
 adminRouter.patch('/facilities/:id/verify', validateRequest(verifyFacilitySchema), verifyFacility);
 adminRouter.get('/users', validateRequest(adminUserListSchema), users);
 adminRouter.post('/users', validateRequest(createManagedUserSchema), createUser);
+adminRouter.patch('/users/:id', validateRequest(updateManagedUserStatusSchema), updateUserStatus);
 adminRouter.post('/users/:id/facility-memberships', validateRequest(assignManagedUserMembershipsSchema), assignUserMemberships);
 adminRouter.patch('/users/:id/facility-memberships/:membershipId', validateRequest(updateManagedUserMembershipSchema), updateUserMembership);
 adminRouter.get('/audit-logs', validateRequest(auditLogSchema), auditLogs);

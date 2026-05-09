@@ -97,6 +97,15 @@ export const createManagedUserSchema = z.object({
   query: z.object({}).optional(),
 });
 
+export const updateManagedUserStatusSchema = z.object({
+  body: z.object({
+    status: userStatus,
+    reason: z.string().trim().max(1000).optional(),
+  }),
+  params: idParam,
+  query: z.object({}).optional(),
+});
+
 export const assignManagedUserMembershipsSchema = z.object({
   body: z.object({
     facilityId: z.string().min(1),

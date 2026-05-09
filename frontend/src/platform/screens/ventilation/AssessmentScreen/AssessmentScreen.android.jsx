@@ -200,10 +200,10 @@ const AssessmentScreenAndroid = () => {
               </Text>
             </StyledStepperMarker>
             <StyledStepperMeta>
-              <Text variant="label" numberOfLines={1}>
+              <Text variant="label">
                 {t(`ventilation.assessment.steps.${key}`)}
               </Text>
-              <Text variant="caption" color="text.secondary" numberOfLines={1}>
+              <Text variant="caption" color="text.secondary">
                 {t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps })}
               </Text>
             </StyledStepperMeta>
@@ -216,7 +216,7 @@ const AssessmentScreenAndroid = () => {
   const renderSummary = () => {
     const rows = [
       { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
-      { key: 'pathway', label: t('ventilation.assessment.summary.pathway'), value: findOptionLabel(ageGroupOptions, summaryData.pathway) },
+      { key: 'pathway', label: t('ventilation.assessment.summary.ageGroup'), value: findOptionLabel(ageGroupOptions, summaryData.pathway) },
       { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
       { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
       { key: 'fio2', label: t('ventilation.assessment.summary.fio2'), value: summaryData.fio2 },
@@ -277,11 +277,11 @@ const AssessmentScreenAndroid = () => {
       {renderValidationMessages()}
       <StyledChoiceSection testID="assessment-patient-pathway">
         <StyledChoiceHeader>
-          <Text variant="label">{t('ventilation.assessment.patientReason.pathway')} *</Text>
+          <Text variant="label">{t('ventilation.assessment.patientReason.ageGroup')} *</Text>
           <StyledChoiceHint>
             {selectedAgeGroup
               ? t('ventilation.assessment.patientReason.selectedAgeRange', { range: selectedAgeGroup.rangeLabel })
-              : t('ventilation.assessment.patientReason.pathwayPlaceholder')}
+              : t('ventilation.assessment.patientReason.ageGroupPlaceholder')}
           </StyledChoiceHint>
         </StyledChoiceHeader>
         <StyledChoiceGrid>
@@ -300,7 +300,7 @@ const AssessmentScreenAndroid = () => {
                   <Text variant="caption">{option.icon}</Text>
                 </StyledChoiceIcon>
                 <StyledChoiceText>
-                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                  <Text variant="label">{option.label}</Text>
                   <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
                 </StyledChoiceText>
               </StyledChoiceOption>
@@ -330,7 +330,7 @@ const AssessmentScreenAndroid = () => {
                   <Text variant="caption">{option.icon}</Text>
                 </StyledChoiceIcon>
                 <StyledChoiceText>
-                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                  <Text variant="label">{option.label}</Text>
                 </StyledChoiceText>
               </StyledChoiceOption>
             );

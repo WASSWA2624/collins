@@ -11,6 +11,7 @@ const ACTION_GLYPHS = Object.freeze({
   datasetCapture: 'D',
   reviewQueue: 'R',
   dashboard: '#',
+  userManagement: 'UM',
   settings: '*',
 });
 

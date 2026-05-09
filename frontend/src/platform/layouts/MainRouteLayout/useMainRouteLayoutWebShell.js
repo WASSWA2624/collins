@@ -112,12 +112,23 @@ export default function useMainRouteLayoutWebShell() {
     [dispatch, sidebarCollapsed, sidebarWidth]
   );
 
-  const toggleSidebar = useCallback(() => {
-    const nextCollapsed = !sidebarCollapsed;
+  const setSidebarCollapsed = useCallback((nextCollapsed) => {
     dispatch(actions.setSidebarCollapsed(nextCollapsed));
     void asyncStorage.setItem(SIDEBAR_COLLAPSED_STORAGE_KEY, String(nextCollapsed));
     endDrag();
-  }, [dispatch, endDrag, sidebarCollapsed]);
+  }, [dispatch, endDrag]);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  }, [setSidebarCollapsed, sidebarCollapsed]);
+
+  const closeSidebar = useCallback(() => {
+    if (!sidebarCollapsed) {
+      setSidebarCollapsed(true);
+      return;
+    }
+    endDrag();
+  }, [endDrag, setSidebarCollapsed, sidebarCollapsed]);
 
   const resizerProps = useMemo(
     () => ({
@@ -132,6 +143,7 @@ export default function useMainRouteLayoutWebShell() {
     sidebarWidth,
     collapsedWidth: COLLAPSED_WIDTH,
     toggleSidebar,
+    closeSidebar,
     resizerProps,
   };
 }

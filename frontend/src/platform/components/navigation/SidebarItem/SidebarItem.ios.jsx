@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import Icon from '@platform/components/display/Icon';
 import { getMenuIconGlyph } from '@config/sideMenu';
 import { Row, Icon as IconBox, Label } from './SidebarItem.ios.styles.jsx';
@@ -34,23 +33,22 @@ const SidebarItemIOS = (props) => {
 
   const handlePress = () => {
     if (onPress) onPress();
-    // Navigation logic can be handled at a higher level or by passing a handler via props
   };
 
   return (
-    <TouchableOpacity
+    <Row
       onPress={handlePress}
       testID={testID}
+      accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityState={{ selected: !!active }}
+      active={active}
     >
-      <Row active={active}>
-        <IconBox active={active}>
-          <Icon glyph={getMenuIconGlyph(icon)} size="sm" decorative />
-        </IconBox>
-        <Label active={active} collapsed={collapsed}>{label}</Label>
-      </Row>
-    </TouchableOpacity>
+      <IconBox active={active}>
+        <Icon glyph={getMenuIconGlyph(icon)} size="sm" decorative />
+      </IconBox>
+      <Label active={active} collapsed={collapsed}>{label}</Label>
+    </Row>
   );
 };
 

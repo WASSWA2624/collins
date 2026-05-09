@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { prisma } from './helpers/prisma.js';
-import { assignManagedUserMemberships } from '../src/modules/admin/admin.service.js';
+import { assignManagedUserMemberships, updateManagedUserStatus } from '../src/modules/admin/admin.service.js';
 import {
   adminUserListSchema,
   assignManagedUserMembershipsSchema,
   createManagedUserSchema,
+  updateManagedUserStatusSchema,
 } from '../src/modules/admin/admin.validators.js';
 
 const originals = {
@@ -26,7 +27,7 @@ test('admin user-management validators accept search, create, and assignment con
   assert.equal(adminUserListSchema.safeParse({
     body: {},
     params: {},
-    query: { q: 'clinician', facilityQ: 'Kampala', role: 'CLINICIAN', page: '1', limit: '20' },
+    query: { q: 'Kampala approved clinician', role: 'CLINICIAN', page: '1', limit: '20' },
   }).success, true);
 
   assert.equal(createManagedUserSchema.safeParse({
@@ -42,6 +43,12 @@ test('admin user-management validators accept search, create, and assignment con
 
   assert.equal(assignManagedUserMembershipsSchema.safeParse({
     body: { facilityId: 'facility-1', roles: ['SPECIALIST_REVIEWER'], status: 'APPROVED' },
+    params: { id: 'user-1' },
+    query: {},
+  }).success, true);
+
+  assert.equal(updateManagedUserStatusSchema.safeParse({
+    body: { status: 'SUSPENDED', reason: 'Policy review' },
     params: { id: 'user-1' },
     query: {},
   }).success, true);
@@ -128,4 +135,57 @@ test('facility administrators cannot grant platform administrator rights', async
     }, 'admin-1'),
     { status: 403 },
   );
+});
+
+test('platform administrators can suspend managed user accounts', async () => {
+  let updateData;
+  let auditData;
+
+  prisma.facilityMembership = {
+    count: async ({ where }) => (
+      where.userId === 'platform-admin-1' && where.role === 'PLATFORM_ADMIN' ? 1 : 0
+    ),
+  };
+
+  prisma.user = {
+    findUnique: async ({ where }) => ({
+      id: where.id,
+      name: 'Clinician One',
+      email: 'clinician@example.com',
+      status: 'ACTIVE',
+      facilityMemberships: [],
+    }),
+  };
+
+  prisma.$transaction = async (callback) => callback({
+    user: {
+      update: async ({ data }) => {
+        updateData = data;
+        return {
+          id: 'user-1',
+          name: 'Clinician One',
+          email: 'clinician@example.com',
+          status: data.status,
+          facilityMemberships: [],
+        };
+      },
+    },
+    auditLog: {
+      create: async ({ data }) => {
+        auditData = data;
+        return { id: 'audit-1', ...data };
+      },
+    },
+  });
+
+  const result = await updateManagedUserStatus(
+    'user-1',
+    { status: 'SUSPENDED', reason: 'Policy review' },
+    'platform-admin-1',
+  );
+
+  assert.equal(updateData.status, 'SUSPENDED');
+  assert.equal(auditData.action, 'ADMIN_USER_STATUS_UPDATE');
+  assert.equal(auditData.reason, 'Policy review');
+  assert.equal(result.status, 'SUSPENDED');
 });

@@ -20,6 +20,7 @@ const HOME_ACTION_IDS = {
   DATASET_CAPTURE: 'datasetCapture',
   REVIEW_QUEUE: 'reviewQueue',
   DASHBOARD: 'dashboard',
+  USER_MANAGEMENT: 'userManagement',
   SETTINGS: 'settings',
 };
 

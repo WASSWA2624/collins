@@ -57,6 +57,7 @@ describe('useMainRouteLayoutWebShell', () => {
     expect(typeof result.sidebarWidth).toBe('number');
     expect(typeof result.collapsedWidth).toBe('number');
     expect(typeof result.toggleSidebar).toBe('function');
+    expect(typeof result.closeSidebar).toBe('function');
     expect(typeof result.resizerProps).toBe('object');
   });
 
@@ -70,6 +71,18 @@ describe('useMainRouteLayoutWebShell', () => {
     act(() => shell.value.toggleSidebar());
     shell.rerender();
     expect(shell.value.sidebarCollapsed).toBe(false);
+  });
+
+  it('closes sidebarCollapsed without reopening it', () => {
+    const shell = renderShellHook();
+
+    expect(shell.value.sidebarCollapsed).toBe(false);
+    act(() => shell.value.closeSidebar());
+    shell.rerender();
+    expect(shell.value.sidebarCollapsed).toBe(true);
+    act(() => shell.value.closeSidebar());
+    shell.rerender();
+    expect(shell.value.sidebarCollapsed).toBe(true);
   });
 
   it('keyboard resizer adjusts width when expanded', () => {

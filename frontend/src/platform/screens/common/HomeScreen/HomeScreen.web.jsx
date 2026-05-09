@@ -3,6 +3,7 @@
  * File: HomeScreen.web.jsx
  */
 import React from 'react';
+import { useRouter } from 'expo-router';
 import { AppLogo, Badge, Icon, Select, Text } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
@@ -54,6 +55,7 @@ const badgeVariantForTone = (tone) => {
 
 const HomeScreenWeb = () => {
   const { t } = useI18n();
+  const router = useRouter();
   const {
     activeFacility,
     actions,
@@ -77,6 +79,23 @@ const HomeScreenWeb = () => {
     if (item.detailKey) return t(item.detailKey, { count: item.detailValue ?? 0 });
     return item.detail ? String(item.detail) : null;
   };
+
+  const handleActionClick = React.useCallback(
+    (action) => (event) => {
+      if (!action.enabled || !action.path) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+        return;
+      }
+
+      event.preventDefault();
+      router.push(action.path);
+    },
+    [router]
+  );
 
   const facilityOptions = React.useMemo(
     () => getFacilitySelectOptions(availableFacilities, activeFacility),
@@ -149,6 +168,7 @@ const HomeScreenWeb = () => {
               placeholder={t('home.status.facility.empty')}
               searchPlaceholder={t('common.searchPlaceholder')}
               searchable
+              style={{ width: '100%' }}
               testID={`${testIds.facilities}-select`}
               value={facilitySelectValue}
               onValueChange={selectFacility}
@@ -192,6 +212,7 @@ const HomeScreenWeb = () => {
                     name: t(`home.actions.${action.id}.title`),
                   })}
                   href={action.enabled ? action.path : undefined}
+                  onClick={handleActionClick(action)}
                   tabIndex={action.enabled ? 0 : -1}
                 >
                   <StyledActionIcon $emphasis={action.emphasis} $enabled={action.enabled}>

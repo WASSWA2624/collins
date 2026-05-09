@@ -16,6 +16,7 @@ const ROUTES = Object.freeze({
   [HOME_ACTION_IDS.DATASET_CAPTURE]: '/dataset-capture',
   [HOME_ACTION_IDS.REVIEW_QUEUE]: '/review-queue',
   [HOME_ACTION_IDS.DASHBOARD]: '/dashboard',
+  [HOME_ACTION_IDS.USER_MANAGEMENT]: '/user-management',
   [HOME_ACTION_IDS.SETTINGS]: '/settings',
 });
 
@@ -105,6 +106,13 @@ const buildHomeActions = (summary) => {
       path: ROUTES[HOME_ACTION_IDS.DASHBOARD],
       visible: canOpenDashboard,
       canUse: canOpenDashboard,
+      navigationStatus,
+    }),
+    makeAction({
+      id: HOME_ACTION_IDS.USER_MANAGEMENT,
+      path: ROUTES[HOME_ACTION_IDS.USER_MANAGEMENT],
+      visible: navigation.canManageFacility === true,
+      canUse: navigation.canManageFacility === true,
       navigationStatus,
     }),
     makeAction({

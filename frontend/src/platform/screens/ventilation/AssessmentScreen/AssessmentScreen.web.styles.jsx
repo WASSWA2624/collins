@@ -18,12 +18,13 @@ const StyledContainer = styled.main.withConfig({
 })`
   flex: 1;
   width: 100%;
+  min-width: 0;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.sm}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
   box-sizing: border-box;
   overflow-x: hidden;
 
@@ -53,8 +54,10 @@ const StyledProgressSection = styled.div.withConfig({
   componentId: 'StyledProgressSection',
 })`
   flex-shrink: 0;
-  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  margin-bottom: 0;
   order: 0;
+  width: 100%;
+  min-width: 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-basis: 100%;
@@ -91,16 +94,11 @@ const StyledStepper = styled.div.withConfig({
 })`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-  }
 `;
 
 const StyledStepperItem = styled.div.withConfig({
@@ -109,21 +107,25 @@ const StyledStepperItem = styled.div.withConfig({
 })`
   position: relative;
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-columns: 28px minmax(0, 1fr);
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   min-width: 0;
-  padding: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-right-width: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
 
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: 32px minmax(0, 1fr);
-    border-right-width: 0;
+  &:last-child {
+    border-right-width: 1px;
+  }
 
-    &:last-child {
-      border-right-width: 1px;
-    }
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: start;
+    text-align: center;
+    padding: 6px ${({ theme }) => theme.spacing.xs}px;
   }
 `;
 
@@ -131,8 +133,8 @@ const StyledStepperMarker = styled.span.withConfig({
   displayName: 'StyledStepperMarker',
   componentId: 'StyledStepperMarker',
 })`
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -140,7 +142,7 @@ const StyledStepperMarker = styled.span.withConfig({
   background-color: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text.secondary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
 
   &[data-status='complete'] {
@@ -164,6 +166,10 @@ const StyledStepperMeta = styled.span.withConfig({
   display: flex;
   flex-direction: column;
   gap: 1px;
+
+  @media (max-width: 420px) {
+    align-items: center;
+  }
 `;
 
 const StyledStepperLabel = styled.span.withConfig({
@@ -172,11 +178,11 @@ const StyledStepperLabel = styled.span.withConfig({
 })`
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  white-space: normal;
 
   &[data-status='upcoming'] {
     color: ${({ theme }) => theme.colors.text.secondary};
@@ -197,16 +203,21 @@ const StyledWizardCard = styled.div.withConfig({
 })`
   flex: 1;
   min-width: 0;
+  width: 100%;
   min-height: 200px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
     padding: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (max-width: 420px) {
+    padding: ${({ theme }) => theme.spacing.sm}px;
   }
 `;
 
@@ -218,14 +229,14 @@ const StyledSummaryWrap = styled.div.withConfig({
   display: flex;
   justify-content: center;
   flex-shrink: 0;
-  order: 1;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  order: 3;
+  margin-bottom: 0;
   min-width: 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-basis: 100%;
     width: 100%;
-    order: 1;
+    order: 3;
     margin-bottom: 0;
   }
 
@@ -253,7 +264,7 @@ const StyledSummaryPane = styled.aside.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   box-shadow: ${({ theme }) => boxShadowFromToken(theme.shadows?.sm ?? theme.shadows?.card ?? theme.shadows)};
   display: flex;
   flex-direction: column;
@@ -293,9 +304,9 @@ const StyledStepTitle = styled.h2.withConfig({
   font-size: ${({ theme }) => theme.typography.fontSize.xl}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.text.primary};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: anywhere;
   min-width: 0;
 `;
 
@@ -322,15 +333,11 @@ const StyledFieldGrid = styled.div.withConfig({
   componentId: 'StyledFieldGrid',
 })`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: ${({ theme }) => theme.spacing.sm}px;
 
   & > * {
     margin-bottom: 0;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
@@ -395,6 +402,8 @@ const StyledChoiceHint = styled.span.withConfig({
   color: ${({ theme }) => theme.colors.text.secondary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 `;
 
 const StyledChoiceGrid = styled.div.withConfig({
@@ -402,15 +411,36 @@ const StyledChoiceGrid = styled.div.withConfig({
   componentId: 'StyledChoiceGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 148px), 1fr));
   gap: ${({ theme }) => theme.spacing.xs}px;
+  min-width: 0;
 
   &[data-density='compact'] {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 112px), 1fr));
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+
+    &[data-density='compact'] {
+      grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    &[data-density='compact'] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 360px) {
+    grid-template-columns: 1fr;
+
+    &[data-density='compact'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 `;
 
@@ -419,15 +449,16 @@ const StyledChoiceOption = styled.button.withConfig({
   componentId: 'StyledChoiceOption',
 })`
   min-width: 0;
-  min-height: 74px;
+  width: 100%;
+  min-height: 64px;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: 36px minmax(0, 1fr);
   grid-template-areas:
     'icon label'
     'icon meta';
   align-items: center;
   gap: 0 ${({ theme }) => theme.spacing.sm}px;
-  padding: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-left-width: 3px;
   border-left-color: transparent;
@@ -439,7 +470,8 @@ const StyledChoiceOption = styled.button.withConfig({
   box-sizing: border-box;
 
   &[data-density='compact'] {
-    min-height: 50px;
+    min-height: 48px;
+    grid-template-columns: 34px minmax(0, 1fr);
   }
 
   &:hover {
@@ -463,8 +495,9 @@ const StyledChoiceIcon = styled.span.withConfig({
   componentId: 'StyledChoiceIcon',
 })`
   grid-area: icon;
-  width: 38px;
-  height: 34px;
+  width: 34px;
+  height: 30px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -487,9 +520,9 @@ const StyledChoiceText = styled.span.withConfig({
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  white-space: normal;
 `;
 
 const StyledChoiceMeta = styled.span.withConfig({
@@ -501,9 +534,9 @@ const StyledChoiceMeta = styled.span.withConfig({
   color: ${({ theme }) => theme.colors.text.secondary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  white-space: normal;
 `;
 
 const StyledInlineError = styled.span.withConfig({
@@ -620,7 +653,7 @@ const StyledSummaryGrid = styled.div.withConfig({
   componentId: 'StyledSummaryGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 112px), 1fr));
   gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
@@ -657,8 +690,8 @@ const StyledSummaryValue = styled.span.withConfig({
   display: block;
   margin-top: 2px;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  white-space: normal;
 `;
 
 const StyledActionsRow = styled.div.withConfig({
@@ -675,6 +708,15 @@ const StyledActionsRow = styled.div.withConfig({
 
   & button {
     border-radius: 0;
+  }
+
+  @media (max-width: 420px) {
+    gap: ${({ theme }) => theme.spacing.xs}px;
+
+    & > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
   }
 `;
 

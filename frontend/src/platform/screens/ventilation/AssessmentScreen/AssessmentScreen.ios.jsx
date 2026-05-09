@@ -200,10 +200,10 @@ const AssessmentScreenIOS = () => {
               </Text>
             </StyledStepperMarker>
             <StyledStepperMeta>
-              <Text variant="label" numberOfLines={1}>
+              <Text variant="label">
                 {t(`ventilation.assessment.steps.${key}`)}
               </Text>
-              <Text variant="caption" color="text.secondary" numberOfLines={1}>
+              <Text variant="caption" color="text.secondary">
                 {t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps })}
               </Text>
             </StyledStepperMeta>
@@ -300,7 +300,7 @@ const AssessmentScreenIOS = () => {
                   <Text variant="caption">{option.icon}</Text>
                 </StyledChoiceIcon>
                 <StyledChoiceText>
-                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                  <Text variant="label">{option.label}</Text>
                   <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
                 </StyledChoiceText>
               </StyledChoiceOption>
@@ -330,7 +330,7 @@ const AssessmentScreenIOS = () => {
                   <Text variant="caption">{option.icon}</Text>
                 </StyledChoiceIcon>
                 <StyledChoiceText>
-                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                  <Text variant="label">{option.label}</Text>
                 </StyledChoiceText>
               </StyledChoiceOption>
             );

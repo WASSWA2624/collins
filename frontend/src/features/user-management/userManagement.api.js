@@ -21,6 +21,13 @@ const assignManagedUserMembershipsApi = (userId, payload) =>
     body: payload,
   });
 
+const updateManagedUserStatusApi = (userId, payload) =>
+  apiClient({
+    url: endpoints.ADMIN.USER(userId),
+    method: 'PATCH',
+    body: payload,
+  });
+
 const updateManagedUserMembershipApi = (userId, membershipId, payload) =>
   apiClient({
     url: endpoints.ADMIN.USER_MEMBERSHIP(userId, membershipId),
@@ -39,5 +46,6 @@ export {
   createManagedUserApi,
   listManagedUsersApi,
   searchFacilitiesForUserManagementApi,
+  updateManagedUserStatusApi,
   updateManagedUserMembershipApi,
 };

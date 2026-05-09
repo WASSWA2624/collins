@@ -165,6 +165,7 @@ const HomeScreenNative = () => {
               placeholder={t('home.status.facility.empty')}
               searchPlaceholder={t('common.searchPlaceholder')}
               searchable
+              style={{ width: '100%' }}
               testID={`${testIds.facilities}-select`}
               value={facilitySelectValue}
               onValueChange={selectFacility}

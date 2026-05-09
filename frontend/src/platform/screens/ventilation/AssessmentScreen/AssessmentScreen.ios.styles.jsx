@@ -266,6 +266,8 @@ const StyledChoiceOption = styled(Pressable).withConfig({
   componentId: 'StyledChoiceOption',
 })`
   flex-basis: ${({ compact }) => (compact ? '31%' : '48%')};
+  min-width: ${({ compact }) => (compact ? 96 : 140)}px;
+  max-width: 100%;
   min-height: ${({ compact }) => (compact ? 48 : 68)}px;
   flex-grow: 1;
   flex-direction: row;
@@ -288,6 +290,7 @@ const StyledChoiceIcon = styled(View).withConfig({
 })`
   width: 38px;
   height: 32px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-width: 1px;
@@ -302,6 +305,7 @@ const StyledChoiceText = styled(View).withConfig({
 })`
   flex: 1;
   min-width: 0;
+  flex-shrink: 1;
 `;
 
 const StyledChoiceMeta = styled(Text).withConfig({
@@ -310,6 +314,7 @@ const StyledChoiceMeta = styled(Text).withConfig({
 })`
   color: ${({ theme }) => theme.colors.text.secondary};
   font-size: ${({ theme }) => theme.typography?.fontSize?.xs ?? 12}px;
+  line-height: 16px;
 `;
 
 const StyledInlineError = styled(Text).withConfig({

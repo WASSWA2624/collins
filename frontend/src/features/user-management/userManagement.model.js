@@ -35,6 +35,20 @@ const ROLE_OPTIONS = Object.freeze([
 
 const ROLE_LABELS = Object.freeze(Object.fromEntries(ROLE_OPTIONS.map((option) => [option.value, option.label])));
 
+const USER_STATUS_OPTIONS = Object.freeze([
+  { value: 'ACTIVE', label: 'Active' },
+  { value: 'INVITED', label: 'Invited' },
+  { value: 'SUSPENDED', label: 'Suspended' },
+  { value: 'DEACTIVATED', label: 'Deactivated' },
+]);
+
+const MEMBERSHIP_STATUS_OPTIONS = Object.freeze([
+  { value: 'APPROVED', label: 'Approved' },
+  { value: 'PENDING', label: 'Pending' },
+  { value: 'SUSPENDED', label: 'Suspended' },
+  { value: 'REJECTED', label: 'Rejected' },
+]);
+
 const asArray = (value) => (Array.isArray(value) ? value : []);
 const asText = (value) => String(value || '').trim();
 const unique = (values) => [...new Set(values.filter(Boolean))];
@@ -147,7 +161,9 @@ export {
   APPROVED_STATUS,
   CAPTURE_ROLES,
   ROLE_OPTIONS,
+  MEMBERSHIP_STATUS_OPTIONS,
   USER_MANAGEMENT_ROLES,
+  USER_STATUS_OPTIONS,
   VALIDATE_ROLES,
   buildUserManagementSummary,
   canManageUsers,

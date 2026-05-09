@@ -186,77 +186,21 @@ const StyledFacilityHeader = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-const StyledFacilityList = styled(View).withConfig({
-  displayName: 'StyledFacilityList',
-  componentId: 'StyledFacilityList',
+const StyledFacilitySelectWrap = styled(View).withConfig({
+  displayName: 'StyledFacilitySelectWrap',
+  componentId: 'StyledFacilitySelectWrap',
 })`
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  width: 100%;
 `;
 
-const StyledFacilityButton = styled(Pressable).withConfig({
-  displayName: 'StyledFacilityButton',
-  componentId: 'StyledFacilityButton',
-})`
-  min-height: 56px;
-  flex-direction: row;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
-  border-width: 1px;
-  border-color: ${({ theme, $selected }) => ($selected ? theme.colors.primary : theme.colors.background.tertiary)};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
-  background-color: ${({ theme, $selected }) => ($selected ? selectedSurfaceColor(theme) : softSurfaceColor(theme))};
-`;
-
-const StyledFacilityIcon = styled(View).withConfig({
-  displayName: 'StyledFacilityIcon',
-  componentId: 'StyledFacilityIcon',
-})`
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  border-width: 1px;
-  border-color: ${({ theme, $selected }) => ($selected ? theme.colors.primary : theme.colors.background.tertiary)};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
-  background-color: ${({ theme, $selected }) => ($selected ? theme.colors.primary : surfaceColor(theme))};
-`;
-
-const StyledFacilityBody = styled(View).withConfig({
-  displayName: 'StyledFacilityBody',
-  componentId: 'StyledFacilityBody',
-})`
-  flex: 1;
-  min-width: 0;
-`;
-
-const StyledFacilityButtonText = styled(Text).withConfig({
-  displayName: 'StyledFacilityButtonText',
-  componentId: 'StyledFacilityButtonText',
-})`
-  color: ${({ theme }) => theme.colors.text.primary};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  line-height: ${({ theme }) => Math.round(theme.typography.fontSize.sm * 1.35)}px;
-`;
-
-const StyledFacilityMeta = styled(Text).withConfig({
-  displayName: 'StyledFacilityMeta',
-  componentId: 'StyledFacilityMeta',
+const StyledFacilitySummary = styled(Text).withConfig({
+  displayName: 'StyledFacilitySummary',
+  componentId: 'StyledFacilitySummary',
 })`
   margin-top: ${({ theme }) => theme.spacing.xs}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   line-height: ${({ theme }) => Math.round(theme.typography.fontSize.xs * 1.35)}px;
-`;
-
-const StyledFacilityChevron = styled(Text).withConfig({
-  displayName: 'StyledFacilityChevron',
-  componentId: 'StyledFacilityChevron',
-})`
-  color: ${({ theme }) => theme.colors.text.tertiary};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
 `;
 
 const StyledDashboardGrid = styled(View).withConfig({
@@ -426,15 +370,10 @@ export {
   StyledActionTitle,
   StyledContainer,
   StyledDashboardGrid,
-  StyledFacilityBody,
-  StyledFacilityButton,
-  StyledFacilityButtonText,
-  StyledFacilityChevron,
   StyledFacilityHeader,
-  StyledFacilityIcon,
-  StyledFacilityList,
-  StyledFacilityMeta,
   StyledFacilityPanel,
+  StyledFacilitySelectWrap,
+  StyledFacilitySummary,
   StyledHeader,
   StyledHeaderCopy,
   StyledLogoArea,

@@ -52,6 +52,9 @@ const CLINICAL_VALIDATE_ROLES = Object.freeze([
   MEMBERSHIP_ROLES.RESEARCH_GOVERNANCE_OFFICER,
 ]);
 
+const USER_STATUS_VALUES = Object.freeze(['ACTIVE', 'INVITED', 'SUSPENDED', 'DEACTIVATED']);
+const MEMBERSHIP_STATUS_VALUES = Object.freeze(['PENDING', 'APPROVED', 'REJECTED', 'SUSPENDED']);
+
 const managedUserSelect = {
   id: true,
   name: true,
@@ -163,6 +166,33 @@ const assertCanManageMembership = async (adminUserId, { facilityId, role }) => {
   await assertFacilityRole(adminUserId, facilityId, FACILITY_ADMIN_ROLES);
 };
 
+const normalizeSearchComparable = (value) => String(value || '')
+  .replace(/_/g, ' ')
+  .trim()
+  .toLowerCase();
+
+const matchingEnumValues = (values, term) => values
+  .filter((value) => normalizeSearchComparable(value).includes(term));
+
+const buildMembershipSearchOr = (term) => {
+  const matchingRoles = matchingEnumValues(MEMBERSHIP_ROLE_VALUES, term);
+  const matchingStatuses = matchingEnumValues(MEMBERSHIP_STATUS_VALUES, term);
+  return [
+    ...(matchingRoles.length ? [{ role: { in: matchingRoles } }] : []),
+    ...(matchingStatuses.length ? [{ status: { in: matchingStatuses } }] : []),
+    {
+      facility: {
+        OR: [
+          { name: { contains: term } },
+          { registryCode: { contains: term } },
+          { district: { contains: term } },
+          { region: { contains: term } },
+        ],
+      },
+    },
+  ];
+};
+
 const userSearchWhere = ({ q, facilityQ, facilityId, role, status }, managedFacilityIds) => {
   const terms = String(q || '').trim();
   const facilityTerms = String(facilityQ || '').trim();
@@ -174,15 +204,30 @@ const userSearchWhere = ({ q, facilityQ, facilityId, role, status }, managedFaci
     throw forbidden('You do not have permission for this facility');
   }
 
-  return {
-    ...(status ? { status } : {}),
-    ...(terms ? {
-      OR: [
+  const normalizedTerms = normalizeSearchComparable(terms);
+  const matchingUserStatuses = normalizedTerms
+    ? matchingEnumValues(USER_STATUS_VALUES, normalizedTerms)
+    : [];
+  const searchOr = normalizedTerms
+    ? [
         { name: { contains: terms } },
         { email: { contains: terms } },
         { phone: { contains: terms } },
-      ],
-    } : {}),
+        ...(matchingUserStatuses.length ? [{ status: { in: matchingUserStatuses } }] : []),
+        {
+          facilityMemberships: {
+            some: {
+              ...(managedFacilityIds ? { facilityId: { in: managedFacilityIds } } : {}),
+              OR: buildMembershipSearchOr(normalizedTerms),
+            },
+          },
+        },
+      ]
+    : [];
+
+  return {
+    ...(status ? { status } : {}),
+    ...(searchOr.length ? { OR: searchOr } : {}),
     ...((scopedFacilityIds || facilityTerms || role) ? {
       facilityMemberships: {
         some: {
@@ -358,6 +403,40 @@ export const createManagedUser = async (adminUserId, payload, auditContext = {})
 
     const createdUser = await tx.user.findUnique({ where: { id: user.id }, select: managedUserSelect });
     return serializeManagedUserForScope(createdUser, managedFacilityIds);
+  });
+};
+
+export const updateManagedUserStatus = async (targetUserId, payload, adminUserId, auditContext = {}) => {
+  await assertPlatformRole(adminUserId);
+  const existing = await prisma.user.findUnique({ where: { id: targetUserId }, select: managedUserSelect });
+  if (!existing) throw notFound('User not found');
+
+  if (targetUserId === adminUserId && payload.status !== 'ACTIVE') {
+    throw badRequest('Administrators cannot suspend or deactivate their own account');
+  }
+
+  if (existing.status === payload.status) return serializeManagedUser(existing);
+
+  return prisma.$transaction(async (tx) => {
+    const updated = await tx.user.update({
+      where: { id: targetUserId },
+      data: { status: payload.status },
+      select: managedUserSelect,
+    });
+
+    await writeAudit({
+      tx,
+      ...auditContext,
+      userId: adminUserId,
+      action: 'ADMIN_USER_STATUS_UPDATE',
+      entityType: 'User',
+      entityId: targetUserId,
+      beforeJson: { status: existing.status },
+      afterJson: { status: updated.status },
+      reason: payload.reason,
+    });
+
+    return serializeManagedUser(updated);
   });
 };
 

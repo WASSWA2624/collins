@@ -115,6 +115,21 @@ describe('useHomeScreen', () => {
     expect(actions.some((action) => action.id === 'trainingHelp')).toBe(false);
   });
 
+  it('adds the Admin shortcut for facility managers', () => {
+    const actions = buildHomeActions({
+      ...readySummary,
+      navigation: {
+        ...readySummary.navigation,
+        canManageFacility: true,
+      },
+    });
+    const adminAction = actions.find((action) => action.id === 'userManagement');
+    expect(adminAction).toMatchObject({
+      enabled: true,
+      path: '/user-management',
+    });
+  });
+
   it('hides reviewer actions for non-review roles', () => {
     const actions = buildHomeActions({
       ...readySummary,
