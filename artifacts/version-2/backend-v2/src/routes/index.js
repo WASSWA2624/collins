@@ -1,0 +1,37 @@
+import { Router } from 'express';
+import { healthRouter } from '../modules/health/health.routes.js';
+import { authRouter } from '../modules/auth/auth.routes.js';
+import { onboardingRouter } from '../modules/onboarding/onboarding.routes.js';
+import { facilitiesRouter } from '../modules/facilities/facilities.routes.js';
+import { myFacilities } from '../modules/facilities/facilities.controller.js';
+import { homeRouter } from '../modules/home/home.routes.js';
+import { admissionsRouter } from '../modules/admissions/admissions.routes.js';
+import { trackingRouter } from '../modules/tracking/tracking.routes.js';
+import { reviewRouter } from '../modules/review/review.routes.js';
+import { datasetRouter } from '../modules/dataset/dataset.routes.js';
+import { referencesRouter } from '../modules/references/references.routes.js';
+import { syncRouter } from '../modules/sync/sync.routes.js';
+import { dashboardsRouter } from '../modules/dashboards/dashboards.routes.js';
+import { adminRouter } from '../modules/admin/admin.routes.js';
+import { trainingHelpRouter } from '../modules/training-help/trainingHelp.routes.js';
+import { settingsRouter } from '../modules/settings/settings.routes.js';
+import { requireAuth } from '../middleware/auth.middleware.js';
+
+export const apiRouter = Router();
+
+apiRouter.use('/health', healthRouter);
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/onboarding', onboardingRouter);
+apiRouter.get('/me/facilities', requireAuth, myFacilities);
+apiRouter.use('/home', homeRouter);
+apiRouter.use('/facilities', facilitiesRouter);
+apiRouter.use('/admissions', admissionsRouter);
+apiRouter.use('/tracking', trackingRouter);
+apiRouter.use('/review', reviewRouter);
+apiRouter.use('/sync', syncRouter);
+apiRouter.use('/dashboards', dashboardsRouter);
+apiRouter.use('/training-help', trainingHelpRouter);
+apiRouter.use('/settings', settingsRouter);
+apiRouter.use('/', referencesRouter);
+apiRouter.use('/', datasetRouter);
+apiRouter.use('/admin', adminRouter);
