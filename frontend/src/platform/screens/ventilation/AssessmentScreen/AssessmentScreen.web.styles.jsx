@@ -85,6 +85,9 @@ const StyledWizardPane = styled.section.withConfig({
   display: flex;
   flex-direction: column;
   order: 2;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex: 1 1 100%;
@@ -130,6 +133,10 @@ const StyledStepperItem = styled.div.withConfig({
   border-right-width: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
 
+  &[data-status='error'] {
+    border-color: ${({ theme }) => theme.colors.error};
+  }
+
   &:last-child {
     border-right-width: 1px;
   }
@@ -170,6 +177,12 @@ const StyledStepperMarker = styled.span.withConfig({
     background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.onPrimary ?? theme.colors.text.inverse};
   }
+
+  &[data-status='error'] {
+    border-color: ${({ theme }) => theme.colors.error};
+    background-color: ${({ theme }) => theme.colors.error};
+    color: ${({ theme }) => theme.colors.onPrimary ?? theme.colors.text.inverse};
+  }
 `;
 
 const StyledStepperMeta = styled.span.withConfig({
@@ -201,6 +214,10 @@ const StyledStepperLabel = styled.span.withConfig({
   &[data-status='upcoming'] {
     color: ${({ theme }) => theme.colors.text.secondary};
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+  }
+
+  &[data-status='error'] {
+    color: ${({ theme }) => theme.colors.error};
   }
 `;
 
@@ -262,8 +279,9 @@ const StyledSummaryWrap = styled.div.withConfig({
     justify-self: end;
     flex: initial;
     order: 2;
-    position: sticky;
-    top: ${({ theme }) => theme.spacing.lg}px;
+    position: relative;
+    top: auto;
+    z-index: 0;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
@@ -334,6 +352,10 @@ const StyledStepIndicator = styled.span.withConfig({
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ theme }) => theme.colors.text.tertiary};
   flex-shrink: 0;
+
+  &[data-status='error'] {
+    color: ${({ theme }) => theme.colors.error};
+  }
 `;
 
 const StyledStepContent = styled.div.withConfig({

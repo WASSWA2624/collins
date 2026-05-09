@@ -9,8 +9,8 @@ import {
   LoadingSpinner,
   Select,
   Text,
-  TextArea,
-  TextField,
+  TextArea as PlatformTextArea,
+  TextField as PlatformTextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
 import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
@@ -77,7 +77,6 @@ const mapOptions = (options, t, keyPrefix) =>
   options.map((option) => ({
     value: option.value,
     label: t(`${keyPrefix}.${option.labelKey}`),
-    icon: option.icon,
     rangeKey: option.rangeKey,
   }));
 
@@ -95,8 +94,37 @@ const parseNum = parseAdmissionNumberInput;
 const STEP_STATUS = Object.freeze({
   COMPLETE: 'complete',
   CURRENT: 'current',
+  ERROR: 'error',
   UPCOMING: 'upcoming',
 });
+
+const FIELD_TEST_IDS = Object.freeze({
+  patientPathway: 'assessment-age-group-options',
+  reasonForSupport: 'assessment-reason',
+  ageYears: 'assessment-age',
+  actualWeightKg: 'assessment-weight',
+  heightOrLengthCm: 'assessment-height',
+  bmi: 'assessment-bmi',
+  oxygenSupportType: 'assessment-oxygen-support',
+  measuredAt: 'assessment-measured-at',
+  spo2: 'assessment-spo2',
+  fio2: 'assessment-fio2',
+  respiratoryRate: 'assessment-respiratory-rate',
+  heartRate: 'assessment-heart-rate',
+  ph: 'assessment-ph',
+  pao2: 'assessment-pao2',
+  paco2: 'assessment-paco2',
+  ventilatorMode: 'assessment-suggested-ventilator-mode',
+  tidalVolumeMl: 'assessment-suggested-tidal-volume',
+  respiratoryRateSet: 'assessment-suggested-respiratory-rate-set',
+  ventilatorFio2: 'assessment-suggested-ventilator-fio2',
+  peep: 'assessment-suggested-peep',
+  clinicianConfirmed: 'assessment-clinician-confirmed',
+  overrideReason: 'assessment-override-reason',
+});
+
+const TextField = (props) => <PlatformTextField {...props} debounceMs={0} />;
+const TextArea = (props) => <PlatformTextArea {...props} debounceMs={0} />;
 
 const formatValue = (value, unit) => {
   if (value == null || value === '') return null;
@@ -125,6 +153,7 @@ const AssessmentScreenWeb = () => {
     recommendationErrorCode,
     isGeneratingRecommendation,
     validation,
+    stepValidationStates,
     goNext,
     goBackOrExit,
     saveAdmission,
@@ -183,13 +212,29 @@ const AssessmentScreenWeb = () => {
       : errorCode
       ? t('errors.codes.UNKNOWN_ERROR')
       : null;
+  const firstInvalidField = validation?.firstInvalidField;
+
+  React.useEffect(() => {
+    if (!firstInvalidField || typeof document === 'undefined') return;
+    const testId = FIELD_TEST_IDS[firstInvalidField];
+    if (!testId) return;
+    const root = document.querySelector(`[data-testid="${testId}"]`);
+    if (!root) return;
+    const target = root.matches('button, input, textarea, [tabindex]')
+      ? root
+      : root.querySelector('button, input, textarea, [tabindex]');
+    const scrollTarget = target || root;
+    scrollTarget.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+    target?.focus?.({ preventScroll: true });
+  }, [currentStep, firstInvalidField]);
 
   const renderValidationMessages = () => {
-    if (!validation?.messages?.length) return null;
+    const messages = [...new Set([errorMessage, ...(validation?.messages || [])].filter(Boolean))];
+    if (!messages.length) return null;
     return (
       <StyledMissingTests data-testid="assessment-validation" role="alert">
         <StyledMissingTestsTitle>{t('ventilation.assessment.validation.title')}</StyledMissingTestsTitle>
-        {validation.messages.map((message) => (
+        {messages.map((message) => (
           <StyledMissingTestsHint key={message}>{message}</StyledMissingTestsHint>
         ))}
       </StyledMissingTests>
@@ -212,22 +257,35 @@ const AssessmentScreenWeb = () => {
   const renderStepper = () => (
     <StyledStepper data-testid={testIds.progressBar} aria-label={stepIndicator} role="list">
       {STEP_KEYS.map((key, index) => {
+        const stepValidation = stepValidationStates?.[index];
+        const hasStepError = stepValidation?.hasErrors;
         const status =
-          index < currentStep
+          hasStepError
+            ? STEP_STATUS.ERROR
+            : index < currentStep
             ? STEP_STATUS.COMPLETE
             : index === currentStep
               ? STEP_STATUS.CURRENT
               : STEP_STATUS.UPCOMING;
         const label = t(`ventilation.assessment.steps.${key}`);
+        const metaLabel = hasStepError
+          ? `${stepValidation.errorCount || 1} field${stepValidation.errorCount === 1 ? '' : 's'} need attention`
+          : t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps });
         return (
-          <StyledStepperItem key={key} role="listitem" aria-current={status === STEP_STATUS.CURRENT ? 'step' : undefined}>
+          <StyledStepperItem
+            key={key}
+            role="listitem"
+            data-status={status}
+            aria-current={status === STEP_STATUS.CURRENT ? 'step' : undefined}
+            aria-label={`${label}. ${metaLabel}`}
+          >
             <StyledStepperMarker data-status={status} aria-hidden="true">
-              {status === STEP_STATUS.COMPLETE ? '\u2713' : index + 1}
+              {status === STEP_STATUS.ERROR ? '!' : status === STEP_STATUS.COMPLETE ? '\u2713' : index + 1}
             </StyledStepperMarker>
             <StyledStepperMeta>
               <StyledStepperLabel data-status={status}>{label}</StyledStepperLabel>
-              <StyledStepIndicator>
-                {t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps })}
+              <StyledStepIndicator data-status={status}>
+                {metaLabel}
               </StyledStepIndicator>
             </StyledStepperMeta>
             {index < STEP_KEYS.length - 1 ? <StyledStepperConnector data-status={status} /> : null}
@@ -724,7 +782,6 @@ const AssessmentScreenWeb = () => {
           {blocker.message}
         </StyledMissingTestsHint>
       ))}
-      {errorMessage ? <StyledMissingTestsHint>{errorMessage}</StyledMissingTestsHint> : null}
     </StyledMissingTests>
   );
 

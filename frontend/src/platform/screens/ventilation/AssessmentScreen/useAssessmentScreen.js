@@ -372,12 +372,18 @@ const hasRequiredFieldValue = (inputs, rule) => {
 const shouldValidateRuleForStep = (rule, step) =>
   rule.steps.some((ruleStep) => ruleStep <= step);
 
-const buildValidationFromInputs = (inputs, step, readiness) => {
+const shouldValidateRuleOnStep = (rule, step) =>
+  rule.steps.some((ruleStep) => ruleStep === step);
+
+const buildValidationFromInputs = (inputs, step, readiness, options = {}) => {
   const fieldErrors = {};
   const messages = [];
+  const shouldValidateRule = options.includePreviousSteps === false
+    ? shouldValidateRuleOnStep
+    : shouldValidateRuleForStep;
 
   REQUIRED_FIELDS
-    .filter((rule) => shouldValidateRuleForStep(rule, step))
+    .filter((rule) => shouldValidateRule(rule, step))
     .forEach((rule) => {
       if (!hasRequiredFieldValue(inputs, rule)) {
         addValidationError(fieldErrors, messages, rule.field, `${rule.label} is required before continuing.`);
@@ -385,7 +391,7 @@ const buildValidationFromInputs = (inputs, step, readiness) => {
     });
 
   NUMERIC_RULES
-    .filter((rule) => shouldValidateRuleForStep(rule, step))
+    .filter((rule) => shouldValidateRule(rule, step))
     .forEach((rule) => {
       if (!isWithinRule(inputs[rule.field], rule)) {
         addValidationError(fieldErrors, messages, rule.field, rangeMessage(rule));
@@ -393,7 +399,7 @@ const buildValidationFromInputs = (inputs, step, readiness) => {
     });
 
   DATE_FIELDS
-    .filter((rule) => shouldValidateRuleForStep(rule, step))
+    .filter((rule) => shouldValidateRule(rule, step))
     .forEach((rule) => {
       if (!isValidDateTimeValue(inputs[rule.field])) {
         addValidationError(fieldErrors, messages, rule.field, `${rule.label} must be a valid date and time.`);
@@ -424,6 +430,7 @@ const buildValidationFromInputs = (inputs, step, readiness) => {
     fieldErrors,
     messages,
     hasBlockingErrors: messages.length > 0,
+    firstInvalidField: Object.keys(fieldErrors)[0] || null,
   };
 };
 
@@ -449,6 +456,7 @@ const filterVisibleValidation = (validation, touchedFields, attemptedSteps) => {
     fieldErrors: visibleFieldErrors,
     messages: visibleMessages,
     hasBlockingErrors: validation.hasBlockingErrors,
+    firstInvalidField: Object.keys(visibleFieldErrors)[0] || null,
   };
 };
 
@@ -756,6 +764,23 @@ export default function useAssessmentScreen() {
     () => filterVisibleValidation(rawValidation, touchedFields, attemptedSteps),
     [attemptedSteps, rawValidation, touchedFields]
   );
+  const stepValidationStates = useMemo(
+    () => STEP_KEYS.map((key, step) => {
+      const exactValidation = buildValidationFromInputs(mergedInputs, step, readiness, {
+        includePreviousSteps: false,
+      });
+      const attempted = attemptedSteps[step] === true;
+      return {
+        key,
+        step,
+        attempted,
+        hasErrors: attempted && exactValidation.hasBlockingErrors,
+        errorCount: attempted ? Object.keys(exactValidation.fieldErrors || {}).length : 0,
+        firstInvalidField: attempted ? exactValidation.firstInvalidField : null,
+      };
+    }),
+    [attemptedSteps, mergedInputs, readiness]
+  );
 
   const canProceedFromStep = useCallback(
     (step) => {
@@ -910,7 +935,11 @@ export default function useAssessmentScreen() {
 
   const goNext = useCallback(async () => {
     markStepAttempted(currentStep);
-    if (!canProceedFromStep(currentStep)) return;
+    const stepValidation = buildValidationFromInputs(mergedInputs, currentStep, readiness);
+    if (stepValidation.hasBlockingErrors || !canProceedFromStep(currentStep)) {
+      setSaveErrorCode('ADMISSION_VALIDATION_FAILED');
+      return;
+    }
     const nextStep = Math.min(currentStep + 1, TOTAL_STEPS - 1);
     setIsSaving(true);
     setSaveErrorCode(null);
@@ -944,7 +973,9 @@ export default function useAssessmentScreen() {
     currentStep,
     generateDatasetRecommendation,
     markStepAttempted,
+    mergedInputs,
     persistCurrentDraft,
+    readiness,
     saveOxygenAbgVentilatorStep,
     savePatientReasonStep,
   ]);
@@ -1103,6 +1134,7 @@ export default function useAssessmentScreen() {
     recommendationErrorCode,
     validation,
     rawValidation,
+    stepValidationStates,
     canProceedFromStep,
     goNext,
     goBack,

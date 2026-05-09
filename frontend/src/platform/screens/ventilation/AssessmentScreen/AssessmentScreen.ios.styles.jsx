@@ -79,7 +79,11 @@ const StyledStepperItem = styled(View).withConfig({
   padding: ${({ theme }) => theme.spacing.sm}px;
   border-width: 1px;
   border-color: ${({ status, theme }) =>
-    status === 'current' ? theme.colors.primary : theme.colors.background.tertiary};
+    status === 'error'
+      ? theme.colors.error
+      : status === 'current'
+      ? theme.colors.primary
+      : theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
@@ -93,11 +97,13 @@ const StyledStepperMarker = styled(View).withConfig({
   justify-content: center;
   border-width: 1px;
   border-color: ${({ status, theme }) => {
+    if (status === 'error') return theme.colors.error;
     if (status === 'current') return theme.colors.primary;
     if (status === 'complete') return theme.colors.success;
     return theme.colors.background.tertiary;
   }};
   background-color: ${({ status, theme }) => {
+    if (status === 'error') return theme.colors.error;
     if (status === 'current') return theme.colors.primary;
     if (status === 'complete') return theme.colors.status?.success?.background ?? '#E8F5E9';
     return theme.colors.background.secondary;

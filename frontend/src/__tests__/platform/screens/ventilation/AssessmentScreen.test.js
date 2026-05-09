@@ -201,7 +201,7 @@ describe('AssessmentScreen', () => {
 
   describe('Progress indicator', () => {
     it('should show the admission stepper', () => {
-      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-progress')).toBeTruthy();
     });
   });
@@ -225,7 +225,9 @@ describe('AssessmentScreen', () => {
 
       fireEvent.press(nextBtn);
 
+      expect(getByText('Some required admission details are missing. Please review the highlighted fields.')).toBeTruthy();
       expect(getByText('Age is required before continuing.')).toBeTruthy();
+      expect(getByText('4 fields need attention')).toBeTruthy();
       expect(savePatientReasonStepApi).not.toHaveBeenCalled();
     });
 
@@ -234,7 +236,7 @@ describe('AssessmentScreen', () => {
         ...defaultSessionMock,
         inputs: completePatientInputs,
       });
-      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
@@ -308,7 +310,7 @@ describe('AssessmentScreen', () => {
         ...defaultSessionMock,
         inputs: completePatientInputs,
       });
-      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
 
       fireEvent.press(getByTestId('assessment-next'));
 
@@ -317,6 +319,7 @@ describe('AssessmentScreen', () => {
         expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
           syncStatus: 'needs_sync',
         }));
+        expect(getByText('We could not connect to the server. Please check your internet connection and try again.')).toBeTruthy();
       });
       expect(defaultSessionMock.setAssessmentStep).not.toHaveBeenCalledWith(1);
     });
