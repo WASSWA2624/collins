@@ -103,9 +103,39 @@ export const createMariaDbAdapterConfig = (databaseUrl, options = {}) => (
 );
 
 export const sanitizeMariaDbConnectionConfig = (config) => {
-  const { password: _password, ...safeConfig } = config;
+  const safeConfig = { ...config };
+  delete safeConfig.password;
   return safeConfig;
 };
+
+export const summarizeDatabaseUrl = (databaseUrl) => {
+  const url = getValidatedDatabaseUrl(databaseUrl);
+
+  return {
+    protocol: url.protocol.replace(/:$/, ''),
+    user: decodeURIComponent(url.username),
+    host: url.hostname,
+    port: getValidatedPort(url),
+    database: getDatabaseName(url),
+    hasPassword: Boolean(url.password),
+    queryKeys: [...url.searchParams.keys()],
+  };
+};
+
+export const sanitizeDatabaseError = (error) => ({
+  name: error?.name,
+  code: error?.code,
+  errno: error?.errno,
+  sqlState: error?.sqlState,
+  fatal: error?.fatal,
+  message: error?.message,
+});
+
+export const sanitizeDatabaseAttempt = ({ config, error, elapsedMs }) => ({
+  config: sanitizeMariaDbConnectionConfig(config),
+  error: sanitizeDatabaseError(error),
+  elapsedMs,
+});
 
 export const testMariaDbConnection = async (config) => {
   const connection = await mariadb.createConnection({
@@ -128,17 +158,24 @@ export const checkMariaDbConnection = async (databaseUrl, options = {}) => {
   const errors = [];
 
   for (const config of configs) {
+    const startedAt = Date.now();
     try {
       await testMariaDbConnection(config);
       return {
         status: 'connected',
         config,
+        elapsedMs: Date.now() - startedAt,
         attemptedConfigs: configs,
+        attempts: [{
+          config,
+          elapsedMs: Date.now() - startedAt,
+        }],
       };
     } catch (error) {
       errors.push({
         config,
         error,
+        elapsedMs: Date.now() - startedAt,
       });
     }
   }
@@ -147,6 +184,7 @@ export const checkMariaDbConnection = async (databaseUrl, options = {}) => {
     status: 'unavailable',
     error: errors.at(-1)?.error,
     errors,
+    attempts: errors,
     attemptedConfigs: configs,
   };
 };

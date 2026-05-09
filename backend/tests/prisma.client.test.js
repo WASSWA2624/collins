@@ -7,6 +7,8 @@ const {
   createMariaDbAdapterConfig,
   createMariaDbConnectionConfigs,
   prisma,
+  sanitizeDatabaseAttempt,
+  summarizeDatabaseUrl,
 } = await import('../src/config/prisma.js');
 
 test('normalizes Prisma mysql URLs for the MariaDB runtime adapter', () => {
@@ -71,6 +73,59 @@ test('supports explicit MySQL socket paths for shared hosting', () => {
       connectTimeout: 15000,
       acquireTimeout: 15000,
       socketPath: '/var/lib/mysql/mysql.sock',
+    },
+  );
+});
+
+test('summarizes database configuration without exposing passwords', () => {
+  assert.deepEqual(
+    summarizeDatabaseUrl('mysql://db_user:p%40ssword@localhost:3307/collins_test?socketPath=/tmp/mysql.sock'),
+    {
+      protocol: 'mysql',
+      user: 'db_user',
+      host: 'localhost',
+      port: 3307,
+      database: 'collins_test',
+      hasPassword: true,
+      queryKeys: ['socketPath'],
+    },
+  );
+
+  assert.deepEqual(
+    sanitizeDatabaseAttempt({
+      config: {
+        user: 'db_user',
+        password: 'secret',
+        database: 'collins_test',
+        host: '127.0.0.1',
+        port: 3306,
+      },
+      error: {
+        name: 'SqlError',
+        code: 'ER_ACCESS_DENIED_ERROR',
+        errno: 1045,
+        sqlState: '28000',
+        fatal: true,
+        message: "Access denied for user 'db_user'@'localhost'",
+      },
+      elapsedMs: 12,
+    }),
+    {
+      config: {
+        user: 'db_user',
+        database: 'collins_test',
+        host: '127.0.0.1',
+        port: 3306,
+      },
+      error: {
+        name: 'SqlError',
+        code: 'ER_ACCESS_DENIED_ERROR',
+        errno: 1045,
+        sqlState: '28000',
+        fatal: true,
+        message: "Access denied for user 'db_user'@'localhost'",
+      },
+      elapsedMs: 12,
     },
   );
 });

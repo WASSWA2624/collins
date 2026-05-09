@@ -26,6 +26,7 @@ test('loads safe development defaults while requiring only backend configuration
   assert.equal(config.jwtSecret, DEVELOPMENT_JWT_SECRET);
   assert.equal(config.requestLogging, true);
   assert.equal(config.databaseUseTextProtocol, true);
+  assert.equal(config.databaseDiagnosticsEnabled, false);
   assert.equal(config.databaseConnectionLimit, 5);
   assert.equal(config.databaseConnectTimeoutMs, 10000);
   assert.equal(config.databaseAcquireTimeoutMs, 10000);
@@ -85,6 +86,7 @@ test('allows shared-hosting database transport overrides', () => {
     DATABASE_HOST: '127.0.0.1',
     DATABASE_PORT: '3306',
     DATABASE_USE_TEXT_PROTOCOL: 'false',
+    DATABASE_DIAGNOSTICS_ENABLED: 'true',
     DATABASE_CONNECTION_LIMIT: '2',
     DATABASE_CONNECT_TIMEOUT_MS: '15000',
     DATABASE_ACQUIRE_TIMEOUT_MS: '15000',
@@ -94,6 +96,7 @@ test('allows shared-hosting database transport overrides', () => {
   assert.equal(config.databaseHost, '127.0.0.1');
   assert.equal(config.databasePort, 3306);
   assert.equal(config.databaseUseTextProtocol, false);
+  assert.equal(config.databaseDiagnosticsEnabled, true);
   assert.equal(config.databaseConnectionLimit, 2);
   assert.equal(config.databaseConnectTimeoutMs, 15000);
   assert.equal(config.databaseAcquireTimeoutMs, 15000);

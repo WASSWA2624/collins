@@ -1,7 +1,8 @@
 import { Prisma } from '../config/prismaClient.js';
 import { ZodError } from 'zod';
 import { errorResponse } from '../utils/apiResponse.js';
-import { isProduction } from '../config/env.js';
+import { env, isProduction } from '../config/env.js';
+import { writeDiagnosticLog } from '../utils/diagnosticLogger.js';
 
 const DATABASE_UNAVAILABLE_CODES = new Set([
   'P1000',
@@ -46,10 +47,13 @@ const isDatabaseUnavailableError = (error) => {
 const getDatabaseErrorMeta = (error) => ({
   code: error?.code,
   name: error?.name,
+  errno: error?.errno,
+  sqlState: error?.sqlState,
+  message: error?.message,
   meta: error?.meta,
 });
 
-export const errorMiddleware = (error, _req, res, _next) => {
+export const errorMiddleware = (error, req, res, _next) => {
   if (error instanceof ZodError) {
     return errorResponse(res, {
       status: 400,
@@ -59,7 +63,18 @@ export const errorMiddleware = (error, _req, res, _next) => {
   }
 
   if (isDatabaseUnavailableError(error)) {
-    console.error('Database request failed', getDatabaseErrorMeta(error));
+    const databaseErrorMeta = getDatabaseErrorMeta(error);
+    console.error('Database request failed', databaseErrorMeta);
+
+    if (env.databaseDiagnosticsEnabled) {
+      writeDiagnosticLog('database_request_failed', {
+        requestId: req?.id,
+        method: req?.method,
+        path: req?.originalUrl,
+        error: databaseErrorMeta,
+      });
+    }
+
     return errorResponse(res, {
       status: 503,
       message: 'Database connection is unavailable',

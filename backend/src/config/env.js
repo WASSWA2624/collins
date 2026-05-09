@@ -119,6 +119,7 @@ export const createEnv = (source = process.env) => {
   const requestLogging = getBooleanEnv(source, 'REQUEST_LOGGING', true, errors);
   const trustProxy = getTrustProxyEnv(source, nodeEnv, errors);
   const databaseUseTextProtocol = getBooleanEnv(source, 'DATABASE_USE_TEXT_PROTOCOL', true, errors);
+  const databaseDiagnosticsEnabled = getBooleanEnv(source, 'DATABASE_DIAGNOSTICS_ENABLED', false, errors);
   const defaultDatabaseConnectionLimit = nodeEnv === 'production' ? 1 : 5;
   const databaseConnectionLimit = getIntegerEnv(
     source,
@@ -158,6 +159,7 @@ export const createEnv = (source = process.env) => {
     databasePort,
     databaseSocketPath: getEnv(source, 'DATABASE_SOCKET_PATH', getEnv(source, 'DATABASE_SOCKET')),
     databaseUseTextProtocol,
+    databaseDiagnosticsEnabled,
     databaseConnectionLimit,
     databaseConnectTimeoutMs,
     databaseAcquireTimeoutMs,

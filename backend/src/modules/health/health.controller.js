@@ -1,10 +1,13 @@
 import { env } from '../../config/env.js';
 import {
   checkMariaDbConnection,
+  sanitizeDatabaseAttempt,
   sanitizeMariaDbConnectionConfig,
+  summarizeDatabaseUrl,
 } from '../../config/database.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { errorResponse, successResponse } from '../../utils/apiResponse.js';
+import { writeDiagnosticLog } from '../../utils/diagnosticLogger.js';
 
 const buildHealthData = (database) => ({
   service: 'collins-backend',
@@ -24,7 +27,41 @@ const getDatabaseErrorSummary = (error, attemptedConfigs = []) => ({
   attemptedConfigs: attemptedConfigs.map(sanitizeMariaDbConnectionConfig),
 });
 
-const checkDatabase = async () => {
+const shouldIncludeDebug = (req) => String(req.query.debug || '').toLowerCase() === 'true';
+
+const buildDatabaseDiagnostics = (result) => ({
+  enabled: env.databaseDiagnosticsEnabled,
+  databaseUrl: summarizeDatabaseUrl(env.databaseUrl),
+  runtime: {
+    hostOverride: env.databaseHost || null,
+    portOverride: env.databasePort || null,
+    socketPathOverride: env.databaseSocketPath || null,
+    useTextProtocol: env.databaseUseTextProtocol,
+    connectionLimit: env.databaseConnectionLimit,
+    connectTimeoutMs: env.databaseConnectTimeoutMs,
+    acquireTimeoutMs: env.databaseAcquireTimeoutMs,
+  },
+  status: result.status,
+  selectedConfig: result.config ? sanitizeMariaDbConnectionConfig(result.config) : null,
+  attempts: (result.attempts || []).map(sanitizeDatabaseAttempt),
+});
+
+const getDebugMeta = (req, result) => {
+  if (!shouldIncludeDebug(req)) return {};
+
+  if (!env.databaseDiagnosticsEnabled) {
+    return {
+      databaseDiagnostics: {
+        enabled: false,
+        message: 'Set DATABASE_DIAGNOSTICS_ENABLED=true temporarily to expose sanitized database diagnostics.',
+      },
+    };
+  }
+
+  return { databaseDiagnostics: buildDatabaseDiagnostics(result) };
+};
+
+const checkDatabase = async (req) => {
   const result = await checkMariaDbConnection(env.databaseUrl, {
     host: env.databaseHost,
     port: env.databasePort,
@@ -34,22 +71,36 @@ const checkDatabase = async () => {
   });
 
   if (result.status === 'connected') {
-    return 'connected';
+    return { status: 'connected', result };
   }
 
-  console.error(
-    'Database readiness check failed',
-    getDatabaseErrorSummary(result.error, result.attemptedConfigs),
-  );
-  return 'unavailable';
+  const summary = getDatabaseErrorSummary(result.error, result.attemptedConfigs);
+  console.error('Database readiness check failed', summary);
+
+  if (env.databaseDiagnosticsEnabled) {
+    writeDiagnosticLog('database_readiness_failed', {
+      requestId: req?.id,
+      diagnostics: buildDatabaseDiagnostics(result),
+    });
+  }
+
+  return { status: 'unavailable', result };
 };
 
 export const getHealth = asyncHandler(async (req, res) => {
-  const database = req.query.includeDb === 'true' ? await checkDatabase() : 'not_checked';
+  let database = 'not_checked';
+  let meta = {};
+
+  if (req.query.includeDb === 'true') {
+    const databaseCheck = await checkDatabase(req);
+    database = databaseCheck.status;
+    meta = getDebugMeta(req, databaseCheck.result);
+  }
 
   return successResponse(res, {
     message: 'AI Vent backend health check passed',
     data: buildHealthData(database),
+    meta,
   });
 });
 
@@ -58,8 +109,9 @@ export const getLive = asyncHandler(async (_req, res) => successResponse(res, {
   data: buildHealthData('not_checked'),
 }));
 
-export const getReady = asyncHandler(async (_req, res) => {
-  const database = await checkDatabase();
+export const getReady = asyncHandler(async (req, res) => {
+  const databaseCheck = await checkDatabase(req);
+  const database = databaseCheck.status;
 
   if (database !== 'connected') {
     return errorResponse(res, {
@@ -71,13 +123,17 @@ export const getReady = asyncHandler(async (_req, res) => {
           message: 'Database connection is unavailable',
         },
       ],
-      meta: { database },
+      meta: {
+        database,
+        ...getDebugMeta(req, databaseCheck.result),
+      },
     });
   }
 
   return successResponse(res, {
     message: 'AI Vent backend readiness check passed',
     data: buildHealthData(database),
+    meta: getDebugMeta(req, databaseCheck.result),
   });
 });
 

@@ -137,10 +137,11 @@ const start = async () => {
 
   ensurePrismaClient();
 
-  const [{ createApp }, { env }, { prisma }] = await Promise.all([
+  const [{ createApp }, { env, loadedEnvironmentFile }, { prisma }, { summarizeDatabaseUrl }] = await Promise.all([
     import('./app.js'),
     import('./config/env.js'),
     import('./config/prisma.js'),
+    import('./config/database.js'),
   ]);
 
   const app = createApp();
@@ -149,6 +150,15 @@ const start = async () => {
       ? 'all network interfaces'
       : env.host;
     console.log(`AI Vent backend listening on ${hostLabel}:${env.port}`);
+    console.log('AI Vent backend runtime config', {
+      environment: env.nodeEnv,
+      envFile: loadedEnvironmentFile.fileName,
+      apiVersion: env.apiVersion,
+      database: summarizeDatabaseUrl(env.databaseUrl),
+      databaseHostOverride: env.databaseHost || null,
+      databaseSocketPathOverride: env.databaseSocketPath || null,
+      databaseDiagnosticsEnabled: env.databaseDiagnosticsEnabled,
+    });
   });
 
   const shutdown = async (signal) => {

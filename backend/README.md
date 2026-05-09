@@ -34,6 +34,7 @@ Backend env variables:
 | `DATABASE_CONNECTION_LIMIT` | `5` | `5` | MariaDB pool size. |
 | `DATABASE_CONNECT_TIMEOUT_MS` | `10000` | `10000` | MariaDB connection timeout. |
 | `DATABASE_SOCKET_PATH` | Optional | Optional | Explicit local MySQL socket path when the host requires socket connections. |
+| `DATABASE_DIAGNOSTICS_ENABLED` | `false` | Temporary debug only | Enables sanitized database diagnostics in `/ready?debug=true` and `tmp/backend-diagnostics.log`. Disable after fixing production connectivity. |
 | `JWT_SECRET` | Local-only secret | Strong production secret | JWT signing secret. |
 | `JWT_EXPIRES_IN` | Shorter local expiry | Production expiry | JWT token lifetime. |
 | `CORS_ORIGIN` | Local Expo/web origins | Production web origins | Comma-separated allowed browser origins. |
@@ -106,6 +107,7 @@ DATABASE_USE_TEXT_PROTOCOL=true
 DATABASE_CONNECTION_LIMIT=1
 DATABASE_CONNECT_TIMEOUT_MS=10000
 DATABASE_ACQUIRE_TIMEOUT_MS=10000
+DATABASE_DIAGNOSTICS_ENABLED=true
 # DATABASE_SOCKET_PATH=/var/lib/mysql/mysql.sock
 JWT_SECRET=<strong unique production secret>
 CORS_ORIGIN=https://your-domain.com,https://www.your-domain.com
@@ -128,6 +130,7 @@ Deployment health checks:
 GET /
 GET /api/v1/health
 GET /ready
+GET /ready?debug=true
 ```
 
 ## DirectAdmin deployment
@@ -145,6 +148,8 @@ Node.js version: 20.x
 DirectAdmin may install packages under `nodevenv/.../lib/node_modules` instead of directly under the application root. The startup file handles that layout by linking the virtualenv `node_modules` into the app root when needed. The production deployment zip includes the generated Prisma Client at `src/generated/prisma`, so the server does not run `prisma generate` on shared hosting.
 
 If `/ready` returns `Database connection is unavailable` while `/live` works, the app is running but MariaDB is not reachable from Node. The production config uses Prisma's text protocol, one database connection, and `127.0.0.1` by default for better shared-hosting compatibility. If your host provides a socket path, set `DATABASE_SOCKET_PATH` in `.env.production`, restart the app, then check `/ready` again.
+
+For temporary diagnosis, keep `DATABASE_DIAGNOSTICS_ENABLED=true`, restart the app, then open `/ready?debug=true`. The response and `tmp/backend-diagnostics.log` include sanitized MariaDB error details such as `ER_ACCESS_DENIED_ERROR`, `ECONNREFUSED`, `ETIMEDOUT`, or `ER_BAD_DB_ERROR` without printing the database password. Set `DATABASE_DIAGNOSTICS_ENABLED=false` after the connection is fixed.
 
 If `/ready` connects but login fails because tables are missing, run `npm run db:migrate:deploy` from `/home/zelahco/collins-backend`, restart the Node.js app, then test `/ready` and login again.
 

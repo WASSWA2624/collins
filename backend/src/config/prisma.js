@@ -3,10 +3,17 @@ import { env } from './env.js';
 import {
   createMariaDbAdapterConfig,
   createMariaDbConnectionConfigs,
+  sanitizeDatabaseAttempt,
+  summarizeDatabaseUrl,
 } from './database.js';
 import { PrismaClient } from './prismaClient.js';
 
-export { createMariaDbAdapterConfig, createMariaDbConnectionConfigs };
+export {
+  createMariaDbAdapterConfig,
+  createMariaDbConnectionConfigs,
+  sanitizeDatabaseAttempt,
+  summarizeDatabaseUrl,
+};
 
 const log = env.nodeEnv === 'test' ? [] : (env.nodeEnv === 'development' ? ['warn', 'error'] : ['error']);
 const adapterConfig = createMariaDbAdapterConfig(env.databaseUrl, {
