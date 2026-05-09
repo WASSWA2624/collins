@@ -995,7 +995,8 @@
         "accessibilityLabel": "Compact admit summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Facility",
-        "pathway": "Pathway",
+        "pathway": "Age group",
+        "ageGroup": "Age group",
         "reason": "Reason",
         "condition": "Condition",
         "spo2": "SpO₂",
@@ -1017,7 +1018,12 @@
         "syncStatus": "Sync",
         "empty": "No data yet",
         "expand": "Expand summary",
-        "collapse": "Collapse summary"
+        "collapse": "Collapse summary",
+        "groups": {
+          "patient": "Patient",
+          "oxygen": "Oxygen and ABG",
+          "ventilator": "Ventilator and sync"
+        }
       },
       "steps": {
         "patientProfile": "Patient profile",
@@ -1035,10 +1041,13 @@
         "facilityIdPlaceholder": "Enter facility ID",
         "bedNumber": "Bed",
         "bedNumberPlaceholder": "ICU bed or ward location",
-        "pathway": "Patient pathway",
-        "pathwayPlaceholder": "Select pathway",
+        "pathway": "Patient age group",
+        "pathwayPlaceholder": "Select age group",
+        "ageGroup": "Patient age group",
+        "ageGroupPlaceholder": "Select age group",
         "sexForSize": "Sex for size calculations",
         "ageYears": "Age (years)",
+        "ageYearsHint": "Use decimal years for neonates and infants.",
         "weightKg": "Weight (kg)",
         "heightCm": "Height (cm)",
         "bmi": "BMI",
@@ -1061,6 +1070,14 @@
           "unknown": "Unknown",
           "other": "Other"
         },
+        "ageGroupRanges": {
+          "neonate": "0-28 days",
+          "infant": "29 days-12 months",
+          "child": "1-12 years",
+          "adolescent": "13-17 years",
+          "adult": "18+ years"
+        },
+        "selectedAgeRange": "Suggested range: {{range}}",
         "sex": {
           "male": "Male",
           "female": "Female",

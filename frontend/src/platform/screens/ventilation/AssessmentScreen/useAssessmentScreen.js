@@ -16,7 +16,12 @@ import {
 } from '@features/ventilation';
 import { selectActiveFacility } from '@store/selectors';
 import useVentilationSession from '@hooks/useVentilationSession';
-import { STEPS, ASSESSMENT_TEST_IDS, STEP_KEYS } from './types';
+import {
+  STEPS,
+  ASSESSMENT_TEST_IDS,
+  STEP_KEYS,
+  resolvePatientAgeGroupFromAgeYears,
+} from './types';
 
 const TOTAL_STEPS = 3;
 const MISSING_UNKNOWN = 'not_available';
@@ -26,7 +31,7 @@ const DATE_FIELDS = [
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
 ];
 const REQUIRED_FIELDS = [
-  { field: 'patientPathway', label: 'Patient pathway', steps: [STEPS.PATIENT_REASON] },
+  { field: 'patientPathway', label: 'Patient age group', steps: [STEPS.PATIENT_REASON] },
   { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
   { field: 'ageYears', label: 'Age', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
@@ -73,6 +78,17 @@ const NUMERIC_RULES = [
   { field: 'peakPressure', label: 'Peak pressure', min: 0, max: 100, steps: [STEPS.SAVE_REVIEW] },
   { field: 'plateauPressure', label: 'Plateau pressure', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
 ];
+
+const FIELD_VALIDATION_STEPS = [...REQUIRED_FIELDS, ...NUMERIC_RULES, ...DATE_FIELDS].reduce(
+  (acc, rule) => {
+    acc[rule.field] = [...new Set([...(acc[rule.field] || []), ...rule.steps])];
+    return acc;
+  },
+  {
+    clinicianConfirmed: [STEPS.SAVE_REVIEW],
+    overrideReason: [STEPS.SAVE_REVIEW],
+  }
+);
 
 const nowIso = () => new Date().toISOString();
 const isFiniteNumber = (value) => typeof value === 'number' && Number.isFinite(value);
@@ -203,12 +219,13 @@ const defaultAdmissionInputs = (clientRecordId) => ({
 
 const normalizeInputs = (inputs, clientRecordId) => {
   const base = inputs && typeof inputs === 'object' ? inputs : {};
+  const resolvedAgeGroup = resolvePatientAgeGroupFromAgeYears(base.ageYears);
   return {
     ...defaultAdmissionInputs(clientRecordId),
     ...base,
     clientRecordId: base.clientRecordId || clientRecordId,
     clientCreatedAt: base.clientCreatedAt || nowIso(),
-    patientPathway: base.patientPathway || 'ADULT',
+    patientPathway: base.patientPathway || resolvedAgeGroup || 'ADULT',
     sexForSizeCalculations: base.sexForSizeCalculations || 'MALE',
     permittedMissingFields: Array.isArray(base.permittedMissingFields) ? base.permittedMissingFields : [],
     clinicianConfirmed: base.clinicianConfirmed === true,
@@ -407,6 +424,31 @@ const buildValidationFromInputs = (inputs, step, readiness) => {
     fieldErrors,
     messages,
     hasBlockingErrors: messages.length > 0,
+  };
+};
+
+const filterVisibleValidation = (validation, touchedFields, attemptedSteps) => {
+  const visibleFieldErrors = {};
+  const visibleMessages = [];
+  const attemptedStepNumbers = Object.keys(attemptedSteps)
+    .map((step) => Number(step))
+    .filter((step) => Number.isFinite(step) && attemptedSteps[step] === true);
+
+  Object.entries(validation.fieldErrors || {}).forEach(([field, message]) => {
+    const fieldSteps = FIELD_VALIDATION_STEPS[field] || [];
+    const shouldShow =
+      touchedFields[field] === true ||
+      fieldSteps.some((fieldStep) => attemptedStepNumbers.some((step) => step >= fieldStep));
+
+    if (!shouldShow) return;
+    visibleFieldErrors[field] = message;
+    if (!visibleMessages.includes(message)) visibleMessages.push(message);
+  });
+
+  return {
+    fieldErrors: visibleFieldErrors,
+    messages: visibleMessages,
+    hasBlockingErrors: validation.hasBlockingErrors,
   };
 };
 
@@ -627,6 +669,8 @@ export default function useAssessmentScreen() {
   const [recommendationErrorCode, setRecommendationErrorCode] = useState(null);
   const [admissionId, setAdmissionId] = useState(() => inputs?.admissionId || inputs?.clientRecordId || clientRecordId);
   const [syncStatus, setSyncStatus] = useState(inputs?.syncStatus || 'draft');
+  const [touchedFields, setTouchedFields] = useState({});
+  const [attemptedSteps, setAttemptedSteps] = useState({});
 
   useEffect(() => {
     hydrate();
@@ -655,20 +699,46 @@ export default function useAssessmentScreen() {
     ? Math.min(Math.max(0, assessmentCurrentStep), TOTAL_STEPS - 1)
     : 0;
 
+  const markFieldsTouched = useCallback((fields) => {
+    const fieldList = Array.isArray(fields) ? fields.filter(Boolean) : [];
+    if (fieldList.length === 0) return;
+    setTouchedFields((current) => {
+      const next = { ...current };
+      fieldList.forEach((field) => {
+        next[field] = true;
+      });
+      return next;
+    });
+  }, []);
+
+  const markStepAttempted = useCallback((step) => {
+    setAttemptedSteps((current) => (current[step] ? current : { ...current, [step]: true }));
+  }, []);
+
   const updateInput = useCallback(
-    (partial) => {
+    (partial, options = {}) => {
       if (!partial || typeof partial !== 'object') return;
-      const nextInputs = { ...latestInputsRef.current, ...partial };
+      const derivedPartial = { ...partial };
+      if (Object.prototype.hasOwnProperty.call(partial, 'ageYears')) {
+        const nextAgeGroup = resolvePatientAgeGroupFromAgeYears(partial.ageYears);
+        if (nextAgeGroup) derivedPartial.patientPathway = nextAgeGroup;
+      }
+      if (options.touchedFields !== false) {
+        markFieldsTouched(options.touchedFields || Object.keys(partial));
+      }
+      const nextInputs = { ...latestInputsRef.current, ...derivedPartial };
       latestInputsRef.current = nextInputs;
       setInputs(nextInputs);
       setSaveErrorCode(null);
     },
-    [setInputs]
+    [markFieldsTouched, setInputs]
   );
 
   const updateBodyMetric = useCallback(
     (field, value) => {
-      updateInput(updateBodyMetricInputs(latestInputsRef.current, field, value));
+      updateInput(updateBodyMetricInputs(latestInputsRef.current, field, value), {
+        touchedFields: [field],
+      });
     },
     [updateInput]
   );
@@ -678,9 +748,13 @@ export default function useAssessmentScreen() {
     [mergedInputs, serverResponse]
   );
 
-  const validation = useMemo(
+  const rawValidation = useMemo(
     () => buildValidationFromInputs(mergedInputs, currentStep, readiness),
     [currentStep, mergedInputs, readiness]
+  );
+  const validation = useMemo(
+    () => filterVisibleValidation(rawValidation, touchedFields, attemptedSteps),
+    [attemptedSteps, rawValidation, touchedFields]
   );
 
   const canProceedFromStep = useCallback(
@@ -835,6 +909,7 @@ export default function useAssessmentScreen() {
   }, [admissionId, applyStepResponse, mergedInputs, persistCurrentDraft]);
 
   const goNext = useCallback(async () => {
+    markStepAttempted(currentStep);
     if (!canProceedFromStep(currentStep)) return;
     const nextStep = Math.min(currentStep + 1, TOTAL_STEPS - 1);
     setIsSaving(true);
@@ -868,10 +943,10 @@ export default function useAssessmentScreen() {
     canProceedFromStep,
     currentStep,
     generateDatasetRecommendation,
+    markStepAttempted,
     persistCurrentDraft,
     saveOxygenAbgVentilatorStep,
     savePatientReasonStep,
-    serverResponse,
   ]);
 
   const goBack = useCallback(() => {
@@ -887,6 +962,7 @@ export default function useAssessmentScreen() {
   }, [currentStep, router, setAssessmentStep]);
 
   const saveAdmission = useCallback(async () => {
+    markStepAttempted(STEPS.SAVE_REVIEW);
     if (!canProceedFromStep(STEPS.SAVE_REVIEW)) {
       setSaveErrorCode('ADMISSION_VALIDATION_FAILED');
       return;
@@ -917,6 +993,7 @@ export default function useAssessmentScreen() {
     admissionId,
     canProceedFromStep,
     clearDraft,
+    markStepAttempted,
     mergedInputs.admissionId,
     mergedInputs.clientRecordId,
     resetSession,
@@ -1025,6 +1102,7 @@ export default function useAssessmentScreen() {
     recommendationConfidence,
     recommendationErrorCode,
     validation,
+    rawValidation,
     canProceedFromStep,
     goNext,
     goBack,

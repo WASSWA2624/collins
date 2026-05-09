@@ -3,7 +3,7 @@
  * File: HistoryScreen.web.jsx
  */
 import React from 'react';
-import { Button, Text } from '@platform/components';
+import { Button, Icon, Text } from '@platform/components';
 import SearchBar from '@platform/patterns/SearchBar/SearchBar.web';
 import { useI18n } from '@hooks';
 import { formatDateTime } from '@features/tracking';
@@ -11,19 +11,21 @@ import useHistoryScreen from './useHistoryScreen';
 import {
   StyledBanner,
   StyledContainer,
+  StyledControlsRow,
   StyledDetailPanel,
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,
+  StyledHeaderCopy,
   StyledItem,
   StyledItemActions,
   StyledItemMain,
   StyledItemMeta,
-  StyledItemMetaLine,
   StyledItemRow,
   StyledList,
+  StyledRiskNote,
   StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
@@ -71,6 +73,8 @@ const renderDetailPanel = ({
         </StyledItemMain>
         <Button
           variant="outline"
+          size="small"
+          icon={<Icon glyph={'\u00d7'} size="sm" tone="primary" decorative />}
           onPress={handleCloseDetails}
           aria-label={t('ventilation.tracking.actions.closeDetailsHint')}
           data-testid={HISTORY_TEST_IDS.detailClose}
@@ -80,6 +84,8 @@ const renderDetailPanel = ({
         </Button>
         <Button
           variant="outline"
+          size="small"
+          icon={<Icon glyph="+" size="sm" tone="primary" decorative />}
           onPress={() => handleUpdateTracking(row)}
           aria-label={t('ventilation.tracking.actions.updateValuesHint')}
           data-testid={HISTORY_TEST_IDS.updateValues}
@@ -191,7 +197,11 @@ const HistoryScreenWeb = () => {
         data-testid={HISTORY_TEST_IDS.screen}
         testID={HISTORY_TEST_IDS.screen}
       >
-        <Text>{t('ventilation.tracking.states.loading')}</Text>
+        <StyledEmpty role="status" aria-live="polite">
+          <Text variant="label">
+            {t('ventilation.tracking.states.loading')}
+          </Text>
+        </StyledEmpty>
       </StyledContainer>
     );
   }
@@ -204,15 +214,17 @@ const HistoryScreenWeb = () => {
       role="main"
     >
       <StyledHeader>
-        <div>
+        <StyledHeaderCopy>
           <Text variant="h1">{t('ventilation.tracking.title')}</Text>
           <Text variant="body" color="text.secondary">
             {t('ventilation.tracking.subtitle')}
           </Text>
-        </div>
+        </StyledHeaderCopy>
         <StyledHeaderActions>
           <Button
             variant="outline"
+            size="small"
+            icon={<Icon glyph={'\u21bb'} size="sm" tone="primary" decorative />}
             onPress={handleRefresh}
             aria-label={t('ventilation.tracking.actions.refreshHint')}
             data-testid={HISTORY_TEST_IDS.refresh}
@@ -223,29 +235,33 @@ const HistoryScreenWeb = () => {
         </StyledHeaderActions>
       </StyledHeader>
 
-      <StyledSearchWrap>
-        <SearchBar
-          value={searchQuery}
-          onChange={handleSearchQueryChange}
-          placeholder={t('ventilation.tracking.search.placeholder')}
-          accessibilityLabel={t('ventilation.tracking.search.accessibilityLabel')}
-          testID={HISTORY_TEST_IDS.search}
-          debounceMs={150}
-        />
-      </StyledSearchWrap>
+      <StyledControlsRow>
+        <StyledSearchWrap>
+          <SearchBar
+            value={searchQuery}
+            onChange={handleSearchQueryChange}
+            placeholder={t('ventilation.tracking.search.placeholder')}
+            accessibilityLabel={t(
+              'ventilation.tracking.search.accessibilityLabel'
+            )}
+            testID={HISTORY_TEST_IDS.search}
+            debounceMs={150}
+          />
+        </StyledSearchWrap>
 
-      <StyledSummaryBar
-        data-testid={HISTORY_TEST_IDS.facility}
-        testID={HISTORY_TEST_IDS.facility}
-      >
-        <Text variant="label">
-          {activeFacility?.name ||
-            t('ventilation.tracking.activeFacility.none')}
-        </Text>
-        <Text variant="caption" color="text.secondary">
-          {t('ventilation.tracking.activePatients', { count: visibleRows })}
-        </Text>
-      </StyledSummaryBar>
+        <StyledSummaryBar
+          data-testid={HISTORY_TEST_IDS.facility}
+          testID={HISTORY_TEST_IDS.facility}
+        >
+          <Text variant="label">
+            {activeFacility?.name ||
+              t('ventilation.tracking.activeFacility.none')}
+          </Text>
+          <Text variant="caption" color="text.secondary">
+            {t('ventilation.tracking.activePatients', { count: visibleRows })}
+          </Text>
+        </StyledSummaryBar>
+      </StyledControlsRow>
 
       {showAdmittedBanner && (
         <StyledBanner
@@ -330,13 +346,7 @@ const HistoryScreenWeb = () => {
                   <Text variant="label">{getPatientLabel(row, t)}</Text>
                   <StyledItemMeta>
                     <Text variant="caption">{row.admissionStatusLabel}</Text>
-                    <StyledItemMetaLine aria-hidden="true">
-                      |
-                    </StyledItemMetaLine>
                     <Text variant="caption">{row.patientPathwayLabel}</Text>
-                    <StyledItemMetaLine aria-hidden="true">
-                      |
-                    </StyledItemMetaLine>
                     <Text variant="caption">
                       {row.bedNumber
                         ? t('ventilation.tracking.patient.bed', {
@@ -345,16 +355,11 @@ const HistoryScreenWeb = () => {
                         : t('ventilation.tracking.patient.bedMissing')}
                     </Text>
                     {row.admittedAtLabel ? (
-                      <>
-                        <StyledItemMetaLine aria-hidden="true">
-                          |
-                        </StyledItemMetaLine>
-                        <Text variant="caption">
-                          {t('ventilation.tracking.patient.admitted', {
-                            dateTime: row.admittedAtLabel,
-                          })}
-                        </Text>
-                      </>
+                      <Text variant="caption">
+                        {t('ventilation.tracking.patient.admitted', {
+                          dateTime: row.admittedAtLabel,
+                        })}
+                      </Text>
                     ) : null}
                   </StyledItemMeta>
                 </StyledItemMain>
@@ -382,6 +387,15 @@ const HistoryScreenWeb = () => {
                 <StyledItemActions>
                   <Button
                     variant="outline"
+                    size="small"
+                    icon={
+                      <Icon
+                        glyph={'\u2192'}
+                        size="sm"
+                        tone="primary"
+                        decorative
+                      />
+                    }
                     onPress={() => handleViewDetails(row)}
                     aria-label={t(
                       'ventilation.tracking.actions.viewDetailsHint'
@@ -393,6 +407,10 @@ const HistoryScreenWeb = () => {
                   </Button>
                   <Button
                     variant="outline"
+                    size="small"
+                    icon={
+                      <Icon glyph="+" size="sm" tone="primary" decorative />
+                    }
                     onPress={() => handleUpdateTracking(row)}
                     aria-label={t(
                       'ventilation.tracking.actions.updateValuesHint'
@@ -404,7 +422,9 @@ const HistoryScreenWeb = () => {
                   </Button>
                 </StyledItemActions>
               </StyledItemRow>
-              <Text variant="body">{row.risk.prompt}</Text>
+              <StyledRiskNote>
+                <Text variant="body">{row.risk.prompt}</Text>
+              </StyledRiskNote>
               <Text
                 variant="caption"
                 color="text.secondary"

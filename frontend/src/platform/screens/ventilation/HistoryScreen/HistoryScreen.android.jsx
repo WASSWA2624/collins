@@ -3,7 +3,7 @@
  * File: HistoryScreen.android.jsx
  */
 import React from 'react';
-import { Button, Text } from '@platform/components';
+import { Button, Icon, Text } from '@platform/components';
 import SearchBar from '@platform/patterns/SearchBar/SearchBar.android';
 import { useI18n } from '@hooks';
 import { formatDateTime } from '@features/tracking';
@@ -11,12 +11,14 @@ import useHistoryScreen from './useHistoryScreen';
 import {
   StyledBanner,
   StyledContainer,
+  StyledControlsRow,
   StyledDetailPanel,
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,
+  StyledHeaderCopy,
   StyledItem,
   StyledItemActions,
   StyledItemMain,
@@ -24,6 +26,7 @@ import {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledRiskNote,
   StyledScreenContent,
   StyledSearchWrap,
   StyledStatusGroup,
@@ -38,6 +41,13 @@ const getPatientLabel = (row, t) =>
   row.appAdmissionCode ||
   row.appPatientCode ||
   t('ventilation.tracking.patient.unknown');
+
+const COMPACT_BUTTON_STYLE = {
+  minHeight: 40,
+  paddingVertical: 6,
+  paddingHorizontal: 12,
+  borderRadius: 2,
+};
 
 const renderDetailPanel = ({
   t,
@@ -69,6 +79,9 @@ const renderDetailPanel = ({
         </StyledItemMain>
         <Button
           variant="outline"
+          size="small"
+          style={COMPACT_BUTTON_STYLE}
+          icon={<Icon glyph={'\u00d7'} size="sm" tone="primary" decorative />}
           onPress={handleCloseDetails}
           accessibilityLabel={t(
             'ventilation.tracking.actions.closeDetailsHint'
@@ -79,6 +92,9 @@ const renderDetailPanel = ({
         </Button>
         <Button
           variant="outline"
+          size="small"
+          style={COMPACT_BUTTON_STYLE}
+          icon={<Icon glyph="+" size="sm" tone="primary" decorative />}
           onPress={() => handleUpdateTracking(row)}
           accessibilityLabel={t(
             'ventilation.tracking.actions.updateValuesHint'
@@ -194,15 +210,20 @@ const HistoryScreenAndroid = () => {
     >
       <StyledScreenContent>
         <StyledHeader>
-          <StyledItemMain>
+          <StyledHeaderCopy>
             <Text variant="h1">{t('ventilation.tracking.title')}</Text>
             <Text variant="body" color="text.secondary">
               {t('ventilation.tracking.subtitle')}
             </Text>
-          </StyledItemMain>
+          </StyledHeaderCopy>
           <StyledHeaderActions>
             <Button
               variant="outline"
+              size="small"
+              style={COMPACT_BUTTON_STYLE}
+              icon={
+                <Icon glyph={'\u21bb'} size="sm" tone="primary" decorative />
+              }
               onPress={handleRefresh}
               accessibilityLabel={t('ventilation.tracking.actions.refreshHint')}
               testID={HISTORY_TEST_IDS.refresh}
@@ -212,32 +233,33 @@ const HistoryScreenAndroid = () => {
           </StyledHeaderActions>
         </StyledHeader>
 
-        <StyledSearchWrap>
-          <SearchBar
-            value={searchQuery}
-            onChangeText={handleSearchQueryChange}
-            placeholder={t('ventilation.tracking.search.placeholder')}
-            accessibilityLabel={t('ventilation.tracking.search.accessibilityLabel')}
-            testID={HISTORY_TEST_IDS.search}
-            debounceMs={150}
-          />
-        </StyledSearchWrap>
+        <StyledControlsRow>
+          <StyledSearchWrap>
+            <SearchBar
+              value={searchQuery}
+              onChangeText={handleSearchQueryChange}
+              placeholder={t('ventilation.tracking.search.placeholder')}
+              accessibilityLabel={t(
+                'ventilation.tracking.search.accessibilityLabel'
+              )}
+              testID={HISTORY_TEST_IDS.search}
+              debounceMs={150}
+            />
+          </StyledSearchWrap>
 
-        <StyledSummaryBar testID={HISTORY_TEST_IDS.facility}>
-          <Text variant="label">
-            {activeFacility?.name ||
-              t('ventilation.tracking.activeFacility.none')}
-          </Text>
-          <Text variant="caption" color="text.secondary">
-            {t('ventilation.tracking.activePatients', { count: visibleRows })}
-          </Text>
-        </StyledSummaryBar>
+          <StyledSummaryBar testID={HISTORY_TEST_IDS.facility}>
+            <Text variant="label">
+              {activeFacility?.name ||
+                t('ventilation.tracking.activeFacility.none')}
+            </Text>
+            <Text variant="caption" color="text.secondary">
+              {t('ventilation.tracking.activePatients', { count: visibleRows })}
+            </Text>
+          </StyledSummaryBar>
+        </StyledControlsRow>
 
         {showAdmittedBanner && (
-          <StyledBanner
-            tone="success"
-            testID={HISTORY_TEST_IDS.admittedBanner}
-          >
+          <StyledBanner tone="success" testID={HISTORY_TEST_IDS.admittedBanner}>
             <Text variant="body" color="status.success.text">
               {t('ventilation.tracking.admittedBanner')}
             </Text>
@@ -278,7 +300,9 @@ const HistoryScreenAndroid = () => {
           </StyledEmpty>
         ) : isSearchEmpty ? (
           <StyledEmpty testID={HISTORY_TEST_IDS.searchEmpty}>
-            <Text variant="label">{t('ventilation.tracking.search.empty')}</Text>
+            <Text variant="label">
+              {t('ventilation.tracking.search.empty')}
+            </Text>
             <Text variant="body" color="text.secondary">
               {t('ventilation.tracking.search.emptyHint')}
             </Text>
@@ -303,6 +327,13 @@ const HistoryScreenAndroid = () => {
                             })
                           : t('ventilation.tracking.patient.bedMissing')}
                       </Text>
+                      {row.admittedAtLabel ? (
+                        <Text variant="caption">
+                          {t('ventilation.tracking.patient.admitted', {
+                            dateTime: row.admittedAtLabel,
+                          })}
+                        </Text>
+                      ) : null}
                     </StyledItemMeta>
                   </StyledItemMain>
                   <StyledStatusGroup>
@@ -322,6 +353,16 @@ const HistoryScreenAndroid = () => {
                   <StyledItemActions>
                     <Button
                       variant="outline"
+                      size="small"
+                      style={COMPACT_BUTTON_STYLE}
+                      icon={
+                        <Icon
+                          glyph={'\u2192'}
+                          size="sm"
+                          tone="primary"
+                          decorative
+                        />
+                      }
                       onPress={() => handleViewDetails(row)}
                       accessibilityLabel={t(
                         'ventilation.tracking.actions.viewDetailsHint'
@@ -332,6 +373,11 @@ const HistoryScreenAndroid = () => {
                     </Button>
                     <Button
                       variant="outline"
+                      size="small"
+                      style={COMPACT_BUTTON_STYLE}
+                      icon={
+                        <Icon glyph="+" size="sm" tone="primary" decorative />
+                      }
                       onPress={() => handleUpdateTracking(row)}
                       accessibilityLabel={t(
                         'ventilation.tracking.actions.updateValuesHint'
@@ -342,7 +388,9 @@ const HistoryScreenAndroid = () => {
                     </Button>
                   </StyledItemActions>
                 </StyledItemRow>
-                <Text variant="body">{row.risk.prompt}</Text>
+                <StyledRiskNote>
+                  <Text variant="body">{row.risk.prompt}</Text>
+                </StyledRiskNote>
                 <Text
                   variant="caption"
                   color="text.secondary"

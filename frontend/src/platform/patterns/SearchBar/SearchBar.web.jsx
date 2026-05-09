@@ -14,7 +14,11 @@ import { Button, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
 
 // 4. Styles (relative import - platform-specific)
-import { StyledContainer, StyledSearchIcon, StyledTextFieldWrapper } from './SearchBar.web.styles';
+import {
+  StyledContainer,
+  StyledSearchIcon,
+  StyledTextFieldWrapper,
+} from './SearchBar.web.styles';
 
 // 5. Component-specific hook (relative import)
 import useSearchBar from './useSearchBar';
@@ -45,22 +49,19 @@ const SearchBarWeb = ({
   ...rest
 }) => {
   const { t } = useI18n();
-  const {
-    localValue,
-    hasValue,
-    handleChange,
-    handleClear,
-    handleSubmit,
-  } = useSearchBar({
-    value,
-    onChange,
-    onSearch,
-    debounceMs,
-  });
+  const { localValue, hasValue, handleChange, handleClear, handleSubmit } =
+    useSearchBar({
+      value,
+      onChange,
+      onSearch,
+      debounceMs,
+    });
 
   const placeholderText = placeholder || t('common.searchPlaceholder');
   const searchIconLabel = t('common.searchIcon');
   const clearButtonLabel = t('common.clearSearch');
+  const searchIcon = '\ud83d\udd0d';
+  const clearIcon = '\u00d7';
   // Only pass accessibilityLabel if explicitly provided, otherwise let TextField use placeholder fallback
   const accessibilityLabelText = accessibilityLabel;
 
@@ -81,7 +82,7 @@ const SearchBarWeb = ({
         accessibilityLabel={searchIconLabel}
         testID={testID ? `${testID}-icon` : undefined}
       >
-        🔍
+        {searchIcon}
       </StyledSearchIcon>
       <StyledTextFieldWrapper>
         <TextField
@@ -90,8 +91,11 @@ const SearchBarWeb = ({
           onKeyPress={handleKeyPress}
           placeholder={placeholderText}
           type="search"
-          {...(accessibilityLabelText && { accessibilityLabel: accessibilityLabelText })}
+          {...(accessibilityLabelText && {
+            accessibilityLabel: accessibilityLabelText,
+          })}
           testID={testID ? `${testID}-input` : undefined}
+          style={{ marginBottom: 0 }}
         />
       </StyledTextFieldWrapper>
       {showClearButton && hasValue && (
@@ -102,7 +106,7 @@ const SearchBarWeb = ({
           accessibilityLabel={clearButtonLabel}
           testID={testID ? `${testID}-clear` : undefined}
         >
-          ✕
+          {clearIcon}
         </Button>
       )}
     </StyledContainer>
@@ -110,4 +114,3 @@ const SearchBarWeb = ({
 };
 
 export default SearchBarWeb;
-

@@ -39,6 +39,7 @@ const StyledScreenContent = styled(View).withConfig({
 })`
   flex-grow: 1;
   padding: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledHeader = styled(View).withConfig({
@@ -48,8 +49,20 @@ const StyledHeader = styled(View).withConfig({
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledHeaderCopy = styled(View).withConfig({
+  displayName: 'StyledHeaderCopy',
+  componentId: 'StyledHeaderCopy',
+})`
+  flex: 1;
+  min-width: 220px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledHeaderActions = styled(View).withConfig({
@@ -58,22 +71,36 @@ const StyledHeaderActions = styled(View).withConfig({
 })`
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledControlsRow = styled(View).withConfig({
+  displayName: 'StyledControlsRow',
+  componentId: 'StyledControlsRow',
+})`
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledSearchWrap = styled(View).withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
 })`
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  width: 100%;
 `;
 
 const StyledSummaryBar = styled(View).withConfig({
   displayName: 'StyledSummaryBar',
   componentId: 'StyledSummaryBar',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  min-height: 44px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
@@ -83,8 +110,8 @@ const StyledBanner = styled(View).withConfig({
   displayName: 'StyledBanner',
   componentId: 'StyledBanner',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme, tone }) =>
     statusBackground(theme, bannerLevel(tone))};
   border-left-width: 4px;
@@ -96,8 +123,8 @@ const StyledErrorBanner = styled(View).withConfig({
   displayName: 'StyledErrorBanner',
   componentId: 'StyledErrorBanner',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) =>
     theme.colors.status?.error?.background ?? '#FFEBEE'};
   border-left-width: 4px;
@@ -109,13 +136,13 @@ const StyledEmpty = styled(View).withConfig({
   displayName: 'StyledEmpty',
   componentId: 'StyledEmpty',
 })`
-  padding: ${({ theme }) => theme.spacing.xl}px;
-  min-height: 220px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  min-height: 180px;
   align-items: center;
   justify-content: center;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledEmptyActions = styled(View).withConfig({
@@ -133,16 +160,15 @@ const StyledList = styled(View).withConfig({
   componentId: 'StyledList',
 })`
   padding-bottom: ${({ theme }) => theme.spacing.xl}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledItem = styled(View).withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px
-    ${({ theme }) => theme.spacing.lg}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  padding: ${({ theme }) => theme.spacing.md}px;
+  background-color: ${({ theme }) => theme.colors.background.primary};
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   gap: ${({ theme }) => theme.spacing.sm}px;
@@ -154,9 +180,9 @@ const StyledItemRow = styled(View).withConfig({
 })`
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
 `;
 
 const StyledItemMain = styled(View).withConfig({
@@ -183,7 +209,7 @@ const StyledItemMeta = styled(View).withConfig({
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs}px;
+  gap: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledStatusGroup = styled(View).withConfig({
@@ -192,6 +218,7 @@ const StyledStatusGroup = styled(View).withConfig({
 })`
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
@@ -199,10 +226,11 @@ const StyledStatusPill = styled(View).withConfig({
   displayName: 'StyledStatusPill',
   componentId: 'StyledStatusPill',
 })`
-  min-height: 28px;
+  min-height: 24px;
   justify-content: center;
-  padding: 2px ${({ theme }) => theme.spacing.sm}px;
+  padding: 1px ${({ theme }) => theme.spacing.sm}px;
   border-width: 1px;
+  border-radius: 2px;
   border-color: ${({ theme, level }) => statusBorder(theme, level)};
   background-color: ${({ theme, level }) => statusBackground(theme, level)};
 `;
@@ -214,18 +242,28 @@ const StyledItemActions = styled(View).withConfig({
   flex-direction: row;
   flex-wrap: wrap;
   flex-shrink: 0;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  justify-content: flex-start;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledRiskNote = styled(View).withConfig({
+  displayName: 'StyledRiskNote',
+  componentId: 'StyledRiskNote',
+})`
+  padding-left: ${({ theme }) => theme.spacing.sm}px;
+  border-left-width: 3px;
+  border-left-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
 
 const StyledDetailPanel = styled(View).withConfig({
   displayName: 'StyledDetailPanel',
   componentId: 'StyledDetailPanel',
 })`
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledTimeline = styled(View).withConfig({
@@ -247,12 +285,14 @@ const StyledTimelineItem = styled(View).withConfig({
 export {
   StyledBanner,
   StyledContainer,
+  StyledControlsRow,
   StyledDetailPanel,
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
   StyledHeader,
   StyledHeaderActions,
+  StyledHeaderCopy,
   StyledItem,
   StyledItemActions,
   StyledItemMain,
@@ -260,6 +300,7 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledRiskNote,
   StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,

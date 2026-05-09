@@ -19,11 +19,11 @@ const StyledContainer = styled.main.withConfig({
   flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
   box-sizing: border-box;
   overflow-x: hidden;
 
@@ -31,20 +31,20 @@ const StyledContainer = styled.main.withConfig({
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: ${({ theme }) => theme.spacing.xl}px;
+    gap: ${({ theme }) => theme.spacing.lg}px;
+    padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    max-width: 1280px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: ${({ theme }) => theme.spacing.xxl}px ${({ theme }) => theme.spacing.xl}px;
-    gap: ${({ theme }) => theme.spacing.xxl}px;
+    padding: ${({ theme }) => theme.spacing.xl}px;
+    gap: ${({ theme }) => theme.spacing.xl}px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
-    max-width: 1440px;
-    padding: ${({ theme }) => theme.spacing.xxl}px ${({ theme }) => theme.spacing.xxl}px;
-    gap: ${({ theme }) => theme.spacing.xxl}px;
+    max-width: 1560px;
+    padding: ${({ theme }) => theme.spacing.xxl}px;
   }
 `;
 
@@ -62,10 +62,6 @@ const StyledProgressSection = styled.div.withConfig({
   }
 `;
 
-const CARD_MAX_WIDTH_TABLET = 560;
-const CARD_MAX_WIDTH_DESKTOP = 640;
-const CARD_MAX_WIDTH_LARGE = 720;
-
 const StyledWizardPane = styled.section.withConfig({
   displayName: 'StyledWizardPane',
   componentId: 'StyledWizardPane',
@@ -77,21 +73,122 @@ const StyledWizardPane = styled.section.withConfig({
   order: 2;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
-    flex-basis: 100%;
-    width: 100%;
+    flex: 1 1 100%;
     min-width: 280px;
-    max-width: ${CARD_MAX_WIDTH_TABLET}px;
-    margin: 0 auto;
     order: 2;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    max-width: ${CARD_MAX_WIDTH_DESKTOP}px;
+    flex: 1 1 min(840px, calc(100% - 396px));
+    max-width: none;
+    order: 1;
+  }
+`;
+
+const StyledStepper = styled.div.withConfig({
+  displayName: 'StyledStepper',
+  componentId: 'StyledStepper',
+})`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+`;
+
+const StyledStepperItem = styled.div.withConfig({
+  displayName: 'StyledStepperItem',
+  componentId: 'StyledStepperItem',
+})`
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    grid-template-columns: 32px minmax(0, 1fr);
+    border-right-width: 0;
+
+    &:last-child {
+      border-right-width: 1px;
+    }
+  }
+`;
+
+const StyledStepperMarker = styled.span.withConfig({
+  displayName: 'StyledStepperMarker',
+  componentId: 'StyledStepperMarker',
+})`
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+
+  &[data-status='complete'] {
+    border-color: ${({ theme }) => theme.colors.success};
+    background-color: ${({ theme }) => theme.colors.status?.success?.background ?? '#E8F5E9'};
+    color: ${({ theme }) => theme.colors.status?.success?.text ?? '#1B5E20'};
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
-    max-width: ${CARD_MAX_WIDTH_LARGE}px;
+  &[data-status='current'] {
+    border-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.onPrimary ?? theme.colors.text.inverse};
   }
+`;
+
+const StyledStepperMeta = styled.span.withConfig({
+  displayName: 'StyledStepperMeta',
+  componentId: 'StyledStepperMeta',
+})`
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+`;
+
+const StyledStepperLabel = styled.span.withConfig({
+  displayName: 'StyledStepperLabel',
+  componentId: 'StyledStepperLabel',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &[data-status='upcoming'] {
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+  }
+`;
+
+const StyledStepperConnector = styled.span.withConfig({
+  displayName: 'StyledStepperConnector',
+  componentId: 'StyledStepperConnector',
+})`
+  display: none;
 `;
 
 const StyledWizardCard = styled.div.withConfig({
@@ -104,12 +201,12 @@ const StyledWizardCard = styled.div.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-radius: 0;
-  padding: ${({ theme }) => theme.spacing.xl}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    padding: ${({ theme }) => theme.spacing.xxl}px;
+    padding: ${({ theme }) => theme.spacing.xl}px;
   }
 `;
 
@@ -130,6 +227,19 @@ const StyledSummaryWrap = styled.div.withConfig({
     width: 100%;
     order: 1;
     margin-bottom: 0;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    flex: 0 0 372px;
+    width: 372px;
+    order: 2;
+    position: sticky;
+    top: ${({ theme }) => theme.spacing.lg}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
+    flex-basis: 420px;
+    width: 420px;
   }
 `;
 
@@ -153,18 +263,12 @@ const StyledSummaryPane = styled.aside.withConfig({
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     width: 100%;
-    max-width: ${CARD_MAX_WIDTH_TABLET}px;
-    padding: ${({ theme }) => theme.spacing.xl}px;
+    padding: ${({ theme }) => theme.spacing.lg}px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    max-width: ${CARD_MAX_WIDTH_DESKTOP}px;
-    padding: ${({ theme }) => theme.spacing.xl}px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.large ?? 1440}px) {
-    max-width: ${CARD_MAX_WIDTH_LARGE}px;
-    padding: ${({ theme }) => theme.spacing.xxl}px;
+    max-height: calc(100vh - ${({ theme }) => theme.spacing.xxl * 2}px);
+    overflow-y: auto;
   }
 `;
 
@@ -219,10 +323,18 @@ const StyledFieldGrid = styled.div.withConfig({
 })`
   display: grid;
   grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+
+  & > * {
+    margin-bottom: 0;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `;
 
@@ -240,6 +352,167 @@ const StyledFieldWithHint = styled.div.withConfig({
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledChoiceSection = styled.div.withConfig({
+  displayName: 'StyledChoiceSection',
+  componentId: 'StyledChoiceSection',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledChoiceHeader = styled.div.withConfig({
+  displayName: 'StyledChoiceHeader',
+  componentId: 'StyledChoiceHeader',
+})`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledChoiceLabel = styled.span.withConfig({
+  displayName: 'StyledChoiceLabel',
+  componentId: 'StyledChoiceLabel',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+
+  span {
+    color: ${({ theme }) => theme.colors.error};
+  }
+`;
+
+const StyledChoiceHint = styled.span.withConfig({
+  displayName: 'StyledChoiceHint',
+  componentId: 'StyledChoiceHint',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+`;
+
+const StyledChoiceGrid = styled.div.withConfig({
+  displayName: 'StyledChoiceGrid',
+  componentId: 'StyledChoiceGrid',
+})`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ${({ theme }) => theme.spacing.xs}px;
+
+  &[data-density='compact'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+`;
+
+const StyledChoiceOption = styled.button.withConfig({
+  displayName: 'StyledChoiceOption',
+  componentId: 'StyledChoiceOption',
+})`
+  min-width: 0;
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'icon label'
+    'icon meta';
+  align-items: center;
+  gap: 0 ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-left-width: 3px;
+  border-left-color: transparent;
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &[data-density='compact'] {
+    min-height: 50px;
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  &[data-selected='true'] {
+    border-color: ${({ theme }) => theme.colors.primary};
+    border-left-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.background.secondary};
+  }
+`;
+
+const StyledChoiceIcon = styled.span.withConfig({
+  displayName: 'StyledChoiceIcon',
+  componentId: 'StyledChoiceIcon',
+})`
+  grid-area: icon;
+  width: 38px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: 1;
+`;
+
+const StyledChoiceText = styled.span.withConfig({
+  displayName: 'StyledChoiceText',
+  componentId: 'StyledChoiceText',
+})`
+  grid-area: label;
+  min-width: 0;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const StyledChoiceMeta = styled.span.withConfig({
+  displayName: 'StyledChoiceMeta',
+  componentId: 'StyledChoiceMeta',
+})`
+  grid-area: meta;
+  min-width: 0;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const StyledInlineError = styled.span.withConfig({
+  displayName: 'StyledInlineError',
+  componentId: 'StyledInlineError',
+})`
+  color: ${({ theme }) => theme.colors.error};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
 `;
 
 const StyledObservationRow = styled.div.withConfig({
@@ -317,24 +590,50 @@ const StyledSummaryBody = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledSummaryGroup = styled.div.withConfig({
+  displayName: 'StyledSummaryGroup',
+  componentId: 'StyledSummaryGroup',
+})`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  min-width: 0;
+`;
+
+const StyledSummaryGroupTitle = styled.span.withConfig({
+  displayName: 'StyledSummaryGroupTitle',
+  componentId: 'StyledSummaryGroupTitle',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  text-transform: uppercase;
+  letter-spacing: 0;
+`;
+
+const StyledSummaryGrid = styled.div.withConfig({
+  displayName: 'StyledSummaryGrid',
+  componentId: 'StyledSummaryGrid',
+})`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
   gap: ${({ theme }) => theme.spacing.xs}px;
 `;
 
-const StyledSummaryRow = styled.div.withConfig({
-  displayName: 'StyledSummaryRow',
-  componentId: 'StyledSummaryRow',
+const StyledSummaryCard = styled.div.withConfig({
+  displayName: 'StyledSummaryCard',
+  componentId: 'StyledSummaryCard',
 })`
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.sm}px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  min-width: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-left: 3px solid ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
-
-  &:last-child {
-    border-bottom: none;
-  }
 `;
 
 const StyledSummaryLabel = styled.span.withConfig({
@@ -355,8 +654,11 @@ const StyledSummaryValue = styled.span.withConfig({
   color: ${({ theme }) => theme.colors.text.primary};
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  text-align: right;
-  white-space: nowrap;
+  display: block;
+  margin-top: 2px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledActionsRow = styled.div.withConfig({
@@ -370,6 +672,10 @@ const StyledActionsRow = styled.div.withConfig({
   margin-top: ${({ theme }) => theme.spacing.lg}px;
   margin-bottom: env(safe-area-inset-bottom, 0px);
   width: 100%;
+
+  & button {
+    border-radius: 0;
+  }
 `;
 
 const StyledLoadingPane = styled.section.withConfig({
@@ -412,8 +718,8 @@ const StyledMissingTests = styled.div.withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
 })`
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
-  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
   color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
   border-radius: 0;
@@ -422,7 +728,7 @@ const StyledMissingTests = styled.div.withConfig({
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
 `;
 
@@ -431,7 +737,7 @@ const StyledMissingTestsTitle = styled.div.withConfig({
   componentId: 'StyledMissingTestsTitle',
 })`
   font-weight: ${({ theme }) => theme.typography?.fontWeight?.semibold ?? 600};
-  font-size: ${({ theme }) => theme.typography?.fontSize?.md ?? 16}px;
+  font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
 `;
 
 const StyledMissingTestsList = styled.ul.withConfig({
@@ -458,7 +764,7 @@ const StyledFieldGroup = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
+  gap: ${({ theme }) => theme.spacing.md}px;
   min-width: 0;
 `;
 
@@ -466,7 +772,7 @@ const StyledStepDescription = styled.p.withConfig({
   displayName: 'StyledStepDescription',
   componentId: 'StyledStepDescription',
 })`
-  margin: 0 0 ${({ theme }) => theme.spacing.md}px 0;
+  margin: 0;
   font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   line-height: 1.5;
@@ -611,6 +917,15 @@ const StyledModelRow = styled.div.withConfig({
 
 export {
   StyledActionsRow,
+  StyledChoiceGrid,
+  StyledChoiceHeader,
+  StyledChoiceHint,
+  StyledChoiceIcon,
+  StyledChoiceLabel,
+  StyledChoiceMeta,
+  StyledChoiceOption,
+  StyledChoiceSection,
+  StyledChoiceText,
   StyledContainer,
   StyledExpandButton,
   StyledSummaryWrap,
@@ -618,6 +933,7 @@ export {
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
+  StyledInlineError,
   StyledLoadingMessage,
   StyledLoadingPane,
   StyledLoadingTitle,
@@ -628,6 +944,12 @@ export {
   StyledModelRow,
   StyledObservationRow,
   StyledProgressSection,
+  StyledStepper,
+  StyledStepperConnector,
+  StyledStepperItem,
+  StyledStepperLabel,
+  StyledStepperMarker,
+  StyledStepperMeta,
   StyledRecommendationSource,
   StyledRecommendationSourceTitle,
   StyledSourceOption,
@@ -641,10 +963,13 @@ export {
   StyledStepIndicator,
   StyledStepTitle,
   StyledSummaryBody,
+  StyledSummaryCard,
+  StyledSummaryGrid,
+  StyledSummaryGroup,
+  StyledSummaryGroupTitle,
   StyledSummaryHeader,
   StyledSummaryLabel,
   StyledSummaryPane,
-  StyledSummaryRow,
   StyledSummaryTitle,
   StyledSummaryValue,
   StyledWizardCard,

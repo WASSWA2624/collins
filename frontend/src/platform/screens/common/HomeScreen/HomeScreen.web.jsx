@@ -3,7 +3,7 @@
  * File: HomeScreen.web.jsx
  */
 import React from 'react';
-import { AppLogo, Badge, Icon, Text } from '@platform/components';
+import { AppLogo, Badge, Icon, Select, Text } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
   StyledActionBody,
@@ -14,15 +14,10 @@ import {
   StyledActionTitle,
   StyledContainer,
   StyledDashboardGrid,
-  StyledFacilityBody,
-  StyledFacilityButton,
-  StyledFacilityChevron,
   StyledFacilityHeader,
-  StyledFacilityIcon,
-  StyledFacilityList,
-  StyledFacilityMeta,
-  StyledFacilityName,
   StyledFacilityPanel,
+  StyledFacilitySelectWrap,
+  StyledFacilitySummary,
   StyledHeader,
   StyledHeaderCopy,
   StyledLogoArea,
@@ -41,6 +36,13 @@ import {
   StyledStatusLabel,
   StyledStatusValue,
 } from './HomeScreen.web.styles';
+import {
+  ACTION_GLYPHS,
+  STATUS_GLYPHS,
+  findFacilityById,
+  getFacilityMeta,
+  getFacilitySelectOptions,
+} from './presentation';
 import useHomeScreen from './useHomeScreen';
 
 const badgeVariantForTone = (tone) => {
@@ -49,28 +51,6 @@ const badgeVariantForTone = (tone) => {
   if (tone === 'success') return 'success';
   return 'primary';
 };
-
-const actionGlyphs = Object.freeze({
-  admit: '+',
-  tracking: 'T',
-  abgVentUpdate: 'ABG',
-  datasetCapture: 'D',
-  reviewQueue: 'R',
-  dashboard: '#',
-  settings: '*',
-});
-
-const statusGlyphs = Object.freeze({
-  facility: 'F',
-  network: 'N',
-  activeAdmissions: 'A',
-  drafts: 'D',
-  syncAttention: '!',
-  reviewNeeds: 'R',
-});
-
-const facilityMeta = (facility) =>
-  [facility.district, facility.region, facility.type].filter(Boolean).join(' / ');
 
 const HomeScreenWeb = () => {
   const { t } = useI18n();
@@ -98,7 +78,23 @@ const HomeScreenWeb = () => {
     return item.detail ? String(item.detail) : null;
   };
 
-  const showFacilitySelector = !activeFacility && availableFacilities.length > 1;
+  const facilityOptions = React.useMemo(
+    () => getFacilitySelectOptions(availableFacilities, activeFacility),
+    [activeFacility, availableFacilities]
+  );
+  const facilitySelectValue = selectedFacilityId || activeFacility?.id || null;
+  const selectedFacility = findFacilityById(
+    availableFacilities,
+    facilitySelectValue,
+    activeFacility
+  );
+  const selectedFacilityMeta = getFacilityMeta(selectedFacility);
+  const hasFacilityOptions = facilityOptions.length > 0;
+  const facilityHelperText = isLoading
+    ? t('common.loading')
+    : hasFacilityOptions
+      ? null
+      : t('settings.account.noAssignedFacility');
 
   return (
     <StyledContainer aria-label={t('home.title')} data-testid={testIds.screen} testID={testIds.screen}>
@@ -135,43 +131,34 @@ const HomeScreenWeb = () => {
           </StyledNoticeList>
         )}
 
-        {showFacilitySelector && (
-          <StyledFacilityPanel aria-label={t('home.facilities.title')} data-testid={testIds.facilities}>
-            <StyledFacilityHeader>
-              <StyledSectionTitle>{t('home.facilities.title')}</StyledSectionTitle>
+        <StyledFacilityPanel aria-label={t('home.facilities.title')} data-testid={testIds.facilities}>
+          <StyledFacilityHeader>
+            <StyledSectionTitle>{t('home.facilities.title')}</StyledSectionTitle>
+            {hasFacilityOptions && (
               <Badge variant="primary" size="small">
-                {availableFacilities.length}
+                {facilityOptions.length}
               </Badge>
-            </StyledFacilityHeader>
-            <StyledFacilityList>
-              {availableFacilities.map((facility) => {
-                const isSelected = selectedFacilityId === facility.id;
-
-                return (
-                  <StyledFacilityButton
-                    key={facility.id}
-                    type="button"
-                    $selected={isSelected}
-                    aria-pressed={isSelected}
-                    aria-label={t('home.facilities.select', { name: facility.name })}
-                    onClick={() => selectFacility(facility.id)}
-                  >
-                    <StyledFacilityIcon $selected={isSelected}>
-                      <Icon glyph={isSelected ? 'OK' : '+'} size={isSelected ? 12 : 'md'} decorative />
-                    </StyledFacilityIcon>
-                    <StyledFacilityBody>
-                      <StyledFacilityName>{facility.name}</StyledFacilityName>
-                      {facilityMeta(facility) && (
-                        <StyledFacilityMeta>{facilityMeta(facility)}</StyledFacilityMeta>
-                      )}
-                    </StyledFacilityBody>
-                    <StyledFacilityChevron aria-hidden="true">&gt;</StyledFacilityChevron>
-                  </StyledFacilityButton>
-                );
-              })}
-            </StyledFacilityList>
-          </StyledFacilityPanel>
-        )}
+            )}
+          </StyledFacilityHeader>
+          <StyledFacilitySelectWrap>
+            <Select
+              compact
+              disabled={isLoading || !hasFacilityOptions}
+              helperText={facilityHelperText}
+              options={facilityOptions}
+              placeholder={t('home.status.facility.empty')}
+              searchPlaceholder={t('common.searchPlaceholder')}
+              searchable
+              testID={`${testIds.facilities}-select`}
+              value={facilitySelectValue}
+              onValueChange={selectFacility}
+              accessibilityLabel={t('home.facilities.title')}
+            />
+            {selectedFacilityMeta ? (
+              <StyledFacilitySummary>{selectedFacilityMeta}</StyledFacilitySummary>
+            ) : null}
+          </StyledFacilitySelectWrap>
+        </StyledFacilityPanel>
 
         <StyledDashboardGrid>
           <StyledStatusGrid aria-label={t('home.status.title')} data-testid={testIds.status}>
@@ -179,7 +166,7 @@ const HomeScreenWeb = () => {
               <StyledStatusItem key={item.id} $tone={item.tone}>
                 <StyledStatusHeader>
                   <StyledStatusIcon $tone={item.tone}>
-                    <Icon glyph={statusGlyphs[item.id] || 'i'} size="sm" decorative />
+                    <Icon glyph={STATUS_GLYPHS[item.id] || 'i'} size="sm" tone={item.tone} decorative />
                   </StyledStatusIcon>
                   <StyledStatusLabel>{t(`home.status.${item.id}.label`)}</StyledStatusLabel>
                 </StyledStatusHeader>
@@ -208,7 +195,12 @@ const HomeScreenWeb = () => {
                   tabIndex={action.enabled ? 0 : -1}
                 >
                   <StyledActionIcon $emphasis={action.emphasis} $enabled={action.enabled}>
-                    <Icon glyph={actionGlyphs[action.id] || '>'} size="sm" decorative />
+                    <Icon
+                      glyph={ACTION_GLYPHS[action.id] || '>'}
+                      size="sm"
+                      tone={action.emphasis === 'primary' ? 'inverse' : 'muted'}
+                      decorative
+                    />
                   </StyledActionIcon>
                   <StyledActionBody>
                     <StyledActionTitle>{t(`home.actions.${action.id}.title`)}</StyledActionTitle>

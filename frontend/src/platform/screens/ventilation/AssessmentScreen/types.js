@@ -31,10 +31,37 @@ const PATIENT_PATHWAY_OPTIONS = Object.freeze([
   { value: 'OTHER', labelKey: 'other' },
 ]);
 
+const PATIENT_AGE_GROUP_OPTIONS = Object.freeze([
+  { value: 'NEONATE', labelKey: 'neonate', rangeKey: 'neonate', icon: '0-28d' },
+  { value: 'INFANT', labelKey: 'infant', rangeKey: 'infant', icon: '<1y' },
+  { value: 'CHILD', labelKey: 'child', rangeKey: 'child', icon: '1-12' },
+  { value: 'ADOLESCENT', labelKey: 'adolescent', rangeKey: 'adolescent', icon: '13-17' },
+  { value: 'ADULT', labelKey: 'adult', rangeKey: 'adult', icon: '18+' },
+]);
+
+const PATIENT_AGE_GROUP_VALUES = Object.freeze(
+  PATIENT_AGE_GROUP_OPTIONS.map((option) => option.value)
+);
+
+const NEONATE_MAX_AGE_YEARS = 28 / 365;
+
+const isPatientAgeGroupValue = (value) =>
+  PATIENT_AGE_GROUP_VALUES.includes(String(value || '').toUpperCase());
+
+const resolvePatientAgeGroupFromAgeYears = (ageYears) => {
+  const age = Number(ageYears);
+  if (!Number.isFinite(age) || age < 0) return null;
+  if (age <= NEONATE_MAX_AGE_YEARS) return 'NEONATE';
+  if (age < 1) return 'INFANT';
+  if (age < 13) return 'CHILD';
+  if (age < 18) return 'ADOLESCENT';
+  return 'ADULT';
+};
+
 const SEX_OPTIONS = Object.freeze([
-  { value: 'MALE', labelKey: 'male' },
-  { value: 'FEMALE', labelKey: 'female' },
-  { value: 'UNKNOWN', labelKey: 'unknown' },
+  { value: 'MALE', labelKey: 'male', icon: 'M' },
+  { value: 'FEMALE', labelKey: 'female', icon: 'F' },
+  { value: 'UNKNOWN', labelKey: 'unknown', icon: '?' },
 ]);
 
 const REASON_FOR_SUPPORT_OPTIONS = Object.freeze([
@@ -100,6 +127,10 @@ export {
   STEPS,
   STEP_KEYS,
   PATIENT_PATHWAY_OPTIONS,
+  PATIENT_AGE_GROUP_OPTIONS,
+  PATIENT_AGE_GROUP_VALUES,
+  isPatientAgeGroupValue,
+  resolvePatientAgeGroupFromAgeYears,
   SEX_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   OXYGEN_SUPPORT_OPTIONS,

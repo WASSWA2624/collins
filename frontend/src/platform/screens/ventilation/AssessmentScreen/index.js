@@ -9,6 +9,10 @@ export {
   STEPS,
   ASSESSMENT_TEST_IDS,
   PATIENT_PATHWAY_OPTIONS,
+  PATIENT_AGE_GROUP_OPTIONS,
+  PATIENT_AGE_GROUP_VALUES,
+  isPatientAgeGroupValue,
+  resolvePatientAgeGroupFromAgeYears,
   SEX_OPTIONS,
   PERMITTED_MISSING_FIELD_OPTIONS,
 } from './types';

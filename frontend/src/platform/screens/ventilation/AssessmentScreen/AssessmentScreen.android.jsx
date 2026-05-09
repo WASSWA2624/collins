@@ -9,7 +9,6 @@ import {
   Button,
   Checkbox,
   LoadingSpinner,
-  ProgressBar,
   Select,
   Text,
   TextArea,
@@ -19,13 +18,26 @@ import { useI18n } from '@hooks';
 import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
 import {
   StyledActionsRow,
+  StyledChoiceGrid,
+  StyledChoiceHeader,
+  StyledChoiceHint,
+  StyledChoiceIcon,
+  StyledChoiceMeta,
+  StyledChoiceOption,
+  StyledChoiceSection,
+  StyledChoiceText,
   StyledContainer,
   StyledContentWrap,
   StyledExpandButton,
   StyledFieldGroup,
+  StyledInlineError,
   StyledLoadingPane,
   StyledLoadingText,
   StyledMissingTests,
+  StyledStepper,
+  StyledStepperItem,
+  StyledStepperMarker,
+  StyledStepperMeta,
   StyledStepContent,
   StyledStepDescription,
   StyledStepHeader,
@@ -39,9 +51,10 @@ import {
 } from './AssessmentScreen.android.styles';
 import {
   OXYGEN_SUPPORT_OPTIONS,
-  PATIENT_PATHWAY_OPTIONS,
+  PATIENT_AGE_GROUP_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
+  STEP_KEYS,
   STEPS,
   VENTILATOR_MODE_OPTIONS,
 } from './types';
@@ -50,6 +63,8 @@ const mapOptions = (options, t, keyPrefix) =>
   options.map((option) => ({
     value: option.value,
     label: t(`${keyPrefix}.${option.labelKey}`),
+    icon: option.icon,
+    rangeKey: option.rangeKey,
   }));
 
 const mapReasonOptions = (options, t, keyPrefix) =>
@@ -63,6 +78,15 @@ const mapReasonOptions = (options, t, keyPrefix) =>
 
 const parseNum = parseAdmissionNumberInput;
 
+const STEP_STATUS = Object.freeze({
+  COMPLETE: 'complete',
+  CURRENT: 'current',
+  UPCOMING: 'upcoming',
+});
+
+const findOptionLabel = (options, value) =>
+  options.find((option) => option.value === value)?.label || value;
+
 const formatValue = (value, unit) => {
   if (value == null || value === '') return null;
   return unit ? `${value} ${unit}` : String(value);
@@ -73,7 +97,6 @@ const AssessmentScreenAndroid = () => {
   const theme = useTheme();
   const {
     currentStep,
-    progressPercent,
     mergedInputs,
     updateInput,
     updateBodyMetric,
@@ -89,7 +112,6 @@ const AssessmentScreenAndroid = () => {
     recommendationErrorCode,
     isGeneratingRecommendation,
     validation,
-    canProceedFromStep,
     goNext,
     goBackOrExit,
     saveAdmission,
@@ -105,12 +127,21 @@ const AssessmentScreenAndroid = () => {
   } = useAssessmentScreen();
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
-  const pathwayOptions = mapOptions(
-    PATIENT_PATHWAY_OPTIONS,
+  const ageGroupOptions = mapOptions(
+    PATIENT_AGE_GROUP_OPTIONS,
     t,
     'ventilation.assessment.patientReason.pathways'
-  );
+  ).map((option) => ({
+    ...option,
+    rangeLabel: t(`ventilation.assessment.patientReason.ageGroupRanges.${option.rangeKey}`),
+  }));
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
+  const getFieldErrorProps = (field) => {
+    const message = validation?.fieldErrors?.[field];
+    return message ? { validationState: 'error', errorMessage: message } : {};
+  };
+  const ageGroupError = getFieldErrorProps('patientPathway').errorMessage;
+  const selectedAgeGroup = ageGroupOptions.find((option) => option.value === mergedInputs.patientPathway);
   const reasonForSupportOptions = mapReasonOptions(
     REASON_FOR_SUPPORT_OPTIONS,
     t,
@@ -152,10 +183,40 @@ const AssessmentScreenAndroid = () => {
     );
   };
 
+  const renderStepper = () => (
+    <StyledStepper testID={testIds.progressBar} accessibilityLabel={t('ventilation.assessment.stepIndicator', { current: currentStep + 1, total: totalSteps })}>
+      {STEP_KEYS.map((key, index) => {
+        const status =
+          index < currentStep
+            ? STEP_STATUS.COMPLETE
+            : index === currentStep
+              ? STEP_STATUS.CURRENT
+              : STEP_STATUS.UPCOMING;
+        return (
+          <StyledStepperItem key={key} status={status}>
+            <StyledStepperMarker status={status}>
+              <Text variant="caption" color={status === STEP_STATUS.CURRENT ? 'text.inverse' : 'text.primary'}>
+                {status === STEP_STATUS.COMPLETE ? '\u2713' : index + 1}
+              </Text>
+            </StyledStepperMarker>
+            <StyledStepperMeta>
+              <Text variant="label" numberOfLines={1}>
+                {t(`ventilation.assessment.steps.${key}`)}
+              </Text>
+              <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                {t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps })}
+              </Text>
+            </StyledStepperMeta>
+          </StyledStepperItem>
+        );
+      })}
+    </StyledStepper>
+  );
+
   const renderSummary = () => {
     const rows = [
       { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
-      { key: 'pathway', label: t('ventilation.assessment.summary.pathway'), value: summaryData.pathway },
+      { key: 'pathway', label: t('ventilation.assessment.summary.pathway'), value: findOptionLabel(ageGroupOptions, summaryData.pathway) },
       { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
       { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
       { key: 'fio2', label: t('ventilation.assessment.summary.fio2'), value: summaryData.fio2 },
@@ -214,27 +275,75 @@ const AssessmentScreenAndroid = () => {
       <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderValidationMessages()}
-      <Select
-        label={t('ventilation.assessment.patientReason.pathway')}
-        placeholder={t('ventilation.assessment.patientReason.pathwayPlaceholder')}
-        options={pathwayOptions}
-        value={mergedInputs.patientPathway}
-        onValueChange={(value) => updateInput({ patientPathway: value })}
-        required
-        testID="assessment-patient-pathway"
-      />
-      <Select
-        label={t('ventilation.assessment.patientReason.sexForSize')}
-        options={sexOptions}
-        value={mergedInputs.sexForSizeCalculations}
-        onValueChange={(value) => updateInput({ sexForSizeCalculations: value })}
-        testID="assessment-sex-for-size"
-      />
+      <StyledChoiceSection testID="assessment-patient-pathway">
+        <StyledChoiceHeader>
+          <Text variant="label">{t('ventilation.assessment.patientReason.pathway')} *</Text>
+          <StyledChoiceHint>
+            {selectedAgeGroup
+              ? t('ventilation.assessment.patientReason.selectedAgeRange', { range: selectedAgeGroup.rangeLabel })
+              : t('ventilation.assessment.patientReason.pathwayPlaceholder')}
+          </StyledChoiceHint>
+        </StyledChoiceHeader>
+        <StyledChoiceGrid>
+          {ageGroupOptions.map((option) => {
+            const selected = mergedInputs.patientPathway === option.value;
+            return (
+              <StyledChoiceOption
+                key={option.value}
+                selected={selected}
+                onPress={() => updateInput({ patientPathway: option.value })}
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                testID={`assessment-age-group-${option.value.toLowerCase()}`}
+              >
+                <StyledChoiceIcon selected={selected}>
+                  <Text variant="caption">{option.icon}</Text>
+                </StyledChoiceIcon>
+                <StyledChoiceText>
+                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                  <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
+                </StyledChoiceText>
+              </StyledChoiceOption>
+            );
+          })}
+        </StyledChoiceGrid>
+        {ageGroupError ? <StyledInlineError>{ageGroupError}</StyledInlineError> : null}
+      </StyledChoiceSection>
+      <StyledChoiceSection testID="assessment-sex-for-size">
+        <StyledChoiceHeader>
+          <Text variant="label">{t('ventilation.assessment.patientReason.sexForSize')}</Text>
+        </StyledChoiceHeader>
+        <StyledChoiceGrid>
+          {sexOptions.map((option) => {
+            const selected = mergedInputs.sexForSizeCalculations === option.value;
+            return (
+              <StyledChoiceOption
+                key={option.value}
+                selected={selected}
+                compact
+                onPress={() => updateInput({ sexForSizeCalculations: option.value })}
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                testID={`assessment-sex-${option.value.toLowerCase()}`}
+              >
+                <StyledChoiceIcon selected={selected}>
+                  <Text variant="caption">{option.icon}</Text>
+                </StyledChoiceIcon>
+                <StyledChoiceText>
+                  <Text variant="label" numberOfLines={1}>{option.label}</Text>
+                </StyledChoiceText>
+              </StyledChoiceOption>
+            );
+          })}
+        </StyledChoiceGrid>
+      </StyledChoiceSection>
       <TextField
         label={t('ventilation.assessment.patientReason.ageYears')}
         type="number"
+        helperText={t('ventilation.assessment.patientReason.ageYearsHint')}
         value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
         onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
+        {...getFieldErrorProps('ageYears')}
         required
         testID="assessment-age"
       />
@@ -243,6 +352,7 @@ const AssessmentScreenAndroid = () => {
         type="number"
         value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
         onChangeText={(value) => updateBodyMetric('actualWeightKg', parseNum(value))}
+        {...getFieldErrorProps('actualWeightKg')}
         required
         testID="assessment-weight"
       />
@@ -251,6 +361,7 @@ const AssessmentScreenAndroid = () => {
         type="number"
         value={mergedInputs.heightOrLengthCm != null ? String(mergedInputs.heightOrLengthCm) : ''}
         onChangeText={(value) => updateBodyMetric('heightOrLengthCm', parseNum(value))}
+        {...getFieldErrorProps('heightOrLengthCm')}
         required
         testID="assessment-height"
       />
@@ -259,6 +370,7 @@ const AssessmentScreenAndroid = () => {
         type="number"
         value={mergedInputs.bmi != null ? String(mergedInputs.bmi) : ''}
         onChangeText={(value) => updateBodyMetric('bmi', parseNum(value))}
+        {...getFieldErrorProps('bmi')}
         testID="assessment-bmi"
       />
       <Select
@@ -268,6 +380,7 @@ const AssessmentScreenAndroid = () => {
         options={reasonForSupportOptions}
         value={mergedInputs.reasonForSupport}
         onValueChange={(value) => updateInput({ reasonForSupport: value })}
+        {...getFieldErrorProps('reasonForSupport')}
         allowCustomValue
         required
         testID="assessment-reason"
@@ -389,7 +502,7 @@ const AssessmentScreenAndroid = () => {
   return (
     <StyledContentWrap>
       <StyledContainer accessibilityLabel={t('ventilation.assessment.accessibilityLabel')} testID={testIds.screen}>
-        <ProgressBar value={progressPercent} testID={testIds.progressBar} />
+        {renderStepper()}
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: contentPaddingBottom }}
@@ -413,7 +526,7 @@ const AssessmentScreenAndroid = () => {
                 <Button
                   variant="primary"
                   onPress={goNext}
-                  disabled={isSaving || !canProceedFromStep(currentStep)}
+                  disabled={isSaving}
                   loading={isSaving}
                   testID={testIds.nextButton}
                 >
@@ -423,7 +536,7 @@ const AssessmentScreenAndroid = () => {
                 <Button
                   variant="primary"
                   onPress={saveAdmission}
-                  disabled={isSaving || !canProceedFromStep(currentStep)}
+                  disabled={isSaving}
                   loading={isSaving}
                   testID={testIds.generateButton}
                 >

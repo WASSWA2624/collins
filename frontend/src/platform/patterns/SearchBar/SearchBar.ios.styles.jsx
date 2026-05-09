@@ -13,6 +13,7 @@ const StyledContainer = styled.View.withConfig({
   flex-direction: row;
   align-items: center;
   width: 100%;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledSearchIcon = styled.Text.withConfig({
@@ -20,7 +21,10 @@ const StyledSearchIcon = styled.Text.withConfig({
   componentId: 'StyledSearchIcon',
 })`
   color: ${({ theme }) => theme.colors.text.secondary};
-  margin-right: ${({ theme }) => theme.spacing.xs}px;
+  width: 24px;
+  min-width: 24px;
+  text-align: center;
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
 `;
 
 const StyledTextFieldWrapper = styled.View.withConfig({
@@ -43,5 +47,3 @@ export {
   StyledTextFieldWrapper,
   StyledClearButtonWrapper,
 };
-
-

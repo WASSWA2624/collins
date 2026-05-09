@@ -7,7 +7,6 @@ import {
   Button,
   Checkbox,
   LoadingSpinner,
-  ProgressBar,
   Select,
   Text,
   TextArea,
@@ -18,11 +17,21 @@ import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentS
 import {
   StyledActionsRow,
   StyledContainer,
+  StyledChoiceGrid,
+  StyledChoiceHeader,
+  StyledChoiceHint,
+  StyledChoiceIcon,
+  StyledChoiceLabel,
+  StyledChoiceMeta,
+  StyledChoiceOption,
+  StyledChoiceSection,
+  StyledChoiceText,
   StyledExpandButton,
   StyledFieldGroup,
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
+  StyledInlineError,
   StyledLoadingMessage,
   StyledLoadingPane,
   StyledLoadingTitle,
@@ -30,16 +39,25 @@ import {
   StyledMissingTestsHint,
   StyledMissingTestsTitle,
   StyledProgressSection,
+  StyledStepper,
+  StyledStepperConnector,
+  StyledStepperItem,
+  StyledStepperLabel,
+  StyledStepperMarker,
+  StyledStepperMeta,
   StyledStepContent,
   StyledStepDescription,
   StyledStepHeader,
   StyledStepIndicator,
   StyledStepTitle,
   StyledSummaryBody,
+  StyledSummaryCard,
+  StyledSummaryGrid,
+  StyledSummaryGroup,
+  StyledSummaryGroupTitle,
   StyledSummaryHeader,
   StyledSummaryLabel,
   StyledSummaryPane,
-  StyledSummaryRow,
   StyledSummaryTitle,
   StyledSummaryValue,
   StyledSummaryWrap,
@@ -48,9 +66,10 @@ import {
 } from './AssessmentScreen.web.styles';
 import {
   OXYGEN_SUPPORT_OPTIONS,
-  PATIENT_PATHWAY_OPTIONS,
+  PATIENT_AGE_GROUP_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
+  STEP_KEYS,
   STEPS,
   VENTILATOR_MODE_OPTIONS,
 } from './types';
@@ -59,6 +78,8 @@ const mapOptions = (options, t, keyPrefix) =>
   options.map((option) => ({
     value: option.value,
     label: t(`${keyPrefix}.${option.labelKey}`),
+    icon: option.icon,
+    rangeKey: option.rangeKey,
   }));
 
 const mapReasonOptions = (options, t, keyPrefix) =>
@@ -72,16 +93,24 @@ const mapReasonOptions = (options, t, keyPrefix) =>
 
 const parseNum = parseAdmissionNumberInput;
 
+const STEP_STATUS = Object.freeze({
+  COMPLETE: 'complete',
+  CURRENT: 'current',
+  UPCOMING: 'upcoming',
+});
+
 const formatValue = (value, unit) => {
   if (value == null || value === '') return null;
   return unit ? `${value} ${unit}` : String(value);
 };
 
+const findOptionLabel = (options, value) =>
+  options.find((option) => option.value === value)?.label || value;
+
 const AssessmentScreenWeb = () => {
   const { t } = useI18n();
   const {
     currentStep,
-    progressPercent,
     mergedInputs,
     updateInput,
     updateBodyMetric,
@@ -97,7 +126,6 @@ const AssessmentScreenWeb = () => {
     recommendationErrorCode,
     isGeneratingRecommendation,
     validation,
-    canProceedFromStep,
     goNext,
     goBackOrExit,
     saveAdmission,
@@ -118,11 +146,14 @@ const AssessmentScreenWeb = () => {
     total: totalSteps,
   });
 
-  const pathwayOptions = mapOptions(
-    PATIENT_PATHWAY_OPTIONS,
+  const ageGroupOptions = mapOptions(
+    PATIENT_AGE_GROUP_OPTIONS,
     t,
     'ventilation.assessment.patientReason.pathways'
-  );
+  ).map((option) => ({
+    ...option,
+    rangeLabel: t(`ventilation.assessment.patientReason.ageGroupRanges.${option.rangeKey}`),
+  }));
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
   const reasonForSupportOptions = mapReasonOptions(
     REASON_FOR_SUPPORT_OPTIONS,
@@ -143,6 +174,8 @@ const AssessmentScreenWeb = () => {
     const message = validation?.fieldErrors?.[field];
     return message ? { validationState: 'error', errorMessage: message } : {};
   };
+  const ageGroupError = getFieldErrorProps('patientPathway').errorMessage;
+  const selectedAgeGroup = ageGroupOptions.find((option) => option.value === mergedInputs.patientPathway);
   const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
   const translatedErrorMessage = errorTranslationKey ? t(errorTranslationKey) : null;
   const errorMessage =
@@ -177,20 +210,75 @@ const AssessmentScreenWeb = () => {
     );
   };
 
+  const renderStepper = () => (
+    <StyledStepper data-testid={testIds.progressBar} aria-label={stepIndicator} role="list">
+      {STEP_KEYS.map((key, index) => {
+        const status =
+          index < currentStep
+            ? STEP_STATUS.COMPLETE
+            : index === currentStep
+              ? STEP_STATUS.CURRENT
+              : STEP_STATUS.UPCOMING;
+        const label = t(`ventilation.assessment.steps.${key}`);
+        return (
+          <StyledStepperItem key={key} role="listitem" aria-current={status === STEP_STATUS.CURRENT ? 'step' : undefined}>
+            <StyledStepperMarker data-status={status} aria-hidden="true">
+              {status === STEP_STATUS.COMPLETE ? '\u2713' : index + 1}
+            </StyledStepperMarker>
+            <StyledStepperMeta>
+              <StyledStepperLabel data-status={status}>{label}</StyledStepperLabel>
+              <StyledStepIndicator>
+                {t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps })}
+              </StyledStepIndicator>
+            </StyledStepperMeta>
+            {index < STEP_KEYS.length - 1 ? <StyledStepperConnector data-status={status} /> : null}
+          </StyledStepperItem>
+        );
+      })}
+    </StyledStepper>
+  );
+
   const renderSummary = () => {
-    const rows = [
-      { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
-      { key: 'pathway', label: t('ventilation.assessment.summary.pathway'), value: summaryData.pathway },
-      { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
-      { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
-      { key: 'fio2', label: t('ventilation.assessment.summary.fio2'), value: summaryData.fio2 },
-      { key: 'pao2', label: t('ventilation.assessment.summary.pao2'), value: formatValue(summaryData.pao2, 'mmHg') },
-      { key: 'ph', label: t('ventilation.assessment.summary.ph'), value: summaryData.ph },
-      { key: 'ventMode', label: t('ventilation.assessment.summary.ventilatorMode'), value: summaryData.ventilatorMode },
-      { key: 'peep', label: t('ventilation.assessment.summary.peep'), value: formatValue(summaryData.peep, 'cmH2O') },
-      { key: 'vt', label: t('ventilation.assessment.summary.tidalVolume'), value: formatValue(summaryData.tidalVolumeMl, 'mL') },
-      { key: 'sync', label: t('ventilation.assessment.summary.syncStatus'), value: syncStatus },
-    ].filter((row) => row.value != null && row.value !== '');
+    const groups = [
+      {
+        key: 'patient',
+        title: t('ventilation.assessment.summary.groups.patient'),
+        rows: [
+          { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
+          {
+            key: 'pathway',
+            label: t('ventilation.assessment.summary.ageGroup'),
+            value: findOptionLabel(ageGroupOptions, summaryData.pathway),
+          },
+          { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
+        ],
+      },
+      {
+        key: 'oxygen',
+        title: t('ventilation.assessment.summary.groups.oxygen'),
+        rows: [
+          { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
+          { key: 'fio2', label: t('ventilation.assessment.summary.fio2'), value: summaryData.fio2 },
+          { key: 'pao2', label: t('ventilation.assessment.summary.pao2'), value: formatValue(summaryData.pao2, 'mmHg') },
+          { key: 'ph', label: t('ventilation.assessment.summary.ph'), value: summaryData.ph },
+        ],
+      },
+      {
+        key: 'ventilator',
+        title: t('ventilation.assessment.summary.groups.ventilator'),
+        rows: [
+          { key: 'ventMode', label: t('ventilation.assessment.summary.ventilatorMode'), value: summaryData.ventilatorMode },
+          { key: 'peep', label: t('ventilation.assessment.summary.peep'), value: formatValue(summaryData.peep, 'cmH2O') },
+          { key: 'vt', label: t('ventilation.assessment.summary.tidalVolume'), value: formatValue(summaryData.tidalVolumeMl, 'mL') },
+          { key: 'sync', label: t('ventilation.assessment.summary.syncStatus'), value: syncStatus },
+        ],
+      },
+    ]
+      .map((group) => ({
+        ...group,
+        rows: group.rows.filter((row) => row.value != null && row.value !== ''),
+      }))
+      .filter((group) => group.rows.length > 0);
 
     return (
       <StyledSummaryWrap>
@@ -220,16 +308,23 @@ const AssessmentScreenWeb = () => {
           </StyledSummaryHeader>
           {summaryExpanded && (
             <StyledSummaryBody>
-              {rows.length === 0 ? (
+              {groups.length === 0 ? (
                 <Text variant="body" color="text.tertiary">
                   {t('ventilation.assessment.summary.empty')}
                 </Text>
               ) : (
-                rows.map(({ key, label, value }) => (
-                  <StyledSummaryRow key={key}>
-                    <StyledSummaryLabel>{label}</StyledSummaryLabel>
-                    <StyledSummaryValue>{value}</StyledSummaryValue>
-                  </StyledSummaryRow>
+                groups.map((group) => (
+                  <StyledSummaryGroup key={group.key}>
+                    <StyledSummaryGroupTitle>{group.title}</StyledSummaryGroupTitle>
+                    <StyledSummaryGrid>
+                      {group.rows.map(({ key, label, value }) => (
+                        <StyledSummaryCard key={key}>
+                          <StyledSummaryLabel>{label}</StyledSummaryLabel>
+                          <StyledSummaryValue>{value}</StyledSummaryValue>
+                        </StyledSummaryCard>
+                      ))}
+                    </StyledSummaryGrid>
+                  </StyledSummaryGroup>
                 ))
               )}
             </StyledSummaryBody>
@@ -243,27 +338,70 @@ const AssessmentScreenWeb = () => {
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderValidationMessages()}
+      <StyledChoiceSection data-testid="assessment-patient-pathway">
+        <StyledChoiceHeader>
+          <StyledChoiceLabel>
+            {t('ventilation.assessment.patientReason.ageGroup')}
+            <span aria-hidden="true"> *</span>
+          </StyledChoiceLabel>
+          <StyledChoiceHint>
+            {selectedAgeGroup
+              ? t('ventilation.assessment.patientReason.selectedAgeRange', {
+                  range: selectedAgeGroup.rangeLabel,
+                })
+              : t('ventilation.assessment.patientReason.ageGroupPlaceholder')}
+          </StyledChoiceHint>
+        </StyledChoiceHeader>
+        <StyledChoiceGrid data-testid="assessment-age-group-options">
+          {ageGroupOptions.map((option) => {
+            const selected = mergedInputs.patientPathway === option.value;
+            return (
+              <StyledChoiceOption
+                key={option.value}
+                type="button"
+                data-selected={selected}
+                aria-pressed={selected}
+                onClick={() => updateInput({ patientPathway: option.value })}
+                data-testid={`assessment-age-group-${option.value.toLowerCase()}`}
+              >
+                <StyledChoiceIcon>{option.icon}</StyledChoiceIcon>
+                <StyledChoiceText>{option.label}</StyledChoiceText>
+                <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
+              </StyledChoiceOption>
+            );
+          })}
+        </StyledChoiceGrid>
+        {ageGroupError ? <StyledInlineError>{ageGroupError}</StyledInlineError> : null}
+      </StyledChoiceSection>
+      <StyledChoiceSection data-testid="assessment-sex-for-size">
+        <StyledChoiceHeader>
+          <StyledChoiceLabel>{t('ventilation.assessment.patientReason.sexForSize')}</StyledChoiceLabel>
+        </StyledChoiceHeader>
+        <StyledChoiceGrid data-density="compact" data-testid="assessment-sex-options">
+          {sexOptions.map((option) => {
+            const selected = mergedInputs.sexForSizeCalculations === option.value;
+            return (
+              <StyledChoiceOption
+                key={option.value}
+                type="button"
+                data-selected={selected}
+                data-density="compact"
+                aria-pressed={selected}
+                onClick={() => updateInput({ sexForSizeCalculations: option.value })}
+                data-testid={`assessment-sex-${option.value.toLowerCase()}`}
+              >
+                <StyledChoiceIcon>{option.icon}</StyledChoiceIcon>
+                <StyledChoiceText>{option.label}</StyledChoiceText>
+              </StyledChoiceOption>
+            );
+          })}
+        </StyledChoiceGrid>
+      </StyledChoiceSection>
       <StyledFieldGrid>
-        <Select
-          label={t('ventilation.assessment.patientReason.pathway')}
-          placeholder={t('ventilation.assessment.patientReason.pathwayPlaceholder')}
-          options={pathwayOptions}
-          value={mergedInputs.patientPathway}
-          onValueChange={(value) => updateInput({ patientPathway: value })}
-          {...getFieldErrorProps('patientPathway')}
-          required
-          testID="assessment-patient-pathway"
-        />
-        <Select
-          label={t('ventilation.assessment.patientReason.sexForSize')}
-          options={sexOptions}
-          value={mergedInputs.sexForSizeCalculations}
-          onValueChange={(value) => updateInput({ sexForSizeCalculations: value })}
-          testID="assessment-sex-for-size"
-        />
         <TextField
           label={t('ventilation.assessment.patientReason.ageYears')}
           type="number"
+          helperText={t('ventilation.assessment.patientReason.ageYearsHint')}
           value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
           onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
           {...getFieldErrorProps('ageYears')}
@@ -660,11 +798,7 @@ const AssessmentScreenWeb = () => {
     <StyledContainer aria-label={t('ventilation.assessment.accessibilityLabel')} data-testid={testIds.screen} testID={testIds.screen} role="main">
       {renderLoadError()}
       <StyledProgressSection>
-        <ProgressBar
-          value={progressPercent}
-          testID={testIds.progressBar}
-          aria-label={t('common.progress', { value: Math.round(progressPercent) })}
-        />
+        {renderStepper()}
       </StyledProgressSection>
       <StyledWizardPane>
         <StyledWizardCard>
@@ -687,7 +821,7 @@ const AssessmentScreenWeb = () => {
             <Button
               variant="primary"
               onPress={goNext}
-              disabled={isSaving || !canProceedFromStep(currentStep)}
+              disabled={isSaving}
               loading={isSaving}
               testID={testIds.nextButton}
               accessibilityLabel={t('ventilation.assessment.actions.next')}
@@ -698,7 +832,7 @@ const AssessmentScreenWeb = () => {
             <Button
               variant="primary"
               onPress={saveAdmission}
-              disabled={isSaving || !canProceedFromStep(currentStep)}
+              disabled={isSaving}
               loading={isSaving}
               testID={testIds.generateButton}
               accessibilityLabel={t('ventilation.assessment.actions.saveAdmission')}

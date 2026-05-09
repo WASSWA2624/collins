@@ -4,18 +4,22 @@
  */
 import React, { useCallback } from 'react';
 import { useRouter } from 'expo-router';
-import { AppLogo, Badge, Text } from '@platform/components';
+import { useWindowDimensions } from 'react-native';
+import { AppLogo, Badge, Icon, Select, Text } from '@platform/components';
 import { useI18n } from '@hooks';
 import {
   StyledActionBody,
   StyledActionGrid,
+  StyledActionIcon,
   StyledActionItem,
   StyledActionMeta,
   StyledActionTitle,
   StyledContainer,
-  StyledFacilityButton,
-  StyledFacilityButtonText,
-  StyledFacilityList,
+  StyledDashboardGrid,
+  StyledFacilityHeader,
+  StyledFacilityPanel,
+  StyledFacilitySelectWrap,
+  StyledFacilitySummary,
   StyledHeader,
   StyledHeaderCopy,
   StyledLogoArea,
@@ -28,10 +32,19 @@ import {
   StyledShell,
   StyledStatusDetail,
   StyledStatusGrid,
+  StyledStatusHeader,
+  StyledStatusIcon,
   StyledStatusItem,
   StyledStatusLabel,
   StyledStatusValue,
 } from './HomeScreen.native.styles';
+import {
+  ACTION_GLYPHS,
+  STATUS_GLYPHS,
+  findFacilityById,
+  getFacilityMeta,
+  getFacilitySelectOptions,
+} from './presentation';
 import useHomeScreen from './useHomeScreen';
 
 const badgeVariantForTone = (tone) => {
@@ -44,6 +57,8 @@ const badgeVariantForTone = (tone) => {
 const HomeScreenNative = () => {
   const { t } = useI18n();
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const isCompact = width < 600;
   const {
     activeFacility,
     actions,
@@ -52,6 +67,7 @@ const HomeScreenNative = () => {
     isLoading,
     notices,
     selectFacility,
+    selectedFacilityId,
     statusItems,
     testIds,
   } = useHomeScreen();
@@ -74,7 +90,23 @@ const HomeScreenNative = () => {
     return item.detail ? String(item.detail) : null;
   };
 
-  const showFacilitySelector = !activeFacility && availableFacilities.length > 1;
+  const facilityOptions = React.useMemo(
+    () => getFacilitySelectOptions(availableFacilities, activeFacility),
+    [activeFacility, availableFacilities]
+  );
+  const facilitySelectValue = selectedFacilityId || activeFacility?.id || null;
+  const selectedFacility = findFacilityById(
+    availableFacilities,
+    facilitySelectValue,
+    activeFacility
+  );
+  const selectedFacilityMeta = getFacilityMeta(selectedFacility);
+  const hasFacilityOptions = facilityOptions.length > 0;
+  const facilityHelperText = isLoading
+    ? t('common.loading')
+    : hasFacilityOptions
+      ? null
+      : t('settings.account.noAssignedFacility');
 
   return (
     <StyledContainer
@@ -82,7 +114,7 @@ const HomeScreenNative = () => {
       contentContainerStyle={{ flexGrow: 1 }}
       testID={testIds.screen}
     >
-      <StyledShell>
+      <StyledShell $compact={isCompact}>
         <StyledHeader>
           <StyledLogoArea>
             <AppLogo size="md" accessibilityLabel={t('home.welcome.logoLabel')} testID="home-logo" />
@@ -115,69 +147,96 @@ const HomeScreenNative = () => {
           </StyledNoticeList>
         )}
 
-        {showFacilitySelector && (
-          <StyledSection accessibilityLabel={t('home.facilities.title')} testID={testIds.facilities}>
+        <StyledFacilityPanel accessibilityLabel={t('home.facilities.title')} testID={testIds.facilities}>
+          <StyledFacilityHeader>
             <StyledSectionTitle>{t('home.facilities.title')}</StyledSectionTitle>
-            <StyledFacilityList>
-              {availableFacilities.map((facility) => (
-                <StyledFacilityButton
-                  key={facility.id}
-                  accessibilityLabel={t('home.facilities.select', { name: facility.name })}
-                  accessibilityRole="button"
-                  onPress={() => selectFacility(facility.id)}
-                >
-                  <StyledFacilityButtonText>{facility.name}</StyledFacilityButtonText>
-                </StyledFacilityButton>
-              ))}
-            </StyledFacilityList>
-          </StyledSection>
-        )}
+            {hasFacilityOptions && (
+              <Badge variant="primary" size="small">
+                {facilityOptions.length}
+              </Badge>
+            )}
+          </StyledFacilityHeader>
+          <StyledFacilitySelectWrap>
+            <Select
+              compact
+              disabled={isLoading || !hasFacilityOptions}
+              helperText={facilityHelperText}
+              options={facilityOptions}
+              placeholder={t('home.status.facility.empty')}
+              searchPlaceholder={t('common.searchPlaceholder')}
+              searchable
+              testID={`${testIds.facilities}-select`}
+              value={facilitySelectValue}
+              onValueChange={selectFacility}
+              accessibilityLabel={t('home.facilities.title')}
+            />
+            {selectedFacilityMeta ? (
+              <StyledFacilitySummary>{selectedFacilityMeta}</StyledFacilitySummary>
+            ) : null}
+          </StyledFacilitySelectWrap>
+        </StyledFacilityPanel>
 
-        <StyledStatusGrid accessibilityLabel={t('home.status.title')} testID={testIds.status}>
-          {statusItems.map((item) => (
-            <StyledStatusItem key={item.id} $tone={item.tone}>
-              <StyledStatusLabel>{t(`home.status.${item.id}.label`)}</StyledStatusLabel>
-              <StyledStatusValue>{renderStatusValue(item)}</StyledStatusValue>
-              {renderStatusDetail(item) && (
-                <StyledStatusDetail>{renderStatusDetail(item)}</StyledStatusDetail>
-              )}
-            </StyledStatusItem>
-          ))}
-        </StyledStatusGrid>
-
-        <StyledSection accessibilityLabel={t('home.actions.title')}>
-          <StyledSectionTitle>{t('home.actions.title')}</StyledSectionTitle>
-          <StyledActionGrid testID={testIds.actions}>
-            {actions.map((action) => (
-              <StyledActionItem
-                key={action.id}
-                $emphasis={action.emphasis}
-                $enabled={action.enabled}
-                accessibilityLabel={t('home.actions.accessibilityLabel', {
-                  name: t(`home.actions.${action.id}.title`),
-                })}
-                accessibilityRole="button"
-                accessibilityState={{ disabled: !action.enabled, busy: isLoading }}
-                disabled={!action.enabled}
-                onPress={handleActionPress(action)}
-              >
-                <StyledActionBody>
-                  <StyledActionTitle>{t(`home.actions.${action.id}.title`)}</StyledActionTitle>
-                  <StyledActionMeta>
-                    {action.enabled
-                      ? t('home.actions.meta.open')
-                      : t(`home.actions.disabled.${action.disabledReason}`)}
-                  </StyledActionMeta>
-                </StyledActionBody>
-                {Number.isFinite(action.count) && (
-                  <Badge variant="primary" size="small">
-                    {action.count}
-                  </Badge>
+        <StyledDashboardGrid>
+          <StyledStatusGrid $compact={isCompact} accessibilityLabel={t('home.status.title')} testID={testIds.status}>
+            {statusItems.map((item) => (
+              <StyledStatusItem key={item.id} $compact={isCompact} $tone={item.tone}>
+                <StyledStatusHeader>
+                  <StyledStatusIcon $tone={item.tone}>
+                    <Icon glyph={STATUS_GLYPHS[item.id] || 'i'} size="sm" tone={item.tone} decorative />
+                  </StyledStatusIcon>
+                  <StyledStatusLabel>{t(`home.status.${item.id}.label`)}</StyledStatusLabel>
+                </StyledStatusHeader>
+                <StyledStatusValue>{renderStatusValue(item)}</StyledStatusValue>
+                {renderStatusDetail(item) && (
+                  <StyledStatusDetail>{renderStatusDetail(item)}</StyledStatusDetail>
                 )}
-              </StyledActionItem>
+              </StyledStatusItem>
             ))}
-          </StyledActionGrid>
-        </StyledSection>
+          </StyledStatusGrid>
+
+          <StyledSection accessibilityLabel={t('home.actions.title')}>
+            <StyledSectionTitle>{t('home.actions.title')}</StyledSectionTitle>
+            <StyledActionGrid $compact={isCompact} testID={testIds.actions}>
+              {actions.map((action) => (
+                <StyledActionItem
+                  key={action.id}
+                  $compact={isCompact}
+                  $emphasis={action.emphasis}
+                  $enabled={action.enabled}
+                  accessibilityLabel={t('home.actions.accessibilityLabel', {
+                    name: t(`home.actions.${action.id}.title`),
+                  })}
+                  accessibilityRole="button"
+                  accessibilityState={{ disabled: !action.enabled, busy: isLoading }}
+                  disabled={!action.enabled}
+                  onPress={handleActionPress(action)}
+                >
+                  <StyledActionIcon $emphasis={action.emphasis} $enabled={action.enabled}>
+                    <Icon
+                      glyph={ACTION_GLYPHS[action.id] || '>'}
+                      size="sm"
+                      tone={action.emphasis === 'primary' ? 'inverse' : 'muted'}
+                      decorative
+                    />
+                  </StyledActionIcon>
+                  <StyledActionBody>
+                    <StyledActionTitle>{t(`home.actions.${action.id}.title`)}</StyledActionTitle>
+                    <StyledActionMeta>
+                      {action.enabled
+                        ? t('home.actions.meta.open')
+                        : t(`home.actions.disabled.${action.disabledReason}`)}
+                    </StyledActionMeta>
+                  </StyledActionBody>
+                  {Number.isFinite(action.count) && (
+                    <Badge variant="primary" size="small">
+                      {action.count}
+                    </Badge>
+                  )}
+                </StyledActionItem>
+              ))}
+            </StyledActionGrid>
+          </StyledSection>
+        </StyledDashboardGrid>
       </StyledShell>
     </StyledContainer>
   );

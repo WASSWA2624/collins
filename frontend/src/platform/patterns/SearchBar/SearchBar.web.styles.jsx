@@ -14,6 +14,7 @@ const StyledContainer = styled.div.withConfig({
   flex-direction: row;
   align-items: center;
   width: 100%;
+  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledSearchIcon = styled.span.withConfig({
@@ -21,9 +22,14 @@ const StyledSearchIcon = styled.span.withConfig({
   componentId: 'StyledSearchIcon',
 })`
   color: ${({ theme }) => theme.colors.text.secondary};
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  margin-right: ${({ theme }) => theme.spacing.xs}px;
+  justify-content: center;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  line-height: 24px;
 `;
 
 const StyledTextFieldWrapper = styled.div.withConfig({
@@ -33,11 +39,4 @@ const StyledTextFieldWrapper = styled.div.withConfig({
   flex: 1;
 `;
 
-export {
-  StyledContainer,
-  StyledSearchIcon,
-  StyledTextFieldWrapper,
-};
-
-
-
+export { StyledContainer, StyledSearchIcon, StyledTextFieldWrapper };

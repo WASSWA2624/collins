@@ -18,7 +18,7 @@ const StyledContainer = styled(View).withConfig({
 })`
   flex: 1;
   width: 100%;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
@@ -35,7 +35,7 @@ const StyledSummaryPane = styled(View).withConfig({
 })`
   width: 100%;
   margin-top: ${({ theme }) => theme.spacing.md}px;
-  padding: ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 0;
   border-width: 1px;
@@ -46,14 +46,66 @@ const StyledStepHeader = styled(View).withConfig({
   displayName: 'StyledStepHeader',
   componentId: 'StyledStepHeader',
 })`
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledStepContent = styled(View).withConfig({
   displayName: 'StyledStepContent',
   componentId: 'StyledStepContent',
 })`
-  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledStepper = styled(View).withConfig({
+  displayName: 'StyledStepper',
+  componentId: 'StyledStepper',
+})`
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledStepperItem = styled(View).withConfig({
+  displayName: 'StyledStepperItem',
+  componentId: 'StyledStepperItem',
+})`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border-width: 1px;
+  border-color: ${({ status, theme }) =>
+    status === 'current' ? theme.colors.primary : theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+`;
+
+const StyledStepperMarker = styled(View).withConfig({
+  displayName: 'StyledStepperMarker',
+  componentId: 'StyledStepperMarker',
+})`
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: ${({ status, theme }) => {
+    if (status === 'current') return theme.colors.primary;
+    if (status === 'complete') return theme.colors.success;
+    return theme.colors.background.tertiary;
+  }};
+  background-color: ${({ status, theme }) => {
+    if (status === 'current') return theme.colors.primary;
+    if (status === 'complete') return theme.colors.status?.success?.background ?? '#E8F5E9';
+    return theme.colors.background.secondary;
+  }};
+`;
+
+const StyledStepperMeta = styled(View).withConfig({
+  displayName: 'StyledStepperMeta',
+  componentId: 'StyledStepperMeta',
+})`
+  flex: 1;
+  min-width: 0;
 `;
 
 const StyledSummaryHeader = styled(View).withConfig({
@@ -72,8 +124,8 @@ const StyledExpandButton = styled(Pressable).withConfig({
   displayName: 'StyledExpandButton',
   componentId: 'StyledExpandButton',
 })`
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   border-width: 1px;
@@ -96,8 +148,8 @@ const StyledSummaryRow = styled(View).withConfig({
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: ${({ theme }) => theme.spacing.sm}px;
-  padding-bottom: ${({ theme }) => theme.spacing.sm}px;
+  padding-top: ${({ theme }) => theme.spacing.xs}px;
+  padding-bottom: ${({ theme }) => theme.spacing.xs}px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
 `;
@@ -152,8 +204,8 @@ const StyledMissingTests = styled(View).withConfig({
   displayName: 'StyledMissingTests',
   componentId: 'StyledMissingTests',
 })`
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
-  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
   border-radius: 0;
   border-width: 1px;
@@ -166,6 +218,7 @@ const StyledFieldGroup = styled(View).withConfig({
   displayName: 'StyledFieldGroup',
   componentId: 'StyledFieldGroup',
 })`
+  gap: ${({ theme }) => theme.spacing.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -175,7 +228,96 @@ const StyledStepDescription = styled(Text).withConfig({
 })`
   font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
   color: ${({ theme }) => theme.colors.text.secondary};
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const StyledChoiceSection = styled(View).withConfig({
+  displayName: 'StyledChoiceSection',
+  componentId: 'StyledChoiceSection',
+})`
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledChoiceHeader = styled(View).withConfig({
+  displayName: 'StyledChoiceHeader',
+  componentId: 'StyledChoiceHeader',
+})`
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledChoiceHint = styled(Text).withConfig({
+  displayName: 'StyledChoiceHint',
+  componentId: 'StyledChoiceHint',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xs ?? 12}px;
+`;
+
+const StyledChoiceGrid = styled(View).withConfig({
+  displayName: 'StyledChoiceGrid',
+  componentId: 'StyledChoiceGrid',
+})`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledChoiceOption = styled(Pressable).withConfig({
+  displayName: 'StyledChoiceOption',
+  componentId: 'StyledChoiceOption',
+})`
+  flex-basis: ${({ compact }) => (compact ? '31%' : '48%')};
+  min-height: ${({ compact }) => (compact ? 48 : 68)}px;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border-width: 1px;
+  border-left-width: 3px;
+  border-color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary : theme.colors.background.tertiary};
+  border-left-color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary : 'transparent'};
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.colors.background.secondary : theme.colors.background.primary};
+`;
+
+const StyledChoiceIcon = styled(View).withConfig({
+  displayName: 'StyledChoiceIcon',
+  componentId: 'StyledChoiceIcon',
+})`
+  width: 38px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary : theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+`;
+
+const StyledChoiceText = styled(View).withConfig({
+  displayName: 'StyledChoiceText',
+  componentId: 'StyledChoiceText',
+})`
+  flex: 1;
+  min-width: 0;
+`;
+
+const StyledChoiceMeta = styled(Text).withConfig({
+  displayName: 'StyledChoiceMeta',
+  componentId: 'StyledChoiceMeta',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xs ?? 12}px;
+`;
+
+const StyledInlineError = styled(Text).withConfig({
+  displayName: 'StyledInlineError',
+  componentId: 'StyledInlineError',
+})`
+  color: ${({ theme }) => theme.colors.error};
+  font-size: ${({ theme }) => theme.typography?.fontSize?.xs ?? 12}px;
 `;
 
 const StyledRecommendationSource = styled(View).withConfig({
@@ -223,9 +365,18 @@ const StyledModelRow = styled(View).withConfig({
 
 export {
   StyledActionsRow,
+  StyledChoiceGrid,
+  StyledChoiceHeader,
+  StyledChoiceHint,
+  StyledChoiceIcon,
+  StyledChoiceMeta,
+  StyledChoiceOption,
+  StyledChoiceSection,
+  StyledChoiceText,
   StyledContainer,
   StyledContentWrap,
   StyledFieldGroup,
+  StyledInlineError,
   StyledLoadingPane,
   StyledLoadingText,
   StyledMissingTests,
@@ -235,6 +386,10 @@ export {
   StyledSourceOption,
   StyledSourceOptionDesc,
   StyledSourceOptionLabel,
+  StyledStepper,
+  StyledStepperItem,
+  StyledStepperMarker,
+  StyledStepperMeta,
   StyledStepContent,
   StyledStepDescription,
   StyledStepHeader,

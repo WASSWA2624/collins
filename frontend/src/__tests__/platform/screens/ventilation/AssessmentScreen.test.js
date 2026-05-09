@@ -200,7 +200,7 @@ describe('AssessmentScreen', () => {
   });
 
   describe('Progress indicator', () => {
-    it('should show progress bar', () => {
+    it('should show the admission stepper', () => {
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-progress')).toBeTruthy();
     });
@@ -208,8 +208,8 @@ describe('AssessmentScreen', () => {
 
   describe('Wizard steps', () => {
     it('should show patient and reason step initially', () => {
-      const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
-      expect(getByText('Patient & reason')).toBeTruthy();
+      const { getAllByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getAllByText('Patient & reason').length).toBeGreaterThan(0);
     });
 
     it('should have Next button on first step', () => {
@@ -217,11 +217,16 @@ describe('AssessmentScreen', () => {
       expect(getByTestId('assessment-next')).toBeTruthy();
     });
 
-    it('blocks Next until required patient details are complete', () => {
-      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+    it('shows validation after a blocked Next attempt', () => {
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
       expect(nextBtn).toBeTruthy();
-      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeTruthy();
+      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
+
+      fireEvent.press(nextBtn);
+
+      expect(getByText('Age is required before continuing.')).toBeTruthy();
+      expect(savePatientReasonStepApi).not.toHaveBeenCalled();
     });
 
     it('allows Next when required patient details are complete', () => {
@@ -244,13 +249,26 @@ describe('AssessmentScreen', () => {
       expect(queryByTestId('assessment-permitted-weight')).toBeNull();
     });
 
+    it('updates the age group from entered age', async () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.changeText(getByTestId('assessment-age'), '0.5');
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          ageYears: 0.5,
+          patientPathway: 'INFANT',
+        }));
+      });
+    });
+
     it('should show the three-step flow labels', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
       });
-      const { getByText } = renderWithProviders(<AssessmentScreenAndroid />);
-      expect(getByText('Oxygen & ABG')).toBeTruthy();
+      const { getAllByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getAllByText('Oxygen & ABG').length).toBeGreaterThan(0);
     });
 
     it('captures oxygen and ABG values without manual ventilator settings on step two', () => {
@@ -381,7 +399,7 @@ describe('AssessmentScreen', () => {
       }));
     });
 
-    it('blocks step navigation for impossible clinical values as the user enters them', () => {
+    it('shows impossible clinical values after a Next attempt', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
@@ -394,8 +412,12 @@ describe('AssessmentScreen', () => {
       const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
 
+      expect(() => getByText('SpO2 must be between 40 and 100.')).toThrow();
+      fireEvent.press(nextBtn);
+
       expect(getByText('SpO2 must be between 40 and 100.')).toBeTruthy();
-      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeTruthy();
+      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
+      expect(saveOxygenAbgVentilatorStepApi).not.toHaveBeenCalled();
     });
 
     it('continues to review when dataset recommendation generation fails', async () => {
@@ -416,7 +438,7 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('blocks final save when an earlier required clinical value is missing', () => {
+    it('shows final validation after a blocked Save attempt', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
@@ -429,8 +451,12 @@ describe('AssessmentScreen', () => {
       const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const saveBtn = getByTestId('assessment-generate');
 
+      expect(() => getByText('PaO2 is required before continuing.')).toThrow();
+      fireEvent.press(saveBtn);
+
       expect(getByText('PaO2 is required before continuing.')).toBeTruthy();
-      expect(saveBtn.props.accessibilityState?.disabled ?? saveBtn.props.disabled).toBeTruthy();
+      expect(saveBtn.props.accessibilityState?.disabled ?? saveBtn.props.disabled).toBeFalsy();
+      expect(saveAdmissionReviewStepApi).not.toHaveBeenCalled();
     });
 
     it('saves suggested ventilator settings before completing admit review', async () => {
