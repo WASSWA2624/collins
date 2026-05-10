@@ -144,7 +144,7 @@ export default function useHistoryScreen() {
   }, []);
 
   const handleOpenAdmit = useCallback(() => {
-    router.push('/admit');
+    router.push('/new-patient');
   }, [router]);
 
   const handleUpdateTracking = useCallback(

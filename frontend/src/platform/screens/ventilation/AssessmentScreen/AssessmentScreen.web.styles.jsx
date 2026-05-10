@@ -26,7 +26,11 @@ const StyledContainer = styled.main.withConfig({
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm}px;
   box-sizing: border-box;
-  overflow-x: hidden;
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex-direction: row;
@@ -87,7 +91,7 @@ const StyledWizardPane = styled.section.withConfig({
   order: 2;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
+  box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.tablet ?? 768}px) {
     flex: 1 1 100%;
@@ -241,8 +245,8 @@ const StyledWizardCard = styled.div.withConfig({
   border-radius: 0;
   padding: ${({ theme }) => theme.spacing.md}px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  overflow-x: hidden;
-  overflow-y: auto;
+  box-sizing: border-box;
+  overflow: visible;
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
     padding: ${({ theme }) => theme.spacing.xl}px;
@@ -313,8 +317,7 @@ const StyledSummaryPane = styled.aside.withConfig({
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    max-height: calc(100vh - ${({ theme }) => theme.spacing.xxl * 2}px);
-    overflow-y: auto;
+    overflow: visible;
   }
 `;
 
@@ -374,9 +377,12 @@ const StyledFieldGrid = styled.div.withConfig({
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: ${({ theme }) => theme.spacing.sm}px;
+  width: 100%;
+  min-width: 0;
 
   & > * {
     margin-bottom: 0;
+    min-width: 0;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {

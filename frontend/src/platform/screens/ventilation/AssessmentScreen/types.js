@@ -102,8 +102,6 @@ const VENTILATOR_MODE_OPTIONS = Object.freeze([
 const PERMITTED_MISSING_FIELD_OPTIONS = Object.freeze([
   { value: 'actualWeightKg/referenceWeightKg', labelKey: 'weight' },
   { value: 'SpO2', labelKey: 'spo2' },
-  { value: 'FiO2', labelKey: 'fio2' },
-  { value: 'PaO2', labelKey: 'pao2' },
   { value: 'tidalVolumeMl', labelKey: 'tidalVolume' },
   { value: 'PEEP', labelKey: 'peep' },
 ]);

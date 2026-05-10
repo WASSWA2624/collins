@@ -234,8 +234,6 @@ const buildMissingData = ({ patient, input, ventilator }) => {
   if (!patient.actualWeightKg && !patient.referenceWeightKg && !isAdultLikePathway(patient)) missing.push('actualWeightKg');
   if (isAdultLikePathway(patient) && (!patient.heightOrLengthCm || patient.sexForSizeCalculations === 'UNKNOWN')) missing.push('height/sex');
   if (!isFiniteNumber(input.spo2)) missing.push('SpO2');
-  if (!isFiniteNumber(input.pao2)) missing.push('PaO2');
-  if (!normalizeFio2(input.fio2 ?? ventilator.fio2)) missing.push('FiO2');
   if (!Number.isFinite(Number(ventilator.tidalVolumeMl))) missing.push('tidalVolume');
   if (!Number.isFinite(Number(ventilator.peep))) missing.push('PEEP');
   return missing;
@@ -370,4 +368,3 @@ export {
   calculateDrivingPressure,
   resolvePatientPathway,
 };
-

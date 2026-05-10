@@ -68,7 +68,7 @@ const MAIN_NAV_ITEMS = [
   {
     id: 'admit',
     icon: 'admit-outline',
-    path: '/admit',
+    path: '/new-patient',
     facilityScoped: true,
     requireActiveFacility: true,
     roles: CLINICAL_WRITE_ROLES,

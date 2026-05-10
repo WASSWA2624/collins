@@ -22,7 +22,7 @@ import {
 export const list = asyncHandler(async (req, res) => {
   const result = await listAdmissions(req.user?.sub, req.validated.query);
   return successResponse(res, {
-    message: 'Admissions loaded',
+    message: 'New patients loaded',
     data: result.items,
     meta: {
       total: result.total,
@@ -37,7 +37,7 @@ export const create = asyncHandler(async (req, res) => {
   const result = await createAdmission(req.validated.body, req.user?.sub, buildAuditContext(req));
   return successResponse(res, {
     status: result.syncStatus === 'duplicate' ? 200 : 201,
-    message: result.syncStatus === 'duplicate' ? 'Duplicate admission request returned original result' : 'Admission created',
+    message: result.syncStatus === 'duplicate' ? 'Duplicate New Patient request returned original result' : 'New Patient created',
     data: result,
   });
 });
@@ -56,7 +56,7 @@ export const createPatientReasonStep = asyncHandler(async (req, res) => {
 export const getById = asyncHandler(async (req, res) => {
   const admission = await getAdmissionById(req.user?.sub, req.validated.params.id);
   return successResponse(res, {
-    message: 'Admission loaded',
+    message: 'New Patient record loaded',
     data: { admission },
   });
 });
@@ -64,7 +64,7 @@ export const getById = asyncHandler(async (req, res) => {
 export const patchById = asyncHandler(async (req, res) => {
   const result = await updateAdmission(req.user?.sub, req.validated.params.id, req.validated.body, buildAuditContext(req));
   return successResponse(res, {
-    message: result.syncStatus === 'duplicate' ? 'Duplicate admission update returned original result' : 'Admission updated',
+    message: result.syncStatus === 'duplicate' ? 'Duplicate New Patient update returned original result' : 'New Patient updated',
     data: result,
   });
 });

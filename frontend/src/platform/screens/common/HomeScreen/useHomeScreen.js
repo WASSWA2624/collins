@@ -10,7 +10,7 @@ import { loadHomeSummaryUseCase } from '@features/home';
 import { HOME_ACTION_IDS, HOME_STATUS_IDS, HOME_TEST_IDS } from './types';
 
 const ROUTES = Object.freeze({
-  [HOME_ACTION_IDS.ADMIT]: '/admit',
+  [HOME_ACTION_IDS.ADMIT]: '/new-patient',
   [HOME_ACTION_IDS.TRACKING]: '/tracking',
   [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/abg-ventilator-updates',
   [HOME_ACTION_IDS.DATASET_CAPTURE]: '/dataset-capture',

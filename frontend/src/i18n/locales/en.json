@@ -301,8 +301,8 @@
     "items": {
       "main": {
         "home": "Home",
-        "admit": "Admit",
-        "assessment": "Admit",
+        "admit": "New Patient",
+        "assessment": "New Patient",
         "abg-ventilator-updates": "Update ABG & Ventilator Settings",
         "history": "Tracking",
         "dataset-capture": "Dataset Capture",
@@ -639,7 +639,7 @@
         },
         "inputs": {
           "title": "Entering inputs",
-          "body": "Use Admit to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
+          "body": "Use New Patient to enter available clinical parameters (SpO2, PaO2, PaCO2, pH, respiratory rate, etc.). Optional ABG values improve confidence when available, but missing optional data should be reviewed as uncertainty rather than treated as a save blocker."
         },
         "recommendations": {
           "title": "Interpreting recommendations",
@@ -651,7 +651,7 @@
         },
         "offline": {
           "title": "Offline behavior",
-          "body": "Core workflow (Admit, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
+          "body": "Core workflow (New Patient, advisory summaries, monitoring) works offline. Data is saved locally. Optional AI features require connectivity. When back online, continue as normal."
         }
       },
       "actions": {
@@ -696,7 +696,7 @@
         },
         "offline": {
           "title": "Using the app offline",
-          "body": "Admit, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
+          "body": "New Patient, advisory summaries, and monitoring work offline. Data is stored locally. Optional AI suggestions require internet. Sync is not required for core workflow."
         },
         "unverifiedReference": {
           "title": "Reference range is not active",
@@ -713,7 +713,7 @@
       },
       "guides": {
         "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
+        "admit": "Use New Patient to capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
         "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
         "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
@@ -849,7 +849,7 @@
       "title": "Workflow actions",
       "accessibilityLabel": "Open {{name}}",
       "admit": {
-        "title": "Admit"
+        "title": "New Patient"
       },
       "tracking": {
         "title": "Tracking"
@@ -993,12 +993,12 @@
       }
     },
     "assessment": {
-      "title": "Admit patient",
-      "accessibilityLabel": "Admit patient wizard screen",
+      "title": "New Patient",
+      "accessibilityLabel": "New Patient wizard screen",
       "stepIndicator": "Step {{current}} of {{total}}",
       "summary": {
         "title": "Session summary",
-        "accessibilityLabel": "Compact admit summary",
+        "accessibilityLabel": "Compact New Patient summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Facility",
         "pathway": "Age group",
@@ -1006,7 +1006,6 @@
         "reason": "Reason",
         "condition": "Condition",
         "spo2": "SpO₂",
-        "fio2": "FiO2",
         "respiratoryRate": "Respiratory rate",
         "heartRate": "Heart rate",
         "pao2": "PaO₂",
@@ -1058,7 +1057,7 @@
         "heightCm": "Height (cm)",
         "bmi": "BMI",
         "reasonForSupport": "Reason for support",
-        "reasonForSupportPlaceholder": "Brief admission reason",
+        "reasonForSupportPlaceholder": "Brief reason for support",
         "reasonForSupportSearchPlaceholder": "Search or type reason",
         "permittedMissing": "Permitted missing values",
         "pathways": {
@@ -1105,22 +1104,16 @@
         "permittedMissingFields": {
           "weight": "Weight or reference weight unavailable",
           "spo2": "SpO2 unavailable",
-          "fio2": "FiO2 unavailable",
-          "pao2": "PaO2 unavailable",
           "tidalVolume": "Tidal volume unavailable",
           "peep": "PEEP unavailable"
         }
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, observation time, oxygenation, vital signs, available ABG values, and uncertain values. Ventilator settings are suggested on the next step from the dataset.",
+        "description": "Record current oxygen support, oxygenation, vital signs, available ABG values, and uncertain values. The system records the oxygen measurement time automatically.",
         "oxygenSupportType": "Oxygen support type",
         "oxygenSupportPlaceholder": "Select oxygen support",
         "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
-        "measuredAt": "Oxygen measured at",
-        "timePlaceholder": "Select date and time",
-        "timeHint": "Use the local date and time for the observation.",
         "spo2": "SpO2 (%)",
-        "fio2": "FiO2 (0-1)",
         "respiratoryRate": "Respiratory rate",
         "heartRate": "Heart rate",
         "ph": "pH",
@@ -1129,12 +1122,11 @@
         "hco3": "HCO3 (mmol/L)",
         "baseExcess": "Base excess",
         "lactate": "Lactate (mmol/L)",
-        "fio2AtSample": "FiO2 at ABG sample",
         "spo2AtSample": "SpO2 at ABG sample",
         "deviceId": "Device ID",
         "ventilatorType": "Ventilator type",
         "uncertaintyFields": "Uncertain fields",
-        "uncertaintyFieldsPlaceholder": "e.g. FiO2, PaO2",
+        "uncertaintyFieldsPlaceholder": "e.g. PaO2, PaCO2",
         "uncertaintyHint": "Separate multiple fields with commas.",
         "uncertaintyReason": "Uncertainty reason",
         "oxygenSupportOptions": {
@@ -1159,7 +1151,6 @@
         "modePlaceholder": "Select mode",
         "ventilatorMode": "Ventilator mode",
         "tidalVolumeMl": "Tidal volume (mL)",
-        "ventilatorFio2": "Ventilator FiO2 (0-1)",
         "peep": "PEEP (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
@@ -1173,12 +1164,12 @@
         },
         "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
         "recommendationGenerating": "Generating clinical recommendations...",
-        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the admission.",
+        "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the new patient record.",
         "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
         "ready": "Ready to save",
         "needsCorrection": "Correction or override required",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this admission record is ready for save review.",
+        "clinicianConfirmed": "Clinician confirms this new patient record is ready for save review.",
         "overrideReason": "Override reason",
         "reviewNote": "Review note"
       },
@@ -1293,14 +1284,14 @@
         "next": "Next",
         "generate": "Generate recommendation",
         "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save admission"
+        "saveAdmission": "Save new patient"
       },
       "states": {
-        "loading": "Loading admit form...",
-        "errorTitle": "Admission form unavailable",
-        "error": "Unable to load the admission form. Please check your connection and try again.",
+        "loading": "Loading New Patient form...",
+        "errorTitle": "New Patient form unavailable",
+        "error": "Unable to load the New Patient form. Please check your connection and try again.",
         "retryLoad": "Try again",
-        "offline": "Admit works offline",
+        "offline": "New Patient works offline",
         "empty": "Enter patient data to begin"
       }
     },
@@ -1366,7 +1357,6 @@
         "mode": "Mode",
         "tidalVolume": "Tidal volume",
         "respiratoryRate": "Respiratory rate",
-        "fio2": "FiO₂",
         "peep": "PEEP",
         "ieRatio": "I:E ratio"
       },
@@ -1410,10 +1400,10 @@
       "actions": {
         "startMonitoring": "Start monitoring",
         "startMonitoringHint": "Begin tracking vital signs and time series",
-        "backToAssessment": "Back to Admit",
-        "startNewAssessment": "Start new admit",
-        "editAssessmentTitle": "Edit admit record",
-        "editAssessmentHint": "Open admit form with current session data pre-filled",
+        "backToAssessment": "Back to New Patient",
+        "startNewAssessment": "Start new patient",
+        "editAssessmentTitle": "Edit New Patient record",
+        "editAssessmentHint": "Open New Patient form with current session data pre-filled",
         "requestAiRecommendation": "Request AI recommendation",
         "requestAiHint": "Get optional AI hints for this case (requires connectivity)",
         "connectivityRequired": "Requires internet connection",
@@ -1435,7 +1425,7 @@
       "states": {
         "loading": "Loading recommendation…",
         "error": "Unable to load recommendation",
-        "empty": "No recommendation available. Complete Admit first."
+        "empty": "No recommendation available. Complete New Patient first."
       },
       "intendedUse": {
         "warningLabel": "Not clinically validated",
@@ -1508,7 +1498,7 @@
       "accessibilityLabel": "Clinical tracking screen",
       "activePatients": "{{count}} active patients",
       "empty": "No admitted patients are available for tracking yet.",
-      "emptyHint": "Admit a patient first to begin tracking.",
+      "emptyHint": "Start a New Patient record first to begin tracking.",
       "admittedBanner": "Admission saved. This patient is admitted and available for tracking.",
       "localDraft": "Draft data exists on this device. Backend review, sync, and conflict status appears after save or sync.",
       "search": {
@@ -1523,7 +1513,7 @@
       "actions": {
         "refresh": "Refresh",
         "refreshHint": "Reload active tracking records",
-        "admitFirst": "Admit patient",
+        "admitFirst": "New Patient",
         "viewDetails": "Details",
         "viewDetailsHint": "View tracking detail and timeline",
         "updateValues": "Update values",

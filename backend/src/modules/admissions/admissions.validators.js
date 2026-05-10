@@ -56,6 +56,8 @@ const optionalDefaultDate = z.preprocess(
   (value) => (isMissingInput(value) ? undefined : value),
   z.coerce.date().optional()
 );
+const finiteNumber = z.coerce.number().finite();
+const optionalFiniteNumber = nullableOptional(finiteNumber);
 const idParam = z.object({ id: z.string().min(1) });
 const emptyQuery = z.object({}).strict();
 const jsonObject = z.record(z.string(), z.unknown());
@@ -396,6 +398,62 @@ const clinicalReasonBody = z.object({
   specialConditionsJson: jsonObject.nullable().optional(),
 }).strict();
 
+const newPatientClinicalSnapshotBody = z.object({
+  measuredAt: optionalDefaultDate,
+  oxygenSupportType: optionalString(120),
+  heartRate: optionalFiniteNumber,
+  respiratoryRate: optionalFiniteNumber,
+  systolicBp: optionalFiniteNumber,
+  diastolicBp: optionalFiniteNumber,
+  meanArterialPressure: optionalFiniteNumber,
+  temperatureC: optionalFiniteNumber,
+  spo2: optionalFiniteNumber,
+  gcs: optionalFiniteNumber,
+  avpu: optionalString(40),
+  rass: optionalFiniteNumber,
+  mainCondition: optionalString(240),
+  comorbiditiesJson: jsonObject.nullable().optional(),
+  source: optionalString(80),
+  clientRecordId: optionalString(120),
+  deviceId: optionalString(120),
+  clientCreatedAt: optionalDate,
+}).strict();
+
+const newPatientAbgBody = z.object({
+  collectedAt: optionalDefaultDate,
+  ph: optionalFiniteNumber,
+  pao2: optionalFiniteNumber,
+  paco2: optionalFiniteNumber,
+  hco3: optionalFiniteNumber,
+  baseExcess: optionalFiniteNumber,
+  lactate: optionalFiniteNumber,
+  spo2AtSample: optionalFiniteNumber,
+  source: optionalString(80),
+  clientRecordId: optionalString(120),
+  deviceId: optionalString(120),
+  clientCreatedAt: optionalDate,
+  clientUpdatedAt: optionalDate,
+}).strict();
+
+const newPatientVentilatorBody = z.object({
+  measuredAt: optionalDefaultDate,
+  mode: optionalString(80),
+  tidalVolumeMl: optionalFiniteNumber,
+  respiratoryRateSet: optionalFiniteNumber,
+  respiratoryRateMeasured: optionalFiniteNumber,
+  peep: optionalFiniteNumber,
+  pressureSupport: optionalFiniteNumber,
+  inspiratoryPressure: optionalFiniteNumber,
+  peakPressure: optionalFiniteNumber,
+  plateauPressure: optionalFiniteNumber,
+  ieRatio: optionalString(40),
+  source: optionalString(80),
+  clientRecordId: optionalString(120),
+  deviceId: optionalString(120),
+  clientCreatedAt: optionalDate,
+  clientUpdatedAt: optionalDate,
+}).strict();
+
 export const admissionPatientReasonStepSchema = z.object({
   body: z.object({
     facilityId: optionalString(120),
@@ -420,12 +478,12 @@ export const admissionPatientReasonStepSchema = z.object({
 
 export const admissionOxygenAbgVentilatorStepSchema = z.object({
   body: z.object({
-    oxygen: clinicalSnapshotBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
-    clinicalSnapshot: clinicalSnapshotBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
-    abg: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
-    abgTest: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
-    ventilator: ventilatorBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
-    ventilatorSetting: ventilatorBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
+    oxygen: newPatientClinicalSnapshotBody.optional(),
+    clinicalSnapshot: newPatientClinicalSnapshotBody.optional(),
+    abg: newPatientAbgBody.optional(),
+    abgTest: newPatientAbgBody.optional(),
+    ventilator: newPatientVentilatorBody.optional(),
+    ventilatorSetting: newPatientVentilatorBody.optional(),
     airwayDevice: airwayBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     humidification: humidificationBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     uncertainty: uncertaintyBody.optional(),

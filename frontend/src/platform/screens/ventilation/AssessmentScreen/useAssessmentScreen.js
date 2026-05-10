@@ -26,7 +26,6 @@ import {
 const TOTAL_STEPS = 3;
 const MISSING_UNKNOWN = 'not_available';
 const DATE_FIELDS = [
-  { field: 'measuredAt', label: 'Oxygen measured at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'abgCollectedAt', label: 'ABG collected at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
 ];
@@ -37,49 +36,46 @@ const REQUIRED_FIELDS = [
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'heightOrLengthCm', label: 'Height', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'oxygenSupportType', label: 'Oxygen support type', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'measuredAt', label: 'Oxygen measured at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'spo2', label: 'SpO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
-  { field: 'fio2', label: 'FiO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'respiratoryRate', label: 'Respiratory rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'heartRate', label: 'Heart rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'ph', label: 'pH', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
-  { field: 'pao2', label: 'PaO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
-  { field: 'paco2', label: 'PaCO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'ventilatorMode', label: 'Ventilator mode', steps: [STEPS.SAVE_REVIEW] },
   { field: 'tidalVolumeMl', label: 'Tidal volume', steps: [STEPS.SAVE_REVIEW], type: 'number' },
   { field: 'respiratoryRateSet', label: 'Set respiratory rate', steps: [STEPS.SAVE_REVIEW], type: 'number' },
-  { field: 'ventilatorFio2', label: 'Ventilator FiO2', steps: [STEPS.SAVE_REVIEW], type: 'number' },
   { field: 'peep', label: 'PEEP', steps: [STEPS.SAVE_REVIEW], type: 'number' },
 ];
-const NUMERIC_RULES = [
-  { field: 'ageYears', label: 'Age', min: 0, max: 130, steps: [STEPS.PATIENT_REASON] },
-  { field: 'actualWeightKg', label: 'Weight', min: 0.2, max: 400, steps: [STEPS.PATIENT_REASON] },
-  { field: 'heightOrLengthCm', label: 'Height', min: 20, max: 260, steps: [STEPS.PATIENT_REASON] },
-  { field: 'bmi', label: 'BMI', min: 5, max: 80, steps: [STEPS.PATIENT_REASON] },
-  { field: 'spo2', label: 'SpO2', min: 40, max: 100, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'fio2', label: 'FiO2', minExclusive: 0, max: 1, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'respiratoryRate', label: 'Respiratory rate', min: 0, max: 180, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'heartRate', label: 'Heart rate', min: 0, max: 320, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'ph', label: 'pH', min: 6.8, max: 7.8, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'pao2', label: 'PaO2', min: 20, max: 600, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'paco2', label: 'PaCO2', min: 10, max: 150, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'hco3', label: 'HCO3', min: 0, max: 80, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'baseExcess', label: 'Base excess', min: -40, max: 40, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'lactate', label: 'Lactate', min: 0, max: 40, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'fio2AtSample', label: 'FiO2 at ABG sample', minExclusive: 0, max: 1, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'spo2AtSample', label: 'SpO2 at ABG sample', min: 40, max: 100, steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
-  { field: 'tidalVolumeMl', label: 'Tidal volume', min: 1, max: 3000, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'respiratoryRateSet', label: 'Set respiratory rate', min: 0, max: 120, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'respiratoryRateMeasured', label: 'Measured respiratory rate', min: 0, max: 180, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'ventilatorFio2', label: 'Ventilator FiO2', minExclusive: 0, max: 1, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'peep', label: 'PEEP', min: 0, max: 30, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'pressureSupport', label: 'Pressure support', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'inspiratoryPressure', label: 'Inspiratory pressure', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'peakPressure', label: 'Peak pressure', min: 0, max: 100, steps: [STEPS.SAVE_REVIEW] },
-  { field: 'plateauPressure', label: 'Plateau pressure', min: 0, max: 80, steps: [STEPS.SAVE_REVIEW] },
+const RANGE_SUGGESTIONS = [
+  { field: 'ageYears', hint: 'Suggested range: 0-130 years.' },
+  { field: 'actualWeightKg', hint: 'Suggested range: 0.2-400 kg.' },
+  { field: 'heightOrLengthCm', hint: 'Suggested range: 20-260 cm.' },
+  { field: 'bmi', hint: 'Suggested range: 5-80.' },
+  { field: 'spo2', hint: 'Suggested range: 92-100%, or local target.' },
+  { field: 'respiratoryRate', hint: 'Suggested adult reference: 12-20 breaths/min; use pathway context.' },
+  { field: 'heartRate', hint: 'Suggested adult reference: 60-100 bpm; use pathway context.' },
+  { field: 'ph', hint: 'Suggested range: 7.35-7.45.' },
+  { field: 'pao2', hint: 'Optional. Suggested room-air reference: 80-100 mmHg.' },
+  { field: 'paco2', hint: 'Optional. Suggested range: 35-45 mmHg.' },
+  { field: 'hco3', hint: 'Suggested range: 22-26 mmol/L.' },
+  { field: 'baseExcess', hint: 'Suggested range: -2 to +2.' },
+  { field: 'lactate', hint: 'Suggested range: 0.5-2.0 mmol/L.' },
+  { field: 'spo2AtSample', hint: 'Optional. Suggested range: 92-100%, or local target.' },
+  { field: 'tidalVolumeMl', hint: 'Suggested range depends on reference weight and pathway.' },
+  { field: 'respiratoryRateSet', hint: 'Suggested adult reference: 12-20 breaths/min; use pathway context.' },
+  { field: 'respiratoryRateMeasured', hint: 'Suggested adult reference: 12-20 breaths/min; use pathway context.' },
+  { field: 'peep', hint: 'Suggested initial reference often 5-10 cmH2O; use pathway context.' },
+  { field: 'pressureSupport', hint: 'Suggested range depends on patient effort and mode.' },
+  { field: 'inspiratoryPressure', hint: 'Suggested range depends on mode and lung mechanics.' },
+  { field: 'peakPressure', hint: 'Suggested safety review threshold: around 35 cmH2O.' },
+  { field: 'plateauPressure', hint: 'Suggested safety review threshold: below 30 cmH2O when available.' },
 ];
 
-const FIELD_VALIDATION_STEPS = [...REQUIRED_FIELDS, ...NUMERIC_RULES, ...DATE_FIELDS].reduce(
+const FIELD_RANGE_HINTS = RANGE_SUGGESTIONS.reduce((acc, rule) => {
+  acc[rule.field] = rule.hint;
+  return acc;
+}, {});
+
+const FIELD_VALIDATION_STEPS = [...REQUIRED_FIELDS, ...DATE_FIELDS].reduce(
   (acc, rule) => {
     acc[rule.field] = [...new Set([...(acc[rule.field] || []), ...rule.steps])];
     return acc;
@@ -115,24 +111,6 @@ const isValidDateTimeValue = (value) => {
   const text = cleanText(value);
   if (!text) return true;
   return !Number.isNaN(new Date(text).getTime());
-};
-const isWithinRule = (value, rule) => {
-  if (!isFiniteNumber(value)) return true;
-  if (rule.min != null && value < rule.min) return false;
-  if (rule.minExclusive != null && value <= rule.minExclusive) return false;
-  if (rule.max != null && value > rule.max) return false;
-  return true;
-};
-const rangeMessage = (rule) => {
-  if (rule.minExclusive != null && rule.max != null) {
-    return `${rule.label} must be greater than ${rule.minExclusive} and no more than ${rule.max}.`;
-  }
-  if (rule.min != null && rule.max != null) {
-    return `${rule.label} must be between ${rule.min} and ${rule.max}.`;
-  }
-  if (rule.min != null) return `${rule.label} must be at least ${rule.min}.`;
-  if (rule.max != null) return `${rule.label} must be no more than ${rule.max}.`;
-  return `${rule.label} has an invalid value.`;
 };
 const roundTo = (value, precision = 1) => {
   if (!isFiniteNumber(value)) return null;
@@ -178,9 +156,7 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   bmi: null,
   permittedMissingFields: [],
   oxygenSupportType: '',
-  measuredAt: '',
   spo2: null,
-  fio2: null,
   respiratoryRate: null,
   heartRate: null,
   abgCollectedAt: '',
@@ -190,14 +166,12 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   hco3: null,
   baseExcess: null,
   lactate: null,
-  fio2AtSample: null,
   spo2AtSample: null,
   ventilatorMeasuredAt: '',
   ventilatorMode: '',
   tidalVolumeMl: null,
   respiratoryRateSet: null,
   respiratoryRateMeasured: null,
-  ventilatorFio2: null,
   peep: null,
   pressureSupport: null,
   inspiratoryPressure: null,
@@ -273,10 +247,6 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
   const missingData = [];
   if (!isFiniteNumber(inputs.actualWeightKg)) missingData.push('actualWeightKg/referenceWeightKg');
   if (!isFiniteNumber(inputs.spo2)) missingData.push('SpO2');
-  if (!isFiniteNumber(inputs.fio2) && !isFiniteNumber(inputs.fio2AtSample) && !isFiniteNumber(inputs.ventilatorFio2)) {
-    missingData.push('FiO2');
-  }
-  if (!isFiniteNumber(inputs.pao2)) missingData.push('PaO2');
   if (!isFiniteNumber(inputs.tidalVolumeMl)) missingData.push('tidalVolumeMl');
   if (!isFiniteNumber(inputs.peep)) missingData.push('PEEP');
 
@@ -292,8 +262,6 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
 
   const impossibleFields = [];
   if (isFiniteNumber(inputs.spo2) && (inputs.spo2 < 40 || inputs.spo2 > 100)) impossibleFields.push('SpO2');
-  if (isFiniteNumber(inputs.fio2) && (inputs.fio2 <= 0 || inputs.fio2 > 1)) impossibleFields.push('FiO2');
-  if (isFiniteNumber(inputs.ventilatorFio2) && (inputs.ventilatorFio2 <= 0 || inputs.ventilatorFio2 > 1)) impossibleFields.push('ventilator FiO2');
   if (isFiniteNumber(inputs.peep) && (inputs.peep < 0 || inputs.peep > 30)) impossibleFields.push('PEEP');
 
   const blockers = impossibleFields.map((field) => ({
@@ -387,14 +355,6 @@ const buildValidationFromInputs = (inputs, step, readiness, options = {}) => {
     .forEach((rule) => {
       if (!hasRequiredFieldValue(inputs, rule)) {
         addValidationError(fieldErrors, messages, rule.field, `${rule.label} is required before continuing.`);
-      }
-    });
-
-  NUMERIC_RULES
-    .filter((rule) => shouldValidateRule(rule, step))
-    .forEach((rule) => {
-      if (!isWithinRule(inputs[rule.field], rule)) {
-        addValidationError(fieldErrors, messages, rule.field, rangeMessage(rule));
       }
     });
 
@@ -507,10 +467,9 @@ const buildOxygenAbgVentilatorPayload = (
 
   if (includeOxygen) {
     payload.oxygen = {
-      measuredAt: dateTimeOrUndefined(inputs.measuredAt),
+      measuredAt: timestamp,
       oxygenSupportType: textOrUndefined(inputs.oxygenSupportType),
       spo2: numberOrUndefined(inputs.spo2),
-      fio2: numberOrUndefined(inputs.fio2),
       respiratoryRate: numberOrUndefined(inputs.respiratoryRate),
       heartRate: numberOrUndefined(inputs.heartRate),
     };
@@ -525,7 +484,6 @@ const buildOxygenAbgVentilatorPayload = (
       hco3: numberOrUndefined(inputs.hco3),
       baseExcess: numberOrUndefined(inputs.baseExcess),
       lactate: numberOrUndefined(inputs.lactate),
-      fio2AtSample: numberOrUndefined(inputs.fio2AtSample),
       spo2AtSample: numberOrUndefined(inputs.spo2AtSample),
     };
   }
@@ -537,7 +495,6 @@ const buildOxygenAbgVentilatorPayload = (
       tidalVolumeMl: numberOrUndefined(inputs.tidalVolumeMl),
       respiratoryRateSet: numberOrUndefined(inputs.respiratoryRateSet),
       respiratoryRateMeasured: numberOrUndefined(inputs.respiratoryRateMeasured),
-      fio2: numberOrUndefined(inputs.ventilatorFio2),
       peep: numberOrUndefined(inputs.peep),
       pressureSupport: numberOrUndefined(inputs.pressureSupport),
       inspiratoryPressure: numberOrUndefined(inputs.inspiratoryPressure),
@@ -600,7 +557,6 @@ const buildRecommendationInput = (inputs) => ({
   actualWeightKg: numberOrNull(inputs.actualWeightKg),
   heightOrLengthCm: numberOrNull(inputs.heightOrLengthCm),
   spo2: firstFiniteNumber(inputs.spo2, inputs.spo2AtSample),
-  fio2: firstFiniteNumber(inputs.fio2AtSample, inputs.ventilatorFio2, inputs.fio2),
   pao2: numberOrNull(inputs.pao2),
   paco2: numberOrNull(inputs.paco2),
   ph: numberOrNull(inputs.ph),
@@ -621,7 +577,6 @@ const hasSuggestedVentilatorSettings = (inputs) =>
     cleanText(inputs.ieRatio) ||
     isFiniteNumber(inputs.tidalVolumeMl) ||
     isFiniteNumber(inputs.respiratoryRateSet) ||
-    isFiniteNumber(inputs.ventilatorFio2) ||
     isFiniteNumber(inputs.peep) ||
     isFiniteNumber(inputs.pressureSupport) ||
     isFiniteNumber(inputs.inspiratoryPressure) ||
@@ -638,7 +593,6 @@ const buildSuggestedVentilatorInputPatch = (settings) => {
   if (textOrUndefined(settings.mode)) patch.ventilatorMode = settings.mode;
   if (isFiniteNumber(settings.tidalVolume)) patch.tidalVolumeMl = settings.tidalVolume;
   if (isFiniteNumber(settings.respiratoryRate)) patch.respiratoryRateSet = settings.respiratoryRate;
-  if (isFiniteNumber(settings.fio2)) patch.ventilatorFio2 = settings.fio2;
   if (isFiniteNumber(settings.peep)) patch.peep = settings.peep;
   if (textOrUndefined(settings.ieRatio)) patch.ieRatio = settings.ieRatio;
 
@@ -1083,7 +1037,6 @@ export default function useAssessmentScreen() {
       reasonForSupport: mergedInputs.reasonForSupport,
       oxygenSupportType: mergedInputs.oxygenSupportType,
       spo2: mergedInputs.spo2,
-      fio2: mergedInputs.fio2,
       ph: mergedInputs.ph,
       pao2: mergedInputs.pao2,
       paco2: mergedInputs.paco2,
@@ -1104,7 +1057,6 @@ export default function useAssessmentScreen() {
     ventilatorMode: mergedInputs.ventilatorMode || recommendationSettings?.mode || '',
     tidalVolumeMl: mergedInputs.tidalVolumeMl ?? recommendationSettings?.tidalVolume ?? null,
     respiratoryRateSet: mergedInputs.respiratoryRateSet ?? recommendationSettings?.respiratoryRate ?? null,
-    ventilatorFio2: mergedInputs.ventilatorFio2 ?? recommendationSettings?.fio2 ?? null,
     peep: mergedInputs.peep ?? recommendationSettings?.peep ?? null,
     ieRatio: mergedInputs.ieRatio || recommendationSettings?.ieRatio || '',
   }), [mergedInputs, recommendationSettings]);
@@ -1142,6 +1094,7 @@ export default function useAssessmentScreen() {
     recommendationSummary,
     recommendationSettings,
     suggestedVentilatorInputs,
+    rangeSuggestions: FIELD_RANGE_HINTS,
     recommendationUnits,
     recommendationMissingInputs,
     recommendationConfidence,

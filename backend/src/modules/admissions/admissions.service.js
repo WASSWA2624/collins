@@ -61,8 +61,8 @@ const patientReferenceFields = new Set([
   'referenceWeightMethod',
 ]);
 const admissionPatchFields = ['bedNumber', 'admissionSource', 'reasonForVentilation', 'status', 'clientUpdatedAt'];
-const THREE_STEP_FLOW_VERSION = 'three-step-admission-flow@2026-05-05';
-const THREE_STEP_SOURCE = 'three_step_admission_flow';
+const THREE_STEP_FLOW_VERSION = 'three-step-new-patient-flow@2026-05-10';
+const THREE_STEP_SOURCE = 'three_step_new_patient_flow';
 const ABG_UPDATE_VALUE_FIELDS = [
   'ph',
   'pao2',
@@ -120,6 +120,12 @@ const stripNullish = (value) => {
     );
   }
   return value;
+};
+
+const withDefaultTimestamp = (record = {}, field = 'measuredAt') => {
+  const data = stripNullish(record);
+  if (!hasKeys(data) || data[field]) return data;
+  return { ...data, [field]: new Date() };
 };
 
 const cleanText = (value) => {
@@ -351,8 +357,6 @@ const buildMissingData = (admission) => {
   if (!patient?.patientPathway || ['UNKNOWN', 'OTHER'].includes(patient.patientPathway)) missing.push('patientPathway');
   if (patient?.actualWeightKg == null && patient?.referenceWeightKg == null) missing.push('actualWeightKg/referenceWeightKg');
   if (latestSnapshot?.spo2 == null) missing.push('SpO2');
-  if (latestSnapshot?.fio2 == null && latestAbg?.fio2AtSample == null && latestVentilator?.fio2 == null) missing.push('FiO2');
-  if (latestAbg?.pao2 == null) missing.push('PaO2');
   if (latestVentilator?.tidalVolumeMl == null) missing.push('tidalVolumeMl');
   if (latestVentilator?.peep == null) missing.push('PEEP');
   return missing;
@@ -825,7 +829,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
 
   if (hasKeys(oxygenRecord) || shouldStoreFlowSnapshot) {
     const clinicalSnapshotPayload = buildStepWriteMetadata(
-      applyClinicalSnapshotFlowMetadata(oxygenRecord, admission, payload),
+      withDefaultTimestamp(applyClinicalSnapshotFlowMetadata(oxygenRecord, admission, payload)),
       payload,
       'oxygen',
       { includeSource: true }

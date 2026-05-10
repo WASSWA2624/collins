@@ -25,6 +25,7 @@ apiRouter.use('/onboarding', onboardingRouter);
 apiRouter.get('/me/facilities', requireAuth, myFacilities);
 apiRouter.use('/home', homeRouter);
 apiRouter.use('/facilities', facilitiesRouter);
+apiRouter.use('/new-patients', admissionsRouter);
 apiRouter.use('/admissions', admissionsRouter);
 apiRouter.use('/tracking', trackingRouter);
 apiRouter.use('/review', reviewRouter);

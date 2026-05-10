@@ -53,7 +53,7 @@ describe('admission three-step API', () => {
 
     expect(apiClient).toHaveBeenCalledWith(expect.objectContaining({
       method: 'POST',
-      url: expect.stringContaining('/admissions/three-step/patient-reason'),
+      url: expect.stringContaining('/new-patients/three-step/patient-reason'),
     }));
     expect(result.admission.id).toBe('admission-1');
   });
@@ -70,7 +70,7 @@ describe('admission three-step API', () => {
     expect(queueRequestIfOffline).toHaveBeenCalledWith(expect.objectContaining({
       facilityId: 'facility-1',
       method: 'POST',
-      url: expect.stringContaining('/admissions/client-admission-1/three-step/oxygen-abg-ventilator'),
+      url: expect.stringContaining('/new-patients/client-admission-1/three-step/oxygen-abg-ventilator'),
     }));
     expect(result.syncStatus).toBe('queued');
   });
@@ -88,7 +88,7 @@ describe('admission three-step API', () => {
     expect(addToQueue).toHaveBeenCalledWith(expect.objectContaining({
       facilityId: 'facility-1',
       method: 'POST',
-      url: expect.stringContaining('/admissions/client-admission-1/three-step/save-review'),
+      url: expect.stringContaining('/new-patients/client-admission-1/three-step/save-review'),
     }));
     expect(result.syncStatus).toBe('queued');
   });

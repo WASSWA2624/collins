@@ -209,20 +209,20 @@ export default function useRecommendationScreen() {
     (step) => {
       const s = typeof step === 'number' && step >= 0 && step < TOTAL_STEPS ? step : 0;
       setAssessmentStep(s);
-      router.push('/admit');
+      router.push('/new-patient');
     },
     [setAssessmentStep, router]
   );
 
   const startNewAssessment = useCallback(() => {
     resetSession();
-    router.replace('/admit');
+    router.replace('/new-patient');
   }, [resetSession, router]);
 
-  /** Opens the Edit Assessment form at step 0 with current session data pre-filled (Patient Profile, Clinical Parameters, Optional Observations, Optional Time Series, Review). */
+  /** Opens the New Patient form at step 0 with current session data pre-filled. */
   const editAssessment = useCallback(() => {
     setAssessmentStep(0);
-    router.push('/admit');
+    router.push('/new-patient');
   }, [setAssessmentStep, router]);
 
   return {

@@ -53,7 +53,6 @@ const VENTILATION_VENTILATOR_SETTING_KEYS = Object.freeze([
   'mode',
   'tidalVolume',
   'respiratoryRate',
-  'fio2',
   'peep',
   'ieRatio',
 ]);

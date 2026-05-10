@@ -71,9 +71,9 @@ jest.mock('@features/ventilation', () => ({
   getVentilationRecommendationUseCase: jest.fn(() => Promise.resolve({
     source: { confidenceTier: 'medium' },
     safety: { intendedUseWarning: 'Dataset preview only.', validationRequirement: 'Clinician review required.' },
-    units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+    units: { tidalVolume: 'mL', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
     initialVentilatorSettings: {
-      settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+      settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, peep: 8, ieRatio: '1:2' },
     },
   })),
   getVentilationUnits: jest.fn(() => ({
@@ -148,9 +148,7 @@ const completeClinicalInputs = {
   ...completePatientInputs,
   admissionId: 'admission-1',
   oxygenSupportType: 'INVASIVE_VENTILATION',
-  measuredAt: '2026-05-07T10:00',
   spo2: 88,
-  fio2: 0.6,
   respiratoryRate: 28,
   heartRate: 110,
   ph: 7.35,
@@ -164,7 +162,6 @@ const completeReviewInputs = {
   ventilatorMode: 'ACV',
   tidalVolumeMl: 420,
   respiratoryRateSet: 18,
-  ventilatorFio2: 0.5,
   peep: 8,
   ieRatio: '1:2',
 };
@@ -242,7 +239,7 @@ describe('AssessmentScreen', () => {
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
     });
 
-    it('should hide facility, bed, and permitted missing fields from the admit form', () => {
+    it('should hide facility, bed, and permitted missing fields from the New Patient form', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-height')).toBeTruthy();
       expect(getByTestId('assessment-bmi')).toBeTruthy();
@@ -273,7 +270,7 @@ describe('AssessmentScreen', () => {
       expect(getAllByText('Oxygen & ABG').length).toBeGreaterThan(0);
     });
 
-    it('captures oxygen and ABG values without manual ventilator settings on step two', () => {
+    it('captures oxygen and ABG values without manual timestamp, FiO2, or ventilator settings on step two', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
@@ -282,8 +279,13 @@ describe('AssessmentScreen', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
       expect(getByTestId('assessment-oxygen-support')).toBeTruthy();
-      expect(getByTestId('assessment-measured-at')).toBeTruthy();
+      expect(queryByTestId('assessment-measured-at')).toBeNull();
+      expect(queryByTestId('assessment-fio2')).toBeNull();
+      expect(queryByTestId('assessment-fio2-at-sample')).toBeNull();
       expect(getByTestId('assessment-ph')).toBeTruthy();
+      expect(getByTestId('assessment-ph').props.keyboardType).toBe('decimal-pad');
+      expect(getByTestId('assessment-pao2').props.accessibilityState?.required ?? getByTestId('assessment-pao2').props.required).toBeFalsy();
+      expect(getByTestId('assessment-paco2').props.accessibilityState?.required ?? getByTestId('assessment-paco2').props.required).toBeFalsy();
       expect(queryByTestId('assessment-ventilator-mode')).toBeNull();
       expect(queryByTestId('assessment-tidal-volume')).toBeNull();
       expect(queryByTestId('assessment-peep')).toBeNull();
@@ -347,7 +349,6 @@ describe('AssessmentScreen', () => {
           ventilatorMode: 'ACV',
           tidalVolumeMl: 420,
           respiratoryRateSet: 18,
-          ventilatorFio2: 0.5,
           peep: 8,
           ieRatio: '1:2',
         }));
@@ -401,15 +402,15 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('shows the dataset recommendation on the final admit step', () => {
+    it('shows the dataset recommendation on the final New Patient step', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
         recommendationSummary: {
           source: { confidenceTier: 'medium' },
-          units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+          units: { tidalVolume: 'mL', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
           initialVentilatorSettings: {
-            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, peep: 8, ieRatio: '1:2' },
           },
         },
       });
@@ -432,7 +433,6 @@ describe('AssessmentScreen', () => {
           ventilatorMode: 'ACV',
           tidalVolumeMl: 420,
           respiratoryRateSet: 18,
-          ventilatorFio2: 0.5,
           peep: 8,
         },
       });
@@ -448,7 +448,7 @@ describe('AssessmentScreen', () => {
       }));
     });
 
-    it('shows impossible clinical values after a Next attempt', () => {
+    it('shows range suggestions without blocking out-of-range clinical values', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
@@ -461,12 +461,12 @@ describe('AssessmentScreen', () => {
       const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
 
-      expect(() => getByText('SpO2 must be between 40 and 100.')).toThrow();
+      expect(getByText('Suggested range: 92-100%, or local target.')).toBeTruthy();
       fireEvent.press(nextBtn);
 
-      expect(getByText('SpO2 must be between 40 and 100.')).toBeTruthy();
-      expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
-      expect(saveOxygenAbgVentilatorStepApi).not.toHaveBeenCalled();
+      await waitFor(() => {
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalled();
+      });
     });
 
     it('continues to review when dataset recommendation generation fails', async () => {
@@ -487,7 +487,7 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('shows final validation after a blocked Save attempt', () => {
+    it('allows final save when optional PaO2 is missing', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
@@ -503,21 +503,23 @@ describe('AssessmentScreen', () => {
       expect(() => getByText('PaO2 is required before continuing.')).toThrow();
       fireEvent.press(saveBtn);
 
-      expect(getByText('PaO2 is required before continuing.')).toBeTruthy();
-      expect(saveBtn.props.accessibilityState?.disabled ?? saveBtn.props.disabled).toBeFalsy();
-      expect(saveAdmissionReviewStepApi).not.toHaveBeenCalled();
+      await waitFor(() => {
+        expect(saveAdmissionReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          clinicianConfirmed: true,
+        }));
+      });
     });
 
-    it('saves suggested ventilator settings before completing admit review', async () => {
+    it('saves suggested ventilator settings before completing New Patient review', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 2,
         inputs: completeReviewInputs,
         recommendationSummary: {
           source: { confidenceTier: 'medium' },
-          units: { tidalVolume: 'mL', fio2: 'fraction', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
+          units: { tidalVolume: 'mL', peep: 'cmH2O', respiratoryRate: 'breaths/min', ieRatio: '' },
           initialVentilatorSettings: {
-            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, fio2: 0.5, peep: 8, ieRatio: '1:2' },
+            settings: { mode: 'ACV', tidalVolume: 420, respiratoryRate: 18, peep: 8, ieRatio: '1:2' },
           },
         },
       });
@@ -530,7 +532,7 @@ describe('AssessmentScreen', () => {
         expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
           oxygen: expect.objectContaining({
             spo2: 88,
-            fio2: 0.6,
+            measuredAt: expect.any(String),
           }),
           abg: expect.objectContaining({
             pao2: 65,
@@ -541,7 +543,6 @@ describe('AssessmentScreen', () => {
             mode: 'ACV',
             tidalVolumeMl: 420,
             respiratoryRateSet: 18,
-            fio2: 0.5,
             peep: 8,
             ieRatio: '1:2',
           }),
