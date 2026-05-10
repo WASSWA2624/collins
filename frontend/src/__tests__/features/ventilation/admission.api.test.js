@@ -32,7 +32,7 @@ describe('admission three-step API', () => {
   });
 
   it('generates URL-safe client record identifiers', () => {
-    expect(createAdmissionClientRecordId()).toMatch(/^admission-[a-z0-9]+-[a-z0-9]+$/);
+    expect(createAdmissionClientRecordId()).toMatch(/^new-patient-[a-z0-9]+-[a-z0-9]+$/);
   });
 
   it('posts patient and reason step to the three-step endpoint', async () => {

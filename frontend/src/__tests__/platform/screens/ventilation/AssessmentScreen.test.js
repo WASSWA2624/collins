@@ -222,7 +222,7 @@ describe('AssessmentScreen', () => {
 
       fireEvent.press(nextBtn);
 
-      expect(getByText('Some required admission details are missing. Please review the highlighted fields.')).toBeTruthy();
+      expect(getByText('Some required New Patient details are missing. Please review the highlighted fields.')).toBeTruthy();
       expect(getByText('Age is required before continuing.')).toBeTruthy();
       expect(getByText('4 fields need attention')).toBeTruthy();
       expect(savePatientReasonStepApi).not.toHaveBeenCalled();
@@ -461,7 +461,7 @@ describe('AssessmentScreen', () => {
       const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
       const nextBtn = getByTestId('assessment-next');
 
-      expect(getByText('Suggested range: 92-100%, or local target.')).toBeTruthy();
+    expect(() => getByText('SpO2 must be between 40 and 100.')).toThrow();
       fireEvent.press(nextBtn);
 
       await waitFor(() => {

@@ -99,6 +99,16 @@ const patientPayload = z.object({
   pathwayDetailsJson: jsonObject.nullable().optional(),
 });
 
+const newPatientPayload = patientPayload.extend({
+  ageYears: optionalFiniteNumber,
+  ageMonths: optionalFiniteNumber,
+  gestationalAgeWeeks: optionalFiniteNumber,
+  correctedAgeWeeks: optionalFiniteNumber,
+  actualWeightKg: optionalFiniteNumber,
+  heightOrLengthCm: optionalFiniteNumber,
+  referenceWeightKg: optionalFiniteNumber,
+});
+
 const clinicalSnapshotBody = z.object({
   measuredAt: optionalDefaultDate,
   oxygenSupportType: optionalString(120),
@@ -219,7 +229,7 @@ export const createAdmissionSchema = z.object({
     admittedAt: optionalDefaultDate,
     admissionSource: optionalString(120),
     reasonForVentilation: optionalString(500),
-    patient: patientPayload,
+    patient: newPatientPayload,
     clinicalSnapshot: clinicalSnapshotBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     abgTest: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     ventilatorSetting: ventilatorBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
@@ -463,7 +473,7 @@ export const admissionPatientReasonStepSchema = z.object({
     admissionSource: optionalString(120),
     reasonForSupport: optionalString(500),
     reasonForVentilation: optionalString(500),
-    patient: patientPayload,
+    patient: newPatientPayload,
     clinicalReason: clinicalReasonBody.optional(),
     permittedMissingFields: admissionFlowFieldList.optional(),
     clientRecordId: optionalString(120),

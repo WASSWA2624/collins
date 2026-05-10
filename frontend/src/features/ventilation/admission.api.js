@@ -1,6 +1,6 @@
 /**
- * Admission API
- * Three-step admission flow with offline queue fallback.
+ * New Patient API
+ * Three-step New Patient flow with offline queue fallback.
  * File: admission.api.js
  */
 import { endpoints } from '@config/endpoints';
@@ -17,7 +17,7 @@ const ADMISSION_SYNC_STATUS = Object.freeze({
 
 const createAdmissionClientRecordId = () => {
   const random = Math.random().toString(36).slice(2, 10);
-  return `admission-${Date.now().toString(36)}-${random}`;
+  return `new-patient-${Date.now().toString(36)}-${random}`;
 };
 
 const isRetryableNetworkError = (error) =>

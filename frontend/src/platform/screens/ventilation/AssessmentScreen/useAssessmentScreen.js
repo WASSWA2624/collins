@@ -1,6 +1,6 @@
 /**
  * useAssessmentScreen
- * Shared logic for the three-step admission wizard.
+ * Shared logic for the three-step New Patient wizard.
  * File: useAssessmentScreen.js
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -372,7 +372,7 @@ const buildValidationFromInputs = (inputs, step, readiness, options = {}) => {
         fieldErrors,
         messages,
         'clinicianConfirmed',
-        'Confirm the admission record is ready for review before saving.'
+        'Confirm the New Patient record is ready for review before saving.'
       );
     }
 

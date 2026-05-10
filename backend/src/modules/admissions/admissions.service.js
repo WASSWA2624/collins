@@ -222,13 +222,30 @@ const buildStepWriteMetadata = (record, payload, suffix, { includeSource = false
   });
 };
 
+const normalizePatientForStorage = (patient = {}) => {
+  const data = { ...patient };
+  const ageYears = Number(data.ageYears);
+  if (Number.isFinite(ageYears)) {
+    data.ageYears = Math.trunc(ageYears);
+    if (data.ageMonths == null && ageYears >= 0 && ageYears < 2) {
+      data.ageMonths = Math.round(ageYears * 12);
+    }
+  }
+  const ageMonths = Number(data.ageMonths);
+  if (Number.isFinite(ageMonths)) {
+    data.ageMonths = Math.trunc(ageMonths);
+  }
+  return data;
+};
+
 const preparePatientData = (patient) => {
-  const reference = calculateReferenceWeight(patient);
+  const patientData = normalizePatientForStorage(patient);
+  const reference = calculateReferenceWeight(patientData);
   return stripUndefined({
-    ...patient,
-    appPatientCode: patient.appPatientCode || createPatientCode(),
-    referenceWeightKg: reference.value ?? patient.referenceWeightKg,
-    referenceWeightMethod: reference.method ?? patient.referenceWeightMethod,
+    ...patientData,
+    appPatientCode: patientData.appPatientCode || createPatientCode(),
+    referenceWeightKg: reference.value ?? patientData.referenceWeightKg,
+    referenceWeightMethod: reference.method ?? patientData.referenceWeightMethod,
   });
 };
 
