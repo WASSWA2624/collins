@@ -14,7 +14,7 @@ const HOME_TEST_IDS = {
 };
 
 const HOME_ACTION_IDS = {
-  ADMIT: 'admit',
+  NEW_PATIENT: 'newPatient',
   TRACKING: 'tracking',
   ABG_VENT_UPDATE: 'abgVentUpdate',
   DATASET_CAPTURE: 'datasetCapture',

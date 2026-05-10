@@ -9,7 +9,7 @@ describe('phase 14 help search', () => {
   it('covers workflow guide keys', () => {
     expect(GUIDE_KEYS).toEqual(expect.arrayContaining([
       'home',
-      'admit',
+      'newPatient',
       'tracking',
       'abgVentUpdate',
       'datasetCapture',

@@ -14,7 +14,7 @@ test('training help catalog covers required workflows without unsafe order-like 
 
   assert.deepEqual(catalog.workflows, [
     'home',
-    'admit',
+    'new-patient',
     'tracking',
     'abg-ventilator-updates',
     'dataset-capture',

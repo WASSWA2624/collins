@@ -30,7 +30,7 @@ const TROUBLESHOOTING_KEYS = Object.freeze([
 
 const GUIDE_KEYS = Object.freeze([
   'home',
-  'admit',
+  'newPatient',
   'tracking',
   'abgVentUpdate',
   'datasetCapture',
@@ -70,7 +70,7 @@ const HELP_SEARCH_TERMS = Object.freeze({
   }),
   guides: Object.freeze({
     home: Object.freeze(['home', 'facility context', 'workload', 'sync state']),
-    admit: Object.freeze(['admit', 'patient capture', 'pathway', 'assessment']),
+    newPatient: Object.freeze(['new patient', 'patient capture', 'pathway', 'assessment']),
     tracking: Object.freeze(['tracking', 'bed board', 'review status', 'trend']),
     abgVentUpdate: Object.freeze(['abg vent update', 'abg update', 'ventilator settings', 'time stamped']),
     datasetCapture: Object.freeze(['dataset capture', 'de identified', 'research dataset']),

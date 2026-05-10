@@ -19,7 +19,7 @@ describe('sideMenu icon configuration', () => {
     const iconById = Object.fromEntries(MAIN_NAV_ITEMS.map((item) => [item.id, getMenuIconGlyph(item.icon)]));
 
     expect(iconById.home).toBe('🏠');
-    expect(iconById.admit).toBe('🩺');
+    expect(iconById['new-patient']).toBe('🩺');
     expect(iconById.history).toBe('📈');
     expect(iconById['abg-ventilator-updates']).toBe('🫁');
     expect(iconById['dataset-capture']).toBe('🗂️');

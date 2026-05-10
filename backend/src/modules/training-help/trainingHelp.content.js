@@ -4,7 +4,7 @@ export const TRAINING_HELP_LAST_UPDATED = '2026-05-05';
 
 export const TRAINING_HELP_WORKFLOWS = Object.freeze([
   'home',
-  'admit',
+  'new-patient',
   'tracking',
   'abg-ventilator-updates',
   'dataset-capture',
@@ -37,12 +37,12 @@ export const TRAINING_HELP_TOPICS = Object.freeze([
     ]),
   }),
   Object.freeze({
-    id: 'workflow.admit',
-    workflow: 'admit',
-    title: 'Admit',
+    id: 'workflow.new-patient',
+    workflow: 'new-patient',
+    title: 'New Patient',
     audiences: Object.freeze(['clinical', 'facility_admin']),
     order: 20,
-    summary: 'Use Admit to capture patient, pathway, oxygenation, ABG, ventilator, airway, and humidification data.',
+    summary: 'Use New Patient to capture patient, pathway, oxygenation, ABG, ventilator, airway, and humidification data.',
     body: Object.freeze([
       'Enter available data and mark unavailable values explicitly when the bedside record is incomplete.',
       'Server-side calculations and flags are advisory prompts for clinical review after save.',

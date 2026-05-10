@@ -301,7 +301,7 @@
     "items": {
       "main": {
         "home": "Home",
-        "admit": "New Patient",
+        "new-patient": "New Patient",
         "assessment": "New Patient",
         "abg-ventilator-updates": "Update ABG & Ventilator Settings",
         "history": "Tracking",
@@ -713,7 +713,7 @@
       },
       "guides": {
         "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
-        "admit": "Use New Patient to capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
+        "newPatient": "Use New Patient to capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
         "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
         "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
         "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
@@ -848,7 +848,7 @@
     "actions": {
       "title": "Workflow actions",
       "accessibilityLabel": "Open {{name}}",
-      "admit": {
+      "newPatient": {
         "title": "New Patient"
       },
       "tracking": {

@@ -98,7 +98,7 @@ describe('useHomeScreen', () => {
   it('builds role-aware Home actions', () => {
     const actions = buildHomeActions(readySummary);
     expect(actions.map((action) => action.id)).toEqual([
-      'admit',
+      'newPatient',
       'tracking',
       'abgVentUpdate',
       'datasetCapture',
@@ -106,8 +106,8 @@ describe('useHomeScreen', () => {
       'dashboard',
       'settings',
     ]);
-    expect(actions.find((action) => action.id === 'admit').enabled).toBe(true);
-    expect(actions.find((action) => action.id === 'admit').path).toBe('/new-patient');
+    expect(actions.find((action) => action.id === 'newPatient').enabled).toBe(true);
+    expect(actions.find((action) => action.id === 'newPatient').path).toBe('/new-patient');
     expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
     expect(actions.find((action) => action.id === 'abgVentUpdate').path).toBe('/abg-ventilator-updates');
     expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);

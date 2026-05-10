@@ -70,7 +70,7 @@ test('training help endpoint returns public advisory content without model-gover
 
 test('training help endpoint returns advisory versioned content for clinical users', async () => {
   const { status, body } = await getJson(
-    '/api/v1/training-help?workflow=admit',
+    '/api/v1/training-help?workflow=new-patient',
     tokenForRoles(['CLINICIAN']),
   );
 
@@ -80,8 +80,8 @@ test('training help endpoint returns advisory versioned content for clinical use
   assert.equal(body.data.contentVersion, '2026.05.phase14');
   assert.equal(body.data.referencePolicy.verifiedOnly, true);
   assert.match(body.data.safetyStatement, /advisory/i);
-  assert.deepEqual(body.data.availableWorkflows, ['admit']);
-  assert.equal(body.data.topics.every((topic) => topic.workflow === 'admit'), true);
+  assert.deepEqual(body.data.availableWorkflows, ['new-patient']);
+  assert.equal(body.data.topics.every((topic) => topic.workflow === 'new-patient'), true);
   assert.equal(body.data.topics.some((topic) => topic.id === 'governance.model-readiness'), false);
 });
 

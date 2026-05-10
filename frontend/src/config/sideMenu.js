@@ -10,7 +10,7 @@ import { MEMBERSHIP_ROLES, PERMISSIONS } from '@config/accessControl';
 export const MENU_ICON_GLYPHS = {
   'menu-outline': '☰',
   'home-outline': '🏠',
-  'admit-outline': '🩺',
+  'new-patient-outline': '🩺',
   'tracking-outline': '📈',
   'ventilator-outline': '🫁',
   'dataset-outline': '🗂️',
@@ -66,8 +66,8 @@ const DASHBOARD_ROLES = [
 const MAIN_NAV_ITEMS = [
   { id: 'home', icon: 'home-outline', path: '/' },
   {
-    id: 'admit',
-    icon: 'admit-outline',
+    id: 'new-patient',
+    icon: 'new-patient-outline',
     path: '/new-patient',
     facilityScoped: true,
     requireActiveFacility: true,
@@ -144,7 +144,7 @@ const MAIN_NAV_ITEMS = [
   { id: 'settings', icon: 'settings-outline', path: '/settings' },
 ];
 
-const MOBILE_TAB_ITEM_IDS = ['home', 'admit', 'history', 'settings'];
+const MOBILE_TAB_ITEM_IDS = ['home', 'new-patient', 'history', 'settings'];
 const MOBILE_TAB_ITEMS = MAIN_NAV_ITEMS.filter((item) => MOBILE_TAB_ITEM_IDS.includes(item.id));
 
 /** Settings sub-routes (this app's (settings) routes only). */
