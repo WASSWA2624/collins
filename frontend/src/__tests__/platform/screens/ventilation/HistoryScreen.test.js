@@ -165,8 +165,8 @@ describe('Tracking screen compatibility route', () => {
     expect(
       getByText('No admitted patients are available for tracking yet.')
     ).toBeDefined();
-    expect(getByText('Admit a patient first to begin tracking.')).toBeDefined();
-    expect(getByText('Admit patient')).toBeDefined();
+    expect(getByText('Start a New Patient record first to begin tracking.')).toBeDefined();
+    expect(getByText('New Patient')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({
       status: 'ACTIVE',
       limit: 100,

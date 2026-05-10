@@ -15,9 +15,9 @@ jest.mock('expo-router', () => {
 describe('app/(main)/assessment.jsx', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('redirects legacy assessment links to admit', () => {
+  it('redirects legacy assessment links to New Patient', () => {
     const AssessmentRoute = require('../../../app/(main)/assessment').default;
     const { getByTestId } = render(<AssessmentRoute />);
-    expect(getByTestId('legacy-assessment-redirect').props.href).toBe('/admit');
+    expect(getByTestId('legacy-assessment-redirect').props.href).toBe('/new-patient');
   });
 });

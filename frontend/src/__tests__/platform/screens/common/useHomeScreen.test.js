@@ -107,6 +107,7 @@ describe('useHomeScreen', () => {
       'settings',
     ]);
     expect(actions.find((action) => action.id === 'admit').enabled).toBe(true);
+    expect(actions.find((action) => action.id === 'admit').path).toBe('/new-patient');
     expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
     expect(actions.find((action) => action.id === 'abgVentUpdate').path).toBe('/abg-ventilator-updates');
     expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);

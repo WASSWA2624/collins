@@ -17,7 +17,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
         actualWeightKg: null,
         heightOrLengthCm: '170',
       },
-      permittedMissingFields: ['PaO2', 'actualWeightKg/referenceWeightKg'],
+      permittedMissingFields: ['actualWeightKg/referenceWeightKg'],
       idempotencyKey: 'patient-step-1',
     },
     params: {},
@@ -32,7 +32,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
   assert.equal(parsed.body.facilityId, undefined);
   assert.equal(parsed.body.bedNumber, undefined);
   assert.equal(parsed.body.reasonForSupport, undefined);
-  assert.deepEqual(parsed.body.permittedMissingFields, ['PaO2', 'actualWeightKg/referenceWeightKg']);
+  assert.deepEqual(parsed.body.permittedMissingFields, ['actualWeightKg/referenceWeightKg']);
 });
 
 test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncertainty', () => {
@@ -41,12 +41,10 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
       oxygen: {
         oxygenSupportType: 'NIV',
         spo2: '94',
-        fio2: 'not_available',
       },
       abg: {
         ph: '7.31',
         pao2: null,
-        fio2AtSample: '0.50',
       },
       ventilator: {
         mode: 'VC',
@@ -55,8 +53,8 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
         source: 'manual',
       },
       uncertainty: {
-        fields: ['FiO2'],
-        reason: 'Blender value not visible at entry time',
+        fields: ['PaO2'],
+        reason: 'ABG oxygen value not available at entry time',
       },
       deviceContext: {
         deviceId: 'device-1',
@@ -69,10 +67,24 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
   });
 
   assert.equal(parsed.body.oxygen.spo2, 94);
-  assert.equal(parsed.body.oxygen.fio2, null);
   assert.equal(parsed.body.abg.pao2, null);
   assert.equal(parsed.body.ventilator.peep, 8);
-  assert.equal(parsed.body.uncertainty.fields[0], 'FiO2');
+  assert.equal(parsed.body.uncertainty.fields[0], 'PaO2');
+});
+
+test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient flow', () => {
+  assert.throws(() =>
+    admissionOxygenAbgVentilatorStepSchema.parse({
+      body: {
+        oxygen: { spo2: 94, fio2: 0.5 },
+        abg: { ph: 7.31, fio2AtSample: 0.5 },
+        ventilator: { mode: 'VC', fio2: 0.5 },
+        idempotencyKey: 'oxygen-step-fio2',
+      },
+      params: { id: 'admission-1' },
+      query: {},
+    })
+  );
 });
 
 test('ABG and ventilator settings update accepts only update records and sync metadata', () => {
@@ -131,10 +143,10 @@ test('readiness keeps missing-data warnings advisory and honors permitted fields
       fio2: 0.5,
       comorbiditiesJson: {
         admissionFlow: {
-          permittedMissingFields: ['PaO2', 'actualWeightKg/referenceWeightKg'],
+          permittedMissingFields: ['actualWeightKg/referenceWeightKg'],
           uncertainty: {
-            fields: ['FiO2'],
-            reason: 'Ventilator display was intermittently unavailable',
+            fields: ['PaO2'],
+            reason: 'ABG oxygen value was unavailable',
           },
         },
       },
@@ -149,7 +161,9 @@ test('readiness keeps missing-data warnings advisory and honors permitted fields
   });
 
   assert.equal(readiness.isReadyToSave, true);
-  assert.ok(readiness.warnings.some((warning) => warning.code === 'PERMITTED_MISSING_DATA' && warning.field === 'PaO2'));
+  assert.ok(readiness.warnings.some((warning) => warning.code === 'PERMITTED_MISSING_DATA' && warning.field === 'actualWeightKg/referenceWeightKg'));
+  assert.equal(readiness.missingData.includes('PaO2'), false);
+  assert.equal(readiness.missingData.includes('FiO2'), false);
   assert.ok(readiness.warnings.some((warning) => warning.code === 'EXPLICIT_UNCERTAINTY'));
   assert.ok(readiness.warnings.every((warning) => !/diagnos|autonomous|increase|decrease|set peep|set fio2/i.test(warning.message)));
 });
@@ -187,7 +201,7 @@ test('clinical summary ignores metadata-only snapshots when checking current mis
         measuredAt: new Date('2026-05-07T20:09:00.000Z'),
         comorbiditiesJson: {
           admissionFlow: {
-            flowVersion: 'three-step-admission-flow@2026-05-05',
+            flowVersion: 'three-step-new-patient-flow@2026-05-10',
           },
         },
       },
