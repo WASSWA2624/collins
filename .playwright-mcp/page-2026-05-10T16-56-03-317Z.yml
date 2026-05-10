@@ -1,0 +1,142 @@
+- main "Main navigation header" [ref=e48]:
+  - link "Skip to main content" [ref=e49] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e50]:
+    - banner "Main navigation header" [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e54]:
+          - button "Toggle menu" [ref=e55] [cursor=pointer]:
+            - generic [ref=e56]: ☰
+          - link "AI Vent" [ref=e57] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e60]: AI Vent
+        - button "Open account menu for Clinician User" [ref=e64] [cursor=pointer]:
+          - img "Open account menu for Clinician User" [ref=e65]:
+            - generic [ref=e66]: CU
+  - generic [ref=e68]:
+    - complementary "Navigation" [ref=e69]:
+      - navigation [ref=e70]:
+        - generic [ref=e71]:
+          - link "Home" [ref=e72] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e74]: 🏠
+            - generic [ref=e75]: Home
+          - link "New Patient" [ref=e76] [cursor=pointer]:
+            - /url: /new-patient
+            - generic [ref=e78]: 🩺
+            - generic [ref=e79]: New Patient
+          - link "Tracking" [ref=e80] [cursor=pointer]:
+            - /url: /tracking
+            - generic [ref=e82]: 📈
+            - generic [ref=e83]: Tracking
+          - link "Update ABG & Ventilator Settings" [ref=e84] [cursor=pointer]:
+            - /url: /abg-ventilator-updates
+            - generic [ref=e86]: 🫁
+            - generic [ref=e87]: Update ABG & Ventilator Settings
+          - link "Dataset Capture" [ref=e88] [cursor=pointer]:
+            - /url: /dataset-capture
+            - generic [ref=e90]: 🗂️
+            - generic [ref=e91]: Dataset Capture
+          - link "Dashboard" [ref=e92] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [ref=e94]: 📊
+            - generic [ref=e95]: Dashboard
+          - link "Settings" [ref=e96] [cursor=pointer]:
+            - /url: /settings
+            - generic [ref=e98]: ⚙️
+            - generic [ref=e99]: Settings
+      - separator "Resize navigation" [ref=e100]
+    - main [ref=e101]:
+      - main [ref=e103]:
+        - main "Home" [ref=e104]:
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - img "App logo" [ref=e109]
+              - generic [ref=e110]:
+                - heading "Clinical workflow" [level=1] [ref=e111]
+                - paragraph [ref=e112]: Active facility, sync status, drafts, and review work are shown here.
+            - region "Select facility" [ref=e113]:
+              - generic [ref=e114]:
+                - heading "Select facility" [level=2] [ref=e115]
+                - status "1" [ref=e116]:
+                  - generic [ref=e117]: "1"
+              - generic [ref=e118]:
+                - combobox "Select facility" [ref=e120] [cursor=pointer]:
+                  - generic [ref=e121]:
+                    - generic [ref=e122]: F
+                    - generic [ref=e123]: International Hospital Kampala
+                  - generic [ref=e124]: ▾
+                - paragraph [ref=e125]: Kampala / Central / Hospital
+            - generic [ref=e126]:
+              - region "Operational status" [ref=e127]:
+                - article [ref=e128]:
+                  - generic [ref=e129]:
+                    - generic [ref=e131]: F
+                    - generic [ref=e132]: Facility
+                  - generic [ref=e133]: International Hospital Kampala
+                  - generic [ref=e134]: Kampala
+                - article [ref=e135]:
+                  - generic [ref=e136]:
+                    - generic [ref=e138]: "N"
+                    - generic [ref=e139]: Network
+                  - generic [ref=e140]: Online
+                  - generic [ref=e141]: unknown
+                - article [ref=e142]:
+                  - generic [ref=e143]:
+                    - generic [ref=e145]: A
+                    - generic [ref=e146]: Active admissions
+                  - generic [ref=e147]: "1"
+                  - generic [ref=e148]: 1 active patients
+                - article [ref=e149]:
+                  - generic [ref=e150]:
+                    - generic [ref=e152]: D
+                    - generic [ref=e153]: Drafts
+                  - generic [ref=e154]: "0"
+                  - generic [ref=e155]: 0 waiting to sync
+                - article [ref=e156]:
+                  - generic [ref=e157]:
+                    - generic [ref=e159]: "!"
+                    - generic [ref=e160]: Sync attention
+                  - generic [ref=e161]: "0"
+                  - generic [ref=e162]: 0 conflicts
+              - region "Workflow actions" [ref=e163]:
+                - heading "Workflow actions" [level=2] [ref=e164]
+                - generic [ref=e165]:
+                  - link "Open New Patient" [ref=e166] [cursor=pointer]:
+                    - /url: /new-patient
+                    - generic [ref=e168]: +
+                    - generic [ref=e169]:
+                      - generic [ref=e170]: New Patient
+                      - generic [ref=e171]: Open
+                  - link "Open Tracking" [ref=e172] [cursor=pointer]:
+                    - /url: /tracking
+                    - generic [ref=e174]: T
+                    - generic [ref=e175]:
+                      - generic [ref=e176]: Tracking
+                      - generic [ref=e177]: Open
+                    - status "1" [ref=e178]:
+                      - generic [ref=e179]: "1"
+                  - link "Open Update ABG & Ventilator Settings" [ref=e180] [cursor=pointer]:
+                    - /url: /abg-ventilator-updates
+                    - generic [ref=e182]: ABG
+                    - generic [ref=e183]:
+                      - generic [ref=e184]: Update ABG & Ventilator Settings
+                      - generic [ref=e185]: Open
+                  - link "Open Dataset Capture" [ref=e186] [cursor=pointer]:
+                    - /url: /dataset-capture
+                    - generic [ref=e188]: D
+                    - generic [ref=e189]:
+                      - generic [ref=e190]: Dataset Capture
+                      - generic [ref=e191]: Open
+                  - link "Open Dashboard" [ref=e192] [cursor=pointer]:
+                    - /url: /dashboard
+                    - generic [ref=e194]: "#"
+                    - generic [ref=e195]:
+                      - generic [ref=e196]: Dashboard
+                      - generic [ref=e197]: Open
+                  - link "Open Settings" [ref=e198] [cursor=pointer]:
+                    - /url: /settings
+                    - generic [ref=e200]: "*"
+                    - generic [ref=e201]:
+                      - generic [ref=e202]: Settings
+                      - generic [ref=e203]: Open
