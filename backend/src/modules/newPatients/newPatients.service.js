@@ -213,7 +213,8 @@ const mergeNewPatientFlowMetadata = (existingJson, updates = {}) => {
     : isPlainObject(base.admissionFlow)
       ? base.admissionFlow
       : {};
-  const { admissionFlow, ...rest } = base;
+  const rest = { ...base };
+  delete rest.admissionFlow;
   return stripNullish({
     ...rest,
     newPatientFlow: {
