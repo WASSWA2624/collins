@@ -69,6 +69,9 @@ describe('datasetCapture.usecase', () => {
     expect(request.body.structuredPreviewJson.outcome.referenceUseCategory).toBe('POSITIVE_REFERENCE');
     expect(request.body.structuredPreviewJson.captureMetadata.outcomeReview.outcomeSentiment).toBe('positive');
     expect(request.body.structuredPreviewJson.caseContext.capturedAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(request.body.structuredPreviewJson.clinicalSnapshot.measuredAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(request.body.structuredPreviewJson.abgTest.collectedAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(request.body.structuredPreviewJson.ventilatorSetting.measuredAt).toBe('2026-05-05T00:00:00.000Z');
     expect(request.body.governanceJson.rawNoteStored).toBe(false);
     expect(request.body.governanceJson.pendingHumanReview).toBe(true);
     expect(request.body.governanceJson.outcomeReview.recommendationUse).toBe('eligible_positive_reference_after_review');
@@ -102,6 +105,12 @@ describe('datasetCapture.usecase', () => {
     expect(result.queued).toBe(false);
     expect(result.datasetCase.id).toBe('dataset-1');
     expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.caseContext.capturedAt)
+      .toBe('2026-05-05T00:00:00.000Z');
+    expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.clinicalSnapshot.measuredAt)
+      .toBe('2026-05-05T00:00:00.000Z');
+    expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.abgTest.collectedAt)
+      .toBe('2026-05-05T00:00:00.000Z');
+    expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.ventilatorSetting.measuredAt)
       .toBe('2026-05-05T00:00:00.000Z');
     expect(createDatasetImportApi.mock.calls[0][0].structuredPreviewJson.captureMetadata.outcomeReview.outcomeSentiment)
       .toBe('positive');

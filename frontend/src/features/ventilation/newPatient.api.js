@@ -1,21 +1,21 @@
 /**
  * New Patient API
  * Three-step New Patient flow with offline queue fallback.
- * File: admission.api.js
+ * File: newPatient.api.js
  */
 import { endpoints } from '@config/endpoints';
 import { apiClient } from '@services/api';
 import { addToQueue } from '@offline/queue';
 import { queueRequestIfOffline } from '@offline/request';
 
-const ADMISSION_SYNC_STATUS = Object.freeze({
+const NEW_PATIENT_SYNC_STATUS = Object.freeze({
   SYNCED: 'synced',
   DUPLICATE: 'duplicate',
   QUEUED: 'queued',
   NEEDS_SYNC: 'needs_sync',
 });
 
-const createAdmissionClientRecordId = () => {
+const createNewPatientClientRecordId = () => {
   const random = Math.random().toString(36).slice(2, 10);
   return `new-patient-${Date.now().toString(36)}-${random}`;
 };
@@ -40,7 +40,7 @@ const sendOrQueue = async (request, queuedPayload) => {
   if (queuedBeforeSend) {
     return {
       ...queuedPayload,
-      syncStatus: ADMISSION_SYNC_STATUS.QUEUED,
+      syncStatus: NEW_PATIENT_SYNC_STATUS.QUEUED,
     };
   }
 
@@ -49,7 +49,7 @@ const sendOrQueue = async (request, queuedPayload) => {
     const payload = extractPayload(response);
     return {
       ...(payload && typeof payload === 'object' ? payload : {}),
-      syncStatus: payload?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+      syncStatus: payload?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     };
   } catch (error) {
     if (!isRetryableNetworkError(error)) throw error;
@@ -59,12 +59,12 @@ const sendOrQueue = async (request, queuedPayload) => {
 
     return {
       ...queuedPayload,
-      syncStatus: ADMISSION_SYNC_STATUS.QUEUED,
+      syncStatus: NEW_PATIENT_SYNC_STATUS.QUEUED,
     };
   }
 };
 
-const createLocalAdmissionPayload = ({ step, admissionId, clientRecordId, facilityId }) => ({
+const createLocalNewPatientPayload = ({ step, admissionId, clientRecordId, facilityId }) => ({
   step,
   facilityId,
   admission: {
@@ -77,12 +77,12 @@ const createLocalAdmissionPayload = ({ step, admissionId, clientRecordId, facili
 const savePatientReasonStepApi = async (payload) =>
   sendOrQueue(
     {
-      url: endpoints.ADMISSIONS.THREE_STEP_PATIENT_REASON,
+      url: endpoints.NEW_PATIENTS.THREE_STEP_PATIENT_REASON,
       method: 'POST',
       body: payload,
       facilityId: payload?.facilityId,
     },
-    createLocalAdmissionPayload({
+    createLocalNewPatientPayload({
       step: 'patient_reason',
       admissionId: payload?.clientRecordId,
       clientRecordId: payload?.clientRecordId,
@@ -93,12 +93,12 @@ const savePatientReasonStepApi = async (payload) =>
 const saveOxygenAbgVentilatorStepApi = async (admissionId, payload) =>
   sendOrQueue(
     {
-      url: endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR(admissionId),
+      url: endpoints.NEW_PATIENTS.THREE_STEP_OXYGEN_ABG_VENTILATOR(admissionId),
       method: 'POST',
       body: withoutLocalOnlyFields(payload),
       facilityId: payload?.facilityId,
     },
-    createLocalAdmissionPayload({
+    createLocalNewPatientPayload({
       step: 'oxygen_abg_ventilator',
       admissionId,
       clientRecordId: payload?.clientRecordId,
@@ -106,16 +106,16 @@ const saveOxygenAbgVentilatorStepApi = async (admissionId, payload) =>
     })
   );
 
-const saveAdmissionReviewStepApi = async (admissionId, payload) =>
+const saveNewPatientReviewStepApi = async (admissionId, payload) =>
   sendOrQueue(
     {
-      url: endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW(admissionId),
+      url: endpoints.NEW_PATIENTS.THREE_STEP_SAVE_REVIEW(admissionId),
       method: 'POST',
       body: withoutLocalOnlyFields(payload),
       facilityId: payload?.facilityId,
     },
     {
-      ...createLocalAdmissionPayload({
+      ...createLocalNewPatientPayload({
         step: 'save_review',
         admissionId,
         clientRecordId: payload?.clientRecordId,
@@ -129,10 +129,21 @@ const saveAdmissionReviewStepApi = async (admissionId, payload) =>
     }
   );
 
+const getNewPatientVentilatorRecommendationApi = async (payload = {}) => {
+  const response = await apiClient({
+    url: endpoints.NEW_PATIENTS.VENTILATOR_RECOMMENDATION,
+    method: 'POST',
+    body: withoutLocalOnlyFields(payload),
+    facilityId: payload?.facilityId,
+  });
+  return extractPayload(response);
+};
+
 export {
-  ADMISSION_SYNC_STATUS,
-  createAdmissionClientRecordId,
+  NEW_PATIENT_SYNC_STATUS,
+  createNewPatientClientRecordId,
+  getNewPatientVentilatorRecommendationApi,
   savePatientReasonStepApi,
   saveOxygenAbgVentilatorStepApi,
-  saveAdmissionReviewStepApi,
+  saveNewPatientReviewStepApi,
 };

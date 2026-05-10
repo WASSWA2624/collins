@@ -1,16 +1,17 @@
 /**
- * Admission API Tests
- * File: admission.api.test.js
+ * New Patient API Tests
+ * File: newPatient.api.test.js
  */
 import { addToQueue } from '@offline/queue';
 import { queueRequestIfOffline } from '@offline/request';
 import { apiClient } from '@services/api';
 import {
-  createAdmissionClientRecordId,
-  saveAdmissionReviewStepApi,
+  createNewPatientClientRecordId,
+  getNewPatientVentilatorRecommendationApi,
+  saveNewPatientReviewStepApi,
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
-} from '@features/ventilation/admission.api';
+} from '@features/ventilation/newPatient.api';
 
 jest.mock('@services/api', () => ({
   apiClient: jest.fn(),
@@ -24,7 +25,7 @@ jest.mock('@offline/queue', () => ({
   addToQueue: jest.fn(),
 }));
 
-describe('admission three-step API', () => {
+describe('new patient three-step API', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     queueRequestIfOffline.mockResolvedValue(false);
@@ -32,7 +33,7 @@ describe('admission three-step API', () => {
   });
 
   it('generates URL-safe client record identifiers', () => {
-    expect(createAdmissionClientRecordId()).toMatch(/^new-patient-[a-z0-9]+-[a-z0-9]+$/);
+    expect(createNewPatientClientRecordId()).toMatch(/^new-patient-[a-z0-9]+-[a-z0-9]+$/);
   });
 
   it('posts patient and reason step to the three-step endpoint', async () => {
@@ -79,7 +80,7 @@ describe('admission three-step API', () => {
     queueRequestIfOffline.mockResolvedValue(false);
     apiClient.mockRejectedValue({ code: 'NETWORK_ERROR' });
 
-    const result = await saveAdmissionReviewStepApi('client-admission-1', {
+    const result = await saveNewPatientReviewStepApi('client-admission-1', {
       clientRecordId: 'client-admission-1',
       facilityId: 'facility-1',
       clinicianConfirmed: true,
@@ -91,5 +92,37 @@ describe('admission three-step API', () => {
       url: expect.stringContaining('/new-patients/client-admission-1/three-step/save-review'),
     }));
     expect(result.syncStatus).toBe('queued');
+  });
+
+  it('requests backend dataset ventilator recommendations without queuing', async () => {
+    apiClient.mockResolvedValue({
+      data: {
+        data: {
+          recommendation: {
+            source: { type: 'backend_dataset', confidenceTier: 'medium' },
+            initialVentilatorSettings: {
+              settings: { mode: 'VC', tidalVolume: 420, respiratoryRate: 18, peep: 8 },
+            },
+          },
+        },
+      },
+    });
+
+    const result = await getNewPatientVentilatorRecommendationApi({
+      facilityId: 'facility-1',
+      input: {
+        condition: 'ARDS',
+        spo2: 88,
+        respiratoryRate: 28,
+        heartRate: 110,
+      },
+    });
+
+    expect(apiClient).toHaveBeenCalledWith(expect.objectContaining({
+      facilityId: 'facility-1',
+      method: 'POST',
+      url: expect.stringContaining('/new-patients/ventilator-recommendation'),
+    }));
+    expect(result.recommendation.source.type).toBe('backend_dataset');
   });
 });

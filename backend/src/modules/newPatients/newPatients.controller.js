@@ -9,18 +9,19 @@ import {
   addHumidification,
   addOutcome,
   addVentilatorSetting,
-  createAdmission,
-  createAdmissionPatientReasonStep,
-  getAdmissionById,
-  listAdmissions,
-  saveAdmissionAbgVentilatorUpdate,
-  saveAdmissionOxygenAbgVentilatorStep,
-  saveAdmissionReviewStep,
-  updateAdmission,
-} from './admissions.service.js';
+  createNewPatient,
+  createNewPatientReasonStep,
+  getNewPatientById,
+  listNewPatients,
+  recommendNewPatientVentilatorSettings,
+  saveNewPatientAbgVentilatorUpdate,
+  saveNewPatientOxygenAbgVentilatorStep,
+  saveNewPatientReviewStep,
+  updateNewPatient,
+} from './newPatients.service.js';
 
 export const list = asyncHandler(async (req, res) => {
-  const result = await listAdmissions(req.user?.sub, req.validated.query);
+  const result = await listNewPatients(req.user?.sub, req.validated.query);
   return successResponse(res, {
     message: 'New patients loaded',
     data: result.items,
@@ -34,7 +35,7 @@ export const list = asyncHandler(async (req, res) => {
 });
 
 export const create = asyncHandler(async (req, res) => {
-  const result = await createAdmission(req.validated.body, req.user?.sub, buildAuditContext(req));
+  const result = await createNewPatient(req.validated.body, req.user?.sub, buildAuditContext(req));
   return successResponse(res, {
     status: result.syncStatus === 'duplicate' ? 200 : 201,
     message: result.syncStatus === 'duplicate' ? 'Duplicate New Patient request returned original result' : 'New Patient created',
@@ -43,7 +44,7 @@ export const create = asyncHandler(async (req, res) => {
 });
 
 export const createPatientReasonStep = asyncHandler(async (req, res) => {
-  const result = await createAdmissionPatientReasonStep(req.validated.body, req.user?.sub, buildAuditContext(req));
+  const result = await createNewPatientReasonStep(req.validated.body, req.user?.sub, buildAuditContext(req));
   return successResponse(res, {
     status: result.syncStatus === 'duplicate' ? 200 : 201,
     message: result.syncStatus === 'duplicate'
@@ -54,7 +55,7 @@ export const createPatientReasonStep = asyncHandler(async (req, res) => {
 });
 
 export const getById = asyncHandler(async (req, res) => {
-  const admission = await getAdmissionById(req.user?.sub, req.validated.params.id);
+  const admission = await getNewPatientById(req.user?.sub, req.validated.params.id);
   return successResponse(res, {
     message: 'New Patient record loaded',
     data: { admission },
@@ -62,7 +63,7 @@ export const getById = asyncHandler(async (req, res) => {
 });
 
 export const patchById = asyncHandler(async (req, res) => {
-  const result = await updateAdmission(req.user?.sub, req.validated.params.id, req.validated.body, buildAuditContext(req));
+  const result = await updateNewPatient(req.user?.sub, req.validated.params.id, req.validated.body, buildAuditContext(req));
   return successResponse(res, {
     message: result.syncStatus === 'duplicate' ? 'Duplicate New Patient update returned original result' : 'New Patient updated',
     data: result,
@@ -70,7 +71,7 @@ export const patchById = asyncHandler(async (req, res) => {
 });
 
 export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
-  const result = await saveAdmissionOxygenAbgVentilatorStep(
+  const result = await saveNewPatientOxygenAbgVentilatorStep(
     req.user?.sub,
     req.validated.params.id,
     req.validated.body,
@@ -85,7 +86,7 @@ export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
 });
 
 export const createAbgVentilatorUpdate = asyncHandler(async (req, res) => {
-  const result = await saveAdmissionAbgVentilatorUpdate(
+  const result = await saveNewPatientAbgVentilatorUpdate(
     req.user?.sub,
     req.validated.params.id,
     req.validated.body,
@@ -100,7 +101,7 @@ export const createAbgVentilatorUpdate = asyncHandler(async (req, res) => {
 });
 
 export const saveReviewStep = asyncHandler(async (req, res) => {
-  const result = await saveAdmissionReviewStep(
+  const result = await saveNewPatientReviewStep(
     req.user?.sub,
     req.validated.params.id,
     req.validated.body,
@@ -110,6 +111,14 @@ export const saveReviewStep = asyncHandler(async (req, res) => {
     message: result.syncStatus === 'duplicate'
       ? 'Duplicate save and review step returned original result'
       : 'Save and review step recorded',
+    data: result,
+  });
+});
+
+export const recommendVentilatorSettings = asyncHandler(async (req, res) => {
+  const result = await recommendNewPatientVentilatorSettings(req.validated.body, req.user?.sub);
+  return successResponse(res, {
+    message: 'Ventilator recommendation generated from approved dataset cases',
     data: result,
   });
 });

@@ -166,6 +166,31 @@ describe('ventilation.slice (session persistence)', () => {
     }, emptyScope);
   });
 
+  it('persistDraft can save an explicit next snapshot before selectors refresh', async () => {
+    ventilationSession.saveDraft.mockResolvedValue({ ok: true, errorCode: null });
+    const store = createStore({
+      ventilation: {
+        currentSessionId: 's1',
+        currentInputs: { spo2: 91 },
+        lastRecommendationSummary: { x: 1 },
+        isHydrating: false,
+        hydratedAt: null,
+        errorCode: null,
+      },
+    });
+
+    await store.dispatch(actions.persistVentilationSessionDraft({
+      inputs: { spo2: 94, heartRate: 108 },
+      assessmentCurrentStep: 1,
+    }));
+
+    expect(ventilationSession.saveDraft).toHaveBeenCalledWith(expect.objectContaining({
+      sessionId: 's1',
+      inputs: { spo2: 94, heartRate: 108 },
+      assessmentCurrentStep: 1,
+    }), emptyScope);
+  });
+
   it('sets error code when persistDraft fails', async () => {
     ventilationSession.saveDraft.mockResolvedValue({ ok: false, errorCode: 'VENTILATION_SESSION_DRAFT_SAVE_FAILED' });
     const store = createStore({

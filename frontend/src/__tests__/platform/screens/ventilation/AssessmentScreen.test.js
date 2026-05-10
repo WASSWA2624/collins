@@ -40,13 +40,13 @@ jest.mock('@hooks', () => ({
 jest.mock('@hooks/useVentilationSession', () => jest.fn());
 
 jest.mock('@features/ventilation', () => ({
-  ADMISSION_SYNC_STATUS: {
+  NEW_PATIENT_SYNC_STATUS: {
     SYNCED: 'synced',
     DUPLICATE: 'duplicate',
     QUEUED: 'queued',
     NEEDS_SYNC: 'needs_sync',
   },
-  createAdmissionClientRecordId: jest.fn(() => 'admission-test-client'),
+  createNewPatientClientRecordId: jest.fn(() => 'admission-test-client'),
   savePatientReasonStepApi: jest.fn(() => Promise.resolve({
     step: 'patient_reason',
     admission: { id: 'admission-1', clientRecordId: 'admission-test-client' },
@@ -59,13 +59,14 @@ jest.mock('@features/ventilation', () => ({
     readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
     syncStatus: 'synced',
   })),
-  saveAdmissionReviewStepApi: jest.fn(() => Promise.resolve({
+  saveNewPatientReviewStepApi: jest.fn(() => Promise.resolve({
     step: 'save_review',
     admission: { id: 'admission-1', clientRecordId: 'admission-test-client' },
     review: { clinicianConfirmed: true, admissionReviewStatus: 'PENDING' },
     readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
     syncStatus: 'synced',
   })),
+  getNewPatientVentilatorRecommendationApi: jest.fn(() => Promise.resolve(null)),
   buildVentilationAdditionalTestPrompts: jest.fn(() => []),
   getMissingSimilarityFields: jest.fn(() => []),
   getVentilationRecommendationUseCase: jest.fn(() => Promise.resolve({
@@ -95,8 +96,10 @@ const {
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
 const useVentilationSession = require('@hooks/useVentilationSession');
 const {
+  createNewPatientClientRecordId,
+  getNewPatientVentilatorRecommendationApi,
   getVentilationRecommendationUseCase,
-  saveAdmissionReviewStepApi,
+  saveNewPatientReviewStepApi,
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } = require('@features/ventilation');
@@ -326,6 +329,49 @@ describe('AssessmentScreen', () => {
       expect(defaultSessionMock.setAssessmentStep).not.toHaveBeenCalledWith(1);
     });
 
+    it('warns on a saved-data conflict and can create a separate New Patient record', async () => {
+      createNewPatientClientRecordId.mockReturnValueOnce('admission-fresh-client');
+      savePatientReasonStepApi
+        .mockRejectedValueOnce({
+          code: 'CONFLICT',
+          status: 409,
+          meta: { conflictType: 'IDEMPOTENCY_KEY_REUSED' },
+        })
+        .mockResolvedValueOnce({
+          step: 'patient_reason',
+          admission: { id: 'admission-2', clientRecordId: 'admission-fresh-client' },
+          readiness: { isReadyToSave: true, warnings: [], blockers: [], missingData: [] },
+          syncStatus: 'synced',
+        });
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        sessionId: 'admission-test-client',
+        inputs: completePatientInputs,
+      });
+
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(getByTestId('assessment-conflict-warning')).toBeTruthy();
+        expect(getByText('Possible matching saved data')).toBeTruthy();
+      });
+      expect(defaultSessionMock.setAssessmentStep).not.toHaveBeenCalledWith(1);
+
+      fireEvent.press(getByTestId('assessment-conflict-continue'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalledTimes(2);
+        expect(defaultSessionMock.startSession).toHaveBeenCalledWith('admission-fresh-client');
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(1);
+      });
+      expect(savePatientReasonStepApi.mock.calls[1][0]).toMatchObject({
+        clientRecordId: 'admission-fresh-client',
+        idempotencyKey: 'admission-fresh-client:patient-reason',
+      });
+    });
+
     it('generates the dataset recommendation after the clinical information step', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
@@ -342,6 +388,9 @@ describe('AssessmentScreen', () => {
           abg: expect.any(Object),
         }));
         expect(saveOxygenAbgVentilatorStepApi.mock.calls[0][1].ventilator).toBeUndefined();
+        expect(getNewPatientVentilatorRecommendationApi).toHaveBeenCalledWith(expect.objectContaining({
+          input: expect.objectContaining({ condition: 'ARDS with hypoxaemia', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
+        }));
         expect(getVentilationRecommendationUseCase).toHaveBeenCalledWith(expect.objectContaining({
           input: expect.objectContaining({ condition: 'ARDS with hypoxaemia', spo2: 88, respiratoryRate: 28, heartRate: 110 }),
         }));
@@ -504,7 +553,34 @@ describe('AssessmentScreen', () => {
       fireEvent.press(saveBtn);
 
       await waitFor(() => {
-        expect(saveAdmissionReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+        expect(saveNewPatientReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+          clinicianConfirmed: true,
+        }));
+      });
+    });
+
+    it('allows final save with clinician confirmation when ventilator suggestions are unavailable', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 2,
+        inputs: {
+          ...completeClinicalInputs,
+          clinicianConfirmed: true,
+          ventilatorMode: '',
+          tidalVolumeMl: null,
+          respiratoryRateSet: null,
+          peep: null,
+          ieRatio: '',
+        },
+        recommendationSummary: null,
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-generate'));
+
+      await waitFor(() => {
+        expect(saveNewPatientReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
           clinicianConfirmed: true,
         }));
       });
@@ -547,7 +623,7 @@ describe('AssessmentScreen', () => {
             ieRatio: '1:2',
           }),
         }));
-        expect(saveAdmissionReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
+        expect(saveNewPatientReviewStepApi).toHaveBeenCalledWith('admission-1', expect.objectContaining({
           clinicianConfirmed: true,
         }));
         expect(defaultSessionMock.clearDraft).toHaveBeenCalled();

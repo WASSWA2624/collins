@@ -157,6 +157,7 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
     },
     idempotencyKey: 'dataset-capture-key-1',
     clientRecordId: 'capture-draft-1',
+    clientUpdatedAt: '2026-05-05T00:00:00.000Z',
   }, 'clinician-1');
 
   assert.equal(result.reviewStatus, 'SUBMITTED');
@@ -171,6 +172,9 @@ test('clinicians can submit de-identified dataset candidates with idempotency me
   assert.equal(createdDatasetCase.deidentifiedPayloadJson.rawNote, undefined);
   assert.equal(createdDatasetCase.governanceJson.outcomeReview.outcomeSentiment, 'positive');
   assert.equal(createdDatasetCase.structuredPreviewJson.captureMetadata.outcomeReview.referenceUseCategory, 'POSITIVE_REFERENCE');
+  assert.equal(createdDatasetCase.structuredPreviewJson.clinicalSnapshot.measuredAt, '2026-05-05T00:00:00.000Z');
+  assert.equal(createdDatasetCase.structuredPreviewJson.abgTest.collectedAt, '2026-05-05T00:00:00.000Z');
+  assert.equal(createdDatasetCase.structuredPreviewJson.ventilatorSetting.measuredAt, '2026-05-05T00:00:00.000Z');
   assert.equal(idempotencyRecord.operation, 'dataset.capture.create');
   assert.equal(idempotencyRecord.clientRecordId, 'capture-draft-1');
   assert.equal(idempotencyRecord.entityType, 'DatasetCase');

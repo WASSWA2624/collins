@@ -2,14 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   abgTestSchema,
-  createAdmissionSchema,
+  createNewPatientSchema,
   humidificationSchema,
-  patchAdmissionSchema,
+  patchNewPatientSchema,
   ventilatorSettingSchema,
-} from '../src/modules/admissions/admissions.validators.js';
+} from '../src/modules/newPatients/newPatients.validators.js';
 
 test('normalizes admission missing-data sentinels and pathway aliases', () => {
-  const result = createAdmissionSchema.safeParse({
+  const result = createNewPatientSchema.safeParse({
     body: {
       appAdmissionCode: null,
       admittedAt: '',
@@ -26,7 +26,6 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
       clinicalSnapshot: {
         measuredAt: 'not_available',
         spo2: 'unknown',
-        fio2: null,
       },
       abgTest: {
         ph: 'not_available',
@@ -62,7 +61,7 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
 });
 
 test('supports audited patient registration edits in admission patch payloads', () => {
-  const result = patchAdmissionSchema.safeParse({
+  const result = patchNewPatientSchema.safeParse({
     body: {
       patient: {
         optionalName: null,
@@ -105,7 +104,6 @@ test('validates ABG append metadata and rejects client-calculated fields', () =>
     body: {
       ph: '7.31',
       pao2: '82',
-      fio2AtSample: '0.4',
       source: 'point-of-care-analyzer',
       clientRecordId: 'client-abg-1',
       clientCreatedAt: '2026-05-05T07:00:00.000Z',
@@ -163,4 +161,38 @@ test('validates ventilator append metadata and empty query contract', () => {
   });
 
   assert.equal(rejected.success, false);
+});
+
+test('rejects FiO2 fields from New Patient request payloads', () => {
+  const createResult = createNewPatientSchema.safeParse({
+    body: {
+      patient: { patientPathway: 'ADULT' },
+      clinicalSnapshot: { spo2: 94, fio2: 0.5 },
+      idempotencyKey: 'new-patient-fio2-create',
+    },
+    params: {},
+    query: {},
+  });
+
+  const abgResult = abgTestSchema.safeParse({
+    body: {
+      ph: 7.31,
+      fio2AtSample: 0.4,
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  const ventilatorResult = ventilatorSettingSchema.safeParse({
+    body: {
+      mode: 'VC',
+      fio2: 0.5,
+    },
+    params: { id: 'admission-1' },
+    query: {},
+  });
+
+  assert.equal(createResult.success, false);
+  assert.equal(abgResult.success, false);
+  assert.equal(ventilatorResult.success, false);
 });

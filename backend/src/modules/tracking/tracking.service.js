@@ -2,10 +2,10 @@ import { prisma } from '../../config/prisma.js';
 import { assertAdmissionAccess, resolveFacilityScope } from '../../utils/authorization.js';
 import { notFound } from '../../utils/errors.js';
 import {
-  admissionInclude,
+  newPatientInclude,
   buildClinicalSummary,
-  fullAdmissionInclude,
-} from '../admissions/admissions.service.js';
+  fullNewPatientInclude,
+} from '../newPatients/newPatients.service.js';
 import {
   buildCurrentTrackingStatus,
   buildReviewState,
@@ -102,7 +102,7 @@ export const listTrackingAdmissions = async (userId, { facilityId, status, revie
   const [admissions, total] = await Promise.all([
     prisma.admission.findMany({
       where,
-      include: admissionInclude,
+      include: newPatientInclude,
       orderBy: [{ status: 'asc' }, { admittedAt: 'desc' }],
       skip: (page - 1) * limit,
       take: limit,
@@ -126,7 +126,7 @@ export const listTrackingAdmissions = async (userId, { facilityId, status, revie
 
 export const getTrackingAdmission = async (userId, admissionId) => {
   const access = await assertAdmissionAccess(userId, admissionId);
-  const admission = await prisma.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
+  const admission = await prisma.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
   if (!admission || admission.facilityId !== access.facilityId) throw notFound('Admission not found');
 
   const syncEventsByAdmission = await listSyncEventsForAdmissions([admission]);

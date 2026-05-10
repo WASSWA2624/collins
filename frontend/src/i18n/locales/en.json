@@ -151,7 +151,7 @@
       "BACKEND_UNAVAILABLE": "We could not connect to the server right now. Please try again shortly.",
       "BACKEND_ENDPOINT_NOT_FOUND": "Backend API endpoint was not found. The domain is reachable, but the API route is not deployed.",
       "RESOURCE_NOT_FOUND": "The requested record could not be found. Please refresh and try again.",
-      "ADMISSION_NOT_FOUND": "The admission record could not be found. Please return to tracking and try again.",
+      "ADMISSION_NOT_FOUND": "The New Patient record could not be found. Please return to tracking and try again.",
       "BACKEND_METHOD_NOT_ALLOWED": "Backend endpoint exists but does not accept this request.",
       "BACKEND_INVALID_RESPONSE": "Backend returned an invalid sign-in response. It may be serving the website instead of the API.",
       "SESSION_STORAGE_FAILED": "We could not save your sign-in session. Please try again.",
@@ -183,7 +183,7 @@
       "AI_MALFORMED_RESPONSE": "AI response invalid",
       "HOME_SUMMARY_INVALID": "Home summary response is invalid",
       "HOME_SUMMARY_LOAD_FAILED": "Unable to load Home summary",
-      "ADMISSION_SAVE_FAILED": "Unable to save the New Patient record. Please check your connection and try again.",
+      "ADMISSION_SAVE_FAILED": "Unable to save this New Patient step. Your entries remain saved on this device; check the connection and try again.",
       "ADMISSION_VALIDATION_FAILED": "Some required New Patient details are missing. Please review the highlighted fields.",
       "ADMISSION_RECOMMENDATION_FAILED": "Unable to generate clinical recommendations right now. You can still review and save the New Patient record.",
       "VENTILATION_SESSION_DRAFT_LOAD_FAILED": "Unable to load the New Patient form. Please check your connection and try again.",
@@ -1142,7 +1142,7 @@
         }
       },
       "saveReview": {
-        "description": "Review and edit the dataset-suggested ventilator settings, backend readiness, clinician confirmation, override reason when needed, review status, and sync state.",
+        "description": "Review the dataset-suggested ventilator settings, clinician confirmation, review note, and sync state.",
         "readiness": "Save readiness",
         "recommendationTitle": "Dataset recommendation",
         "recommendationConfidence": "Confidence: {{confidence}}",
@@ -1167,14 +1167,18 @@
         "recommendationError": "Unable to generate clinical recommendations right now. You can still review and save the new patient record.",
         "recommendationNeedsClinicalInputs": "Recommendation needs clinical reason, SpO2, respiratory rate, and heart rate.",
         "ready": "Ready to save",
-        "needsCorrection": "Correction or override required",
+        "needsCorrection": "Review advisory items",
         "syncStatus": "Sync status: {{status}}",
         "clinicianConfirmed": "Clinician confirms this new patient record is ready for save review.",
         "overrideReason": "Override reason",
         "reviewNote": "Review note"
       },
       "validation": {
-        "title": "Review these fields"
+        "title": "Review these fields",
+        "conflictTitle": "Possible matching saved data",
+        "conflictBody": "A saved New Patient record has very similar data. This can be a different patient, so you can keep editing or continue to create a separate New Patient record and admission.",
+        "conflictContinue": "Create new patient anyway",
+        "conflictCancel": "Keep editing"
       },
       "conditions": {
         "ARDS": "ARDS",

@@ -31,6 +31,9 @@ describe('datasetCapture.model', () => {
     expect(draft.structuredPreviewJson.provenance.sourceType).toBe('CLINICIAN_CHART_ABSTRACTION');
     expect(draft.structuredPreviewJson.provenance.clinicianValidationStatus).toBe('PENDING_CLINICIAN_VALIDATION');
     expect(draft.fieldValues['caseContext.capturedAt']).toBeUndefined();
+    expect(draft.fieldValues['clinicalSnapshot.measuredAt']).toBeUndefined();
+    expect(draft.fieldValues['abgTest.collectedAt']).toBeUndefined();
+    expect(draft.fieldValues['ventilatorSetting.measuredAt']).toBeUndefined();
     expect(draft.identifierWarnings).toContain('identifier_like_field_detected');
     expect(draft.noteStorage).toBe('raw_note_not_saved');
   });
@@ -38,9 +41,12 @@ describe('datasetCapture.model', () => {
   it('keeps capture time automatic and exposes missing fields as clinical labels', () => {
     const sections = getDatasetCaptureSections();
     const completeness = getDatasetCaptureCompleteness({});
+    const paths = sections.flatMap((section) => section.fields).map((field) => field.path);
 
-    expect(sections.flatMap((section) => section.fields).map((field) => field.path))
-      .not.toContain('caseContext.capturedAt');
+    expect(paths).not.toContain('caseContext.capturedAt');
+    expect(paths).not.toContain('clinicalSnapshot.measuredAt');
+    expect(paths).not.toContain('abgTest.collectedAt');
+    expect(paths).not.toContain('ventilatorSetting.measuredAt');
     expect(completeness.missingFieldDetails).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -76,6 +82,9 @@ describe('datasetCapture.model', () => {
     expect(submission.structuredPreviewJson.captureMetadata.capturedAt).toBe('2026-05-05T00:00:00.000Z');
     expect(submission.structuredPreviewJson.captureMetadata.clinicianValidationStatus).toBe('PENDING_CLINICIAN_VALIDATION');
     expect(submission.structuredPreviewJson.caseContext.capturedAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(submission.structuredPreviewJson.clinicalSnapshot.measuredAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(submission.structuredPreviewJson.abgTest.collectedAt).toBe('2026-05-05T00:00:00.000Z');
+    expect(submission.structuredPreviewJson.ventilatorSetting.measuredAt).toBe('2026-05-05T00:00:00.000Z');
     expect(submission.structuredPreviewJson.patient.ageYears).toBe(54);
     expect(submission.noteText).toBeUndefined();
     expect(serialized).not.toMatch(/MRN|H123|patientName/i);

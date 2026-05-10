@@ -9,7 +9,7 @@ import { badRequest, notFound, reviewerRequired } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { deidentifyPayload } from '../../utils/deidentify.js';
 import { stripUndefined } from '../../utils/object.js';
-import { buildAdmissionReadiness, buildClinicalSummary } from '../admissions/admissions.service.js';
+import { buildNewPatientReadiness, buildClinicalSummary } from '../newPatients/newPatients.service.js';
 
 const latestMeasured = { orderBy: { measuredAt: 'desc' }, take: 1 };
 
@@ -194,7 +194,7 @@ const sanitizeReviewItem = (entityType, record) => {
 };
 
 const buildReviewMetadata = ({ entityType, record, latestAction }) => {
-  const readiness = entityType === 'admission' ? buildAdmissionReadiness(record) : null;
+  const readiness = entityType === 'admission' ? buildNewPatientReadiness(record) : null;
   const syncConflict = entityType === 'sync-conflict'
     ? {
         status: record.status,

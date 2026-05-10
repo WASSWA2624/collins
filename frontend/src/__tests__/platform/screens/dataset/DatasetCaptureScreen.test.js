@@ -122,12 +122,16 @@ describe('DatasetCaptureScreen', () => {
     expect(getByTestId('dataset-capture-section-caseContext')).toBeTruthy();
     expect(queryByTestId('dataset-capture-section-ventilatorSetting')).toBeNull();
     expect(queryByText('Capture time')).toBeNull();
+    expect(queryByText('Vitals measured at')).toBeNull();
+    expect(queryByText('ABG collected at')).toBeNull();
+    expect(queryByText('Vent settings measured at')).toBeNull();
     expect(queryByText('- caseContext.primaryDiagnosis')).toBeNull();
     expect(queryByText('- Case context: Primary diagnosis - This field is required before continuing.')).toBeTruthy();
 
     fireEvent.press(getByTestId('dataset-capture-step-item-ventilatorSetting'));
 
     expect(getByTestId('dataset-capture-section-ventilatorSetting')).toBeTruthy();
+    expect(queryByText('Vent settings measured at')).toBeNull();
     fireEvent.press(getByTestId('dataset-capture-step-item-provenance'));
 
     expect(getByTestId('dataset-capture-section-provenance')).toBeTruthy();

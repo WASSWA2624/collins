@@ -1,34 +1,34 @@
 /**
- * Admission Model Tests
- * File: admissions.model.test.js
+ * New Patient Model Tests
+ * File: newPatients.model.test.js
  */
 import {
-  ADMISSION_PATIENT_PATHWAYS,
-  buildAdmissionAiSafePayload,
-  buildCreateAdmissionPayload,
-  buildPatientReasonStepPayload,
-  normalizeAdmissionDraft,
-} from '@features/admissions';
+  NEW_PATIENT_PATHWAYS,
+  buildNewPatientAiSafePayload,
+  buildCreateNewPatientPayload,
+  buildNewPatientReasonStepPayload,
+  normalizeNewPatientDraft,
+} from '@features/newPatients';
 
 const now = () => new Date('2026-05-05T08:00:00.000Z');
 
-describe('admissions.model', () => {
+describe('newPatients.model', () => {
   it('supports all required patient pathways', () => {
-    ADMISSION_PATIENT_PATHWAYS.forEach((patientPathway) => {
-      const draft = normalizeAdmissionDraft({
+    NEW_PATIENT_PATHWAYS.forEach((patientPathway) => {
+      const draft = normalizeNewPatientDraft({
         facilityId: 'facility-1',
         patient: { patientPathway },
       }, { now, nonce: `nonce-${patientPathway}` });
 
       expect(draft.patient.patientPathway).toBe(patientPathway);
       expect(draft.facilityId).toBe('facility-1');
-      expect(draft.idempotencyKey).toMatch(/^admission:facility-1:/);
+      expect(draft.idempotencyKey).toMatch(/^new-patient:facility-1:/);
       expect(draft.clientCreatedAt).toBe('2026-05-05T08:00:00.000Z');
     });
   });
 
   it('normalizes missing values and pathway aliases without forcing assumptions', () => {
-    const draft = normalizeAdmissionDraft({
+    const draft = normalizeNewPatientDraft({
       facilityId: 'facility-1',
       reasonForSupport: 'Post-op oxygen support',
       patient: {
@@ -43,9 +43,8 @@ describe('admissions.model', () => {
       },
       oxygen: {
         spo2: '94',
-        fio2: 'not_available',
       },
-      permittedMissingFields: ['FiO2', 'actualWeightKg/referenceWeightKg'],
+      permittedMissingFields: ['actualWeightKg/referenceWeightKg'],
     }, { now, nonce: 'fixed' });
 
     expect(draft.patient.patientPathway).toBe('OBSTETRIC');
@@ -53,7 +52,6 @@ describe('admissions.model', () => {
     expect(draft.patient.ageYears).toBeNull();
     expect(draft.patient.actualWeightKg).toBeNull();
     expect(draft.oxygen.spo2).toBe(94);
-    expect(draft.oxygen.fio2).toBeNull();
   });
 
   it('builds backend create and patient-reason payloads with offline metadata', () => {
@@ -70,23 +68,23 @@ describe('admissions.model', () => {
       oxygen: { spo2: '92' },
     };
 
-    const createPayload = buildCreateAdmissionPayload(draft, { now, nonce: 'abc' });
+    const createPayload = buildCreateNewPatientPayload(draft, { now, nonce: 'abc' });
     expect(createPayload.facilityId).toBe('facility-1');
     expect(createPayload.reasonForVentilation).toBe('Pneumonia with oxygen support');
     expect(createPayload.patient.patientPathway).toBe('ADULT');
     expect(createPayload.patient.actualWeightKg).toBeNull();
     expect(createPayload.clinicalSnapshot.spo2).toBe(92);
     expect(createPayload.clientCreatedAt).toBe('2026-05-05T08:00:00.000Z');
-    expect(createPayload.idempotencyKey).toMatch(/^admission:facility-1:/);
+    expect(createPayload.idempotencyKey).toMatch(/^new-patient:facility-1:/);
 
-    const stepPayload = buildPatientReasonStepPayload(draft, { now, nonce: 'abc' });
+    const stepPayload = buildNewPatientReasonStepPayload(draft, { now, nonce: 'abc' });
     expect(stepPayload.reasonForSupport).toBe('Pneumonia with oxygen support');
     expect(stepPayload.patient.patientPathway).toBe('ADULT');
     expect(stepPayload.clinicalSnapshot).toBeUndefined();
   });
 
   it('strips patient identifiers from AI/model-service payloads', () => {
-    const safe = buildAdmissionAiSafePayload({
+    const safe = buildNewPatientAiSafePayload({
       facilityId: 'facility-1',
       idempotencyKey: 'offline-key-1',
       patient: {

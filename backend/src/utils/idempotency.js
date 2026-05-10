@@ -22,7 +22,11 @@ export const resolveIdempotency = async ({
   if (existing.requestHash !== requestHash) {
     throw conflict('Idempotency key conflict: the same key was already used with a different payload', [
       { path: 'idempotencyKey', message: 'Use a new idempotency key for changed offline payloads.' },
-    ], { status: 'conflict', previousOperation: existing.operation });
+    ], {
+      status: 'conflict',
+      conflictType: 'IDEMPOTENCY_KEY_REUSED',
+      previousOperation: existing.operation,
+    });
   }
 
   return {

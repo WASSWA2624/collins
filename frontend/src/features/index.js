@@ -7,7 +7,7 @@
  */
 
 export * from './auth';
-export * from './admissions';
+export * from './newPatients';
 export * from './home';
 export * from './dashboard';
 export * from './ventilation';

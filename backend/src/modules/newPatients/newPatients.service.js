@@ -13,7 +13,7 @@ const toJson = (value) => JSON.parse(JSON.stringify(value));
 
 export const latestOnly = { orderBy: { measuredAt: 'desc' }, take: 1 };
 
-export const admissionInclude = {
+export const newPatientInclude = {
   patient: true,
   facility: {
     select: {
@@ -35,8 +35,8 @@ export const admissionInclude = {
   outcomes: { orderBy: { createdAt: 'desc' }, take: 1 },
 };
 
-export const fullAdmissionInclude = {
-  ...admissionInclude,
+export const fullNewPatientInclude = {
+  ...newPatientInclude,
   clinicalSnapshots: { orderBy: { measuredAt: 'desc' } },
   abgTests: { orderBy: { version: 'desc' } },
   ventilatorSettings: { orderBy: { version: 'desc' } },
@@ -47,7 +47,7 @@ export const fullAdmissionInclude = {
 };
 
 const createPatientCode = () => `COL-P-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-const createAdmissionCode = () => `COL-A-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+const createNewPatientCode = () => `COL-A-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
 const patientReferenceFields = new Set([
   'patientPathway',
   'ageYears',
@@ -70,7 +70,6 @@ const ABG_UPDATE_VALUE_FIELDS = [
   'hco3',
   'baseExcess',
   'lactate',
-  'fio2AtSample',
   'spo2AtSample',
 ];
 const VENTILATOR_UPDATE_VALUE_FIELDS = [
@@ -78,7 +77,6 @@ const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'tidalVolumeMl',
   'respiratoryRateSet',
   'respiratoryRateMeasured',
-  'fio2',
   'peep',
   'pressureSupport',
   'inspiratoryPressure',
@@ -86,22 +84,46 @@ const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'plateauPressure',
   'ieRatio',
 ];
+const REMOVED_NEW_PATIENT_FIELDS = new Set(['fio2', 'fio2AtSample', 'ventilatorFio2']);
 
 const withoutIdempotency = (data = {}) => {
   const rest = { ...data };
   delete rest.idempotencyKey;
   delete rest.overrideReason;
+  for (const field of REMOVED_NEW_PATIENT_FIELDS) delete rest[field];
   return stripUndefined(rest);
 };
+
+const withoutRemovedNewPatientFields = (record = {}) => {
+  if (!isPlainObject(record)) return record;
+  const data = { ...record };
+  for (const field of REMOVED_NEW_PATIENT_FIELDS) delete data[field];
+  return data;
+};
+
+const cleanNewPatientRecord = (record) => {
+  const cleaned = stripNullish(withoutRemovedNewPatientFields(record || {}));
+  return Object.keys(cleaned).length > 0 ? cleaned : undefined;
+};
+
+const stripRemovedFieldsFromNewPatientPayload = (payload = {}) => stripUndefined({
+  ...payload,
+  clinicalSnapshot: payload.clinicalSnapshot ? cleanNewPatientRecord(payload.clinicalSnapshot) : payload.clinicalSnapshot,
+  oxygen: payload.oxygen ? cleanNewPatientRecord(payload.oxygen) : payload.oxygen,
+  abg: payload.abg ? cleanNewPatientRecord(payload.abg) : payload.abg,
+  abgTest: payload.abgTest ? cleanNewPatientRecord(payload.abgTest) : payload.abgTest,
+  ventilator: payload.ventilator ? cleanNewPatientRecord(payload.ventilator) : payload.ventilator,
+  ventilatorSetting: payload.ventilatorSetting ? cleanNewPatientRecord(payload.ventilatorSetting) : payload.ventilatorSetting,
+});
 
 const getOverrideReason = (payload = {}) => {
   const reason = payload.overrideReason?.trim();
   return reason || null;
 };
 
-const resolveAdmissionCreateFacilityId = async (userId, requestedFacilityId) => {
+const resolveNewPatientCreateFacilityId = async (userId, requestedFacilityId) => {
   const facilityId = await resolveFacilityScope(userId, cleanText(requestedFacilityId) || undefined, WRITE_ROLES);
-  if (!facilityId) throw forbidden('Facility scope is required to create an admission');
+  if (!facilityId) throw forbidden('Facility scope is required to create a New Patient record');
   return facilityId;
 };
 
@@ -184,12 +206,17 @@ const normalizeDeviceContext = (payload = {}) => {
   return hasKeys(normalized) ? normalized : null;
 };
 
-const mergeAdmissionFlowMetadata = (existingJson, updates = {}) => {
+const mergeNewPatientFlowMetadata = (existingJson, updates = {}) => {
   const base = isPlainObject(existingJson) ? existingJson : {};
-  const previousFlow = isPlainObject(base.admissionFlow) ? base.admissionFlow : {};
+  const previousFlow = isPlainObject(base.newPatientFlow)
+    ? base.newPatientFlow
+    : isPlainObject(base.admissionFlow)
+      ? base.admissionFlow
+      : {};
+  const { admissionFlow, ...rest } = base;
   return stripNullish({
-    ...base,
-    admissionFlow: {
+    ...rest,
+    newPatientFlow: {
       ...previousFlow,
       flowVersion: THREE_STEP_FLOW_VERSION,
       ...updates,
@@ -198,10 +225,10 @@ const mergeAdmissionFlowMetadata = (existingJson, updates = {}) => {
   });
 };
 
-const extractAdmissionFlowMetadata = (admission = {}) => {
+const extractNewPatientFlowMetadata = (admission = {}) => {
   const snapshots = admission.clinicalSnapshots || [];
   for (const snapshot of snapshots) {
-    const flow = snapshot?.comorbiditiesJson?.admissionFlow;
+    const flow = snapshot?.comorbiditiesJson?.newPatientFlow || snapshot?.comorbiditiesJson?.admissionFlow;
     if (isPlainObject(flow)) return flow;
   }
   return {};
@@ -266,13 +293,12 @@ const preparePatientUpdateData = (currentPatient, patientPatch = {}) => {
   });
 };
 
-const pickAdmissionPatchData = (data) => stripUndefined(Object.fromEntries(
+const pickNewPatientPatchData = (data) => stripUndefined(Object.fromEntries(
   admissionPatchFields.map((field) => [field, data[field]])
 ));
 
 const clinicalSnapshotValueFields = [
   'spo2',
-  'fio2',
   'heartRate',
   'respiratoryRate',
   'systolicBp',
@@ -288,7 +314,7 @@ const clinicalSnapshotValueFields = [
 const hasRecordedClinicalSnapshotValue = (snapshot = {}) =>
   clinicalSnapshotValueFields.some((field) => snapshot[field] !== null && snapshot[field] !== undefined && snapshot[field] !== '');
 
-const getAdmissionForSummary = (admission) => {
+const getNewPatientRecordForSummary = (admission) => {
   const clinicalSnapshots = admission.clinicalSnapshots || [];
   return {
     patient: admission.patient,
@@ -345,7 +371,7 @@ const buildReferenceRangeStatus = (referenceRanges) => {
 };
 
 export const buildClinicalSummary = (admission, { referenceRanges } = {}) => {
-  const { patient, latestSnapshot, latestAbg, latestVentilator, latestHumidification } = getAdmissionForSummary(admission);
+  const { patient, latestSnapshot, latestAbg, latestVentilator, latestHumidification } = getNewPatientRecordForSummary(admission);
   const activeReferenceRanges = Array.isArray(referenceRanges) ? referenceRanges : undefined;
   const ventilationSummary = calculateVentilationSummary({
     patient,
@@ -370,12 +396,10 @@ export const buildClinicalSummary = (admission, { referenceRanges } = {}) => {
 
 const buildMissingData = (admission) => {
   const missing = [];
-  const { patient, latestSnapshot, latestAbg, latestVentilator } = getAdmissionForSummary(admission);
+  const { patient, latestSnapshot } = getNewPatientRecordForSummary(admission);
   if (!patient?.patientPathway || ['UNKNOWN', 'OTHER'].includes(patient.patientPathway)) missing.push('patientPathway');
   if (patient?.actualWeightKg == null && patient?.referenceWeightKg == null) missing.push('actualWeightKg/referenceWeightKg');
   if (latestSnapshot?.spo2 == null) missing.push('SpO2');
-  if (latestVentilator?.tidalVolumeMl == null) missing.push('tidalVolumeMl');
-  if (latestVentilator?.peep == null) missing.push('PEEP');
   return missing;
 };
 
@@ -395,9 +419,9 @@ const getClinicalFlags = (clinicalSummary = {}) => [
   ...(clinicalSummary.humidificationFlags || []),
 ];
 
-export const buildAdmissionReadiness = (admission) => {
+export const buildNewPatientReadiness = (admission) => {
   const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission);
-  const flowMetadata = extractAdmissionFlowMetadata(admission);
+  const flowMetadata = extractNewPatientFlowMetadata(admission);
   const permittedMissingFields = uniqueStringList(flowMetadata.permittedMissingFields);
   const uncertainty = normalizeUncertainty(flowMetadata.uncertainty);
   const clinicalFlags = getClinicalFlags(clinicalSummary);
@@ -430,29 +454,22 @@ export const buildAdmissionReadiness = (admission) => {
     ruleVersion: flag.ruleVersion,
   }));
 
-  const blockers = clinicalWarnings
-    .filter((warning) => warning.code === 'IMPOSSIBLE_VALUE')
-    .map((warning) => ({
-      ...warning,
-      message: 'Impossible values require correction or documented clinician override before save review.',
-    }));
-
   const warnings = [...missingWarnings, ...uncertaintyWarnings, ...clinicalWarnings];
 
   return {
     flowVersion: THREE_STEP_FLOW_VERSION,
-    isReadyToSave: blockers.length === 0,
+    isReadyToSave: true,
     needsReview: warnings.some((warning) => ['red', 'yellow'].includes(warning.severity)),
     missingData: clinicalSummary.missingData || [],
     permittedMissingFields,
     uncertainty,
     warnings,
-    blockers,
+    blockers: [],
     safetyStatement: clinicalSummary.safetyStatement,
   };
 };
 
-const buildThreeStepAdmissionResponse = (step, admission, extra = {}, { referenceRanges } = {}) => {
+const buildThreeStepNewPatientResponse = (step, admission, extra = {}, { referenceRanges } = {}) => {
   const clinicalSummary = admission.clinicalSummary || buildClinicalSummary(admission, { referenceRanges });
   const admissionWithSummary = admission.clinicalSummary ? admission : { ...admission, clinicalSummary };
 
@@ -460,8 +477,334 @@ const buildThreeStepAdmissionResponse = (step, admission, extra = {}, { referenc
     step,
     admission: admissionWithSummary,
     clinicalSummary,
-    readiness: buildAdmissionReadiness(admissionWithSummary),
+    readiness: buildNewPatientReadiness(admissionWithSummary),
     ...extra,
+  });
+};
+
+const RECOMMENDATION_DATASET_SELECT = {
+  id: true,
+  facilityId: true,
+  structuredPreviewJson: true,
+  deidentifiedPayloadJson: true,
+  reviewStatus: true,
+  approvedForTraining: true,
+  datasetVersion: true,
+  reviewedAt: true,
+};
+
+const RECOMMENDATION_UNITS = Object.freeze({
+  tidalVolume: 'mL',
+  peep: 'cmH2O',
+  respiratoryRate: 'breaths/min',
+  ieRatio: '',
+  pressureSupport: 'cmH2O',
+  inspiratoryPressure: 'cmH2O',
+  peakPressure: 'cmH2O',
+  plateauPressure: 'cmH2O',
+});
+
+const RECOMMENDATION_NUMERIC_FIELDS = Object.freeze([
+  { field: 'ageYears', weight: 0.08, width: 100 },
+  { field: 'actualWeightKg', weight: 0.08, width: 120 },
+  { field: 'heightOrLengthCm', weight: 0.04, width: 120 },
+  { field: 'spo2', weight: 0.25, width: 50 },
+  { field: 'respiratoryRate', weight: 0.18, width: 60 },
+  { field: 'heartRate', weight: 0.13, width: 180 },
+  { field: 'ph', weight: 0.08, width: 1 },
+  { field: 'pao2', weight: 0.05, width: 200 },
+  { field: 'paco2', weight: 0.05, width: 110 },
+]);
+
+const RECOMMENDATION_REQUIRED_INPUTS = Object.freeze(['condition', 'spo2', 'respiratoryRate', 'heartRate']);
+
+const asFiniteNumber = (value) => {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+};
+
+const firstPresent = (...values) => {
+  for (const value of values) {
+    if (value !== undefined && value !== null && value !== '') return value;
+  }
+  return null;
+};
+
+const pickLatestRecordWithValue = (records = [], fields = []) => {
+  const list = Array.isArray(records) ? records : [];
+  return list.find((record) =>
+    record && fields.some((field) => record[field] !== undefined && record[field] !== null && record[field] !== '')
+  ) || list[0] || {};
+};
+
+const normalizeTokenSet = (value) => new Set(
+  String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(' ')
+    .map((item) => item.trim())
+    .filter((item) => item.length >= 3)
+);
+
+const calculateTextSimilarity = (left, right) => {
+  const a = normalizeTokenSet(left);
+  const b = normalizeTokenSet(right);
+  if (a.size === 0 || b.size === 0) return null;
+
+  let overlap = 0;
+  a.forEach((token) => {
+    if (b.has(token)) overlap += 1;
+  });
+  return overlap / Math.max(a.size, b.size);
+};
+
+const normalizeRecommendationInput = (input = {}) => stripNullish({
+  condition: cleanText(input.condition) || cleanText(input.reasonForSupport),
+  patientPathway: cleanText(input.patientPathway),
+  sexForSizeCalculations: cleanText(input.sexForSizeCalculations),
+  ageYears: asFiniteNumber(input.ageYears),
+  actualWeightKg: asFiniteNumber(input.actualWeightKg),
+  heightOrLengthCm: asFiniteNumber(input.heightOrLengthCm),
+  spo2: asFiniteNumber(firstPresent(input.spo2, input.spo2AtSample)),
+  respiratoryRate: asFiniteNumber(input.respiratoryRate),
+  heartRate: asFiniteNumber(input.heartRate),
+  ph: asFiniteNumber(input.ph),
+  pao2: asFiniteNumber(input.pao2),
+  paco2: asFiniteNumber(input.paco2),
+});
+
+const buildRecommendationSettingsFromRecord = (record = {}) => stripNullish({
+  mode: cleanText(record.mode),
+  tidalVolume: asFiniteNumber(firstPresent(record.tidalVolume, record.tidalVolumeMl)),
+  respiratoryRate: asFiniteNumber(firstPresent(record.respiratoryRate, record.respiratoryRateSet)),
+  peep: asFiniteNumber(record.peep),
+  ieRatio: cleanText(record.ieRatio),
+  pressureSupport: asFiniteNumber(record.pressureSupport),
+  inspiratoryPressure: asFiniteNumber(record.inspiratoryPressure),
+  peakPressure: asFiniteNumber(record.peakPressure),
+  plateauPressure: asFiniteNumber(record.plateauPressure),
+});
+
+const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
+  const deidentified = isPlainObject(datasetCase.deidentifiedPayloadJson) ? datasetCase.deidentifiedPayloadJson : {};
+  const preview = isPlainObject(datasetCase.structuredPreviewJson) ? datasetCase.structuredPreviewJson : {};
+  const payload = hasKeys(deidentified) ? deidentified : preview;
+
+  const patient = payload.patient || preview.patient || {};
+  const snapshot =
+    payload.clinicalSnapshot ||
+    payload.oxygen ||
+    preview.clinicalSnapshot ||
+    pickLatestRecordWithValue(payload.clinicalSnapshots, ['spo2', 'respiratoryRate', 'heartRate', 'oxygenSupportType']);
+  const abg =
+    payload.abgTest ||
+    payload.abg ||
+    preview.abgTest ||
+    pickLatestRecordWithValue(payload.abgTests, ['ph', 'pao2', 'paco2']);
+  const ventilator =
+    payload.ventilatorSetting ||
+    payload.ventilator ||
+    preview.ventilatorSetting ||
+    pickLatestRecordWithValue(payload.ventilatorSettings, ['mode', 'tidalVolumeMl', 'respiratoryRateSet', 'peep']);
+
+  const settings = buildRecommendationSettingsFromRecord(ventilator);
+  if (!hasKeys(settings)) return null;
+
+  const condition = firstPresent(
+    payload.caseContext?.reasonForVentilation,
+    payload.caseContext?.primaryDiagnosis,
+    preview.caseContext?.reasonForVentilation,
+    preview.caseContext?.primaryDiagnosis,
+    payload.admission?.reasonForVentilation,
+    snapshot?.mainCondition
+  );
+
+  return stripNullish({
+    datasetCaseId: datasetCase.id,
+    datasetVersion: datasetCase.datasetVersion,
+    condition: cleanText(condition),
+    patientPathway: cleanText(patient.patientPathway),
+    clinicalParameters: {
+      ageYears: asFiniteNumber(patient.ageYears),
+      actualWeightKg: asFiniteNumber(firstPresent(patient.actualWeightKg, patient.referenceWeightKg)),
+      heightOrLengthCm: asFiniteNumber(patient.heightOrLengthCm),
+      spo2: asFiniteNumber(firstPresent(snapshot?.spo2, abg?.spo2AtSample)),
+      respiratoryRate: asFiniteNumber(snapshot?.respiratoryRate),
+      heartRate: asFiniteNumber(snapshot?.heartRate),
+      ph: asFiniteNumber(abg?.ph),
+      pao2: asFiniteNumber(abg?.pao2),
+      paco2: asFiniteNumber(abg?.paco2),
+    },
+    settings,
+  });
+};
+
+const getMissingRecommendationInputs = (input = {}) =>
+  RECOMMENDATION_REQUIRED_INPUTS.filter((field) => {
+    if (field === 'condition') return !cleanText(input.condition);
+    return !Number.isFinite(input[field]);
+  });
+
+const scoreDatasetRecommendationCandidate = (input, candidate) => {
+  let weighted = 0;
+  let usedWeight = 0;
+  let availableWeight = 0;
+
+  const addScore = (weight, similarity) => {
+    availableWeight += weight;
+    if (!Number.isFinite(similarity)) return;
+    usedWeight += weight;
+    weighted += Math.max(0, Math.min(1, similarity)) * weight;
+  };
+
+  const conditionSimilarity = calculateTextSimilarity(input.condition, candidate.condition);
+  if (cleanText(input.condition)) addScore(0.14, conditionSimilarity);
+
+  if (cleanText(input.patientPathway)) {
+    const exactPathway = cleanText(input.patientPathway) === cleanText(candidate.patientPathway);
+    addScore(0.04, cleanText(candidate.patientPathway) ? (exactPathway ? 1 : 0.25) : null);
+  }
+
+  RECOMMENDATION_NUMERIC_FIELDS.forEach(({ field, weight, width }) => {
+    const inputValue = input[field];
+    if (!Number.isFinite(inputValue)) return;
+    availableWeight += weight;
+    const candidateValue = candidate.clinicalParameters?.[field];
+    if (!Number.isFinite(candidateValue)) return;
+    usedWeight += weight;
+    weighted += (1 - Math.min(1, Math.abs(inputValue - candidateValue) / width)) * weight;
+  });
+
+  const score = usedWeight > 0 ? weighted / usedWeight : 0;
+  const completeness = availableWeight > 0 ? usedWeight / availableWeight : 0;
+  const confidenceTier = score >= 0.85 && completeness >= 0.75
+    ? 'high'
+    : score >= 0.7 && completeness >= 0.5
+      ? 'medium'
+      : 'low';
+
+  return {
+    caseId: candidate.datasetCaseId,
+    score: Math.round(score * 1000000) / 1000000,
+    completeness: Math.round(completeness * 1000000) / 1000000,
+    confidenceTier,
+  };
+};
+
+const buildNoDatasetRecommendation = ({ input, candidateCount = 0 }) => ({
+  source: {
+    type: 'backend_dataset',
+    confidenceTier: 'low',
+    matchCount: candidateCount,
+  },
+  safety: {
+    intendedUseWarning: 'Approved dataset cases did not contain enough comparable ventilator settings for this input.',
+    validationRequirement: 'Clinician review is required before applying any ventilator settings.',
+    clinicianVisibleModelOutput: false,
+  },
+  units: RECOMMENDATION_UNITS,
+  initialVentilatorSettings: {
+    source: null,
+    settings: null,
+  },
+  monitoringPoints: [],
+  riskFactors: [],
+  complicationHistory: [],
+  additionalTestPrompts: [],
+  nextActions: [],
+  decisionProvenance: {
+    reviewStatus: 'approved_dataset_cases',
+    sourceNote: 'No sufficiently comparable approved dataset case was available.',
+  },
+  governance: {
+    ruleBasedMvp: true,
+    caseMatchingHiddenFromClinicians: true,
+    onlineAiClinicianPathEnabled: false,
+    patientIdentifiersSentToExternalModelServices: false,
+  },
+  missingInputs: getMissingRecommendationInputs(input),
+});
+
+const buildDatasetRecommendation = ({ input, candidates, ranked }) => {
+  const top = ranked[0] || null;
+  if (!top) return buildNoDatasetRecommendation({ input, candidateCount: candidates.length });
+
+  const primaryCase = candidates.find((candidate) => candidate.datasetCaseId === top.caseId);
+  if (!primaryCase) return buildNoDatasetRecommendation({ input, candidateCount: candidates.length });
+
+  return {
+    source: {
+      type: 'backend_dataset',
+      confidenceTier: top.confidenceTier,
+      matchCount: ranked.length,
+    },
+    safety: {
+      intendedUseWarning: 'Suggested from facility-approved, de-identified dataset cases. This is decision support, not an order.',
+      validationRequirement: 'Clinician review is required before applying ventilator settings.',
+      clinicianVisibleModelOutput: false,
+    },
+    units: RECOMMENDATION_UNITS,
+    initialVentilatorSettings: {
+      source: 'datasetCase.ventilatorSetting',
+      settings: primaryCase.settings,
+    },
+    monitoringPoints: [],
+    riskFactors: [],
+    complicationHistory: [],
+    additionalTestPrompts: [],
+    nextActions: [],
+    decisionProvenance: {
+      reviewStatus: 'approved_for_training',
+      sourceNote: 'Matched against approved, de-identified dataset cases in this facility.',
+    },
+    governance: {
+      ruleBasedMvp: true,
+      caseMatchingHiddenFromClinicians: true,
+      onlineAiClinicianPathEnabled: false,
+      patientIdentifiersSentToExternalModelServices: false,
+    },
+    missingInputs: getMissingRecommendationInputs(input),
+  };
+};
+
+export const recommendNewPatientVentilatorSettings = async (payload = {}, userId) => {
+  const facilityId = await resolveFacilityScope(userId, cleanText(payload.facilityId) || undefined, WRITE_ROLES);
+  if (!facilityId) throw forbidden('Facility scope is required to generate New Patient ventilator recommendations');
+
+  const input = normalizeRecommendationInput(payload.input);
+  const datasetCases = await prisma.datasetCase.findMany({
+    where: {
+      facilityId,
+      approvedForTraining: true,
+      reviewStatus: 'APPROVED_FOR_TRAINING',
+    },
+    select: RECOMMENDATION_DATASET_SELECT,
+    orderBy: { reviewedAt: 'desc' },
+    take: 200,
+  });
+
+  const candidates = datasetCases
+    .map(extractDatasetRecommendationCandidate)
+    .filter(Boolean);
+  const ranked = candidates
+    .map((candidate) => scoreDatasetRecommendationCandidate(input, candidate))
+    .filter((match) => match.completeness > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      if (b.completeness !== a.completeness) return b.completeness - a.completeness;
+      return String(a.caseId || '').localeCompare(String(b.caseId || ''));
+    })
+    .slice(0, 5);
+
+  return toJson({
+    recommendation: buildDatasetRecommendation({ input, candidates, ranked }),
+    source: {
+      type: 'backend_dataset',
+      datasetCaseCount: datasetCases.length,
+      candidateCount: candidates.length,
+      matchCount: ranked.length,
+    },
+    missingInputs: getMissingRecommendationInputs(input),
   });
 };
 
@@ -474,7 +817,7 @@ const buildPatientReasonSnapshot = (payload) => {
   return stripNullish({
     measuredAt: payload.admittedAt,
     mainCondition: cleanText(clinicalReason.mainCondition) || reasonForSupport,
-    comorbiditiesJson: mergeAdmissionFlowMetadata({
+    comorbiditiesJson: mergeNewPatientFlowMetadata({
       ...comorbiditiesJson,
       specialConditionsJson,
     }, {
@@ -490,14 +833,14 @@ const buildPatientReasonSnapshot = (payload) => {
 };
 
 const applyClinicalSnapshotFlowMetadata = (record, admission, payload) => {
-  const existingFlow = extractAdmissionFlowMetadata(admission);
+  const existingFlow = extractNewPatientFlowMetadata(admission);
   const uncertainty = normalizeUncertainty(payload.uncertainty) || existingFlow.uncertainty || null;
   const deviceContext = normalizeDeviceContext(payload) || existingFlow.deviceContext || null;
 
   return stripNullish({
     ...record,
     source: record?.source || `${THREE_STEP_SOURCE}:oxygen_abg_ventilator`,
-    comorbiditiesJson: mergeAdmissionFlowMetadata(record?.comorbiditiesJson, {
+    comorbiditiesJson: mergeNewPatientFlowMetadata(record?.comorbiditiesJson, {
       ...existingFlow,
       step: 'oxygen_abg_ventilator',
       uncertainty,
@@ -573,7 +916,7 @@ const assertNoReviewedOverwrite = async (tx, admissionId, userId, { allowClinici
     where: { id: admissionId },
     select: { id: true, facilityId: true, reviewStatus: true },
   });
-  if (!admission) throw notFound('Admission not found');
+  if (!admission) throw notFound('New Patient record not found');
 
   if (admission.reviewStatus === 'APPROVED') {
     try {
@@ -600,7 +943,7 @@ const assertNoReviewedOverwrite = async (tx, admissionId, userId, { allowClinici
   };
 };
 
-export const listAdmissions = async (userId, { facilityId, status, reviewStatus, patientPathway, page, limit }) => {
+export const listNewPatients = async (userId, { facilityId, status, reviewStatus, patientPathway, page, limit }) => {
   const scopedFacilityId = await resolveFacilityScope(userId, facilityId);
   const where = {
     ...(scopedFacilityId ? { facilityId: scopedFacilityId } : {}),
@@ -612,7 +955,7 @@ export const listAdmissions = async (userId, { facilityId, status, reviewStatus,
   const [items, total] = await Promise.all([
     prisma.admission.findMany({
       where,
-      include: admissionInclude,
+      include: newPatientInclude,
       orderBy: { admittedAt: 'desc' },
       skip: (page - 1) * limit,
       take: limit,
@@ -632,12 +975,12 @@ export const listAdmissions = async (userId, { facilityId, status, reviewStatus,
   };
 };
 
-export const createAdmission = async (payload, createdByUserId, auditContext = {}) => {
-  const facilityId = await resolveAdmissionCreateFacilityId(createdByUserId, payload.facilityId);
-  const admissionPayload = {
+export const createNewPatient = async (payload, createdByUserId, auditContext = {}) => {
+  const facilityId = await resolveNewPatientCreateFacilityId(createdByUserId, payload.facilityId);
+  const admissionPayload = stripRemovedFieldsFromNewPatientPayload({
     ...payload,
     facilityId,
-  };
+  });
 
   return prisma.$transaction(async (tx) => {
     const idem = await resolveIdempotency({
@@ -659,7 +1002,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
       data: stripUndefined({
         patientId: createdPatient.id,
         facilityId,
-        appAdmissionCode: admissionPayload.appAdmissionCode || createAdmissionCode(),
+        appAdmissionCode: admissionPayload.appAdmissionCode || createNewPatientCode(),
         bedNumber: admissionPayload.bedNumber,
         admittedAt: admissionPayload.admittedAt,
         admissionSource: admissionPayload.admissionSource,
@@ -748,7 +1091,7 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
       });
     }
 
-    const created = await tx.admission.findUnique({ where: { id: admission.id }, include: admissionInclude });
+    const created = await tx.admission.findUnique({ where: { id: admission.id }, include: newPatientInclude });
     const responseJson = toJson({
       admission: created,
       clinicalSummary: buildClinicalSummary(created, { referenceRanges }),
@@ -783,16 +1126,16 @@ export const createAdmission = async (payload, createdByUserId, auditContext = {
   });
 };
 
-export const getAdmissionById = async (userId, id) => {
+export const getNewPatientById = async (userId, id) => {
   const admissionAccess = await assertAdmissionAccess(userId, id);
-  const admission = await prisma.admission.findUnique({ where: { id }, include: fullAdmissionInclude });
-  if (!admission) throw notFound('Admission not found');
-  if (admission.facilityId !== admissionAccess.facilityId) throw notFound('Admission not found');
+  const admission = await prisma.admission.findUnique({ where: { id }, include: fullNewPatientInclude });
+  if (!admission) throw notFound('New Patient record not found');
+  if (admission.facilityId !== admissionAccess.facilityId) throw notFound('New Patient record not found');
   const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { allowDevelopmentFallback: false });
   return { ...admission, clinicalSummary: buildClinicalSummary(admission, { referenceRanges }) };
 };
 
-export const createAdmissionPatientReasonStep = async (payload, userId, auditContext = {}) => {
+export const createNewPatientReasonStep = async (payload, userId, auditContext = {}) => {
   const admissionPayload = stripNullish({
     facilityId: payload.facilityId,
     appAdmissionCode: payload.appAdmissionCode,
@@ -809,10 +1152,10 @@ export const createAdmissionPatientReasonStep = async (payload, userId, auditCon
     idempotencyKey: payload.idempotencyKey,
   });
 
-  const result = await createAdmission(admissionPayload, userId, auditContext);
+  const result = await createNewPatient(admissionPayload, userId, auditContext);
   const admissionId = result.admission?.id;
-  const admission = admissionId ? await getAdmissionById(userId, admissionId) : result.admission;
-  const response = buildThreeStepAdmissionResponse('patient_reason', admission, {
+  const admission = admissionId ? await getNewPatientById(userId, admissionId) : result.admission;
+  const response = buildThreeStepNewPatientResponse('patient_reason', admission, {
     facilityId: admission?.facilityId || payload.facilityId,
     syncStatus: result.syncStatus || 'synced',
   });
@@ -832,13 +1175,13 @@ export const createAdmissionPatientReasonStep = async (payload, userId, auditCon
   return response;
 };
 
-export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, payload, auditContext = {}) => {
+export const saveNewPatientOxygenAbgVentilatorStep = async (userId, admissionId, payload, auditContext = {}) => {
   await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
-  const admission = await getAdmissionById(userId, admissionId);
+  const admission = await getNewPatientById(userId, admissionId);
   const saved = {};
   const writeStatuses = [];
 
-  const oxygenRecord = stripNullish(payload.oxygen || payload.clinicalSnapshot || {});
+  const oxygenRecord = stripNullish(withoutRemovedNewPatientFields(payload.oxygen || payload.clinicalSnapshot || {}));
   const shouldStoreFlowSnapshot = hasKeys(stripNullish({
     uncertainty: normalizeUncertainty(payload.uncertainty),
     deviceContext: normalizeDeviceContext(payload),
@@ -856,7 +1199,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     writeStatuses.push(result.syncStatus || 'synced');
   }
 
-  const abgRecord = stripNullish(payload.abg || payload.abgTest || {});
+  const abgRecord = stripNullish(withoutRemovedNewPatientFields(payload.abg || payload.abgTest || {}));
   if (hasKeys(abgRecord)) {
     const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
       includeSource: true,
@@ -867,7 +1210,7 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     writeStatuses.push(result.syncStatus || 'synced');
   }
 
-  const ventilatorRecord = stripNullish(payload.ventilator || payload.ventilatorSetting || {});
+  const ventilatorRecord = stripNullish(withoutRemovedNewPatientFields(payload.ventilator || payload.ventilatorSetting || {}));
   if (hasKeys(ventilatorRecord)) {
     const ventilatorPayload = buildStepWriteMetadata(ventilatorRecord, payload, 'ventilator', {
       includeSource: true,
@@ -894,9 +1237,9 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
     writeStatuses.push(result.syncStatus || 'synced');
   }
 
-  const refreshed = await getAdmissionById(userId, admissionId);
+  const refreshed = await getNewPatientById(userId, admissionId);
   const syncStatus = writeStatuses.length > 0 && writeStatuses.every((status) => status === 'duplicate') ? 'duplicate' : 'synced';
-  const response = buildThreeStepAdmissionResponse('oxygen_abg_ventilator', refreshed, {
+  const response = buildThreeStepNewPatientResponse('oxygen_abg_ventilator', refreshed, {
     facilityId: refreshed.facilityId,
     saved,
     syncStatus,
@@ -918,10 +1261,10 @@ export const saveAdmissionOxygenAbgVentilatorStep = async (userId, admissionId, 
   return response;
 };
 
-export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payload = {}, auditContext = {}) => {
+export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, payload = {}, auditContext = {}) => {
   const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
-  const abgRecord = stripNullish(payload.abgTest || {});
-  const ventilatorRecord = stripNullish(payload.ventilatorSetting || {});
+  const abgRecord = stripNullish(withoutRemovedNewPatientFields(payload.abgTest || {}));
+  const ventilatorRecord = stripNullish(withoutRemovedNewPatientFields(payload.ventilatorSetting || {}));
 
   if (
     !hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS) &&
@@ -968,9 +1311,9 @@ export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payl
       saved.ventilatorSetting = await createVentilatorSettingRecord({ tx, userId, admissionId, payload: ventilatorPayload });
     }
 
-    const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
+    const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(admissionAccess.facilityId, { tx });
-    const responseJson = buildThreeStepAdmissionResponse(
+    const responseJson = buildThreeStepNewPatientResponse(
       'abg_ventilator_update',
       { ...refreshed, clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }) },
       {
@@ -1015,7 +1358,7 @@ export const saveAdmissionAbgVentilatorUpdate = async (userId, admissionId, payl
   });
 };
 
-export const saveAdmissionReviewStep = async (userId, admissionId, payload, auditContext = {}) => {
+export const saveNewPatientReviewStep = async (userId, admissionId, payload, auditContext = {}) => {
   const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
 
   return prisma.$transaction(async (tx) => {
@@ -1029,21 +1372,13 @@ export const saveAdmissionReviewStep = async (userId, admissionId, payload, audi
     });
     if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
 
-    const before = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
-    if (!before) throw notFound('Admission not found');
+    const before = await tx.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
+    if (!before) throw notFound('New Patient record not found');
 
     const referenceRanges = await resolveDecisionSupportReferenceRanges(before.facilityId, { tx });
     const clinicalSummary = buildClinicalSummary(before, { referenceRanges });
-    const readiness = buildAdmissionReadiness({ ...before, clinicalSummary });
+    const readiness = buildNewPatientReadiness({ ...before, clinicalSummary });
     const overrideReasonText = getOverrideReason(payload);
-
-    if (readiness.blockers.length > 0 && !overrideReasonText) {
-      throw reviewerRequired('Save review requires correction or a clinician override reason for impossible values.', readiness.blockers, {
-        status: 'needs_review',
-        facilityId: before.facilityId,
-        admissionId,
-      });
-    }
 
     let reviewAction = null;
     const reviewComment = overrideReasonText || cleanText(payload.reviewNote);
@@ -1068,8 +1403,8 @@ export const saveAdmissionReviewStep = async (userId, admissionId, payload, audi
       });
     }
 
-    const after = await tx.admission.findUnique({ where: { id: admissionId }, include: fullAdmissionInclude });
-    const responseJson = buildThreeStepAdmissionResponse(
+    const after = await tx.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
+    const responseJson = buildThreeStepNewPatientResponse(
       'save_review',
       { ...after, clinicalSummary: buildClinicalSummary(after, { referenceRanges }) },
       {
@@ -1115,7 +1450,7 @@ export const saveAdmissionReviewStep = async (userId, admissionId, payload, audi
   });
 };
 
-export const updateAdmission = async (userId, id, data, auditContext = {}) => {
+export const updateNewPatient = async (userId, id, data, auditContext = {}) => {
   const admission = await assertAdmissionAccess(userId, id, WRITE_ROLES);
 
   return prisma.$transaction(async (tx) => {
@@ -1133,8 +1468,8 @@ export const updateAdmission = async (userId, id, data, auditContext = {}) => {
       allowClinicianOverride: true,
       overrideReason: getOverrideReason(data),
     });
-    const before = await tx.admission.findUnique({ where: { id }, include: admissionInclude });
-    const admissionPatchData = pickAdmissionPatchData(data);
+    const before = await tx.admission.findUnique({ where: { id }, include: newPatientInclude });
+    const admissionPatchData = pickNewPatientPatchData(data);
     const patientPatchData = preparePatientUpdateData(before.patient, data.patient);
 
     if (patientPatchData) {
@@ -1148,9 +1483,9 @@ export const updateAdmission = async (userId, id, data, auditContext = {}) => {
       ? await tx.admission.update({
         where: { id },
         data: admissionPatchData,
-        include: admissionInclude,
+        include: newPatientInclude,
       })
-      : await tx.admission.findUnique({ where: { id }, include: admissionInclude });
+      : await tx.admission.findUnique({ where: { id }, include: newPatientInclude });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
 
     const responseJson = toJson({
@@ -1268,7 +1603,7 @@ const createAppendOnlyRecord = async ({
       overrideReason: getOverrideReason(payload),
     });
     const record = await createRecord(tx, admission);
-    const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: admissionInclude });
+    const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: newPatientInclude });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(admission.facilityId, { tx });
     const responseJson = toJson({
       [entityType[0].toLowerCase() + entityType.slice(1)]: record,
@@ -1545,7 +1880,7 @@ export const assertNoConflictForSync = async ({ admissionId, clientUpdatedAt }) 
     where: { id: admissionId },
     select: { id: true, facilityId: true, updatedAt: true, reviewStatus: true },
   });
-  if (!admission) throw notFound('Admission not found');
+  if (!admission) throw notFound('New Patient record not found');
   if (admission.reviewStatus === 'APPROVED') {
     throw conflict('Reviewed admission requires reviewer resolution before sync overwrite', [], {
       status: 'conflict',

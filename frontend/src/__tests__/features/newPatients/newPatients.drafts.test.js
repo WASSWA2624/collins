@@ -1,6 +1,6 @@
 /**
- * Admission Draft Tests
- * File: admissions.drafts.test.js
+ * New Patient Draft Tests
+ * File: newPatients.drafts.test.js
  */
 const storage = {};
 
@@ -23,23 +23,23 @@ jest.mock('@errors', () => ({
 }));
 
 import {
-  ADMISSION_DRAFTS_STORAGE_KEY,
-  loadAdmissionDrafts,
-  removeAdmissionDraft,
-  saveAdmissionDraft,
-} from '@features/admissions';
+  NEW_PATIENT_DRAFTS_STORAGE_KEY,
+  loadNewPatientDrafts,
+  removeNewPatientDraft,
+  saveNewPatientDraft,
+} from '@features/newPatients';
 import { async as asyncStorage } from '@services/storage';
 
 const now = () => new Date('2026-05-05T08:00:00.000Z');
 
-describe('admissions.drafts', () => {
+describe('newPatients.drafts', () => {
   beforeEach(() => {
     Object.keys(storage).forEach((key) => delete storage[key]);
     jest.clearAllMocks();
   });
 
   it('saves normalized drafts with facility and offline metadata', async () => {
-    const result = await saveAdmissionDraft({
+    const result = await saveNewPatientDraft({
       facilityId: 'facility-1',
       patient: {
         patientPathway: 'trauma',
@@ -52,39 +52,39 @@ describe('admissions.drafts', () => {
     expect(result.draft.patient.patientPathway).toBe('TRAUMA');
     expect(result.draft.patient.actualWeightKg).toBeNull();
     expect(result.draft.clientCreatedAt).toBe('2026-05-05T08:00:00.000Z');
-    expect(result.draft.idempotencyKey).toMatch(/^admission:facility-1:/);
-    expect(asyncStorage.setItem).toHaveBeenCalledWith(ADMISSION_DRAFTS_STORAGE_KEY, [result.draft]);
+    expect(result.draft.idempotencyKey).toMatch(/^new-patient:facility-1:/);
+    expect(asyncStorage.setItem).toHaveBeenCalledWith(NEW_PATIENT_DRAFTS_STORAGE_KEY, [result.draft]);
   });
 
   it('loads, replaces, and removes drafts by idempotency key', async () => {
-    const first = await saveAdmissionDraft({
+    const first = await saveNewPatientDraft({
       facilityId: 'facility-1',
       patient: { patientPathway: 'adult' },
       idempotencyKey: 'offline-admission-1',
     }, { now });
-    await saveAdmissionDraft({
+    await saveNewPatientDraft({
       ...first.draft,
       patient: { patientPathway: 'medical' },
       idempotencyKey: 'offline-admission-1',
     }, { now });
 
-    const loaded = await loadAdmissionDrafts();
+    const loaded = await loadNewPatientDrafts();
     expect(loaded.ok).toBe(true);
     expect(loaded.drafts).toHaveLength(1);
     expect(loaded.drafts[0].patient.patientPathway).toBe('MEDICAL');
 
-    const removed = await removeAdmissionDraft('offline-admission-1');
+    const removed = await removeNewPatientDraft('offline-admission-1');
     expect(removed.ok).toBe(true);
-    expect((await loadAdmissionDrafts()).drafts).toEqual([]);
+    expect((await loadNewPatientDrafts()).drafts).toEqual([]);
   });
 
   it('clears corrupt draft storage', async () => {
-    storage[ADMISSION_DRAFTS_STORAGE_KEY] = [{ facilityId: 'facility-1' }];
+    storage[NEW_PATIENT_DRAFTS_STORAGE_KEY] = [{ facilityId: 'facility-1' }];
 
-    const loaded = await loadAdmissionDrafts();
+    const loaded = await loadNewPatientDrafts();
 
     expect(loaded.ok).toBe(false);
-    expect(loaded.errorCode).toBe('ADMISSION_DRAFTS_CORRUPT');
-    expect(asyncStorage.removeItem).toHaveBeenCalledWith(ADMISSION_DRAFTS_STORAGE_KEY);
+    expect(loaded.errorCode).toBe('NEW_PATIENT_DRAFTS_CORRUPT');
+    expect(asyncStorage.removeItem).toHaveBeenCalledWith(NEW_PATIENT_DRAFTS_STORAGE_KEY);
   });
 });

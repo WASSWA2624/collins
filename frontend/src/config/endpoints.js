@@ -8,6 +8,25 @@ import { API_BASE_URL, API_VERSION } from '@config/env';
 const normalizeBaseUrl = (value) => String(value || '').replace(/\/+$/, '');
 const baseUrl = `${normalizeBaseUrl(API_BASE_URL)}/api/${API_VERSION}`;
 const newPatientsBaseUrl = `${baseUrl}/new-patients`;
+const newPatientEndpoints = {
+  LIST: newPatientsBaseUrl,
+  CREATE: newPatientsBaseUrl,
+  GET: (id) => `${newPatientsBaseUrl}/${id}`,
+  UPDATE: (id) => `${newPatientsBaseUrl}/${id}`,
+  THREE_STEP_PATIENT_REASON: `${newPatientsBaseUrl}/three-step/patient-reason`,
+  THREE_STEP_OXYGEN_ABG_VENTILATOR: (id) =>
+    `${newPatientsBaseUrl}/${id}/three-step/oxygen-abg-ventilator`,
+  THREE_STEP_SAVE_REVIEW: (id) => `${newPatientsBaseUrl}/${id}/three-step/save-review`,
+  VENTILATOR_RECOMMENDATION: `${newPatientsBaseUrl}/ventilator-recommendation`,
+  ABG_VENTILATOR_UPDATES: (id) => `${newPatientsBaseUrl}/${id}/abg-ventilator-updates`,
+  CLINICAL_SNAPSHOTS: (id) => `${newPatientsBaseUrl}/${id}/clinical-snapshots`,
+  ABG_TESTS: (id) => `${newPatientsBaseUrl}/${id}/abg-tests`,
+  VENTILATOR_SETTINGS: (id) => `${newPatientsBaseUrl}/${id}/ventilator-settings`,
+  AIRWAY_DEVICE: (id) => `${newPatientsBaseUrl}/${id}/airway-device`,
+  HUMIDIFICATION: (id) => `${newPatientsBaseUrl}/${id}/humidification`,
+  DAILY_REVIEW: (id) => `${newPatientsBaseUrl}/${id}/daily-review`,
+  OUTCOME: (id) => `${newPatientsBaseUrl}/${id}/outcome`,
+};
 
 export const endpoints = {
   HEALTH: `${baseUrl}/health`,
@@ -57,24 +76,8 @@ export const endpoints = {
     MY_FACILITIES: `${baseUrl}/me/facilities`,
   },
 
-  ADMISSIONS: {
-    LIST: newPatientsBaseUrl,
-    CREATE: newPatientsBaseUrl,
-    GET: (id) => `${newPatientsBaseUrl}/${id}`,
-    UPDATE: (id) => `${newPatientsBaseUrl}/${id}`,
-    THREE_STEP_PATIENT_REASON: `${newPatientsBaseUrl}/three-step/patient-reason`,
-    THREE_STEP_OXYGEN_ABG_VENTILATOR: (id) =>
-      `${newPatientsBaseUrl}/${id}/three-step/oxygen-abg-ventilator`,
-    THREE_STEP_SAVE_REVIEW: (id) => `${newPatientsBaseUrl}/${id}/three-step/save-review`,
-    ABG_VENTILATOR_UPDATES: (id) => `${newPatientsBaseUrl}/${id}/abg-ventilator-updates`,
-    CLINICAL_SNAPSHOTS: (id) => `${newPatientsBaseUrl}/${id}/clinical-snapshots`,
-    ABG_TESTS: (id) => `${newPatientsBaseUrl}/${id}/abg-tests`,
-    VENTILATOR_SETTINGS: (id) => `${newPatientsBaseUrl}/${id}/ventilator-settings`,
-    AIRWAY_DEVICE: (id) => `${newPatientsBaseUrl}/${id}/airway-device`,
-    HUMIDIFICATION: (id) => `${newPatientsBaseUrl}/${id}/humidification`,
-    DAILY_REVIEW: (id) => `${newPatientsBaseUrl}/${id}/daily-review`,
-    OUTCOME: (id) => `${newPatientsBaseUrl}/${id}/outcome`,
-  },
+  NEW_PATIENTS: newPatientEndpoints,
+  ADMISSIONS: newPatientEndpoints,
 
   TRACKING: {
     LIST: `${baseUrl}/tracking`,

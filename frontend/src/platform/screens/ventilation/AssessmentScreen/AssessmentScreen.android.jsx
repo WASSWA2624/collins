@@ -119,6 +119,9 @@ const AssessmentScreenAndroid = () => {
     goNext,
     goBackOrExit,
     saveAdmission,
+    conflictWarning,
+    continueAfterConflict,
+    dismissConflictWarning,
     isSaving,
     isHydrating,
     errorCode,
@@ -173,6 +176,35 @@ const AssessmentScreenAndroid = () => {
         {messages.map((message) => (
           <Text key={message} variant="body" color="status.warning.text">{message}</Text>
         ))}
+      </StyledMissingTests>
+    );
+  };
+
+  const renderConflictWarning = () => {
+    if (!conflictWarning) return null;
+    return (
+      <StyledMissingTests testID="assessment-conflict-warning" accessibilityRole="alert">
+        <Text variant="label" color="status.warning.text">{t('ventilation.assessment.validation.conflictTitle')}</Text>
+        <Text variant="body" color="status.warning.text">{t('ventilation.assessment.validation.conflictBody')}</Text>
+        <StyledActionsRow>
+          <Button
+            variant="outline"
+            onPress={dismissConflictWarning}
+            disabled={isSaving}
+            testID="assessment-conflict-edit"
+          >
+            {t('ventilation.assessment.validation.conflictCancel')}
+          </Button>
+          <Button
+            variant="primary"
+            onPress={continueAfterConflict}
+            disabled={isSaving}
+            loading={isSaving}
+            testID="assessment-conflict-continue"
+          >
+            {t('ventilation.assessment.validation.conflictContinue')}
+          </Button>
+        </StyledActionsRow>
       </StyledMissingTests>
     );
   };
@@ -285,8 +317,9 @@ const AssessmentScreenAndroid = () => {
   };
 
   const renderPatientReasonStep = () => (
-      <StyledFieldGroup>
+    <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <StyledChoiceSection testID="assessment-patient-pathway">
         <StyledChoiceHeader>
@@ -401,6 +434,7 @@ const AssessmentScreenAndroid = () => {
   const renderOxygenAbgVentilatorStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <Select label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')} placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')} helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')} options={oxygenSupportOptions} value={mergedInputs.oxygenSupportType} onValueChange={(value) => updateInput({ oxygenSupportType: value })} {...getFieldErrorProps('oxygenSupportType')} required testID="assessment-oxygen-support" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2')} type="number" helperText={helperTextFor('spo2')} value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''} onChangeText={(value) => updateInput({ spo2: parseNum(value) })} {...getFieldErrorProps('spo2')} required testID="assessment-spo2" />
@@ -433,10 +467,10 @@ const AssessmentScreenAndroid = () => {
           <>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}</Text>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.suggestedSettingsHint')}</Text>
-            <Select label={t('ventilation.assessment.saveReview.ventilatorMode')} placeholder={t('ventilation.assessment.saveReview.modePlaceholder')} options={ventilatorModeOptions} value={suggestedVentilatorInputs.ventilatorMode} onValueChange={(value) => updateInput({ ventilatorMode: value })} {...getFieldErrorProps('ventilatorMode')} required testID="assessment-suggested-ventilator-mode" />
-            <TextField label={t('ventilation.assessment.saveReview.tidalVolumeMl')} type="number" helperText={helperTextFor('tidalVolumeMl')} value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''} onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })} {...getFieldErrorProps('tidalVolumeMl')} required testID="assessment-suggested-tidal-volume" />
-            <TextField label={t('ventilation.assessment.saveReview.respiratoryRateSet')} type="number" helperText={helperTextFor('respiratoryRateSet')} value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''} onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })} {...getFieldErrorProps('respiratoryRateSet')} required testID="assessment-suggested-respiratory-rate-set" />
-            <TextField label={t('ventilation.assessment.saveReview.peep')} type="number" helperText={helperTextFor('peep')} value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''} onChangeText={(value) => updateInput({ peep: parseNum(value) })} {...getFieldErrorProps('peep')} required testID="assessment-suggested-peep" />
+            <Select label={t('ventilation.assessment.saveReview.ventilatorMode')} placeholder={t('ventilation.assessment.saveReview.modePlaceholder')} options={ventilatorModeOptions} value={suggestedVentilatorInputs.ventilatorMode} onValueChange={(value) => updateInput({ ventilatorMode: value })} {...getFieldErrorProps('ventilatorMode')} testID="assessment-suggested-ventilator-mode" />
+            <TextField label={t('ventilation.assessment.saveReview.tidalVolumeMl')} type="number" helperText={helperTextFor('tidalVolumeMl')} value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''} onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })} {...getFieldErrorProps('tidalVolumeMl')} testID="assessment-suggested-tidal-volume" />
+            <TextField label={t('ventilation.assessment.saveReview.respiratoryRateSet')} type="number" helperText={helperTextFor('respiratoryRateSet')} value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''} onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })} {...getFieldErrorProps('respiratoryRateSet')} testID="assessment-suggested-respiratory-rate-set" />
+            <TextField label={t('ventilation.assessment.saveReview.peep')} type="number" helperText={helperTextFor('peep')} value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''} onChangeText={(value) => updateInput({ peep: parseNum(value) })} {...getFieldErrorProps('peep')} testID="assessment-suggested-peep" />
             <TextField label={t('ventilation.assessment.saveReview.ieRatio')} value={suggestedVentilatorInputs.ieRatio} onChangeText={(value) => updateInput({ ieRatio: value })} testID="assessment-suggested-ie-ratio" />
           </>
         ) : (
@@ -475,6 +509,7 @@ const AssessmentScreenAndroid = () => {
           </Text>
         ))}
       </StyledMissingTests>
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <Checkbox checked={mergedInputs.clinicianConfirmed} onChange={toggleClinicianConfirmed} label={t('ventilation.assessment.saveReview.clinicianConfirmed')} required testID="assessment-clinician-confirmed" />
       {(readiness.blockers || []).length > 0 && (

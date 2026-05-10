@@ -49,21 +49,30 @@ const hydrateVentilationSession = createAsyncThunk('ventilation/hydrateSession',
 
 const persistVentilationSessionDraft = createAsyncThunk(
   'ventilation/persistDraft',
-  async (_, { getState, rejectWithValue }) => {
+  async (draftOverrides = {}, { getState, rejectWithValue }) => {
     try {
       const state = getState();
       const ventilation = state?.ventilation ?? {};
       const scope = getStorageScope(state);
-      const sessionId = ventilation?.currentSessionId;
+      const overrides = draftOverrides && typeof draftOverrides === 'object' ? draftOverrides : {};
+      const sessionId = overrides.sessionId || ventilation?.currentSessionId;
       if (!sessionId) return true;
 
       const draft = {
         sessionId,
-        inputs: ventilation?.currentInputs ?? null,
-        recommendationSummary: ventilation?.lastRecommendationSummary ?? null,
-        assessmentCurrentStep: ventilation?.assessmentCurrentStep ?? 0,
-        assessmentRecommendationSource: ventilation?.assessmentRecommendationSource ?? 'local',
-        monitoringTimeSeries: Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : [],
+        inputs: Object.prototype.hasOwnProperty.call(overrides, 'inputs')
+          ? overrides.inputs
+          : ventilation?.currentInputs ?? null,
+        recommendationSummary: Object.prototype.hasOwnProperty.call(overrides, 'recommendationSummary')
+          ? overrides.recommendationSummary
+          : ventilation?.lastRecommendationSummary ?? null,
+        assessmentCurrentStep: Object.prototype.hasOwnProperty.call(overrides, 'assessmentCurrentStep')
+          ? overrides.assessmentCurrentStep
+          : ventilation?.assessmentCurrentStep ?? 0,
+        assessmentRecommendationSource: overrides.assessmentRecommendationSource || ventilation?.assessmentRecommendationSource || 'local',
+        monitoringTimeSeries: Object.prototype.hasOwnProperty.call(overrides, 'monitoringTimeSeries')
+          ? (Array.isArray(overrides.monitoringTimeSeries) ? overrides.monitoringTimeSeries : [])
+          : (Array.isArray(ventilation?.monitoringTimeSeries) ? ventilation.monitoringTimeSeries : []),
         userId: scope.userId,
         facilityId: scope.facilityId,
         updatedAt: Date.now(),

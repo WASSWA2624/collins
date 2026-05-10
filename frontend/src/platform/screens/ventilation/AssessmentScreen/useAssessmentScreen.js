@@ -7,10 +7,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
 import {
-  ADMISSION_SYNC_STATUS,
-  createAdmissionClientRecordId,
+  NEW_PATIENT_SYNC_STATUS,
+  createNewPatientClientRecordId,
+  getNewPatientVentilatorRecommendationApi,
   getVentilationRecommendationUseCase,
-  saveAdmissionReviewStepApi,
+  saveNewPatientReviewStepApi,
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } from '@features/ventilation';
@@ -40,10 +41,6 @@ const REQUIRED_FIELDS = [
   { field: 'respiratoryRate', label: 'Respiratory rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'heartRate', label: 'Heart rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'ph', label: 'pH', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
-  { field: 'ventilatorMode', label: 'Ventilator mode', steps: [STEPS.SAVE_REVIEW] },
-  { field: 'tidalVolumeMl', label: 'Tidal volume', steps: [STEPS.SAVE_REVIEW], type: 'number' },
-  { field: 'respiratoryRateSet', label: 'Set respiratory rate', steps: [STEPS.SAVE_REVIEW], type: 'number' },
-  { field: 'peep', label: 'PEEP', steps: [STEPS.SAVE_REVIEW], type: 'number' },
 ];
 const RANGE_SUGGESTIONS = [
   { field: 'ageYears', hint: 'Suggested range: 0-130 years.' },
@@ -89,6 +86,11 @@ const FIELD_VALIDATION_STEPS = [...REQUIRED_FIELDS, ...DATE_FIELDS].reduce(
 const nowIso = () => new Date().toISOString();
 const isFiniteNumber = (value) => typeof value === 'number' && Number.isFinite(value);
 const cleanText = (value) => (typeof value === 'string' && value.trim() ? value.trim() : '');
+const isNewPatientConflictError = (error) => {
+  const status = error?.status || error?.statusCode;
+  const code = cleanText(error?.code);
+  return status === 409 || code === 'CONFLICT';
+};
 const splitList = (value) =>
   cleanText(value)
     .split(',')
@@ -247,8 +249,6 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
   const missingData = [];
   if (!isFiniteNumber(inputs.actualWeightKg)) missingData.push('actualWeightKg/referenceWeightKg');
   if (!isFiniteNumber(inputs.spo2)) missingData.push('SpO2');
-  if (!isFiniteNumber(inputs.tidalVolumeMl)) missingData.push('tidalVolumeMl');
-  if (!isFiniteNumber(inputs.peep)) missingData.push('PEEP');
 
   const permitted = Array.isArray(inputs.permittedMissingFields) ? inputs.permittedMissingFields : [];
   const warnings = missingData.map((field) => ({
@@ -260,24 +260,13 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
       : `${field} is missing. Complete this value before saving.`,
   }));
 
-  const impossibleFields = [];
-  if (isFiniteNumber(inputs.spo2) && (inputs.spo2 < 40 || inputs.spo2 > 100)) impossibleFields.push('SpO2');
-  if (isFiniteNumber(inputs.peep) && (inputs.peep < 0 || inputs.peep > 30)) impossibleFields.push('PEEP');
-
-  const blockers = impossibleFields.map((field) => ({
-    code: 'IMPOSSIBLE_VALUE',
-    severity: 'red',
-    field,
-    message: 'Impossible values require correction or documented clinician override before save review.',
-  }));
-
   const localReadiness = {
-    isReadyToSave: blockers.length === 0 && missingData.length === 0,
+    isReadyToSave: true,
     needsReview: warnings.some((warning) => ['red', 'yellow'].includes(warning.severity)),
     missingData,
     permittedMissingFields: permitted,
     warnings,
-    blockers,
+    blockers: [],
   };
 
   if (!serverReadiness || typeof serverReadiness !== 'object') return localReadiness;
@@ -305,25 +294,28 @@ const buildReadinessFromInputs = (inputs, serverReadiness = null) => {
     }
   });
 
-  const serverBlockers = toArray(serverReadiness.blockers);
-  const combinedBlockers = [...serverBlockers];
-  localReadiness.blockers.forEach((blocker) => {
-    if (!combinedBlockers.some((item) => item?.code === blocker.code && item?.field === blocker.field)) {
-      combinedBlockers.push(blocker);
+  toArray(serverReadiness.blockers).forEach((blocker) => {
+    const advisory = {
+      ...blocker,
+      code: blocker?.code || 'SERVER_REVIEW_WARNING',
+      severity: blocker?.severity || 'yellow',
+      message: cleanText(blocker?.message) || 'Review this advisory item before saving.',
+    };
+    if (!combinedWarnings.some((item) => item?.code === advisory.code && item?.field === advisory.field)) {
+      combinedWarnings.push(advisory);
     }
   });
 
   return {
     ...serverReadiness,
-    isReadyToSave: localReadiness.isReadyToSave && combinedBlockers.length === 0,
+    isReadyToSave: true,
     needsReview:
       localReadiness.needsReview ||
-      combinedWarnings.some((warning) => ['red', 'yellow'].includes(warning?.severity)) ||
-      combinedBlockers.length > 0,
+      combinedWarnings.some((warning) => ['red', 'yellow'].includes(warning?.severity)),
     missingData: localReadiness.missingData,
     permittedMissingFields: localReadiness.permittedMissingFields,
     warnings: combinedWarnings,
-    blockers: combinedBlockers,
+    blockers: [],
   };
 };
 
@@ -373,15 +365,6 @@ const buildValidationFromInputs = (inputs, step, readiness, options = {}) => {
         messages,
         'clinicianConfirmed',
         'Confirm the New Patient record is ready for review before saving.'
-      );
-    }
-
-    if ((readiness?.blockers || []).length > 0 && cleanText(inputs.overrideReason).length < 8) {
-      addValidationError(
-        fieldErrors,
-        messages,
-        'overrideReason',
-        'Add a brief override reason before saving with correction blockers.'
       );
     }
   }
@@ -538,6 +521,13 @@ const buildSaveReviewPayload = (inputs) => {
   };
 };
 
+const getResponseAdmissionId = (response, fallback) =>
+  response?.admission?.id ||
+  response?.admissionId ||
+  response?.admission?.clientRecordId ||
+  fallback ||
+  null;
+
 const firstFiniteNumber = (...values) => {
   for (const value of values) {
     if (isFiniteNumber(value)) return value;
@@ -599,6 +589,11 @@ const buildSuggestedVentilatorInputPatch = (settings) => {
   return patch;
 };
 
+const hasRecommendationVentilatorSettings = (recommendation) => {
+  const settings = recommendation?.initialVentilatorSettings?.settings;
+  return Boolean(settings && typeof settings === 'object' && Object.keys(settings).length > 0);
+};
+
 export default function useAssessmentScreen() {
   const router = useRouter();
   const activeFacility = useSelector(selectActiveFacility);
@@ -622,13 +617,14 @@ export default function useAssessmentScreen() {
     resetSession,
   } = useVentilationSession();
 
-  const [clientRecordId] = useState(() => inputs?.clientRecordId || createAdmissionClientRecordId());
+  const [clientRecordId, setClientRecordId] = useState(() => inputs?.clientRecordId || createNewPatientClientRecordId());
   const [summaryExpanded, setSummaryExpanded] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isGeneratingRecommendation, setIsGeneratingRecommendation] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
   const [saveErrorCode, setSaveErrorCode] = useState(null);
   const [recommendationErrorCode, setRecommendationErrorCode] = useState(null);
+  const [conflictWarning, setConflictWarning] = useState(null);
   const [admissionId, setAdmissionId] = useState(() => inputs?.admissionId || inputs?.clientRecordId || clientRecordId);
   const [syncStatus, setSyncStatus] = useState(inputs?.syncStatus || 'draft');
   const [touchedFields, setTouchedFields] = useState({});
@@ -692,6 +688,7 @@ export default function useAssessmentScreen() {
       latestInputsRef.current = nextInputs;
       setInputs(nextInputs);
       setSaveErrorCode(null);
+      setConflictWarning(null);
     },
     [markFieldsTouched, setInputs]
   );
@@ -760,10 +757,7 @@ export default function useAssessmentScreen() {
         case STEPS.OXYGEN_ABG_VENTILATOR:
           return true;
         case STEPS.SAVE_REVIEW:
-          return (
-            mergedInputs.clinicianConfirmed === true &&
-            (readiness.blockers?.length > 0 ? cleanText(mergedInputs.overrideReason).length >= 8 : true)
-          );
+          return mergedInputs.clinicianConfirmed === true;
         default:
           return false;
       }
@@ -776,15 +770,19 @@ export default function useAssessmentScreen() {
       const nextInputs = { ...latestInputsRef.current, ...partial };
       latestInputsRef.current = nextInputs;
       setInputs(nextInputs);
-      await persistDraft();
+      await persistDraft({ inputs: nextInputs });
     },
     [persistDraft, setInputs]
   );
 
   const advanceToStep = useCallback(
     async (nextStep) => {
-      setAssessmentStep(Math.min(Math.max(nextStep, 0), TOTAL_STEPS - 1));
-      await persistDraft();
+      const boundedStep = Math.min(Math.max(nextStep, 0), TOTAL_STEPS - 1);
+      setAssessmentStep(boundedStep);
+      await persistDraft({
+        inputs: latestInputsRef.current,
+        assessmentCurrentStep: boundedStep,
+      });
     },
     [persistDraft, setAssessmentStep]
   );
@@ -792,24 +790,49 @@ export default function useAssessmentScreen() {
   const applyStepResponse = useCallback((response) => {
     if (!response || typeof response !== 'object') return;
     setServerResponse(response);
-    setSyncStatus(response.syncStatus || ADMISSION_SYNC_STATUS.SYNCED);
+    setSyncStatus(response.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED);
 
-    const nextAdmissionId =
-      response.admission?.id ||
-      response.admissionId ||
-      response.admission?.clientRecordId ||
+    const nextAdmissionId = getResponseAdmissionId(
+      response,
       mergedInputs.admissionId ||
       admissionId ||
-      mergedInputs.clientRecordId;
+      mergedInputs.clientRecordId
+    );
     if (nextAdmissionId) setAdmissionId(nextAdmissionId);
   }, [admissionId, mergedInputs.admissionId, mergedInputs.clientRecordId]);
 
+  const getBackendDatasetRecommendation = useCallback(
+    async (backendSummary = null, options = {}) => {
+      const activeInputs = options.inputs || latestInputsRef.current || mergedInputs;
+      const activeAdmissionId = options.admissionId || admissionRecordId;
+      try {
+        const response = await getNewPatientVentilatorRecommendationApi({
+          facilityId: textOrUndefined(activeInputs.facilityId),
+          admissionId: activeAdmissionId,
+          input: buildRecommendationInput(activeInputs),
+          backendSummary,
+        });
+        return response?.recommendation || response || null;
+      } catch {
+        return null;
+      }
+    },
+    [admissionRecordId, mergedInputs]
+  );
+
   const generateDatasetRecommendation = useCallback(
-    async (backendSummary = null) => {
+    async (backendSummary = null, options = {}) => {
+      const activeInputs = options.inputs || latestInputsRef.current || mergedInputs;
+      const activeAdmissionId = options.admissionId || admissionRecordId;
       setIsGeneratingRecommendation(true);
       try {
-        const recommendation = await getVentilationRecommendationUseCase({
-          input: buildRecommendationInput(mergedInputs),
+        const backendRecommendation = await getBackendDatasetRecommendation(backendSummary, {
+          inputs: activeInputs,
+          admissionId: activeAdmissionId,
+        });
+        const useBackendRecommendation = hasRecommendationVentilatorSettings(backendRecommendation);
+        const recommendation = useBackendRecommendation ? backendRecommendation : await getVentilationRecommendationUseCase({
+          input: buildRecommendationInput(activeInputs),
           ai: {
             useOnlineAi: false,
             backendSummary,
@@ -817,9 +840,9 @@ export default function useAssessmentScreen() {
         });
         const summaryWithSource = recommendation
           ? {
-              ...recommendation,
-              responseSource: 'offline',
-              admissionId: admissionRecordId,
+            ...recommendation,
+            responseSource: useBackendRecommendation ? 'backend_dataset' : 'offline',
+              admissionId: activeAdmissionId,
               syncStatus,
             }
           : null;
@@ -832,46 +855,59 @@ export default function useAssessmentScreen() {
       } catch (error) {
         setRecommendationSummary(null);
         setRecommendationErrorCode(error?.code || 'ADMISSION_RECOMMENDATION_FAILED');
-        await persistDraft();
+        await persistDraft({ inputs: latestInputsRef.current });
         return null;
       } finally {
         setIsGeneratingRecommendation(false);
       }
     },
-    [admissionRecordId, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
+    [admissionRecordId, getBackendDatasetRecommendation, mergedInputs, persistCurrentDraft, persistDraft, setRecommendationSummary, syncStatus]
   );
 
-  const savePatientReasonStep = useCallback(async () => {
-    const payload = buildPatientReasonPayload(mergedInputs);
+  const savePatientReasonStep = useCallback(async (inputOverride = null) => {
+    const activeInputs = inputOverride || latestInputsRef.current || mergedInputs;
+    const payload = buildPatientReasonPayload(activeInputs);
     const response = await savePatientReasonStepApi(payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || response?.admission?.clientRecordId || mergedInputs.clientRecordId,
-      syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+      admissionId: getResponseAdmissionId(response, activeInputs.clientRecordId),
+      syncStatus: response?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     });
     return response;
   }, [applyStepResponse, mergedInputs, persistCurrentDraft]);
 
-  const saveOxygenAbgVentilatorStep = useCallback(async () => {
-    const payload = buildOxygenAbgVentilatorPayload(mergedInputs, {
+  const saveOxygenAbgVentilatorStep = useCallback(async (inputOverride = null, admissionIdOverride = null) => {
+    const activeInputs = inputOverride || latestInputsRef.current || mergedInputs;
+    const activeAdmissionId =
+      admissionIdOverride ||
+      admissionRecordId ||
+      activeInputs.admissionId ||
+      activeInputs.clientRecordId;
+    const payload = buildOxygenAbgVentilatorPayload(activeInputs, {
       includeVentilator: false,
     });
-    const response = await saveOxygenAbgVentilatorStepApi(admissionRecordId, payload);
+    const response = await saveOxygenAbgVentilatorStepApi(activeAdmissionId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
-      syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+      admissionId: getResponseAdmissionId(response, activeAdmissionId || activeInputs.clientRecordId),
+      syncStatus: response?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     });
     return response;
   }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft]);
 
-  const saveSuggestedVentilatorSettingsStep = useCallback(async () => {
+  const saveSuggestedVentilatorSettingsStep = useCallback(async (inputOverride = null, admissionIdOverride = null) => {
+    const activeInputs = inputOverride || latestInputsRef.current || mergedInputs;
+    const activeAdmissionId =
+      admissionIdOverride ||
+      admissionRecordId ||
+      activeInputs.admissionId ||
+      activeInputs.clientRecordId;
     const fallbackPatch = buildSuggestedVentilatorInputPatch(
       recommendationSummary?.initialVentilatorSettings?.settings
     );
-    const inputsForVentilator = hasSuggestedVentilatorSettings(mergedInputs)
-      ? mergedInputs
-      : { ...mergedInputs, ...fallbackPatch };
+    const inputsForVentilator = hasSuggestedVentilatorSettings(activeInputs)
+      ? activeInputs
+      : { ...activeInputs, ...fallbackPatch };
 
     if (!hasSuggestedVentilatorSettings(inputsForVentilator)) return null;
     const payload = buildOxygenAbgVentilatorPayload(inputsForVentilator, {
@@ -881,25 +917,177 @@ export default function useAssessmentScreen() {
       includeFlowContext: false,
       idempotencyKeySuffix: 'suggested-ventilator-settings',
     });
-    const response = await saveOxygenAbgVentilatorStepApi(admissionRecordId, payload);
+    const response = await saveOxygenAbgVentilatorStepApi(activeAdmissionId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
-      syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+      admissionId: getResponseAdmissionId(response, activeAdmissionId || activeInputs.clientRecordId),
+      syncStatus: response?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     });
     return response;
   }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft, recommendationSummary]);
 
-  const saveReviewStep = useCallback(async () => {
-    const payload = buildSaveReviewPayload(mergedInputs);
-    const response = await saveAdmissionReviewStepApi(admissionRecordId, payload);
+  const saveReviewStep = useCallback(async (inputOverride = null, admissionIdOverride = null) => {
+    const activeInputs = inputOverride || latestInputsRef.current || mergedInputs;
+    const activeAdmissionId =
+      admissionIdOverride ||
+      admissionRecordId ||
+      activeInputs.admissionId ||
+      activeInputs.clientRecordId;
+    const payload = buildSaveReviewPayload(activeInputs);
+    const response = await saveNewPatientReviewStepApi(activeAdmissionId, payload);
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: response?.admission?.id || admissionRecordId || mergedInputs.clientRecordId,
-      syncStatus: response?.syncStatus || ADMISSION_SYNC_STATUS.SYNCED,
+      admissionId: getResponseAdmissionId(response, activeAdmissionId || activeInputs.clientRecordId),
+      syncStatus: response?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     });
     return response;
   }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft]);
+
+  const createSeparateNewPatientDraft = useCallback(async () => {
+    const nextClientRecordId = createNewPatientClientRecordId();
+    const timestamp = nowIso();
+    const nextInputs = {
+      ...latestInputsRef.current,
+      clientRecordId: nextClientRecordId,
+      admissionId: null,
+      clientCreatedAt: timestamp,
+      clientUpdatedAt: timestamp,
+      syncStatus: NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC,
+    };
+    latestInputsRef.current = nextInputs;
+    setClientRecordId(nextClientRecordId);
+    setAdmissionId(nextClientRecordId);
+    setInputs(nextInputs);
+    setSyncStatus(NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC);
+    startSession(nextClientRecordId);
+    await persistDraft({
+      sessionId: nextClientRecordId,
+      inputs: nextInputs,
+      assessmentCurrentStep: currentStep,
+    });
+    return nextInputs;
+  }, [currentStep, persistDraft, setInputs, startSession]);
+
+  const showConflictWarning = useCallback(
+    async (error, step = currentStep) => {
+      setConflictWarning({
+        step,
+        meta: error?.meta || null,
+        errors: Array.isArray(error?.errors) ? error.errors : [],
+      });
+      setSaveErrorCode(null);
+      setSyncStatus(NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC);
+      await persistCurrentDraft({ syncStatus: NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC });
+    },
+    [currentStep, persistCurrentDraft]
+  );
+
+  const dismissConflictWarning = useCallback(() => {
+    setConflictWarning(null);
+  }, []);
+
+  const completeSaveReview = useCallback(
+    async (reviewResponse, fallbackAdmissionId = null) => {
+      const trackingAdmissionId = getResponseAdmissionId(
+        reviewResponse,
+        fallbackAdmissionId || admissionRecordId || mergedInputs.admissionId || mergedInputs.clientRecordId
+      );
+      const trackingPath = trackingAdmissionId
+        ? `/tracking?admissionId=${encodeURIComponent(trackingAdmissionId)}&admitted=1`
+        : '/tracking';
+      await clearDraft();
+      resetSession();
+      router.replace(trackingPath);
+    },
+    [admissionRecordId, clearDraft, mergedInputs.admissionId, mergedInputs.clientRecordId, resetSession, router]
+  );
+
+  const continueAfterConflict = useCallback(async () => {
+    const conflictStep =
+      typeof conflictWarning?.step === 'number'
+        ? Math.min(Math.max(conflictWarning.step, 0), TOTAL_STEPS - 1)
+        : currentStep;
+    markStepAttempted(conflictStep);
+    const stepValidation = buildValidationFromInputs(latestInputsRef.current, conflictStep, readiness);
+    if (stepValidation.hasBlockingErrors || !canProceedFromStep(conflictStep)) {
+      setConflictWarning(null);
+      setSaveErrorCode('ADMISSION_VALIDATION_FAILED');
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveErrorCode(null);
+    setConflictWarning(null);
+    try {
+      const nextInputs = await createSeparateNewPatientDraft();
+      const patientResponse = await savePatientReasonStep(nextInputs);
+      let activeAdmissionId = getResponseAdmissionId(patientResponse, nextInputs.clientRecordId);
+      let activeInputs = {
+        ...latestInputsRef.current,
+        admissionId: activeAdmissionId,
+      };
+      latestInputsRef.current = activeInputs;
+      setInputs(activeInputs);
+
+      let response = patientResponse;
+      if (conflictStep >= STEPS.OXYGEN_ABG_VENTILATOR) {
+        response = await saveOxygenAbgVentilatorStep(activeInputs, activeAdmissionId);
+        activeAdmissionId = getResponseAdmissionId(response, activeAdmissionId);
+        activeInputs = {
+          ...latestInputsRef.current,
+          admissionId: activeAdmissionId,
+        };
+        latestInputsRef.current = activeInputs;
+        setInputs(activeInputs);
+      }
+
+      if (conflictStep === STEPS.SAVE_REVIEW) {
+        await saveSuggestedVentilatorSettingsStep(activeInputs, activeAdmissionId);
+        const reviewResponse = await saveReviewStep(activeInputs, activeAdmissionId);
+        await completeSaveReview(reviewResponse, activeAdmissionId || nextInputs.clientRecordId);
+        return;
+      }
+
+      const nextStep = Math.min(conflictStep + 1, TOTAL_STEPS - 1);
+      if (conflictStep === STEPS.OXYGEN_ABG_VENTILATOR) {
+        await advanceToStep(nextStep);
+        await generateDatasetRecommendation(response?.clinicalSummary || null, {
+          inputs: activeInputs,
+          admissionId: activeAdmissionId,
+        });
+        return;
+      }
+
+      await advanceToStep(nextStep);
+    } catch (error) {
+      if (isNewPatientConflictError(error)) {
+        await showConflictWarning(error, conflictStep);
+      } else {
+        setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
+        setSyncStatus(NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC);
+        await persistCurrentDraft({ syncStatus: NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC });
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  }, [
+    advanceToStep,
+    canProceedFromStep,
+    completeSaveReview,
+    conflictWarning,
+    createSeparateNewPatientDraft,
+    currentStep,
+    generateDatasetRecommendation,
+    markStepAttempted,
+    persistCurrentDraft,
+    readiness,
+    saveOxygenAbgVentilatorStep,
+    savePatientReasonStep,
+    saveReviewStep,
+    saveSuggestedVentilatorSettingsStep,
+    setInputs,
+    showConflictWarning,
+  ]);
 
   const goNext = useCallback(async () => {
     markStepAttempted(currentStep);
@@ -911,6 +1099,7 @@ export default function useAssessmentScreen() {
     const nextStep = Math.min(currentStep + 1, TOTAL_STEPS - 1);
     setIsSaving(true);
     setSaveErrorCode(null);
+    setConflictWarning(null);
     try {
       let response = null;
       let advanced = false;
@@ -929,9 +1118,13 @@ export default function useAssessmentScreen() {
         await advanceToStep(nextStep);
       }
     } catch (error) {
-      setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
-      setSyncStatus(ADMISSION_SYNC_STATUS.NEEDS_SYNC);
-      await persistCurrentDraft({ syncStatus: ADMISSION_SYNC_STATUS.NEEDS_SYNC });
+      if (isNewPatientConflictError(error)) {
+        await showConflictWarning(error, currentStep);
+      } else {
+        setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
+        setSyncStatus(NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC);
+        await persistCurrentDraft({ syncStatus: NEW_PATIENT_SYNC_STATUS.NEEDS_SYNC });
+      }
     } finally {
       setIsSaving(false);
     }
@@ -946,13 +1139,16 @@ export default function useAssessmentScreen() {
     readiness,
     saveOxygenAbgVentilatorStep,
     savePatientReasonStep,
+    showConflictWarning,
   ]);
 
   const goBack = useCallback(() => {
+    setConflictWarning(null);
     if (currentStep > 0) setAssessmentStep(Math.max(currentStep - 1, 0));
   }, [currentStep, setAssessmentStep]);
 
   const goBackOrExit = useCallback(() => {
+    setConflictWarning(null);
     if (currentStep > 0) {
       setAssessmentStep(Math.max(currentStep - 1, 0));
       return;
@@ -968,37 +1164,27 @@ export default function useAssessmentScreen() {
     }
     setIsSaving(true);
     setSaveErrorCode(null);
+    setConflictWarning(null);
     try {
       await saveSuggestedVentilatorSettingsStep();
       const reviewResponse = await saveReviewStep();
-      const trackingAdmissionId =
-        reviewResponse?.admission?.id ||
-        reviewResponse?.admissionId ||
-        admissionRecordId ||
-        mergedInputs.admissionId ||
-        mergedInputs.clientRecordId;
-      const trackingPath = trackingAdmissionId
-        ? `/tracking?admissionId=${encodeURIComponent(trackingAdmissionId)}&admitted=1`
-        : '/tracking';
-      await clearDraft();
-      resetSession();
-      router.replace(trackingPath);
+      await completeSaveReview(reviewResponse);
     } catch (error) {
-      setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
+      if (isNewPatientConflictError(error)) {
+        await showConflictWarning(error, STEPS.SAVE_REVIEW);
+      } else {
+        setSaveErrorCode(error?.code || 'ADMISSION_SAVE_FAILED');
+      }
     } finally {
       setIsSaving(false);
     }
   }, [
-    admissionRecordId,
     canProceedFromStep,
-    clearDraft,
+    completeSaveReview,
     markStepAttempted,
-    mergedInputs.admissionId,
-    mergedInputs.clientRecordId,
-    resetSession,
-    router,
     saveReviewStep,
     saveSuggestedVentilatorSettingsStep,
+    showConflictWarning,
   ]);
 
   const toggleClinicianConfirmed = useCallback(
@@ -1107,6 +1293,9 @@ export default function useAssessmentScreen() {
     goBack,
     goBackOrExit,
     saveAdmission,
+    conflictWarning,
+    continueAfterConflict,
+    dismissConflictWarning,
     isSaving,
     isGenerating: isSaving || isGeneratingRecommendation,
     isGeneratingRecommendation,

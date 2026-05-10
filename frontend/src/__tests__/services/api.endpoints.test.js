@@ -11,14 +11,14 @@ describe('services/api/endpoints', () => {
   });
 
   it('defines three-step New Patient endpoints', () => {
-    expect(endpoints.ADMISSIONS.THREE_STEP_PATIENT_REASON).toContain('/new-patients/three-step/patient-reason');
-    expect(endpoints.ADMISSIONS.THREE_STEP_OXYGEN_ABG_VENTILATOR('admission-1')).toContain(
+    expect(endpoints.NEW_PATIENTS.THREE_STEP_PATIENT_REASON).toContain('/new-patients/three-step/patient-reason');
+    expect(endpoints.NEW_PATIENTS.THREE_STEP_OXYGEN_ABG_VENTILATOR('admission-1')).toContain(
       '/new-patients/admission-1/three-step/oxygen-abg-ventilator'
     );
-    expect(endpoints.ADMISSIONS.THREE_STEP_SAVE_REVIEW('admission-1')).toContain(
+    expect(endpoints.NEW_PATIENTS.THREE_STEP_SAVE_REVIEW('admission-1')).toContain(
       '/new-patients/admission-1/three-step/save-review'
     );
-    expect(endpoints.ADMISSIONS.ABG_VENTILATOR_UPDATES('admission-1')).toContain(
+    expect(endpoints.NEW_PATIENTS.ABG_VENTILATOR_UPDATES('admission-1')).toContain(
       '/new-patients/admission-1/abg-ventilator-updates'
     );
   });

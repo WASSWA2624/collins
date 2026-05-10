@@ -1,14 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  admissionAbgVentilatorUpdateSchema,
-  admissionOxygenAbgVentilatorStepSchema,
-  admissionPatientReasonStepSchema,
-} from '../src/modules/admissions/admissions.validators.js';
-import { buildAdmissionReadiness, buildClinicalSummary } from '../src/modules/admissions/admissions.service.js';
+  newPatientAbgVentilatorUpdateSchema,
+  newPatientOxygenAbgVentilatorStepSchema,
+  newPatientReasonStepSchema,
+  newPatientVentilatorRecommendationSchema,
+} from '../src/modules/newPatients/newPatients.validators.js';
+import { buildNewPatientReadiness, buildClinicalSummary } from '../src/modules/newPatients/newPatients.service.js';
 
 test('patient and reason step accepts minimal patient data without explicit facility or bed', () => {
-  const parsed = admissionPatientReasonStepSchema.parse({
+  const parsed = newPatientReasonStepSchema.parse({
     body: {
       patient: {
         patientPathway: 'adult',
@@ -36,7 +37,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
 });
 
 test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncertainty', () => {
-  const parsed = admissionOxygenAbgVentilatorStepSchema.parse({
+  const parsed = newPatientOxygenAbgVentilatorStepSchema.parse({
     body: {
       oxygen: {
         oxygenSupportType: 'NIV',
@@ -74,7 +75,7 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
 
 test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient flow', () => {
   assert.throws(() =>
-    admissionOxygenAbgVentilatorStepSchema.parse({
+    newPatientOxygenAbgVentilatorStepSchema.parse({
       body: {
         oxygen: { spo2: 94, fio2: 0.5 },
         abg: { ph: 7.31, fio2AtSample: 0.5 },
@@ -88,18 +89,16 @@ test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient fl
 });
 
 test('ABG and ventilator settings update accepts only update records and sync metadata', () => {
-  const parsed = admissionAbgVentilatorUpdateSchema.parse({
+  const parsed = newPatientAbgVentilatorUpdateSchema.parse({
     body: {
       abgTest: {
         ph: '7.31',
         pao2: '82',
-        fio2AtSample: '0.40',
         source: 'abg_vent_update',
       },
       ventilatorSetting: {
         mode: 'VC',
         peep: '8',
-        fio2: '0.40',
         source: 'abg_vent_update',
       },
       clientRecordId: 'client-update-1',
@@ -118,7 +117,7 @@ test('ABG and ventilator settings update accepts only update records and sync me
 
 test('ABG and ventilator settings update rejects uncertainty-only payloads', () => {
   assert.throws(() =>
-    admissionAbgVentilatorUpdateSchema.parse({
+    newPatientAbgVentilatorUpdateSchema.parse({
       body: {
         uncertainty: {
           fields: ['FiO2'],
@@ -133,7 +132,7 @@ test('ABG and ventilator settings update rejects uncertainty-only payloads', () 
 });
 
 test('readiness keeps missing-data warnings advisory and honors permitted fields', () => {
-  const readiness = buildAdmissionReadiness({
+  const readiness = buildNewPatientReadiness({
     patient: {
       patientPathway: 'ADULT',
       sexForSizeCalculations: 'UNKNOWN',
@@ -142,7 +141,7 @@ test('readiness keeps missing-data warnings advisory and honors permitted fields
       spo2: 94,
       fio2: 0.5,
       comorbiditiesJson: {
-        admissionFlow: {
+        newPatientFlow: {
           permittedMissingFields: ['actualWeightKg/referenceWeightKg'],
           uncertainty: {
             fields: ['PaO2'],
@@ -168,8 +167,8 @@ test('readiness keeps missing-data warnings advisory and honors permitted fields
   assert.ok(readiness.warnings.every((warning) => !/diagnos|autonomous|increase|decrease|set peep|set fio2/i.test(warning.message)));
 });
 
-test('readiness blocks impossible values until correction or documented override', () => {
-  const readiness = buildAdmissionReadiness({
+test('readiness keeps impossible value flags advisory so save review is not blocked', () => {
+  const readiness = buildNewPatientReadiness({
     patient: {
       patientPathway: 'ADULT',
       sexForSizeCalculations: 'MALE',
@@ -185,8 +184,38 @@ test('readiness blocks impossible values until correction or documented override
     humidificationDecisions: [],
   });
 
-  assert.equal(readiness.isReadyToSave, false);
-  assert.ok(readiness.blockers.some((blocker) => blocker.code === 'IMPOSSIBLE_VALUE'));
+  assert.equal(readiness.isReadyToSave, true);
+  assert.equal(readiness.blockers.length, 0);
+  assert.ok(readiness.warnings.some((warning) => warning.code === 'IMPOSSIBLE_VALUE'));
+});
+
+test('backend recommendation request accepts optional ABG values and no FiO2', () => {
+  const parsed = newPatientVentilatorRecommendationSchema.parse({
+    body: {
+      facilityId: 'facility-1',
+      admissionId: 'admission-1',
+      input: {
+        condition: 'ARDS with hypoxaemia',
+        patientPathway: 'adult',
+        ageYears: '54',
+        actualWeightKg: '70',
+        heightOrLengthCm: '172',
+        spo2: '88',
+        respiratoryRate: '28',
+        heartRate: '110',
+        ph: '7.31',
+        pao2: null,
+        paco2: null,
+      },
+    },
+    params: {},
+    query: {},
+  });
+
+  assert.equal(parsed.body.input.patientPathway, 'ADULT');
+  assert.equal(parsed.body.input.ph, 7.31);
+  assert.equal(parsed.body.input.pao2, null);
+  assert.equal(parsed.body.input.paco2, null);
 });
 
 test('clinical summary ignores metadata-only snapshots when checking current missing data', () => {
@@ -200,7 +229,7 @@ test('clinical summary ignores metadata-only snapshots when checking current mis
       {
         measuredAt: new Date('2026-05-07T20:09:00.000Z'),
         comorbiditiesJson: {
-          admissionFlow: {
+          newPatientFlow: {
             flowVersion: 'three-step-new-patient-flow@2026-05-10',
           },
         },

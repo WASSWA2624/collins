@@ -1,13 +1,13 @@
 /**
- * Admission Model
+ * New Patient Model
  * Normalizes patient registration, admission payloads, and safe model-service payloads.
- * File: admissions.model.js
+ * File: newPatients.model.js
  */
 import { z } from 'zod';
 
 const MISSING_VALUE_CODES = Object.freeze(['unknown', 'not_available']);
 
-const ADMISSION_PATIENT_PATHWAYS = Object.freeze([
+const NEW_PATIENT_PATHWAYS = Object.freeze([
   'NEONATE',
   'INFANT',
   'CHILD',
@@ -37,7 +37,7 @@ const normalizeToken = (value) =>
     .toLowerCase()
     .replace(/[\s/-]+/g, '_');
 
-const isAdmissionMissingValue = (value) => {
+const isNewPatientMissingValue = (value) => {
   if (value === null) return true;
   if (typeof value !== 'string') return false;
   const normalized = normalizeToken(value);
@@ -45,7 +45,7 @@ const isAdmissionMissingValue = (value) => {
 };
 
 const normalizeEnumInput = (value, aliases = {}) => {
-  if (isAdmissionMissingValue(value)) return 'UNKNOWN';
+  if (isNewPatientMissingValue(value)) return 'UNKNOWN';
   const token = normalizeToken(value);
   return aliases[token] || token.toUpperCase();
 };
@@ -53,7 +53,7 @@ const normalizeEnumInput = (value, aliases = {}) => {
 const optionalString = (max = 255) =>
   z.preprocess(
     (value) => {
-      if (isAdmissionMissingValue(value)) return null;
+      if (isNewPatientMissingValue(value)) return null;
       return cleanString(value);
     },
     z.union([z.null(), z.string().max(max)])
@@ -61,12 +61,13 @@ const optionalString = (max = 255) =>
 
 const optionalNumber = (schema) =>
   z.preprocess(
-    (value) => (isAdmissionMissingValue(value) ? null : value),
+    (value) => (isNewPatientMissingValue(value) ? null : value),
     z.union([z.null(), schema])
   ).optional();
+const optionalFiniteNumber = optionalNumber(z.coerce.number().finite());
 
 const optionalBoolean = z.preprocess((value) => {
-  if (isAdmissionMissingValue(value)) return null;
+  if (isNewPatientMissingValue(value)) return null;
   if (typeof value !== 'string') return value;
   const normalized = normalizeToken(value);
   if (['true', '1', 'yes'].includes(normalized)) return true;
@@ -75,7 +76,7 @@ const optionalBoolean = z.preprocess((value) => {
 }, z.union([z.null(), z.boolean()])).optional();
 
 const optionalIsoDate = z.preprocess((value) => {
-  if (isAdmissionMissingValue(value)) return null;
+  if (isNewPatientMissingValue(value)) return null;
   if (value instanceof Date && Number.isFinite(value.getTime())) return value.toISOString();
   if (typeof value === 'number') {
     const date = new Date(value);
@@ -94,7 +95,7 @@ const patientPathwaySchema = z.preprocess((value) => normalizeEnumInput(value, {
   peri_operative: 'PERI_OPERATIVE',
   other_unknown: 'UNKNOWN',
   not_available: 'UNKNOWN',
-}), z.enum(ADMISSION_PATIENT_PATHWAYS));
+}), z.enum(NEW_PATIENT_PATHWAYS));
 
 const sexForSizeCalculationsSchema = z.preprocess((value) => normalizeEnumInput(value, {
   m: 'MALE',
@@ -110,15 +111,15 @@ const patientRegistrationSchema = z.object({
   hospitalNumber: optionalString(120),
   patientPathway: patientPathwaySchema.default('UNKNOWN'),
   dateOfBirth: optionalIsoDate,
-  ageYears: optionalNumber(z.coerce.number().int().min(0).max(130)),
-  ageMonths: optionalNumber(z.coerce.number().int().min(0).max(1560)),
+  ageYears: optionalFiniteNumber,
+  ageMonths: optionalFiniteNumber,
   estimatedAge: optionalBoolean,
-  gestationalAgeWeeks: optionalNumber(z.coerce.number().min(20).max(50)),
-  correctedAgeWeeks: optionalNumber(z.coerce.number().min(20).max(120)),
+  gestationalAgeWeeks: optionalFiniteNumber,
+  correctedAgeWeeks: optionalFiniteNumber,
   sexForSizeCalculations: sexForSizeCalculationsSchema.optional(),
-  actualWeightKg: optionalNumber(z.coerce.number().min(0.2).max(400)),
-  heightOrLengthCm: optionalNumber(z.coerce.number().min(20).max(260)),
-  referenceWeightKg: optionalNumber(z.coerce.number().min(0.2).max(400)),
+  actualWeightKg: optionalFiniteNumber,
+  heightOrLengthCm: optionalFiniteNumber,
+  referenceWeightKg: optionalFiniteNumber,
   referenceWeightMethod: optionalString(120),
   pathwayDetailsJson: jsonObjectSchema.nullable().optional(),
 }).strict();
@@ -126,17 +127,16 @@ const patientRegistrationSchema = z.object({
 const clinicalSnapshotSchema = z.object({
   measuredAt: optionalIsoDate,
   oxygenSupportType: optionalString(120),
-  heartRate: optionalNumber(z.coerce.number().min(0).max(320)),
-  respiratoryRate: optionalNumber(z.coerce.number().min(0).max(180)),
-  systolicBp: optionalNumber(z.coerce.number().min(0).max(350)),
-  diastolicBp: optionalNumber(z.coerce.number().min(0).max(250)),
-  meanArterialPressure: optionalNumber(z.coerce.number().min(0).max(250)),
-  temperatureC: optionalNumber(z.coerce.number().min(20).max(45)),
-  spo2: optionalNumber(z.coerce.number().min(40).max(100)),
-  fio2: optionalNumber(z.coerce.number().gt(0).max(1)),
-  gcs: optionalNumber(z.coerce.number().min(3).max(15)),
+  heartRate: optionalFiniteNumber,
+  respiratoryRate: optionalFiniteNumber,
+  systolicBp: optionalFiniteNumber,
+  diastolicBp: optionalFiniteNumber,
+  meanArterialPressure: optionalFiniteNumber,
+  temperatureC: optionalFiniteNumber,
+  spo2: optionalFiniteNumber,
+  gcs: optionalFiniteNumber,
   avpu: optionalString(40),
-  rass: optionalNumber(z.coerce.number().min(-5).max(4)),
+  rass: optionalFiniteNumber,
   mainCondition: optionalString(240),
   comorbiditiesJson: jsonObjectSchema.nullable().optional(),
   source: optionalString(80),
@@ -144,29 +144,27 @@ const clinicalSnapshotSchema = z.object({
 
 const abgSchema = z.object({
   collectedAt: optionalIsoDate,
-  ph: optionalNumber(z.coerce.number().min(6.8).max(7.8)),
-  pao2: optionalNumber(z.coerce.number().min(20).max(600)),
-  paco2: optionalNumber(z.coerce.number().min(10).max(150)),
-  hco3: optionalNumber(z.coerce.number().min(0).max(80)),
-  baseExcess: optionalNumber(z.coerce.number().min(-40).max(40)),
-  lactate: optionalNumber(z.coerce.number().min(0).max(40)),
-  fio2AtSample: optionalNumber(z.coerce.number().gt(0).max(1)),
-  spo2AtSample: optionalNumber(z.coerce.number().min(40).max(100)),
+  ph: optionalFiniteNumber,
+  pao2: optionalFiniteNumber,
+  paco2: optionalFiniteNumber,
+  hco3: optionalFiniteNumber,
+  baseExcess: optionalFiniteNumber,
+  lactate: optionalFiniteNumber,
+  spo2AtSample: optionalFiniteNumber,
   source: optionalString(80),
 }).strict();
 
 const ventilatorSchema = z.object({
   measuredAt: optionalIsoDate,
   mode: optionalString(80),
-  tidalVolumeMl: optionalNumber(z.coerce.number().min(1).max(3000)),
-  respiratoryRateSet: optionalNumber(z.coerce.number().min(0).max(120)),
-  respiratoryRateMeasured: optionalNumber(z.coerce.number().min(0).max(180)),
-  fio2: optionalNumber(z.coerce.number().gt(0).max(1)),
-  peep: optionalNumber(z.coerce.number().min(0).max(30)),
-  pressureSupport: optionalNumber(z.coerce.number().min(0).max(80)),
-  inspiratoryPressure: optionalNumber(z.coerce.number().min(0).max(100)),
-  peakPressure: optionalNumber(z.coerce.number().min(0).max(100)),
-  plateauPressure: optionalNumber(z.coerce.number().min(0).max(60)),
+  tidalVolumeMl: optionalFiniteNumber,
+  respiratoryRateSet: optionalFiniteNumber,
+  respiratoryRateMeasured: optionalFiniteNumber,
+  peep: optionalFiniteNumber,
+  pressureSupport: optionalFiniteNumber,
+  inspiratoryPressure: optionalFiniteNumber,
+  peakPressure: optionalFiniteNumber,
+  plateauPressure: optionalFiniteNumber,
   ieRatio: optionalString(40),
   source: optionalString(80),
 }).strict();
@@ -202,7 +200,7 @@ const clinicalReasonSchema = z.object({
 
 const stringListSchema = z.array(z.string().trim().min(1).max(120)).max(80);
 
-const admissionDraftSchema = z.object({
+const newPatientDraftSchema = z.object({
   facilityId: z.string().trim().min(1),
   appAdmissionCode: optionalString(80),
   bedNumber: optionalString(80),
@@ -247,9 +245,9 @@ const compactToken = (value) =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 40) || 'unknown';
 
-const createAdmissionIdempotencyKey = ({
+const createNewPatientIdempotencyKey = ({
   facilityId,
-  prefix = 'admission',
+  prefix = 'new-patient',
   clientTimestamp = createClientTimestamp(),
   nonce = createNonce(),
 } = {}) => {
@@ -272,27 +270,27 @@ const stripUndefinedDeep = (value) => {
 
 const hasOwnPayloadKeys = (value) => isPlainObject(value) && Object.keys(stripUndefinedDeep(value)).length > 0;
 
-const normalizeAdmissionDraft = (value, options = {}) => {
+const normalizeNewPatientDraft = (value, options = {}) => {
   const input = isPlainObject(value) ? value : {};
   const clientCreatedAt = input.clientCreatedAt || createClientTimestamp(options.now);
   const nonce = options.nonce || createNonce(options.random);
   const clientRecordId =
     input.clientRecordId ||
-    createAdmissionIdempotencyKey({
+    createNewPatientIdempotencyKey({
       facilityId: input.facilityId,
-      prefix: 'admission-draft',
+      prefix: 'new-patient-draft',
       clientTimestamp: clientCreatedAt,
       nonce,
     }).slice(0, 120);
   const idempotencyKey =
     input.idempotencyKey ||
-    createAdmissionIdempotencyKey({
+    createNewPatientIdempotencyKey({
       facilityId: input.facilityId,
       clientTimestamp: clientCreatedAt,
       nonce,
     });
 
-  return admissionDraftSchema.parse({
+  return newPatientDraftSchema.parse({
     ...input,
     clientRecordId,
     clientCreatedAt,
@@ -301,16 +299,16 @@ const normalizeAdmissionDraft = (value, options = {}) => {
   });
 };
 
-const safeParseAdmissionDraft = (value, options = {}) => {
+const safeParseNewPatientDraft = (value, options = {}) => {
   try {
-    return { success: true, data: normalizeAdmissionDraft(value, options), error: null };
+    return { success: true, data: normalizeNewPatientDraft(value, options), error: null };
   } catch (error) {
     return { success: false, data: null, error };
   }
 };
 
-const buildCreateAdmissionPayload = (draftInput, options = {}) => {
-  const draft = normalizeAdmissionDraft(draftInput, options);
+const buildCreateNewPatientPayload = (draftInput, options = {}) => {
+  const draft = normalizeNewPatientDraft(draftInput, options);
   const clinicalSnapshot = hasOwnPayloadKeys(draft.clinicalSnapshot || draft.oxygen)
     ? draft.clinicalSnapshot || draft.oxygen
     : undefined;
@@ -340,8 +338,8 @@ const buildCreateAdmissionPayload = (draftInput, options = {}) => {
   });
 };
 
-const buildPatientReasonStepPayload = (draftInput, options = {}) => {
-  const draft = normalizeAdmissionDraft(draftInput, options);
+const buildNewPatientReasonStepPayload = (draftInput, options = {}) => {
+  const draft = normalizeNewPatientDraft(draftInput, options);
   return stripUndefinedDeep({
     facilityId: draft.facilityId,
     appAdmissionCode: draft.appAdmissionCode,
@@ -361,12 +359,12 @@ const buildPatientReasonStepPayload = (draftInput, options = {}) => {
   });
 };
 
-const deidentifyAdmissionPayload = (value) => {
-  if (Array.isArray(value)) return value.map(deidentifyAdmissionPayload);
+const deidentifyNewPatientPayload = (value) => {
+  if (Array.isArray(value)) return value.map(deidentifyNewPatientPayload);
   if (isPlainObject(value)) {
     return Object.entries(value).reduce((acc, [key, entry]) => {
       if (IDENTIFIER_KEY_PATTERN.test(key)) return acc;
-      const cleaned = deidentifyAdmissionPayload(entry);
+      const cleaned = deidentifyNewPatientPayload(entry);
       if (cleaned !== undefined) acc[key] = cleaned;
       return acc;
     }, {});
@@ -374,7 +372,7 @@ const deidentifyAdmissionPayload = (value) => {
   return value;
 };
 
-const buildAdmissionAiSafePayload = (value) => {
+const buildNewPatientAiSafePayload = (value) => {
   const input = isPlainObject(value) ? value : {};
   const payload = {
     patient: input.patient,
@@ -387,22 +385,22 @@ const buildAdmissionAiSafePayload = (value) => {
     airwayDevice: input.airwayDevice,
     humidification: input.humidification,
   };
-  return stripUndefinedDeep(deidentifyAdmissionPayload(payload));
+  return stripUndefinedDeep(deidentifyNewPatientPayload(payload));
 };
 
 export {
-  ADMISSION_PATIENT_PATHWAYS,
+  NEW_PATIENT_PATHWAYS,
   MISSING_VALUE_CODES,
   SEX_FOR_SIZE_CALCULATION_VALUES,
-  admissionDraftSchema,
+  newPatientDraftSchema,
   patientRegistrationSchema,
-  isAdmissionMissingValue,
-  createAdmissionIdempotencyKey,
+  isNewPatientMissingValue,
+  createNewPatientIdempotencyKey,
   createClientTimestamp,
-  normalizeAdmissionDraft,
-  safeParseAdmissionDraft,
-  buildCreateAdmissionPayload,
-  buildPatientReasonStepPayload,
-  buildAdmissionAiSafePayload,
-  deidentifyAdmissionPayload,
+  normalizeNewPatientDraft,
+  safeParseNewPatientDraft,
+  buildCreateNewPatientPayload,
+  buildNewPatientReasonStepPayload,
+  buildNewPatientAiSafePayload,
+  deidentifyNewPatientPayload,
 };

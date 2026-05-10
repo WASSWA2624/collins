@@ -155,6 +155,9 @@ const AssessmentScreenWeb = () => {
     goNext,
     goBackOrExit,
     saveAdmission,
+    conflictWarning,
+    continueAfterConflict,
+    dismissConflictWarning,
     isSaving,
     isHydrating,
     errorCode,
@@ -237,6 +240,35 @@ const AssessmentScreenWeb = () => {
         {messages.map((message) => (
           <StyledMissingTestsHint key={message}>{message}</StyledMissingTestsHint>
         ))}
+      </StyledMissingTests>
+    );
+  };
+
+  const renderConflictWarning = () => {
+    if (!conflictWarning) return null;
+    return (
+      <StyledMissingTests data-testid="assessment-conflict-warning" role="status" aria-live="polite">
+        <StyledMissingTestsTitle>{t('ventilation.assessment.validation.conflictTitle')}</StyledMissingTestsTitle>
+        <StyledMissingTestsHint>{t('ventilation.assessment.validation.conflictBody')}</StyledMissingTestsHint>
+        <StyledActionsRow>
+          <Button
+            variant="outline"
+            onPress={dismissConflictWarning}
+            disabled={isSaving}
+            testID="assessment-conflict-edit"
+          >
+            {t('ventilation.assessment.validation.conflictCancel')}
+          </Button>
+          <Button
+            variant="primary"
+            onPress={continueAfterConflict}
+            disabled={isSaving}
+            loading={isSaving}
+            testID="assessment-conflict-continue"
+          >
+            {t('ventilation.assessment.validation.conflictContinue')}
+          </Button>
+        </StyledActionsRow>
       </StyledMissingTests>
     );
   };
@@ -393,6 +425,7 @@ const AssessmentScreenWeb = () => {
   const renderPatientReasonStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <StyledChoiceSection data-testid="assessment-patient-pathway">
         <StyledChoiceHeader>
@@ -512,6 +545,7 @@ const AssessmentScreenWeb = () => {
   const renderOxygenAbgVentilatorStep = () => (
     <StyledFieldGroup>
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <StyledFieldGrid>
         <Select
@@ -683,7 +717,6 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.ventilatorMode}
                 onValueChange={(value) => updateInput({ ventilatorMode: value })}
                 {...getFieldErrorProps('ventilatorMode')}
-                required
                 testID="assessment-suggested-ventilator-mode"
               />
               <TextField
@@ -693,7 +726,6 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''}
                 onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })}
                 {...getFieldErrorProps('tidalVolumeMl')}
-                required
                 testID="assessment-suggested-tidal-volume"
               />
               <TextField
@@ -703,7 +735,6 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''}
                 onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })}
                 {...getFieldErrorProps('respiratoryRateSet')}
-                required
                 testID="assessment-suggested-respiratory-rate-set"
               />
               <TextField
@@ -713,7 +744,6 @@ const AssessmentScreenWeb = () => {
                 value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''}
                 onChangeText={(value) => updateInput({ peep: parseNum(value) })}
                 {...getFieldErrorProps('peep')}
-                required
                 testID="assessment-suggested-peep"
               />
               <TextField
@@ -768,6 +798,7 @@ const AssessmentScreenWeb = () => {
       <StyledStepDescription>{t('ventilation.assessment.saveReview.description')}</StyledStepDescription>
       {renderRecommendation()}
       {renderReadiness()}
+      {renderConflictWarning()}
       {renderValidationMessages()}
       <Checkbox
         checked={mergedInputs.clinicianConfirmed}

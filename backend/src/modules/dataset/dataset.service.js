@@ -182,6 +182,8 @@ const DATASET_CAPTURE_DATE_TIME_PATHS = Object.freeze([
   'ventilatorSetting.measuredAt',
 ]);
 
+const DATASET_CAPTURE_AUTOMATIC_TIMESTAMP_PATHS = DATASET_CAPTURE_DATE_TIME_PATHS;
+
 export const REQUIRED_TRAINING_GOVERNANCE_KEYS = Object.freeze([
   'facilityApproval',
   'dataSharingAgreement',
@@ -325,6 +327,47 @@ const isValidDateTimeString = (value) => {
   return !Number.isNaN(new Date(text).getTime());
 };
 
+const normalizeCaptureTimestamp = (value) => {
+  if (isBlankValue(value)) return null;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString();
+};
+
+const resolveAutomaticCaptureTimestamp = (payload = {}, structuredPreviewJson = {}) => {
+  const candidates = [
+    getPath(structuredPreviewJson, 'captureMetadata.submittedAt'),
+    getPath(structuredPreviewJson, 'captureMetadata.capturedAt'),
+    payload.governanceJson?.submittedAt,
+    payload.clientUpdatedAt,
+    payload.clientCreatedAt,
+  ];
+  for (const candidate of candidates) {
+    const timestamp = normalizeCaptureTimestamp(candidate);
+    if (timestamp) return timestamp;
+  }
+  return new Date().toISOString();
+};
+
+const hasSectionCaptureData = (sectionValue, timestampKey) => {
+  if (!sectionValue || typeof sectionValue !== 'object') return false;
+  return Object.entries(sectionValue).some(([key, value]) => key !== timestampKey && !isBlankValue(value));
+};
+
+const applyAutomaticCaptureTimestamps = (structuredPreviewJson = {}, payload = {}) => {
+  const timestamp = resolveAutomaticCaptureTimestamp(payload, structuredPreviewJson);
+  DATASET_CAPTURE_AUTOMATIC_TIMESTAMP_PATHS.forEach((path) => {
+    const parts = path.split('.');
+    const timestampKey = parts[parts.length - 1];
+    const sectionPath = parts.slice(0, -1).join('.');
+    const sectionValue = getPath(structuredPreviewJson, sectionPath);
+    const currentValue = getPath(structuredPreviewJson, path);
+    if (hasSectionCaptureData(sectionValue, timestampKey) && !normalizeCaptureTimestamp(currentValue)) {
+      setPath(structuredPreviewJson, path, timestamp);
+    }
+  });
+  return structuredPreviewJson;
+};
+
 const validateDatasetCaptureStructuredPreview = (structuredPreviewJson = {}) => {
   const errors = [];
 
@@ -440,6 +483,7 @@ const normalizeDatasetCapturePayload = (payload) => {
   if (reasonForVentilation) {
     setPath(structuredPreviewJson, 'caseContext.reasonForVentilation', reasonForVentilation);
   }
+  applyAutomaticCaptureTimestamps(structuredPreviewJson, payload);
   validateDatasetCaptureStructuredPreview(structuredPreviewJson);
   const outcomeReview = buildDatasetOutcomeReview(structuredPreviewJson);
   setPath(structuredPreviewJson, 'captureMetadata.outcomeReview', outcomeReview);

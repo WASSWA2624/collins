@@ -66,7 +66,10 @@ const useVentilationSession = () => {
       [dispatch]
     ),
     hydrate: useCallback(() => dispatch(ventilationActions.hydrateVentilationSession()), [dispatch]),
-    persistDraft: useCallback(() => dispatch(ventilationActions.persistVentilationSessionDraft()), [dispatch]),
+    persistDraft: useCallback(
+      (draftOverrides) => dispatch(ventilationActions.persistVentilationSessionDraft(draftOverrides)),
+      [dispatch]
+    ),
     clearDraft: useCallback(() => dispatch(ventilationActions.clearVentilationSessionDraft()), [dispatch]),
     appendToHistory: useCallback(() => dispatch(ventilationActions.appendVentilationSessionToHistory()), [dispatch]),
     loadHistory: useCallback(() => dispatch(ventilationActions.loadVentilationHistory()), [dispatch]),

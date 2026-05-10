@@ -109,6 +109,12 @@ const DEFAULT_DATASET_CAPTURE_FIELD_VALUES = Object.freeze({
   'quality.reviewerConfidence': 'NEEDS_REVIEW',
 });
 
+const AUTOMATIC_CAPTURE_TIMESTAMP_PATHS = Object.freeze([
+  'clinicalSnapshot.measuredAt',
+  'abgTest.collectedAt',
+  'ventilatorSetting.measuredAt',
+]);
+
 const DATASET_CAPTURE_SECTION_DEFINITIONS = Object.freeze([
   {
     id: 'caseContext',
@@ -344,7 +350,6 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
       option('Unknown', 'UNKNOWN'),
     ],
   },
-  { path: 'clinicalSnapshot.measuredAt', label: 'Vitals measured at', section: 'Vitals and oxygenation', sectionId: 'clinicalSnapshot', type: 'text' },
   {
     path: 'clinicalSnapshot.oxygenSupportType',
     label: 'Oxygen support type',
@@ -399,7 +404,6 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
       option('Unable to assess', 'UNABLE_TO_ASSESS'),
     ],
   },
-  { path: 'abgTest.collectedAt', label: 'ABG collected at', section: 'ABG and lactate', sectionId: 'abgTest', type: 'text' },
   { path: 'abgTest.ph', label: 'pH', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number', required: true },
   { path: 'abgTest.pao2', label: 'PaO2 mmHg', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number' },
   { path: 'abgTest.paco2', label: 'PaCO2 mmHg', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number', required: true },
@@ -408,7 +412,6 @@ const DATASET_CAPTURE_FIELD_DEFINITIONS = Object.freeze([
   { path: 'abgTest.lactate', label: 'Lactate mmol/L', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number' },
   { path: 'abgTest.fio2AtSample', label: 'FiO2 at sample', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number' },
   { path: 'abgTest.spo2AtSample', label: 'SpO2 at sample', section: 'ABG and lactate', sectionId: 'abgTest', type: 'number' },
-  { path: 'ventilatorSetting.measuredAt', label: 'Vent settings measured at', section: 'Ventilator settings', sectionId: 'ventilatorSetting', type: 'text' },
   {
     path: 'ventilatorSetting.mode',
     label: 'Ventilator mode',
@@ -788,9 +791,6 @@ const DATE_FIELD_PATHS = new Set([
 ]);
 
 const DATE_TIME_FIELD_PATHS = new Set([
-  'clinicalSnapshot.measuredAt',
-  'abgTest.collectedAt',
-  'ventilatorSetting.measuredAt',
 ]);
 
 const FIELD_NUMERIC_RULES = Object.freeze({
@@ -958,6 +958,30 @@ const normalizeEditableValue = (path, value) => {
 };
 
 const isBlankValue = (value) => value === null || value === undefined || String(value).trim() === '';
+
+const normalizeAutomaticCaptureTimestamp = (value) => {
+  const parsed = value ? new Date(value) : new Date();
+  return Number.isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
+};
+
+const hasSectionCaptureData = (sectionValue, timestampKey) => {
+  if (!sectionValue || typeof sectionValue !== 'object') return false;
+  return Object.entries(sectionValue).some(([key, value]) => key !== timestampKey && !isBlankValue(value));
+};
+
+const applyAutomaticCaptureTimestamps = (preview, timestampInput) => {
+  const timestamp = normalizeAutomaticCaptureTimestamp(timestampInput);
+  AUTOMATIC_CAPTURE_TIMESTAMP_PATHS.forEach((path) => {
+    const parts = path.split('.');
+    const timestampKey = parts[parts.length - 1];
+    const sectionPath = parts.slice(0, -1).join('.');
+    const sectionValue = getByPath(preview, sectionPath);
+    if (hasSectionCaptureData(sectionValue, timestampKey)) {
+      setByPath(preview, path, timestamp);
+    }
+  });
+  return preview;
+};
 
 const isValidDateString = (value) => {
   const text = String(value || '').trim();
@@ -1330,6 +1354,7 @@ const buildDatasetCaptureSubmission = ({
   const recordId = clientRecordId || createDatasetCaptureClientRecordId();
   const timestamp = submittedAt || new Date().toISOString();
   const structuredPreviewJson = hydrateDatasetPreview(fieldValues);
+  applyAutomaticCaptureTimestamps(structuredPreviewJson, timestamp);
   structuredPreviewJson.caseContext = {
     ...structuredPreviewJson.caseContext,
     capturedAt: timestamp,
@@ -1398,6 +1423,7 @@ const resolveDatasetCaptureFacilityId = (user) => {
 
 export {
   DATASET_CAPTURE_FIELD_DEFINITIONS,
+  AUTOMATIC_CAPTURE_TIMESTAMP_PATHS,
   DATASET_CAPTURE_ROLES,
   DATASET_CAPTURE_SCHEMA_VERSION,
   DATASET_CAPTURE_SECTION_DEFINITIONS,

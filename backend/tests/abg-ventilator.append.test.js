@@ -4,8 +4,8 @@ import { prisma } from './helpers/prisma.js';
 import {
   addAbgTest,
   addVentilatorSetting,
-  saveAdmissionAbgVentilatorUpdate,
-} from '../src/modules/admissions/admissions.service.js';
+  saveNewPatientAbgVentilatorUpdate,
+} from '../src/modules/newPatients/newPatients.service.js';
 
 const admissionId = 'admission-1';
 const facilityId = 'facility-1';
@@ -286,7 +286,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
 
   stubPrismaMethod(t, prisma, '$transaction', async (callback) => callback(tx));
 
-  const result = await saveAdmissionAbgVentilatorUpdate(userId, admissionId, {
+  const result = await saveNewPatientAbgVentilatorUpdate(userId, admissionId, {
     abgTest: {
       ph: 7.32,
       pao2: 88,
@@ -328,7 +328,7 @@ test('combined ABG and ventilator update rejects empty service payloads before d
   stubPrismaMethod(t, prisma, '$transaction', transactionMock);
 
   await assert.rejects(
-    () => saveAdmissionAbgVentilatorUpdate(userId, admissionId, {
+    () => saveNewPatientAbgVentilatorUpdate(userId, admissionId, {
       abgTest: {},
       ventilatorSetting: {},
       idempotencyKey: 'empty-combined-update-key-1',
