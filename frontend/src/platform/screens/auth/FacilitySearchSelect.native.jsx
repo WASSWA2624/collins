@@ -1,12 +1,12 @@
 /**
  * FacilitySearchSelect - Native
- * Searchable registration-time facility selector.
+ * Searchable facility selector.
  * File: FacilitySearchSelect.native.jsx
  */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, TextInput } from 'react-native';
 import styled from 'styled-components/native';
-import { Button, Text } from '@platform/components';
+import { Text } from '@platform/components';
 
 const MAX_VISIBLE_OPTIONS = 18;
 
@@ -48,6 +48,7 @@ const FacilitySearchSelectNative = ({
   const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
+  const canClear = Boolean(value && onClear && !disabled);
 
   const openMenu = useCallback(() => {
     if (disabled) return;
@@ -83,6 +84,14 @@ const FacilitySearchSelectNative = ({
     inputRef.current?.blur();
   }, [disabled, onValueChange]);
 
+  const handleClear = useCallback((event) => {
+    event?.stopPropagation?.();
+    if (!canClear) return;
+    onClear();
+    setIsOpen(true);
+    inputRef.current?.focus();
+  }, [canClear, onClear]);
+
   return (
     <StyledContainer testID={testID}>
       {label ? (
@@ -112,9 +121,20 @@ const FacilitySearchSelectNative = ({
           autoCorrect
           testID={`${testID}-input`}
         />
-        <StyledChevron>
-          {isOpen ? '^' : 'v'}
-        </StyledChevron>
+        {canClear ? (
+          <StyledIconButton
+            onPress={handleClear}
+            accessibilityRole="button"
+            accessibilityLabel={clearLabel}
+            testID={`${testID}-clear`}
+          >
+            <StyledClearIcon>
+              <StyledClearBar $rotation="45deg" />
+              <StyledClearBar $rotation="-45deg" />
+            </StyledClearIcon>
+          </StyledIconButton>
+        ) : null}
+        <StyledChevron $isOpen={isOpen} />
       </StyledSelectSurface>
 
       {isOpen && loading ? (
@@ -176,19 +196,6 @@ const FacilitySearchSelectNative = ({
         </StyledHelperText>
       ) : null}
 
-      {value && onClear ? (
-        <StyledClearAction>
-          <Button
-            variant="text"
-            text={clearLabel}
-            onPress={onClear}
-            onClick={onClear}
-            accessibilityLabel={clearLabel}
-            disabled={disabled}
-            testID={`${testID}-clear`}
-          />
-        </StyledClearAction>
-      ) : null}
     </StyledContainer>
   );
 };
@@ -207,7 +214,7 @@ const StyledSelectSurface = styled(Pressable)`
   border-width: 1px;
   border-color: ${({ isOpen, theme }) => (isOpen ? theme.colors.primary : theme.colors.background.tertiary)};
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0px;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -219,10 +226,38 @@ const StyledInput = styled(TextInput)`
   color: ${({ theme }) => theme.colors.text.primary};
 `;
 
-const StyledChevron = styled.Text`
+const StyledChevron = styled.View`
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
-  color: ${({ theme }) => theme.colors.text.secondary};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-right-color: ${({ theme }) => theme.colors.text.secondary};
+  border-bottom-color: ${({ theme }) => theme.colors.text.secondary};
+  transform: ${({ $isOpen }) => ($isOpen ? 'rotate(225deg)' : 'rotate(45deg)')};
+  margin-left: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledIconButton = styled(Pressable)`
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledClearIcon = styled.View`
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledClearBar = styled.View`
+  position: absolute;
+  width: 2px;
+  height: 16px;
+  background-color: ${({ theme }) => theme.colors.text.secondary};
+  transform: ${({ $rotation }) => `rotate(${$rotation})`};
 `;
 
 const StyledOptionsPanel = styled.View`
@@ -232,7 +267,7 @@ const StyledOptionsPanel = styled.View`
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0px;
   overflow: hidden;
 `;
 
@@ -255,7 +290,7 @@ const StyledEmptyState = styled.View`
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0px;
 `;
 
 const StyledHelperText = styled.Text`
@@ -267,11 +302,6 @@ const StyledHelperText = styled.Text`
 
 const StyledErrorText = styled(StyledHelperText)`
   color: ${({ theme }) => theme.colors.status?.error || '#B42318'};
-`;
-
-const StyledClearAction = styled.View`
-  align-self: flex-start;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 export default FacilitySearchSelectNative;

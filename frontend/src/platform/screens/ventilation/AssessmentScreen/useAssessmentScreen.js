@@ -49,7 +49,7 @@ const DATE_FIELDS = [
 ];
 const REQUIRED_FIELDS = [
   { field: 'facilityId', label: 'Facility', steps: [STEPS.PATIENT_REASON] },
-  { field: 'optionalName', label: 'Patient name', steps: [STEPS.PATIENT_REASON] },
+  { field: 'firstName', label: 'First name', steps: [STEPS.PATIENT_REASON] },
   { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'heightOrLengthCm', label: 'Height', steps: [STEPS.PATIENT_REASON], type: 'number' },
@@ -113,6 +113,28 @@ const splitList = (value) =>
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean);
+
+const splitPatientName = (value) => {
+  const parts = cleanText(value).split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' '),
+  };
+};
+
+const composePatientName = ({ firstName, lastName, optionalName } = {}) =>
+  [cleanText(firstName), cleanText(lastName)].filter(Boolean).join(' ') || cleanText(optionalName);
+
+const resolvePatientNameInputs = (inputs = {}) => {
+  const split = splitPatientName(inputs.optionalName);
+  const firstName = cleanText(inputs.firstName) || split.firstName;
+  const lastName = cleanText(inputs.lastName) || split.lastName;
+  return {
+    firstName,
+    lastName,
+    optionalName: composePatientName({ firstName, lastName, optionalName: inputs.optionalName }),
+  };
+};
 
 const numberOrNull = (value) => (isFiniteNumber(value) ? value : null);
 const textOrUndefined = (value) => {
@@ -340,6 +362,8 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   admissionSource: '',
   reasonForSupport: '',
   optionalName: '',
+  firstName: '',
+  lastName: '',
   patientPathway: 'UNKNOWN',
   dateOfBirth: '',
   ageYears: null,
@@ -393,9 +417,11 @@ const normalizeInputs = (inputs, clientRecordId) => {
   const ageComponents = resolveAgeComponents(base);
   const ageYears = calculateAgeYearsFromComponents(ageComponents);
   const resolvedAgeGroup = resolvePatientAgeGroupFromAgeYears(ageYears ?? numberOrNull(base.ageYears));
+  const nameInputs = resolvePatientNameInputs(base);
   return {
     ...defaultAdmissionInputs(clientRecordId),
     ...base,
+    ...nameInputs,
     ...ageComponents,
     dateOfBirth: cleanText(base.dateOfBirth),
     ageYears: ageYears ?? numberOrNull(base.ageYears),
@@ -624,12 +650,15 @@ const filterVisibleValidation = (validation, touchedFields, attemptedSteps) => {
 
 const buildPatientReasonPayload = (inputs) => {
   const timestamp = nowIso();
+  const optionalName = composePatientName(inputs);
   return {
     facilityId: textOrUndefined(inputs.facilityId),
     admissionSource: textOrUndefined(inputs.admissionSource),
     reasonForSupport: textOrUndefined(inputs.reasonForSupport),
     patient: {
-      optionalName: textOrUndefined(inputs.optionalName),
+      firstName: textOrUndefined(inputs.firstName),
+      lastName: textOrUndefined(inputs.lastName),
+      optionalName: textOrUndefined(optionalName),
       patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
       dateOfBirth: textOrUndefined(inputs.dateOfBirth),
       ageYears: numberOrNull(inputs.ageYears),
@@ -1002,6 +1031,25 @@ export default function useAssessmentScreen() {
   const updateBodyMetric = useCallback(
     (field, value) => {
       updateInput(updateBodyMetricInputs(latestInputsRef.current, field, value), {
+        touchedFields: [field],
+      });
+    },
+    [updateInput]
+  );
+
+  const updatePatientName = useCallback(
+    (field, value) => {
+      if (field !== 'firstName' && field !== 'lastName') return;
+      const nextNameInputs = {
+        firstName: latestInputsRef.current.firstName,
+        lastName: latestInputsRef.current.lastName,
+        optionalName: latestInputsRef.current.optionalName,
+        [field]: value,
+      };
+      updateInput({
+        [field]: value,
+        optionalName: composePatientName(nextNameInputs),
+      }, {
         touchedFields: [field],
       });
     },
@@ -1633,7 +1681,7 @@ export default function useAssessmentScreen() {
     () => ({
       facilityId: mergedInputs.facilityId,
       facilityLabel: selectedFacilityValue?.name || activeFacilityLabel || mergedInputs.facilityId,
-      optionalName: mergedInputs.optionalName,
+      optionalName: composePatientName(mergedInputs),
       pathway: mergedInputs.patientPathway,
       reasonForSupport: mergedInputs.reasonForSupport,
       spo2: mergedInputs.spo2,
@@ -1726,6 +1774,7 @@ export default function useAssessmentScreen() {
       onClear: clearFacility,
     },
     updateInput,
+    updatePatientName,
     updateBodyMetric,
     updateDecimalInput,
     updateAgeComponent,

@@ -11395,6 +11395,8 @@ export namespace Prisma {
     facilityId: string | null
     appPatientCode: string | null
     optionalName: string | null
+    firstName: string | null
+    lastName: string | null
     hospitalNumber: string | null
     patientPathway: $Enums.PatientPathway | null
     dateOfBirth: Date | null
@@ -11418,6 +11420,8 @@ export namespace Prisma {
     facilityId: string | null
     appPatientCode: string | null
     optionalName: string | null
+    firstName: string | null
+    lastName: string | null
     hospitalNumber: string | null
     patientPathway: $Enums.PatientPathway | null
     dateOfBirth: Date | null
@@ -11441,6 +11445,8 @@ export namespace Prisma {
     facilityId: number
     appPatientCode: number
     optionalName: number
+    firstName: number
+    lastName: number
     hospitalNumber: number
     patientPathway: number
     dateOfBirth: number
@@ -11489,6 +11495,8 @@ export namespace Prisma {
     facilityId?: true
     appPatientCode?: true
     optionalName?: true
+    firstName?: true
+    lastName?: true
     hospitalNumber?: true
     patientPathway?: true
     dateOfBirth?: true
@@ -11512,6 +11520,8 @@ export namespace Prisma {
     facilityId?: true
     appPatientCode?: true
     optionalName?: true
+    firstName?: true
+    lastName?: true
     hospitalNumber?: true
     patientPathway?: true
     dateOfBirth?: true
@@ -11535,6 +11545,8 @@ export namespace Prisma {
     facilityId?: true
     appPatientCode?: true
     optionalName?: true
+    firstName?: true
+    lastName?: true
     hospitalNumber?: true
     patientPathway?: true
     dateOfBirth?: true
@@ -11646,6 +11658,8 @@ export namespace Prisma {
     facilityId: string
     appPatientCode: string
     optionalName: string | null
+    firstName: string | null
+    lastName: string | null
     hospitalNumber: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth: Date | null
@@ -11689,6 +11703,8 @@ export namespace Prisma {
     facilityId?: boolean
     appPatientCode?: boolean
     optionalName?: boolean
+    firstName?: boolean
+    lastName?: boolean
     hospitalNumber?: boolean
     patientPathway?: boolean
     dateOfBirth?: boolean
@@ -11718,6 +11734,8 @@ export namespace Prisma {
     facilityId?: boolean
     appPatientCode?: boolean
     optionalName?: boolean
+    firstName?: boolean
+    lastName?: boolean
     hospitalNumber?: boolean
     patientPathway?: boolean
     dateOfBirth?: boolean
@@ -11737,7 +11755,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "facilityId" | "appPatientCode" | "optionalName" | "hospitalNumber" | "patientPathway" | "dateOfBirth" | "ageYears" | "ageMonths" | "ageDays" | "estimatedAge" | "gestationalAgeWeeks" | "correctedAgeWeeks" | "sexForSizeCalculations" | "actualWeightKg" | "heightOrLengthCm" | "referenceWeightKg" | "referenceWeightMethod" | "pathwayDetailsJson" | "createdAt" | "updatedAt", ExtArgs["result"]["patient"]>
+  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "facilityId" | "appPatientCode" | "optionalName" | "firstName" | "lastName" | "hospitalNumber" | "patientPathway" | "dateOfBirth" | "ageYears" | "ageMonths" | "ageDays" | "estimatedAge" | "gestationalAgeWeeks" | "correctedAgeWeeks" | "sexForSizeCalculations" | "actualWeightKg" | "heightOrLengthCm" | "referenceWeightKg" | "referenceWeightMethod" | "pathwayDetailsJson" | "createdAt" | "updatedAt", ExtArgs["result"]["patient"]>
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     facility?: boolean | FacilityDefaultArgs<ExtArgs>
     admissions?: boolean | Patient$admissionsArgs<ExtArgs>
@@ -11755,6 +11773,8 @@ export namespace Prisma {
       facilityId: string
       appPatientCode: string
       optionalName: string | null
+      firstName: string | null
+      lastName: string | null
       hospitalNumber: string | null
       patientPathway: $Enums.PatientPathway
       dateOfBirth: Date | null
@@ -12147,6 +12167,8 @@ export namespace Prisma {
     readonly facilityId: FieldRef<"Patient", 'String'>
     readonly appPatientCode: FieldRef<"Patient", 'String'>
     readonly optionalName: FieldRef<"Patient", 'String'>
+    readonly firstName: FieldRef<"Patient", 'String'>
+    readonly lastName: FieldRef<"Patient", 'String'>
     readonly hospitalNumber: FieldRef<"Patient", 'String'>
     readonly patientPathway: FieldRef<"Patient", 'PatientPathway'>
     readonly dateOfBirth: FieldRef<"Patient", 'DateTime'>
@@ -30976,6 +30998,8 @@ export namespace Prisma {
     facilityId: 'facilityId',
     appPatientCode: 'appPatientCode',
     optionalName: 'optionalName',
+    firstName: 'firstName',
+    lastName: 'lastName',
     hospitalNumber: 'hospitalNumber',
     patientPathway: 'patientPathway',
     dateOfBirth: 'dateOfBirth',
@@ -31509,6 +31533,8 @@ export namespace Prisma {
     facilityId: 'facilityId',
     appPatientCode: 'appPatientCode',
     optionalName: 'optionalName',
+    firstName: 'firstName',
+    lastName: 'lastName',
     hospitalNumber: 'hospitalNumber',
     referenceWeightMethod: 'referenceWeightMethod'
   };
@@ -32592,6 +32618,8 @@ export namespace Prisma {
     facilityId?: StringFilter<"Patient"> | string
     appPatientCode?: StringFilter<"Patient"> | string
     optionalName?: StringNullableFilter<"Patient"> | string | null
+    firstName?: StringNullableFilter<"Patient"> | string | null
+    lastName?: StringNullableFilter<"Patient"> | string | null
     hospitalNumber?: StringNullableFilter<"Patient"> | string | null
     patientPathway?: EnumPatientPathwayFilter<"Patient"> | $Enums.PatientPathway
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
@@ -32618,6 +32646,8 @@ export namespace Prisma {
     facilityId?: SortOrder
     appPatientCode?: SortOrder
     optionalName?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     hospitalNumber?: SortOrderInput | SortOrder
     patientPathway?: SortOrder
     dateOfBirth?: SortOrderInput | SortOrder
@@ -32649,6 +32679,8 @@ export namespace Prisma {
     facilityId?: StringFilter<"Patient"> | string
     appPatientCode?: StringFilter<"Patient"> | string
     optionalName?: StringNullableFilter<"Patient"> | string | null
+    firstName?: StringNullableFilter<"Patient"> | string | null
+    lastName?: StringNullableFilter<"Patient"> | string | null
     hospitalNumber?: StringNullableFilter<"Patient"> | string | null
     patientPathway?: EnumPatientPathwayFilter<"Patient"> | $Enums.PatientPathway
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
@@ -32675,6 +32707,8 @@ export namespace Prisma {
     facilityId?: SortOrder
     appPatientCode?: SortOrder
     optionalName?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     hospitalNumber?: SortOrderInput | SortOrder
     patientPathway?: SortOrder
     dateOfBirth?: SortOrderInput | SortOrder
@@ -32707,6 +32741,8 @@ export namespace Prisma {
     facilityId?: StringWithAggregatesFilter<"Patient"> | string
     appPatientCode?: StringWithAggregatesFilter<"Patient"> | string
     optionalName?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    firstName?: StringNullableWithAggregatesFilter<"Patient"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     hospitalNumber?: StringNullableWithAggregatesFilter<"Patient"> | string | null
     patientPathway?: EnumPatientPathwayWithAggregatesFilter<"Patient"> | $Enums.PatientPathway
     dateOfBirth?: DateTimeNullableWithAggregatesFilter<"Patient"> | Date | string | null
@@ -35524,6 +35560,8 @@ export namespace Prisma {
     id?: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -35550,6 +35588,8 @@ export namespace Prisma {
     facilityId: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -35574,6 +35614,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35600,6 +35642,8 @@ export namespace Prisma {
     facilityId?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35625,6 +35669,8 @@ export namespace Prisma {
     facilityId: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -35648,6 +35694,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35672,6 +35720,8 @@ export namespace Prisma {
     facilityId?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38921,6 +38971,8 @@ export namespace Prisma {
     facilityId?: SortOrder
     appPatientCode?: SortOrder
     optionalName?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     hospitalNumber?: SortOrder
     patientPathway?: SortOrder
     dateOfBirth?: SortOrder
@@ -38956,6 +39008,8 @@ export namespace Prisma {
     facilityId?: SortOrder
     appPatientCode?: SortOrder
     optionalName?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     hospitalNumber?: SortOrder
     patientPathway?: SortOrder
     dateOfBirth?: SortOrder
@@ -38979,6 +39033,8 @@ export namespace Prisma {
     facilityId?: SortOrder
     appPatientCode?: SortOrder
     optionalName?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     hospitalNumber?: SortOrder
     patientPathway?: SortOrder
     dateOfBirth?: SortOrder
@@ -46127,6 +46183,8 @@ export namespace Prisma {
     id?: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -46151,6 +46209,8 @@ export namespace Prisma {
     id?: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -46679,6 +46739,8 @@ export namespace Prisma {
     facilityId?: StringFilter<"Patient"> | string
     appPatientCode?: StringFilter<"Patient"> | string
     optionalName?: StringNullableFilter<"Patient"> | string | null
+    firstName?: StringNullableFilter<"Patient"> | string | null
+    lastName?: StringNullableFilter<"Patient"> | string | null
     hospitalNumber?: StringNullableFilter<"Patient"> | string | null
     patientPathway?: EnumPatientPathwayFilter<"Patient"> | $Enums.PatientPathway
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
@@ -47888,6 +47950,8 @@ export namespace Prisma {
     id?: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -47913,6 +47977,8 @@ export namespace Prisma {
     facilityId: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -48548,6 +48614,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48573,6 +48641,8 @@ export namespace Prisma {
     facilityId?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -54867,6 +54937,8 @@ export namespace Prisma {
     id?: string
     appPatientCode: string
     optionalName?: string | null
+    firstName?: string | null
+    lastName?: string | null
     hospitalNumber?: string | null
     patientPathway: $Enums.PatientPathway
     dateOfBirth?: Date | string | null
@@ -55114,6 +55186,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -55138,6 +55212,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -55162,6 +55238,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     appPatientCode?: StringFieldUpdateOperationsInput | string
     optionalName?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalNumber?: NullableStringFieldUpdateOperationsInput | string | null
     patientPathway?: EnumPatientPathwayFieldUpdateOperationsInput | $Enums.PatientPathway
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

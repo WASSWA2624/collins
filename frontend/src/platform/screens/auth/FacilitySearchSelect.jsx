@@ -1,6 +1,6 @@
 /**
  * FacilitySearchSelect
- * Platform dispatcher for registration-time facility selector.
+ * Platform dispatcher for searchable facility selection.
  * File: FacilitySearchSelect.jsx
  */
 import { Platform } from 'react-native';

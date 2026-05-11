@@ -99,6 +99,7 @@ const AssessmentScreenAndroid = () => {
     facilitySearch,
     mergedInputs,
     updateInput,
+    updatePatientName,
     updateDecimalInput,
     updateAgeComponent,
     updateDateOfBirth,
@@ -369,13 +370,20 @@ const AssessmentScreenAndroid = () => {
         testID="assessment-facility-combobox"
       />
       <TextField
-        label={t('ventilation.assessment.patientReason.patientName')}
-        placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')}
-        value={mergedInputs.optionalName}
-        onChangeText={(value) => updateInput({ optionalName: value })}
-        {...getFieldErrorProps('optionalName')}
+        label={t('ventilation.assessment.patientReason.firstName')}
+        placeholder={t('ventilation.assessment.patientReason.firstNamePlaceholder')}
+        value={mergedInputs.firstName}
+        onChangeText={(value) => updatePatientName('firstName', value)}
+        {...getFieldErrorProps('firstName')}
         required
-        testID="assessment-patient-name"
+        testID="assessment-patient-first-name"
+      />
+      <TextField
+        label={t('ventilation.assessment.patientReason.lastName')}
+        placeholder={t('ventilation.assessment.patientReason.lastNamePlaceholder')}
+        value={mergedInputs.lastName}
+        onChangeText={(value) => updatePatientName('lastName', value)}
+        testID="assessment-patient-last-name"
       />
       <Select
         label={t('ventilation.assessment.patientReason.reasonForSupport')}

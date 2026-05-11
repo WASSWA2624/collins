@@ -87,6 +87,8 @@ const sexForSizeCalculations = z.preprocess((value) => normalizeEnumInput(value,
 const patientPayload = z.object({
   appPatientCode: optionalString(80),
   optionalName: optionalString(160),
+  firstName: optionalString(80),
+  lastName: optionalString(80),
   hospitalNumber: optionalString(120),
   patientPathway: patientPathway.default('UNKNOWN'),
   dateOfBirth: optionalDate,
@@ -105,7 +107,8 @@ const patientPayload = z.object({
 });
 
 const newPatientPayload = patientPayload.extend({
-  optionalName: requiredString(160),
+  optionalName: optionalString(160),
+  firstName: requiredString(80),
   ageYears: optionalFiniteNumber,
   ageMonths: optionalFiniteNumber,
   ageDays: optionalFiniteNumber,

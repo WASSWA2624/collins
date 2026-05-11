@@ -12,7 +12,8 @@ test('patient and reason step accepts minimal patient data without explicit faci
   const parsed = newPatientReasonStepSchema.parse({
     body: {
       patient: {
-        optionalName: 'Patient One',
+        firstName: 'Patient',
+        lastName: 'One',
         patientPathway: 'adult',
         sexForSizeCalculations: 'male',
         ageDays: '14',
@@ -27,7 +28,9 @@ test('patient and reason step accepts minimal patient data without explicit faci
   });
 
   assert.equal(parsed.body.patient.patientPathway, 'ADULT');
-  assert.equal(parsed.body.patient.optionalName, 'Patient One');
+  assert.equal(parsed.body.patient.firstName, 'Patient');
+  assert.equal(parsed.body.patient.lastName, 'One');
+  assert.equal(parsed.body.patient.optionalName, undefined);
   assert.equal(parsed.body.patient.sexForSizeCalculations, 'MALE');
   assert.equal(parsed.body.patient.ageDays, 14);
   assert.equal(parsed.body.patient.ageYears, undefined);

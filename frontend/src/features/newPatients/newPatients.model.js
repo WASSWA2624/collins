@@ -112,7 +112,9 @@ const sexForSizeCalculationsSchema = z.preprocess((value) => normalizeEnumInput(
 
 const patientRegistrationSchema = z.object({
   appPatientCode: optionalString(80),
-  optionalName: requiredString(160),
+  optionalName: optionalString(160),
+  firstName: requiredString(80),
+  lastName: optionalString(80),
   hospitalNumber: optionalString(120),
   patientPathway: patientPathwaySchema.default('UNKNOWN'),
   dateOfBirth: optionalIsoDate,
@@ -250,6 +252,35 @@ const compactToken = (value) =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 40) || 'unknown';
 
+const splitDisplayName = (value) => {
+  const text = typeof value === 'string' ? cleanString(value) : '';
+  const parts = text.split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' '),
+  };
+};
+
+const composeDisplayName = ({ firstName, lastName, optionalName } = {}) => {
+  const composed = [
+    typeof firstName === 'string' ? cleanString(firstName) : '',
+    typeof lastName === 'string' ? cleanString(lastName) : '',
+  ].filter(Boolean).join(' ');
+  return composed || (typeof optionalName === 'string' ? cleanString(optionalName) : '');
+};
+
+const normalizePatientNameFields = (patient = {}) => {
+  const split = splitDisplayName(patient.optionalName);
+  const firstName = cleanString(patient.firstName) || split.firstName;
+  const lastName = cleanString(patient.lastName) || split.lastName;
+  return {
+    ...patient,
+    firstName,
+    lastName: lastName || undefined,
+    optionalName: composeDisplayName({ firstName, lastName, optionalName: patient.optionalName }) || undefined,
+  };
+};
+
 const createNewPatientIdempotencyKey = ({
   facilityId,
   prefix = 'new-patient',
@@ -297,6 +328,7 @@ const normalizeNewPatientDraft = (value, options = {}) => {
 
   return newPatientDraftSchema.parse({
     ...input,
+    patient: normalizePatientNameFields(input.patient),
     clientRecordId,
     clientCreatedAt,
     clientUpdatedAt: input.clientUpdatedAt || createClientTimestamp(options.now),

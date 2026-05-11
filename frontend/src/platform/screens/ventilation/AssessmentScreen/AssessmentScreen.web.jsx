@@ -110,8 +110,8 @@ const STEP_STATUS = Object.freeze({
 
 const FIELD_TEST_IDS = Object.freeze({
   facilityId: 'assessment-facility-combobox',
-  optionalName: 'assessment-patient-name',
   reasonForSupport: 'assessment-reason',
+  firstName: 'assessment-patient-first-name',
   ageYears: 'assessment-age-years',
   actualWeightKg: 'assessment-weight',
   heightOrLengthCm: 'assessment-height',
@@ -149,6 +149,7 @@ const AssessmentScreenWeb = () => {
     facilitySearch,
     mergedInputs,
     updateInput,
+    updatePatientName,
     updateDecimalInput,
     updateAgeComponent,
     updateDateOfBirth,
@@ -483,13 +484,22 @@ const AssessmentScreenWeb = () => {
         </StyledFieldGridFull>
         <StyledFieldGridFull>
           <TextField
-            label={t('ventilation.assessment.patientReason.patientName')}
-            placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')}
-            value={mergedInputs.optionalName}
-            onChangeText={(value) => updateInput({ optionalName: value })}
-            {...getFieldErrorProps('optionalName')}
+            label={t('ventilation.assessment.patientReason.firstName')}
+            placeholder={t('ventilation.assessment.patientReason.firstNamePlaceholder')}
+            value={mergedInputs.firstName}
+            onChangeText={(value) => updatePatientName('firstName', value)}
+            {...getFieldErrorProps('firstName')}
             required
-            testID="assessment-patient-name"
+            testID="assessment-patient-first-name"
+          />
+        </StyledFieldGridFull>
+        <StyledFieldGridFull>
+          <TextField
+            label={t('ventilation.assessment.patientReason.lastName')}
+            placeholder={t('ventilation.assessment.patientReason.lastNamePlaceholder')}
+            value={mergedInputs.lastName}
+            onChangeText={(value) => updatePatientName('lastName', value)}
+            testID="assessment-patient-last-name"
           />
         </StyledFieldGridFull>
         <StyledFieldGridFull>

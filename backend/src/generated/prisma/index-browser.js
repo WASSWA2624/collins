@@ -213,6 +213,8 @@ exports.Prisma.PatientScalarFieldEnum = {
   facilityId: 'facilityId',
   appPatientCode: 'appPatientCode',
   optionalName: 'optionalName',
+  firstName: 'firstName',
+  lastName: 'lastName',
   hospitalNumber: 'hospitalNumber',
   patientPathway: 'patientPathway',
   dateOfBirth: 'dateOfBirth',
@@ -656,6 +658,8 @@ exports.Prisma.PatientOrderByRelevanceFieldEnum = {
   facilityId: 'facilityId',
   appPatientCode: 'appPatientCode',
   optionalName: 'optionalName',
+  firstName: 'firstName',
+  lastName: 'lastName',
   hospitalNumber: 'hospitalNumber',
   referenceWeightMethod: 'referenceWeightMethod'
 };

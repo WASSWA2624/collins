@@ -144,6 +144,8 @@ const stripNullish = (value) => {
   return value;
 };
 
+const hasOwn = (value, field) => Object.prototype.hasOwnProperty.call(value || {}, field);
+
 const withDefaultTimestamp = (record = {}, field = 'measuredAt') => {
   const data = stripNullish(record);
   if (!hasKeys(data) || data[field]) return data;
@@ -252,6 +254,21 @@ const buildStepWriteMetadata = (record, payload, suffix, { includeSource = false
 
 const normalizePatientForStorage = (patient = {}) => {
   const data = { ...patient };
+  const existingName = cleanText(data.optionalName);
+  const firstName = cleanText(data.firstName);
+  const lastName = cleanText(data.lastName);
+
+  if (!firstName && existingName) {
+    const [first, ...rest] = existingName.split(/\s+/);
+    data.firstName = cleanText(first);
+    data.lastName = cleanText(data.lastName) || cleanText(rest.join(' '));
+  } else {
+    data.firstName = firstName;
+    data.lastName = lastName;
+  }
+
+  data.optionalName = cleanText([data.firstName, data.lastName].filter(Boolean).join(' ')) || existingName;
+
   const ageYears = Number(data.ageYears);
   if (Number.isFinite(ageYears)) {
     data.ageYears = Math.trunc(ageYears);
@@ -270,6 +287,34 @@ const normalizePatientForStorage = (patient = {}) => {
   return data;
 };
 
+const normalizePatientUpdateForStorage = (currentPatient = {}, patientPatch = {}) => {
+  const data = { ...patientPatch };
+  const hasNamePatch = ['firstName', 'lastName', 'optionalName'].some((field) => hasOwn(data, field));
+  if (!hasNamePatch) return data;
+
+  const optionalNameProvided = hasOwn(data, 'optionalName');
+  const nameFields = normalizePatientForStorage({
+    optionalName: optionalNameProvided ? data.optionalName : currentPatient.optionalName,
+    firstName: hasOwn(data, 'firstName')
+      ? data.firstName
+      : optionalNameProvided
+        ? undefined
+        : currentPatient.firstName,
+    lastName: hasOwn(data, 'lastName')
+      ? data.lastName
+      : optionalNameProvided
+        ? undefined
+        : currentPatient.lastName,
+  });
+
+  return {
+    ...data,
+    firstName: nameFields.firstName,
+    lastName: nameFields.lastName,
+    optionalName: nameFields.optionalName,
+  };
+};
+
 const preparePatientData = (patient) => {
   const patientData = normalizePatientForStorage(patient);
   const reference = calculateReferenceWeight(patientData);
@@ -282,7 +327,7 @@ const preparePatientData = (patient) => {
 };
 
 const preparePatientUpdateData = (currentPatient, patientPatch = {}) => {
-  const patientData = stripUndefined(patientPatch);
+  const patientData = stripUndefined(normalizePatientUpdateForStorage(currentPatient, patientPatch));
   if (!hasKeys(patientData)) return null;
   if (patientData.appPatientCode === null) delete patientData.appPatientCode;
   if (!hasKeys(patientData)) return null;

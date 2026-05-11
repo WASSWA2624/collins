@@ -309,6 +309,8 @@ model Patient {
   facilityId             String                 @map("facility_id")
   appPatientCode         String                 @map("app_patient_code")
   optionalName           String?                @map("optional_name")
+  firstName              String?                @map("first_name")
+  lastName               String?                @map("last_name")
   hospitalNumber         String?                @map("hospital_number")
   patientPathway         PatientPathway         @map("patient_pathway")
   dateOfBirth            DateTime?              @map("date_of_birth")

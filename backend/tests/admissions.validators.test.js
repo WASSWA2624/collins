@@ -14,6 +14,8 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
       appAdmissionCode: null,
       admittedAt: '',
       patient: {
+        firstName: 'Patient',
+        lastName: 'One',
         patientPathway: 'obstetric/post-partum',
         sexForSizeCalculations: 'not_available',
         ageYears: 'unknown',
@@ -46,6 +48,8 @@ test('normalizes admission missing-data sentinels and pathway aliases', () => {
   assert.equal(result.data.body.appAdmissionCode, null);
   assert.equal(result.data.body.admittedAt, undefined);
   assert.equal(result.data.body.patient.patientPathway, 'OBSTETRIC');
+  assert.equal(result.data.body.patient.firstName, 'Patient');
+  assert.equal(result.data.body.patient.lastName, 'One');
   assert.equal(result.data.body.patient.sexForSizeCalculations, 'UNKNOWN');
   assert.equal(result.data.body.patient.ageYears, null);
   assert.equal(result.data.body.patient.actualWeightKg, null);
@@ -166,7 +170,7 @@ test('validates ventilator append metadata and empty query contract', () => {
 test('rejects FiO2 fields from New Patient request payloads', () => {
   const createResult = createNewPatientSchema.safeParse({
     body: {
-      patient: { patientPathway: 'ADULT' },
+      patient: { firstName: 'Patient', patientPathway: 'ADULT' },
       clinicalSnapshot: { spo2: 94, fio2: 0.5 },
       idempotencyKey: 'new-patient-fio2-create',
     },

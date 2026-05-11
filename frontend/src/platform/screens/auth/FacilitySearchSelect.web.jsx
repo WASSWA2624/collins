@@ -1,11 +1,11 @@
 /**
  * FacilitySearchSelect - Web
- * Searchable registration-time facility selector.
+ * Searchable facility selector.
  * File: FacilitySearchSelect.web.jsx
  */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Button, Text } from '@platform/components';
+import { Text } from '@platform/components';
 
 const MAX_VISIBLE_OPTIONS = 18;
 
@@ -50,6 +50,7 @@ const FacilitySearchSelectWeb = ({
   const displayHelperText = value
     ? selectedHelper || describeFacility(value)
     : helperText;
+  const canClear = Boolean(value && onClear && !disabled);
 
   const openMenu = useCallback(() => {
     if (disabled) return;
@@ -83,6 +84,15 @@ const FacilitySearchSelectWeb = ({
     setIsOpen(false);
     inputRef.current?.blur();
   }, [disabled, onValueChange]);
+
+  const handleClear = useCallback((event) => {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    if (!canClear) return;
+    onClear();
+    setIsOpen(true);
+    inputRef.current?.focus();
+  }, [canClear, onClear]);
 
   return (
     <StyledContainer data-testid={testID}>
@@ -118,9 +128,21 @@ const FacilitySearchSelectWeb = ({
           aria-label={label || placeholder}
           data-testid={inputId}
         />
-        <StyledChevron aria-hidden="true">
-          {isOpen ? '^' : 'v'}
-        </StyledChevron>
+        {canClear ? (
+          <StyledIconButton
+            type="button"
+            onMouseDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            onClick={handleClear}
+            aria-label={clearLabel}
+            data-testid={`${testID}-clear`}
+          >
+            <StyledClearIcon aria-hidden="true" />
+          </StyledIconButton>
+        ) : null}
+        <StyledChevron $isOpen={isOpen} aria-hidden="true" />
       </StyledSelectSurface>
 
       {isOpen && loading ? (
@@ -181,19 +203,6 @@ const FacilitySearchSelectWeb = ({
         </StyledHelperText>
       ) : null}
 
-      {value && onClear ? (
-        <StyledClearAction>
-          <Button
-            variant="text"
-            text={clearLabel}
-            onPress={onClear}
-            onClick={onClear}
-            accessibilityLabel={clearLabel}
-            disabled={disabled}
-            testID={`${testID}-clear`}
-          />
-        </StyledClearAction>
-      ) : null}
     </StyledContainer>
   );
 };
@@ -231,7 +240,7 @@ const StyledSelectSurface = styled.div.withConfig({
   padding: 0 ${({ theme }) => theme.spacing.md}px;
   border: 1px solid ${({ $isOpen, theme }) =>
     $isOpen ? theme.colors.primary : theme.colors.background.tertiary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0;
   background: ${({ theme }) => theme.colors.background.primary};
   box-shadow: ${({ $isOpen, theme }) => ($isOpen ? `0 0 0 3px ${theme.colors.primary}15` : 'none')};
   box-sizing: border-box;
@@ -259,14 +268,79 @@ const StyledInput = styled.input.withConfig({
   }
 `;
 
+const StyledIconButton = styled.button.withConfig({
+  displayName: 'StyledIconButton',
+  componentId: 'FacilitySearchSelectIconButton',
+})`
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  cursor: pointer;
+  padding: 0;
+
+  &:hover,
+  &:focus-visible {
+    color: ${({ theme }) => theme.colors.text.primary};
+    outline: none;
+  }
+`;
+
+const StyledClearIcon = styled.span.withConfig({
+  displayName: 'StyledClearIcon',
+  componentId: 'FacilitySearchSelectClearIcon',
+})`
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    width: 2px;
+    height: 14px;
+    background: currentColor;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+`;
+
 const StyledChevron = styled.span.withConfig({
   displayName: 'StyledChevron',
   componentId: 'FacilitySearchSelectChevron',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
-  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: inline-block;
+  position: relative;
   color: ${({ theme }) => theme.colors.text.secondary};
-  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  line-height: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: ${({ $isOpen }) => ($isOpen ? 'translate(4px, 6px) rotate(225deg)' : 'translate(4px, 2px) rotate(45deg)')};
+  }
 `;
 
 const StyledOptionsPanel = styled.div.withConfig({
@@ -278,7 +352,7 @@ const StyledOptionsPanel = styled.div.withConfig({
   margin-top: ${({ theme }) => theme.spacing.xs}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   background: ${({ theme }) => theme.colors.background.primary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0;
   overflow-y: auto;
   box-shadow: ${({ theme }) => {
     const shadow = theme.shadows?.md;
@@ -326,7 +400,7 @@ const StyledEmptyState = styled.div.withConfig({
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   background: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: ${({ theme }) => theme.radius.sm}px;
+  border-radius: 0;
   box-sizing: border-box;
 `;
 
@@ -345,14 +419,6 @@ const StyledErrorText = styled(StyledHelperText).withConfig({
   componentId: 'FacilitySearchSelectError',
 })`
   color: ${({ theme }) => theme.colors.status?.error || '#B42318'};
-`;
-
-const StyledClearAction = styled.div.withConfig({
-  displayName: 'StyledClearAction',
-  componentId: 'FacilitySearchSelectClear',
-})`
-  width: max-content;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 export default FacilitySearchSelectWeb;

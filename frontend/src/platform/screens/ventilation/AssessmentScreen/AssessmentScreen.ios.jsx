@@ -99,6 +99,7 @@ const AssessmentScreenIOS = () => {
     facilitySearch,
     mergedInputs,
     updateInput,
+    updatePatientName,
     updateDecimalInput,
     updateAgeComponent,
     updateDateOfBirth,
@@ -368,7 +369,8 @@ const AssessmentScreenIOS = () => {
         accessibilityHint={t('ventilation.assessment.patientReason.facilitySearchHint')}
         testID="assessment-facility-combobox"
       />
-      <TextField label={t('ventilation.assessment.patientReason.patientName')} placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')} value={mergedInputs.optionalName} onChangeText={(value) => updateInput({ optionalName: value })} {...getFieldErrorProps('optionalName')} required testID="assessment-patient-name" />
+      <TextField label={t('ventilation.assessment.patientReason.firstName')} placeholder={t('ventilation.assessment.patientReason.firstNamePlaceholder')} value={mergedInputs.firstName} onChangeText={(value) => updatePatientName('firstName', value)} {...getFieldErrorProps('firstName')} required testID="assessment-patient-first-name" />
+      <TextField label={t('ventilation.assessment.patientReason.lastName')} placeholder={t('ventilation.assessment.patientReason.lastNamePlaceholder')} value={mergedInputs.lastName} onChangeText={(value) => updatePatientName('lastName', value)} testID="assessment-patient-last-name" />
       <Select label={t('ventilation.assessment.patientReason.reasonForSupport')} placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')} searchPlaceholder={t('ventilation.assessment.patientReason.reasonForSupportSearchPlaceholder')} options={reasonForSupportOptions} value={mergedInputs.reasonForSupport} onValueChange={(value) => updateInput({ reasonForSupport: value })} {...getFieldErrorProps('reasonForSupport')} allowCustomValue required testID="assessment-reason" />
       <TextField label={t('ventilation.assessment.patientReason.ageYears')} type="number" keyboardType="number-pad" value={getNumericInputValue('ageYearsPart')} onChangeText={(value) => updateAgeComponent('ageYearsPart', value)} {...getFieldErrorProps('ageYears')} testID="assessment-age-years" />
       <TextField label={t('ventilation.assessment.patientReason.ageMonths')} type="number" keyboardType="number-pad" value={getNumericInputValue('ageMonthsPart')} onChangeText={(value) => updateAgeComponent('ageMonthsPart', value)} testID="assessment-age-months" />

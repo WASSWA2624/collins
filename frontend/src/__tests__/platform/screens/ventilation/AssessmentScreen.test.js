@@ -162,6 +162,8 @@ const defaultSessionMock = {
 const completePatientInputs = {
   clientRecordId: 'admission-test-client',
   facilityId: 'facility-1',
+  firstName: 'Jane',
+  lastName: 'Doe',
   optionalName: 'Jane Doe',
   patientPathway: 'ADULT',
   reasonForSupport: 'ARDS with hypoxaemia',
@@ -315,12 +317,11 @@ describe('AssessmentScreen', () => {
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
     });
 
-    it('sends mandatory patient name on the patient and reason step', async () => {
+    it('sends mandatory first name and optional last name on the patient and reason step', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         inputs: {
           ...completePatientInputs,
-          optionalName: 'Jane Doe',
         },
       });
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
@@ -331,6 +332,8 @@ describe('AssessmentScreen', () => {
         expect(savePatientReasonStepApi).toHaveBeenCalled();
       });
       expect(savePatientReasonStepApi.mock.calls[0][0].patient).toMatchObject({
+        firstName: 'Jane',
+        lastName: 'Doe',
         optionalName: 'Jane Doe',
       });
     });
@@ -338,12 +341,46 @@ describe('AssessmentScreen', () => {
     it('should show facility selection and hide bed and permitted missing fields from the New Patient form', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-facility-combobox')).toBeTruthy();
-      expect(getByTestId('assessment-patient-name')).toBeTruthy();
+      expect(getByTestId('assessment-patient-first-name')).toBeTruthy();
+      expect(getByTestId('assessment-patient-last-name')).toBeTruthy();
       expect(getByTestId('assessment-height')).toBeTruthy();
       expect(getByTestId('assessment-bmi')).toBeTruthy();
       expect(queryByTestId('assessment-age-group-adult')).toBeNull();
       expect(queryByTestId('assessment-bed-number')).toBeNull();
       expect(queryByTestId('assessment-permitted-weight')).toBeNull();
+    });
+
+    it('clears selected facility from the built-in select icon instead of a separate text button', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: completePatientInputs,
+      });
+      const { getByTestId, queryByText } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      expect(queryByText('Clear facility')).toBeNull();
+      fireEvent.press(getByTestId('assessment-facility-combobox-clear'));
+
+      expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+        facilityId: '',
+      }));
+    });
+
+    it('keeps first and last name fields synchronized with the stored display name', async () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.changeText(getByTestId('assessment-patient-first-name'), 'Grace');
+      fireEvent.changeText(getByTestId('assessment-patient-last-name'), 'Hopper');
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          firstName: 'Grace',
+          optionalName: 'Grace',
+        }));
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          lastName: 'Hopper',
+          optionalName: 'Grace Hopper',
+        }));
+      });
     });
 
     it('updates derived age and pathway from the age component fields', async () => {

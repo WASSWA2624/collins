@@ -21,6 +21,8 @@ describe('newPatients.model', () => {
       }, { now, nonce: `nonce-${patientPathway}` });
 
       expect(draft.patient.patientPathway).toBe(patientPathway);
+      expect(draft.patient.firstName).toBe('Patient');
+      expect(draft.patient.lastName).toBe('One');
       expect(draft.facilityId).toBe('facility-1');
       expect(draft.idempotencyKey).toMatch(/^new-patient:facility-1:/);
       expect(draft.clientCreatedAt).toBe('2026-05-05T08:00:00.000Z');
@@ -49,6 +51,8 @@ describe('newPatients.model', () => {
     }, { now, nonce: 'fixed' });
 
     expect(draft.patient.patientPathway).toBe('OBSTETRIC');
+    expect(draft.patient.firstName).toBe('Patient');
+    expect(draft.patient.lastName).toBe('One');
     expect(draft.patient.sexForSizeCalculations).toBe('UNKNOWN');
     expect(draft.patient.ageYears).toBeNull();
     expect(draft.patient.actualWeightKg).toBeNull();
@@ -62,7 +66,8 @@ describe('newPatients.model', () => {
       reasonForSupport: 'Pneumonia with oxygen support',
       patient: {
         patientPathway: 'adult',
-        optionalName: 'Patient One',
+        firstName: 'Patient',
+        lastName: 'One',
         hospitalNumber: 'H-123',
         actualWeightKg: 'not_available',
       },
@@ -73,6 +78,11 @@ describe('newPatients.model', () => {
     expect(createPayload.facilityId).toBe('facility-1');
     expect(createPayload.reasonForVentilation).toBe('Pneumonia with oxygen support');
     expect(createPayload.patient.patientPathway).toBe('ADULT');
+    expect(createPayload.patient).toMatchObject({
+      firstName: 'Patient',
+      lastName: 'One',
+      optionalName: 'Patient One',
+    });
     expect(createPayload.patient.actualWeightKg).toBeNull();
     expect(createPayload.clinicalSnapshot.spo2).toBe(92);
     expect(createPayload.clientCreatedAt).toBe('2026-05-05T08:00:00.000Z');
