@@ -14,7 +14,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
       patient: {
         patientPathway: 'adult',
         sexForSizeCalculations: 'male',
-        ageYears: '54',
+        ageDays: '14',
         actualWeightKg: null,
         heightOrLengthCm: '170',
       },
@@ -27,13 +27,32 @@ test('patient and reason step accepts minimal patient data without explicit faci
 
   assert.equal(parsed.body.patient.patientPathway, 'ADULT');
   assert.equal(parsed.body.patient.sexForSizeCalculations, 'MALE');
-  assert.equal(parsed.body.patient.ageYears, 54);
+  assert.equal(parsed.body.patient.ageDays, 14);
+  assert.equal(parsed.body.patient.ageYears, undefined);
   assert.equal(parsed.body.patient.actualWeightKg, null);
   assert.equal(parsed.body.patient.heightOrLengthCm, 170);
   assert.equal(parsed.body.facilityId, undefined);
   assert.equal(parsed.body.bedNumber, undefined);
   assert.equal(parsed.body.reasonForSupport, undefined);
   assert.deepEqual(parsed.body.permittedMissingFields, ['actualWeightKg/referenceWeightKg']);
+});
+
+test('patient and reason step requires one age value or date of birth', () => {
+  assert.throws(() =>
+    newPatientReasonStepSchema.parse({
+      body: {
+        patient: {
+          patientPathway: 'adult',
+          sexForSizeCalculations: 'male',
+          actualWeightKg: '70',
+          heightOrLengthCm: '170',
+        },
+        idempotencyKey: 'patient-step-no-age',
+      },
+      params: {},
+      query: {},
+    })
+  );
 });
 
 test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncertainty', () => {
@@ -198,6 +217,8 @@ test('backend recommendation request accepts optional ABG values and no FiO2', (
         condition: 'ARDS with hypoxaemia',
         patientPathway: 'adult',
         ageYears: '54',
+        ageMonths: null,
+        ageDays: '7',
         actualWeightKg: '70',
         heightOrLengthCm: '172',
         spo2: '88',
@@ -213,6 +234,7 @@ test('backend recommendation request accepts optional ABG values and no FiO2', (
   });
 
   assert.equal(parsed.body.input.patientPathway, 'ADULT');
+  assert.equal(parsed.body.input.ageDays, 7);
   assert.equal(parsed.body.input.ph, 7.31);
   assert.equal(parsed.body.input.pao2, null);
   assert.equal(parsed.body.input.paco2, null);

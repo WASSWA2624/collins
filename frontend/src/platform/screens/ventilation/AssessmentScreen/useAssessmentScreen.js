@@ -292,6 +292,7 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   facilityId: '',
   admissionSource: '',
   reasonForSupport: '',
+  optionalName: '',
   patientPathway: 'UNKNOWN',
   dateOfBirth: '',
   ageYears: null,
@@ -582,6 +583,7 @@ const buildPatientReasonPayload = (inputs) => {
     admissionSource: textOrUndefined(inputs.admissionSource),
     reasonForSupport: textOrUndefined(inputs.reasonForSupport),
     patient: {
+      optionalName: textOrUndefined(inputs.optionalName),
       patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
       dateOfBirth: textOrUndefined(inputs.dateOfBirth),
       ageYears: numberOrNull(inputs.ageYears),
@@ -719,6 +721,8 @@ const buildRecommendationInput = (inputs) => ({
   patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
   sexForSizeCalculations: cleanText(inputs.sexForSizeCalculations) || 'UNKNOWN',
   ageYears: numberOrNull(inputs.ageYears),
+  ageMonths: numberOrNull(inputs.ageMonths),
+  ageDays: numberOrNull(inputs.ageDays),
   actualWeightKg: numberOrNull(inputs.actualWeightKg),
   heightOrLengthCm: numberOrNull(inputs.heightOrLengthCm),
   spo2: firstFiniteNumber(inputs.spo2, inputs.spo2AtSample),
@@ -1280,7 +1284,7 @@ export default function useAssessmentScreen() {
         fallbackAdmissionId || admissionRecordId || mergedInputs.admissionId || mergedInputs.clientRecordId
       );
       const trackingPath = trackingAdmissionId
-        ? `/tracking?admissionId=${encodeURIComponent(trackingAdmissionId)}&admitted=1`
+        ? `/tracking/${encodeURIComponent(trackingAdmissionId)}?admitted=1&detail=1`
         : '/tracking';
       await clearDraft();
       resetSession();
@@ -1506,6 +1510,7 @@ export default function useAssessmentScreen() {
     () => ({
       facilityId: mergedInputs.facilityId,
       facilityLabel: activeFacilityLabel || mergedInputs.facilityId,
+      optionalName: mergedInputs.optionalName,
       pathway: mergedInputs.patientPathway,
       reasonForSupport: mergedInputs.reasonForSupport,
       oxygenSupportType: mergedInputs.oxygenSupportType,
@@ -1545,6 +1550,35 @@ export default function useAssessmentScreen() {
     () => recommendationSummary?.source?.confidenceTier ?? 'low',
     [recommendationSummary]
   );
+  const recommendationSourceCategory = useMemo(
+    () =>
+      recommendationSummary?.source?.sourceCategory ||
+      recommendationSummary?.decisionProvenance?.sourceCategory ||
+      'unknown',
+    [recommendationSummary]
+  );
+  const recommendationSourceCategoryLabel = useMemo(
+    () =>
+      recommendationSummary?.source?.sourceCategoryLabel ||
+      recommendationSummary?.decisionProvenance?.sourceCategoryLabel ||
+      null,
+    [recommendationSummary]
+  );
+  const recommendationCalculation = useMemo(
+    () => recommendationSummary?.initialVentilatorSettings?.calculation ?? null,
+    [recommendationSummary]
+  );
+  const recommendationSources = useMemo(
+    () =>
+      recommendationSummary?.source?.sources ||
+      recommendationSummary?.decisionProvenance?.sources ||
+      [],
+    [recommendationSummary]
+  );
+  const recommendationDecisionProvenance = useMemo(
+    () => recommendationSummary?.decisionProvenance ?? {},
+    [recommendationSummary]
+  );
 
   const retryLoadAdmissionForm = useCallback(async () => {
     clearError();
@@ -1575,6 +1609,11 @@ export default function useAssessmentScreen() {
     recommendationUnits,
     recommendationMissingInputs,
     recommendationConfidence,
+    recommendationSourceCategory,
+    recommendationSourceCategoryLabel,
+    recommendationCalculation,
+    recommendationSources,
+    recommendationDecisionProvenance,
     recommendationErrorCode,
     validation,
     rawValidation,

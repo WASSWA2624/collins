@@ -88,6 +88,7 @@ const patientPayload = z.object({
   dateOfBirth: optionalDate,
   ageYears: nullableOptional(z.coerce.number().int().min(0).max(130)),
   ageMonths: nullableOptional(z.coerce.number().int().min(0).max(1560)),
+  ageDays: nullableOptional(z.coerce.number().int().min(0).max(47450)),
   estimatedAge: optionalBoolean,
   gestationalAgeWeeks: nullableOptional(z.coerce.number().min(20).max(50)),
   correctedAgeWeeks: nullableOptional(z.coerce.number().min(20).max(120)),
@@ -102,6 +103,7 @@ const patientPayload = z.object({
 const newPatientPayload = patientPayload.extend({
   ageYears: optionalFiniteNumber,
   ageMonths: optionalFiniteNumber,
+  ageDays: optionalFiniteNumber,
   gestationalAgeWeeks: optionalFiniteNumber,
   correctedAgeWeeks: optionalFiniteNumber,
   actualWeightKg: optionalFiniteNumber,
@@ -403,6 +405,12 @@ const clinicalReasonBody = z.object({
   specialConditionsJson: jsonObject.nullable().optional(),
 }).strict();
 
+const hasPatientAgeInput = (patient = {}) =>
+  (patient.ageYears !== undefined && patient.ageYears !== null) ||
+  (patient.ageMonths !== undefined && patient.ageMonths !== null) ||
+  (patient.ageDays !== undefined && patient.ageDays !== null) ||
+  (patient.dateOfBirth !== undefined && patient.dateOfBirth !== null);
+
 const newPatientClinicalSnapshotBody = z.object({
   measuredAt: optionalDefaultDate,
   oxygenSupportType: optionalString(120),
@@ -476,7 +484,14 @@ export const newPatientReasonStepSchema = z.object({
     clientCreatedAt: optionalDate,
     clientUpdatedAt: optionalDate,
     idempotencyKey,
-  }).strict(),
+  }).strict().superRefine((body, ctx) => {
+    if (hasPatientAgeInput(body.patient)) return;
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['patient', 'ageYears'],
+      message: 'At least one age value is required: years, months, days, or date of birth.',
+    });
+  }),
   params: z.object({}).optional(),
   query: emptyQuery.optional(),
 });
@@ -529,6 +544,8 @@ export const newPatientVentilatorRecommendationSchema = z.object({
       patientPathway: patientPathway.optional(),
       sexForSizeCalculations: sexForSizeCalculations.optional(),
       ageYears: optionalFiniteNumber,
+      ageMonths: optionalFiniteNumber,
+      ageDays: optionalFiniteNumber,
       actualWeightKg: optionalFiniteNumber,
       heightOrLengthCm: optionalFiniteNumber,
       spo2: optionalFiniteNumber,

@@ -184,7 +184,7 @@ describe('Tracking screen compatibility route', () => {
       expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
     );
     expect(getByText('City ICU')).toBeDefined();
-    expect(getByText('COL-A-1')).toBeDefined();
+    expect(getByText('Jane Doe')).toBeDefined();
     expect(getByText('Bed ICU-2')).toBeDefined();
     expect(getByText('Review')).toBeDefined();
     expect(getAllByText('Conflict').length).toBeGreaterThan(0);
@@ -251,13 +251,33 @@ describe('Tracking screen compatibility route', () => {
     expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
   });
 
+  it('web: direct detail route loads tracking detail without rendering the list', async () => {
+    useLocalSearchParams.mockReturnValue({
+      admissionId: 'adm-1',
+      admitted: '1',
+    });
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
+
+    const { getByTestId, queryByTestId, getByText } = renderWithProviders(
+      <HistoryScreenWeb detailMode />
+    );
+
+    await waitFor(() =>
+      expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1')
+    );
+    expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
+    expect(queryByTestId(HISTORY_TEST_IDS.list)).toBeNull();
+    expect(getByText('Jane Doe')).toBeDefined();
+    expect(listTrackingAdmissionsUseCase).not.toHaveBeenCalled();
+  });
+
   it('android and ios render the tracking screen', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
     const android = renderWithProviders(<HistoryScreenAndroid />);
-    await waitFor(() => expect(android.getByText('COL-A-1')).toBeDefined());
+    await waitFor(() => expect(android.getByText('Jane Doe')).toBeDefined());
 
     const ios = renderWithProviders(<HistoryScreenIOS />);
-    await waitFor(() => expect(ios.getByText('COL-A-1')).toBeDefined());
+    await waitFor(() => expect(ios.getByText('Jane Doe')).toBeDefined());
   });
 });

@@ -20,9 +20,17 @@ const normalizeErrorCode = (error, fallback = 'TRACKING_LOAD_FAILED') => {
   return fallback;
 };
 
-export default function useHistoryScreen() {
+const getSearchParamValue = (value) => {
+  if (Array.isArray(value)) return value[0] || '';
+  return typeof value === 'string' ? value : '';
+};
+
+const isEnabledParam = (value) => ['1', 'true', 'yes'].includes(getSearchParamValue(value).toLowerCase());
+
+export default function useHistoryScreen(options = {}) {
   const router = useRouter();
   const searchParams = useLocalSearchParams();
+  const detailMode = options.detailMode === true || isEnabledParam(searchParams?.detail);
   const {
     sessionId,
     inputs,
@@ -42,15 +50,11 @@ export default function useHistoryScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const admittedAdmissionId = useMemo(() => {
-    const value = searchParams?.admissionId;
-    if (Array.isArray(value)) return value[0] || '';
-    return typeof value === 'string' ? value : '';
+    return getSearchParamValue(searchParams?.admissionId);
   }, [searchParams?.admissionId]);
 
   const showAdmittedBanner = useMemo(() => {
-    const value = searchParams?.admitted;
-    const admitted = Array.isArray(value) ? value[0] : value;
-    return admitted === '1' && Boolean(admittedAdmissionId);
+    return isEnabledParam(searchParams?.admitted) && Boolean(admittedAdmissionId);
   }, [admittedAdmissionId, searchParams?.admitted]);
 
   const loadTrackingDetail = useCallback(async (admissionId) => {
@@ -78,6 +82,13 @@ export default function useHistoryScreen() {
   }, [loadTrackingDetail]);
 
   const loadTracking = useCallback(async () => {
+    if (detailMode && admittedAdmissionId) {
+      setRows([]);
+      setTrackingErrorCode(null);
+      setIsTrackingLoading(false);
+      return;
+    }
+
     setIsTrackingLoading(true);
     setTrackingErrorCode(null);
     try {
@@ -92,21 +103,46 @@ export default function useHistoryScreen() {
     } finally {
       setIsTrackingLoading(false);
     }
-  }, []);
+  }, [admittedAdmissionId, detailMode]);
 
   useEffect(() => {
     loadTracking();
   }, [loadTracking]);
 
+  const activeDetailAdmissionId =
+    selectedAdmissionId || (detailMode ? admittedAdmissionId : null);
+
   const handleRefresh = useCallback(async () => {
     await loadTracking();
-    if (selectedAdmissionId) {
-      await loadTrackingDetail(selectedAdmissionId);
+    if (activeDetailAdmissionId) {
+      await loadTrackingDetail(activeDetailAdmissionId);
     }
-  }, [loadTracking, loadTrackingDetail, selectedAdmissionId]);
+  }, [activeDetailAdmissionId, loadTracking, loadTrackingDetail]);
 
   useEffect(() => {
     if (
+      !detailMode ||
+      !admittedAdmissionId ||
+      autoOpenedAdmissionId === admittedAdmissionId ||
+      selectedAdmissionId === admittedAdmissionId
+    ) {
+      return;
+    }
+
+    setAutoOpenedAdmissionId(admittedAdmissionId);
+    setSelectedAdmissionId(admittedAdmissionId);
+    loadTrackingDetail(admittedAdmissionId);
+  }, [
+    admittedAdmissionId,
+    autoOpenedAdmissionId,
+    detailMode,
+    loadTrackingDetail,
+    selectedAdmissionId,
+  ]);
+
+  useEffect(() => {
+    if (
+      detailMode ||
       !admittedAdmissionId ||
       isTrackingLoading ||
       autoOpenedAdmissionId === admittedAdmissionId ||
@@ -125,6 +161,7 @@ export default function useHistoryScreen() {
   }, [
     admittedAdmissionId,
     autoOpenedAdmissionId,
+    detailMode,
     handleViewDetails,
     isTrackingLoading,
     rows,
@@ -132,10 +169,15 @@ export default function useHistoryScreen() {
   ]);
 
   const handleCloseDetails = useCallback(() => {
+    if (detailMode) {
+      if (typeof router.replace === 'function') router.replace('/tracking');
+      else router.push('/tracking');
+      return;
+    }
     setSelectedAdmissionId(null);
     setSelectedTracking(null);
     setDetailErrorCode(null);
-  }, []);
+  }, [detailMode, router]);
 
   const handleSearchQueryChange = useCallback((value) => {
     const nextValue =
@@ -177,7 +219,13 @@ export default function useHistoryScreen() {
     sessionId,
   ]);
 
-  const activeFacility = rows[0]
+  const detailRow = selectedTracking?.row || null;
+  const activeFacility = detailRow
+    ? {
+        id: detailRow.facilityId,
+        name: detailRow.facilityName,
+      }
+    : rows[0]
     ? {
         id: rows[0].facilityId,
         name: rows[0].facilityName,
@@ -188,28 +236,37 @@ export default function useHistoryScreen() {
     [rows, searchQuery]
   );
   const isSearchActive = searchQuery.trim().length > 0;
+  const visibleRowCount = detailMode
+    ? selectedTracking?.row
+      ? 1
+      : 0
+    : filteredRows.length;
+  const isDetailLoadingEffective =
+    isDetailLoading ||
+    (detailMode && Boolean(admittedAdmissionId) && !selectedTracking && !detailErrorCode);
 
   return {
     list: filteredRows,
     rows: filteredRows,
     allRows: rows,
     activeFacility,
-    isEmpty: rows.length === 0,
+    isEmpty: !detailMode && rows.length === 0,
+    isDetailMode: detailMode,
     isSearchActive,
     isSearchEmpty:
       rows.length > 0 && filteredRows.length === 0 && isSearchActive,
     searchQuery,
     totalRows: rows.length,
-    visibleRows: filteredRows.length,
+    visibleRows: visibleRowCount,
     isHistoryLoading: isTrackingLoading,
     historyErrorCode: trackingErrorCode,
     isCorrupt: false,
     localDraft,
     admittedAdmissionId,
     showAdmittedBanner,
-    selectedAdmissionId,
+    selectedAdmissionId: activeDetailAdmissionId,
     selectedTracking,
-    isDetailLoading,
+    isDetailLoading: isDetailLoadingEffective,
     detailErrorCode,
     handleRefresh,
     handleSearchQueryChange,

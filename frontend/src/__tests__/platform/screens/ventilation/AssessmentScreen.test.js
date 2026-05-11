@@ -254,8 +254,29 @@ describe('AssessmentScreen', () => {
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
     });
 
+    it('sends optional patient name on the patient and reason step', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: {
+          ...completePatientInputs,
+          optionalName: 'Jane Doe',
+        },
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+      });
+      expect(savePatientReasonStepApi.mock.calls[0][0].patient).toMatchObject({
+        optionalName: 'Jane Doe',
+      });
+    });
+
     it('should hide facility, bed, and permitted missing fields from the New Patient form', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getByTestId('assessment-patient-name')).toBeTruthy();
       expect(getByTestId('assessment-height')).toBeTruthy();
       expect(getByTestId('assessment-bmi')).toBeTruthy();
       expect(queryByTestId('assessment-age-group-adult')).toBeNull();
@@ -421,7 +442,7 @@ describe('AssessmentScreen', () => {
       expect(queryByTestId('assessment-measured-at')).toBeNull();
       expect(queryByTestId('assessment-fio2')).toBeNull();
       expect(queryByTestId('assessment-fio2-at-sample')).toBeNull();
-      expect(getByText('Generate Vent Suggestion')).toBeTruthy();
+      expect(getByText('Generate Vent Suggestions')).toBeTruthy();
       [
         'assessment-spo2',
         'assessment-respiratory-rate',
@@ -636,10 +657,10 @@ describe('AssessmentScreen', () => {
         },
       });
 
-      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId, getAllByText } = renderWithProviders(<AssessmentScreenAndroid />);
 
       expect(getByTestId('assessment-recommendation')).toBeTruthy();
-      expect(getByText('Dataset recommendation')).toBeTruthy();
+      expect(getAllByText('Suggested ventilation recommendations').length).toBeGreaterThan(0);
       expect(getByTestId('assessment-suggested-ventilator-mode').props.value).toBe('ACV');
       expect(getByTestId('assessment-suggested-tidal-volume')).toBeTruthy();
     });
@@ -800,7 +821,7 @@ describe('AssessmentScreen', () => {
         }));
         expect(defaultSessionMock.clearDraft).toHaveBeenCalled();
         expect(defaultSessionMock.resetSession).toHaveBeenCalled();
-        expect(mockReplace).toHaveBeenCalledWith('/tracking?admissionId=admission-1&admitted=1');
+        expect(mockReplace).toHaveBeenCalledWith('/tracking/admission-1?admitted=1&detail=1');
       });
     });
   });

@@ -263,6 +263,10 @@ const normalizePatientForStorage = (patient = {}) => {
   if (Number.isFinite(ageMonths)) {
     data.ageMonths = Math.trunc(ageMonths);
   }
+  const ageDays = Number(data.ageDays);
+  if (Number.isFinite(ageDays)) {
+    data.ageDays = Math.trunc(ageDays);
+  }
   return data;
 };
 
@@ -486,12 +490,16 @@ const buildThreeStepNewPatientResponse = (step, admission, extra = {}, { referen
 const RECOMMENDATION_DATASET_SELECT = {
   id: true,
   facilityId: true,
+  sourceType: true,
+  sourcePayloadJson: true,
   structuredPreviewJson: true,
   deidentifiedPayloadJson: true,
   reviewStatus: true,
   approvedForTraining: true,
   datasetVersion: true,
   reviewedAt: true,
+  ethicsApprovalId: true,
+  governanceJson: true,
 };
 
 const RECOMMENDATION_UNITS = Object.freeze({
@@ -507,6 +515,8 @@ const RECOMMENDATION_UNITS = Object.freeze({
 
 const RECOMMENDATION_NUMERIC_FIELDS = Object.freeze([
   { field: 'ageYears', weight: 0.08, width: 100 },
+  { field: 'ageMonths', weight: 0.03, width: 1560 },
+  { field: 'ageDays', weight: 0.03, width: 47450 },
   { field: 'actualWeightKg', weight: 0.08, width: 120 },
   { field: 'heightOrLengthCm', weight: 0.04, width: 120 },
   { field: 'spo2', weight: 0.25, width: 50 },
@@ -518,6 +528,40 @@ const RECOMMENDATION_NUMERIC_FIELDS = Object.freeze([
 ]);
 
 const RECOMMENDATION_REQUIRED_INPUTS = Object.freeze(['condition', 'spo2', 'respiratoryRate', 'heartRate']);
+
+const RECOMMENDATION_SOURCE_CATEGORY_LABELS = Object.freeze({
+  online_data: 'Online data',
+  research_based_data: 'Research-based data',
+  clinician_approved_data: 'Clinician-approved data',
+  unknown: 'Unknown source',
+});
+
+const ADULT_RECOMMENDATION_PATHWAYS = new Set(['ADULT', 'MEDICAL', 'SURGICAL', 'PERI_OPERATIVE', 'TRAUMA', 'BURNS', 'OBSTETRIC']);
+const PEDIATRIC_RECOMMENDATION_PATHWAYS = new Set(['INFANT', 'CHILD', 'ADOLESCENT']);
+
+const normalizeRecommendationSourceCategory = (value) => {
+  const token = String(value || '').trim().toLowerCase().replace(/[\s-]+/g, '_');
+  if (token === 'online' || token === 'online_dataset') return 'online_data';
+  if (token === 'research' || token === 'research_based' || token === 'research_paper') return 'research_based_data';
+  if (token === 'clinician' || token === 'clinician_approved' || token === 'local_protocol') return 'clinician_approved_data';
+  return RECOMMENDATION_SOURCE_CATEGORY_LABELS[token] ? token : 'unknown';
+};
+
+const getRecommendationSourceCategoryLabel = (category) =>
+  RECOMMENDATION_SOURCE_CATEGORY_LABELS[normalizeRecommendationSourceCategory(category)] || RECOMMENDATION_SOURCE_CATEGORY_LABELS.unknown;
+
+const clampNumber = (value, min, max) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return null;
+  return Math.max(min, Math.min(max, numeric));
+};
+
+const roundToDigits = (value, digits = 1) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return null;
+  const factor = 10 ** digits;
+  return Math.round(numeric * factor) / factor;
+};
 
 const asFiniteNumber = (value) => {
   const numeric = Number(value);
@@ -564,6 +608,8 @@ const normalizeRecommendationInput = (input = {}) => stripNullish({
   patientPathway: cleanText(input.patientPathway),
   sexForSizeCalculations: cleanText(input.sexForSizeCalculations),
   ageYears: asFiniteNumber(input.ageYears),
+  ageMonths: asFiniteNumber(input.ageMonths),
+  ageDays: asFiniteNumber(input.ageDays),
   actualWeightKg: asFiniteNumber(input.actualWeightKg),
   heightOrLengthCm: asFiniteNumber(input.heightOrLengthCm),
   spo2: asFiniteNumber(firstPresent(input.spo2, input.spo2AtSample)),
@@ -586,9 +632,40 @@ const buildRecommendationSettingsFromRecord = (record = {}) => stripNullish({
   plateauPressure: asFiniteNumber(record.plateauPressure),
 });
 
+const buildRecommendationSourceList = (...sourceGroups) => {
+  const sources = sourceGroups
+    .flatMap((group) => Array.isArray(group) ? group : [])
+    .filter((source) => source && typeof source === 'object');
+  const seen = new Set();
+  return sources
+    .map((source) => stripNullish({
+      id: cleanText(source.id),
+      type: cleanText(source.type),
+      citation: cleanText(source.citation),
+      doi: cleanText(source.doi),
+      url: cleanText(source.url),
+      publisher: cleanText(source.publisher),
+      trustLevel: cleanText(source.trustLevel),
+      reviewStatus: cleanText(source.reviewStatus),
+      sourceCategory: normalizeRecommendationSourceCategory(source.sourceCategory),
+    }))
+    .filter((source) => {
+      const key = source.id || source.url || source.doi || source.citation;
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+};
+
+const arrayOfStrings = (value) =>
+  (Array.isArray(value) ? value : [])
+    .map((item) => cleanText(item))
+    .filter(Boolean);
+
 const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
   const deidentified = isPlainObject(datasetCase.deidentifiedPayloadJson) ? datasetCase.deidentifiedPayloadJson : {};
   const preview = isPlainObject(datasetCase.structuredPreviewJson) ? datasetCase.structuredPreviewJson : {};
+  const governance = isPlainObject(datasetCase.governanceJson) ? datasetCase.governanceJson : {};
   const payload = hasKeys(deidentified) ? deidentified : preview;
 
   const patient = payload.patient || preview.patient || {};
@@ -607,6 +684,9 @@ const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
     payload.ventilator ||
     preview.ventilatorSetting ||
     pickLatestRecordWithValue(payload.ventilatorSettings, ['mode', 'tidalVolumeMl', 'respiratoryRateSet', 'peep']);
+  const recommendations = payload.recommendations || preview.recommendations || {};
+  const evidence = payload.evidence || preview.evidence || {};
+  const recommendationSource = governance.recommendationSource || {};
 
   const settings = buildRecommendationSettingsFromRecord(ventilator);
   if (!hasKeys(settings)) return null;
@@ -619,14 +699,38 @@ const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
     payload.admission?.reasonForVentilation,
     snapshot?.mainCondition
   );
+  const sourceCategory = normalizeRecommendationSourceCategory(firstPresent(
+    recommendationSource.category,
+    governance.sourceCategory,
+    evidence.sourceCategory,
+    recommendations.sourceCategory,
+    payload.caseContext?.sourceCategory,
+    preview.sourceCategory
+  ));
+  const sourceIds = arrayOfStrings([
+    ...(Array.isArray(recommendationSource.sourceIds) ? recommendationSource.sourceIds : []),
+    ...(Array.isArray(evidence.sourceIds) ? evidence.sourceIds : []),
+  ]);
+  const sources = buildRecommendationSourceList(recommendationSource.sources, evidence.sources);
 
   return stripNullish({
     datasetCaseId: datasetCase.id,
     datasetVersion: datasetCase.datasetVersion,
+    sourceType: cleanText(datasetCase.sourceType),
+    ethicsApprovalId: cleanText(datasetCase.ethicsApprovalId),
+    reviewedAt: datasetCase.reviewedAt,
+    sourceCategory,
+    sourceCategoryLabel: getRecommendationSourceCategoryLabel(sourceCategory),
+    sourceIds,
+    sources,
+    sourceNote: cleanText(evidence.notes) || cleanText(recommendationSource.notes),
     condition: cleanText(condition),
     patientPathway: cleanText(patient.patientPathway),
+    sexForSizeCalculations: cleanText(patient.sexForSizeCalculations),
     clinicalParameters: {
       ageYears: asFiniteNumber(patient.ageYears),
+      ageMonths: asFiniteNumber(patient.ageMonths),
+      ageDays: asFiniteNumber(patient.ageDays),
       actualWeightKg: asFiniteNumber(firstPresent(patient.actualWeightKg, patient.referenceWeightKg)),
       heightOrLengthCm: asFiniteNumber(patient.heightOrLengthCm),
       spo2: asFiniteNumber(firstPresent(snapshot?.spo2, abg?.spo2AtSample)),
@@ -637,6 +741,8 @@ const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
       paco2: asFiniteNumber(abg?.paco2),
     },
     settings,
+    monitoringPoints: arrayOfStrings(recommendations.monitoringPoints),
+    riskFactors: arrayOfStrings(recommendations.riskFactors),
   });
 };
 
@@ -692,11 +798,157 @@ const scoreDatasetRecommendationCandidate = (input, candidate) => {
   };
 };
 
+const isConditionText = (input, candidate, pattern) =>
+  pattern.test(`${input.condition || ''} ${candidate?.condition || ''}`);
+
+const getTidalVolumeTarget = (input, candidate) => {
+  const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
+  const severeHypoxemic = isConditionText(input, candidate, /ards|sepsis|pneumonia|hypoxemic/i);
+
+  if (pathway === 'NEONATE') {
+    return {
+      targetMlPerKg: 5,
+      minMlPerKg: 4,
+      maxMlPerKg: 6,
+      rationale: 'neonatal_volume_targeted_range',
+    };
+  }
+
+  if (PEDIATRIC_RECOMMENDATION_PATHWAYS.has(pathway)) {
+    return {
+      targetMlPerKg: severeHypoxemic ? 6 : 6.5,
+      minMlPerKg: 5,
+      maxMlPerKg: severeHypoxemic ? 7 : 8,
+      rationale: severeHypoxemic ? 'pediatric_lung_protective_range' : 'pediatric_initial_physiologic_range',
+    };
+  }
+
+  if (ADULT_RECOMMENDATION_PATHWAYS.has(pathway) || pathway === 'UNKNOWN' || pathway === 'OTHER') {
+    return {
+      targetMlPerKg: severeHypoxemic ? 6 : 6.5,
+      minMlPerKg: 4,
+      maxMlPerKg: 8,
+      rationale: severeHypoxemic ? 'adult_lung_protective_pbw_range' : 'adult_initial_pbw_range',
+    };
+  }
+
+  return {
+    targetMlPerKg: 6,
+    minMlPerKg: 4,
+    maxMlPerKg: 8,
+    rationale: 'general_reference_weight_range',
+  };
+};
+
+const getReferenceWeightForRecommendation = (input, candidate) => {
+  const patient = stripNullish({
+    patientPathway: cleanText(input.patientPathway || candidate?.patientPathway) || 'UNKNOWN',
+    sexForSizeCalculations: cleanText(input.sexForSizeCalculations || candidate?.sexForSizeCalculations) || 'UNKNOWN',
+    ageYears: asFiniteNumber(firstPresent(input.ageYears, candidate?.clinicalParameters?.ageYears)),
+    ageMonths: asFiniteNumber(firstPresent(input.ageMonths, candidate?.clinicalParameters?.ageMonths)),
+    ageDays: asFiniteNumber(firstPresent(input.ageDays, candidate?.clinicalParameters?.ageDays)),
+    actualWeightKg: asFiniteNumber(firstPresent(input.actualWeightKg, candidate?.clinicalParameters?.actualWeightKg)),
+    heightOrLengthCm: asFiniteNumber(firstPresent(input.heightOrLengthCm, candidate?.clinicalParameters?.heightOrLengthCm)),
+  });
+  const calculated = calculateReferenceWeight(patient);
+  if (Number.isFinite(calculated.value)) return calculated;
+
+  const candidateWeight = asFiniteNumber(candidate?.clinicalParameters?.actualWeightKg);
+  if (Number.isFinite(candidateWeight)) {
+    return {
+      value: candidateWeight,
+      unit: 'kg',
+      method: 'matched_dataset_case_weight_fallback',
+      status: 'fallback',
+      message: 'Matched dataset case weight used because patient-specific reference weight could not be calculated.',
+    };
+  }
+
+  return calculated;
+};
+
+const respiratoryRateRangeFor = (input, candidate) => {
+  const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
+  const obstructive = isConditionText(input, candidate, /copd|asthma|hypercapnic/i);
+
+  if (pathway === 'NEONATE') return { min: 25, max: 60 };
+  if (pathway === 'INFANT') return { min: 20, max: 45 };
+  if (pathway === 'CHILD') return { min: 14, max: 35 };
+  if (pathway === 'ADOLESCENT') return { min: 10, max: 30 };
+  if (obstructive) return { min: 8, max: 16 };
+  return { min: 10, max: 30 };
+};
+
+const peepRangeFor = (input, candidate) => {
+  const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
+  const severeHypoxemic = isConditionText(input, candidate, /ards|sepsis|pneumonia|hypoxemic/i);
+  const obstructive = isConditionText(input, candidate, /copd|asthma|hypercapnic/i);
+
+  if (pathway === 'NEONATE') return { min: 4, max: severeHypoxemic ? 8 : 6 };
+  if (pathway === 'INFANT') return { min: 5, max: severeHypoxemic ? 12 : 8 };
+  if (pathway === 'CHILD' || pathway === 'ADOLESCENT') return { min: 5, max: severeHypoxemic ? 14 : 10 };
+  if (obstructive) return { min: 3, max: 8 };
+  return { min: 5, max: severeHypoxemic ? 14 : 10 };
+};
+
+const applyRecommendationGuardrails = ({ input, candidate }) => {
+  const baseSettings = candidate?.settings || {};
+  const target = getTidalVolumeTarget(input, candidate);
+  const referenceWeight = getReferenceWeightForRecommendation(input, candidate);
+  const referenceWeightKg = asFiniteNumber(referenceWeight.value);
+  const candidateTidalVolume = asFiniteNumber(baseSettings.tidalVolume);
+  const tidalVolumeRangeMl = Number.isFinite(referenceWeightKg)
+    ? {
+      min: Math.round(referenceWeightKg * target.minMlPerKg),
+      max: Math.round(referenceWeightKg * target.maxMlPerKg),
+    }
+    : null;
+  const targetTidalVolume = Number.isFinite(referenceWeightKg)
+    ? Math.round(referenceWeightKg * target.targetMlPerKg)
+    : candidateTidalVolume;
+  const guardedTidalVolume = tidalVolumeRangeMl && Number.isFinite(targetTidalVolume)
+    ? Math.round(clampNumber(targetTidalVolume, tidalVolumeRangeMl.min, tidalVolumeRangeMl.max))
+    : candidateTidalVolume;
+  const respiratoryRateRange = respiratoryRateRangeFor(input, candidate);
+  const peepRange = peepRangeFor(input, candidate);
+  const respiratoryRate = clampNumber(baseSettings.respiratoryRate, respiratoryRateRange.min, respiratoryRateRange.max);
+  const peep = clampNumber(baseSettings.peep, peepRange.min, peepRange.max);
+
+  return {
+    settings: stripNullish({
+      ...baseSettings,
+      tidalVolume: guardedTidalVolume,
+      respiratoryRate,
+      peep,
+    }),
+    calculation: stripNullish({
+      referenceWeightKg,
+      referenceWeightMethod: cleanText(referenceWeight.method),
+      referenceWeightStatus: cleanText(referenceWeight.status),
+      targetTidalVolumeMlPerKg: target.targetMlPerKg,
+      tidalVolumeMlPerKg: Number.isFinite(referenceWeightKg) && Number.isFinite(guardedTidalVolume)
+        ? roundToDigits(guardedTidalVolume / referenceWeightKg, 1)
+        : null,
+      tidalVolumeRangeMl,
+      targetRationale: target.rationale,
+      datasetTidalVolumeMl: candidateTidalVolume,
+      appliedGuardrail: Number.isFinite(candidateTidalVolume)
+        ? candidateTidalVolume !== guardedTidalVolume
+        : Number.isFinite(guardedTidalVolume),
+      respiratoryRateRange,
+      peepRange,
+    }),
+  };
+};
+
 const buildNoDatasetRecommendation = ({ input, candidateCount = 0 }) => ({
   source: {
     type: 'backend_dataset',
     confidenceTier: 'low',
     matchCount: candidateCount,
+    sourceCategory: 'unknown',
+    sourceCategoryLabel: getRecommendationSourceCategoryLabel('unknown'),
+    missingInputs: getMissingRecommendationInputs(input),
   },
   safety: {
     intendedUseWarning: 'Approved dataset cases did not contain enough comparable ventilator settings for this input.',
@@ -732,12 +984,21 @@ const buildDatasetRecommendation = ({ input, candidates, ranked }) => {
 
   const primaryCase = candidates.find((candidate) => candidate.datasetCaseId === top.caseId);
   if (!primaryCase) return buildNoDatasetRecommendation({ input, candidateCount: candidates.length });
+  const guarded = applyRecommendationGuardrails({ input, candidate: primaryCase });
+  const missingInputs = getMissingRecommendationInputs(input);
 
   return {
     source: {
       type: 'backend_dataset',
       confidenceTier: top.confidenceTier,
       matchCount: ranked.length,
+      matchedCaseId: primaryCase.datasetCaseId,
+      datasetVersion: primaryCase.datasetVersion,
+      sourceCategory: primaryCase.sourceCategory,
+      sourceCategoryLabel: primaryCase.sourceCategoryLabel,
+      sourceIds: primaryCase.sourceIds || [],
+      sources: primaryCase.sources || [],
+      missingInputs,
     },
     safety: {
       intendedUseWarning: 'Suggested from facility-approved, de-identified dataset cases. This is decision support, not an order.',
@@ -746,17 +1007,28 @@ const buildDatasetRecommendation = ({ input, candidates, ranked }) => {
     },
     units: RECOMMENDATION_UNITS,
     initialVentilatorSettings: {
-      source: 'datasetCase.ventilatorSetting',
-      settings: primaryCase.settings,
+      source: 'datasetCase.ventilatorSetting + patient-specific guardrails',
+      settings: guarded.settings,
+      calculation: guarded.calculation,
     },
-    monitoringPoints: [],
-    riskFactors: [],
+    monitoringPoints: primaryCase.monitoringPoints || [],
+    riskFactors: primaryCase.riskFactors || [],
     complicationHistory: [],
     additionalTestPrompts: [],
     nextActions: [],
     decisionProvenance: {
       reviewStatus: 'approved_for_training',
-      sourceNote: 'Matched against approved, de-identified dataset cases in this facility.',
+      datasetCaseId: primaryCase.datasetCaseId,
+      datasetVersion: primaryCase.datasetVersion,
+      sourceCategory: primaryCase.sourceCategory,
+      sourceCategoryLabel: primaryCase.sourceCategoryLabel,
+      sourceType: primaryCase.sourceType,
+      sourceIds: primaryCase.sourceIds || [],
+      sources: primaryCase.sources || [],
+      ethicsApprovalId: primaryCase.ethicsApprovalId,
+      reviewedAt: primaryCase.reviewedAt,
+      sourceNote: primaryCase.sourceNote || 'Matched against approved, de-identified dataset cases in this facility.',
+      match: top,
     },
     governance: {
       ruleBasedMvp: true,
@@ -764,7 +1036,7 @@ const buildDatasetRecommendation = ({ input, candidates, ranked }) => {
       onlineAiClinicianPathEnabled: false,
       patientIdentifiersSentToExternalModelServices: false,
     },
-    missingInputs: getMissingRecommendationInputs(input),
+    missingInputs,
   };
 };
 
@@ -781,7 +1053,7 @@ export const recommendNewPatientVentilatorSettings = async (payload = {}, userId
     },
     select: RECOMMENDATION_DATASET_SELECT,
     orderBy: { reviewedAt: 'desc' },
-    take: 200,
+    take: 1000,
   });
 
   const candidates = datasetCases

@@ -89,6 +89,7 @@ const buildTrackingSearchText = ({
     item.id,
     item.patientId,
     item.appAdmissionCode,
+    item.optionalName,
     item.bedNumber,
     admissionStatus,
     patientPathway,
@@ -246,6 +247,8 @@ const normalizeTrackingItem = (item = {}) => {
     admissionId: item.admissionId || item.id,
     patientId: item.patientId || patient.id,
     appAdmissionCode: item.appAdmissionCode || '',
+    optionalName:
+      patient.optionalName || item.patient?.optionalName || item.optionalName || '',
     appPatientCode:
       patient.appPatientCode || item.patient?.appPatientCode || '',
     facilityId: item.facilityId || facility.id || '',

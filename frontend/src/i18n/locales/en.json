@@ -979,6 +979,7 @@
         "accessibilityLabel": "Compact New Patient summary",
         "vitalsFormat": "SpO₂: {{spo2}} | RR: {{rr}} | HR: {{hr}}",
         "facility": "Facility",
+        "patientName": "Patient name",
         "pathway": "Age group",
         "ageGroup": "Age group",
         "reason": "Reason",
@@ -1016,7 +1017,7 @@
         "review": "Review",
         "patientReason": "Patient & reason",
         "oxygenAbgVentilator": "Oxygen & ABG",
-        "saveReview": "Save & review"
+        "saveReview": "Suggested ventilation recommendations"
       },
       "patientReason": {
         "description": "Capture the patient pathway, age, body metrics, and reason for support.",
@@ -1024,6 +1025,8 @@
         "facilityIdPlaceholder": "Enter facility ID",
         "bedNumber": "Bed",
         "bedNumberPlaceholder": "ICU bed or ward location",
+        "patientName": "Patient name (optional)",
+        "patientNamePlaceholder": "Enter patient name if available",
         "pathway": "Patient age group",
         "pathwayPlaceholder": "Select age group",
         "ageGroup": "Patient age group",
@@ -1124,10 +1127,22 @@
         }
       },
       "saveReview": {
-        "description": "Review the dataset-suggested ventilator settings, clinician confirmation, review note, and sync state.",
+        "description": "Review the suggested ventilation recommendations, source category, clinician confirmation, review note, and sync state.",
         "readiness": "Save readiness",
-        "recommendationTitle": "Dataset recommendation",
+        "recommendationTitle": "Suggested ventilation recommendations",
         "recommendationConfidence": "Confidence: {{confidence}}",
+        "sourceCategory": "Source category: {{category}}",
+        "sourceCategories": {
+          "online_data": "Online data",
+          "research_based_data": "Research-based data",
+          "clinician_approved_data": "Clinician-approved data",
+          "unknown": "Source not classified"
+        },
+        "clinicianDecisionNotice": "These values are recommendations only. The clinician must confirm, adjust, or reject them before use.",
+        "calculationSummary": "Tidal volume uses {{referenceWeight}} kg reference weight at {{mlPerKg}} mL/kg.",
+        "sourceEvidence": "Evidence and source notes",
+        "sourceNote": "Source note: {{note}}",
+        "editableSettingsTitle": "Clinician-editable recommended settings",
         "suggestedSettingsTitle": "Suggested ventilator settings",
         "suggestedSettingsHint": "Prefilled from the dataset using patient biodata and the current oxygen and ABG values. Edit only when the bedside decision differs.",
         "modePlaceholder": "Select mode",
@@ -1137,11 +1152,20 @@
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
         "ventilatorModeOptions": {
+          "vcAc": "Volume assist-control (VC-AC)",
+          "pcAc": "Pressure assist-control (PC-AC)",
+          "prvc": "Pressure-regulated volume control (PRVC)",
+          "simvVc": "SIMV volume control",
+          "simvPc": "SIMV pressure control",
           "acv": "Assist-control ventilation (ACV)",
           "simv": "Synchronized intermittent mandatory ventilation (SIMV)",
           "psv": "Pressure support ventilation (PSV)",
           "cpap": "CPAP",
           "bipap": "BiPAP",
+          "aprv": "Airway pressure release ventilation (APRV)",
+          "hfov": "High-frequency oscillatory ventilation (HFOV)",
+          "nava": "Neurally adjusted ventilatory assist (NAVA)",
+          "volumeGuarantee": "Volume guarantee",
           "other": "Other"
         },
         "recommendationEmpty": "Enter clinical values and tap Next to generate a dataset recommendation.",
@@ -1151,7 +1175,7 @@
         "ready": "Ready to save",
         "needsCorrection": "Review advisory items",
         "syncStatus": "Sync status: {{status}}",
-        "clinicianConfirmed": "Clinician confirms this new patient record is ready for save review.",
+        "clinicianConfirmed": "Clinician confirms the patient information and suggested ventilation recommendations have been reviewed.",
         "overrideReason": "Override reason",
         "reviewNote": "Review note"
       },
@@ -1270,8 +1294,8 @@
         "next": "Next",
         "generate": "Generate recommendation",
         "generateHint": "Create recommendation from current inputs",
-        "saveAdmission": "Save new patient",
-        "generateVentSuggestion": "Generate Vent Suggestion"
+        "saveAdmission": "Save patient and recommendations",
+        "generateVentSuggestion": "Generate Vent Suggestions"
       },
       "states": {
         "loading": "Loading New Patient form...",

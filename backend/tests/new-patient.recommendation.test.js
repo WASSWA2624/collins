@@ -35,11 +35,26 @@ test('New Patient ventilator recommendation uses approved facility dataset cases
         approvedForTraining: true,
         datasetVersion: 'v1',
         reviewedAt: new Date('2026-05-01T00:00:00.000Z'),
+        sourceType: 'ventilation_recommendation_seed',
+        ethicsApprovalId: 'seed',
+        governanceJson: {
+          recommendationSource: {
+            category: 'research_based_data',
+            sourceIds: ['SRC_ATS_ESICM_SCCM_ARDS_2017'],
+            sources: [{
+              id: 'SRC_ATS_ESICM_SCCM_ARDS_2017',
+              sourceCategory: 'research_based_data',
+              citation: 'ARDS lung-protective ventilation guideline.',
+              url: 'https://www.atsjournals.org/doi/full/10.1164/rccm.201703-0548ST',
+            }],
+          },
+        },
         structuredPreviewJson: null,
         deidentifiedPayloadJson: {
           admission: { reasonForVentilation: 'ARDS with hypoxaemia' },
           patient: {
             patientPathway: 'ADULT',
+            sexForSizeCalculations: 'MALE',
             ageYears: 54,
             actualWeightKg: 70,
             heightOrLengthCm: 172,
@@ -63,6 +78,7 @@ test('New Patient ventilator recommendation uses approved facility dataset cases
     input: {
       condition: 'ARDS with hypoxaemia',
       patientPathway: 'ADULT',
+      sexForSizeCalculations: 'MALE',
       ageYears: 54,
       actualWeightKg: 70,
       heightOrLengthCm: 172,
@@ -76,11 +92,15 @@ test('New Patient ventilator recommendation uses approved facility dataset cases
   assert.equal(result.source.type, 'backend_dataset');
   assert.equal(result.source.datasetCaseCount, 1);
   assert.equal(result.recommendation.source.confidenceTier, 'high');
+  assert.equal(result.recommendation.source.sourceCategory, 'research_based_data');
+  assert.equal(result.recommendation.source.sources[0].id, 'SRC_ATS_ESICM_SCCM_ARDS_2017');
   assert.deepEqual(result.recommendation.initialVentilatorSettings.settings, {
     mode: 'VC',
-    tidalVolume: 420,
+    tidalVolume: 407,
     respiratoryRate: 18,
     peep: 8,
     ieRatio: '1:2',
   });
+  assert.equal(result.recommendation.initialVentilatorSettings.calculation.referenceWeightMethod, 'adult_predicted_body_weight');
+  assert.equal(result.recommendation.initialVentilatorSettings.calculation.tidalVolumeMlPerKg, 6);
 });

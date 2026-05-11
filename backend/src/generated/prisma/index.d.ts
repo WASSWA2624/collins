@@ -11371,6 +11371,7 @@ export namespace Prisma {
   export type PatientAvgAggregateOutputType = {
     ageYears: number | null
     ageMonths: number | null
+    ageDays: number | null
     gestationalAgeWeeks: number | null
     correctedAgeWeeks: number | null
     actualWeightKg: number | null
@@ -11381,6 +11382,7 @@ export namespace Prisma {
   export type PatientSumAggregateOutputType = {
     ageYears: number | null
     ageMonths: number | null
+    ageDays: number | null
     gestationalAgeWeeks: number | null
     correctedAgeWeeks: number | null
     actualWeightKg: number | null
@@ -11398,6 +11400,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     ageYears: number | null
     ageMonths: number | null
+    ageDays: number | null
     estimatedAge: boolean | null
     gestationalAgeWeeks: number | null
     correctedAgeWeeks: number | null
@@ -11420,6 +11423,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     ageYears: number | null
     ageMonths: number | null
+    ageDays: number | null
     estimatedAge: boolean | null
     gestationalAgeWeeks: number | null
     correctedAgeWeeks: number | null
@@ -11442,6 +11446,7 @@ export namespace Prisma {
     dateOfBirth: number
     ageYears: number
     ageMonths: number
+    ageDays: number
     estimatedAge: number
     gestationalAgeWeeks: number
     correctedAgeWeeks: number
@@ -11460,6 +11465,7 @@ export namespace Prisma {
   export type PatientAvgAggregateInputType = {
     ageYears?: true
     ageMonths?: true
+    ageDays?: true
     gestationalAgeWeeks?: true
     correctedAgeWeeks?: true
     actualWeightKg?: true
@@ -11470,6 +11476,7 @@ export namespace Prisma {
   export type PatientSumAggregateInputType = {
     ageYears?: true
     ageMonths?: true
+    ageDays?: true
     gestationalAgeWeeks?: true
     correctedAgeWeeks?: true
     actualWeightKg?: true
@@ -11487,6 +11494,7 @@ export namespace Prisma {
     dateOfBirth?: true
     ageYears?: true
     ageMonths?: true
+    ageDays?: true
     estimatedAge?: true
     gestationalAgeWeeks?: true
     correctedAgeWeeks?: true
@@ -11509,6 +11517,7 @@ export namespace Prisma {
     dateOfBirth?: true
     ageYears?: true
     ageMonths?: true
+    ageDays?: true
     estimatedAge?: true
     gestationalAgeWeeks?: true
     correctedAgeWeeks?: true
@@ -11531,6 +11540,7 @@ export namespace Prisma {
     dateOfBirth?: true
     ageYears?: true
     ageMonths?: true
+    ageDays?: true
     estimatedAge?: true
     gestationalAgeWeeks?: true
     correctedAgeWeeks?: true
@@ -11641,6 +11651,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     ageYears: number | null
     ageMonths: number | null
+    ageDays: number | null
     estimatedAge: boolean
     gestationalAgeWeeks: number | null
     correctedAgeWeeks: number | null
@@ -11683,6 +11694,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     ageYears?: boolean
     ageMonths?: boolean
+    ageDays?: boolean
     estimatedAge?: boolean
     gestationalAgeWeeks?: boolean
     correctedAgeWeeks?: boolean
@@ -11711,6 +11723,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     ageYears?: boolean
     ageMonths?: boolean
+    ageDays?: boolean
     estimatedAge?: boolean
     gestationalAgeWeeks?: boolean
     correctedAgeWeeks?: boolean
@@ -11724,7 +11737,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "facilityId" | "appPatientCode" | "optionalName" | "hospitalNumber" | "patientPathway" | "dateOfBirth" | "ageYears" | "ageMonths" | "estimatedAge" | "gestationalAgeWeeks" | "correctedAgeWeeks" | "sexForSizeCalculations" | "actualWeightKg" | "heightOrLengthCm" | "referenceWeightKg" | "referenceWeightMethod" | "pathwayDetailsJson" | "createdAt" | "updatedAt", ExtArgs["result"]["patient"]>
+  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "facilityId" | "appPatientCode" | "optionalName" | "hospitalNumber" | "patientPathway" | "dateOfBirth" | "ageYears" | "ageMonths" | "ageDays" | "estimatedAge" | "gestationalAgeWeeks" | "correctedAgeWeeks" | "sexForSizeCalculations" | "actualWeightKg" | "heightOrLengthCm" | "referenceWeightKg" | "referenceWeightMethod" | "pathwayDetailsJson" | "createdAt" | "updatedAt", ExtArgs["result"]["patient"]>
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     facility?: boolean | FacilityDefaultArgs<ExtArgs>
     admissions?: boolean | Patient$admissionsArgs<ExtArgs>
@@ -11747,6 +11760,7 @@ export namespace Prisma {
       dateOfBirth: Date | null
       ageYears: number | null
       ageMonths: number | null
+      ageDays: number | null
       estimatedAge: boolean
       gestationalAgeWeeks: number | null
       correctedAgeWeeks: number | null
@@ -12138,6 +12152,7 @@ export namespace Prisma {
     readonly dateOfBirth: FieldRef<"Patient", 'DateTime'>
     readonly ageYears: FieldRef<"Patient", 'Int'>
     readonly ageMonths: FieldRef<"Patient", 'Int'>
+    readonly ageDays: FieldRef<"Patient", 'Int'>
     readonly estimatedAge: FieldRef<"Patient", 'Boolean'>
     readonly gestationalAgeWeeks: FieldRef<"Patient", 'Float'>
     readonly correctedAgeWeeks: FieldRef<"Patient", 'Float'>
@@ -30966,6 +30981,7 @@ export namespace Prisma {
     dateOfBirth: 'dateOfBirth',
     ageYears: 'ageYears',
     ageMonths: 'ageMonths',
+    ageDays: 'ageDays',
     estimatedAge: 'estimatedAge',
     gestationalAgeWeeks: 'gestationalAgeWeeks',
     correctedAgeWeeks: 'correctedAgeWeeks',
@@ -32581,6 +32597,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
     ageYears?: IntNullableFilter<"Patient"> | number | null
     ageMonths?: IntNullableFilter<"Patient"> | number | null
+    ageDays?: IntNullableFilter<"Patient"> | number | null
     estimatedAge?: BoolFilter<"Patient"> | boolean
     gestationalAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
     correctedAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
@@ -32606,6 +32623,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrderInput | SortOrder
     ageYears?: SortOrderInput | SortOrder
     ageMonths?: SortOrderInput | SortOrder
+    ageDays?: SortOrderInput | SortOrder
     estimatedAge?: SortOrder
     gestationalAgeWeeks?: SortOrderInput | SortOrder
     correctedAgeWeeks?: SortOrderInput | SortOrder
@@ -32636,6 +32654,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
     ageYears?: IntNullableFilter<"Patient"> | number | null
     ageMonths?: IntNullableFilter<"Patient"> | number | null
+    ageDays?: IntNullableFilter<"Patient"> | number | null
     estimatedAge?: BoolFilter<"Patient"> | boolean
     gestationalAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
     correctedAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
@@ -32661,6 +32680,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrderInput | SortOrder
     ageYears?: SortOrderInput | SortOrder
     ageMonths?: SortOrderInput | SortOrder
+    ageDays?: SortOrderInput | SortOrder
     estimatedAge?: SortOrder
     gestationalAgeWeeks?: SortOrderInput | SortOrder
     correctedAgeWeeks?: SortOrderInput | SortOrder
@@ -32692,6 +32712,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableWithAggregatesFilter<"Patient"> | Date | string | null
     ageYears?: IntNullableWithAggregatesFilter<"Patient"> | number | null
     ageMonths?: IntNullableWithAggregatesFilter<"Patient"> | number | null
+    ageDays?: IntNullableWithAggregatesFilter<"Patient"> | number | null
     estimatedAge?: BoolWithAggregatesFilter<"Patient"> | boolean
     gestationalAgeWeeks?: FloatNullableWithAggregatesFilter<"Patient"> | number | null
     correctedAgeWeeks?: FloatNullableWithAggregatesFilter<"Patient"> | number | null
@@ -35508,6 +35529,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -35533,6 +35555,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -35556,6 +35579,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -35581,6 +35605,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -35605,6 +35630,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -35627,6 +35653,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -35650,6 +35677,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -38898,6 +38926,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     ageYears?: SortOrder
     ageMonths?: SortOrder
+    ageDays?: SortOrder
     estimatedAge?: SortOrder
     gestationalAgeWeeks?: SortOrder
     correctedAgeWeeks?: SortOrder
@@ -38914,6 +38943,7 @@ export namespace Prisma {
   export type PatientAvgOrderByAggregateInput = {
     ageYears?: SortOrder
     ageMonths?: SortOrder
+    ageDays?: SortOrder
     gestationalAgeWeeks?: SortOrder
     correctedAgeWeeks?: SortOrder
     actualWeightKg?: SortOrder
@@ -38931,6 +38961,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     ageYears?: SortOrder
     ageMonths?: SortOrder
+    ageDays?: SortOrder
     estimatedAge?: SortOrder
     gestationalAgeWeeks?: SortOrder
     correctedAgeWeeks?: SortOrder
@@ -38953,6 +38984,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     ageYears?: SortOrder
     ageMonths?: SortOrder
+    ageDays?: SortOrder
     estimatedAge?: SortOrder
     gestationalAgeWeeks?: SortOrder
     correctedAgeWeeks?: SortOrder
@@ -38968,6 +39000,7 @@ export namespace Prisma {
   export type PatientSumOrderByAggregateInput = {
     ageYears?: SortOrder
     ageMonths?: SortOrder
+    ageDays?: SortOrder
     gestationalAgeWeeks?: SortOrder
     correctedAgeWeeks?: SortOrder
     actualWeightKg?: SortOrder
@@ -46099,6 +46132,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -46122,6 +46156,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -46649,6 +46684,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"Patient"> | Date | string | null
     ageYears?: IntNullableFilter<"Patient"> | number | null
     ageMonths?: IntNullableFilter<"Patient"> | number | null
+    ageDays?: IntNullableFilter<"Patient"> | number | null
     estimatedAge?: BoolFilter<"Patient"> | boolean
     gestationalAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
     correctedAgeWeeks?: FloatNullableFilter<"Patient"> | number | null
@@ -47857,6 +47893,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -47881,6 +47918,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -48515,6 +48553,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -48539,6 +48578,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -54832,6 +54872,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     ageYears?: number | null
     ageMonths?: number | null
+    ageDays?: number | null
     estimatedAge?: boolean
     gestationalAgeWeeks?: number | null
     correctedAgeWeeks?: number | null
@@ -55078,6 +55119,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55101,6 +55143,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55124,6 +55167,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ageYears?: NullableIntFieldUpdateOperationsInput | number | null
     ageMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    ageDays?: NullableIntFieldUpdateOperationsInput | number | null
     estimatedAge?: BoolFieldUpdateOperationsInput | boolean
     gestationalAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null
     correctedAgeWeeks?: NullableFloatFieldUpdateOperationsInput | number | null

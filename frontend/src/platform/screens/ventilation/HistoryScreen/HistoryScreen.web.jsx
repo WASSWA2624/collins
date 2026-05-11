@@ -36,6 +36,7 @@ import {
 import { HISTORY_TEST_IDS } from './types';
 
 const getPatientLabel = (row, t) =>
+  row.optionalName ||
   row.appAdmissionCode ||
   row.appPatientCode ||
   t('ventilation.tracking.patient.unknown');
@@ -165,12 +166,13 @@ const renderDetailPanel = ({
   );
 };
 
-const HistoryScreenWeb = () => {
+const HistoryScreenWeb = ({ detailMode = false } = {}) => {
   const { t } = useI18n();
   const {
     rows,
     activeFacility,
     isEmpty,
+    isDetailMode,
     isSearchEmpty,
     isHistoryLoading,
     historyErrorCode,
@@ -188,7 +190,7 @@ const HistoryScreenWeb = () => {
     handleUpdateTracking,
     handleViewDetails,
     handleCloseDetails,
-  } = useHistoryScreen();
+  } = useHistoryScreen({ detailMode });
 
   if (isHistoryLoading) {
     return (
@@ -202,6 +204,72 @@ const HistoryScreenWeb = () => {
             {t('ventilation.tracking.states.loading')}
           </Text>
         </StyledEmpty>
+      </StyledContainer>
+    );
+  }
+
+  if (isDetailMode) {
+    return (
+      <StyledContainer
+        aria-label={t('ventilation.tracking.accessibilityLabel')}
+        data-testid={HISTORY_TEST_IDS.screen}
+        testID={HISTORY_TEST_IDS.screen}
+        role="main"
+      >
+        <StyledHeader>
+          <StyledHeaderCopy>
+            <Text variant="h1">{t('ventilation.tracking.detail.title')}</Text>
+            <Text variant="body" color="text.secondary">
+              {activeFacility?.name || t('ventilation.tracking.activeFacility.none')}
+            </Text>
+          </StyledHeaderCopy>
+          <StyledHeaderActions>
+            <Button
+              variant="outline"
+              size="small"
+              icon={<Icon glyph={'\u21bb'} size="sm" tone="primary" decorative />}
+              onPress={handleRefresh}
+              aria-label={t('ventilation.tracking.actions.refreshHint')}
+              data-testid={HISTORY_TEST_IDS.refresh}
+              testID={HISTORY_TEST_IDS.refresh}
+            >
+              {t('ventilation.tracking.actions.refresh')}
+            </Button>
+          </StyledHeaderActions>
+        </StyledHeader>
+
+        {showAdmittedBanner && (
+          <StyledBanner
+            $tone="success"
+            data-testid={HISTORY_TEST_IDS.admittedBanner}
+            testID={HISTORY_TEST_IDS.admittedBanner}
+          >
+            <Text variant="body" color="status.success.text">
+              {t('ventilation.tracking.admittedBanner')}
+            </Text>
+          </StyledBanner>
+        )}
+
+        {localDraft && (
+          <StyledBanner
+            data-testid={HISTORY_TEST_IDS.draftBanner}
+            testID={HISTORY_TEST_IDS.draftBanner}
+          >
+            <Text variant="body" color="status.warning.text">
+              {t('ventilation.tracking.localDraft')}
+            </Text>
+          </StyledBanner>
+        )}
+
+        {renderDetailPanel({
+          t,
+          selectedAdmissionId,
+          selectedTracking,
+          isDetailLoading,
+          detailErrorCode,
+          handleCloseDetails,
+          handleUpdateTracking,
+        })}
       </StyledContainer>
     );
   }

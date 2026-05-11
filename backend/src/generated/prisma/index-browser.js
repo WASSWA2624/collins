@@ -218,6 +218,7 @@ exports.Prisma.PatientScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   ageYears: 'ageYears',
   ageMonths: 'ageMonths',
+  ageDays: 'ageDays',
   estimatedAge: 'estimatedAge',
   gestationalAgeWeeks: 'gestationalAgeWeeks',
   correctedAgeWeeks: 'correctedAgeWeeks',

@@ -314,6 +314,7 @@ model Patient {
   dateOfBirth            DateTime?              @map("date_of_birth")
   ageYears               Int?                   @map("age_years")
   ageMonths              Int?                   @map("age_months")
+  ageDays                Int?                   @map("age_days")
   estimatedAge           Boolean                @default(false) @map("estimated_age")
   gestationalAgeWeeks    Float?                 @map("gestational_age_weeks")
   correctedAgeWeeks      Float?                 @map("corrected_age_weeks")

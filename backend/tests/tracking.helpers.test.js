@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReviewState,
+  buildCurrentTrackingStatus,
   buildSyncState,
   buildTrackingTimeline,
 } from '../src/modules/tracking/tracking.helpers.js';
@@ -13,6 +14,12 @@ const admission = {
   status: 'ACTIVE',
   reviewStatus: 'PENDING',
   admittedAt: new Date('2026-05-01T08:00:00.000Z'),
+  patient: {
+    id: 'patient-1',
+    appPatientCode: 'COL-P-1',
+    optionalName: 'Jane Doe',
+    patientPathway: 'ADULT',
+  },
   clinicalSnapshots: [
     { id: 'snap-1', measuredAt: new Date('2026-05-02T08:00:00.000Z'), spo2: 94 },
   ],
@@ -39,6 +46,13 @@ test('buildTrackingTimeline returns append-only clinical events newest first', (
   assert.equal(timeline[1].version, 2);
   assert.equal(timeline.some((entry) => entry.entityId === 'abg-1'), true);
   assert.equal(timeline.at(-1).eventType, 'admission_created');
+});
+
+test('buildCurrentTrackingStatus includes patient name for detail lookup', () => {
+  const status = buildCurrentTrackingStatus(admission, { missingData: [] });
+
+  assert.equal(status.patient.optionalName, 'Jane Doe');
+  assert.equal(status.patient.appPatientCode, 'COL-P-1');
 });
 
 test('buildReviewState summarizes pending and correction states', () => {

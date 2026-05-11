@@ -38,6 +38,7 @@ import {
 import { HISTORY_TEST_IDS } from './types';
 
 const getPatientLabel = (row, t) =>
+  row.optionalName ||
   row.appAdmissionCode ||
   row.appPatientCode ||
   t('ventilation.tracking.patient.unknown');
@@ -164,12 +165,13 @@ const renderDetailPanel = ({
   );
 };
 
-const HistoryScreenIos = () => {
+const HistoryScreenIos = ({ detailMode = false } = {}) => {
   const { t } = useI18n();
   const {
     rows,
     activeFacility,
     isEmpty,
+    isDetailMode,
     isSearchEmpty,
     isHistoryLoading,
     historyErrorCode,
@@ -187,7 +189,7 @@ const HistoryScreenIos = () => {
     handleUpdateTracking,
     handleViewDetails,
     handleCloseDetails,
-  } = useHistoryScreen();
+  } = useHistoryScreen({ detailMode });
 
   if (isHistoryLoading) {
     return (
@@ -196,6 +198,70 @@ const HistoryScreenIos = () => {
           <StyledEmpty>
             <Text>{t('ventilation.tracking.states.loading')}</Text>
           </StyledEmpty>
+        </StyledScreenContent>
+      </StyledContainer>
+    );
+  }
+
+  if (isDetailMode) {
+    return (
+      <StyledContainer
+        accessibilityLabel={t('ventilation.tracking.accessibilityLabel')}
+        testID={HISTORY_TEST_IDS.screen}
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <StyledScreenContent>
+          <StyledHeader>
+            <StyledHeaderCopy>
+              <Text variant="h1">{t('ventilation.tracking.detail.title')}</Text>
+              <Text variant="body" color="text.secondary">
+                {activeFacility?.name ||
+                  t('ventilation.tracking.activeFacility.none')}
+              </Text>
+            </StyledHeaderCopy>
+            <StyledHeaderActions>
+              <Button
+                variant="outline"
+                size="small"
+                style={COMPACT_BUTTON_STYLE}
+                icon={
+                  <Icon glyph={'\u21bb'} size="sm" tone="primary" decorative />
+                }
+                onPress={handleRefresh}
+                accessibilityLabel={t('ventilation.tracking.actions.refreshHint')}
+                testID={HISTORY_TEST_IDS.refresh}
+              >
+                {t('ventilation.tracking.actions.refresh')}
+              </Button>
+            </StyledHeaderActions>
+          </StyledHeader>
+
+          {showAdmittedBanner && (
+            <StyledBanner tone="success" testID={HISTORY_TEST_IDS.admittedBanner}>
+              <Text variant="body" color="status.success.text">
+                {t('ventilation.tracking.admittedBanner')}
+              </Text>
+            </StyledBanner>
+          )}
+
+          {localDraft && (
+            <StyledBanner testID={HISTORY_TEST_IDS.draftBanner}>
+              <Text variant="body" color="status.warning.text">
+                {t('ventilation.tracking.localDraft')}
+              </Text>
+            </StyledBanner>
+          )}
+
+          {renderDetailPanel({
+            t,
+            selectedAdmissionId,
+            selectedTracking,
+            isDetailLoading,
+            detailErrorCode,
+            handleCloseDetails,
+            handleUpdateTracking,
+          })}
         </StyledScreenContent>
       </StyledContainer>
     );

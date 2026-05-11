@@ -737,11 +737,35 @@ const StyledActionsRow = styled.div.withConfig({
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
   margin-top: ${({ theme }) => theme.spacing.lg}px;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
+  border-top: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   margin-bottom: env(safe-area-inset-bottom, 0px);
   width: 100%;
 
   & button {
     border-radius: 0;
+    min-height: 46px;
+    font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+
+  & button[data-action='back'] {
+    min-width: 124px;
+  }
+
+  & button[data-action='primary'],
+  & button[data-action='save'] {
+    min-width: 220px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  & button[data-action='save'] {
+    border-color: ${({ theme }) => theme.colors.success ?? theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.success ?? theme.colors.primary};
+  }
+
+  & button:not(:disabled):hover {
+    transform: translateY(-1px);
   }
 
   @media (max-width: 420px) {
@@ -832,6 +856,173 @@ const StyledMissingTestsHint = styled.p.withConfig({
   margin: 0;
   opacity: 0.95;
   font-size: ${({ theme }) => theme.typography?.fontSize?.sm ?? 14}px;
+`;
+
+const StyledRecommendationPanel = styled.section.withConfig({
+  displayName: 'StyledRecommendationPanel',
+  componentId: 'StyledRecommendationPanel',
+})`
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-left: 4px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  min-width: 0;
+`;
+
+const StyledRecommendationHeader = styled.div.withConfig({
+  displayName: 'StyledRecommendationHeader',
+  componentId: 'StyledRecommendationHeader',
+})`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+`;
+
+const StyledRecommendationTitle = styled.h3.withConfig({
+  displayName: 'StyledRecommendationTitle',
+  componentId: 'StyledRecommendationTitle',
+})`
+  margin: 0;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: 1.3;
+`;
+
+const StyledRecommendationMeta = styled.div.withConfig({
+  displayName: 'StyledRecommendationMeta',
+  componentId: 'StyledRecommendationMeta',
+})`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  min-width: 0;
+`;
+
+const StyledRecommendationBadge = styled.span.withConfig({
+  displayName: 'StyledRecommendationBadge',
+  componentId: 'StyledRecommendationBadge',
+})`
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: 0;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  overflow-wrap: anywhere;
+`;
+
+const StyledRecommendationNotice = styled.p.withConfig({
+  displayName: 'StyledRecommendationNotice',
+  componentId: 'StyledRecommendationNotice',
+})`
+  margin: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-left: 3px solid ${({ theme }) => theme.colors.warning ?? '#FF9500'};
+  background-color: ${({ theme }) => theme.colors.status?.warning?.background ?? '#FFFBF0'};
+  color: ${({ theme }) => theme.colors.status?.warning?.text ?? '#856404'};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  line-height: 1.45;
+`;
+
+const StyledRecommendationGrid = styled.div.withConfig({
+  displayName: 'StyledRecommendationGrid',
+  componentId: 'StyledRecommendationGrid',
+})`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 156px), 1fr));
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  min-width: 0;
+`;
+
+const StyledRecommendationMetric = styled.div.withConfig({
+  displayName: 'StyledRecommendationMetric',
+  componentId: 'StyledRecommendationMetric',
+})`
+  min-width: 0;
+  min-height: 72px;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  border-left: 3px solid ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+`;
+
+const StyledRecommendationMetricLabel = styled.span.withConfig({
+  displayName: 'StyledRecommendationMetricLabel',
+  componentId: 'StyledRecommendationMetricLabel',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+`;
+
+const StyledRecommendationMetricValue = styled.span.withConfig({
+  displayName: 'StyledRecommendationMetricValue',
+  componentId: 'StyledRecommendationMetricValue',
+})`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+`;
+
+const StyledRecommendationSourceList = styled.ul.withConfig({
+  displayName: 'StyledRecommendationSourceList',
+  componentId: 'StyledRecommendationSourceList',
+})`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledRecommendationSourceItem = styled.li.withConfig({
+  displayName: 'StyledRecommendationSourceItem',
+  componentId: 'StyledRecommendationSourceItem',
+})`
+  margin: 0;
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+`;
+
+const StyledRecommendationEditTitle = styled.h4.withConfig({
+  displayName: 'StyledRecommendationEditTitle',
+  componentId: 'StyledRecommendationEditTitle',
+})`
+  margin: ${({ theme }) => theme.spacing.xs}px 0 0;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-family: ${({ theme }) => theme.typography.fontFamily.regularWeb};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
 `;
 
 const StyledFieldGroup = styled.div.withConfig({
@@ -1019,6 +1210,16 @@ export {
   StyledModelRow,
   StyledObservationRow,
   StyledProgressSection,
+  StyledRecommendationBadge,
+  StyledRecommendationEditTitle,
+  StyledRecommendationGrid,
+  StyledRecommendationHeader,
+  StyledRecommendationMeta,
+  StyledRecommendationMetric,
+  StyledRecommendationMetricLabel,
+  StyledRecommendationMetricValue,
+  StyledRecommendationNotice,
+  StyledRecommendationPanel,
   StyledStepper,
   StyledStepperConnector,
   StyledStepperItem,
@@ -1026,7 +1227,10 @@ export {
   StyledStepperMarker,
   StyledStepperMeta,
   StyledRecommendationSource,
+  StyledRecommendationSourceItem,
+  StyledRecommendationSourceList,
   StyledRecommendationSourceTitle,
+  StyledRecommendationTitle,
   StyledSourceOption,
   StyledSourceOptionContent,
   StyledSourceOptionDesc,

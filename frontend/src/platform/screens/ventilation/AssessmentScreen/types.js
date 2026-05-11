@@ -91,11 +91,20 @@ const OXYGEN_SUPPORT_OPTIONS = Object.freeze([
 ]);
 
 const VENTILATOR_MODE_OPTIONS = Object.freeze([
+  { value: 'VC_AC', labelKey: 'vcAc' },
+  { value: 'PC_AC', labelKey: 'pcAc' },
+  { value: 'PRVC', labelKey: 'prvc' },
+  { value: 'SIMV_VC', labelKey: 'simvVc' },
+  { value: 'SIMV_PC', labelKey: 'simvPc' },
   { value: 'ACV', labelKey: 'acv' },
   { value: 'SIMV', labelKey: 'simv' },
   { value: 'PSV', labelKey: 'psv' },
   { value: 'CPAP', labelKey: 'cpap' },
   { value: 'BIPAP', labelKey: 'bipap' },
+  { value: 'APRV', labelKey: 'aprv' },
+  { value: 'HFOV', labelKey: 'hfov' },
+  { value: 'NAVA', labelKey: 'nava' },
+  { value: 'VOLUME_GUARANTEE', labelKey: 'volumeGuarantee' },
   { value: 'OTHER', labelKey: 'other' },
 ]);
 

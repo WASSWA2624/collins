@@ -49,6 +49,7 @@ describe('tracking.model', () => {
     const row = normalizeTrackingItem(activeAdmission);
 
     expect(row.admissionId).toBe('adm-1');
+    expect(row.optionalName).toBe('Jane Doe');
     expect(row.facilityName).toBe('City ICU');
     expect(row.bedNumber).toBe('ICU-2');
     expect(row.reviewLabel).toBe('Review');

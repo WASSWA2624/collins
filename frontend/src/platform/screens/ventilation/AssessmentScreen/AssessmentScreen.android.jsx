@@ -111,6 +111,9 @@ const AssessmentScreenAndroid = () => {
     suggestedVentilatorInputs,
     recommendationMissingInputs,
     recommendationConfidence,
+    recommendationSourceCategory,
+    recommendationSourceCategoryLabel,
+    recommendationCalculation,
     recommendationErrorCode,
     isGeneratingRecommendation,
     validation,
@@ -264,6 +267,7 @@ const AssessmentScreenAndroid = () => {
         : null;
     const rows = [
       { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
+      { key: 'name', label: t('ventilation.assessment.summary.patientName'), value: summaryData.optionalName },
       { key: 'pathway', label: t('ventilation.assessment.summary.ageGroup'), value: pathwaySummary },
       { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
       { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
@@ -323,6 +327,13 @@ const AssessmentScreenAndroid = () => {
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderConflictWarning()}
       {renderValidationMessages()}
+      <TextField
+        label={t('ventilation.assessment.patientReason.patientName')}
+        placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')}
+        value={mergedInputs.optionalName}
+        onChangeText={(value) => updateInput({ optionalName: value })}
+        testID="assessment-patient-name"
+      />
       <Select
         label={t('ventilation.assessment.patientReason.reasonForSupport')}
         placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')}
@@ -452,6 +463,16 @@ const AssessmentScreenAndroid = () => {
 
   const renderRecommendation = () => {
     const hasRecommendation = recommendationSettings && Object.keys(recommendationSettings).length > 0;
+    const sourceCategoryText =
+      recommendationSourceCategoryLabel ||
+      t(`ventilation.assessment.saveReview.sourceCategories.${recommendationSourceCategory || 'unknown'}`);
+    const calculationText =
+      recommendationCalculation?.referenceWeightKg && recommendationCalculation?.tidalVolumeMlPerKg
+        ? t('ventilation.assessment.saveReview.calculationSummary', {
+          referenceWeight: recommendationCalculation.referenceWeightKg,
+          mlPerKg: recommendationCalculation.tidalVolumeMlPerKg,
+        })
+        : null;
 
     return (
       <StyledMissingTests testID={testIds.recommendation} accessibilityRole="alert">
@@ -464,7 +485,10 @@ const AssessmentScreenAndroid = () => {
         ) : hasRecommendation ? (
           <>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}</Text>
+            <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.sourceCategory', { category: sourceCategoryText })}</Text>
+            <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.clinicianDecisionNotice')}</Text>
             <Text variant="body" color="status.warning.text">{t('ventilation.assessment.saveReview.suggestedSettingsHint')}</Text>
+            {calculationText ? <Text variant="body" color="status.warning.text">{calculationText}</Text> : null}
             <Select label={t('ventilation.assessment.saveReview.ventilatorMode')} placeholder={t('ventilation.assessment.saveReview.modePlaceholder')} options={ventilatorModeOptions} value={suggestedVentilatorInputs.ventilatorMode} onValueChange={(value) => updateInput({ ventilatorMode: value })} {...getFieldErrorProps('ventilatorMode')} testID="assessment-suggested-ventilator-mode" />
             <TextField label={t('ventilation.assessment.saveReview.tidalVolumeMl')} type="number" helperText={helperTextFor('tidalVolumeMl')} value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''} onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })} {...getFieldErrorProps('tidalVolumeMl')} testID="assessment-suggested-tidal-volume" />
             <TextField label={t('ventilation.assessment.saveReview.respiratoryRateSet')} type="number" helperText={helperTextFor('respiratoryRateSet')} value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''} onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })} {...getFieldErrorProps('respiratoryRateSet')} testID="assessment-suggested-respiratory-rate-set" />
@@ -557,7 +581,7 @@ const AssessmentScreenAndroid = () => {
             </StyledStepHeader>
             <StyledStepContent testID={testIds.stepContent}>{renderStepContent()}</StyledStepContent>
             <StyledActionsRow>
-              <Button variant="outline" onPress={goBackOrExit} testID={testIds.backButton}>
+              <Button variant="outline" onPress={goBackOrExit} testID={testIds.backButton} style={{ borderRadius: 0, minHeight: 46, flexGrow: 1 }}>
                 {t('ventilation.assessment.actions.back')}
               </Button>
               {currentStep < STEPS.SAVE_REVIEW ? (
@@ -567,6 +591,7 @@ const AssessmentScreenAndroid = () => {
                   disabled={isSaving}
                   loading={isSaving}
                   testID={testIds.nextButton}
+                  style={{ borderRadius: 0, minHeight: 46, flexGrow: 1 }}
                 >
                   {nextActionLabel}
                 </Button>
@@ -577,6 +602,7 @@ const AssessmentScreenAndroid = () => {
                   disabled={isSaving}
                   loading={isSaving}
                   testID={testIds.generateButton}
+                  style={{ borderRadius: 0, minHeight: 46, flexGrow: 1 }}
                 >
                   {t('ventilation.assessment.actions.saveAdmission')}
                 </Button>

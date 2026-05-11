@@ -35,6 +35,19 @@ import {
   StyledMissingTestsHint,
   StyledMissingTestsTitle,
   StyledProgressSection,
+  StyledRecommendationBadge,
+  StyledRecommendationEditTitle,
+  StyledRecommendationGrid,
+  StyledRecommendationHeader,
+  StyledRecommendationMeta,
+  StyledRecommendationMetric,
+  StyledRecommendationMetricLabel,
+  StyledRecommendationMetricValue,
+  StyledRecommendationNotice,
+  StyledRecommendationPanel,
+  StyledRecommendationSourceItem,
+  StyledRecommendationSourceList,
+  StyledRecommendationTitle,
   StyledStepper,
   StyledStepperConnector,
   StyledStepperItem,
@@ -96,6 +109,7 @@ const STEP_STATUS = Object.freeze({
 });
 
 const FIELD_TEST_IDS = Object.freeze({
+  optionalName: 'assessment-patient-name',
   reasonForSupport: 'assessment-reason',
   ageYears: 'assessment-age-years',
   actualWeightKg: 'assessment-weight',
@@ -144,8 +158,14 @@ const AssessmentScreenWeb = () => {
     readiness,
     recommendationSettings,
     suggestedVentilatorInputs,
+    recommendationUnits,
     recommendationMissingInputs,
     recommendationConfidence,
+    recommendationSourceCategory,
+    recommendationSourceCategoryLabel,
+    recommendationCalculation,
+    recommendationSources,
+    recommendationDecisionProvenance,
     recommendationErrorCode,
     isGeneratingRecommendation,
     validation,
@@ -335,6 +355,7 @@ const AssessmentScreenWeb = () => {
         title: t('ventilation.assessment.summary.groups.patient'),
         rows: [
           { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
+          { key: 'name', label: t('ventilation.assessment.summary.patientName'), value: summaryData.optionalName },
           {
             key: 'pathway',
             label: t('ventilation.assessment.summary.ageGroup'),
@@ -429,6 +450,15 @@ const AssessmentScreenWeb = () => {
       {renderConflictWarning()}
       {renderValidationMessages()}
       <StyledFieldGrid>
+        <StyledFieldGridFull>
+          <TextField
+            label={t('ventilation.assessment.patientReason.patientName')}
+            placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')}
+            value={mergedInputs.optionalName}
+            onChangeText={(value) => updateInput({ optionalName: value })}
+            testID="assessment-patient-name"
+          />
+        </StyledFieldGridFull>
         <StyledFieldGridFull>
           <Select
             label={t('ventilation.assessment.patientReason.reasonForSupport')}
@@ -687,12 +717,64 @@ const AssessmentScreenWeb = () => {
 
   const renderRecommendation = () => {
     const hasRecommendation = recommendationSettings && Object.keys(recommendationSettings).length > 0;
+    const sourceCategoryText =
+      recommendationSourceCategoryLabel ||
+      t(`ventilation.assessment.saveReview.sourceCategories.${recommendationSourceCategory || 'unknown'}`);
+    const sourceNote = recommendationDecisionProvenance?.sourceNote;
+    const calculationText =
+      recommendationCalculation?.referenceWeightKg && recommendationCalculation?.tidalVolumeMlPerKg
+        ? t('ventilation.assessment.saveReview.calculationSummary', {
+          referenceWeight: recommendationCalculation.referenceWeightKg,
+          mlPerKg: recommendationCalculation.tidalVolumeMlPerKg,
+        })
+        : null;
+    const metricRows = [
+      {
+        key: 'mode',
+        label: t('ventilation.assessment.saveReview.ventilatorMode'),
+        value: suggestedVentilatorInputs.ventilatorMode
+          ? findOptionLabel(ventilatorModeOptions, suggestedVentilatorInputs.ventilatorMode)
+          : null,
+      },
+      {
+        key: 'tidalVolume',
+        label: t('ventilation.assessment.saveReview.tidalVolumeMl'),
+        value: formatValue(suggestedVentilatorInputs.tidalVolumeMl, recommendationUnits.tidalVolume || 'mL'),
+      },
+      {
+        key: 'respiratoryRate',
+        label: t('ventilation.assessment.saveReview.respiratoryRateSet'),
+        value: formatValue(suggestedVentilatorInputs.respiratoryRateSet, recommendationUnits.respiratoryRate || 'breaths/min'),
+      },
+      {
+        key: 'peep',
+        label: t('ventilation.assessment.saveReview.peep'),
+        value: formatValue(suggestedVentilatorInputs.peep, recommendationUnits.peep || 'cmH2O'),
+      },
+      {
+        key: 'ieRatio',
+        label: t('ventilation.assessment.saveReview.ieRatio'),
+        value: suggestedVentilatorInputs.ieRatio,
+      },
+    ].filter((row) => row.value != null && row.value !== '');
 
     return (
-      <StyledMissingTests data-testid={testIds.recommendation} role="region" aria-label={t('ventilation.assessment.saveReview.recommendationTitle')}>
-        <StyledMissingTestsTitle>
-          {t('ventilation.assessment.saveReview.recommendationTitle')}
-        </StyledMissingTestsTitle>
+      <StyledRecommendationPanel data-testid={testIds.recommendation} role="region" aria-label={t('ventilation.assessment.saveReview.recommendationTitle')}>
+        <StyledRecommendationHeader>
+          <StyledRecommendationTitle>
+            {t('ventilation.assessment.saveReview.recommendationTitle')}
+          </StyledRecommendationTitle>
+          <StyledRecommendationMeta>
+            <StyledRecommendationBadge>
+              {t('ventilation.assessment.saveReview.recommendationConfidence', {
+                confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`),
+              })}
+            </StyledRecommendationBadge>
+            <StyledRecommendationBadge>
+              {t('ventilation.assessment.saveReview.sourceCategory', { category: sourceCategoryText })}
+            </StyledRecommendationBadge>
+          </StyledRecommendationMeta>
+        </StyledRecommendationHeader>
         {isGeneratingRecommendation ? (
           <>
             <LoadingSpinner
@@ -700,18 +782,54 @@ const AssessmentScreenWeb = () => {
               accessibilityLabel={t('ventilation.assessment.saveReview.recommendationGenerating')}
               testID="assessment-recommendation-loading"
             />
-            <StyledMissingTestsHint>
+            <StyledStepDescription>
               {t('ventilation.assessment.saveReview.recommendationGenerating')}
-            </StyledMissingTestsHint>
+            </StyledStepDescription>
           </>
         ) : hasRecommendation ? (
           <>
-            <StyledMissingTestsHint>
-              {t('ventilation.assessment.saveReview.recommendationConfidence', { confidence: t(`ventilation.recommendation.confidence.${recommendationConfidence}`) })}
-            </StyledMissingTestsHint>
-            <StyledMissingTestsHint>
+            <StyledRecommendationNotice>
+              {t('ventilation.assessment.saveReview.clinicianDecisionNotice')}
+            </StyledRecommendationNotice>
+            <StyledStepDescription>
               {t('ventilation.assessment.saveReview.suggestedSettingsHint')}
-            </StyledMissingTestsHint>
+            </StyledStepDescription>
+            <StyledRecommendationGrid>
+              {metricRows.map((row) => (
+                <StyledRecommendationMetric key={row.key}>
+                  <StyledRecommendationMetricLabel>{row.label}</StyledRecommendationMetricLabel>
+                  <StyledRecommendationMetricValue>{row.value}</StyledRecommendationMetricValue>
+                </StyledRecommendationMetric>
+              ))}
+            </StyledRecommendationGrid>
+            {calculationText ? (
+              <StyledStepDescription>{calculationText}</StyledStepDescription>
+            ) : null}
+            {sourceNote || recommendationSources.length > 0 ? (
+              <>
+                <StyledRecommendationEditTitle>
+                  {t('ventilation.assessment.saveReview.sourceEvidence')}
+                </StyledRecommendationEditTitle>
+                {sourceNote ? (
+                  <StyledStepDescription>
+                    {t('ventilation.assessment.saveReview.sourceNote', { note: sourceNote })}
+                  </StyledStepDescription>
+                ) : null}
+                {recommendationSources.length > 0 ? (
+                  <StyledRecommendationSourceList>
+                    {recommendationSources.slice(0, 4).map((source) => (
+                      <StyledRecommendationSourceItem key={source.id || source.url || source.citation}>
+                        {source.citation || source.publisher || source.id}
+                        {source.url ? ` ${source.url}` : ''}
+                      </StyledRecommendationSourceItem>
+                    ))}
+                  </StyledRecommendationSourceList>
+                ) : null}
+              </>
+            ) : null}
+            <StyledRecommendationEditTitle>
+              {t('ventilation.assessment.saveReview.editableSettingsTitle')}
+            </StyledRecommendationEditTitle>
             <StyledFieldGrid>
               <Select
                 label={t('ventilation.assessment.saveReview.ventilatorMode')}
@@ -758,18 +876,18 @@ const AssessmentScreenWeb = () => {
             </StyledFieldGrid>
           </>
         ) : (
-          <StyledMissingTestsHint>
+          <StyledStepDescription>
             {recommendationErrorCode
               ? t('ventilation.assessment.saveReview.recommendationError')
               : t('ventilation.assessment.saveReview.recommendationEmpty')}
-          </StyledMissingTestsHint>
+          </StyledStepDescription>
         )}
         {recommendationMissingInputs.length > 0 ? (
-          <StyledMissingTestsHint>
+          <StyledStepDescription>
             {t('ventilation.recommendation.decisionSupport.missingData')}: {recommendationMissingInputs.join(', ')}
-          </StyledMissingTestsHint>
+          </StyledStepDescription>
         ) : null}
-      </StyledMissingTests>
+      </StyledRecommendationPanel>
     );
   };
 
@@ -880,6 +998,7 @@ const AssessmentScreenWeb = () => {
             onPress={goBackOrExit}
             testID={testIds.backButton}
             accessibilityLabel={t('ventilation.assessment.actions.back')}
+            data-action="back"
           >
             {t('ventilation.assessment.actions.back')}
           </Button>
@@ -891,6 +1010,7 @@ const AssessmentScreenWeb = () => {
               loading={isSaving}
               testID={testIds.nextButton}
               accessibilityLabel={nextActionLabel}
+              data-action="primary"
             >
               {nextActionLabel}
             </Button>
@@ -902,6 +1022,7 @@ const AssessmentScreenWeb = () => {
               loading={isSaving}
               testID={testIds.generateButton}
               accessibilityLabel={t('ventilation.assessment.actions.saveAdmission')}
+              data-action="save"
             >
               {t('ventilation.assessment.actions.saveAdmission')}
             </Button>

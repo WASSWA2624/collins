@@ -172,6 +172,7 @@ export const buildCurrentTrackingStatus = (admission, clinicalSummary) => {
     patient: {
       id: admission.patient?.id,
       appPatientCode: admission.patient?.appPatientCode,
+      optionalName: admission.patient?.optionalName,
       patientPathway: admission.patient?.patientPathway,
       referenceWeightKg: admission.patient?.referenceWeightKg,
       referenceWeightMethod: admission.patient?.referenceWeightMethod,
