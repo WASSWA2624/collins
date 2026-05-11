@@ -173,8 +173,10 @@ const AssessmentScreenWeb = () => {
     validation,
     stepValidationStates,
     rangeSuggestions,
+    canGoBack,
+    goToStep,
     goNext,
-    goBackOrExit,
+    goBack,
     saveAdmission,
     conflictWarning,
     continueAfterConflict,
@@ -302,7 +304,7 @@ const AssessmentScreenWeb = () => {
   };
 
   const renderStepper = () => (
-    <StyledStepper data-testid={testIds.progressBar} aria-label={stepIndicator} role="list">
+    <StyledStepper data-testid={testIds.progressBar} aria-label={stepIndicator} role="navigation">
       {STEP_KEYS.map((key, index) => {
         const stepValidation = stepValidationStates?.[index];
         const hasStepError = stepValidation?.hasErrors;
@@ -321,8 +323,11 @@ const AssessmentScreenWeb = () => {
         return (
           <StyledStepperItem
             key={key}
-            role="listitem"
+            type="button"
             data-status={status}
+            data-testid={`assessment-step-${key}`}
+            onClick={() => goToStep(index)}
+            disabled={isSaving}
             aria-current={status === STEP_STATUS.CURRENT ? 'step' : undefined}
             aria-label={`${label}. ${metaLabel}`}
           >
@@ -1025,7 +1030,8 @@ const AssessmentScreenWeb = () => {
         <StyledActionsRow>
           <Button
             variant="outline"
-            onPress={goBackOrExit}
+            onPress={goBack}
+            disabled={!canGoBack || isSaving}
             testID={testIds.backButton}
             accessibilityLabel={t('ventilation.assessment.actions.back')}
             data-action="back"

@@ -120,8 +120,10 @@ const AssessmentScreenAndroid = () => {
     validation,
     stepValidationStates,
     rangeSuggestions,
+    canGoBack,
+    goToStep,
     goNext,
-    goBackOrExit,
+    goBack,
     saveAdmission,
     conflictWarning,
     continueAfterConflict,
@@ -241,7 +243,19 @@ const AssessmentScreenAndroid = () => {
           ? `${stepValidation.errorCount || 1} field${stepValidation.errorCount === 1 ? '' : 's'} need attention`
           : t('ventilation.assessment.stepIndicator', { current: index + 1, total: totalSteps });
         return (
-          <StyledStepperItem key={key} status={status}>
+          <StyledStepperItem
+            key={key}
+            status={status}
+            onPress={() => goToStep(index)}
+            disabled={isSaving}
+            accessibilityRole="button"
+            accessibilityLabel={`${t(`ventilation.assessment.steps.${key}`)}. ${metaLabel}`}
+            accessibilityState={{
+              selected: status === STEP_STATUS.CURRENT,
+              disabled: isSaving,
+            }}
+            testID={`assessment-step-${key}`}
+          >
             <StyledStepperMarker status={status}>
               <Text variant="caption" color={status === STEP_STATUS.CURRENT || status === STEP_STATUS.ERROR ? 'text.inverse' : 'text.primary'}>
                 {status === STEP_STATUS.ERROR ? '!' : status === STEP_STATUS.COMPLETE ? '\u2713' : index + 1}
@@ -610,7 +624,7 @@ const AssessmentScreenAndroid = () => {
             </StyledStepHeader>
             <StyledStepContent testID={testIds.stepContent}>{renderStepContent()}</StyledStepContent>
             <StyledActionsRow>
-              <Button variant="outline" onPress={goBackOrExit} testID={testIds.backButton} style={{ borderRadius: 0, minHeight: 46, flexGrow: 1 }}>
+              <Button variant="outline" onPress={goBack} disabled={!canGoBack || isSaving} testID={testIds.backButton} style={{ borderRadius: 0, minHeight: 46, flexGrow: 1 }}>
                 {t('ventilation.assessment.actions.back')}
               </Button>
               {currentStep < STEPS.SAVE_REVIEW ? (

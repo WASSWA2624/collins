@@ -236,12 +236,53 @@ describe('AssessmentScreen', () => {
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-progress')).toBeTruthy();
     });
+
+    it('jumps directly to a clicked step without saving the current step', async () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-step-saveReview'));
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
+      });
+      expect(savePatientReasonStepApi).not.toHaveBeenCalled();
+      expect(saveOxygenAbgVentilatorStepApi).not.toHaveBeenCalled();
+      expect(mockBack).not.toHaveBeenCalled();
+    });
   });
 
   describe('Wizard steps', () => {
     it('should show patient and reason step initially', () => {
       const { getAllByText } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getAllByText('Patient & reason').length).toBeGreaterThan(0);
+    });
+
+    it('keeps Back inactive on the first step and does not route away', () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const backBtn = getByTestId('assessment-back');
+
+      expect(backBtn.props.accessibilityState?.disabled ?? backBtn.props.disabled).toBe(true);
+      fireEvent.press(backBtn);
+
+      expect(defaultSessionMock.setAssessmentStep).not.toHaveBeenCalled();
+      expect(mockBack).not.toHaveBeenCalled();
+    });
+
+    it('moves Back to the previous New Patient step without routing away', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const backBtn = getByTestId('assessment-back');
+
+      expect(backBtn.props.accessibilityState?.disabled ?? backBtn.props.disabled).toBe(false);
+      fireEvent.press(backBtn);
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(0);
+      });
+      expect(mockBack).not.toHaveBeenCalled();
     });
 
     it('should have Next button on first step', () => {

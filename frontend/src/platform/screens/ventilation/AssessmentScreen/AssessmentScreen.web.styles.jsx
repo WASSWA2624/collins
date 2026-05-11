@@ -122,7 +122,7 @@ const StyledStepper = styled.div.withConfig({
   list-style: none;
 `;
 
-const StyledStepperItem = styled.div.withConfig({
+const StyledStepperItem = styled.button.withConfig({
   displayName: 'StyledStepperItem',
   componentId: 'StyledStepperItem',
 })`
@@ -133,9 +133,25 @@ const StyledStepperItem = styled.div.withConfig({
   gap: ${({ theme }) => theme.spacing.xs}px;
   min-width: 0;
   padding: ${({ theme }) => theme.spacing.xs}px;
+  appearance: none;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   border-right-width: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 2px;
+    z-index: 1;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.72;
+  }
 
   &[data-status='error'] {
     border-color: ${({ theme }) => theme.colors.error};

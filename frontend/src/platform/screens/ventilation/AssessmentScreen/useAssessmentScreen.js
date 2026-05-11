@@ -1555,19 +1555,20 @@ export default function useAssessmentScreen() {
     showConflictWarning,
   ]);
 
-  const goBack = useCallback(() => {
-    setConflictWarning(null);
-    if (currentStep > 0) setAssessmentStep(Math.max(currentStep - 1, 0));
-  }, [currentStep, setAssessmentStep]);
+  const canGoBack = currentStep > 0;
+  const canGoNext = currentStep < TOTAL_STEPS - 1;
 
-  const goBackOrExit = useCallback(() => {
+  const goToStep = useCallback(async (step) => {
+    const boundedStep = Math.min(Math.max(Number(step) || 0, 0), TOTAL_STEPS - 1);
     setConflictWarning(null);
-    if (currentStep > 0) {
-      setAssessmentStep(Math.max(currentStep - 1, 0));
-      return;
-    }
-    router.back();
-  }, [currentStep, router, setAssessmentStep]);
+    if (boundedStep === currentStep) return;
+    await advanceToStep(boundedStep);
+  }, [advanceToStep, currentStep]);
+
+  const goBack = useCallback(async () => {
+    if (!canGoBack) return;
+    await goToStep(currentStep - 1);
+  }, [canGoBack, currentStep, goToStep]);
 
   const saveAdmission = useCallback(async () => {
     markStepAttempted(STEPS.SAVE_REVIEW);
@@ -1752,9 +1753,11 @@ export default function useAssessmentScreen() {
     rawValidation,
     stepValidationStates,
     canProceedFromStep,
+    canGoBack,
+    canGoNext,
+    goToStep,
     goNext,
     goBack,
-    goBackOrExit,
     saveAdmission,
     conflictWarning,
     continueAfterConflict,

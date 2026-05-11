@@ -69,7 +69,7 @@ const StyledStepper = styled(View).withConfig({
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
-const StyledStepperItem = styled(View).withConfig({
+const StyledStepperItem = styled(Pressable).withConfig({
   displayName: 'StyledStepperItem',
   componentId: 'StyledStepperItem',
 })`
