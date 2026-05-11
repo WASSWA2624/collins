@@ -20,10 +20,12 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@i18n', () => ({
+  DEFAULT_LOCALE: 'en',
   createI18n: () => ({
-    supportedLocales: ['en', 'fr'],
+    supportedLocales: ['en'],
   }),
   getDeviceLocale: () => 'en',
+  resolveSupportedLocale: (locale) => (locale === 'en' ? 'en' : null),
 }));
 
 jest.mock('@services/storage', () => ({
@@ -85,17 +87,13 @@ describe('useLanguageControls', () => {
     });
 
     expect(result.current.locale).toBe('en');
-    expect(result.current.options).toHaveLength(2);
+    expect(result.current.options).toHaveLength(1);
     expect(result.current.options[0].value).toBe('en');
     expect(result.current.options[0]).toMatchObject({
       label: 'settings.language.options.en',
       searchText: ['en', 'settings.language.options.en', 'GB'],
     });
     expect(result.current.options[0].icon.props.countryCode).toBe('GB');
-    expect(result.current.options[1]).toMatchObject({
-      value: 'fr',
-    });
-    expect(result.current.options[1].icon.props.countryCode).toBe('FR');
   });
 
   it('falls back to default when stored locale is unsupported', () => {
@@ -108,7 +106,7 @@ describe('useLanguageControls', () => {
     expect(result.current.locale).toBe('en');
   });
 
-  it('persists and dispatches when setting a valid locale', () => {
+  it('ignores formerly supported locale values', () => {
     const { result, store } = renderHook(useLanguageControls, {
       initialState: {
         ui: { theme: 'light', locale: 'en', isLoading: false },
@@ -119,8 +117,8 @@ describe('useLanguageControls', () => {
       result.current.setLocale('fr');
     });
 
-    expect(store.getState().ui.locale).toBe('fr');
-    expect(asyncStorage.setItem).toHaveBeenCalledWith('user_locale', 'fr');
+    expect(store.getState().ui.locale).toBe('en');
+    expect(asyncStorage.setItem).not.toHaveBeenCalled();
   });
 
   it('ignores invalid locale values', () => {

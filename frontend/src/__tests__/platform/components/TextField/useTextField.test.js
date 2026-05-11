@@ -87,8 +87,10 @@ jest.mock('@i18n', () => {
   };
 
   return {
+    DEFAULT_LOCALE: 'en',
     createI18n: jest.fn(() => ({ tSync })),
     getDeviceLocale: jest.fn(() => 'en'),
+    resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
     tSync,
   };
 });

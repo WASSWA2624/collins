@@ -7,7 +7,9 @@ const { selectTheme, selectLocale, selectIsLoading, selectAiDecisionSupportEnabl
 
 // Mock i18n
 jest.mock('@i18n', () => ({
+  DEFAULT_LOCALE: 'en',
   getDeviceLocale: jest.fn(() => 'en'),
+  resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
 }));
 
 describe('UI Slice', () => {
@@ -65,14 +67,14 @@ describe('UI Slice', () => {
   });
 
   describe('setLocale', () => {
-    it('should update locale', () => {
-      const state = reducer(initialState, actions.setLocale('fr'));
-      expect(state.locale).toBe('fr');
+    it('should keep English locale', () => {
+      const state = reducer(initialState, actions.setLocale('en'));
+      expect(state.locale).toBe('en');
     });
 
-    it('should update locale to different language', () => {
+    it('should normalize unsupported locales to English', () => {
       const state = reducer(initialState, actions.setLocale('sw'));
-      expect(state.locale).toBe('sw');
+      expect(state.locale).toBe('en');
     });
   });
 
@@ -144,7 +146,7 @@ describe('UI Slice', () => {
       state = reducer(state, actions.setLoading(true));
 
       expect(state.theme).toBe('dark');
-      expect(state.locale).toBe('fr');
+      expect(state.locale).toBe('en');
       expect(state.isLoading).toBe(true);
     });
   });

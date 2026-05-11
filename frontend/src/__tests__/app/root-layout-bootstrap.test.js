@@ -101,7 +101,10 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => ({
 }), { virtual: true });
 
 jest.mock('@i18n', () => ({
+  DEFAULT_LOCALE: 'en',
   I18nProvider: ({ children }) => children,
+  getDeviceLocale: jest.fn(() => 'en'),
+  resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
 }), { virtual: true });
 
 import RootLayout from '@app/_layout';

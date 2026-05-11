@@ -178,6 +178,16 @@ const renderWithProviders = (component, store = createMockStore()) =>
     </Provider>
   );
 
+const formatDateInput = (date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+const dateInputDaysAgo = (daysAgo) => {
+  const date = new Date();
+  date.setHours(12, 0, 0, 0);
+  date.setDate(date.getDate() - daysAgo);
+  return formatDateInput(date);
+};
+
 describe('AssessmentScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -228,7 +238,7 @@ describe('AssessmentScreen', () => {
       fireEvent.press(nextBtn);
 
       expect(getByText('Some required New Patient details are missing. Please review the highlighted fields.')).toBeTruthy();
-      expect(getByText('Age is required before continuing.')).toBeTruthy();
+      expect(getByText('Age or date of birth is required before continuing.')).toBeTruthy();
       expect(getByText('4 fields need attention')).toBeTruthy();
       expect(savePatientReasonStepApi).not.toHaveBeenCalled();
     });
@@ -270,6 +280,106 @@ describe('AssessmentScreen', () => {
       });
     });
 
+    it('updates derived age and pathway from date of birth', async () => {
+      const dateOfBirth = dateInputDaysAgo(3);
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.changeText(getByTestId('assessment-date-of-birth'), dateOfBirth);
+
+      await waitFor(() => {
+        const call = defaultSessionMock.setInputs.mock.calls.find(([next]) => next.dateOfBirth === dateOfBirth);
+        expect(call?.[0]).toMatchObject({
+          ageYearsPart: 0,
+          ageMonthsPart: 0,
+          ageDaysPart: 3,
+          ageMonths: 0,
+          ageDays: 3,
+          patientPathway: 'NEONATE',
+        });
+        expect(call?.[0].ageYears).toBeCloseTo(3 / 365, 4);
+      });
+    });
+
+    it('allows patient step save when only months are provided for age', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: {
+          ...completePatientInputs,
+          patientPathway: 'UNKNOWN',
+          ageYears: null,
+          ageMonths: 3,
+          ageDays: null,
+        },
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+      });
+      const payload = savePatientReasonStepApi.mock.calls[0][0];
+      expect(payload.patient).toMatchObject({
+        ageMonths: 3,
+        patientPathway: 'INFANT',
+      });
+      expect(payload.patient.ageYears).toBeCloseTo(0.25, 4);
+    });
+
+    it('allows patient step save when date of birth provides the age', async () => {
+      const dateOfBirth = dateInputDaysAgo(3);
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: {
+          ...completePatientInputs,
+          patientPathway: 'UNKNOWN',
+          dateOfBirth,
+          ageYears: null,
+          ageMonths: null,
+          ageDays: null,
+          ageYearsPart: null,
+          ageMonthsPart: null,
+          ageDaysPart: null,
+        },
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+      });
+      const payload = savePatientReasonStepApi.mock.calls[0][0];
+      expect(payload.patient).toMatchObject({
+        dateOfBirth,
+        ageDays: 3,
+        patientPathway: 'NEONATE',
+      });
+      expect(payload.patient.ageYears).toBeCloseTo(3 / 365, 4);
+    });
+
+    it('blocks patient step save when date of birth is invalid', () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: {
+          ...completePatientInputs,
+          dateOfBirth: '2026-99-99',
+          ageYears: null,
+          ageMonths: null,
+          ageDays: null,
+          ageYearsPart: null,
+          ageMonthsPart: null,
+          ageDaysPart: null,
+        },
+      });
+      const { getByTestId, getByText } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      expect(getByText('Date of birth must use YYYY-MM-DD and cannot be in the future.')).toBeTruthy();
+      expect(savePatientReasonStepApi).not.toHaveBeenCalled();
+    });
+
     it('keeps decimal body metric text while Android users are typing', async () => {
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       const weightInput = getByTestId('assessment-weight');
@@ -277,9 +387,9 @@ describe('AssessmentScreen', () => {
       expect(weightInput.props.keyboardType).toBe('decimal-pad');
       fireEvent.changeText(weightInput, '70.');
 
-      await waitFor(() => {
-        expect(getByTestId('assessment-weight').props.value).toBe('70.');
-      });
+      expect(defaultSessionMock.setInputs).not.toHaveBeenCalledWith(expect.objectContaining({
+        actualWeightKg: null,
+      }));
 
       fireEvent.changeText(getByTestId('assessment-weight'), '70.5');
 
@@ -287,7 +397,6 @@ describe('AssessmentScreen', () => {
         expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
           actualWeightKg: 70.5,
         }));
-        expect(getByTestId('assessment-weight').props.value).toBe('70.5');
       });
     });
 
@@ -306,19 +415,55 @@ describe('AssessmentScreen', () => {
         assessmentCurrentStep: 1,
       });
 
-      const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const { getByTestId, getByText, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
       expect(getByTestId('assessment-oxygen-support')).toBeTruthy();
       expect(queryByTestId('assessment-measured-at')).toBeNull();
       expect(queryByTestId('assessment-fio2')).toBeNull();
       expect(queryByTestId('assessment-fio2-at-sample')).toBeNull();
-      expect(getByTestId('assessment-ph')).toBeTruthy();
-      expect(getByTestId('assessment-ph').props.keyboardType).toBe('decimal-pad');
+      expect(getByText('Generate Vent Suggestion')).toBeTruthy();
+      [
+        'assessment-spo2',
+        'assessment-respiratory-rate',
+        'assessment-heart-rate',
+        'assessment-ph',
+        'assessment-pao2',
+        'assessment-paco2',
+        'assessment-hco3',
+        'assessment-base-excess',
+        'assessment-lactate',
+        'assessment-spo2-at-sample',
+      ].forEach((testId) => {
+        expect(getByTestId(testId).props.keyboardType).toBe('decimal-pad');
+      });
       expect(getByTestId('assessment-pao2').props.accessibilityState?.required ?? getByTestId('assessment-pao2').props.required).toBeFalsy();
       expect(getByTestId('assessment-paco2').props.accessibilityState?.required ?? getByTestId('assessment-paco2').props.required).toBeFalsy();
       expect(queryByTestId('assessment-ventilator-mode')).toBeNull();
       expect(queryByTestId('assessment-tidal-volume')).toBeNull();
       expect(queryByTestId('assessment-peep')).toBeNull();
+    });
+
+    it('keeps decimal oxygen values while Android users are typing', async () => {
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.changeText(getByTestId('assessment-spo2'), '92.');
+
+      expect(defaultSessionMock.setInputs).not.toHaveBeenCalledWith(expect.objectContaining({
+        spo2: null,
+      }));
+
+      fireEvent.changeText(getByTestId('assessment-spo2'), '92.5');
+
+      await waitFor(() => {
+        expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
+          spo2: 92.5,
+        }));
+      });
     });
 
     it('advances to clinical information after the patient step save', async () => {

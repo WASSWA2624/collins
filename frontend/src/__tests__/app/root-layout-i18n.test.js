@@ -81,7 +81,7 @@ jest.mock('@store', () => {
       return { ...state, theme: action.payload };
     }
     if (action.type === 'ui/setLocale') {
-      return { ...state, locale: action.payload };
+      return { ...state, locale: 'en' };
     }
     return state;
   };
@@ -150,20 +150,18 @@ jest.mock('@platform/layouts/common/RootLayoutStyles', () => {
 jest.mock('@i18n', () => {
   const React = require('react');
 
-  const mockCreateI18n = jest.fn(({ initialLocale = 'en' } = {}) => {
-    const supportedLocales = ['en', 'fr'];
-    const resolvedLocale = supportedLocales.includes(initialLocale) ? initialLocale : 'en';
+  const mockCreateI18n = jest.fn(() => {
+    const supportedLocales = ['en'];
+    const resolvedLocale = 'en';
 
     return {
-      tSync: jest.fn((key, params, overrideLocale = null) => {
-        const locale = overrideLocale || resolvedLocale;
-
-        if (key === 'common.save') return locale === 'fr' ? 'Enregistrer' : 'Save';
-        if (key === 'common.cancel') return locale === 'fr' ? 'Annuler' : 'Cancel';
-        if (key === 'common.loading') return locale === 'fr' ? 'Chargement...' : 'Loading...';
+      tSync: jest.fn((key, params) => {
+        if (key === 'common.save') return 'Save';
+        if (key === 'common.cancel') return 'Cancel';
+        if (key === 'common.loading') return 'Loading...';
 
         if (key === 'greeting.hello' && params?.name) {
-          return locale === 'fr' ? `Bonjour, ${params.name}` : `Hello, ${params.name}`;
+          return `Hello, ${params.name}`;
         }
 
         return key;
@@ -177,8 +175,10 @@ jest.mock('@i18n', () => {
   return {
     I18nProvider: ({ children }) => React.createElement(React.Fragment, null, children),
     createI18n: mockCreateI18n,
+    DEFAULT_LOCALE: 'en',
     getDeviceLocale: jest.fn(() => 'en'),
     LOCALE_STORAGE_KEY: 'user_locale',
+    resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
   };
 }, { virtual: true });
 
@@ -303,9 +303,7 @@ describe('app/_layout.jsx - I18nProvider Integration', () => {
     }, { timeout: 3000 });
   });
 
-  test('should handle locale switching when store locale changes', async () => {
-    // Per Step 7.5: Test locale switching if applicable (per i18n.mdc)
-    // This test verifies that useI18n hook responds to locale changes in store
+  test('should keep English when store receives an unsupported locale', async () => {
     const TestChild = () => {
       const { t, locale } = useI18n();
       
@@ -333,15 +331,15 @@ describe('app/_layout.jsx - I18nProvider Integration', () => {
       expect(getByTestId('translated').props.children).toBe('Save');
     }, { timeout: 3000 });
 
-    // Update locale in Redux and verify hook + translations update
+    // Unsupported locales are normalized to English.
     const store = require('@store');
     act(() => {
       store.dispatch({ type: 'ui/setLocale', payload: 'fr' });
     });
 
     await waitFor(() => {
-      expect(getByTestId('current-locale').props.children).toBe('fr');
-      expect(getByTestId('translated').props.children).toBe('Enregistrer');
+      expect(getByTestId('current-locale').props.children).toBe('en');
+      expect(getByTestId('translated').props.children).toBe('Save');
     }, { timeout: 3000 });
   });
 

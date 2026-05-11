@@ -4,10 +4,11 @@
  * File: ui.slice.js
  */
 import { createSlice } from '@reduxjs/toolkit';
-import { getDeviceLocale } from '@i18n';
+import { DEFAULT_LOCALE, getDeviceLocale, resolveSupportedLocale } from '@i18n';
 
 const THEME_PREFERENCES = new Set(['system', 'light', 'dark', 'high-contrast']);
 const normalizeThemePreference = (value) => (THEME_PREFERENCES.has(value) ? value : 'light');
+const normalizeLocale = (value) => resolveSupportedLocale(value) || DEFAULT_LOCALE;
 
 const initialState = {
   theme: 'light', // 'system', 'light', 'dark', 'high-contrast'
@@ -44,7 +45,7 @@ const uiSlice = createSlice({
       state.theme = normalizeThemePreference(action.payload);
     },
     setLocale: (state, action) => {
-      state.locale = action.payload;
+      state.locale = normalizeLocale(action.payload);
     },
     setDensity: (state, action) => {
       state.density = action.payload;

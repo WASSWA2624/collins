@@ -15,7 +15,9 @@ jest.mock('@react-native-community/netinfo', () => ({
 }));
 
 jest.mock('@i18n', () => ({
+  DEFAULT_LOCALE: 'en',
   getDeviceLocale: jest.fn(() => 'en'),
+  resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
 }));
 
 jest.mock('@store', () => ({

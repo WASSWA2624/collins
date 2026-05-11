@@ -1,7 +1,6 @@
 /**
  * i18n Tests
  * File: index.test.js
- * Per P013: 23 supported locales (en + 22).
  */
 import { createI18n } from '@i18n';
 
@@ -58,17 +57,17 @@ describe('i18n System', () => {
       global.Intl = originalIntl;
     });
 
-    it('should return supported locale when device locale is supported (e.g. ja)', () => {
+    it('should normalize regional English locale to en', () => {
       const originalIntl = global.Intl;
       global.Intl = {
         DateTimeFormat: jest.fn(() => ({
-          resolvedOptions: jest.fn(() => ({ locale: 'ja' })),
+          resolvedOptions: jest.fn(() => ({ locale: 'en-US' })),
         })),
       };
 
       const i18n = createI18n({ storage: mockStorage });
       const locale = i18n.getDeviceLocale();
-      expect(locale).toBe('ja');
+      expect(locale).toBe('en');
 
       global.Intl = originalIntl;
     });
@@ -179,11 +178,9 @@ describe('i18n System', () => {
   });
 
   describe('supportedLocales', () => {
-    it('should export 23 supported locales (en + 22 per P013)', () => {
+    it('should export only English as supported locale', () => {
       const i18n = createI18n({ storage: mockStorage });
-      const expected = ['en', 'ar', 'de', 'es', 'fa', 'fr', 'hi', 'id', 'it', 'ja', 'ko', 'ms', 'nl', 'pl', 'pt', 'ru', 'sw', 'ta', 'th', 'tr', 'uk', 'vi', 'zh'];
-      expect(i18n.supportedLocales).toHaveLength(23);
-      expected.forEach((code) => expect(i18n.supportedLocales).toContain(code));
+      expect(i18n.supportedLocales).toEqual(['en']);
     });
   });
 });

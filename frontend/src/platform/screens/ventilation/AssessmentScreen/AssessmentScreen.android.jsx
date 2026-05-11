@@ -100,6 +100,7 @@ const AssessmentScreenAndroid = () => {
     updateInput,
     updateDecimalInput,
     updateAgeComponent,
+    updateDateOfBirth,
     getNumericInputValue,
     toggleClinicianConfirmed,
     summaryData,
@@ -160,6 +161,9 @@ const AssessmentScreenAndroid = () => {
       : errorCode
       ? t('errors.codes.UNKNOWN_ERROR')
       : null;
+  const nextActionLabel = currentStep === STEPS.OXYGEN_ABG_VENTILATOR
+    ? t('ventilation.assessment.actions.generateVentSuggestion')
+    : t('common.next');
 
   const renderValidationMessages = () => {
     const messages = [...new Set([errorMessage, ...(validation?.messages || [])].filter(Boolean))];
@@ -338,7 +342,6 @@ const AssessmentScreenAndroid = () => {
         value={getNumericInputValue('ageYearsPart')}
         onChangeText={(value) => updateAgeComponent('ageYearsPart', value)}
         {...getFieldErrorProps('ageYears')}
-        required
         testID="assessment-age-years"
       />
       <TextField
@@ -356,6 +359,15 @@ const AssessmentScreenAndroid = () => {
         value={getNumericInputValue('ageDaysPart')}
         onChangeText={(value) => updateAgeComponent('ageDaysPart', value)}
         testID="assessment-age-days"
+      />
+      <TextField
+        label={t('ventilation.assessment.patientReason.dateOfBirth')}
+        placeholder={t('ventilation.assessment.patientReason.dateOfBirthPlaceholder')}
+        value={mergedInputs.dateOfBirth}
+        onChangeText={updateDateOfBirth}
+        helperText={t('ventilation.assessment.patientReason.ageRequirementHint')}
+        {...getFieldErrorProps('dateOfBirth')}
+        testID="assessment-date-of-birth"
       />
       <TextField
         label={t('ventilation.assessment.patientReason.weightKg')}
@@ -423,16 +435,16 @@ const AssessmentScreenAndroid = () => {
       {renderConflictWarning()}
       {renderValidationMessages()}
       <Select label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')} placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')} helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')} options={oxygenSupportOptions} value={mergedInputs.oxygenSupportType} onValueChange={(value) => updateInput({ oxygenSupportType: value })} {...getFieldErrorProps('oxygenSupportType')} required testID="assessment-oxygen-support" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2')} type="number" helperText={helperTextFor('spo2')} value={mergedInputs.spo2 != null ? String(mergedInputs.spo2) : ''} onChangeText={(value) => updateInput({ spo2: parseNum(value) })} {...getFieldErrorProps('spo2')} required testID="assessment-spo2" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.respiratoryRate')} type="number" helperText={helperTextFor('respiratoryRate')} value={mergedInputs.respiratoryRate != null ? String(mergedInputs.respiratoryRate) : ''} onChangeText={(value) => updateInput({ respiratoryRate: parseNum(value) })} {...getFieldErrorProps('respiratoryRate')} required testID="assessment-respiratory-rate" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.heartRate')} type="number" helperText={helperTextFor('heartRate')} value={mergedInputs.heartRate != null ? String(mergedInputs.heartRate) : ''} onChangeText={(value) => updateInput({ heartRate: parseNum(value) })} {...getFieldErrorProps('heartRate')} required testID="assessment-heart-rate" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.ph')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('ph')} value={mergedInputs.ph != null ? String(mergedInputs.ph) : ''} onChangeText={(value) => updateInput({ ph: parseNum(value) })} {...getFieldErrorProps('ph')} required testID="assessment-ph" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.pao2')} type="number" helperText={helperTextFor('pao2')} value={mergedInputs.pao2 != null ? String(mergedInputs.pao2) : ''} onChangeText={(value) => updateInput({ pao2: parseNum(value) })} {...getFieldErrorProps('pao2')} testID="assessment-pao2" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.paco2')} type="number" helperText={helperTextFor('paco2')} value={mergedInputs.paco2 != null ? String(mergedInputs.paco2) : ''} onChangeText={(value) => updateInput({ paco2: parseNum(value) })} {...getFieldErrorProps('paco2')} testID="assessment-paco2" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.hco3')} type="number" helperText={helperTextFor('hco3')} value={mergedInputs.hco3 != null ? String(mergedInputs.hco3) : ''} onChangeText={(value) => updateInput({ hco3: parseNum(value) })} {...getFieldErrorProps('hco3')} testID="assessment-hco3" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.baseExcess')} type="number" helperText={helperTextFor('baseExcess')} value={mergedInputs.baseExcess != null ? String(mergedInputs.baseExcess) : ''} onChangeText={(value) => updateInput({ baseExcess: parseNum(value) })} {...getFieldErrorProps('baseExcess')} testID="assessment-base-excess" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.lactate')} type="number" helperText={helperTextFor('lactate')} value={mergedInputs.lactate != null ? String(mergedInputs.lactate) : ''} onChangeText={(value) => updateInput({ lactate: parseNum(value) })} {...getFieldErrorProps('lactate')} testID="assessment-lactate" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2AtSample')} type="number" helperText={helperTextFor('spo2AtSample')} value={mergedInputs.spo2AtSample != null ? String(mergedInputs.spo2AtSample) : ''} onChangeText={(value) => updateInput({ spo2AtSample: parseNum(value) })} {...getFieldErrorProps('spo2AtSample')} testID="assessment-spo2-at-sample" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('spo2')} value={getNumericInputValue('spo2')} onChangeText={(value) => updateDecimalInput('spo2', value)} {...getFieldErrorProps('spo2')} required testID="assessment-spo2" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.respiratoryRate')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('respiratoryRate')} value={getNumericInputValue('respiratoryRate')} onChangeText={(value) => updateDecimalInput('respiratoryRate', value)} {...getFieldErrorProps('respiratoryRate')} required testID="assessment-respiratory-rate" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.heartRate')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('heartRate')} value={getNumericInputValue('heartRate')} onChangeText={(value) => updateDecimalInput('heartRate', value)} {...getFieldErrorProps('heartRate')} required testID="assessment-heart-rate" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.ph')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('ph')} value={getNumericInputValue('ph')} onChangeText={(value) => updateDecimalInput('ph', value)} {...getFieldErrorProps('ph')} required testID="assessment-ph" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.pao2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('pao2')} value={getNumericInputValue('pao2')} onChangeText={(value) => updateDecimalInput('pao2', value)} {...getFieldErrorProps('pao2')} testID="assessment-pao2" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.paco2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('paco2')} value={getNumericInputValue('paco2')} onChangeText={(value) => updateDecimalInput('paco2', value)} {...getFieldErrorProps('paco2')} testID="assessment-paco2" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.hco3')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('hco3')} value={getNumericInputValue('hco3')} onChangeText={(value) => updateDecimalInput('hco3', value)} {...getFieldErrorProps('hco3')} testID="assessment-hco3" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.baseExcess')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('baseExcess')} value={getNumericInputValue('baseExcess')} onChangeText={(value) => updateDecimalInput('baseExcess', value)} {...getFieldErrorProps('baseExcess')} testID="assessment-base-excess" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.lactate')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('lactate')} value={getNumericInputValue('lactate')} onChangeText={(value) => updateDecimalInput('lactate', value)} {...getFieldErrorProps('lactate')} testID="assessment-lactate" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2AtSample')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('spo2AtSample')} value={getNumericInputValue('spo2AtSample')} onChangeText={(value) => updateDecimalInput('spo2AtSample', value)} {...getFieldErrorProps('spo2AtSample')} testID="assessment-spo2-at-sample" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyFields')} placeholder={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyFieldsPlaceholder')} value={mergedInputs.uncertaintyFieldsText} onChangeText={(value) => updateInput({ uncertaintyFieldsText: value })} testID="assessment-uncertainty-fields" />
       <TextArea label={t('ventilation.assessment.oxygenAbgVentilator.uncertaintyReason')} value={mergedInputs.uncertaintyReason} onChangeText={(value) => updateInput({ uncertaintyReason: value })} minHeight={76} testID="assessment-uncertainty-reason" />
     </StyledFieldGroup>
@@ -556,7 +568,7 @@ const AssessmentScreenAndroid = () => {
                   loading={isSaving}
                   testID={testIds.nextButton}
                 >
-                  {t('common.next')}
+                  {nextActionLabel}
                 </Button>
               ) : (
                 <Button

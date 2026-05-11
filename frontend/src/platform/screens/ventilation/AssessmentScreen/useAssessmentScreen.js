@@ -28,13 +28,25 @@ const TOTAL_STEPS = 3;
 const MISSING_UNKNOWN = 'not_available';
 const AGE_COMPONENT_FIELDS = Object.freeze(['ageYearsPart', 'ageMonthsPart', 'ageDaysPart']);
 const BODY_METRIC_FIELDS = Object.freeze(['actualWeightKg', 'heightOrLengthCm', 'bmi']);
+const OXYGEN_ABG_DECIMAL_FIELDS = Object.freeze([
+  'spo2',
+  'respiratoryRate',
+  'heartRate',
+  'ph',
+  'pao2',
+  'paco2',
+  'hco3',
+  'baseExcess',
+  'lactate',
+  'spo2AtSample',
+]);
+const DECIMAL_INPUT_FIELDS = Object.freeze([...BODY_METRIC_FIELDS, ...OXYGEN_ABG_DECIMAL_FIELDS]);
 const DATE_FIELDS = [
   { field: 'abgCollectedAt', label: 'ABG collected at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
 ];
 const REQUIRED_FIELDS = [
   { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
-  { field: 'ageYears', label: 'Age', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'heightOrLengthCm', label: 'Height', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'oxygenSupportType', label: 'Oxygen support type', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
@@ -79,6 +91,8 @@ const FIELD_VALIDATION_STEPS = [...REQUIRED_FIELDS, ...DATE_FIELDS].reduce(
     return acc;
   },
   {
+    ageYears: [STEPS.PATIENT_REASON],
+    dateOfBirth: [STEPS.PATIENT_REASON],
     clinicianConfirmed: [STEPS.SAVE_REVIEW],
     overrideReason: [STEPS.SAVE_REVIEW],
   }
@@ -114,6 +128,53 @@ const isValidDateTimeValue = (value) => {
   const text = cleanText(value);
   if (!text) return true;
   return !Number.isNaN(new Date(text).getTime());
+};
+const parseDateOfBirthDate = (value) => {
+  const text = cleanText(value);
+  if (!text) return null;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
+  const [year, month, day] = text.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+  const today = new Date();
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return date > todayDate ? null : date;
+};
+const isValidDateOfBirthValue = (value) => {
+  const text = cleanText(value);
+  if (!text) return true;
+  return Boolean(parseDateOfBirthDate(text));
+};
+const calculateAgeComponentsFromDateOfBirth = (value, now = new Date()) => {
+  const dateOfBirth = parseDateOfBirthDate(value);
+  if (!dateOfBirth) return null;
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let years = today.getFullYear() - dateOfBirth.getFullYear();
+  let months = today.getMonth() - dateOfBirth.getMonth();
+  let days = today.getDate() - dateOfBirth.getDate();
+
+  if (days < 0) {
+    months -= 1;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  }
+
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return {
+    ageYearsPart: years,
+    ageMonthsPart: months,
+    ageDaysPart: days,
+  };
 };
 const roundTo = (value, precision = 1) => {
   if (!isFiniteNumber(value)) return null;
@@ -182,22 +243,26 @@ const splitAgeYearsToComponents = (ageYears) => {
 };
 
 const resolveAgeComponents = (base) => {
-  const hasAgeComponentInput = AGE_COMPONENT_FIELDS.some((field) => hasOwn(base, field));
-  if (hasAgeComponentInput) {
-    return {
-      ageYearsPart: ageComponentOrNull(base.ageYearsPart),
-      ageMonthsPart: ageComponentOrNull(base.ageMonthsPart),
-      ageDaysPart: ageComponentOrNull(base.ageDaysPart),
-    };
+  const componentInputs = {
+    ageYearsPart: ageComponentOrNull(base.ageYearsPart),
+    ageMonthsPart: ageComponentOrNull(base.ageMonthsPart),
+    ageDaysPart: ageComponentOrNull(base.ageDaysPart),
+  };
+  if (Object.values(componentInputs).some((value) => value != null)) {
+    return componentInputs;
   }
 
-  if (hasOwn(base, 'ageMonths') || hasOwn(base, 'ageDays')) {
-    return {
-      ageYearsPart: ageComponentOrNull(base.ageYears),
-      ageMonthsPart: ageComponentOrNull(base.ageMonths),
-      ageDaysPart: ageComponentOrNull(base.ageDays),
-    };
+  const persistedAgeComponents = {
+    ageYearsPart: ageComponentOrNull(base.ageYears),
+    ageMonthsPart: ageComponentOrNull(base.ageMonths),
+    ageDaysPart: ageComponentOrNull(base.ageDays),
+  };
+  if (Object.values(persistedAgeComponents).some((value) => value != null)) {
+    return persistedAgeComponents;
   }
+
+  const dateOfBirthComponents = calculateAgeComponentsFromDateOfBirth(base.dateOfBirth);
+  if (dateOfBirthComponents) return dateOfBirthComponents;
 
   return splitAgeYearsToComponents(numberOrNull(base.ageYears));
 };
@@ -228,6 +293,7 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   admissionSource: '',
   reasonForSupport: '',
   patientPathway: 'UNKNOWN',
+  dateOfBirth: '',
   ageYears: null,
   ageMonths: null,
   ageDays: null,
@@ -284,6 +350,7 @@ const normalizeInputs = (inputs, clientRecordId) => {
     ...defaultAdmissionInputs(clientRecordId),
     ...base,
     ...ageComponents,
+    dateOfBirth: cleanText(base.dateOfBirth),
     ageYears: ageYears ?? numberOrNull(base.ageYears),
     ageMonths: ageComponents.ageMonthsPart,
     ageDays: ageComponents.ageDaysPart,
@@ -417,6 +484,11 @@ const hasRequiredFieldValue = (inputs, rule) => {
   return Boolean(cleanText(inputs[rule.field]));
 };
 
+const hasPatientAgeValue = (inputs) =>
+  AGE_COMPONENT_FIELDS.some((field) => ageComponentOrNull(inputs?.[field]) != null) ||
+  isFiniteNumber(inputs?.ageYears) ||
+  Boolean(cleanText(inputs?.dateOfBirth));
+
 const shouldValidateRuleForStep = (rule, step) =>
   rule.steps.some((ruleStep) => ruleStep <= step);
 
@@ -437,6 +509,18 @@ const buildValidationFromInputs = (inputs, step, readiness, options = {}) => {
         addValidationError(fieldErrors, messages, rule.field, `${rule.label} is required before continuing.`);
       }
     });
+
+  if (shouldValidateRule({ steps: [STEPS.PATIENT_REASON] }, step) && !hasPatientAgeValue(inputs)) {
+    addValidationError(fieldErrors, messages, 'ageYears', 'Age or date of birth is required before continuing.');
+  }
+
+  if (
+    shouldValidateRule({ steps: [STEPS.PATIENT_REASON] }, step) &&
+    cleanText(inputs.dateOfBirth) &&
+    !isValidDateOfBirthValue(inputs.dateOfBirth)
+  ) {
+    addValidationError(fieldErrors, messages, 'dateOfBirth', 'Date of birth must use YYYY-MM-DD and cannot be in the future.');
+  }
 
   DATE_FIELDS
     .filter((rule) => shouldValidateRule(rule, step))
@@ -499,6 +583,7 @@ const buildPatientReasonPayload = (inputs) => {
     reasonForSupport: textOrUndefined(inputs.reasonForSupport),
     patient: {
       patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
+      dateOfBirth: textOrUndefined(inputs.dateOfBirth),
       ageYears: numberOrNull(inputs.ageYears),
       ageMonths: numberOrNull(inputs.ageMonths),
       ageDays: numberOrNull(inputs.ageDays),
@@ -799,18 +884,27 @@ export default function useAssessmentScreen() {
 
   const updateDecimalInput = useCallback(
     (field, value) => {
-      if (!BODY_METRIC_FIELDS.includes(field)) return;
+      if (!DECIMAL_INPUT_FIELDS.includes(field)) return;
       const text = String(value ?? '');
       setRawNumericInputValues((current) => ({ ...current, [field]: text }));
 
       if (!text.trim()) {
-        updateBodyMetric(field, null);
+        if (BODY_METRIC_FIELDS.includes(field)) {
+          updateBodyMetric(field, null);
+          return;
+        }
+        updateInput({ [field]: null }, { touchedFields: [field] });
         return;
       }
 
       const numericValue = parseAdmissionNumberInput(text);
       if (numericValue == null) {
         markFieldsTouched([field]);
+        return;
+      }
+
+      if (!BODY_METRIC_FIELDS.includes(field)) {
+        updateInput({ [field]: numericValue }, { touchedFields: [field] });
         return;
       }
 
@@ -854,6 +948,36 @@ export default function useAssessmentScreen() {
       });
     },
     [markFieldsTouched, updateInput]
+  );
+
+  const updateDateOfBirth = useCallback(
+    (value) => {
+      const dateOfBirth = String(value ?? '').trim();
+      const components = calculateAgeComponentsFromDateOfBirth(dateOfBirth);
+      if (!components) {
+        updateInput({ dateOfBirth }, { touchedFields: ['dateOfBirth'] });
+        return;
+      }
+
+      const ageYears = calculateAgeYearsFromComponents(components);
+      setRawNumericInputValues((current) => ({
+        ...current,
+        ageYearsPart: String(components.ageYearsPart),
+        ageMonthsPart: String(components.ageMonthsPart),
+        ageDaysPart: String(components.ageDaysPart),
+      }));
+      updateInput({
+        dateOfBirth,
+        ...components,
+        ageMonths: components.ageMonthsPart,
+        ageDays: components.ageDaysPart,
+        ageYears,
+        patientPathway: resolvePatientAgeGroupFromAgeYears(ageYears) || 'UNKNOWN',
+      }, {
+        touchedFields: ['dateOfBirth', 'ageYears'],
+      });
+    },
+    [updateInput]
   );
 
   const getNumericInputValue = useCallback(
@@ -1437,6 +1561,7 @@ export default function useAssessmentScreen() {
     updateBodyMetric,
     updateDecimalInput,
     updateAgeComponent,
+    updateDateOfBirth,
     getNumericInputValue,
     toggleClinicianConfirmed,
     summaryData,

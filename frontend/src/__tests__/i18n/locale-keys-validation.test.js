@@ -1,20 +1,12 @@
 /**
- * Locale Keys Validation (P013 13.4.3)
- * Ensures every locale file has the same keys as en.json.
- * Per i18n.mdc: Every translation key must exist in every locale file.
+ * Locale keys validation.
+ * English is the only supported UI locale.
  */
+import fs from 'fs';
 import path from 'path';
 import en from '@i18n/locales/en.json';
 
-const SUPPORTED_LOCALES = [
-  'ar', 'de', 'es', 'fa', 'fr', 'hi', 'id', 'it', 'ja', 'ko', 'ms', 'nl',
-  'pl', 'pt', 'ru', 'sw', 'ta', 'th', 'tr', 'uk', 'vi', 'zh',
-];
-
-function loadLocale(localeCode) {
-  const fullPath = path.resolve(process.cwd(), 'src', 'i18n', 'locales', `${localeCode}.json`);
-  return require(fullPath);
-}
+const LOCALES_DIR = path.resolve(process.cwd(), 'src', 'i18n', 'locales');
 
 /**
  * Flatten nested object to dot-notation keys (leaf values only).
@@ -35,7 +27,7 @@ function flattenKeys(obj, prefix = '') {
   }, []);
 }
 
-describe('Locale keys validation (P013 13.4.3)', () => {
+describe('Locale keys validation', () => {
   const enKeys = new Set(flattenKeys(en));
   const enKeysArray = Array.from(enKeys).sort();
 
@@ -43,24 +35,8 @@ describe('Locale keys validation (P013 13.4.3)', () => {
     expect(enKeysArray.length).toBeGreaterThan(0);
   });
 
-  SUPPORTED_LOCALES.forEach((localeCode) => {
-    describe(`locale: ${localeCode}.json`, () => {
-      let localeModule;
-      beforeAll(() => {
-        localeModule = loadLocale(localeCode);
-      });
-
-      it(`should have all keys present in en.json`, () => {
-        const localeKeys = new Set(flattenKeys(localeModule));
-        const missing = enKeysArray.filter((k) => !localeKeys.has(k));
-        expect(missing).toEqual([]);
-      });
-
-      it(`should not have extra top-level keys beyond en`, () => {
-        const localeKeys = new Set(flattenKeys(localeModule));
-        const extra = Array.from(localeKeys).filter((k) => !enKeys.has(k));
-        expect(extra).toEqual([]);
-      });
-    });
+  it('should keep only en.json in the locale directory', () => {
+    const localeFiles = fs.readdirSync(LOCALES_DIR).filter((file) => file.endsWith('.json')).sort();
+    expect(localeFiles).toEqual(['en.json']);
   });
 });

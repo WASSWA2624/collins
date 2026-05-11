@@ -6,6 +6,7 @@
  * Feature selectors will be added in Phase 9.
  */
 import { createSelector } from '@reduxjs/toolkit';
+import { DEFAULT_LOCALE, resolveSupportedLocale } from '@i18n';
 import { NETWORK_QUALITY } from '@utils/networkQuality';
 import {
   getActiveFacilityContext,
@@ -54,7 +55,10 @@ const THEME_PREFERENCES = new Set(['system', 'light', 'dark', 'high-contrast']);
 const selectTheme = createSelector([selectUI], (ui) =>
   THEME_PREFERENCES.has(ui?.theme) ? ui.theme : 'light'
 );
-const selectLocale = createSelector([selectUI], (ui) => ui?.locale ?? 'en');
+const selectLocale = createSelector(
+  [selectUI],
+  (ui) => resolveSupportedLocale(ui?.locale) || DEFAULT_LOCALE
+);
 const selectDensity = createSelector([selectUI], (ui) => ui?.density ?? 'comfortable');
 const selectIsLoading = createSelector([selectUI], (ui) => ui?.isLoading ?? false);
 const selectSidebarWidth = createSelector([selectUI], (ui) => ui?.sidebarWidth ?? 260);

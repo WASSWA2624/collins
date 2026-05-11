@@ -6,7 +6,7 @@
 import { TIMEOUTS } from '@config';
 import { endpoints } from '@config/endpoints';
 import { handleError } from '@errors';
-import { getDeviceLocale, LOCALE_STORAGE_KEY } from '@i18n';
+import { getDeviceLocale, LOCALE_STORAGE_KEY, resolveSupportedLocale } from '@i18n';
 import { tokenManager } from '@security';
 import { getCsrfHeaders, clearCsrfToken } from '@services/csrf';
 import { async as asyncStorage } from '@services/storage';
@@ -37,8 +37,8 @@ const resolveRequestLocale = async () => {
   try {
     const storedLocale = await asyncStorage.getItem(LOCALE_STORAGE_KEY);
     if (typeof storedLocale === 'string') {
-      const value = storedLocale.trim();
-      if (value) return value;
+      const locale = resolveSupportedLocale(storedLocale);
+      if (locale) return locale;
     }
     return getDeviceLocale();
   } catch {

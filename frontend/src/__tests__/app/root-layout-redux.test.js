@@ -165,8 +165,10 @@ jest.mock('@store/selectors', () => ({
 jest.mock('@i18n', () => {
   const React = require('react');
   return {
+    DEFAULT_LOCALE: 'en',
     I18nProvider: ({ children }) => React.createElement(React.Fragment, null, children),
     getDeviceLocale: jest.fn(() => 'en'),
+    resolveSupportedLocale: jest.fn((locale) => (locale === 'en' ? 'en' : null)),
   };
 }, { virtual: true });
 
