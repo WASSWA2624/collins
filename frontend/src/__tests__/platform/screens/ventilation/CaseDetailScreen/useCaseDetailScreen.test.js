@@ -4,6 +4,9 @@
  */
 const { renderHook } = require('@testing-library/react-native');
 const useCaseDetailScreen = require('@platform/screens/ventilation/CaseDetailScreen/useCaseDetailScreen').default;
+const { getDefaultVentilationDataset } = require('@features/ventilation/ventilation.model');
+
+const EXISTING_CASE_ID = getDefaultVentilationDataset().cases[0].caseId;
 
 describe('useCaseDetailScreen', () => {
   it('returns missingCaseId true when caseId is null or empty', () => {
@@ -30,11 +33,11 @@ describe('useCaseDetailScreen', () => {
   });
 
   it('returns caseItem, citations, reviewStatus when caseId exists in dataset', () => {
-    const { result } = renderHook(() => useCaseDetailScreen('CASE_001'));
+    const { result } = renderHook(() => useCaseDetailScreen(EXISTING_CASE_ID));
     expect(result.current.missingCaseId).toBe(false);
     expect(result.current.notFound).toBe(false);
     expect(result.current.caseItem).not.toBeNull();
-    expect(result.current.caseItem.caseId).toBe('CASE_001');
+    expect(result.current.caseItem.caseId).toBe(EXISTING_CASE_ID);
     expect(Array.isArray(result.current.citations)).toBe(true);
     expect(typeof result.current.reviewStatus).toBe('string');
     expect(result.current.intendedUse).toEqual(

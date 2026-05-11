@@ -32,8 +32,10 @@ jest.mock('@hooks', () => ({
 
 const CaseDetailScreenWeb = require('@platform/screens/ventilation/CaseDetailScreen/CaseDetailScreen.web').default;
 const { CASE_DETAIL_TEST_IDS } = require('@platform/screens/ventilation/CaseDetailScreen/types');
+const { getDefaultVentilationDataset } = require('@features/ventilation/ventilation.model');
 
 const lightTheme = require('@theme/light.theme').default || require('@theme/light.theme');
+const EXISTING_CASE_ID = getDefaultVentilationDataset().cases[0].caseId;
 
 const createMockStore = (initialState = {}) =>
   configureStore({
@@ -68,7 +70,7 @@ describe('CaseDetailScreen', () => {
   });
 
   it('shows intended-use warning and case content when case exists', () => {
-    const { getByTestId } = renderWithProviders(<CaseDetailScreenWeb caseId="CASE_001" />);
+    const { getByTestId } = renderWithProviders(<CaseDetailScreenWeb caseId={EXISTING_CASE_ID} />);
     expect(getByTestId(CASE_DETAIL_TEST_IDS.screen)).toBeDefined();
     expect(getByTestId(CASE_DETAIL_TEST_IDS.intendedUseWarning)).toBeDefined();
     expect(getByTestId(CASE_DETAIL_TEST_IDS.summary)).toBeDefined();

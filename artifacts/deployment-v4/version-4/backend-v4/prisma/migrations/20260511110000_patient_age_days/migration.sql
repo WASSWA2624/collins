@@ -1,0 +1,1 @@
+ALTER TABLE `patient` ADD COLUMN `age_days` INTEGER NULL;

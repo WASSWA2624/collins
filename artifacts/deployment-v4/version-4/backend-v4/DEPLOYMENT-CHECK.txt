@@ -1,0 +1,25 @@
+Collins backend deployment check
+
+If this file is visible at:
+
+  /home/zelahco/collins-backend/DEPLOYMENT-CHECK.txt
+
+then the zip was extracted into the correct application root.
+
+The same directory must also contain:
+
+  /home/zelahco/collins-backend/cpanel-start.cjs
+  /home/zelahco/collins-backend/package.json
+  /home/zelahco/collins-backend/src/server.js
+
+DirectAdmin/LiteSpeed startup file:
+
+  cpanel-start.cjs
+
+Do not use /src/server.js or src/server.js as the DirectAdmin startup file.
+If these files are inside a nested folder such as:
+
+  /home/zelahco/collins-backend/collins-backend/src/server.js
+  /home/zelahco/collins-backend/backend/src/server.js
+
+move the nested folder contents up into /home/zelahco/collins-backend.

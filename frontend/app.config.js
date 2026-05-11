@@ -172,7 +172,7 @@ export default {
       bundleIdentifier: "com.collins.ios",
     },
     android: {
-      versionCode: 3,
+      versionCode: 4,
       adaptiveIcon: {
         foregroundImage: "./public/logos/logo-light.png",
         backgroundColor: "#ffffff",
