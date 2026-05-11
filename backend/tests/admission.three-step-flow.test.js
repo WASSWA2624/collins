@@ -245,6 +245,16 @@ test('backend recommendation request accepts optional ABG values and no FiO2', (
         ph: '7.31',
         pao2: null,
         paco2: null,
+        mode: 'ACV',
+        tidalVolumeMl: '420',
+        respiratoryRateSet: '18',
+        respiratoryRateMeasured: '28',
+        peep: '8',
+        pressureSupport: null,
+        inspiratoryPressure: null,
+        peakPressure: null,
+        plateauPressure: '24',
+        ieRatio: '1:2',
       },
     },
     params: {},
@@ -256,6 +266,9 @@ test('backend recommendation request accepts optional ABG values and no FiO2', (
   assert.equal(parsed.body.input.ph, 7.31);
   assert.equal(parsed.body.input.pao2, null);
   assert.equal(parsed.body.input.paco2, null);
+  assert.equal(parsed.body.input.tidalVolumeMl, 420);
+  assert.equal(parsed.body.input.peep, 8);
+  assert.equal(parsed.body.input.plateauPressure, 24);
 });
 
 test('clinical summary ignores metadata-only snapshots when checking current missing data', () => {

@@ -808,9 +808,16 @@ const buildRecommendationInput = (inputs) => ({
     inputs.respiratoryRateSet
   ),
   heartRate: numberOrNull(inputs.heartRate),
+  mode: textOrUndefined(inputs.ventilatorMode),
   tidalVolumeMl: numberOrNull(inputs.tidalVolumeMl),
+  respiratoryRateSet: numberOrNull(inputs.respiratoryRateSet),
+  respiratoryRateMeasured: numberOrNull(inputs.respiratoryRateMeasured),
   peep: numberOrNull(inputs.peep),
+  pressureSupport: numberOrNull(inputs.pressureSupport),
+  inspiratoryPressure: numberOrNull(inputs.inspiratoryPressure),
+  peakPressure: numberOrNull(inputs.peakPressure),
   plateauPressure: numberOrNull(inputs.plateauPressure),
+  ieRatio: textOrUndefined(inputs.ieRatio),
 });
 
 const hasSuggestedVentilatorSettings = (inputs) =>

@@ -663,6 +663,16 @@ const normalizeRecommendationInput = (input = {}) => stripNullish({
   ph: asFiniteNumber(input.ph),
   pao2: asFiniteNumber(input.pao2),
   paco2: asFiniteNumber(input.paco2),
+  mode: cleanText(input.mode),
+  tidalVolumeMl: asFiniteNumber(input.tidalVolumeMl),
+  respiratoryRateSet: asFiniteNumber(input.respiratoryRateSet),
+  respiratoryRateMeasured: asFiniteNumber(input.respiratoryRateMeasured),
+  peep: asFiniteNumber(input.peep),
+  pressureSupport: asFiniteNumber(input.pressureSupport),
+  inspiratoryPressure: asFiniteNumber(input.inspiratoryPressure),
+  peakPressure: asFiniteNumber(input.peakPressure),
+  plateauPressure: asFiniteNumber(input.plateauPressure),
+  ieRatio: cleanText(input.ieRatio),
 });
 
 const buildRecommendationSettingsFromRecord = (record = {}) => stripNullish({

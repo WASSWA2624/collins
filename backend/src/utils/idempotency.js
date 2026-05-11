@@ -2,6 +2,20 @@ import { prisma } from '../config/prisma.js';
 import { conflict } from './errors.js';
 import { sha256 } from './crypto.js';
 
+const IDEMPOTENCY_HASH_IGNORED_FIELDS = new Set(['clientUpdatedAt']);
+
+const normalizePayloadForIdempotency = (value) => {
+  if (Array.isArray(value)) return value.map(normalizePayloadForIdempotency);
+  if (value && typeof value === 'object' && !(value instanceof Date)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([key]) => !IDEMPOTENCY_HASH_IGNORED_FIELDS.has(key))
+        .map(([key, entryValue]) => [key, normalizePayloadForIdempotency(entryValue)])
+    );
+  }
+  return value;
+};
+
 export const resolveIdempotency = async ({
   tx = prisma,
   userId,
@@ -12,7 +26,7 @@ export const resolveIdempotency = async ({
 }) => {
   if (!key) return { shouldRun: true, requestHash: null, existing: null };
 
-  const requestHash = sha256({ operation, payload });
+  const requestHash = sha256({ operation, payload: normalizePayloadForIdempotency(payload) });
   const existing = await tx.idempotencyRecord.findUnique({
     where: { userId_key: { userId, key } },
   });
