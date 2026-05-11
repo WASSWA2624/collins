@@ -113,6 +113,7 @@ const patientRegistrationSchema = z.object({
   dateOfBirth: optionalIsoDate,
   ageYears: optionalFiniteNumber,
   ageMonths: optionalFiniteNumber,
+  ageDays: optionalFiniteNumber,
   estimatedAge: optionalBoolean,
   gestationalAgeWeeks: optionalFiniteNumber,
   correctedAgeWeeks: optionalFiniteNumber,

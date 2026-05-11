@@ -89,7 +89,9 @@ const AssessmentScreenAndroid = require('@platform/screens/ventilation/Assessmen
 const AssessmentScreenIOS = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.ios').default;
 const AssessmentScreenWeb = require('@platform/screens/ventilation/AssessmentScreen/AssessmentScreen.web').default;
 const {
+  parseAdmissionIntegerInput,
   parseAdmissionNumberInput,
+  updateAgeComponentInputs,
   updateBodyMetricInputs,
 } = require('@platform/screens/ventilation/AssessmentScreen/useAssessmentScreen');
 
@@ -246,21 +248,46 @@ describe('AssessmentScreen', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
       expect(getByTestId('assessment-height')).toBeTruthy();
       expect(getByTestId('assessment-bmi')).toBeTruthy();
+      expect(queryByTestId('assessment-age-group-adult')).toBeNull();
       expect(queryByTestId('assessment-facility-id')).toBeNull();
       expect(queryByTestId('assessment-bed-number')).toBeNull();
       expect(queryByTestId('assessment-permitted-weight')).toBeNull();
     });
 
-    it('updates the age group from entered age', async () => {
+    it('updates derived age and pathway from the age component fields', async () => {
       const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
-      fireEvent.changeText(getByTestId('assessment-age'), '0.5');
+      fireEvent.changeText(getByTestId('assessment-age-days'), '3');
+
+      await waitFor(() => {
+        const call = defaultSessionMock.setInputs.mock.calls.find(([next]) => next.ageDaysPart === 3);
+        expect(call?.[0]).toMatchObject({
+          ageDays: 3,
+          ageDaysPart: 3,
+          patientPathway: 'NEONATE',
+        });
+        expect(call?.[0].ageYears).toBeCloseTo(3 / 365, 4);
+      });
+    });
+
+    it('keeps decimal body metric text while Android users are typing', async () => {
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      const weightInput = getByTestId('assessment-weight');
+
+      expect(weightInput.props.keyboardType).toBe('decimal-pad');
+      fireEvent.changeText(weightInput, '70.');
+
+      await waitFor(() => {
+        expect(getByTestId('assessment-weight').props.value).toBe('70.');
+      });
+
+      fireEvent.changeText(getByTestId('assessment-weight'), '70.5');
 
       await waitFor(() => {
         expect(defaultSessionMock.setInputs).toHaveBeenCalledWith(expect.objectContaining({
-          ageYears: 0.5,
-          patientPathway: 'INFANT',
+          actualWeightKg: 70.5,
         }));
+        expect(getByTestId('assessment-weight').props.value).toBe('70.5');
       });
     });
 
@@ -661,6 +688,27 @@ describe('AssessmentScreen', () => {
       expect(parseAdmissionNumberInput('0.5')).toBe(0.5);
       expect(parseAdmissionNumberInput('12abc')).toBeNull();
       expect(parseAdmissionNumberInput('')).toBeNull();
+    });
+
+    it('parses age component integers only', () => {
+      expect(parseAdmissionIntegerInput('20')).toBe(20);
+      expect(parseAdmissionIntegerInput('0.5')).toBeNull();
+      expect(parseAdmissionIntegerInput('')).toBeNull();
+    });
+
+    it('derives decimal years from years, months, and days', () => {
+      const first = updateAgeComponentInputs({}, 'ageYearsPart', 1);
+      const second = updateAgeComponentInputs(first, 'ageMonthsPart', 2);
+      const third = updateAgeComponentInputs(second, 'ageDaysPart', 3);
+      expect(third).toMatchObject({
+        ageYearsPart: 1,
+        ageMonthsPart: 2,
+        ageDaysPart: 3,
+        ageMonths: 2,
+        ageDays: 3,
+        patientPathway: 'CHILD',
+      });
+      expect(third.ageYears).toBeCloseTo(1 + 2 / 12 + 3 / 365, 4);
     });
 
     it('calculates BMI from weight and height', () => {

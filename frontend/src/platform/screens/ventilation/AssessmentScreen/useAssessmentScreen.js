@@ -26,12 +26,13 @@ import {
 
 const TOTAL_STEPS = 3;
 const MISSING_UNKNOWN = 'not_available';
+const AGE_COMPONENT_FIELDS = Object.freeze(['ageYearsPart', 'ageMonthsPart', 'ageDaysPart']);
+const BODY_METRIC_FIELDS = Object.freeze(['actualWeightKg', 'heightOrLengthCm', 'bmi']);
 const DATE_FIELDS = [
   { field: 'abgCollectedAt', label: 'ABG collected at', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
 ];
 const REQUIRED_FIELDS = [
-  { field: 'patientPathway', label: 'Patient age group', steps: [STEPS.PATIENT_REASON] },
   { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
   { field: 'ageYears', label: 'Age', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
@@ -144,14 +145,95 @@ export const parseAdmissionNumberInput = (value) => {
   return Number.isFinite(parsed) ? parsed : null;
 };
 
+export const parseAdmissionIntegerInput = (value) => {
+  const text = String(value ?? '').trim();
+  if (!text) return null;
+  if (!/^\d+$/.test(text)) return null;
+  const parsed = Number(text);
+  return Number.isSafeInteger(parsed) ? parsed : null;
+};
+
+const hasOwn = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
+
+const ageComponentOrNull = (value) =>
+  Number.isSafeInteger(value) && value >= 0 ? value : null;
+
+const calculateAgeYearsFromComponents = ({ ageYearsPart, ageMonthsPart, ageDaysPart }) => {
+  const years = ageComponentOrNull(ageYearsPart);
+  const months = ageComponentOrNull(ageMonthsPart);
+  const days = ageComponentOrNull(ageDaysPart);
+  if (years == null && months == null && days == null) return null;
+  return roundTo((years || 0) + (months || 0) / 12 + (days || 0) / 365, 4);
+};
+
+const splitAgeYearsToComponents = (ageYears) => {
+  if (!isFiniteNumber(ageYears) || ageYears < 0) {
+    return { ageYearsPart: null, ageMonthsPart: null, ageDaysPart: null };
+  }
+  const years = Math.floor(ageYears);
+  const remainingMonths = (ageYears - years) * 12;
+  const months = Math.floor(remainingMonths);
+  const days = Math.round((remainingMonths - months) * (365 / 12));
+  return {
+    ageYearsPart: years,
+    ageMonthsPart: months,
+    ageDaysPart: days,
+  };
+};
+
+const resolveAgeComponents = (base) => {
+  const hasAgeComponentInput = AGE_COMPONENT_FIELDS.some((field) => hasOwn(base, field));
+  if (hasAgeComponentInput) {
+    return {
+      ageYearsPart: ageComponentOrNull(base.ageYearsPart),
+      ageMonthsPart: ageComponentOrNull(base.ageMonthsPart),
+      ageDaysPart: ageComponentOrNull(base.ageDaysPart),
+    };
+  }
+
+  if (hasOwn(base, 'ageMonths') || hasOwn(base, 'ageDays')) {
+    return {
+      ageYearsPart: ageComponentOrNull(base.ageYears),
+      ageMonthsPart: ageComponentOrNull(base.ageMonths),
+      ageDaysPart: ageComponentOrNull(base.ageDays),
+    };
+  }
+
+  return splitAgeYearsToComponents(numberOrNull(base.ageYears));
+};
+
+export const updateAgeComponentInputs = (inputs, field, value) => {
+  if (!AGE_COMPONENT_FIELDS.includes(field)) return {};
+  const components = {
+    ageYearsPart: ageComponentOrNull(inputs?.ageYearsPart),
+    ageMonthsPart: ageComponentOrNull(inputs?.ageMonthsPart),
+    ageDaysPart: ageComponentOrNull(inputs?.ageDaysPart),
+    [field]: ageComponentOrNull(value),
+  };
+  const ageYears = calculateAgeYearsFromComponents(components);
+  const patientPathway = resolvePatientAgeGroupFromAgeYears(ageYears) || 'UNKNOWN';
+  return {
+    ...components,
+    ageMonths: components.ageMonthsPart,
+    ageDays: components.ageDaysPart,
+    ageYears,
+    patientPathway,
+  };
+};
+
 const defaultAdmissionInputs = (clientRecordId) => ({
   clientRecordId,
   clientCreatedAt: nowIso(),
   facilityId: '',
   admissionSource: '',
   reasonForSupport: '',
-  patientPathway: 'ADULT',
+  patientPathway: 'UNKNOWN',
   ageYears: null,
+  ageMonths: null,
+  ageDays: null,
+  ageYearsPart: null,
+  ageMonthsPart: null,
+  ageDaysPart: null,
   sexForSizeCalculations: 'MALE',
   actualWeightKg: null,
   heightOrLengthCm: null,
@@ -195,13 +277,19 @@ const defaultAdmissionInputs = (clientRecordId) => ({
 
 const normalizeInputs = (inputs, clientRecordId) => {
   const base = inputs && typeof inputs === 'object' ? inputs : {};
-  const resolvedAgeGroup = resolvePatientAgeGroupFromAgeYears(base.ageYears);
+  const ageComponents = resolveAgeComponents(base);
+  const ageYears = calculateAgeYearsFromComponents(ageComponents);
+  const resolvedAgeGroup = resolvePatientAgeGroupFromAgeYears(ageYears ?? numberOrNull(base.ageYears));
   return {
     ...defaultAdmissionInputs(clientRecordId),
     ...base,
+    ...ageComponents,
+    ageYears: ageYears ?? numberOrNull(base.ageYears),
+    ageMonths: ageComponents.ageMonthsPart,
+    ageDays: ageComponents.ageDaysPart,
     clientRecordId: base.clientRecordId || clientRecordId,
     clientCreatedAt: base.clientCreatedAt || nowIso(),
-    patientPathway: base.patientPathway || resolvedAgeGroup || 'ADULT',
+    patientPathway: resolvedAgeGroup || base.patientPathway || 'UNKNOWN',
     sexForSizeCalculations: base.sexForSizeCalculations || 'MALE',
     permittedMissingFields: Array.isArray(base.permittedMissingFields) ? base.permittedMissingFields : [],
     clinicianConfirmed: base.clinicianConfirmed === true,
@@ -412,6 +500,8 @@ const buildPatientReasonPayload = (inputs) => {
     patient: {
       patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
       ageYears: numberOrNull(inputs.ageYears),
+      ageMonths: numberOrNull(inputs.ageMonths),
+      ageDays: numberOrNull(inputs.ageDays),
       sexForSizeCalculations: cleanText(inputs.sexForSizeCalculations) || 'UNKNOWN',
       actualWeightKg: numberOrNull(inputs.actualWeightKg),
       heightOrLengthCm: numberOrNull(inputs.heightOrLengthCm),
@@ -629,6 +719,7 @@ export default function useAssessmentScreen() {
   const [syncStatus, setSyncStatus] = useState(inputs?.syncStatus || 'draft');
   const [touchedFields, setTouchedFields] = useState({});
   const [attemptedSteps, setAttemptedSteps] = useState({});
+  const [rawNumericInputValues, setRawNumericInputValues] = useState({});
 
   useEffect(() => {
     hydrate();
@@ -652,6 +743,10 @@ export default function useAssessmentScreen() {
   useEffect(() => {
     latestInputsRef.current = mergedInputs;
   }, [mergedInputs]);
+
+  useEffect(() => {
+    setRawNumericInputValues({});
+  }, [mergedInputs.clientRecordId]);
 
   const currentStep = typeof assessmentCurrentStep === 'number'
     ? Math.min(Math.max(0, assessmentCurrentStep), TOTAL_STEPS - 1)
@@ -700,6 +795,74 @@ export default function useAssessmentScreen() {
       });
     },
     [updateInput]
+  );
+
+  const updateDecimalInput = useCallback(
+    (field, value) => {
+      if (!BODY_METRIC_FIELDS.includes(field)) return;
+      const text = String(value ?? '');
+      setRawNumericInputValues((current) => ({ ...current, [field]: text }));
+
+      if (!text.trim()) {
+        updateBodyMetric(field, null);
+        return;
+      }
+
+      const numericValue = parseAdmissionNumberInput(text);
+      if (numericValue == null) {
+        markFieldsTouched([field]);
+        return;
+      }
+
+      const previous = latestInputsRef.current;
+      const patch = updateBodyMetricInputs(previous, field, numericValue);
+      setRawNumericInputValues((current) => {
+        const next = { ...current, [field]: text };
+        BODY_METRIC_FIELDS.forEach((metricField) => {
+          if (metricField !== field && patch[metricField] !== previous?.[metricField]) {
+            delete next[metricField];
+          }
+        });
+        return next;
+      });
+      updateInput(patch, { touchedFields: [field] });
+    },
+    [markFieldsTouched, updateBodyMetric, updateInput]
+  );
+
+  const updateAgeComponent = useCallback(
+    (field, value) => {
+      if (!AGE_COMPONENT_FIELDS.includes(field)) return;
+      const text = String(value ?? '');
+      setRawNumericInputValues((current) => ({ ...current, [field]: text }));
+
+      if (!text.trim()) {
+        updateInput(updateAgeComponentInputs(latestInputsRef.current, field, null), {
+          touchedFields: ['ageYears'],
+        });
+        return;
+      }
+
+      const numericValue = parseAdmissionIntegerInput(text);
+      if (numericValue == null) {
+        markFieldsTouched(['ageYears']);
+        return;
+      }
+
+      updateInput(updateAgeComponentInputs(latestInputsRef.current, field, numericValue), {
+        touchedFields: ['ageYears'],
+      });
+    },
+    [markFieldsTouched, updateInput]
+  );
+
+  const getNumericInputValue = useCallback(
+    (field) => {
+      if (hasOwn(rawNumericInputValues, field)) return rawNumericInputValues[field];
+      const value = mergedInputs?.[field];
+      return value != null ? String(value) : '';
+    },
+    [mergedInputs, rawNumericInputValues]
   );
 
   const readiness = useMemo(
@@ -1272,6 +1435,9 @@ export default function useAssessmentScreen() {
     mergedInputs,
     updateInput,
     updateBodyMetric,
+    updateDecimalInput,
+    updateAgeComponent,
+    getNumericInputValue,
     toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,

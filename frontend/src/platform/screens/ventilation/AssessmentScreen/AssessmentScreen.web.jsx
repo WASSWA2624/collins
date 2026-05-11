@@ -19,9 +19,7 @@ import {
   StyledContainer,
   StyledChoiceGrid,
   StyledChoiceHeader,
-  StyledChoiceHint,
   StyledChoiceLabel,
-  StyledChoiceMeta,
   StyledChoiceOption,
   StyledChoiceSection,
   StyledChoiceText,
@@ -30,7 +28,6 @@ import {
   StyledFieldGrid,
   StyledFieldGridFull,
   StyledFieldWithHint,
-  StyledInlineError,
   StyledLoadingMessage,
   StyledLoadingPane,
   StyledLoadingTitle,
@@ -65,7 +62,7 @@ import {
 } from './AssessmentScreen.web.styles';
 import {
   OXYGEN_SUPPORT_OPTIONS,
-  PATIENT_AGE_GROUP_OPTIONS,
+  PATIENT_PATHWAY_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
   STEP_KEYS,
@@ -99,9 +96,8 @@ const STEP_STATUS = Object.freeze({
 });
 
 const FIELD_TEST_IDS = Object.freeze({
-  patientPathway: 'assessment-age-group-options',
   reasonForSupport: 'assessment-reason',
-  ageYears: 'assessment-age',
+  ageYears: 'assessment-age-years',
   actualWeightKg: 'assessment-weight',
   heightOrLengthCm: 'assessment-height',
   bmi: 'assessment-bmi',
@@ -137,7 +133,9 @@ const AssessmentScreenWeb = () => {
     currentStep,
     mergedInputs,
     updateInput,
-    updateBodyMetric,
+    updateDecimalInput,
+    updateAgeComponent,
+    getNumericInputValue,
     toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,
@@ -175,14 +173,11 @@ const AssessmentScreenWeb = () => {
     total: totalSteps,
   });
 
-  const ageGroupOptions = mapOptions(
-    PATIENT_AGE_GROUP_OPTIONS,
+  const patientPathwayOptions = mapOptions(
+    PATIENT_PATHWAY_OPTIONS,
     t,
     'ventilation.assessment.patientReason.pathways'
-  ).map((option) => ({
-    ...option,
-    rangeLabel: t(`ventilation.assessment.patientReason.ageGroupRanges.${option.rangeKey}`),
-  }));
+  );
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
   const reasonForSupportOptions = mapReasonOptions(
     REASON_FOR_SUPPORT_OPTIONS,
@@ -205,8 +200,6 @@ const AssessmentScreenWeb = () => {
   };
   const helperTextFor = (field, fallback) =>
     [fallback, rangeSuggestions?.[field]].filter(Boolean).join(' ');
-  const ageGroupError = getFieldErrorProps('patientPathway').errorMessage;
-  const selectedAgeGroup = ageGroupOptions.find((option) => option.value === mergedInputs.patientPathway);
   const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
   const translatedErrorMessage = errorTranslationKey ? t(errorTranslationKey) : null;
   const errorMessage =
@@ -328,6 +321,10 @@ const AssessmentScreenWeb = () => {
   );
 
   const renderSummary = () => {
+    const pathwaySummary =
+      summaryData.pathway && summaryData.pathway !== 'UNKNOWN'
+        ? findOptionLabel(patientPathwayOptions, summaryData.pathway)
+        : null;
     const groups = [
       {
         key: 'patient',
@@ -337,7 +334,7 @@ const AssessmentScreenWeb = () => {
           {
             key: 'pathway',
             label: t('ventilation.assessment.summary.ageGroup'),
-            value: findOptionLabel(ageGroupOptions, summaryData.pathway),
+            value: pathwaySummary,
           },
           { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
         ],
@@ -427,40 +424,6 @@ const AssessmentScreenWeb = () => {
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderConflictWarning()}
       {renderValidationMessages()}
-      <StyledChoiceSection data-testid="assessment-patient-pathway">
-        <StyledChoiceHeader>
-          <StyledChoiceLabel>
-            {t('ventilation.assessment.patientReason.ageGroup')}
-            <span aria-hidden="true"> *</span>
-          </StyledChoiceLabel>
-          <StyledChoiceHint>
-            {selectedAgeGroup
-              ? t('ventilation.assessment.patientReason.selectedAgeRange', {
-                  range: selectedAgeGroup.rangeLabel,
-                })
-              : t('ventilation.assessment.patientReason.ageGroupPlaceholder')}
-          </StyledChoiceHint>
-        </StyledChoiceHeader>
-        <StyledChoiceGrid data-testid="assessment-age-group-options">
-          {ageGroupOptions.map((option) => {
-            const selected = mergedInputs.patientPathway === option.value;
-            return (
-              <StyledChoiceOption
-                key={option.value}
-                type="button"
-                data-selected={selected}
-                aria-pressed={selected}
-                onClick={() => updateInput({ patientPathway: option.value })}
-                data-testid={`assessment-age-group-${option.value.toLowerCase()}`}
-              >
-                <StyledChoiceText>{option.label}</StyledChoiceText>
-                <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
-              </StyledChoiceOption>
-            );
-          })}
-        </StyledChoiceGrid>
-        {ageGroupError ? <StyledInlineError>{ageGroupError}</StyledInlineError> : null}
-      </StyledChoiceSection>
       <StyledFieldGrid>
         <StyledFieldGridFull>
           <Select
@@ -479,39 +442,58 @@ const AssessmentScreenWeb = () => {
         <TextField
           label={t('ventilation.assessment.patientReason.ageYears')}
           type="number"
-          helperText={helperTextFor('ageYears', t('ventilation.assessment.patientReason.ageYearsHint'))}
-          value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
-          onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
+          inputMode="numeric"
+          value={getNumericInputValue('ageYearsPart')}
+          onChangeText={(value) => updateAgeComponent('ageYearsPart', value)}
           {...getFieldErrorProps('ageYears')}
           required
-          testID="assessment-age"
+          testID="assessment-age-years"
+        />
+        <TextField
+          label={t('ventilation.assessment.patientReason.ageMonths')}
+          type="number"
+          inputMode="numeric"
+          value={getNumericInputValue('ageMonthsPart')}
+          onChangeText={(value) => updateAgeComponent('ageMonthsPart', value)}
+          testID="assessment-age-months"
+        />
+        <TextField
+          label={t('ventilation.assessment.patientReason.ageDays')}
+          type="number"
+          inputMode="numeric"
+          value={getNumericInputValue('ageDaysPart')}
+          onChangeText={(value) => updateAgeComponent('ageDaysPart', value)}
+          testID="assessment-age-days"
         />
         <TextField
           label={t('ventilation.assessment.patientReason.weightKg')}
-          type="number"
+          type="text"
+          inputMode="decimal"
           helperText={helperTextFor('actualWeightKg')}
-          value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
-          onChangeText={(value) => updateBodyMetric('actualWeightKg', parseNum(value))}
+          value={getNumericInputValue('actualWeightKg')}
+          onChangeText={(value) => updateDecimalInput('actualWeightKg', value)}
           {...getFieldErrorProps('actualWeightKg')}
           required
           testID="assessment-weight"
         />
         <TextField
           label={t('ventilation.assessment.patientReason.heightCm')}
-          type="number"
+          type="text"
+          inputMode="decimal"
           helperText={helperTextFor('heightOrLengthCm')}
-          value={mergedInputs.heightOrLengthCm != null ? String(mergedInputs.heightOrLengthCm) : ''}
-          onChangeText={(value) => updateBodyMetric('heightOrLengthCm', parseNum(value))}
+          value={getNumericInputValue('heightOrLengthCm')}
+          onChangeText={(value) => updateDecimalInput('heightOrLengthCm', value)}
           {...getFieldErrorProps('heightOrLengthCm')}
           required
           testID="assessment-height"
         />
         <TextField
           label={t('ventilation.assessment.patientReason.bmi')}
-          type="number"
+          type="text"
+          inputMode="decimal"
           helperText={helperTextFor('bmi')}
-          value={mergedInputs.bmi != null ? String(mergedInputs.bmi) : ''}
-          onChangeText={(value) => updateBodyMetric('bmi', parseNum(value))}
+          value={getNumericInputValue('bmi')}
+          onChangeText={(value) => updateDecimalInput('bmi', value)}
           {...getFieldErrorProps('bmi')}
           testID="assessment-bmi"
         />

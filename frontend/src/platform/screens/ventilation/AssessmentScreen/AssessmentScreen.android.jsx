@@ -20,8 +20,6 @@ import {
   StyledActionsRow,
   StyledChoiceGrid,
   StyledChoiceHeader,
-  StyledChoiceHint,
-  StyledChoiceMeta,
   StyledChoiceOption,
   StyledChoiceSection,
   StyledChoiceText,
@@ -29,7 +27,6 @@ import {
   StyledContentWrap,
   StyledExpandButton,
   StyledFieldGroup,
-  StyledInlineError,
   StyledLoadingPane,
   StyledLoadingText,
   StyledMissingTests,
@@ -50,7 +47,7 @@ import {
 } from './AssessmentScreen.android.styles';
 import {
   OXYGEN_SUPPORT_OPTIONS,
-  PATIENT_AGE_GROUP_OPTIONS,
+  PATIENT_PATHWAY_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
   STEP_KEYS,
@@ -101,7 +98,9 @@ const AssessmentScreenAndroid = () => {
     currentStep,
     mergedInputs,
     updateInput,
-    updateBodyMetric,
+    updateDecimalInput,
+    updateAgeComponent,
+    getNumericInputValue,
     toggleClinicianConfirmed,
     summaryData,
     summaryExpanded,
@@ -134,14 +133,11 @@ const AssessmentScreenAndroid = () => {
   } = useAssessmentScreen();
 
   const stepLabel = t(`ventilation.assessment.steps.${stepKey}`);
-  const ageGroupOptions = mapOptions(
-    PATIENT_AGE_GROUP_OPTIONS,
+  const patientPathwayOptions = mapOptions(
+    PATIENT_PATHWAY_OPTIONS,
     t,
     'ventilation.assessment.patientReason.pathways'
-  ).map((option) => ({
-    ...option,
-    rangeLabel: t(`ventilation.assessment.patientReason.ageGroupRanges.${option.rangeKey}`),
-  }));
+  );
   const sexOptions = mapOptions(SEX_OPTIONS, t, 'ventilation.assessment.patientReason.sex');
   const getFieldErrorProps = (field) => {
     const message = validation?.fieldErrors?.[field];
@@ -149,8 +145,6 @@ const AssessmentScreenAndroid = () => {
   };
   const helperTextFor = (field, fallback) =>
     [fallback, rangeSuggestions?.[field]].filter(Boolean).join(' ');
-  const ageGroupError = getFieldErrorProps('patientPathway').errorMessage;
-  const selectedAgeGroup = ageGroupOptions.find((option) => option.value === mergedInputs.patientPathway);
   const reasonForSupportOptions = mapReasonOptions(
     REASON_FOR_SUPPORT_OPTIONS,
     t,
@@ -260,9 +254,13 @@ const AssessmentScreenAndroid = () => {
   );
 
   const renderSummary = () => {
+    const pathwaySummary =
+      summaryData.pathway && summaryData.pathway !== 'UNKNOWN'
+        ? findOptionLabel(patientPathwayOptions, summaryData.pathway)
+        : null;
     const rows = [
       { key: 'facility', label: t('ventilation.assessment.summary.facility'), value: summaryData.facilityLabel },
-      { key: 'pathway', label: t('ventilation.assessment.summary.ageGroup'), value: findOptionLabel(ageGroupOptions, summaryData.pathway) },
+      { key: 'pathway', label: t('ventilation.assessment.summary.ageGroup'), value: pathwaySummary },
       { key: 'reason', label: t('ventilation.assessment.summary.reason'), value: summaryData.reasonForSupport },
       { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
       { key: 'pao2', label: t('ventilation.assessment.summary.pao2'), value: formatValue(summaryData.pao2, 'mmHg') },
@@ -321,37 +319,6 @@ const AssessmentScreenAndroid = () => {
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderConflictWarning()}
       {renderValidationMessages()}
-      <StyledChoiceSection testID="assessment-patient-pathway">
-        <StyledChoiceHeader>
-          <Text variant="label">{t('ventilation.assessment.patientReason.ageGroup')} *</Text>
-          <StyledChoiceHint>
-            {selectedAgeGroup
-              ? t('ventilation.assessment.patientReason.selectedAgeRange', { range: selectedAgeGroup.rangeLabel })
-              : t('ventilation.assessment.patientReason.ageGroupPlaceholder')}
-          </StyledChoiceHint>
-        </StyledChoiceHeader>
-        <StyledChoiceGrid>
-          {ageGroupOptions.map((option) => {
-            const selected = mergedInputs.patientPathway === option.value;
-            return (
-              <StyledChoiceOption
-                key={option.value}
-                selected={selected}
-                onPress={() => updateInput({ patientPathway: option.value })}
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-                testID={`assessment-age-group-${option.value.toLowerCase()}`}
-              >
-                <StyledChoiceText>
-                  <Text variant="label">{option.label}</Text>
-                  <StyledChoiceMeta>{option.rangeLabel}</StyledChoiceMeta>
-                </StyledChoiceText>
-              </StyledChoiceOption>
-            );
-          })}
-        </StyledChoiceGrid>
-        {ageGroupError ? <StyledInlineError>{ageGroupError}</StyledInlineError> : null}
-      </StyledChoiceSection>
       <Select
         label={t('ventilation.assessment.patientReason.reasonForSupport')}
         placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')}
@@ -367,19 +334,36 @@ const AssessmentScreenAndroid = () => {
       <TextField
         label={t('ventilation.assessment.patientReason.ageYears')}
         type="number"
-        helperText={helperTextFor('ageYears', t('ventilation.assessment.patientReason.ageYearsHint'))}
-        value={mergedInputs.ageYears != null ? String(mergedInputs.ageYears) : ''}
-        onChangeText={(value) => updateInput({ ageYears: parseNum(value) })}
+        keyboardType="number-pad"
+        value={getNumericInputValue('ageYearsPart')}
+        onChangeText={(value) => updateAgeComponent('ageYearsPart', value)}
         {...getFieldErrorProps('ageYears')}
         required
-        testID="assessment-age"
+        testID="assessment-age-years"
+      />
+      <TextField
+        label={t('ventilation.assessment.patientReason.ageMonths')}
+        type="number"
+        keyboardType="number-pad"
+        value={getNumericInputValue('ageMonthsPart')}
+        onChangeText={(value) => updateAgeComponent('ageMonthsPart', value)}
+        testID="assessment-age-months"
+      />
+      <TextField
+        label={t('ventilation.assessment.patientReason.ageDays')}
+        type="number"
+        keyboardType="number-pad"
+        value={getNumericInputValue('ageDaysPart')}
+        onChangeText={(value) => updateAgeComponent('ageDaysPart', value)}
+        testID="assessment-age-days"
       />
       <TextField
         label={t('ventilation.assessment.patientReason.weightKg')}
         type="number"
+        keyboardType="decimal-pad"
         helperText={helperTextFor('actualWeightKg')}
-        value={mergedInputs.actualWeightKg != null ? String(mergedInputs.actualWeightKg) : ''}
-        onChangeText={(value) => updateBodyMetric('actualWeightKg', parseNum(value))}
+        value={getNumericInputValue('actualWeightKg')}
+        onChangeText={(value) => updateDecimalInput('actualWeightKg', value)}
         {...getFieldErrorProps('actualWeightKg')}
         required
         testID="assessment-weight"
@@ -387,9 +371,10 @@ const AssessmentScreenAndroid = () => {
       <TextField
         label={t('ventilation.assessment.patientReason.heightCm')}
         type="number"
+        keyboardType="decimal-pad"
         helperText={helperTextFor('heightOrLengthCm')}
-        value={mergedInputs.heightOrLengthCm != null ? String(mergedInputs.heightOrLengthCm) : ''}
-        onChangeText={(value) => updateBodyMetric('heightOrLengthCm', parseNum(value))}
+        value={getNumericInputValue('heightOrLengthCm')}
+        onChangeText={(value) => updateDecimalInput('heightOrLengthCm', value)}
         {...getFieldErrorProps('heightOrLengthCm')}
         required
         testID="assessment-height"
@@ -397,9 +382,10 @@ const AssessmentScreenAndroid = () => {
       <TextField
         label={t('ventilation.assessment.patientReason.bmi')}
         type="number"
+        keyboardType="decimal-pad"
         helperText={helperTextFor('bmi')}
-        value={mergedInputs.bmi != null ? String(mergedInputs.bmi) : ''}
-        onChangeText={(value) => updateBodyMetric('bmi', parseNum(value))}
+        value={getNumericInputValue('bmi')}
+        onChangeText={(value) => updateDecimalInput('bmi', value)}
         {...getFieldErrorProps('bmi')}
         testID="assessment-bmi"
       />
