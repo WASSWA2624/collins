@@ -1,3 +1,4 @@
+import { randomInt } from 'node:crypto';
 import { prisma } from '../../config/prisma.js';
 import { assertAdmissionAccess, assertFacilityRole, resolveFacilityScope, REVIEW_ROLES, WRITE_ROLES } from '../../utils/authorization.js';
 import { badRequest, conflict, forbidden, notFound, reviewerRequired } from '../../utils/errors.js';
@@ -46,8 +47,24 @@ export const fullNewPatientInclude = {
   outcomes: { orderBy: { createdAt: 'desc' } },
 };
 
-const createPatientCode = () => `COL-P-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-const createNewPatientCode = () => `COL-A-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+const APP_RECORD_CODE_LENGTH = 6;
+const APP_RECORD_CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const MAX_APP_RECORD_CODE_ATTEMPTS = 10;
+
+export const createAppRecordCode = () => Array.from(
+  { length: APP_RECORD_CODE_LENGTH },
+  () => APP_RECORD_CODE_ALPHABET[randomInt(APP_RECORD_CODE_ALPHABET.length)]
+).join('');
+
+export const normalizeAppRecordCode = (value) => {
+  const token = typeof value === 'string'
+    ? value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '')
+    : null;
+  return token?.length === APP_RECORD_CODE_LENGTH ? token : null;
+};
+
+const createPatientCode = createAppRecordCode;
+const createNewPatientCode = createAppRecordCode;
 const patientReferenceFields = new Set([
   'patientPathway',
   'ageYears',
@@ -71,6 +88,18 @@ const ABG_UPDATE_VALUE_FIELDS = [
   'baseExcess',
   'lactate',
   'spo2AtSample',
+];
+const CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS = [
+  'spo2',
+  'heartRate',
+  'respiratoryRate',
+  'systolicBp',
+  'diastolicBp',
+  'meanArterialPressure',
+  'temperatureC',
+  'gcs',
+  'avpu',
+  'rass',
 ];
 const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'mode',
@@ -156,6 +185,34 @@ const cleanText = (value) => {
   if (typeof value !== 'string') return null;
   const trimmed = value.trim();
   return trimmed || null;
+};
+
+const isUniqueConstraintError = (error) => error?.code === 'P2002';
+
+const createRecordWithUniqueAppCode = async ({
+  createRecord,
+  data,
+  codeField,
+  codeFactory,
+  hasClientCode,
+  conflictMessage,
+}) => {
+  let nextData = data;
+
+  for (let attempt = 0; attempt < MAX_APP_RECORD_CODE_ATTEMPTS; attempt += 1) {
+    try {
+      return await createRecord(nextData);
+    } catch (error) {
+      if (!isUniqueConstraintError(error)) throw error;
+      if (hasClientCode) throw conflict(conflictMessage);
+      nextData = {
+        ...nextData,
+        [codeField]: codeFactory(),
+      };
+    }
+  }
+
+  throw conflict(conflictMessage);
 };
 
 const uniqueStringList = (items = []) => [...new Set(
@@ -318,9 +375,10 @@ const normalizePatientUpdateForStorage = (currentPatient = {}, patientPatch = {}
 const preparePatientData = (patient) => {
   const patientData = normalizePatientForStorage(patient);
   const reference = calculateReferenceWeight(patientData);
+  const appPatientCode = normalizeAppRecordCode(patientData.appPatientCode) || createPatientCode();
   return stripUndefined({
     ...patientData,
-    appPatientCode: patientData.appPatientCode || createPatientCode(),
+    appPatientCode,
     referenceWeightKg: reference.value ?? patientData.referenceWeightKg,
     referenceWeightMethod: reference.method ?? patientData.referenceWeightMethod,
   });
@@ -329,7 +387,13 @@ const preparePatientData = (patient) => {
 const preparePatientUpdateData = (currentPatient, patientPatch = {}) => {
   const patientData = stripUndefined(normalizePatientUpdateForStorage(currentPatient, patientPatch));
   if (!hasKeys(patientData)) return null;
-  if (patientData.appPatientCode === null) delete patientData.appPatientCode;
+  if (patientData.appPatientCode === null) {
+    delete patientData.appPatientCode;
+  } else if (hasOwn(patientData, 'appPatientCode')) {
+    const appPatientCode = normalizeAppRecordCode(patientData.appPatientCode);
+    if (appPatientCode) patientData.appPatientCode = appPatientCode;
+    else delete patientData.appPatientCode;
+  }
   if (!hasKeys(patientData)) return null;
 
   const shouldRecalculateReference = Object.keys(patientData).some((field) => patientReferenceFields.has(field));
@@ -347,18 +411,7 @@ const pickNewPatientPatchData = (data) => stripUndefined(Object.fromEntries(
   admissionPatchFields.map((field) => [field, data[field]])
 ));
 
-const clinicalSnapshotValueFields = [
-  'spo2',
-  'heartRate',
-  'respiratoryRate',
-  'systolicBp',
-  'diastolicBp',
-  'meanArterialPressure',
-  'temperatureC',
-  'gcs',
-  'avpu',
-  'rass',
-];
+const clinicalSnapshotValueFields = CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS;
 
 const hasRecordedClinicalSnapshotValue = (snapshot = {}) =>
   clinicalSnapshotValueFields.some((field) => snapshot[field] !== null && snapshot[field] !== undefined && snapshot[field] !== '');
@@ -1396,16 +1449,24 @@ export const createNewPatient = async (payload, createdByUserId, auditContext = 
     });
     if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
 
+    const requestedPatientCode = normalizeAppRecordCode(admissionPayload.patient?.appPatientCode);
     const patientData = preparePatientData(admissionPayload.patient);
-    const createdPatient = await tx.patient.create({
+    const createdPatient = await createRecordWithUniqueAppCode({
+      createRecord: (data) => tx.patient.create({ data }),
       data: { ...patientData, facilityId },
+      codeField: 'appPatientCode',
+      codeFactory: createPatientCode,
+      hasClientCode: Boolean(requestedPatientCode),
+      conflictMessage: 'Patient code already exists for this facility',
     });
 
-    const admission = await tx.admission.create({
+    const requestedAdmissionCode = normalizeAppRecordCode(admissionPayload.appAdmissionCode);
+    const admission = await createRecordWithUniqueAppCode({
+      createRecord: (data) => tx.admission.create({ data }),
       data: stripUndefined({
         patientId: createdPatient.id,
         facilityId,
-        appAdmissionCode: admissionPayload.appAdmissionCode || createNewPatientCode(),
+        appAdmissionCode: requestedAdmissionCode || createNewPatientCode(),
         bedNumber: admissionPayload.bedNumber,
         admittedAt: admissionPayload.admittedAt,
         admissionSource: admissionPayload.admissionSource,
@@ -1416,6 +1477,10 @@ export const createNewPatient = async (payload, createdByUserId, auditContext = 
         clientCreatedAt: admissionPayload.clientCreatedAt,
         clientUpdatedAt: admissionPayload.clientUpdatedAt,
       }),
+      codeField: 'appAdmissionCode',
+      codeFactory: createNewPatientCode,
+      hasClientCode: Boolean(requestedAdmissionCode),
+      conflictMessage: 'Admission code already exists for this facility',
     });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(facilityId, { tx });
 
@@ -1666,17 +1731,19 @@ export const saveNewPatientOxygenAbgVentilatorStep = async (userId, admissionId,
 
 export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, payload = {}, auditContext = {}) => {
   const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
+  const clinicalSnapshotRecord = stripNullish(withoutRemovedNewPatientFields(payload.clinicalSnapshot || {}));
   const abgRecord = stripNullish(withoutRemovedNewPatientFields(payload.abgTest || {}));
   const ventilatorRecord = stripNullish(withoutRemovedNewPatientFields(payload.ventilatorSetting || {}));
 
   if (
+    !hasClinicalValue(clinicalSnapshotRecord, CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS) &&
     !hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS) &&
     !hasClinicalValue(ventilatorRecord, VENTILATOR_UPDATE_VALUE_FIELDS)
   ) {
-    throw badRequest('At least one ABG or ventilator setting value is required', [
+    throw badRequest('At least one vital sign, ABG, or ventilator setting value is required', [
       {
         path: 'body',
-        message: 'Enter at least one ABG result or ventilator setting before saving.',
+        message: 'Enter at least one current vital sign, ABG reading, or ventilator setting before saving.',
       },
     ]);
   }
@@ -1698,6 +1765,20 @@ export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, pay
     });
 
     const saved = {};
+    if (hasClinicalValue(clinicalSnapshotRecord, CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS)) {
+      const clinicalSnapshotPayload = buildStepWriteMetadata(clinicalSnapshotRecord, payload, 'vitals', {
+        includeSource: true,
+      });
+      saved.clinicalSnapshot = await tx.clinicalSnapshot.create({
+        data: stripUndefined({
+          admissionId,
+          ...withoutIdempotency(clinicalSnapshotPayload),
+          enteredByUserId: userId,
+          validationStatus: 'valid_or_missing',
+        }),
+      });
+    }
+
     if (hasClinicalValue(abgRecord, ABG_UPDATE_VALUE_FIELDS)) {
       const abgPayload = buildStepWriteMetadata(abgRecord, payload, 'abg', {
         includeSource: true,

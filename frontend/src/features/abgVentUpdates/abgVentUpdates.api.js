@@ -42,6 +42,16 @@ const saveAbgVentUpdateApi = async (admissionId, body) => {
   return unwrapData(response);
 };
 
+const getCurrentReadingsVentilatorRecommendationApi = async (body = {}) => {
+  const response = await apiClient({
+    url: endpoints.ADMISSIONS.VENTILATOR_RECOMMENDATION,
+    method: 'POST',
+    body,
+    facilityId: body?.facilityId,
+  });
+  return unwrapData(response);
+};
+
 const appendAbgTestApi = async (admissionId, body) => {
   const response = await apiClient({
     url: endpoints.ADMISSIONS.ABG_TESTS(admissionId),
@@ -64,6 +74,7 @@ export {
   appendAbgTestApi,
   appendVentilatorSettingApi,
   createAbgVentUpdateRequest,
+  getCurrentReadingsVentilatorRecommendationApi,
   getAdmissionAbgVentilatorContextApi,
   listActiveAdmissionsApi,
   saveAbgVentUpdateApi,

@@ -307,7 +307,7 @@ model FacilityMembership {
 model Patient {
   id                     String                 @id @default(cuid())
   facilityId             String                 @map("facility_id")
-  appPatientCode         String                 @map("app_patient_code")
+  appPatientCode         String                 @map("app_patient_code") @db.VarChar(6)
   optionalName           String?                @map("optional_name")
   firstName              String?                @map("first_name")
   lastName               String?                @map("last_name")
@@ -342,7 +342,7 @@ model Admission {
   id                   String          @id @default(cuid())
   patientId            String          @map("patient_id")
   facilityId           String          @map("facility_id")
-  appAdmissionCode     String          @map("app_admission_code")
+  appAdmissionCode     String          @map("app_admission_code") @db.VarChar(6)
   bedNumber            String?         @map("bed_number")
   admittedAt           DateTime        @default(now()) @map("admitted_at")
   admissionSource      String?         @map("admission_source")

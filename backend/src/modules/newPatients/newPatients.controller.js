@@ -94,8 +94,8 @@ export const createAbgVentilatorUpdate = asyncHandler(async (req, res) => {
   );
   return successResponse(res, {
     message: result.syncStatus === 'duplicate'
-      ? 'Duplicate ABG and ventilator settings update returned original result'
-      : 'ABG and ventilator settings saved as new history entries',
+      ? 'Duplicate current readings update returned original result'
+      : 'Current monitor, ABG, and ventilator readings saved as history entries',
     data: result,
   });
 });

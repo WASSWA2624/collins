@@ -1,5 +1,4 @@
 import { prisma } from '../../config/prisma.js';
-import { assertAdmissionAccess, resolveFacilityScope } from '../../utils/authorization.js';
 import { notFound } from '../../utils/errors.js';
 import {
   newPatientInclude,
@@ -90,16 +89,15 @@ const listSyncEventsForAdmissions = async (admissions) => {
   ]));
 };
 
-export const listTrackingAdmissions = async (userId, { facilityId, status, reviewStatus, patientPathway, page, limit }) => {
-  const scopedFacilityId = await resolveFacilityScope(userId, facilityId);
-  const where = {
-    ...(scopedFacilityId ? { facilityId: scopedFacilityId } : {}),
-    createdByUserId: userId,
-    ...(status && status !== 'ALL' ? { status } : {}),
-    ...(reviewStatus ? { reviewStatus } : {}),
-    ...(patientPathway ? { patient: { patientPathway } } : {}),
-  };
+export const buildTrackingAdmissionWhere = ({ facilityId, status, reviewStatus, patientPathway } = {}) => ({
+  ...(facilityId ? { facilityId } : {}),
+  ...(status && status !== 'ALL' ? { status } : {}),
+  ...(reviewStatus ? { reviewStatus } : {}),
+  ...(patientPathway ? { patient: { patientPathway } } : {}),
+});
 
+export const listTrackingAdmissions = async (_userId, { facilityId, status, reviewStatus, patientPathway, page, limit }) => {
+  const where = buildTrackingAdmissionWhere({ facilityId, status, reviewStatus, patientPathway });
   const [admissions, total] = await Promise.all([
     prisma.admission.findMany({
       where,
@@ -125,16 +123,9 @@ export const listTrackingAdmissions = async (userId, { facilityId, status, revie
   };
 };
 
-export const getTrackingAdmission = async (userId, admissionId) => {
-  const access = await assertAdmissionAccess(userId, admissionId);
+export const getTrackingAdmission = async (_userId, admissionId) => {
   const admission = await prisma.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
-  if (
-    !admission ||
-    admission.facilityId !== access.facilityId ||
-    admission.createdByUserId !== userId
-  ) {
-    throw notFound('Admission not found');
-  }
+  if (!admission) throw notFound('Admission not found');
 
   const syncEventsByAdmission = await listSyncEventsForAdmissions([admission]);
   const syncEvents = syncEventsByAdmission.get(admission.id) || [];

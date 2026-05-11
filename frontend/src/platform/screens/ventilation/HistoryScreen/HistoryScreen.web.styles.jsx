@@ -260,7 +260,7 @@ const StyledList = styled.ul.withConfig({
 `;
 
 const listGridColumns =
-  'minmax(56px, 72px) minmax(84px, 1fr) minmax(76px, 96px) minmax(58px, 76px)';
+  '32px minmax(56px, 72px) minmax(84px, 1fr) minmax(76px, 96px) minmax(58px, 76px)';
 
 const StyledListHeader = styled.li.withConfig({
   displayName: 'StyledListHeader',
@@ -349,6 +349,7 @@ const StyledPatientRowNumber = styled(StyledPatientRowCell).withConfig({
 })`
   color: ${({ theme }) => theme.colors.text.secondary};
   font-variant-numeric: tabular-nums;
+  text-align: right;
 `;
 
 const StyledItemRow = styled.div.withConfig({

@@ -57,6 +57,10 @@ jest.mock('@features/tracking', () => ({
   getTrackingAdmissionUseCase: jest.fn(),
 }));
 
+jest.mock('@features/facilities', () => ({
+  searchFacilitiesUseCase: jest.fn(),
+}));
+
 const HistoryScreenWeb =
   require('@platform/screens/ventilation/HistoryScreen/HistoryScreen.web').default;
 const HistoryScreenAndroid =
@@ -69,6 +73,7 @@ const {
   getTrackingAdmissionUseCase,
   listTrackingAdmissionsUseCase,
 } = require('@features/tracking');
+const { searchFacilitiesUseCase } = require('@features/facilities');
 
 const lightTheme =
   require('@theme/light.theme').default || require('@theme/light.theme');
@@ -84,6 +89,7 @@ const HISTORY_TEST_IDS = {
   searchEmpty: 'tracking-search-empty',
   facilitySelect: 'tracking-facility-select',
   viewDetails: 'history-view-details',
+  rowNumber: 'history-row-number',
   rowButton: 'history-row-button',
   detailPanel: 'tracking-detail-panel',
   detailPatientData: 'tracking-detail-patient-data',
@@ -92,9 +98,9 @@ const HISTORY_TEST_IDS = {
 const trackingRow = {
   admissionId: 'adm-1',
   patientId: 'patient-1',
-  patientCode: 'COLP1',
-  appAdmissionCode: 'COL-A-1',
-  appPatientCode: 'COL-P-1',
+  patientCode: 'YMXB24',
+  appAdmissionCode: 'ADM001',
+  appPatientCode: 'YMXB24',
   optionalName: 'Jane Doe',
   hospitalNumber: 'HN-7788',
   facilityId: 'facility-1',
@@ -195,6 +201,22 @@ describe('Tracking screen compatibility route', () => {
       monitoringTimeSeries: [],
     });
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [] });
+    searchFacilitiesUseCase.mockResolvedValue({
+      facilities: [
+        {
+          id: 'facility-1',
+          name: 'City ICU',
+          district: 'Central',
+          region: 'Metro',
+        },
+        {
+          id: 'facility-2',
+          name: 'County Hospital',
+          district: 'North',
+          region: 'Metro',
+        },
+      ],
+    });
     getTrackingAdmissionUseCase.mockResolvedValue({
       row: trackingRow,
       timeline: [
@@ -226,6 +248,44 @@ describe('Tracking screen compatibility route', () => {
       facilityId: 'facility-1',
       limit: 100,
     });
+    expect(searchFacilitiesUseCase).toHaveBeenCalledWith({ limit: 500 });
+  });
+
+  it('web: loads all facilities and filters tracking by a selected outside facility', async () => {
+    listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
+
+    const { getByTestId } = renderWithProviders(<HistoryScreenWeb />);
+
+    await waitFor(() =>
+      expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
+    );
+    await waitFor(() =>
+      expect(searchFacilitiesUseCase).toHaveBeenCalledWith({ limit: 500 })
+    );
+
+    fireEvent(getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-input`), 'focus');
+    await waitFor(() =>
+      expect(
+        getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-option-1-name`).props
+          .children
+      ).toBe('County Hospital')
+    );
+
+    fireEvent(
+      getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-option-1`),
+      'click'
+    );
+
+    await waitFor(() =>
+      expect(listTrackingAdmissionsUseCase).toHaveBeenLastCalledWith({
+        status: 'ACTIVE',
+        facilityId: 'facility-2',
+        limit: 100,
+      })
+    );
+    expect(
+      getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-input`).props.value
+    ).toBe('County Hospital');
   });
 
   it('web: renders backend-confirmed active patients as compact one-line rows', async () => {
@@ -246,11 +306,16 @@ describe('Tracking screen compatibility route', () => {
     ).toBeDefined();
     expect(getByTestId(HISTORY_TEST_IDS.search)).toBeDefined();
     expect(getByTestId(HISTORY_TEST_IDS.listHeader)).toBeDefined();
+    expect(getByText('No.')).toBeDefined();
     expect(getByText('Code')).toBeDefined();
     expect(getByText('Patient')).toBeDefined();
     expect(getByText('Date')).toBeDefined();
     expect(getByText('Time')).toBeDefined();
-    expect(getByText('COLP1')).toBeDefined();
+    expect(
+      getByTestId(`${HISTORY_TEST_IDS.rowNumber}-${trackingRow.admissionId}`)
+        .props.children
+    ).toBe(1);
+    expect(getByText('YMXB24')).toBeDefined();
     expect(getByText('Jane Doe')).toBeDefined();
     expect(getByText('5/1/26')).toBeDefined();
     expect(getByText('8:00 AM')).toBeDefined();
@@ -334,8 +399,10 @@ describe('Tracking screen compatibility route', () => {
     expect(queryByTestId(HISTORY_TEST_IDS.list)).toBeNull();
     expect(getByText('Jane Doe')).toBeDefined();
     expect(getByText('Patient data')).toBeDefined();
+    expect(getByText('Patient ID')).toBeDefined();
+    expect(getByText('YMXB24')).toBeDefined();
     expect(getByText('Admission ID')).toBeDefined();
-    expect(getByText('adm-1')).toBeDefined();
+    expect(getByText('ADM001')).toBeDefined();
     expect(getByText('Patient history')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).not.toHaveBeenCalled();
   });

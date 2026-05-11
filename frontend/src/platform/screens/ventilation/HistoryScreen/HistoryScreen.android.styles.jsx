@@ -184,6 +184,15 @@ const StyledListHeaderCell = styled(View).withConfig({
   min-width: 0px;
 `;
 
+const StyledListNumberCell = styled(View).withConfig({
+  displayName: 'StyledListNumberCell',
+  componentId: 'StyledListNumberCell',
+})`
+  width: 32px;
+  flex-shrink: 0;
+  align-items: flex-end;
+`;
+
 const StyledListCodeCell = styled(View).withConfig({
   displayName: 'StyledListCodeCell',
   componentId: 'StyledListCodeCell',
@@ -234,8 +243,9 @@ const StyledPatientRowNumber = styled(View).withConfig({
   displayName: 'StyledPatientRowNumber',
   componentId: 'StyledPatientRowNumber',
 })`
-  width: 64px;
+  width: 32px;
   flex-shrink: 0;
+  align-items: flex-end;
 `;
 
 const StyledPatientRowCell = styled(View).withConfig({
@@ -410,6 +420,7 @@ export {
   StyledListDateCell,
   StyledListHeader,
   StyledListHeaderCell,
+  StyledListNumberCell,
   StyledListTimeCell,
   StyledPatientRowButton,
   StyledPatientRowCell,

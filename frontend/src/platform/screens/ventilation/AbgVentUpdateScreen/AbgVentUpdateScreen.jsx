@@ -1,5 +1,5 @@
 /**
- * ABG and ventilator setting update screen
+ * Current patient readings update screen
  */
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -11,6 +11,18 @@ const renderValue = (value, fallback = '-') =>
   value === undefined || value === null || value === ''
     ? fallback
     : String(value);
+
+const getRecommendationSettings = (recommendation) =>
+  recommendation?.initialVentilatorSettings?.settings || null;
+
+const RECOMMENDATION_SETTING_ROWS = Object.freeze([
+  ['mode', 'Mode'],
+  ['tidalVolume', 'Tidal volume'],
+  ['respiratoryRate', 'Respiratory rate'],
+  ['peep', 'PEEP'],
+  ['pressureSupport', 'Pressure support'],
+  ['ieRatio', 'I:E ratio'],
+]);
 
 const renderField = ({
   disabled,
@@ -70,7 +82,10 @@ const renderField = ({
 const AbgVentUpdateScreen = () => {
   const { t } = useI18n();
   const screen = useAbgVentUpdateScreen();
-  const { latestAbg, latestVentilator } = screen.latestValues;
+  const { latestVitals, latestAbg, latestVentilator } = screen.latestValues;
+  const recommendationSettings = getRecommendationSettings(
+    screen.ventilatorRecommendation
+  );
   const hasAdmissions = screen.admissionOptions.length > 0;
   const isFormDisabled =
     !hasAdmissions ||
@@ -176,6 +191,23 @@ const AbgVentUpdateScreen = () => {
             <View style={styles.columns}>
               <View style={styles.column}>
                 <Text variant="label">
+                  {t('ventilation.abgVentUpdate.latest.vitals')}
+                </Text>
+                <Text variant="body">
+                  SpO2: {renderValue(latestVitals?.spo2)}
+                </Text>
+                <Text variant="body">
+                  RR: {renderValue(latestVitals?.respiratoryRate)}
+                </Text>
+                <Text variant="body">
+                  HR: {renderValue(latestVitals?.heartRate)}
+                </Text>
+                <Text variant="caption">
+                  {screen.toDisplayDate(latestVitals?.measuredAt)}
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <Text variant="label">
                   {t('ventilation.abgVentUpdate.latest.abg')}
                 </Text>
                 <Text variant="body">pH: {renderValue(latestAbg?.ph)}</Text>
@@ -204,6 +236,25 @@ const AbgVentUpdateScreen = () => {
                   {screen.toDisplayDate(latestVentilator?.measuredAt)}
                 </Text>
               </View>
+            </View>
+          </View>
+
+          <View style={styles.section}>
+            <Text variant="h2">
+              {t('ventilation.abgVentUpdate.sections.vitals')}
+            </Text>
+            <View style={styles.fieldGrid}>
+              {screen.vitalsFields.map((field) =>
+                renderField({
+                  disabled: isFormDisabled,
+                  error: screen.fieldErrors.vitals[field.key],
+                  field,
+                  value: screen.vitals,
+                  onChange: screen.setVitalsField,
+                  prefix: 'vitals-update',
+                  t,
+                })
+              )}
             </View>
           </View>
 
@@ -246,31 +297,77 @@ const AbgVentUpdateScreen = () => {
             </View>
           </View>
 
-          {screen.missingData.length > 0 ? (
-            <View style={styles.section} testID={screen.testIds.missingData}>
-              <Text variant="h2">
-                {t('ventilation.abgVentUpdate.sections.missing')}
+          <View style={styles.section} testID={screen.testIds.advisoryFlags}>
+            <Text variant="h2">
+              {t('ventilation.abgVentUpdate.sections.advisory')}
+            </Text>
+            <View style={styles.advisoryBlock}>
+              <Text variant="label">
+                {t('ventilation.abgVentUpdate.progress.title')}: {screen.progressAssessment.label}
               </Text>
-              {screen.missingData.map((item) => (
-                <Text key={item.field} variant="body">
-                  {item.message}
+              <Text variant="body">{screen.progressAssessment.recommendation}</Text>
+              {screen.progressAssessment.reasons.slice(0, 4).map((reason) => (
+                <Text key={reason} variant="caption">
+                  {reason}
                 </Text>
               ))}
             </View>
-          ) : null}
-
-          {screen.advisoryFlags.length > 0 ? (
-            <View style={styles.section} testID={screen.testIds.advisoryFlags}>
-              <Text variant="h2">
-                {t('ventilation.abgVentUpdate.sections.advisory')}
-              </Text>
-              {screen.advisoryFlags.slice(0, 6).map((flag, index) => (
-                <Text key={`${flag.code || 'flag'}-${index}`} variant="body">
-                  {flag.message}
+            {recommendationSettings ? (
+              <View style={styles.advisoryBlock}>
+                <Text variant="label">
+                  {t('ventilation.abgVentUpdate.recommendation.title')}
                 </Text>
-              ))}
-            </View>
-          ) : null}
+                {RECOMMENDATION_SETTING_ROWS.filter(
+                  ([key]) =>
+                    recommendationSettings[key] !== undefined &&
+                    recommendationSettings[key] !== null &&
+                    recommendationSettings[key] !== ''
+                ).map(([key, label]) => (
+                  <Text key={key} variant="body">
+                    {label}: {renderValue(recommendationSettings[key])}
+                  </Text>
+                ))}
+                {screen.ventilatorRecommendation?.safety?.intendedUseWarning ? (
+                  <Text variant="caption">
+                    {screen.ventilatorRecommendation.safety.intendedUseWarning}
+                  </Text>
+                ) : null}
+              </View>
+            ) : screen.progressAssessment.action === 'suggest_new_settings' ? (
+              <Text variant="body">
+                {screen.recommendationError
+                  ? t('ventilation.abgVentUpdate.recommendation.error')
+                  : t('ventilation.abgVentUpdate.recommendation.empty')}
+              </Text>
+            ) : null}
+            {screen.missingData.length > 0 ? (
+              <View
+                style={styles.advisoryBlock}
+                testID={screen.testIds.missingData}
+              >
+                <Text variant="label">
+                  {t('ventilation.abgVentUpdate.sections.missing')}
+                </Text>
+                {screen.missingData.map((item) => (
+                  <Text key={item.field} variant="body">
+                    {item.message}
+                  </Text>
+                ))}
+              </View>
+            ) : null}
+            {screen.advisoryFlags.length > 0 ? (
+              <View style={styles.advisoryBlock}>
+                <Text variant="label">
+                  {t('ventilation.abgVentUpdate.advisory.title')}
+                </Text>
+                {screen.advisoryFlags.slice(0, 6).map((flag, index) => (
+                  <Text key={`${flag.code || 'flag'}-${index}`} variant="body">
+                    {flag.message}
+                  </Text>
+                ))}
+              </View>
+            ) : null}
+          </View>
 
           <View style={styles.section} testID={screen.testIds.history}>
             <Text variant="h2">
@@ -290,10 +387,14 @@ const AbgVentUpdateScreen = () => {
                     {t(`ventilation.abgVentUpdate.history.${event.type}`)}
                   </Text>
                   <Text variant="caption">
-                    {t('ventilation.abgVentUpdate.history.version', {
-                      version: renderValue(event.version),
-                      dateTime: screen.toDisplayDate(event.recordedAt),
-                    })}
+                    {event.version
+                      ? t('ventilation.abgVentUpdate.history.version', {
+                          version: renderValue(event.version),
+                          dateTime: screen.toDisplayDate(event.recordedAt),
+                        })
+                      : t('ventilation.abgVentUpdate.history.recorded', {
+                          dateTime: screen.toDisplayDate(event.recordedAt),
+                        })}
                   </Text>
                 </View>
               ))
@@ -409,6 +510,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#F3F4F6',
+  },
+  advisoryBlock: {
+    gap: 4,
   },
   actions: {
     gap: 8,

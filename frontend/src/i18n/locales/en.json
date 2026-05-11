@@ -303,7 +303,7 @@
         "home": "Home",
         "new-patient": "New Patient",
         "assessment": "New Patient",
-        "abg-ventilator-updates": "Update ABG & Ventilator Settings",
+        "abg-ventilator-updates": "Current Readings & Progress",
         "history": "Tracking",
         "dataset-capture": "Dataset Capture",
         "review-queue": "Review Queue",
@@ -693,7 +693,7 @@
         "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
         "newPatient": "Use New Patient to capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
         "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
-        "abgVentUpdate": "Add new ABG results and ventilator settings as time-stamped records so earlier values remain available for review.",
+        "abgVentUpdate": "Record current monitor, ABG, and ventilator readings as time-stamped records so progress can be reviewed over time.",
         "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
         "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
         "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
@@ -833,7 +833,7 @@
         "title": "Tracking"
       },
       "abgVentUpdate": {
-        "title": "Update ABG & Ventilator Settings"
+        "title": "Current Readings & Progress"
       },
       "datasetCapture": {
         "title": "Dataset Capture"
@@ -1319,43 +1319,58 @@
       }
     },
     "abgVentUpdate": {
-      "title": "Update ABG & Ventilator Settings",
-      "subtitle": "Select an active admission, enter the latest ABG result and/or ventilator settings, then save them as new time-stamped records.",
-      "accessibilityLabel": "Update ABG and ventilator settings screen",
-      "offline": "Offline mode: this update will stay queued until connectivity returns.",
+      "title": "Current Readings & Progress",
+      "subtitle": "Select an active admission, record the current readings from the patient monitor, ABG result, and ventilator, then save them for progress tracking.",
+      "accessibilityLabel": "Current patient readings and progress tracking screen",
+      "offline": "Offline mode: these current readings will stay queued until connectivity returns.",
       "sections": {
         "admission": "Active admission",
-        "latest": "Latest values",
-        "abg": "New ABG result",
-        "ventilator": "New ventilator settings",
+        "latest": "Latest saved readings",
+        "vitals": "Current Vital Signs",
+        "abg": "Current ABG Readings",
+        "ventilator": "Current Ventilator Settings",
         "missing": "Missing data",
-        "advisory": "Advisory checks",
-        "history": "History"
+        "advisory": "Advisory Checks",
+        "history": "Patient History"
       },
       "admission": {
         "label": "Select active admission",
         "empty": "No admitted patients are available for tracking yet."
       },
       "latest": {
-        "abg": "Latest ABG",
-        "ventilator": "Latest ventilator"
+        "vitals": "Latest vital signs",
+        "abg": "Latest ABG readings",
+        "ventilator": "Latest ventilator settings"
       },
       "ventilator": {
         "modePlaceholder": "Select ventilator mode",
         "modeSearchPlaceholder": "Search ventilator modes"
       },
+      "progress": {
+        "title": "Progress assessment"
+      },
+      "advisory": {
+        "title": "Clinical advisory flags"
+      },
+      "recommendation": {
+        "title": "Suggested ventilator settings for clinician review",
+        "empty": "No dataset ventilator settings suggestion is available from the current readings. Review clinically and confirm the plan.",
+        "error": "Unable to generate a ventilator settings suggestion from the current readings. Review clinically and confirm the plan."
+      },
       "history": {
-        "empty": "No ABG or ventilator history yet.",
+        "empty": "No saved current readings history yet.",
+        "vitals": "Vital signs",
         "abg": "ABG",
         "ventilator": "Ventilator",
-        "version": "Version {{version}} - {{dateTime}}"
+        "version": "Version {{version}} - {{dateTime}}",
+        "recorded": "Recorded {{dateTime}}"
       },
       "conflict": {
         "serverRecord": "Latest saved record: {{dateTime}}"
       },
       "actions": {
-        "save": "Save new values",
-        "saving": "Validating & saving"
+        "save": "Save current readings",
+        "saving": "Validating and saving current readings"
       }
     },
     "recommendation": {
@@ -1540,8 +1555,8 @@
         "viewDetails": "Details",
         "viewDetailsHint": "View tracking detail and timeline",
         "openPatientHint": "Open tracking detail for {{patient}}",
-        "updateValues": "Update values",
-        "updateValuesHint": "Open ABG and ventilator update form for this patient",
+        "updateValues": "Current readings",
+        "updateValuesHint": "Record current monitor, ABG, and ventilator readings for this patient",
         "printDetails": "Print",
         "printDetailsHint": "Print patient tracking details",
         "closeDetailsHint": "Close tracking detail"
@@ -1549,7 +1564,7 @@
       "facility": {
         "label": "Facility",
         "placeholder": "Search facilities",
-        "helper": "Search and select one of your available facilities.",
+        "helper": "Search and select any available facility.",
         "selectedHelper": "{{count}} active patients in this facility",
         "noResults": "No matching facilities found.",
         "loading": "Loading facilities...",
@@ -1557,6 +1572,7 @@
         "hint": "Search and select a facility to filter tracking patients"
       },
       "list": {
+        "rowNumber": "No.",
         "patientCode": "Code",
         "patientName": "Patient",
         "admissionDate": "Date",

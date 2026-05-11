@@ -1,8 +1,18 @@
 /**
- * ABG and ventilator setting update model
+ * Current patient readings update model
  * Append-only payload builders and summary helpers.
  */
 import { z } from 'zod';
+
+const VITAL_SIGN_NUMERIC_FIELDS = Object.freeze([
+  'spo2',
+  'heartRate',
+  'respiratoryRate',
+  'systolicBp',
+  'diastolicBp',
+  'meanArterialPressure',
+  'temperatureC',
+]);
 
 const ABG_NUMERIC_FIELDS = Object.freeze([
   'ph',
@@ -44,6 +54,52 @@ const VENTILATOR_MODE_OPTIONS = Object.freeze([
   { label: 'High-frequency oscillatory ventilation (HFOV)', value: 'HFOV' },
   { label: 'High-flow nasal cannula (HFNC)', value: 'HFNC' },
   { label: 'Other / not listed', value: 'OTHER' },
+]);
+
+const VITAL_SIGN_FIELD_DEFINITIONS = Object.freeze([
+  { key: 'spo2', label: 'SpO2', min: 40, max: 100, unit: '%' },
+  {
+    key: 'heartRate',
+    label: 'Heart rate',
+    min: 0,
+    max: 250,
+    unit: 'beats/min',
+  },
+  {
+    key: 'respiratoryRate',
+    label: 'Respiratory rate',
+    min: 0,
+    max: 180,
+    unit: 'breaths/min',
+  },
+  {
+    key: 'systolicBp',
+    label: 'Systolic BP',
+    min: 0,
+    max: 300,
+    unit: 'mmHg',
+  },
+  {
+    key: 'diastolicBp',
+    label: 'Diastolic BP',
+    min: 0,
+    max: 200,
+    unit: 'mmHg',
+  },
+  {
+    key: 'meanArterialPressure',
+    label: 'Mean arterial pressure',
+    min: 0,
+    max: 250,
+    unit: 'mmHg',
+  },
+  {
+    key: 'temperatureC',
+    label: 'Temperature',
+    min: 20,
+    max: 45,
+    unit: 'C',
+  },
 ]);
 
 const ABG_FIELD_DEFINITIONS = Object.freeze([
@@ -132,7 +188,11 @@ const VENTILATOR_FIELD_DEFINITIONS = Object.freeze([
 ]);
 
 const FIELD_DEFINITION_BY_KEY = Object.freeze(
-  [...ABG_FIELD_DEFINITIONS, ...VENTILATOR_FIELD_DEFINITIONS].reduce(
+  [
+    ...VITAL_SIGN_FIELD_DEFINITIONS,
+    ...ABG_FIELD_DEFINITIONS,
+    ...VENTILATOR_FIELD_DEFINITIONS,
+  ].reduce(
     (map, field) => {
       map[field.key] = field;
       return map;
@@ -145,6 +205,8 @@ const MISSING_DATA_FIELD_LABELS = Object.freeze({
   FiO2: 'FiO2',
   PaO2: 'PaO2',
   SpO2: 'SpO2',
+  heartRate: 'heart rate',
+  respiratoryRate: 'respiratory rate',
   tidalVolumeMl: 'tidal volume',
   PEEP: 'PEEP',
   'actualWeightKg/referenceWeightKg': 'weight or reference weight',
@@ -256,10 +318,12 @@ const sanitizeAbgVentFieldInput = (fieldKey, value) => {
 const validateAbgVentUpdateForm = ({
   admissionId,
   admission,
+  vitals,
   abg,
   ventilator,
 } = {}) => {
   const fieldErrors = {
+    vitals: validateFieldSet(VITAL_SIGN_FIELD_DEFINITIONS, vitals),
     abg: validateFieldSet(ABG_FIELD_DEFINITIONS, abg),
     ventilator: validateFieldSet(VENTILATOR_FIELD_DEFINITIONS, ventilator),
   };
@@ -276,6 +340,7 @@ const validateAbgVentUpdateForm = ({
   }
 
   if (
+    !hasAnyField(stripUndefined(vitals || {}), VITAL_SIGN_NUMERIC_FIELDS) &&
     !hasAnyField(stripUndefined(abg || {}), ABG_NUMERIC_FIELDS) &&
     !hasAnyField(stripUndefined(ventilator || {}), [
       ...VENTILATOR_NUMERIC_FIELDS,
@@ -284,13 +349,14 @@ const validateAbgVentUpdateForm = ({
     ])
   ) {
     formErrors.push(
-      'Enter at least one ABG result or ventilator setting before saving.'
+      'Enter at least one current vital sign, ABG reading, or ventilator setting before saving.'
     );
   }
 
   return {
     isValid:
       formErrors.length === 0 &&
+      Object.keys(fieldErrors.vitals).length === 0 &&
       Object.keys(fieldErrors.abg).length === 0 &&
       Object.keys(fieldErrors.ventilator).length === 0,
     fieldErrors,
@@ -306,16 +372,21 @@ const validateNumericFieldValue = validateNumericValue;
 const validateAbgVentUpdateDraft = ({
   admissionId,
   admission,
+  vitals,
   abg,
   ventilator,
 } = {}) => {
   const validation = validateAbgVentUpdateForm({
     admissionId,
     admission,
+    vitals,
     abg,
     ventilator,
   });
-  const hasValues = hasAnyInputValue(abg) || hasAnyInputValue(ventilator);
+  const hasValues =
+    hasAnyInputValue(vitals) ||
+    hasAnyInputValue(abg) ||
+    hasAnyInputValue(ventilator);
 
   return {
     ...validation,
@@ -345,6 +416,21 @@ const optionalIsoDate = z
     }
     return date.toISOString();
   });
+
+const clinicalSnapshotUpdateSchema = z
+  .object({
+    measuredAt: optionalIsoDate,
+    spo2: optionalNumber(40, 100),
+    heartRate: optionalNumber(0, 250),
+    respiratoryRate: optionalNumber(0, 180),
+    systolicBp: optionalNumber(0, 300),
+    diastolicBp: optionalNumber(0, 200),
+    meanArterialPressure: optionalNumber(0, 250),
+    temperatureC: optionalNumber(20, 45),
+    source: optionalText(80),
+    deviceId: optionalText(120),
+  })
+  .strict();
 
 const abgUpdateSchema = z
   .object({
@@ -426,6 +512,7 @@ const parseRecord = (schema, record) => {
 
 const buildAbgVentUpdatePayload = ({
   admissionId,
+  vitals,
   abg,
   ventilator,
   clientRecordId,
@@ -444,9 +531,11 @@ const buildAbgVentUpdatePayload = ({
   const resolvedIdempotencyKey =
     idempotencyKey ||
     createScopedToken('abg-vent-idem', admissionId, resolvedNow);
+  const parsedVitals = parseRecord(clinicalSnapshotUpdateSchema, vitals);
   const parsedAbg = parseRecord(abgUpdateSchema, abg);
   const parsedVentilator = parseRecord(ventilatorUpdateSchema, ventilator);
 
+  const hasVitals = hasAnyField(parsedVitals, VITAL_SIGN_NUMERIC_FIELDS);
   const hasAbg = hasAnyField(parsedAbg, ABG_NUMERIC_FIELDS);
   const hasVentilator = hasAnyField(parsedVentilator, [
     ...VENTILATOR_NUMERIC_FIELDS,
@@ -454,11 +543,17 @@ const buildAbgVentUpdatePayload = ({
     'ieRatio',
   ]);
 
-  if (!hasAbg && !hasVentilator) {
+  if (!hasVitals && !hasAbg && !hasVentilator) {
     throw new Error('ABG_VENT_UPDATE_EMPTY');
   }
 
   return stripUndefined({
+    clinicalSnapshot: hasVitals
+      ? {
+          ...parsedVitals,
+          source: parsedVitals.source || source,
+        }
+      : undefined,
     abgTest: hasAbg
       ? {
           ...parsedAbg,
@@ -502,14 +597,24 @@ const sortRecordsDesc = (records, timestampField) =>
   });
 
 const getLatestAbgVentValues = (admission = {}) => {
+  const latestVitals =
+    sortRecordsDesc(admission.clinicalSnapshots, 'measuredAt')[0] || null;
   const latestAbg =
     sortRecordsDesc(admission.abgTests, 'collectedAt')[0] || null;
   const latestVentilator =
     sortRecordsDesc(admission.ventilatorSettings, 'measuredAt')[0] || null;
-  return { latestAbg, latestVentilator };
+  return { latestVitals, latestAbg, latestVentilator };
 };
 
 const getAbgVentHistory = (admission = {}) => {
+  const vitalEvents = (
+    Array.isArray(admission.clinicalSnapshots) ? admission.clinicalSnapshots : []
+  ).map((record) => ({
+    id: record.id || record.clientRecordId,
+    type: 'vitals',
+    recordedAt: record.measuredAt || record.createdAt,
+    record,
+  }));
   const abgEvents = (
     Array.isArray(admission.abgTests) ? admission.abgTests : []
   ).map((record) => ({
@@ -530,7 +635,7 @@ const getAbgVentHistory = (admission = {}) => {
     recordedAt: record.measuredAt || record.createdAt,
     record,
   }));
-  return [...abgEvents, ...ventilatorEvents].sort(
+  return [...vitalEvents, ...abgEvents, ...ventilatorEvents].sort(
     (a, b) => asTime(b.recordedAt) - asTime(a.recordedAt)
   );
 };
@@ -582,17 +687,261 @@ const getAbgVentMissingData = (admission = {}) => {
   }));
 };
 
+const firstFiniteNumber = (...values) => {
+  for (const value of values) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) return numeric;
+  }
+  return null;
+};
+
+const roundClinicalValue = (value, digits = 1) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return '';
+  return Number(numeric.toFixed(digits)).toString();
+};
+
+const getLatestTwoRecords = (records, timestampField) =>
+  sortRecordsDesc(records, timestampField).slice(0, 2);
+
+const addDirectionalTrend = (
+  trends,
+  {
+    label,
+    latest,
+    previous,
+    minChange,
+    higherIsBetter = true,
+    digits = 1,
+  }
+) => {
+  if (!Number.isFinite(latest) || !Number.isFinite(previous)) return;
+  const delta = latest - previous;
+  if (Math.abs(delta) < minChange) return;
+  const improved = higherIsBetter ? delta > 0 : delta < 0;
+  trends.push({
+    score: improved ? 1 : -1,
+    message: `${label} ${improved ? 'improved' : 'worsened'} from ${roundClinicalValue(previous, digits)} to ${roundClinicalValue(latest, digits)}.`,
+  });
+};
+
+const addTargetTrend = (
+  trends,
+  { label, latest, previous, target, minChange, digits = 1 }
+) => {
+  if (!Number.isFinite(latest) || !Number.isFinite(previous)) return;
+  const latestDistance = Math.abs(latest - target);
+  const previousDistance = Math.abs(previous - target);
+  const change = previousDistance - latestDistance;
+  if (Math.abs(change) < minChange) return;
+  const improved = change > 0;
+  trends.push({
+    score: improved ? 1 : -1,
+    message: `${label} moved ${improved ? 'closer to' : 'farther from'} the expected range (${roundClinicalValue(previous, digits)} to ${roundClinicalValue(latest, digits)}).`,
+  });
+};
+
+const createProgressAssessment = ({
+  status,
+  score,
+  reasons = [],
+  redFlagCount = 0,
+}) => {
+  const labels = {
+    improving: 'Improving',
+    deteriorating: 'Deteriorating',
+    stable: 'Stable',
+    insufficient: 'Needs more history',
+  };
+  const actionByStatus = {
+    improving: 'keep_current_parameters',
+    deteriorating: 'suggest_new_settings',
+    stable: 'keep_current_parameters',
+    insufficient: 'review_current_readings',
+  };
+  const recommendationByStatus = {
+    improving:
+      'Current readings suggest improvement. Recommend keeping the same ventilator parameters if bedside assessment supports this.',
+    deteriorating:
+      'Current readings suggest possible deterioration. Generate or review an updated ventilator settings suggestion before changing parameters.',
+    stable:
+      'Current readings are broadly stable. Recommend keeping the same ventilator parameters unless bedside assessment suggests otherwise.',
+    insufficient:
+      'Not enough previous readings are available to classify progress. Save current readings and continue trend review.',
+  };
+
+  return {
+    status,
+    label: labels[status],
+    score,
+    action: actionByStatus[status],
+    recommendation: recommendationByStatus[status],
+    redFlagCount,
+    reasons,
+  };
+};
+
+const getCurrentReadingsProgressAssessment = (admission = {}) => {
+  const [latestVitals, previousVitals] = getLatestTwoRecords(
+    admission.clinicalSnapshots,
+    'measuredAt'
+  );
+  const [latestAbg, previousAbg] = getLatestTwoRecords(
+    admission.abgTests,
+    'collectedAt'
+  );
+  const [latestVentilator, previousVentilator] = getLatestTwoRecords(
+    admission.ventilatorSettings,
+    'measuredAt'
+  );
+  const trends = [];
+
+  addDirectionalTrend(trends, {
+    label: 'SpO2',
+    latest: firstFiniteNumber(latestVitals?.spo2, latestAbg?.spo2AtSample),
+    previous: firstFiniteNumber(previousVitals?.spo2, previousAbg?.spo2AtSample),
+    minChange: 2,
+    higherIsBetter: true,
+  });
+  addDirectionalTrend(trends, {
+    label: 'PaO2',
+    latest: firstFiniteNumber(latestAbg?.pao2),
+    previous: firstFiniteNumber(previousAbg?.pao2),
+    minChange: 10,
+    higherIsBetter: true,
+  });
+  addTargetTrend(trends, {
+    label: 'pH',
+    latest: firstFiniteNumber(latestAbg?.ph),
+    previous: firstFiniteNumber(previousAbg?.ph),
+    target: 7.4,
+    minChange: 0.03,
+    digits: 2,
+  });
+  addTargetTrend(trends, {
+    label: 'PaCO2',
+    latest: firstFiniteNumber(latestAbg?.paco2),
+    previous: firstFiniteNumber(previousAbg?.paco2),
+    target: 40,
+    minChange: 5,
+  });
+  addTargetTrend(trends, {
+    label: 'Respiratory rate',
+    latest: firstFiniteNumber(
+      latestVitals?.respiratoryRate,
+      latestVentilator?.respiratoryRateMeasured
+    ),
+    previous: firstFiniteNumber(
+      previousVitals?.respiratoryRate,
+      previousVentilator?.respiratoryRateMeasured
+    ),
+    target: 16,
+    minChange: 4,
+  });
+  addTargetTrend(trends, {
+    label: 'Heart rate',
+    latest: firstFiniteNumber(latestVitals?.heartRate),
+    previous: firstFiniteNumber(previousVitals?.heartRate),
+    target: 80,
+    minChange: 10,
+  });
+  addDirectionalTrend(trends, {
+    label: 'FiO2 requirement',
+    latest: firstFiniteNumber(latestVentilator?.fio2, latestAbg?.fio2AtSample),
+    previous: firstFiniteNumber(previousVentilator?.fio2, previousAbg?.fio2AtSample),
+    minChange: 0.05,
+    higherIsBetter: false,
+    digits: 2,
+  });
+  addDirectionalTrend(trends, {
+    label: 'PEEP requirement',
+    latest: firstFiniteNumber(latestVentilator?.peep),
+    previous: firstFiniteNumber(previousVentilator?.peep),
+    minChange: 2,
+    higherIsBetter: false,
+  });
+
+  const redFlagCount = getAbgVentAdvisoryFlags(admission).filter(
+    (flag) => flag.severity === 'red'
+  ).length;
+  const score = trends.reduce((total, trend) => total + trend.score, 0);
+  let status = 'stable';
+
+  if (trends.length === 0) {
+    status = 'insufficient';
+  } else if (redFlagCount > 0 && score <= 0) {
+    status = 'deteriorating';
+  } else if (score >= 2) {
+    status = 'improving';
+  } else if (score <= -2) {
+    status = 'deteriorating';
+  }
+
+  return createProgressAssessment({
+    status,
+    score,
+    redFlagCount,
+    reasons: trends.map((trend) => trend.message),
+  });
+};
+
+const buildVentilatorRecommendationInputFromAdmission = (admission = {}) => {
+  const patient = admission.patient || {};
+  const { latestVitals, latestAbg, latestVentilator } =
+    getLatestAbgVentValues(admission);
+
+  return stripUndefined({
+    condition:
+      admission.reasonForVentilation ||
+      latestVitals?.mainCondition ||
+      admission.clinicalSummary?.condition,
+    patientPathway: patient.patientPathway,
+    sexForSizeCalculations: patient.sexForSizeCalculations,
+    ageYears: patient.ageYears,
+    ageMonths: patient.ageMonths,
+    ageDays: patient.ageDays,
+    actualWeightKg: patient.actualWeightKg ?? patient.referenceWeightKg,
+    heightOrLengthCm: patient.heightOrLengthCm,
+    spo2: latestVitals?.spo2 ?? latestAbg?.spo2AtSample,
+    respiratoryRate:
+      latestVitals?.respiratoryRate ??
+      latestVentilator?.respiratoryRateMeasured,
+    heartRate: latestVitals?.heartRate,
+    ph: latestAbg?.ph,
+    pao2: latestAbg?.pao2,
+    paco2: latestAbg?.paco2,
+    hco3: latestAbg?.hco3,
+    baseExcess: latestAbg?.baseExcess,
+    lactate: latestAbg?.lactate,
+    spo2AtSample: latestAbg?.spo2AtSample,
+    mode: latestVentilator?.mode,
+    tidalVolumeMl: latestVentilator?.tidalVolumeMl,
+    respiratoryRateSet: latestVentilator?.respiratoryRateSet,
+    respiratoryRateMeasured: latestVentilator?.respiratoryRateMeasured,
+    peep: latestVentilator?.peep,
+    pressureSupport: latestVentilator?.pressureSupport,
+    inspiratoryPressure: latestVentilator?.inspiratoryPressure,
+    peakPressure: latestVentilator?.peakPressure,
+    plateauPressure: latestVentilator?.plateauPressure,
+    ieRatio: latestVentilator?.ieRatio,
+  }) || {};
+};
+
 export {
   ABG_FIELD_DEFINITIONS,
   FIELD_DEFINITION_BY_KEY,
+  VITAL_SIGN_FIELD_DEFINITIONS,
   VENTILATOR_FIELD_DEFINITIONS,
   VENTILATOR_MODE_OPTIONS,
   abgUpdateSchema,
+  buildVentilatorRecommendationInputFromAdmission,
   buildAbgVentUpdatePayload,
+  clinicalSnapshotUpdateSchema,
   containsForbiddenSettingOrder,
   getAbgVentAdvisoryFlags,
   getAbgVentHistory,
   getAbgVentMissingData,
+  getCurrentReadingsProgressAssessment,
   getLatestAbgVentValues,
   safeBuildAbgVentUpdatePayload,
   sanitizeAbgVentFieldInput,

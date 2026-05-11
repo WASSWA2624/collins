@@ -10,13 +10,17 @@ jest.mock('@features/abgVentUpdates/abgVentUpdates.api', () => {
   const actual = jest.requireActual('@features/abgVentUpdates/abgVentUpdates.api');
   return {
     ...actual,
+    getCurrentReadingsVentilatorRecommendationApi: jest.fn(),
     saveAbgVentUpdateApi: jest.fn(),
   };
 });
 
 const { addToQueue } = require('@offline/queue');
 const { getIsOnline } = require('@offline/network.listener');
-const { saveAbgVentUpdateApi } = require('@features/abgVentUpdates/abgVentUpdates.api');
+const {
+  getCurrentReadingsVentilatorRecommendationApi,
+  saveAbgVentUpdateApi,
+} = require('@features/abgVentUpdates/abgVentUpdates.api');
 const { submitAbgVentUpdateUseCase } = require('@features/abgVentUpdates');
 
 describe('abgVentUpdates.usecase', () => {
@@ -31,6 +35,7 @@ describe('abgVentUpdates.usecase', () => {
 
     const result = await submitAbgVentUpdateUseCase({
       admissionId: 'admission-1',
+      vitals: { spo2: '94', respiratoryRate: '24', heartRate: '104' },
       abg: { ph: '7.32' },
       clientRecordId: 'client-1',
       idempotencyKey: 'idem-1',
@@ -50,6 +55,11 @@ describe('abgVentUpdates.usecase', () => {
         clientRecordId: 'client-1',
         idempotencyKey: 'idem-1',
       },
+    });
+    expect(addToQueue.mock.calls[0][0].body.clinicalSnapshot).toMatchObject({
+      spo2: 94,
+      respiratoryRate: 24,
+      heartRate: 104,
     });
     expect(saveAbgVentUpdateApi).not.toHaveBeenCalled();
   });
@@ -99,5 +109,59 @@ describe('abgVentUpdates.usecase', () => {
     expect(result.syncStatus).toBe('conflict');
     expect(result.conflict.conflictType).toBe('STALE_CLIENT_TIMESTAMP');
     expect(result.conflict.serverRecord.id).toBe('abg-latest');
+  });
+
+  it('requests a ventilator suggestion after deteriorating current readings are saved', async () => {
+    saveAbgVentUpdateApi.mockResolvedValue({
+      syncStatus: 'synced',
+      facilityId: 'facility-1',
+      admission: {
+        id: 'admission-1',
+        facilityId: 'facility-1',
+        reasonForVentilation: 'ARDS',
+        patient: { patientPathway: 'ADULT', ageYears: 44 },
+        clinicalSnapshots: [
+          { measuredAt: '2026-05-05T08:00:00.000Z', spo2: 88, respiratoryRate: 34, heartRate: 124 },
+          { measuredAt: '2026-05-05T07:00:00.000Z', spo2: 94, respiratoryRate: 24, heartRate: 104 },
+        ],
+        abgTests: [
+          { collectedAt: '2026-05-05T08:00:00.000Z', ph: 7.21, paco2: 72 },
+          { collectedAt: '2026-05-05T07:00:00.000Z', ph: 7.34, paco2: 48 },
+        ],
+        ventilatorSettings: [],
+      },
+    });
+    getCurrentReadingsVentilatorRecommendationApi.mockResolvedValue({
+      recommendation: {
+        initialVentilatorSettings: {
+          settings: { mode: 'VC', peep: 8 },
+        },
+      },
+    });
+
+    const result = await submitAbgVentUpdateUseCase({
+      admissionId: 'admission-1',
+      vitals: { spo2: '88', respiratoryRate: '34', heartRate: '124' },
+      abg: { ph: '7.21', paco2: '72' },
+      clientRecordId: 'client-1',
+      idempotencyKey: 'idem-1',
+      now: new Date('2026-05-05T08:00:00.000Z'),
+    });
+
+    expect(result.progressAssessment.status).toBe('deteriorating');
+    expect(getCurrentReadingsVentilatorRecommendationApi).toHaveBeenCalledWith(
+      expect.objectContaining({
+        facilityId: 'facility-1',
+        admissionId: 'admission-1',
+        input: expect.objectContaining({
+          spo2: 88,
+          respiratoryRate: 34,
+          heartRate: 124,
+          ph: 7.21,
+          paco2: 72,
+        }),
+      })
+    );
+    expect(result.ventilatorRecommendation.initialVentilatorSettings.settings.peep).toBe(8);
   });
 });

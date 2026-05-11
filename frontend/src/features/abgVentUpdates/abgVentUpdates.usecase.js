@@ -6,11 +6,16 @@ import { addToQueue } from '@offline/queue';
 import { getIsOnline } from '@offline/network.listener';
 import {
   createAbgVentUpdateRequest,
+  getCurrentReadingsVentilatorRecommendationApi,
   getAdmissionAbgVentilatorContextApi,
   listActiveAdmissionsApi,
   saveAbgVentUpdateApi,
 } from './abgVentUpdates.api';
-import { buildAbgVentUpdatePayload } from './abgVentUpdates.model';
+import {
+  buildAbgVentUpdatePayload,
+  buildVentilatorRecommendationInputFromAdmission,
+  getCurrentReadingsProgressAssessment,
+} from './abgVentUpdates.model';
 
 const ABG_VENT_UPDATE_QUEUE_TYPE = 'abg_vent_update';
 
@@ -24,6 +29,7 @@ const loadAdmissionAbgVentilatorContextUseCase = async (admissionId) =>
 
 const submitAbgVentUpdateUseCase = async ({
   admissionId,
+  vitals,
   abg,
   ventilator,
   source = 'abg_vent_update',
@@ -34,6 +40,7 @@ const submitAbgVentUpdateUseCase = async ({
 } = {}) => {
   const payload = buildAbgVentUpdatePayload({
     admissionId,
+    vitals,
     abg,
     ventilator,
     source,
@@ -69,11 +76,37 @@ const submitAbgVentUpdateUseCase = async ({
 
   try {
     const data = await saveAbgVentUpdateApi(admissionId, payload);
+    const admission = data?.admission || null;
+    const progressAssessment = admission
+      ? getCurrentReadingsProgressAssessment(admission)
+      : null;
+    let ventilatorRecommendation = null;
+    let recommendationError = null;
+
+    if (progressAssessment?.action === 'suggest_new_settings') {
+      try {
+        const recommendationResponse =
+          await getCurrentReadingsVentilatorRecommendationApi({
+            facilityId: data?.facilityId || admission?.facilityId,
+            admissionId,
+            input: buildVentilatorRecommendationInputFromAdmission(admission),
+            backendSummary: data?.clinicalSummary || admission?.clinicalSummary,
+          });
+        ventilatorRecommendation =
+          recommendationResponse?.recommendation || recommendationResponse || null;
+      } catch (error) {
+        recommendationError = normalizeError(error);
+      }
+    }
+
     return {
       ok: true,
       syncStatus: data?.syncStatus || 'synced',
       data,
       payload,
+      progressAssessment,
+      ventilatorRecommendation,
+      recommendationError,
     };
   } catch (error) {
     const normalized = normalizeError(error);

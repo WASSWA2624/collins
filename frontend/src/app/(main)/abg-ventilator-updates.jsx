@@ -1,5 +1,5 @@
 /**
- * (main)/abg-ventilator-updates - Update ABG and ventilator settings
+ * (main)/abg-ventilator-updates - Record current readings and progress
  */
 import React from 'react';
 import { AbgVentUpdateScreen } from '@platform/screens';

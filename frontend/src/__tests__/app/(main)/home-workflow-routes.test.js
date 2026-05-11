@@ -18,7 +18,7 @@ jest.mock('@platform/screens', () => {
     React.createElement('div', { testID, 'data-testid': testID }, label);
 
   return {
-    AbgVentUpdateScreen: makeScreen('abg-vent-update-screen', 'Update ABG & Ventilator Settings'),
+    AbgVentUpdateScreen: makeScreen('abg-vent-update-screen', 'Current Readings & Progress'),
     AssessmentScreen: makeScreen('new-patient-screen', 'New Patient'),
     DashboardScreen: makeScreen('dashboard-screen', 'Dashboard'),
     DatasetCaptureScreen: makeScreen('dataset-capture-screen', 'Dataset Capture'),

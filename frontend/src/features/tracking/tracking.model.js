@@ -361,6 +361,7 @@ const normalizeTrackingItem = (item = {}) => {
     currentStatus,
     admissionStatus,
     patientPathway,
+    patientCode,
     missingData,
     risk,
   });

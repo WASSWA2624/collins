@@ -58,6 +58,7 @@ const optionalString = (max = 255) =>
     },
     z.union([z.null(), z.string().max(max)])
   ).optional();
+const optionalAppRecordCode = optionalString(6);
 const requiredString = (max = 255) =>
   z.preprocess(
     (value) => (isNewPatientMissingValue(value) ? '' : cleanString(value)),
@@ -111,7 +112,7 @@ const sexForSizeCalculationsSchema = z.preprocess((value) => normalizeEnumInput(
 }), z.enum(SEX_FOR_SIZE_CALCULATION_VALUES));
 
 const patientRegistrationSchema = z.object({
-  appPatientCode: optionalString(80),
+  appPatientCode: optionalAppRecordCode,
   optionalName: optionalString(160),
   firstName: requiredString(80),
   lastName: optionalString(80),
@@ -209,7 +210,7 @@ const stringListSchema = z.array(z.string().trim().min(1).max(120)).max(80);
 
 const newPatientDraftSchema = z.object({
   facilityId: z.string().trim().min(1),
-  appAdmissionCode: optionalString(80),
+  appAdmissionCode: optionalAppRecordCode,
   bedNumber: optionalString(80),
   admittedAt: optionalIsoDate,
   admissionSource: optionalString(120),

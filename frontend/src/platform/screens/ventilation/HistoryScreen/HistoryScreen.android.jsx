@@ -28,6 +28,7 @@ import {
   StyledListDateCell,
   StyledListHeader,
   StyledListHeaderCell,
+  StyledListNumberCell,
   StyledListTimeCell,
   StyledPatientDataGrid,
   StyledPatientDataItem,
@@ -431,6 +432,11 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
         ) : (
           <StyledList testID={HISTORY_TEST_IDS.list}>
             <StyledListHeader testID={HISTORY_TEST_IDS.listHeader}>
+              <StyledListNumberCell>
+                <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                  {t('ventilation.tracking.list.rowNumber')}
+                </Text>
+              </StyledListNumberCell>
               <StyledListCodeCell>
                 <Text variant="caption" color="text.secondary" numberOfLines={1}>
                   {t('ventilation.tracking.list.patientCode')}
@@ -452,7 +458,7 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
                 </Text>
               </StyledListTimeCell>
             </StyledListHeader>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <StyledItem
                 key={row.admissionId}
                 testID={`${HISTORY_TEST_IDS.item}-${row.admissionId}`}
@@ -466,12 +472,19 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
                   onPress={() => handleViewDetails(row)}
                   testID={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                 >
-                  <StyledPatientRowNumber>
+                  <StyledPatientRowNumber
+                    testID={`${HISTORY_TEST_IDS.rowNumber}-${row.admissionId}`}
+                  >
+                    <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                      {index + 1}
+                    </Text>
+                  </StyledPatientRowNumber>
+                  <StyledListCodeCell>
                     <Text variant="caption" numberOfLines={1}>
                       {row.patientCode ||
                         t('ventilation.tracking.patient.notRecorded')}
                     </Text>
-                  </StyledPatientRowNumber>
+                  </StyledListCodeCell>
                   <StyledPatientRowCell>
                     <Text variant="caption" numberOfLines={1}>
                       {getPatientLabel(row, t)}

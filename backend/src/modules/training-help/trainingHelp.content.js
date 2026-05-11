@@ -63,13 +63,13 @@ export const TRAINING_HELP_TOPICS = Object.freeze([
   Object.freeze({
     id: 'workflow.abg-ventilator-updates',
     workflow: 'abg-ventilator-updates',
-    title: 'Update ABG & Ventilator Settings',
+    title: 'Current Readings & Progress',
     audiences: Object.freeze(['clinical', 'facility_admin']),
     order: 40,
-    summary: 'Use Update ABG & Ventilator Settings to save new time-stamped ABG and ventilator records.',
+    summary: 'Use Current Readings & Progress to save time-stamped vital sign, ABG, and ventilator readings.',
     body: Object.freeze([
-      'New ABGs and ventilator records are appended as versions so earlier clinical records remain available for review.',
-      'Calculated ratios, VT/kg, and pressure flags are recalculated by the backend after save.',
+      'Current monitor readings, ABGs, and ventilator records are appended so earlier clinical records remain available for review.',
+      'Progress assessment, calculated ratios, VT/kg, and pressure flags are recalculated after save for clinician review.',
     ]),
   }),
   Object.freeze({

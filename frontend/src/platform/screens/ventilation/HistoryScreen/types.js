@@ -13,6 +13,7 @@ const HISTORY_TEST_IDS = Object.freeze({
   errorBanner: 'history-error-banner',
   listHeader: 'tracking-list-header',
   item: 'history-item',
+  rowNumber: 'history-row-number',
   rowButton: 'history-row-button',
   search: 'tracking-search',
   searchEmpty: 'tracking-search-empty',

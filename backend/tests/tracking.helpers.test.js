@@ -9,14 +9,14 @@ import {
 
 const admission = {
   id: 'adm-1',
-  appAdmissionCode: 'COL-A-1',
+  appAdmissionCode: 'ADM001',
   bedNumber: 'ICU-2',
   status: 'ACTIVE',
   reviewStatus: 'PENDING',
   admittedAt: new Date('2026-05-01T08:00:00.000Z'),
   patient: {
     id: 'patient-1',
-    appPatientCode: 'COL-P-1',
+    appPatientCode: 'YMXB24',
     optionalName: 'Jane Doe',
     patientPathway: 'ADULT',
   },
@@ -52,7 +52,7 @@ test('buildCurrentTrackingStatus includes patient name for detail lookup', () =>
   const status = buildCurrentTrackingStatus(admission, { missingData: [] });
 
   assert.equal(status.patient.optionalName, 'Jane Doe');
-  assert.equal(status.patient.appPatientCode, 'COL-P-1');
+  assert.equal(status.patient.appPatientCode, 'YMXB24');
 });
 
 test('buildReviewState summarizes pending and correction states', () => {

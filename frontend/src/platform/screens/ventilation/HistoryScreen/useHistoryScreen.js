@@ -7,6 +7,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useVentilationSession } from '@hooks';
 import useAuth from '@hooks/useAuth';
 import { getFacilityOptionsForUser } from '@config/accessControl';
+import { searchFacilitiesUseCase } from '@features/facilities';
 import {
   filterTrackingRows,
   getTrackingAdmissionUseCase,
@@ -82,7 +83,6 @@ export default function useHistoryScreen(options = {}) {
     user,
     activeFacility: authActiveFacility,
     activeFacilityId,
-    setActiveFacilityId,
   } = useAuth();
   const {
     sessionId,
@@ -102,9 +102,13 @@ export default function useHistoryScreen(options = {}) {
   const [autoOpenedAdmissionId, setAutoOpenedAdmissionId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [facilityQuery, setFacilityQuery] = useState(null);
+  const [selectedFacilityOverrideId, setSelectedFacilityOverrideId] = useState(null);
+  const [availableFacilities, setAvailableFacilities] = useState([]);
+  const [isFacilitiesLoading, setIsFacilitiesLoading] = useState(false);
+  const [facilitiesErrorCode, setFacilitiesErrorCode] = useState(null);
 
-  const facilityOptions = useMemo(
-    () => uniqueFacilities(getFacilityOptionsForUser(user)),
+  const membershipFacilityOptions = useMemo(
+    () => getFacilityOptionsForUser(user),
     [user]
   );
 
@@ -113,15 +117,26 @@ export default function useHistoryScreen(options = {}) {
     [authActiveFacility]
   );
 
+  const facilityOptions = useMemo(
+    () =>
+      uniqueFacilities(
+        availableFacilities,
+        membershipFacilityOptions,
+        activeFacilityOption
+      ),
+    [activeFacilityOption, availableFacilities, membershipFacilityOptions]
+  );
+
   const selectedFacility = useMemo(() => {
-    const selectedId = activeFacilityId || activeFacilityOption?.id || null;
+    const selectedId =
+      selectedFacilityOverrideId || activeFacilityId || activeFacilityOption?.id || null;
     return (
       facilityOptions.find((facility) => facility.id === selectedId) ||
       activeFacilityOption ||
       facilityOptions[0] ||
       null
     );
-  }, [activeFacilityId, activeFacilityOption, facilityOptions]);
+  }, [activeFacilityId, activeFacilityOption, facilityOptions, selectedFacilityOverrideId]);
 
   const selectedFacilityId = selectedFacility?.id || activeFacilityId || null;
 
@@ -134,6 +149,20 @@ export default function useHistoryScreen(options = {}) {
   );
 
   const displayedFacilityQuery = facilityQuery ?? selectedFacility?.name ?? '';
+
+  const loadFacilities = useCallback(async () => {
+    setIsFacilitiesLoading(true);
+    setFacilitiesErrorCode(null);
+    try {
+      const result = await searchFacilitiesUseCase({ limit: 500 });
+      setAvailableFacilities(result?.facilities ?? []);
+    } catch (error) {
+      setAvailableFacilities([]);
+      setFacilitiesErrorCode(normalizeErrorCode(error, 'FACILITIES_LOAD_FAILED'));
+    } finally {
+      setIsFacilitiesLoading(false);
+    }
+  }, []);
 
   const admittedAdmissionId = useMemo(() => {
     return getSearchParamValue(searchParams?.admissionId);
@@ -193,6 +222,10 @@ export default function useHistoryScreen(options = {}) {
       setIsTrackingLoading(false);
     }
   }, [admittedAdmissionId, detailMode, selectedFacilityId]);
+
+  useEffect(() => {
+    loadFacilities();
+  }, [loadFacilities]);
 
   useEffect(() => {
     loadTracking();
@@ -290,9 +323,9 @@ export default function useHistoryScreen(options = {}) {
       setSelectedAdmissionId(null);
       setSelectedTracking(null);
       setDetailErrorCode(null);
-      setActiveFacilityId(normalized.id);
+      setSelectedFacilityOverrideId(normalized.id);
     },
-    [setActiveFacilityId]
+    []
   );
 
   const handleOpenAdmit = useCallback(() => {
@@ -374,8 +407,8 @@ export default function useHistoryScreen(options = {}) {
       onValueChange: handleFacilityChange,
       onClear: handleFacilityClear,
       options: facilitySelectOptions,
-      loading: false,
-      error: null,
+      loading: isFacilitiesLoading,
+      error: facilitiesErrorCode,
     },
     totalRows: rows.length,
     visibleRows: visibleRowCount,

@@ -6,8 +6,10 @@ import { useLocalSearchParams } from 'expo-router';
 import { useNetwork } from '@hooks';
 import {
   ABG_FIELD_DEFINITIONS,
+  VITAL_SIGN_FIELD_DEFINITIONS,
   VENTILATOR_FIELD_DEFINITIONS,
   VENTILATOR_MODE_OPTIONS,
+  getCurrentReadingsProgressAssessment,
   getAbgVentAdvisoryFlags,
   getAbgVentHistory,
   getAbgVentMissingData,
@@ -19,6 +21,16 @@ import {
   validateAbgVentUpdateDraft,
 } from '@features/abgVentUpdates';
 import { ABG_VENT_UPDATE_TEST_IDS } from './types';
+
+const INITIAL_VITALS_FORM = Object.freeze({
+  spo2: '',
+  heartRate: '',
+  respiratoryRate: '',
+  systolicBp: '',
+  diastolicBp: '',
+  meanArterialPressure: '',
+  temperatureC: '',
+});
 
 const INITIAL_ABG_FORM = Object.freeze({
   ph: '',
@@ -182,6 +194,7 @@ export default function useAbgVentUpdateScreen() {
     initialAdmissionId || null
   );
   const [selectedAdmission, setSelectedAdmission] = useState(null);
+  const [vitals, setVitals] = useState({ ...INITIAL_VITALS_FORM });
   const [abg, setAbg] = useState({ ...INITIAL_ABG_FORM });
   const [ventilator, setVentilator] = useState({ ...INITIAL_VENTILATOR_FORM });
   const [isLoading, setIsLoading] = useState(false);
@@ -269,6 +282,18 @@ export default function useAbgVentUpdateScreen() {
     loadSelectedAdmission(selectedAdmissionId);
   }, [loadSelectedAdmission, selectedAdmissionId]);
 
+  const setVitalsField = useCallback((field, value) => {
+    setVitals((current) => ({
+      ...current,
+      [field]: sanitizeAbgVentFieldInput(field, value),
+    }));
+    setStatus((current) =>
+      ['error', 'synced', 'queued'].includes(current.kind)
+        ? createInitialStatus()
+        : current
+    );
+  }, []);
+
   const setAbgField = useCallback((field, value) => {
     setAbg((current) => ({
       ...current,
@@ -294,6 +319,7 @@ export default function useAbgVentUpdateScreen() {
   }, []);
 
   const resetForms = useCallback(() => {
+    setVitals({ ...INITIAL_VITALS_FORM });
     setAbg({ ...INITIAL_ABG_FORM });
     setVentilator({ ...INITIAL_VENTILATOR_FORM });
   }, []);
@@ -312,10 +338,11 @@ export default function useAbgVentUpdateScreen() {
       validateAbgVentUpdateDraft({
         admissionId: selectedAdmissionId,
         admission: selectedAdmission,
+        vitals,
         abg,
         ventilator,
       }),
-    [abg, ventilator, selectedAdmission, selectedAdmissionId]
+    [abg, ventilator, vitals, selectedAdmission, selectedAdmissionId]
   );
 
   const handleSubmit = useCallback(async () => {
@@ -348,7 +375,8 @@ export default function useAbgVentUpdateScreen() {
     if (!validation.hasValues) {
       setStatus({
         kind: 'error',
-        message: 'Enter at least one ABG or ventilator setting value.',
+        message:
+          'Enter at least one current vital sign, ABG reading, or ventilator setting.',
         conflict: null,
       });
       return;
@@ -358,17 +386,22 @@ export default function useAbgVentUpdateScreen() {
       setStatus({
         kind: 'error',
         message:
-          'Some required values are missing. Please review the highlighted fields.',
+          'Some current readings need review. Please check the highlighted fields.',
         conflict: null,
       });
       return;
     }
 
     setIsSaving(true);
-    setStatus({ kind: 'saving', message: 'Saving update...', conflict: null });
+    setStatus({
+      kind: 'saving',
+      message: 'Saving current readings...',
+      conflict: null,
+    });
     try {
       const result = await submitAbgVentUpdateUseCase({
         admissionId: selectedAdmissionId,
+        vitals,
         abg,
         ventilator,
         isOnline: !isOffline,
@@ -378,6 +411,9 @@ export default function useAbgVentUpdateScreen() {
         setStatus({
           kind: 'queued',
           message: 'Saved to offline queue. It will retry when online.',
+          progressAssessment: null,
+          ventilatorRecommendation: null,
+          recommendationError: null,
           conflict: null,
         });
         resetForms();
@@ -390,6 +426,9 @@ export default function useAbgVentUpdateScreen() {
           message:
             'Newer clinical data exists. Refresh this admission before resubmitting.',
           conflict: result.conflict,
+          progressAssessment: null,
+          ventilatorRecommendation: null,
+          recommendationError: null,
         });
         return;
       }
@@ -397,7 +436,10 @@ export default function useAbgVentUpdateScreen() {
       setStatus({
         kind: 'synced',
         message:
-          'ABG results and ventilator settings were updated successfully.',
+          'Current monitor, ABG, and ventilator readings were saved successfully.',
+        progressAssessment: result.progressAssessment,
+        ventilatorRecommendation: result.ventilatorRecommendation,
+        recommendationError: result.recommendationError,
         conflict: null,
       });
       resetForms();
@@ -414,6 +456,7 @@ export default function useAbgVentUpdateScreen() {
     }
   }, [
     abg,
+    vitals,
     ventilator,
     selectedAdmission,
     selectedAdmissionId,
@@ -447,6 +490,12 @@ export default function useAbgVentUpdateScreen() {
   const latestValues = useMemo(
     () => getLatestAbgVentValues(selectedAdmission || {}),
     [selectedAdmission]
+  );
+  const progressAssessment = useMemo(
+    () =>
+      status.progressAssessment ||
+      getCurrentReadingsProgressAssessment(selectedAdmission || {}),
+    [selectedAdmission, status.progressAssessment]
   );
   const history = useMemo(
     () => getAbgVentHistory(selectedAdmission || {}),
@@ -483,14 +532,23 @@ export default function useAbgVentUpdateScreen() {
     latestValues,
     missingData,
     patientDetails,
+    progressAssessment,
     selectedAdmission,
     selectedAdmissionId,
     selectedLabel,
     setAbgField,
     setSelectedAdmissionId: selectAdmission,
+    setVitalsField,
     setVentilatorField,
     status,
     toDisplayDate,
+    ventilatorRecommendation:
+      status.ventilatorRecommendation ||
+      selectedAdmission?.ventilatorRecommendation ||
+      null,
+    recommendationError: status.recommendationError || null,
+    vitals,
+    vitalsFields: VITAL_SIGN_FIELD_DEFINITIONS,
     ventilator,
     ventilatorFields: VENTILATOR_FIELD_DEFINITIONS,
     ventilatorModeOptions: VENTILATOR_MODE_OPTIONS,

@@ -495,6 +495,9 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
               : {})}
           >
             <StyledListHeaderCell>
+              {t('ventilation.tracking.list.rowNumber')}
+            </StyledListHeaderCell>
+            <StyledListHeaderCell>
               {t('ventilation.tracking.list.patientCode')}
             </StyledListHeaderCell>
             <StyledListHeaderCell>
@@ -507,7 +510,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
               {t('ventilation.tracking.list.admissionTime')}
             </StyledListHeaderCell>
           </StyledListHeader>
-          {rows.map((row) => {
+          {rows.map((row, index) => {
             const rowTestProps =
               process.env.NODE_ENV === 'test'
                 ? {
@@ -531,9 +534,19 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
                   data-testid={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                   {...rowTestProps}
                 >
-                  <StyledPatientRowNumber>
-                    {row.patientCode || t('ventilation.tracking.patient.notRecorded')}
+                  <StyledPatientRowNumber
+                    data-testid={`${HISTORY_TEST_IDS.rowNumber}-${row.admissionId}`}
+                    {...(process.env.NODE_ENV === 'test'
+                      ? {
+                          testID: `${HISTORY_TEST_IDS.rowNumber}-${row.admissionId}`,
+                        }
+                      : {})}
+                  >
+                    {index + 1}
                   </StyledPatientRowNumber>
+                  <StyledPatientRowCell>
+                    {row.patientCode || t('ventilation.tracking.patient.notRecorded')}
+                  </StyledPatientRowCell>
                   <StyledPatientRowCell>{getPatientLabel(row, t)}</StyledPatientRowCell>
                   <StyledPatientRowCell>
                     {row.admittedDateLabel || t('ventilation.tracking.patient.notRecorded')}

@@ -13,14 +13,14 @@ const activeAdmission = {
   admissionId: 'adm-1',
   patientId: 'patient-1',
   facilityId: 'facility-1',
-  appAdmissionCode: 'COL-A-1',
+  appAdmissionCode: 'ADM001',
   bedNumber: 'ICU-2',
   status: 'ACTIVE',
   admittedAt: '2026-05-01T08:00:00.000Z',
   facility: { id: 'facility-1', name: 'City ICU' },
   patient: {
     id: 'patient-1',
-    appPatientCode: 'COL-P-1',
+    appPatientCode: 'YMXB24',
     firstName: 'Jane',
     lastName: 'Doe',
     optionalName: 'Jane Doe',
@@ -37,7 +37,7 @@ const activeAdmission = {
   currentStatus: {
     patient: {
       id: 'patient-1',
-      appPatientCode: 'COL-P-1',
+      appPatientCode: 'YMXB24',
       optionalName: 'Jane Doe',
       patientPathway: 'ADULT',
       referenceWeightKg: 25.5,
@@ -67,9 +67,9 @@ describe('tracking.model', () => {
     expect(row.admissionId).toBe('adm-1');
     expect(row.optionalName).toBe('Jane Doe');
     expect(row.patientId).toBe('patient-1');
-    expect(row.patientCode).toBe('COLP1');
-    expect(row.patientCode).toHaveLength(5);
-    expect(row.appPatientCode).toBe('COL-P-1');
+    expect(row.patientCode).toBe('YMXB24');
+    expect(row.patientCode).toHaveLength(6);
+    expect(row.appPatientCode).toBe('YMXB24');
     expect(row.hospitalNumber).toBe('HN-7788');
     expect(row.ageLabel).toBe('8y 2m 10d');
     expect(row.actualWeightKg).toBe(26);
@@ -117,10 +117,10 @@ describe('tracking.model', () => {
       ...activeAdmission,
       admissionId: 'adm-2',
       patientId: 'patient-2',
-      appAdmissionCode: 'COL-A-2',
+      appAdmissionCode: 'ADM002',
       patient: {
         id: 'patient-2',
-        appPatientCode: 'COL-P-2',
+        appPatientCode: 'QZ7N4B',
         optionalName: 'Sam Patient',
         hospitalNumber: 'HN-9900',
       },
@@ -129,6 +129,6 @@ describe('tracking.model', () => {
     expect(matchesTrackingSearch(row, 'jane')).toBe(true);
     expect(matchesTrackingSearch(row, 'HN-7788')).toBe(true);
     expect(matchesTrackingSearch(row, 'patient-1')).toBe(true);
-    expect(filterTrackingRows([row, otherRow], 'COL-P-2')).toEqual([otherRow]);
+    expect(filterTrackingRows([row, otherRow], 'QZ7N4B')).toEqual([otherRow]);
   });
 });

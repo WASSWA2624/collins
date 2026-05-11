@@ -6,7 +6,22 @@ import {
   newPatientReasonStepSchema,
   newPatientVentilatorRecommendationSchema,
 } from '../src/modules/newPatients/newPatients.validators.js';
-import { buildNewPatientReadiness, buildClinicalSummary } from '../src/modules/newPatients/newPatients.service.js';
+import {
+  buildNewPatientReadiness,
+  buildClinicalSummary,
+  createAppRecordCode,
+  normalizeAppRecordCode,
+} from '../src/modules/newPatients/newPatients.service.js';
+
+test('app patient and admission codes use stored six-character app codes', () => {
+  for (let index = 0; index < 25; index += 1) {
+    assert.match(createAppRecordCode(), /^[A-Z0-9]{6}$/);
+  }
+
+  assert.equal(normalizeAppRecordCode(' ab12cd '), 'AB12CD');
+  assert.equal(normalizeAppRecordCode('COL-P-123'), null);
+  assert.equal(normalizeAppRecordCode(null), null);
+});
 
 test('patient and reason step accepts minimal patient data without explicit facility or bed', () => {
   const parsed = newPatientReasonStepSchema.parse({
@@ -125,9 +140,15 @@ test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient fl
   );
 });
 
-test('ABG and ventilator settings update accepts only update records and sync metadata', () => {
+test('current readings update accepts vital signs, ABG, ventilator records, and sync metadata', () => {
   const parsed = newPatientAbgVentilatorUpdateSchema.parse({
     body: {
+      clinicalSnapshot: {
+        spo2: '94',
+        respiratoryRate: '24',
+        heartRate: '104',
+        source: 'patient_monitor',
+      },
       abgTest: {
         ph: '7.31',
         pao2: '82',
@@ -147,12 +168,14 @@ test('ABG and ventilator settings update accepts only update records and sync me
     query: {},
   });
 
+  assert.equal(parsed.body.clinicalSnapshot.spo2, 94);
+  assert.equal(parsed.body.clinicalSnapshot.respiratoryRate, 24);
   assert.equal(parsed.body.abgTest.ph, 7.31);
   assert.equal(parsed.body.ventilatorSetting.peep, 8);
   assert.equal(parsed.body.uncertainty, undefined);
 });
 
-test('ABG and ventilator settings update rejects uncertainty-only payloads', () => {
+test('current readings update rejects uncertainty-only payloads', () => {
   assert.throws(() =>
     newPatientAbgVentilatorUpdateSchema.parse({
       body: {

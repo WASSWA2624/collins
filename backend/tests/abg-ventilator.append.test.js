@@ -201,6 +201,7 @@ test('ventilator append recalculates stored derived values and returns advisory 
 test('combined ABG and ventilator update appends timestamped records with one idempotent save', async (t) => {
   installAccessMocks(t);
 
+  let createdClinicalSnapshot;
   let createdAbgTest;
   let createdVentilatorSetting;
 
@@ -214,7 +215,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
             ...admissionAccess,
             patient: adultPatient,
             abgTests: createdAbgTest ? [createdAbgTest] : [],
-            clinicalSnapshots: [{ spo2: 95, fio2: 0.4 }],
+            clinicalSnapshots: createdClinicalSnapshot ? [createdClinicalSnapshot] : [{ spo2: 95, fio2: 0.4 }],
           };
         }
 
@@ -226,7 +227,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
           return {
             ...admissionAccess,
             patient: adultPatient,
-            clinicalSnapshots: [{ spo2: 95, fio2: 0.4 }],
+            clinicalSnapshots: createdClinicalSnapshot ? [createdClinicalSnapshot] : [{ spo2: 95, fio2: 0.4 }],
             abgTests: createdAbgTest ? [createdAbgTest] : [],
             ventilatorSettings: createdVentilatorSetting ? [createdVentilatorSetting] : [],
             airwayDevices: [],
@@ -242,6 +243,16 @@ test('combined ABG and ventilator update appends timestamped records with one id
     idempotencyRecord: {
       findUnique: t.mock.fn(async () => null),
       create: t.mock.fn(async () => ({})),
+    },
+    clinicalSnapshot: {
+      create: t.mock.fn(async ({ data }) => {
+        createdClinicalSnapshot = {
+          id: 'snapshot-2',
+          createdAt: new Date('2026-05-05T07:11:00.000Z'),
+          ...data,
+        };
+        return createdClinicalSnapshot;
+      }),
     },
     abgTest: {
       findFirst: t.mock.fn(async () => ({
@@ -287,6 +298,12 @@ test('combined ABG and ventilator update appends timestamped records with one id
   stubPrismaMethod(t, prisma, '$transaction', async (callback) => callback(tx));
 
   const result = await saveNewPatientAbgVentilatorUpdate(userId, admissionId, {
+    clinicalSnapshot: {
+      spo2: 92,
+      respiratoryRate: 26,
+      heartRate: 112,
+      source: 'patient_monitor',
+    },
     abgTest: {
       ph: 7.32,
       pao2: 88,
@@ -307,13 +324,16 @@ test('combined ABG and ventilator update appends timestamped records with one id
     idempotencyKey: 'combined-update-key-1',
   });
 
+  assert.equal(tx.clinicalSnapshot.create.mock.callCount(), 1);
   assert.equal(tx.abgTest.create.mock.callCount(), 1);
   assert.equal(tx.ventilatorSetting.create.mock.callCount(), 1);
   assert.equal(tx.idempotencyRecord.create.mock.callCount(), 1);
   assert.equal(tx.auditLog.create.mock.callCount(), 1);
 
+  assert.equal(createdClinicalSnapshot.clientRecordId, 'client-combined-1:vitals');
   assert.equal(createdAbgTest.version, 2);
   assert.equal(createdVentilatorSetting.version, 4);
+  assert.equal(result.saved.clinicalSnapshot.id, 'snapshot-2');
   assert.equal(createdAbgTest.clientRecordId, 'client-combined-1:abg');
   assert.equal(createdVentilatorSetting.clientRecordId, 'client-combined-1:ventilator');
   assert.equal(result.saved.abgTest.id, 'abg-2');
@@ -335,7 +355,7 @@ test('combined ABG and ventilator update rejects empty service payloads before d
     }),
     (error) => {
       assert.equal(error.status, 400);
-      assert.match(error.message, /At least one ABG or ventilator setting value is required/);
+      assert.match(error.message, /At least one vital sign, ABG, or ventilator setting value is required/);
       return true;
     },
   );

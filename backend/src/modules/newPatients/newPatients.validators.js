@@ -41,6 +41,7 @@ const optionalString = (max = 255) => z.preprocess(
   (value) => (value === null ? null : value),
   z.union([z.null(), z.string().trim().max(max)])
 ).optional();
+const optionalAppRecordCode = optionalString(6);
 const requiredString = (max = 255) => z.preprocess(
   (value) => (isMissingInput(value) ? '' : value),
   z.string().trim().min(1).max(max)
@@ -85,7 +86,7 @@ const sexForSizeCalculations = z.preprocess((value) => normalizeEnumInput(value,
 }), z.enum(SEX_VALUES));
 
 const patientPayload = z.object({
-  appPatientCode: optionalString(80),
+  appPatientCode: optionalAppRecordCode,
   optionalName: optionalString(160),
   firstName: optionalString(80),
   lastName: optionalString(80),
@@ -191,6 +192,19 @@ const ABG_UPDATE_VALUE_FIELDS = [
   'spo2AtSample',
 ];
 
+const CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS = [
+  'spo2',
+  'heartRate',
+  'respiratoryRate',
+  'systolicBp',
+  'diastolicBp',
+  'meanArterialPressure',
+  'temperatureC',
+  'gcs',
+  'avpu',
+  'rass',
+];
+
 const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'mode',
   'tidalVolumeMl',
@@ -229,7 +243,7 @@ export const newPatientIdSchema = z.object({
 export const createNewPatientSchema = z.object({
   body: z.object({
     facilityId: optionalString(120),
-    appAdmissionCode: optionalString(80),
+    appAdmissionCode: optionalAppRecordCode,
     bedNumber: optionalString(80),
     admittedAt: optionalDefaultDate,
     admissionSource: optionalString(120),
@@ -285,6 +299,7 @@ export const ventilatorSettingSchema = z.object({
 
 export const newPatientAbgVentilatorUpdateSchema = z.object({
   body: z.object({
+    clinicalSnapshot: clinicalSnapshotBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     abgTest: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     ventilatorSetting: ventilatorBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     clientRecordId: optionalString(120),
@@ -295,9 +310,10 @@ export const newPatientAbgVentilatorUpdateSchema = z.object({
     overrideReason,
   }).strict().refine(
     (body) =>
-      hasClinicalValue(body.abgTest, ABG_UPDATE_VALUE_FIELDS)
+      hasClinicalValue(body.clinicalSnapshot, CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS)
+      || hasClinicalValue(body.abgTest, ABG_UPDATE_VALUE_FIELDS)
       || hasClinicalValue(body.ventilatorSetting, VENTILATOR_UPDATE_VALUE_FIELDS),
-    { message: 'At least one ABG or ventilator setting value is required' }
+    { message: 'At least one vital sign, ABG, or ventilator setting value is required' }
   ),
   params: idParam,
   query: emptyQuery.optional(),
@@ -477,7 +493,7 @@ const newPatientVentilatorBody = z.object({
 export const newPatientReasonStepSchema = z.object({
   body: z.object({
     facilityId: optionalString(120),
-    appAdmissionCode: optionalString(80),
+    appAdmissionCode: optionalAppRecordCode,
     bedNumber: optionalString(80),
     admittedAt: optionalDate,
     admissionSource: optionalString(120),
