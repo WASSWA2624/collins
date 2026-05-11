@@ -108,6 +108,15 @@ const isNewPatientConflictError = (error) => {
   const code = cleanText(error?.code);
   return status === 409 || code === 'CONFLICT';
 };
+const isAdmissionNotFoundError = (error) => {
+  const status = error?.status || error?.statusCode;
+  const code = cleanText(error?.code);
+  const message = cleanText(error?.message || error?.safeMessage).toLowerCase();
+  return (
+    code === 'ADMISSION_NOT_FOUND' ||
+    (status === 404 && message.includes('admission') && message.includes('not found'))
+  );
+};
 const splitList = (value) =>
   cleanText(value)
     .split(',')
@@ -1351,17 +1360,42 @@ export default function useAssessmentScreen() {
       admissionRecordId ||
       activeInputs.admissionId ||
       activeInputs.clientRecordId;
-    const payload = buildOxygenAbgVentilatorPayload(activeInputs, {
-      includeVentilator: false,
-    });
-    const response = await saveOxygenAbgVentilatorStepApi(activeAdmissionId, payload);
+
+    const postStep = async (nextAdmissionId, nextInputs) => {
+      const payload = buildOxygenAbgVentilatorPayload(nextInputs, {
+        includeVentilator: false,
+      });
+      return saveOxygenAbgVentilatorStepApi(nextAdmissionId, payload);
+    };
+
+    let response;
+    let responseAdmissionId = activeAdmissionId;
+    try {
+      response = await postStep(activeAdmissionId, activeInputs);
+    } catch (error) {
+      if (!isAdmissionNotFoundError(error)) throw error;
+
+      const patientResponse = await savePatientReasonStep(activeInputs);
+      const recoveredAdmissionId = getResponseAdmissionId(patientResponse, activeInputs.clientRecordId);
+      if (!recoveredAdmissionId) throw error;
+
+      responseAdmissionId = recoveredAdmissionId;
+      const recoveredInputs = {
+        ...latestInputsRef.current,
+        admissionId: recoveredAdmissionId,
+      };
+      latestInputsRef.current = recoveredInputs;
+      setInputs(recoveredInputs);
+      response = await postStep(recoveredAdmissionId, recoveredInputs);
+    }
+
     applyStepResponse(response);
     await persistCurrentDraft({
-      admissionId: getResponseAdmissionId(response, activeAdmissionId || activeInputs.clientRecordId),
+      admissionId: getResponseAdmissionId(response, responseAdmissionId || activeInputs.clientRecordId),
       syncStatus: response?.syncStatus || NEW_PATIENT_SYNC_STATUS.SYNCED,
     });
     return response;
-  }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft]);
+  }, [admissionRecordId, applyStepResponse, mergedInputs, persistCurrentDraft, savePatientReasonStep, setInputs]);
 
   const saveSuggestedVentilatorSettingsStep = useCallback(async (inputOverride = null, admissionIdOverride = null) => {
     const activeInputs = inputOverride || latestInputsRef.current || mergedInputs;

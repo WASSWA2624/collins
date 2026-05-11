@@ -697,6 +697,33 @@ describe('AssessmentScreen', () => {
       });
     });
 
+    it('recreates the backend admission before recommendation generation when a stale draft reaches step two', async () => {
+      saveOxygenAbgVentilatorStepApi.mockRejectedValueOnce({
+        code: 'ADMISSION_NOT_FOUND',
+        status: 404,
+        message: 'Admission not found',
+      });
+      const { admissionId: _admissionId, ...staleClinicalInputs } = completeClinicalInputs;
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        assessmentCurrentStep: 1,
+        inputs: staleClinicalInputs,
+      });
+
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalledTimes(1);
+        expect(saveOxygenAbgVentilatorStepApi).toHaveBeenCalledTimes(2);
+        expect(saveOxygenAbgVentilatorStepApi.mock.calls[0][0]).toBe('admission-test-client');
+        expect(saveOxygenAbgVentilatorStepApi.mock.calls[1][0]).toBe('admission-1');
+        expect(getNewPatientVentilatorRecommendationApi).toHaveBeenCalled();
+        expect(defaultSessionMock.setAssessmentStep).toHaveBeenCalledWith(2);
+      });
+    });
+
     it('uses the hydrated admission id for dependent admission steps', async () => {
       const store = createMockStore();
       let sessionState = {
