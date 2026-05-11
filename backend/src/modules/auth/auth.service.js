@@ -1,19 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { prisma } from '../../config/prisma.js';
 import { env } from '../../config/env.js';
-import { MEMBERSHIP_ROLES } from '../../constants/roles.js';
 import { hashPassword, verifyPassword } from '../../utils/password.js';
 import { randomToken, sha256 } from '../../utils/crypto.js';
-import { unauthorized, forbidden, conflict, notFound } from '../../utils/errors.js';
+import { unauthorized, forbidden, conflict } from '../../utils/errors.js';
 import { writeAudit } from '../../utils/audit.js';
 import { createInitialOnboardingState } from '../onboarding/onboarding.service.js';
 import { buildAuthContext, resolveRequestedFacilityId } from './auth.presenter.js';
 
 const REFRESH_TOKEN_DAYS = 30;
-const AUTO_APPROVED_REGISTRATION_ROLES = new Set([
-  MEMBERSHIP_ROLES.CLINICIAN,
-  MEMBERSHIP_ROLES.ICU_NURSE,
-]);
 
 const publicUserSelect = {
   id: true,
@@ -36,23 +31,6 @@ const authOnboardingStateSelect = {
   clinicalSafetyAcknowledgementVersion: true,
   clinicalSafetyStatementHash: true,
   completedAt: true,
-};
-
-const registrationFacilitySelect = {
-  id: true,
-  registryCode: true,
-  name: true,
-  district: true,
-  region: true,
-  type: true,
-  ownership: true,
-  verificationStatus: true,
-};
-
-const cleanRegistrationFacilityText = (value) => {
-  if (value === undefined || value === null) return null;
-  const trimmed = String(value).trim();
-  return trimmed || null;
 };
 
 const getApprovedMemberships = (userId) => prisma.facilityMembership.findMany({
@@ -179,83 +157,11 @@ const buildAuthPayload = async (user, { tx = prisma, requestedFacilityId = null 
   };
 };
 
-const resolveRegistrationFacility = async (tx, {
-  facilityId,
-  facilityName,
-  facilityDistrict,
-  facilityRegion,
-  facilityType,
-  facilityOwnership,
-} = {}, userId, auditContext = {}) => {
-  if (facilityId) {
-    const facility = await tx.facility.findUnique({
-      where: { id: facilityId },
-      select: registrationFacilitySelect,
-    });
-    if (!facility) throw notFound('Facility not found');
-    return facility;
-  }
-
-  if (!facilityName) return null;
-
-  const existing = await tx.facility.findFirst({
-    where: {
-      name: facilityName,
-      ...(facilityDistrict ? { district: facilityDistrict } : {}),
-    },
-    select: registrationFacilitySelect,
-  });
-  if (existing) return existing;
-
-  const facility = await tx.facility.create({
-    data: {
-      name: facilityName,
-      district: cleanRegistrationFacilityText(facilityDistrict),
-      region: cleanRegistrationFacilityText(facilityRegion),
-      type: cleanRegistrationFacilityText(facilityType),
-      ownership: cleanRegistrationFacilityText(facilityOwnership),
-      verificationStatus: 'PENDING',
-    },
-    select: registrationFacilitySelect,
-  });
-
-  await writeAudit({
-    tx,
-    ...auditContext,
-    userId,
-    facilityId: facility.id,
-    action: 'FACILITY_CREATE_FROM_REGISTRATION',
-    entityType: 'Facility',
-    entityId: facility.id,
-    afterJson: facility,
-  });
-
-  return facility;
-};
-
-const getRegistrationMembershipApproval = (role, userId) => {
-  const autoApproved = AUTO_APPROVED_REGISTRATION_ROLES.has(role);
-  return {
-    status: autoApproved ? 'APPROVED' : 'PENDING',
-    approvedByUserId: autoApproved ? userId : null,
-    auditAction: autoApproved
-      ? 'FACILITY_MEMBERSHIP_AUTO_APPROVE_REGISTRATION'
-      : 'FACILITY_MEMBERSHIP_REQUEST',
-  };
-};
-
 export const registerUser = async ({
   name,
   email,
   phone,
   password,
-  facilityId,
-  facilityName,
-  facilityDistrict,
-  facilityRegion,
-  facilityType,
-  facilityOwnership,
-  requestedRole = MEMBERSHIP_ROLES.CLINICIAN,
 }, auditContext = {}) => {
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) throw conflict('A user with this email already exists');
@@ -271,50 +177,7 @@ export const registerUser = async ({
       select: publicUserSelect,
     });
 
-    const selectedFacility = await resolveRegistrationFacility(tx, {
-      facilityId,
-      facilityName,
-      facilityDistrict,
-      facilityRegion,
-      facilityType,
-      facilityOwnership,
-    }, user.id, auditContext);
-
-    if (selectedFacility) {
-      const membershipApproval = getRegistrationMembershipApproval(requestedRole, user.id);
-      const membership = await tx.facilityMembership.create({
-        data: {
-          userId: user.id,
-          facilityId: selectedFacility.id,
-          role: requestedRole,
-          status: membershipApproval.status,
-          ...(membershipApproval.approvedByUserId ? { approvedByUserId: membershipApproval.approvedByUserId } : {}),
-        },
-        include: { facility: true },
-      });
-
-      await writeAudit({
-        tx,
-        ...auditContext,
-        userId: user.id,
-        facilityId: selectedFacility.id,
-        action: membershipApproval.auditAction,
-        entityType: 'FacilityMembership',
-        entityId: membership.id,
-        afterJson: {
-          role: membership.role,
-          status: membership.status,
-          approvedByUserId: membership.approvedByUserId || null,
-        },
-      });
-    }
-
-    await createInitialOnboardingState(tx, user.id, {
-      ...(selectedFacility ? {
-        selectedFacilityId: selectedFacility.id,
-        requestedRole,
-      } : {}),
-    });
+    await createInitialOnboardingState(tx, user.id);
 
     await writeAudit({
       tx,
@@ -325,8 +188,8 @@ export const registerUser = async ({
       afterJson: {
         id: user.id,
         email: user.email,
-        selectedFacilityId: selectedFacility?.id || null,
-        requestedRole: selectedFacility ? requestedRole : null,
+        selectedFacilityId: null,
+        requestedRole: null,
       },
     });
 

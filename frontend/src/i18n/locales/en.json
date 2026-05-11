@@ -86,7 +86,7 @@
     },
     "register": {
       "title": "Create account",
-      "description": "Create an AI Vent account to request facility access.",
+      "description": "Create an AI Vent account to continue.",
       "accessibilityLabel": "Create account screen",
       "nameLabel": "Full name",
       "namePlaceholder": "Clinician name",
@@ -1021,12 +1021,20 @@
       },
       "patientReason": {
         "description": "Capture the patient pathway, age, body metrics, and reason for support.",
+        "facility": "Facility",
         "facilityId": "Facility ID",
         "facilityIdPlaceholder": "Enter facility ID",
+        "facilitySearchPlaceholder": "Search facilities or hospitals",
+        "facilitySearchHint": "Select the facility this patient belongs to.",
+        "facilityRequiredHelper": "Required. This patient record will be saved under the selected facility.",
+        "facilitySelectedHelper": "{{district}} - {{ownership}}",
+        "facilityLoading": "Loading facilities...",
+        "facilityNoResults": "No matching facility found.",
+        "facilityClear": "Clear facility",
         "bedNumber": "Bed",
         "bedNumberPlaceholder": "ICU bed or ward location",
-        "patientName": "Patient name (optional)",
-        "patientNamePlaceholder": "Enter patient name if available",
+        "patientName": "Patient name",
+        "patientNamePlaceholder": "Enter patient name",
         "pathway": "Patient age group",
         "pathwayPlaceholder": "Select age group",
         "ageGroup": "Patient age group",
@@ -1094,7 +1102,7 @@
         "ageRequirementHint": "Enter years, months, days, or date of birth."
       },
       "oxygenAbgVentilator": {
-        "description": "Record current oxygen support, oxygenation, vital signs, available ABG values, and uncertain values. The system records the oxygen measurement time automatically.",
+        "description": "Record oxygenation, vital signs, available ABG values, and uncertain values. The system records the oxygen measurement time automatically.",
         "oxygenSupportType": "Oxygen support type",
         "oxygenSupportPlaceholder": "Select oxygen support",
         "oxygenSupportHint": "Choose the support the patient is receiving when these values are measured.",
@@ -1149,6 +1157,7 @@
         "ventilatorMode": "Ventilator mode",
         "tidalVolumeMl": "Tidal volume (mL)",
         "peep": "PEEP (cmH2O)",
+        "pressureSupport": "Pressure support (cmH2O)",
         "respiratoryRateSet": "Set respiratory rate",
         "ieRatio": "I:E ratio",
         "ventilatorModeOptions": {

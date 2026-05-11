@@ -104,3 +104,138 @@ test('New Patient ventilator recommendation uses approved facility dataset cases
   assert.equal(result.recommendation.initialVentilatorSettings.calculation.referenceWeightMethod, 'adult_predicted_body_weight');
   assert.equal(result.recommendation.initialVentilatorSettings.calculation.tidalVolumeMlPerKg, 6);
 });
+
+test('New Patient ventilator recommendation caps pressure support for comfortable spontaneous breathing', async (t) => {
+  stubPrismaMethod(t, prisma.facilityMembership, 'count', async () => 0);
+  stubPrismaMethod(t, prisma.facilityMembership, 'findFirst', async () => ({
+    id: 'membership-1',
+    userId,
+    facilityId,
+    role: 'CLINICIAN',
+    status: 'APPROVED',
+  }));
+  stubPrismaMethod(t, prisma.datasetCase, 'findMany', async () => [
+    {
+      id: 'dataset-case-psv',
+      facilityId,
+      reviewStatus: 'APPROVED_FOR_TRAINING',
+      approvedForTraining: true,
+      datasetVersion: 'v2',
+      reviewedAt: new Date('2026-05-01T00:00:00.000Z'),
+      sourceType: 'ventilation_recommendation_seed',
+      ethicsApprovalId: 'seed',
+      governanceJson: {
+        recommendationSource: {
+          category: 'clinician_approved_data',
+          sourceIds: ['LOCAL'],
+        },
+      },
+      structuredPreviewJson: null,
+      deidentifiedPayloadJson: {
+        admission: { reasonForVentilation: 'Post-operative ventilatory support' },
+        patient: {
+          patientPathway: 'ADULT',
+          sexForSizeCalculations: 'MALE',
+          ageYears: 42,
+          actualWeightKg: 70,
+          heightOrLengthCm: 172,
+        },
+        clinicalSnapshots: [{ spo2: 96, respiratoryRate: 16, heartRate: 80 }],
+        abgTests: [{ ph: 7.39, pao2: 85, paco2: 40 }],
+        ventilatorSettings: [{
+          mode: 'PSV',
+          tidalVolumeMl: 800,
+          respiratoryRateSet: 16,
+          peep: 5,
+          pressureSupport: 14,
+          ieRatio: '1:2',
+        }],
+      },
+    },
+  ]);
+
+  const result = await recommendNewPatientVentilatorSettings({
+    facilityId,
+    input: {
+      condition: 'Post-operative ventilatory support',
+      patientPathway: 'ADULT',
+      sexForSizeCalculations: 'MALE',
+      ageYears: 42,
+      actualWeightKg: 70,
+      heightOrLengthCm: 172,
+      spo2: 96,
+      respiratoryRate: 16,
+      heartRate: 80,
+      ph: 7.39,
+      paco2: 40,
+    },
+  }, userId);
+
+  assert.equal(result.recommendation.initialVentilatorSettings.settings.pressureSupport, 8);
+  assert.equal(result.recommendation.initialVentilatorSettings.settings.tidalVolume, 441);
+  assert.equal(
+    result.recommendation.initialVentilatorSettings.calculation.pressureSupportAppliedGuardrail,
+    true
+  );
+  assert.equal(
+    result.recommendation.initialVentilatorSettings.calculation.tidalVolumeMlPerKg,
+    6.5
+  );
+});
+
+test('New Patient ventilator recommendation omits tidal volume when patient reference weight is unavailable', async (t) => {
+  stubPrismaMethod(t, prisma.facilityMembership, 'count', async () => 0);
+  stubPrismaMethod(t, prisma.facilityMembership, 'findFirst', async () => ({
+    id: 'membership-1',
+    userId,
+    facilityId,
+    role: 'CLINICIAN',
+    status: 'APPROVED',
+  }));
+  stubPrismaMethod(t, prisma.datasetCase, 'findMany', async () => [
+    {
+      id: 'dataset-case-missing-weight',
+      facilityId,
+      reviewStatus: 'APPROVED_FOR_TRAINING',
+      approvedForTraining: true,
+      datasetVersion: 'v2',
+      reviewedAt: new Date('2026-05-01T00:00:00.000Z'),
+      sourceType: 'ventilation_recommendation_seed',
+      ethicsApprovalId: 'seed',
+      governanceJson: { recommendationSource: { category: 'research_based_data' } },
+      structuredPreviewJson: null,
+      deidentifiedPayloadJson: {
+        admission: { reasonForVentilation: 'Neonatal respiratory distress' },
+        patient: {
+          patientPathway: 'NEONATE',
+          ageDays: 4,
+          actualWeightKg: 3,
+        },
+        clinicalSnapshots: [{ spo2: 90, respiratoryRate: 48, heartRate: 142 }],
+        abgTests: [{ ph: 7.34, pao2: 58, paco2: 48 }],
+        ventilatorSettings: [{
+          mode: 'VC',
+          tidalVolumeMl: 60,
+          respiratoryRateSet: 45,
+          peep: 6,
+        }],
+      },
+    },
+  ]);
+
+  const result = await recommendNewPatientVentilatorSettings({
+    facilityId,
+    input: {
+      condition: 'Neonatal respiratory distress',
+      patientPathway: 'NEONATE',
+      ageDays: 4,
+      spo2: 90,
+      respiratoryRate: 48,
+      heartRate: 142,
+      ph: 7.34,
+    },
+  }, userId);
+
+  assert.equal(result.recommendation.initialVentilatorSettings.settings.tidalVolume, undefined);
+  assert.ok(result.recommendation.source.missingInputs.includes('actualWeightKg'));
+});

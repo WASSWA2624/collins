@@ -3,7 +3,7 @@
  * Minimal account creation UI backed by the existing auth registration flow.
  * File: RegisterScreen.jsx
  */
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Redirect, useRouter } from 'expo-router';
 import {
   AuthBrand,
@@ -15,10 +15,8 @@ import {
   Text,
   TextField,
 } from '@platform/components';
-import { useAuth, useDebounce, useI18n } from '@hooks';
-import { searchFacilitiesUseCase } from '@features/facilities';
+import { useAuth, useI18n } from '@hooks';
 import { BANNER_VARIANTS } from '@utils/shellBanners';
-import FacilitySearchSelect from './FacilitySearchSelect';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 8;
@@ -43,52 +41,13 @@ const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [facilityQuery, setFacilityQuery] = useState('');
-  const [selectedFacility, setSelectedFacility] = useState(null);
-  const [facilityOptions, setFacilityOptions] = useState([]);
-  const [facilityError, setFacilityError] = useState(null);
-  const [isLoadingFacilities, setIsLoadingFacilities] = useState(false);
   const [localError, setLocalError] = useState(null);
-  const debouncedFacilityQuery = useDebounce(facilityQuery, 250);
-  const facilitiesRequestRef = useRef(0);
 
   const trimmedName = name.trim();
   const trimmedEmail = email.trim();
   const canSubmit =
     trimmedName.length > 0 && trimmedEmail.length > 0 && password.length > 0 && !isLoading;
   const authMessage = getErrorMessage(t, errorCode);
-  const displayedFacilityOptions = useMemo(() => {
-    if (!selectedFacility?.id) return facilityOptions;
-    const exists = facilityOptions.some((facility) => facility.id === selectedFacility.id);
-    return exists ? facilityOptions : [selectedFacility, ...facilityOptions];
-  }, [facilityOptions, selectedFacility]);
-
-  useEffect(() => {
-    const requestId = facilitiesRequestRef.current + 1;
-    facilitiesRequestRef.current = requestId;
-    setIsLoadingFacilities(true);
-    setFacilityError(null);
-
-    searchFacilitiesUseCase({
-      q: debouncedFacilityQuery || undefined,
-      page: 1,
-      limit: 25,
-    })
-      .then((response) => {
-        if (facilitiesRequestRef.current === requestId) {
-          setFacilityOptions(response.facilities);
-        }
-      })
-      .catch((error) => {
-        if (facilitiesRequestRef.current === requestId) {
-          setFacilityOptions([]);
-          setFacilityError(error?.safeMessage || error?.message || t('auth.register.facilityLoadError'));
-        }
-      })
-      .finally(() => {
-        if (facilitiesRequestRef.current === requestId) setIsLoadingFacilities(false);
-      });
-  }, [debouncedFacilityQuery, t]);
 
   const nameError = useMemo(() => {
     if (!localError || localError !== 'NAME_REQUIRED') return null;
@@ -123,28 +82,6 @@ const RegisterScreen = () => {
     clearError();
   }, [clearError]);
 
-  const handleFacilityQueryChange = useCallback((value) => {
-    setFacilityQuery(value);
-    if (selectedFacility && value.trim() !== selectedFacility.name) {
-      setSelectedFacility(null);
-    }
-    clearError();
-  }, [clearError, selectedFacility]);
-
-  const handleFacilitySelect = useCallback((facility) => {
-    setSelectedFacility(facility || null);
-    if (facility) {
-      setFacilityQuery(facility.name);
-    }
-    clearError();
-  }, [clearError]);
-
-  const handleClearFacility = useCallback(() => {
-    setSelectedFacility(null);
-    setFacilityQuery('');
-    clearError();
-  }, [clearError]);
-
   const handleSubmit = useCallback(async () => {
     if (isLoading) return;
     if (trimmedName.length < 2) {
@@ -160,18 +97,12 @@ const RegisterScreen = () => {
       return;
     }
 
-    const facilityPayload = selectedFacility?.id ? {
-      facilityId: selectedFacility.id,
-      requestedRole: 'CLINICIAN',
-    } : {};
-
     await register({
       name: trimmedName,
       email: trimmedEmail,
       password,
-      ...facilityPayload,
     });
-  }, [isLoading, password, register, selectedFacility, trimmedEmail, trimmedName]);
+  }, [isLoading, password, register, trimmedEmail, trimmedName]);
 
   const handleSignIn = useCallback(() => {
     router.push('/login');
@@ -275,31 +206,6 @@ const RegisterScreen = () => {
           errorMessage={passwordError}
           helperText={t('auth.register.passwordHelper')}
           testID="register-password"
-        />
-        <FacilitySearchSelect
-          label={t('auth.register.facilitySearchLabel')}
-          placeholder={t('auth.register.facilitySearchPlaceholder')}
-          query={facilityQuery}
-          onQueryChange={handleFacilityQueryChange}
-          value={selectedFacility}
-          onValueChange={handleFacilitySelect}
-          onClear={handleClearFacility}
-          options={displayedFacilityOptions}
-          helperText={t('auth.register.facilityOptionalHelper')}
-          selectedHelper={selectedFacility
-            ? t('auth.register.facilitySelectedHelper', {
-              district: selectedFacility.district,
-              ownership: selectedFacility.ownership,
-            })
-            : undefined}
-          noResultsText={t('auth.register.facilityNoResults')}
-          loadingText={t('auth.register.facilityLoading')}
-          errorText={facilityError}
-          clearLabel={t('auth.register.facilityClear')}
-          disabled={isLoading}
-          loading={isLoadingFacilities}
-          accessibilityHint={t('auth.register.facilitySearchHint')}
-          testID="register-facility-combobox"
         />
       </Stack>
     </AuthFormLayout>

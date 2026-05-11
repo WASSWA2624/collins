@@ -1,7 +1,7 @@
 {
-  "datasetVersion": "2026.05.11-source-backed-ventilation-seed",
-  "datasetSchemaVersion": "1.3",
-  "lastUpdated": "2026-05-11",
+  "datasetVersion": "2026.05.11-source-backed-ventilation-seed-v2",
+  "datasetSchemaVersion": "1.4",
+  "lastUpdated": "2026-05-11T00:00:00.000Z",
   "totalCases": 600,
   "provenance": {
     "seedType": "synthetic_source_backed_recommendation_seed",
@@ -12,7 +12,14 @@
       "research_based_data",
       "online_data",
       "clinician_approved_data"
-    ]
+    ],
+    "guardrailsApplied": {
+      "tidalVolume": "Runtime recommendation logic calculates patient-specific tidal volume from current patient reference weight and never falls back to matched-case weight.",
+      "pressureSupport": "Seed pressure-support values capped at low-assist levels for comfortable spontaneous breathing and at bounded rescue levels otherwise."
+    },
+    "adjustedSeedValues": {
+      "pressureSupportSettings": 66
+    }
   },
   "schema": {
     "notes": "Ventilation recommendation seed for initial decision-support suggestions only. Values are not autonomous orders.",
@@ -146,6 +153,17 @@
       "accessedAt": "2026-05-11",
       "trustLevel": "local_protocol_placeholder",
       "reviewStatus": "clinician_seed_approved_for_development"
+    },
+    {
+      "id": "SRC_AHRQ_SAT_SBT_2017",
+      "type": "online_guideline",
+      "sourceCategory": "online_data",
+      "citation": "AHRQ coordinated SAT/SBT protocol: SBT safety screen uses oxygenation and spontaneous effort criteria; pressure support ventilation under 7 cmH2O or CPAP 5 cmH2O is used for trials.",
+      "url": "https://www.ahrq.gov/hai/tools/mvp/modules/technical/sat-sbt-protocol.html",
+      "publisher": "Agency for Healthcare Research and Quality",
+      "accessedAt": "2026-05-11",
+      "trustLevel": "government_protocol",
+      "reviewStatus": "source_reviewed"
     }
   ],
   "cases": [
@@ -432,7 +450,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -585,7 +606,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -704,7 +728,7 @@
         "respiratoryRate": 23,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -722,7 +746,7 @@
           "respiratoryRate": 23,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -735,7 +759,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -964,7 +991,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1188,7 +1218,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1235,7 +1268,7 @@
         "respiratoryRate": 14,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 28
       },
       "outcomes": {
@@ -1253,7 +1286,7 @@
           "respiratoryRate": 14,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 28
         },
         "monitoringPoints": [
@@ -1266,7 +1299,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1341,7 +1377,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1565,7 +1604,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1609,7 +1651,7 @@
         "respiratoryRate": 29,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -1627,7 +1669,7 @@
           "respiratoryRate": 29,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -1640,7 +1682,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -1944,7 +1989,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2096,7 +2144,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2141,7 +2192,7 @@
         "respiratoryRate": 11,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -2159,7 +2210,7 @@
           "respiratoryRate": 11,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -2172,7 +2223,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2321,7 +2375,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2470,7 +2527,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2695,7 +2755,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2847,7 +2910,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -2997,7 +3063,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -3073,7 +3142,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -3451,7 +3523,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -3751,7 +3826,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -3903,7 +3981,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4054,7 +4135,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4203,7 +4287,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4550,7 +4637,7 @@
         "respiratoryRate": 13,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -4568,7 +4655,7 @@
           "respiratoryRate": 13,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -4581,7 +4668,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4655,7 +4745,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4878,7 +4971,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -4955,7 +5051,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -5335,7 +5434,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -5408,7 +5510,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -5486,7 +5591,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -5784,7 +5892,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -5937,7 +6048,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6088,7 +6202,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6315,7 +6432,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6359,7 +6479,7 @@
         "respiratoryRate": 15,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 28
       },
       "outcomes": {
@@ -6377,7 +6497,7 @@
           "respiratoryRate": 15,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 28
         },
         "monitoringPoints": [
@@ -6390,7 +6510,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6464,7 +6587,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6840,7 +6966,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -6991,7 +7120,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -7066,7 +7198,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -7217,7 +7352,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -7339,7 +7477,7 @@
         "respiratoryRate": 23,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 23
       },
       "outcomes": {
@@ -7357,7 +7495,7 @@
           "respiratoryRate": 23,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 23
         },
         "monitoringPoints": [
@@ -7370,7 +7508,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -7899,7 +8040,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -7972,7 +8116,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8197,7 +8344,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8242,7 +8392,7 @@
         "respiratoryRate": 27,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -8260,7 +8410,7 @@
           "respiratoryRate": 27,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -8273,7 +8423,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8348,7 +8501,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8424,7 +8580,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8725,7 +8884,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -8800,7 +8962,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -9097,7 +9262,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -9476,7 +9644,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -9629,7 +9800,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -9706,7 +9880,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10234,7 +10411,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10385,7 +10565,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10536,7 +10719,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10609,7 +10795,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10653,7 +10842,7 @@
         "respiratoryRate": 19,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -10671,7 +10860,7 @@
           "respiratoryRate": 19,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -10684,7 +10873,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10911,7 +11103,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -10985,7 +11180,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -11137,7 +11335,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -11213,7 +11414,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -11288,7 +11492,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -11514,7 +11721,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -11558,7 +11768,7 @@
         "respiratoryRate": 21,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -11576,7 +11786,7 @@
           "respiratoryRate": 21,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -11589,7 +11799,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -12044,7 +12257,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -12089,7 +12305,7 @@
         "respiratoryRate": 13,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -12107,7 +12323,7 @@
           "respiratoryRate": 13,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -12120,7 +12336,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -12418,7 +12637,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -12491,7 +12713,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -12945,7 +13170,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -13023,7 +13251,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -13399,7 +13630,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -13623,7 +13857,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -13697,7 +13934,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -13848,7 +14088,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14001,7 +14244,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14379,7 +14625,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14502,7 +14751,7 @@
         "respiratoryRate": 10,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -14520,7 +14769,7 @@
           "respiratoryRate": 10,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -14533,7 +14782,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14607,7 +14859,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14755,7 +15010,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14829,7 +15087,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -14906,7 +15167,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15132,7 +15396,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15284,7 +15551,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15357,7 +15627,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15401,7 +15674,7 @@
         "respiratoryRate": 12,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -15419,7 +15692,7 @@
           "respiratoryRate": 12,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -15432,7 +15705,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15734,7 +16010,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -15887,7 +16166,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -16263,7 +16545,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -16307,7 +16592,7 @@
         "respiratoryRate": 21,
         "peep": 9,
         "ieRatio": "1:2",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -16325,7 +16610,7 @@
           "respiratoryRate": 21,
           "peep": 9,
           "ieRatio": "1:2",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -16338,7 +16623,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -16638,7 +16926,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17012,7 +17303,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17166,7 +17460,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17284,7 +17581,7 @@
         "respiratoryRate": 19,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -17302,7 +17599,7 @@
           "respiratoryRate": 19,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -17315,7 +17612,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17770,7 +18070,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17845,7 +18148,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -17920,7 +18226,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18146,7 +18455,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18191,7 +18503,7 @@
         "respiratoryRate": 29,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -18209,7 +18521,7 @@
           "respiratoryRate": 29,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -18222,7 +18534,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18374,7 +18689,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18523,7 +18841,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18677,7 +18998,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18752,7 +19076,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -18901,7 +19228,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -19049,7 +19379,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -19275,7 +19608,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -19426,7 +19762,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -19577,7 +19916,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -19652,7 +19994,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -20332,7 +20677,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -20483,7 +20831,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -20602,7 +20953,7 @@
         "respiratoryRate": 23,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -20620,7 +20971,7 @@
           "respiratoryRate": 23,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -20633,7 +20984,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -20784,7 +21138,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -20860,7 +21217,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21162,7 +21522,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21235,7 +21598,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21459,7 +21825,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21503,7 +21872,7 @@
         "respiratoryRate": 23,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -21521,7 +21890,7 @@
           "respiratoryRate": 23,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -21534,7 +21903,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21916,7 +22288,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -21989,7 +22364,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -22067,7 +22445,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -22366,7 +22747,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -22668,7 +23052,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -22897,7 +23284,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -22973,7 +23363,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23046,7 +23439,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23346,7 +23742,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23423,7 +23822,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23573,7 +23975,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23647,7 +24052,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23797,7 +24205,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -23951,7 +24362,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -24480,7 +24894,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -24554,7 +24971,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -24778,7 +25198,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -24853,7 +25276,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -24928,7 +25354,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -25306,7 +25735,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -25350,7 +25782,7 @@
         "respiratoryRate": 14,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 28
       },
       "outcomes": {
@@ -25368,7 +25800,7 @@
           "respiratoryRate": 14,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 28
         },
         "monitoringPoints": [
@@ -25381,7 +25813,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -25680,7 +26115,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -25834,7 +26272,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -26058,7 +26499,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -26211,7 +26655,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -26255,7 +26702,7 @@
         "respiratoryRate": 18,
         "peep": 6,
         "ieRatio": "1:2",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -26273,7 +26720,7 @@
           "respiratoryRate": 18,
           "peep": 6,
           "ieRatio": "1:2",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -26286,7 +26733,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -26814,7 +27264,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -26964,7 +27417,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27117,7 +27573,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27190,7 +27649,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27235,7 +27697,7 @@
         "respiratoryRate": 23,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 27
       },
       "outcomes": {
@@ -27253,7 +27715,7 @@
           "respiratoryRate": 23,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 27
         },
         "monitoringPoints": [
@@ -27266,7 +27728,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27565,7 +28030,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27719,7 +28187,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27794,7 +28265,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -27867,7 +28341,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28093,7 +28570,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28140,7 +28620,7 @@
         "respiratoryRate": 21,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -28158,7 +28638,7 @@
           "respiratoryRate": 21,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -28171,7 +28651,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28324,7 +28807,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28624,7 +29110,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28701,7 +29190,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -28997,7 +29489,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -29071,7 +29566,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -29525,7 +30023,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -29602,7 +30103,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30203,7 +30707,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30278,7 +30785,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30430,7 +30940,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30549,7 +31062,7 @@
         "respiratoryRate": 19,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -30567,7 +31080,7 @@
           "respiratoryRate": 19,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -30580,7 +31093,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30809,7 +31325,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -30960,7 +31479,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31082,7 +31604,7 @@
         "respiratoryRate": 10,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -31100,7 +31622,7 @@
           "respiratoryRate": 10,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -31113,7 +31635,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31186,7 +31711,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31337,7 +31865,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31410,7 +31941,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31456,7 +31990,7 @@
         "respiratoryRate": 25,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 23
       },
       "outcomes": {
@@ -31474,7 +32008,7 @@
           "respiratoryRate": 25,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 23
         },
         "monitoringPoints": [
@@ -31487,7 +32021,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31712,7 +32249,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31865,7 +32405,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -31938,7 +32481,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -32014,7 +32560,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -32313,7 +32862,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -32843,7 +33395,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -32921,7 +33476,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -33218,7 +33776,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -33294,7 +33855,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -33595,7 +34159,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -33747,7 +34314,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -33896,7 +34466,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -34350,7 +34923,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -34425,7 +35001,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -34502,7 +35081,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -34726,7 +35308,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -34801,7 +35386,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35104,7 +35692,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35257,7 +35848,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35332,7 +35926,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35481,7 +36078,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35632,7 +36232,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35783,7 +36386,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -35857,7 +36463,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -36007,7 +36616,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -36159,7 +36771,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -36203,7 +36818,7 @@
         "respiratoryRate": 15,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -36221,7 +36836,7 @@
           "respiratoryRate": 15,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -36234,7 +36849,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -36912,7 +37530,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -37063,7 +37684,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -37184,7 +37808,7 @@
         "respiratoryRate": 19,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 24
       },
       "outcomes": {
@@ -37202,7 +37826,7 @@
           "respiratoryRate": 19,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 24
         },
         "monitoringPoints": [
@@ -37215,7 +37839,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -37363,7 +37990,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -37743,7 +38373,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -37816,7 +38449,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38039,7 +38675,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38084,7 +38723,7 @@
         "respiratoryRate": 23,
         "peep": 8,
         "ieRatio": "1:2",
-        "pressureSupport": 13,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -38102,7 +38741,7 @@
           "respiratoryRate": 23,
           "peep": 8,
           "ieRatio": "1:2",
-          "pressureSupport": 13,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -38115,7 +38754,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38271,7 +38913,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38495,7 +39140,10 @@
           "severe",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38569,7 +39217,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38646,7 +39297,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -38945,7 +39599,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -39250,7 +39907,10 @@
           "mild",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -39477,7 +40137,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -39552,7 +40215,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -39625,7 +40291,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40002,7 +40671,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40153,7 +40825,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40226,7 +40901,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40378,7 +41056,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40499,7 +41180,7 @@
         "respiratoryRate": 23,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 23
       },
       "outcomes": {
@@ -40517,7 +41198,7 @@
           "respiratoryRate": 23,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 23
         },
         "monitoringPoints": [
@@ -40530,7 +41211,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -40757,7 +41441,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41029,7 +41716,7 @@
         "respiratoryRate": 12,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 26
       },
       "outcomes": {
@@ -41047,7 +41734,7 @@
           "respiratoryRate": 12,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 26
         },
         "monitoringPoints": [
@@ -41060,7 +41747,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41133,7 +41823,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41359,7 +42052,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41403,7 +42099,7 @@
         "respiratoryRate": 27,
         "peep": 7,
         "ieRatio": "1:2",
-        "pressureSupport": 9,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -41421,7 +42117,7 @@
           "respiratoryRate": 27,
           "peep": 7,
           "ieRatio": "1:2",
-          "pressureSupport": 9,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -41434,7 +42130,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41510,7 +42209,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41887,7 +42589,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -41932,7 +42637,7 @@
         "respiratoryRate": 14,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 10,
+        "pressureSupport": 8,
         "plateauPressure": 28
       },
       "outcomes": {
@@ -41950,7 +42655,7 @@
           "respiratoryRate": 14,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 10,
+          "pressureSupport": 8,
           "plateauPressure": 28
         },
         "monitoringPoints": [
@@ -41963,7 +42668,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -42260,7 +42968,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -42638,7 +43349,10 @@
           "mild",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -42790,7 +43504,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -42866,7 +43583,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43243,7 +43963,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43394,7 +44117,10 @@
           "moderate",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43547,7 +44273,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43697,7 +44426,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43771,7 +44503,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -43846,7 +44581,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44147,7 +44885,10 @@
           "severe",
           "lung-protective ventilation required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44300,7 +45041,10 @@
           "moderate",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44344,7 +45088,7 @@
         "respiratoryRate": 11,
         "peep": 5,
         "ieRatio": "1:3",
-        "pressureSupport": 12,
+        "pressureSupport": 8,
         "plateauPressure": 25
       },
       "outcomes": {
@@ -44362,7 +45106,7 @@
           "respiratoryRate": 11,
           "peep": 5,
           "ieRatio": "1:3",
-          "pressureSupport": 12,
+          "pressureSupport": 8,
           "plateauPressure": 25
         },
         "monitoringPoints": [
@@ -44375,7 +45119,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44449,7 +45196,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44676,7 +45426,10 @@
           "standard",
           "pathway-specific review required"
         ],
-        "sourceCategory": "clinician_approved_data"
+        "sourceCategory": "clinician_approved_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -44751,7 +45504,10 @@
           "watch_closely",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -45205,7 +45961,10 @@
           "air_trapping_risk",
           "pathway-specific review required"
         ],
-        "sourceCategory": "research_based_data"
+        "sourceCategory": "research_based_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [
@@ -45280,7 +46039,10 @@
           "hypercapnic",
           "pathway-specific review required"
         ],
-        "sourceCategory": "online_data"
+        "sourceCategory": "online_data",
+        "guardrailsApplied": {
+          "pressureSupport": "Pressure-support values are bounded by patient breathing comfort and pathway-specific caps before seeding."
+        }
       },
       "evidence": {
         "sourceIds": [

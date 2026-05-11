@@ -12,6 +12,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
   const parsed = newPatientReasonStepSchema.parse({
     body: {
       patient: {
+        optionalName: 'Patient One',
         patientPathway: 'adult',
         sexForSizeCalculations: 'male',
         ageDays: '14',
@@ -26,6 +27,7 @@ test('patient and reason step accepts minimal patient data without explicit faci
   });
 
   assert.equal(parsed.body.patient.patientPathway, 'ADULT');
+  assert.equal(parsed.body.patient.optionalName, 'Patient One');
   assert.equal(parsed.body.patient.sexForSizeCalculations, 'MALE');
   assert.equal(parsed.body.patient.ageDays, 14);
   assert.equal(parsed.body.patient.ageYears, undefined);
@@ -59,11 +61,9 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
   const parsed = newPatientOxygenAbgVentilatorStepSchema.parse({
     body: {
       oxygen: {
-        oxygenSupportType: 'NIV',
         spo2: '94',
       },
       abg: {
-        ph: '7.31',
         pao2: null,
       },
       ventilator: {
@@ -87,9 +87,24 @@ test('oxygen, ABG, and ventilator step accepts unknown values and explicit uncer
   });
 
   assert.equal(parsed.body.oxygen.spo2, 94);
+  assert.equal(parsed.body.oxygen.oxygenSupportType, undefined);
+  assert.equal(parsed.body.abg.ph, undefined);
   assert.equal(parsed.body.abg.pao2, null);
   assert.equal(parsed.body.ventilator.peep, 8);
   assert.equal(parsed.body.uncertainty.fields[0], 'PaO2');
+});
+
+test('oxygen, ABG, and ventilator step rejects oxygen support type in the New Patient flow', () => {
+  assert.throws(() =>
+    newPatientOxygenAbgVentilatorStepSchema.parse({
+      body: {
+        oxygen: { oxygenSupportType: 'NIV', spo2: 94 },
+        idempotencyKey: 'oxygen-step-support-type',
+      },
+      params: { id: 'admission-1' },
+      query: {},
+    })
+  );
 });
 
 test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient flow', () => {

@@ -15,6 +15,7 @@ import {
   TextField as PlatformTextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
+import FacilitySearchSelect from '../../auth/FacilitySearchSelect';
 import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
 import {
   StyledActionsRow,
@@ -46,7 +47,6 @@ import {
   StyledWizardPane,
 } from './AssessmentScreen.ios.styles';
 import {
-  OXYGEN_SUPPORT_OPTIONS,
   PATIENT_PATHWAY_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
@@ -96,6 +96,7 @@ const AssessmentScreenIOS = () => {
   const theme = useTheme();
   const {
     currentStep,
+    facilitySearch,
     mergedInputs,
     updateInput,
     updateDecimalInput,
@@ -147,6 +148,7 @@ const AssessmentScreenIOS = () => {
     const message = validation?.fieldErrors?.[field];
     return message ? { validationState: 'error', errorMessage: message } : {};
   };
+  const getFieldErrorMessage = (field) => validation?.fieldErrors?.[field] || null;
   const helperTextFor = (field, fallback) =>
     [fallback, rangeSuggestions?.[field]].filter(Boolean).join(' ');
   const reasonForSupportOptions = mapReasonOptions(
@@ -154,7 +156,6 @@ const AssessmentScreenIOS = () => {
     t,
     'ventilation.assessment.patientReason.reasonOptions'
   );
-  const oxygenSupportOptions = mapOptions(OXYGEN_SUPPORT_OPTIONS, t, 'ventilation.assessment.oxygenAbgVentilator.oxygenSupportOptions');
   const ventilatorModeOptions = mapOptions(VENTILATOR_MODE_OPTIONS, t, 'ventilation.assessment.saveReview.ventilatorModeOptions');
   const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
   const translatedErrorMessage = errorTranslationKey ? t(errorTranslationKey) : null;
@@ -273,6 +274,7 @@ const AssessmentScreenIOS = () => {
       { key: 'spo2', label: t('ventilation.assessment.summary.spo2'), value: formatValue(summaryData.spo2, '%') },
       { key: 'pao2', label: t('ventilation.assessment.summary.pao2'), value: formatValue(summaryData.pao2, 'mmHg') },
       { key: 'peep', label: t('ventilation.assessment.summary.peep'), value: formatValue(summaryData.peep, 'cmH2O') },
+      { key: 'ps', label: t('ventilation.assessment.saveReview.pressureSupport'), value: formatValue(summaryData.pressureSupport, 'cmH2O') },
       { key: 'vt', label: t('ventilation.assessment.summary.tidalVolume'), value: formatValue(summaryData.tidalVolumeMl, 'mL') },
       { key: 'sync', label: t('ventilation.assessment.summary.syncStatus'), value: syncStatus },
     ].filter((row) => row.value != null && row.value !== '');
@@ -327,7 +329,32 @@ const AssessmentScreenIOS = () => {
       <StyledStepDescription>{t('ventilation.assessment.patientReason.description')}</StyledStepDescription>
       {renderConflictWarning()}
       {renderValidationMessages()}
-      <TextField label={t('ventilation.assessment.patientReason.patientName')} placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')} value={mergedInputs.optionalName} onChangeText={(value) => updateInput({ optionalName: value })} testID="assessment-patient-name" />
+      <FacilitySearchSelect
+        label={t('ventilation.assessment.patientReason.facility')}
+        placeholder={t('ventilation.assessment.patientReason.facilitySearchPlaceholder')}
+        query={facilitySearch.query}
+        onQueryChange={facilitySearch.onQueryChange}
+        value={facilitySearch.value}
+        onValueChange={facilitySearch.onValueChange}
+        onClear={facilitySearch.onClear}
+        options={facilitySearch.options}
+        helperText={t('ventilation.assessment.patientReason.facilityRequiredHelper')}
+        selectedHelper={facilitySearch.value
+          ? t('ventilation.assessment.patientReason.facilitySelectedHelper', {
+            district: facilitySearch.value.district,
+            ownership: facilitySearch.value.ownership,
+          })
+          : undefined}
+        noResultsText={t('ventilation.assessment.patientReason.facilityNoResults')}
+        loadingText={t('ventilation.assessment.patientReason.facilityLoading')}
+        errorText={getFieldErrorMessage('facilityId') || facilitySearch.error}
+        clearLabel={t('ventilation.assessment.patientReason.facilityClear')}
+        disabled={isSaving}
+        loading={facilitySearch.loading}
+        accessibilityHint={t('ventilation.assessment.patientReason.facilitySearchHint')}
+        testID="assessment-facility-combobox"
+      />
+      <TextField label={t('ventilation.assessment.patientReason.patientName')} placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')} value={mergedInputs.optionalName} onChangeText={(value) => updateInput({ optionalName: value })} {...getFieldErrorProps('optionalName')} required testID="assessment-patient-name" />
       <Select label={t('ventilation.assessment.patientReason.reasonForSupport')} placeholder={t('ventilation.assessment.patientReason.reasonForSupportPlaceholder')} searchPlaceholder={t('ventilation.assessment.patientReason.reasonForSupportSearchPlaceholder')} options={reasonForSupportOptions} value={mergedInputs.reasonForSupport} onValueChange={(value) => updateInput({ reasonForSupport: value })} {...getFieldErrorProps('reasonForSupport')} allowCustomValue required testID="assessment-reason" />
       <TextField label={t('ventilation.assessment.patientReason.ageYears')} type="number" keyboardType="number-pad" value={getNumericInputValue('ageYearsPart')} onChangeText={(value) => updateAgeComponent('ageYearsPart', value)} {...getFieldErrorProps('ageYears')} testID="assessment-age-years" />
       <TextField label={t('ventilation.assessment.patientReason.ageMonths')} type="number" keyboardType="number-pad" value={getNumericInputValue('ageMonthsPart')} onChangeText={(value) => updateAgeComponent('ageMonthsPart', value)} testID="assessment-age-months" />
@@ -369,11 +396,10 @@ const AssessmentScreenIOS = () => {
       <StyledStepDescription>{t('ventilation.assessment.oxygenAbgVentilator.description')}</StyledStepDescription>
       {renderConflictWarning()}
       {renderValidationMessages()}
-      <Select label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')} placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')} helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')} options={oxygenSupportOptions} value={mergedInputs.oxygenSupportType} onValueChange={(value) => updateInput({ oxygenSupportType: value })} {...getFieldErrorProps('oxygenSupportType')} required testID="assessment-oxygen-support" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.spo2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('spo2')} value={getNumericInputValue('spo2')} onChangeText={(value) => updateDecimalInput('spo2', value)} {...getFieldErrorProps('spo2')} required testID="assessment-spo2" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.respiratoryRate')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('respiratoryRate')} value={getNumericInputValue('respiratoryRate')} onChangeText={(value) => updateDecimalInput('respiratoryRate', value)} {...getFieldErrorProps('respiratoryRate')} required testID="assessment-respiratory-rate" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.heartRate')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('heartRate')} value={getNumericInputValue('heartRate')} onChangeText={(value) => updateDecimalInput('heartRate', value)} {...getFieldErrorProps('heartRate')} required testID="assessment-heart-rate" />
-      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.ph')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('ph')} value={getNumericInputValue('ph')} onChangeText={(value) => updateDecimalInput('ph', value)} {...getFieldErrorProps('ph')} required testID="assessment-ph" />
+      <TextField label={t('ventilation.assessment.oxygenAbgVentilator.ph')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('ph')} value={getNumericInputValue('ph')} onChangeText={(value) => updateDecimalInput('ph', value)} {...getFieldErrorProps('ph')} testID="assessment-ph" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.pao2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('pao2')} value={getNumericInputValue('pao2')} onChangeText={(value) => updateDecimalInput('pao2', value)} {...getFieldErrorProps('pao2')} testID="assessment-pao2" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.paco2')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('paco2')} value={getNumericInputValue('paco2')} onChangeText={(value) => updateDecimalInput('paco2', value)} {...getFieldErrorProps('paco2')} testID="assessment-paco2" />
       <TextField label={t('ventilation.assessment.oxygenAbgVentilator.hco3')} type="number" keyboardType="decimal-pad" helperText={helperTextFor('hco3')} value={getNumericInputValue('hco3')} onChangeText={(value) => updateDecimalInput('hco3', value)} {...getFieldErrorProps('hco3')} testID="assessment-hco3" />
@@ -417,6 +443,7 @@ const AssessmentScreenIOS = () => {
             <TextField label={t('ventilation.assessment.saveReview.tidalVolumeMl')} type="number" helperText={helperTextFor('tidalVolumeMl')} value={suggestedVentilatorInputs.tidalVolumeMl != null ? String(suggestedVentilatorInputs.tidalVolumeMl) : ''} onChangeText={(value) => updateInput({ tidalVolumeMl: parseNum(value) })} {...getFieldErrorProps('tidalVolumeMl')} testID="assessment-suggested-tidal-volume" />
             <TextField label={t('ventilation.assessment.saveReview.respiratoryRateSet')} type="number" helperText={helperTextFor('respiratoryRateSet')} value={suggestedVentilatorInputs.respiratoryRateSet != null ? String(suggestedVentilatorInputs.respiratoryRateSet) : ''} onChangeText={(value) => updateInput({ respiratoryRateSet: parseNum(value) })} {...getFieldErrorProps('respiratoryRateSet')} testID="assessment-suggested-respiratory-rate-set" />
             <TextField label={t('ventilation.assessment.saveReview.peep')} type="number" helperText={helperTextFor('peep')} value={suggestedVentilatorInputs.peep != null ? String(suggestedVentilatorInputs.peep) : ''} onChangeText={(value) => updateInput({ peep: parseNum(value) })} {...getFieldErrorProps('peep')} testID="assessment-suggested-peep" />
+            <TextField label={t('ventilation.assessment.saveReview.pressureSupport')} type="number" helperText={helperTextFor('pressureSupport')} value={suggestedVentilatorInputs.pressureSupport != null ? String(suggestedVentilatorInputs.pressureSupport) : ''} onChangeText={(value) => updateInput({ pressureSupport: parseNum(value) })} {...getFieldErrorProps('pressureSupport')} testID="assessment-suggested-pressure-support" />
             <TextField label={t('ventilation.assessment.saveReview.ieRatio')} value={suggestedVentilatorInputs.ieRatio} onChangeText={(value) => updateInput({ ieRatio: value })} testID="assessment-suggested-ie-ratio" />
           </>
         ) : (

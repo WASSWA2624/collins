@@ -13,6 +13,7 @@ import {
   TextField as PlatformTextField,
 } from '@platform/components';
 import { useI18n } from '@hooks';
+import FacilitySearchSelect from '../../auth/FacilitySearchSelect';
 import useAssessmentScreen, { parseAdmissionNumberInput } from './useAssessmentScreen';
 import {
   StyledActionsRow,
@@ -74,7 +75,6 @@ import {
   StyledWizardPane,
 } from './AssessmentScreen.web.styles';
 import {
-  OXYGEN_SUPPORT_OPTIONS,
   PATIENT_PATHWAY_OPTIONS,
   REASON_FOR_SUPPORT_OPTIONS,
   SEX_OPTIONS,
@@ -109,13 +109,13 @@ const STEP_STATUS = Object.freeze({
 });
 
 const FIELD_TEST_IDS = Object.freeze({
+  facilityId: 'assessment-facility-combobox',
   optionalName: 'assessment-patient-name',
   reasonForSupport: 'assessment-reason',
   ageYears: 'assessment-age-years',
   actualWeightKg: 'assessment-weight',
   heightOrLengthCm: 'assessment-height',
   bmi: 'assessment-bmi',
-  oxygenSupportType: 'assessment-oxygen-support',
   spo2: 'assessment-spo2',
   respiratoryRate: 'assessment-respiratory-rate',
   heartRate: 'assessment-heart-rate',
@@ -126,6 +126,7 @@ const FIELD_TEST_IDS = Object.freeze({
   tidalVolumeMl: 'assessment-suggested-tidal-volume',
   respiratoryRateSet: 'assessment-suggested-respiratory-rate-set',
   peep: 'assessment-suggested-peep',
+  pressureSupport: 'assessment-suggested-pressure-support',
   clinicianConfirmed: 'assessment-clinician-confirmed',
   overrideReason: 'assessment-override-reason',
 });
@@ -145,6 +146,7 @@ const AssessmentScreenWeb = () => {
   const { t } = useI18n();
   const {
     currentStep,
+    facilitySearch,
     mergedInputs,
     updateInput,
     updateDecimalInput,
@@ -205,11 +207,6 @@ const AssessmentScreenWeb = () => {
     t,
     'ventilation.assessment.patientReason.reasonOptions'
   );
-  const oxygenSupportOptions = mapOptions(
-    OXYGEN_SUPPORT_OPTIONS,
-    t,
-    'ventilation.assessment.oxygenAbgVentilator.oxygenSupportOptions'
-  );
   const ventilatorModeOptions = mapOptions(
     VENTILATOR_MODE_OPTIONS,
     t,
@@ -219,6 +216,7 @@ const AssessmentScreenWeb = () => {
     const message = validation?.fieldErrors?.[field];
     return message ? { validationState: 'error', errorMessage: message } : {};
   };
+  const getFieldErrorMessage = (field) => validation?.fieldErrors?.[field] || null;
   const helperTextFor = (field, fallback) =>
     [fallback, rangeSuggestions?.[field]].filter(Boolean).join(' ');
   const errorTranslationKey = errorCode ? `errors.codes.${errorCode}` : null;
@@ -379,6 +377,7 @@ const AssessmentScreenWeb = () => {
         rows: [
           { key: 'ventMode', label: t('ventilation.assessment.summary.ventilatorMode'), value: summaryData.ventilatorMode },
           { key: 'peep', label: t('ventilation.assessment.summary.peep'), value: formatValue(summaryData.peep, 'cmH2O') },
+          { key: 'ps', label: t('ventilation.assessment.saveReview.pressureSupport'), value: formatValue(summaryData.pressureSupport, 'cmH2O') },
           { key: 'vt', label: t('ventilation.assessment.summary.tidalVolume'), value: formatValue(summaryData.tidalVolumeMl, 'mL') },
           { key: 'sync', label: t('ventilation.assessment.summary.syncStatus'), value: syncStatus },
         ],
@@ -451,11 +450,40 @@ const AssessmentScreenWeb = () => {
       {renderValidationMessages()}
       <StyledFieldGrid>
         <StyledFieldGridFull>
+          <FacilitySearchSelect
+            label={t('ventilation.assessment.patientReason.facility')}
+            placeholder={t('ventilation.assessment.patientReason.facilitySearchPlaceholder')}
+            query={facilitySearch.query}
+            onQueryChange={facilitySearch.onQueryChange}
+            value={facilitySearch.value}
+            onValueChange={facilitySearch.onValueChange}
+            onClear={facilitySearch.onClear}
+            options={facilitySearch.options}
+            helperText={t('ventilation.assessment.patientReason.facilityRequiredHelper')}
+            selectedHelper={facilitySearch.value
+              ? t('ventilation.assessment.patientReason.facilitySelectedHelper', {
+                district: facilitySearch.value.district,
+                ownership: facilitySearch.value.ownership,
+              })
+              : undefined}
+            noResultsText={t('ventilation.assessment.patientReason.facilityNoResults')}
+            loadingText={t('ventilation.assessment.patientReason.facilityLoading')}
+            errorText={getFieldErrorMessage('facilityId') || facilitySearch.error}
+            clearLabel={t('ventilation.assessment.patientReason.facilityClear')}
+            disabled={isSaving}
+            loading={facilitySearch.loading}
+            accessibilityHint={t('ventilation.assessment.patientReason.facilitySearchHint')}
+            testID="assessment-facility-combobox"
+          />
+        </StyledFieldGridFull>
+        <StyledFieldGridFull>
           <TextField
             label={t('ventilation.assessment.patientReason.patientName')}
             placeholder={t('ventilation.assessment.patientReason.patientNamePlaceholder')}
             value={mergedInputs.optionalName}
             onChangeText={(value) => updateInput({ optionalName: value })}
+            {...getFieldErrorProps('optionalName')}
+            required
             testID="assessment-patient-name"
           />
         </StyledFieldGridFull>
@@ -573,17 +601,6 @@ const AssessmentScreenWeb = () => {
       {renderConflictWarning()}
       {renderValidationMessages()}
       <StyledFieldGrid>
-        <Select
-          label={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportType')}
-          placeholder={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportPlaceholder')}
-          helperText={t('ventilation.assessment.oxygenAbgVentilator.oxygenSupportHint')}
-          options={oxygenSupportOptions}
-          value={mergedInputs.oxygenSupportType}
-          onValueChange={(value) => updateInput({ oxygenSupportType: value })}
-          {...getFieldErrorProps('oxygenSupportType')}
-          required
-          testID="assessment-oxygen-support"
-        />
         <TextField
           label={t('ventilation.assessment.oxygenAbgVentilator.spo2')}
           type="text"
@@ -625,7 +642,6 @@ const AssessmentScreenWeb = () => {
           value={getNumericInputValue('ph')}
           onChangeText={(value) => updateDecimalInput('ph', value)}
           {...getFieldErrorProps('ph')}
-          required
           testID="assessment-ph"
         />
         <TextField
@@ -752,6 +768,11 @@ const AssessmentScreenWeb = () => {
         value: formatValue(suggestedVentilatorInputs.peep, recommendationUnits.peep || 'cmH2O'),
       },
       {
+        key: 'pressureSupport',
+        label: t('ventilation.assessment.saveReview.pressureSupport'),
+        value: formatValue(suggestedVentilatorInputs.pressureSupport, recommendationUnits.pressureSupport || 'cmH2O'),
+      },
+      {
         key: 'ieRatio',
         label: t('ventilation.assessment.saveReview.ieRatio'),
         value: suggestedVentilatorInputs.ieRatio,
@@ -866,6 +887,15 @@ const AssessmentScreenWeb = () => {
                 onChangeText={(value) => updateInput({ peep: parseNum(value) })}
                 {...getFieldErrorProps('peep')}
                 testID="assessment-suggested-peep"
+              />
+              <TextField
+                label={t('ventilation.assessment.saveReview.pressureSupport')}
+                type="number"
+                helperText={helperTextFor('pressureSupport')}
+                value={suggestedVentilatorInputs.pressureSupport != null ? String(suggestedVentilatorInputs.pressureSupport) : ''}
+                onChangeText={(value) => updateInput({ pressureSupport: parseNum(value) })}
+                {...getFieldErrorProps('pressureSupport')}
+                testID="assessment-suggested-pressure-support"
               />
               <TextField
                 label={t('ventilation.assessment.saveReview.ieRatio')}

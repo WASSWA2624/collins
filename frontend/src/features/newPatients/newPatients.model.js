@@ -58,6 +58,11 @@ const optionalString = (max = 255) =>
     },
     z.union([z.null(), z.string().max(max)])
   ).optional();
+const requiredString = (max = 255) =>
+  z.preprocess(
+    (value) => (isNewPatientMissingValue(value) ? '' : cleanString(value)),
+    z.string().min(1).max(max)
+  );
 
 const optionalNumber = (schema) =>
   z.preprocess(
@@ -107,7 +112,7 @@ const sexForSizeCalculationsSchema = z.preprocess((value) => normalizeEnumInput(
 
 const patientRegistrationSchema = z.object({
   appPatientCode: optionalString(80),
-  optionalName: optionalString(160),
+  optionalName: requiredString(160),
   hospitalNumber: optionalString(120),
   patientPathway: patientPathwaySchema.default('UNKNOWN'),
   dateOfBirth: optionalIsoDate,
@@ -127,7 +132,6 @@ const patientRegistrationSchema = z.object({
 
 const clinicalSnapshotSchema = z.object({
   measuredAt: optionalIsoDate,
-  oxygenSupportType: optionalString(120),
   heartRate: optionalFiniteNumber,
   respiratoryRate: optionalFiniteNumber,
   systolicBp: optionalFiniteNumber,

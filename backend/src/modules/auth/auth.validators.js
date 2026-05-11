@@ -1,21 +1,10 @@
 import { z } from 'zod';
-import { MEMBERSHIP_ROLES, REQUESTABLE_MEMBERSHIP_ROLE_VALUES } from '../../constants/roles.js';
 
 const email = z.string().trim().toLowerCase().email();
 const password = z.string().min(8).max(128);
-const optionalText = (max = 120) => z.string().trim().min(1).max(max).optional();
 const activeFacilityFields = {
   activeFacilityId: z.string().min(1).optional(),
   facilityId: z.string().min(1).optional(),
-};
-const registrationFacilityFields = {
-  facilityId: z.string().trim().min(1).optional(),
-  facilityName: optionalText(200),
-  facilityDistrict: optionalText(),
-  facilityRegion: optionalText(),
-  facilityType: optionalText(),
-  facilityOwnership: optionalText(),
-  requestedRole: z.enum(REQUESTABLE_MEMBERSHIP_ROLE_VALUES).optional().default(MEMBERSHIP_ROLES.CLINICIAN),
 };
 
 export const registerSchema = z.object({
@@ -24,8 +13,7 @@ export const registerSchema = z.object({
     email,
     phone: z.string().trim().max(40).optional(),
     password,
-    ...registrationFacilityFields,
-  }),
+  }).strict(),
   params: z.object({}).optional(),
   query: z.object({}).optional(),
 });

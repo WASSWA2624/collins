@@ -15,7 +15,9 @@ import {
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } from '@features/ventilation';
+import { searchFacilitiesUseCase } from '@features/facilities';
 import { selectActiveFacility } from '@store/selectors';
+import { useDebounce } from '@hooks';
 import useVentilationSession from '@hooks/useVentilationSession';
 import {
   STEPS,
@@ -46,14 +48,14 @@ const DATE_FIELDS = [
   { field: 'ventilatorMeasuredAt', label: 'Ventilator measured at', steps: [STEPS.SAVE_REVIEW] },
 ];
 const REQUIRED_FIELDS = [
+  { field: 'facilityId', label: 'Facility', steps: [STEPS.PATIENT_REASON] },
+  { field: 'optionalName', label: 'Patient name', steps: [STEPS.PATIENT_REASON] },
   { field: 'reasonForSupport', label: 'Reason for support', steps: [STEPS.PATIENT_REASON] },
   { field: 'actualWeightKg', label: 'Weight', steps: [STEPS.PATIENT_REASON], type: 'number' },
   { field: 'heightOrLengthCm', label: 'Height', steps: [STEPS.PATIENT_REASON], type: 'number' },
-  { field: 'oxygenSupportType', label: 'Oxygen support type', steps: [STEPS.OXYGEN_ABG_VENTILATOR] },
   { field: 'spo2', label: 'SpO2', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'respiratoryRate', label: 'Respiratory rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
   { field: 'heartRate', label: 'Heart rate', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
-  { field: 'ph', label: 'pH', steps: [STEPS.OXYGEN_ABG_VENTILATOR], type: 'number' },
 ];
 const RANGE_SUGGESTIONS = [
   { field: 'ageYears', hint: 'Suggested range: 0-130 years.' },
@@ -176,6 +178,25 @@ const calculateAgeComponentsFromDateOfBirth = (value, now = new Date()) => {
     ageDaysPart: days,
   };
 };
+const formatDateInput = (date) => {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '';
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+const calculateDateOfBirthFromAgeComponents = (components, now = new Date()) => {
+  const years = ageComponentOrNull(components?.ageYearsPart);
+  const months = ageComponentOrNull(components?.ageMonthsPart);
+  const days = ageComponentOrNull(components?.ageDaysPart);
+  if (years == null && months == null && days == null) return '';
+
+  const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  date.setFullYear(date.getFullYear() - (years || 0));
+  date.setMonth(date.getMonth() - (months || 0));
+  date.setDate(date.getDate() - (days || 0));
+  return formatDateInput(date);
+};
 const roundTo = (value, precision = 1) => {
   if (!isFiniteNumber(value)) return null;
   const factor = 10 ** precision;
@@ -197,6 +218,30 @@ const calculateHeightFromBmi = (weightKg, bmi) => {
 };
 
 const toArray = (value) => (Array.isArray(value) ? value : []);
+const normalizeFacilityOption = (facility) => {
+  if (!facility || typeof facility !== 'object') return null;
+  const nested = facility.facility && typeof facility.facility === 'object' ? facility.facility : {};
+  const id = facility.id || facility.facilityId || nested.id || nested.facilityId;
+  const name = facility.name || facility.facilityName || facility.displayName || nested.name || id;
+  if (!id) return null;
+  return {
+    id,
+    name,
+    registryCode: facility.registryCode || nested.registryCode,
+    district: facility.district || nested.district,
+    region: facility.region || nested.region,
+    ownership: facility.ownership || nested.ownership,
+    type: facility.type || nested.type,
+  };
+};
+const uniqueFacilities = (...groups) => {
+  const byId = new Map();
+  groups.flat().forEach((facility) => {
+    const normalized = normalizeFacilityOption(facility);
+    if (normalized?.id && !byId.has(normalized.id)) byId.set(normalized.id, normalized);
+  });
+  return Array.from(byId.values());
+};
 
 export const parseAdmissionNumberInput = (value) => {
   const text = String(value ?? '').trim();
@@ -277,8 +322,10 @@ export const updateAgeComponentInputs = (inputs, field, value) => {
   };
   const ageYears = calculateAgeYearsFromComponents(components);
   const patientPathway = resolvePatientAgeGroupFromAgeYears(ageYears) || 'UNKNOWN';
+  const dateOfBirth = calculateDateOfBirthFromAgeComponents(components);
   return {
     ...components,
+    dateOfBirth,
     ageMonths: components.ageMonthsPart,
     ageDays: components.ageDaysPart,
     ageYears,
@@ -306,7 +353,6 @@ const defaultAdmissionInputs = (clientRecordId) => ({
   heightOrLengthCm: null,
   bmi: null,
   permittedMissingFields: [],
-  oxygenSupportType: '',
   spo2: null,
   respiratoryRate: null,
   heartRate: null,
@@ -628,7 +674,6 @@ const buildOxygenAbgVentilatorPayload = (
   if (includeOxygen) {
     payload.oxygen = {
       measuredAt: timestamp,
-      oxygenSupportType: textOrUndefined(inputs.oxygenSupportType),
       spo2: numberOrUndefined(inputs.spo2),
       respiratoryRate: numberOrUndefined(inputs.respiratoryRate),
       heartRate: numberOrUndefined(inputs.heartRate),
@@ -716,7 +761,6 @@ const buildRecommendationInput = (inputs) => ({
   condition:
     cleanText(inputs.condition) ||
     cleanText(inputs.reasonForSupport) ||
-    cleanText(inputs.oxygenSupportType) ||
     'general',
   patientPathway: cleanText(inputs.patientPathway) || 'UNKNOWN',
   sexForSizeCalculations: cleanText(inputs.sexForSizeCalculations) || 'UNKNOWN',
@@ -763,6 +807,7 @@ const buildSuggestedVentilatorInputPatch = (settings) => {
   if (isFiniteNumber(settings.tidalVolume)) patch.tidalVolumeMl = settings.tidalVolume;
   if (isFiniteNumber(settings.respiratoryRate)) patch.respiratoryRateSet = settings.respiratoryRate;
   if (isFiniteNumber(settings.peep)) patch.peep = settings.peep;
+  if (isFiniteNumber(settings.pressureSupport)) patch.pressureSupport = settings.pressureSupport;
   if (textOrUndefined(settings.ieRatio)) patch.ieRatio = settings.ieRatio;
 
   return patch;
@@ -809,6 +854,13 @@ export default function useAssessmentScreen() {
   const [touchedFields, setTouchedFields] = useState({});
   const [attemptedSteps, setAttemptedSteps] = useState({});
   const [rawNumericInputValues, setRawNumericInputValues] = useState({});
+  const [facilityQuery, setFacilityQuery] = useState('');
+  const [selectedFacility, setSelectedFacility] = useState(null);
+  const [facilityOptions, setFacilityOptions] = useState([]);
+  const [facilityError, setFacilityError] = useState(null);
+  const [isLoadingFacilities, setIsLoadingFacilities] = useState(false);
+  const debouncedFacilityQuery = useDebounce(facilityQuery, 250);
+  const facilitiesRequestRef = useRef(0);
 
   useEffect(() => {
     hydrate();
@@ -820,13 +872,55 @@ export default function useAssessmentScreen() {
     }
   }, [clientRecordId, sessionId, startSession]);
 
+  useEffect(() => {
+    const requestId = facilitiesRequestRef.current + 1;
+    facilitiesRequestRef.current = requestId;
+    setIsLoadingFacilities(true);
+    setFacilityError(null);
+
+    searchFacilitiesUseCase({
+      q: debouncedFacilityQuery || undefined,
+      page: 1,
+      limit: 25,
+    })
+      .then((response) => {
+        if (facilitiesRequestRef.current === requestId) {
+          setFacilityOptions(Array.isArray(response?.facilities) ? response.facilities : []);
+        }
+      })
+      .catch((error) => {
+        if (facilitiesRequestRef.current === requestId) {
+          setFacilityOptions([]);
+          setFacilityError(error?.safeMessage || error?.message || 'Unable to load facilities.');
+        }
+      })
+      .finally(() => {
+        if (facilitiesRequestRef.current === requestId) setIsLoadingFacilities(false);
+      });
+  }, [debouncedFacilityQuery]);
+
   const mergedInputs = useMemo(() => {
     const normalized = normalizeInputs(inputs, clientRecordId);
-    if (!cleanText(normalized.facilityId) && activeFacilityId) {
+    const facilitySearchIsEditing = touchedFields.facilityId === true || Boolean(cleanText(facilityQuery));
+    if (!cleanText(normalized.facilityId) && activeFacilityId && !facilitySearchIsEditing) {
       return { ...normalized, facilityId: activeFacilityId };
     }
     return normalized;
-  }, [activeFacilityId, clientRecordId, inputs]);
+  }, [activeFacilityId, clientRecordId, facilityQuery, inputs, touchedFields.facilityId]);
+  const activeFacilityOption = useMemo(() => normalizeFacilityOption(activeFacility), [activeFacility]);
+  const selectedFacilityValue = useMemo(() => {
+    if (selectedFacility?.id && selectedFacility.id === mergedInputs.facilityId) return selectedFacility;
+    if (activeFacilityOption?.id && activeFacilityOption.id === mergedInputs.facilityId) return activeFacilityOption;
+    if (mergedInputs.facilityId) {
+      return normalizeFacilityOption({ id: mergedInputs.facilityId, name: mergedInputs.facilityId });
+    }
+    return null;
+  }, [activeFacilityOption, mergedInputs.facilityId, selectedFacility]);
+  const displayedFacilityOptions = useMemo(
+    () => uniqueFacilities(selectedFacilityValue, activeFacilityOption, facilityOptions),
+    [activeFacilityOption, facilityOptions, selectedFacilityValue]
+  );
+  const displayedFacilityQuery = facilityQuery || selectedFacilityValue?.name || '';
   const latestInputsRef = useRef(mergedInputs);
 
   useEffect(() => {
@@ -876,6 +970,34 @@ export default function useAssessmentScreen() {
     },
     [markFieldsTouched, setInputs]
   );
+
+  const updateFacilityQuery = useCallback(
+    (value) => {
+      const nextQuery = String(value ?? '');
+      setFacilityQuery(nextQuery);
+      if (selectedFacilityValue && nextQuery.trim() !== selectedFacilityValue.name) {
+        setSelectedFacility(null);
+        updateInput({ facilityId: '' }, { touchedFields: ['facilityId'] });
+      }
+    },
+    [selectedFacilityValue, updateInput]
+  );
+
+  const selectFacility = useCallback(
+    (facility) => {
+      const normalized = normalizeFacilityOption(facility);
+      setSelectedFacility(normalized);
+      setFacilityQuery(normalized?.name || '');
+      updateInput({ facilityId: normalized?.id || '' }, { touchedFields: ['facilityId'] });
+    },
+    [updateInput]
+  );
+
+  const clearFacility = useCallback(() => {
+    setSelectedFacility(null);
+    setFacilityQuery('');
+    updateInput({ facilityId: '' }, { touchedFields: ['facilityId'] });
+  }, [updateInput]);
 
   const updateBodyMetric = useCallback(
     (field, value) => {
@@ -1509,21 +1631,21 @@ export default function useAssessmentScreen() {
   const summaryData = useMemo(
     () => ({
       facilityId: mergedInputs.facilityId,
-      facilityLabel: activeFacilityLabel || mergedInputs.facilityId,
+      facilityLabel: selectedFacilityValue?.name || activeFacilityLabel || mergedInputs.facilityId,
       optionalName: mergedInputs.optionalName,
       pathway: mergedInputs.patientPathway,
       reasonForSupport: mergedInputs.reasonForSupport,
-      oxygenSupportType: mergedInputs.oxygenSupportType,
       spo2: mergedInputs.spo2,
       ph: mergedInputs.ph,
       pao2: mergedInputs.pao2,
       paco2: mergedInputs.paco2,
       ventilatorMode: mergedInputs.ventilatorMode,
       peep: mergedInputs.peep,
+      pressureSupport: mergedInputs.pressureSupport,
       tidalVolumeMl: mergedInputs.tidalVolumeMl,
       syncStatus,
     }),
-    [activeFacilityLabel, mergedInputs, syncStatus]
+    [activeFacilityLabel, mergedInputs, selectedFacilityValue?.name, syncStatus]
   );
 
   const progressPercent = useMemo(() => ((currentStep + 1) / TOTAL_STEPS) * 100, [currentStep]);
@@ -1536,6 +1658,7 @@ export default function useAssessmentScreen() {
     tidalVolumeMl: mergedInputs.tidalVolumeMl ?? recommendationSettings?.tidalVolume ?? null,
     respiratoryRateSet: mergedInputs.respiratoryRateSet ?? recommendationSettings?.respiratoryRate ?? null,
     peep: mergedInputs.peep ?? recommendationSettings?.peep ?? null,
+    pressureSupport: mergedInputs.pressureSupport ?? recommendationSettings?.pressureSupport ?? null,
     ieRatio: mergedInputs.ieRatio || recommendationSettings?.ieRatio || '',
   }), [mergedInputs, recommendationSettings]);
   const recommendationUnits = useMemo(
@@ -1591,6 +1714,16 @@ export default function useAssessmentScreen() {
     stepKey: STEP_KEYS[currentStep] ?? STEP_KEYS[0],
     progressPercent,
     mergedInputs,
+    facilitySearch: {
+      query: displayedFacilityQuery,
+      value: selectedFacilityValue,
+      options: displayedFacilityOptions,
+      error: facilityError,
+      loading: isLoadingFacilities,
+      onQueryChange: updateFacilityQuery,
+      onValueChange: selectFacility,
+      onClear: clearFacility,
+    },
     updateInput,
     updateBodyMetric,
     updateDecimalInput,

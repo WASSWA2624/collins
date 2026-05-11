@@ -313,7 +313,6 @@ const clinicalSnapshotValueFields = [
   'gcs',
   'avpu',
   'rass',
-  'oxygenSupportType',
 ];
 
 const hasRecordedClinicalSnapshotValue = (snapshot = {}) =>
@@ -564,6 +563,7 @@ const roundToDigits = (value, digits = 1) => {
 };
 
 const asFiniteNumber = (value) => {
+  if (value === null || value === undefined || value === '') return null;
   const numeric = Number(value);
   return Number.isFinite(numeric) ? numeric : null;
 };
@@ -673,7 +673,7 @@ const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
     payload.clinicalSnapshot ||
     payload.oxygen ||
     preview.clinicalSnapshot ||
-    pickLatestRecordWithValue(payload.clinicalSnapshots, ['spo2', 'respiratoryRate', 'heartRate', 'oxygenSupportType']);
+    pickLatestRecordWithValue(payload.clinicalSnapshots, ['spo2', 'respiratoryRate', 'heartRate']);
   const abg =
     payload.abgTest ||
     payload.abg ||
@@ -746,7 +746,7 @@ const extractDatasetRecommendationCandidate = (datasetCase = {}) => {
   });
 };
 
-const getMissingRecommendationInputs = (input = {}) =>
+const getBaseMissingRecommendationInputs = (input = {}) =>
   RECOMMENDATION_REQUIRED_INPUTS.filter((field) => {
     if (field === 'condition') return !cleanText(input.condition);
     return !Number.isFinite(input[field]);
@@ -840,32 +840,46 @@ const getTidalVolumeTarget = (input, candidate) => {
   };
 };
 
-const getReferenceWeightForRecommendation = (input, candidate) => {
+const getReferenceWeightForRecommendation = (input) => {
   const patient = stripNullish({
-    patientPathway: cleanText(input.patientPathway || candidate?.patientPathway) || 'UNKNOWN',
-    sexForSizeCalculations: cleanText(input.sexForSizeCalculations || candidate?.sexForSizeCalculations) || 'UNKNOWN',
-    ageYears: asFiniteNumber(firstPresent(input.ageYears, candidate?.clinicalParameters?.ageYears)),
-    ageMonths: asFiniteNumber(firstPresent(input.ageMonths, candidate?.clinicalParameters?.ageMonths)),
-    ageDays: asFiniteNumber(firstPresent(input.ageDays, candidate?.clinicalParameters?.ageDays)),
-    actualWeightKg: asFiniteNumber(firstPresent(input.actualWeightKg, candidate?.clinicalParameters?.actualWeightKg)),
-    heightOrLengthCm: asFiniteNumber(firstPresent(input.heightOrLengthCm, candidate?.clinicalParameters?.heightOrLengthCm)),
+    patientPathway: cleanText(input.patientPathway) || 'UNKNOWN',
+    sexForSizeCalculations: cleanText(input.sexForSizeCalculations) || 'UNKNOWN',
+    ageYears: asFiniteNumber(input.ageYears),
+    ageMonths: asFiniteNumber(input.ageMonths),
+    ageDays: asFiniteNumber(input.ageDays),
+    actualWeightKg: asFiniteNumber(input.actualWeightKg),
+    heightOrLengthCm: asFiniteNumber(input.heightOrLengthCm),
   });
-  const calculated = calculateReferenceWeight(patient);
-  if (Number.isFinite(calculated.value)) return calculated;
+  return calculateReferenceWeight(patient);
+};
 
-  const candidateWeight = asFiniteNumber(candidate?.clinicalParameters?.actualWeightKg);
-  if (Number.isFinite(candidateWeight)) {
-    return {
-      value: candidateWeight,
-      unit: 'kg',
-      method: 'matched_dataset_case_weight_fallback',
-      status: 'fallback',
-      message: 'Matched dataset case weight used because patient-specific reference weight could not be calculated.',
-    };
+const getReferenceWeightMissingInputs = (input = {}) => {
+  const reference = getReferenceWeightForRecommendation(input);
+  if (Number.isFinite(reference.value)) return [];
+
+  const pathway = cleanText(input.patientPathway).toUpperCase();
+  if (ADULT_RECOMMENDATION_PATHWAYS.has(pathway)) {
+    const missing = [];
+    if (!Number.isFinite(input.heightOrLengthCm)) missing.push('heightOrLengthCm');
+    if (!['MALE', 'FEMALE'].includes(cleanText(input.sexForSizeCalculations).toUpperCase())) {
+      missing.push('sexForSizeCalculations');
+    }
+    return missing;
   }
 
-  return calculated;
+  if (pathway === 'NEONATE' || PEDIATRIC_RECOMMENDATION_PATHWAYS.has(pathway)) {
+    return Number.isFinite(input.actualWeightKg) ? [] : ['actualWeightKg'];
+  }
+
+  return ['patientPathway'];
 };
+
+const getMissingRecommendationInputs = (input = {}) => [
+  ...new Set([
+    ...getBaseMissingRecommendationInputs(input),
+    ...getReferenceWeightMissingInputs(input),
+  ]),
+];
 
 const respiratoryRateRangeFor = (input, candidate) => {
   const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
@@ -891,10 +905,60 @@ const peepRangeFor = (input, candidate) => {
   return { min: 5, max: severeHypoxemic ? 14 : 10 };
 };
 
+const isPressureSupportMode = (mode) =>
+  /psv|pressure\s*support|simv|cpap|bipap|niv/i.test(cleanText(mode));
+
+const comfortRespiratoryRateRangeFor = (input, candidate) => {
+  const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
+  if (pathway === 'NEONATE') return { min: 25, max: 60 };
+  if (pathway === 'INFANT') return { min: 20, max: 45 };
+  if (pathway === 'CHILD') return { min: 14, max: 35 };
+  if (pathway === 'ADOLESCENT') return { min: 10, max: 28 };
+  return { min: 8, max: 30 };
+};
+
+const patientBreathingComfortably = (input, candidate) => {
+  const rrRange = comfortRespiratoryRateRangeFor(input, candidate);
+  const rr = asFiniteNumber(firstPresent(
+    input.respiratoryRate,
+    candidate?.clinicalParameters?.respiratoryRate
+  ));
+  const spo2 = asFiniteNumber(firstPresent(input.spo2, candidate?.clinicalParameters?.spo2));
+  const ph = asFiniteNumber(firstPresent(input.ph, candidate?.clinicalParameters?.ph));
+  const paco2 = asFiniteNumber(firstPresent(input.paco2, candidate?.clinicalParameters?.paco2));
+  const obstructiveOrHypercapnic = isConditionText(input, candidate, /copd|asthma|hypercapnic/i);
+
+  const rrComfortable = Number.isFinite(rr) && rr >= rrRange.min && rr <= rrRange.max;
+  const spo2Comfortable = Number.isFinite(spo2) && spo2 >= (obstructiveOrHypercapnic ? 88 : 92);
+  const phComfortable = !Number.isFinite(ph) || ph >= 7.3;
+  const co2Comfortable = !Number.isFinite(paco2) || paco2 <= (obstructiveOrHypercapnic ? 65 : 50);
+
+  return rrComfortable && spo2Comfortable && phComfortable && co2Comfortable;
+};
+
+const pressureSupportRangeFor = (input, candidate, baseSettings) => {
+  if (!isPressureSupportMode(baseSettings?.mode)) return null;
+  const pathway = cleanText(input.patientPathway || candidate?.patientPathway).toUpperCase();
+  const comfortable = patientBreathingComfortably(input, candidate);
+  if (pathway === 'NEONATE') {
+    return {
+      min: 4,
+      max: comfortable ? 6 : 8,
+      rationale: comfortable ? 'neonatal_low_assist_if_spontaneous' : 'neonatal_pressure_support_cap',
+    };
+  }
+
+  return {
+    min: 5,
+    max: comfortable ? 8 : 12,
+    rationale: comfortable ? 'low_assist_for_comfortable_spontaneous_breathing' : 'bounded_pressure_support_for_distress',
+  };
+};
+
 const applyRecommendationGuardrails = ({ input, candidate }) => {
   const baseSettings = candidate?.settings || {};
   const target = getTidalVolumeTarget(input, candidate);
-  const referenceWeight = getReferenceWeightForRecommendation(input, candidate);
+  const referenceWeight = getReferenceWeightForRecommendation(input);
   const referenceWeightKg = asFiniteNumber(referenceWeight.value);
   const candidateTidalVolume = asFiniteNumber(baseSettings.tidalVolume);
   const tidalVolumeRangeMl = Number.isFinite(referenceWeightKg)
@@ -905,14 +969,19 @@ const applyRecommendationGuardrails = ({ input, candidate }) => {
     : null;
   const targetTidalVolume = Number.isFinite(referenceWeightKg)
     ? Math.round(referenceWeightKg * target.targetMlPerKg)
-    : candidateTidalVolume;
+    : null;
   const guardedTidalVolume = tidalVolumeRangeMl && Number.isFinite(targetTidalVolume)
     ? Math.round(clampNumber(targetTidalVolume, tidalVolumeRangeMl.min, tidalVolumeRangeMl.max))
-    : candidateTidalVolume;
+    : null;
   const respiratoryRateRange = respiratoryRateRangeFor(input, candidate);
   const peepRange = peepRangeFor(input, candidate);
   const respiratoryRate = clampNumber(baseSettings.respiratoryRate, respiratoryRateRange.min, respiratoryRateRange.max);
   const peep = clampNumber(baseSettings.peep, peepRange.min, peepRange.max);
+  const pressureSupportRange = pressureSupportRangeFor(input, candidate, baseSettings);
+  const datasetPressureSupport = asFiniteNumber(baseSettings.pressureSupport);
+  const pressureSupport = pressureSupportRange && Number.isFinite(datasetPressureSupport)
+    ? clampNumber(datasetPressureSupport, pressureSupportRange.min, pressureSupportRange.max)
+    : null;
 
   return {
     settings: stripNullish({
@@ -920,6 +989,7 @@ const applyRecommendationGuardrails = ({ input, candidate }) => {
       tidalVolume: guardedTidalVolume,
       respiratoryRate,
       peep,
+      pressureSupport,
     }),
     calculation: stripNullish({
       referenceWeightKg,
@@ -937,6 +1007,11 @@ const applyRecommendationGuardrails = ({ input, candidate }) => {
         : Number.isFinite(guardedTidalVolume),
       respiratoryRateRange,
       peepRange,
+      pressureSupportRange,
+      datasetPressureSupport,
+      pressureSupportAppliedGuardrail: Number.isFinite(datasetPressureSupport)
+        ? datasetPressureSupport !== pressureSupport
+        : false,
     }),
   };
 };

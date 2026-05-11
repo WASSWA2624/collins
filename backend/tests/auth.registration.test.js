@@ -129,46 +129,35 @@ const registrationPayload = (overrides = {}) => ({
   ...overrides,
 });
 
-test('registerUser auto-approves default clinical facility access from registration', async (t) => {
+test('registerUser creates an account without facility selection during registration', async (t) => {
   const calls = installRegistrationPrismaMock(t);
 
   const payload = await registerUser(registrationPayload());
 
-  assert.equal(calls.createdFacility.name, 'Mulago National Referral Hospital');
-  assert.equal(calls.createdFacility.verificationStatus, 'PENDING');
-  assert.deepEqual(calls.createdMembership, {
-    userId: 'user-1',
-    facilityId: 'facility-1',
-    role: 'CLINICIAN',
-    status: 'APPROVED',
-    approvedByUserId: 'user-1',
-  });
-  assert.equal(calls.createdOnboardingState.selectedFacilityId, 'facility-1');
-  assert.equal(calls.createdOnboardingState.requestedRole, 'CLINICIAN');
-  assert.ok(calls.auditActions.includes('FACILITY_CREATE_FROM_REGISTRATION'));
-  assert.ok(calls.auditActions.includes('FACILITY_MEMBERSHIP_AUTO_APPROVE_REGISTRATION'));
+  assert.equal(calls.createdFacility, null);
+  assert.equal(calls.createdMembership, null);
+  assert.equal(calls.createdOnboardingState.selectedFacilityId ?? null, null);
+  assert.equal(calls.createdOnboardingState.requestedRole ?? null, null);
+  assert.equal(calls.auditActions.includes('FACILITY_CREATE_FROM_REGISTRATION'), false);
+  assert.equal(calls.auditActions.includes('FACILITY_MEMBERSHIP_AUTO_APPROVE_REGISTRATION'), false);
   assert.ok(calls.auditActions.includes('AUTH_REGISTER'));
   assert.equal(payload.user.id, 'user-1');
-  assert.equal(payload.user.onboardingState.selectedFacilityId, 'facility-1');
-  assert.equal(payload.activeFacility.facilityId, 'facility-1');
-  assert.deepEqual(payload.activeFacility.roles, ['CLINICIAN']);
-  assert.ok(payload.user.permissions.includes('clinical:write'));
+  assert.equal(payload.user.onboardingState.selectedFacilityId, null);
+  assert.equal(payload.activeFacility, null);
+  assert.deepEqual(payload.roles, []);
 });
 
-test('registerUser keeps elevated self-service role requests pending', async (t) => {
+test('registerUser ignores facility and requested-role fields if old clients send them', async (t) => {
   const calls = installRegistrationPrismaMock(t);
 
   const payload = await registerUser(registrationPayload({
+    facilityId: 'facility-1',
     requestedRole: 'FACILITY_ADMIN',
   }));
 
-  assert.deepEqual(calls.createdMembership, {
-    userId: 'user-1',
-    facilityId: 'facility-1',
-    role: 'FACILITY_ADMIN',
-    status: 'PENDING',
-  });
-  assert.ok(calls.auditActions.includes('FACILITY_MEMBERSHIP_REQUEST'));
+  assert.equal(calls.createdFacility, null);
+  assert.equal(calls.createdMembership, null);
+  assert.equal(calls.createdOnboardingState.selectedFacilityId ?? null, null);
   assert.equal(payload.activeFacility, null);
   assert.deepEqual(payload.roles, []);
 });

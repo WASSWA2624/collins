@@ -17,7 +17,7 @@ describe('newPatients.model', () => {
     NEW_PATIENT_PATHWAYS.forEach((patientPathway) => {
       const draft = normalizeNewPatientDraft({
         facilityId: 'facility-1',
-        patient: { patientPathway },
+        patient: { patientPathway, optionalName: 'Patient One' },
       }, { now, nonce: `nonce-${patientPathway}` });
 
       expect(draft.patient.patientPathway).toBe(patientPathway);
@@ -32,6 +32,7 @@ describe('newPatients.model', () => {
       facilityId: 'facility-1',
       reasonForSupport: 'Post-op oxygen support',
       patient: {
+        optionalName: 'Patient One',
         patientPathway: 'obstetric/post-partum',
         sexForSizeCalculations: 'not_available',
         ageYears: 'unknown',
@@ -61,7 +62,7 @@ describe('newPatients.model', () => {
       reasonForSupport: 'Pneumonia with oxygen support',
       patient: {
         patientPathway: 'adult',
-        optionalName: null,
+        optionalName: 'Patient One',
         hospitalNumber: 'H-123',
         actualWeightKg: 'not_available',
       },

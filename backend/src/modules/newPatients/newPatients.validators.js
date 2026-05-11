@@ -41,6 +41,10 @@ const optionalString = (max = 255) => z.preprocess(
   (value) => (value === null ? null : value),
   z.union([z.null(), z.string().trim().max(max)])
 ).optional();
+const requiredString = (max = 255) => z.preprocess(
+  (value) => (isMissingInput(value) ? '' : value),
+  z.string().trim().min(1).max(max)
+);
 const optionalClinicalText = (max = 2000) => optionalString(max);
 const optionalBoolean = z.preprocess((value) => {
   if (isMissingInput(value)) return null;
@@ -101,6 +105,7 @@ const patientPayload = z.object({
 });
 
 const newPatientPayload = patientPayload.extend({
+  optionalName: requiredString(160),
   ageYears: optionalFiniteNumber,
   ageMonths: optionalFiniteNumber,
   ageDays: optionalFiniteNumber,
@@ -413,7 +418,6 @@ const hasPatientAgeInput = (patient = {}) =>
 
 const newPatientClinicalSnapshotBody = z.object({
   measuredAt: optionalDefaultDate,
-  oxygenSupportType: optionalString(120),
   heartRate: optionalFiniteNumber,
   respiratoryRate: optionalFiniteNumber,
   systolicBp: optionalFiniteNumber,

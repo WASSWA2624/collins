@@ -323,17 +323,11 @@ describe('auth entry screens', () => {
     expect(getByTestId('register-name')).toBeTruthy();
     expect(getByTestId('register-email')).toBeTruthy();
     expect(getByPlaceholderText('Create password')).toBeTruthy();
-    expect(getByTestId('register-facility-combobox')).toBeTruthy();
-    expect(getByTestId('register-facility-combobox-input')).toBeTruthy();
+    expect(queryByTestId('register-facility-combobox')).toBeNull();
+    expect(queryByTestId('register-facility-combobox-input')).toBeNull();
     expect(queryByTestId('register-facility-select')).toBeNull();
     expect(getByTestId('register-submit')).toBeTruthy();
     expect(queryByText(/Clinical data stays hidden/i)).toBeNull();
-
-    fireEvent(getByTestId('register-facility-combobox-input'), 'focus');
-
-    await waitFor(() => {
-      expect(getByTestId('register-facility-combobox-options')).toBeTruthy();
-    });
 
     fireEvent.press(getByTestId('register-sign-in'));
 
@@ -365,31 +359,6 @@ describe('auth entry screens', () => {
 
     expect(getByText('Creating account...')).toBeTruthy();
     expect(getByTestId('register-submit').props.accessibilityState.disabled).toBe(true);
-  });
-
-  it('submits an optional facility affiliation as a pending clinician request', async () => {
-    const { getByPlaceholderText, getByTestId } = renderWithTheme(<RegisterScreen />);
-    await flushFacilityLoad();
-
-    fireEvent.changeText(getByTestId('register-name'), 'Nurse User');
-    fireEvent.changeText(getByTestId('register-email'), 'nurse@example.com');
-    fireEvent.changeText(getByPlaceholderText('Create password'), 'long-pass');
-    fireEvent.changeText(getByTestId('register-facility-combobox-input'), 'Mulago');
-    await waitFor(() => {
-      expect(getByTestId('register-facility-combobox-option-0')).toBeTruthy();
-    });
-    fireEvent.press(getByTestId('register-facility-combobox-option-0'));
-    fireEvent.press(getByTestId('register-submit'));
-
-    await waitFor(() => {
-      expect(mockAuthState.register).toHaveBeenCalledWith(expect.objectContaining({
-        name: 'Nurse User',
-        email: 'nurse@example.com',
-        password: 'long-pass',
-        facilityId: 'facility-mulago',
-        requestedRole: 'CLINICIAN',
-      }));
-    });
   });
 
   it('keeps short registration passwords local and accessible as field help', async () => {

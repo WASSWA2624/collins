@@ -16,6 +16,7 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('@hooks', () => ({
+  useDebounce: (value) => value,
   useI18n: () => {
     const mockEn = require('@i18n/locales/en.json');
     return {
@@ -38,6 +39,24 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@hooks/useVentilationSession', () => jest.fn());
+
+const mockFacilities = [
+  {
+    id: 'facility-1',
+    name: 'Mulago National Referral Hospital',
+    district: 'Kampala',
+    region: 'Central',
+    ownership: 'Government',
+  },
+];
+const mockSearchFacilitiesUseCase = jest.fn(() => Promise.resolve({
+  facilities: mockFacilities,
+  meta: { total: mockFacilities.length, page: 1, limit: 25, hasNextPage: false },
+}));
+
+jest.mock('@features/facilities', () => ({
+  searchFacilitiesUseCase: (...args) => mockSearchFacilitiesUseCase(...args),
+}));
 
 jest.mock('@features/ventilation', () => ({
   NEW_PATIENT_SYNC_STATUS: {
@@ -142,6 +161,8 @@ const defaultSessionMock = {
 
 const completePatientInputs = {
   clientRecordId: 'admission-test-client',
+  facilityId: 'facility-1',
+  optionalName: 'Jane Doe',
   patientPathway: 'ADULT',
   reasonForSupport: 'ARDS with hypoxaemia',
   ageYears: 48,
@@ -152,7 +173,6 @@ const completePatientInputs = {
 const completeClinicalInputs = {
   ...completePatientInputs,
   admissionId: 'admission-1',
-  oxygenSupportType: 'INVASIVE_VENTILATION',
   spo2: 88,
   respiratoryRate: 28,
   heartRate: 110,
@@ -239,7 +259,7 @@ describe('AssessmentScreen', () => {
 
       expect(getByText('Some required New Patient details are missing. Please review the highlighted fields.')).toBeTruthy();
       expect(getByText('Age or date of birth is required before continuing.')).toBeTruthy();
-      expect(getByText('4 fields need attention')).toBeTruthy();
+      expect(getByText('6 fields need attention')).toBeTruthy();
       expect(savePatientReasonStepApi).not.toHaveBeenCalled();
     });
 
@@ -254,7 +274,7 @@ describe('AssessmentScreen', () => {
       expect(nextBtn.props.accessibilityState?.disabled ?? nextBtn.props.disabled).toBeFalsy();
     });
 
-    it('sends optional patient name on the patient and reason step', async () => {
+    it('sends mandatory patient name on the patient and reason step', async () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         inputs: {
@@ -274,13 +294,13 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('should hide facility, bed, and permitted missing fields from the New Patient form', () => {
+    it('should show facility selection and hide bed and permitted missing fields from the New Patient form', () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+      expect(getByTestId('assessment-facility-combobox')).toBeTruthy();
       expect(getByTestId('assessment-patient-name')).toBeTruthy();
       expect(getByTestId('assessment-height')).toBeTruthy();
       expect(getByTestId('assessment-bmi')).toBeTruthy();
       expect(queryByTestId('assessment-age-group-adult')).toBeNull();
-      expect(queryByTestId('assessment-facility-id')).toBeNull();
       expect(queryByTestId('assessment-bed-number')).toBeNull();
       expect(queryByTestId('assessment-permitted-weight')).toBeNull();
     });
@@ -430,7 +450,7 @@ describe('AssessmentScreen', () => {
       expect(getAllByText('Oxygen & ABG').length).toBeGreaterThan(0);
     });
 
-    it('captures oxygen and ABG values without manual timestamp, FiO2, or ventilator settings on step two', () => {
+    it('captures oxygen and ABG values without support type, manual timestamp, FiO2, or ventilator settings on step two', () => {
       useVentilationSession.mockReturnValue({
         ...defaultSessionMock,
         assessmentCurrentStep: 1,
@@ -438,7 +458,7 @@ describe('AssessmentScreen', () => {
 
       const { getByTestId, getByText, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
 
-      expect(getByTestId('assessment-oxygen-support')).toBeTruthy();
+      expect(queryByTestId('assessment-oxygen-support')).toBeNull();
       expect(queryByTestId('assessment-measured-at')).toBeNull();
       expect(queryByTestId('assessment-fio2')).toBeNull();
       expect(queryByTestId('assessment-fio2-at-sample')).toBeNull();
@@ -459,6 +479,7 @@ describe('AssessmentScreen', () => {
       });
       expect(getByTestId('assessment-pao2').props.accessibilityState?.required ?? getByTestId('assessment-pao2').props.required).toBeFalsy();
       expect(getByTestId('assessment-paco2').props.accessibilityState?.required ?? getByTestId('assessment-paco2').props.required).toBeFalsy();
+      expect(getByTestId('assessment-ph').props.accessibilityState?.required ?? getByTestId('assessment-ph').props.required).toBeFalsy();
       expect(queryByTestId('assessment-ventilator-mode')).toBeNull();
       expect(queryByTestId('assessment-tidal-volume')).toBeNull();
       expect(queryByTestId('assessment-peep')).toBeNull();

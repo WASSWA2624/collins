@@ -97,6 +97,68 @@ const roundToPrecision = (value, precision) => {
   return Math.round(value * p) / p;
 };
 
+const normalizePathway = (value) => String(value || '').trim().toUpperCase();
+const isAdultLikePathway = (pathway) =>
+  ['ADULT', 'OBSTETRIC', 'BURNS', 'TRAUMA', 'PERI_OPERATIVE', 'MEDICAL', 'SURGICAL'].includes(pathway);
+
+const calculateAdultPredictedBodyWeight = ({ sexForSizeCalculations, heightOrLengthCm }) => {
+  const height = Number(heightOrLengthCm);
+  if (!Number.isFinite(height) || height <= 0) return null;
+  const sex = normalizePathway(sexForSizeCalculations);
+  if (sex === 'MALE') return roundToPrecision(50 + (0.91 * (height - 152.4)), 10);
+  if (sex === 'FEMALE') return roundToPrecision(45.5 + (0.91 * (height - 152.4)), 10);
+  return null;
+};
+
+const resolveReferenceWeightKg = (input = {}) => {
+  const pathway = normalizePathway(input.patientPathway);
+  if (isAdultLikePathway(pathway)) return calculateAdultPredictedBodyWeight(input);
+  if (['NEONATE', 'INFANT', 'CHILD', 'ADOLESCENT'].includes(pathway)) {
+    const weight = Number(input.actualWeightKg);
+    return Number.isFinite(weight) && weight > 0 ? weight : null;
+  }
+  return null;
+};
+
+const getTidalVolumeTargetForInput = (input = {}) => {
+  const pathway = normalizePathway(input.patientPathway);
+  const condition = String(input.condition || '').toLowerCase();
+  const severeHypoxemic = /ards|sepsis|pneumonia|hypoxemic/.test(condition);
+
+  if (pathway === 'NEONATE') return { target: 5, min: 4, max: 6 };
+  if (['INFANT', 'CHILD', 'ADOLESCENT'].includes(pathway)) {
+    return { target: severeHypoxemic ? 6 : 6.5, min: 5, max: severeHypoxemic ? 7 : 8 };
+  }
+  return { target: severeHypoxemic ? 6 : 6.5, min: 4, max: 8 };
+};
+
+const clampNumber = (value, min, max) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return null;
+  return Math.max(min, Math.min(max, numeric));
+};
+
+const applyVentilatorSettingGuardrails = (settings, input = {}) => {
+  if (!settings || typeof settings !== 'object') return settings;
+  const guarded = { ...settings };
+  const referenceWeightKg = resolveReferenceWeightKg(input);
+
+  if (Number.isFinite(referenceWeightKg)) {
+    const target = getTidalVolumeTargetForInput(input);
+    guarded.tidalVolume = Math.round(
+      clampNumber(
+        referenceWeightKg * target.target,
+        Math.round(referenceWeightKg * target.min),
+        Math.round(referenceWeightKg * target.max)
+      )
+    );
+  } else {
+    delete guarded.tidalVolume;
+  }
+
+  return guarded;
+};
+
 const asStringArray = (value) => (Array.isArray(value) ? value.filter((v) => typeof v === 'string' && v.trim()) : []);
 
 const mergeUniqueStringsStable = (...lists) => {
@@ -112,7 +174,7 @@ const mergeUniqueStringsStable = (...lists) => {
   return Object.freeze([...out]);
 };
 
-const pickInitialVentilatorSettingsFromCase = (caseItem) => {
+const pickInitialVentilatorSettingsFromCase = (caseItem, input = {}) => {
   const fromRecommendations = caseItem?.recommendations?.initialSettings;
   const fromVentilatorSettings = caseItem?.ventilatorSettings;
 
@@ -132,9 +194,11 @@ const pickInitialVentilatorSettingsFromCase = (caseItem) => {
     settings[key] = v;
   });
 
+  const guardedSettings = applyVentilatorSettingGuardrails(settings, input);
+
   return Object.freeze({
     source: candidate.source,
-    settings: Object.keys(settings).length > 0 ? Object.freeze({ ...settings }) : null,
+    settings: Object.keys(guardedSettings).length > 0 ? Object.freeze({ ...guardedSettings }) : null,
   });
 };
 
@@ -302,7 +366,7 @@ const assembleVentilationRecommendationFromMatches = ({
   const matchedCases = caseIdOrder.map((id) => byId.get(id)).filter(Boolean);
   const primaryCase = matchedCases[0] ?? null;
 
-  const initial = pickInitialVentilatorSettingsFromCase(primaryCase);
+  const initial = pickInitialVentilatorSettingsFromCase(primaryCase, input);
 
   const monitoringPoints = mergeUniqueStringsStable(...matchedCases.map((c) => c?.recommendations?.monitoringPoints));
   const riskFactors = mergeUniqueStringsStable(...matchedCases.map((c) => c?.recommendations?.riskFactors));
