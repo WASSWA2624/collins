@@ -21,11 +21,27 @@ const activeAdmission = {
   patient: {
     id: 'patient-1',
     appPatientCode: 'COL-P-1',
+    firstName: 'Jane',
+    lastName: 'Doe',
     optionalName: 'Jane Doe',
     hospitalNumber: 'HN-7788',
+    dateOfBirth: '2018-03-01T00:00:00.000Z',
+    ageYears: 8,
+    ageMonths: 2,
+    ageDays: 10,
+    actualWeightKg: 26,
+    heightOrLengthCm: 124,
+    referenceWeightKg: 25.5,
     patientPathway: 'ADULT',
   },
   currentStatus: {
+    patient: {
+      id: 'patient-1',
+      appPatientCode: 'COL-P-1',
+      optionalName: 'Jane Doe',
+      patientPathway: 'ADULT',
+      referenceWeightKg: 25.5,
+    },
     advisory: {
       missingData: ['PaO2', 'PEEP'],
     },
@@ -50,6 +66,13 @@ describe('tracking.model', () => {
 
     expect(row.admissionId).toBe('adm-1');
     expect(row.optionalName).toBe('Jane Doe');
+    expect(row.patientId).toBe('patient-1');
+    expect(row.appPatientCode).toBe('COL-P-1');
+    expect(row.hospitalNumber).toBe('HN-7788');
+    expect(row.ageLabel).toBe('8y 2m 10d');
+    expect(row.actualWeightKg).toBe(26);
+    expect(row.heightOrLengthCm).toBe(124);
+    expect(row.referenceWeightKg).toBe(25.5);
     expect(row.facilityName).toBe('City ICU');
     expect(row.bedNumber).toBe('ICU-2');
     expect(row.reviewLabel).toBe('Review');

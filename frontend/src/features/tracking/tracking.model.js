@@ -42,7 +42,80 @@ const formatDateTime = (value) => {
   });
 };
 
+const formatDate = (value) => {
+  if (!value) return '';
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString(undefined, {
+    dateStyle: 'medium',
+  });
+};
+
 const toArray = (value) => (Array.isArray(value) ? value : []);
+
+const cleanString = (value) =>
+  typeof value === 'string' ? value.trim() : '';
+
+const getFiniteNumber = (value) => {
+  if (value === null || value === undefined || value === '') return null;
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+};
+
+const formatCompactNumber = (value) => {
+  const numeric = getFiniteNumber(value);
+  if (numeric === null) return '';
+  if (Number.isInteger(numeric)) return String(numeric);
+  return String(Number(numeric.toFixed(1)));
+};
+
+const getPatientValue = (primaryPatient, fallbackPatient, key) => {
+  const value = primaryPatient?.[key];
+  return value === null || value === undefined || value === ''
+    ? fallbackPatient?.[key]
+    : value;
+};
+
+const buildPatientDisplayName = (
+  primaryPatient = {},
+  fallbackPatient = {},
+  item = {}
+) => {
+  const firstName = cleanString(
+    getPatientValue(primaryPatient, fallbackPatient, 'firstName')
+  );
+  const lastName = cleanString(
+    getPatientValue(primaryPatient, fallbackPatient, 'lastName')
+  );
+  const composedName = [firstName, lastName].filter(Boolean).join(' ');
+  return (
+    composedName ||
+    cleanString(
+      getPatientValue(primaryPatient, fallbackPatient, 'optionalName')
+    ) ||
+    cleanString(item.optionalName)
+  );
+};
+
+const buildAgeLabel = (primaryPatient = {}, fallbackPatient = {}) => {
+  const years = formatCompactNumber(
+    getPatientValue(primaryPatient, fallbackPatient, 'ageYears')
+  );
+  const months = formatCompactNumber(
+    getPatientValue(primaryPatient, fallbackPatient, 'ageMonths')
+  );
+  const days = formatCompactNumber(
+    getPatientValue(primaryPatient, fallbackPatient, 'ageDays')
+  );
+
+  return [
+    years ? `${years}y` : '',
+    months ? `${months}m` : '',
+    days ? `${days}d` : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
 
 const normalizeSearchText = (value) =>
   String(value ?? '')
@@ -221,6 +294,7 @@ const getSyncLabel = (syncState = {}) => {
 const normalizeTrackingItem = (item = {}) => {
   const currentStatus = item.currentStatus || {};
   const patient = currentStatus.patient || item.patient || {};
+  const admissionPatient = item.patient || {};
   const facility = item.facility || {};
   const clinicalSummary = currentStatus.clinicalSummary || {};
   const missingData = toStringList(
@@ -231,6 +305,12 @@ const normalizeTrackingItem = (item = {}) => {
     item.status || currentStatus.admissionStatus || 'ACTIVE';
   const patientPathway =
     patient.patientPathway || item.patient?.patientPathway || 'UNKNOWN';
+  const patientDisplayName = buildPatientDisplayName(
+    patient,
+    admissionPatient,
+    item
+  );
+  const dateOfBirth = getPatientValue(patient, admissionPatient, 'dateOfBirth');
   const searchText = buildTrackingSearchText({
     item,
     patient: item.patient || patient,
@@ -247,10 +327,33 @@ const normalizeTrackingItem = (item = {}) => {
     admissionId: item.admissionId || item.id,
     patientId: item.patientId || patient.id,
     appAdmissionCode: item.appAdmissionCode || '',
-    optionalName:
-      patient.optionalName || item.patient?.optionalName || item.optionalName || '',
+    optionalName: patientDisplayName,
+    firstName: getPatientValue(patient, admissionPatient, 'firstName') || '',
+    lastName: getPatientValue(patient, admissionPatient, 'lastName') || '',
     appPatientCode:
       patient.appPatientCode || item.patient?.appPatientCode || '',
+    hospitalNumber:
+      getPatientValue(patient, admissionPatient, 'hospitalNumber') || '',
+    dateOfBirth: dateOfBirth || null,
+    dateOfBirthLabel: formatDate(dateOfBirth),
+    ageYears: getPatientValue(patient, admissionPatient, 'ageYears') ?? null,
+    ageMonths: getPatientValue(patient, admissionPatient, 'ageMonths') ?? null,
+    ageDays: getPatientValue(patient, admissionPatient, 'ageDays') ?? null,
+    ageLabel: buildAgeLabel(patient, admissionPatient),
+    estimatedAge:
+      getPatientValue(patient, admissionPatient, 'estimatedAge') ?? null,
+    gestationalAgeWeeks:
+      getPatientValue(patient, admissionPatient, 'gestationalAgeWeeks') ??
+      null,
+    correctedAgeWeeks:
+      getPatientValue(patient, admissionPatient, 'correctedAgeWeeks') ?? null,
+    sexForSizeCalculations:
+      getPatientValue(patient, admissionPatient, 'sexForSizeCalculations') ||
+      '',
+    actualWeightKg:
+      getPatientValue(patient, admissionPatient, 'actualWeightKg') ?? null,
+    heightOrLengthCm:
+      getPatientValue(patient, admissionPatient, 'heightOrLengthCm') ?? null,
     facilityId: item.facilityId || facility.id || '',
     facilityName: facility.name || 'Active facility',
     bedNumber: item.bedNumber || currentStatus.bedNumber || '',
@@ -267,7 +370,10 @@ const normalizeTrackingItem = (item = {}) => {
     patientPathway,
     patientPathwayLabel: titleCaseToken(patientPathway) || 'Pathway unknown',
     referenceWeightKg:
-      patient.referenceWeightKg ?? item.patient?.referenceWeightKg ?? null,
+      getPatientValue(patient, admissionPatient, 'referenceWeightKg') ?? null,
+    referenceWeightMethod:
+      getPatientValue(patient, admissionPatient, 'referenceWeightMethod') ||
+      '',
     reviewLabel: getReviewLabel(item.reviewState),
     syncLabel: getSyncLabel(item.syncState),
     risk,

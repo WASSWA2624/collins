@@ -2,7 +2,7 @@
  * Tracking screen web styles
  * File: HistoryScreen.web.styles.jsx
  */
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const statusBackground = (theme, level) => {
   if (level === 'red')
@@ -126,6 +126,13 @@ const StyledControlsRow = styled.section.withConfig({
   }
 `;
 
+const StyledFacilityFilter = styled.section.withConfig({
+  displayName: 'StyledFacilityFilter',
+  componentId: 'StyledFacilityFilter',
+})`
+  min-width: 0;
+`;
+
 const StyledSearchWrap = styled.div.withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
@@ -246,34 +253,78 @@ const StyledList = styled.ul.withConfig({
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.spacing.md}px;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints?.desktop ?? 1024}px) {
-    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
-  }
+  display: flex;
+  flex-direction: column;
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
+  margin: 0;
+  padding: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: 0;
-  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  transition:
-    border-color 0.16s ease,
-    background-color 0.16s ease;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.text.tertiary};
-    background-color: ${({ theme }) => theme.colors.background.secondary};
+  &:last-child {
+    border-bottom: 0;
   }
+`;
+
+const StyledPatientRowButton = styled.button.withConfig({
+  displayName: 'StyledPatientRowButton',
+  componentId: 'StyledPatientRowButton',
+})`
+  width: 100%;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: 44px minmax(130px, 1.1fr) minmax(140px, 1.3fr) minmax(150px, 1fr);
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+  border: 0;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text.primary};
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover,
+  &:focus-visible {
+    background: ${({ theme }) => theme.colors.background.secondary};
+    outline: none;
+  }
+
+  @media (max-width: ${({ theme }) =>
+      (theme.breakpoints?.tablet ?? 768) - 1}px) {
+    grid-template-columns: 32px minmax(100px, 1fr) minmax(120px, 1fr);
+
+    > *:last-child {
+      display: none;
+    }
+  }
+`;
+
+const StyledPatientRowCell = styled.span.withConfig({
+  displayName: 'StyledPatientRowCell',
+  componentId: 'StyledPatientRowCell',
+})`
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const StyledPatientRowNumber = styled(StyledPatientRowCell).withConfig({
+  displayName: 'StyledPatientRowNumber',
+  componentId: 'StyledPatientRowNumber',
+})`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-variant-numeric: tabular-nums;
 `;
 
 const StyledItemRow = styled.div.withConfig({
@@ -403,6 +454,57 @@ const StyledDetailPanel = styled.section.withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledPrintHeader = styled.div.withConfig({
+  displayName: 'StyledPrintHeader',
+  componentId: 'StyledPrintHeader',
+})`
+  display: none;
+
+  @media print {
+    display: grid;
+    gap: 4px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #111827;
+  }
+`;
+
+const StyledPatientDataSection = styled.section.withConfig({
+  displayName: 'StyledPatientDataSection',
+  componentId: 'StyledPatientDataSection',
+})`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledPatientDataGrid = styled.div.withConfig({
+  displayName: 'StyledPatientDataGrid',
+  componentId: 'StyledPatientDataGrid',
+})`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+`;
+
+const StyledPatientDataItem = styled.div.withConfig({
+  displayName: 'StyledPatientDataItem',
+  componentId: 'StyledPatientDataItem',
+})`
+  min-width: 0;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+  border-left: 3px solid ${({ theme }) => theme.colors.primary ?? '#007AFF'};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  display: grid;
+  gap: 2px;
+
+  > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+`;
+
 const StyledTimeline = styled.ul.withConfig({
   displayName: 'StyledTimeline',
   componentId: 'StyledTimeline',
@@ -424,6 +526,39 @@ const StyledTimelineItem = styled.li.withConfig({
   border-left: 2px solid ${({ theme }) => theme.colors.background.tertiary};
 `;
 
+const TrackingPrintStyles = createGlobalStyle`
+  @media print {
+    @page {
+      margin: 16mm;
+    }
+
+    body * {
+      visibility: hidden !important;
+    }
+
+    [data-print-root='true'],
+    [data-print-root='true'] * {
+      visibility: visible !important;
+    }
+
+    [data-print-root='true'] {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: #ffffff !important;
+      color: #111827 !important;
+      box-shadow: none !important;
+    }
+
+    [data-print-hidden='true'] {
+      display: none !important;
+    }
+  }
+`;
+
 export {
   StyledBanner,
   StyledContainer,
@@ -432,6 +567,7 @@ export {
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
+  StyledFacilityFilter,
   StyledHeader,
   StyledHeaderActions,
   StyledHeaderCopy,
@@ -443,6 +579,13 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledPatientRowButton,
+  StyledPatientRowCell,
+  StyledPatientRowNumber,
+  StyledPatientDataGrid,
+  StyledPatientDataItem,
+  StyledPatientDataSection,
+  StyledPrintHeader,
   StyledRiskNote,
   StyledSearchWrap,
   StyledStatusGroup,
@@ -450,4 +593,5 @@ export {
   StyledSummaryBar,
   StyledTimeline,
   StyledTimelineItem,
+  TrackingPrintStyles,
 };

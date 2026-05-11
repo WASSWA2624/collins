@@ -1539,20 +1539,55 @@
         "admitFirst": "New Patient",
         "viewDetails": "Details",
         "viewDetailsHint": "View tracking detail and timeline",
+        "openPatientHint": "Open tracking detail for {{patient}}",
         "updateValues": "Update values",
         "updateValuesHint": "Open ABG and ventilator update form for this patient",
+        "printDetails": "Print",
+        "printDetailsHint": "Print patient tracking details",
         "closeDetailsHint": "Close tracking detail"
+      },
+      "facility": {
+        "label": "Facility",
+        "placeholder": "Search facilities",
+        "helper": "Select a facility to show only your patients there.",
+        "selectedHelper": "{{count}} active patients in this facility",
+        "noResults": "No matching facilities found.",
+        "loading": "Loading facilities...",
+        "clear": "Clear facility",
+        "hint": "Search and select a facility to filter tracking patients"
       },
       "patient": {
         "unknown": "Patient not labelled",
         "bed": "Bed {{bed}}",
         "bedMissing": "Bed not recorded",
         "admitted": "Admitted {{dateTime}}",
-        "missingData": "Missing data: {{fields}}"
+        "missingData": "Missing data: {{fields}}",
+        "notRecorded": "Not recorded"
+      },
+      "patientData": {
+        "title": "Patient data",
+        "patientId": "Patient ID",
+        "patientCode": "Patient code",
+        "admissionId": "Admission ID",
+        "admissionCode": "Admission code",
+        "hospitalNumber": "Hospital number",
+        "facility": "Facility",
+        "ageGroup": "Age group",
+        "age": "Age",
+        "dateOfBirth": "Date of birth",
+        "weight": "Weight",
+        "referenceWeight": "Reference weight",
+        "height": "Height/length",
+        "notRecorded": "Not recorded"
       },
       "detail": {
         "title": "Tracking detail",
+        "historyTitle": "Patient history",
         "noTimeline": "No timeline entries returned."
+      },
+      "print": {
+        "title": "AI Vent patient tracking summary",
+        "generatedAt": "Generated {{dateTime}}"
       },
       "states": {
         "loading": "Loading patients for tracking...",

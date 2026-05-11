@@ -5,6 +5,7 @@
 import React from 'react';
 import { Button, Icon, Text } from '@platform/components';
 import SearchBar from '@platform/patterns/SearchBar/SearchBar.ios';
+import FacilitySearchSelect from '../../auth/FacilitySearchSelect';
 import { useI18n } from '@hooks';
 import { formatDateTime } from '@features/tracking';
 import useHistoryScreen from './useHistoryScreen';
@@ -20,13 +21,15 @@ import {
   StyledHeaderActions,
   StyledHeaderCopy,
   StyledItem,
-  StyledItemActions,
   StyledItemMain,
-  StyledItemMeta,
   StyledItemRow,
-  StyledItemTitle,
   StyledList,
-  StyledRiskNote,
+  StyledPatientDataGrid,
+  StyledPatientDataItem,
+  StyledPatientDataSection,
+  StyledPatientRowButton,
+  StyledPatientRowCell,
+  StyledPatientRowNumber,
   StyledScreenContent,
   StyledSearchWrap,
   StyledStatusGroup,
@@ -35,13 +38,11 @@ import {
   StyledTimeline,
   StyledTimelineItem,
 } from './HistoryScreen.ios.styles';
+import {
+  getPatientLabel,
+  getTrackingPatientDataRows,
+} from './trackingDetailData';
 import { HISTORY_TEST_IDS } from './types';
-
-const getPatientLabel = (row, t) =>
-  row.optionalName ||
-  row.appAdmissionCode ||
-  row.appPatientCode ||
-  t('ventilation.tracking.patient.unknown');
 
 const COMPACT_BUTTON_STYLE = {
   minHeight: 40,
@@ -62,6 +63,7 @@ const renderDetailPanel = ({
   if (!selectedAdmissionId) return null;
   const row = selectedTracking?.row;
   const timeline = selectedTracking?.timeline || [];
+  const patientDataRows = getTrackingPatientDataRows(row, t);
 
   return (
     <StyledDetailPanel testID={HISTORY_TEST_IDS.detailPanel}>
@@ -115,6 +117,28 @@ const renderDetailPanel = ({
         </Text>
       ) : (
         <>
+          {patientDataRows.length > 0 ? (
+            <StyledPatientDataSection
+              testID={HISTORY_TEST_IDS.detailPatientData}
+            >
+              <Text variant="label">
+                {t('ventilation.tracking.patientData.title')}
+              </Text>
+              <StyledPatientDataGrid>
+                {patientDataRows.map((item) => (
+                  <StyledPatientDataItem
+                    key={item.key}
+                    testID={`${HISTORY_TEST_IDS.detailPatientDataItem}-${item.key}`}
+                  >
+                    <Text variant="caption" color="text.secondary">
+                      {item.label}
+                    </Text>
+                    <Text variant="caption">{item.value}</Text>
+                  </StyledPatientDataItem>
+                ))}
+              </StyledPatientDataGrid>
+            </StyledPatientDataSection>
+          ) : null}
           <StyledStatusGroup>
             <StyledStatusPill
               level={row?.risk?.level}
@@ -138,6 +162,9 @@ const renderDetailPanel = ({
             {t('ventilation.tracking.patient.missingData', {
               fields: row?.missingDataLabel,
             })}
+          </Text>
+          <Text variant="label">
+            {t('ventilation.tracking.detail.historyTitle')}
           </Text>
           <StyledTimeline testID={HISTORY_TEST_IDS.detailTimeline}>
             {timeline.length > 0 ? (
@@ -177,6 +204,7 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
     historyErrorCode,
     localDraft,
     searchQuery,
+    facilitySearch,
     visibleRows,
     showAdmittedBanner,
     selectedAdmissionId,
@@ -314,10 +342,32 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
           </StyledSearchWrap>
 
           <StyledSummaryBar testID={HISTORY_TEST_IDS.facility}>
-            <Text variant="label">
-              {activeFacility?.name ||
-                t('ventilation.tracking.activeFacility.none')}
-            </Text>
+            <FacilitySearchSelect
+              label={t('ventilation.tracking.facility.label')}
+              placeholder={t('ventilation.tracking.facility.placeholder')}
+              query={facilitySearch.query}
+              onQueryChange={facilitySearch.onQueryChange}
+              value={facilitySearch.value}
+              onValueChange={facilitySearch.onValueChange}
+              onClear={facilitySearch.onClear}
+              options={facilitySearch.options}
+              helperText={t('ventilation.tracking.facility.helper')}
+              selectedHelper={
+                facilitySearch.value
+                  ? t('ventilation.tracking.facility.selectedHelper', {
+                      count: visibleRows,
+                    })
+                  : undefined
+              }
+              noResultsText={t('ventilation.tracking.facility.noResults')}
+              loadingText={t('ventilation.tracking.facility.loading')}
+              clearLabel={t('ventilation.tracking.facility.clear')}
+              disabled={isHistoryLoading}
+              loading={facilitySearch.loading}
+              errorText={facilitySearch.error}
+              accessibilityHint={t('ventilation.tracking.facility.hint')}
+              testID={HISTORY_TEST_IDS.facilitySelect}
+            />
             <Text variant="caption" color="text.secondary">
               {t('ventilation.tracking.activePatients', { count: visibleRows })}
             </Text>
@@ -375,97 +425,40 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
           </StyledEmpty>
         ) : (
           <StyledList testID={HISTORY_TEST_IDS.list}>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <StyledItem
                 key={row.admissionId}
                 testID={`${HISTORY_TEST_IDS.item}-${row.admissionId}`}
               >
-                <StyledItemRow>
-                  <StyledItemMain>
-                    <StyledItemTitle>{getPatientLabel(row, t)}</StyledItemTitle>
-                    <StyledItemMeta>
-                      <Text variant="caption">{row.admissionStatusLabel}</Text>
-                      <Text variant="caption">{row.patientPathwayLabel}</Text>
-                      <Text variant="caption">
-                        {row.bedNumber
-                          ? t('ventilation.tracking.patient.bed', {
-                              bed: row.bedNumber,
-                            })
-                          : t('ventilation.tracking.patient.bedMissing')}
-                      </Text>
-                      {row.admittedAtLabel ? (
-                        <Text variant="caption">
-                          {t('ventilation.tracking.patient.admitted', {
-                            dateTime: row.admittedAtLabel,
-                          })}
-                        </Text>
-                      ) : null}
-                    </StyledItemMeta>
-                  </StyledItemMain>
-                  <StyledStatusGroup>
-                    <StyledStatusPill
-                      level={row.risk.level}
-                      testID={HISTORY_TEST_IDS.risk}
-                    >
-                      <Text variant="caption">{row.risk.label}</Text>
-                    </StyledStatusPill>
-                    <StyledStatusPill testID={HISTORY_TEST_IDS.review}>
-                      <Text variant="caption">{row.reviewLabel}</Text>
-                    </StyledStatusPill>
-                    <StyledStatusPill testID={HISTORY_TEST_IDS.sync}>
-                      <Text variant="caption">{row.syncLabel}</Text>
-                    </StyledStatusPill>
-                  </StyledStatusGroup>
-                  <StyledItemActions>
-                    <Button
-                      variant="outline"
-                      size="small"
-                      style={COMPACT_BUTTON_STYLE}
-                      icon={
-                        <Icon
-                          glyph={'\u2192'}
-                          size="sm"
-                          tone="primary"
-                          decorative
-                        />
-                      }
-                      onPress={() => handleViewDetails(row)}
-                      accessibilityLabel={t(
-                        'ventilation.tracking.actions.viewDetailsHint'
-                      )}
-                      testID={HISTORY_TEST_IDS.viewDetails}
-                    >
-                      {t('ventilation.tracking.actions.viewDetails')}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="small"
-                      style={COMPACT_BUTTON_STYLE}
-                      icon={
-                        <Icon glyph="+" size="sm" tone="primary" decorative />
-                      }
-                      onPress={() => handleUpdateTracking(row)}
-                      accessibilityLabel={t(
-                        'ventilation.tracking.actions.updateValuesHint'
-                      )}
-                      testID={HISTORY_TEST_IDS.updateValues}
-                    >
-                      {t('ventilation.tracking.actions.updateValues')}
-                    </Button>
-                  </StyledItemActions>
-                </StyledItemRow>
-                <StyledRiskNote>
-                  <Text variant="body">{row.risk.prompt}</Text>
-                </StyledRiskNote>
-                <Text
-                  variant="caption"
-                  color="text.secondary"
-                  testID={HISTORY_TEST_IDS.missingData}
+                <StyledPatientRowButton
+                  accessibilityRole="button"
+                  accessibilityLabel={t(
+                    'ventilation.tracking.actions.openPatientHint',
+                    { patient: getPatientLabel(row, t) }
+                  )}
+                  onPress={() => handleViewDetails(row)}
+                  testID={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                 >
-                  {t('ventilation.tracking.patient.missingData', {
-                    fields: row.missingDataLabel,
-                  })}
-                </Text>
+                  <StyledPatientRowNumber>
+                    <Text variant="caption">{index + 1}</Text>
+                  </StyledPatientRowNumber>
+                  <StyledPatientRowCell>
+                    <Text variant="caption" numberOfLines={1}>
+                      {row.patientId}
+                    </Text>
+                  </StyledPatientRowCell>
+                  <StyledPatientRowCell>
+                    <Text variant="caption" numberOfLines={1}>
+                      {getPatientLabel(row, t)}
+                    </Text>
+                  </StyledPatientRowCell>
+                  <StyledPatientRowCell>
+                    <Text variant="caption" numberOfLines={1}>
+                      {row.admittedAtLabel ||
+                        t('ventilation.tracking.patient.notRecorded')}
+                    </Text>
+                  </StyledPatientRowCell>
+                </StyledPatientRowButton>
               </StyledItem>
             ))}
           </StyledList>

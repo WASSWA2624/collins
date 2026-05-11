@@ -81,12 +81,16 @@ const HISTORY_TEST_IDS = {
   list: 'history-list',
   search: 'tracking-search',
   searchEmpty: 'tracking-search-empty',
+  facilitySelect: 'tracking-facility-select',
   viewDetails: 'history-view-details',
+  rowButton: 'history-row-button',
   detailPanel: 'tracking-detail-panel',
+  detailPatientData: 'tracking-detail-patient-data',
 };
 
 const trackingRow = {
   admissionId: 'adm-1',
+  patientId: 'patient-1',
   appAdmissionCode: 'COL-A-1',
   appPatientCode: 'COL-P-1',
   optionalName: 'Jane Doe',
@@ -96,6 +100,11 @@ const trackingRow = {
   bedNumber: 'ICU-2',
   admissionStatusLabel: 'Active',
   patientPathwayLabel: 'Adult',
+  ageLabel: '8y 2m',
+  dateOfBirthLabel: 'Mar 1, 2018',
+  actualWeightKg: 26,
+  referenceWeightKg: 25.5,
+  heightOrLengthCm: 124,
   admittedAtLabel: '5/1/26, 8:00 AM',
   reviewLabel: 'Review',
   syncLabel: 'Conflict',
@@ -117,6 +126,47 @@ const createMockStore = (initialState = {}) =>
         historyErrorCode: null,
         isHistoryLoading: false,
         ...initialState.ventilation,
+      },
+      auth: {
+        user: {
+          id: 'clinician-1',
+          name: 'Clinician User',
+          activeFacilityId: 'facility-1',
+          activeFacility: {
+            id: 'facility-1',
+            facilityId: 'facility-1',
+            name: 'City ICU',
+            roles: ['CLINICIAN'],
+          },
+          memberships: [
+            {
+              id: 'membership-1',
+              facilityId: 'facility-1',
+              role: 'CLINICIAN',
+              status: 'APPROVED',
+              facility: {
+                id: 'facility-1',
+                name: 'City ICU',
+                district: 'Central',
+                region: 'Metro',
+              },
+            },
+          ],
+        },
+        activeFacility: {
+          id: 'facility-1',
+          facilityId: 'facility-1',
+          name: 'City ICU',
+          roles: ['CLINICIAN'],
+        },
+        isAuthenticated: true,
+        requiresActiveFacility: false,
+        isLoading: false,
+        hasRestoredSession: true,
+        sessionStatus: 'authenticated',
+        errorCode: null,
+        sessionErrorCode: null,
+        ...initialState.auth,
       },
       ...initialState,
     },
@@ -169,26 +219,33 @@ describe('Tracking screen compatibility route', () => {
     expect(getByText('New Patient')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).toHaveBeenCalledWith({
       status: 'ACTIVE',
+      facilityId: 'facility-1',
       limit: 100,
     });
   });
 
-  it('web: renders backend-confirmed active patient, review, sync, conflict, and missing-data status', async () => {
+  it('web: renders backend-confirmed active patients as compact one-line rows', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getAllByText, getByTestId, getByText } = renderWithProviders(
+    const { getByTestId, getByText, queryByTestId, queryByText } = renderWithProviders(
       <HistoryScreenWeb />
     );
 
     await waitFor(() =>
       expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
     );
-    expect(getByText('City ICU')).toBeDefined();
+    expect(
+      getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-input`).props.value
+    ).toBe('City ICU');
+    expect(
+      getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-clear`)
+    ).toBeDefined();
+    expect(getByTestId(HISTORY_TEST_IDS.search)).toBeDefined();
     expect(getByText('Jane Doe')).toBeDefined();
-    expect(getByText('Bed ICU-2')).toBeDefined();
-    expect(getByText('Review')).toBeDefined();
-    expect(getAllByText('Conflict').length).toBeGreaterThan(0);
-    expect(getByText('Missing data: PaO2, PEEP')).toBeDefined();
+    expect(getByText('patient-1')).toBeDefined();
+    expect(getByText('5/1/26, 8:00 AM')).toBeDefined();
+    expect(queryByTestId(HISTORY_TEST_IDS.viewDetails)).toBeNull();
+    expect(queryByText('Missing data: PaO2, PEEP')).toBeNull();
   });
 
   it('web: shows local draft only as draft context', async () => {
@@ -207,25 +264,22 @@ describe('Tracking screen compatibility route', () => {
     );
   });
 
-  it('web: loads backend detail and append-only timeline on details press', async () => {
+  it('web: opens patient detail page when a compact row is pressed', async () => {
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getByTestId, getByText } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <HistoryScreenWeb />
     );
 
     await waitFor(() =>
       expect(getByTestId(HISTORY_TEST_IDS.list)).toBeDefined()
     );
-    fireEvent.press(getByTestId(HISTORY_TEST_IDS.viewDetails));
-
-    await waitFor(() =>
-      expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined()
+    const rowButton = getByTestId(
+      `${HISTORY_TEST_IDS.rowButton}-${trackingRow.admissionId}`
     );
-    expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1');
-    expect(
-      getByText('admission_created | 2026-05-01T08:00:00.000Z')
-    ).toBeDefined();
+    fireEvent.press(rowButton);
+
+    expect(mockPush).toHaveBeenCalledWith('/tracking/adm-1?detail=1');
   });
 
   it('web: confirms a saved admission and auto-opens its tracking detail', async () => {
@@ -246,9 +300,8 @@ describe('Tracking screen compatibility route', () => {
       getByText('Admission saved. This patient is admitted and available for tracking.')
     ).toBeDefined();
     await waitFor(() =>
-      expect(getTrackingAdmissionUseCase).toHaveBeenCalledWith('adm-1')
+      expect(mockPush).toHaveBeenCalledWith('/tracking/adm-1?detail=1')
     );
-    expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
   });
 
   it('web: direct detail route loads tracking detail without rendering the list', async () => {
@@ -268,6 +321,10 @@ describe('Tracking screen compatibility route', () => {
     expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
     expect(queryByTestId(HISTORY_TEST_IDS.list)).toBeNull();
     expect(getByText('Jane Doe')).toBeDefined();
+    expect(getByText('Patient data')).toBeDefined();
+    expect(getByText('Admission ID')).toBeDefined();
+    expect(getByText('adm-1')).toBeDefined();
+    expect(getByText('Patient history')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).not.toHaveBeenCalled();
   });
 

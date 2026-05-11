@@ -3,7 +3,7 @@
  * File: HistoryScreen.android.styles.jsx
  */
 import styled from 'styled-components/native';
-import { ScrollView, Text as NativeText, View } from 'react-native';
+import { Pressable, ScrollView, Text as NativeText, View } from 'react-native';
 
 const statusBackground = (theme, level) => {
   if (level === 'red')
@@ -94,11 +94,7 @@ const StyledSummaryBar = styled(View).withConfig({
   componentId: 'StyledSummaryBar',
 })`
   min-height: 44px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.xs}px;
   padding: ${({ theme }) => theme.spacing.sm}px
     ${({ theme }) => theme.spacing.md}px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
@@ -160,18 +156,47 @@ const StyledList = styled(View).withConfig({
   componentId: 'StyledList',
 })`
   padding-bottom: ${({ theme }) => theme.spacing.xl}px;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const StyledItem = styled(View).withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
 })`
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: 0px;
   background-color: ${({ theme }) => theme.colors.background.primary};
-  border-width: 1px;
-  border-color: ${({ theme }) => theme.colors.background.tertiary};
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledPatientRowButton = styled(Pressable).withConfig({
+  displayName: 'StyledPatientRowButton',
+  componentId: 'StyledPatientRowButton',
+})`
+  min-height: 40px;
+  flex-direction: row;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const StyledPatientRowNumber = styled(View).withConfig({
+  displayName: 'StyledPatientRowNumber',
+  componentId: 'StyledPatientRowNumber',
+})`
+  width: 28px;
+  flex-shrink: 0;
+`;
+
+const StyledPatientRowCell = styled(View).withConfig({
+  displayName: 'StyledPatientRowCell',
+  componentId: 'StyledPatientRowCell',
+})`
+  flex: 1;
+  min-width: 0px;
 `;
 
 const StyledItemRow = styled(View).withConfig({
@@ -266,6 +291,40 @@ const StyledDetailPanel = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledPatientDataSection = styled(View).withConfig({
+  displayName: 'StyledPatientDataSection',
+  componentId: 'StyledPatientDataSection',
+})`
+  gap: ${({ theme }) => theme.spacing.xs}px;
+`;
+
+const StyledPatientDataGrid = styled(View).withConfig({
+  displayName: 'StyledPatientDataGrid',
+  componentId: 'StyledPatientDataGrid',
+})`
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledPatientDataItem = styled(View).withConfig({
+  displayName: 'StyledPatientDataItem',
+  componentId: 'StyledPatientDataItem',
+})`
+  flex-grow: 1;
+  flex-basis: 48%;
+  min-width: 150px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+  border-left-width: 3px;
+  border-left-color: ${({ theme }) => theme.colors.primary ?? '#007AFF'};
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+  gap: 2px;
+`;
+
 const StyledTimeline = styled(View).withConfig({
   displayName: 'StyledTimeline',
   componentId: 'StyledTimeline',
@@ -300,6 +359,12 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledPatientRowButton,
+  StyledPatientRowCell,
+  StyledPatientRowNumber,
+  StyledPatientDataGrid,
+  StyledPatientDataItem,
+  StyledPatientDataSection,
   StyledRiskNote,
   StyledSearchWrap,
   StyledStatusGroup,

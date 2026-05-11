@@ -5,6 +5,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useVentilationSession } from '@hooks';
+import useAuth from '@hooks/useAuth';
+import { getFacilityOptionsForUser } from '@config/accessControl';
 import {
   filterTrackingRows,
   getTrackingAdmissionUseCase,
@@ -27,10 +29,61 @@ const getSearchParamValue = (value) => {
 
 const isEnabledParam = (value) => ['1', 'true', 'yes'].includes(getSearchParamValue(value).toLowerCase());
 
+const normalizeText = (value) => String(value || '').trim().toLowerCase();
+
+const normalizeFacilityOption = (facility) => {
+  if (!facility || typeof facility !== 'object') return null;
+  const nested = facility.facility && typeof facility.facility === 'object'
+    ? facility.facility
+    : {};
+  const id = facility.id || facility.facilityId || nested.id || nested.facilityId;
+  const name = facility.name || facility.facilityName || nested.name || id;
+  if (!id) return null;
+  return {
+    id,
+    name,
+    registryCode: facility.registryCode || nested.registryCode,
+    district: facility.district || nested.district,
+    region: facility.region || nested.region,
+    ownership: facility.ownership || nested.ownership,
+    type: facility.type || nested.type,
+  };
+};
+
+const uniqueFacilities = (...groups) => {
+  const byId = new Map();
+  groups.flat().forEach((facility) => {
+    const normalized = normalizeFacilityOption(facility);
+    if (normalized?.id && !byId.has(normalized.id)) {
+      byId.set(normalized.id, normalized);
+    }
+  });
+  return [...byId.values()];
+};
+
+const facilityMatchesQuery = (facility, query) => {
+  const token = normalizeText(query);
+  if (!token) return true;
+  return [
+    facility.name,
+    facility.registryCode,
+    facility.district,
+    facility.region,
+    facility.ownership,
+    facility.type,
+  ].some((value) => normalizeText(value).includes(token));
+};
+
 export default function useHistoryScreen(options = {}) {
   const router = useRouter();
   const searchParams = useLocalSearchParams();
   const detailMode = options.detailMode === true || isEnabledParam(searchParams?.detail);
+  const {
+    user,
+    activeFacility: authActiveFacility,
+    activeFacilityId,
+    setActiveFacilityId,
+  } = useAuth();
   const {
     sessionId,
     inputs,
@@ -48,6 +101,39 @@ export default function useHistoryScreen(options = {}) {
   const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [autoOpenedAdmissionId, setAutoOpenedAdmissionId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [facilityQuery, setFacilityQuery] = useState(null);
+
+  const facilityOptions = useMemo(
+    () => uniqueFacilities(getFacilityOptionsForUser(user)),
+    [user]
+  );
+
+  const activeFacilityOption = useMemo(
+    () => normalizeFacilityOption(authActiveFacility),
+    [authActiveFacility]
+  );
+
+  const selectedFacility = useMemo(() => {
+    const selectedId = activeFacilityId || activeFacilityOption?.id || null;
+    return (
+      facilityOptions.find((facility) => facility.id === selectedId) ||
+      activeFacilityOption ||
+      facilityOptions[0] ||
+      null
+    );
+  }, [activeFacilityId, activeFacilityOption, facilityOptions]);
+
+  const selectedFacilityId = selectedFacility?.id || activeFacilityId || null;
+
+  const facilitySelectOptions = useMemo(
+    () =>
+      uniqueFacilities(selectedFacility, facilityOptions).filter((facility) =>
+        facilityMatchesQuery(facility, facilityQuery ?? '')
+      ),
+    [facilityOptions, facilityQuery, selectedFacility]
+  );
+
+  const displayedFacilityQuery = facilityQuery ?? selectedFacility?.name ?? '';
 
   const admittedAdmissionId = useMemo(() => {
     return getSearchParamValue(searchParams?.admissionId);
@@ -77,9 +163,8 @@ export default function useHistoryScreen(options = {}) {
   const handleViewDetails = useCallback(async (row) => {
     const admissionId = row?.admissionId || row?.id;
     if (!admissionId) return;
-    setSelectedAdmissionId(admissionId);
-    await loadTrackingDetail(admissionId);
-  }, [loadTrackingDetail]);
+    router.push(`/tracking/${encodeURIComponent(admissionId)}?detail=1`);
+  }, [router]);
 
   const loadTracking = useCallback(async () => {
     if (detailMode && admittedAdmissionId) {
@@ -92,9 +177,13 @@ export default function useHistoryScreen(options = {}) {
     setIsTrackingLoading(true);
     setTrackingErrorCode(null);
     try {
-      const result = await listTrackingAdmissionsUseCase({
+      const params = {
         status: 'ACTIVE',
         limit: 100,
+      };
+      if (selectedFacilityId) params.facilityId = selectedFacilityId;
+      const result = await listTrackingAdmissionsUseCase({
+        ...params,
       });
       setRows(result?.items ?? []);
     } catch (error) {
@@ -103,7 +192,7 @@ export default function useHistoryScreen(options = {}) {
     } finally {
       setIsTrackingLoading(false);
     }
-  }, [admittedAdmissionId, detailMode]);
+  }, [admittedAdmissionId, detailMode, selectedFacilityId]);
 
   useEffect(() => {
     loadTracking();
@@ -185,6 +274,27 @@ export default function useHistoryScreen(options = {}) {
     setSearchQuery(nextValue);
   }, []);
 
+  const handleFacilityQueryChange = useCallback((value) => {
+    setFacilityQuery(String(value ?? ''));
+  }, []);
+
+  const handleFacilityClear = useCallback(() => {
+    setFacilityQuery('');
+  }, []);
+
+  const handleFacilityChange = useCallback(
+    (facility) => {
+      const normalized = normalizeFacilityOption(facility);
+      if (!normalized?.id) return;
+      setFacilityQuery(null);
+      setSelectedAdmissionId(null);
+      setSelectedTracking(null);
+      setDetailErrorCode(null);
+      setActiveFacilityId(normalized.id);
+    },
+    [setActiveFacilityId]
+  );
+
   const handleOpenAdmit = useCallback(() => {
     router.push('/new-patient');
   }, [router]);
@@ -199,6 +309,12 @@ export default function useHistoryScreen(options = {}) {
     },
     [router, selectedAdmissionId]
   );
+
+  const handlePrintDetails = useCallback(() => {
+    if (typeof window !== 'undefined' && typeof window.print === 'function') {
+      window.print();
+    }
+  }, []);
 
   const localDraft = useMemo(() => {
     if (!sessionId || (!inputs && !recommendationSummary)) return null;
@@ -225,12 +341,7 @@ export default function useHistoryScreen(options = {}) {
         id: detailRow.facilityId,
         name: detailRow.facilityName,
       }
-    : rows[0]
-    ? {
-        id: rows[0].facilityId,
-        name: rows[0].facilityName,
-      }
-    : null;
+    : selectedFacility;
   const filteredRows = useMemo(
     () => filterTrackingRows(rows, searchQuery),
     [rows, searchQuery]
@@ -256,6 +367,16 @@ export default function useHistoryScreen(options = {}) {
     isSearchEmpty:
       rows.length > 0 && filteredRows.length === 0 && isSearchActive,
     searchQuery,
+    facilitySearch: {
+      query: displayedFacilityQuery,
+      onQueryChange: handleFacilityQueryChange,
+      value: selectedFacility,
+      onValueChange: handleFacilityChange,
+      onClear: handleFacilityClear,
+      options: facilitySelectOptions,
+      loading: false,
+      error: null,
+    },
     totalRows: rows.length,
     visibleRows: visibleRowCount,
     isHistoryLoading: isTrackingLoading,
@@ -274,5 +395,6 @@ export default function useHistoryScreen(options = {}) {
     handleUpdateTracking,
     handleViewDetails,
     handleCloseDetails,
+    handlePrintDetails,
   };
 }
