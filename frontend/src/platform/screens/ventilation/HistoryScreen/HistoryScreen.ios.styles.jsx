@@ -155,10 +155,57 @@ const StyledList = styled(View).withConfig({
   displayName: 'StyledList',
   componentId: 'StyledList',
 })`
-  padding-bottom: ${({ theme }) => theme.spacing.xl}px;
+  padding-bottom: 0px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.primary};
+`;
+
+const StyledListHeader = styled(View).withConfig({
+  displayName: 'StyledListHeader',
+  componentId: 'StyledListHeader',
+})`
+  min-height: 34px;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.background.tertiary};
+`;
+
+const StyledListHeaderCell = styled(View).withConfig({
+  displayName: 'StyledListHeaderCell',
+  componentId: 'StyledListHeaderCell',
+})`
+  flex: 1;
+  min-width: 0px;
+`;
+
+const StyledListCodeCell = styled(View).withConfig({
+  displayName: 'StyledListCodeCell',
+  componentId: 'StyledListCodeCell',
+})`
+  width: 64px;
+  flex-shrink: 0;
+`;
+
+const StyledListDateCell = styled(View).withConfig({
+  displayName: 'StyledListDateCell',
+  componentId: 'StyledListDateCell',
+})`
+  width: 84px;
+  flex-shrink: 0;
+`;
+
+const StyledListTimeCell = styled(View).withConfig({
+  displayName: 'StyledListTimeCell',
+  componentId: 'StyledListTimeCell',
+})`
+  width: 68px;
+  flex-shrink: 0;
 `;
 
 const StyledItem = styled(View).withConfig({
@@ -187,7 +234,7 @@ const StyledPatientRowNumber = styled(View).withConfig({
   displayName: 'StyledPatientRowNumber',
   componentId: 'StyledPatientRowNumber',
 })`
-  width: 28px;
+  width: 64px;
   flex-shrink: 0;
 `;
 
@@ -359,6 +406,11 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledListCodeCell,
+  StyledListDateCell,
+  StyledListHeader,
+  StyledListHeaderCell,
+  StyledListTimeCell,
   StyledPatientRowButton,
   StyledPatientRowCell,
   StyledPatientRowNumber,

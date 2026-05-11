@@ -107,6 +107,7 @@ const FacilitySearchSelectWeb = ({
         $disabled={disabled}
         onMouseDown={handleSurfaceMouseDown}
       >
+        <StyledSearchIcon aria-hidden="true">{'\ud83d\udd0d'}</StyledSearchIcon>
         <StyledInput
           id={inputId}
           ref={inputRef}
@@ -266,6 +267,21 @@ const StyledInput = styled.input.withConfig({
   &::placeholder {
     color: ${({ theme }) => theme.colors.text.tertiary};
   }
+`;
+
+const StyledSearchIcon = styled.span.withConfig({
+  displayName: 'StyledSearchIcon',
+  componentId: 'FacilitySearchSelectSearchIcon',
+})`
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  line-height: 22px;
 `;
 
 const StyledIconButton = styled.button.withConfig({

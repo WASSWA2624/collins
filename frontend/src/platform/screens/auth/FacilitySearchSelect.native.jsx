@@ -109,6 +109,7 @@ const FacilitySearchSelectNative = ({
         isOpen={isOpen}
         onPress={handleSurfacePress}
       >
+        <StyledSearchIcon>{'\ud83d\udd0d'}</StyledSearchIcon>
         <StyledInput
           ref={inputRef}
           value={query}
@@ -224,6 +225,15 @@ const StyledInput = styled(TextInput)`
   font-family: ${({ theme }) => theme.typography.fontFamily.regular};
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
   color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const StyledSearchIcon = styled.Text`
+  width: 22px;
+  flex-shrink: 0;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md}px;
+  margin-right: ${({ theme }) => theme.spacing.xs}px;
 `;
 
 const StyledChevron = styled.View`

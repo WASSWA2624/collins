@@ -25,6 +25,8 @@ import {
   StyledItemMain,
   StyledItemRow,
   StyledList,
+  StyledListHeader,
+  StyledListHeaderCell,
   StyledPatientDataGrid,
   StyledPatientDataItem,
   StyledPatientDataSection,
@@ -485,7 +487,27 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
           testID={HISTORY_TEST_IDS.list}
           role="list"
         >
-          {rows.map((row, index) => {
+          <StyledListHeader
+            role="presentation"
+            data-testid={HISTORY_TEST_IDS.listHeader}
+            {...(process.env.NODE_ENV === 'test'
+              ? { testID: HISTORY_TEST_IDS.listHeader }
+              : {})}
+          >
+            <StyledListHeaderCell>
+              {t('ventilation.tracking.list.patientCode')}
+            </StyledListHeaderCell>
+            <StyledListHeaderCell>
+              {t('ventilation.tracking.list.patientName')}
+            </StyledListHeaderCell>
+            <StyledListHeaderCell>
+              {t('ventilation.tracking.list.admissionDate')}
+            </StyledListHeaderCell>
+            <StyledListHeaderCell>
+              {t('ventilation.tracking.list.admissionTime')}
+            </StyledListHeaderCell>
+          </StyledListHeader>
+          {rows.map((row) => {
             const rowTestProps =
               process.env.NODE_ENV === 'test'
                 ? {
@@ -509,11 +531,15 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
                   data-testid={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                   {...rowTestProps}
                 >
-                  <StyledPatientRowNumber>{index + 1}</StyledPatientRowNumber>
-                  <StyledPatientRowCell>{row.patientId}</StyledPatientRowCell>
+                  <StyledPatientRowNumber>
+                    {row.patientCode || t('ventilation.tracking.patient.notRecorded')}
+                  </StyledPatientRowNumber>
                   <StyledPatientRowCell>{getPatientLabel(row, t)}</StyledPatientRowCell>
                   <StyledPatientRowCell>
-                    {row.admittedAtLabel || t('ventilation.tracking.patient.notRecorded')}
+                    {row.admittedDateLabel || t('ventilation.tracking.patient.notRecorded')}
+                  </StyledPatientRowCell>
+                  <StyledPatientRowCell>
+                    {row.admittedTimeLabel || t('ventilation.tracking.patient.notRecorded')}
                   </StyledPatientRowCell>
                 </StyledPatientRowButton>
               </StyledItem>

@@ -51,6 +51,24 @@ const formatDate = (value) => {
   });
 };
 
+const formatDateShort = (value) => {
+  if (!value) return '';
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString(undefined, {
+    dateStyle: 'short',
+  });
+};
+
+const formatTime = (value) => {
+  if (!value) return '';
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleTimeString(undefined, {
+    timeStyle: 'short',
+  });
+};
+
 const toArray = (value) => (Array.isArray(value) ? value : []);
 
 const cleanString = (value) =>
@@ -117,6 +135,22 @@ const buildAgeLabel = (primaryPatient = {}, fallbackPatient = {}) => {
     .join(' ');
 };
 
+const compactCodeToken = (value) =>
+  String(value || '')
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '');
+
+const buildPatientCode = (...values) => {
+  for (const value of values) {
+    const token = compactCodeToken(value);
+    if (!token) continue;
+    if (token.length <= 6) return token;
+    return token.slice(-6);
+  }
+  return '';
+};
+
 const normalizeSearchText = (value) =>
   String(value ?? '')
     .normalize('NFKD')
@@ -154,6 +188,7 @@ const buildTrackingSearchText = ({
   currentStatus,
   admissionStatus,
   patientPathway,
+  patientCode,
   missingData,
   risk,
 }) => {
@@ -161,6 +196,7 @@ const buildTrackingSearchText = ({
     item.admissionId,
     item.id,
     item.patientId,
+    patientCode,
     item.appAdmissionCode,
     item.optionalName,
     item.bedNumber,
@@ -311,6 +347,13 @@ const normalizeTrackingItem = (item = {}) => {
     item
   );
   const dateOfBirth = getPatientValue(patient, admissionPatient, 'dateOfBirth');
+  const admittedAt = item.admittedAt || currentStatus.admittedAt || null;
+  const patientCode = buildPatientCode(
+    patient.appPatientCode,
+    item.patient?.appPatientCode,
+    patient.id,
+    item.patientId
+  );
   const searchText = buildTrackingSearchText({
     item,
     patient: item.patient || patient,
@@ -326,6 +369,7 @@ const normalizeTrackingItem = (item = {}) => {
     id: item.admissionId || item.id,
     admissionId: item.admissionId || item.id,
     patientId: item.patientId || patient.id,
+    patientCode,
     appAdmissionCode: item.appAdmissionCode || '',
     optionalName: patientDisplayName,
     firstName: getPatientValue(patient, admissionPatient, 'firstName') || '',
@@ -362,10 +406,10 @@ const normalizeTrackingItem = (item = {}) => {
       ADMISSION_STATUS_LABELS[admissionStatus] ||
       titleCaseToken(admissionStatus) ||
       'Status unknown',
-    admittedAt: item.admittedAt || currentStatus.admittedAt || null,
-    admittedAtLabel: formatDateTime(
-      item.admittedAt || currentStatus.admittedAt
-    ),
+    admittedAt,
+    admittedAtLabel: formatDateTime(admittedAt),
+    admittedDateLabel: formatDateShort(admittedAt),
+    admittedTimeLabel: formatTime(admittedAt),
     updatedAt: item.updatedAt || null,
     patientPathway,
     patientPathwayLabel: titleCaseToken(patientPathway) || 'Pathway unknown',

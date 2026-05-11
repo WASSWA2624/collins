@@ -259,6 +259,39 @@ const StyledList = styled.ul.withConfig({
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
+const listGridColumns =
+  'minmax(56px, 72px) minmax(84px, 1fr) minmax(76px, 96px) minmax(58px, 76px)';
+
+const StyledListHeader = styled.li.withConfig({
+  displayName: 'StyledListHeader',
+  componentId: 'StyledListHeader',
+})`
+  min-height: 34px;
+  display: grid;
+  grid-template-columns: ${listGridColumns};
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  box-sizing: border-box;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  font-weight: 600;
+  text-transform: uppercase;
+`;
+
+const StyledListHeaderCell = styled.span.withConfig({
+  displayName: 'StyledListHeaderCell',
+  componentId: 'StyledListHeaderCell',
+})`
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 const StyledItem = styled.li.withConfig({
   displayName: 'StyledItem',
   componentId: 'StyledItem',
@@ -281,7 +314,7 @@ const StyledPatientRowButton = styled.button.withConfig({
   width: 100%;
   min-height: 38px;
   display: grid;
-  grid-template-columns: 44px minmax(130px, 1.1fr) minmax(140px, 1.3fr) minmax(150px, 1fr);
+  grid-template-columns: ${listGridColumns};
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.xs}px
@@ -297,15 +330,6 @@ const StyledPatientRowButton = styled.button.withConfig({
   &:focus-visible {
     background: ${({ theme }) => theme.colors.background.secondary};
     outline: none;
-  }
-
-  @media (max-width: ${({ theme }) =>
-      (theme.breakpoints?.tablet ?? 768) - 1}px) {
-    grid-template-columns: 32px minmax(100px, 1fr) minmax(120px, 1fr);
-
-    > *:last-child {
-      display: none;
-    }
   }
 `;
 
@@ -579,6 +603,8 @@ export {
   StyledItemRow,
   StyledItemTitle,
   StyledList,
+  StyledListHeader,
+  StyledListHeaderCell,
   StyledPatientRowButton,
   StyledPatientRowCell,
   StyledPatientRowNumber,

@@ -24,6 +24,11 @@ import {
   StyledItemMain,
   StyledItemRow,
   StyledList,
+  StyledListCodeCell,
+  StyledListDateCell,
+  StyledListHeader,
+  StyledListHeaderCell,
+  StyledListTimeCell,
   StyledPatientDataGrid,
   StyledPatientDataItem,
   StyledPatientDataSection,
@@ -425,7 +430,29 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
           </StyledEmpty>
         ) : (
           <StyledList testID={HISTORY_TEST_IDS.list}>
-            {rows.map((row, index) => (
+            <StyledListHeader testID={HISTORY_TEST_IDS.listHeader}>
+              <StyledListCodeCell>
+                <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                  {t('ventilation.tracking.list.patientCode')}
+                </Text>
+              </StyledListCodeCell>
+              <StyledListHeaderCell>
+                <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                  {t('ventilation.tracking.list.patientName')}
+                </Text>
+              </StyledListHeaderCell>
+              <StyledListDateCell>
+                <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                  {t('ventilation.tracking.list.admissionDate')}
+                </Text>
+              </StyledListDateCell>
+              <StyledListTimeCell>
+                <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                  {t('ventilation.tracking.list.admissionTime')}
+                </Text>
+              </StyledListTimeCell>
+            </StyledListHeader>
+            {rows.map((row) => (
               <StyledItem
                 key={row.admissionId}
                 testID={`${HISTORY_TEST_IDS.item}-${row.admissionId}`}
@@ -440,24 +467,28 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
                   testID={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                 >
                   <StyledPatientRowNumber>
-                    <Text variant="caption">{index + 1}</Text>
-                  </StyledPatientRowNumber>
-                  <StyledPatientRowCell>
                     <Text variant="caption" numberOfLines={1}>
-                      {row.patientId}
+                      {row.patientCode ||
+                        t('ventilation.tracking.patient.notRecorded')}
                     </Text>
-                  </StyledPatientRowCell>
+                  </StyledPatientRowNumber>
                   <StyledPatientRowCell>
                     <Text variant="caption" numberOfLines={1}>
                       {getPatientLabel(row, t)}
                     </Text>
                   </StyledPatientRowCell>
-                  <StyledPatientRowCell>
+                  <StyledListDateCell>
                     <Text variant="caption" numberOfLines={1}>
-                      {row.admittedAtLabel ||
+                      {row.admittedDateLabel ||
                         t('ventilation.tracking.patient.notRecorded')}
                     </Text>
-                  </StyledPatientRowCell>
+                  </StyledListDateCell>
+                  <StyledListTimeCell>
+                    <Text variant="caption" numberOfLines={1}>
+                      {row.admittedTimeLabel ||
+                        t('ventilation.tracking.patient.notRecorded')}
+                    </Text>
+                  </StyledListTimeCell>
                 </StyledPatientRowButton>
               </StyledItem>
             ))}

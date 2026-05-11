@@ -67,6 +67,8 @@ describe('tracking.model', () => {
     expect(row.admissionId).toBe('adm-1');
     expect(row.optionalName).toBe('Jane Doe');
     expect(row.patientId).toBe('patient-1');
+    expect(row.patientCode).toBe('COLP1');
+    expect(row.patientCode).toHaveLength(5);
     expect(row.appPatientCode).toBe('COL-P-1');
     expect(row.hospitalNumber).toBe('HN-7788');
     expect(row.ageLabel).toBe('8y 2m 10d');
@@ -74,6 +76,8 @@ describe('tracking.model', () => {
     expect(row.heightOrLengthCm).toBe(124);
     expect(row.referenceWeightKg).toBe(25.5);
     expect(row.facilityName).toBe('City ICU');
+    expect(row.admittedDateLabel).toBeTruthy();
+    expect(row.admittedTimeLabel).toBeTruthy();
     expect(row.bedNumber).toBe('ICU-2');
     expect(row.reviewLabel).toBe('Review');
     expect(row.syncLabel).toBe('Conflict');

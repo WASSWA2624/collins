@@ -79,6 +79,7 @@ const HISTORY_TEST_IDS = {
   draftBanner: 'tracking-draft-banner',
   admittedBanner: 'tracking-admitted-banner',
   list: 'history-list',
+  listHeader: 'tracking-list-header',
   search: 'tracking-search',
   searchEmpty: 'tracking-search-empty',
   facilitySelect: 'tracking-facility-select',
@@ -91,6 +92,7 @@ const HISTORY_TEST_IDS = {
 const trackingRow = {
   admissionId: 'adm-1',
   patientId: 'patient-1',
+  patientCode: 'COLP1',
   appAdmissionCode: 'COL-A-1',
   appPatientCode: 'COL-P-1',
   optionalName: 'Jane Doe',
@@ -106,6 +108,8 @@ const trackingRow = {
   referenceWeightKg: 25.5,
   heightOrLengthCm: 124,
   admittedAtLabel: '5/1/26, 8:00 AM',
+  admittedDateLabel: '5/1/26',
+  admittedTimeLabel: '8:00 AM',
   reviewLabel: 'Review',
   syncLabel: 'Conflict',
   missingDataLabel: 'PaO2, PEEP',
@@ -241,9 +245,17 @@ describe('Tracking screen compatibility route', () => {
       getByTestId(`${HISTORY_TEST_IDS.facilitySelect}-clear`)
     ).toBeDefined();
     expect(getByTestId(HISTORY_TEST_IDS.search)).toBeDefined();
+    expect(getByTestId(HISTORY_TEST_IDS.listHeader)).toBeDefined();
+    expect(getByText('Code')).toBeDefined();
+    expect(getByText('Patient')).toBeDefined();
+    expect(getByText('Date')).toBeDefined();
+    expect(getByText('Time')).toBeDefined();
+    expect(getByText('COLP1')).toBeDefined();
     expect(getByText('Jane Doe')).toBeDefined();
-    expect(getByText('patient-1')).toBeDefined();
-    expect(getByText('5/1/26, 8:00 AM')).toBeDefined();
+    expect(getByText('5/1/26')).toBeDefined();
+    expect(getByText('8:00 AM')).toBeDefined();
+    expect(queryByText('patient-1')).toBeNull();
+    expect(queryByText('5/1/26, 8:00 AM')).toBeNull();
     expect(queryByTestId(HISTORY_TEST_IDS.viewDetails)).toBeNull();
     expect(queryByText('Missing data: PaO2, PEEP')).toBeNull();
   });
