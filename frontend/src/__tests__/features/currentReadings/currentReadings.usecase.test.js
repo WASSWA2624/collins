@@ -88,6 +88,34 @@ describe('currentReadings.usecase', () => {
     );
   });
 
+  it('uses backend current-readings analysis when it is returned with the save response', async () => {
+    saveCurrentReadingsApi.mockResolvedValue({
+      syncStatus: 'synced',
+      progressAssessment: {
+        status: 'deteriorating',
+        action: 'suggest_new_settings',
+        label: 'Deteriorating',
+        reasons: ['SpO2 worsened from 94 to 88.'],
+      },
+      ventilatorRecommendation: {
+        initialVentilatorSettings: {
+          settings: { mode: 'VC', peep: 10 },
+        },
+      },
+    });
+
+    const result = await submitCurrentReadingsUseCase({
+      admissionId: 'admission-1',
+      vitals: { spo2: '88' },
+      clientRecordId: 'client-1',
+      idempotencyKey: 'idem-1',
+    });
+
+    expect(result.progressAssessment.status).toBe('deteriorating');
+    expect(result.ventilatorRecommendation.initialVentilatorSettings.settings.peep).toBe(10);
+    expect(getCurrentReadingsVentilatorRecommendationApi).not.toHaveBeenCalled();
+  });
+
   it('returns conflict state with server metadata for stale client appends', async () => {
     saveCurrentReadingsApi.mockRejectedValue({
       status: 409,

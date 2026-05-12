@@ -83,6 +83,7 @@ const TextFieldWeb = ({
   className,
   style,
   id,
+  embedded = false,
   ...rest
 }) => {
   const reactId = useOptionalId();
@@ -123,14 +124,18 @@ const TextFieldWeb = ({
     (typeof testID === 'string' ? testID : undefined);
 
   return (
-    <StyledContainer style={style} className={className}>
+    <StyledContainer style={style} className={className} $embedded={embedded}>
       {label && (
         <StyledLabel htmlFor={inputId}>
           {label}
           {required && <StyledRequiredIndicator aria-hidden="true"> *</StyledRequiredIndicator>}
         </StyledLabel>
       )}
-      <StyledInputContainer $validationState={finalValidationState} $isFocused={isFocused}>
+      <StyledInputContainer
+        $embedded={embedded}
+        $validationState={finalValidationState}
+        $isFocused={isFocused}
+      >
         {prefix && <StyledPrefix>{prefix}</StyledPrefix>}
         <StyledInput
           id={inputId}

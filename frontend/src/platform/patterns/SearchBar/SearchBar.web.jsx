@@ -18,6 +18,7 @@ import {
   StyledContainer,
   StyledSearchIcon,
   StyledClearButton,
+  StyledTextFieldWrapper,
 } from './SearchBar.web.styles';
 
 // 5. Component-specific hook (relative import)
@@ -78,41 +79,40 @@ const SearchBarWeb = ({
       testID={testID}
       {...rest}
     >
+      <StyledSearchIcon
+        accessibilityLabel={searchIconLabel}
+        testID={testID ? `${testID}-icon` : undefined}
+      >
+        {searchIcon}
+      </StyledSearchIcon>
+      <StyledTextFieldWrapper>
       <TextField
         value={localValue}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
         placeholder={placeholderText}
         type="search"
-        prefix={
-          <StyledSearchIcon
-            accessibilityLabel={searchIconLabel}
-            testID={testID ? `${testID}-icon` : undefined}
-          >
-            {searchIcon}
-          </StyledSearchIcon>
-        }
-        suffix={
-          showClearButton && hasValue ? (
-            <StyledClearButton>
-              <Button
-                variant="text"
-                size="small"
-                onClick={handleClear}
-                accessibilityLabel={clearButtonLabel}
-                testID={testID ? `${testID}-clear` : undefined}
-              >
-                {clearIcon}
-              </Button>
-            </StyledClearButton>
-          ) : null
-        }
+        embedded
         {...(accessibilityLabelText && {
           accessibilityLabel: accessibilityLabelText,
         })}
         testID={testID ? `${testID}-input` : undefined}
         style={{ marginBottom: 0 }}
       />
+      </StyledTextFieldWrapper>
+      {showClearButton && hasValue ? (
+        <StyledClearButton>
+          <Button
+            variant="text"
+            size="small"
+            onClick={handleClear}
+            accessibilityLabel={clearButtonLabel}
+            testID={testID ? `${testID}-clear` : undefined}
+          >
+            {clearIcon}
+          </Button>
+        </StyledClearButton>
+      ) : null}
     </StyledContainer>
   );
 };

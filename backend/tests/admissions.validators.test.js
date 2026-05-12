@@ -167,7 +167,7 @@ test('validates ventilator append metadata and empty query contract', () => {
   assert.equal(rejected.success, false);
 });
 
-test('rejects FiO2 fields from New Patient request payloads', () => {
+test('accepts FiO2 fields for current clinical reading payloads', () => {
   const createResult = createNewPatientSchema.safeParse({
     body: {
       patient: { firstName: 'Patient', patientPathway: 'ADULT' },
@@ -196,7 +196,10 @@ test('rejects FiO2 fields from New Patient request payloads', () => {
     query: {},
   });
 
-  assert.equal(createResult.success, false);
-  assert.equal(abgResult.success, false);
-  assert.equal(ventilatorResult.success, false);
+  assert.equal(createResult.success, true);
+  assert.equal(createResult.data.body.clinicalSnapshot.fio2, 0.5);
+  assert.equal(abgResult.success, true);
+  assert.equal(abgResult.data.body.fio2AtSample, 0.4);
+  assert.equal(ventilatorResult.success, true);
+  assert.equal(ventilatorResult.data.body.fio2, 0.5);
 });

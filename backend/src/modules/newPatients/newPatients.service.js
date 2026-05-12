@@ -1267,6 +1267,291 @@ export const recommendNewPatientVentilatorSettings = async (payload = {}, userId
   });
 };
 
+const asTime = (value) => {
+  const date = value ? new Date(value) : null;
+  return date && !Number.isNaN(date.getTime()) ? date.getTime() : 0;
+};
+
+const sortClinicalRecordsDesc = (records, timestampField) =>
+  [...(Array.isArray(records) ? records : [])].sort((left, right) => {
+    const versionDelta = Number(right?.version || 0) - Number(left?.version || 0);
+    if (versionDelta !== 0) return versionDelta;
+    return asTime(right?.[timestampField] || right?.createdAt) - asTime(left?.[timestampField] || left?.createdAt);
+  });
+
+const getLatestTwoClinicalRecords = (records, timestampField) =>
+  sortClinicalRecordsDesc(records, timestampField).slice(0, 2);
+
+const firstFiniteNumber = (...values) => {
+  for (const value of values) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) return numeric;
+  }
+  return null;
+};
+
+const roundClinicalTrendValue = (value, digits = 1) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return '';
+  return Number(numeric.toFixed(digits)).toString();
+};
+
+const addDirectionalCurrentReadingsTrend = (
+  trends,
+  { label, latest, previous, minChange, higherIsBetter = true, digits = 1 }
+) => {
+  if (!Number.isFinite(latest) || !Number.isFinite(previous)) return;
+  const delta = latest - previous;
+  if (Math.abs(delta) < minChange) return;
+  const improved = higherIsBetter ? delta > 0 : delta < 0;
+  trends.push({
+    score: improved ? 1 : -1,
+    message: `${label} ${improved ? 'improved' : 'worsened'} from ${roundClinicalTrendValue(previous, digits)} to ${roundClinicalTrendValue(latest, digits)}.`,
+  });
+};
+
+const addTargetCurrentReadingsTrend = (
+  trends,
+  { label, latest, previous, target, minChange, digits = 1 }
+) => {
+  if (!Number.isFinite(latest) || !Number.isFinite(previous)) return;
+  const latestDistance = Math.abs(latest - target);
+  const previousDistance = Math.abs(previous - target);
+  const change = previousDistance - latestDistance;
+  if (Math.abs(change) < minChange) return;
+  const improved = change > 0;
+  trends.push({
+    score: improved ? 1 : -1,
+    message: `${label} moved ${improved ? 'closer to' : 'farther from'} the expected range (${roundClinicalTrendValue(previous, digits)} to ${roundClinicalTrendValue(latest, digits)}).`,
+  });
+};
+
+const getCurrentReadingsClinicalFlags = (admission = {}) => {
+  const latestAbg = sortClinicalRecordsDesc(admission.abgTests, 'collectedAt')[0] || null;
+  const latestVentilator = sortClinicalRecordsDesc(admission.ventilatorSettings, 'measuredAt')[0] || null;
+  const clinicalSummary = admission.clinicalSummary || {};
+
+  return [
+    ...(Array.isArray(clinicalSummary.flags) ? clinicalSummary.flags : []),
+    ...(Array.isArray(clinicalSummary.abg?.flags) ? clinicalSummary.abg.flags : []),
+    ...(Array.isArray(latestAbg?.clinicalFlagsJson) ? latestAbg.clinicalFlagsJson : []),
+    ...(Array.isArray(latestVentilator?.clinicalFlagsJson) ? latestVentilator.clinicalFlagsJson : []),
+  ];
+};
+
+const createCurrentReadingsProgressAssessment = ({
+  status,
+  score,
+  reasons = [],
+  redFlagCount = 0,
+}) => {
+  const labels = {
+    improving: 'Improving',
+    deteriorating: 'Deteriorating',
+    stable: 'Stable',
+    insufficient: 'Needs more history',
+  };
+  const actionByStatus = {
+    improving: 'keep_current_parameters',
+    deteriorating: 'suggest_new_settings',
+    stable: 'keep_current_parameters',
+    insufficient: 'review_current_readings',
+  };
+  const recommendationByStatus = {
+    improving: 'Current readings suggest improvement. Recommend keeping the same ventilator parameters if bedside assessment supports this.',
+    deteriorating: 'Current readings suggest possible deterioration. Review the updated ventilator settings suggestion before changing parameters.',
+    stable: 'Current readings are broadly stable. Recommend keeping the same ventilator parameters unless bedside assessment suggests otherwise.',
+    insufficient: 'Not enough previous readings are available to classify progress. Save current readings and continue trend review.',
+  };
+
+  return {
+    status,
+    label: labels[status],
+    score,
+    action: actionByStatus[status],
+    recommendation: recommendationByStatus[status],
+    redFlagCount,
+    reasons,
+  };
+};
+
+export const buildCurrentReadingsProgressAssessment = (admission = {}) => {
+  const [latestVitals, previousVitals] = getLatestTwoClinicalRecords(admission.clinicalSnapshots, 'measuredAt');
+  const [latestAbg, previousAbg] = getLatestTwoClinicalRecords(admission.abgTests, 'collectedAt');
+  const [latestVentilator, previousVentilator] = getLatestTwoClinicalRecords(admission.ventilatorSettings, 'measuredAt');
+  const trends = [];
+
+  addDirectionalCurrentReadingsTrend(trends, {
+    label: 'SpO2',
+    latest: firstFiniteNumber(latestVitals?.spo2, latestAbg?.spo2AtSample),
+    previous: firstFiniteNumber(previousVitals?.spo2, previousAbg?.spo2AtSample),
+    minChange: 2,
+  });
+  addDirectionalCurrentReadingsTrend(trends, {
+    label: 'PaO2',
+    latest: firstFiniteNumber(latestAbg?.pao2),
+    previous: firstFiniteNumber(previousAbg?.pao2),
+    minChange: 10,
+  });
+  addTargetCurrentReadingsTrend(trends, {
+    label: 'pH',
+    latest: firstFiniteNumber(latestAbg?.ph),
+    previous: firstFiniteNumber(previousAbg?.ph),
+    target: 7.4,
+    minChange: 0.03,
+    digits: 2,
+  });
+  addTargetCurrentReadingsTrend(trends, {
+    label: 'PaCO2',
+    latest: firstFiniteNumber(latestAbg?.paco2),
+    previous: firstFiniteNumber(previousAbg?.paco2),
+    target: 40,
+    minChange: 5,
+  });
+  addTargetCurrentReadingsTrend(trends, {
+    label: 'Respiratory rate',
+    latest: firstFiniteNumber(latestVitals?.respiratoryRate, latestVentilator?.respiratoryRateMeasured),
+    previous: firstFiniteNumber(previousVitals?.respiratoryRate, previousVentilator?.respiratoryRateMeasured),
+    target: 16,
+    minChange: 4,
+  });
+  addTargetCurrentReadingsTrend(trends, {
+    label: 'Heart rate',
+    latest: firstFiniteNumber(latestVitals?.heartRate),
+    previous: firstFiniteNumber(previousVitals?.heartRate),
+    target: 80,
+    minChange: 10,
+  });
+  addDirectionalCurrentReadingsTrend(trends, {
+    label: 'FiO2 requirement',
+    latest: firstFiniteNumber(latestVentilator?.fio2, latestAbg?.fio2AtSample, latestVitals?.fio2),
+    previous: firstFiniteNumber(previousVentilator?.fio2, previousAbg?.fio2AtSample, previousVitals?.fio2),
+    minChange: 0.05,
+    higherIsBetter: false,
+    digits: 2,
+  });
+  addDirectionalCurrentReadingsTrend(trends, {
+    label: 'PEEP requirement',
+    latest: firstFiniteNumber(latestVentilator?.peep),
+    previous: firstFiniteNumber(previousVentilator?.peep),
+    minChange: 2,
+    higherIsBetter: false,
+  });
+
+  const redFlagCount = getCurrentReadingsClinicalFlags(admission).filter((flag) => flag?.severity === 'red').length;
+  const score = trends.reduce((total, trend) => total + trend.score, 0);
+  let status = 'stable';
+
+  if (trends.length === 0) {
+    status = 'insufficient';
+  } else if (redFlagCount > 0 && score <= 0) {
+    status = 'deteriorating';
+  } else if (score >= 2) {
+    status = 'improving';
+  } else if (score <= -2) {
+    status = 'deteriorating';
+  }
+
+  return createCurrentReadingsProgressAssessment({
+    status,
+    score,
+    redFlagCount,
+    reasons: trends.map((trend) => trend.message),
+  });
+};
+
+const buildCurrentReadingsRecommendationInputFromAdmission = (admission = {}) => {
+  const patient = admission.patient || {};
+  const latestVitals = sortClinicalRecordsDesc(admission.clinicalSnapshots, 'measuredAt')[0] || null;
+  const latestAbg = sortClinicalRecordsDesc(admission.abgTests, 'collectedAt')[0] || null;
+  const latestVentilator = sortClinicalRecordsDesc(admission.ventilatorSettings, 'measuredAt')[0] || null;
+
+  return stripUndefined({
+    condition: admission.reasonForVentilation || latestVitals?.mainCondition || admission.clinicalSummary?.condition,
+    patientPathway: patient.patientPathway,
+    sexForSizeCalculations: patient.sexForSizeCalculations,
+    ageYears: patient.ageYears,
+    ageMonths: patient.ageMonths,
+    ageDays: patient.ageDays,
+    actualWeightKg: patient.actualWeightKg ?? patient.referenceWeightKg,
+    heightOrLengthCm: patient.heightOrLengthCm,
+    spo2: latestVitals?.spo2 ?? latestAbg?.spo2AtSample,
+    respiratoryRate: latestVitals?.respiratoryRate ?? latestVentilator?.respiratoryRateMeasured,
+    heartRate: latestVitals?.heartRate,
+    ph: latestAbg?.ph,
+    pao2: latestAbg?.pao2,
+    paco2: latestAbg?.paco2,
+    mode: latestVentilator?.mode,
+    tidalVolumeMl: latestVentilator?.tidalVolumeMl,
+    respiratoryRateSet: latestVentilator?.respiratoryRateSet,
+    respiratoryRateMeasured: latestVentilator?.respiratoryRateMeasured,
+    peep: latestVentilator?.peep,
+    pressureSupport: latestVentilator?.pressureSupport,
+    inspiratoryPressure: latestVentilator?.inspiratoryPressure,
+    peakPressure: latestVentilator?.peakPressure,
+    plateauPressure: latestVentilator?.plateauPressure,
+    ieRatio: latestVentilator?.ieRatio,
+  });
+};
+
+const buildCurrentReadingsRecommendationAnalysis = async ({ tx, facilityId, admission }) => {
+  const progressAssessment = buildCurrentReadingsProgressAssessment(admission);
+
+  if (progressAssessment.action !== 'suggest_new_settings') {
+    return {
+      progressAssessment,
+      ventilatorRecommendation: null,
+      recommendationError: null,
+    };
+  }
+
+  try {
+    const input = normalizeRecommendationInput(buildCurrentReadingsRecommendationInputFromAdmission(admission));
+    const datasetCases = await tx.datasetCase.findMany({
+      where: {
+        facilityId,
+        approvedForTraining: true,
+        reviewStatus: 'APPROVED_FOR_TRAINING',
+      },
+      select: RECOMMENDATION_DATASET_SELECT,
+      orderBy: { reviewedAt: 'desc' },
+      take: 1000,
+    });
+    const candidates = datasetCases.map(extractDatasetRecommendationCandidate).filter(Boolean);
+    const ranked = candidates
+      .map((candidate) => scoreDatasetRecommendationCandidate(input, candidate))
+      .filter((match) => match.completeness > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (b.completeness !== a.completeness) return b.completeness - a.completeness;
+        return String(a.caseId || '').localeCompare(String(b.caseId || ''));
+      })
+      .slice(0, 5);
+
+    return {
+      progressAssessment,
+      ventilatorRecommendation: buildDatasetRecommendation({ input, candidates, ranked }),
+      recommendationError: null,
+      recommendationSource: {
+        type: 'backend_dataset',
+        datasetCaseCount: datasetCases.length,
+        candidateCount: candidates.length,
+        matchCount: ranked.length,
+      },
+      missingRecommendationInputs: getMissingRecommendationInputs(input),
+    };
+  } catch {
+    return {
+      progressAssessment,
+      ventilatorRecommendation: null,
+      recommendationError: {
+        code: 'CURRENT_READINGS_RECOMMENDATION_FAILED',
+        message: 'Unable to generate a ventilator settings suggestion from the saved current readings.',
+      },
+    };
+  }
+};
+
 const buildPatientReasonSnapshot = (payload) => {
   const clinicalReason = isPlainObject(payload.clinicalReason) ? payload.clinicalReason : {};
   const comorbiditiesJson = isPlainObject(clinicalReason.comorbiditiesJson) ? clinicalReason.comorbiditiesJson : {};
@@ -1800,12 +2085,26 @@ export const saveNewPatientCurrentReadings = async (userId, admissionId, payload
 
     const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(admissionAccess.facilityId, { tx });
+    const admissionWithSummary = {
+      ...refreshed,
+      clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }),
+    };
+    const currentReadingsAnalysis = await buildCurrentReadingsRecommendationAnalysis({
+      tx,
+      facilityId: refreshed.facilityId,
+      admission: admissionWithSummary,
+    });
     const responseJson = buildThreeStepNewPatientResponse(
-      'current_readings_update',
-      { ...refreshed, clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }) },
+      'current_readings',
+      admissionWithSummary,
       {
         facilityId: refreshed.facilityId,
         saved,
+        progressAssessment: currentReadingsAnalysis.progressAssessment,
+        ventilatorRecommendation: currentReadingsAnalysis.ventilatorRecommendation,
+        recommendationError: currentReadingsAnalysis.recommendationError,
+        recommendationSource: currentReadingsAnalysis.recommendationSource,
+        missingRecommendationInputs: currentReadingsAnalysis.missingRecommendationInputs,
         reviewState: {
           admissionReviewStatus: reviewedWrite.reviewStatus,
           overrideApplied: reviewedWrite.overrideApplied,

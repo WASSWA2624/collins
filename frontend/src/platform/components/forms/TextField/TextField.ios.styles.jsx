@@ -10,7 +10,8 @@ const StyledContainer = styled.View.withConfig({
   componentId: 'StyledContainer',
 })`
   width: 100%;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  margin-bottom: ${({ $embedded, theme }) =>
+    $embedded ? 0 : theme.spacing.md}px;
 `;
 
 const StyledLabel = styled.Text.withConfig({
@@ -37,17 +38,19 @@ const StyledInputContainer = styled.View.withConfig({
 })`
   flex-direction: row;
   align-items: center;
-  border-width: 1px;
+  border-width: ${({ $embedded }) => ($embedded ? 0 : 1)}px;
   border-radius: 0px;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  background-color: ${({ $embedded, theme }) =>
+    $embedded ? 'transparent' : theme.colors.background.primary};
   border-color: ${({ validationState, isFocused, theme }) => {
     if (validationState === 'error') return theme.colors.error;
     if (validationState === 'success') return theme.colors.success;
     if (isFocused) return theme.colors.primary;
     return theme.colors.background.tertiary;
   }};
-  padding-horizontal: ${({ theme }) => theme.spacing.md}px;
-  min-height: 48px;
+  padding-horizontal: ${({ $embedded, theme }) =>
+    $embedded ? 0 : theme.spacing.md}px;
+  min-height: ${({ $embedded }) => ($embedded ? 0 : 48)}px;
 `;
 
 const StyledPrefix = styled.View.withConfig({

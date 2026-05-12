@@ -8,9 +8,11 @@ import styled from 'styled-components';
 const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
   width: 100%;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  margin-bottom: ${({ $embedded, theme }) =>
+    $embedded ? 0 : theme.spacing.md}px;
 `;
 
 const StyledLabel = styled.label.withConfig({
@@ -44,18 +46,19 @@ const StyledInputContainer = styled.div.withConfig({
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-width: 1px;
+  border-width: ${({ $embedded }) => ($embedded ? 0 : 1)}px;
   border-style: solid;
   border-radius: 0;
-  background-color: ${({ theme }) => theme.colors.background.primary};
+  background-color: ${({ $embedded, theme }) =>
+    $embedded ? 'transparent' : theme.colors.background.primary};
   border-color: ${({ $validationState, $isFocused, theme }) => {
     if ($validationState === 'error') return theme.colors.error;
     if ($validationState === 'success') return theme.colors.success;
     if ($isFocused) return theme.colors.primary;
     return theme.colors.background.tertiary;
   }};
-  padding: 0 ${({ theme }) => theme.spacing.md}px;
-  min-height: 48px;
+  padding: 0 ${({ $embedded, theme }) => ($embedded ? 0 : theme.spacing.md)}px;
+  min-height: ${({ $embedded }) => ($embedded ? 0 : 48)}px;
   gap: ${({ theme }) => theme.spacing.xs}px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
@@ -65,10 +68,13 @@ const StyledInputContainer = styled.div.withConfig({
       if ($validationState === 'success') return theme.colors.success;
       return theme.colors.primary;
     }};
-    box-shadow: 0 0 0 3px ${({ $validationState, theme }) => {
-      if ($validationState === 'error') return `${theme.colors.error}15`;
-      if ($validationState === 'success') return `${theme.colors.success}15`;
-      return `${theme.colors.primary}15`;
+    box-shadow: ${({ $embedded, $validationState, theme }) => {
+      if ($embedded) return 'none';
+      if ($validationState === 'error')
+        return `0 0 0 3px ${theme.colors.error}15`;
+      if ($validationState === 'success')
+        return `0 0 0 3px ${theme.colors.success}15`;
+      return `0 0 0 3px ${theme.colors.primary}15`;
     }};
     outline: none;
   }

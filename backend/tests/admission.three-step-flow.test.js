@@ -9,6 +9,7 @@ import {
 import {
   buildNewPatientReadiness,
   buildClinicalSummary,
+  buildCurrentReadingsProgressAssessment,
   createAppRecordCode,
   normalizeAppRecordCode,
 } from '../src/modules/newPatients/newPatients.service.js';
@@ -152,11 +153,13 @@ test('current readings update accepts vital signs, ABG, ventilator records, and 
       abgTest: {
         ph: '7.31',
         pao2: '82',
+        fio2AtSample: '0.4',
         source: 'current_readings',
       },
       ventilatorSetting: {
         mode: 'VC',
         peep: '8',
+        fio2: '0.4',
         source: 'current_readings',
       },
       clientRecordId: 'client-update-1',
@@ -171,7 +174,9 @@ test('current readings update accepts vital signs, ABG, ventilator records, and 
   assert.equal(parsed.body.clinicalSnapshot.spo2, 94);
   assert.equal(parsed.body.clinicalSnapshot.respiratoryRate, 24);
   assert.equal(parsed.body.abgTest.ph, 7.31);
+  assert.equal(parsed.body.abgTest.fio2AtSample, 0.4);
   assert.equal(parsed.body.ventilatorSetting.peep, 8);
+  assert.equal(parsed.body.ventilatorSetting.fio2, 0.4);
   assert.equal(parsed.body.uncertainty, undefined);
 });
 
@@ -189,6 +194,57 @@ test('current readings update rejects uncertainty-only payloads', () => {
       query: {},
     })
   );
+});
+
+test('current readings progress assessment compares saved readings over time', () => {
+  const assessment = buildCurrentReadingsProgressAssessment({
+    patient: { patientPathway: 'ADULT' },
+    clinicalSnapshots: [
+      {
+        measuredAt: '2026-05-05T08:00:00.000Z',
+        spo2: 88,
+        respiratoryRate: 34,
+        heartRate: 124,
+      },
+      {
+        measuredAt: '2026-05-05T07:00:00.000Z',
+        spo2: 94,
+        respiratoryRate: 24,
+        heartRate: 104,
+      },
+    ],
+    abgTests: [
+      {
+        collectedAt: '2026-05-05T08:00:00.000Z',
+        ph: 7.21,
+        paco2: 72,
+        fio2AtSample: 0.8,
+      },
+      {
+        collectedAt: '2026-05-05T07:00:00.000Z',
+        ph: 7.34,
+        paco2: 48,
+        fio2AtSample: 0.4,
+      },
+    ],
+    ventilatorSettings: [
+      {
+        measuredAt: '2026-05-05T08:00:00.000Z',
+        fio2: 0.8,
+        peep: 12,
+      },
+      {
+        measuredAt: '2026-05-05T07:00:00.000Z',
+        fio2: 0.4,
+        peep: 8,
+      },
+    ],
+  });
+
+  assert.equal(assessment.status, 'deteriorating');
+  assert.equal(assessment.action, 'suggest_new_settings');
+  assert.ok(assessment.reasons.some((reason) => reason.includes('SpO2 worsened')));
+  assert.ok(assessment.reasons.some((reason) => reason.includes('FiO2 requirement worsened')));
 });
 
 test('readiness keeps missing-data warnings advisory and honors permitted fields', () => {

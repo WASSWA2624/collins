@@ -50,6 +50,7 @@ newPatientsRouter.patch('/:id', validateRequest(patchNewPatientSchema), patchByI
 newPatientsRouter.post('/:id/three-step/oxygen-abg-ventilator', validateRequest(newPatientOxygenAbgVentilatorStepSchema), saveOxygenAbgVentilatorStep);
 newPatientsRouter.post('/:id/three-step/save-review', validateRequest(newPatientSaveReviewStepSchema), saveReviewStep);
 newPatientsRouter.post('/:id/current-readings', validateRequest(newPatientCurrentReadingsSchema), createCurrentReadings);
+newPatientsRouter.post('/:id/abg-ventilator-updates', validateRequest(newPatientCurrentReadingsSchema), createCurrentReadings);
 newPatientsRouter.post('/:id/clinical-snapshots', validateRequest(clinicalSnapshotSchema), createClinicalSnapshot);
 newPatientsRouter.post('/:id/abg-tests', validateRequest(abgTestSchema), createAbgTest);
 newPatientsRouter.post('/:id/ventilator-settings', validateRequest(ventilatorSettingSchema), createVentilatorSetting);

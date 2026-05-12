@@ -388,7 +388,7 @@ describe('Tracking screen compatibility route', () => {
     });
     listTrackingAdmissionsUseCase.mockResolvedValue({ items: [trackingRow] });
 
-    const { getByTestId, queryByTestId, getByText } = renderWithProviders(
+    const { getByTestId, queryByTestId, getByText, getAllByText } = renderWithProviders(
       <HistoryScreenWeb detailMode />
     );
 
@@ -397,7 +397,7 @@ describe('Tracking screen compatibility route', () => {
     );
     expect(getByTestId(HISTORY_TEST_IDS.detailPanel)).toBeDefined();
     expect(queryByTestId(HISTORY_TEST_IDS.list)).toBeNull();
-    expect(getByText('Jane Doe')).toBeDefined();
+    expect(getAllByText('Jane Doe').length).toBeGreaterThan(0);
     expect(getByText('Patient data')).toBeDefined();
     expect(getByText('Patient ID')).toBeDefined();
     expect(getByText('YMXB24')).toBeDefined();

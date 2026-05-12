@@ -78,6 +78,7 @@ const TextFieldIOS = ({
   testID,
   style,
   secureTextEntry,
+  embedded = false,
   ...rest
 }) => {
   const theme = useTheme();
@@ -111,14 +112,18 @@ const TextFieldIOS = ({
     (typeof testID === 'string' ? testID : undefined);
 
   return (
-    <StyledContainer style={style}>
+    <StyledContainer style={style} $embedded={embedded}>
       {label && (
         <StyledLabel>
           {label}
           {required && <StyledRequiredIndicator> *</StyledRequiredIndicator>}
         </StyledLabel>
       )}
-      <StyledInputContainer validationState={finalValidationState} isFocused={isFocused}>
+      <StyledInputContainer
+        $embedded={embedded}
+        validationState={finalValidationState}
+        isFocused={isFocused}
+      >
         {prefix && <StyledPrefix>{prefix}</StyledPrefix>}
         <StyledInput
           value={internalValue}

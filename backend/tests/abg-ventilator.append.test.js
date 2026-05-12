@@ -338,6 +338,10 @@ test('combined Current readings appends timestamped records with one idempotent 
   assert.equal(createdVentilatorSetting.clientRecordId, 'client-combined-1:ventilator');
   assert.equal(result.saved.abgTest.id, 'abg-2');
   assert.equal(result.saved.ventilatorSetting.id, 'vent-4');
+  assert.equal(createdAbgTest.fio2AtSample, 0.4);
+  assert.equal(createdVentilatorSetting.fio2, 0.4);
+  assert.equal(result.step, 'current_readings');
+  assert.equal(result.progressAssessment.status, 'insufficient');
   assert.equal(result.syncStatus, 'synced');
   assert.equal(tx.auditLog.create.mock.calls[0].arguments[0].data.action, 'ADMISSION_CURRENT_READINGS_UPDATE');
 });
