@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  newPatientAbgVentilatorUpdateSchema,
+  newPatientCurrentReadingsSchema,
   newPatientOxygenAbgVentilatorStepSchema,
   newPatientReasonStepSchema,
   newPatientVentilatorRecommendationSchema,
@@ -141,7 +141,7 @@ test('oxygen, ABG, and ventilator step rejects FiO2 fields in the New Patient fl
 });
 
 test('current readings update accepts vital signs, ABG, ventilator records, and sync metadata', () => {
-  const parsed = newPatientAbgVentilatorUpdateSchema.parse({
+  const parsed = newPatientCurrentReadingsSchema.parse({
     body: {
       clinicalSnapshot: {
         spo2: '94',
@@ -177,7 +177,7 @@ test('current readings update accepts vital signs, ABG, ventilator records, and 
 
 test('current readings update rejects uncertainty-only payloads', () => {
   assert.throws(() =>
-    newPatientAbgVentilatorUpdateSchema.parse({
+    newPatientCurrentReadingsSchema.parse({
       body: {
         uncertainty: {
           fields: ['FiO2'],

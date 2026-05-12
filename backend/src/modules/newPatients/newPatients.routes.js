@@ -3,7 +3,7 @@ import { requireAuth } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validateRequest.js';
 import {
   create,
-  createAbgVentilatorUpdate,
+  createCurrentReadings,
   createAbgTest,
   createAirwayDevice,
   createClinicalSnapshot,
@@ -21,7 +21,7 @@ import {
 } from './newPatients.controller.js';
 import {
   abgTestSchema,
-  newPatientAbgVentilatorUpdateSchema,
+  newPatientCurrentReadingsSchema,
   newPatientIdSchema,
   newPatientListSchema,
   newPatientOxygenAbgVentilatorStepSchema,
@@ -49,7 +49,7 @@ newPatientsRouter.get('/:id', validateRequest(newPatientIdSchema), getById);
 newPatientsRouter.patch('/:id', validateRequest(patchNewPatientSchema), patchById);
 newPatientsRouter.post('/:id/three-step/oxygen-abg-ventilator', validateRequest(newPatientOxygenAbgVentilatorStepSchema), saveOxygenAbgVentilatorStep);
 newPatientsRouter.post('/:id/three-step/save-review', validateRequest(newPatientSaveReviewStepSchema), saveReviewStep);
-newPatientsRouter.post('/:id/current-readings', validateRequest(newPatientAbgVentilatorUpdateSchema), createAbgVentilatorUpdate);
+newPatientsRouter.post('/:id/current-readings', validateRequest(newPatientCurrentReadingsSchema), createCurrentReadings);
 newPatientsRouter.post('/:id/clinical-snapshots', validateRequest(clinicalSnapshotSchema), createClinicalSnapshot);
 newPatientsRouter.post('/:id/abg-tests', validateRequest(abgTestSchema), createAbgTest);
 newPatientsRouter.post('/:id/ventilator-settings', validateRequest(ventilatorSettingSchema), createVentilatorSetting);

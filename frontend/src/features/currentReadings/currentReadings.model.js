@@ -1,6 +1,6 @@
 /**
- * Current patient readings update model
- * Append-only payload builders and summary helpers.
+ * Current readings model.
+ * Append-only payload builders and progress helpers.
  */
 import { z } from 'zod';
 

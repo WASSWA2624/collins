@@ -4,7 +4,7 @@ import { prisma } from './helpers/prisma.js';
 import {
   addAbgTest,
   addVentilatorSetting,
-  saveNewPatientAbgVentilatorUpdate,
+  saveNewPatientCurrentReadings,
 } from '../src/modules/newPatients/newPatients.service.js';
 
 const admissionId = 'admission-1';
@@ -297,7 +297,7 @@ test('combined Current readings appends timestamped records with one idempotent 
 
   stubPrismaMethod(t, prisma, '$transaction', async (callback) => callback(tx));
 
-  const result = await saveNewPatientAbgVentilatorUpdate(userId, admissionId, {
+  const result = await saveNewPatientCurrentReadings(userId, admissionId, {
     clinicalSnapshot: {
       spo2: 92,
       respiratoryRate: 26,
@@ -339,7 +339,7 @@ test('combined Current readings appends timestamped records with one idempotent 
   assert.equal(result.saved.abgTest.id, 'abg-2');
   assert.equal(result.saved.ventilatorSetting.id, 'vent-4');
   assert.equal(result.syncStatus, 'synced');
-  assert.equal(tx.auditLog.create.mock.calls[0].arguments[0].data.action, 'ADMISSION_ABG_VENTILATOR_UPDATE');
+  assert.equal(tx.auditLog.create.mock.calls[0].arguments[0].data.action, 'ADMISSION_CURRENT_READINGS_UPDATE');
 });
 
 test('combined Current readings rejects empty service payloads before database writes', async (t) => {
@@ -348,7 +348,7 @@ test('combined Current readings rejects empty service payloads before database w
   stubPrismaMethod(t, prisma, '$transaction', transactionMock);
 
   await assert.rejects(
-    () => saveNewPatientAbgVentilatorUpdate(userId, admissionId, {
+    () => saveNewPatientCurrentReadings(userId, admissionId, {
       abgTest: {},
       ventilatorSetting: {},
       idempotencyKey: 'empty-combined-update-key-1',

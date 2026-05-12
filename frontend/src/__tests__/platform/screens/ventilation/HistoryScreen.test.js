@@ -309,8 +309,8 @@ describe('Tracking screen compatibility route', () => {
     expect(getByText('No.')).toBeDefined();
     expect(getByText('Code')).toBeDefined();
     expect(getByText('Patient')).toBeDefined();
-    expect(getByText('Date')).toBeDefined();
-    expect(getByText('Time')).toBeDefined();
+    expect(getByText('Admission Date')).toBeDefined();
+    expect(getByText('Admission Time')).toBeDefined();
     expect(
       getByTestId(`${HISTORY_TEST_IDS.rowNumber}-${trackingRow.admissionId}`)
         .props.children

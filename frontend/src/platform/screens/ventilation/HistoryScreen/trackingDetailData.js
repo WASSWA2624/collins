@@ -12,6 +12,8 @@ const formatUnitValue = (value, unit) => {
   return Number.isFinite(numeric) ? `${numeric.toLocaleString()} ${unit}` : '';
 };
 
+const formatWeeks = (value) => formatUnitValue(value, 'weeks');
+
 const getPatientLabel = (row, t) =>
   row?.optionalName ||
   row?.appAdmissionCode ||
@@ -34,14 +36,59 @@ const getTrackingPatientDataRows = (row, t) => {
 
   return [
     {
+      key: 'patient-name',
+      label: t('ventilation.tracking.patientData.patientName'),
+      value: getDisplayValue(getPatientLabel(row, t), t),
+    },
+    {
+      key: 'patient-code',
+      label: t('ventilation.tracking.patientData.patientCode'),
+      value: getDisplayValue(row.appPatientCode || row.patientCode, t),
+    },
+    {
       key: 'patient-id',
       label: t('ventilation.tracking.patientData.patientId'),
-      value: getDisplayValue(getPatientIdentifier(row), t),
+      value: getDisplayValue(row.patientId || getPatientIdentifier(row), t),
+    },
+    {
+      key: 'admission-code',
+      label: t('ventilation.tracking.patientData.admissionCode'),
+      value: getDisplayValue(row.appAdmissionCode, t),
     },
     {
       key: 'admission-id',
       label: t('ventilation.tracking.patientData.admissionId'),
-      value: getDisplayValue(getAdmissionIdentifier(row), t),
+      value: getDisplayValue(row.admissionId || getAdmissionIdentifier(row), t),
+    },
+    {
+      key: 'admission-status',
+      label: t('ventilation.tracking.patientData.admissionStatus'),
+      value: getDisplayValue(row.admissionStatusLabel, t),
+    },
+    {
+      key: 'admission-date',
+      label: t('ventilation.tracking.patientData.admissionDate'),
+      value: getDisplayValue(row.admittedDateLabel, t),
+    },
+    {
+      key: 'admission-time',
+      label: t('ventilation.tracking.patientData.admissionTime'),
+      value: getDisplayValue(row.admittedTimeLabel, t),
+    },
+    {
+      key: 'bed',
+      label: t('ventilation.tracking.patientData.bed'),
+      value: getDisplayValue(row.bedNumber, t),
+    },
+    {
+      key: 'admission-source',
+      label: t('ventilation.tracking.patientData.admissionSource'),
+      value: getDisplayValue(row.admissionSource, t),
+    },
+    {
+      key: 'reason-for-ventilation',
+      label: t('ventilation.tracking.patientData.reasonForVentilation'),
+      value: getDisplayValue(row.reasonForVentilation, t),
     },
     {
       key: 'hospital-number',
@@ -67,6 +114,21 @@ const getTrackingPatientDataRows = (row, t) => {
       key: 'date-of-birth',
       label: t('ventilation.tracking.patientData.dateOfBirth'),
       value: getDisplayValue(row.dateOfBirthLabel, t),
+    },
+    {
+      key: 'sex-for-size',
+      label: t('ventilation.tracking.patientData.sexForSize'),
+      value: getDisplayValue(row.sexForSizeCalculations, t),
+    },
+    {
+      key: 'gestational-age',
+      label: t('ventilation.tracking.patientData.gestationalAge'),
+      value: getDisplayValue(formatWeeks(row.gestationalAgeWeeks), t),
+    },
+    {
+      key: 'corrected-age',
+      label: t('ventilation.tracking.patientData.correctedAge'),
+      value: getDisplayValue(formatWeeks(row.correctedAgeWeeks), t),
     },
     {
       key: 'weight',

@@ -14,7 +14,7 @@ import {
   getNewPatientById,
   listNewPatients,
   recommendNewPatientVentilatorSettings,
-  saveNewPatientAbgVentilatorUpdate,
+  saveNewPatientCurrentReadings,
   saveNewPatientOxygenAbgVentilatorStep,
   saveNewPatientReviewStep,
   updateNewPatient,
@@ -85,8 +85,8 @@ export const saveOxygenAbgVentilatorStep = asyncHandler(async (req, res) => {
   });
 });
 
-export const createAbgVentilatorUpdate = asyncHandler(async (req, res) => {
-  const result = await saveNewPatientAbgVentilatorUpdate(
+export const createCurrentReadings = asyncHandler(async (req, res) => {
+  const result = await saveNewPatientCurrentReadings(
     req.user?.sub,
     req.validated.params.id,
     req.validated.body,

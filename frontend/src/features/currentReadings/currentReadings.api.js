@@ -1,5 +1,5 @@
 /**
- * ABG and ventilator setting update API
+ * Current readings API.
  */
 import { endpoints } from '@config/endpoints';
 import { apiClient } from '@services/api';

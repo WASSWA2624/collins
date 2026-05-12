@@ -130,6 +130,7 @@ const clinicalSnapshotBody = z.object({
   meanArterialPressure: optionalFiniteNumber,
   temperatureC: optionalFiniteNumber,
   spo2: optionalFiniteNumber,
+  fio2: optionalFiniteNumber,
   gcs: optionalFiniteNumber,
   avpu: optionalString(40),
   rass: optionalFiniteNumber,
@@ -151,6 +152,7 @@ const abgBody = z.object({
   hco3: optionalFiniteNumber,
   baseExcess: optionalFiniteNumber,
   lactate: optionalFiniteNumber,
+  fio2AtSample: optionalFiniteNumber,
   spo2AtSample: optionalFiniteNumber,
   source: optionalString(80),
   clientRecordId: optionalString(120),
@@ -167,6 +169,7 @@ const ventilatorBody = z.object({
   tidalVolumeMl: optionalFiniteNumber,
   respiratoryRateSet: optionalFiniteNumber,
   respiratoryRateMeasured: optionalFiniteNumber,
+  fio2: optionalFiniteNumber,
   peep: optionalFiniteNumber,
   pressureSupport: optionalFiniteNumber,
   inspiratoryPressure: optionalFiniteNumber,
@@ -189,11 +192,13 @@ const ABG_UPDATE_VALUE_FIELDS = [
   'hco3',
   'baseExcess',
   'lactate',
+  'fio2AtSample',
   'spo2AtSample',
 ];
 
 const CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS = [
   'spo2',
+  'fio2',
   'heartRate',
   'respiratoryRate',
   'systolicBp',
@@ -210,6 +215,7 @@ const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'tidalVolumeMl',
   'respiratoryRateSet',
   'respiratoryRateMeasured',
+  'fio2',
   'peep',
   'pressureSupport',
   'inspiratoryPressure',
@@ -297,7 +303,7 @@ export const ventilatorSettingSchema = z.object({
   query: emptyQuery.optional(),
 });
 
-export const newPatientAbgVentilatorUpdateSchema = z.object({
+export const newPatientCurrentReadingsSchema = z.object({
   body: z.object({
     clinicalSnapshot: clinicalSnapshotBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),
     abgTest: abgBody.omit({ idempotencyKey: true, overrideReason: true }).optional(),

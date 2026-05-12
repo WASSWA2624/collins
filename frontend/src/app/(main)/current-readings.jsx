@@ -4,6 +4,6 @@
 import React from 'react';
 import { CurrentReadingsScreen } from '@platform/screens';
 
-const AbgVentilatorUpdatesRoute = () => <CurrentReadingsScreen />;
+const CurrentReadingsRoute = () => <CurrentReadingsScreen />;
 
-export default AbgVentilatorUpdatesRoute;
+export default CurrentReadingsRoute;

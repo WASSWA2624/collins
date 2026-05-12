@@ -87,10 +87,12 @@ const ABG_UPDATE_VALUE_FIELDS = [
   'hco3',
   'baseExcess',
   'lactate',
+  'fio2AtSample',
   'spo2AtSample',
 ];
 const CLINICAL_SNAPSHOT_UPDATE_VALUE_FIELDS = [
   'spo2',
+  'fio2',
   'heartRate',
   'respiratoryRate',
   'systolicBp',
@@ -106,6 +108,7 @@ const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'tidalVolumeMl',
   'respiratoryRateSet',
   'respiratoryRateMeasured',
+  'fio2',
   'peep',
   'pressureSupport',
   'inspiratoryPressure',
@@ -113,7 +116,7 @@ const VENTILATOR_UPDATE_VALUE_FIELDS = [
   'plateauPressure',
   'ieRatio',
 ];
-const REMOVED_NEW_PATIENT_FIELDS = new Set(['fio2', 'fio2AtSample', 'ventilatorFio2']);
+const REMOVED_NEW_PATIENT_FIELDS = new Set(['ventilatorFio2']);
 
 const withoutIdempotency = (data = {}) => {
   const rest = { ...data };
@@ -1729,7 +1732,7 @@ export const saveNewPatientOxygenAbgVentilatorStep = async (userId, admissionId,
   return response;
 };
 
-export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, payload = {}, auditContext = {}) => {
+export const saveNewPatientCurrentReadings = async (userId, admissionId, payload = {}, auditContext = {}) => {
   const admissionAccess = await assertAdmissionAccess(userId, admissionId, WRITE_ROLES);
   const clinicalSnapshotRecord = stripNullish(withoutRemovedNewPatientFields(payload.clinicalSnapshot || {}));
   const abgRecord = stripNullish(withoutRemovedNewPatientFields(payload.abgTest || {}));
@@ -1754,7 +1757,7 @@ export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, pay
       userId,
       facilityId: admissionAccess.facilityId,
       key: payload.idempotencyKey,
-      operation: 'admission.abgVentilatorUpdate',
+      operation: 'admission.currentReadings',
       payload: { admissionId, ...payload },
     });
     if (!idem.shouldRun) return { ...idem.responseJson, syncStatus: 'duplicate' };
@@ -1818,7 +1821,7 @@ export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, pay
       userId,
       facilityId: admissionAccess.facilityId,
       key: payload.idempotencyKey,
-      operation: 'admission.abgVentilatorUpdate',
+      operation: 'admission.currentReadings',
       requestHash: idem.requestHash,
       responseJson,
       entityType: 'Admission',
@@ -1831,7 +1834,7 @@ export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, pay
       ...auditContext,
       userId,
       facilityId: refreshed.facilityId,
-      action: 'ADMISSION_ABG_VENTILATOR_UPDATE',
+      action: 'ADMISSION_CURRENT_READINGS_UPDATE',
       entityType: 'Admission',
       entityId: admissionId,
       afterJson: responseJson,

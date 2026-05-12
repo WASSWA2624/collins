@@ -1,5 +1,5 @@
 /**
- * Shared ABG and ventilator setting update screen logic.
+ * Shared Current Readings screen logic.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';

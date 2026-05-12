@@ -135,18 +135,11 @@ const buildAgeLabel = (primaryPatient = {}, fallbackPatient = {}) => {
     .join(' ');
 };
 
-const compactCodeToken = (value) =>
-  String(value || '')
-    .trim()
-    .toUpperCase()
-    .replace(/[^A-Z0-9]/g, '');
-
 const buildPatientCode = (...values) => {
   for (const value of values) {
-    const token = compactCodeToken(value);
+    const token = cleanString(value).toUpperCase();
     if (!token) continue;
-    if (token.length <= 6) return token;
-    return token.slice(-6);
+    return token;
   }
   return '';
 };
@@ -350,9 +343,7 @@ const normalizeTrackingItem = (item = {}) => {
   const admittedAt = item.admittedAt || currentStatus.admittedAt || null;
   const patientCode = buildPatientCode(
     patient.appPatientCode,
-    item.patient?.appPatientCode,
-    patient.id,
-    item.patientId
+    item.patient?.appPatientCode
   );
   const searchText = buildTrackingSearchText({
     item,
@@ -402,6 +393,9 @@ const normalizeTrackingItem = (item = {}) => {
     facilityId: item.facilityId || facility.id || '',
     facilityName: facility.name || 'Active facility',
     bedNumber: item.bedNumber || currentStatus.bedNumber || '',
+    admissionSource: item.admissionSource || currentStatus.admissionSource || '',
+    reasonForVentilation:
+      item.reasonForVentilation || currentStatus.reasonForVentilation || '',
     admissionStatus,
     admissionStatusLabel:
       ADMISSION_STATUS_LABELS[admissionStatus] ||

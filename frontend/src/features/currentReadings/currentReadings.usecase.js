@@ -1,5 +1,5 @@
 /**
- * ABG and ventilator setting update use cases
+ * Current readings use cases.
  */
 import { normalizeError } from '@errors';
 import { addToQueue } from '@offline/queue';
@@ -77,13 +77,17 @@ const submitCurrentReadingsUseCase = async ({
   try {
     const data = await saveCurrentReadingsApi(admissionId, payload);
     const admission = data?.admission || null;
-    const progressAssessment = admission
-      ? getCurrentReadingsProgressAssessment(admission)
-      : null;
-    let ventilatorRecommendation = null;
-    let recommendationError = null;
+    const progressAssessment =
+      data?.progressAssessment ||
+      (admission ? getCurrentReadingsProgressAssessment(admission) : null);
+    let ventilatorRecommendation = data?.ventilatorRecommendation || null;
+    let recommendationError = data?.recommendationError || null;
 
-    if (progressAssessment?.action === 'suggest_new_settings') {
+    if (
+      !ventilatorRecommendation &&
+      !recommendationError &&
+      progressAssessment?.action === 'suggest_new_settings'
+    ) {
       try {
         const recommendationResponse =
           await getCurrentReadingsVentilatorRecommendationApi({
