@@ -42,6 +42,7 @@ describe('newPatients.drafts', () => {
     const result = await saveNewPatientDraft({
       facilityId: 'facility-1',
       patient: {
+        firstName: 'Patient',
         patientPathway: 'trauma',
         actualWeightKg: 'unknown',
       },
@@ -59,12 +60,12 @@ describe('newPatients.drafts', () => {
   it('loads, replaces, and removes drafts by idempotency key', async () => {
     const first = await saveNewPatientDraft({
       facilityId: 'facility-1',
-      patient: { patientPathway: 'adult' },
+      patient: { firstName: 'Patient', patientPathway: 'adult' },
       idempotencyKey: 'offline-admission-1',
     }, { now });
     await saveNewPatientDraft({
       ...first.draft,
-      patient: { patientPathway: 'medical' },
+      patient: { firstName: 'Patient', patientPathway: 'medical' },
       idempotencyKey: 'offline-admission-1',
     }, { now });
 

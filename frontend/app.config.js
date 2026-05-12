@@ -170,9 +170,13 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.collins.ios",
+      buildNumber: "5",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
     },
     android: {
-      versionCode: 4,
+      versionCode: 5,
       adaptiveIcon: {
         foregroundImage: "./public/logos/logo-light.png",
         backgroundColor: "#ffffff",
