@@ -3,6 +3,7 @@
  * File: HistoryScreen.web.jsx
  */
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { Button, Icon, Text } from '@platform/components';
 import SearchBar from '@platform/patterns/SearchBar/SearchBar.web';
 import FacilitySearchSelect from '../../auth/FacilitySearchSelect';
@@ -191,6 +192,15 @@ const renderPrintDocument = (printDocument) => {
   );
 };
 
+const renderPrintDocumentPortal = (printDocument) => {
+  const printNode = renderPrintDocument(printDocument);
+  if (!printNode || typeof document === 'undefined' || !document.body) {
+    return printNode;
+  }
+
+  return createPortal(printNode, document.body);
+};
+
 const renderDetailPanel = ({
   t,
   selectedAdmissionId,
@@ -358,7 +368,7 @@ const renderDetailPanel = ({
           </>
         )}
       </StyledScreenOnlyDetail>
-      {renderPrintDocument(printDocument)}
+      {renderPrintDocumentPortal(printDocument)}
     </StyledDetailPanel>
   );
 };

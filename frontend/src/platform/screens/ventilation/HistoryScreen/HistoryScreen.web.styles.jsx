@@ -579,10 +579,10 @@ const StyledPrintDocument = styled.div.withConfig({
     display: block;
     width: auto;
     max-width: 100%;
-    color: #111827;
+    color: #0f172a;
     background: #ffffff;
-    font-size: 14px;
-    line-height: 1.35;
+    font-size: 12.5px;
+    line-height: 1.32;
     box-sizing: border-box;
   }
 `;
@@ -592,10 +592,12 @@ const StyledPrintDocumentHeader = styled.div.withConfig({
   componentId: 'StyledPrintDocumentHeader',
 })`
   display: grid;
-  gap: 8px;
-  padding-bottom: 12px;
-  margin-bottom: 14px;
-  border-bottom: 2px solid #111827;
+  gap: 7px;
+  padding: 0 0 10px;
+  margin: 0 0 12px;
+  border-bottom: 2px solid #0f172a;
+  break-after: avoid;
+  page-break-after: avoid;
 `;
 
 const StyledPrintTitle = styled.span.withConfig({
@@ -603,7 +605,7 @@ const StyledPrintTitle = styled.span.withConfig({
   componentId: 'StyledPrintTitle',
 })`
   margin: 0;
-  font-size: 27px;
+  font-size: 23px;
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: 0;
@@ -615,9 +617,10 @@ const StyledPrintSubtitle = styled.div.withConfig({
 })`
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 8px 16px;
-  color: #374151;
-  font-size: 13px;
+  align-items: start;
+  gap: 6px 14px;
+  color: #334155;
+  font-size: 12px;
 
   @media (max-width: 720px) {
     grid-template-columns: 1fr;
@@ -630,7 +633,7 @@ const StyledPrintMeta = styled.div.withConfig({
 })`
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  gap: 3px 10px;
 
   span {
     min-width: 0;
@@ -650,7 +653,9 @@ const StyledPrintSection = styled.div.withConfig({
   displayName: 'StyledPrintSection',
   componentId: 'StyledPrintSection',
 })`
-  margin: 0 0 14px;
+  margin: 0 0 12px;
+  break-inside: auto;
+  page-break-inside: auto;
 `;
 
 const StyledPrintSectionTitle = styled.span.withConfig({
@@ -658,21 +663,29 @@ const StyledPrintSectionTitle = styled.span.withConfig({
   componentId: 'StyledPrintSectionTitle',
 })`
   display: block;
-  margin: 0 0 7px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #9ca3af;
-  color: #111827;
-  font-size: 16px;
-  line-height: 1.2;
+  margin: 0;
+  padding: 5px 8px;
+  border-top: 2px solid #0f172a;
+  border-right: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+  border-left: 1px solid #cbd5e1;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 13px;
+  line-height: 1.18;
   font-weight: 700;
   letter-spacing: 0;
+  break-after: avoid;
+  page-break-after: avoid;
 `;
 
 const StyledPrintSubsection = styled.div.withConfig({
   displayName: 'StyledPrintSubsection',
   componentId: 'StyledPrintSubsection',
 })`
-  margin-bottom: 10px;
+  margin: 0 0 9px;
+  break-inside: auto;
+  page-break-inside: auto;
 `;
 
 const StyledPrintSubsectionTitle = styled.span.withConfig({
@@ -680,12 +693,18 @@ const StyledPrintSubsectionTitle = styled.span.withConfig({
   componentId: 'StyledPrintSubsectionTitle',
 })`
   display: block;
-  margin: 0 0 5px;
-  color: #1f2937;
-  font-size: 14px;
+  margin: 0;
+  padding: 5px 8px;
+  border: 1px solid #cbd5e1;
+  border-bottom: 0;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 12px;
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0;
+  break-after: avoid;
+  page-break-after: avoid;
 `;
 
 const StyledPrintGrid = styled.div.withConfig({
@@ -693,13 +712,14 @@ const StyledPrintGrid = styled.div.withConfig({
   componentId: 'StyledPrintGrid',
 })`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
-  border-top: 1px solid #d1d5db;
-  border-left: 1px solid #d1d5db;
+  border-top: 1px solid #cbd5e1;
+  border-left: 1px solid #cbd5e1;
+  background: #ffffff;
 
   @media print and (max-width: 720px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -707,33 +727,51 @@ const StyledPrintField = styled.div.withConfig({
   displayName: 'StyledPrintField',
   componentId: 'StyledPrintField',
 })`
+  display: grid;
+  grid-template-columns: minmax(92px, 34%) minmax(0, 1fr);
+  align-items: stretch;
   min-width: 0;
-  padding: 5px 7px;
-  border-right: 1px solid #d1d5db;
-  border-bottom: 1px solid #d1d5db;
+  min-height: 26px;
+  padding: 0;
+  border-right: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
   background: #ffffff;
+  break-inside: avoid;
+  page-break-inside: avoid;
+
+  &:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 `;
 
 const StyledPrintFieldLabel = styled.span.withConfig({
   displayName: 'StyledPrintFieldLabel',
   componentId: 'StyledPrintFieldLabel',
 })`
-  display: block;
-  margin: 0 0 2px;
-  color: #4b5563;
-  font-size: 11px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 6px;
+  border-right: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 10.5px;
   font-weight: 700;
+  overflow-wrap: anywhere;
 `;
 
 const StyledPrintFieldValue = styled.span.withConfig({
   displayName: 'StyledPrintFieldValue',
   componentId: 'StyledPrintFieldValue',
 })`
-  display: block;
+  display: flex;
+  align-items: center;
   margin: 0;
   min-width: 0;
-  color: #111827;
-  font-size: 13px;
+  padding: 4px 7px;
+  color: #0f172a;
+  font-size: 11.5px;
   overflow-wrap: anywhere;
 `;
 
@@ -744,15 +782,18 @@ const StyledPrintTimeline = styled.div.withConfig({
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 7px;
 `;
 
 const StyledPrintTimelineItem = styled.div.withConfig({
   displayName: 'StyledPrintTimelineItem',
   componentId: 'StyledPrintTimelineItem',
 })`
-  padding-left: 8px;
-  border-left: 2px solid #6b7280;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  break-inside: auto;
+  page-break-inside: auto;
 `;
 
 const StyledPrintTimelineTitle = styled.div.withConfig({
@@ -762,8 +803,13 @@ const StyledPrintTimelineTitle = styled.div.withConfig({
   display: flex;
   flex-wrap: wrap;
   gap: 3px 10px;
-  margin-bottom: 4px;
+  margin: 0;
+  padding: 5px 8px;
+  border-bottom: 1px solid #cbd5e1;
+  background: #f8fafc;
   font-weight: 700;
+  break-after: avoid;
+  page-break-after: avoid;
 
   span:last-child {
     color: #4b5563;
@@ -783,22 +829,29 @@ const TrackingPrintStyles = createGlobalStyle`
   @media print {
     @page {
       size: auto;
-      margin: 14mm 14mm 16mm;
+      margin: 14mm 16mm;
     }
 
     html,
-    body {
+    body,
+    #root,
+    [data-reactroot] {
       width: auto !important;
       min-width: 0 !important;
+      max-width: none !important;
       height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
       overflow: visible !important;
       margin: 0 !important;
       padding: 0 !important;
       background: #ffffff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
-    body * {
-      visibility: hidden !important;
+    body > *:not([data-print-document='true']) {
+      display: none !important;
     }
 
     [data-print-document='true'],
@@ -812,14 +865,15 @@ const TrackingPrintStyles = createGlobalStyle`
       position: static !important;
       top: 0 !important;
       left: 0 !important;
-      width: auto !important;
-      max-width: 100% !important;
+      width: 100% !important;
+      max-width: none !important;
       min-width: 0 !important;
       margin: 0 !important;
-      padding: 0 1mm !important;
+      padding: 0 !important;
+      overflow: visible !important;
       border: 0 !important;
       background: #ffffff !important;
-      color: #111827 !important;
+      color: #0f172a !important;
       box-shadow: none !important;
       box-sizing: border-box !important;
     }
