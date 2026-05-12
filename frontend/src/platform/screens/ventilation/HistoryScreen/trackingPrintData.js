@@ -60,40 +60,47 @@ const UI_STATUS_KEYS = new Set([
   'syncStatus',
 ]);
 
+const TECHNICAL_ID_KEYS = new Set([
+  'admissionId',
+  'clientRecordId',
+  'confirmedByUserId',
+  'createdByUserId',
+  'deviceId',
+  'enteredByUserId',
+  'facilityId',
+  'id',
+  'patientId',
+  'reviewedByUserId',
+]);
+
 const FIELD_LABELS = Object.freeze({
   abgTests: 'ABG tests',
   actualWeightKg: 'Actual weight',
-  admissionId: 'Admission ID',
   admissionSource: 'Admission source',
   admittedAt: 'Admitted at',
   airwayBleeding: 'Airway bleeding',
   airwayRoute: 'Airway route',
   appAdmissionCode: 'Admission code',
-  appPatientCode: 'Patient code',
+  appPatientCode: 'Patient ID',
+  patientCode: 'Patient ID',
   avpu: 'AVPU',
   baseExcess: 'Base excess',
   bedNumber: 'Bed',
   calculationSummaryJson: 'Calculation summary',
   clientCreatedAt: 'Client created at',
-  clientRecordId: 'Client record ID',
   clientUpdatedAt: 'Client updated at',
   clinicalFlagsJson: 'Clinical flags',
   collectedAt: 'Collected at',
   comorbiditiesJson: 'Comorbidities',
-  confirmedByUserId: 'Confirmed by user ID',
   confirmedOption: 'Confirmed option',
   correctedAgeWeeks: 'Corrected age',
   createdAt: 'Created at',
-  createdByUserId: 'Created by user ID',
   dateOfBirth: 'Date of birth',
   depthCm: 'Tube depth',
-  deviceId: 'Device ID',
   diastolicBp: 'Diastolic BP',
   drivingPressure: 'Driving pressure',
-  enteredByUserId: 'Entered by user ID',
   estimatedAge: 'Estimated age',
   expectedLongVentilation: 'Expected long ventilation',
-  facilityId: 'Facility ID',
   facilityName: 'Facility',
   fio2: 'FiO2',
   fio2AtSample: 'FiO2 at sample',
@@ -107,7 +114,6 @@ const FIELD_LABELS = Object.freeze({
   hospitalLengthOfStayDays: 'Hospital length of stay',
   hospitalNumber: 'Hospital number',
   icuLengthOfStayDays: 'ICU length of stay',
-  id: 'Record ID',
   ieRatio: 'I:E ratio',
   inspiratoryPressure: 'Inspiratory pressure',
   internalDiameterMm: 'Internal diameter',
@@ -122,7 +128,6 @@ const FIELD_LABELS = Object.freeze({
   oxygenSupportType: 'Oxygen support',
   paco2: 'PaCO2',
   pao2: 'PaO2',
-  patientId: 'Patient ID',
   patientPathway: 'Patient pathway',
   pathwayDetailsJson: 'Pathway details',
   peakPressure: 'Peak pressure',
@@ -212,11 +217,8 @@ const ENUM_KEYS = new Set([
 ]);
 
 const CAPTURE_META_ORDER = [
-  'id',
-  'admissionId',
-  'patientId',
-  'facilityId',
   'appPatientCode',
+  'patientCode',
   'appAdmissionCode',
   'version',
   'measuredAt',
@@ -226,21 +228,15 @@ const CAPTURE_META_ORDER = [
   'admittedAt',
   'source',
   'validationStatus',
-  'clientRecordId',
-  'deviceId',
   'clientCreatedAt',
   'clientUpdatedAt',
   'createdAt',
   'updatedAt',
-  'enteredByUserId',
-  'confirmedByUserId',
-  'createdByUserId',
-  'reviewedByUserId',
 ];
 
 const PATIENT_FIELD_ORDER = [
-  'id',
   'appPatientCode',
+  'patientCode',
   'hospitalNumber',
   'firstName',
   'lastName',
@@ -264,28 +260,28 @@ const PATIENT_FIELD_ORDER = [
 ];
 
 const ADMISSION_FIELD_ORDER = [
-  'id',
   'appAdmissionCode',
-  'patientId',
-  'facilityId',
+  'facilityName',
   'bedNumber',
   'status',
   'admittedAt',
   'admissionSource',
   'reasonForVentilation',
-  'clientRecordId',
-  'deviceId',
   'clientCreatedAt',
   'clientUpdatedAt',
   'createdAt',
   'updatedAt',
-  'createdByUserId',
 ];
 
 const hasValue = (value) =>
   value !== null && value !== undefined && String(value).trim() !== '';
 
 const toArray = (value) => (Array.isArray(value) ? value : []);
+
+const toRecordArray = (value) => {
+  if (Array.isArray(value)) return value;
+  return value && typeof value === 'object' ? [value] : [];
+};
 
 const getDateValue = (record = {}, ...fields) => {
   for (const field of fields) {
@@ -434,6 +430,7 @@ const formatRawValue = (key, value) => {
 
 const shouldPrintKey = (key, value) =>
   hasValue(value) &&
+  !TECHNICAL_ID_KEYS.has(key) &&
   !UI_ONLY_KEYS.has(key) &&
   !UI_STATUS_KEYS.has(key) &&
   !RELATION_KEYS.has(key);
@@ -471,6 +468,39 @@ const mergeRecords = (...records) =>
     }),
     {}
   );
+
+const recordKey = (record = {}, fallback = '') =>
+  record.id || record.clientRecordId ||
+  ([
+    getRecordTimestamp(record),
+    record.version,
+    record.mode,
+    record.source,
+  ]
+    .filter(Boolean)
+    .join('|') ||
+    fallback);
+
+const mergeRecordArrays = (...sources) => {
+  const recordsByKey = new Map();
+
+  sources.flatMap(toRecordArray).forEach((record, index) => {
+    if (!record || typeof record !== 'object') return;
+    const key = recordKey(record, `record-${index}`);
+    recordsByKey.set(key, mergeRecords(recordsByKey.get(key), record));
+  });
+
+  return [...recordsByKey.values()];
+};
+
+const timelineRecordsByEntity = (timeline = [], entityType) =>
+  toArray(timeline)
+    .filter((entry) => entry?.entityType === entityType && entry.record)
+    .map((entry) => ({
+      ...entry.record,
+      version: entry.record.version ?? entry.version,
+      createdAt: entry.record.createdAt || entry.occurredAt,
+    }));
 
 const buildBloodPressure = (record = {}) => {
   const item = safeRecord(record);
@@ -639,7 +669,7 @@ const buildCapturedRecordSection = ({
     'createdAt'
   )
     .map((record, index) => ({
-      id: `${id}-${record.id || record.clientRecordId || index}`,
+      id: `${id}-${index}`,
       title: buildRecordTitle(itemLabel, record, index),
       fields: buildRecordFields(record, preferredOrder),
     }))
@@ -813,8 +843,8 @@ const buildCalculatedProgressFields = (currentStatus = {}) => {
 };
 
 const buildTimelineItems = (timeline = []) =>
-  sortByDateDesc(timeline, 'occurredAt').map((entry) => ({
-    id: `${entry.entityType || 'event'}-${entry.entityId || ''}-${entry.occurredAt || ''}`,
+  sortByDateDesc(timeline, 'occurredAt').map((entry, index) => ({
+    id: `timeline-${index}`,
     title:
       EVENT_LABELS[entry.eventType] ||
       EVENT_LABELS[entry.entityType] ||
@@ -823,7 +853,6 @@ const buildTimelineItems = (timeline = []) =>
     fields: compactFields([
       field('Entity type', titleCaseToken(entry.entityType)),
       field('Event type', titleCaseToken(entry.eventType)),
-      field('Record ID', entry.entityId),
       field('Version', entry.version),
       ...buildRecordFields(entry.record),
     ]),
@@ -835,13 +864,44 @@ const buildTrackingPrintDocument = ({ tracking, t, generatedAt = new Date() } = 
   const admission = tracking?.admission || row?.raw || {};
   const currentStatus =
     tracking?.currentStatus || admission.currentStatus || row?.currentStatus || {};
-  const clinicalSnapshots = toArray(admission.clinicalSnapshots);
-  const abgTests = toArray(admission.abgTests);
-  const ventilatorSettings = toArray(admission.ventilatorSettings);
-  const airwayDevices = toArray(admission.airwayDevices);
-  const humidificationDecisions = toArray(admission.humidificationDecisions);
-  const dailyReviews = toArray(admission.dailyReviews);
-  const outcomes = toArray(admission.outcomes);
+  const latest = currentStatus.latest || {};
+  const timeline = toArray(tracking?.timeline);
+  const clinicalSnapshots = mergeRecordArrays(
+    admission.clinicalSnapshots,
+    latest.clinicalSnapshot,
+    timelineRecordsByEntity(timeline, 'ClinicalSnapshot')
+  );
+  const abgTests = mergeRecordArrays(
+    admission.abgTests,
+    latest.abgTest,
+    timelineRecordsByEntity(timeline, 'AbgTest')
+  );
+  const ventilatorSettings = mergeRecordArrays(
+    admission.ventilatorSettings,
+    latest.ventilatorSetting,
+    currentStatus.ventilatorSetting,
+    timelineRecordsByEntity(timeline, 'VentilatorSetting')
+  );
+  const airwayDevices = mergeRecordArrays(
+    admission.airwayDevices,
+    latest.airwayDevice,
+    timelineRecordsByEntity(timeline, 'AirwayDevice')
+  );
+  const humidificationDecisions = mergeRecordArrays(
+    admission.humidificationDecisions,
+    latest.humidification,
+    timelineRecordsByEntity(timeline, 'HumidificationDecision')
+  );
+  const dailyReviews = mergeRecordArrays(
+    admission.dailyReviews,
+    latest.dailyReview,
+    timelineRecordsByEntity(timeline, 'DailyVentilationReview')
+  );
+  const outcomes = mergeRecordArrays(
+    admission.outcomes,
+    latest.outcome,
+    timelineRecordsByEntity(timeline, 'Outcome')
+  );
   const admissionSnapshot = firstByDate(clinicalSnapshots, 'measuredAt', 'createdAt');
   const admissionAbg = firstByDate(abgTests, 'collectedAt', 'createdAt');
   const admissionVentilator = firstByDate(ventilatorSettings, 'measuredAt', 'createdAt');
@@ -851,16 +911,12 @@ const buildTrackingPrintDocument = ({ tracking, t, generatedAt = new Date() } = 
   const latestAirway = latestByDate(airwayDevices, 'measuredAt', 'createdAt');
   const latestHumidification = latestByDate(humidificationDecisions, 'measuredAt', 'createdAt');
   const patientRecord = mergeRecords(currentStatus.patient, admission.patient, {
-    id: row?.patientId,
     appPatientCode: row?.appPatientCode || row?.patientCode,
     hospitalNumber: row?.hospitalNumber,
     optionalName: row?.optionalName,
   });
   const admissionRecord = mergeRecords(admission, {
-    id: admission.id || row?.admissionId,
     appAdmissionCode: admission.appAdmissionCode || row?.appAdmissionCode,
-    patientId: admission.patientId || row?.patientId,
-    facilityId: admission.facilityId || row?.facilityId,
     facilityName: admission.facility?.name || row?.facilityName,
     bedNumber: admission.bedNumber || row?.bedNumber,
     status: admission.status || row?.admissionStatus,
@@ -955,7 +1011,7 @@ const buildTrackingPrintDocument = ({ tracking, t, generatedAt = new Date() } = 
     patientRows,
     sectionGroups,
     captureSections,
-    timeline: buildTimelineItems(tracking?.timeline),
+    timeline: buildTimelineItems(timeline),
   };
 };
 

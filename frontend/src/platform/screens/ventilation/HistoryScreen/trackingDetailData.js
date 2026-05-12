@@ -26,10 +26,7 @@ const getDisplayValue = (value, t) =>
     : t('ventilation.tracking.patientData.notRecorded');
 
 const getPatientIdentifier = (row) =>
-  row?.appPatientCode || row?.patientCode || row?.patientId;
-
-const getAdmissionIdentifier = (row) =>
-  row?.appAdmissionCode || row?.admissionId;
+  row?.appPatientCode || row?.patientCode;
 
 const getTrackingPatientDataRows = (row, t) => {
   if (!row) return [];
@@ -43,22 +40,12 @@ const getTrackingPatientDataRows = (row, t) => {
     {
       key: 'patient-code',
       label: t('ventilation.tracking.patientData.patientCode'),
-      value: getDisplayValue(row.appPatientCode || row.patientCode, t),
-    },
-    {
-      key: 'patient-id',
-      label: t('ventilation.tracking.patientData.patientId'),
-      value: getDisplayValue(row.patientId || getPatientIdentifier(row), t),
+      value: getDisplayValue(getPatientIdentifier(row), t),
     },
     {
       key: 'admission-code',
       label: t('ventilation.tracking.patientData.admissionCode'),
       value: getDisplayValue(row.appAdmissionCode, t),
-    },
-    {
-      key: 'admission-id',
-      label: t('ventilation.tracking.patientData.admissionId'),
-      value: getDisplayValue(row.admissionId || getAdmissionIdentifier(row), t),
     },
     {
       key: 'admission-status',

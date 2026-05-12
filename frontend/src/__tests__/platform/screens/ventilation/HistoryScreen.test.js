@@ -434,8 +434,10 @@ describe('Tracking screen compatibility route', () => {
     expect(getByText('Patient data')).toBeDefined();
     expect(getByText('Patient ID')).toBeDefined();
     expect(getByText('CIT0001')).toBeDefined();
-    expect(getByText('Admission ID')).toBeDefined();
+    expect(getByText('Admission code')).toBeDefined();
     expect(getByText('JADOCI0001')).toBeDefined();
+    expect(queryByTestId(`${HISTORY_TEST_IDS.detailPatientDataItem}-patient-id`)).toBeNull();
+    expect(queryByTestId(`${HISTORY_TEST_IDS.detailPatientDataItem}-admission-id`)).toBeNull();
     expect(getByText('Patient history')).toBeDefined();
     expect(listTrackingAdmissionsUseCase).not.toHaveBeenCalled();
   });
@@ -600,6 +602,16 @@ describe('Tracking screen compatibility route', () => {
             missingData: [],
             safetyStatement: 'Tracking summary is advisory.',
           },
+          latest: {
+            ventilatorSetting: {
+              id: 'vent-current',
+              measuredAt: '2026-05-03T08:30:00.000Z',
+              mode: 'APRV',
+              tidalVolumeMl: 390,
+              fio2: 0.35,
+              peep: 7,
+            },
+          },
         },
         timeline: [
           {
@@ -640,12 +652,11 @@ describe('Tracking screen compatibility route', () => {
     const serializedPrintDocument = JSON.stringify(printDocument);
     expect(serializedPrintDocument).toContain('AC/VC');
     expect(serializedPrintDocument).toContain('SIMV');
-    expect(serializedPrintDocument).toContain('client-vent-1');
-    expect(serializedPrintDocument).toContain('client-abg-1');
+    expect(serializedPrintDocument).toContain('APRV');
     expect(serializedPrintDocument).toContain('Minute ventilation');
     expect(serializedPrintDocument).toContain('Severe oxygenation impairment');
     expect(serializedPrintDocument).not.toMatch(
-      /Needs review|Reviewed|Not submitted|Review clinical record|Sync status/
+      /Needs review|Reviewed|Not submitted|Review clinical record|Sync status|Record ID|Client record ID|Device ID|patient-1|adm-1|client-vent-1|client-abg-1|device-a/
     );
   });
 

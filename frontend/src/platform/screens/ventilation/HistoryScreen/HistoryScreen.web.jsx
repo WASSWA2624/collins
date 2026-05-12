@@ -415,7 +415,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
         role="main"
       >
         <TrackingPrintStyles />
-        <StyledHeader>
+        <StyledHeader data-print-hidden="true">
           <StyledHeaderCopy>
             <Text variant="h1">{t('ventilation.tracking.detail.title')}</Text>
             <Text variant="body" color="text.secondary">
@@ -442,6 +442,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
         {showAdmittedBanner && (
           <StyledBanner
             $tone="success"
+            data-print-hidden="true"
             data-testid={HISTORY_TEST_IDS.admittedBanner}
             testID={HISTORY_TEST_IDS.admittedBanner}
           >
@@ -453,6 +454,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
 
         {localDraft && (
           <StyledBanner
+            data-print-hidden="true"
             data-testid={HISTORY_TEST_IDS.draftBanner}
             testID={HISTORY_TEST_IDS.draftBanner}
           >
@@ -484,7 +486,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
       role="main"
     >
       <TrackingPrintStyles />
-      <StyledHeader>
+      <StyledHeader data-print-hidden="true">
         <StyledHeaderCopy>
           <Text variant="h1">{t('ventilation.tracking.title')}</Text>
           <Text variant="body" color="text.secondary">
@@ -506,7 +508,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
         </StyledHeaderActions>
       </StyledHeader>
 
-      <StyledControlsRow>
+      <StyledControlsRow data-print-hidden="true">
         <StyledSearchWrap>
           <SearchBar
             value={searchQuery}
@@ -552,6 +554,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
       {showAdmittedBanner && (
         <StyledBanner
           $tone="success"
+          data-print-hidden="true"
           data-testid={HISTORY_TEST_IDS.admittedBanner}
           testID={HISTORY_TEST_IDS.admittedBanner}
         >
@@ -563,6 +566,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
 
       {localDraft && (
         <StyledBanner
+          data-print-hidden="true"
           data-testid={HISTORY_TEST_IDS.draftBanner}
           testID={HISTORY_TEST_IDS.draftBanner}
         >
@@ -574,6 +578,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
 
       {historyErrorCode && (
         <StyledErrorBanner
+          data-print-hidden="true"
           data-testid={HISTORY_TEST_IDS.errorBanner}
           testID={HISTORY_TEST_IDS.errorBanner}
         >
@@ -585,6 +590,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
 
       {isEmpty && !isHistoryLoading ? (
         <StyledEmpty
+          data-print-hidden="true"
           data-testid={HISTORY_TEST_IDS.empty}
           testID={HISTORY_TEST_IDS.empty}
         >
@@ -605,6 +611,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
         </StyledEmpty>
       ) : isSearchEmpty ? (
         <StyledEmpty
+          data-print-hidden="true"
           data-testid={HISTORY_TEST_IDS.searchEmpty}
           testID={HISTORY_TEST_IDS.searchEmpty}
         >
@@ -615,6 +622,7 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
         </StyledEmpty>
       ) : (
         <StyledList
+          data-print-hidden="true"
           aria-label={t('ventilation.tracking.title')}
           data-testid={HISTORY_TEST_IDS.list}
           testID={HISTORY_TEST_IDS.list}

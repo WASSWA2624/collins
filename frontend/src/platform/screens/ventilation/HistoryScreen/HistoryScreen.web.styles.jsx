@@ -52,6 +52,16 @@ const StyledContainer = styled.main.withConfig({
     padding: ${({ theme }) => theme.spacing.lg}px
       ${({ theme }) => theme.spacing.md}px;
   }
+
+  @media print {
+    width: auto;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+    background: #ffffff;
+  }
 `;
 
 const StyledHeader = styled.header.withConfig({
@@ -482,6 +492,13 @@ const StyledDetailPanel = styled.section.withConfig({
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm}px;
+
+  @media print {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: #ffffff;
+  }
 `;
 
 const StyledScreenOnlyDetail = styled.div.withConfig({
@@ -560,11 +577,13 @@ const StyledPrintDocument = styled.div.withConfig({
 
   @media print {
     display: block;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     color: #111827;
     background: #ffffff;
     font-size: 14px;
     line-height: 1.35;
+    box-sizing: border-box;
   }
 `;
 
@@ -763,7 +782,19 @@ const StyledPrintTimelineText = styled.span.withConfig({
 const TrackingPrintStyles = createGlobalStyle`
   @media print {
     @page {
-      margin: 16mm;
+      size: auto;
+      margin: 14mm 14mm 16mm;
+    }
+
+    html,
+    body {
+      width: auto !important;
+      min-width: 0 !important;
+      height: auto !important;
+      overflow: visible !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #ffffff !important;
     }
 
     body * {
@@ -773,27 +804,34 @@ const TrackingPrintStyles = createGlobalStyle`
     [data-print-document='true'],
     [data-print-document='true'] * {
       visibility: visible !important;
+      box-sizing: border-box !important;
     }
 
     [data-print-document='true'] {
       display: block !important;
-      position: absolute !important;
+      position: static !important;
       top: 0 !important;
       left: 0 !important;
-      width: 100% !important;
-      padding: 0 !important;
+      width: auto !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      padding: 0 1mm !important;
       border: 0 !important;
       background: #ffffff !important;
       color: #111827 !important;
       box-shadow: none !important;
+      box-sizing: border-box !important;
     }
 
-    [data-print-section='true'],
-    [data-print-section='true'] table,
-    [data-print-section='true'] tr,
-    [data-print-section='true'] li {
-      break-inside: avoid;
-      page-break-inside: avoid;
+    [data-print-section='true'] {
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+
+    [data-print-section='true'] > span:first-child {
+      break-after: avoid;
+      page-break-after: avoid;
     }
 
     [data-print-hidden='true'] {
