@@ -11,7 +11,7 @@ describe('phase 14 help search', () => {
       'home',
       'newPatient',
       'tracking',
-      'abgVentUpdate',
+      'currentReadings',
       'datasetCapture',
       'reviewQueue',
       'dashboard',
@@ -21,7 +21,7 @@ describe('phase 14 help search', () => {
 
   it('finds spaced workflow names and safety topics', () => {
     expect(filterGuideKeys('review queue')).toContain('reviewQueue');
-    expect(filterGuideKeys('ABG vent update')).toContain('abgVentUpdate');
+    expect(filterGuideKeys('ABG vent update')).toContain('currentReadings');
     expect(filterGlossaryKeys('verified reference')).toContain('referenceStatus');
     expect(filterTroubleshootingKeys('model readiness')).toContain('roleRestrictedModelHelp');
   });

@@ -336,8 +336,8 @@ export default function useHistoryScreen(options = {}) {
     (row) => {
       const admissionId = row?.admissionId || row?.id || selectedAdmissionId;
       const path = admissionId
-        ? `/abg-ventilator-updates?admissionId=${encodeURIComponent(admissionId)}`
-        : '/abg-ventilator-updates';
+        ? `/current-readings?admissionId=${encodeURIComponent(admissionId)}`
+        : '/current-readings';
       router.push(path);
     },
     [router, selectedAdmissionId]

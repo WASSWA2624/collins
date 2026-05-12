@@ -11,7 +11,7 @@ export * from './newPatients';
 export * from './home';
 export * from './dashboard';
 export * from './ventilation';
-export * from './abgVentUpdates';
+export * from './currentReadings';
 export * from './onboarding';
 export * from './help';
 export * from './settings';

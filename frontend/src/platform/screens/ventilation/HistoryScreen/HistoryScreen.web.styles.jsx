@@ -115,6 +115,8 @@ const StyledControlsRow = styled.section.withConfig({
   displayName: 'StyledControlsRow',
   componentId: 'StyledControlsRow',
 })`
+  position: relative;
+  z-index: 20;
   display: grid;
   grid-template-columns: minmax(260px, 520px) minmax(220px, 1fr);
   align-items: stretch;
@@ -130,6 +132,8 @@ const StyledFacilityFilter = styled.section.withConfig({
   displayName: 'StyledFacilityFilter',
   componentId: 'StyledFacilityFilter',
 })`
+  position: relative;
+  z-index: 30;
   min-width: 0;
 `;
 
@@ -255,18 +259,20 @@ const StyledList = styled.ul.withConfig({
   padding: 0;
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const listGridColumns =
-  '32px minmax(56px, 72px) minmax(84px, 1fr) minmax(76px, 96px) minmax(58px, 76px)';
+  '44px minmax(76px, 0.75fr) minmax(160px, 1.6fr) minmax(128px, 1fr) minmax(118px, 0.9fr)';
 
 const StyledListHeader = styled.li.withConfig({
   displayName: 'StyledListHeader',
   componentId: 'StyledListHeader',
 })`
   min-height: 34px;
+  min-width: 640px;
   display: grid;
   grid-template-columns: ${listGridColumns};
   align-items: center;
@@ -279,7 +285,6 @@ const StyledListHeader = styled.li.withConfig({
   box-sizing: border-box;
   font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
   font-weight: 600;
-  text-transform: uppercase;
 `;
 
 const StyledListHeaderCell = styled.span.withConfig({
@@ -287,9 +292,8 @@ const StyledListHeaderCell = styled.span.withConfig({
   componentId: 'StyledListHeaderCell',
 })`
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 `;
 
 const StyledItem = styled.li.withConfig({
@@ -313,6 +317,7 @@ const StyledPatientRowButton = styled.button.withConfig({
 })`
   width: 100%;
   min-height: 38px;
+  min-width: 640px;
   display: grid;
   grid-template-columns: ${listGridColumns};
   align-items: center;

@@ -237,7 +237,6 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
     localDraft,
     searchQuery,
     facilitySearch,
-    visibleRows,
     showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
@@ -385,7 +384,6 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
           testID={HISTORY_TEST_IDS.facility}
         >
           <FacilitySearchSelect
-            label={t('ventilation.tracking.facility.label')}
             placeholder={t('ventilation.tracking.facility.placeholder')}
             query={facilitySearch.query}
             onQueryChange={facilitySearch.onQueryChange}
@@ -393,14 +391,6 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
             onValueChange={facilitySearch.onValueChange}
             onClear={facilitySearch.onClear}
             options={facilitySearch.options}
-            helperText={t('ventilation.tracking.facility.helper')}
-            selectedHelper={
-              facilitySearch.value
-                ? t('ventilation.tracking.facility.selectedHelper', {
-                    count: visibleRows,
-                  })
-                : undefined
-            }
             noResultsText={t('ventilation.tracking.facility.noResults')}
             loadingText={t('ventilation.tracking.facility.loading')}
             clearLabel={t('ventilation.tracking.facility.clear')}
@@ -410,9 +400,6 @@ const HistoryScreenWeb = ({ detailMode = false } = {}) => {
             accessibilityHint={t('ventilation.tracking.facility.hint')}
             testID={HISTORY_TEST_IDS.facilitySelect}
           />
-          <Text variant="caption" color="text.secondary">
-            {t('ventilation.tracking.activePatients', { count: visibleRows })}
-          </Text>
         </StyledFacilityFilter>
       </StyledControlsRow>
 

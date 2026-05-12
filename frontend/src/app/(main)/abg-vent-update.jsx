@@ -1,9 +1,9 @@
 /**
- * (main)/abg-vent-update - Legacy alias for current readings and progress
+ * (main)/current-readings - Legacy alias for current readings and progress
  */
 import React from 'react';
-import { AbgVentUpdateScreen } from '@platform/screens';
+import { CurrentReadingsScreen } from '@platform/screens';
 
-const AbgVentUpdateRoute = () => <AbgVentUpdateScreen />;
+const CurrentReadingsRoute = () => <CurrentReadingsScreen />;
 
-export default AbgVentUpdateRoute;
+export default CurrentReadingsRoute;

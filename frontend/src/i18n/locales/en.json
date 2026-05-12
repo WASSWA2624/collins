@@ -303,7 +303,7 @@
         "home": "Home",
         "new-patient": "New Patient",
         "assessment": "New Patient",
-        "abg-ventilator-updates": "Current Readings & Progress",
+        "current-readings": "Current Readings & Progress",
         "history": "Tracking",
         "dataset-capture": "Dataset Capture",
         "review-queue": "Review Queue",
@@ -693,7 +693,7 @@
         "home": "Review facility context, sync state, active admissions, red flags, and records needing review before opening a patient workflow.",
         "newPatient": "Use New Patient to capture the patient pathway and available clinical values. Mark unavailable data clearly and review backend-confirmed calculations after save.",
         "tracking": "Use tracking to scan recent ventilation status and review needs. Read trend flags with source data and local protocol context.",
-        "abgVentUpdate": "Record current monitor, ABG, and ventilator readings as time-stamped records so progress can be reviewed over time.",
+        "currentReadings": "Record current monitor, ABG, and ventilator readings as time-stamped records so progress can be reviewed over time.",
         "datasetCapture": "Use dataset capture for de-identified candidate records. Human review is required before approved training-data use.",
         "reviewQueue": "Use the review queue to approve, request correction, or exclude records while preserving the audit trail.",
         "dashboard": "Use dashboards for aggregate quality, review, reference, and governance status. Avoid patient identifiers in governance summaries.",
@@ -832,7 +832,7 @@
       "tracking": {
         "title": "Tracking"
       },
-      "abgVentUpdate": {
+      "currentReadings": {
         "title": "Current Readings & Progress"
       },
       "datasetCapture": {
@@ -1318,7 +1318,7 @@
         "empty": "Enter patient data to begin"
       }
     },
-    "abgVentUpdate": {
+    "currentReadings": {
       "title": "Current Readings & Progress",
       "subtitle": "Select an active admission, record the current readings from the patient monitor, ABG result, and ventilator, then save them for progress tracking.",
       "accessibilityLabel": "Current patient readings and progress tracking screen",

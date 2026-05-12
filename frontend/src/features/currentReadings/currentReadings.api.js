@@ -14,8 +14,8 @@ const appendQuery = (url, query = {}) => {
 
 const unwrapData = (response) => response?.data?.data ?? response?.data ?? null;
 
-const createAbgVentUpdateRequest = (admissionId, body) => ({
-  url: endpoints.ADMISSIONS.ABG_VENTILATOR_UPDATES(admissionId),
+const createCurrentReadingsRequest = (admissionId, body) => ({
+  url: endpoints.ADMISSIONS.CURRENT_READINGS(admissionId),
   method: 'POST',
   body,
 });
@@ -28,7 +28,7 @@ const listActiveAdmissionsApi = async ({ facilityId, limit = 50 } = {}) => {
   return unwrapData(response);
 };
 
-const getAdmissionAbgVentilatorContextApi = async (admissionId) => {
+const getAdmissionCurrentReadingsContextApi = async (admissionId) => {
   const response = await apiClient({
     url: endpoints.ADMISSIONS.GET(admissionId),
     method: 'GET',
@@ -37,8 +37,8 @@ const getAdmissionAbgVentilatorContextApi = async (admissionId) => {
   return data?.admission ?? data;
 };
 
-const saveAbgVentUpdateApi = async (admissionId, body) => {
-  const response = await apiClient(createAbgVentUpdateRequest(admissionId, body));
+const saveCurrentReadingsApi = async (admissionId, body) => {
+  const response = await apiClient(createCurrentReadingsRequest(admissionId, body));
   return unwrapData(response);
 };
 
@@ -73,9 +73,9 @@ const appendVentilatorSettingApi = async (admissionId, body) => {
 export {
   appendAbgTestApi,
   appendVentilatorSettingApi,
-  createAbgVentUpdateRequest,
+  createCurrentReadingsRequest,
   getCurrentReadingsVentilatorRecommendationApi,
-  getAdmissionAbgVentilatorContextApi,
+  getAdmissionCurrentReadingsContextApi,
   listActiveAdmissionsApi,
-  saveAbgVentUpdateApi,
+  saveCurrentReadingsApi,
 };

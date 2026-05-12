@@ -10,17 +10,17 @@ import {
   VENTILATOR_FIELD_DEFINITIONS,
   VENTILATOR_MODE_OPTIONS,
   getCurrentReadingsProgressAssessment,
-  getAbgVentAdvisoryFlags,
-  getAbgVentHistory,
-  getAbgVentMissingData,
-  getLatestAbgVentValues,
+  getCurrentReadingsAdvisoryFlags,
+  getCurrentReadingsHistory,
+  getCurrentReadingsMissingData,
+  getLatestCurrentReadingsValues,
   listActiveAdmissionsUseCase,
-  loadAdmissionAbgVentilatorContextUseCase,
-  sanitizeAbgVentFieldInput,
-  submitAbgVentUpdateUseCase,
-  validateAbgVentUpdateDraft,
-} from '@features/abgVentUpdates';
-import { ABG_VENT_UPDATE_TEST_IDS } from './types';
+  loadAdmissionCurrentReadingsContextUseCase,
+  sanitizeCurrentReadingsFieldInput,
+  submitCurrentReadingsUseCase,
+  validateCurrentReadingsDraft,
+} from '@features/currentReadings';
+import { CURRENT_READINGS_TEST_IDS } from './types';
 
 const INITIAL_VITALS_FORM = Object.freeze({
   spo2: '',
@@ -97,7 +97,7 @@ const getFirstParam = (value) => (Array.isArray(value) ? value[0] : value);
 
 const normalizeSaveErrorMessage = (error) => {
   const code = String(error?.code || '').toUpperCase();
-  if (code === 'VALIDATION_ERROR' || code === 'ABG_VENT_UPDATE_EMPTY') {
+  if (code === 'VALIDATION_ERROR' || code === 'CURRENT_READINGS_EMPTY') {
     return TRACKING_SAVE_ERROR;
   }
   if (
@@ -184,7 +184,7 @@ const buildPatientDetails = (admission) => {
     .map(([label, value]) => ({ label, value: String(value) }));
 };
 
-export default function useAbgVentUpdateScreen() {
+export default function useCurrentReadingsScreen() {
   const { isOffline } = useNetwork();
   const params = useLocalSearchParams();
   const initialAdmissionId = getFirstParam(params?.admissionId || params?.id);
@@ -245,7 +245,7 @@ export default function useAbgVentUpdateScreen() {
       setIsAdmissionLoading(true);
       try {
         const admission =
-          await loadAdmissionAbgVentilatorContextUseCase(admissionId);
+          await loadAdmissionCurrentReadingsContextUseCase(admissionId);
         setSelectedAdmission(
           admission ||
             admissions.find((item) => item.id === admissionId) ||
@@ -285,7 +285,7 @@ export default function useAbgVentUpdateScreen() {
   const setVitalsField = useCallback((field, value) => {
     setVitals((current) => ({
       ...current,
-      [field]: sanitizeAbgVentFieldInput(field, value),
+      [field]: sanitizeCurrentReadingsFieldInput(field, value),
     }));
     setStatus((current) =>
       ['error', 'synced', 'queued'].includes(current.kind)
@@ -297,7 +297,7 @@ export default function useAbgVentUpdateScreen() {
   const setAbgField = useCallback((field, value) => {
     setAbg((current) => ({
       ...current,
-      [field]: sanitizeAbgVentFieldInput(field, value),
+      [field]: sanitizeCurrentReadingsFieldInput(field, value),
     }));
     setStatus((current) =>
       ['error', 'synced', 'queued'].includes(current.kind)
@@ -309,7 +309,7 @@ export default function useAbgVentUpdateScreen() {
   const setVentilatorField = useCallback((field, value) => {
     setVentilator((current) => ({
       ...current,
-      [field]: sanitizeAbgVentFieldInput(field, value),
+      [field]: sanitizeCurrentReadingsFieldInput(field, value),
     }));
     setStatus((current) =>
       ['error', 'synced', 'queued'].includes(current.kind)
@@ -335,7 +335,7 @@ export default function useAbgVentUpdateScreen() {
 
   const validation = useMemo(
     () =>
-      validateAbgVentUpdateDraft({
+      validateCurrentReadingsDraft({
         admissionId: selectedAdmissionId,
         admission: selectedAdmission,
         vitals,
@@ -399,7 +399,7 @@ export default function useAbgVentUpdateScreen() {
       conflict: null,
     });
     try {
-      const result = await submitAbgVentUpdateUseCase({
+      const result = await submitCurrentReadingsUseCase({
         admissionId: selectedAdmissionId,
         vitals,
         abg,
@@ -488,7 +488,7 @@ export default function useAbgVentUpdateScreen() {
     [selectedAdmission]
   );
   const latestValues = useMemo(
-    () => getLatestAbgVentValues(selectedAdmission || {}),
+    () => getLatestCurrentReadingsValues(selectedAdmission || {}),
     [selectedAdmission]
   );
   const progressAssessment = useMemo(
@@ -498,15 +498,15 @@ export default function useAbgVentUpdateScreen() {
     [selectedAdmission, status.progressAssessment]
   );
   const history = useMemo(
-    () => getAbgVentHistory(selectedAdmission || {}),
+    () => getCurrentReadingsHistory(selectedAdmission || {}),
     [selectedAdmission]
   );
   const missingData = useMemo(
-    () => getAbgVentMissingData(selectedAdmission || {}),
+    () => getCurrentReadingsMissingData(selectedAdmission || {}),
     [selectedAdmission]
   );
   const advisoryFlags = useMemo(
-    () => getAbgVentAdvisoryFlags(selectedAdmission || {}),
+    () => getCurrentReadingsAdvisoryFlags(selectedAdmission || {}),
     [selectedAdmission]
   );
   const hasValidAdmissionContext = Boolean(
@@ -516,7 +516,7 @@ export default function useAbgVentUpdateScreen() {
   );
 
   return {
-    testIds: ABG_VENT_UPDATE_TEST_IDS,
+    testIds: CURRENT_READINGS_TEST_IDS,
     abg,
     abgFields: ABG_FIELD_DEFINITIONS,
     admissionOptions,

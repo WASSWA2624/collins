@@ -12,7 +12,7 @@ import { HOME_ACTION_IDS, HOME_STATUS_IDS, HOME_TEST_IDS } from './types';
 const ROUTES = Object.freeze({
   [HOME_ACTION_IDS.NEW_PATIENT]: '/new-patient',
   [HOME_ACTION_IDS.TRACKING]: '/tracking',
-  [HOME_ACTION_IDS.ABG_VENT_UPDATE]: '/abg-ventilator-updates',
+  [HOME_ACTION_IDS.CURRENT_READINGS]: '/current-readings',
   [HOME_ACTION_IDS.DATASET_CAPTURE]: '/dataset-capture',
   [HOME_ACTION_IDS.REVIEW_QUEUE]: '/review-queue',
   [HOME_ACTION_IDS.DASHBOARD]: '/dashboard',
@@ -80,8 +80,8 @@ const buildHomeActions = (summary) => {
       navigationStatus,
     }),
     makeAction({
-      id: HOME_ACTION_IDS.ABG_VENT_UPDATE,
-      path: ROUTES[HOME_ACTION_IDS.ABG_VENT_UPDATE],
+      id: HOME_ACTION_IDS.CURRENT_READINGS,
+      path: ROUTES[HOME_ACTION_IDS.CURRENT_READINGS],
       canUse: canOpenAdmissions,
       navigationStatus,
     }),

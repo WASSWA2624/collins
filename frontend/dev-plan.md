@@ -1,6 +1,6 @@
 # Frontend Development Plan
 
-This frontend roadmap is chronological and docs-only. It starts with Expo startup and project foundations, then moves through onboarding, authentication, facility access, Home, admission, tracking, ABG / ventilator updates, decision-support safety flags, dataset capture, review, dashboards, training/help, settings, exports, audit, and future model-readiness.
+This frontend roadmap is chronological and docs-only. It starts with Expo startup and project foundations, then moves through onboarding, authentication, facility access, Home, admission, tracking, Current readings updates, decision-support safety flags, dataset capture, review, dashboards, training/help, settings, exports, audit, and future model-readiness.
 
 The app already has Expo Router routes under `src/app`, reusable platform code under `src/platform`, Redux Toolkit state, persistence, offline/network foundations, API client conventions, theme, accessibility, i18n, logging, error boundaries, styled-components UI conventions, and existing ventilation, training, settings, and data-source screens. Future implementation must inspect existing screens, state, services, shared utilities, tests, aliases, and configs first; reuse compliant code; and replace only code that conflicts with the app rules or clinical safety requirements.
 
@@ -39,7 +39,7 @@ Decision-support UI may display or apply only backend-confirmed values from veri
 6. [Admit](./dev-plan/phase-06-patient-registration-admission-model.md)
 7. [Required three-step admission flow](./dev-plan/phase-07-three-step-admission-flow.md)
 8. [Clinical tracking](./dev-plan/phase-08-clinical-tracking.md)
-9. [ABG and ventilator updates](./dev-plan/phase-09-abg-ventilator-updates.md)
+9. [Current readings](./dev-plan/phase-09-current-readings.md)
 10. [Decision-support rules and safety flags](./dev-plan/phase-10-decision-support-rules-safety-flags.md)
 11. [Dataset capture](./dev-plan/phase-11-dataset-capture.md)
 12. [Review Queue](./dev-plan/phase-12-validation-review-queue.md)

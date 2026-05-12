@@ -24,6 +24,6 @@ The frontend must be extremely easy to use in a busy ICU while preserving clinic
 5. Never show matched-case/debug/model details to normal clinicians.
 6. Never send patient identifiers to online AI services.
 7. Keep active facility and sync/offline status visible on clinical screens.
-8. Repeat ABG and ventilator updates must create new time-stamped records, not overwrite previous values.
+8. Repeat Current readings must create new time-stamped records, not overwrite previous values.
 9. The UI must be usable with gloved hands: large touch targets, chips, steppers, dropdowns, and minimal typing.
 10. Clinical screens must use short, plain language.

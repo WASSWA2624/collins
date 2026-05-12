@@ -6,7 +6,7 @@
 - Auth and active facility selection.
 - 3-step admission workflow.
 - Tracking board rendering and risk status labels.
-- Fast ABG / ventilator update flow.
+- Fast Current readings update flow.
 - Live summary card calculations and missing-data display.
 - Dataset capture parser preview and review state.
 - Offline draft and sync queue behavior.

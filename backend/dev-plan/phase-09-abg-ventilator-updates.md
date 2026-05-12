@@ -2,7 +2,7 @@
 
 ## Goal
 
-Record ABG and ventilator updates as append-only clinical events with server-side validation and recalculation.
+Record Current readings as append-only clinical events with server-side validation and recalculation.
 
 ## Inspect And Reuse First
 

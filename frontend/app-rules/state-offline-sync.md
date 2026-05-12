@@ -56,7 +56,7 @@ Each queued write should include:
 - Never overwrite reviewed data silently.
 - Show simple messages such as “Another update exists. Keep both values for reviewer?”
 - Preserve both local and server values until reviewer resolution.
-- ABG and ventilator updates should append time-stamped versions whenever possible.
+- Current readings should append time-stamped versions whenever possible.
 
 ## Offline UI behavior
 

@@ -23,7 +23,7 @@ export { default as RecommendationScreen } from './ventilation/RecommendationScr
 export { default as MonitoringScreen } from './ventilation/MonitoringScreen';
 export { default as HistoryScreen } from './ventilation/HistoryScreen';
 export { default as TrackingScreen } from './ventilation/HistoryScreen';
-export { default as AbgVentUpdateScreen } from './ventilation/AbgVentUpdateScreen';
+export { default as CurrentReadingsScreen } from './ventilation/CurrentReadingsScreen';
 export { default as CaseDetailScreen } from './ventilation/CaseDetailScreen';
 
 // Review screens

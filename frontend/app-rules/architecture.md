@@ -27,7 +27,7 @@
 - Active facility and memberships.
 - Admission wizard.
 - Tracking board.
-- ABG / ventilator updates.
+- Current readings updates.
 - Airway and humidification documentation.
 - Daily liberation/readiness review.
 - Dataset capture and note parser preview.

@@ -12,7 +12,6 @@ import {
   StyledContainer,
   StyledSearchIcon,
   StyledClearButtonWrapper,
-  StyledTextFieldWrapper,
 } from './SearchBar.ios.styles';
 
 const SearchBarIOS = ({
@@ -46,39 +45,41 @@ const SearchBarIOS = ({
 
   return (
     <StyledContainer style={style} testID={testID} {...rest}>
-      <StyledSearchIcon
-        accessibilityLabel={searchIconLabel}
-        testID={testID ? `${testID}-icon` : undefined}
-      >
-        {searchIcon}
-      </StyledSearchIcon>
-      <StyledTextFieldWrapper>
-        <TextField
-          value={localValue}
-          onChangeText={handleChangeText}
-          onSubmitEditing={() => handleSubmit()}
-          placeholder={placeholderText}
-          type="search"
-          {...(accessibilityLabelText && {
-            accessibilityLabel: accessibilityLabelText,
-          })}
-          testID={testID ? `${testID}-input` : undefined}
-          style={{ marginBottom: 0 }}
-        />
-      </StyledTextFieldWrapper>
-      {showClearButton && hasValue && (
-        <StyledClearButtonWrapper>
-          <Button
-            variant="text"
-            size="small"
-            onPress={handleClear}
-            accessibilityLabel={clearButtonLabel}
-            testID={testID ? `${testID}-clear` : undefined}
+      <TextField
+        value={localValue}
+        onChangeText={handleChangeText}
+        onSubmitEditing={() => handleSubmit()}
+        placeholder={placeholderText}
+        type="search"
+        prefix={
+          <StyledSearchIcon
+            accessibilityLabel={searchIconLabel}
+            testID={testID ? `${testID}-icon` : undefined}
           >
-            {clearIcon}
-          </Button>
-        </StyledClearButtonWrapper>
-      )}
+            {searchIcon}
+          </StyledSearchIcon>
+        }
+        suffix={
+          showClearButton && hasValue ? (
+            <StyledClearButtonWrapper>
+              <Button
+                variant="text"
+                size="small"
+                onPress={handleClear}
+                accessibilityLabel={clearButtonLabel}
+                testID={testID ? `${testID}-clear` : undefined}
+              >
+                {clearIcon}
+              </Button>
+            </StyledClearButtonWrapper>
+          ) : null
+        }
+        {...(accessibilityLabelText && {
+          accessibilityLabel: accessibilityLabelText,
+        })}
+        testID={testID ? `${testID}-input` : undefined}
+        style={{ marginBottom: 0 }}
+      />
     </StyledContainer>
   );
 };

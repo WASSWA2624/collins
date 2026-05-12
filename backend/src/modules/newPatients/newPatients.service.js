@@ -1798,7 +1798,7 @@ export const saveNewPatientAbgVentilatorUpdate = async (userId, admissionId, pay
     const refreshed = await tx.admission.findUnique({ where: { id: admissionId }, include: fullNewPatientInclude });
     const referenceRanges = await resolveDecisionSupportReferenceRanges(admissionAccess.facilityId, { tx });
     const responseJson = buildThreeStepNewPatientResponse(
-      'abg_ventilator_update',
+      'current_readings_update',
       { ...refreshed, clinicalSummary: buildClinicalSummary(refreshed, { referenceRanges }) },
       {
         facilityId: refreshed.facilityId,

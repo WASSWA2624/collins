@@ -308,14 +308,14 @@ const sanitizeNumericInput = (value, { allowNegative = false } = {}) => {
   return next;
 };
 
-const sanitizeAbgVentFieldInput = (fieldKey, value) => {
+const sanitizeCurrentReadingsFieldInput = (fieldKey, value) => {
   const field = FIELD_DEFINITION_BY_KEY[fieldKey];
   if (!field || (field.min === undefined && field.max === undefined))
     return value;
   return sanitizeNumericInput(value, { allowNegative: Number(field.min) < 0 });
 };
 
-const validateAbgVentUpdateForm = ({
+const validateCurrentReadingsForm = ({
   admissionId,
   admission,
   vitals,
@@ -369,14 +369,14 @@ const hasAnyInputValue = (value) =>
 
 const validateNumericFieldValue = validateNumericValue;
 
-const validateAbgVentUpdateDraft = ({
+const validateCurrentReadingsDraft = ({
   admissionId,
   admission,
   vitals,
   abg,
   ventilator,
 } = {}) => {
-  const validation = validateAbgVentUpdateForm({
+  const validation = validateCurrentReadingsForm({
     admissionId,
     admission,
     vitals,
@@ -510,27 +510,27 @@ const parseRecord = (schema, record) => {
   return stripUndefined(parsed) || {};
 };
 
-const buildAbgVentUpdatePayload = ({
+const buildCurrentReadingsPayload = ({
   admissionId,
   vitals,
   abg,
   ventilator,
   clientRecordId,
   idempotencyKey,
-  source = 'abg_vent_update',
+  source = 'current_readings',
   now = new Date(),
 } = {}) => {
   if (!admissionId || typeof admissionId !== 'string') {
-    throw new Error('ABG_VENT_UPDATE_ADMISSION_REQUIRED');
+    throw new Error('CURRENT_READINGS_ADMISSION_REQUIRED');
   }
 
   const resolvedNow = resolveNow(now);
   const timestamp = resolvedNow.toISOString();
   const resolvedClientRecordId =
-    clientRecordId || createScopedToken('abg-vent', admissionId, resolvedNow);
+    clientRecordId || createScopedToken('current-readings', admissionId, resolvedNow);
   const resolvedIdempotencyKey =
     idempotencyKey ||
-    createScopedToken('abg-vent-idem', admissionId, resolvedNow);
+    createScopedToken('current-readings-idem', admissionId, resolvedNow);
   const parsedVitals = parseRecord(clinicalSnapshotUpdateSchema, vitals);
   const parsedAbg = parseRecord(abgUpdateSchema, abg);
   const parsedVentilator = parseRecord(ventilatorUpdateSchema, ventilator);
@@ -544,7 +544,7 @@ const buildAbgVentUpdatePayload = ({
   ]);
 
   if (!hasVitals && !hasAbg && !hasVentilator) {
-    throw new Error('ABG_VENT_UPDATE_EMPTY');
+    throw new Error('CURRENT_READINGS_EMPTY');
   }
 
   return stripUndefined({
@@ -573,9 +573,9 @@ const buildAbgVentUpdatePayload = ({
   });
 };
 
-const safeBuildAbgVentUpdatePayload = (input) => {
+const safeBuildCurrentReadingsPayload = (input) => {
   try {
-    return { ok: true, payload: buildAbgVentUpdatePayload(input), error: null };
+    return { ok: true, payload: buildCurrentReadingsPayload(input), error: null };
   } catch (error) {
     return { ok: false, payload: null, error };
   }
@@ -596,7 +596,7 @@ const sortRecordsDesc = (records, timestampField) =>
     );
   });
 
-const getLatestAbgVentValues = (admission = {}) => {
+const getLatestCurrentReadingsValues = (admission = {}) => {
   const latestVitals =
     sortRecordsDesc(admission.clinicalSnapshots, 'measuredAt')[0] || null;
   const latestAbg =
@@ -606,7 +606,7 @@ const getLatestAbgVentValues = (admission = {}) => {
   return { latestVitals, latestAbg, latestVentilator };
 };
 
-const getAbgVentHistory = (admission = {}) => {
+const getCurrentReadingsHistory = (admission = {}) => {
   const vitalEvents = (
     Array.isArray(admission.clinicalSnapshots) ? admission.clinicalSnapshots : []
   ).map((record) => ({
@@ -653,8 +653,8 @@ const toAdvisoryMessage = (message) => {
     : text;
 };
 
-const getAbgVentAdvisoryFlags = (admission = {}) => {
-  const { latestAbg, latestVentilator } = getLatestAbgVentValues(admission);
+const getCurrentReadingsAdvisoryFlags = (admission = {}) => {
+  const { latestAbg, latestVentilator } = getLatestCurrentReadingsValues(admission);
   const clinicalSummary = admission.clinicalSummary || {};
   const flags = [
     ...(Array.isArray(clinicalSummary.flags) ? clinicalSummary.flags : []),
@@ -675,7 +675,7 @@ const getAbgVentAdvisoryFlags = (admission = {}) => {
   }));
 };
 
-const getAbgVentMissingData = (admission = {}) => {
+const getCurrentReadingsMissingData = (admission = {}) => {
   const missing =
     admission.clinicalSummary?.missingData ||
     admission.readiness?.missingData ||
@@ -861,7 +861,7 @@ const getCurrentReadingsProgressAssessment = (admission = {}) => {
     higherIsBetter: false,
   });
 
-  const redFlagCount = getAbgVentAdvisoryFlags(admission).filter(
+  const redFlagCount = getCurrentReadingsAdvisoryFlags(admission).filter(
     (flag) => flag.severity === 'red'
   ).length;
   const score = trends.reduce((total, trend) => total + trend.score, 0);
@@ -888,7 +888,7 @@ const getCurrentReadingsProgressAssessment = (admission = {}) => {
 const buildVentilatorRecommendationInputFromAdmission = (admission = {}) => {
   const patient = admission.patient || {};
   const { latestVitals, latestAbg, latestVentilator } =
-    getLatestAbgVentValues(admission);
+    getLatestCurrentReadingsValues(admission);
 
   return stripUndefined({
     condition:
@@ -935,19 +935,19 @@ export {
   VENTILATOR_MODE_OPTIONS,
   abgUpdateSchema,
   buildVentilatorRecommendationInputFromAdmission,
-  buildAbgVentUpdatePayload,
+  buildCurrentReadingsPayload,
   clinicalSnapshotUpdateSchema,
   containsForbiddenSettingOrder,
-  getAbgVentAdvisoryFlags,
-  getAbgVentHistory,
-  getAbgVentMissingData,
+  getCurrentReadingsAdvisoryFlags,
+  getCurrentReadingsHistory,
+  getCurrentReadingsMissingData,
   getCurrentReadingsProgressAssessment,
-  getLatestAbgVentValues,
-  safeBuildAbgVentUpdatePayload,
-  sanitizeAbgVentFieldInput,
+  getLatestCurrentReadingsValues,
+  safeBuildCurrentReadingsPayload,
+  sanitizeCurrentReadingsFieldInput,
   toAdvisoryMessage,
-  validateAbgVentUpdateForm,
-  validateAbgVentUpdateDraft,
+  validateCurrentReadingsForm,
+  validateCurrentReadingsDraft,
   validateNumericFieldValue,
   ventilatorUpdateSchema,
 };

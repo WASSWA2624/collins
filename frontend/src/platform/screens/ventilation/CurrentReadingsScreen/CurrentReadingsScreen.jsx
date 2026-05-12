@@ -5,7 +5,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Select, Text, TextField } from '@platform/components';
 import { useI18n } from '@hooks';
-import useAbgVentUpdateScreen from './useAbgVentUpdateScreen';
+import useCurrentReadingsScreen from './useCurrentReadingsScreen';
 
 const renderValue = (value, fallback = '-') =>
   value === undefined || value === null || value === ''
@@ -43,10 +43,10 @@ const renderField = ({
           value={value[field.key] || undefined}
           onValueChange={(next) => onChange(field.key, next)}
           placeholder={t(
-            'ventilation.abgVentUpdate.ventilator.modePlaceholder'
+            'ventilation.currentReadings.ventilator.modePlaceholder'
           )}
           searchPlaceholder={t(
-            'ventilation.abgVentUpdate.ventilator.modeSearchPlaceholder'
+            'ventilation.currentReadings.ventilator.modeSearchPlaceholder'
           )}
           accessibilityLabel={field.label}
           testID={`${prefix}-${field.key}`}
@@ -79,9 +79,9 @@ const renderField = ({
   );
 };
 
-const AbgVentUpdateScreen = () => {
+const CurrentReadingsScreen = () => {
   const { t } = useI18n();
-  const screen = useAbgVentUpdateScreen();
+  const screen = useCurrentReadingsScreen();
   const { latestVitals, latestAbg, latestVentilator } = screen.latestValues;
   const recommendationSettings = getRecommendationSettings(
     screen.ventilatorRecommendation
@@ -109,11 +109,11 @@ const AbgVentUpdateScreen = () => {
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
       testID={screen.testIds.screen}
-      accessibilityLabel={t('ventilation.abgVentUpdate.accessibilityLabel')}
+      accessibilityLabel={t('ventilation.currentReadings.accessibilityLabel')}
     >
       <View style={styles.header}>
-        <Text variant="h1">{t('ventilation.abgVentUpdate.title')}</Text>
-        <Text variant="body">{t('ventilation.abgVentUpdate.subtitle')}</Text>
+        <Text variant="h1">{t('ventilation.currentReadings.title')}</Text>
+        <Text variant="body">{t('ventilation.currentReadings.subtitle')}</Text>
       </View>
 
       {screen.status.kind !== 'idle' ? (
@@ -124,7 +124,7 @@ const AbgVentUpdateScreen = () => {
           <Text variant="body">{screen.status.message}</Text>
           {screen.status.conflict?.serverRecord?.createdAt ? (
             <Text variant="caption">
-              {t('ventilation.abgVentUpdate.conflict.serverRecord', {
+              {t('ventilation.currentReadings.conflict.serverRecord', {
                 dateTime: screen.toDisplayDate(
                   screen.status.conflict.serverRecord.createdAt
                 ),
@@ -136,11 +136,11 @@ const AbgVentUpdateScreen = () => {
 
       <View style={styles.section}>
         <Text variant="h2">
-          {t('ventilation.abgVentUpdate.sections.admission')}
+          {t('ventilation.currentReadings.sections.admission')}
         </Text>
         {hasAdmissions ? (
           <Select
-            label={t('ventilation.abgVentUpdate.admission.label')}
+            label={t('ventilation.currentReadings.admission.label')}
             options={screen.admissionOptions}
             value={screen.selectedAdmissionId}
             onValueChange={screen.setSelectedAdmissionId}
@@ -152,7 +152,7 @@ const AbgVentUpdateScreen = () => {
             <Text variant="label">
               {screen.isLoading
                 ? t('ventilation.tracking.states.loading')
-                : t('ventilation.abgVentUpdate.admission.empty')}
+                : t('ventilation.currentReadings.admission.empty')}
             </Text>
             {!screen.isLoading ? (
               <Text variant="body">{t('ventilation.tracking.emptyHint')}</Text>
@@ -186,12 +186,12 @@ const AbgVentUpdateScreen = () => {
         <>
           <View style={styles.section} testID={screen.testIds.latestValues}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.latest')}
+              {t('ventilation.currentReadings.sections.latest')}
             </Text>
             <View style={styles.columns}>
               <View style={styles.column}>
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.latest.vitals')}
+                  {t('ventilation.currentReadings.latest.vitals')}
                 </Text>
                 <Text variant="body">
                   SpO2: {renderValue(latestVitals?.spo2)}
@@ -208,7 +208,7 @@ const AbgVentUpdateScreen = () => {
               </View>
               <View style={styles.column}>
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.latest.abg')}
+                  {t('ventilation.currentReadings.latest.abg')}
                 </Text>
                 <Text variant="body">pH: {renderValue(latestAbg?.ph)}</Text>
                 <Text variant="body">PaO2: {renderValue(latestAbg?.pao2)}</Text>
@@ -221,7 +221,7 @@ const AbgVentUpdateScreen = () => {
               </View>
               <View style={styles.column}>
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.latest.ventilator')}
+                  {t('ventilation.currentReadings.latest.ventilator')}
                 </Text>
                 <Text variant="body">
                   Mode: {renderValue(latestVentilator?.mode)}
@@ -241,7 +241,7 @@ const AbgVentUpdateScreen = () => {
 
           <View style={styles.section}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.vitals')}
+              {t('ventilation.currentReadings.sections.vitals')}
             </Text>
             <View style={styles.fieldGrid}>
               {screen.vitalsFields.map((field) =>
@@ -260,7 +260,7 @@ const AbgVentUpdateScreen = () => {
 
           <View style={styles.section}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.abg')}
+              {t('ventilation.currentReadings.sections.abg')}
             </Text>
             <View style={styles.fieldGrid}>
               {screen.abgFields.map((field) =>
@@ -279,7 +279,7 @@ const AbgVentUpdateScreen = () => {
 
           <View style={styles.section}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.ventilator')}
+              {t('ventilation.currentReadings.sections.ventilator')}
             </Text>
             <View style={styles.fieldGrid}>
               {screen.ventilatorFields.map((field) =>
@@ -299,11 +299,11 @@ const AbgVentUpdateScreen = () => {
 
           <View style={styles.section} testID={screen.testIds.advisoryFlags}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.advisory')}
+              {t('ventilation.currentReadings.sections.advisory')}
             </Text>
             <View style={styles.advisoryBlock}>
               <Text variant="label">
-                {t('ventilation.abgVentUpdate.progress.title')}: {screen.progressAssessment.label}
+                {t('ventilation.currentReadings.progress.title')}: {screen.progressAssessment.label}
               </Text>
               <Text variant="body">{screen.progressAssessment.recommendation}</Text>
               {screen.progressAssessment.reasons.slice(0, 4).map((reason) => (
@@ -315,7 +315,7 @@ const AbgVentUpdateScreen = () => {
             {recommendationSettings ? (
               <View style={styles.advisoryBlock}>
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.recommendation.title')}
+                  {t('ventilation.currentReadings.recommendation.title')}
                 </Text>
                 {RECOMMENDATION_SETTING_ROWS.filter(
                   ([key]) =>
@@ -336,8 +336,8 @@ const AbgVentUpdateScreen = () => {
             ) : screen.progressAssessment.action === 'suggest_new_settings' ? (
               <Text variant="body">
                 {screen.recommendationError
-                  ? t('ventilation.abgVentUpdate.recommendation.error')
-                  : t('ventilation.abgVentUpdate.recommendation.empty')}
+                  ? t('ventilation.currentReadings.recommendation.error')
+                  : t('ventilation.currentReadings.recommendation.empty')}
               </Text>
             ) : null}
             {screen.missingData.length > 0 ? (
@@ -346,7 +346,7 @@ const AbgVentUpdateScreen = () => {
                 testID={screen.testIds.missingData}
               >
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.sections.missing')}
+                  {t('ventilation.currentReadings.sections.missing')}
                 </Text>
                 {screen.missingData.map((item) => (
                   <Text key={item.field} variant="body">
@@ -358,7 +358,7 @@ const AbgVentUpdateScreen = () => {
             {screen.advisoryFlags.length > 0 ? (
               <View style={styles.advisoryBlock}>
                 <Text variant="label">
-                  {t('ventilation.abgVentUpdate.advisory.title')}
+                  {t('ventilation.currentReadings.advisory.title')}
                 </Text>
                 {screen.advisoryFlags.slice(0, 6).map((flag, index) => (
                   <Text key={`${flag.code || 'flag'}-${index}`} variant="body">
@@ -371,11 +371,11 @@ const AbgVentUpdateScreen = () => {
 
           <View style={styles.section} testID={screen.testIds.history}>
             <Text variant="h2">
-              {t('ventilation.abgVentUpdate.sections.history')}
+              {t('ventilation.currentReadings.sections.history')}
             </Text>
             {screen.history.length === 0 ? (
               <Text variant="body">
-                {t('ventilation.abgVentUpdate.history.empty')}
+                {t('ventilation.currentReadings.history.empty')}
               </Text>
             ) : (
               screen.history.slice(0, 8).map((event) => (
@@ -384,15 +384,15 @@ const AbgVentUpdateScreen = () => {
                   style={styles.historyRow}
                 >
                   <Text variant="label">
-                    {t(`ventilation.abgVentUpdate.history.${event.type}`)}
+                    {t(`ventilation.currentReadings.history.${event.type}`)}
                   </Text>
                   <Text variant="caption">
                     {event.version
-                      ? t('ventilation.abgVentUpdate.history.version', {
+                      ? t('ventilation.currentReadings.history.version', {
                           version: renderValue(event.version),
                           dateTime: screen.toDisplayDate(event.recordedAt),
                         })
-                      : t('ventilation.abgVentUpdate.history.recorded', {
+                      : t('ventilation.currentReadings.history.recorded', {
                           dateTime: screen.toDisplayDate(event.recordedAt),
                         })}
                   </Text>
@@ -410,12 +410,12 @@ const AbgVentUpdateScreen = () => {
               testID={screen.testIds.submit}
             >
               {screen.isSaving
-                ? t('ventilation.abgVentUpdate.actions.saving')
-                : t('ventilation.abgVentUpdate.actions.save')}
+                ? t('ventilation.currentReadings.actions.saving')
+                : t('ventilation.currentReadings.actions.save')}
             </Button>
             {screen.isOffline ? (
               <Text variant="caption">
-                {t('ventilation.abgVentUpdate.offline')}
+                {t('ventilation.currentReadings.offline')}
               </Text>
             ) : null}
           </View>
@@ -520,4 +520,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AbgVentUpdateScreen;
+export default CurrentReadingsScreen;

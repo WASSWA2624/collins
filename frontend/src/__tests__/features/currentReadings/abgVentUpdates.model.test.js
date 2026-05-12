@@ -1,18 +1,18 @@
 const {
   VENTILATOR_MODE_OPTIONS,
-  buildAbgVentUpdatePayload,
+  buildCurrentReadingsPayload,
   buildVentilatorRecommendationInputFromAdmission,
-  getAbgVentAdvisoryFlags,
-  getAbgVentHistory,
-  getAbgVentMissingData,
+  getCurrentReadingsAdvisoryFlags,
+  getCurrentReadingsHistory,
+  getCurrentReadingsMissingData,
   getCurrentReadingsProgressAssessment,
   toAdvisoryMessage,
-  validateAbgVentUpdateDraft,
-} = require('@features/abgVentUpdates');
+  validateCurrentReadingsDraft,
+} = require('@features/currentReadings');
 
-describe('abgVentUpdates.model', () => {
+describe('currentReadings.model', () => {
   it('builds append-only payloads with client timestamps, idempotency, and source', () => {
-    const payload = buildAbgVentUpdatePayload({
+    const payload = buildCurrentReadingsPayload({
       admissionId: 'admission-1',
       vitals: {
         spo2: '94',
@@ -33,7 +33,7 @@ describe('abgVentUpdates.model', () => {
       clientRecordId: 'client-update-1',
       idempotencyKey: 'idem-update-1',
       now: new Date('2026-05-05T07:30:00.000Z'),
-      source: 'abg_vent_update',
+      source: 'current_readings',
     });
 
     expect(payload.clientRecordId).toBe('client-update-1');
@@ -44,32 +44,32 @@ describe('abgVentUpdates.model', () => {
       spo2: 94,
       heartRate: 104,
       respiratoryRate: 24,
-      source: 'abg_vent_update',
+      source: 'current_readings',
     });
     expect(payload.abgTest).toMatchObject({
       ph: 7.31,
       pao2: 82,
       fio2AtSample: 0.4,
-      source: 'abg_vent_update',
+      source: 'current_readings',
     });
     expect(payload.ventilatorSetting).toMatchObject({
       mode: 'VC',
       tidalVolumeMl: 420,
       peep: 8,
       fio2: 0.4,
-      source: 'abg_vent_update',
+      source: 'current_readings',
     });
     expect(payload.uncertainty).toBeUndefined();
   });
 
   it('rejects empty updates before queueing or submitting', () => {
     expect(() =>
-      buildAbgVentUpdatePayload({
+      buildCurrentReadingsPayload({
         admissionId: 'admission-1',
         abg: {},
         ventilator: {},
       })
-    ).toThrow('ABG_VENT_UPDATE_EMPTY');
+    ).toThrow('CURRENT_READINGS_EMPTY');
   });
 
   it('exposes standardized ventilator mode options for select entry', () => {
@@ -87,14 +87,14 @@ describe('abgVentUpdates.model', () => {
 
   it('validates numeric tracking fields before submit', () => {
     const admission = { id: 'admission-1', status: 'ACTIVE' };
-    const invalid = validateAbgVentUpdateDraft({
+    const invalid = validateCurrentReadingsDraft({
       admissionId: 'admission-1',
       admission,
       vitals: { spo2: '140' },
       abg: { ph: '8.2', pao2: 'abc' },
       ventilator: { peep: '8' },
     });
-    const valid = validateAbgVentUpdateDraft({
+    const valid = validateCurrentReadingsDraft({
       admissionId: 'admission-1',
       admission,
       vitals: { spo2: '94', heartRate: '90' },
@@ -110,7 +110,7 @@ describe('abgVentUpdates.model', () => {
   });
 
   it('keeps history append-only and sorts newest events first', () => {
-    const history = getAbgVentHistory({
+    const history = getCurrentReadingsHistory({
       clinicalSnapshots: [
         {
           id: 'vitals-1',
@@ -143,11 +143,11 @@ describe('abgVentUpdates.model', () => {
       },
     };
 
-    expect(getAbgVentMissingData(admission).map((item) => item.label)).toEqual([
+    expect(getCurrentReadingsMissingData(admission).map((item) => item.label)).toEqual([
       'PaO2',
       'PEEP',
     ]);
-    expect(getAbgVentAdvisoryFlags(admission)[0].message).toBe(
+    expect(getCurrentReadingsAdvisoryFlags(admission)[0].message).toBe(
       'Review ventilator settings and confirm clinically.'
     );
     expect(toAdvisoryMessage('Review ABG trend and confirm clinically.')).toBe(

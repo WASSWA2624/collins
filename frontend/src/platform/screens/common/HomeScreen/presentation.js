@@ -7,7 +7,7 @@
 const ACTION_GLYPHS = Object.freeze({
   newPatient: '+',
   tracking: 'T',
-  abgVentUpdate: 'ABG',
+  currentReadings: 'ABG',
   datasetCapture: 'D',
   reviewQueue: 'R',
   dashboard: '#',

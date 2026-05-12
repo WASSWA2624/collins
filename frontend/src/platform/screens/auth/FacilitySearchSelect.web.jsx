@@ -95,107 +95,109 @@ const FacilitySearchSelectWeb = ({
   }, [canClear, onClear]);
 
   return (
-    <StyledContainer data-testid={testID}>
+    <StyledContainer data-testid={testID} $isOpen={isOpen}>
       {label ? (
         <StyledLabel htmlFor={inputId}>
           {label}
         </StyledLabel>
       ) : null}
 
-      <StyledSelectSurface
-        $isOpen={isOpen}
-        $disabled={disabled}
-        onMouseDown={handleSurfaceMouseDown}
-      >
-        <StyledSearchIcon aria-hidden="true">{'\ud83d\udd0d'}</StyledSearchIcon>
-        <StyledInput
-          id={inputId}
-          ref={inputRef}
-          value={query}
-          onChange={handleChange}
-          onClick={openMenu}
-          onFocus={openMenu}
-          onBlur={closeMenuSoon}
-          placeholder={placeholder}
-          disabled={disabled}
-          autoCapitalize="words"
-          autoComplete="off"
-          role="combobox"
-          aria-autocomplete="list"
-          aria-controls={listboxId}
-          aria-describedby={displayHelperText ? helperId : undefined}
-          aria-description={accessibilityHint || helperText}
-          aria-expanded={isOpen}
-          aria-label={label || placeholder}
-          data-testid={inputId}
-        />
-        {canClear ? (
-          <StyledIconButton
-            type="button"
-            onMouseDown={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-            onClick={handleClear}
-            aria-label={clearLabel}
-            data-testid={`${testID}-clear`}
-          >
-            <StyledClearIcon aria-hidden="true" />
-          </StyledIconButton>
-        ) : null}
-        <StyledChevron $isOpen={isOpen} aria-hidden="true" />
-      </StyledSelectSurface>
-
-      {isOpen && loading ? (
-        <StyledEmptyState data-testid={`${testID}-loading`}>
-          <Text variant="caption" color="text.secondary">
-            {loadingText}
-          </Text>
-        </StyledEmptyState>
-      ) : null}
-
-      {isOpen && !loading && visibleOptions.length > 0 ? (
-        <StyledOptionsPanel
-          id={listboxId}
-          role="listbox"
-          aria-label={label}
-          data-testid={listboxId}
+      <StyledFieldLayer>
+        <StyledSelectSurface
+          $isOpen={isOpen}
+          $disabled={disabled}
+          onMouseDown={handleSurfaceMouseDown}
         >
-          {visibleOptions.map((facility, index) => (
-            <StyledOption
-              key={facility.id}
+          <StyledSearchIcon aria-hidden="true">{'\ud83d\udd0d'}</StyledSearchIcon>
+          <StyledInput
+            id={inputId}
+            ref={inputRef}
+            value={query}
+            onChange={handleChange}
+            onClick={openMenu}
+            onFocus={openMenu}
+            onBlur={closeMenuSoon}
+            placeholder={placeholder}
+            disabled={disabled}
+            autoCapitalize="words"
+            autoComplete="off"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-controls={listboxId}
+            aria-describedby={displayHelperText ? helperId : undefined}
+            aria-description={accessibilityHint || helperText}
+            aria-expanded={isOpen}
+            aria-label={label || placeholder}
+            data-testid={inputId}
+          />
+          {canClear ? (
+            <StyledIconButton
               type="button"
-              role="option"
-              aria-label={`${facility.name}, ${describeFacility(facility)}`}
-              aria-selected={value?.id === facility.id}
-              disabled={disabled}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => handleSelect(facility)}
-              data-testid={`${testID}-option-${index}`}
+              onMouseDown={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+              onClick={handleClear}
+              aria-label={clearLabel}
+              data-testid={`${testID}-clear`}
             >
-              <Text variant="label" testID={`${testID}-option-${index}-name`}>
-                {facility.name}
-              </Text>
-              <Text variant="caption" color="text.secondary">
-                {describeFacility(facility)}
-              </Text>
-            </StyledOption>
-          ))}
-        </StyledOptionsPanel>
-      ) : null}
+              <StyledClearIcon aria-hidden="true" />
+            </StyledIconButton>
+          ) : null}
+          <StyledChevron $isOpen={isOpen} aria-hidden="true" />
+        </StyledSelectSurface>
+
+        {isOpen && loading ? (
+          <StyledEmptyState data-testid={`${testID}-loading`}>
+            <Text variant="caption" color="text.secondary">
+              {loadingText}
+            </Text>
+          </StyledEmptyState>
+        ) : null}
+
+        {isOpen && !loading && visibleOptions.length > 0 ? (
+          <StyledOptionsPanel
+            id={listboxId}
+            role="listbox"
+            aria-label={label || placeholder}
+            data-testid={listboxId}
+          >
+            {visibleOptions.map((facility, index) => (
+              <StyledOption
+                key={facility.id}
+                type="button"
+                role="option"
+                aria-label={`${facility.name}, ${describeFacility(facility)}`}
+                aria-selected={value?.id === facility.id}
+                disabled={disabled}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => handleSelect(facility)}
+                data-testid={`${testID}-option-${index}`}
+              >
+                <Text variant="label" testID={`${testID}-option-${index}-name`}>
+                  {facility.name}
+                </Text>
+                <Text variant="caption" color="text.secondary">
+                  {describeFacility(facility)}
+                </Text>
+              </StyledOption>
+            ))}
+          </StyledOptionsPanel>
+        ) : null}
+
+        {showNoResults ? (
+          <StyledEmptyState data-testid={`${testID}-empty`}>
+            <Text variant="caption" color="text.secondary">
+              {noResultsText}
+            </Text>
+          </StyledEmptyState>
+        ) : null}
+      </StyledFieldLayer>
 
       {errorText ? (
         <StyledErrorText data-testid={`${testID}-error`}>
           {errorText}
         </StyledErrorText>
-      ) : null}
-
-      {showNoResults ? (
-        <StyledEmptyState data-testid={`${testID}-empty`}>
-          <Text variant="caption" color="text.secondary">
-            {noResultsText}
-          </Text>
-        </StyledEmptyState>
       ) : null}
 
       {displayHelperText ? (
@@ -211,8 +213,18 @@ const FacilitySearchSelectWeb = ({
 const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',
   componentId: 'FacilitySearchSelectContainer',
+  shouldForwardProp: (prop) => !prop.startsWith('$'),
 })`
+  position: relative;
+  z-index: ${({ $isOpen }) => ($isOpen ? 40 : 1)};
   width: 100%;
+`;
+
+const StyledFieldLayer = styled.div.withConfig({
+  displayName: 'StyledFieldLayer',
+  componentId: 'FacilitySearchSelectFieldLayer',
+})`
+  position: relative;
 `;
 
 const StyledLabel = styled.label.withConfig({
@@ -363,9 +375,12 @@ const StyledOptionsPanel = styled.div.withConfig({
   displayName: 'StyledOptionsPanel',
   componentId: 'FacilitySearchSelectOptions',
 })`
-  width: 100%;
+  position: absolute;
+  top: calc(100% + ${({ theme }) => theme.spacing.xs}px);
+  left: 0;
+  right: 0;
+  z-index: 50;
   max-height: 280px;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   background: ${({ theme }) => theme.colors.background.primary};
   border-radius: 0;
@@ -411,8 +426,11 @@ const StyledEmptyState = styled.div.withConfig({
   displayName: 'StyledEmptyState',
   componentId: 'FacilitySearchSelectEmpty',
 })`
-  width: 100%;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  position: absolute;
+  top: calc(100% + ${({ theme }) => theme.spacing.xs}px);
+  left: 0;
+  right: 0;
+  z-index: 50;
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   border: 1px solid ${({ theme }) => theme.colors.background.tertiary};
   background: ${({ theme }) => theme.colors.background.secondary};

@@ -93,102 +93,105 @@ const FacilitySearchSelectNative = ({
   }, [canClear, onClear]);
 
   return (
-    <StyledContainer testID={testID}>
+    <StyledContainer testID={testID} $isOpen={isOpen}>
       {label ? (
         <Text variant="label">
           {label}
         </Text>
       ) : null}
 
-      <StyledSelectSurface
-        accessibilityLabel={label || placeholder}
-        accessibilityHint={accessibilityHint || helperText}
-        accessibilityRole="combobox"
-        accessibilityState={{ expanded: isOpen, disabled }}
-        disabled={disabled}
-        isOpen={isOpen}
-        onPress={handleSurfacePress}
-      >
-        <StyledSearchIcon>{'\ud83d\udd0d'}</StyledSearchIcon>
-        <StyledInput
-          ref={inputRef}
-          value={query}
-          onChangeText={handleQueryChange}
-          onFocus={openMenu}
-          onBlur={closeMenuSoon}
-          placeholder={placeholder}
-          editable={!disabled}
-          autoCapitalize="words"
-          autoCorrect
-          testID={`${testID}-input`}
-        />
-        {canClear ? (
-          <StyledIconButton
-            onPress={handleClear}
-            accessibilityRole="button"
-            accessibilityLabel={clearLabel}
-            testID={`${testID}-clear`}
-          >
-            <StyledClearIcon>
-              <StyledClearBar $rotation="45deg" />
-              <StyledClearBar $rotation="-45deg" />
-            </StyledClearIcon>
-          </StyledIconButton>
-        ) : null}
-        <StyledChevron $isOpen={isOpen} />
-      </StyledSelectSurface>
-
-      {isOpen && loading ? (
-        <StyledEmptyState testID={`${testID}-loading`}>
-          <Text variant="caption" color="text.secondary">
-            {loadingText}
-          </Text>
-        </StyledEmptyState>
-      ) : null}
-
-      {isOpen && !loading && visibleOptions.length > 0 ? (
-        <StyledOptionsPanel
-          accessibilityLabel={label}
-          accessibilityRole="list"
-          testID={`${testID}-options`}
+      <StyledFieldLayer>
+        <StyledSelectSurface
+          accessibilityLabel={label || placeholder}
+          accessibilityHint={accessibilityHint || helperText}
+          accessibilityRole="combobox"
+          accessibilityState={{ expanded: isOpen, disabled }}
+          disabled={disabled}
+          $hasLabel={Boolean(label)}
+          $isOpen={isOpen}
+          onPress={handleSurfacePress}
         >
-          <StyledOptionsScroll
-            keyboardShouldPersistTaps="handled"
-            nestedScrollEnabled
+          <StyledSearchIcon>{'\ud83d\udd0d'}</StyledSearchIcon>
+          <StyledInput
+            ref={inputRef}
+            value={query}
+            onChangeText={handleQueryChange}
+            onFocus={openMenu}
+            onBlur={closeMenuSoon}
+            placeholder={placeholder}
+            editable={!disabled}
+            autoCapitalize="words"
+            autoCorrect
+            testID={`${testID}-input`}
+          />
+          {canClear ? (
+            <StyledIconButton
+              onPress={handleClear}
+              accessibilityRole="button"
+              accessibilityLabel={clearLabel}
+              testID={`${testID}-clear`}
+            >
+              <StyledClearIcon>
+                <StyledClearBar $rotation="45deg" />
+                <StyledClearBar $rotation="-45deg" />
+              </StyledClearIcon>
+            </StyledIconButton>
+          ) : null}
+          <StyledChevron $isOpen={isOpen} />
+        </StyledSelectSurface>
+
+        {isOpen && loading ? (
+          <StyledEmptyState testID={`${testID}-loading`}>
+            <Text variant="caption" color="text.secondary">
+              {loadingText}
+            </Text>
+          </StyledEmptyState>
+        ) : null}
+
+        {isOpen && !loading && visibleOptions.length > 0 ? (
+          <StyledOptionsPanel
+            accessibilityLabel={label || placeholder}
+            accessibilityRole="list"
+            testID={`${testID}-options`}
           >
-            {visibleOptions.map((facility, index) => (
-              <StyledOption
-                key={facility.id}
-                accessibilityLabel={`${facility.name}, ${describeFacility(facility)}`}
-                accessibilityRole="button"
-                disabled={disabled}
-                onPress={() => handleSelect(facility)}
-                testID={`${testID}-option-${index}`}
-              >
-                <Text variant="label" testID={`${testID}-option-${index}-name`}>
-                  {facility.name}
-                </Text>
-                <Text variant="caption" color="text.secondary">
-                  {describeFacility(facility)}
-                </Text>
-              </StyledOption>
-            ))}
-          </StyledOptionsScroll>
-        </StyledOptionsPanel>
-      ) : null}
+            <StyledOptionsScroll
+              keyboardShouldPersistTaps="handled"
+              nestedScrollEnabled
+            >
+              {visibleOptions.map((facility, index) => (
+                <StyledOption
+                  key={facility.id}
+                  accessibilityLabel={`${facility.name}, ${describeFacility(facility)}`}
+                  accessibilityRole="button"
+                  disabled={disabled}
+                  onPress={() => handleSelect(facility)}
+                  testID={`${testID}-option-${index}`}
+                >
+                  <Text variant="label" testID={`${testID}-option-${index}-name`}>
+                    {facility.name}
+                  </Text>
+                  <Text variant="caption" color="text.secondary">
+                    {describeFacility(facility)}
+                  </Text>
+                </StyledOption>
+              ))}
+            </StyledOptionsScroll>
+          </StyledOptionsPanel>
+        ) : null}
+
+        {showNoResults ? (
+          <StyledEmptyState testID={`${testID}-empty`}>
+            <Text variant="caption" color="text.secondary">
+              {noResultsText}
+            </Text>
+          </StyledEmptyState>
+        ) : null}
+      </StyledFieldLayer>
 
       {errorText ? (
         <StyledErrorText testID={`${testID}-error`}>
           {errorText}
         </StyledErrorText>
-      ) : null}
-
-      {showNoResults ? (
-        <StyledEmptyState testID={`${testID}-empty`}>
-          <Text variant="caption" color="text.secondary">
-            {noResultsText}
-          </Text>
-        </StyledEmptyState>
       ) : null}
 
       {displayHelperText ? (
@@ -202,7 +205,16 @@ const FacilitySearchSelectNative = ({
 };
 
 const StyledContainer = styled.View`
+  position: relative;
+  z-index: ${({ $isOpen }) => ($isOpen ? 40 : 1)};
+  elevation: ${({ $isOpen }) => ($isOpen ? 40 : 1)};
   width: 100%;
+`;
+
+const StyledFieldLayer = styled.View`
+  position: relative;
+  z-index: 40;
+  elevation: 40;
 `;
 
 const StyledSelectSurface = styled(Pressable)`
@@ -210,10 +222,10 @@ const StyledSelectSurface = styled(Pressable)`
   min-height: 48px;
   flex-direction: row;
   align-items: center;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  margin-top: ${({ $hasLabel, theme }) => ($hasLabel ? theme.spacing.xs : 0)}px;
   padding-horizontal: ${({ theme }) => theme.spacing.md}px;
   border-width: 1px;
-  border-color: ${({ isOpen, theme }) => (isOpen ? theme.colors.primary : theme.colors.background.tertiary)};
+  border-color: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.primary : theme.colors.background.tertiary)};
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: 0px;
 `;
@@ -271,9 +283,13 @@ const StyledClearBar = styled.View`
 `;
 
 const StyledOptionsPanel = styled.View`
-  width: 100%;
+  position: absolute;
+  top: ${({ theme }) => 48 + theme.spacing.xs}px;
+  left: 0px;
+  right: 0px;
+  z-index: 50;
+  elevation: 50;
   max-height: 280px;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -294,8 +310,12 @@ const StyledOption = styled(Pressable)`
 `;
 
 const StyledEmptyState = styled.View`
-  width: 100%;
-  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  position: absolute;
+  top: ${({ theme }) => 48 + theme.spacing.xs}px;
+  left: 0px;
+  right: 0px;
+  z-index: 50;
+  elevation: 50;
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};

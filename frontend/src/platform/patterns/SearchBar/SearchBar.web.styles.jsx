@@ -10,11 +10,7 @@ const StyledContainer = styled.div.withConfig({
   displayName: 'StyledContainer',
   componentId: 'StyledContainer',
 })`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   width: 100%;
-  gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const StyledSearchIcon = styled.span.withConfig({
@@ -25,18 +21,27 @@ const StyledSearchIcon = styled.span.withConfig({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  min-width: 24px;
-  height: 24px;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
   font-size: ${({ theme }) => theme.typography.fontSize.md}px;
-  line-height: 24px;
+  line-height: 22px;
 `;
 
-const StyledTextFieldWrapper = styled.div.withConfig({
-  displayName: 'StyledTextFieldWrapper',
-  componentId: 'StyledTextFieldWrapper',
+const StyledClearButton = styled.span.withConfig({
+  displayName: 'StyledClearButton',
+  componentId: 'StyledClearButton',
 })`
-  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    border-radius: 0;
+  }
 `;
 
-export { StyledContainer, StyledSearchIcon, StyledTextFieldWrapper };
+export { StyledClearButton, StyledContainer, StyledSearchIcon };

@@ -18,8 +18,8 @@ describe('services/api/endpoints', () => {
     expect(endpoints.NEW_PATIENTS.THREE_STEP_SAVE_REVIEW('admission-1')).toContain(
       '/new-patients/admission-1/three-step/save-review'
     );
-    expect(endpoints.NEW_PATIENTS.ABG_VENTILATOR_UPDATES('admission-1')).toContain(
-      '/new-patients/admission-1/abg-ventilator-updates'
+    expect(endpoints.NEW_PATIENTS.CURRENT_READINGS('admission-1')).toContain(
+      '/new-patients/admission-1/current-readings'
     );
   });
 

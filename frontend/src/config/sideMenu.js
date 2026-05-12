@@ -83,9 +83,9 @@ const MAIN_NAV_ITEMS = [
     permissions: [PERMISSIONS.CLINICAL_READ],
   },
   {
-    id: 'abg-ventilator-updates',
+    id: 'current-readings',
     icon: 'ventilator-outline',
-    path: '/abg-ventilator-updates',
+    path: '/current-readings',
     facilityScoped: true,
     requireActiveFacility: true,
     roles: CLINICAL_WRITE_ROLES,

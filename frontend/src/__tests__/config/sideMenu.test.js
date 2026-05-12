@@ -21,7 +21,7 @@ describe('sideMenu icon configuration', () => {
     expect(iconById.home).toBe('🏠');
     expect(iconById['new-patient']).toBe('🩺');
     expect(iconById.history).toBe('📈');
-    expect(iconById['abg-ventilator-updates']).toBe('🫁');
+    expect(iconById['current-readings']).toBe('🫁');
     expect(iconById['dataset-capture']).toBe('🗂️');
     expect(iconById['review-queue']).toBe('☑️');
     expect(iconById.dashboard).toBe('📊');

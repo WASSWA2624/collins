@@ -20,7 +20,7 @@ Normal clinicians should see clinical summaries, risk flags, missing data, and r
 Home must prioritize four large actions:
 
 - Admit patient.
-- Update ABG / ventilator.
+- Update Current readings.
 - View tracking board.
 - Paste ICU note.
 
@@ -68,7 +68,7 @@ Status colors:
 - Red: urgent review flag or potentially unsafe setting.
 - Grey: draft/offline/unreviewed data.
 
-## Fast ABG / ventilator update
+## Fast Current readings update
 
 A nurse or clinician should be able to update a patient quickly:
 

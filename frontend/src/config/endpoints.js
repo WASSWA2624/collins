@@ -18,7 +18,7 @@ const newPatientEndpoints = {
     `${newPatientsBaseUrl}/${id}/three-step/oxygen-abg-ventilator`,
   THREE_STEP_SAVE_REVIEW: (id) => `${newPatientsBaseUrl}/${id}/three-step/save-review`,
   VENTILATOR_RECOMMENDATION: `${newPatientsBaseUrl}/ventilator-recommendation`,
-  ABG_VENTILATOR_UPDATES: (id) => `${newPatientsBaseUrl}/${id}/abg-ventilator-updates`,
+  CURRENT_READINGS: (id) => `${newPatientsBaseUrl}/${id}/current-readings`,
   CLINICAL_SNAPSHOTS: (id) => `${newPatientsBaseUrl}/${id}/clinical-snapshots`,
   ABG_TESTS: (id) => `${newPatientsBaseUrl}/${id}/abg-tests`,
   VENTILATOR_SETTINGS: (id) => `${newPatientsBaseUrl}/${id}/ventilator-settings`,

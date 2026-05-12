@@ -100,7 +100,7 @@ describe('useHomeScreen', () => {
     expect(actions.map((action) => action.id)).toEqual([
       'newPatient',
       'tracking',
-      'abgVentUpdate',
+      'currentReadings',
       'datasetCapture',
       'reviewQueue',
       'dashboard',
@@ -109,7 +109,7 @@ describe('useHomeScreen', () => {
     expect(actions.find((action) => action.id === 'newPatient').enabled).toBe(true);
     expect(actions.find((action) => action.id === 'newPatient').path).toBe('/new-patient');
     expect(actions.find((action) => action.id === 'tracking').count).toBe(4);
-    expect(actions.find((action) => action.id === 'abgVentUpdate').path).toBe('/abg-ventilator-updates');
+    expect(actions.find((action) => action.id === 'currentReadings').path).toBe('/current-readings');
     expect(actions.find((action) => action.id === 'reviewQueue').count).toBe(5);
     expect(actions.find((action) => action.id === 'reviewQueue').enabled).toBe(true);
     expect(actions.find((action) => action.id === 'dashboard').path).toBe('/dashboard');

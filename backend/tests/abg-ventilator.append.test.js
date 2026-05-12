@@ -198,7 +198,7 @@ test('ventilator append recalculates stored derived values and returns advisory 
   );
 });
 
-test('combined ABG and ventilator update appends timestamped records with one idempotent save', async (t) => {
+test('combined Current readings appends timestamped records with one idempotent save', async (t) => {
   installAccessMocks(t);
 
   let createdClinicalSnapshot;
@@ -309,7 +309,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
       pao2: 88,
       paco2: 45,
       fio2AtSample: 0.4,
-      source: 'abg_vent_update',
+      source: 'current_readings',
     },
     ventilatorSetting: {
       mode: 'VC',
@@ -317,7 +317,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
       respiratoryRateSet: 18,
       peep: 8,
       fio2: 0.4,
-      source: 'abg_vent_update',
+      source: 'current_readings',
     },
     clientRecordId: 'client-combined-1',
     clientUpdatedAt: new Date('2026-05-05T07:10:00.000Z'),
@@ -342,7 +342,7 @@ test('combined ABG and ventilator update appends timestamped records with one id
   assert.equal(tx.auditLog.create.mock.calls[0].arguments[0].data.action, 'ADMISSION_ABG_VENTILATOR_UPDATE');
 });
 
-test('combined ABG and ventilator update rejects empty service payloads before database writes', async (t) => {
+test('combined Current readings rejects empty service payloads before database writes', async (t) => {
   installAccessMocks(t);
   const transactionMock = t.mock.fn(async () => ({}));
   stubPrismaMethod(t, prisma, '$transaction', transactionMock);

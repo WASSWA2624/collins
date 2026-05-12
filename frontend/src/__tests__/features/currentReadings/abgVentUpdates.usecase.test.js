@@ -6,12 +6,12 @@ jest.mock('@offline/network.listener', () => ({
   getIsOnline: jest.fn(),
 }));
 
-jest.mock('@features/abgVentUpdates/abgVentUpdates.api', () => {
-  const actual = jest.requireActual('@features/abgVentUpdates/abgVentUpdates.api');
+jest.mock('@features/currentReadings/currentReadings.api', () => {
+  const actual = jest.requireActual('@features/currentReadings/currentReadings.api');
   return {
     ...actual,
     getCurrentReadingsVentilatorRecommendationApi: jest.fn(),
-    saveAbgVentUpdateApi: jest.fn(),
+    saveCurrentReadingsApi: jest.fn(),
   };
 });
 
@@ -19,11 +19,11 @@ const { addToQueue } = require('@offline/queue');
 const { getIsOnline } = require('@offline/network.listener');
 const {
   getCurrentReadingsVentilatorRecommendationApi,
-  saveAbgVentUpdateApi,
-} = require('@features/abgVentUpdates/abgVentUpdates.api');
-const { submitAbgVentUpdateUseCase } = require('@features/abgVentUpdates');
+  saveCurrentReadingsApi,
+} = require('@features/currentReadings/currentReadings.api');
+const { submitCurrentReadingsUseCase } = require('@features/currentReadings');
 
-describe('abgVentUpdates.usecase', () => {
+describe('currentReadings.usecase', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     addToQueue.mockResolvedValue(true);
@@ -33,7 +33,7 @@ describe('abgVentUpdates.usecase', () => {
   it('queues append-only updates offline with retry metadata', async () => {
     getIsOnline.mockReturnValue(false);
 
-    const result = await submitAbgVentUpdateUseCase({
+    const result = await submitCurrentReadingsUseCase({
       admissionId: 'admission-1',
       vitals: { spo2: '94', respiratoryRate: '24', heartRate: '104' },
       abg: { ph: '7.32' },
@@ -46,11 +46,11 @@ describe('abgVentUpdates.usecase', () => {
     expect(addToQueue).toHaveBeenCalledTimes(1);
     expect(addToQueue.mock.calls[0][0]).toMatchObject({
       method: 'POST',
-      url: expect.stringContaining('/new-patients/admission-1/abg-ventilator-updates'),
+      url: expect.stringContaining('/new-patients/admission-1/current-readings'),
       syncState: 'pending',
       retryCount: 0,
       queueMeta: {
-        type: 'abg_vent_update',
+        type: 'current_readings',
         admissionId: 'admission-1',
         clientRecordId: 'client-1',
         idempotencyKey: 'idem-1',
@@ -61,16 +61,16 @@ describe('abgVentUpdates.usecase', () => {
       respiratoryRate: 24,
       heartRate: 104,
     });
-    expect(saveAbgVentUpdateApi).not.toHaveBeenCalled();
+    expect(saveCurrentReadingsApi).not.toHaveBeenCalled();
   });
 
   it('submits online updates and returns synced state', async () => {
-    saveAbgVentUpdateApi.mockResolvedValue({
+    saveCurrentReadingsApi.mockResolvedValue({
       syncStatus: 'synced',
       saved: { abgTest: { id: 'abg-1' } },
     });
 
-    const result = await submitAbgVentUpdateUseCase({
+    const result = await submitCurrentReadingsUseCase({
       admissionId: 'admission-1',
       abg: { ph: '7.32' },
       clientRecordId: 'client-1',
@@ -79,7 +79,7 @@ describe('abgVentUpdates.usecase', () => {
     });
 
     expect(result.syncStatus).toBe('synced');
-    expect(saveAbgVentUpdateApi).toHaveBeenCalledWith(
+    expect(saveCurrentReadingsApi).toHaveBeenCalledWith(
       'admission-1',
       expect.objectContaining({
         abgTest: expect.objectContaining({ ph: 7.32 }),
@@ -89,7 +89,7 @@ describe('abgVentUpdates.usecase', () => {
   });
 
   it('returns conflict state with server metadata for stale client appends', async () => {
-    saveAbgVentUpdateApi.mockRejectedValue({
+    saveCurrentReadingsApi.mockRejectedValue({
       status: 409,
       message: 'Stale client timestamp for append-only clinical event',
       meta: {
@@ -98,7 +98,7 @@ describe('abgVentUpdates.usecase', () => {
       },
     });
 
-    const result = await submitAbgVentUpdateUseCase({
+    const result = await submitCurrentReadingsUseCase({
       admissionId: 'admission-1',
       abg: { ph: '7.32' },
       clientRecordId: 'client-1',
@@ -112,7 +112,7 @@ describe('abgVentUpdates.usecase', () => {
   });
 
   it('requests a ventilator suggestion after deteriorating current readings are saved', async () => {
-    saveAbgVentUpdateApi.mockResolvedValue({
+    saveCurrentReadingsApi.mockResolvedValue({
       syncStatus: 'synced',
       facilityId: 'facility-1',
       admission: {
@@ -139,7 +139,7 @@ describe('abgVentUpdates.usecase', () => {
       },
     });
 
-    const result = await submitAbgVentUpdateUseCase({
+    const result = await submitCurrentReadingsUseCase({
       admissionId: 'admission-1',
       vitals: { spo2: '88', respiratoryRate: '34', heartRate: '124' },
       abg: { ph: '7.21', paco2: '72' },

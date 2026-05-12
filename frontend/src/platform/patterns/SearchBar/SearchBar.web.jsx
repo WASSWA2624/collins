@@ -17,7 +17,7 @@ import { useI18n } from '@hooks';
 import {
   StyledContainer,
   StyledSearchIcon,
-  StyledTextFieldWrapper,
+  StyledClearButton,
 } from './SearchBar.web.styles';
 
 // 5. Component-specific hook (relative import)
@@ -78,37 +78,41 @@ const SearchBarWeb = ({
       testID={testID}
       {...rest}
     >
-      <StyledSearchIcon
-        accessibilityLabel={searchIconLabel}
-        testID={testID ? `${testID}-icon` : undefined}
-      >
-        {searchIcon}
-      </StyledSearchIcon>
-      <StyledTextFieldWrapper>
-        <TextField
-          value={localValue}
-          onChange={handleChange}
-          onKeyPress={handleKeyPress}
-          placeholder={placeholderText}
-          type="search"
-          {...(accessibilityLabelText && {
-            accessibilityLabel: accessibilityLabelText,
-          })}
-          testID={testID ? `${testID}-input` : undefined}
-          style={{ marginBottom: 0 }}
-        />
-      </StyledTextFieldWrapper>
-      {showClearButton && hasValue && (
-        <Button
-          variant="text"
-          size="small"
-          onClick={handleClear}
-          accessibilityLabel={clearButtonLabel}
-          testID={testID ? `${testID}-clear` : undefined}
-        >
-          {clearIcon}
-        </Button>
-      )}
+      <TextField
+        value={localValue}
+        onChange={handleChange}
+        onKeyPress={handleKeyPress}
+        placeholder={placeholderText}
+        type="search"
+        prefix={
+          <StyledSearchIcon
+            accessibilityLabel={searchIconLabel}
+            testID={testID ? `${testID}-icon` : undefined}
+          >
+            {searchIcon}
+          </StyledSearchIcon>
+        }
+        suffix={
+          showClearButton && hasValue ? (
+            <StyledClearButton>
+              <Button
+                variant="text"
+                size="small"
+                onClick={handleClear}
+                accessibilityLabel={clearButtonLabel}
+                testID={testID ? `${testID}-clear` : undefined}
+              >
+                {clearIcon}
+              </Button>
+            </StyledClearButton>
+          ) : null
+        }
+        {...(accessibilityLabelText && {
+          accessibilityLabel: accessibilityLabelText,
+        })}
+        testID={testID ? `${testID}-input` : undefined}
+        style={{ marginBottom: 0 }}
+      />
     </StyledContainer>
   );
 };

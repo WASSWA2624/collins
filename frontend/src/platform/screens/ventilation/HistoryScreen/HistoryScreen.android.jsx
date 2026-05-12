@@ -17,6 +17,7 @@ import {
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
+  StyledFacilityFilter,
   StyledHeader,
   StyledHeaderActions,
   StyledHeaderCopy,
@@ -29,6 +30,7 @@ import {
   StyledListHeader,
   StyledListHeaderCell,
   StyledListNumberCell,
+  StyledListScroller,
   StyledListTimeCell,
   StyledPatientDataGrid,
   StyledPatientDataItem,
@@ -40,7 +42,6 @@ import {
   StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
-  StyledSummaryBar,
   StyledTimeline,
   StyledTimelineItem,
 } from './HistoryScreen.android.styles';
@@ -211,7 +212,6 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
     localDraft,
     searchQuery,
     facilitySearch,
-    visibleRows,
     showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
@@ -347,9 +347,8 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
             />
           </StyledSearchWrap>
 
-          <StyledSummaryBar testID={HISTORY_TEST_IDS.facility}>
+          <StyledFacilityFilter testID={HISTORY_TEST_IDS.facility}>
             <FacilitySearchSelect
-              label={t('ventilation.tracking.facility.label')}
               placeholder={t('ventilation.tracking.facility.placeholder')}
               query={facilitySearch.query}
               onQueryChange={facilitySearch.onQueryChange}
@@ -357,14 +356,6 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
               onValueChange={facilitySearch.onValueChange}
               onClear={facilitySearch.onClear}
               options={facilitySearch.options}
-              helperText={t('ventilation.tracking.facility.helper')}
-              selectedHelper={
-                facilitySearch.value
-                  ? t('ventilation.tracking.facility.selectedHelper', {
-                      count: visibleRows,
-                    })
-                  : undefined
-              }
               noResultsText={t('ventilation.tracking.facility.noResults')}
               loadingText={t('ventilation.tracking.facility.loading')}
               clearLabel={t('ventilation.tracking.facility.clear')}
@@ -374,10 +365,7 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
               accessibilityHint={t('ventilation.tracking.facility.hint')}
               testID={HISTORY_TEST_IDS.facilitySelect}
             />
-            <Text variant="caption" color="text.secondary">
-              {t('ventilation.tracking.activePatients', { count: visibleRows })}
-            </Text>
-          </StyledSummaryBar>
+          </StyledFacilityFilter>
         </StyledControlsRow>
 
         {showAdmittedBanner && (
@@ -430,82 +418,84 @@ const HistoryScreenAndroid = ({ detailMode = false } = {}) => {
             </Text>
           </StyledEmpty>
         ) : (
-          <StyledList testID={HISTORY_TEST_IDS.list}>
-            <StyledListHeader testID={HISTORY_TEST_IDS.listHeader}>
-              <StyledListNumberCell>
-                <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                  {t('ventilation.tracking.list.rowNumber')}
-                </Text>
-              </StyledListNumberCell>
-              <StyledListCodeCell>
-                <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                  {t('ventilation.tracking.list.patientCode')}
-                </Text>
-              </StyledListCodeCell>
-              <StyledListHeaderCell>
-                <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                  {t('ventilation.tracking.list.patientName')}
-                </Text>
-              </StyledListHeaderCell>
-              <StyledListDateCell>
-                <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                  {t('ventilation.tracking.list.admissionDate')}
-                </Text>
-              </StyledListDateCell>
-              <StyledListTimeCell>
-                <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                  {t('ventilation.tracking.list.admissionTime')}
-                </Text>
-              </StyledListTimeCell>
-            </StyledListHeader>
-            {rows.map((row, index) => (
-              <StyledItem
-                key={row.admissionId}
-                testID={`${HISTORY_TEST_IDS.item}-${row.admissionId}`}
-              >
-                <StyledPatientRowButton
-                  accessibilityRole="button"
-                  accessibilityLabel={t(
-                    'ventilation.tracking.actions.openPatientHint',
-                    { patient: getPatientLabel(row, t) }
-                  )}
-                  onPress={() => handleViewDetails(row)}
-                  testID={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
+          <StyledListScroller horizontal showsHorizontalScrollIndicator>
+            <StyledList testID={HISTORY_TEST_IDS.list}>
+              <StyledListHeader testID={HISTORY_TEST_IDS.listHeader}>
+                <StyledListNumberCell>
+                  <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                    {t('ventilation.tracking.list.rowNumber')}
+                  </Text>
+                </StyledListNumberCell>
+                <StyledListCodeCell>
+                  <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                    {t('ventilation.tracking.list.patientCode')}
+                  </Text>
+                </StyledListCodeCell>
+                <StyledListHeaderCell>
+                  <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                    {t('ventilation.tracking.list.patientName')}
+                  </Text>
+                </StyledListHeaderCell>
+                <StyledListDateCell>
+                  <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                    {t('ventilation.tracking.list.admissionDate')}
+                  </Text>
+                </StyledListDateCell>
+                <StyledListTimeCell>
+                  <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                    {t('ventilation.tracking.list.admissionTime')}
+                  </Text>
+                </StyledListTimeCell>
+              </StyledListHeader>
+              {rows.map((row, index) => (
+                <StyledItem
+                  key={row.admissionId}
+                  testID={`${HISTORY_TEST_IDS.item}-${row.admissionId}`}
                 >
-                  <StyledPatientRowNumber
-                    testID={`${HISTORY_TEST_IDS.rowNumber}-${row.admissionId}`}
+                  <StyledPatientRowButton
+                    accessibilityRole="button"
+                    accessibilityLabel={t(
+                      'ventilation.tracking.actions.openPatientHint',
+                      { patient: getPatientLabel(row, t) }
+                    )}
+                    onPress={() => handleViewDetails(row)}
+                    testID={`${HISTORY_TEST_IDS.rowButton}-${row.admissionId}`}
                   >
-                    <Text variant="caption" color="text.secondary" numberOfLines={1}>
-                      {index + 1}
-                    </Text>
-                  </StyledPatientRowNumber>
-                  <StyledListCodeCell>
-                    <Text variant="caption" numberOfLines={1}>
-                      {row.patientCode ||
-                        t('ventilation.tracking.patient.notRecorded')}
-                    </Text>
-                  </StyledListCodeCell>
-                  <StyledPatientRowCell>
-                    <Text variant="caption" numberOfLines={1}>
-                      {getPatientLabel(row, t)}
-                    </Text>
-                  </StyledPatientRowCell>
-                  <StyledListDateCell>
-                    <Text variant="caption" numberOfLines={1}>
-                      {row.admittedDateLabel ||
-                        t('ventilation.tracking.patient.notRecorded')}
-                    </Text>
-                  </StyledListDateCell>
-                  <StyledListTimeCell>
-                    <Text variant="caption" numberOfLines={1}>
-                      {row.admittedTimeLabel ||
-                        t('ventilation.tracking.patient.notRecorded')}
-                    </Text>
-                  </StyledListTimeCell>
-                </StyledPatientRowButton>
-              </StyledItem>
-            ))}
-          </StyledList>
+                    <StyledPatientRowNumber
+                      testID={`${HISTORY_TEST_IDS.rowNumber}-${row.admissionId}`}
+                    >
+                      <Text variant="caption" color="text.secondary" numberOfLines={1}>
+                        {index + 1}
+                      </Text>
+                    </StyledPatientRowNumber>
+                    <StyledListCodeCell>
+                      <Text variant="caption" numberOfLines={1}>
+                        {row.patientCode ||
+                          t('ventilation.tracking.patient.notRecorded')}
+                      </Text>
+                    </StyledListCodeCell>
+                    <StyledPatientRowCell>
+                      <Text variant="caption" numberOfLines={1}>
+                        {getPatientLabel(row, t)}
+                      </Text>
+                    </StyledPatientRowCell>
+                    <StyledListDateCell>
+                      <Text variant="caption" numberOfLines={1}>
+                        {row.admittedDateLabel ||
+                          t('ventilation.tracking.patient.notRecorded')}
+                      </Text>
+                    </StyledListDateCell>
+                    <StyledListTimeCell>
+                      <Text variant="caption" numberOfLines={1}>
+                        {row.admittedTimeLabel ||
+                          t('ventilation.tracking.patient.notRecorded')}
+                      </Text>
+                    </StyledListTimeCell>
+                  </StyledPatientRowButton>
+                </StyledItem>
+              ))}
+            </StyledList>
+          </StyledListScroller>
         )}
 
         {renderDetailPanel({

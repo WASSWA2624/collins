@@ -18,7 +18,7 @@ jest.mock('@platform/screens', () => {
     React.createElement('div', { testID, 'data-testid': testID }, label);
 
   return {
-    AbgVentUpdateScreen: makeScreen('abg-vent-update-screen', 'Current Readings & Progress'),
+    CurrentReadingsScreen: makeScreen('current-readings-screen', 'Current Readings & Progress'),
     AssessmentScreen: makeScreen('new-patient-screen', 'New Patient'),
     DashboardScreen: makeScreen('dashboard-screen', 'Dashboard'),
     DatasetCaptureScreen: makeScreen('dataset-capture-screen', 'Dataset Capture'),
@@ -32,8 +32,8 @@ describe('home workflow route aliases', () => {
   it.each([
     ['new-patient', 'new-patient-screen'],
     ['tracking', 'tracking-screen'],
-    ['abg-ventilator-updates', 'abg-vent-update-screen'],
-    ['abg-vent-update', 'abg-vent-update-screen'],
+    ['current-readings', 'current-readings-screen'],
+    ['current-readings', 'current-readings-screen'],
     ['dataset-capture', 'dataset-capture-screen'],
     ['dashboard', 'dashboard-screen'],
     ['user-management', 'user-management-screen'],

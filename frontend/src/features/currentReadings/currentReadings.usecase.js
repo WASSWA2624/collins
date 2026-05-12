@@ -5,40 +5,40 @@ import { normalizeError } from '@errors';
 import { addToQueue } from '@offline/queue';
 import { getIsOnline } from '@offline/network.listener';
 import {
-  createAbgVentUpdateRequest,
+  createCurrentReadingsRequest,
   getCurrentReadingsVentilatorRecommendationApi,
-  getAdmissionAbgVentilatorContextApi,
+  getAdmissionCurrentReadingsContextApi,
   listActiveAdmissionsApi,
-  saveAbgVentUpdateApi,
-} from './abgVentUpdates.api';
+  saveCurrentReadingsApi,
+} from './currentReadings.api';
 import {
-  buildAbgVentUpdatePayload,
+  buildCurrentReadingsPayload,
   buildVentilatorRecommendationInputFromAdmission,
   getCurrentReadingsProgressAssessment,
-} from './abgVentUpdates.model';
+} from './currentReadings.model';
 
-const ABG_VENT_UPDATE_QUEUE_TYPE = 'abg_vent_update';
+const CURRENT_READINGS_QUEUE_TYPE = 'current_readings';
 
 const isConflictError = (error) =>
   error?.status === 409 || error?.statusCode === 409 || error?.code === 'CONFLICT';
 
 const listActiveAdmissionsUseCase = async (input) => listActiveAdmissionsApi(input);
 
-const loadAdmissionAbgVentilatorContextUseCase = async (admissionId) =>
-  getAdmissionAbgVentilatorContextApi(admissionId);
+const loadAdmissionCurrentReadingsContextUseCase = async (admissionId) =>
+  getAdmissionCurrentReadingsContextApi(admissionId);
 
-const submitAbgVentUpdateUseCase = async ({
+const submitCurrentReadingsUseCase = async ({
   admissionId,
   vitals,
   abg,
   ventilator,
-  source = 'abg_vent_update',
+  source = 'current_readings',
   clientRecordId,
   idempotencyKey,
   now,
   isOnline = getIsOnline(),
 } = {}) => {
-  const payload = buildAbgVentUpdatePayload({
+  const payload = buildCurrentReadingsPayload({
     admissionId,
     vitals,
     abg,
@@ -48,13 +48,13 @@ const submitAbgVentUpdateUseCase = async ({
     idempotencyKey,
     now,
   });
-  const request = createAbgVentUpdateRequest(admissionId, payload);
+  const request = createCurrentReadingsRequest(admissionId, payload);
   const queueItem = {
     ...request,
     syncState: 'pending',
     retryCount: 0,
     queueMeta: {
-      type: ABG_VENT_UPDATE_QUEUE_TYPE,
+      type: CURRENT_READINGS_QUEUE_TYPE,
       admissionId,
       clientRecordId: payload.clientRecordId,
       idempotencyKey: payload.idempotencyKey,
@@ -75,7 +75,7 @@ const submitAbgVentUpdateUseCase = async ({
   }
 
   try {
-    const data = await saveAbgVentUpdateApi(admissionId, payload);
+    const data = await saveCurrentReadingsApi(admissionId, payload);
     const admission = data?.admission || null;
     const progressAssessment = admission
       ? getCurrentReadingsProgressAssessment(admission)
@@ -124,8 +124,8 @@ const submitAbgVentUpdateUseCase = async ({
 };
 
 export {
-  ABG_VENT_UPDATE_QUEUE_TYPE,
+  CURRENT_READINGS_QUEUE_TYPE,
   listActiveAdmissionsUseCase,
-  loadAdmissionAbgVentilatorContextUseCase,
-  submitAbgVentUpdateUseCase,
+  loadAdmissionCurrentReadingsContextUseCase,
+  submitCurrentReadingsUseCase,
 };

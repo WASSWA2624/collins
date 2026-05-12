@@ -46,7 +46,7 @@ const StyledInputContainer = styled.div.withConfig({
   justify-content: space-between;
   border-width: 1px;
   border-style: solid;
-  border-radius: ${({ theme }) => theme.radius.md}px;
+  border-radius: 0;
   background-color: ${({ theme }) => theme.colors.background.primary};
   border-color: ${({ $validationState, $isFocused, theme }) => {
     if ($validationState === 'error') return theme.colors.error;

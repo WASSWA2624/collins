@@ -12,7 +12,7 @@ Every frontend phase must be paired with backend verification or implementation 
 6. [Admit](./phase-06-patient-registration-admission-model.md)
 7. [Required three-step admission flow](./phase-07-three-step-admission-flow.md)
 8. [Clinical tracking](./phase-08-clinical-tracking.md)
-9. [ABG and ventilator updates](./phase-09-abg-ventilator-updates.md)
+9. [Current readings](./phase-09-current-readings.md)
 10. [Decision-support rules and safety flags](./phase-10-decision-support-rules-safety-flags.md)
 11. [Dataset capture](./phase-11-dataset-capture.md)
 12. [Review Queue](./phase-12-validation-review-queue.md)

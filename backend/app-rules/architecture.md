@@ -87,7 +87,7 @@ No service may promote data from layer 2 to layer 3 without reviewer approval, g
 Clinical writes must be safe when submitted later from offline devices:
 
 - Accept client-generated idempotency keys for queued creates/updates.
-- Preserve ABG and ventilator updates as new versions.
+- Preserve Current readings as new versions.
 - Detect conflicts instead of overwriting reviewed data.
 - Return user-friendly conflict status and data for reviewer resolution.
 - Audit the original offline timestamp, server receipt timestamp, submitter, device/client id where available, and resolved status.

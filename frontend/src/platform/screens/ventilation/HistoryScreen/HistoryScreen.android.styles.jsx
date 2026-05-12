@@ -79,6 +79,9 @@ const StyledControlsRow = styled(View).withConfig({
   displayName: 'StyledControlsRow',
   componentId: 'StyledControlsRow',
 })`
+  position: relative;
+  z-index: 20;
+  elevation: 20;
   gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -86,6 +89,16 @@ const StyledSearchWrap = styled(View).withConfig({
   displayName: 'StyledSearchWrap',
   componentId: 'StyledSearchWrap',
 })`
+  width: 100%;
+`;
+
+const StyledFacilityFilter = styled(View).withConfig({
+  displayName: 'StyledFacilityFilter',
+  componentId: 'StyledFacilityFilter',
+})`
+  position: relative;
+  z-index: 30;
+  elevation: 30;
   width: 100%;
 `;
 
@@ -151,10 +164,18 @@ const StyledEmptyActions = styled(View).withConfig({
   gap: ${({ theme }) => theme.spacing.sm}px;
 `;
 
+const StyledListScroller = styled(ScrollView).withConfig({
+  displayName: 'StyledListScroller',
+  componentId: 'StyledListScroller',
+})`
+  width: 100%;
+`;
+
 const StyledList = styled(View).withConfig({
   displayName: 'StyledList',
   componentId: 'StyledList',
 })`
+  width: 640px;
   padding-bottom: 0px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.background.tertiary};
@@ -205,7 +226,7 @@ const StyledListDateCell = styled(View).withConfig({
   displayName: 'StyledListDateCell',
   componentId: 'StyledListDateCell',
 })`
-  width: 84px;
+  width: 118px;
   flex-shrink: 0;
 `;
 
@@ -213,7 +234,7 @@ const StyledListTimeCell = styled(View).withConfig({
   displayName: 'StyledListTimeCell',
   componentId: 'StyledListTimeCell',
 })`
-  width: 68px;
+  width: 112px;
   flex-shrink: 0;
 `;
 
@@ -406,6 +427,7 @@ export {
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
+  StyledFacilityFilter,
   StyledHeader,
   StyledHeaderActions,
   StyledHeaderCopy,
@@ -421,6 +443,7 @@ export {
   StyledListHeader,
   StyledListHeaderCell,
   StyledListNumberCell,
+  StyledListScroller,
   StyledListTimeCell,
   StyledPatientRowButton,
   StyledPatientRowCell,

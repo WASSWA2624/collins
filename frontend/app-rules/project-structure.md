@@ -69,7 +69,7 @@ Route paths can be migrated gradually to avoid breaking tests. During migration,
 
 ## File naming
 
-- Screens: `AdmitScreen.jsx`, `TrackingScreen.jsx`, `AbgVentUpdateScreen.jsx`.
+- Screens: `AdmitScreen.jsx`, `TrackingScreen.jsx`, `CurrentReadingsScreen.jsx`.
 - Components: `LiveSummaryCard.jsx`, `PatientPathwayChips.jsx`, `RiskFlagBadge.jsx`.
 - Feature rules/helpers: `admission.rules.js`, `oxygenation.rules.js`, `ventilation.rules.js`.
 - API wrappers: `admission.api.js`, `facility.api.js`, `review.api.js`.

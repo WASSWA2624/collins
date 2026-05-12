@@ -17,6 +17,7 @@ import {
   StyledEmpty,
   StyledEmptyActions,
   StyledErrorBanner,
+  StyledFacilityFilter,
   StyledHeader,
   StyledHeaderActions,
   StyledHeaderCopy,
@@ -40,7 +41,6 @@ import {
   StyledSearchWrap,
   StyledStatusGroup,
   StyledStatusPill,
-  StyledSummaryBar,
   StyledTimeline,
   StyledTimelineItem,
 } from './HistoryScreen.ios.styles';
@@ -211,7 +211,6 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
     localDraft,
     searchQuery,
     facilitySearch,
-    visibleRows,
     showAdmittedBanner,
     selectedAdmissionId,
     selectedTracking,
@@ -347,9 +346,8 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
             />
           </StyledSearchWrap>
 
-          <StyledSummaryBar testID={HISTORY_TEST_IDS.facility}>
+          <StyledFacilityFilter testID={HISTORY_TEST_IDS.facility}>
             <FacilitySearchSelect
-              label={t('ventilation.tracking.facility.label')}
               placeholder={t('ventilation.tracking.facility.placeholder')}
               query={facilitySearch.query}
               onQueryChange={facilitySearch.onQueryChange}
@@ -357,14 +355,6 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
               onValueChange={facilitySearch.onValueChange}
               onClear={facilitySearch.onClear}
               options={facilitySearch.options}
-              helperText={t('ventilation.tracking.facility.helper')}
-              selectedHelper={
-                facilitySearch.value
-                  ? t('ventilation.tracking.facility.selectedHelper', {
-                      count: visibleRows,
-                    })
-                  : undefined
-              }
               noResultsText={t('ventilation.tracking.facility.noResults')}
               loadingText={t('ventilation.tracking.facility.loading')}
               clearLabel={t('ventilation.tracking.facility.clear')}
@@ -374,10 +364,7 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
               accessibilityHint={t('ventilation.tracking.facility.hint')}
               testID={HISTORY_TEST_IDS.facilitySelect}
             />
-            <Text variant="caption" color="text.secondary">
-              {t('ventilation.tracking.activePatients', { count: visibleRows })}
-            </Text>
-          </StyledSummaryBar>
+          </StyledFacilityFilter>
         </StyledControlsRow>
 
         {showAdmittedBanner && (

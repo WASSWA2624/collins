@@ -2,7 +2,7 @@
 
 This backend roadmap is chronological and intentionally narrow. It starts with startup and project foundations, then moves through onboarding, authentication, facility access, Home, admission, tracking, clinical decision-support, dataset governance, review, dashboards, training, settings, exports, audit, and future model-readiness.
 
-Existing backend modules already cover substantial parts of this plan, including `/api/v1` routing, authentication/session handling, facility membership, admissions, append-only ABG and ventilator updates, review, dataset exports, sync conflicts, audit events, governance metadata, and pure clinical helpers. Future implementation must inspect existing routes, validators, controllers, services, Prisma usage, and tests first; reuse compliant code; and replace only code that conflicts with the app rules or clinical safety requirements.
+Existing backend modules already cover substantial parts of this plan, including `/api/v1` routing, authentication/session handling, facility membership, admissions, append-only Current readings, review, dataset exports, sync conflicts, audit events, governance metadata, and pure clinical helpers. Future implementation must inspect existing routes, validators, controllers, services, Prisma usage, and tests first; reuse compliant code; and replace only code that conflicts with the app rules or clinical safety requirements.
 
 ## Global Backend Rules
 
@@ -36,7 +36,7 @@ Decision-support logic may use only reference records marked as verified. The de
 6. [Admit](./dev-plan/phase-06-patient-registration-admission-model.md)
 7. [Required three-step admission flow](./dev-plan/phase-07-three-step-admission-flow.md)
 8. [Clinical tracking](./dev-plan/phase-08-clinical-tracking.md)
-9. [ABG and ventilator updates](./dev-plan/phase-09-abg-ventilator-updates.md)
+9. [Current readings](./dev-plan/phase-09-current-readings.md)
 10. [Decision-support rules and safety flags](./dev-plan/phase-10-decision-support-rules-safety-flags.md)
 11. [Dataset capture](./dev-plan/phase-11-dataset-capture.md)
 12. [Review Queue](./dev-plan/phase-12-validation-review-queue.md)
