@@ -1,0 +1,21 @@
+Collins Version_1 deployment notes
+
+This package is generated from the current validated codebase state and is the official source snapshot for Version_1.
+
+Contents:
+- source/: current project source excluding Git metadata, previous artifacts, dependency folders, and ignored local environment files.
+- VERSION.txt: version/build identity for this package.
+- FILES.txt: POSIX-style source file manifest.
+- SHA256SUMS.txt: SHA-256 checksums for package verification.
+
+POSIX/Linux compatibility:
+- Text files in this package are normalized to LF line endings.
+- frontend/android/gradlew is tracked with executable Git mode and frontend/package.json invokes it through sh for POSIX shells.
+- Path manifests use forward slashes.
+
+Validation completed before packaging:
+- npm --prefix backend test: 155 passing tests.
+- npm --prefix frontend test -- --runInBand --silent: 249 passing test suites, 3357 passing tests, 12 skipped tests.
+- git diff --check: passed after generated-file whitespace normalization.
+
+Source file count: 1597

@@ -1,0 +1,153 @@
+/**
+ * DatasetCaptureScreen tests
+ */
+const React = require('react');
+const { fireEvent, render, waitFor } = require('@testing-library/react-native');
+const { ThemeProvider } = require('styled-components/native');
+const { useAuth, useI18n, useNetwork } = require('@hooks');
+
+jest.mock('@hooks', () => ({
+  useAuth: jest.fn(),
+  useI18n: jest.fn(),
+  useNetwork: jest.fn(),
+}));
+
+jest.mock('@platform/components', () => {
+  const MockReact = require('react');
+  const RN = require('react-native');
+  return {
+    Button: ({ text, children, testID, onPress, disabled }) =>
+      MockReact.createElement(
+        RN.Pressable,
+        { testID, onPress, disabled },
+        MockReact.createElement(RN.Text, null, text || children)
+      ),
+    Select: ({ label, testID, value }) =>
+      MockReact.createElement(
+        RN.View,
+        null,
+        MockReact.createElement(RN.Text, null, label),
+        MockReact.createElement(RN.Text, { testID }, value || '')
+      ),
+    Stack: ({ children }) => MockReact.createElement(RN.View, null, children),
+    Text: ({ children, testID }) => MockReact.createElement(RN.Text, { testID }, children),
+    TextArea: ({ testID, value }) => MockReact.createElement(RN.TextInput, { testID, value, multiline: true }),
+    TextField: ({ testID, value, label }) =>
+      MockReact.createElement(
+        RN.View,
+        null,
+        MockReact.createElement(RN.Text, null, label),
+        MockReact.createElement(RN.TextInput, { testID, value })
+      ),
+  };
+});
+
+const DatasetCaptureScreenAndroid = require('@platform/screens/dataset/DatasetCaptureScreen/DatasetCaptureScreen.android').default;
+const DatasetCaptureScreenIOS = require('@platform/screens/dataset/DatasetCaptureScreen/DatasetCaptureScreen.ios').default;
+const DatasetCaptureScreenWeb = require('@platform/screens/dataset/DatasetCaptureScreen/DatasetCaptureScreen.web').default;
+
+const lightThemeModule = require('@theme/light.theme');
+const lightTheme = lightThemeModule.default || lightThemeModule;
+
+const renderWithTheme = (component) =>
+  render(<ThemeProvider theme={lightTheme}>{component}</ThemeProvider>);
+
+describe('DatasetCaptureScreen', () => {
+  const mockT = jest.fn((key, params) => {
+    const translations = {
+      'common.selectPlaceholder': 'Select...',
+      'ventilation.datasetCapture.accessibilityLabel': 'Clinical data capture screen',
+      'ventilation.datasetCapture.title': 'Clinical Data Capture',
+      'ventilation.datasetCapture.subtitle': 'Capture structured clinical data',
+      'ventilation.datasetCapture.summary.facility': 'Facility',
+      'ventilation.datasetCapture.summary.facilityReady': 'Facility ready',
+      'ventilation.datasetCapture.summary.facilityMissing': 'Facility missing',
+      'ventilation.datasetCapture.summary.required': 'Required fields',
+      'ventilation.datasetCapture.summary.requiredProgress': `${params?.complete}/${params?.total} complete`,
+      'ventilation.datasetCapture.summary.entered': 'Entered fields',
+      'ventilation.datasetCapture.summary.enteredProgress': `${params?.entered}/${params?.total} entered`,
+      'ventilation.datasetCapture.summary.sync': 'Sync',
+      'ventilation.datasetCapture.summary.online': 'Online',
+      'ventilation.datasetCapture.summary.offline': 'Offline',
+      'ventilation.datasetCapture.progress.label': 'Dataset capture steps',
+      'ventilation.datasetCapture.progress.stepCounter': `${params?.current} of ${params?.total}`,
+      'ventilation.datasetCapture.progress.stepLabel': `Step ${params?.step}`,
+      'ventilation.datasetCapture.fields.required': 'Required',
+      'ventilation.datasetCapture.fields.optional': 'Optional',
+      'ventilation.datasetCapture.missing.title': 'Submission readiness',
+      'ventilation.datasetCapture.missing.none': 'None',
+      'ventilation.datasetCapture.actions.reset': 'Clear form',
+      'ventilation.datasetCapture.actions.next': 'Next',
+      'ventilation.datasetCapture.actions.previous': 'Previous',
+      'ventilation.datasetCapture.actions.submit': 'Submit for review',
+      'ventilation.datasetCapture.status.needsInput': 'Needs input',
+      'ventilation.datasetCapture.status.ready': 'Ready',
+      'ventilation.datasetCapture.status.loadingDraft': 'Loading draft',
+      'ventilation.datasetCapture.status.savingDraft': 'Saving draft',
+      'ventilation.datasetCapture.status.draftSaved': 'Draft saved',
+      'ventilation.datasetCapture.status.draftError': 'Draft error',
+      'ventilation.datasetCapture.status.stepInvalid': 'Step invalid',
+      'ventilation.datasetCapture.status.reviewInvalid': 'Review invalid',
+      'ventilation.datasetCapture.status.submitting': 'Submitting',
+      'ventilation.datasetCapture.status.submitted': 'Submitted',
+      'ventilation.datasetCapture.status.queued': 'Queued',
+      'ventilation.datasetCapture.status.error': 'Error',
+      'ventilation.datasetCapture.notices.roleBlocked': 'Blocked',
+      'ventilation.datasetCapture.notices.offline': 'Offline notice',
+    };
+    return translations[key] || key;
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    useI18n.mockReturnValue({ t: mockT });
+    useAuth.mockReturnValue({
+      activeFacilityId: 'facility-1',
+      user: { activeFacility: { facilityId: 'facility-1' } },
+      roles: ['clinician'],
+    });
+    useNetwork.mockReturnValue({ isOffline: false });
+  });
+
+  it('renders a stepwise clinical capture page on Android without data-source framing', async () => {
+    const { getByTestId, queryByTestId, queryByText } = renderWithTheme(<DatasetCaptureScreenAndroid />);
+
+    await waitFor(() => {
+      expect(queryByText('Needs input')).toBeTruthy();
+    });
+
+    expect(getByTestId('dataset-capture-screen')).toBeTruthy();
+    expect(getByTestId('dataset-capture-title')).toBeTruthy();
+    expect(getByTestId('dataset-capture-progress')).toBeTruthy();
+    expect(getByTestId('dataset-capture-section-caseContext')).toBeTruthy();
+    expect(queryByTestId('dataset-capture-section-ventilatorSetting')).toBeNull();
+    expect(queryByText('Capture time')).toBeNull();
+    expect(queryByText('Vitals measured at')).toBeNull();
+    expect(queryByText('ABG collected at')).toBeNull();
+    expect(queryByText('Vent settings measured at')).toBeNull();
+    expect(queryByText('- caseContext.primaryDiagnosis')).toBeNull();
+    expect(queryByText('- Case context: Primary diagnosis - This field is required before continuing.')).toBeTruthy();
+
+    fireEvent.press(getByTestId('dataset-capture-step-item-ventilatorSetting'));
+
+    expect(getByTestId('dataset-capture-section-ventilatorSetting')).toBeTruthy();
+    expect(queryByText('Vent settings measured at')).toBeNull();
+    fireEvent.press(getByTestId('dataset-capture-step-item-provenance'));
+
+    expect(getByTestId('dataset-capture-section-provenance')).toBeTruthy();
+    expect(queryByText('Citations')).toBeNull();
+    expect(queryByText('Data sources')).toBeNull();
+  });
+
+  it('renders on iOS and Web', async () => {
+    const ios = renderWithTheme(<DatasetCaptureScreenIOS />);
+    const web = renderWithTheme(<DatasetCaptureScreenWeb />);
+
+    await waitFor(() => {
+      expect(ios.getByTestId('dataset-capture-screen')).toBeTruthy();
+      expect(web.getByTestId('dataset-capture-screen')).toBeTruthy();
+      expect(ios.queryByText('Needs input')).toBeTruthy();
+      expect(web.queryByText('Needs input')).toBeTruthy();
+    });
+  });
+});

@@ -1,0 +1,227 @@
+/**
+ * LoginScreen
+ * Minimal auth UI for password sign-in.
+ * File: LoginScreen.jsx
+ */
+import React, { useCallback, useMemo, useState } from 'react';
+import { Redirect, useRouter } from 'expo-router';
+import {
+  AuthBrand,
+  AuthFormLayout,
+  Button,
+  PasswordField,
+  Stack,
+  SystemBanner,
+  Text,
+  TextField,
+} from '@platform/components';
+import { useAuth, useI18n } from '@hooks';
+import { BANNER_VARIANTS } from '@utils/shellBanners';
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const WARNING_ERROR_CODES = new Set([
+  'BACKEND_HOST_UNREACHABLE',
+  'NETWORK_ERROR',
+  'RATE_LIMITED',
+  'REQUEST_TIMEOUT',
+]);
+const RETRYABLE_SESSION_CODES = new Set([
+  'BACKEND_HOST_UNREACHABLE',
+  'NETWORK_ERROR',
+  'REQUEST_TIMEOUT',
+]);
+
+const getBannerVariant = (code) => {
+  if (!code) return BANNER_VARIANTS.INFO;
+  return WARNING_ERROR_CODES.has(code) ? BANNER_VARIANTS.WARNING : BANNER_VARIANTS.ERROR;
+};
+
+const getErrorMessage = (t, code) => {
+  if (!code) return null;
+  return t(`errors.codes.${code}`);
+};
+
+const LoginScreen = () => {
+  const { t } = useI18n();
+  const router = useRouter();
+  const {
+    clearError,
+    errorCode,
+    hasRestoredSession,
+    isAuthenticated,
+    isLoading,
+    login,
+    requiresActiveFacility,
+    restoreSession,
+    sessionErrorCode,
+  } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [localError, setLocalError] = useState(null);
+
+  const trimmedEmail = email.trim();
+  const isRestoringSession = !hasRestoredSession;
+  const canSubmit = EMAIL_PATTERN.test(trimmedEmail) && password.length > 0 && !isLoading && !isRestoringSession;
+  const sessionMessage = getErrorMessage(t, sessionErrorCode);
+  const authMessage = getErrorMessage(t, errorCode);
+  const submitText = isRestoringSession
+    ? t('auth.session.checking')
+    : isLoading
+      ? t('auth.login.submitting')
+      : t('auth.login.submit');
+
+  const emailError = useMemo(() => {
+    if (!localError || localError !== 'INVALID_EMAIL') return null;
+    return t('forms.validation.invalidEmail');
+  }, [localError, t]);
+
+  const passwordError = useMemo(() => {
+    if (!localError || localError !== 'PASSWORD_REQUIRED') return null;
+    return t('forms.validation.required');
+  }, [localError, t]);
+
+  const handleEmailChange = useCallback((value) => {
+    setEmail(value);
+    setLocalError(null);
+    clearError();
+  }, [clearError]);
+
+  const handlePasswordChange = useCallback((value) => {
+    setPassword(value);
+    setLocalError(null);
+    clearError();
+  }, [clearError]);
+
+  const handleSubmit = useCallback(async () => {
+    if (isLoading || isRestoringSession) return;
+    if (!EMAIL_PATTERN.test(trimmedEmail)) {
+      setLocalError('INVALID_EMAIL');
+      return;
+    }
+    if (!password) {
+      setLocalError('PASSWORD_REQUIRED');
+      return;
+    }
+
+    await login({ email: trimmedEmail, password });
+  }, [isLoading, isRestoringSession, login, password, trimmedEmail]);
+
+  const handleRetryRestore = useCallback(() => {
+    clearError();
+    void restoreSession();
+  }, [clearError, restoreSession]);
+
+  const handleCreateAccount = useCallback(() => {
+    router.push('/register');
+  }, [router]);
+
+  if (isAuthenticated && requiresActiveFacility) return <Redirect href="/select-facility" />;
+  if (isAuthenticated) return <Redirect href="/" />;
+
+  const status = isRestoringSession || sessionMessage || authMessage ? (
+    <Stack spacing="sm">
+      {isRestoringSession ? (
+        <SystemBanner
+          variant={BANNER_VARIANTS.INFO}
+          title={t('auth.session.noticeTitle')}
+          message={t('auth.session.restoring')}
+          testID="login-session-restore-banner"
+        />
+      ) : null}
+      {sessionMessage ? (
+        <SystemBanner
+          variant={getBannerVariant(sessionErrorCode)}
+          title={t('auth.session.noticeTitle')}
+          message={sessionMessage}
+          actionLabel={RETRYABLE_SESSION_CODES.has(sessionErrorCode) ? t('auth.session.retry') : undefined}
+          onAction={RETRYABLE_SESSION_CODES.has(sessionErrorCode) ? handleRetryRestore : undefined}
+          testID="login-session-banner"
+        />
+      ) : null}
+      {authMessage ? (
+        <SystemBanner
+          variant={BANNER_VARIANTS.ERROR}
+          title={t('auth.login.errorTitle')}
+          message={authMessage}
+          testID="login-error-banner"
+        />
+      ) : null}
+    </Stack>
+  ) : null;
+
+  return (
+    <AuthFormLayout
+      size="sm"
+      actions={
+        <Button
+          text={submitText}
+          onPress={handleSubmit}
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          loading={isLoading}
+          accessibilityLabel={t('auth.login.submit')}
+          style={{ width: '100%' }}
+          testID="login-submit"
+        />
+      }
+      footer={(
+        <Stack spacing="xs" align="center">
+          <Text variant="caption" align="center">
+            {t('auth.login.createPrompt')}
+          </Text>
+          <Button
+            variant="text"
+            text={t('auth.login.createAccount')}
+            onPress={handleCreateAccount}
+            onClick={handleCreateAccount}
+            accessibilityLabel={t('auth.login.createAccount')}
+            accessibilityHint={t('auth.login.createAccountHint')}
+            testID="login-create-account"
+          />
+        </Stack>
+      )}
+      testID="login-screen"
+      accessibilityLabel={t('auth.login.accessibilityLabel')}
+    >
+      <Stack spacing="md" align="stretch" style={{ width: '100%' }}>
+        <AuthBrand
+          name={t('auth.brand.name')}
+          logoLabel={t('auth.brand.logoLabel')}
+          layout="horizontal"
+          testID="login-brand"
+        />
+        <Text variant="h2" align="center" accessibilityLabel={t('auth.login.title')} testID="login-title">
+          {t('auth.login.title')}
+        </Text>
+        {status}
+        <TextField
+          label={t('auth.login.emailLabel')}
+          placeholder={t('auth.login.emailPlaceholder')}
+          value={email}
+          onChangeText={handleEmailChange}
+          type="email"
+          autoCapitalize="none"
+          autoCorrect={false}
+          required
+          disabled={isLoading || isRestoringSession}
+          errorMessage={emailError}
+          testID="login-email"
+        />
+        <PasswordField
+          label={t('auth.login.passwordLabel')}
+          placeholder={t('auth.login.passwordPlaceholder')}
+          value={password}
+          onChangeText={handlePasswordChange}
+          autoComplete="current-password"
+          required
+          disabled={isLoading || isRestoringSession}
+          errorMessage={passwordError}
+          showStrengthIndicator={false}
+          testID="login-password"
+        />
+      </Stack>
+    </AuthFormLayout>
+  );
+};
+
+export default LoginScreen;
