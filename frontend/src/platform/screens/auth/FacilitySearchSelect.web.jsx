@@ -31,6 +31,7 @@ const FacilitySearchSelectWeb = ({
   options = [],
   disabled = false,
   loading = false,
+  showHelperText = true,
   accessibilityHint,
   testID = 'facility-search-select',
 }) => {
@@ -47,9 +48,11 @@ const FacilitySearchSelectWeb = ({
   }, [isOpen, options]);
   const hasQuery = normalize(query).length > 0;
   const showNoResults = isOpen && !loading && hasQuery && visibleOptions.length === 0;
-  const displayHelperText = value
-    ? selectedHelper || describeFacility(value)
-    : helperText;
+  const displayHelperText = showHelperText
+    ? value
+      ? selectedHelper || describeFacility(value)
+      : helperText
+    : '';
   const canClear = Boolean(value && onClear && !disabled);
 
   const openMenu = useCallback(() => {

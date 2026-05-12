@@ -361,6 +361,7 @@ const HistoryScreenIos = ({ detailMode = false } = {}) => {
               clearLabel={t('ventilation.tracking.facility.clear')}
               disabled={isHistoryLoading}
               loading={facilitySearch.loading}
+              showHelperText={false}
               errorText={facilitySearch.error}
               accessibilityHint={t('ventilation.tracking.facility.hint')}
               testID={HISTORY_TEST_IDS.facilitySelect}
