@@ -1,4 +1,4 @@
-VERSION: 1.0.0
+VERSION: 1.0.1
 
 Create the deployment package for the release version declared above.
 
@@ -16,16 +16,8 @@ artifacts/version-{VERSION}
 
 Before creating the deployment files:
 
-* Clean up all users except:
-
-  * Clinician account
-  * Admin account
-
-* Clean up all patients so that the database starts clean.
-
-* Run all necessary database migrations.
-
-* Make sure the backend, frontend, and database are fully synchronized.
+- Run all necessary database migrations.
+- Make sure the backend, frontend, and database are fully synchronized.
 
 ## Backend Deployment Package
 
