@@ -1,11 +1,15 @@
-Create the **Version 1.0.0 deployment package**.
+VERSION: 1.0.0
 
-The output should be created inside the existing **artifacts** folder located at the root of the project repository.
+Create the deployment package for the release version declared above.
+
+Use the declared `VERSION` value to generate all versioned folder and file names.
+
+The output should be created inside the existing `artifacts` folder located at the root of the project repository.
 
 Create the following folder:
 
 ```txt
-artifacts/version-1.0.0
+artifacts/version-{VERSION}
 ```
 
 ## Pre-Deployment Cleanup
@@ -33,22 +37,22 @@ Use POSIX-compatible conventions for files, paths, scripts, and line endings.
 
 ## Frontend Web Deployment Package
 
-Create another ZIP folder containing the frontend web version that will be uploaded to **cPanel** and deployed to the domain.
+Create another ZIP folder containing the frontend web build that will be uploaded to **cPanel** and deployed to the domain.
 
 This should include the correct frontend web deployment files required for hosting.
 
 ## Android APK
 
-Create an installable **Android APK** for **Version 1.0.0**.
+Create an installable Android APK for the declared release version.
 
 ## Final Output
 
-The final `artifacts/version-1.0.0` folder should contain:
+The final `artifacts/version-{VERSION}` folder should contain the following generated files:
 
 ```txt
-backend-v1.0.0.zip
-frontend-web-v1.0.0.zip
-android-v1.0.0.apk
+backend-v{VERSION}.zip
+frontend-web-v{VERSION}.zip
+android-v{VERSION}.apk
 ```
 
 Make sure everything is functional, synchronized, and ready for deployment before creating the final files.
