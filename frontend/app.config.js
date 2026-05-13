@@ -28,6 +28,15 @@ const getEnvironmentFromArgs = (argv = []) => {
     }
   }
 
+  const commandText = argv.join(" ").toLowerCase();
+  if (/\b(eas|apk|build|export|release|export:embed)\b/.test(commandText)) {
+    return "production";
+  }
+
+  if (/\b(start|android|ios|web|test|debug)\b/.test(commandText)) {
+    return "development";
+  }
+
   return null;
 };
 
