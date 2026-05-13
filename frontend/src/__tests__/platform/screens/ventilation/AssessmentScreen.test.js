@@ -50,11 +50,19 @@ const mockFacilities = [
     region: 'Central',
     ownership: 'Government',
   },
+  {
+    id: 'facility-2',
+    name: 'Kiruddu National Referral Hospital',
+    district: 'Kampala',
+    region: 'Central',
+    ownership: 'Government',
+  },
 ];
-const mockSearchFacilitiesUseCase = jest.fn(() => Promise.resolve({
+const createFacilitiesResponse = () => ({
   facilities: mockFacilities,
   meta: { total: mockFacilities.length, page: 1, limit: 25, hasNextPage: false },
-}));
+});
+const mockSearchFacilitiesUseCase = jest.fn(() => new Promise(() => {}));
 
 jest.mock('@features/facilities', () => ({
   searchFacilitiesUseCase: (...args) => mockSearchFacilitiesUseCase(...args),
@@ -360,9 +368,16 @@ describe('AssessmentScreen', () => {
       });
     });
 
-    it('hides facility selection for normal users and keeps bed and permitted missing fields out of the New Patient form', () => {
+    it('shows facility selection for normal users and keeps bed and permitted missing fields out of the New Patient form', async () => {
       const { getByTestId, queryByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
-      expect(queryByTestId('assessment-facility-combobox')).toBeNull();
+      expect(getByTestId('assessment-facility-combobox')).toBeTruthy();
+      await waitFor(() => {
+        expect(mockSearchFacilitiesUseCase).toHaveBeenCalledWith({
+          q: undefined,
+          page: 1,
+          limit: 25,
+        });
+      });
       expect(getByTestId('assessment-patient-first-name')).toBeTruthy();
       expect(getByTestId('assessment-patient-last-name')).toBeTruthy();
       expect(getByTestId('assessment-height')).toBeTruthy();
@@ -370,6 +385,34 @@ describe('AssessmentScreen', () => {
       expect(queryByTestId('assessment-age-group-adult')).toBeNull();
       expect(queryByTestId('assessment-bed-number')).toBeNull();
       expect(queryByTestId('assessment-permitted-weight')).toBeNull();
+    });
+
+    it('saves a non-admin selected facility on the patient and reason step', async () => {
+      mockSearchFacilitiesUseCase.mockResolvedValueOnce(createFacilitiesResponse());
+      useVentilationSession.mockReturnValue({
+        ...defaultSessionMock,
+        inputs: completePatientInputs,
+      });
+      const { getByTestId } = renderWithProviders(<AssessmentScreenAndroid />);
+
+      await waitFor(() => {
+        expect(mockSearchFacilitiesUseCase).toHaveBeenCalled();
+      });
+
+      fireEvent(getByTestId('assessment-facility-combobox-input'), 'focus');
+      await waitFor(() => {
+        expect(getByTestId('assessment-facility-combobox-option-1-name').props.children)
+          .toBe('Kiruddu National Referral Hospital');
+      });
+      fireEvent.press(getByTestId('assessment-facility-combobox-option-1'));
+      fireEvent.press(getByTestId('assessment-next'));
+
+      await waitFor(() => {
+        expect(savePatientReasonStepApi).toHaveBeenCalled();
+      });
+      expect(savePatientReasonStepApi.mock.calls[0][0]).toMatchObject({
+        facilityId: 'facility-2',
+      });
     });
 
     it('clears selected facility from the built-in select icon instead of a separate text button', async () => {

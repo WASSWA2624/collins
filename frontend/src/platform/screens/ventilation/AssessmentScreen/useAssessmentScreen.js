@@ -14,7 +14,7 @@ import {
   saveOxygenAbgVentilatorStepApi,
   savePatientReasonStepApi,
 } from '@features/ventilation';
-import { canSelectFacilityScope, getFacilityOptionsForUser } from '@config/accessControl';
+import { getFacilityOptionsForUser } from '@config/accessControl';
 import { searchFacilitiesUseCase } from '@features/facilities';
 import { useAuth, useDebounce } from '@hooks';
 import useVentilationSession from '@hooks/useVentilationSession';
@@ -272,6 +272,8 @@ const uniqueFacilities = (...groups) => {
   });
   return Array.from(byId.values());
 };
+
+const canSelectPatientFacility = (user) => Boolean(user && typeof user === 'object');
 
 export const parseAdmissionNumberInput = (value) => {
   const text = String(value ?? '').trim();
@@ -865,7 +867,7 @@ const hasRecommendationVentilatorSettings = (recommendation) => {
 export default function useAssessmentScreen() {
   const router = useRouter();
   const { activeFacility, user } = useAuth();
-  const canSelectFacility = canSelectFacilityScope(user);
+  const canSelectFacility = canSelectPatientFacility(user);
   const assignedFacilityOptions = useMemo(
     () => getFacilityOptionsForUser(user).map(normalizeFacilityOption).filter(Boolean),
     [user]
@@ -911,6 +913,7 @@ export default function useAssessmentScreen() {
   const [rawNumericInputValues, setRawNumericInputValues] = useState({});
   const [facilityQuery, setFacilityQuery] = useState('');
   const [selectedFacility, setSelectedFacility] = useState(null);
+  const [facilitySelectionOverrideId, setFacilitySelectionOverrideId] = useState(null);
   const [facilityOptions, setFacilityOptions] = useState([]);
   const [facilityError, setFacilityError] = useState(null);
   const [isLoadingFacilities, setIsLoadingFacilities] = useState(false);
@@ -972,7 +975,11 @@ export default function useAssessmentScreen() {
       return defaultFacilityId ? { ...normalized, facilityId: defaultFacilityId } : normalized;
     }
 
-    const facilitySearchIsEditing = touchedFields.facilityId === true || Boolean(cleanText(facilityQuery));
+    if (touchedFields.facilityId === true) {
+      return { ...normalized, facilityId: cleanText(facilitySelectionOverrideId) };
+    }
+
+    const facilitySearchIsEditing = Boolean(cleanText(facilityQuery));
     if (!cleanText(normalized.facilityId) && defaultFacilityId && !facilitySearchIsEditing) {
       return { ...normalized, facilityId: defaultFacilityId };
     }
@@ -982,6 +989,7 @@ export default function useAssessmentScreen() {
     canSelectFacility,
     clientRecordId,
     defaultFacilityId,
+    facilitySelectionOverrideId,
     facilityQuery,
     inputs,
     touchedFields.facilityId,
@@ -1059,6 +1067,7 @@ export default function useAssessmentScreen() {
       setFacilityQuery(nextQuery);
       if (selectedFacilityValue && nextQuery.trim() !== selectedFacilityValue.name) {
         setSelectedFacility(null);
+        setFacilitySelectionOverrideId('');
         updateInput({ facilityId: '' }, { touchedFields: ['facilityId'] });
       }
     },
@@ -1070,6 +1079,7 @@ export default function useAssessmentScreen() {
       if (!canSelectFacility) return;
       const normalized = normalizeFacilityOption(facility);
       setSelectedFacility(normalized);
+      setFacilitySelectionOverrideId(normalized?.id || '');
       setFacilityQuery(normalized?.name || '');
       updateInput({ facilityId: normalized?.id || '' }, { touchedFields: ['facilityId'] });
     },
@@ -1079,6 +1089,7 @@ export default function useAssessmentScreen() {
   const clearFacility = useCallback(() => {
     if (!canSelectFacility) return;
     setSelectedFacility(null);
+    setFacilitySelectionOverrideId('');
     setFacilityQuery('');
     updateInput({ facilityId: '' }, { touchedFields: ['facilityId'] });
   }, [canSelectFacility, updateInput]);
